@@ -1,0 +1,10 @@
+.ant-tabs-bar {
+  margin: 0 !important;
+  border-bottom: none !important;
+}
+
+.ant-tabs-tabpane .container {
+  .ant-form-item:last-child {
+    margin-bottom: 0 !important;
+  }
+}

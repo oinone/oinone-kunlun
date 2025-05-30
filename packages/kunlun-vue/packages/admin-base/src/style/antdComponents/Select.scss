@@ -1,0 +1,58 @@
+.ant-select-dropdown {
+  .ant-select-dropdown-content {
+    .ant-select-item-option:not(.ant-select-item-option-disabled) {
+      &:hover {
+        background-color: rgba(var(--oio-primary-color-rgb), 0.1);
+
+        .ant-select-item-option-content {
+          color: var(--oio-primary-color);
+        }
+      }
+    }
+  }
+}
+
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) .ant-select-item-option-state {
+  color: var(--oio-primary-color, #606cee) !important;
+}
+
+.ant-pagination-options-size-changer,
+.oio-ant-select-dropdown-global {
+  .ant-select-item-option-content {
+    color: var(--oio-text-color-secondary);
+  }
+
+  .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+    background: none;
+  }
+
+  .ant-select-item-option {
+    &:hover {
+      background-color: rgba(var(--oio-primary-color-rgb), 0.1);
+
+      .ant-select-item-option-content {
+        color: var(--oio-primary-color);
+      }
+    }
+  }
+
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background: rgba(var(--oio-primary-color-rgb), 0.1);
+
+    .ant-select-item-option-content {
+      color: var(--oio-primary-color);
+      font-weight: 500;
+    }
+  }
+}
+
+.ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner {
+  background-color: var(--oio-primary-color);
+  border-color: var(--oio-primary-color);
+}
+
+.ant-select-tree-checkbox-input:focus + .ant-select-tree-checkbox-inner,
+.ant-select-tree-checkbox-wrapper:hover .ant-select-tree-checkbox-inner,
+.ant-select-tree-checkbox:hover .ant-select-tree-checkbox-inner {
+  border-color: var(--oio-primary-color);
+}

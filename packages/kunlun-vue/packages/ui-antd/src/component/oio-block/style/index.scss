@@ -1,0 +1,42 @@
+@import './parameters.scss';
+@import './a-col.scss';
+
+.#{$blockClassPrefix} {
+  display: block;
+}
+
+.#{$blockClassPrefix}-inline {
+  display: inline-block;
+}
+
+.#{$blockClassPrefix}-flex {
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.#{$blockClassPrefix}-flex-direction-column {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.#{$blockClassPrefix}-inline-flex {
+  display: inline-flex;
+}
+
+.#{$rowClassPrefix} {
+  &.ant-row-top {
+    align-content: flex-start;
+  }
+
+  &.ant-row-middle {
+    align-content: center;
+  }
+
+  &.ant-row-bottom {
+    align-content: flex-end;
+  }
+}

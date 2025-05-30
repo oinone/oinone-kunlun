@@ -1,0 +1,38 @@
+.ant-input-control {
+  position: relative;
+
+  .ant-input-group>.ant-input {
+    line-height: 30px;
+    overflow-x: auto;
+    &.placeholder {
+      color: #c1c1c1 !important;
+    }
+
+    .tag {
+      min-width: 52px;
+      max-width: 173px;
+      margin-top: 2px;
+      display: inline-block;
+      //text-overflow: ellipsis;
+      //overflow: hidden;
+      //white-space: nowrap;
+    }
+  }
+
+  .ant-input-group-addon {
+    cursor: pointer;
+  }
+
+  &-dropdown {
+    position: absolute;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    margin-top: 1px;
+
+    &-direction {
+      flex-direction: column;
+    }
+  }
+
+}

@@ -1,0 +1,64 @@
+.k-metadata {
+  &-page {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-avwrap {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &-action {
+      margin: 0 0 var(--oio-margin-md) 0;
+      width: 100%;
+
+      & + .k-metadata-avwrap-view-view {
+        height: calc(100% - var(--oio-height) - var(--oio-margin-md));
+      }
+    }
+
+    &-view {
+      display: flex;
+      flex: 1;
+      flex-wrap: wrap;
+      min-height: 500px;
+
+      &.hasBackground {
+        background: var(--oio-main-background);
+        padding: var(--oio-padding-md) var(--oio-padding-lg) var(--oio-padding-lg) var(--oio-padding-lg);
+        border: var(--oio-border-width) var(--oio-border-style) var(--oio-border-color);
+        border-radius: var(--oio-border-radius);
+      }
+
+      &-search {
+        width: 260px;
+        margin-right: 8px;
+        padding: 8px;
+        border: 1px solid #e3e7ee;
+        position: absolute;
+        overflow-y: auto;
+        top: 72px;
+        height: calc(100% - 84px);
+      }
+      .hasActionBar {
+        height: calc(100% - var(--oio-height1));
+      }
+      &-view {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    &-search {
+      &-view {
+        width: calc(100% - 268px);
+        height: calc(100% - 48px);
+        margin-left: 268px;
+      }
+    }
+  }
+}

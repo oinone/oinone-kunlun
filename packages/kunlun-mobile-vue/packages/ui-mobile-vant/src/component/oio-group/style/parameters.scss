@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$groupPrefix: $prefix + -group;
+$groupParameterPrefix: $parameterPrefix + -group;
+$groupClassPrefix: $groupPrefix;

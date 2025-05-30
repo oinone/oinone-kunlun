@@ -1,0 +1,17 @@
+@keyframes antShowHelpIn {
+  0% {
+    transform: translateY(-5px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes antShowHelpOut {
+  to {
+    transform: translateY(-5px);
+    opacity: 0;
+  }
+}

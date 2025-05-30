@@ -1,0 +1,348 @@
+@import '../../../style/mixin.scss';
+@import '../../oio-button/style/parameters.scss';
+@import '../../oio-input/style/parameters.scss';
+@import '../../oio-input/style/mixin.scss';
+@import './parameters.scss';
+@import './mixin.scss';
+
+.#{$dateTimePickerClassPrefix} {
+  &.ant-picker {
+    @include oio-appearance($inputParameterPrefix);
+    height: var($parameterPrefix + -height);
+    line-height: var($inputParameterPrefix + -line-height);
+    font-size: var(--oio-font-size);
+    padding: 12px;
+
+    &:hover {
+      @include oio-hover($inputParameterPrefix);
+    }
+
+    &:focus {
+      @include oio-focus($inputParameterPrefix);
+    }
+
+    &[disabled],
+    &.ant-picker-disabled {
+      @include oio-disabled();
+
+      &:hover {
+        @include oio-disabled(true, $inputParameterPrefix);
+      }
+
+      &:focus {
+        @include oio-disabled(true, $inputParameterPrefix);
+      }
+    }
+  }
+
+  &.ant-time-picker {
+    width: 100%;
+  }
+
+  .ant-picker-input > input {
+    color: var(--oio-text-color);
+
+    &[disabled] {
+      color: var(--oio-disabled-color);
+    }
+  }
+
+  .ant-picker-suffix {
+    color: var(--oio-icon-color) !important;
+  }
+
+  .ant-picker-clear {
+    border-radius: 50%;
+  }
+
+  &-readonly {
+    .ant-time-picker-clear,
+    .ant-picker-clear {
+      display: none;
+    }
+
+    &.ant-picker {
+      @include oio-readonly();
+
+      &:hover {
+        @include oio-readonly(true, $inputParameterPrefix);
+      }
+
+      &:focus {
+        @include oio-readonly(true, $inputParameterPrefix);
+      }
+    }
+  }
+}
+
+.#{$dateTimePickerClassPrefix}-popper {
+  .ant-picker-panels .ant-picker-cell-in-view.ant-picker-cell {
+    &.ant-picker-cell-range-end,
+    &.ant-picker-cell-range-start,
+    &.ant-picker-cell-selected {
+      .ant-picker-cell-inner {
+        color: #fff;
+      }
+    }
+  }
+
+  .ant-picker-cell-in-view {
+    &.ant-picker-cell-range-end:not(.ant-picker-cell-range-end-single),
+    &.ant-picker-cell-range-start:not(.ant-picker-cell-range-start-single),
+    &.ant-picker-cell-in-range {
+      &:before {
+        background-color: rgba(var(--oio-primary-color-rgb), 0.1);
+      }
+    }
+  }
+
+  .ant-disabled-cell.ant-today .ant-date {
+    padding-right: unset;
+    padding-left: unset;
+  }
+
+  .ant-picker-panel-container {
+    background: var(--oio-background);
+  }
+
+  .ant-picker-footer-extra {
+    border-bottom-color: var(--oio-border-color);
+  }
+
+  .ant-picker-header {
+    color: var(--oio-text-color);
+    border-bottom-color: var(--oio-border-color);
+  }
+
+  .ant-picker-datetime-panel .ant-picker-time-panel,
+  .ant-picker-time-panel-column:not(:first-child),
+  .ant-picker-panel .ant-picker-footer,
+  .ant-picker-panel .ant-picker-footer,
+  .ant-picker-panel {
+    border-color: var(--oio-border-color);
+    border-bottom: 0;
+  }
+
+  .ant-disabled-cell.ant-today .ant-date:before {
+    display: none;
+  }
+
+  .ant-disabled-cell.ant-selected-day .ant-date:before {
+    display: none;
+  }
+
+  .ant-picker-cell {
+    color: var($parameterPrefix + -disabled-color);
+  }
+
+  .ant-picker-header button {
+    color: var($parameterPrefix + -disabled-color);
+  }
+
+  .ant-picker-cell:hover:not(.ant-picker-cell-in-view) .ant-picker-cell-inner,
+  .ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end)
+    .ant-picker-cell-inner {
+    background: var($parameterPrefix + -menu-hover-background-color);
+    color: var($parameterPrefix + -text-color);
+  }
+
+  .ant-picker-content th {
+    color: var($parameterPrefix + -text-color);
+  }
+
+  .ant-picker-date-panel {
+    .ant-picker-cell.ant-picker-cell-in-view {
+      .ant-picker-cell-inner {
+        color: var($parameterPrefix + -text-color);
+        font-size: var(--oio-font-size);
+        text-align: center;
+      }
+
+      &:active:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) {
+        .ant-picker-cell-inner {
+          color: #ffffff;
+          background-color: var($parameterPrefix + -primary-color-active);
+        }
+      }
+
+      &:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) {
+        .ant-picker-cell-inner {
+          color: #ffffff;
+          background-color: var($parameterPrefix + -primary-color-hover);
+        }
+      }
+
+      &.ant-picker-cell-today {
+        .ant-picker-cell-inner {
+          &:before {
+            border: none;
+          }
+
+          &:after {
+            @include selected-point();
+          }
+        }
+
+        &:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start) {
+          .ant-picker-cell-inner {
+            color: var($parameterPrefix + -primary-color);
+            font-weight: 500;
+            border: none;
+            position: relative;
+
+            &:active {
+              color: #ffffff;
+              background-color: var($parameterPrefix + -primary-color-active);
+            }
+
+            &:hover {
+              color: #ffffff;
+              background-color: var($parameterPrefix + -primary-color-hover);
+            }
+          }
+        }
+      }
+
+      &.ant-picker-cell-selected {
+        .ant-picker-cell-inner {
+          color: #ffffff;
+          background-color: var($parameterPrefix + -primary-color);
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+
+  .ant-picker-time-panel {
+    .ant-picker-time-panel-cell {
+      .ant-picker-time-panel-cell-inner {
+        color: var($parameterPrefix + -text-color);
+        font-size: var(--oio-font-size);
+
+        &:active {
+          color: #ffffff;
+          background-color: var($parameterPrefix + -primary-color-active);
+        }
+
+        &:hover {
+          color: #ffffff;
+          background-color: var($parameterPrefix + -primary-color-hover);
+        }
+      }
+
+      &.ant-picker-time-panel-cell-selected {
+        .ant-picker-time-panel-cell-inner {
+          color: #ffffff;
+          background-color: var($parameterPrefix + -primary-color);
+        }
+      }
+    }
+  }
+
+  .ant-picker-year-panel {
+    .ant-picker-cell.ant-picker-cell-in-view {
+      .ant-picker-cell-inner {
+        color: var($parameterPrefix + -text-color);
+        font-size: var(--oio-font-size);
+        text-align: center;
+      }
+
+      &:active:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) {
+        .ant-picker-cell-inner {
+          color: #ffffff;
+          background-color: var($parameterPrefix + -primary-color-active);
+        }
+      }
+
+      &:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) {
+        .ant-picker-cell-inner {
+          color: #ffffff;
+          background-color: var($parameterPrefix + -primary-color-hover);
+        }
+      }
+
+      &.ant-picker-cell-selected {
+        .ant-picker-cell-inner {
+          color: #ffffff;
+          background-color: var($parameterPrefix + -primary-color);
+          border-radius: 2px;
+        }
+      }
+    }
+
+    & + .ant-picker-footer {
+      .ant-picker-now {
+        display: none;
+      }
+    }
+  }
+
+  .ant-picker-month-panel,
+  .ant-picker-decade-panel {
+    & + .ant-picker-footer {
+      .ant-picker-now {
+        display: none;
+      }
+    }
+  }
+
+  .ant-picker-footer {
+    .ant-picker-ok > .ant-btn {
+      @include oio-appearance($buttonParameterPrefix + -primary);
+
+      .oio-icon {
+        color: #ffffff;
+      }
+
+      &:active {
+        @include oio-active($buttonParameterPrefix + -primary);
+      }
+
+      &:hover {
+        @include oio-hover($buttonParameterPrefix + -primary);
+      }
+
+      &:focus {
+        @include oio-focus($buttonParameterPrefix + -primary);
+      }
+
+      &:visited {
+        @include oio-visited($buttonParameterPrefix + -primary);
+      }
+    }
+
+    .ant-picker-ranges .ant-picker-preset > .ant-tag-blue {
+      background-color: rgba(var(--oio-primary-color-rgb), 0.1);
+      border-color: var(--oio-primary-color);
+      color: var(--oio-primary-color);
+    }
+  }
+}
+
+.el-color-dropdown {
+  background: var(--oio-addon-color-pick-dropdown-background) !important;
+  border-color: var(--oio-addon-color-pick-dropdown-border-color) !important;
+
+  .el-input__wrapper {
+    background: var(--oio-input-background);
+    box-shadow: 0 0 0 1px var(--oio-input-border-color, var(--el-border-color)) inset;
+
+    .el-input__inner {
+      color: var(--oio-input-text-color);
+    }
+  }
+}
+
+.ant-picker-header-view button:hover {
+  color: var(--oio-primary-color);
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner,
+.ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+  background: var(--oio-primary-color);
+}
+
+.ant-picker-today-btn {
+  color: var(--oio-primary-color);
+}

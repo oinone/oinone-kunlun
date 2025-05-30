@@ -1,0 +1,125 @@
+.system-setting-page-view {
+  background: var(--oio-background);
+  border-radius: 4px;
+  padding: var(--oio-padding);
+  .oio-group {
+    margin-top: 28px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  .tips {
+    font-size: var(--oio-font-size-sm);
+    color: var(--oio-placeholder-color);
+    margin-top: 8px;
+  }
+
+  .title {
+    font-size: var(--oio-font-size);
+    color: var(--oio-text-color);
+    height: var(--oio-label-height);
+    margin-bottom: 8px;
+  }
+
+  .oio-group-title-wrapper {
+    display: flex;
+    margin-bottom: var(--oio-margin);
+    padding: 0;
+
+    .oio-group-title {
+      &::before {
+        content: ' ';
+        border-left: 2px solid var(--oio-primary-color);
+        margin-right: 6px;
+      }
+    }
+  }
+  .flex {
+    display: flex;
+  }
+
+  .wrap {
+    flex-wrap: wrap;
+  }
+
+  .flex-a-c {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .flex-column {
+    flex-direction: column;
+  }
+
+  .flex-1 {
+    flex: 1;
+  }
+
+  .flex-b-c {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .flex-c-c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flex-e-c {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .flex-s-c {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .flex-stretch {
+    align-items: stretch;
+  }
+
+  .flex-s-e {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+
+  .flex-s-s {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .flex-b-s {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .margin-top {
+    margin-top: var(--oio-margin);
+  }
+
+  .margin-left {
+    margin-left: var(--oio-margin);
+  }
+
+  .margin-right {
+    margin-right: var(--oio-margin);
+  }
+
+  .margin-bottom {
+    margin-bottom: var(--oio-margin);
+  }
+
+  .margin {
+    margin: var(--oio-margin);
+  }
+}

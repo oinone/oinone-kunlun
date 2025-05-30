@@ -1,0 +1,11 @@
+@import './parameters.scss';
+@import '../../../style/mixin.scss';
+
+.#{$uploadClassPrefix} {
+  .van-uploader__preview-image {
+  }
+}
+
+.#{$uploadClassPrefix}-readonly {
+
+}

@@ -1,0 +1,47 @@
+{
+  "name": "@kunlun/vue-admin-layout",
+  "version": "6.2.0",
+  "main": "index.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "rollup -c && npm run build-css",
+    "build-css": "sass --style compressed --no-source-map ./dist/kunlun-vue-admin-layout.scss ./dist/kunlun-vue-admin-layout.css",
+    "dist": "npm run prepublishOnly",
+    "index": "npm run postpublish",
+    "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
+    "x-postpublish": "node ../../scripts/postpublish.js",
+    "doc": "typedoc --out docs src/index.ts"
+  },
+  "dependencies": {
+    "@kunlun/vue-router": "6.2.0",
+    "@kunlun/vue-ui": "6.2.0",
+    "@kunlun/vue-ui-antd": "6.2.0",
+    "@kunlun/vue-ui-common": "6.2.0",
+    "@kunlun/vue-widget": "6.2.0",
+    "vue-json-pretty": "^2.4.0"
+  },
+  "devDependencies": {
+    "@kunlun/dsl": "~6.2.0",
+    "@kunlun/engine": "~6.2.0",
+    "@kunlun/environment": "~6.2.0",
+    "@kunlun/event": "~6.2.0",
+    "@kunlun/expression": "~6.2.0",
+    "@kunlun/meta": "~6.2.0",
+    "@kunlun/request": "~6.2.0",
+    "@kunlun/router": "~6.2.0",
+    "@kunlun/service": "~6.2.0",
+    "@kunlun/shared": "~6.2.0",
+    "@kunlun/spi": "~6.2.0",
+    "@kunlun/state": "~6.2.0",
+    "@types/lodash": "4.14.182",
+    "@types/lodash-es": "4.17.6",
+    "lodash": "4.17.21",
+    "lodash-es": "4.17.21",
+    "sass": "1.44.0",
+    "sass-loader": "10.1.1"
+  },
+  "peerDependencies": {
+    "vue": ">=3.2.40"
+  },
+  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
+}

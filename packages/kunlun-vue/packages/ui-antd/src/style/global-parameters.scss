@@ -1,0 +1,9 @@
+$prefix: oio;
+$parameterPrefix: --oio;
+$classPrefix: $prefix;
+$readonlyParameterPrefix: -readonly;
+$disabledParameterPrefix: -disabled;
+
+$iconPrefix: $prefix + -icon;
+$iconParameterPrefix: $parameterPrefix + -icon;
+$iconClassPrefix: $iconPrefix;

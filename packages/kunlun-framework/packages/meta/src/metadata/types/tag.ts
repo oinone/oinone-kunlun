@@ -1,0 +1,24 @@
+enum ElementType {
+  MASK = 'MASK',
+  BLOCK = 'BLOCK',
+  HEADER = 'HEADER',
+  CONTAINER = 'CONTAINER',
+  SIDEBAR = 'SIDEBAR',
+  CONTENT = 'CONTENT',
+  VIEW = 'VIEW',
+  FIELD = 'FIELD',
+  GROUP = 'GROUP',
+  GRID = 'GRID',
+  ACTION = 'ACTION',
+  API = 'API',
+  CONTEXT = 'CONTEXT',
+  REQUEST = 'REQUEST',
+  RESPONSE = 'RESPONSE',
+  CLEAR = 'CLEAR',
+  FILTER = 'FILTER',
+  WIDGET = 'WIDGET',
+  PROP = 'PROP',
+  VALIDATION = 'VALIDATION'
+}
+
+export { ElementType };

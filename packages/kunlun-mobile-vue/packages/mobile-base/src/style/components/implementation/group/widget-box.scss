@@ -1,0 +1,30 @@
+.widget-box-container {
+  .widget-box {
+    display: flex;
+    color: #666;
+    margin-right: 8px;
+    height: 40px;
+  }
+
+  .widget-box-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .label {
+    width: 100%;
+    min-width: fit-content;
+    margin: 0 10px;
+    color: #666;
+    margin-right: 8px;
+  }
+
+  .ant-form-item-label>label {
+    color: #666;
+    margin-right: 8px;
+  }
+
+  .ant-form-item-label>label::after {
+    display: none;
+  }
+}

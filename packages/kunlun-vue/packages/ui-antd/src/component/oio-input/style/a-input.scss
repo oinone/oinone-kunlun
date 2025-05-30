@@ -1,0 +1,103 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+@import './mixin.scss';
+
+&.ant-input {
+  @include input-style();
+}
+
+&.ant-input-affix-wrapper {
+  @include oio-appearance($inputParameterPrefix);
+
+  height: var($parameterPrefix + -height);
+  line-height: var($inputParameterPrefix + -line-height);
+  font-size: var($parameterPrefix + -font-size);
+  align-items: center;
+
+  input.ant-input {
+    height: calc(var(#{$parameterPrefix + -height}) - 8px);
+    line-height: var($inputParameterPrefix + -line-height);
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+    background: var($inputParameterPrefix + -background);
+    caret-color: var(--oio-input-text-color);
+    &.ant-input-disabled {
+      background: var(--oio-disabled-bg);
+    }
+  }
+
+  &:hover {
+    @include oio-hover($inputParameterPrefix);
+  }
+
+  &:focus {
+    @include oio-focus($inputParameterPrefix);
+  }
+
+  &.ant-input-affix-wrapper-disabled {
+    @include oio-disabled();
+
+    input.ant-input {
+      background: var(--oio-disabled-bg);
+      color: var($parameterPrefix + -disabled-color);
+    }
+
+    &:hover {
+      @include oio-disabled(true, $inputParameterPrefix);
+    }
+
+    &:focus {
+      @include oio-disabled(true, $inputParameterPrefix);
+    }
+  }
+}
+
+&.ant-input-group-wrapper {
+  .ant-input-group {
+    .ant-input-group-addon {
+      border: var($inputParameterPrefix + -border-width) var($inputParameterPrefix + -border-style)
+        var($inputParameterPrefix + -border-color);
+      border-radius: var($inputParameterPrefix + -border-radius);
+      background: var($inputParameterPrefix + -addon-background);
+
+      &:first-child {
+        border-right: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      &:last-child {
+        border-left: none;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+
+    & > input.ant-input {
+      @include input-style();
+
+      &:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      &:last-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      &:not(:first-child):not(:last-child) {
+        border-radius: 0;
+      }
+    }
+  }
+}
+
+&.ant-input-affix-wrapper-focused {
+  @include oio-focus($inputParameterPrefix);
+}
+
+&.ant-input-affix-wrapper-disabled {
+  background-color: var($parameterPrefix + -disabled-bg);
+}

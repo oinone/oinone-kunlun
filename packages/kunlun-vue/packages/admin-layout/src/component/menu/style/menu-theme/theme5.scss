@@ -1,0 +1,45 @@
+@import '../mixin.scss';
+
+/**
+ *   含背景颜色的菜单, 箭头在左侧
+ */
+.oinone-menu.oinone-menu-theme5 {
+  .ant-menu-submenu-title {
+    flex-direction: row-reverse;
+  }
+
+  .ant-menu-submenu-open {
+    border-radius: 4px;
+    padding-bottom: 2px;
+    background: var(--oio-menu-expand-background-color);
+    .ant-menu-sub.ant-menu-inline {
+      background: var(--oio-menu-expand-background-color);
+    }
+
+    & > .ant-menu-title-content {
+      &::before {
+        background: var(--oio-primary-color);
+      }
+    }
+  }
+
+  .ant-menu-item-selected {
+    .ant-menu-title-content {
+      position: relative;
+      &::after {
+        position: absolute;
+        display: block;
+        content: '';
+        height: 60%;
+        width: 2px;
+        top: 50%;
+        right: 1px;
+        transform: translate(0, -50%);
+        border-radius: 2px 0 0 2px;
+        background-color: var(--oio-menu-selected-title-color);
+      }
+    }
+  }
+
+  @include menuInlineIndentMixin(31px, 12px, 19px, 34px);
+}

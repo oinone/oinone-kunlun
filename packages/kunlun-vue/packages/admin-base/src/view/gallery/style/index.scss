@@ -1,0 +1,61 @@
+@import '../../../style/mixin.scss';
+
+.default-gallery {
+  flex: 1;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .default-gallery-content {
+    height: 100%;
+    position: relative;
+
+    .oio-gallery-wrapper {
+      @include oio-scrollbar();
+
+      height: 100%;
+      width: calc(100% + 24px);
+      margin-left: -12px;
+      margin-right: -12px;
+      padding-left: 12px;
+      padding-right: 12px;
+      position: absolute;
+      overflow-y: auto;
+
+      .ant-spin-container {
+        height: 100%;
+
+        .oio-gallery {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .default-gallery-show-pagination {
+    height: calc(100% - 40px);
+  }
+
+  .default-gallery-pagination {
+    padding-top: 24px;
+    text-align: right;
+  }
+}
+
+.oio-default-gallery-view {
+  .oio-default-search-fold-content {
+    & > .ant-row {
+      row-gap: 0 !important;
+      & > .ant-col {
+        margin-bottom: var(--oio-margin);
+        &:only-child {
+          margin-bottom: 0;
+          .tab-select {
+            border-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}

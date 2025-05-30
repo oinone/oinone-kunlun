@@ -1,0 +1,9 @@
+@import "../../../../style/global-parameters";
+
+.#{$prefix}-inline-form {
+  width: 100%;
+
+  & > #{$formPrefix} {
+    padding-bottom: 0;
+  }
+}

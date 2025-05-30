@@ -1,0 +1,274 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+
+.#{$tabsClassPrefix} {
+  width: 100%;
+  height: 100%;
+  background: var(--oio-background);
+  box-shadow: 0 0 var(--oio-box-shadow-size) 0 var(--oio-border-color);
+  border-radius: 4px;
+  overflow: initial;
+
+  .ant-tabs-nav:before,
+  & > .ant-tabs-content-holder,
+  & > div > .ant-tabs-content-holder {
+    border-color: var(--oio-border-color);
+  }
+
+  .#{$tabClassPrefix}-bar {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .#{$tabClassPrefix}-options {
+      width: 22px;
+      height: 100%;
+      position: absolute;
+      display: inline-flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      &-hide {
+        display: none;
+      }
+
+      &-top {
+        top: 0;
+        right: -16px;
+      }
+
+      &-left {
+        top: 0;
+        right: -16px;
+      }
+    }
+
+    .#{$tabClassPrefix}-close-icon {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 8px;
+      width: 14px;
+      height: 14px;
+      background-color: #f1f1f1;
+      border-radius: 50%;
+      margin: 0;
+    }
+
+    .#{$tabClassPrefix}-title {
+      display: inline-block;
+      max-width: 120px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &-invisible {
+      display: none;
+    }
+  }
+
+  &.ant-tabs {
+    color: var($parameterPrefix + -text-color);
+
+    .ant-tabs-tab-prev {
+      display: none;
+    }
+
+    .ant-tabs-tab-next {
+      display: none;
+    }
+
+    .ant-tabs-nav {
+      .ant-tabs-tab {
+        color: var($parameterPrefix + -text-color);
+        font-weight: var($parameterPrefix + -font-weight);
+
+        &:hover {
+          color: var($parameterPrefix + -primary-color);
+        }
+
+        &.ant-tabs-tab-active {
+          color: var($parameterPrefix + -primary-color);
+          font-weight: 400;
+        }
+
+        .anticon {
+          margin-right: 0;
+        }
+
+        &.ant-tabs-tab-disabled {
+          color: var($parameterPrefix + -disabled-color);
+        }
+      }
+    }
+
+    &-top {
+      .ant-tabs-nav-container {
+        height: var($parameterPrefix + -height);
+        margin: var($parameterPrefix + -margin-md) var($parameterPrefix + -margin-lg) 0;
+      }
+
+      .ant-tabs-nav {
+        padding-left: var(--oio-padding);
+        margin-bottom: 0;
+
+        .ant-tabs-tab {
+          padding: var(--oio-padding) 0;
+        }
+      }
+    }
+
+    &-left {
+      .ant-tabs-content-left {
+        padding: 0;
+        height: 100%;
+        overflow: hidden auto;
+        @include oio-scrollbar();
+      }
+
+      .ant-tabs-nav {
+        .ant-tabs-tab {
+          .#{$tabClassPrefix}-title {
+            max-width: 56px;
+          }
+        }
+      }
+    }
+  }
+
+  &.ant-tabs-card {
+    & > .ant-tabs-nav .ant-tabs-tab,
+    & > div > .ant-tabs-nav .ant-tabs-tab {
+      padding: 8px 16px;
+    }
+
+    &.ant-tabs-top .ant-tabs-nav {
+      padding-left: 0;
+    }
+  }
+
+  .ant-tabs-content {
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    &.ant-tabs-content-animated {
+      transition: none;
+    }
+  }
+
+  .ant-tabs-top-bar {
+    border-bottom: none;
+
+    .ant-tabs-tab {
+      padding: 0;
+      margin: 0 12px 0;
+    }
+
+    .ant-tabs-tab:first-child {
+      padding-left: 0;
+      margin-left: 0;
+    }
+
+    .ant-tabs-extra-content {
+      padding-right: var($parameterPrefix + -padding-lg);
+      height: var($parameterPrefix + -height);
+      line-height: var($parameterPrefix + -height);
+    }
+  }
+
+  .ant-tabs-left-bar {
+    border-right: 1px solid var(--oio-border-color);
+    width: 100px;
+
+    .ant-tabs-tab {
+      padding: 12px 28px 12px 12px;
+      margin: 0;
+    }
+
+    .ant-tabs-tab-active {
+      border-right: 2px solid var(--oio-primary-color);
+    }
+  }
+
+  .#{$tabClassPrefix} {
+    &-content {
+      width: 100%;
+      padding: 16px 24px 0;
+    }
+
+    &-top {
+      &-content {
+        padding: var(--oio-padding);
+      }
+    }
+
+    &-left {
+      &-content {
+        padding: var(--oio-padding);
+      }
+    }
+  }
+
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: var(--oio-primary-color);
+  }
+}
+
+.ant-tabs-dropdown-menu {
+  @include oio-scrollbar();
+
+  .#{$tabClassPrefix}-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .#{$tabClassPrefix}-options {
+      margin-left: 2px;
+      display: inline-flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      &-hide {
+        display: none;
+      }
+
+      &-top {
+        top: 0;
+        right: -16px;
+      }
+
+      &-left {
+        top: 0;
+        right: -16px;
+      }
+    }
+
+    .#{$tabClassPrefix}-close-icon {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 8px;
+      width: 14px;
+      height: 14px;
+      background-color: #f1f1f1;
+      border-radius: 50%;
+      margin: 0;
+    }
+
+    .#{$tabClassPrefix}-title {
+      display: inline-block;
+      max-width: 120px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &-invisible {
+      display: none;
+    }
+  }
+}

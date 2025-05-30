@@ -1,0 +1,18 @@
+@import '../../../../style/global-parameters.scss';
+
+$height: 20px;
+
+.gallery-common-field {
+  width: 100%;
+  line-height: $height;
+  color: var($parameterPrefix + -text-color);
+  white-space: pre-wrap;
+  display: flex;
+  flex-flow: row nowrap;
+
+  .gallery-common-field-value {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

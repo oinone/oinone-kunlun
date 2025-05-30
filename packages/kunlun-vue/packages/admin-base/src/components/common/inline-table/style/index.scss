@@ -1,0 +1,24 @@
+.inline-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--oio-row-gap);
+
+  .inline-table-action-bar {
+    width: 100%;
+  }
+
+  .inline-table-content {
+    width: 100%;
+  }
+
+  .oio-default-table-view {
+    min-height: 300px;
+  }
+
+  .default-table {
+    //padding: var(--oio-padding);
+    background: var(--oio-background);
+    border-radius: var(--oio-border-radius);
+  }
+}

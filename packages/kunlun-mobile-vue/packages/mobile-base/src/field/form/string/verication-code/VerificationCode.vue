@@ -1,0 +1,18 @@
+<template>
+  <div class="mobile-form-verification-code-input" style="display: flex">
+    <oio-input :value="value" @update:value="change" class="input" @blur="blur" @focus="focus" />
+    <img :src="imageSrc" @click="reload" />
+  </div>
+</template>
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { OioInput } from '@kunlun/vue-ui-mobile-vant';
+
+export default defineComponent({
+  inheritAttrs: false,
+  props: ['imageSrc', 'reload', 'change', 'value', 'blur', 'focus'],
+  components: {
+    OioInput
+  }
+});
+</script>

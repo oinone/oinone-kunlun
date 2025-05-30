@@ -1,0 +1,53 @@
+.tab-select {
+  width: inherit;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--oio-border-color);
+  display: flex;
+  justify-content: center;
+
+  .tab-select-item,
+  .tab-select-item:first-child,
+  .tab-select-item:last-child {
+    background-color: transparent;
+    height: 40px;
+    font-size: 14px;
+    color: var(--oio-text-color);
+    text-align: center;
+    line-height: 22px;
+    font-weight: 500;
+    border: none;
+    padding: 0 16px;
+    margin: 0 18px;
+
+    &:not(.ant-radio-button-wrapper-checked):hover {
+      color: var(--oio-primary-color);
+    }
+  }
+
+  .ant-radio-button-wrapper:not(:first-child),
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    &:before {
+      position: absolute;
+      top: 0;
+      left: -1px;
+      display: block;
+      width: 0;
+      height: 100%;
+      background-color: #d9d9d9;
+    }
+  }
+
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled),
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):first-child,
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):last-child,
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):focus,
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):first-child:focus,
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):last-child:focus {
+    background-color: transparent;
+    box-shadow: none;
+    border-bottom: 2px solid var(--oio-primary-color);
+    color: var(--oio-primary-color);
+    outline: none;
+    border-radius: 0;
+  }
+}

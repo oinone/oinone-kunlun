@@ -1,0 +1,56 @@
+.oio-group {
+  .oio-default-search-view {
+    max-width: 100%;
+  }
+}
+
+.default-iconSearch {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--oio-row-gap) - 10px);
+
+  > .default-iconSearch {
+    &-searchContent {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      & > .default-iconSearch-searchContent {
+        &-field {
+          flex: 0 0 80%;
+          display: flex;
+          gap: var(--oio-row-gap);
+
+          & > .ant-form-item {
+            flex-flow: row nowrap;
+            align-items: center;
+            margin-bottom: 0;
+            flex: 0 0 20%;
+
+            &[data-name='createDate'] {
+              flex: 0 0 40%;
+            }
+
+            .oio-icon-oinone-sousuo {
+              --oio-icon-color: #979797 !important;
+            }
+          }
+        }
+
+        &-button {
+          flex: 0 0 18%;
+          display: flex;
+          justify-content: flex-end;
+          gap: var(--oio-row-gap);
+        }
+      }
+    }
+
+    &-item {
+      width: 100%;
+    }
+
+    &-group {
+    }
+  }
+}

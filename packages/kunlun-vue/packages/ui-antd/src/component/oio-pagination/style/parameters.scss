@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$paginationPrefix: $prefix + -pagination;
+$paginationParameterPrefix: $parameterPrefix + -pagination;
+$paginationClassPrefix: $paginationPrefix;

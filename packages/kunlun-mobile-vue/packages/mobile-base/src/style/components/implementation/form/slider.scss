@@ -1,0 +1,14 @@
+@import '../../../../style/global-parameters.scss';
+.mobile-default-slider {
+  display: flex;
+  min-width: 220px;
+
+  .#{$prefix}-slider {
+    flex: 4;
+    margin-right: 16px;
+  }
+
+  .#{$prefix}-input-number {
+    flex: 1;
+  }
+}

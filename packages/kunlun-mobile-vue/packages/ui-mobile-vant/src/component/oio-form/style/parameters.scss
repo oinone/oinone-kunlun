@@ -1,0 +1,9 @@
+@import '../../../style/global-parameters.scss';
+
+$formPrefix: $prefix + -form;
+$formParameterPrefix: $parameterPrefix + -form;
+$formClassPrefix: $formPrefix;
+
+$formItemPrefix: $prefix + -form-item;
+$formItemParameterPrefix: $parameterPrefix + -form-item;
+$formItemClassPrefix: $formItemPrefix;

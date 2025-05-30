@@ -1,0 +1,9 @@
+@import '../../../../style/mixin.scss';
+
+.default-detail-html {
+  display: block;
+
+  iframe {
+    border: none;
+  }
+}

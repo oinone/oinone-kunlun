@@ -1,0 +1,15 @@
+.search-datetime-range-picker {
+  .ant-calendar-picker-input.ant-input {
+    height: var(--oio-height);
+    border-radius: var(--oio-border-radius);
+    white-space: nowrap;
+
+    &:hover {
+      border-color: var(--oio-primary-color);
+    }
+  }
+
+  .ant-calendar-range-picker-separator {
+    vertical-align: middle;
+  }
+}

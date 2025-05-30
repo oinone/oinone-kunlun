@@ -1,0 +1,94 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+@import './mixin.scss';
+
+.#{$inputSearchClassPrefix} {
+  height: var($parameterPrefix + -height);
+  line-height: var($inputParameterPrefix + -line-height);
+  font-size: var($parameterPrefix + -font-size);
+
+  border-radius: var($inputParameterPrefix + -border-radius);
+  background: var(--oio-input-background);
+
+  &.#{$inputSearchClassPrefix}-normal {
+    border: var($inputParameterPrefix + -border-width) var($inputParameterPrefix + -border-style)
+      var($inputParameterPrefix + -border-color);
+  }
+
+  .ant-input-group > .ant-input-group-addon:last-child {
+    left: 0;
+  }
+
+  & > .ant-input-group {
+    height: 100%;
+    .ant-input {
+      height: 100%;
+    }
+    .ant-input-affix-wrapper {
+      height: calc(var(#{$parameterPrefix} + -height) - var(#{$inputParameterPrefix} + -border-width) * 2);
+      border: none;
+      border-radius: var($inputParameterPrefix + -border-radius);
+      background: var(--oio-input-background);
+
+      input {
+        color: var(--oio-text-color);
+        caret-color: var(--oio-input-text-color);
+        background-color: var(--oio-input-background);
+
+        &::placeholder,
+        &::-webkit-input-placeholder {
+          color: var(--oio-placeholder-color);
+        }
+      }
+
+      &:not(:last-child) {
+        border-bottom-left-radius: var($inputParameterPrefix + -border-radius);
+        border-top-left-radius: var($inputParameterPrefix + -border-radius);
+      }
+
+      &:not(.ant-input-affix-wrapper-disabled):hover {
+        z-index: unset;
+      }
+    }
+
+    .ant-input-affix-wrapper-focused,
+    .ant-input-affix-wrapper:focus {
+      box-shadow: none;
+      z-index: unset;
+    }
+
+    .ant-input-group-addon {
+      background-color: transparent;
+
+      .ant-btn {
+        background: none;
+
+        .anticon-search,
+        .oio-icon {
+          color: var(--oio-icon-color);
+        }
+      }
+    }
+
+    & > .ant-input-group-addon:last-child {
+      .ant-input-search-button {
+        border-radius: 0 var(--oio-border-radius) var(--oio-border-radius) 0;
+
+        &:not(.ant-btn-primary) {
+          color: rgba(0, 0, 0, 0.25);
+        }
+
+        &.ant-btn-primary {
+          background-color: var(--oio-primary-color);
+          border-color: var(--oio-primary-color);
+          height: 100%;
+        }
+      }
+    }
+
+    .ant-input-search-button {
+      border: none;
+      height: 100%;
+    }
+  }
+}

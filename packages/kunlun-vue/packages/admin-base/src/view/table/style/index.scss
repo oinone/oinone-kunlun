@@ -1,0 +1,105 @@
+@import '../../../style/mixin.scss';
+
+.default-table {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .default-table-view-spin {
+    .oio-spin-loading {
+      height: 32px;
+      width: 32px;
+    }
+  }
+
+  .ant-spin-nested-loading {
+    width: 100%;
+    height: 100%;
+
+    .ant-spin-container {
+      width: 100%;
+      height: 100%;
+
+      & > .oio-table > .oio-table-content-wrapper > .oio-table-content {
+        position: absolute;
+      }
+    }
+
+    .ant-spin-blur {
+      overflow: initial;
+      height: 100%;
+    }
+  }
+
+  .operation-column {
+    .action-bar {
+      height: 100%;
+
+      scrollbar-width: 0;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    &:hover {
+      .action-bar {
+        scrollbar-width: thin;
+
+        &::-webkit-scrollbar {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .oio-table-footer {
+    text-align: right;
+  }
+
+  .highlight {
+    background: var(--table-high-light-bg, #6a7deb);
+  }
+
+  .table-container-click {
+    display: none;
+  }
+
+  .oio-column.vxe-header--column {
+    .vxe-cell {
+      padding-right: 16px;
+    }
+
+    &.col--last:not(.col--checkbox, .col--seq) {
+      &:has(.table-user-prefer) {
+        .vxe-cell {
+          padding-right: 48px;
+        }
+      }
+
+      &.table-header-column-operation {
+        .vxe-cell {
+          padding-right: 32px;
+        }
+      }
+    }
+
+    .vxe-cell--title {
+      .default-column-quick-operation {
+        position: absolute;
+        right: 5px;
+        line-height: 19px;
+      }
+    }
+  }
+}
+
+.ant-form-item-has-error {
+  .default-table {
+    .oio-table-footer {
+      .ant-select:not(.ant-select-disabled):not(.ant-select-customize-input) .ant-select-selector {
+        border-color: var(--oio-border-color) !important;
+      }
+    }
+  }
+}

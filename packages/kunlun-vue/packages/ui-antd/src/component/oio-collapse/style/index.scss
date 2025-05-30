@@ -1,0 +1,59 @@
+@import './parameters.scss';
+@import '../../../style/mixin.scss';
+
+.#{$collapseClassPrefix} {
+  &.ant-collapse {
+    @include oio-appearance();
+    border-bottom: 0;
+
+    & > .ant-collapse-item {
+      border-color: var(--oio-border-color);
+    }
+
+    .ant-collapse-header {
+      color: var(--oio-text-color);
+      align-items: center;
+    }
+
+    .ant-collapse-content {
+      background-color: var(--oio-background);
+      border-color: var(--oio-border-color);
+      color: var(--oio-text-color);
+    }
+
+    & > .ant-collapse-item:last-child,
+    & > .ant-collapse-item:last-child > .ant-collapse-header,
+    & > .ant-collapse-item:last-child > .ant-collapse-content {
+      border-radius: 0 0 var(--oio-border-radius) var(--oio-border-radius);
+    }
+  }
+
+  &.ant-collapse-borderless {
+    border: 0;
+    box-shadow: none;
+
+    & > .ant-collapse-item > .ant-collapse-content {
+      background-color: transparent;
+      border-top: 0;
+    }
+  }
+
+  &.ant-collapse-ghost {
+    background-color: transparent;
+    border: 0;
+
+    & > .ant-collapse-item > .ant-collapse-content {
+      background-color: transparent;
+      border-top: 0;
+    }
+  }
+
+  &.#{$collapseClassPrefix}-stripe.ant-collapse {
+    background-color: #fafafa;
+  }
+
+  .ant-collapse-item-disabled > .ant-collapse-header,
+  .ant-collapse-item-disabled > .ant-collapse-header > .arrow {
+    color: var(--oio-disabled-color);
+  }
+}

@@ -1,0 +1,41 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+@import './mixin.scss';
+
+.#{$prefix}-selected-items {
+  height: var(--oio-height);
+  width: 100%;
+  overflow: auto hidden;
+  white-space: nowrap;
+  //padding: 10px 0;
+  box-sizing: border-box;
+  .selected-item {
+    border-radius: 30px;
+    color: var(--oio-primary-color);
+    border: 1px solid var(--oio-primary-color);
+    background: rgba(var(--oio-primary-color-rgb), 0.1);
+    display: inline-block;
+    margin-right: 10px;
+    height: 42px;
+    line-height: 42px;
+    padding: 0 38px 0 20px;
+    position: relative;
+    margin-top: 10px;
+    &-field {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      overflow: hidden;
+      margin-right: 5px;
+      font-size: 24px;
+    }
+    .oinone-guanbi {
+      color: #ccc;
+      font-size: 28px;
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "@kunlun/service",
+  "version": "6.2.0",
+  "main": "index.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "rollup -c",
+    "dist": "npm run prepublishOnly",
+    "index": "npm run postpublish",
+    "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
+    "x-postpublish": "node ../../scripts/postpublish.js"
+  },
+  "devDependencies": {
+    "@kunlun/cache": "6.2.0",
+    "@kunlun/meta": "6.2.0",
+    "@kunlun/request": "6.2.0",
+    "@kunlun/router": "6.2.0",
+    "@kunlun/shared": "6.2.0"
+  },
+  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
+}

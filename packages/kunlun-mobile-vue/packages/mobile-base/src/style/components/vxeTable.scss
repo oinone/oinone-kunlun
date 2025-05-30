@@ -1,0 +1,148 @@
+.default-mobile-table {
+  .vxe-table--render-default .vxe-table--empty-content {
+    font-size: 28px !important;
+  }
+
+  .vxe-custom--option .vxe-checkbox--icon,
+  .vxe-export--panel-column-option .vxe-checkbox--icon,
+  .vxe-table--filter-option .vxe-checkbox--icon,
+  .vxe-table--render-default .vxe-cell--checkbox .vxe-checkbox--icon,
+  .vxe-table--render-default .vxe-cell--radio .vxe-radio--icon {
+    width: 28px;
+    height: 28px;
+    &:before {
+      font-size: 28px;
+    }
+    &:after {
+      height: 18px;
+      width: 10px;
+    }
+    &.vxe-checkbox--indeterminate-icon:after,
+    &.vxe-checkbox--indeterminate-icon:after,
+    &.vxe-checkbox--indeterminate-icon:after,
+    &.vxe-checkbox--indeterminate-icon:after {
+      height: 2px;
+    }
+  }
+
+  .vxe-header--row {
+    background: #f7f7fb;
+    border-radius: 8px;
+    height: 80px;
+    line-height: 80px;
+    .vxe-header--column {
+      font-weight: bold;
+      color: var(--oio-text-color);
+    }
+  }
+
+  .vxe-header--row,
+  .vxe-body--row {
+    .col--last {
+      background-size: 0px 100%, 100% 1px;
+    }
+  }
+
+  .vxe-body--row {
+    .vxe-body--column {
+      font-weight: normal;
+      color: var(--oio-text-color-secondary);
+    }
+  }
+
+  .vxe-table--render-default .vxe-body--row.row--stripe {
+    background: #f7f7fb;
+  }
+
+  .vxe-table--render-default .vxe-body--row.row--checked,
+  .vxe-table--render-default .vxe-body--row.row--radio {
+    background-color: rgba(51, 119, 255, 0.1);
+  }
+
+  .vxe-table--body-wrapper,
+  .vxe-table--fixed-left-body-wrapper,
+  .vxe-table--fixed-right-body-wrapper {
+    scrollbar-width: 0;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .vxe-table--render-default .vxe-body--column {
+    line-height: initial;
+  }
+
+  .vxe-table--render-default .vxe-body--row.row--hover {
+    background-color: #fff;
+
+    &.row--checked {
+      background-color: rgba(51, 119, 255, 0.1);
+    }
+  }
+
+  .vxe-table--render-default {
+    color: var(--oio-table-text-color);
+  }
+
+  .vxe-table--render-default .vxe-body--row.row--hover.row--stripe {
+    background-color: #f7f7fb;
+  }
+
+  .vxe-table--header-wrapper {
+    color: var(--oio-table-title-color);
+  }
+
+  .vxe-header--row,
+  .vxe-body--row {
+    .vxe-cell--checkbox {
+      .vxe-checkbox--icon {
+        color: rgba(162, 162, 162, 0.34);
+      }
+    }
+  }
+
+  .vxe-table--fixed-wrapper .fixed--hidden {
+    visibility: inherit;
+  }
+}
+
+.is--checked.vxe-checkbox,
+.is--checked.vxe-checkbox .vxe-checkbox--icon,
+.is--checked.vxe-custom--option,
+.is--checked.vxe-custom--option .vxe-checkbox--icon,
+.is--checked.vxe-export--panel-column-option,
+.is--checked.vxe-export--panel-column-option .vxe-checkbox--icon,
+.is--checked.vxe-table--filter-option,
+.is--checked.vxe-table--filter-option .vxe-checkbox--icon,
+.is--indeterminate.vxe-checkbox,
+.is--indeterminate.vxe-checkbox .vxe-checkbox--icon,
+.is--indeterminate.vxe-custom--option,
+.is--indeterminate.vxe-custom--option .vxe-checkbox--icon,
+.is--indeterminate.vxe-export--panel-column-option,
+.is--indeterminate.vxe-export--panel-column-option .vxe-checkbox--icon,
+.is--indeterminate.vxe-table--filter-option,
+.is--indeterminate.vxe-table--filter-option .vxe-checkbox--icon,
+.vxe-table--render-default .is--checked.vxe-cell--checkbox,
+.vxe-table--render-default .is--checked.vxe-cell--checkbox .vxe-checkbox--icon,
+.vxe-table--render-default .is--indeterminate.vxe-cell--checkbox,
+.vxe-table--render-default .is--indeterminate.vxe-cell--checkbox .vxe-checkbox--icon {
+  color: var(--oio-primary-color) !important;
+}
+
+.vxe-checkbox:not(.is--disabled):hover .vxe-checkbox--icon,
+.vxe-custom--option:not(.is--disabled):hover .vxe-checkbox--icon,
+.vxe-export--panel-column-option:not(.is--disabled):hover .vxe-checkbox--icon,
+.vxe-table--filter-option:not(.is--disabled):hover .vxe-checkbox--icon,
+.vxe-table--render-default .vxe-cell--checkbox:not(.is--disabled):hover .vxe-checkbox--icon {
+  color: var(--oio-border-color);
+}
+
+.vxe-checkbox:not(.is--disabled):hover > input + .vxe-checkbox--icon {
+  border-color: var(--oio-border-color);
+}
+
+.vxe-checkbox:not(.is--disabled) > input:focus + .vxe-checkbox--icon {
+  color: var(--oio-border-color);
+  box-shadow: 0 0 0.2em 0 var(--oio-border-color);
+}

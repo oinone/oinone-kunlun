@@ -1,0 +1,5 @@
+@import '../../../../style/global-parameters.scss';
+
+$columnPrefix: $prefix + -column;
+$columnParameterPrefix: $parameterPrefix + -column;
+$columnClassPrefix: $columnPrefix;

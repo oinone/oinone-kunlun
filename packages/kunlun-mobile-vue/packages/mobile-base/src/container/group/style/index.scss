@@ -1,0 +1,10 @@
+@import '../../../style/global-parameters.scss';
+.#{$prefix}-default-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .#{$prefix}-group-content {
+    flex: auto;
+  }
+}

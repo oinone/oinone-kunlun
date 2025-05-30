@@ -1,0 +1,85 @@
+@import './parameters.scss';
+
+$theme: theme4;
+$className: #{$baseWrapper}-#{$theme};
+
+.#{$className}.#{$baseWrapper}-inline {
+  background-color: var(--oio-body-background);
+  padding-top: 16px;
+
+  .#{$base} {
+    background-color: var(--oio-multi-tabs-background-color-theme4-inline);
+    border-top-left-radius: 23px;
+    border-bottom-left-radius: 23px;
+    column-gap: 8px;
+    padding-top: 3px;
+    height: calc(var(--oio-height) + 6px);
+
+    &:before {
+      position: absolute;
+      top: 16px;
+      right: 12px;
+      content: '';
+      width: 45px;
+      height: calc(var(--oio-height) + 6px);
+      background-color: var(--oio-multi-tabs-background-color-theme4-inline);
+      border-top-right-radius: 23px;
+      border-bottom-right-radius: 23px;
+    }
+  }
+
+  .#{$base}-toolbar {
+    z-index: 1;
+  }
+
+  .#{$base}-tab {
+    height: var(--oio-height);
+    background-color: transparent;
+    border-radius: 19px;
+
+    &:before,
+    &:after {
+      display: none;
+    }
+
+    .oio-divider {
+      display: none;
+    }
+
+    &:not(.#{$base}-tab-active) {
+      .#{$base}-tab-close-btn {
+        opacity: 0;
+      }
+    }
+
+    .#{$base}-homepage-icon {
+      padding-left: 12px;
+    }
+
+    .#{$base}-application-logo {
+      margin-left: 16px;
+    }
+
+    &.#{$base}-tab-active {
+      color: var(--oio-multi-tabs-active-color-active-theme4-inline);
+      background-color: var(--oio-multi-tabs-background-color-active-theme4-inline);
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.05);
+
+      .#{$base}-tab-close-btn {
+        margin-right: 9px;
+
+        .oio-icon {
+          color: var(--oio-multi-tabs-icon-color-active-theme4-inline);
+        }
+      }
+    }
+
+    &:hover {
+      &:not(.#{$base}-tab-active) {
+        .#{$base}-tab-close-btn {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

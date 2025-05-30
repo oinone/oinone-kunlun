@@ -1,0 +1,18 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+
+@mixin picker-style() {
+  @include oio-appearance($pickerParameterPrefix);
+
+  height: var($parameterPrefix + -height);
+  line-height: var($pickerParameterPrefix + -line-height);
+  font-size: var(--oio-font-size);
+
+  &:hover {
+    @include oio-hover($pickerParameterPrefix);
+  }
+
+  &:focus {
+    @include oio-focus($pickerParameterPrefix);
+  }
+}

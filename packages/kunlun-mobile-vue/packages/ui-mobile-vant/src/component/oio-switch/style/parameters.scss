@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$switchPrefix: $prefix + -switch;
+$switchParameterPrefix: $parameterPrefix + -switch;
+$switchClassPrefix: $switchPrefix;

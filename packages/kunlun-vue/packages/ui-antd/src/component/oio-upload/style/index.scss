@@ -1,0 +1,66 @@
+@import './parameters.scss';
+@import '../../../style/mixin.scss';
+
+.#{$uploadClassPrefix} {
+  &.ant-upload-picture-card-wrapper {
+    .ant-upload-list-picture-card {
+      .ant-upload-list-item:hover {
+        .ant-upload-list-item-card-actions-btn,
+        .anticon-close {
+          border-color: transparent;
+        }
+      }
+    }
+    .ant-upload-select-picture-card {
+      @include oio-appearance($uploadParameterPrefix);
+      margin: 0;
+
+      .ant-upload {
+        color: var(--oio-upload-text-color);
+      }
+
+      &:hover {
+        @include oio-hover($uploadParameterPrefix);
+      }
+
+      &.ant-upload-disabled {
+        cursor: unset;
+        background-color: var($parameterPrefix + -disabled-bg);
+
+        &:hover {
+          border-color: var($uploadParameterPrefix + -border-color);
+        }
+      }
+    }
+  }
+
+  .ant-upload-list {
+    .ant-upload-list-item-card-actions .anticon {
+      color: var(--oio-icon-color);
+    }
+
+    .ant-btn:focus,
+    .ant-btn:hover {
+      border: none;
+    }
+  }
+}
+
+.#{$uploadClassPrefix}-disabled {
+}
+.#{$uploadClassPrefix}-readonly {
+  .ant-upload-select {
+    pointer-events: none;
+  }
+
+  .ant-upload-select-picture-card {
+    pointer-events: none;
+    background-color: var(--oio-readonly-bg);
+  }
+
+  .ant-upload-list-item-actions {
+    span[aria-label='delete'] {
+      display: none;
+    }
+  }
+}

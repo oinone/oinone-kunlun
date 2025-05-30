@@ -1,0 +1,16 @@
+@import './parameters.scss';
+
+.#{$popoverClassPrefix} {
+  &.ant-popover {
+    .ant-popover-inner,
+    .ant-popover-arrow-content {
+      background: var(--oio-background);
+      box-shadow: var(--oio-box-shadow);
+    }
+
+    .ant-popover-title {
+      color: var(--oio-text-color);
+      border-bottom-color: var(--oio-border-color);
+    }
+  }
+}

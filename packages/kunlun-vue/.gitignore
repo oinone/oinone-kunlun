@@ -1,0 +1,31 @@
+.DS_Store
+node_modules
+dist
+backup
+yarn.lock
+package-lock.json
+# local env files
+.env.local
+.env.*.local
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+coverage
+.nyc_output
+*.log
+compiled
+.awcache
+.rpt2_cache
+docs
+.env
+stats.html
+
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*

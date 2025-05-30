@@ -1,0 +1,20 @@
+{
+  "packages": [
+    "packages/kunlun-framework/packages/*",
+    "packages/kunlun-engine",
+    "packages/kunlun-vue/packages/*",
+    "packages/kunlun-expression",
+    "packages/kunlun-mobile-vue/packages/*"
+  ],
+  "version": "independent",
+  "command": {
+    "bootstrap": {
+      "hoist": true,
+      "npmClientArgs": ["--no-package-lock"]
+    },
+    "version": {},
+    "publish": {
+      "ignoreChanges": ["*.md"]
+    }
+  }
+}

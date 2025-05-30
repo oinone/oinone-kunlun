@@ -1,0 +1,82 @@
+@use 'sass:math';
+@import '../../../style/global-parameters.scss';
+
+$base: $classPrefix + -resizable;
+
+$width: 42px;
+$halfWidth: calc($width / 2);
+
+$height: 9px;
+$halfHeight: 5px;
+
+.#{$base}-hosted {
+  position: relative;
+  z-index: 100;
+
+  & > .#{$base}-handle {
+    position: absolute;
+    background-color: var(--oio-background);
+    border: 1px solid var($parameterPrefix + -border-color);
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 4px;
+
+    .#{$base}-handle-circle {
+      display: inline-block;
+      width: 3px;
+      height: 3px;
+      background-color: rgba(0, 0, 0, 0.25);
+      border-radius: 50%;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    &:hover,
+    &-dragging {
+      box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.05);
+
+      .#{$base}-handle-circle {
+        background-color: var($parameterPrefix + -primary-color);
+      }
+    }
+  }
+
+  & > .#{$base}-horizontal-handle {
+    width: $width;
+    height: $height;
+    cursor: row-resize;
+  }
+
+  & > .#{$base}-vertical-handle {
+    width: $height;
+    height: $width;
+    cursor: col-resize;
+  }
+}
+
+.#{$base}-horizontal {
+  & > .#{$base}-vertical-handle-left {
+    left: -#{$halfHeight};
+    top: calc(50% - #{$halfWidth});
+  }
+
+  & > .#{$base}-vertical-handle-right {
+    right: -#{$halfHeight};
+    top: calc(50% - #{$halfWidth});
+  }
+}
+
+.#{$base}-vertical {
+  & > .#{$base}-horizontal-handle-top {
+    top: -#{$halfHeight};
+    left: calc(50% - #{$halfWidth});
+  }
+
+  & > .#{$base}-horizontal-handle-bottom {
+    bottom: -#{$halfHeight};
+    left: calc(50% - #{$halfWidth});
+  }
+}

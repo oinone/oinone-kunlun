@@ -1,0 +1,92 @@
+@import './parameters.scss';
+
+.#{$treeSelectClassPrefix} {
+  height: var(--oio-height);
+  box-sizing: border-box;
+  &.ant-select.oio-select-multiple {
+    min-height: var(--oio-height);
+    height: auto;
+    .ant-select-selector {
+      position: relative;
+      line-height: var(--oio-height);
+      height: auto;
+      &::after {
+        line-height: var($treeSelectParameterPrefix + -selection-line-height);
+      }
+      .ant-select-selection-placeholder {
+        top: 50%;
+        display: flex;
+        align-items: center;
+      }
+
+      .ant-select-selection-item,
+      .ant-select-selection-search,
+      .ant-select-selection-placeholder {
+        height: var($treeSelectParameterPrefix + -selection-height);
+        line-height: var($treeSelectParameterPrefix + -selection-line-height);
+      }
+    }
+  }
+}
+
+.#{$treeSelectClassPrefix}-dropdown {
+  .ant-select-tree-checkbox-indeterminate .ant-select-tree-checkbox-inner {
+    &:after {
+      background-color: var($parameterPrefix + -primary-color);
+    }
+  }
+
+  .ant-select-tree {
+    background: var(--oio-select-dropdown-background);
+    .ant-select-tree-title {
+      color: var(--oio-text-color);
+    }
+
+    .ant-select-tree-checkbox:not(.ant-select-tree-checkbox-checked) {
+      background: var(--oio-checkbox-background);
+      .ant-select-tree-checkbox-inner {
+        background-color: var(--oio-background);
+        border: 1px solid var(--oio-border-color);
+      }
+    }
+
+    .anticon.anticon-caret-down {
+      color: var(--oio-icon-color);
+    }
+  }
+
+  .ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner {
+    background-color: var($parameterPrefix + -primary-color);
+    border-color: var($parameterPrefix + -primary-color);
+  }
+
+  .ant-select-tree-checkbox-input:focus + .ant-select-tree-checkbox-inner,
+  .ant-select-tree-checkbox-wrapper:hover .ant-select-tree-checkbox-inner,
+  .ant-select-tree-checkbox:hover .ant-select-tree-checkbox-inner {
+    border-color: var($parameterPrefix + -primary-color);
+  }
+
+  .ant-select-tree-node-content-wrapper {
+    &:hover {
+      background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
+    }
+
+    &.ant-select-tree-node-selected {
+      background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
+
+      .ant-select-tree-title {
+        color: var($parameterPrefix + -primary-color);
+        font-weight: 500;
+      }
+
+      &:after {
+        position: absolute;
+        right: 8px;
+        top: 0;
+        content: '✓';
+        color: var($parameterPrefix + -primary-color);
+        font-weight: 500;
+      }
+    }
+  }
+}

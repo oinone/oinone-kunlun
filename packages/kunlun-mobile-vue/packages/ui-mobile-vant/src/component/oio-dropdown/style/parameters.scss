@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$dropdownPrefix: $prefix + -dropdown;
+$dropdownParameterPrefix: $parameterPrefix + -dropdown;
+$dropdownClassPrefix: $dropdownPrefix;

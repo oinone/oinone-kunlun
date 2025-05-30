@@ -1,0 +1,54 @@
+@import './parameters.scss';
+
+.#{$popconfirmClassPrefix}-overlay {
+  &.ant-popover {
+    z-index: 1050;
+  }
+
+  .ant-popover-inner,
+  .ant-popover-arrow-content {
+    background-color: var($popconfirmParameterPrefix + -background);
+  }
+
+  .ant-popover-inner-content {
+    padding: 8px;
+
+    .ant-popover-message {
+      padding: 4px 0;
+
+      .ant-popover-message-title {
+        color: var($popconfirmParameterPrefix + -color);
+      }
+
+      .#{$popconfirmClassPrefix}-content {
+        .#{$popconfirmClassPrefix}-title {
+        }
+
+        .#{$popconfirmClassPrefix}-text {
+          margin: 4px 0;
+          max-width: 300px;
+        }
+      }
+    }
+
+    .ant-popover-buttons {
+      margin-bottom: 0;
+
+      button {
+        @import '../../oio-button/style/a-button.scss';
+
+        &.ant-btn {
+          height: 22px;
+          padding: 2px 6px;
+          margin: 0 3px;
+          line-height: 12px;
+
+          & > span {
+            font-size: 12px;
+            line-height: inherit;
+          }
+        }
+      }
+    }
+  }
+}

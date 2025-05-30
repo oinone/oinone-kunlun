@@ -1,0 +1,16 @@
+@import '../../../style/global-parameters.scss';
+
+/**
+ * 添加一个2px大小的点
+ */
+@mixin selected-point() {
+  content: '';
+  position: absolute;
+  display: inline-block;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background-color: var($parameterPrefix + -primary-color);
+  left: 50%;
+  bottom: 0;
+}

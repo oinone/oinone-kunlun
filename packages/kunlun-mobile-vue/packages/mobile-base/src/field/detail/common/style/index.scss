@@ -1,0 +1,35 @@
+@import '../../../../style/global-parameters.scss';
+
+.#{$galleryItemClassPrefix} .#{$prefix}-detail-common-field {
+  display: table-cell;
+  width: 100%;
+  text-align: left;
+  vertical-align: middle;
+  color: var($parameterPrefix + -text-color-secondary);
+  white-space: pre-wrap;
+}
+.#{$prefix}-detail-common-field {
+  width: 100%;
+  color: var($parameterPrefix + -text-color-secondary);
+  white-space: pre-wrap;
+  display: flex;
+  flex-flow: row nowrap;
+
+  .detail-string-value,
+  &-value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .detail-string-value:only-child,
+  &-value:only-child {
+    overflow: initial;
+    text-overflow: initial;
+    white-space: initial;
+  }
+}
+
+.#{$formClassPrefix} .#{$galleryItemClassPrefix} .#{$formItemClassPrefix}-horizontal .#{$prefix}-detail-common-field {
+  display: flex;
+}

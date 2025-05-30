@@ -1,0 +1,26 @@
+@mixin oio-scrollbar() {
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: var(--oio-scrollbar-thumb-background-color);
+
+    &:hover {
+      background-color: var(--oio-scrollbar-thumb-background-color-hover);
+    }
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+}

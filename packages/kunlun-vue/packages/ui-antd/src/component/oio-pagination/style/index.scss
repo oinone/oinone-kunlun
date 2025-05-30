@@ -1,0 +1,181 @@
+@import './parameters.scss';
+@import '../../oio-input/style/mixin.scss';
+
+.#{$paginationClassPrefix} {
+  &.ant-pagination {
+    min-height: var($paginationParameterPrefix + -height);
+    font-size: var($parameterPrefix + -font-size);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-next,
+  .ant-pagination-item {
+    min-width: var($paginationParameterPrefix + -item-width);
+    height: var($paginationParameterPrefix + -item-height);
+
+    vertical-align: -1px;
+    a {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  &-simple {
+    .ant-pagination-jump-next + .ant-pagination-item {
+      display: none;
+    }
+  }
+  &.ant-pagination-simple {
+    .ant-pagination-prev,
+    .ant-pagination-next {
+      display: flex;
+      align-items: center;
+    }
+
+    .ant-pagination-simple-pager {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .ant-pagination-total-text {
+    height: var($paginationParameterPrefix + -item-height);
+    line-height: var($paginationParameterPrefix + -item-height);
+    vertical-align: -1px;
+    color: var(--oio-text-color);
+  }
+
+  .ant-pagination-prev .ant-pagination-item-link,
+  .ant-pagination-next .ant-pagination-item-link,
+  .ant-pagination-item {
+    border: var($parameterPrefix + -border-width) var($parameterPrefix + -border-style)
+      var($parameterPrefix + -border-color);
+    border-radius: var($parameterPrefix + -border-radius);
+
+    a {
+      color: var($parameterPrefix + -text-color);
+    }
+
+    &:hover {
+      background-color: var($parameterPrefix + -primary-color-hover);
+      border-color: var($parameterPrefix + -primary-color-hover);
+      color: #ffffff;
+
+      a {
+        color: #ffffff;
+      }
+    }
+  }
+
+  .ant-pagination-item-active {
+    background-color: var($parameterPrefix + -primary-color);
+    border-color: var($parameterPrefix + -primary-color);
+
+    a {
+      color: #ffffff;
+    }
+  }
+
+  .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis,
+  .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-ellipsis {
+    color: var(--oio-text-color);
+  }
+
+  .ant-pagination-options {
+    height: var($paginationParameterPrefix + -item-height);
+    line-height: var($paginationParameterPrefix + -item-height);
+
+    .ant-select-single:not(.ant-select-customize-input):hover {
+      z-index: auto;
+    }
+
+    .ant-select {
+      .ant-select-selector {
+        height: var($paginationParameterPrefix + -item-height);
+        line-height: var($paginationParameterPrefix + -item-height);
+        border: var($parameterPrefix + -border-width) var($parameterPrefix + -border-style)
+          var($parameterPrefix + -border-color);
+        border-radius: var($parameterPrefix + -border-radius);
+        background: var(--oio-pagination-background);
+        color: var(--oio-pagination-text-color);
+
+        &:hover {
+          border-color: var($parameterPrefix + -primary-color-hover);
+        }
+
+        .ant-select-selection-item {
+          display: flex;
+          align-items: center;
+        }
+      }
+      .ant-select-arrow {
+        transform: translate(0, -50%);
+        color: var(--oio-pagination-text-color);
+        margin: 0;
+      }
+      .ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled):after {
+        display: none;
+      }
+    }
+
+    .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) {
+      .ant-select-selector {
+        border-color: var($parameterPrefix + -primary-color-focus);
+        box-shadow: none;
+      }
+    }
+
+    .ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled):after {
+      display: none;
+    }
+
+    & > *:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .ant-select-dropdown {
+    .ant-select-item {
+      text-align: left;
+    }
+  }
+
+  .ant-pagination-next .ant-pagination-item-link,
+  .ant-pagination-prev .ant-pagination-item-link,
+  .ant-pagination-item {
+    background: var(--oio-pagination-background);
+    color: var(--oio-pagination-text-color);
+    border-color: var(--oio-pagination-border-color);
+  }
+
+  .ant-pagination-item-active {
+    background-color: var(--oio-primary-color);
+    border-color: var(--oio-primary-color);
+  }
+
+  .ant-pagination-options-quick-jumper {
+    height: var($paginationParameterPrefix + -item-height);
+    line-height: var($paginationParameterPrefix + -item-height);
+    color: var(--oio-text-color);
+
+    input {
+      @include input-style();
+      height: var($paginationParameterPrefix + -item-height);
+      line-height: var($paginationParameterPrefix + -item-height);
+      border-radius: var($parameterPrefix + -border-radius);
+    }
+  }
+}

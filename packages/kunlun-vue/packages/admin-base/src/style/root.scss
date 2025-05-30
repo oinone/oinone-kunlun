@@ -1,0 +1,19 @@
+:root {
+  --ss-ant-form-item-label-width: 120px;
+
+  --ss-table-cell-padding-y: 5px;
+  --ss-table-head-color: #333;
+
+  --ss-hover-bg: #e5e7f6;
+
+  --ss-text-secondary: #696c71;
+  --checkbox-checked-bg: var(--oio-primary-color, #606cee);
+  --checkbox-checked-border-color: var(--oio-primary-color, #606cee);
+  --checkbox-border-width: 1px;
+  --border-radius-sm: 2px;
+  --checkbox-border-radius: var(--border-radius-sm, 2px);
+  --table-high-light-bg: #eff0fd;
+
+  --border-color: #e3e7ee;
+  --checkbox-border-color: var(--border-color, #e3e7ee);
+}

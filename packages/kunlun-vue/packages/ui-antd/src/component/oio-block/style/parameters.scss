@@ -1,0 +1,13 @@
+@import '../../../style/global-parameters.scss';
+
+$blockPrefix: $prefix + -block;
+$blockParameterPrefix: $parameterPrefix + -block;
+$blockClassPrefix: $blockPrefix;
+
+$rowPrefix: $prefix + -row;
+$rowParameterPrefix: $parameterPrefix + -row;
+$rowClassPrefix: $rowPrefix;
+
+$colPrefix: $prefix + -col;
+$colParameterPrefix: $parameterPrefix + -col;
+$colClassPrefix: $colPrefix;

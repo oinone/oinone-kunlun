@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$popperPrefix: $prefix + -popper;
+$popperParameterPrefix: $parameterPrefix + -popper;
+$popperClassPrefix: $popperPrefix;

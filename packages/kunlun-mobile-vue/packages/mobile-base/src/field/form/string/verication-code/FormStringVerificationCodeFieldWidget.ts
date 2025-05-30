@@ -1,0 +1,57 @@
+import { ViewType } from '@kunlun/meta';
+import { http } from '@kunlun/service';
+import { SPI } from '@kunlun/spi';
+import { VueWidget, Widget } from '@kunlun/vue-widget';
+
+import { FormStringFieldWidget } from '../FormStringFieldWidget';
+import Component from './VerificationCode.vue';
+
+@SPI.ClassFactory(
+  FormStringFieldWidget.Token({
+    viewType: [ViewType.Form],
+    widget: 'VerificationCode'
+  })
+)
+export class FormStringVerificationCodeFieldWidget extends FormStringFieldWidget {
+  public initialize(props) {
+    super.initialize(props);
+    this.setComponent(Component);
+    return this;
+  }
+
+  @VueWidget.Reactive()
+  protected imageSrc = '';
+
+  @Widget.Reactive()
+  protected get picCodeScene() {
+    const _picCodeScene = this.getDsl().picCodeScene as string;
+    if (_picCodeScene) {
+      return `&picCodeScene=${_picCodeScene}`;
+    }
+    return '';
+  }
+
+  @Widget.Reactive()
+  protected get imagePath() {
+    const _imagePath = this.getDsl().imagePath;
+
+    return _imagePath || '/pamirs/api/refreshPicCode';
+  }
+
+  @Widget.Reactive()
+  protected reload = () => {
+    this.getOperator<this>().imageSrc = '';
+    setTimeout(() => {
+      this.getOperator<this>().imageSrc = this.genPath();
+    });
+  };
+
+  public mounted() {
+    super.mounted();
+    this.imageSrc = this.genPath();
+  }
+
+  protected genPath() {
+    return `${http.getBaseURL()}${this.imagePath}?time=${Date.now()}${this.picCodeScene}`;
+  }
+}

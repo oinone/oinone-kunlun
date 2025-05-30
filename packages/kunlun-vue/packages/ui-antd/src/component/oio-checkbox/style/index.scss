@@ -1,0 +1,8 @@
+@import './parameters.scss';
+
+.#{$checkboxClassPrefix} {
+  .ant-checkbox-inner {
+    background-color: var(--oio-background);
+    border: 1px solid var(--oio-border-color);
+  }
+}

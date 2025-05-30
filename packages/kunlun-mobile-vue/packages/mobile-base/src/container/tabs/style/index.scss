@@ -1,0 +1,15 @@
+@import '../../../style/global-parameters.scss';
+
+.#{$tabClassPrefix} {
+  & > .#{$tabClassPrefix}-content > .#{$classPrefix}-default-group > .#{$groupClassPrefix} {
+    & > .#{$groupClassPrefix}-content {
+      padding: 0;
+    }
+  }
+
+  & > .#{$tabClassPrefix}-content > .#{$classPrefix}-row > .#{$classPrefix}-col > .#{$classPrefix}-form-item {
+    &:has(.#{$classPrefix}-inline-table) {
+      padding-top: 0;
+    }
+  }
+}

@@ -1,0 +1,107 @@
+$tableMinWidth: 687px;
+$tableMinHeight: 243px;
+
+$treeMinWidth: 324px;
+
+.default-main-view-wrapper {
+  & > .ant-spin-container > .oio-default-view {
+    height: 100%;
+    min-width: 960px;
+  }
+}
+
+.oio-default-view {
+  &-container {
+    display: flex;
+    row-gap: var(--oio-row-gap);
+    flex-direction: column;
+    height: 100%;
+  }
+
+  &.oio-default-table-view,
+  &.oio-default-tree-view {
+    .oio-default-view-container {
+      & > * {
+        flex-grow: 0;
+        flex-shrink: 0;
+
+        &:last-child {
+          flex-grow: 1;
+          flex-shrink: 1;
+        }
+      }
+    }
+  }
+
+  &.oio-default-table-view {
+    & > .oio-default-view-container > .oio-group:last-child > .oio-group-content {
+      & > .oio-row {
+        height: 100%;
+
+        &:not(.ant-row-no-wrap) {
+          flex-direction: column;
+        }
+
+        & > .oio-col {
+          flex: 0 0 auto;
+
+          /**
+           * 命中仅有一个table组件
+           */
+          &:last-child {
+            flex: 1;
+            min-width: $tableMinWidth;
+            min-height: $tableMinHeight;
+          }
+
+          & > .oio-row {
+            height: 100%;
+            flex-direction: column;
+
+            & > .oio-col {
+              flex: 0 0 auto;
+
+              /**
+               * 命中树表/级联中的table
+               */
+              &:last-child {
+                flex: 1;
+                min-width: $tableMinWidth;
+                min-height: $tableMinHeight;
+              }
+            }
+          }
+
+          & > .oio-group {
+            height: 100%;
+
+            & > .oio-group-content > .oio-row {
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.oio-default-tree-view {
+    & > .oio-default-view-container > .oio-group:last-child > .oio-group-content {
+      & > .oio-row {
+        height: 100%;
+
+        &:not(.ant-row-no-wrap) {
+          flex-direction: column;
+        }
+
+        & > .oio-col {
+          flex: 0 0 auto;
+
+          &:last-child {
+            flex: 1;
+            min-height: $treeMinWidth;
+          }
+        }
+      }
+    }
+  }
+}

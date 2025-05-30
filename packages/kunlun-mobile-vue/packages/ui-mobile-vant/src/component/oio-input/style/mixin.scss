@@ -1,0 +1,74 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+
+@mixin input-style() {
+  @include oio-appearance($inputParameterPrefix);
+
+  height: var($parameterPrefix + -height);
+  line-height: var($inputParameterPrefix + -line-height);
+  font-size: var(--oio-font-size);
+  //text-indent: 10px;
+
+  &:hover {
+    @include oio-hover($inputParameterPrefix);
+  }
+
+  &:focus {
+    @include oio-focus($inputParameterPrefix);
+  }
+
+  &[readonly=disabled],
+  &[readonly=true],
+  &[readonly=''] {
+    @include oio-readonly();
+
+    &:hover {
+      @include oio-readonly(true, $inputParameterPrefix);
+    }
+
+    &:focus {
+      @include oio-readonly(true, $inputParameterPrefix);
+    }
+  }
+
+  &[disabled=disabled],
+  &[disabled=true],
+  &[disabled=''] {
+    @include oio-disabled();
+
+    &:hover {
+      @include oio-disabled(true, $inputParameterPrefix);
+    }
+
+    &:focus {
+      @include oio-disabled(true, $inputParameterPrefix);
+    }
+  }
+}
+
+@mixin clear-input-style() {
+  border: none;
+  outline: none;
+  box-shadow: none;
+
+  &:hover,
+  &:focus,
+  &[readonly=disabled],
+  &[readonly=true],
+  &[readonly='']
+  &[disabled=disabled],
+  &[disabled=true],
+  &[disabled=''] {
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+@mixin counter() {
+  display: block;
+  position: absolute;
+  color: var($inputParameterPrefix + -counter-color);
+  font-size: var($inputParameterPrefix + -counter-font-size);
+  content: attr(data-count) '/' attr(data-total);
+}

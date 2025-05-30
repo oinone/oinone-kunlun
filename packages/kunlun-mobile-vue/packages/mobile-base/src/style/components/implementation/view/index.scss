@@ -1,0 +1,32 @@
+@import './login.scss';
+@import '../../../global-parameters';
+
+.#{$prefix}-action-dropdown-inline {
+  &.#{$prefix}-action-bar-with-more-popover-container {
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    background-color: transparent;
+  }
+  .#{$prefix}-action-dropdown-content {
+    background-color: #fff;
+    border-radius: var(--oio-border-radius);
+    max-height: 800px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    .#{$prefix}-action-item{
+      &:first-child:after {
+        display: none;
+      }
+      &:last-child:after {
+        display: block;
+      }
+    }
+  }
+  bottom: 20px;
+  .#{$prefix}-action-item {
+    display: block;
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": [
+      "./tsconfig.eslint.json"
+    ],
+    "extraFileExtensions": [
+      ".vue",
+      ".widget"
+    ]
+  },
+  "extends": [
+    "airbnb-typescript/base",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:vue/vue3-essential",
+    "@vue/typescript",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended",
+    "prettier/vue"
+  ],
+  "rules": {
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-underscore-dangle": "off",
+    "no-param-reassign": "off",
+    "class-methods-use-this": "off",
+    "no-restricted-syntax": "off",
+    "consistent-return": "off",
+    "max-classes-per-file": "off",
+    "no-plusplus": "off",
+    "curly": [
+      "error",
+      "all"
+    ],
+    "default-case": "off",
+    "no-continue": "off",
+    "no-prototype-builtins": "off",
+    "no-return-assign": "off",
+    "guard-for-in": "off",
+    "no-useless-escape": "off",
+    "no-bitwise": "off",
+    "prefer-destructuring": "warn",
+    "no-extra-boolean-cast": "off",
+    "no-console": "off",
+    "vue/no-dupe-keys": "off",
+    "vue/no-v-for-template-key-on-child": "off",
+    "@typescript-eslint/no-redeclare": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-unused-expressions": "error",
+    "@typescript-eslint/explicit-member-accessibility": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": "packages/*/tsconfig.json"
+      }
+    }
+  }
+}

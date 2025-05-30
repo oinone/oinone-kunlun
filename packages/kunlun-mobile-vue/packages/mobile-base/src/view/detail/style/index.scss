@@ -1,0 +1,58 @@
+@import '../../../style/global-parameters.scss';
+
+.#{$prefix}-modal {
+  .#{$prefix}-default-detail-view {
+    padding-top: 24px;
+  }
+}
+
+.#{$prefix}-default-detail {
+  position: relative;
+  padding: 24px 0;
+
+  .van-cell {
+    padding-bottom: 0;
+  }
+
+  > .#{$formClassPrefix}-wrapper
+    > .#{$prefix}-spin-container
+    > .#{$formClassPrefix}
+    > .#{$prefix}-row
+    > .#{$prefix}-col
+    > .#{$formItemClassPrefix} {
+    padding-bottom: var(--van-cell-vertical-padding);
+  }
+
+  .#{$prefix}-default-form {
+    padding-bottom: 0;
+  }
+
+  .#{$formClassPrefix} {
+    .#{$formItemClassPrefix}-vertical .van-cell__value:before {
+      display: none;
+    }
+    .#{$formItemClassPrefix}-horizontal.van-cell .#{$formItemClassPrefix}-wrapper:before {
+      display: none;
+    }
+  }
+
+  .form-loading-icon {
+    &:before,
+    &:after {
+      content: '' !important;
+      width: 0 !important;
+      height: 0 !important;
+      border-radius: 50% !important;
+      background-color: #606cee !important;
+      opacity: 0.4 !important;
+      position: absolute !important;
+      top: 19px !important;
+      left: 19px !important;
+      animation: bounce 2s ease-in-out infinite !important;
+    }
+
+    &:after {
+      animation-delay: -1s !important;
+    }
+  }
+}

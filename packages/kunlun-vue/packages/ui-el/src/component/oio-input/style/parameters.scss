@@ -1,0 +1,9 @@
+@import '../../../style/global-parameters.scss';
+
+$elInputPrefix: el-input;
+$elInputParameterPrefix: $elParameterPrefix + -input;
+$elInputClassPrefix: $elInputPrefix;
+
+$inputPrefix: $prefix + -input;
+$inputParameterPrefix: $parameterPrefix + -input;
+$inputClassPrefix: $inputPrefix;

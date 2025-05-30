@@ -1,0 +1,18 @@
+@use 'sass:math';
+@import './parameters.scss';
+
+$vant-prefix: vant;
+
+// Grid system
+$grid-columns: 24;
+
+@mixin loop-grid-columns($index, $class: '') {
+  @while ($index > 0) {
+    .#{$vant-prefix}-col#{$class}-#{$index}.#{$prefix}-col-fixed {
+      min-width: percentage(math.div($index, $grid-columns));
+    }
+    $index: $index - 1;
+  }
+}
+
+@include loop-grid-columns($grid-columns);

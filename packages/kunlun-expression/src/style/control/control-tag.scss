@@ -1,0 +1,120 @@
+$controlTagHeightSmall: 22px;
+$controlTagInnerHeightSmall: 20px;
+$controlTagHeightMiddle: calc(var(--oio-height) * 0.6);
+$controlTagInnerHeightMiddle: calc(var(--oio-height) * 0.6);
+
+.control-tag {
+  display: inline-block;
+  font-size: 12px;
+
+  &:not(:last-child) {
+    margin-right: 5px !important;
+  }
+
+  &-inner {
+    min-width: 45px;
+    height: $controlTagHeightMiddle;
+    line-height: $controlTagHeightMiddle;
+    background: rgba(var(--oio-primary-color-rgb), 0.1);
+    border: 1px solid var(--oio-primary-color);
+    border-radius: 15px;
+    padding: 0 10px;
+    color: var(--oio-primary-color);
+    display: flex;
+    align-items: center;
+
+    .control-tag-content {
+      flex: 1;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      //line-height: $controlTagInnerHeightMiddle;
+      line-height: 100%;
+      font-size: 12px;
+
+      .placeholder {
+        color: #c1c1c1;
+      }
+
+      &-title,
+      &-desc {
+        max-width: 80px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+
+        .ant-divider {
+          margin: 0 3px;
+          height: 16px;
+          background-color: var(--oio-primary-color);
+        }
+      }
+
+      &-desc {
+        max-width: 100px;
+      }
+
+      &-input {
+        border: 0;
+        background: transparent;
+        width: 100%;
+        min-width: 4.1px;
+        height: $controlTagInnerHeightMiddle;
+        line-height: $controlTagInnerHeightMiddle;
+        cursor: auto;
+        margin: 0;
+        padding: 0;
+        background: 0 0;
+        border: none;
+        outline: 0;
+        appearance: none;
+      }
+    }
+
+    .control-tag-close-btn {
+      padding-left: 5px;
+      display: flex;
+      align-items: center;
+      z-index: 999;
+      color: var(--oio-primary-color);
+
+      .ant-input-clear-icon {
+        margin: 0;
+      }
+    }
+  }
+
+  .ant-select .ant-select-selection-item-tag {
+    display: flex;
+    align-items: center;
+  }
+
+  &-small {
+    .control-tag-inner {
+      padding: 0 7px;
+      height: $controlTagHeightSmall;
+      line-height: $controlTagHeightSmall;
+
+      &-content {
+        line-height: $controlTagInnerHeightSmall;
+
+        &-input {
+          height: $controlTagInnerHeightSmall;
+          line-height: $controlTagInnerHeightSmall;
+        }
+      }
+    }
+  }
+}
+
+.tag-control-wrapper {
+  position: relative;
+
+  &-dropdown {
+    position: absolute;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    margin-top: 26px;
+  }
+}

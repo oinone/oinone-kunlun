@@ -1,0 +1,111 @@
+@import './parameters.scss';
+
+.#{$columnClassPrefix} {
+  &-manual-editor {
+    min-height: 22px;
+    display: flex;
+    align-items: center;
+
+    &:not(.#{$columnClassPrefix}-editing) {
+      display: inline;
+
+      .#{$columnClassPrefix}-content {
+        display: inline;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    &.#{$columnClassPrefix}-wrapper-center {
+      justify-content: center;
+    }
+
+    &.#{$columnClassPrefix}-wrapper-right {
+      justify-content: right;
+
+      .#{$columnClassPrefix}-editable-handle {
+        display: flex;
+        flex-basis: 20px;
+
+        .#{$classPrefix}-icon {
+          display: none;
+        }
+      }
+
+      &:hover {
+        .#{$columnClassPrefix}-editable-handle {
+          flex-basis: unset;
+
+          .#{$classPrefix}-icon {
+            display: inline-block;
+          }
+        }
+      }
+    }
+
+    &.#{$columnClassPrefix}-editing {
+      .#{$columnClassPrefix}-content {
+        flex: 1;
+      }
+    }
+
+    .#{$columnClassPrefix}-editable-handle,
+    .#{$columnClassPrefix}-complete-handle {
+      flex-grow: 0;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .#{$classPrefix}-icon {
+        padding-left: 4px;
+        cursor: pointer;
+      }
+    }
+
+    .#{$columnClassPrefix}-editable-handle {
+      display: none;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+    }
+
+    .#{$columnClassPrefix}-content {
+      max-width: 100%;
+    }
+  }
+
+  &:hover {
+    .#{$columnClassPrefix}-editable-handle {
+      display: flex;
+    }
+  }
+
+  &-overflow-hidden {
+    overflow: hidden;
+  }
+}
+
+.#{$columnClassPrefix}-wrapper {
+  &:not(.#{$columnClassPrefix}-manual-editor) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline;
+
+    &.#{$columnClassPrefix}-wrapper-center {
+      text-align: center;
+    }
+
+    &.#{$columnClassPrefix}-wrapper-right {
+      text-align: right;
+    }
+  }
+}
+
+.#{$columnClassPrefix}-wrapper-empty:not(.oio-column-manual-editor) {
+  display: inline-block;
+}

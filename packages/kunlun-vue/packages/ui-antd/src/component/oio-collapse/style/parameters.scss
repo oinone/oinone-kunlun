@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$collapsePrefix: $prefix + -collapse;
+$collapseParameterPrefix: $parameterPrefix + -collapse;
+$collapseClassPrefix: $collapsePrefix;

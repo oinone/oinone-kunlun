@@ -1,0 +1,30 @@
+@import '../../../style/mixin.scss';
+@import '../../oio-button/style/parameters.scss';
+@import '../../oio-input/style/parameters.scss';
+@import '../../oio-input/style/mixin.scss';
+@import './parameters.scss';
+
+.#{$dateTimeRangePickerClassPrefix} {
+  height: var($parameterPrefix + -height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &-separator {
+    padding: 0 5px;
+  }
+  .#{$prefix}-input[readonly] {
+    background-color: var(#{$parameterPrefix}-input-background);
+    box-shadow: var(#{$parameterPrefix}-input-shadow);
+  }
+
+}
+
+.#{$dateTimeRangePickerClassPrefix}-popper {
+  &-year {
+    .van-picker__columns {
+      .van-picker-column:nth-child(2) {
+        display: none;
+      }
+    }
+  }
+}

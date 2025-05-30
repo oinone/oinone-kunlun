@@ -1,0 +1,13 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+@import './mixin.scss';
+
+.ant-input-number.#{$inputNumberClassPrefix} {
+  @include input-style();
+
+  width: 100%;
+
+  & > .ant-input-number-input-wrap > .ant-input-number-input {
+    height: calc(var(#{$parameterPrefix + -height}) - 2px);
+  }
+}

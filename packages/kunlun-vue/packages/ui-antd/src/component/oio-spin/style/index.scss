@@ -1,0 +1,48 @@
+@import './parameters.scss';
+
+$size: 1.2em;
+$smallSize: 1em;
+$largeSize: 1.6em;
+
+.#{$spinClassPrefix} {
+  background: var(--oio-spin-background);
+  &-small {
+    .#{$spinClassPrefix}-loading {
+      width: $smallSize;
+      height: $smallSize;
+    }
+  }
+
+  &-large {
+    .#{$spinClassPrefix}-loading {
+      width: $largeSize;
+      height: $largeSize;
+    }
+  }
+}
+
+.#{$spinClassPrefix}-loading {
+  width: $size;
+  height: $size;
+  border: 3px solid rgba(var(--oio-primary-color-rgb), 0.65);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 0.8s linear infinite;
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.ant-spin-nested-loading > div > .ant-spin {
+  &.#{$spinClassPrefix} {
+    max-height: inherit;
+  }
+}

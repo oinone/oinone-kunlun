@@ -1,0 +1,7 @@
+@import './parameters.scss';
+
+.#{$dividerClassPrefix} {
+  &.ant-divider-vertical {
+    margin: 0;
+  }
+}

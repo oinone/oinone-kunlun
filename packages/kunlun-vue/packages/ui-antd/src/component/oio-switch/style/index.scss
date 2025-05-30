@@ -1,0 +1,36 @@
+@import './parameters.scss';
+
+.#{$switchClassPrefix} {
+  &.ant-switch {
+    height: 24px;
+    border-radius: 12px;
+    background-color: var(--oio-switch-background);
+    .ant-switch-handle {
+      top: 3px;
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &:after {
+      width: 20px;
+      height: 20px;
+      background: #ffffff;
+      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 2px 9px 0 rgba(0, 0, 0, 0.08), -1px 2px 2px 0px rgba(0, 0, 0, 0.1);
+    }
+    &-small {
+      height: 18px;
+      line-height: 16px;
+      min-width: 30px;
+      &:after {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+
+  &.ant-switch-checked {
+    background-color: var($parameterPrefix + -primary-color);
+  }
+}

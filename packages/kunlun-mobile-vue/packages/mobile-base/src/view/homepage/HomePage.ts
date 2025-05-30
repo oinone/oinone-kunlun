@@ -1,0 +1,87 @@
+import { MultiTabsRuntimeManifestMergedConfigManager, ViewActionCache } from '@kunlun/engine';
+import { GlobalConfig, ViewActionTarget } from '@kunlun/meta';
+import { isNotPermission } from '@kunlun/request';
+import { Router } from '@kunlun/router';
+import { useRouter } from '@kunlun/vue-router';
+import { VueWidget } from '@kunlun/vue-widget';
+import { homepageMaybeRuntimeContext } from '../../util';
+
+export class HomePageWidget extends VueWidget {
+  protected router!: Router;
+
+  public initialize(config: Record<string, unknown> = {}) {
+    super.initialize(config);
+
+    return this;
+  }
+
+  public async created() {
+    this.router = useRouter().router;
+    let parameters;
+
+    const { homepage } = GlobalConfig.getConfig();
+
+    if (homepage && homepage.model && homepage.viewActionName) {
+      const redirect = await ViewActionCache.get(homepage.model, homepage.viewActionName);
+      if (!redirect) {
+        // this.router.push({
+        //   segments: [
+        //     {
+        //       path: 'unauthorized'
+        //     }
+        //   ]
+        // });
+        return;
+      }
+      const module = redirect.resModuleDefinition?.name || redirect.moduleDefinition?.name;
+      parameters = {
+        module,
+        model: redirect.model,
+        viewType: redirect.viewType,
+        action: redirect.name,
+        scene: redirect.name,
+        target: MultiTabsRuntimeManifestMergedConfigManager.isEnabled(module)
+          ? ViewActionTarget.OpenWindow
+          : redirect.target
+      };
+    } else {
+      try {
+        parameters = await homepageMaybeRuntimeContext();
+      } catch (e) {
+        if (isNotPermission(e)) {
+          this.router.push({
+            segments: [
+              {
+                path: 'unauthorized'
+              }
+            ]
+          });
+        }
+        return;
+      }
+
+      /**
+       * action 执行逻辑拆解，action为总入口
+       * 请求返回后
+       * createOinone() // 数据处理 供后续流程使用
+       * genModel(); // 构建模型 kunlun/metadata kunlun/cache 提供能力
+       * genModule(); // 构建应用 kunlun/metadata 提供能力
+       * genView(); // 实例化页面 kunlun/spi kunlun/widget kunlun/cache  kunlun/theme提供能力
+       * genMask(); // 实例化模板 kunlun/spi kunlun/widget 提供能力
+       * genRoute(); // 路由条状相关api kunlun/route 提供能力
+       * action请求返回后
+       * const Oinone  = genRoute(genMask(genView(genModule((genModel(createOinone(Action data)))))))
+       * Oinone就具备 当前页所有的原始数据 model相关能力 module相关能力
+       * */
+    }
+    this.router.push({
+      segments: [
+        {
+          path: 'page',
+          extra: { preserveParameter: false },
+          parameters
+        }
+      ]
+    });
+  }
+}

@@ -1,0 +1,37 @@
+@import '../../../style/mixin.scss';
+@import '../../../style/global-parameters.scss';
+
+.mobile-default-gallery {
+  height: 100%;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .default-gallery-content {
+    flex: 1;
+    overflow-y: scroll;
+    &-checked .default-card-checkbox {
+      display: flex;
+    }
+    .#{$prefix}-gallery-wrapper {
+      @include oio-scrollbar();
+
+      .#{$prefix}-spin-container {
+        height: 100%;
+
+        .#{$prefix}-gallery {
+          height: 100%;
+          &-item {
+            padding: 0 20px;
+          }
+        }
+      }
+    }
+  }
+
+  .default-gallery-pagination {
+    padding: 20px 20px 0 20px;
+    text-align: right;
+  }
+}

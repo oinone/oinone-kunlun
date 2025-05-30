@@ -1,0 +1,93 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+
+$titleHeight: 55px;
+$footerHeight: 73px;
+
+.#{$drawerClassPrefix} {
+  &-header-invisible {
+    .ant-drawer-wrapper-body > .ant-drawer-header {
+      display: none;
+    }
+  }
+
+  &-footer-invisible {
+    .ant-drawer-wrapper-body > .ant-drawer-footer {
+      display: none;
+    }
+  }
+  &.no-mask {
+    width: 100% !important;
+  }
+
+  &.#{$drawerClassPrefix}-width-small .ant-drawer-content-wrapper {
+    width: var($drawerParameterPrefix + -width-small) !important;
+  }
+  &.#{$drawerClassPrefix}-width-medium .ant-drawer-content-wrapper {
+    width: var($drawerParameterPrefix + -width-medium) !important;
+  }
+  &.#{$drawerClassPrefix}-width-large .ant-drawer-content-wrapper {
+    width: var($drawerParameterPrefix + -width-large) !important;
+  }
+  &.#{$drawerClassPrefix}-height-small .ant-drawer-content-wrapper {
+    height: var($drawerParameterPrefix + -height-small) !important;
+  }
+  &.#{$drawerClassPrefix}-height-medium .ant-drawer-content-wrapper {
+    height: var($drawerParameterPrefix + -height-medium) !important;
+  }
+  &.#{$drawerClassPrefix}-height-large .ant-drawer-content-wrapper {
+    height: var($drawerParameterPrefix + -height-large) !important;
+  }
+
+  & > .ant-drawer-content-wrapper {
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &.ant-drawer-open > .ant-drawer-content-wrapper {
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .ant-drawer-content .ant-drawer-wrapper-body {
+    .ant-drawer-body {
+      @include oio-scrollbar();
+
+      height: calc(100% - #{$titleHeight});
+      padding: 16px;
+      overflow: auto;
+
+      & > .ant-spin-nested-loading {
+        min-height: 100%;
+
+        & > .ant-spin-container {
+          min-height: 100%;
+        }
+      }
+    }
+
+    .ant-drawer-close {
+      padding: 0;
+    }
+
+    .ant-drawer-footer {
+      @include oio-scrollbar();
+
+      padding: var($parameterPrefix + -margin-md);
+      background-color: var(--oio-background);
+      border-top: 1px solid var(--oio-border-color);
+      text-align: right;
+      overflow: auto hidden;
+
+      button {
+        @import '../../oio-button/style/a-button.scss';
+
+        &.ant-btn {
+          height: var($parameterPrefix + -height);
+          margin: var($parameterPrefix + -margin-xxs) 0 var($parameterPrefix + -margin-xxs)
+            var($parameterPrefix + -margin-md);
+        }
+      }
+    }
+  }
+}

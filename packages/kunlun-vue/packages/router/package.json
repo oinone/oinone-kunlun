@@ -1,0 +1,33 @@
+{
+  "name": "@kunlun/vue-router",
+  "version": "6.2.0",
+  "main": "index.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "rollup -c",
+    "dist": "npm run prepublishOnly",
+    "index": "npm run postpublish",
+    "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
+    "x-postpublish": "node ../../scripts/postpublish.js",
+    "doc": "typedoc --out docs src/index.ts"
+  },
+  "dependencies": {
+    "@kunlun/vue-widget": "6.2.0"
+  },
+  "devDependencies": {
+    "@kunlun/router": "~6.2.0",
+    "@kunlun/shared": "~6.2.0",
+    "@kunlun/spi": "~6.2.0",
+    "@rollup/plugin-json": "4.1.0",
+    "@rollup/plugin-node-resolve": "11.2.1",
+    "@rollup/plugin-replace": "2.4.2",
+    "@types/lodash": "4.14.182",
+    "@types/lodash-es": "4.17.6",
+    "lodash": "4.17.21",
+    "lodash-es": "4.17.21"
+  },
+  "peerDependencies": {
+    "vue": "3.2.40"
+  },
+  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
+}

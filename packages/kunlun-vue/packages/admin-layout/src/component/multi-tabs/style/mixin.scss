@@ -1,0 +1,13 @@
+@mixin tab-radial-gradient($backgroundColor) {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 4px;
+  position: absolute;
+  bottom: 0;
+  @include tab-radial-gradient-color($backgroundColor);
+}
+
+@mixin tab-radial-gradient-color($backgroundColor) {
+  background: radial-gradient(4px at 4px 0px, transparent 4px, $backgroundColor 4px);
+}

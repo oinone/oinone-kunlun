@@ -1,0 +1,39 @@
+.operation-column {
+  &.operation-column-horizontal {
+    & > .vxe-cell {
+      & > .action-bar.action-bar-default,
+      & > .action-bar.action-bar-primary {
+        gap: 12px 8px;
+
+        & > .oio-action-item > .oio-button.ant-btn,
+        & > .more-action-item > .oio-button.ant-btn {
+          padding: 0 8px;
+        }
+      }
+    }
+  }
+
+  &.operation-column-vertical {
+    & > .vxe-cell {
+      & > .action-bar {
+        padding: 12px;
+        gap: 12px 8px;
+        flex-direction: column;
+
+        &.action-bar-link {
+          & > .more-action-item > .oio-button.ant-btn {
+            margin-left: 12px;
+          }
+        }
+
+        &.action-bar-default,
+        &.action-bar-primary {
+          & > .oio-action-item > .oio-button.ant-btn,
+          & > .more-action-item > .oio-button.ant-btn {
+            padding: 0 8px;
+          }
+        }
+      }
+    }
+  }
+}

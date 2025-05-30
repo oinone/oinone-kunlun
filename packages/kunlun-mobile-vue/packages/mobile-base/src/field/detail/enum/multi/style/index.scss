@@ -1,0 +1,37 @@
+@import '../../../../../style/global-parameters.scss';
+.vxe-cell .mobile-detail-multi-select {
+  overflow: auto;
+}
+
+.mobile-detail-multi-select {
+  width: 100%;
+
+  &-item {
+    background-color: RGBA(var(--oio-select-item-readonly-bg), 0.1);
+    margin-right: var(--oio-margin-xxs);
+    color: var($parameterPrefix + -select-item-readonly-color);
+    display: inline-block;
+    border-radius: var($parameterPrefix + -select-item-readonly-radius);
+
+    margin-bottom: var(--oio-margin-xxs);
+
+    &-font {
+      padding: 10px var(--oio-padding-sm);
+      font-size: var(--oio-font-size-sm);
+    }
+  }
+
+  text-align: left;
+  vertical-align: middle;
+  color: var($parameterPrefix + -text-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+.#{$formClassPrefix} .#{$formItemClassPrefix}-vertical .mobile-detail-multi-select {
+  justify-content: flex-start;
+}

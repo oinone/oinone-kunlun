@@ -1,0 +1,29 @@
+.expression-dialog {
+  .cancel-btn,
+  .ok-btn {
+    min-width: 65px;
+    height: 40px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 4px;
+  }
+}
+// wangEditor的弹窗class
+.oio-expression-modal.exp-modal-in-body.w-e-modal {
+  left: auto !important;
+  bottom: 50px;
+  right: 150px !important;
+  z-index: 99999;
+}
+
+.w-e-expression {
+  background-color: rgba(var(--oio-primary-color-rgb), 0.1);
+  border: 1px solid var(--oio-primary-color);
+  color: var(--oio-primary-color);
+  border-radius: 15px;
+  padding: 0 5px !important;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  margin-left: 4px !important;
+}

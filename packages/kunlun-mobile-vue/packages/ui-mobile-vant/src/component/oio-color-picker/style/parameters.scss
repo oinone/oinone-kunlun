@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$colorPickerPrefix: $prefix + -color-picker;
+$colorPickerParameterPrefix: $parameterPrefix + -color-picker;
+$colorPickerClassPrefix: $colorPickerPrefix;

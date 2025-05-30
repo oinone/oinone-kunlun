@@ -1,0 +1,13 @@
+@import '../../../style/global-parameters.scss';
+
+$buttonPrefix: $prefix + -button;
+$buttonParameterPrefix: $parameterPrefix + -button;
+$buttonClassPrefix: $buttonPrefix;
+$biz_style_default: default;
+$biz_style_info: info;
+$biz_style_warning: warning;
+$biz_style_success: success;
+$biz_style_danger: danger;
+$type_link: link;
+$type_primary: primary;
+$type_default: '';

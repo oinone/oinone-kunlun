@@ -1,0 +1,37 @@
+.reset-password-container {
+  height: 100%;
+  background-color: #f9fafc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .reset-password-container-header {
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.04);
+  }
+
+  .reset-password-container-header {
+    flex: 80px 0 0;
+    display: flex;
+    align-items: center;
+
+    img {
+      max-height: 48px;
+      width: auto;
+      margin-left: 40px;
+    }
+  }
+
+  .reset-password-container-content {
+    background-color: #f9fafc;
+    padding: 50px 0;
+  }
+
+  .reset-password-container-footer {
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+}

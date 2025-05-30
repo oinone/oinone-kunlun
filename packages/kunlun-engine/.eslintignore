@@ -1,0 +1,5 @@
+integration/*
+templates/*
+**/__test__/**/*
+**/*.test.[tj]s?(x)
+link-vls.js

@@ -1,0 +1,37 @@
+@import '../../../style/global-parameters.scss';
+
+$labelWidth: 72px;
+
+.gallery-common-item {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow: hidden;
+
+  .gallery-common-item-label {
+    flex: 1 0 $labelWidth;
+    width: $labelWidth;
+    margin-right: 8px;
+    font-size: var($parameterPrefix + -font-size);
+    font-weight: var($parameterPrefix + -font-weight-bold);
+    text-align: right;
+    align-self: flex-start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 5px;
+  }
+
+  .gallery-common-item-content {
+    flex: 1 0 100%;
+    max-width: calc(100% - #{$labelWidth} - 8px);
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+  }
+
+  &.gallery-common-item-hide-label {
+    .gallery-common-item-content {
+      max-width: 100%;
+    }
+  }
+}

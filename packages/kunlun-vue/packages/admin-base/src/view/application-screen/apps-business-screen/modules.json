@@ -1,0 +1,305 @@
+{
+    "c1":[
+    {
+      "id": "209926834513512002",
+      "name": "apps",
+      "module": "apps",
+      "displayName": "应用管理",
+      "application": true,
+      "state": "INSTALLED",
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/oms/dev/pamirs/logo/libra_core.png?x-oss-process=image/resize,m_lfit,h_800"
+    }],
+"c2":[
+    {
+      "id": "209926834513512001",
+      "name": "base",
+      "module": "base",
+      "displayName": "基础",
+      "application": false,
+      "state": "INSTALLED",
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/base.png?x-oss-process=image/resize,m_lfit,h_800"
+    },
+    {
+      "id": "209926834513512000",
+      "name": "user",
+      "module": "user",
+      "displayName": "用户目录",
+      "application": false,
+      "state": "INSTALLED",
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/user.png?x-oss-process=image/resize,m_lfit,h_800"
+    },
+    {
+      "id": "209926834513511999",
+      "name": "international",
+      "module": "international",
+      "displayName": "国际化",
+      "application": true,
+      "state": "INSTALLED",
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/international.png?x-oss-process=image/resize,m_lfit,h_800"
+    },
+    {
+      "id": "209926834513511998",
+      "name": "DemoCore",
+      "module": "demo_core",
+      "displayName": "学生管理系统",
+      "application": true,
+      "state": "INSTALLED"
+    },
+    {
+      "id": "209926834513511997",
+      "name": "common",
+      "module": "common",
+      "displayName": "公共包",
+      "application": false,
+      "state": "INSTALLED",
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209926834513511996",
+      "name": "file",
+      "module": "file",
+      "displayName": "文件",
+      "application": true,
+      "state": "INSTALLED",
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/file.png?x-oss-process=image/resize,m_lfit,h_800"
+    },
+    {
+      "id": "209926834513511995",
+      "name": "sequence",
+      "module": "sequence",
+      "displayName": "序列",
+      "application": false,
+      "state": "INSTALLED",
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/sequence.png?x-oss-process=image/resize,m_lfit,h_800"
+    },
+    {
+      "id": "209926834513511994",
+      "name": "message",
+      "module": "message",
+      "displayName": "消息",
+      "application": true,
+      "state": "INSTALLED",
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/message.png?x-oss-process=image/resize,m_lfit,h_800"
+    },
+    {
+      "id": "209926834513511993",
+      "name": "trigger",
+      "module": "trigger",
+      "displayName": "触发器",
+      "application": true,
+      "state": "INSTALLED",
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/trigger.png?x-oss-process=image/resize,m_lfit,h_800"
+    },
+    {
+      "id": "209926834513511992",
+      "name": "auth",
+      "module": "auth",
+      "displayName": "权限",
+      "application": true,
+      "state": "INSTALLED",
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/base.png?x-oss-process=image/resize,m_lfit,h_800"
+    },
+    {
+      "id": "209926834513511991",
+      "name": "resource",
+      "module": "resource",
+      "displayName": "资源",
+      "application": true,
+      "state": "INSTALLED",
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/resource.png?x-oss-process=image/resize,m_lfit,h_800"
+    },
+    {
+      "id": "209926834513511990",
+      "name": "business",
+      "module": "business",
+      "displayName": "商业中心",
+      "application": true,
+      "state": "INSTALLED",
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/business.png?x-oss-process=image/resize,m_lfit,h_800"
+    },
+    {
+      "id": "209929003471998741",
+      "name": "libraCore",
+      "module": "tanggula_fund",
+      "displayName": "账户中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998740",
+      "name": "libraEipOpen",
+      "module": "libra_core",
+      "displayName": "全渠道运营平台",
+      "application": true,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998739",
+      "name": "inventory",
+      "module": "libra_eip_open",
+      "displayName": "Libra 开放中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998738",
+      "name": "himalayaLogistics",
+      "module": "himalaya_inventory",
+      "displayName": "库存中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998737",
+      "name": "libraMajor",
+      "module": "libra_major",
+      "displayName": "Libra 主数据",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998736",
+      "name": "thirdPartyCommunication",
+      "module": "third_party_communication",
+      "displayName": "第三方集成-通讯",
+      "application": true,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998735",
+      "name": "pay",
+      "module": "tanggula_pay",
+      "displayName": "支付中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998734",
+      "name": "thirdPartyMap",
+      "module": "third_party_map",
+      "displayName": "第三方集成-地图",
+      "application": true,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998733",
+      "name": "libraEip",
+      "module": "libra_eip",
+      "displayName": "Libra 集成中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998732",
+      "name": "himalayaCommon",
+      "module": "himalaya_common",
+      "displayName": "himalaya公共中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998731",
+      "name": "himalayaItem",
+      "module": "himalaya_item",
+      "displayName": "商品中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998730",
+      "name": "libraTrade",
+      "module": "libra_trade",
+      "displayName": "Libra 交易中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998729",
+      "name": "trade",
+      "module": "himalaya_trade",
+      "displayName": "订单中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998728",
+      "name": "promotion",
+      "module": "himalaya_promotion",
+      "displayName": "营销中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998727",
+      "name": "libraInventory",
+      "module": "libra_inv",
+      "displayName": "Libra 库存中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998726",
+      "name": "himalayaMajor",
+      "module": "himalaya_major",
+      "displayName": "himalaya公共中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998725",
+      "name": "libraSettlement",
+      "module": "libra_settlement",
+      "displayName": "Libra 库存中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998724",
+      "name": "libraItem",
+      "module": "libra_item",
+      "displayName": "Libra 商品中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998723",
+      "name": "libraCommon",
+      "module": "libra_common",
+      "displayName": "全渠道业务资源中心",
+      "application": false,
+      "logo": "logo/default.png"
+    },
+    {
+      "id": "209929003471998722",
+      "name": "dataAudit",
+      "module": "dataAudit",
+      "displayName": "数据审计",
+      "application": true,
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/dataAudit.png?x-oss-process=image/resize,m_lfit,h_800"
+    },
+    {
+      "id": "209929003471998721",
+      "name": "eip",
+      "module": "eip",
+      "displayName": "集成接口",
+      "application": true,
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/eip.png?x-oss-process=image/resize,m_lfit,h_800"
+    },
+    {
+      "id": "209929003471998720",
+      "name": "translate",
+      "module": "translate",
+      "displayName": "翻译",
+      "application": true,
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/translate.png?x-oss-process=image/resize,m_lfit,h_800"
+    },
+    {
+      "id": "209929003471998719",
+      "name": "workflow",
+      "module": "workflow",
+      "displayName": "工作流",
+      "application": true,
+      "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/omspamirs/logo/base.png?x-oss-process=image/resize,m_lfit,h_800"
+    }
+  ]
+}

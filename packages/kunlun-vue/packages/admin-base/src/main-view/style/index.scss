@@ -1,0 +1,88 @@
+.default-metadata-main-view-spin,
+.default-main-view-spin {
+  width: 100%;
+  height: 100%;
+
+  & > .oio-spin-loading {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/**
+ * 如出现加载区域抖动，请在index.html的style标签中添加如下内容:
+ * .default-metadata-main-view-spin {
+ *     width: 100%;
+ *     height: 100%;
+ * }
+ *
+ * .default-metadata-main-view-spin > .oio-spin-loading {
+ *     width: 32px;
+ *     height: 32px;
+ * }
+ *
+ * .default-metadata-main-view-spin > .ant-spin-dot {
+ *     top: 50%;
+ * }
+ *
+ * .default-metadata-main-view-wrapper {
+ *     height: 100%;
+ * }
+ *
+ * .default-metadata-main-view-wrapper > div > .oio-spin {
+ *     max-height: 100%;
+ * }
+ *
+ * .default-metadata-main-view-wrapper > .ant-spin-container {
+ *     height: 100%;
+ * }
+ *
+ * .default-metadata-main-view-wrapper > .ant-spin-container > .ant-spin-blur > * {
+ *     display: none;
+ * }
+ */
+.default-metadata-main-view-wrapper {
+  height: 100%;
+
+  & > div > .oio-spin {
+    max-height: 100%;
+  }
+
+  & > .ant-spin-container {
+    height: 100%;
+  }
+
+  & > .ant-spin-blur > * {
+    opacity: 0;
+  }
+}
+
+.default-main-view-wrapper {
+  & > .ant-spin-container {
+    height: 100%;
+
+    &:after {
+      opacity: 0;
+    }
+  }
+
+  & > .ant-spin-blur {
+    .default-main-view-skeleton {
+      background-color: #ffffff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      padding: 16px;
+    }
+
+    & > *:not(.default-main-view-skeleton) {
+      opacity: 0;
+    }
+  }
+}
+
+.k-layout-teleport-target > div {
+  height: 100%;
+}

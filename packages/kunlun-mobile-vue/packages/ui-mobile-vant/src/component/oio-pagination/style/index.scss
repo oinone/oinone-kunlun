@@ -1,0 +1,30 @@
+@import './parameters.scss';
+@import '../../oio-input/style/mixin.scss';
+
+.#{$paginationClassPrefix} {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &-total {
+    font-size: var(--oio-font-size-sm);
+  }
+  &-nav {
+    &.van-pagination .van-pagination__page-desc {
+      padding: 0 20px;
+      height: 48px;
+      color: var(--oio-text-color-secondary);
+    }
+  }
+
+  .van-pagination__items {
+    align-items: center;
+    .van-pagination__item--prev,
+    .van-pagination__item--next {
+      width: 84px;
+      height: 48px;
+      background: #ffffff;
+      border: 1px solid rgba(217, 217, 217, 1);
+      border-radius: 8px;
+    }
+  }
+}

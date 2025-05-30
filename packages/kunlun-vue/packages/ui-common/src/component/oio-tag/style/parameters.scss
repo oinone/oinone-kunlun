@@ -1,0 +1,9 @@
+@import '../../../style/global-parameters.scss';
+
+$tagPrefix: $prefix + -tag;
+$tagParameterPrefix: $parameterPrefix + -tag;
+$tagClassPrefix: $tagPrefix;
+
+$tagsPrefix: $prefix + -tags;
+$tagsParameterPrefix: $parameterPrefix + -tags;
+$tagsClassPrefix: $tagsPrefix;

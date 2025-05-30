@@ -1,0 +1,51 @@
+@import './parameters.scss';
+
+.#{$treeClassPrefix} {
+  background-color: transparent;
+
+  .ant-tree-node-content-wrapper {
+    color: var(--oio-text-color);
+
+    &.ant-tree-node-selected {
+      background-color: rgba(var(--oio-primary-color-rgb), 0.1);
+      border-radius: 4px;
+    }
+  }
+
+  &.ant-tree .ant-tree-node-content-wrapper:hover {
+    background-color: var(--oio-menu-hover-background-color);
+  }
+
+  .ant-tree-checkbox:not(.ant-tree-checkbox-checked) {
+    background: var(--oio-checkbox-background);
+
+    .ant-tree-checkbox-inner {
+      background-color: var(--oio-background);
+      border: 1px solid var(--oio-border-color);
+    }
+  }
+
+  .anticon {
+    color: var(--oio-icon-color);
+  }
+}
+
+.ant-tree-checkbox-checked .ant-tree-checkbox-inner {
+  background-color: var(--oio-primary-color);
+  border-color: var(--oio-primary-color);
+}
+
+.ant-tree-checkbox-disabled .ant-tree-checkbox-inner {
+  background-color: var(--oio-disabled-bg);
+  border-color: var(--oio-disabled-border-color);
+}
+
+.ant-tree-checkbox-indeterminate .ant-tree-checkbox-inner:after {
+  background-color: var(--oio-primary-color);
+}
+
+.ant-tree-checkbox-input:focus + .ant-tree-checkbox-inner,
+.ant-tree-checkbox-wrapper:hover .ant-tree-checkbox-inner,
+.ant-tree-checkbox:hover .ant-tree-checkbox-inner {
+  border-color: var(--oio-primary-color);
+}

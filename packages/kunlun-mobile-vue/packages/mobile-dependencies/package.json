@@ -1,0 +1,30 @@
+{
+  "name": "@kunlun/mobile-dependencies",
+  "version": "6.2.0",
+  "main": "index.ts",
+  "dependencies": {
+    "@kunlun/cache": "~6.2.0",
+    "@kunlun/dsl": "~6.2.0",
+    "@kunlun/engine": "~6.2.0",
+    "@kunlun/event": "~6.2.0",
+    "@kunlun/expression": "~6.2.0",
+    "@kunlun/meta": "~6.2.0",
+    "@kunlun/request": "~6.2.0",
+    "@kunlun/router": "~6.2.0",
+    "@kunlun/service": "~6.2.0",
+    "@kunlun/shared": "~6.2.0",
+    "@kunlun/spi": "~6.2.0",
+    "@kunlun/state": "~6.2.0",
+    "@kunlun/theme": "~6.2.0",
+    "@kunlun/vue-mobile-base": "6.2.0",
+    "@kunlun/vue-router": "~6.2.0",
+    "@kunlun/vue-ui-common": "~6.2.0",
+    "@kunlun/vue-widget": "~6.2.0",
+    "dayjs": "1.10.7"
+  },
+  "peerDependencies": {
+    "vant": "~3.6.0",
+    "vue": "3.2.40"
+  },
+  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
+}

@@ -1,0 +1,54 @@
+@import '../../../../style/global-parameters.scss';
+
+$labelWidth: 144px;
+$height: 40px;
+
+.#{$galleryItemPrefix} {
+  .#{$prefix}-gallery-common-item {
+    display: flex;
+    align-items: center;
+
+    .gallery-common-item-label {
+      max-width: $labelWidth;
+      margin-right: 16px;
+      font-size: var($parameterPrefix + -font-size);
+      font-weight: var($parameterPrefix + -font-weight-bold);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-top: 20px;
+    }
+
+    .gallery-common-item-content {
+      flex: 1;
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      padding-top: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &.gallery-common-item-hide-label {
+      .gallery-common-item-content {
+        max-width: 100%;
+      }
+    }
+  }
+
+  .gallery-common-field {
+    width: 100%;
+    line-height: $height !important;
+    color: var($parameterPrefix + -text-color-secondary);
+    white-space: pre-wrap;
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: 28px;
+    .gallery-common-field-value {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

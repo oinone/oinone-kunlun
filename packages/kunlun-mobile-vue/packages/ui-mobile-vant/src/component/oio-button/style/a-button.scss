@@ -1,0 +1,222 @@
+@import './parameters.scss';
+@import '../../../style/mixin.scss';
+
+@mixin biz-type-style($type, $bizType) {
+  background-color: var($buttonParameterPrefix + $type + -background);
+  border: var($buttonParameterPrefix + $type + -border-width) var($buttonParameterPrefix + -primary + -border-style) var($buttonParameterPrefix + $type + -border-color);
+  color: var($buttonParameterPrefix + $type + -text-color);
+}
+
+@mixin biz-type-event-style($type, $bizType) {
+  //&:active {
+  //  @include biz-type-style($type, $bizType);
+  //}
+  //&:hover {
+  //  @include biz-type-style($type, $bizType);
+  //}
+  //&:focus {
+  //  @include biz-type-style($type, $bizType);
+  //}
+  //&:visited {
+  //  @include biz-type-style($type, $bizType);
+  //}
+}
+
+&.van-button,
+&.van-button--default {
+  @include oio-appearance($buttonParameterPrefix);
+  &.#{$buttonClassPrefix}-biz-type-default {
+    @include biz-type-style($type_default, $biz_style_default);
+    @include biz-type-event-style($type_default, $biz_style_default)
+  }
+  &.#{$buttonClassPrefix}-biz-type-danger {
+    @include biz-type-style($type_default, $biz_style_danger);
+    @include biz-type-event-style($type_default, $biz_style_danger)
+  }
+  &.#{$buttonClassPrefix}-biz-type-info {
+    @include biz-type-style($type_default, $biz_style_info);
+    @include biz-type-event-style($type_default, $biz_style_info)
+  }
+  &.#{$buttonClassPrefix}-biz-type-warning {
+    @include biz-type-style($type_default, $biz_style_warning);
+    @include biz-type-event-style($type_default, $biz_style_warning)
+  }
+  &.#{$buttonClassPrefix}-biz-type-success {
+    @include biz-type-style($type_default, $biz_style_success);
+    @include biz-type-event-style($type_default, $biz_style_success)
+  }
+  &:active {
+    @include oio-active($buttonParameterPrefix);
+  }
+
+  &:hover {
+    //@include oio-hover($buttonParameterPrefix);
+  }
+
+  &:focus {
+    //@include oio-focus($buttonParameterPrefix);
+  }
+
+  &:visited {
+    @include oio-visited($buttonParameterPrefix);
+  }
+}
+
+&.van-button--primary {
+  @include oio-appearance($buttonParameterPrefix + -primary);
+  &.#{$buttonClassPrefix}-biz-type-default {
+    @include biz-type-style(-$type_primary, $biz_style_default);
+    @include biz-type-event-style(-$type_primary, $biz_style_default)
+  }
+  &.#{$buttonClassPrefix}-biz-type-danger {
+    @include biz-type-style(-$type_primary, $biz_style_danger);
+    @include biz-type-event-style(-$type_primary, $biz_style_danger);
+  }
+  &.#{$buttonClassPrefix}-biz-type-info {
+    @include biz-type-style(-$type_primary, $biz_style_info);
+    @include biz-type-event-style(-$type_primary, $biz_style_info);
+  }
+  &.#{$buttonClassPrefix}-biz-type-warning {
+    @include biz-type-style(-$type_primary, $biz_style_warning);
+    @include biz-type-event-style(-$type_primary, $biz_style_warning)
+  }
+  &.#{$buttonClassPrefix}-biz-type-success {
+    @include biz-type-style(-$type_primary, $biz_style_success);
+    @include biz-type-event-style(-$type_primary, $biz_style_success)
+  }
+
+  .oio-icon {
+    color: #ffffff;
+  }
+
+  &:active {
+    @include oio-active($buttonParameterPrefix + -primary);
+  }
+
+  &:hover {
+    @include oio-hover($buttonParameterPrefix + -primary);
+  }
+
+  &:focus {
+    @include oio-focus($buttonParameterPrefix + -primary);
+  }
+
+  &:visited {
+    @include oio-visited($buttonParameterPrefix + -primary);
+  }
+}
+
+&.#{$buttonClassPrefix}-link {
+  height: var($parameterPrefix + -line-height);
+  line-height: var($parameterPrefix + -line-height);
+  padding: 0;
+  &.#{$buttonClassPrefix}-biz-type-default {
+    @include biz-type-style(-$type_link, $biz_style_default);
+    @include biz-type-event-style(-$type_link, $biz_style_default)
+  }
+  &.#{$buttonClassPrefix}-biz-type-danger {
+    @include biz-type-style(-$type_link, $biz_style_danger);
+    @include biz-type-event-style(-$type_link, $biz_style_danger)
+  }
+  &.#{$buttonClassPrefix}-biz-type-info {
+    @include biz-type-style(-$type_link, $biz_style_info);
+    @include biz-type-event-style(-$type_link, $biz_style_info)
+  }
+  &.#{$buttonClassPrefix}-biz-type-warning {
+    @include biz-type-style(-$type_link, $biz_style_warning);
+    @include biz-type-event-style(-$type_link, $biz_style_warning)
+  }
+  &.#{$buttonClassPrefix}-biz-type-success {
+    @include biz-type-style(-$type_link, $biz_style_success);
+    @include biz-type-event-style(-$type_link, $biz_style_success)
+  }
+
+  @include oio-appearance($buttonParameterPrefix + -link);
+
+  &:active {
+    @include oio-active($buttonParameterPrefix + -link);
+  }
+
+  &:hover {
+    @include oio-hover($buttonParameterPrefix + -link);
+  }
+
+  &:focus {
+    @include oio-focus($buttonParameterPrefix + -link);
+  }
+
+  &:visited {
+    @include oio-visited($buttonParameterPrefix + -link);
+  }
+
+  .#{$iconClassPrefix} {
+    color: var($buttonParameterPrefix + -link-text-color);
+
+    &:active {
+      color: var($buttonParameterPrefix + -primary-color-active);
+    }
+
+    &:hover {
+      color: var($buttonParameterPrefix + -link-text-color-hover);
+    }
+
+    &:focus {
+      color: var($buttonParameterPrefix + -link-text-color-focus);
+    }
+
+    &:visited {
+      color: var($buttonParameterPrefix + -link-text-color-visited);
+    }
+  }
+
+  &.#{$buttonClassPrefix}-icon-before {
+    .#{$iconClassPrefix} {
+      margin-right: var($parameterPrefix + -margin-xxs);
+    }
+  }
+
+  &.#{$buttonClassPrefix}-icon-after {
+    .#{$iconClassPrefix} {
+      margin-left: var($parameterPrefix + -margin-xxs);
+    }
+  }
+
+  &.#{$buttonClassPrefix}-icon-only {
+    background-color: transparent;
+
+    &:active,
+    &:hover,
+    &:focus,
+    &:visited {
+      background-color: transparent;
+    }
+  }
+
+  &[disabled] {
+    background-color: transparent;
+
+    &:active {
+      background-color: transparent;
+    }
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    &:focus {
+      background-color: transparent;
+    }
+
+    &.#{$buttonClassPrefix}-icon-only {
+      .oio-icon {
+        color: var($parameterPrefix + -disabled-color);
+      }
+    }
+  }
+}
+
+
+.van-button__icon {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,32 @@
+import { ModelFieldType, ViewType } from '@kunlun/meta';
+import { SPI } from '@kunlun/spi';
+
+import { FormFieldWidget } from '../../../basic/field';
+import { GalleryO2MSelectFieldWidget } from '../o2m';
+
+@SPI.ClassFactory(
+  FormFieldWidget.Token({
+    viewType: [ViewType.Gallery],
+    ttype: ModelFieldType.ManyToMany
+  })
+)
+export class GalleryM2MSelectFieldWidget extends GalleryO2MSelectFieldWidget {
+  public loadMetadata() {}
+
+  public async fetchData() {
+    // const model = await getModel(this.field.references);
+    // const labelModelFields = getLabelFieldList4query(this.getDsl().optionLabel, model.labelFields!, model.modelFields);
+    // const list = await queryFieldDataList4Detail(
+    //   this.field,
+    //   this.fieldElement,
+    //   labelModelFields,
+    //   this.getSelfViewWidget()!.getDsl(),
+    //   this.formData,
+    //   [this.formData],
+    //   this.rootData,
+    //   useMatched().matched.segmentParams.page.scene
+    // );
+    this.formData[this.itemName] = [];
+    return this.formData[this.itemName];
+  }
+}

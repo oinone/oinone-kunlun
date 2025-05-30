@@ -1,0 +1,14 @@
+.default-map {
+  .default-map-item {
+    display: flex;
+    margin-top: 8px;
+    gap: var(--oio-margin);
+    &-readonly {
+      color: var(--oio-readonly-color);
+    }
+  }
+
+  .oio-textarea.default-map-item-value {
+    height: var(--oio-height);
+  }
+}

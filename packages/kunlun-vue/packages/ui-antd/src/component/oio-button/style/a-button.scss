@@ -1,0 +1,210 @@
+@import './parameters.scss';
+@import '../../../style/mixin.scss';
+
+@mixin event-style($prefix: $buttonParameterPrefix) {
+  &:active {
+    @include oio-active($prefix);
+  }
+
+  &:hover {
+    @include oio-hover($prefix);
+  }
+
+  &:focus {
+    @include oio-focus($prefix);
+  }
+
+  &:visited {
+    @include oio-visited($prefix);
+  }
+}
+
+@mixin biz-type-style($prefix: $buttonParameterPrefix) {
+  $dangerPrefix: $prefix + -danger;
+
+  &.#{$buttonClassPrefix}-biz-type-danger {
+    @include oio-appearance($dangerPrefix);
+    @include event-style($dangerPrefix);
+  }
+
+  $infoPrefix: $prefix + -info;
+
+  &.#{$buttonClassPrefix}-biz-type-info {
+    @include oio-appearance($infoPrefix);
+    @include event-style($infoPrefix);
+  }
+
+  $warningPrefix: $prefix + -warning;
+
+  &.#{$buttonClassPrefix}-biz-type-warning {
+    @include oio-appearance($warningPrefix);
+    @include event-style($warningPrefix);
+  }
+
+  $successPrefix: $prefix + -success;
+
+  &.#{$buttonClassPrefix}-biz-type-success {
+    @include oio-appearance($successPrefix);
+    @include event-style($successPrefix);
+  }
+}
+
+&.ant-btn {
+  height: var($parameterPrefix + -height);
+  padding: 0 var($parameterPrefix + -padding-md);
+  line-height: var($parameterPrefix + -line-height);
+
+  & > span {
+    font-size: var($parameterPrefix + -font-size);
+    line-height: var($parameterPrefix + -line-height);
+    font-weight: var($parameterPrefix + -font-weight);
+    vertical-align: top;
+  }
+
+  .#{$iconClassPrefix} {
+    font-size: var($parameterPrefix + -font-size);
+  }
+
+  &.#{$buttonClassPrefix}-icon-before {
+    .#{$iconClassPrefix} {
+      margin-right: 8px;
+    }
+  }
+
+  &.#{$buttonClassPrefix}-icon-after {
+    .#{$iconClassPrefix} {
+      margin-left: 8px;
+    }
+  }
+
+  &.ant-btn-two-chinese-chars > :not(.anticon) {
+    letter-spacing: 4px;
+    margin-right: -4px;
+  }
+
+  &[disabled] {
+    @include oio-disabled(true);
+
+    &:active {
+      @include oio-disabled(true);
+    }
+
+    &:hover {
+      @include oio-disabled(true);
+    }
+
+    &:focus {
+      @include oio-disabled(true);
+    }
+
+    .oio-icon {
+      color: var($parameterPrefix + -disabled-color);
+    }
+  }
+
+  &:empty {
+    visibility: unset;
+    vertical-align: top;
+    width: 66px;
+  }
+
+  &.#{$buttonClassPrefix}-href-button:not([disabled]) {
+    position: relative;
+    pointer-events: none;
+
+    & > a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: all;
+    }
+  }
+}
+
+$defaultParameterPrefix: $buttonParameterPrefix;
+
+&.ant-btn,
+&.ant-btn-default {
+  @include oio-appearance($defaultParameterPrefix);
+  @include event-style($defaultParameterPrefix);
+  @include biz-type-style($defaultParameterPrefix + -default);
+}
+
+$dashedParameterPrefix: $buttonParameterPrefix + -dashed;
+
+&.ant-btn-dashed {
+  @include oio-appearance($dashedParameterPrefix);
+  @include event-style($dashedParameterPrefix);
+  @include biz-type-style($dashedParameterPrefix);
+}
+
+$primaryParameterPrefix: $buttonParameterPrefix + -primary;
+
+&.ant-btn-primary {
+  @include oio-appearance($primaryParameterPrefix);
+  @include event-style($primaryParameterPrefix);
+  @include biz-type-style($primaryParameterPrefix);
+
+  .oio-icon {
+    color: #ffffff;
+  }
+}
+
+$linkParameterPrefix: $buttonParameterPrefix + -link;
+
+&.ant-btn-link {
+  @include oio-appearance($linkParameterPrefix);
+  @include event-style($linkParameterPrefix);
+  @include biz-type-style($linkParameterPrefix);
+
+  height: var($parameterPrefix + -line-height);
+  line-height: var($parameterPrefix + -line-height);
+  padding: 0;
+
+  &.#{$buttonClassPrefix}-icon-before {
+    .#{$iconClassPrefix} {
+      margin-right: 4px;
+    }
+  }
+
+  &.#{$buttonClassPrefix}-icon-after {
+    .#{$iconClassPrefix} {
+      margin-left: 4px;
+    }
+  }
+
+  &.#{$buttonClassPrefix}-icon-only {
+    background-color: transparent;
+
+    &:active,
+    &:hover,
+    &:focus,
+    &:visited {
+      background-color: transparent;
+    }
+  }
+
+  &[disabled] {
+    background-color: transparent;
+
+    &:active {
+      background-color: transparent;
+    }
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    &:focus {
+      background-color: transparent;
+    }
+
+    &.#{$buttonClassPrefix}-icon-only {
+      .oio-icon {
+        color: var($parameterPrefix + -disabled-color);
+      }
+    }
+  }
+}

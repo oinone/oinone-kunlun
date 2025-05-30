@@ -1,0 +1,35 @@
+@import '../../../../../style/global-parameters.scss';
+
+.detail-multi-select {
+  width: 100%;
+
+  .detail-multi-select-item {
+    background-color: RGBA(var(--oio-select-item-readonly-bg), 0.1);
+    margin-right: var(--oio-margin-xxs);
+    color: var($parameterPrefix + -select-item-readonly-color);
+    display: inline-block;
+    border-radius: var($parameterPrefix + -select-item-readonly-radius);
+    height: var(--oio-height-sm);
+    line-height: var(--oio-height-sm);
+    margin-bottom: var(--oio-margin-xxs);
+    overflow: hidden;
+
+    .detail-multi-select-item-font {
+      padding: 0 var(--oio-padding-sm);
+      font-size: var(--oio-font-size-sm);
+      overflow: hidden; //盒子溢出隐藏
+      text-overflow: ellipsis; //文字溢出显示省略号
+      white-space: nowrap; //文字不换行
+    }
+  }
+
+  line-height: var($parameterPrefix + -line-height);
+  text-align: left;
+  vertical-align: middle;
+  color: var($parameterPrefix + -text-color);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  height: 100%;
+}

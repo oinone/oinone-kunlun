@@ -1,0 +1,89 @@
+@import './parameters.scss';
+
+$theme: theme2;
+$className: #{$baseWrapper}-#{$theme};
+
+.#{$className} {
+  background-color: var(--oio-multi-tabs-background-color-theme2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+  .#{$base} {
+    height: 38px;
+    padding-top: 4px;
+  }
+
+  .#{$base}-tab {
+    border-bottom: 2px solid transparent;
+    min-width: 140px;
+    justify-content: center;
+    position: relative;
+
+    .#{$base}-application-logo {
+      margin-left: unset;
+      box-sizing: content-box;
+      padding-left: 16px;
+    }
+
+    .#{$base}-tab-title {
+      box-sizing: content-box;
+      padding-right: 22px;
+    }
+
+    .#{$base}-tab-close-btn {
+      position: absolute;
+      right: 4px;
+      width: unset;
+    }
+
+    &.#{$base}-tab-active {
+      background-color: transparent;
+      border-bottom-color: var(--oio-primary-color);
+
+      .oio-divider {
+        display: inline-block;
+      }
+    }
+
+    &:not(.#{$base}-tab-active) {
+      .#{$base}-tab-close-btn {
+        opacity: 0;
+      }
+    }
+
+    &:before,
+    &:after {
+      display: none;
+    }
+
+    .oio-divider {
+      top: 0.04em;
+      border-color: var(--oio-multi-tabs-border-color-theme2);
+    }
+
+    &:hover {
+      background-color: transparent;
+
+      &:not(.#{$base}-tab-active) {
+        .#{$base}-tab-close-btn {
+          opacity: 1;
+        }
+      }
+
+      .oio-divider {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.#{$className}.#{$baseWrapper}-inline {
+  border-bottom: none;
+
+  .#{$base}-tab {
+    &:hover {
+      &:not(.#{$base}-tab-active) {
+        background-color: transparent;
+      }
+    }
+  }
+}

@@ -1,0 +1,194 @@
+@import '../../../style/global-parameters.scss';
+@import '../../../style/mixin.scss';
+
+$titleHeight: 60px;
+$rowActionsHeight: 40px;
+
+.default-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  background: var(--oio-background);
+  border: var($parameterPrefix + -border-width) var($parameterPrefix + -border-style)
+    var($parameterPrefix + -border-color);
+  border-radius: var($parameterPrefix + -border-radius, 4px);
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.05);
+  position: relative;
+
+  &-title {
+    padding: 16px 16px;
+    font-weight: var($parameterPrefix + -font-weight-bold);
+    border-color: var(--oio-border-color);
+
+    .default-card-title-content {
+      overflow: hidden;
+      padding-right: 6px;
+      padding-left: 6px;
+      flex: 1 1 0;
+    }
+  }
+
+  &-title-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    z-index: 900;
+    height: var(--oio-height-sm);
+
+    & > .default-card-title-toolbar-item {
+      padding-left: 16px;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      .default-countdown {
+        width: 88px;
+      }
+    }
+  }
+
+  & > .default-card-title-toolbar {
+    position: absolute;
+    top: 0;
+    right: 16px;
+  }
+
+  &-content {
+    @include oio-scrollbar();
+
+    flex: 1 1 calc(100% - #{$rowActionsHeight});
+    padding: 0 16px 16px;
+    overflow: hidden auto;
+
+    &-padding-top {
+      padding-top: 16px;
+    }
+  }
+
+  &-row-actions {
+    flex: 1 0 $rowActionsHeight;
+    height: $rowActionsHeight;
+    max-height: $rowActionsHeight;
+    background-color: var(--oio-background);
+    border-top: 1px solid var(--oio-border-color);
+    position: relative;
+
+    & > .action-bar {
+      gap: 0;
+      overflow: unset;
+      height: 100%;
+
+      .default-card-row-actions-item {
+        flex: 1;
+        padding: 0 3px;
+        height: 100%;
+
+        .oio-action-item,
+        .more-action-item {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+
+          .oio-button {
+            width: 100%;
+
+            &.oio-button-icon-before,
+            &.oio-button-icon-after {
+              .oio-action-content {
+                max-width: calc(100% - 18px);
+              }
+            }
+
+            .oio-action-content {
+              max-width: 100%;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+
+      .oio-divider {
+        position: absolute;
+        top: 1em;
+        height: 14px;
+        color: var(--oio-text-color-three);
+        border-left-color: var(--oio-border-color);
+      }
+    }
+  }
+
+  &-click {
+    display: none;
+  }
+
+  &-no-title {
+    & > .default-card-title-toolbar {
+      height: 20px;
+      top: 21px;
+    }
+
+    .default-card-content {
+      flex: 1 0 calc(100% - #{$rowActionsHeight});
+      padding: 16px;
+    }
+  }
+
+  &-allow-click {
+    cursor: pointer;
+  }
+
+  &.default-card-no-title.default-card-no-row-actions {
+    .default-card-content {
+      flex: 1 0 100%;
+    }
+  }
+
+  &-selected-wrapper {
+    display: flex;
+    flex: 1;
+
+    &-show-handler {
+      .default-card-selected-wrapper-handler {
+        display: block;
+      }
+
+      .default-card-selected-wrapper-content {
+        min-width: calc(100% - 44px);
+        max-width: calc(100% - 44px);
+      }
+    }
+
+    &-handler {
+      flex-shrink: 0;
+      flex-basis: 44px;
+      align-self: center;
+      padding-left: 16px;
+      padding-right: 8px;
+      display: none;
+
+      .oio-checkbox {
+        .ant-checkbox-inner {
+          width: 20px;
+          height: 20px;
+          margin: 0;
+
+          &:after {
+            left: 28%;
+          }
+        }
+      }
+    }
+
+    &-content {
+      min-width: 100%;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

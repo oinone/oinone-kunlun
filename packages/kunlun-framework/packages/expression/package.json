@@ -1,0 +1,23 @@
+{
+  "name": "@kunlun/expression",
+  "version": "6.2.0",
+  "main": "index.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "rollup -c",
+    "dist": "npm run prepublishOnly",
+    "index": "npm run postpublish",
+    "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
+    "x-postpublish": "node ../../scripts/postpublish.js"
+  },
+  "dependencies": {
+    "@kunlun/shared": "6.2.0",
+    "@kunlun/spi": "6.2.0",
+    "dayjs": "1.10.7"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "4.17.6",
+    "lodash-es": "4.17.21"
+  },
+  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
+}

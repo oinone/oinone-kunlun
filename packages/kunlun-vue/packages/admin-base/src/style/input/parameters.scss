@@ -1,0 +1,21 @@
+@import '../global-parameters';
+
+$inputPrefix: $prefix + -input;
+$inputParameterPrefix: $parameterPrefix + -input;
+$inputClassPrefix: $inputPrefix;
+
+$inputSearchPrefix: $inputPrefix + -search;
+$inputSearchParameterPrefix: $inputParameterPrefix + -search;
+$inputSearchClassPrefix: $inputSearchPrefix;
+
+$inputNumberPrefix: $inputPrefix + -number;
+$inputNumberParameterPrefix: $inputParameterPrefix + -number;
+$inputNumberClassPrefix: $inputNumberPrefix;
+
+$inputPasswordPrefix: $inputPrefix + -password;
+$inputPasswordParameterPrefix: $inputParameterPrefix + -password;
+$inputPasswordClassPrefix: $inputPasswordPrefix;
+
+$inputGroupPrefix: $inputPrefix + -group;
+$inputGroupParameterPrefix: $inputParameterPrefix + -group;
+$inputGroupClassPrefix: $inputGroupPrefix;

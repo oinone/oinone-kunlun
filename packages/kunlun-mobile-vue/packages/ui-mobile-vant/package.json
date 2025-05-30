@@ -1,0 +1,34 @@
+{
+  "name": "@kunlun/vue-ui-mobile-vant",
+  "version": "6.2.0",
+  "main": "index.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "rollup -c && npm run build-css && npm run build-css-rem",
+    "build-css": "sass --style compressed --no-source-map ./dist/kunlun-vue-ui-mobile-vant.scss ./dist/kunlun-vue-ui-mobile-vant.css",
+    "build-css-rem": "node ../../scripts/px2rem.js ./dist/kunlun-vue-ui-mobile-vant.css",
+    "dist": "npm run prepublishOnly",
+    "index": "npm run postpublish",
+    "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
+    "x-postpublish": "node ../../scripts/postpublish.js",
+    "doc": "typedoc --out docs src/index.ts"
+  },
+  "dependencies": {
+    "lodash-es": "4.17.21"
+  },
+  "devDependencies": {
+    "@ant-design/icons-vue": "6.1.0",
+    "@kunlun/shared": "~6.2.0",
+    "@kunlun/vue-ui-common": "~6.2.0",
+    "@types/lodash-es": "4.17.6",
+    "moment": "2.29.3",
+    "sass": "1.44.0",
+    "sass-loader": "10.1.1",
+    "vant": "~3.6.0",
+    "vue": "3.2.40"
+  },
+  "peerDependencies": {
+    "vue": ">=3.2.40"
+  },
+  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
+}

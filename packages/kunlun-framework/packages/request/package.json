@@ -1,0 +1,33 @@
+{
+  "name": "@kunlun/request",
+  "version": "6.2.0",
+  "main": "index.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "rollup -c",
+    "dist": "npm run prepublishOnly",
+    "index": "npm run postpublish",
+    "test": "jest",
+    "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
+    "x-postpublish": "node ../../scripts/postpublish.js"
+  },
+  "dependencies": {
+    "apollo-cache-inmemory": "1.6.6",
+    "apollo-client": "2.6.10",
+    "apollo-link": "1.2.14",
+    "apollo-link-batch-http": "1.2.14",
+    "apollo-link-error": "1.1.13",
+    "apollo-link-http": "1.5.17",
+    "crypto-js": "4.1.1",
+    "graphql": "15.8.0",
+    "graphql-tag": "2.12.6",
+    "jstz": "2.1.1"
+  },
+  "devDependencies": {
+    "@kunlun/shared": "6.2.0",
+    "@kunlun/spi": "6.2.0",
+    "@kunlun/state": "6.2.0",
+    "@types/crypto-js": "4.1.1"
+  },
+  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
+}

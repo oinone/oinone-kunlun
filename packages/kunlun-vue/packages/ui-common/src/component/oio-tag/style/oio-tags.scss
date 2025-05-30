@@ -1,0 +1,7 @@
+@import './parameters.scss';
+
+.#{$tagsClassPrefix} {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 8px;
+}

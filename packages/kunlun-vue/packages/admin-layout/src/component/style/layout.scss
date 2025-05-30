@@ -1,0 +1,229 @@
+.k-container {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.k-layout * {
+  box-sizing: border-box;
+}
+
+.k-layout-sidebar-horizontal {
+  flex: 1;
+  overflow: hidden;
+  width: 100%;
+}
+
+.k-layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  overflow: auto;
+
+  &.k-layout-row {
+    flex-direction: row;
+  }
+
+  &-mask {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    &.collapsed {
+      .k-oinone-application {
+        width: 80px;
+      }
+
+      .logo-background {
+        margin-left: 0px !important;
+        background-position: center !important;
+      }
+
+      .k-oinone-menu-wrapper {
+        width: 80px;
+      }
+
+      .app-name {
+        font-size: 16px !important;
+        color: var(--oio-text-color) !important;
+        letter-spacing: 0.57px !important;
+        text-align: right !important;
+        font-weight: 500;
+        overflow: initial;
+
+        svg {
+          font-size: 12px;
+          color: var(--oio-icon-color);
+        }
+      }
+
+      .designer-app-switcher {
+        width: 100px;
+      }
+
+      .logo-area {
+        margin-left: 0px !important;
+        background-position: center !important;
+      }
+
+      .designer-app-switcher-label {
+        svg {
+          font-size: 12px !important;
+          color: rgba(0, 0, 0, 0.25) !important;
+        }
+
+        .app-name {
+          font-size: 16px;
+          color: rgba(0, 0, 0, 0.85);
+          letter-spacing: 0.57px;
+          text-align: right;
+          font-weight: 500;
+
+          svg {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.25);
+          }
+        }
+      }
+    }
+  }
+
+  &-header,
+  &-sider {
+    flex: none;
+  }
+
+  &-header {
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+    background: var(--oio-background);
+    align-items: center;
+    font-size: 14px;
+    user-select: none;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.06);
+    position: relative;
+
+    .k-layout-widget,
+    .k-layout-block {
+      height: 100%;
+    }
+
+    .k-layout-block {
+      align-items: center;
+    }
+  }
+
+  &-container {
+    flex: 1;
+    display: flex;
+    overflow: auto;
+  }
+
+  &-widget {
+    & > div {
+      height: 100%;
+    }
+
+    &:has(.view-height-loading-wrapper) {
+      position: relative;
+
+      .view-height-loading-wrapper {
+        position: absolute;
+        width: 100%;
+      }
+    }
+  }
+
+  &-lang {
+    display: flex;
+    align-items: center;
+    line-height: 48px;
+    cursor: pointer;
+
+    span {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      color: var(--oio-header-color);
+    }
+
+    .oio-icon {
+      display: flex;
+      align-items: center;
+    }
+
+    .anticon-caret-down {
+      margin-left: 10px;
+    }
+  }
+
+  &-extra-btn {
+    position: relative;
+    display: flex;
+
+    .btn {
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      margin: 0 5px;
+      cursor: pointer;
+
+      .oio-icon {
+        // color: var(--oio-default-icon-color);
+      }
+    }
+
+    .msg-text {
+      margin-left: 10px;
+      color: var(--oio-header-color);
+    }
+  }
+
+  &-block {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &-sider {
+    overflow-y: auto;
+    border-right: solid 1px #eee;
+  }
+
+  &-sider::-webkit-scrollbar {
+    display: none;
+  }
+
+  &-content {
+    flex: auto;
+    overflow: auto;
+    background: var(--oio-body-background);
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--oio-padding-sm);
+    padding: var(--oio-padding-lg);
+
+    & > * {
+      flex-grow: 0;
+      flex-shrink: 0;
+
+      &:last-child {
+        flex-grow: 1;
+        flex-shrink: 1;
+      }
+    }
+  }
+}
+
+.k-language-dropdown {
+  background-color: var(--oio-background);
+
+  .ant-dropdown-menu-item,
+  .ant-dropdown-menu-submenu-title {
+    color: var(--oio-text-color);
+
+    &:hover {
+      color: var(--oio-hover-text-color);
+    }
+  }
+}

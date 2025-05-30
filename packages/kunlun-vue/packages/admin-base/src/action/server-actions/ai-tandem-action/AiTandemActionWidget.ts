@@ -1,0 +1,62 @@
+import { SPI } from '@kunlun/spi';
+import { ActionType } from '@kunlun/meta';
+import { DslDefinition } from '@kunlun/dsl';
+import { RuntimeServerAction, SubmitValue } from '@kunlun/engine';
+import { Widget, WidgetSubjection } from '@kunlun/vue-widget';
+import { ActionWidget } from '../../component';
+import { ServerActionWidget } from '../ServerActionWidget';
+import { ClickResult } from '../../../typing';
+import { REFRESH_FORM_DATA } from '../../../basic/constant/state-stream';
+import { executeAiTandemMutation } from './server';
+import { findTandemActionHostViewName } from '../../../util';
+
+@SPI.ClassFactory(ActionWidget.Token({ actionType: ActionType.Server, widget: ['AiTandemAction'] }))
+export class AiTandemActionWidget extends ServerActionWidget {
+  @Widget.SubContext(REFRESH_FORM_DATA)
+  protected reloadFormData$!: WidgetSubjection<boolean>;
+
+  @Widget.Reactive()
+  protected get updateData(): boolean {
+    return true;
+  }
+
+  @Widget.Reactive()
+  protected get refreshData(): boolean {
+    return false;
+  }
+
+  protected async executeAction(action: RuntimeServerAction, submitValue: SubmitValue): Promise<ClickResult> {
+    const activeRecord = this.activeRecords?.[0] ?? {};
+
+    const viewName = findTandemActionHostViewName({
+      rootRuntimeContext: this.rootRuntimeContext,
+      metadataRuntimeContext: this.metadataRuntimeContext,
+      isDialog: this.isDialog,
+      isDrawer: this.isDrawer
+    });
+
+    const { connectorCode = '' } = this.getDsl();
+
+    const rst = await executeAiTandemMutation(
+      {
+        connectorCode,
+        viewName,
+        actionName: action.name,
+        data: activeRecord
+      },
+      action.sessionPath
+    );
+
+    if (rst.result) {
+      let t = setTimeout(() => {
+        this.reloadFormData$.subject.next(true);
+        clearTimeout(t);
+        t = null as any;
+      }, 100);
+
+      return rst.result || {};
+    }
+
+    return null;
+  }
+}

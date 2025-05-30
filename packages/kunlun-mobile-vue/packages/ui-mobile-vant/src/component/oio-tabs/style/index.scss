@@ -1,0 +1,135 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+
+.#{$tabsClassPrefix} {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  .van-tabs__wrap {
+    padding: 0 10px;
+  }
+  .van-tab {
+    white-space: nowrap;
+  }
+  &-top {
+    .van-tab {
+      flex: unset;
+    }
+  }
+  &-left {
+    display: flex;
+    > .van-tabs__wrap {
+      width: 240px;
+      height: 100%;
+      > .van-tabs__nav {
+        flex-direction: column;
+        overflow: auto;
+        .van-tab {
+          flex-grow: 0;
+          padding: 20px;
+          position: relative;
+          &--active:after {
+            content: ' ';
+            display: block;
+            height: 50px;
+            width: var(--van-tabs-bottom-bar-height);
+            border-radius: var(--van-tabs-bottom-bar-height);
+            background: var(--van-tabs-bottom-bar-color);
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top: -25px;
+          }
+          .#{$tabClassPrefix}-title {
+            display: inline-block;
+            white-space: wrap;
+          }
+        }
+      }
+    }
+    .van-tabs__content,
+    .van-swipe__track {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+    }
+    .van-tab__panel-wrapper--inactive,
+    .van-tabs__line {
+      display: none;
+    }
+  }
+
+  .#{$tabClassPrefix}-bar {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    &-invisible {
+      display: none;
+    }
+    .#{$tabClassPrefix}-options {
+      width: 22px;
+      height: 100%;
+      position: absolute;
+      display: inline-flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      &-hide {
+        display: none;
+      }
+
+      &-top {
+        top: 0;
+        right: -16px;
+      }
+
+      &-left {
+        top: 0;
+        right: -16px;
+      }
+    }
+
+    .#{$tabClassPrefix}-close-icon {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 8px;
+      width: 14px;
+      height: 14px;
+      background-color: #f1f1f1;
+      border-radius: 50%;
+      margin: 0;
+    }
+
+    .#{$tabClassPrefix}-title {
+      display: inline-block;
+      //max-width: 120px;
+      white-space: nowrap;
+      //overflow: hidden;
+      //text-overflow: ellipsis;
+    }
+  }
+
+  .#{$tabClassPrefix} {
+    &-content {
+      width: 100%;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    &-top {
+      &-content {
+        padding: 0;
+      }
+    }
+
+    &-left {
+      &-content {
+        padding: 0;
+      }
+    }
+  }
+}

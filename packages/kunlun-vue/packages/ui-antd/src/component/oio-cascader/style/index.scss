@@ -1,0 +1,59 @@
+@import './parameters.scss';
+
+.#{$cascaderClassPrefix}-dropdown {
+  .ant-cascader-menus {
+    .ant-cascader-menu-item-expand-icon,
+    .ant-cascader-menu-item-loading-icon {
+      color: var(--oio-icon-color);
+    }
+
+    .ant-cascader-menu {
+      border-color: var(--oio-border-color);
+    }
+
+    .ant-cascader-menu-item {
+      font-size: var($parameterPrefix + -font-size);
+      color: var(--oio-text-color);
+
+      &:hover {
+        background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
+      }
+
+      .ant-cascader-checkbox-checked .ant-cascader-checkbox-inner {
+        background-color: var($parameterPrefix + -primary-color);
+        border-color: var($parameterPrefix + -primary-color);
+      }
+
+      .ant-cascader-checkbox-indeterminate .ant-cascader-checkbox-inner:after {
+        background-color: var($parameterPrefix + -primary-color);
+      }
+
+      .ant-cascader-checkbox-input:focus + .ant-cascader-checkbox-inner,
+      .ant-cascader-checkbox-wrapper:hover .ant-cascader-checkbox-inner,
+      .ant-cascader-checkbox:hover .ant-cascader-checkbox-inner {
+        border-color: var($parameterPrefix + -primary-color);
+      }
+    }
+
+    .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled),
+    .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled):hover {
+      background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
+
+      .ant-cascader-menu-item-content {
+        color: var($parameterPrefix + -primary-color);
+      }
+    }
+  }
+
+  &:not(.#{$classPrefix}-select-dropdown-multiple) {
+    .ant-cascader-menus {
+      .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-expand) {
+        &:after {
+          content: '✓';
+          color: var($parameterPrefix + -primary-color);
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

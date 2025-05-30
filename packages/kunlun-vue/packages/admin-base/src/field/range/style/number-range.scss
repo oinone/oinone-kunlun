@@ -1,0 +1,34 @@
+@import '../../../style/mixin.scss';
+@import '../../../style/input/parameters.scss';
+@import '../../../style/input/mixin.scss';
+
+.number-range {
+  @include input-style();
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 4px 11px;
+
+  .number-range-separator {
+    line-height: 1;
+    padding: 0 8px;
+  }
+
+  .oio-input.ant-input-affix-wrapper {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+
+    &:hover,
+    &:focus,
+    &[readonly],
+    &[disabled] {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+    }
+  }
+}

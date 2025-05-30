@@ -1,0 +1,9 @@
+.common-input-prefix-suffix {
+  display: flex;
+  align-items: center;
+  .common-input-prefix-suffix-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

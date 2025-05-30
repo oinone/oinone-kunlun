@@ -1,0 +1,108 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+
+$titleHeight: 60px;
+$toolbarHeight: 40px;
+
+.#{$cardClassPrefix} {
+  display: flex;
+  flex-flow: column nowrap;
+  background: var(--oio-background);
+  border: var($parameterPrefix + -border-width, 1px) var($parameterPrefix + -border-style, solid)
+    var($parameterPrefix + -border-color, #e3e7ee);
+  border-radius: var($parameterPrefix + -border-radius, 4px);
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.05);
+  position: relative;
+
+  &-allow-click {
+    .#{$cardClassPrefix}-title,
+    .#{$cardClassPrefix}-content {
+      cursor: pointer;
+    }
+  }
+
+  & > div {
+    &:first-child {
+      border-top-left-radius: var($parameterPrefix + -border-radius, 4px);
+      border-top-right-radius: var($parameterPrefix + -border-radius, 4px);
+    }
+
+    &:last-child {
+      border-bottom-left-radius: var($parameterPrefix + -border-radius, 4px);
+      border-bottom-right-radius: var($parameterPrefix + -border-radius, 4px);
+    }
+  }
+
+  &-title {
+    flex: 1 0 $titleHeight;
+    max-height: $titleHeight;
+    padding: 0 16px;
+    font-weight: var($parameterPrefix + -font-weight-bold);
+
+    &-wrapper {
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &-title-toolbar {
+    position: absolute;
+    height: $titleHeight;
+    max-height: $titleHeight;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 16px;
+    z-index: 900;
+  }
+
+  &-content {
+    @include oio-scrollbar();
+
+    padding: 0 16px 16px;
+  }
+
+  &-no-title {
+    .#{$cardClassPrefix}-content {
+      flex-basis: 100%;
+      height: 100%;
+      padding: 16px;
+    }
+  }
+
+  &-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--oio-background);
+    border-top: 1px solid var(--oio-border-color);
+    height: $toolbarHeight;
+
+    .oio-card-toolbar-divider {
+      display: inline-block;
+      position: relative;
+      top: -0.06em;
+      vertical-align: middle;
+      border-left: 1px solid rgba(0, 0, 0, 0.06);
+      height: 0.9em;
+      font-feature-settings: 'tnum';
+      box-sizing: border-box;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.85);
+      font-variant: tabular-nums;
+      line-height: 1.5715;
+      list-style: none;
+    }
+
+    .oio-button-link.oio-button-icon-only {
+      flex: 1;
+    }
+
+    .oio-button .oio-icon {
+      color: var(--oio-primary-color);
+    }
+  }
+}

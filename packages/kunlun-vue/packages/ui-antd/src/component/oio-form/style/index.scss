@@ -1,0 +1,135 @@
+@import '../../oio-input/style/parameters.scss';
+@import './parameters.scss';
+@import './animation.scss';
+
+@mixin form-item-label {
+  max-height: var(--oio-horizontal-label-height);
+  height: auto;
+  min-height: var($parameterPrefix + -height);
+  max-width: var(--ss-ant-form-item-label-width);
+  margin-bottom: 0;
+  padding-bottom: 0;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  & > label {
+    max-height: var(--oio-horizontal-label-height);
+    height: auto;
+    line-height: var($parameterPrefix + -height-sm);
+  }
+}
+
+.#{$formClassPrefix} {
+  .oio-form-item {
+    margin-bottom: var($parameterPrefix + -margin-lg);
+
+    &.ant-form-item-with-help {
+      margin-bottom: var($parameterPrefix + -margin-lg);
+    }
+  }
+
+  .#{$formItemClassPrefix}.#{$formItemClassPrefix}-horizontal {
+    flex-flow: row nowrap;
+    align-items: center;
+
+    & > .ant-form-item-label {
+      @include form-item-label;
+    }
+  }
+
+  .#{$formItemClassPrefix}-vertical {
+    flex-direction: column;
+  }
+
+  .#{$formItemClassPrefix} {
+    & > .ant-form-item-label {
+      align-self: flex-start;
+
+      & > label {
+        font-size: var($parameterPrefix + -font-size);
+        color: var($parameterPrefix + -text-color);
+        font-weight: var($parameterPrefix + -font-weight);
+        height: var($parameterPrefix + -height);
+        line-height: var($parameterPrefix + -height);
+        vertical-align: top;
+      }
+    }
+
+    .ant-form-item-explain,
+    .ant-form-item-extra {
+      margin-top: 4px;
+      width: 100%;
+      min-height: var($parameterPrefix + -line-height-sm);
+      line-height: var($parameterPrefix + -line-height-sm);
+      font-size: var($parameterPrefix + -font-size-sm);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--oio-placeholder-color);
+    }
+  }
+
+  &.ant-form-vertical {
+    .#{$formItemClassPrefix}-vertical {
+      & > .ant-form-item-label {
+        height: var(--oio-label-height);
+        line-height: 18px;
+        flex-basis: var(--oio-label-height);
+        padding: 0;
+        margin-bottom: var($parameterPrefix + -margin-xs);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        word-break: break-all;
+
+        & > label {
+          height: var(--oio-label-height);
+          line-height: var(--oio-label-height);
+        }
+      }
+
+      .ant-form-item-extra,
+      .ant-form-item-explain {
+        margin-top: 4px;
+        min-height: var($parameterPrefix + -line-height-xxs);
+        font-size: var($parameterPrefix + -font-size-sm);
+        line-height: var($parameterPrefix + -line-height-xxs);
+        color: var(--oio-placeholder-color);
+      }
+    }
+
+    .#{$formItemClassPrefix}-horizontal {
+      flex-flow: row nowrap;
+
+      & > .ant-form-item-label {
+        @include form-item-label;
+      }
+    }
+  }
+}
+
+.#{$formItemClassPrefix} {
+  &.ant-form-item-has-error {
+    & > .ant-form-item-control > .ant-form-item-extra {
+      display: none;
+    }
+
+    .oio-input,
+    .ant-calendar-picker-input {
+      border-color: var($inputParameterPrefix + -error-border-color);
+    }
+
+    .ant-select:not(.ant-select-disabled):not(.ant-select-customize-input) .ant-select-selector {
+      background: var(--oio-select-background);
+    }
+  }
+}
+
+.ant-form-item-has-error .ant-input-number:not([disabled]):hover,
+.ant-form-item-has-error .ant-mention-wrapper .ant-mention-editor,
+.ant-form-item-has-error .ant-mention-wrapper .ant-mention-editor:not([disabled]):hover,
+.ant-form-item-has-error .ant-picker:not([disabled]):hover {
+  background-color: var(--oio-input-background-hover);
+}

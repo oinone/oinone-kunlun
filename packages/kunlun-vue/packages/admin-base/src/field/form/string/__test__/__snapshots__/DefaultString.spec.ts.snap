@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DefaultString.vue should render correctly 1`] = `
+<div class="form-string-input">
+  <oio-input type="text" disabled="false" allowclear="false" minlength="0"></oio-input>
+</div>
+`;

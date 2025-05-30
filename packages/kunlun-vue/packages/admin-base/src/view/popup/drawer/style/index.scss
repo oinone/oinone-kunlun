@@ -1,0 +1,38 @@
+@import '../../../../style/global-parameters.scss';
+
+.default-drawer {
+  .ant-drawer-content .ant-drawer-wrapper-body {
+    .ant-drawer-footer {
+      padding: 0;
+
+      .action-bar {
+        height: unset;
+        padding: var($parameterPrefix + -margin-md);
+        justify-content: flex-end;
+
+        button {
+          &.ant-btn {
+            margin: unset;
+          }
+        }
+      }
+
+      .default-drawer-footer {
+        padding: var($parameterPrefix + -margin-md);
+      }
+    }
+  }
+
+  .oio-drawer-content {
+    height: 100%;
+
+    & > .oio-default-view {
+      height: 100%;
+    }
+  }
+  &-table .ant-drawer-content .ant-drawer-wrapper-body .ant-drawer-body > .ant-spin-nested-loading > .ant-spin-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+}

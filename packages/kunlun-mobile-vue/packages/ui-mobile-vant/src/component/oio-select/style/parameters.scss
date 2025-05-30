@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$selectPrefix: $prefix + -select;
+$selectParameterPrefix: $parameterPrefix + -select;
+$selectClassPrefix: $selectPrefix;

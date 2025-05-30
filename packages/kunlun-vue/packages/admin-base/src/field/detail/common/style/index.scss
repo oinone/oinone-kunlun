@@ -1,0 +1,23 @@
+@import '../../../../style/global-parameters.scss';
+
+.detail-common-field {
+  width: 100%;
+  color: var($parameterPrefix + -text-color);
+  white-space: pre-wrap;
+  display: flex;
+  flex-flow: row nowrap;
+
+  .detail-string-value,
+  .detail-common-field-value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .detail-string-value:only-child,
+  .detail-common-field-value:only-child {
+    overflow: initial;
+    text-overflow: initial;
+    white-space: initial;
+  }
+}

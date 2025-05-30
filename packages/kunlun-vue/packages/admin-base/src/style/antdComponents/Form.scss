@@ -1,0 +1,22 @@
+@keyframes bounce {
+  0% {
+    width: 0;
+    height: 0;
+    top: 19px;
+    left: 19px;
+  }
+
+  50% {
+    width: 38px;
+    height: 38px;
+    top: 0;
+    left: 0;
+  }
+
+  100% {
+    width: 0;
+    height: 0;
+    top: 19px;
+    left: 19px;
+  }
+}

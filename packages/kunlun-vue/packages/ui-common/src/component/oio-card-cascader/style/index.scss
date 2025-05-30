@@ -1,0 +1,29 @@
+@import '../../oio-card/style/parameters.scss';
+@import './parameters.scss';
+
+$titleHeight: 40px;
+
+.#{$cardCascaderClassPrefix} {
+  display: flex;
+  flex-flow: row nowrap;
+  column-gap: 16px;
+
+  & > .#{$cardClassPrefix} {
+    flex: 1;
+    min-width: 233px;
+    max-width: 233px;
+
+    .#{$cardClassPrefix}-title {
+      flex: 1 0 $titleHeight;
+      max-height: $titleHeight;
+
+      .#{$cardClassPrefix}-title-wrapper {
+        justify-content: center;
+      }
+    }
+
+    .oio-card-content {
+      flex: 1;
+    }
+  }
+}

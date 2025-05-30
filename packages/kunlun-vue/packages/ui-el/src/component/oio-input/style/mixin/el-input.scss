@@ -1,0 +1,13 @@
+@import '../parameters';
+
+@mixin el-input {
+  --el-input-text-color: var(#{$inputParameterPrefix + -text-color});
+  --el-input-border: var(#{$inputParameterPrefix + -border-width}) var(#{$inputParameterPrefix + -border-style})
+    var(#{$inputParameterPrefix + -border-color});
+  --el-input-border-color: var(#{$inputParameterPrefix + -border-color});
+  --el-input-border-radius: var(#{$inputParameterPrefix + -border-radius});
+  --el-input-hover-border: var(#{$inputParameterPrefix + -border-style-hover});
+  --el-input-focus-border: var(#{$inputParameterPrefix + -border-style-focus});
+  font-size: var($parameterPrefix + -font-size);
+  line-height: var($inputParameterPrefix + -line-height);
+}

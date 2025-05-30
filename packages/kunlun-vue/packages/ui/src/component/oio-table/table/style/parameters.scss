@@ -1,0 +1,5 @@
+@import '../../../../style/global-parameters.scss';
+
+$tablePrefix: $prefix + -table;
+$tableParameterPrefix: $parameterPrefix + -table;
+$tableClassPrefix: $tablePrefix;

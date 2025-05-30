@@ -1,0 +1,85 @@
+@import './parameters.scss';
+
+.#{$columnClassPrefix} {
+  &-manual-editor {
+    min-height: 22px;
+    display: flex;
+    align-items: center;
+
+    &.#{$columnClassPrefix}-wrapper-center {
+      justify-content: center;
+    }
+
+    &.#{$columnClassPrefix}-wrapper-right {
+      justify-content: right;
+
+      .#{$columnClassPrefix}-editable-handle {
+        display: flex;
+        flex-basis: 20px;
+
+        .#{$classPrefix}-icon {
+          display: none;
+        }
+      }
+
+      &:hover {
+        .#{$columnClassPrefix}-editable-handle {
+          flex-basis: unset;
+
+          .#{$classPrefix}-icon {
+            display: inline-block;
+          }
+        }
+      }
+    }
+
+    &.#{$columnClassPrefix}-editing {
+      .#{$columnClassPrefix}-content {
+        flex: 1;
+      }
+    }
+
+    .#{$columnClassPrefix}-editable-handle,
+    .#{$columnClassPrefix}-complete-handle {
+      flex-grow: 0;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .#{$classPrefix}-icon {
+        padding-left: 4px;
+        cursor: pointer;
+      }
+    }
+
+    .#{$columnClassPrefix}-editable-handle {
+      display: none;
+      position: absolute;
+      right: 0;
+    }
+
+    &:hover {
+      .#{$columnClassPrefix}-editable-handle {
+        display: flex;
+      }
+    }
+  }
+}
+
+.#{$columnClassPrefix}-wrapper {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  &:not(.#{$columnClassPrefix}-manual-editor) {
+    &.#{$columnClassPrefix}-wrapper-center {
+      text-align: center;
+    }
+
+    &.#{$columnClassPrefix}-wrapper-right {
+      text-align: right;
+    }
+  }
+}

@@ -1,0 +1,50 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+
+@mixin input-style() {
+  @include oio-appearance($inputParameterPrefix);
+
+  height: var($parameterPrefix + -height);
+  line-height: var($inputParameterPrefix + -line-height);
+  font-size: var(--oio-font-size);
+
+  &:hover {
+    @include oio-hover($inputParameterPrefix);
+  }
+
+  &:focus {
+    @include oio-focus($inputParameterPrefix);
+  }
+
+  &[readonly] {
+    @include oio-readonly();
+
+    &:hover {
+      @include oio-readonly(true, $inputParameterPrefix);
+    }
+
+    &:focus {
+      @include oio-readonly(true, $inputParameterPrefix);
+    }
+  }
+
+  &[disabled] {
+    @include oio-disabled();
+
+    &:hover {
+      @include oio-disabled(true, $inputParameterPrefix);
+    }
+
+    &:focus {
+      @include oio-disabled(true, $inputParameterPrefix);
+    }
+  }
+}
+
+@mixin counter() {
+  display: block;
+  position: absolute;
+  color: var($inputParameterPrefix + -counter-color);
+  font-size: var($inputParameterPrefix + -counter-font-size);
+  content: attr(data-count) '/' attr(data-total);
+}

@@ -1,0 +1,186 @@
+.default-icon-draggable {
+  width: 100%;
+  padding: var(--oio-padding);
+  background-color: var(--oio-background);
+
+  & > .oio-upload {
+    position: relative;
+    & > .ant-upload-list {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      overflow: auto;
+      transform: translateX(-50%);
+      max-height: 60px;
+      width: 100%;
+
+      .ant-upload-list-text-container {
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .oio-spin {
+          position: absolute;
+          top: 3px;
+          left: 36%;
+          & > .oio-spin-loading {
+            width: 0.9rem;
+            height: 0.9rem;
+            border: 1px solid rgba(145, 157, 172, 1);
+            border-bottom-color: transparent;
+          }
+        }
+
+        .default-icon-draggable-upload-info {
+          width: 25%;
+          .default-icon-draggable-upload {
+            &-text {
+              display: flex;
+              justify-content: space-between;
+              height: 20px;
+              margin-bottom: 4px;
+            }
+
+            &-progressBar {
+              height: 20px;
+              position: relative;
+
+              & > .default-icon-upload-progress {
+                border-radius: 3px;
+                height: 6px;
+
+                &-gray {
+                  background-color: rgba(0, 0, 0, 0.04);
+                }
+
+                &-primary {
+                  position: absolute;
+                  top: 0;
+                  background-color: var(--oio-primary-color);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  & > .oio-upload > .ant-upload {
+    width: 100%;
+    border-radius: var(--oio-upload-border-radius);
+    -webkit-box-shadow: var(--oio-upload-shadow);
+    box-shadow: var(--oio-upload-shadow);
+    margin: 0;
+    padding: var(--oio-padding);
+    background-color: rgba(var(--oio-primary-color-rgb), 0.05);
+    border: var(--oio-upload-border-width-hover) var(--oio-upload-border-style-hover)
+      var(--oio-upload-border-color-hover);
+    color: var(--oio-upload-text-color-hover);
+    outline: var(--oio-upload-outline-hover);
+    cursor: pointer;
+  }
+
+  .default-icon-draggable-content {
+    padding: var(--oio-padding);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > .default-icon-draggable-content {
+      &-noData {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & > .default-icon-draggable-content {
+          &-icon {
+            padding-top: var(--oio-padding);
+          }
+          &-text {
+            font-weight: bold;
+            padding: var(--oio-padding-md);
+          }
+          &-tip {
+            color: var(--oio-placeholder-color);
+            padding-bottom: var(--oio-padding);
+          }
+        }
+      }
+
+      &-uploading {
+        height: 84px;
+      }
+    }
+  }
+}
+
+.default-icon-upload-view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--oio-row-gap);
+  height: 100%;
+
+  & > .default-icon-upload {
+    &-gallery {
+      background-color: var(--oio-background);
+      padding: var(--oio-padding);
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      gap: calc(var(--oio-row-gap) * 1.7) calc(var(--oio-row-gap) * 1.5);
+
+      & > .oio-spin-wrapper {
+        height: 100%;
+        & > .ant-spin-container {
+          height: 100%;
+        }
+      }
+
+      .default-icon-upload-gallery-show {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: var(--oio-row-gap);
+      }
+
+      .default-icon-upload-gallery {
+        &-group {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          & > .oio-default-manage-group {
+            margin-top: 0;
+          }
+        }
+
+        &-content {
+          min-height: 300px;
+          overflow: auto;
+          flex: 1 1 0;
+          display: flex;
+          align-content: flex-start;
+          flex-flow: row wrap;
+          gap: var(--oio-row-gap);
+        }
+
+        &-empty {
+          width: 100%;
+          height: 100%;
+
+          .ant-empty-description {
+            color: var(--oio-placeholder-color);
+          }
+        }
+      }
+    }
+  }
+}
+
+.default-icon-parsing {
+}

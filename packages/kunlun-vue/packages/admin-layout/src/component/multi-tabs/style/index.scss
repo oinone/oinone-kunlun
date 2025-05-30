@@ -1,0 +1,217 @@
+@import './mixin.scss';
+
+$base: k-layout-multi-tabs;
+
+@mixin tab-radial-gradient-combination() {
+  &:before {
+    @include tab-radial-gradient(transparent);
+    right: calc(-1 * 4px);
+  }
+
+  &:after {
+    @include tab-radial-gradient(transparent);
+    left: calc(-1 * 4px);
+    transform: scaleX(-1);
+  }
+}
+
+@mixin tab-radial-gradient-combination-color($backgroundColor) {
+  &:before {
+    @include tab-radial-gradient-color($backgroundColor);
+  }
+
+  &:after {
+    @include tab-radial-gradient-color($backgroundColor);
+  }
+}
+
+.#{$base} {
+  height: 40px;
+  overflow: auto hidden;
+  display: flex;
+  flex: 1;
+  padding-top: 6px;
+
+  scrollbar-width: 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &:hover {
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      display: block;
+    }
+  }
+
+  &-wrapper {
+    position: relative;
+    display: flex;
+    background-color: var(--oio-multi-tabs-background);
+    padding: 0 24px;
+    column-gap: 16px;
+
+    &-inline {
+      width: 100%;
+      background-color: var(--oio-multi-tabs-background-color-inline);
+      padding-left: calc(var(--oio-padding-lg) - 4px);
+
+      .#{$base} {
+        margin-bottom: 8px;
+
+        &:after {
+          content: '';
+          width: 100%;
+          height: 8px;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          background-color: var(--oio-multi-tabs-active-background-color-inline);
+        }
+      }
+
+      & + .k-layout-content {
+        padding-top: calc(var(--oio-padding-lg) - 8px);
+      }
+
+      .#{$base}-tab {
+        color: var(--oio-multi-tabs-color-inline);
+
+        &:not(.#{$base}-tab-active):hover {
+          background-color: var(--oio-multi-tabs-hover-background-color-inline);
+
+          @include tab-radial-gradient-combination-color(var(--oio-multi-tabs-hover-background-color-inline));
+        }
+      }
+
+      .#{$base}-tab-active {
+        color: var(--oio-multi-tabs-active-color-inline);
+        background-color: var(--oio-multi-tabs-active-background-color-inline);
+
+        @include tab-radial-gradient-combination-color(var(--oio-multi-tabs-active-background-color-inline));
+      }
+
+      .#{$base}-toolbar {
+        margin-bottom: 11px;
+      }
+    }
+  }
+
+  &-tab {
+    position: relative;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    height: 34px;
+    border-radius: 4px 4px 0 0;
+    color: var(--oio-multi-tabs-color);
+
+    &:first-child {
+      margin-left: 4px;
+    }
+
+    @include tab-radial-gradient-combination();
+
+    &:not(.#{$base + -tab-active}):hover {
+      background-color: var(--oio-multi-tabs-hover-background-color);
+      cursor: pointer;
+
+      @include tab-radial-gradient-combination-color(var(--oio-multi-tabs-hover-background-color));
+
+      .oio-divider {
+        display: none;
+      }
+    }
+
+    &-title {
+      margin-left: 8px;
+      font-size: 12px;
+      min-width: 82px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      height: 16px;
+      line-height: 16px;
+    }
+
+    &-active {
+      color: var(--oio-multi-tabs-active-color);
+      font-weight: var(--oio-multi-tabs-active-font-weight);
+      background-color: var(--oio-multi-tabs-active-background);
+
+      @include tab-radial-gradient-combination-color(var(--oio-multi-tabs-active-background));
+
+      .oio-divider {
+        display: none;
+      }
+    }
+
+    &-closable {
+      .k-layout-multi-tabs-tab-close-btn {
+        display: block;
+      }
+    }
+
+    &-close-btn {
+      display: none;
+      align-self: center;
+      width: 20px;
+      margin-left: 8px;
+
+      .oio-icon {
+        color: var(--oio-multi-tabs-icon-color);
+      }
+    }
+
+    .oio-divider.ant-divider-vertical {
+      position: absolute;
+      right: -2px;
+      height: 16px;
+      border-color: #9d9d9d;
+      margin-top: 10px;
+    }
+  }
+
+  &-homepage-icon,
+  &-application-icon {
+    display: flex;
+    padding-left: 4px;
+  }
+
+  &-application-logo {
+    width: 14px;
+    height: 14px;
+    flex-basis: 14px;
+    flex-shrink: 0;
+    display: flex;
+    margin-left: 8px;
+
+    img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  &-toolbar {
+    flex: 0;
+    align-self: center;
+    cursor: pointer;
+  }
+
+  &-toolbar-overlay {
+    width: 127px;
+
+    .ant-dropdown-menu {
+      padding: 7px 0;
+    }
+  }
+}
+
+@import './theme1.scss';
+@import './theme2.scss';
+@import './theme3.scss';
+@import './theme4.scss';

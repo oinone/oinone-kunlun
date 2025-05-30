@@ -1,0 +1,24 @@
+@import './parameters.scss';
+
+.ant-radio {
+  .ant-radio-inner {
+    background-color: var(--oio-background);
+    border: 1px solid var(--oio-border-color);
+  }
+
+  .ant-radio-checked .ant-radio-inner {
+    border-color: var(--oio-primary-color, #606cee);
+  }
+}
+
+.ant-radio-group {
+  .ant-radio-button-wrapper {
+    background-color: var(--oio-background);
+    border-color: var(--oio-border-color);
+    color: var(--oio-text-color);
+  }
+
+  .ant-radio-button-wrapper:not(:first-child):before {
+    background-color: var(--oio-border-color);
+  }
+}

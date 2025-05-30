@@ -1,0 +1,72 @@
+.oio-default-tabs {
+  .ant-tabs.ant-tabs-card {
+    .ant-tabs-card-bar .ant-tabs-nav-container {
+      .ant-tabs-nav-scroll {
+        background: #f2f2f2;
+        display: flex;
+
+        .ant-tabs-tab {
+          background: #f2f2f2;
+        }
+
+        .ant-tabs-nav {
+          display: block;
+        }
+
+        .ant-tabs-tab-active {
+          background: #fff;
+        }
+      }
+    }
+
+    .ant-tabs-content {
+      font-size: 12px;
+
+      .ant-form-item,
+      .ant-input-number,
+      .ant-input {
+        font-size: 12px;
+      }
+    }
+
+    .ant-page-header-ghost {
+      border-bottom: none !important;
+    }
+  }
+
+  &-horizontal-center {
+    & > .ant-tabs-nav {
+      .ant-tabs-nav-wrap {
+        justify-content: center;
+      }
+    }
+  }
+
+  &-vertical-middle {
+    & > .ant-tabs-nav {
+      .ant-tabs-nav-wrap {
+        .ant-tabs-nav-list {
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  &-horizontal-right {
+    & > .ant-tabs-nav {
+      .ant-tabs-nav-wrap {
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  &-vertical-bottom {
+    & > .ant-tabs-nav {
+      .ant-tabs-nav-wrap {
+        .ant-tabs-nav-list {
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+}

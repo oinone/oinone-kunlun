@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$emptyPrefix: $prefix + -empty;
+$emptyParameterPrefix: $parameterPrefix + -empty;
+$emptyClassPrefix: $emptyPrefix;

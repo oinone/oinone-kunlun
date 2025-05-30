@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$dateTimeRangePickerPrefix: $prefix + -date-time-range-picker;
+$dateTimeRangePickerParameterPrefix: $parameterPrefix + -date-time-range-picker;
+$dateTimeRangePickerClassPrefix: $dateTimeRangePickerPrefix;

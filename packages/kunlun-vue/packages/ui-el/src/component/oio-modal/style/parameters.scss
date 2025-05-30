@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$modalPickerPrefix: $prefix + -modal;
+$modalPickerParameterPrefix: $parameterPrefix + -modal;
+$modalPickerClassPrefix: $modalPickerPrefix;

@@ -1,0 +1,260 @@
+@import '../../../../style/mixin.scss';
+@import './parameters.scss';
+
+$borderColor: var(--oio-table-row-body-border);
+$headerBackgroundColor: var(--oio-table-thead-bg);
+
+.#{$tableClassPrefix} {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--oio-row-gap);
+  height: 100%;
+
+  .#{$tableClassPrefix}-header {
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+
+  .#{$tableClassPrefix}-content-wrapper {
+    position: relative;
+    flex-shrink: 1;
+    flex-grow: 1;
+  }
+
+  .#{$tableClassPrefix}-content {
+    height: 100%;
+    width: 100%;
+  }
+
+  .#{$tableClassPrefix}-footer {
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+
+  /**
+   * 单元格字体色
+   */
+  .vxe-table--render-default,
+  .vxe-table--footer-wrapper {
+    color: var(--oio-table-text-color);
+  }
+
+  /**
+   * 单元格边距
+   */
+  .vxe-table--render-default .vxe-cell {
+    padding: 0 12px;
+  }
+
+  /**
+   * 行高
+   */
+  .vxe-table--render-default.size--mini .vxe-body--column.col--ellipsis,
+  .vxe-table--render-default.size--mini .vxe-footer--column.col--ellipsis,
+  .vxe-table--render-default.size--mini .vxe-header--column.col--ellipsis,
+  .vxe-table--render-default.vxe-editable.size--mini .vxe-body--column {
+    height: var(--oio-table-thead-height);
+  }
+
+  /**
+   * 表头字体颜色
+   */
+  .vxe-table .vxe-table--header-wrapper {
+    color: var(--oio-table-title-color);
+  }
+
+  /**
+   * 表头行背景色
+   */
+  .vxe-table--render-default.border--default .vxe-table--header-wrapper,
+  .vxe-table--render-default.border--full .vxe-table--header-wrapper,
+  .vxe-table--render-default.border--outer .vxe-table--header-wrapper {
+    background-color: $headerBackgroundColor;
+    border-top-left-radius: var(--oio-border-radius);
+    border-top-right-radius: var(--oio-border-radius);
+  }
+
+  /**
+   * 表头限制高度
+   */
+  .vxe-table--render-default.size--mini .vxe-header--column.col--ellipsis > .vxe-cell {
+    max-height: inherit;
+  }
+
+  /**
+   * 单元格限制高度
+   */
+  .vxe-table--render-default.size--mini .vxe-body--column.col--ellipsis > .vxe-cell,
+  .vxe-table--render-default.size--mini .vxe-footer--column.col--ellipsis > .vxe-cell {
+    max-height: unset;
+  }
+
+  /**
+   * 行背景色
+   */
+  .vxe-table--render-default .vxe-table--body-wrapper,
+  .vxe-table--render-default .vxe-table--footer-wrapper {
+    background-color: var(--oio-table-body-bg);
+  }
+
+  /**
+   * 斑马纹背景色
+   */
+  .vxe-table--render-default .vxe-body--row.row--stripe {
+    background-color: var(--oio-table-tr-stripe-bg);
+  }
+
+  /**
+   * 行悬停色
+   */
+  .vxe-table--render-default .vxe-body--row.row--hover,
+  .vxe-table--render-default .vxe-body--row.row--hover.row--stripe,
+  .vxe-table--render-default .vxe-body--row.row--hover.row--current {
+    background-color: var(--oio-table-tr-hover-bg);
+  }
+
+  /**
+   * 行选中色
+   */
+  .vxe-table--render-default .vxe-body--row.row--current,
+  .vxe-table--render-default .vxe-body--row.row--checked,
+  .vxe-table--render-default .vxe-body--row.row--radio,
+  .vxe-table--render-default .vxe-body--row.row--hover.row--checked,
+  .vxe-table--render-default .vxe-body--row.row--hover.row--radio {
+    background-color: var(--oio-table-tr-checked-bg);
+  }
+
+  /**
+   * 单元格边框色
+   */
+  .vxe-table--render-default.border--full .vxe-body--column,
+  .vxe-table--render-default.border--full .vxe-footer--column,
+  .vxe-table--render-default.border--full .vxe-header--column {
+    background-image: linear-gradient(#{$borderColor}, #{$borderColor}),
+      linear-gradient(#{$borderColor}, #{$borderColor});
+  }
+
+  .vxe-table--render-default.border--default .vxe-table--header-wrapper .vxe-header--row:last-child .vxe-header--gutter,
+  .vxe-table--render-default.border--full .vxe-table--header-wrapper .vxe-header--row:last-child .vxe-header--gutter,
+  .vxe-table--render-default.border--inner .vxe-table--header-wrapper .vxe-header--row:last-child .vxe-header--gutter,
+  .vxe-table--render-default.border--outer .vxe-table--header-wrapper .vxe-header--row:last-child .vxe-header--gutter {
+    background-image: linear-gradient($headerBackgroundColor, $headerBackgroundColor);
+  }
+
+  /**
+   * 表格边框色
+   */
+  .vxe-table--render-default .vxe-table--border-line {
+    border-color: $borderColor;
+    border-radius: var(--oio-border-radius);
+  }
+
+  /**
+   * 表头下边框色
+   */
+  .vxe-table .vxe-table--header-wrapper .vxe-table--header-border-line {
+    border-color: $borderColor;
+  }
+
+  .vxe-table.vxe-table--render-default:not(.is--scroll-x) {
+    /**
+    * 修正右侧边框
+    */
+    .vxe-table--body,
+    .vxe-table--footer,
+    .vxe-table--header {
+      margin-left: 1px;
+    }
+  }
+
+  .vxe-header--column.col--ellipsis > .vxe-cell .vxe-cell--title {
+    color: var(--oio-table-title-color);
+    font-size: var(--oio-font-size);
+    font-weight: var(--oio-table-title-font-weight);
+  }
+
+  .vxe-table--render-default.size--mini {
+    font-size: var(--oio-font-size);
+  }
+
+  .vxe-table .vxe-cell--sort {
+    font-size: var(--oio-table-title-sort-icon-size);
+  }
+
+  .vxe-table .vxe-sort--asc-btn,
+  .vxe-table .vxe-sort--desc-btn,
+  .vxe-table .vxe-cell--edit-icon {
+    color: var(--oio-icon-color);
+  }
+
+  .vxe-table .vxe-table--body-wrapper {
+    @include oio-scrollbar();
+  }
+
+  .vxe-table .vxe-table--header-wrapper .vxe-header--column.col--checkbox > .vxe-cell {
+    justify-content: center;
+    padding-left: 12px;
+    border-top-left-radius: var(--oio-border-radius);
+  }
+
+  .vxe-table .vxe-table--body-wrapper .vxe-body--column.col--checkbox > .vxe-cell,
+  .vxe-table .vxe-table--body-wrapper .vxe-body--column.col--radio > .vxe-cell {
+    text-align: center;
+    padding-left: 12px;
+  }
+
+  .is--checked.vxe-checkbox,
+  .is--checked.vxe-checkbox .vxe-checkbox--icon,
+  .is--checked.vxe-custom--option,
+  .is--checked.vxe-custom--option .vxe-checkbox--icon,
+  .is--checked.vxe-export--panel-column-option,
+  .is--checked.vxe-export--panel-column-option .vxe-checkbox--icon,
+  .is--checked.vxe-table--filter-option,
+  .is--checked.vxe-table--filter-option .vxe-checkbox--icon,
+  .is--indeterminate.vxe-checkbox,
+  .is--indeterminate.vxe-checkbox .vxe-checkbox--icon,
+  .is--indeterminate.vxe-custom--option,
+  .is--indeterminate.vxe-custom--option .vxe-checkbox--icon,
+  .is--indeterminate.vxe-export--panel-column-option,
+  .is--indeterminate.vxe-export--panel-column-option .vxe-checkbox--icon,
+  .is--indeterminate.vxe-table--filter-option,
+  .is--indeterminate.vxe-table--filter-option .vxe-checkbox--icon,
+  .vxe-table--render-default .is--checked.vxe-cell--checkbox,
+  .vxe-table--render-default .is--checked.vxe-cell--checkbox .vxe-checkbox--icon,
+  .vxe-table--render-default .is--indeterminate.vxe-cell--checkbox,
+  .vxe-table--render-default .is--indeterminate.vxe-cell--checkbox .vxe-checkbox--icon,
+  .is--checked.vxe-radio,
+  .is--checked.vxe-radio .vxe-radio--icon,
+  .vxe-table--render-default .is--checked.vxe-cell--radio,
+  .vxe-table--render-default .is--checked.vxe-cell--radio .vxe-radio--icon {
+    color: var(--oio-primary-color);
+  }
+
+  .vxe-checkbox:not(.is--disabled):hover .vxe-checkbox--icon,
+  .vxe-custom--option:not(.is--disabled):hover .vxe-checkbox--icon,
+  .vxe-export--panel-column-option:not(.is--disabled):hover .vxe-checkbox--icon,
+  .vxe-table--filter-option:not(.is--disabled):hover .vxe-checkbox--icon,
+  .vxe-table--render-default .vxe-cell--checkbox:not(.is--disabled):hover .vxe-checkbox--icon,
+  .vxe-radio:not(.is--disabled):hover .vxe-radio--icon,
+  .vxe-table--render-default .vxe-cell--radio:not(.is--disabled):hover .vxe-radio--icon {
+    color: var(--oio-primary-color-hover);
+  }
+
+  .vxe-checkbox .vxe-checkbox--icon,
+  .vxe-custom--option .vxe-checkbox--icon,
+  .vxe-export--panel-column-option .vxe-checkbox--icon,
+  .vxe-table--filter-option .vxe-checkbox--icon,
+  .vxe-table--render-default .vxe-cell--checkbox .vxe-checkbox--icon {
+    color: var(--oio-checkbox-border-color);
+  }
+
+  .is--disabled.vxe-checkbox .vxe-checkbox--icon,
+  .is--disabled.vxe-custom--option .vxe-checkbox--icon,
+  .is--disabled.vxe-export--panel-column-option .vxe-checkbox--icon,
+  .is--disabled.vxe-table--filter-option .vxe-checkbox--icon,
+  .vxe-table--render-default .is--disabled.vxe-cell--checkbox .vxe-checkbox--icon {
+    color: var(--oio-checkbox-disabled-border-color);
+  }
+}
+
+@import './none-border.scss';

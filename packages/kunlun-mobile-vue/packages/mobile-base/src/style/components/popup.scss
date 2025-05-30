@@ -1,0 +1,13 @@
+@import '../global-parameters';
+
+.mobile-default-inner-popup {
+  .#{$prefix}-inner-popup-footer {
+    padding: 4px;
+
+    .#{$prefix}-action-bar {
+      height: unset;
+      padding: 12px;
+      justify-content: flex-end;
+    }
+  }
+}

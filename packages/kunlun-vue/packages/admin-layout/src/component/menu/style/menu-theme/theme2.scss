@@ -1,0 +1,37 @@
+@import '../mixin.scss';
+
+.oinone-menu.oinone-menu-theme2 {
+  .root-menu {
+    .ant-menu-sub {
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        left: 20px;
+        height: calc(100% - var(--oio-menu-item-height) / 2);
+        width: 1px;
+        margin-left: 2px;
+        top: 1px;
+        background: var(--oio-border-color);
+      }
+
+      & > li {
+        overflow: initial;
+        position: relative;
+        margin-left: 3px;
+        width: calc(100% - 3px);
+        &::before {
+          content: '';
+          position: absolute;
+          left: -12px;
+          top: calc(var(--oio-menu-item-height) / 2);
+          height: 1px;
+          width: 12px;
+          background: var(--oio-border-color);
+        }
+      }
+    }
+  }
+
+  @include menuInlineIndentMixin(16px, 16px, 32px, 8px);
+}

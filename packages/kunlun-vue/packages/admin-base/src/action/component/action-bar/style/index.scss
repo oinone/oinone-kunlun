@@ -1,0 +1,90 @@
+@import '../../../../style/mixin.scss';
+
+.action-bar {
+  @include oio-scrollbar();
+
+  width: 100%;
+  height: var(--oio-height);
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 12px var(--oio-margin-md);
+  overflow: auto hidden;
+
+  .more-action-item {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  .more-action-selector {
+    vertical-align: 0;
+
+    &.oio-button.ant-btn {
+      &.oio-button-default {
+        .oio-icon {
+          color: var(--oio-button-text-color);
+        }
+
+        &:hover {
+          .oio-icon {
+            color: var(--oio-button-text-color-hover);
+          }
+        }
+      }
+
+      &.oio-button-primary {
+        .oio-icon {
+          color: var(--oio-button-primary-text-color);
+        }
+
+        &:hover {
+          .oio-icon {
+            color: var(--oio-button-primary-text-color-hover);
+          }
+        }
+      }
+
+      &.oio-button-link {
+        .oio-icon {
+          color: var(--oio-button-link-text-color);
+        }
+
+        &:hover {
+          .oio-icon {
+            color: var(--oio-button-link-text-color-hover);
+          }
+        }
+      }
+
+      &.oio-button-icon-after .oio-icon {
+        font-size: calc(var(--oio-font-size) - 2px);
+        margin-left: 2px;
+      }
+    }
+  }
+
+  .gallery-action-bar-operators {
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+  }
+
+  .gallery-action-bar-batch-selected {
+    width: 159px;
+    height: 40px;
+    background-color: transparent;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 16px;
+  }
+
+  .oio-checkbox {
+    background: transparent !important;
+  }
+
+  .ant-checkbox-wrapper {
+    color: var(--oio-text-color);
+  }
+}

@@ -1,0 +1,26 @@
+@import './global-parameters.scss';
+
+$transitionParameterPrefix: $parameterPrefix + -transition;
+
+$fadeLinear: $transitionParameterPrefix + -fade-linear;
+$duration: $transitionParameterPrefix + -duration;
+
+.#{$classPrefix}-fade-in-linear-enter-active,
+.#{$classPrefix}-fade-in-linear-leave-active {
+  transition: var($fadeLinear, opacity 0.2s linear);
+}
+
+.#{$classPrefix}-fade-in-linear-from,
+.#{$classPrefix}-fade-in-linear-to {
+  opacity: 0;
+}
+
+.#{$classPrefix}-fade-in-enter-active,
+.#{$classPrefix}-fade-in-leave-active {
+  transition: all var($duration, 0.3s) cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.#{$classPrefix}-fade-in-from,
+.#{$classPrefix}-fade-in-to {
+  opacity: 0;
+}

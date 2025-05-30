@@ -1,0 +1,9 @@
+.mobile-common-input-prefix-suffix {
+  display: flex;
+  align-items: center;
+  &-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

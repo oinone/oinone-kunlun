@@ -1,0 +1,56 @@
+@import '../mixin.scss';
+
+.oinone-menu.oinone-menu-theme4 {
+  .oio-sub-menu-menu-item,
+  .not-root-menu {
+    /**
+     *   多层级菜单的左侧圆点
+     */
+    .ant-menu-title-content {
+      position: relative;
+      padding-left: 16px;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(0, -50%);
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--oio-menu-default-icon-color);
+      }
+    }
+
+    &.ant-menu-submenu-selected {
+      & > .ant-menu-submenu-title .ant-menu-title-content {
+        &::before {
+          background: var(--oio-primary-color);
+        }
+      }
+    }
+  }
+
+  .ant-menu-item-selected > .ant-menu-title-content {
+    &::before {
+      background: var(--oio-primary-color);
+    }
+  }
+
+  .ant-menu-submenu-open {
+    border-radius: 4px;
+    padding-bottom: 2px;
+    background: var(--oio-menu-expand-background-color);
+    .ant-menu-sub.ant-menu-inline {
+      background: var(--oio-menu-expand-background-color);
+    }
+
+    & > .ant-menu-title-content {
+      &::before {
+        background: var(--oio-primary-color);
+      }
+    }
+  }
+
+  @include menuInlineIndentMixin(16px, 16px, 16px, 16px);
+}

@@ -1,0 +1,19 @@
+import { ModelFieldType, ViewType } from '@kunlun/meta';
+import { SPI } from '@kunlun/spi';
+import { FormFieldWidget } from '../../../basic';
+import { DetailYearFieldWidget } from '../../detail';
+import ReadonlyDateTimePicker from './ReadonlyDateTimePicker.vue';
+
+@SPI.ClassFactory(
+  FormFieldWidget.Token({
+    viewType: ViewType.Gallery,
+    ttype: ModelFieldType.Year
+  })
+)
+export class GalleryYearFieldWidget extends DetailYearFieldWidget {
+  public initialize(props) {
+    super.initialize(props);
+    this.setComponent(ReadonlyDateTimePicker);
+    return this;
+  }
+}

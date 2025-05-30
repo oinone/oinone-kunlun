@@ -1,0 +1,28 @@
+$prefix: oio-m;
+$parameterPrefix: --oio;
+$classPrefix: $prefix;
+
+$formPrefix: $prefix + -form;
+$formParameterPrefix: $parameterPrefix + -form;
+$formClassPrefix: $formPrefix;
+
+$formItemPrefix: $prefix + -form-item;
+$formItemParameterPrefix: $parameterPrefix + -form-item;
+$formItemClassPrefix: $formItemPrefix;
+
+$groupPrefix: $prefix + -group;
+$groupParameterPrefix: $parameterPrefix + -group;
+$groupClassPrefix: $groupPrefix;
+
+$tabsPrefix: $prefix + -tabs;
+$tabsParameterPrefix: $parameterPrefix + -tabs;
+$tabsClassPrefix: $tabsPrefix;
+
+$tabPrefix: $prefix + -tab;
+$tabParameterPrefix: $parameterPrefix + -tab;
+$tabClassPrefix: $tabPrefix;
+
+
+$galleryItemPrefix: $prefix + -gallery-item;
+$galleryItemParameterPrefix: $parameterPrefix + -gallery-item;
+$galleryItemClassPrefix: $tabPrefix;

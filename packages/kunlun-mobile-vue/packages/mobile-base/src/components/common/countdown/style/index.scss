@@ -1,0 +1,11 @@
+@import '../../../../style/global-parameters.scss';
+.#{$prefix}-default-countdown {
+  text-align: center;
+
+  &-content {
+    display: inline-block;
+    height: var(--oio-line-height);
+    line-height: var(--oio-line-height);
+    vertical-align: -1px;
+  }
+}

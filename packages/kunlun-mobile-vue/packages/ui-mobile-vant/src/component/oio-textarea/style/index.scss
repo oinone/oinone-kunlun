@@ -1,0 +1,103 @@
+@import '../../../style/mixin.scss';
+@import '../../oio-input/style/mixin.scss';
+@import './parameters.scss';
+
+.#{$textareaClassPrefix} {
+  &.#{$textareaClassPrefix}-allow-clear {
+    &:hover {
+
+    }
+  }
+
+  textarea {
+    font-size: var(--oio-font-size);
+    border: none;
+    width: 100%;
+    @include oio-appearance($textareaParameterPrefix);
+
+    &:hover {
+      @include oio-hover($textareaParameterPrefix);
+    }
+
+    &:focus {
+      @include oio-focus($textareaParameterPrefix);
+    }
+  }
+
+  textarea[disabled=true],
+  textarea[disabled=disabled],
+  textarea[disabled=''] {
+    background-color: var($parameterPrefix + -disabled-bg);
+    color: var($parameterPrefix + -disabled-color);
+
+    &:hover {
+      border-color: var($textareaParameterPrefix + -border-color);
+    }
+  }
+
+  &.#{$textareaClassPrefix}-readonly {
+    textarea {
+      background-color: var($parameterPrefix + -disabled-bg);
+    }
+
+  }
+
+  &.#{$textareaClassPrefix}-show-count[data-count] {
+    position: relative;
+    textarea {
+      margin-bottom: 26px;
+      padding: 0;
+    }
+    &:after {
+      @include counter();
+      bottom: 9px;
+      right: 12px;
+    }
+  }
+}
+
+textarea.#{$textareaClassPrefix} {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: var(--oio-font-size);
+  min-height: 100px;
+  line-height: 24px;
+  border: 0;
+  //@include oio-appearance($textareaParameterPrefix);
+  &::-webkit-input-placeholder {
+    color: #bfbfbf;
+  }
+  &:hover {
+    //@include oio-hover($textareaParameterPrefix);
+  }
+
+  &:focus {
+    //@include oio-focus($textareaParameterPrefix);
+  }
+
+  &[readonly] {
+    @include oio-readonly();
+
+    &:hover {
+      @include oio-readonly();
+    }
+
+    &:focus {
+      @include oio-readonly();
+    }
+  }
+
+  &textarea[disabled=true],
+  &textarea[disabled=disabled],
+  &textarea[disabled=''] {
+    @include oio-disabled();
+
+    &:hover {
+      @include oio-disabled(true, $textareaParameterPrefix);
+    }
+
+    &:focus {
+      @include oio-disabled(true, $textareaParameterPrefix);
+    }
+  }
+}

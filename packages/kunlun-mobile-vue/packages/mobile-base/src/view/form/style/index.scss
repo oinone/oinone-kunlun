@@ -1,0 +1,31 @@
+@import '../../../style/global-parameters.scss';
+
+.#{$prefix}-default-form {
+  position: relative;
+  padding: 24px 0;
+
+  .#{$prefix}-default-form {
+    padding-bottom: 0;
+  }
+
+  .form-loading-icon {
+
+    &:before,
+    &:after {
+      content: '' !important;
+      width: 0 !important;
+      height: 0 !important;
+      border-radius: 50% !important;
+      background-color: #606cee !important;
+      opacity: 0.4 !important;
+      position: absolute !important;
+      top: 19px !important;
+      left: 19px !important;
+      animation: bounce 2s ease-in-out infinite !important;
+    }
+
+    &:after {
+      animation-delay: -1s !important;
+    }
+  }
+}

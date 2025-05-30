@@ -1,0 +1,32 @@
+.oio-column-wrapper {
+  &.oio-column-wrapper-center {
+    & > .detail-multi-select {
+      justify-content: center;
+    }
+  }
+
+  &.oio-column-wrapper-right {
+    & > .detail-multi-select {
+      justify-content: right;
+    }
+  }
+}
+
+.table-multi-select {
+  flex-wrap: nowrap;
+  overflow-y: auto;
+
+  scrollbar-width: 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &:hover {
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      display: block;
+    }
+  }
+}

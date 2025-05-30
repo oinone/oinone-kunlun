@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$checkboxPrefix: $prefix + -checkbox;
+$checkboxParameterPrefix: $parameterPrefix + -checkbox;
+$checkboxClassPrefix: $checkboxPrefix;

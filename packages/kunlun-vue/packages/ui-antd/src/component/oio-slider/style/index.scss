@@ -1,0 +1,100 @@
+@import './parameters.scss';
+
+/**
+ * 滑动轨道高度
+ * 滑块拖拽柄的大小和高度无法自动计算到中间位置，不使用主题进行设置
+ */
+$sliderHeight: 8px;
+
+/**
+ * 滑动轨道高度
+ * 滑块拖拽柄的大小和高度无法自动计算到中间位置，不使用主题进行设置
+ */
+$sliderWidth: 8px;
+
+.#{$sliderClassPrefix} {
+  height: var($parameterPrefix + -height);
+  padding: calc((var(#{$parameterPrefix + -height}) - #{$sliderHeight}) / 2) 0;
+  margin: 0;
+
+  .ant-slider-rail {
+    height: $sliderHeight;
+    background-color: #f4f4f4;
+    border-radius: calc(#{$sliderHeight} / 2);
+  }
+
+  .ant-slider-track {
+    height: $sliderHeight;
+    background-color: var($parameterPrefix + -primary-color);
+    border-radius: calc(#{$sliderHeight} / 2);
+  }
+
+  .ant-slider-step {
+    height: $sliderHeight;
+    border-radius: calc(#{$sliderHeight} / 2);
+  }
+
+  .ant-slider-handle {
+    margin-top: -3px;
+    border: 1px solid #c3c3c3;
+
+    &.ant-tooltip-open {
+      border-color: var($parameterPrefix + -primary-color-hover);
+    }
+
+    &-click-focused {
+      border-color: var($parameterPrefix + -primary-color-focus);
+    }
+  }
+
+  &:hover {
+    .ant-slider-rail {
+      background-color: #e3e3e3;
+    }
+
+    .ant-slider-track {
+      background-color: var($parameterPrefix + -primary-color-hover);
+    }
+
+    .ant-slider-handle:not(.ant-tooltip-open) {
+      border-color: var($parameterPrefix + -primary-color-hover);
+    }
+  }
+
+  &:focus {
+    border-color: var($parameterPrefix + -primary-color-focus);
+  }
+
+  &.ant-slider-vertical {
+    height: 100%;
+    width: 12px;
+    padding: 0 calc((var(#{$parameterPrefix + -height}) - #{$sliderWidth}) / 2);
+
+    .ant-slider-rail {
+      height: 100%;
+      width: $sliderWidth;
+      border-radius: calc(#{$sliderWidth} / 2);
+    }
+
+    .ant-slider-track {
+      height: 100%;
+      width: $sliderWidth;
+      border-radius: calc(#{$sliderWidth} / 2);
+    }
+
+    .ant-slider-step {
+      height: 100%;
+      width: $sliderWidth;
+      border-radius: calc(#{$sliderWidth} / 2);
+    }
+
+    .ant-slider-handle {
+      margin-top: -6px;
+      margin-left: -3px;
+    }
+
+    .ant-slider-mark {
+      left: 21px;
+    }
+  }
+}

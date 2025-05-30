@@ -1,0 +1,108 @@
+@import '../../../style/mixin.scss';
+@import '../../oio-input/style/mixin.scss';
+@import './parameters.scss';
+
+.#{$textareaClassPrefix} {
+  &.ant-input-affix-wrapper,
+  .ant-input-affix-wrapper {
+    border: none;
+    background-color: transparent;
+  }
+
+  .ant-input-textarea-clear-icon {
+    display: none;
+  }
+
+  &.#{$textareaClassPrefix}-allow-clear {
+    &:hover {
+      & + .ant-input-textarea-clear-icon {
+        display: inline-block;
+      }
+
+      & > .ant-input-affix-wrapper-textarea-with-clear-btn > .ant-input-textarea-clear-icon {
+        display: inline-block;
+      }
+    }
+  }
+
+  textarea.ant-input {
+    font-size: var(--oio-font-size);
+    @include oio-appearance($textareaParameterPrefix);
+
+    &:hover {
+      @include oio-hover($textareaParameterPrefix);
+    }
+
+    &:focus {
+      @include oio-focus($textareaParameterPrefix);
+    }
+  }
+
+  textarea.ant-input[disabled] {
+    background-color: var($parameterPrefix + -disabled-bg);
+    color: var($parameterPrefix + -disabled-color);
+
+    &:hover {
+      border-color: var($textareaParameterPrefix + -border-color);
+    }
+  }
+
+  &.#{$textareaClassPrefix}-readonly {
+    textarea.ant-input {
+      background-color: var($parameterPrefix + -disabled-bg);
+    }
+
+    .ant-input-affix-wrapper-textarea-with-clear-btn {
+      .ant-input-textarea-clear-icon {
+        visibility: hidden;
+      }
+    }
+  }
+
+  &.#{$textareaClassPrefix}-show-count[data-count] {
+    position: relative;
+
+    &:after {
+      @include counter();
+      bottom: 9px;
+      right: 12px;
+    }
+  }
+}
+
+textarea.#{$textareaClassPrefix} {
+  font-size: var(--oio-font-size);
+  @include oio-appearance($textareaParameterPrefix);
+
+  &:hover {
+    @include oio-hover($textareaParameterPrefix);
+  }
+
+  &:focus {
+    @include oio-focus($textareaParameterPrefix);
+  }
+
+  &[readonly] {
+    @include oio-readonly(true);
+
+    &:hover {
+      @include oio-readonly(true);
+    }
+
+    &:focus {
+      @include oio-readonly(true);
+    }
+  }
+
+  &[disabled] {
+    @include oio-disabled(true);
+
+    &:hover {
+      @include oio-disabled(true);
+    }
+
+    &:focus {
+      @include oio-disabled(true);
+    }
+  }
+}

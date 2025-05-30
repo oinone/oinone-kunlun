@@ -1,0 +1,40 @@
+{
+  "name": "@kunlun/vue-ui",
+  "version": "6.2.0",
+  "main": "index.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "rollup -c && npm run build-css",
+    "build-css": "sass --style compressed --no-source-map ./dist/kunlun-vue-ui.scss ./dist/kunlun-vue-ui.css",
+    "dist": "npm run prepublishOnly",
+    "index": "npm run postpublish",
+    "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
+    "x-postpublish": "node ../../scripts/postpublish.js",
+    "doc": "typedoc --out docs src/index.ts"
+  },
+  "dependencies": {
+    "@kunlun/vue-ui-antd": "6.2.0",
+    "@kunlun/vue-ui-common": "6.2.0",
+    "sortablejs": "1.14.0",
+    "vue3-smooth-dnd": "0.0.5",
+    "vuedraggable": "4.1.0",
+    "vxe-table": "4.3.6",
+    "vxe-table-plugin-antd": "3.0.6",
+    "vxe-table-plugin-element": "3.0.6",
+    "xe-utils": "3.5.7"
+  },
+  "devDependencies": {
+    "@kunlun/shared": "~6.2.0",
+    "@types/lodash": "4.14.182",
+    "@types/lodash-es": "4.17.6",
+    "lodash": "4.17.21",
+    "lodash-es": "4.17.21",
+    "sass": "1.44.0",
+    "sass-loader": "10.1.1"
+  },
+  "peerDependencies": {
+    "vue": ">=3.2.40",
+    "vuedraggable": ">=4.1.0"
+  },
+  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
+}

@@ -1,0 +1,93 @@
+@import '../global-parameters';
+
+.#{$prefix}-default-detail-view .file-delete-btn {
+  display: none;
+}
+
+.mobile-upload-fields {
+  width: 100%;
+
+  .#{$prefix}-button.van-button--primary.oio-m-button-biz-type-default {
+    // background-color: #f4f6f8;
+    // border: 1px solid rgba(217, 217, 217, 1);
+    border-radius: 8px;
+    // color: var(--oio-text-color-secondary);
+    font-size: 24px;
+    width: 240px;
+    height: 68px;
+    margin-bottom: 8px;
+    // .oio-icon {
+    //   color: var(--oio-text-color-secondary);
+    // }
+  }
+  .van-uploader__preview {
+    display: none;
+  }
+  .file-list {
+    margin-top: 10px;
+    .file-item {
+      width: 100%;
+      line-height: 40px;
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      .file-name {
+        flex: 1;
+        width: 100%;
+        overflow: hidden;
+        //text-overflow: ellipsis;
+        //white-space: nowrap;
+        word-break: break-all;
+        padding-right: 10px;
+        text-align: left;
+      }
+    }
+  }
+  &-readonly {
+    .file-list {
+      margin-top: 0;
+    }
+  }
+}
+
+.#{$prefix}-form-item-vertical {
+  .mobile-upload-fields {
+    margin-top: 20px;
+  }
+}
+
+.#{$formPrefix} .#{$formItemPrefix}.#{$formItemPrefix}-vertical-fake {
+  position: relative;
+  .van-field__body,
+  .van-field__control--custom {
+    height: auto;
+    min-height: 0;
+  }
+
+  .widget-container {
+    position: static !important;
+    min-height: 0 !important;
+    > div {
+      line-height: 0;
+    }
+  }
+  .#{$prefix}-default-upload-img,
+  .mobile-upload-fields {
+    .van-uploader {
+      position: static;
+    }
+    .van-uploader__input-wrapper {
+      position: absolute;
+      top: -12px;
+      right: 0;
+      .van-uploader__input {
+        height: 80px;
+        width: 80px;
+        padding-left: 80px;
+        top: -30px;
+        left: unset;
+        right: -20px;
+      }
+    }
+  }
+}

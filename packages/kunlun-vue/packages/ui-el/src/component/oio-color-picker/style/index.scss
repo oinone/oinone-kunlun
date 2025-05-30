@@ -1,0 +1,125 @@
+@import './parameters.scss';
+@import '../../oio-input/style/mixin/el-input.scss';
+
+.#{$colorPickerClassPrefix} {
+  .el-input__wrapper {
+    background: var(--oio-input-background);
+    padding: 0 11px;
+    &:hover {
+      border-color: var(--oio-primary-color-hover);
+      box-shadow: 0 0 0 1px var(--oio-primary-color-hover) inset;
+    }
+  }
+
+  .el-input.is-disabled .el-input__wrapper {
+    background: var(--oio-readonly-bg);
+    border-color: var(--oio-border-color);
+    box-shadow: 0 0 0 1px var(--oio-readonly-bg) inset;
+  }
+
+  .el-color-picker {
+    outline: none;
+  }
+
+  .el-color-picker .el-color-picker__empty {
+    color: var(--oio-addon-color-pick-icon-color);
+  }
+
+  .el-color-picker__color.is-alpha {
+    background-image: none;
+    border: none;
+  }
+
+  .el-input {
+    @include el-input;
+
+    width: 100%;
+
+    .el-input__inner {
+      border-color: var($parameterPrefix + -border-color);
+      height: var($parameterPrefix + -height);
+      line-height: var($inputParameterPrefix + -line-height);
+    }
+
+    .el-input-group__prepend,
+    .el-input-group__append {
+      border-color: var(--oio-addon-color-pick-border-color);
+      padding: 0;
+      background-color: transparent;
+    }
+
+    .el-input-group__prepend .#{$colorPickerClassPrefix}-inner {
+      border-top-left-radius: var($parameterPrefix + -border-radius);
+      border-bottom-left-radius: var($parameterPrefix + -border-radius);
+    }
+
+    .el-input-group__append .#{$colorPickerClassPrefix}-inner {
+      border-top-right-radius: var($parameterPrefix + -border-radius);
+      border-bottom-right-radius: var($parameterPrefix + -border-radius);
+    }
+  }
+
+  .#{$colorPickerClassPrefix}-inner {
+    height: calc(var($parameterPrefix + -height) - 2px);
+    width: calc(var($parameterPrefix + -height) - 2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .el-color-picker {
+      .el-color-picker__trigger {
+        border: none;
+        border-radius: 0;
+      }
+    }
+
+    &-readonly {
+      pointer-events: none;
+      background-color: var(--oio-addon-color-pick-readonly-background);
+    }
+
+    & > .is-disabled {
+      .el-color-picker__mask {
+        display: none;
+      }
+
+      .el-color-picker__trigger {
+        background-color: var(--oio-addon-color-pick-readonly-background);
+      }
+    }
+  }
+
+  &.#{$colorPickerClassPrefix}-readonly {
+    .el-input__inner[readonly] {
+      background-color: transparent;
+    }
+
+    .el-color-picker__trigger {
+      pointer-events: none;
+
+      .el-color-picker__icon {
+        display: none;
+      }
+    }
+  }
+
+  & > .el-input.is-disabled {
+    background-color: var($parameterPrefix + -disabled-bg);
+    border: 1px solid var(--oio-border-color);
+    box-sizing: border-box;
+
+    .el-input__inner {
+      border-color: var(--oio-border-color);
+      height: calc(var(--oio-height) - 2px);
+      line-height: calc(var(--oio-input-line-height) - 2px);
+      background-color: var($parameterPrefix + -disabled-bg);
+    }
+
+    .el-color-picker__trigger {
+      height: calc(var(--oio-height) - 2px);
+      line-height: calc(var(--oio-input-line-height) - 2px);
+      border-left: 1px solid var(--oio-border-color);
+      border-right: 1px solid var(--oio-border-color);
+    }
+  }
+}

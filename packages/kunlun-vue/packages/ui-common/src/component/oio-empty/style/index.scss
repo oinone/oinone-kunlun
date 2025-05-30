@@ -1,0 +1,5 @@
+@import './parameters.scss';
+
+.#{$emptyClassPrefix} {
+  color: var($parameterPrefix + -text-color-secondary);
+}

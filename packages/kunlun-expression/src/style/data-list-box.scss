@@ -1,0 +1,44 @@
+.data-list-wrapper {
+  .data-list-box {
+    font-size: 12px;
+
+    .data-item {
+      height: 40px;
+      line-height: 40px;
+      display: flex;
+      padding: 0 8px;
+
+      &-active,
+      &:hover {
+        background: rgba(var(--oio-primary-color-rgb), 0.1);
+        cursor: pointer;
+
+        .display-name {
+          color: var(--oio-primary-color);
+        }
+      }
+
+      .display-name {
+        flex: 1;
+        color: var(--oio-text-color-secondary);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .remark {
+        color: #999999;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .page {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0;
+  }
+}

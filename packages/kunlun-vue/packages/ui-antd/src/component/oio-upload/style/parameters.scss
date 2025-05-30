@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$uploadPrefix: $prefix + -upload;
+$uploadParameterPrefix: $parameterPrefix + -upload;
+$uploadClassPrefix: $uploadPrefix;

@@ -1,0 +1,11 @@
+.mobile-table-map {
+  &-item {
+    padding: 4px 8px;
+    background: #eeeeee;
+    border-radius: var(--oio-border-radius);
+    margin-right: var(--oio-margin-xs);
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

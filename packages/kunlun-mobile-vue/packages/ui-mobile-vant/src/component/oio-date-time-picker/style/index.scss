@@ -1,0 +1,24 @@
+@import '../../../style/mixin.scss';
+@import '../../oio-button/style/parameters.scss';
+@import '../../oio-input/style/parameters.scss';
+@import '../../oio-input/style/mixin.scss';
+@import './parameters.scss';
+
+.#{$dateTimePickerClassPrefix} {
+  height: var($parameterPrefix + -height);
+  .#{$prefix}-input[readonly] {
+    background-color: var(#{$parameterPrefix}-input-background);
+    box-shadow: var(#{$parameterPrefix}-input-shadow);
+  }
+
+}
+
+.#{$dateTimePickerClassPrefix}-popper {
+  &-year {
+    .van-picker__columns {
+      .van-picker-column:nth-child(2) {
+        display: none;
+      }
+    }
+  }
+}

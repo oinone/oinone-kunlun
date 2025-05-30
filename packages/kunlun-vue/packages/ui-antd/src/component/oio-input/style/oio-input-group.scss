@@ -1,0 +1,31 @@
+@import './parameters.scss';
+
+.#{$inputGroupClassPrefix} {
+  &.ant-input-group.ant-input-group-compact {
+    display: flex;
+
+    & > * {
+      border-radius: 0;
+    }
+
+    & > .ant-cascader-picker:first-child .ant-input,
+    & > .ant-select-auto-complete:first-child .ant-input,
+    & > .oio-select:first-child > .ant-select-selector,
+    & > :first-child {
+      border-top-left-radius: var(--oio-border-radius);
+      border-bottom-left-radius: var(--oio-border-radius);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    & > .ant-cascader-picker-focused:last-child .ant-input,
+    & > .ant-cascader-picker:last-child .ant-input,
+    & > .oio-select:last-child > .ant-select-selector,
+    & > :last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: var(--oio-border-radius);
+      border-bottom-right-radius: var(--oio-border-radius);
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.mobile-text-box-group {
+  background: #fff;
+  padding: 0 8px 8px 8px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  border: none;
+  display: flex;
+  flex-direction: rows;
+  flex-wrap: wrap;
+
+  .form-field-widget {
+    display: flex;
+  }
+
+  .ant-page-header {
+    margin-bottom: 8px;
+  }
+
+  .ant-page-header-heading-title {
+    font-size: 14px !important;
+    color: #1c2260 !important;
+  }
+}

@@ -1,0 +1,227 @@
+@import '../../../style/mixin.scss';
+@import '../../oio-button/style/parameters.scss';
+@import '../../oio-input/style/parameters.scss';
+@import '../../oio-input/style/mixin.scss';
+@import '../../oio-select/style/parameters.scss';
+@import '../../oio-date-time-picker/style/mixin.scss';
+@import './parameters.scss';
+
+@mixin oio-date-time-range-picker-disabled() {
+  @include oio-disabled();
+
+  &:hover {
+    @include oio-disabled(true, $inputParameterPrefix);
+  }
+
+  &:focus {
+    @include oio-disabled(true, $inputParameterPrefix);
+  }
+}
+
+@mixin oio-date-time-range-picker-readonly() {
+  @include oio-readonly();
+
+  &:hover {
+    @include oio-readonly(true, $inputParameterPrefix);
+  }
+
+  &:focus {
+    @include oio-readonly(true, $inputParameterPrefix);
+  }
+}
+
+.#{$dateTimeRangePickerClassPrefix} {
+  @include oio-appearance($inputParameterPrefix);
+
+  height: var($parameterPrefix + -height);
+  line-height: var($inputParameterPrefix + -line-height);
+  font-size: var(--oio-font-size);
+
+  &:hover {
+    @include oio-hover($inputParameterPrefix);
+  }
+
+  &.ant-picker-focused {
+    @include oio-focus($inputParameterPrefix);
+  }
+
+  .ant-picker-active-bar {
+    background-color: var($parameterPrefix + -primary-color-focus);
+  }
+
+  .ant-picker-input > input[disabled] {
+    color: var(--oio-disabled-color);
+  }
+
+  &-readonly {
+    cursor: auto;
+    @include oio-date-time-range-picker-readonly();
+
+    &.ant-picker {
+      @include oio-date-time-range-picker-readonly();
+    }
+
+    :is(.ant-picker-input > input[disabled], .ant-picker-range-separator),
+    &.ant-picker.ant-picker-disabled {
+      cursor: auto;
+    }
+
+    .ant-picker-input > input[disabled] {
+      color: var(--oio-disabled-color);
+    }
+  }
+
+  &-disabled {
+    border-color: var(--oio-border-color);
+    @include oio-date-time-range-picker-disabled();
+
+    &.ant-picker {
+      border-color: var(--oio-border-color);
+      @include oio-date-time-range-picker-disabled();
+    }
+  }
+}
+
+.#{$dateTimeRangePickerClassPrefix}-popper {
+  .ant-picker-cell.ant-picker-cell-in-view {
+    &.ant-picker-cell-in-range {
+      &:before {
+        background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
+      }
+    }
+
+    &.ant-picker-cell-range-start,
+    &.ant-picker-cell-range-end {
+      .ant-picker-cell-inner {
+        color: #ffffff;
+        background-color: var($parameterPrefix + -primary-color);
+        border-radius: 2px;
+      }
+
+      &:not(.ant-picker-cell-range-start-single):not(.ant-picker-cell-range-end-single):before {
+        background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
+      }
+    }
+
+    &.ant-picker-cell-range-hover:not(.ant-picker-cell-in-range),
+    &.ant-picker-cell-range-hover-end:not(.ant-picker-cell-in-range):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end) {
+      &:after {
+        border-color: var($parameterPrefix + -primary-color-hover);
+      }
+    }
+  }
+
+  .ant-picker-date-panel {
+    .ant-picker-cell.ant-picker-cell-in-view {
+      &:not(.ant-picker-cell-disabled) {
+        color: var($parameterPrefix + -text-color);
+        font-size: var(--oio-font-size);
+
+        &.ant-picker-cell-selected {
+          .ant-picker-cell-inner {
+            color: #ffffff;
+            background-color: var($parameterPrefix + -primary-color);
+            border-radius: 2px;
+          }
+        }
+
+        &.ant-picker-cell-today {
+          .ant-picker-cell-inner {
+            &:before {
+              border: none;
+            }
+
+            &:after {
+              @include selected-point();
+            }
+          }
+        }
+      }
+
+      &.ant-picker-cell-in-range.ant-picker-cell-range-hover-start,
+      &.ant-picker-cell-in-range.ant-picker-cell-range-hover-end {
+        &:before {
+          background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
+        }
+
+        .ant-picker-cell-inner {
+          color: #ffffff;
+          background-color: var($parameterPrefix + -primary-color-hover);
+          border-radius: 2px;
+
+          &:after {
+            background-color: transparent;
+          }
+        }
+      }
+
+      &.ant-picker-cell-range-hover:not(.ant-picker-cell-in-range),
+      &.ant-picker-cell-range-hover-end:not(.ant-picker-cell-in-range):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end) {
+        &:after {
+          border-color: var($parameterPrefix + -primary-color-hover);
+        }
+      }
+
+      &.ant-picker-cell-disabled {
+        &.ant-picker-cell-today {
+          .ant-picker-cell-inner {
+            &:before {
+              border: none;
+            }
+
+            &:after {
+              @include selected-point();
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .ant-picker-time-panel {
+    .ant-picker-time-panel-column {
+      @include oio-scrollbar();
+    }
+
+    .ant-picker-time-panel-cell {
+      .ant-picker-time-panel-cell-inner {
+        color: var($parameterPrefix + -text-color);
+        font-size: var(--oio-font-size);
+
+        &:active {
+          color: #ffffff;
+          background-color: var($parameterPrefix + -primary-color-active);
+        }
+
+        &:hover {
+          color: #ffffff;
+          background-color: var($parameterPrefix + -primary-color-hover);
+        }
+      }
+
+      &.ant-picker-time-panel-cell-selected {
+        .ant-picker-time-panel-cell-inner {
+          color: #ffffff;
+          background-color: var($parameterPrefix + -primary-color);
+        }
+      }
+    }
+  }
+
+  .ant-picker-year-panel {
+    .ant-picker-cell.ant-picker-cell-in-view {
+      &:not(.ant-picker-cell-disabled) {
+        color: var($parameterPrefix + -text-color);
+        font-size: var(--oio-font-size);
+
+        &.ant-picker-cell-selected {
+          .ant-picker-cell-inner {
+            color: #ffffff;
+            background-color: var($parameterPrefix + -primary-color);
+            border-radius: 2px;
+          }
+        }
+      }
+    }
+  }
+}

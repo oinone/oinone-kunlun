@@ -1,0 +1,34 @@
+.form-domain-text {
+  .ant-select {
+    margin-right: 8px;
+  }
+}
+.mobile-form-text-area {
+  width: 100%;
+  position: relative;
+  .readonly {
+    pointer-events: none;
+    .ant-input {
+      background-color: var(--oio-disabled-bg);
+    }
+  }
+  .show-count-suffix {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    font-size: 12px;
+  }
+  &:hover {
+    .clear {
+      display: inline;
+      top: 50%;
+      right: 2px;
+      cursor: pointer;
+      position: absolute;
+      transform: translate(0, -50%);
+    }
+  }
+  .clear {
+    display: none;
+  }
+}

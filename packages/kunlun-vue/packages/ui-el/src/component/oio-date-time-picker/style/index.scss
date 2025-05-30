@@ -1,0 +1,58 @@
+@import '../../../style/mixin.scss';
+@import '../../oio-input/style/mixin/el-input.scss';
+@import './parameters.scss';
+
+.#{$dateTimePickerClassPrefix} {
+  width: 100%;
+
+  &.el-date-editor.el-input,
+  &.el-date-editor.el-input__inner {
+    @include el-input;
+    width: 100%;
+
+    .el-input__inner {
+      @include oio-appearance($inputParameterPrefix);
+
+      height: var($parameterPrefix + -height);
+      line-height: var($inputParameterPrefix + -line-height);
+      padding-right: 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      &:hover {
+        @include oio-hover($inputParameterPrefix);
+      }
+
+      &:focus {
+        @include oio-focus($inputParameterPrefix);
+      }
+
+      &[disabled] {
+        @include oio-disabled();
+
+        &:hover {
+          @include oio-disabled(true, $inputParameterPrefix);
+        }
+
+        &:focus {
+          @include oio-disabled(true, $inputParameterPrefix);
+        }
+      }
+    }
+  }
+
+  &.#{$dateTimePickerClassPrefix}-readonly {
+    .el-input__inner {
+      @include oio-readonly();
+
+      &:hover {
+        @include oio-readonly();
+      }
+
+      &:focus {
+        @include oio-readonly();
+      }
+    }
+  }
+}

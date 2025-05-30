@@ -1,0 +1,82 @@
+.form-field-widget {
+  width: 100%;
+  min-height: var(--oio-min-height);
+  display: flex;
+  box-sizing: border-box;
+
+  .question-icon {
+    cursor: pointer;
+    color: var(--oio-primary-color);
+    font-size: 14px;
+    margin-left: 5px;
+  }
+
+  .ant-form-item-control-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .ant-form-item-control {
+    width: 100%;
+  }
+
+  .ant-form-item-control-input {
+    min-height: var(--oio-min-height);
+  }
+
+  .widget-container {
+    width: 100%;
+    input {
+      &::-webkit-input-placeholder {
+        color: var(--oio-placeholder-color);
+      }
+    }
+
+    & > div {
+      word-break: break-word;
+    }
+  }
+
+  .ant-select-selector {
+    border: solid 1px #dcdfe6;
+    border-radius: 4px;
+  }
+
+  .ant-form-item-children > div {
+    line-height: 1;
+  }
+
+  .ant-form-item-label > label {
+    height: auto;
+  }
+
+  .ant-form-item-label > label:after {
+    display: none;
+  }
+
+  .form-field-widget-label-content {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    line-height: 1.1em;
+    font-weight: var(--oio-font-weight-bold);
+    text-align: left;
+  }
+
+  &.oio-form-item-vertical {
+    .form-field-widget-label-content {
+      padding-top: 0;
+      display: block;
+      white-space: nowrap;
+    }
+  }
+
+  .form-field-error-msg {
+    color: var(--oio-error-color);
+  }
+}

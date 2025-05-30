@@ -1,0 +1,47 @@
+.ant-breadcrumb {
+  color: var(--oio-text-color-three);
+
+  .ant-breadcrumb-separator {
+    color: var(--oio-text-color-three);
+  }
+}
+
+.ant-breadcrumb > span:last-child,
+.ant-breadcrumb > span:last-child a {
+  color: var(--oio-text-color);
+}
+
+.k-tool-bread {
+  display: flex;
+  align-items: center;
+
+  .k-tool-bread-title {
+    margin-right: 26px;
+  }
+
+  .ant-breadcrumb-item {
+    font-size: var(--oio-font-size);
+    color: var(--oio-text-color);
+    letter-spacing: 0.5px;
+
+    &:last-child {
+      color: var(--oio-text-color-three);
+    }
+  }
+
+  .breadcrumb-allow-click {
+    &:hover {
+      color: var(--oio-primary-color-hover);
+      outline: var(--oio-primary-color-outline);
+      cursor: pointer;
+    }
+
+    &:active {
+      color: var(--oio-primary-color-active);
+    }
+
+    &:focus {
+      color: var(--oio-primary-color-focus);
+    }
+  }
+}

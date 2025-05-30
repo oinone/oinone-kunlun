@@ -1,0 +1,30 @@
+@import '../../../style/global-parameters.scss';
+@import '../../../style/mixin.scss';
+
+.default-field-tree {
+  min-height: 334px;
+
+  .default-tree-node-title-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    .default-tree-node-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .default-tree-node-title-actions {
+      margin-left: 8px;
+      display: none;
+      column-gap: 4px;
+    }
+
+    &:hover {
+      .default-tree-node-title-actions {
+        display: flex;
+      }
+    }
+  }
+}

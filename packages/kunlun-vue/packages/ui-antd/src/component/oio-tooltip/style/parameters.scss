@@ -1,0 +1,9 @@
+@import '../../../style/global-parameters.scss';
+
+$tooltipPrefix: $prefix + -tooltip;
+$tooltipParameterPrefix: $parameterPrefix + -tooltip;
+$tooltipClassPrefix: $tooltipPrefix;
+
+$tooltipHelpPrefix: $tooltipPrefix + -help;
+$tooltipHelpParameterPrefix: $tooltipParameterPrefix + -help;
+$tooltipHelpClassPrefix: $tooltipHelpPrefix;

@@ -1,0 +1,345 @@
+@import '../../oio-input/style/parameters.scss';
+@import '../../oio-textarea/style/parameters.scss';
+@import '../../oio-group/style/parameters.scss';
+@import '../../oio-date-time-picker/style/parameters.scss';
+@import '../../oio-date-time-range-picker/style/parameters.scss';
+@import '../../oio-select/style/parameters.scss';
+@import '../../oio-picker/style/parameters.scss';
+@import '../../oio-color-picker/style/parameters.scss';
+@import './parameters.scss';
+@import './animation.scss';
+
+.#{$formClassPrefix} {
+  .#{$prefix}-row {
+    row-gap: 24px;
+  }
+  .#{$prefix}-col {
+    > .#{$formItemClassPrefix} {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+  .#{$formItemClassPrefix} {
+    width: 100% !important;
+    position: relative;
+    &-wrapper {
+      display: flex;
+      width: 100%;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    &-extra {
+      width: 100%;
+      text-align: left;
+      font-size: 24px;
+      color: var(--oio-disabled-color);
+      line-height: 24px;
+      padding-top: 10px;
+    }
+    &-field-value-overflow-hidden {
+      .van-cell__value {
+        overflow: hidden;
+      }
+    }
+    &-auto-height {
+      .van-field__body,
+      .van-field__control--custom {
+        height: auto !important;
+        min-height: 0 !important;
+      }
+    }
+    &-label-hidden {
+      > .#{$formItemClassPrefix}-wrapper > .van-field__label {
+        display: none !important;
+      }
+    }
+    .van-field__value {
+      // 解决flex布局子元素撑大父元素width的问题
+      min-width: 0;
+    }
+    .van-field__error-message {
+      width: 100%;
+      line-height: 28px;
+      padding-top: 10px;
+    }
+    &-readonly:before,
+    &-disabled:before {
+      content: ' ';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.6);
+      z-index: 9;
+    }
+    &-readonly:before {
+      display: none;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .van-field__control.oio-m-input,
+    .van-field__control {
+      color: var(--oio-text-color-secondary);
+    }
+    .van-field__control {
+      display: flex;
+      flex-direction: column;
+
+      .widget-container {
+        position: relative;
+        flex: 1;
+        width: 100%;
+        > * {
+          width: 100%;
+        }
+        display: flex;
+        align-items: center;
+        min-height: 56px;
+      }
+    }
+
+    .#{$dateTimeRangePickerClassPrefix} {
+      .#{$prefix}-input {
+        text-align: center !important;
+      }
+    }
+
+    &-horizontal {
+      &.van-cell {
+        align-items: flex-start;
+        position: relative;
+        flex-direction: column;
+        &::after {
+          display: none;
+        }
+        > .#{$formItemClassPrefix}-wrapper {
+          &:before {
+            content: ' ';
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9;
+            width: 100%;
+            border-bottom: var($inputParameterPrefix + -border-width) var($inputParameterPrefix + -border-style)
+              var($inputParameterPrefix + -border-color);
+          }
+        }
+        .#{$formItemClassPrefix}-extra {
+          text-align: right;
+        }
+        .van-field__error-message {
+          text-align: right;
+        }
+      }
+
+      .#{$formItemClassPrefix}-wrapper {
+        padding-bottom: 20px;
+      }
+
+      .van-field__control,
+      .van-field__body {
+        height: 100%;
+        min-height: 56px;
+      }
+
+      .van-field__control {
+        text-align: right;
+        .form-multi-string-tag {
+          min-height: auto;
+          height: 100%;
+          justify-content: flex-end;
+          flex-wrap: wrap;
+          border-bottom: 0;
+          .tag-input.tags-empty {
+            text-align: right;
+          }
+        }
+
+        .#{$inputClassPrefix} {
+          text-align: right;
+          height: 100%;
+        }
+        .widget-container {
+          .mobile-form-bool-switch {
+            justify-content: flex-end;
+          }
+        }
+      }
+      > .#{$formItemClassPrefix}-wrapper > .van-field__label {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        padding-top: 0;
+      }
+
+      .form-field-widget-label-content {
+        width: 100%;
+        flex: 1;
+      }
+
+      .form-multi-string-tag .input {
+        margin: 0;
+      }
+
+      .#{$inputClassPrefix} {
+        @include input-style();
+      }
+
+      .#{$textareaClassPrefix} {
+        @include input-style();
+        height: unset;
+        text-align: right;
+        textarea::placeholder {
+          text-align: right;
+          color: var(--van-field-placeholder-text-color);
+        }
+      }
+
+      .#{$dateTimePickerClassPrefix} {
+        line-height: var(#{$parameterPrefix}-height);
+      }
+      .#{$pickerClassPrefix},
+      .#{$selectClassPrefix},
+      .#{$dateTimePickerClassPrefix} {
+        .#{$prefix}-input[readonly] {
+          text-align: right;
+        }
+      }
+      .#{$prefix}-detail-common-field,
+      .#{$prefix}form-string-hyperlinks {
+        justify-content: flex-end;
+      }
+    }
+
+    .mobile-form-rich-text {
+      margin-top: 14px;
+    }
+
+    &-vertical {
+      flex-direction: column;
+      > .#{$formItemClassPrefix}-wrapper {
+        gap: 6px;
+        flex-direction: column;
+        padding-bottom: 0;
+      }
+      .van-cell__value {
+        position: relative;
+        padding-bottom: 10px;
+        &:before {
+          content: ' ';
+          display: block;
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 9;
+          width: 100%;
+          border-bottom: var($inputParameterPrefix + -border-width) var($inputParameterPrefix + -border-style)
+            var($inputParameterPrefix + -border-color);
+        }
+      }
+      > .#{$formItemClassPrefix}-wrapper > .van-field__label {
+        width: auto;
+        margin-bottom: 0;
+        margin-top: 0;
+      }
+
+      .#{$inputClassPrefix} {
+        @include input-style();
+      }
+
+      .#{$textareaClassPrefix} {
+        @include input-style();
+        height: unset;
+        padding: 0;
+      }
+
+      .#{$pickerClassPrefix},
+      .#{$selectClassPrefix},
+      .#{$colorPickerClassPrefix},
+      .#{$dateTimePickerClassPrefix},
+      .#{$dateTimeRangePickerClassPrefix} {
+        .#{$prefix}-input[readonly] {
+          background-color: var(#{$parameterPrefix}-input-background);
+          //box-shadow: var(#{$parameterPrefix}-input-shadow);
+        }
+      }
+      &-fake {
+        display: block;
+        .van-field__body,
+        .van-field__control--custom {
+          height: auto;
+          min-height: 0;
+        }
+        .#{$formItemClassPrefix}-wrapper {
+          flex-direction: column;
+        }
+      }
+
+      .mobile-form-enum-radio,
+      .mobile-form-multi-enum-checkbox-group {
+        margin-top: 14px;
+      }
+    }
+    &-horizontal.#{$formItemClassPrefix}-no-border-bottom {
+      .#{$formItemClassPrefix}-wrapper:before {
+        display: none;
+      }
+      .#{$prefix}-form-item-wrapper,
+      .van-cell__value {
+        padding-bottom: 0;
+      }
+    }
+    &-vertical.#{$formItemClassPrefix}-no-border-bottom {
+      > .#{$formItemClassPrefix}-wrapper > .van-cell__value {
+        &:before {
+          display: none;
+        }
+      }
+
+      .#{$prefix}-form-item-wrapper,
+      .van-cell__value {
+        padding-bottom: 0;
+      }
+    }
+    &.#{$formItemClassPrefix}-no-padding-top {
+      padding-top: 0;
+    }
+  }
+
+  .#{$prefix}-tabs {
+    .van-tabs__wrap {
+      padding: 0 24px;
+    }
+    .van-tabs__content {
+      padding: 24px 0;
+    }
+  }
+}
+
+.#{$groupClassPrefix} {
+  &-content {
+    .van-cell.#{$formItemClassPrefix} {
+      padding: 0;
+      &:before {
+        width: 100%;
+        left: 0;
+        right: 0;
+      }
+    }
+  }
+}
+
+.#{$prefix}-default-form {
+  .#{$formClassPrefix} {
+    .#{$formItemClassPrefix} {
+      &-readonly:before {
+        display: block;
+      }
+    }
+  }
+}

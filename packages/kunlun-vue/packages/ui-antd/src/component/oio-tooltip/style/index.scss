@@ -1,0 +1,8 @@
+@import './parameters.scss';
+
+.#{$tooltipHelpClassPrefix} {
+  color: var($parameterPrefix + -primary-color);
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0 5px;
+}

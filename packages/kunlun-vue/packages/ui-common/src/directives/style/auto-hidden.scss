@@ -1,0 +1,30 @@
+@import '../../style/global-parameters.scss';
+
+.#{$classPrefix}-auto-hidden-toolbar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(0deg, rgba(244, 248, 255, 1) 30%, rgba(244, 248, 255, 0.9) 60%, rgba(244, 248, 255, 0));
+  display: flex;
+  justify-content: center;
+
+  a {
+    padding-top: 22px;
+  }
+
+  .oio-icon {
+    vertical-align: 0;
+    margin-left: 4px;
+  }
+
+  &.#{$classPrefix}-auto-hidden-fold {
+    position: static;
+    height: 20px;
+    background: transparent;
+
+    a {
+      padding-top: 0;
+    }
+  }
+}

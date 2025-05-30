@@ -1,0 +1,12 @@
+:root {
+  --van-button-default-height: 68px;
+  --van-button-normal-padding: 0 15px;
+  --van-button-border-radius: 8px;
+  --van-picker-confirm-action-color: var(--oio-primary-color);
+}
+@import './parameters.scss';
+
+.#{$buttonClassPrefix} {
+  @import './a-button.scss';
+  white-space: nowrap;
+}

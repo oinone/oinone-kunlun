@@ -1,0 +1,28 @@
+@import '../../../../style/global-parameters';
+.#{$prefix}-inline-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+
+  .inline-table-action-bar {
+    width: 100%;
+  }
+
+  .inline-table-content {
+    width: 100%;
+  }
+
+  .#{$prefix}-default-table-view {
+    min-height: 300px;
+  }
+  .#{$prefix}-action-bar {
+    padding: 0;
+    height: 68px;
+  }
+  .#{$prefix}-group {
+    &-content {
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,167 @@
+@import '../../../style/mixin.scss';
+@import '../../../style/global-parameters';
+@import './parameters.scss';
+
+.#{$modalClassPrefix} {
+  padding: 0;
+  &.#{$modalClassPrefix}-width-small {
+    width: var($modalParameterPrefix + -width-small) !important;
+  }
+  &.#{$modalClassPrefix}-width-medium {
+    width: var($modalParameterPrefix + -width-medium) !important;
+  }
+  &.#{$modalClassPrefix}-width-large {
+    width: var($modalParameterPrefix + -width-large) !important;
+  }
+
+  &.#{$modalClassPrefix}-width-full {
+    width: 100% !important;
+    max-width: 100%;
+    &.ant-modal {
+      margin: 0;
+    }
+  }
+
+  &.#{$modalClassPrefix}-height-small {
+    .ant-modal-content {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: var($modalParameterPrefix + -height-small) !important;
+    }
+  }
+  &.#{$modalClassPrefix}-height-medium {
+    .ant-modal-content {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: var($modalParameterPrefix + -height-medium) !important;
+    }
+  }
+  &.#{$modalClassPrefix}-height-large {
+    .ant-modal-content {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: var($modalParameterPrefix + -height-large) !important;
+    }
+  }
+
+  &.#{$modalClassPrefix}-height-custom {
+    .ant-modal-content {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: var(--oio-modal-custom-height) !important;
+    }
+  }
+
+  &.#{$modalClassPrefix}-height-full {
+    &.ant-modal {
+      top: 0;
+      padding-bottom: 0;
+      margin: 0;
+    }
+
+    .ant-modal-content {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh);
+    }
+  }
+
+  .ant-modal-body {
+    flex: 1;
+    overflow: auto;
+  }
+
+  &-wrapper {
+    @include oio-scrollbar();
+  }
+
+  &-header-invisible {
+    .ant-modal-content {
+      & > .ant-modal-close,
+      & > .ant-modal-header {
+        display: none;
+      }
+    }
+  }
+
+  &-footer-invisible {
+    .ant-modal-content > .ant-modal-footer {
+      display: none;
+    }
+  }
+
+  .ant-modal-content {
+    background: var($parameterPrefix + -background);
+    border: 1px solid var($parameterPrefix + -border-color);
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
+    border-radius: var($parameterPrefix + -border-radius);
+  }
+
+  .ant-modal-close-x {
+    color: var($parameterPrefix + -text-color);
+    height: 49px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ant-modal-header {
+    padding: 16px;
+    border-bottom: 1px solid var($parameterPrefix + -border-color);
+    background-color: var($parameterPrefix + -background);
+
+    .ant-modal-title {
+      opacity: 0.85;
+      font-size: var($parameterPrefix + -font-size-lg);
+      color: var($parameterPrefix + -text-color);
+      line-height: 24px;
+      font-weight: var($parameterPrefix + -font-weight-bold);
+    }
+  }
+
+  .ant-modal-confirm-title,
+  .ant-modal-confirm-content {
+    color: var($modalParameterPrefix + -color);
+  }
+
+  .ant-modal-body {
+    padding: var($parameterPrefix + -margin-md);
+    @include oio-scrollbar();
+
+    .ant-modal-confirm-body-wrapper {
+      .ant-modal-confirm-btns {
+        button {
+          @import '../../oio-button/style/a-button.scss';
+        }
+      }
+    }
+  }
+
+  .ant-modal-footer {
+    padding: var($parameterPrefix + -margin-md);
+    border-top: 1px solid var($parameterPrefix + -border-color);
+    overflow: auto hidden;
+    @include oio-scrollbar();
+
+    button {
+      @import '../../oio-button/style/a-button.scss';
+
+      &.ant-btn {
+        height: var($parameterPrefix + -height);
+        margin: var($parameterPrefix + -margin-xxs) 0 var($parameterPrefix + -margin-xxs)
+          var($parameterPrefix + -margin-md);
+
+        & + .ant-btn {
+          margin-left: var($parameterPrefix + -margin-md);
+        }
+      }
+    }
+  }
+  .ant-modal-confirm-btns .ant-btn + .ant-btn {
+    margin-left: 12px;
+  }
+}

@@ -1,0 +1,60 @@
+@import './parameters.scss';
+
+$theme: theme3;
+$className: #{$baseWrapper}-#{$theme};
+
+.#{$className} {
+  background-color: var(--oio-multi-tabs-background-color-theme3);
+
+  .#{$base} {
+    padding-top: 3px;
+  }
+
+  .#{$base}-tab {
+    border-radius: var(--oio-border-radius);
+
+    &.#{$base}-tab-active {
+      color: var(--oio-multi-tabs-active-color-active-theme3);
+      background-color: var(--oio-multi-tabs-background-color-active-theme3);
+
+      .#{$base}-tab-close-btn {
+        .oio-button.ant-btn-link {
+          background-color: transparent;
+        }
+
+        .oio-icon {
+          color: var(--oio-multi-tabs-icon-color-active-theme3);
+        }
+      }
+    }
+
+    &:not(.#{$base}-tab-active) {
+      .#{$base}-tab-close-btn {
+        opacity: 0;
+      }
+    }
+
+    &:before,
+    &:after {
+      display: none;
+    }
+
+    .oio-divider {
+      display: none;
+    }
+
+    &:hover {
+      &:not(.#{$base}-tab-active) {
+        background-color: transparent;
+
+        .#{$base}-tab-close-btn {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.#{$className}.#{$baseWrapper}-inline {
+  background-color: var(--oio-multi-tabs-background-color-theme3-inline);
+}

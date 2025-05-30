@@ -1,0 +1,23 @@
+.field-grid {
+  background: #fff;
+  padding: 0 8px 8px 8px;
+  margin-bottom: 8px;
+  border: solid 1px #eee;
+  border-radius: 4px;
+
+  .ant-page-header {
+    margin-bottom: 8px;
+  }
+
+  .ant-page-header-heading-title {
+    font-size: 14px !important;
+    color: #1c2260 !important;
+  }
+
+  .grid-wrapper {
+    display: grid;
+    grid-template-rows: auto;
+    grid-auto-rows: 48px;
+    gap: 16px 16px;
+  }
+}

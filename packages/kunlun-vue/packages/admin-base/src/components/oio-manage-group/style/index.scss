@@ -1,0 +1,170 @@
+.oio-default-manage-group {
+  flex: 1;
+  display: flex;
+  max-width: 100%;
+
+  .oio-default-manage-group-box {
+    padding-top: 10px;
+    gap: 10px;
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: var(--oio-margin);
+    height: 42px;
+    overflow: hidden;
+
+    &.oio-default-manage-group-box-expand {
+      height: auto;
+    }
+
+    & > .oio-default-manage-group-box {
+      &-cate {
+        position: relative;
+        cursor: pointer;
+        height: 32px;
+        line-height: 32px;
+        padding: 0 var(--oio-padding);
+        min-width: 60px;
+        border-radius: var(--oio-border-radius);
+        background: var(--oio-tag-select-background);
+        color: var(--oio-text-color);
+
+        &.active {
+          background: var(--oio-primary-color);
+          color: var(--oio-button-primary-text-color);
+          font-weight: 500;
+        }
+
+        &.rowLastElement {
+          flex: 1 1 0;
+        }
+
+        & > .oio-default-manage-group-sys {
+          position: absolute;
+          display: flex;
+          width: 34px;
+          height: 18px;
+          font-size: var(--oio-font-size-sm);
+          top: -17%;
+          right: -5px;
+          border-radius: 8px 8px 8px 2px;
+          background-image: linear-gradient(269deg, #32c5ff 0%, #3193f4 100%);
+          color: var(--oio-button-primary-text-color);
+          align-items: center;
+          justify-content: center;
+        }
+
+        & > .cate-name {
+          max-width: 100%;
+          display: inline-block;
+          text-align: center;
+          vertical-align: middle;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-size: var(--oio-font-size);
+          line-height: 22px;
+          font-weight: var(--oio-font-weight);
+        }
+      }
+    }
+  }
+
+  .oio-button-link {
+    margin-top: 15px;
+  }
+}
+
+.oio-default-manage-group-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--oio-row-gap);
+
+  & > .oio-default-manage-group-tag-container {
+    position: relative;
+    max-width: 100%;
+    min-width: 60px;
+
+    & > .oio-default-manage-group-sys {
+      z-index: 1;
+      position: absolute;
+      display: flex;
+      width: 34px;
+      height: 18px;
+      font-size: var(--oio-font-size-sm);
+      top: -17%;
+      right: 0%;
+      border-radius: 8px 8px 8px 2px;
+      background-image: linear-gradient(269deg, #32c5ff 0%, #3193f4 100%);
+      color: var(--oio-button-primary-text-color);
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .oio-default-manage-group-tag {
+    position: relative;
+    background: rgba(var(--oio-primary-color-rgb), 0.1);
+    color: var(--oio-primary-color);
+    border-color: var(--oio-primary-color);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 40px;
+    line-height: 40px;
+    max-width: 100%;
+    border-radius: var(--oio-border-radius);
+    font-size: var(--oio-font-size);
+    padding: 0 var(--oio-padding);
+    margin: 0;
+
+    &-editing {
+      padding: 0;
+      display: flex;
+      align-items: center;
+
+      & > .oio-default-manage-group-inputBox {
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+        position: relative;
+        & > .oio-default-manage-group-inputLabel {
+          display: inline-block;
+          font-size: inherit;
+          visibility: hidden;
+          font-family: inherit;
+          line-height: var(--oio-input-line-height);
+          font-size: var(--oio-font-size);
+          padding: 0px 18px;
+        }
+      }
+    }
+
+    &-closable {
+      padding-right: calc(var(--oio-padding) + 10px);
+    }
+
+    & > .ant-tag-close-icon {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .add-cate {
+    margin-right: 0;
+    min-width: 104px;
+    height: 40px;
+    line-height: 40px;
+    background: var(--oio-input-background);
+    border: 1px dashed #c4cdd5;
+    border-radius: var(--oio-border-radius);
+    text-align: center;
+    font-size: var(--oio-font-size);
+    color: var(--oio-info-color-active);
+    cursor: pointer;
+  }
+}

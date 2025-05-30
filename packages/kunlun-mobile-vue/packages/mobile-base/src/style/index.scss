@@ -1,0 +1,25 @@
+@import '../basic/style/index.scss';
+
+@import '../action/index.scss';
+@import '../components/index.scss';
+
+@import './root.scss';
+@import './basic.scss';
+@import './components/index.scss';
+@import './vantComponents/Form.scss';
+@import './vantComponents/All.scss';
+
+@import '../view/detail/style/index.scss';
+@import '../view/form/style/index.scss';
+@import '../view/table/style/index.scss';
+@import '../view/search/style/index.scss';
+@import '../view/card/style/index.scss';
+@import '../view/gallery/style/index.scss';
+@import '../view/view/style/index.scss';
+@import '../view/notice/style/index.scss';
+
+@import '../container/group/style/index.scss';
+@import '../container/tabs/style/index.scss';
+@import '../container/multi-view-tabs/style/index.scss';
+
+@import '../field/index.scss';

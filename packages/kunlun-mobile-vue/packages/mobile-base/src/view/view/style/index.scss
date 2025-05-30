@@ -1,0 +1,51 @@
+@import '../../../style/global-parameters';
+.#{$prefix}-default-view {
+  //min-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+
+  &-inline:not(.#{$prefix}-default-search-view) {
+    min-width: unset;
+    height: 100%;
+  }
+
+  & > * {
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    &:last-child {
+      flex-grow: 1;
+      flex-shrink: 1;
+    }
+  }
+
+  & > .#{$prefix}-default-group {
+    height: 100%;
+
+    .#{$prefix}-group {
+      height: 100%;
+
+      .#{$prefix}-group-content {
+        height: calc(100% - (var(--oio-padding-lg) * 2));
+
+        & > .#{$prefix}-row {
+          height: 100%;
+
+          & > .#{$prefix}-col {
+            &:last-child {
+              // height: calc(100% - var(--oio-padding-lg));
+            }
+          }
+        }
+      }
+    }
+  }
+
+  input,
+  textarea {
+    &::-webkit-input-placeholder {
+      color: var(--oio-placeholder-color);
+    }
+  }
+}

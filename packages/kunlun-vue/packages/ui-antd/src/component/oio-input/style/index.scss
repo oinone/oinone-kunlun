@@ -1,0 +1,198 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+@import './mixin.scss';
+
+.ant-form-item-has-error
+  :not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper,
+.ant-form-item-has-error
+  :not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper:hover,
+.ant-form-item-has-error :not(.ant-input-disabled):not(.ant-input-borderless).ant-input,
+.ant-form-item-has-error :not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover,
+.ant-form-item-has-error
+  :not(.ant-input-number-affix-wrapper-disabled):not(.ant-input-number-affix-wrapper-borderless).ant-input-number-affix-wrapper,
+.ant-form-item-has-error
+  :not(.ant-input-number-affix-wrapper-disabled):not(.ant-input-number-affix-wrapper-borderless).ant-input-number-affix-wrapper:hover {
+  background-color: var(--oio-input-background-color);
+}
+
+.#{$inputClassPrefix} {
+  @import './a-input.scss';
+
+  .ant-input-clear-icon {
+    display: none;
+  }
+
+  .anticon.ant-input-clear-icon:hover {
+    color: var(--oio-input-clear-color);
+  }
+
+  .anticon.ant-input-clear-icon-has-suffix {
+    margin: 0;
+  }
+
+  .ant-input {
+    color: var(--oio-input-text-color);
+  }
+
+  &.#{$inputClassPrefix}-allow-clear {
+    &:hover {
+      & > .ant-input-suffix > .ant-input-clear-icon {
+        display: inline-block;
+      }
+    }
+  }
+
+  &.#{$inputClassPrefix}-readonly {
+    background-color: var($parameterPrefix + -readonly-bg);
+
+    &:hover {
+      @include oio-readonly(true, $inputParameterPrefix);
+    }
+
+    &:focus {
+      @include oio-readonly(true, $inputParameterPrefix);
+    }
+
+    input.ant-input {
+      @include oio-readonly();
+    }
+
+    &.ant-input-affix-wrapper-focused {
+      @include oio-readonly(true, $inputParameterPrefix);
+    }
+  }
+}
+
+.#{$inputClassPrefix}-wrapper {
+  &.#{$inputClassPrefix}-show-count[data-count] {
+    position: relative;
+
+    &:after {
+      @include counter();
+      bottom: 9px;
+      right: 4px;
+    }
+
+    &.#{$inputClassPrefix}-allow-clear {
+      &:hover {
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.#{$inputNumberClassPrefix} {
+  &.ant-input-affix-wrapper:not(.#{$inputNumberClassPrefix}-not-handler) {
+    padding-right: 0;
+
+    .ant-input-suffix {
+      margin-left: 0;
+    }
+  }
+
+  .ant-input-affix-wrapper {
+    border-radius: var($inputParameterPrefix + -border-radius);
+  }
+
+  &.#{$inputClassPrefix}-readonly {
+    &.ant-input-group-wrapper {
+      background-color: transparent;
+
+      .ant-input-group {
+        .ant-input-affix-wrapper {
+          @include oio-readonly();
+
+          .ant-input {
+            @include oio-readonly();
+          }
+        }
+
+        .ant-input-group-addon {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  &.ant-input-group-wrapper {
+    .ant-input-group {
+      .ant-input-group-addon {
+        border: none;
+        background-color: transparent;
+      }
+
+      & > input.ant-input,
+      & > .ant-input-affix-wrapper {
+        &:first-child {
+          border-top-right-radius: var($inputParameterPrefix + -border-radius);
+          border-bottom-right-radius: var($inputParameterPrefix + -border-radius);
+        }
+      }
+    }
+
+    .ant-input-affix-wrapper:not(.#{$inputNumberClassPrefix}-not-handler) {
+      padding: 0 0 0 11px;
+
+      .ant-input-suffix {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &:hover {
+    .oio-handler-wrapper {
+      span {
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+      }
+    }
+  }
+
+  .oio-handler-wrapper {
+    height: calc(var(#{$parameterPrefix + -height}) - 2px);
+    width: 20px;
+    display: flex;
+    flex-direction: column;
+
+    span {
+      height: 50%;
+      font-size: 7px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-left: var($inputParameterPrefix + -border-width) var($inputParameterPrefix + -border-style)
+        var($inputParameterPrefix + -border-color);
+      cursor: pointer;
+      opacity: 0;
+
+      &:first-child {
+        border-top-right-radius: var($inputParameterPrefix + -border-radius);
+      }
+
+      &:last-child {
+        border-top: var($inputParameterPrefix + -border-width) var($inputParameterPrefix + -border-style)
+          var($inputParameterPrefix + -border-color);
+        border-bottom-right-radius: var($inputParameterPrefix + -border-radius);
+      }
+
+      &:hover {
+        color: var($parameterPrefix + -primary-color-hover);
+
+        svg {
+          color: var($parameterPrefix + -primary-color-hover);
+        }
+
+        &:first-child,
+        &:last-child {
+          height: calc(50% + 6px);
+        }
+      }
+    }
+  }
+}
+
+@import './oio-input-group.scss';
+@import './oio-input-number.scss';
+@import './oio-input-search.scss';

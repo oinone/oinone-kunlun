@@ -1,0 +1,16 @@
+.logic-operator-select {
+  margin: 0;
+  padding: 0;
+  height: var(--oio-height);
+  line-height: var(--oio-height);
+  width: 50px;
+  border: 1px solid var(--oio-input-border-color);
+  min-width: auto;
+  text-align: center;
+  border-radius: var(--oio-input-border-radius);
+  cursor: pointer;
+  font-size: var(--oio-font-size);
+  &-blank {
+    border-color: transparent;
+  }
+}

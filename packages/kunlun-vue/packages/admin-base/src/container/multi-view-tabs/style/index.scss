@@ -1,0 +1,33 @@
+.oio-default-multi-view-tabs {
+  &.oio-tabs.ant-tabs .ant-tabs-nav .ant-tabs-tab {
+    margin-left: 60px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &.oio-tabs .oio-tab-bar .oio-tab-title {
+    font-size: var(--oio-tabs-font-size);
+  }
+
+  .ant-tabs-content {
+    height: 100%;
+
+    .ant-tabs-tabpane {
+      height: 100%;
+
+      .oio-tab {
+        height: 100%;
+
+        .oio-tab-content {
+          height: 100%;
+
+          & > * {
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}

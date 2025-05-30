@@ -1,0 +1,135 @@
+@import './global-parameters.scss';
+
+/**
+ * 外貌（背景色、边框、边框圆角、阴影、字体色、轮廓）
+ */
+@mixin oio-appearance($prefix: $parameterPrefix) {
+  background-color: var($prefix + -background);
+  border: var($prefix + -border-width) var($prefix + -border-style) var($prefix + -border-color);
+  border-radius: var($prefix + -border-radius);
+  box-shadow: var($prefix + -box-shadow);
+  color: var($prefix + -text-color);
+  // outline: var($prefix + -outline);
+}
+
+/**
+ * 激活
+ */
+@mixin oio-active($prefix: $parameterPrefix) {
+  background-color: var($prefix + -background-active);
+  border: var($prefix + -border-width-active) var($prefix + -border-style-active) var($prefix + -border-color-active);
+  //border-radius: var($prefix + -border-radius-active);
+  box-shadow: var($prefix + -box-shadow);
+  color: var($prefix + -text-color-active);
+  // outline: var($prefix + -outline-active);
+}
+
+/**
+ * 悬停
+ */
+@mixin oio-hover($prefix: $parameterPrefix) {
+  background-color: var($prefix + -background-hover);
+  border: var($prefix + -border-width-hover) var($prefix + -border-style-hover) var($prefix + -border-color-hover);
+  //border-radius: var($prefix + -border-radius-hover);
+  //box-shadow: var($prefix + -shadow-hover);
+  color: var($prefix + -text-color-hover);
+  // outline: var($prefix + -outline-hover);
+}
+
+/**
+ * 聚焦
+ */
+@mixin oio-focus($prefix: $parameterPrefix) {
+  background-color: var($prefix + -background-focus);
+  border: var($prefix + -border-width-focus) var($prefix + -border-style-focus) var($prefix + -border-color-focus);
+  //border-radius: var($prefix + -border-radius-focus);
+  box-shadow: var($prefix + -shadow-focus);
+  color: var($prefix + -text-color-focus);
+  // outline: var($prefix + -outline-focus);
+}
+
+/**
+ * 被访问
+ */
+@mixin oio-visited($prefix: $parameterPrefix) {
+  background-color: var($prefix + -background-visited);
+  border: var($prefix + -border-width-visited) var($prefix + -border-style-visited) var($prefix + -border-color-visited);
+  //border-radius: var($prefix + -border-radius-visited);
+  box-shadow: var($prefix + -box-shadow);
+  color: var($prefix + -text-color-visited);
+  // outline: var($prefix + -outline-visited);
+}
+
+/**
+ * 只读样式
+ * @param hasBorder 是否处理边框样式
+ * @param borderPrefix 边框样式前缀
+ */
+@mixin oio-readonly($hasBorder: false, $borderPrefix: $parameterPrefix) {
+  background-color: var($parameterPrefix + -readonly-bg);
+  box-shadow: none;
+  outline: none;
+
+  @if $hasBorder {
+    border-color: var($borderPrefix + $readonlyParameterPrefix + -border-color, $borderPrefix + -border-color);
+  }
+}
+
+/**
+ * 禁用样式
+ * @param hasBorder 是否处理边框样式
+ * @param borderPrefix 边框样式前缀
+ */
+@mixin oio-disabled($hasBorder: false, $borderPrefix: $parameterPrefix) {
+  background-color: var($parameterPrefix + -disabled-bg);
+  color: var($parameterPrefix + -disabled-color);
+  box-shadow: none;
+  outline: none;
+
+  @if $hasBorder {
+    border-color: var($borderPrefix + $disabledParameterPrefix + -border-color, $borderPrefix + -border-color);
+  }
+}
+
+@mixin oio-scrollbar() {
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: var(--oio-scrollbar-thumb-background-color);
+
+    &:hover {
+      background-color: var(--oio-scrollbar-thumb-background-color-hover);
+    }
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+
+@mixin mediaResponsive($property, $default, $large, $medium, $small) {
+  #{$property}: $default;
+
+  @media (max-width: 1920px) {
+    #{$property}: $large;
+  }
+
+  @media (max-width: 1680px) {
+    #{$property}: $medium;
+  }
+
+  @media (max-width: 1440px) {
+    #{$property}: $small;
+  }
+}

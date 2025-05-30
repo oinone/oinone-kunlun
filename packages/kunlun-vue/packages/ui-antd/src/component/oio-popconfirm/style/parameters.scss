@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$popconfirmPrefix: $prefix + -popconfirm;
+$popconfirmParameterPrefix: $parameterPrefix + -popconfirm;
+$popconfirmClassPrefix: $popconfirmPrefix;

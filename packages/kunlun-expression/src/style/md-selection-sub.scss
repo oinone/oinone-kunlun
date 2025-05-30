@@ -1,0 +1,23 @@
+$select-width: 329px;
+
+.md-selection-sub-inner {
+  &-search {
+    padding-top: 10px;
+    .keywords {
+      height: var(--oio-height);
+      border-radius: var(--oio-input-border-radius);
+      .ant-input {
+        height: unset;
+      }
+      .oio-icon {
+        cursor: pointer;
+      }
+      .anticon {
+        display: none;
+      }
+      .ant-input-group-addon {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$notificationPrefix: $prefix + -notification;
+$notificationParameterPrefix: $parameterPrefix + -notification;
+$notificationClassPrefix: $notificationPrefix;

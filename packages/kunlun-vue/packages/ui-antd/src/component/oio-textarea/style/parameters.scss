@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$textareaPrefix: $prefix + -textarea;
+$textareaParameterPrefix: $parameterPrefix + -textarea;
+$textareaClassPrefix: $textareaPrefix;

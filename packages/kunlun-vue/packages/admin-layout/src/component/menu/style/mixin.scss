@@ -1,0 +1,23 @@
+@mixin menuInlineIndentMixin($rootMenuItemIndent, $subMenuItemIndent, $menuSubIndent, $inlineIndent) {
+  .root-menu-item {
+    padding-left: $rootMenuItemIndent !important;
+  }
+  .root-sub-menu-1,
+  .root-sub-menu-2,
+  .root-sub-menu-3,
+  .root-sub-menu-4,
+  .root-sub-menu-5,
+  .root-sub-menu-6 {
+    .ant-menu-submenu-title {
+      padding-left: $subMenuItemIndent !important;
+    }
+
+    .ant-menu-sub {
+      overflow: hidden;
+      padding-left: $menuSubIndent !important;
+      & > .ant-menu-item {
+        padding-left: $inlineIndent !important;
+      }
+    }
+  }
+}

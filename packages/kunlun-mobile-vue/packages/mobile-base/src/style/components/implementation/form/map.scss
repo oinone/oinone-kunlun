@@ -1,0 +1,20 @@
+@import '../../../../style/global-parameters';
+.mobile-field-map-form {
+  .#{$formPrefix}-form .#{$formItemPrefix}-form-item .van-field__label {
+    display: none;
+  }
+  .map-items {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 2px;
+    .map-item {
+      padding: 4px 8px;
+      background: #eee;
+      border-radius: 6px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+      white-space: nowrap;
+      word-break: break-all;
+    }
+  }
+}

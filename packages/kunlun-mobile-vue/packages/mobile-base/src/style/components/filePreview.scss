@@ -1,0 +1,33 @@
+.mobile-file-preview {
+  display: flex;
+  overflow: hidden;
+  &-icon {
+    width: 100px;
+    height: 100px;
+  }
+  &-body {
+    flex: 1;
+    font-size: 28px;
+    line-height: 50px;
+    overflow: hidden;
+  }
+  &-filename {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+  }
+  &-btn,
+  &-download-btn {
+    color: var(--oio-primary-color);
+    position: relative;
+    z-index: 10;
+    margin-right: 10px;
+  }
+  &-download-btn {
+    margin-right: unset;
+  }
+  &-popup.van-popup {
+    background: transparent;
+  }
+}

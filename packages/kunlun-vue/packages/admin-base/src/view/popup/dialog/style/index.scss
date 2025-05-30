@@ -1,0 +1,29 @@
+@import '../../../../style/global-parameters.scss';
+
+.default-dialog .ant-modal {
+  .ant-modal-body {
+    padding-bottom: 24px;
+  }
+
+  .ant-modal-footer {
+    padding: 0;
+    border-top: 0;
+
+    .action-bar {
+      height: unset;
+      padding: var($parameterPrefix + -margin-md);
+      justify-content: flex-end;
+      border-top: 1px solid var(--oio-border-color);
+
+      button {
+        &.ant-btn {
+          margin: unset;
+        }
+      }
+    }
+
+    .default-dialog-footer {
+      padding: var($parameterPrefix + -margin-md);
+    }
+  }
+}

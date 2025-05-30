@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$dateTimePickerPrefix: $prefix + -date-time-picker;
+$dateTimePickerParameterPrefix: $parameterPrefix + -date-time-picker;
+$dateTimePickerClassPrefix: $dateTimePickerPrefix;

@@ -1,0 +1,30 @@
+@import './color-picker.scss';
+@import './parameters.scss';
+
+.#{$colorPickerClassPrefix} {
+  display: flex;
+  .#{$prefix}-color-preview-wrapper {
+    padding-left: 10px;
+  }
+}
+.#{$prefix}-color-preview-wrapper {
+  width: 50px;
+  height: var(--oio-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+}
+.#{$prefix}-color-preview {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
+  border: 1px solid #e8e8e8;
+  box-sizing: border-box;
+  overflow: hidden;
+  &-inner {
+    width: 48px;
+    height: 48px;
+  }
+}

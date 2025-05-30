@@ -1,0 +1,32 @@
+@import './parameters.scss';
+
+.#{$shapeClassPrefix} {
+  display: inline-block;
+  width: var($shapeParameterPrefix + -width);
+  min-width: var($shapeParameterPrefix + -width);
+  max-width: var($shapeParameterPrefix + -width);
+  height: var($shapeParameterPrefix + -height);
+  min-height: var($shapeParameterPrefix + -height);
+  max-height: var($shapeParameterPrefix + -height);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var($shapeParameterPrefix + -color);
+
+  &-block {
+    display: block;
+  }
+
+  &-square {
+    border-radius: unset;
+  }
+
+  &-circle {
+    width: var($shapeParameterPrefix + -size);
+    min-width: var($shapeParameterPrefix + -size);
+    max-width: var($shapeParameterPrefix + -size);
+    height: var($shapeParameterPrefix + -size);
+    min-height: var($shapeParameterPrefix + -size);
+    max-height: var($shapeParameterPrefix + -size);
+    border-radius: 50%;
+  }
+}

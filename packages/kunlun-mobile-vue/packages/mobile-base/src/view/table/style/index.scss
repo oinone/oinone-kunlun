@@ -1,0 +1,39 @@
+@import '../../../style/global-parameters';
+.table-container-click {
+  display: none;
+}
+
+.#{$prefix}-table {
+  .mobile-detail-multi-select {
+    justify-content: flex-start;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .mobile-detail-multi-select-item {
+      white-space: nowrap;
+    }
+  }
+
+  .table-header-column-checkbox,
+  .table-column-checkbox {
+    padding-left: 0;
+    .vxe-cell {
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+
+      .vxe-cell--checkbox {
+        height: 30px;
+      }
+
+      .vxe-checkbox--icon {
+        display: block;
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}

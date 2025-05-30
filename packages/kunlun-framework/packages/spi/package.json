@@ -1,0 +1,23 @@
+{
+  "name": "@kunlun/spi",
+  "version": "6.2.0",
+  "main": "index.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "rollup -c",
+    "dist": "npm run prepublishOnly",
+    "index": "npm run postpublish",
+    "test": "jest",
+    "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
+    "x-postpublish": "node ../../scripts/postpublish.js"
+  },
+  "dependencies": {
+    "inversify": "6.0.1"
+  },
+  "devDependencies": {
+    "@kunlun/shared": "6.2.0",
+    "reflect-metadata": "0.1.13",
+    "tslib": "2.3.1"
+  },
+  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
+}

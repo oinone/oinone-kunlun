@@ -1,0 +1,59 @@
+.homepage-setting {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+
+  .homepage-setting-group {
+    & > .homepage-setting-group-title-wrapper {
+      display: block !important;
+
+      & > .homepage-setting-group-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .oio-group-header-switch {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  .homepage-setting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: var(--oio-margin);
+
+    .homepage-setting-search {
+      display: flex;
+      align-items: center;
+      gap: var(--oio-row-gap);
+      width: 100%;
+
+      .form-single-select {
+        width: 17.5%;
+      }
+
+      .hompage-setting-enableStatus-select {
+        width: 17.5%;
+      }
+    }
+  }
+
+  .homepage-form-container {
+    .single-form-item {
+      flex: 0 0 55%;
+      min-width: 55%;
+      max-width: 55%;
+    }
+
+    .multiple-form-item {
+      flex: 0 0 27%;
+      min-width: 27%;
+      max-width: 27%;
+    }
+  }
+}

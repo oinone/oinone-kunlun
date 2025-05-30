@@ -1,0 +1,45 @@
+@import '../mixin.scss';
+
+/**
+ *   菜单左侧是个空心圆点
+ */
+.oinone-menu.oinone-menu-theme6 {
+  .oio-sub-menu-menu-item,
+  .not-root-menu {
+    /**
+     *   多层级菜单的左侧圆点
+     */
+    .ant-menu-title-content {
+      position: relative;
+      padding-left: 16px;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(0, -50%);
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        border: 1px solid var(--oio-menu-default-icon-color);
+        box-sizing: border-box;
+      }
+    }
+
+    &.ant-menu-submenu-selected {
+      & > .ant-menu-submenu-title .ant-menu-title-content {
+        &::before {
+          border-color: var(--oio-primary-color);
+        }
+      }
+    }
+  }
+
+  .ant-menu-item-selected > .ant-menu-title-content {
+    &::before {
+      border-color: var(--oio-primary-color);
+    }
+  }
+
+  @include menuInlineIndentMixin(16px, 16px, 16px, 16px);
+}

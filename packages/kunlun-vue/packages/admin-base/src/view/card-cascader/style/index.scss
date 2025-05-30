@@ -1,0 +1,100 @@
+@import '../../../style/global-parameters.scss';
+@import '../../../style/mixin.scss';
+
+.default-card-cascader-wrapper {
+  height: 100%;
+
+  & > .ant-spin-container {
+    height: 100%;
+  }
+
+  .default-card-cascader {
+    height: 100%;
+
+    & > .oio-card {
+      height: 100%;
+
+      &.default-card-cascader-card-list {
+        .oio-tree {
+          .ant-tree-switcher-noop,
+          .ant-tree-switcher {
+            display: none;
+          }
+
+          .ant-tree-node-content-wrapper {
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      & > .oio-card-content {
+        position: relative;
+        height: 100%;
+
+        .oio-tree {
+          @include oio-scrollbar();
+
+          position: absolute;
+          width: calc(100% - 16px);
+          height: calc(100% - 16px);
+          padding-right: 4px;
+          overflow: auto;
+
+          .default-tree-load-more-node {
+            .ant-tree-node-content-wrapper {
+              cursor: default;
+
+              &:hover {
+                background-color: transparent;
+              }
+            }
+          }
+        }
+
+        .default-search-tree-wrapper {
+          .oio-tree {
+            width: 100%;
+            height: calc(100% - var(#{$parameterPrefix + -height}) - 4px);
+          }
+        }
+
+        .default-card-cascader-node-wrapper {
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: space-between;
+
+          .default-card-cascader-node-title {
+            padding-right: 4px;
+            flex-grow: 1;
+            flex-shrink: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          .default-card-cascader-node-row-actions {
+            max-width: 80%;
+            flex-grow: 0;
+            flex-shrink: 0;
+
+            .action-bar {
+              height: 22px;
+            }
+          }
+        }
+      }
+    }
+
+    & > .default-card-cascader-content {
+      display: flex;
+      width: 100%;
+
+      & > .oio-default-view {
+        width: 100%;
+      }
+    }
+  }
+}

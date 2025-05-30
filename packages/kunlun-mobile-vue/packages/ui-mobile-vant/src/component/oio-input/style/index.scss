@@ -1,0 +1,126 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+@import './mixin.scss';
+
+span.#{$prefix}-custom-input {
+  &:not(.#{$prefix}-custom-input-textarea).van-field__control {
+    height: var(--oio-height);
+    line-height: var(--oio-height);
+    overflow: auto;
+    text-overflow: initial;
+    white-space: nowrap;
+  }
+  &-placeholder {
+    color: rgb(200, 201, 204);
+  }
+  &-textarea {
+  }
+}
+.#{$prefix}-input-group {
+  display: flex;
+  &.#{$prefix}-input-allow-clear {
+    padding-right: 48px;
+  }
+  &-prefix {
+    margin-right: 18px;
+  }
+  &-suffix {
+    margin-left: 18px;
+  }
+  &-prefix,
+  &-suffix {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    .mobile-common-input-prefix-suffix {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &-addon-before {
+  }
+  &-addon-after {
+  }
+
+  .#{$prefix}-handler-wrapper {
+    height: calc(var(#{$parameterPrefix + -height}) - 2px);
+    width: 40px;
+    display: flex;
+    flex-direction: column;
+
+    span {
+      height: 50%;
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      //border-left: var($inputParameterPrefix + -border-width) var($inputParameterPrefix + -border-style)
+      //var($inputParameterPrefix + -border-color);
+      cursor: pointer;
+      //opacity: 0;
+
+      //&:first-child {
+      //  border-top-right-radius: var($inputParameterPrefix + -border-radius);
+      //}
+      //
+      //&:last-child {
+      //  border-top: var($inputParameterPrefix + -border-width) var($inputParameterPrefix + -border-style)
+      //  var($inputParameterPrefix + -border-color);
+      //  border-bottom-right-radius: var($inputParameterPrefix + -border-radius);
+      //}
+    }
+  }
+}
+
+.#{$inputClassPrefix} {
+  &.#{$inputClassPrefix}-readonly {
+    background-color: transparent !important;
+
+    &:hover {
+      @include oio-readonly(true, $inputParameterPrefix);
+    }
+
+    &:focus {
+      @include oio-readonly(true, $inputParameterPrefix);
+    }
+
+    .#{$prefix}-custom-input,
+    input {
+      @include oio-readonly();
+    }
+  }
+}
+
+.#{$inputClassPrefix}-wrapper {
+  &.#{$inputClassPrefix}-show-count[data-count] {
+    position: relative;
+
+    &:after {
+      @include counter();
+      bottom: 9px;
+      right: 4px;
+    }
+
+    &.#{$inputClassPrefix}-allow-clear {
+      &:hover {
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.#{$inputNumberClassPrefix} {
+  &.#{$inputClassPrefix}-readonly {
+  }
+
+  &:hover {
+    .#{$prefix}-handler-wrapper {
+      span {
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+      }
+    }
+  }
+}

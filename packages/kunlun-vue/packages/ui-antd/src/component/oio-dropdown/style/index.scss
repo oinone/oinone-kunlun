@@ -1,0 +1,30 @@
+@import '../../../style/mixin.scss';
+@import './parameters.scss';
+
+.#{$dropdownClassPrefix}-overlay {
+  .ant-dropdown-menu {
+    background-color: var(--oio-dropdown-background-color);
+    box-shadow: var(--oio-dropdown-box-shadow);
+    border-radius: var(--oio-border-radius);
+  }
+
+  .ant-dropdown-menu-item,
+  .ant-dropdown-menu-submenu-title {
+    color: var(--oio-dropdown-color);
+
+    &:hover {
+      background-color: var(--oio-dropdown-item-background-color-hover);
+      color: var(--oio-dropdown-color-hover);
+    }
+  }
+
+  .ant-dropdown-menu-item-disabled,
+  .ant-dropdown-menu-submenu-title-disabled {
+    color: var(--oio-dropdown-color-disabled);
+
+    &:hover {
+      background-color: var(--oio-dropdown-item-background-color-disabled-hover);
+      color: var(--oio-dropdown-color-disabled-hover);
+    }
+  }
+}

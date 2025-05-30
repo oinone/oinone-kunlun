@@ -1,0 +1,27 @@
+.table-expand-panel {
+  padding: var(--oio-padding);
+}
+
+.oio-column {
+  &.oio-column-expandable {
+    & > .vxe-cell {
+      display: flex;
+
+      & > .vxe-table--expanded {
+        flex-shrink: 0;
+      }
+
+      & > .vxe-table--expand-label {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.oio-column-expanded {
+  &.oio-column-expanded-invisible {
+    & > .vxe-cell > .vxe-table--expanded {
+      display: none;
+    }
+  }
+}

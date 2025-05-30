@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters.scss';
+
+$treeSelectPrefix: $prefix + -tree-select;
+$treeSelectParameterPrefix: $parameterPrefix + -tree-select;
+$treeSelectClassPrefix: $treeSelectPrefix;

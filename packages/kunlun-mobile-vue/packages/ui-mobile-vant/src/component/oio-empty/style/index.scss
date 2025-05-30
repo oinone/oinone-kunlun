@@ -1,0 +1,14 @@
+@import '../../../style/global-parameters.scss';
+
+.#{$prefix}-empty-data {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  .van-empty__description {
+    margin-top: 0px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

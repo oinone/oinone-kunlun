@@ -1,0 +1,21 @@
+@import './parameters.scss';
+
+.#{$buttonClassPrefix} {
+  @import './a-button.scss';
+
+  &.#{$buttonClassPrefix}-link.#{$buttonClassPrefix}-selected {
+    background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
+    border-radius: 4px;
+
+    &:active,
+    &:hover,
+    &:focus,
+    &:visited {
+      background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
+    }
+
+    .oio-icon {
+      color: var($parameterPrefix + -primary-color-active);
+    }
+  }
+}

@@ -1,0 +1,105 @@
+@import '../../../global-parameters';
+.#{$prefix}-login-page {
+  &-form {
+    width: auto;
+    &-logo {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0 20px;
+      > img {
+        width: 132px;
+      }
+    }
+  }
+  .van-cell-group--inset {
+    overflow: visible;
+  }
+  .van-field {
+    background: #fafafc !important;
+    border: 1px solid rgba(225, 225, 225, 1) !important;
+    margin-bottom: 44px;
+    line-height: 48px;
+    border-radius: var(--oio-border-radius);
+    position: relative;
+    padding-left: 0;
+    overflow: visible;
+    .van-field__left-icon {
+      position: relative;
+      padding: 0 26px;
+      margin-right: 20px;
+      color: var(--oio-text-color-three);
+      &:after {
+        content: ' ';
+        position: absolute;
+        top: -6px;
+        right: 0;
+        height: 60px;
+        width: 1px;
+        background: #e1e1e1;
+      }
+    }
+    .van-field__control {
+      color: var(--oio-text-color);
+      &::placeholder {
+        color: var(--oio-text-color-three);
+      }
+    }
+    .van-field__error-message {
+      position: absolute;
+      left: 0;
+      bottom: -68px;
+    }
+    .send-verify-code-btn {
+      height: 48px;
+    }
+  }
+
+  &-btn-box {
+    padding: 0 30px;
+    .login-btn {
+      //margin-top: 60px;
+      height: 88px;
+      line-height: 88px;
+      font-size: 36px;
+    }
+  }
+  &-footer {
+    margin-top: 24px;
+    font-size: 24px;
+    color: #888;
+    text-align: center;
+  }
+
+  border-top: 1px solid #f5f5f5;
+  padding: 120px 24px 70px;
+  position: absolute;
+  top: 120px;
+  left: 24px;
+  right: 24px;
+  box-sizing: border-box;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0px 1.5px 23px 0px rgba(39, 50, 75, 0.12);
+  border-radius: 20px;
+  color: rgba(0, 0, 0, 0.65);
+
+  .login-page-tabs {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 80px;
+  }
+  .login-page-tab {
+    font-size: 40px;
+    position: relative;
+    padding-bottom: 10px;
+    color: var(--oio-text-color-three);
+    margin: 0 50px;
+    border-bottom: 2px solid transparent;
+
+    &.active {
+      color: var(--oio-text-color-secondary);
+      border-bottom-color: var(--oio-primary-color);
+    }
+  }
+}

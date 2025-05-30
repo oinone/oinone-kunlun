@@ -1,0 +1,27 @@
+@import '../../../style/global-parameters.scss';
+.#{$prefix}-notice-page {
+  .title {
+    padding: 120px 25px 40px;
+    font-family: PingFangSC-Medium;
+    font-size: 40px;
+    color: rgba(0,0,0,0.85);
+    text-align: center;
+    font-weight: 500;
+  }
+  .url {
+    padding: 0 25px 80px;
+    font-family: PingFangSC-Regular;
+    font-size: 32px;
+    color: rgba(0,0,0,0.85);
+    letter-spacing: 0;
+    text-align: center;
+    font-weight: 400;
+    word-break: break-all;
+  }
+  .cop-btn-wrapper {
+    text-align: center;
+    .copy-btn {
+      width: 360px;
+    }
+  }
+}

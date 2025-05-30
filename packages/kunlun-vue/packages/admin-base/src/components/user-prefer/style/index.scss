@@ -1,0 +1,252 @@
+@import '../../../style/mixin';
+
+.default-user-prefer {
+  .oio-button.oio-button-link {
+    width: 32px;
+    height: 32px;
+  }
+
+  .oio-icon {
+    color: var(--oio-text-color-secondary);
+  }
+}
+
+.default-user-prefer-modal {
+  .default-user-prefer-transfer {
+    width: 100%;
+
+    .ant-transfer-list {
+      flex: 1;
+      height: 343px;
+      min-width: 180px;
+      border: 1px solid var(--oio-border-color);
+      border-radius: var(--oio-border-radius);
+      box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.05);
+
+      .ant-transfer-list-header {
+        height: 54px;
+        background-color: var(--oio-transfer-background-color);
+        border-bottom-color: var(--oio-transfer-header-border-color);
+        border-top-left-radius: calc(var(--oio-border-radius) - 1px);
+        border-top-right-radius: calc(var(--oio-border-radius) - 1px);
+      }
+
+      .ant-transfer-list-header-selected {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+
+        & > span {
+          font-size: var(--oio-font-size);
+          color: var(--oio-placeholder-color);
+        }
+
+        .ant-transfer-list-header-title {
+          text-align: left;
+          color: var(--oio-text-color);
+          font-weight: 500;
+
+          .default-user-prefer-title {
+            .oio-checkbox {
+              margin-right: 8px;
+            }
+          }
+        }
+      }
+
+      .ant-transfer-list-body-search-wrapper {
+        padding-bottom: 10px;
+      }
+
+      .ant-transfer-list-search {
+        background-color: var(--oio-input-background);
+        border-color: var(--oio-input-border-color);
+        border-radius: var(--oio-border-radius);
+
+        input {
+          color: var(--oio-input-text-color);
+          caret-color: var(--oio-input-text-color);
+          background-color: var(--oio-input-background);
+
+          &::placeholder,
+          &::-webkit-input-placeholder {
+            color: var(--oio-placeholder-color);
+          }
+        }
+      }
+
+      .ant-transfer-list-body-customize-wrapper {
+        display: flex;
+        flex-direction: column;
+        font-size: var(--oio-font-size);
+        overflow: hidden;
+      }
+
+      .ant-transfer-list-content {
+        @include oio-scrollbar();
+
+        .ant-transfer-list-content-item {
+          transition: unset;
+
+          &:not(.ant-transfer-list-content-item-disabled):hover {
+            background-color: var(--oio-hover-background-color);
+          }
+
+          &.sortable-chosen {
+            background-color: var(--oio-hover-background-color);
+          }
+        }
+
+        .ant-transfer-list-checkbox {
+          background-color: transparent;
+
+          .ant-checkbox-inner {
+            background-color: var(--oio-checkbox-background);
+            border-color: var(--oio-checkbox-border-color);
+          }
+        }
+      }
+
+      .ant-transfer-list-body-not-found {
+        color: var(--oio-text-color);
+
+        .ant-empty-normal,
+        .ant-empty-small {
+          color: var(--oio-text-color);
+        }
+      }
+
+      .ant-transfer-list-content-item {
+        &.sortable-chosen {
+          .ant-transfer-list-content-item-text {
+            color: var(--oio-primary-color);
+          }
+
+          .default-user-prefer-transfer-item-handle {
+            color: var(--oio-primary-color);
+          }
+        }
+      }
+
+      .ant-transfer-list-checkbox.ant-checkbox-wrapper-checked + .ant-transfer-list-content-item-text {
+        color: var(--oio-primary-color);
+      }
+
+      .ant-transfer-list-content-item-text {
+        color: var(--oio-text-color-secondary);
+
+        .default-user-prefer-transfer-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          &-handle {
+            &:hover {
+              cursor: move;
+            }
+          }
+
+          .oio-icon.oio-icon-oinone-yidong {
+            padding-top: 3px;
+          }
+        }
+      }
+    }
+
+    .ant-transfer-operation {
+      flex-direction: row-reverse;
+      column-gap: 12px;
+      margin: 0 16px;
+
+      .ant-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: var(--oio-border-radius);
+
+        &.ant-btn-primary {
+          background-color: var(--oio-button-primary-background);
+          border: var(--oio-button-primary-border-width) var(--oio-button-primary-border-style)
+            var(--oio-button-primary-border-color);
+          color: var(--oio-button-primary-text-color);
+          box-shadow: var(--oio-button-primary-shadow);
+          outline: var(--oio-button-primary-outline);
+        }
+
+        &[disabled] {
+          background-color: var(--oio-disabled-bg);
+          border-color: var(--oio-disabled-border-color);
+          color: var(--oio-disabled-color);
+          box-shadow: none;
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .default-user-prefer-modal-footer {
+    display: flex;
+    justify-content: space-between;
+
+    &-left {
+      button.ant-btn {
+        margin: var(--oio-margin-xxs) var(--oio-margin-md) var(--oio-margin-xxs) 0;
+      }
+
+      .oio-icon {
+        color: var(--oio-button-link-text-color);
+      }
+    }
+  }
+}
+
+.default-user-prefer-overlay {
+  .ant-popover-inner,
+  .ant-popover-arrow-content {
+    background-color: var(--oio-background);
+  }
+
+  .ant-popover-inner-content {
+    color: var(--oio-text-color);
+    padding-bottom: 6px;
+  }
+
+  .default-user-prefer-draggable-wrapper {
+    @include oio-scrollbar();
+
+    max-height: 245px;
+    overflow: auto;
+    margin: 6px -12px 0 -6px;
+
+    .default-user-prefer-draggable-item {
+      padding: 6px 0 6px 6px;
+      display: flex;
+      justify-content: space-between;
+      max-width: 216px;
+
+      .default-user-prefer-draggable-item-title {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+        & > .oio-checkbox {
+          margin-right: 8px;
+        }
+      }
+
+      .default-user-prefer-draggable-item-handle {
+        cursor: move;
+      }
+    }
+
+    .smooth-dnd-ghost {
+      background-color: var(--oio-background);
+      box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.15);
+      cursor: move;
+    }
+  }
+
+  .oio-empty-data {
+    margin-top: 12px;
+  }
+}
