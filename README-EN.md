@@ -1,7 +1,6 @@
 ### 1. Repository
 
 Welcome to the Oinone Kunlun Repository! Join and help us improve the Enterprise-grade Productization Engine.
-.
 
 Oinone Kunlun is the front-end framework repository.
 
