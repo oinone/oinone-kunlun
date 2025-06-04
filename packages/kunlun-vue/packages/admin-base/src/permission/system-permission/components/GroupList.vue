@@ -109,7 +109,7 @@
   ></permission-dialog>
 </template>
 <script lang="ts" setup>
-import { OioButton, OioIcon, OioSwitch } from '@kunlun/vue-ui-antd';
+import { OioButton, OioIcon, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineEmits, defineProps, ref } from 'vue';
 import { useDslActionPermission } from '../hooks';
 import {

@@ -107,9 +107,18 @@
 
 <script>
 import { computed, defineComponent, onMounted, ref } from 'vue';
-import { OioButton, OioForm, OioFormItem, OioIcon, OioInput, OioMessage, OioModal, OioEmptyData } from '@kunlun/vue-ui-mobile-vant';
-import { ActiveRecordExtendKeys, translateValueByKey } from '@kunlun/engine';
-import { deepClone } from '@kunlun/meta';
+import {
+  OioButton,
+  OioForm,
+  OioFormItem,
+  OioIcon,
+  OioInput,
+  OioMessage,
+  OioModal,
+  OioEmptyData
+} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { ActiveRecordExtendKeys, translateValueByKey } from '@oinone/kunlun-engine';
+import { deepClone } from '@oinone/kunlun-meta';
 import {
   createUserQueryPrefer,
   deleteUserQueryPrefer,

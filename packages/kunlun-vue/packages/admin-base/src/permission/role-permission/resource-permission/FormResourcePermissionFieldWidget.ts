@@ -1,9 +1,9 @@
-import { ActiveRecord, MemoryListSearchCache, SubmitHandler, SubmitValue } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { TreeNode, uniqueKeyGenerator } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { OioTreeNode } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord, MemoryListSearchCache, SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
 import { FormM2MTreeFieldWidget } from '../../../field';
 import { TreeData, TreeNodeMetadata } from '../../../typing';

@@ -1,7 +1,7 @@
-import { ActiveRecord, ActiveRecords, RuntimeContext, RuntimeView, ViewCache } from '@kunlun/engine';
-import { CallChaining, uniqueKeyGenerator } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord, ActiveRecords, RuntimeContext, RuntimeView, ViewCache } from '@oinone/kunlun-engine';
+import { CallChaining, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { Slots, VNode } from 'vue';
 import { BasePackWidget, MetadataViewWidget } from '../../basic';
 import { DefaultTabWidget } from '../tabs/DefaultTabWidget';

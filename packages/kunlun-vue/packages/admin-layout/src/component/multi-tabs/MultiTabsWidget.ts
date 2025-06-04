@@ -16,13 +16,13 @@ import {
   ReloadMainViewCallChainingParameters,
   systemMajorConfig,
   translateValueByKey
-} from '@kunlun/engine';
-import { Matched, Router, useMatched } from '@kunlun/router';
-import { BooleanHelper, Optional } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Subscription } from '@kunlun/state';
-import { useRouter } from '@kunlun/vue-router';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { BooleanHelper, Optional } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Subscription } from '@oinone/kunlun-state';
+import { useRouter } from '@oinone/kunlun-vue-router';
+import { Widget } from '@oinone/kunlun-vue-widget';
 
 import { MaskWidget } from '../../basic';
 import { ModuleService } from '../../service';

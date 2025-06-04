@@ -17,8 +17,8 @@
   ></condition-input-panel>
 </template>
 <script lang="ts" setup>
-import { translateValueByKey } from '@kunlun/engine';
-import { GraphqlHelper, JSONUtils } from '@kunlun/shared';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { GraphqlHelper, JSONUtils } from '@oinone/kunlun-shared';
 import {
   ConditionInputPanel,
   createConditionExpressionDisplayName,
@@ -31,7 +31,7 @@ import {
   IExpressionItem,
   IExpressionOption,
   IExpressionQuoteType
-} from '@kunlun/vue-expression';
+} from '@oinone/kunlun-vue-expression';
 import { computed, defineEmits, defineExpose, defineProps, ref, watch, withDefaults } from 'vue';
 
 const props = withDefaults(

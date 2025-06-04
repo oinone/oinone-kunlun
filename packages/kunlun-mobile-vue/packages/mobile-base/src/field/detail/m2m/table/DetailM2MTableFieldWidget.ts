@@ -1,9 +1,9 @@
-import { ActiveRecord, RuntimeM2MField } from '@kunlun/engine';
-import { ModelFieldType, ViewMode, ViewType } from '@kunlun/meta';
-import { ReturnPromise } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { ActiveRecord, RuntimeM2MField } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { BaseFieldWidget, FormSubviewListFieldWidget, RelationQueryHelper } from '../../../../basic';
-import { Widget } from '@kunlun/vue-widget';
+import { Widget } from '@oinone/kunlun-vue-widget';
 
 @SPI.ClassFactory(
   BaseFieldWidget.Token({

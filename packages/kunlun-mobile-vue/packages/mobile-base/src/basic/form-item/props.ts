@@ -1,4 +1,4 @@
-import { FormLayout, ValidateTrigger } from '@kunlun/vue-ui-common';
+import { FormLayout, ValidateTrigger } from '@oinone/kunlun-vue-ui-common';
 import { PropType } from 'vue';
 import { ValidatorInfo } from '../../typing';
 

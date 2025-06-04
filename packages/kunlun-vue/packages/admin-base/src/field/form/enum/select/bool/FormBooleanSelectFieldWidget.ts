@@ -1,8 +1,8 @@
-import { RuntimeEnumerationOption, SubmitHandler, SubmitValue, translateValueByKey } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { BooleanHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { RuntimeEnumerationOption, SubmitHandler, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { toString } from 'lodash-es';
 import { FormFieldWidget } from '../../../../../basic';
 import { EnumerationValue } from '../../FormEnumFieldAbstractWidget';

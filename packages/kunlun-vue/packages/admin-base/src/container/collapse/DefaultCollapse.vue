@@ -1,5 +1,5 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
+import { DslDefinition } from '@oinone/kunlun-dsl';
 import {
   CastHelper,
   OioBaseContainerProps,
@@ -10,7 +10,7 @@ import {
   OioCollapseType,
   PropRecordHelper,
   StringHelper
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import { createVNode, defineComponent, onMounted, PropType, ref } from 'vue';
 
 export default defineComponent({

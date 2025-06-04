@@ -1,9 +1,9 @@
 import { RsqlConditionPanelWidget } from '../../../field';
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../basic';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { Widget } from '@kunlun/vue-widget';
-import { IQueryExpressionParam } from '@kunlun/vue-expression';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { IQueryExpressionParam } from '@oinone/kunlun-vue-expression';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
@@ -13,7 +13,6 @@ import { IQueryExpressionParam } from '@kunlun/vue-expression';
   })
 )
 export class PermissionRsqlPanelWidget extends RsqlConditionPanelWidget {
-
   @Widget.Reactive()
   public get queryExpressionParam(): IQueryExpressionParam {
     return {

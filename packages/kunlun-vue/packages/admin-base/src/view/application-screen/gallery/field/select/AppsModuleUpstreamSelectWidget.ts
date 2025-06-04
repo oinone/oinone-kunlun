@@ -1,6 +1,6 @@
-import { IQueryPageOption } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { IQueryPageOption } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { watch } from 'vue';
 import { FormFieldWidget } from '../../../../../basic';
 import { FormM2MFieldSelectWidget } from '../../../../../field';

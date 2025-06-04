@@ -1,8 +1,8 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../../../basic';
-import { Widget } from '@kunlun/vue-widget';
-import { VariableInputFormField } from '@kunlun/vue-expression';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { VariableInputFormField } from '@oinone/kunlun-vue-expression';
 import { VariableFormFieldBaseWidget } from './variableFormFieldBaseWidget';
 
 /**

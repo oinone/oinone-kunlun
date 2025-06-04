@@ -1,5 +1,5 @@
-import { DslDefinition } from '@kunlun/dsl';
-import { ServiceIdentifier, SPI } from '@kunlun/spi';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { ServiceIdentifier, SPI } from '@oinone/kunlun-spi';
 import { UnsupportedOperationException } from '../../exception';
 import { RuntimeViewAction } from '../../runtime-metadata';
 import { RuntimeContext } from '../runtime-context';

@@ -1,7 +1,7 @@
-import { translateValueByKey } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
 import { FormStringInputFieldWidget } from '../../../field';
 import { isValidatorSuccess, ValidatorInfo } from '../../../typing';

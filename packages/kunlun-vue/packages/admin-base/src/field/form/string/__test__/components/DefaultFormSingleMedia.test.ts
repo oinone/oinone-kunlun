@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import { InputMediaMode } from '@kunlun/vue-ui-common';
+import { InputMediaMode } from '@oinone/kunlun-vue-ui-common';
 import DefaultFormSingleMedia from '../../media/DefaultFormSingleMedia.vue';
 import { UploadCom, UploadCommonProps } from '../../../../../components';
 import DefaultString from '../../DefaultString.vue';

@@ -23,7 +23,7 @@
   </div>
 </template>
 <script lang="ts">
-import { OioButton, OioTextarea } from '@kunlun/vue-ui-antd';
+import { OioButton, OioTextarea } from '@oinone/kunlun-vue-ui-antd';
 import { isArrayLikeObject, isObject, isString } from 'lodash-es';
 import { defineComponent, ref } from 'vue';
 import VueJsonPretty from 'vue-json-pretty';

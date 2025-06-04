@@ -1,4 +1,4 @@
-import { DslDefinition, XMLParse } from '@kunlun/dsl';
+import { DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
 import {
   CurrentLanguage,
   initI18n,
@@ -12,17 +12,17 @@ import {
   useLanguage,
   ViewActionCache,
   ViewActionQueryParameter
-} from '@kunlun/engine';
-import { IView, ViewActionTarget } from '@kunlun/meta';
-import { isNotPermission, setSessionPath, useSessionPath } from '@kunlun/request';
-import { useMatched } from '@kunlun/router';
-import { CallChaining, debugConsole } from '@kunlun/shared';
-import { distinctUntilChanged, Subscription } from '@kunlun/state';
-import { DEFAULT_PREFIX } from '@kunlun/theme';
-import { ViewSubSymbol, Widget, WidgetSubjection } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { IView, ViewActionTarget } from '@oinone/kunlun-meta';
+import { isNotPermission, setSessionPath, useSessionPath } from '@oinone/kunlun-request';
+import { useMatched } from '@oinone/kunlun-router';
+import { CallChaining, debugConsole } from '@oinone/kunlun-shared';
+import { distinctUntilChanged, Subscription } from '@oinone/kunlun-state';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
+import { ViewSubSymbol, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { nextTick } from 'vue';
-import { ZH_CN_CODE } from '@kunlun/vue-ui-common';
-import { OioNotification } from '@kunlun/vue-ui-mobile-vant';
+import { ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
+import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { MetadataViewWidget } from '../basic';
 import { MaskManager } from '../spi';
 import DefaultMetadataMainView from './DefaultMetadataMainView.vue';

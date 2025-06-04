@@ -1,7 +1,7 @@
-import { ActiveRecord, translateValueByKey } from '@kunlun/engine';
-import { ActionType, ViewActionTarget } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { OioMessage } from '@kunlun/vue-ui-antd';
+import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
+import { ActionType, ViewActionTarget } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
 import { ActionWidget } from '../../component';
 import { InnerViewActionWidget } from '../popup';
 import { loadBizRecord } from './service';

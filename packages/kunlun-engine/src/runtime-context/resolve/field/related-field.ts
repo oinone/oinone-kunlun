@@ -1,5 +1,5 @@
-import { FieldDslDefinition } from '@kunlun/dsl';
-import { ModelFieldType } from '@kunlun/meta';
+import { FieldDslDefinition } from '@oinone/kunlun-dsl';
+import { ModelFieldType } from '@oinone/kunlun-meta';
 import { RuntimeRelatedField } from '../../../runtime-metadata';
 import { RuntimeContext } from '../../runtime-context';
 import { ResolveUtil } from '../util';

@@ -1,6 +1,6 @@
-import { ActionDslDefinition } from '@kunlun/dsl';
-import { ActionType } from '@kunlun/meta';
-import { SPIOperator, SPIOptions } from '@kunlun/spi';
+import { ActionDslDefinition } from '@oinone/kunlun-dsl';
+import { ActionType } from '@oinone/kunlun-meta';
+import { SPIOperator, SPIOptions } from '@oinone/kunlun-spi';
 import { RuntimeAction } from '../../../runtime-metadata';
 import { RuntimeContext } from '../../runtime-context';
 

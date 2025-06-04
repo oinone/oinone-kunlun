@@ -7,7 +7,7 @@ import {
   DslSlotUtils,
   TemplateDslDefinition,
   ViewDslDefinition
-} from '@kunlun/dsl';
+} from '@oinone/kunlun-dsl';
 import {
   createDefaultLayout,
   getRealTtype,
@@ -17,14 +17,14 @@ import {
   RuntimeRelationField,
   RuntimeView,
   translateValueByKey
-} from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
-import { isDev } from '@kunlun/router';
-import { StringHelper, uniqueKeyGenerator } from '@kunlun/shared';
-import { OioNotification } from '@kunlun/vue-ui-mobile-vant';
-import { OioTreeNode } from '@kunlun/vue-ui-common';
-import { DslRender } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
+import { isDev } from '@oinone/kunlun-router';
+import { StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
+import { DslRender } from '@oinone/kunlun-vue-widget';
 import { isNil, isObject, isString, toString } from 'lodash-es';
 import { Slot } from 'vue';
 import { SimpleTreeModelField, TreeData, TreeNodeMetadata } from '../typing';

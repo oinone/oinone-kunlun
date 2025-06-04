@@ -1,5 +1,5 @@
-import { GQL } from '@kunlun/request';
-import { SYSTEM_MODULE_NAME, UserBehaviorEventEnum, ViewActionTarget } from '@kunlun/meta';
+import { GQL } from '@oinone/kunlun-request';
+import { SYSTEM_MODULE_NAME, UserBehaviorEventEnum, ViewActionTarget } from '@oinone/kunlun-meta';
 import { encrypt } from '../../util';
 
 export interface UserServiceResponse {

@@ -1,5 +1,5 @@
-import { IView } from '@kunlun/meta';
-import { queryViewDslByModelAndName, queryViewDslByModelAndTemplate } from '@kunlun/service';
+import { IView } from '@oinone/kunlun-meta';
+import { queryViewDslByModelAndName, queryViewDslByModelAndTemplate } from '@oinone/kunlun-service';
 import { RuntimeView } from '../runtime-metadata';
 import { MemoryAsyncCache } from './cache';
 import { ClearCache } from './CacheClear';

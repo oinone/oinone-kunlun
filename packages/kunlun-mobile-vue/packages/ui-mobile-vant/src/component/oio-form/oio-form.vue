@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { OioFormProps, PropRecordHelper, useOioFormLayoutContext } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { OioFormProps, PropRecordHelper, useOioFormLayoutContext } from '@oinone/kunlun-vue-ui-common';
 import { Form as VanForm } from 'vant';
 import { createVNode, defineComponent, ref } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

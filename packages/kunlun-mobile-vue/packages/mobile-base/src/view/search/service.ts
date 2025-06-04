@@ -1,4 +1,4 @@
-import { http } from '@kunlun/service';
+import { http } from '@oinone/kunlun-service';
 import { provide, inject } from 'vue';
 
 const SearchUserPreferProvider = 'SearchUserPreferProvider';

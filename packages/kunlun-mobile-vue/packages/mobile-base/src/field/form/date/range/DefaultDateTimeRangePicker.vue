@@ -34,8 +34,8 @@
   </default-form-item>
 </template>
 <script lang="ts">
-import { OioDateTimeRangePicker } from '@kunlun/vue-ui-mobile-vant';
-import { OioDateTimeRangePickerProps } from '@kunlun/vue-ui-common';
+import { OioDateTimeRangePicker } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { OioDateTimeRangePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { ConfigProvider as VanConfigProvider } from 'vant';
 import { defineComponent } from 'vue';
 import { BaseFormItemProps, DefaultFormItem, OioCommonProps, OioMetadataProps } from '../../../../basic';

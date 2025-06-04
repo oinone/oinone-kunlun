@@ -1,5 +1,5 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   CascaderDisplayRenderFunction,
   CascaderItem,
@@ -10,7 +10,7 @@ import {
   OioCascaderProps,
   PropRecordHelper,
   SelectMode
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { Cascader as ACascader, Popover as APopover } from 'ant-design-vue';
 import { computed, createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

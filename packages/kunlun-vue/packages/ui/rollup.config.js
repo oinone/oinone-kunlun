@@ -2,9 +2,9 @@ import pkg from './package.json';
 import rollupConfig from '../../scripts/build.config.js';
 
 export default rollupConfig(pkg.name, [
-  '@kunlun/shared',
-  '@kunlun/vue-ui-antd',
-  '@kunlun/vue-ui-common',
+  '@oinone/kunlun-shared',
+  '@oinone/kunlun-vue-ui-antd',
+  '@oinone/kunlun-vue-ui-common',
   'lodash',
   'lodash-es',
   'vue',

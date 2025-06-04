@@ -4,8 +4,8 @@ import {
   resolveDynamicDomain,
   RuntimeSearchField,
   translateValueByKey
-} from '@kunlun/engine';
-import { ExpressionKeyword } from '@kunlun/expression';
+} from '@oinone/kunlun-engine';
+import { ExpressionKeyword } from '@oinone/kunlun-expression';
 import {
   deepClone,
   Entity,
@@ -15,8 +15,8 @@ import {
   isEmptyValue,
   isPromise,
   ModelFieldType
-} from '@kunlun/meta';
-import { Condition, ConditionBuilder } from '@kunlun/request';
+} from '@oinone/kunlun-meta';
+import { Condition, ConditionBuilder } from '@oinone/kunlun-request';
 import {
   BooleanHelper,
   CastHelper,
@@ -26,7 +26,7 @@ import {
   RSQLNodeInfoType,
   RSQLOperators,
   TreeNode
-} from '@kunlun/shared';
+} from '@oinone/kunlun-shared';
 import { isBoolean, toString } from 'lodash-es';
 
 const conditionBuilder = ConditionBuilder.getInstance();

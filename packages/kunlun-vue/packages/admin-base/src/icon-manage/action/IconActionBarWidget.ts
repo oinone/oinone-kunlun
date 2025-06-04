@@ -1,6 +1,6 @@
-import { ActiveRecordsOperator } from '@kunlun/engine';
-import { SPI } from '@kunlun/spi';
-import { RowContext } from '@kunlun/vue-ui';
+import { ActiveRecordsOperator } from '@oinone/kunlun-engine';
+import { SPI } from '@oinone/kunlun-spi';
+import { RowContext } from '@oinone/kunlun-vue-ui';
 import { RowActionBarWidget } from '../../action';
 import { BaseElementWidget } from '../../basic';
 import IconActionBar from './IconActionBar.vue';

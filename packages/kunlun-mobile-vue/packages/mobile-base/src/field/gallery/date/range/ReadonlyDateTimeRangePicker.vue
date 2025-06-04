@@ -9,7 +9,7 @@
   </default-gallery-item>
 </template>
 <script lang="ts">
-import { FlexRowJustify, OioDateTimePickerFormatProps } from '@kunlun/vue-ui-common';
+import { FlexRowJustify, OioDateTimePickerFormatProps } from '@oinone/kunlun-vue-ui-common';
 import { defineComponent, PropType } from 'vue';
 import { BaseGalleryItemProps, DefaultGalleryItem } from '../../../../basic';
 import { useDateTimeRangePicker } from '../../../detail/date/range/use-date-time-range-picker';

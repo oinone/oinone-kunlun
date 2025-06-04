@@ -1,4 +1,4 @@
-import { RuntimeConfigOptions } from '@kunlun/meta';
+import { RuntimeConfigOptions } from '@oinone/kunlun-meta';
 
 /**
  * 实验性配置

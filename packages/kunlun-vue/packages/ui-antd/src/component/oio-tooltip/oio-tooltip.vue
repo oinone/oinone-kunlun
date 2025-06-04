@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { convertAntdTooltipPlacement, OioTooltipProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { convertAntdTooltipPlacement, OioTooltipProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Tooltip as ATooltip } from 'ant-design-vue';
 import { computed, createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

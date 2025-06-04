@@ -1,4 +1,4 @@
-import { Condition, DefaultComparisonOperator } from '@kunlun/request';
+import { Condition, DefaultComparisonOperator } from '@oinone/kunlun-request';
 
 export type RSQLConditionConsumer = (selector: string, value: string, isPreprocess?: boolean) => Condition;
 

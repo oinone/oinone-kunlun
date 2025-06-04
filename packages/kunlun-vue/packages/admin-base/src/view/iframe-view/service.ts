@@ -1,5 +1,5 @@
-import { HttpClient, gql } from '@kunlun/request';
-import { MetadataFragment } from '@kunlun/meta';
+import { HttpClient, gql } from '@oinone/kunlun-request';
+import { MetadataFragment } from '@oinone/kunlun-meta';
 
 const http = HttpClient.getInstance();
 

@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { OioButton, OioPopconfirm, DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
+import { OioButton, OioPopconfirm, DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { defineComponent } from 'vue';
 import { ActionProps, useAction } from './typing';
 

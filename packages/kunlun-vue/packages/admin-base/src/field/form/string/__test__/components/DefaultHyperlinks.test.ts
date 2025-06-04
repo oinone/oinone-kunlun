@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import { InputMediaMode } from '@kunlun/vue-ui-common';
+import { InputMediaMode } from '@oinone/kunlun-vue-ui-common';
 import DefaultHyperlinks from '../../hyperlinks/DefaultHyperlinks.vue';
 
 describe('DefaultHyperlinks', () => {

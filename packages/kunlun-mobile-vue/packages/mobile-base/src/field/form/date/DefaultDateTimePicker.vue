@@ -21,8 +21,8 @@
   </van-config-provider>
 </template>
 <script lang="ts">
-import { OioDateTimePicker } from '@kunlun/vue-ui-mobile-vant';
-import { OioDateTimePickerProps } from '@kunlun/vue-ui-common';
+import { OioDateTimePicker } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { OioDateTimePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { ConfigProvider as VanConfigProvider } from 'vant';
 import { defineComponent } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic';

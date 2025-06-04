@@ -9,10 +9,10 @@
 </template>
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { OioButton, DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
-import { translateValueByKey } from '@kunlun/engine';
+import { OioButton, DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Toast } from 'vant';
-import { useMatched } from '@kunlun/router';
+import { useMatched } from '@oinone/kunlun-router';
 import { copyText } from '../../util';
 
 export default defineComponent({

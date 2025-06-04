@@ -1,7 +1,7 @@
-import { ViewType } from '@kunlun/meta';
-import { getCurrentThemeSize, ColSpanEnum } from '@kunlun/engine';
-import { DslDefinition } from '@kunlun/dsl';
-import { CSSStyle, CastHelper, BooleanHelper, NumberHelper, Optional } from '@kunlun/shared';
+import { ViewType } from '@oinone/kunlun-meta';
+import { getCurrentThemeSize, ColSpanEnum } from '@oinone/kunlun-engine';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { CSSStyle, CastHelper, BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
 import {
   DEFAULT_CARD_GUTTERS,
   DEFAULT_GUTTERS,
@@ -13,8 +13,8 @@ import {
   FlexDirection,
   FlexRowAlign,
   InputMediaMode
-} from '@kunlun/vue-ui-common';
-import { StyleHelper } from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-common';
+import { StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { PropType, createVNode, defineComponent } from 'vue';
 import { isEmpty, isNil, isString } from 'lodash-es';
 import { SEARCH_WIDGET } from '../../../typing';

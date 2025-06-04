@@ -1,12 +1,12 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   convertAntdDropdownPlacement,
   OioDropdownPlacement,
   OioDropdownProps,
   OioDropdownTrigger,
   PropRecordHelper
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { Dropdown as ADropdown } from 'ant-design-vue';
 import { isNil, isString } from 'lodash-es';
 import { computed, createVNode, defineComponent } from 'vue';

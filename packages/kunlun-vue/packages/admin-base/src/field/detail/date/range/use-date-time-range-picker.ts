@@ -1,4 +1,4 @@
-import { DateUtil } from '@kunlun/shared';
+import { DateUtil } from '@oinone/kunlun-shared';
 import { isDate, isEmpty, isString, toString } from 'lodash-es';
 import { computed } from 'vue';
 

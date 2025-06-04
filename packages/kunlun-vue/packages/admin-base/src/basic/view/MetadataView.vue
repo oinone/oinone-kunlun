@@ -1,5 +1,5 @@
 <script lang="ts">
-import { DslRender } from '@kunlun/vue-widget';
+import { DslRender } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, Fragment, VNode } from 'vue';
 import { useInjectMetaContext, useProviderMetaContext } from '../../tags/context';
 import { MetadataViewProps } from './props';

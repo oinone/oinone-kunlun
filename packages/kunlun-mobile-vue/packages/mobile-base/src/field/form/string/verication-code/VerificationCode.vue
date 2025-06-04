@@ -6,7 +6,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { OioInput } from '@kunlun/vue-ui-mobile-vant';
+import { OioInput } from '@oinone/kunlun-vue-ui-mobile-vant';
 
 export default defineComponent({
   inheritAttrs: false,

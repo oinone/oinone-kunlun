@@ -53,9 +53,9 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import draggable from 'vuedraggable';
-import { Condition } from '@kunlun/request';
-import { Pagination } from '@kunlun/engine';
-import { OioIcon, OioInput } from '@kunlun/vue-ui-antd';
+import { Condition } from '@oinone/kunlun-request';
+import { Pagination } from '@oinone/kunlun-engine';
+import { OioIcon, OioInput } from '@oinone/kunlun-vue-ui-antd';
 // import { ComponentDefinitionService } from '../../service';
 import { sortWidget } from '../../service/UiWidgetSortService';
 

@@ -1,8 +1,8 @@
-import { ViewType, ModelFieldType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { SubmitValue, SubmitHandler } from '@kunlun/engine';
-import { Widget, WidgetSubjection } from '@kunlun/vue-widget';
-import { useUploadFileEvent, IUploadMethod } from '@kunlun/vue-ui-common';
+import { ViewType, ModelFieldType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { SubmitValue, SubmitHandler } from '@oinone/kunlun-engine';
+import { Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { useUploadFileEvent, IUploadMethod } from '@oinone/kunlun-vue-ui-common';
 import SmoothSignature from 'smooth-signature';
 import { BaseFieldWidget } from '../../../../basic';
 import { encrypt } from '../../../../util';

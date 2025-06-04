@@ -1,5 +1,5 @@
-import { defaultMultiPartConfig } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { defaultMultiPartConfig } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 
 import { FormO2MFieldWidget } from '../../../../basic';
 

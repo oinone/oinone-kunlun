@@ -15,15 +15,15 @@
       @focus="focus"
       @blur="blur"
     />
-<!--    <div v-if="clearStatus" class="clear">-->
-<!--      <i class="van-badge__wrapper van-icon van-icon-clear van-field__clear" @click="clearContent" />-->
-<!--    </div>-->
+    <!--    <div v-if="clearStatus" class="clear">-->
+    <!--      <i class="van-badge__wrapper van-icon van-icon-clear van-field__clear" @click="clearContent" />-->
+    <!--    </div>-->
   </div>
 </template>
 <script lang="ts">
 import { CloseCircleFilled } from '@ant-design/icons-vue';
-import { BooleanHelper } from '@kunlun/shared';
-import { OioTextarea } from '@kunlun/vue-ui-mobile-vant';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { OioTextarea } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { isNil } from 'lodash-es';
 import { computed, defineComponent, ref, watch } from 'vue';
 import { OioMetadataProps } from '../../../basic';

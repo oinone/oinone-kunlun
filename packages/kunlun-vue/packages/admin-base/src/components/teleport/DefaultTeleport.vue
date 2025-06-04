@@ -1,5 +1,5 @@
 <script lang="ts">
-import { PatchFlags } from '@kunlun/vue-ui-common';
+import { PatchFlags } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent, Teleport, VNodeProps } from 'vue';
 
 export default defineComponent({

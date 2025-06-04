@@ -3,13 +3,13 @@
     <slot></slot>
   </div>
 </template>
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent } from 'vue';
-import { DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 
 export default defineComponent({
   setup() {
-    return { DEFAULT_PREFIX }
+    return { DEFAULT_PREFIX };
   }
 });
 </script>

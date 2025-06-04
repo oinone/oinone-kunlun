@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, watch, ref } from 'vue';
-import { getModel } from '@kunlun/service';
+import { getModel } from '@oinone/kunlun-service';
 
 export default defineComponent({
   props: ['displayName', 'field', 'value'],

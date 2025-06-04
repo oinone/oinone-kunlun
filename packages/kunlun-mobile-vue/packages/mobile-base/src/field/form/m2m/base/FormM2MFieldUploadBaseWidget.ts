@@ -1,8 +1,8 @@
-import { Widget } from '@kunlun/vue-widget';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormM2MFieldWidget } from '../../../../basic';
-import { MultipartUploadRuntimeConfig } from '@kunlun/vue-ui-common';
-import { ConfigHelper } from '@kunlun/engine';
-import { RuntimeConfig } from '@kunlun/meta';
+import { MultipartUploadRuntimeConfig } from '@oinone/kunlun-vue-ui-common';
+import { ConfigHelper } from '@oinone/kunlun-engine';
+import { RuntimeConfig } from '@oinone/kunlun-meta';
 
 export abstract class FormM2MFieldUploadBaseWidget extends FormM2MFieldWidget {
   public initialize(config) {

@@ -1,4 +1,4 @@
-import { Optional } from '@kunlun/shared';
+import { Optional } from '@oinone/kunlun-shared';
 import { Component, VNode } from 'vue';
 
 export type HTMLElementEntity = HTMLElement & Record<string, unknown>;

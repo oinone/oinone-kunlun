@@ -1,4 +1,4 @@
-import { IModelField, ModelFieldType } from '@kunlun/meta';
+import { IModelField, ModelFieldType } from '@oinone/kunlun-meta';
 import { IExpSelectOption } from './Common';
 import { SessionContextOption } from './ConditionRsqlOperatorConfig';
 

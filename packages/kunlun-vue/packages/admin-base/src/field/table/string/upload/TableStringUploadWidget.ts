@@ -1,7 +1,7 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { BooleanHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { createVNode } from 'vue';
 import { BaseFieldWidget } from '../../../../basic';
 import { TableStringFieldWidget } from '../TableStringFieldWidget';

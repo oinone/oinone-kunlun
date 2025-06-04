@@ -1,4 +1,4 @@
-import { BigNumber } from '@kunlun/shared';
+import { BigNumber } from '@oinone/kunlun-shared';
 import * as charCodes from '../../charcodes';
 import * as types from '../../tokens';
 import {

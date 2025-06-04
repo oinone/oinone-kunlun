@@ -1,9 +1,9 @@
-import { CallChaining, NumberHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { ViewType } from '@kunlun/meta';
-import { ActiveRecordsOperator } from '@kunlun/engine';
-import { FlexRowJustify, ListSelectMode } from '@kunlun/vue-ui-common';
-import { ActiveRecordsWidgetProps, Widget } from '@kunlun/vue-widget';
+import { CallChaining, NumberHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { ViewType } from '@oinone/kunlun-meta';
+import { ActiveRecordsOperator } from '@oinone/kunlun-engine';
+import { FlexRowJustify, ListSelectMode } from '@oinone/kunlun-vue-ui-common';
+import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { VNode } from 'vue';
 import { BaseActionGroupWidget, BaseElementWidget } from '../../../basic';

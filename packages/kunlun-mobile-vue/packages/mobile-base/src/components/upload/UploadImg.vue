@@ -44,8 +44,8 @@
 <script lang="ts">
 import { ref, defineComponent, PropType, computed } from 'vue';
 import { Popup as VanPopup, Image as VanImage } from 'vant';
-import { FormLayout, useInjectOioFormContext } from '@kunlun/vue-ui-common';
-import { CastHelper, DEFAULT_PREFIX, StringHelper } from '@kunlun/vue-ui-mobile-vant';
+import { FormLayout, useInjectOioFormContext } from '@oinone/kunlun-vue-ui-common';
+import { CastHelper, DEFAULT_PREFIX, StringHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { isNil } from 'lodash-es';
 import { useMetadataProps } from '../../basic';
 import FileUpload from './File.vue';

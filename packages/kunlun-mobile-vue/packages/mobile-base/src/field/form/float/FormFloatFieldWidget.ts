@@ -1,15 +1,15 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { BigNumber, NumberHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BigNumber, NumberHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNil, toString } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
 import { numberZeroFill } from '../../util';
 import { FormIntegerFieldWidget } from '../integer';
 import DefaultFloat from './DefaultFloat.vue';
-import { IInputmodeEnum } from '@kunlun/vue-ui-common';
-import { translateValueByKey } from '@kunlun/engine';
+import { IInputmodeEnum } from '@oinone/kunlun-vue-ui-common';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({

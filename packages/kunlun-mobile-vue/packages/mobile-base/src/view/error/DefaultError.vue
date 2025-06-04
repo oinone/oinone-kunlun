@@ -5,8 +5,8 @@
   </div>
 </template>
 <script lang="ts">
-import { genStaticPath } from '@kunlun/engine';
-import { DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
+import { genStaticPath } from '@oinone/kunlun-engine';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { defineComponent } from 'vue';
 
 export default defineComponent({

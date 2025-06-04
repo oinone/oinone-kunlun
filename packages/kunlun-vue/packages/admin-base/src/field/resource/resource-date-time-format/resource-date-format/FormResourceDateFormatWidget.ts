@@ -1,9 +1,9 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
 import FormResourceDateFormat from './FormResourceDateFormat.vue';
-import { ResourceDateTimeOption } from '@kunlun/shared';
+import { ResourceDateTimeOption } from '@oinone/kunlun-shared';
 import { getResourceDateFormatOptions } from '../constant';
 
 @SPI.ClassFactory(

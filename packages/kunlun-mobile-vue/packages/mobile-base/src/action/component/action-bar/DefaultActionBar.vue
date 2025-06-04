@@ -1,9 +1,9 @@
 <script lang="ts">
 import { DownOutlined } from '@ant-design/icons-vue';
-import { ActiveRecord, translateValueByKey } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { ListSelectMode, OioDropdownTrigger, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { ListSelectMode, OioDropdownTrigger, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import DefaultDropdown from '../dropdown/DefaultDropdown.vue';
 import DefaultActionBarBatchOpt from './DefaultActionBarBatchOpt.vue';
 import {
@@ -18,10 +18,10 @@ import {
   withDirectives
 } from 'vue';
 import { ActiveCountEnum } from '../../../typing';
-import { DslRenderDefinition, onAllMounted } from '@kunlun/vue-widget';
+import { DslRenderDefinition, onAllMounted } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { CollectionActions } from '../../../util/collection-actions';
-import { DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 
 const fragmentVNodeType = 'Symbol(Fragment)';
 const ACTION_BAR_CLASS_NAME = `${DEFAULT_PREFIX}-action-bar`;

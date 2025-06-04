@@ -5,11 +5,11 @@ import {
   RuntimeContextManager,
   SubmitType,
   SubmitValue
-} from '@kunlun/engine';
-import { ViewMode, ViewType } from '@kunlun/meta';
-import { CallChaining, Constructor } from '@kunlun/shared';
-import { SPI, SPISingleSelector, SPITokenFactory } from '@kunlun/spi';
-import { ActiveRecordsWidgetProps, Widget, InnerWidgetType } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { CallChaining, Constructor } from '@oinone/kunlun-shared';
+import { SPI, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
+import { ActiveRecordsWidgetProps, Widget, InnerWidgetType } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import DefaultView from '../../view/view/DefaultView.vue';
 import { BaseRuntimePropertiesWidget } from '../common';

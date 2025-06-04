@@ -1,8 +1,8 @@
-import { SubmitValue } from '@kunlun/engine';
-import { IModel, IModelField, ModelFieldType, ViewType } from '@kunlun/meta';
-import { getModel } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { SubmitValue } from '@oinone/kunlun-engine';
+import { IModel, IModelField, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { getModel } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
 import { FormTextFieldWidget } from '../FormTextFieldWidget';
 import Component from './DomainExpGenerator.vue';

@@ -6,10 +6,10 @@ import {
   RuntimeContextManager,
   RuntimeModelField,
   RuntimeViewAction
-} from '@kunlun/engine';
-import { IDslNode, ViewType } from '@kunlun/meta';
-import { CastHelper, debugConsole, instantiate } from '@kunlun/shared';
-import { getWidget, getWidgetNotNull, newVueWidget, RenderWidget, VueWidget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { IDslNode, ViewType } from '@oinone/kunlun-meta';
+import { CastHelper, debugConsole, instantiate } from '@oinone/kunlun-shared';
+import { getWidget, getWidgetNotNull, newVueWidget, RenderWidget, VueWidget } from '@oinone/kunlun-vue-widget';
 import {
   BaseActionOptions,
   BaseActionWidget,

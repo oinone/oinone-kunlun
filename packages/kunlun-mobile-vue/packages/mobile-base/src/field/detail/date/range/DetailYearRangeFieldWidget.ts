@@ -1,7 +1,7 @@
-import { ViewType } from '@kunlun/meta';
-import { defaultYearFormat, defaultYearValueFormat } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ViewType } from '@oinone/kunlun-meta';
+import { defaultYearFormat, defaultYearValueFormat } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../../basic';
 import { DetailDateTimeRangeFieldWidget } from './DetailDateTimeRangeFieldWidget';
 

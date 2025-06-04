@@ -1,7 +1,7 @@
-import { RuntimeViewAction } from '@kunlun/engine';
-import { IMenu, IViewAction } from '@kunlun/meta';
-import { CastHelper, TreeHelper, TreeNode } from '@kunlun/shared';
-import { OioTreeNode } from '@kunlun/vue-ui-common';
+import { RuntimeViewAction } from '@oinone/kunlun-engine';
+import { IMenu, IViewAction } from '@oinone/kunlun-meta';
+import { CastHelper, TreeHelper, TreeNode } from '@oinone/kunlun-shared';
+import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
 
 export interface IResolvedMenu {
   value: IMenu;

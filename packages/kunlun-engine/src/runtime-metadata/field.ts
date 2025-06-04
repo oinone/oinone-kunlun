@@ -1,4 +1,4 @@
-import { EnumOptionState, ModelFieldType } from '@kunlun/meta';
+import { EnumOptionState, ModelFieldType } from '@oinone/kunlun-meta';
 import { RelationUpdateType, SubmitCacheManager } from '../submit';
 import { RuntimeModel, RuntimeModelField } from './base';
 

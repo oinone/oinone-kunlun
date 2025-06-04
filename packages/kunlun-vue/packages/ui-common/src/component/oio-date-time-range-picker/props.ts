@@ -8,7 +8,7 @@ import {
   defaultYearFormat,
   defaultYearValueFormat,
   TimeFormatMap
-} from '@kunlun/shared';
+} from '@oinone/kunlun-shared';
 import { PropType } from 'vue';
 import { OioDateTimePickerFormatProps } from '../oio-date-time-picker';
 

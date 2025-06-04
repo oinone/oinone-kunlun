@@ -1,9 +1,9 @@
 import { watch, nextTick } from 'vue';
 
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
-import { ActiveRecord, Pagination } from '@kunlun/engine';
-import { ListPaginationStyle } from '@kunlun/vue-ui-antd';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { ActiveRecord, Pagination } from '@oinone/kunlun-engine';
+import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-antd';
 
 import { BaseElementWidget, FormFieldWidget } from '../../../basic';
 import Component from './Component.vue';

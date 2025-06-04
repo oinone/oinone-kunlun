@@ -8,7 +8,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, onBeforeUnmount, computed, onMounted, watch, nextTick } from 'vue';
-import { ViewType } from '@kunlun/meta';
+import { ViewType } from '@oinone/kunlun-meta';
 import { BaseFormItemProps, OioCommonProps, OioMetadataProps } from '../../../basic';
 
 const loadBaiDuMap = (cb) => {

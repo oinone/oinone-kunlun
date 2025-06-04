@@ -1,7 +1,7 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { BooleanHelper, Optional } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper, Optional } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
 import { FormM2OAddressFieldWidget } from '../../form';
 

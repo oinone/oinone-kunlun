@@ -1,4 +1,4 @@
-import { ActionDslDefinition, FieldDslDefinition } from '@kunlun/dsl';
+import { ActionDslDefinition, FieldDslDefinition } from '@oinone/kunlun-dsl';
 import {
   ActionContextType,
   ActionType,
@@ -6,7 +6,7 @@ import {
   ModelFieldType,
   ModelType,
   ViewType
-} from '@kunlun/meta';
+} from '@oinone/kunlun-meta';
 import { SubmitType } from '../submit';
 
 /**

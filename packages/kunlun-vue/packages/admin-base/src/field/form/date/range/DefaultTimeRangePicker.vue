@@ -32,8 +32,8 @@
   </default-form-item>
 </template>
 <script lang="ts">
-import { OioTimeRangePicker } from '@kunlun/vue-ui-antd';
-import { OioTimeRangePickerProps } from '@kunlun/vue-ui-common';
+import { OioTimeRangePicker } from '@oinone/kunlun-vue-ui-antd';
+import { OioTimeRangePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { defineComponent } from 'vue';
 import {
   BaseFormItemProps,

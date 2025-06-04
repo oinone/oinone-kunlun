@@ -1,10 +1,10 @@
-import { ActiveRecord, Pagination, QuerySort, resolveDynamicDomain } from '@kunlun/engine';
-import { ExpressionRunParam } from '@kunlun/expression';
-import { SYSTEM_MODULE_NAME } from '@kunlun/meta';
-import { GQL } from '@kunlun/request';
-import { http, IQueryPageResult } from '@kunlun/service';
-import { CastHelper, GraphqlHelper, TreeHelper, TreeNode, uniqueKeyGenerator } from '@kunlun/shared';
-import { OioTreeNode } from '@kunlun/vue-ui-common';
+import { ActiveRecord, Pagination, QuerySort, resolveDynamicDomain } from '@oinone/kunlun-engine';
+import { ExpressionRunParam } from '@oinone/kunlun-expression';
+import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
+import { GQL } from '@oinone/kunlun-request';
+import { http, IQueryPageResult } from '@oinone/kunlun-service';
+import { CastHelper, GraphqlHelper, TreeHelper, TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
 import { cloneDeep } from 'lodash-es';
 import { CardCascaderItemData, TreeData, TreeNodeMetadata } from '../../typing';
 

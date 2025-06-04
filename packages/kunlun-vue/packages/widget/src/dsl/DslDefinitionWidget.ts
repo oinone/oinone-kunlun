@@ -5,8 +5,8 @@ import {
   RuntimeContext,
   RuntimeContextManager,
   RuntimeModelField
-} from '@kunlun/engine';
-import { BooleanHelper } from '@kunlun/shared';
+} from '@oinone/kunlun-engine';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { isNil } from 'lodash-es';
 import { Widget } from '../basic';
 import { InvisibleSupported, isAllInvisible } from '../feature';

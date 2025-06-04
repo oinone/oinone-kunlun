@@ -1,8 +1,8 @@
-import { SPI } from '@kunlun/spi';
-import { IModelField, IModelFieldOption, ModelFieldType, ViewType } from '@kunlun/meta';
-import { Widget } from '@kunlun/vue-widget';
-import { ActiveRecord, RuntimeModelField } from '@kunlun/engine';
-import { BooleanHelper, CallChaining } from '@kunlun/shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { IModelField, IModelFieldOption, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
+import { BooleanHelper, CallChaining } from '@oinone/kunlun-shared';
 import DefaultSearchTab from './DefaultSearchTab.vue';
 import { BaseElementWidget } from '../../basic';
 import { CATE_ALL_OPTION } from './types';
@@ -86,7 +86,7 @@ export class SearchTabWidget extends BaseElementWidget {
 
   protected $$mounted() {
     super.$$mounted();
-    this.mountedCallChaining?.hook(this.path,() => {
+    this.mountedCallChaining?.hook(this.path, () => {
       this.initCate();
     });
   }
@@ -103,7 +103,11 @@ export class SearchTabWidget extends BaseElementWidget {
     }
   }
 
-  private async initCateSearchField(field: RuntimeModelField | undefined, fieldOptions: IModelFieldOption[], isShowAll: boolean) {
+  private async initCateSearchField(
+    field: RuntimeModelField | undefined,
+    fieldOptions: IModelFieldOption[],
+    isShowAll: boolean
+  ) {
     if (this.formData && field && fieldOptions.length && !isShowAll) {
       const initialValue = await this.rootRuntimeContext.getInitialValue();
       const defaultVal = initialValue[field.name];

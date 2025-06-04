@@ -1,8 +1,8 @@
-import { IResourceDateTimeFormat, queryResourceDateTimeFormat, RuntimeSearchField } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { CallChaining, defaultDateFormatKey, defaultTimeFormatKey, ObjectUtils, RSQLOperators } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget, WidgetComponent } from '@kunlun/vue-widget';
+import { IResourceDateTimeFormat, queryResourceDateTimeFormat, RuntimeSearchField } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { CallChaining, defaultDateFormatKey, defaultTimeFormatKey, ObjectUtils, RSQLOperators } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { FormFieldWidget } from '../../../../basic';
 import { SearchRangeFieldWidget } from '../../../range';

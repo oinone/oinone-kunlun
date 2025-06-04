@@ -1,14 +1,14 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../../../basic';
-import { DefaultComparisonOperator } from '@kunlun/request';
+import { DefaultComparisonOperator } from '@oinone/kunlun-request';
 import {
   autoAddQuote,
   IExpressionQuoteType,
   isNumStringTtype,
   IVariableCustomMethodContext,
   IVariableValueType
-} from '@kunlun/vue-expression';
+} from '@oinone/kunlun-vue-expression';
 import { RsqlConditionInputControlWidget } from './rsqlConditionInputControlWidget';
 
 const LIKE_OPERATORS = [

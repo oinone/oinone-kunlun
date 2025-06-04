@@ -1,8 +1,8 @@
-import { DslDefinition, DslDefinitionType } from '@kunlun/dsl';
-import { BooleanHelper, Optional, StringHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { RenderCellContext } from '@kunlun/vue-ui';
-import { Widget } from '@kunlun/vue-widget';
+import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { BooleanHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { RenderCellContext } from '@oinone/kunlun-vue-ui';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget, getTableThemeConfig } from '../../basic';
 import { BaseTableColumnWidget } from '../../basic/table-column';
 import { OperationColumnDirection, UserTablePrefer } from '../../typing';

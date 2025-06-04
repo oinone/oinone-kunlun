@@ -10,7 +10,7 @@
   </oio-form>
 </template>
 <script lang="ts">
-import { OioForm, OioFormItem, OioTextarea } from '@kunlun/vue-ui-antd';
+import { OioForm, OioFormItem, OioTextarea } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent } from 'vue';
 import { DebugInfoProps } from '../../typing';
 import DebugJsonView from '../components/DebugJsonView.vue';

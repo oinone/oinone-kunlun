@@ -1,4 +1,4 @@
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { LayoutWidget, MobileViewWidget } from '../../layout';
 
 import ContainerComponent from './Container.vue';

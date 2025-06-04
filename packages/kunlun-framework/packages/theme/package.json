@@ -1,5 +1,5 @@
 {
-  "name": "@kunlun/theme",
+  "name": "@oinone/kunlun-theme",
   "version": "6.2.0",
   "main": "index.ts",
   "scripts": {

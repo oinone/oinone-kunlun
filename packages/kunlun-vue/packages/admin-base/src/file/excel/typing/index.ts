@@ -1,5 +1,5 @@
-import { IdModel, QueryWrapper } from '@kunlun/engine';
-import { IModelField } from '@kunlun/meta';
+import { IdModel, QueryWrapper } from '@oinone/kunlun-engine';
+import { IModelField } from '@oinone/kunlun-meta';
 
 export type ExcelWorkDefinition = Required<IdModel>;
 

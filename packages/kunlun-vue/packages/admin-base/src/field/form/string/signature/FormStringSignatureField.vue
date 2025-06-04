@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { OioSpin, OioButton } from '@kunlun/vue-ui-antd';
+import { OioSpin, OioButton } from '@oinone/kunlun-vue-ui-antd';
 import SmoothSignature from 'smooth-signature';
 import { defineComponent, nextTick, onMounted, PropType, ref } from 'vue';
 

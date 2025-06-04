@@ -1,5 +1,5 @@
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 
 import { BasePackWidget } from '../../basic/token/BasePackWidget';
 import { DefaultTabsWidget } from '../tabs/DefaultTabsWidget';

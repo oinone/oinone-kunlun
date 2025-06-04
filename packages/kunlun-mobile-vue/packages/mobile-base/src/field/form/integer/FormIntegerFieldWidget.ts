@@ -1,14 +1,14 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { BigNumber, BooleanHelper, fetchRealValue, Optional } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BigNumber, BooleanHelper, fetchRealValue, Optional } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNil, isNumber, isString, toString } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
 import { stringIsAllNum } from '../../util';
 import { FormNumberAbstractFieldWidget, NumberValue } from '../abstract/FormNumberAbstractFieldWidget';
 import DefaultInteger from './DefaultInteger.vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({

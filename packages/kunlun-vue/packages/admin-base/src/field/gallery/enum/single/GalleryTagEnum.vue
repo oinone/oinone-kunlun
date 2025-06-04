@@ -12,7 +12,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { OioIcon } from '@kunlun/vue-ui-antd';
+import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 
 export default defineComponent({
   props: {

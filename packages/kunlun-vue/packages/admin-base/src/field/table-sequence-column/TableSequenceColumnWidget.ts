@@ -1,8 +1,8 @@
-import { Optional } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { RenderCellContext } from '@kunlun/vue-ui';
-import { Widget } from '@kunlun/vue-widget';
-import { translateValueByKey } from '@kunlun/engine';
+import { Optional } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { RenderCellContext } from '@oinone/kunlun-vue-ui';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { BaseElementWidget, BaseTableColumnWidget } from '../../basic';
 
 @SPI.ClassFactory(

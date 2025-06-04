@@ -1,5 +1,5 @@
 {
-  "name": "@kunlun/meta",
+  "name": "@oinone/kunlun-meta",
   "version": "6.2.0",
   "main": "index.ts",
   "scripts": {
@@ -11,7 +11,7 @@
     "x-postpublish": "node ../../scripts/postpublish.js"
   },
   "devDependencies": {
-    "@kunlun/request": "6.2.0"
+    "@oinone/kunlun-request": "6.2.0"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

@@ -1,4 +1,4 @@
-import { ActionDslDefinition } from '@kunlun/dsl';
+import { ActionDslDefinition } from '@oinone/kunlun-dsl';
 import { RuntimeServerAction } from '../../../runtime-metadata';
 import { RuntimeContext } from '../../runtime-context';
 import { convertFunction, DslFunction } from './resolve-function';

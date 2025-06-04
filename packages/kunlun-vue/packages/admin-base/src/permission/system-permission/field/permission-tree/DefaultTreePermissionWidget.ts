@@ -1,6 +1,6 @@
-import { SPI } from '@kunlun/spi';
-import { http } from '@kunlun/service';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { http } from '@oinone/kunlun-service';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
 
 import Component from './DefaultTreePermission.vue';

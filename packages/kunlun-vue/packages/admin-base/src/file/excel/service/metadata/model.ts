@@ -1,5 +1,5 @@
-import { MetadataHelper, RuntimeModel, StaticMetadata } from '@kunlun/engine';
-import { ModelFieldType, SYSTEM_MODULE, SYSTEM_MODULE_NAME } from '@kunlun/meta';
+import { MetadataHelper, RuntimeModel, StaticMetadata } from '@oinone/kunlun-engine';
+import { ModelFieldType, SYSTEM_MODULE, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 
 export namespace StaticFileMetadata {
   export const ExcelWorkbookDefinitionModel = '$$excel_workbook_definition_model';

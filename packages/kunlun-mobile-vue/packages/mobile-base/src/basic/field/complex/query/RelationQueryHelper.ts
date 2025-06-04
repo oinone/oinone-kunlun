@@ -6,9 +6,9 @@ import {
   RuntimeModel,
   RuntimeRelationField,
   SubmitType
-} from '@kunlun/engine';
-import { ViewMode } from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
+} from '@oinone/kunlun-engine';
+import { ViewMode } from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
 import { FetchUtil } from '../../../../util';
 
 export class RelationQueryHelper {

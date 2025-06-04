@@ -1,4 +1,4 @@
-import { IURLAction, ViewActionTarget } from '@kunlun/meta';
+import { IURLAction, ViewActionTarget } from '@oinone/kunlun-meta';
 import { RedirectTargetEnum } from '../typing';
 
 const executeUrlAction = (action: IURLAction) => {

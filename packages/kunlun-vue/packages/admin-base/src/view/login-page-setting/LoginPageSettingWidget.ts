@@ -1,11 +1,11 @@
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
-import { OioNotification } from '@kunlun/vue-ui-antd';
-import { customMutation } from '@kunlun/service';
-import { HttpClient } from '@kunlun/request';
-import { OioProvider, translateValueByKey } from '@kunlun/engine';
-import { Matched, Router, useMatched } from '@kunlun/router';
-import { useRouter } from '@kunlun/vue-router';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { customMutation } from '@oinone/kunlun-service';
+import { HttpClient } from '@oinone/kunlun-request';
+import { OioProvider, translateValueByKey } from '@oinone/kunlun-engine';
+import { Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { useRouter } from '@oinone/kunlun-vue-router';
 
 import { BaseElementWidget } from '../../basic';
 

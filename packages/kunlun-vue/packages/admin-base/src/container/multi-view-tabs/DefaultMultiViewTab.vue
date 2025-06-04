@@ -1,7 +1,7 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { onTabInvisibleChange, useOioFormLayoutContext } from '@kunlun/vue-ui-antd';
-import { OioTabProps, PropRecordHelper, TabHTMLNode, useInjectOioTabsContext } from '@kunlun/vue-ui-common';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { onTabInvisibleChange, useOioFormLayoutContext } from '@oinone/kunlun-vue-ui-antd';
+import { OioTabProps, PropRecordHelper, TabHTMLNode, useInjectOioTabsContext } from '@oinone/kunlun-vue-ui-common';
 import { TabPane as ATabPane } from 'ant-design-vue';
 import { createVNode, defineComponent, getCurrentInstance, onUpdated, PropType, watch } from 'vue';
 

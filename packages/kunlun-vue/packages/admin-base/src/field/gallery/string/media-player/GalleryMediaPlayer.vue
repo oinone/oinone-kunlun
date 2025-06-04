@@ -23,7 +23,7 @@ import { computed, defineComponent, ref } from 'vue';
 import { Image as AImage } from 'ant-design-vue';
 import { PreviewMedia } from '../../../../components';
 import GalleryCommonField from '../../common/GalleryCommonField.vue';
-import { VIDEO_SUFFIX_LIST } from '@kunlun/vue-ui-common';
+import { VIDEO_SUFFIX_LIST } from '@oinone/kunlun-vue-ui-common';
 
 export default defineComponent({
   components: {

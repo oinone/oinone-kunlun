@@ -1,42 +1,39 @@
 <template>
-  <div class="free-draggable"
-       ref="fu" >
+  <div class="free-draggable" ref="fu">
     <slot />
-    <div class="global-menu-btn global-menu-btn-move-handler"
-         @mousedown="down"
-         @touchstart="down"
-         @mousemove="move"
-         @touchmove="move"
-         @mouseup="end"
-         @touchend="end"
-         ref="moveHandler">
+    <div
+      class="global-menu-btn global-menu-btn-move-handler"
+      @mousedown="down"
+      @touchstart="down"
+      @mousemove="move"
+      @touchmove="move"
+      @mouseup="end"
+      @touchend="end"
+      ref="moveHandler"
+    >
       <i class="menu-icon iconfont oinone-move-handler" />
     </div>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue';
-import { OioIcon } from '@kunlun/vue-ui-common';
+import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { Icon } from 'vant';
 
 export default defineComponent({
-  props: {
-  },
-  components: {
-  },
-  setup() {
-
-  },
+  props: {},
+  components: {},
+  setup() {},
   data() {
     return {
       flags: false, //控制使用
-      position: {  x: 0,  y: 0,  },
+      position: { x: 0, y: 0 },
       nx: 0,
       ny: 0,
       dx: 0,
       dy: 0,
       xPum: 0,
-      yPum: 0,
+      yPum: 0
     };
   },
   methods: {
@@ -71,11 +68,17 @@ export default defineComponent({
         this.yPum < 0 && (this.yPum = 0);
         this.xPum > width && (this.xPum = width);
         this.yPum > height && (this.yPum = height);
-        if (this.xPum >= 0 && this.yPum >= 0 && this.xPum<= width &&this.yPum<= height) {
-          (this.$refs as any).fu.style.left = this.xPum + "px";
-          (this.$refs as any).fu.style.top = this.yPum + "px";
-        }  //阻止页面的滑动默认事件
-        document.addEventListener(   "touchmove",   function () {   event.preventDefault();   },   false  );
+        if (this.xPum >= 0 && this.yPum >= 0 && this.xPum <= width && this.yPum <= height) {
+          (this.$refs as any).fu.style.left = this.xPum + 'px';
+          (this.$refs as any).fu.style.top = this.yPum + 'px';
+        } //阻止页面的滑动默认事件
+        document.addEventListener(
+          'touchmove',
+          function () {
+            event.preventDefault();
+          },
+          false
+        );
       }
     }, //鼠标释放时候的函数
     end() {

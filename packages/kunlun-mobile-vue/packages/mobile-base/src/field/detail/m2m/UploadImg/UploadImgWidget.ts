@@ -1,4 +1,4 @@
-import { VueWidget, Widget } from '@kunlun/vue-widget';
+import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import UploadImg from './UploadImg.vue';
 
 export default class UploadImgWidget extends VueWidget {

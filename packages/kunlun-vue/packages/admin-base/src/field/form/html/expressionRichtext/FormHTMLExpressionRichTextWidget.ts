@@ -1,7 +1,7 @@
-import { IModel, ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
-import { IVariableContextItem } from '@kunlun/vue-expression';
+import { IModel, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { IVariableContextItem } from '@oinone/kunlun-vue-expression';
 import { FormHtmlRichTextFieldWidget } from '../richtext/FormHtmlRichTextFieldWidget';
 import { FormFieldWidget } from '../../../../basic';
 import Component from './ExpressionRichText.vue';

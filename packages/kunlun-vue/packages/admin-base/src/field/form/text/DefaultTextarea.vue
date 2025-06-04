@@ -22,8 +22,8 @@
 </template>
 <script lang="ts">
 import { CloseCircleFilled } from '@ant-design/icons-vue';
-import { BooleanHelper } from '@kunlun/shared';
-import { OioTextarea } from '@kunlun/vue-ui-antd';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { OioTextarea } from '@oinone/kunlun-vue-ui-antd';
 import { isNil } from 'lodash-es';
 import { computed, defineComponent, ref, watch } from 'vue';
 import { OioMetadataProps, usePlaceholderProps } from '../../../basic';

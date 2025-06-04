@@ -1,4 +1,4 @@
-import { ReturnPromise } from '@kunlun/shared';
+import { ReturnPromise } from '@oinone/kunlun-shared';
 import { HttpClient } from '../client';
 import { ObjectValue, RequestContext } from '../types';
 import { GQLFragmentBuilderImpl, GQLRequestParameterBuilderImpl, GQLResponseParameterBuilderImpl } from './builder';
@@ -52,7 +52,7 @@ abstract class AbstractGQLBuilder implements GQLBuilder {
     this.type = type;
     this.modelName = modelName;
     if (!modelName) {
-      console.error('modelName is blank', type, name)
+      console.error('modelName is blank', type, name);
     }
     this.name = name;
     this.fragments = fragments || [];

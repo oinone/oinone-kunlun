@@ -1,8 +1,8 @@
 <script lang="ts">
-import { ActiveRecord, genStaticPath } from '@kunlun/engine';
-import { OioButton, OioPopconfirm } from '@kunlun/vue-ui-antd';
-import { OioIcon, PropRecordHelper } from '@kunlun/vue-ui-common';
-import { DslRenderDefinition } from '@kunlun/vue-widget';
+import { ActiveRecord, genStaticPath } from '@oinone/kunlun-engine';
+import { OioButton, OioPopconfirm } from '@oinone/kunlun-vue-ui-antd';
+import { OioIcon, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
 import { createVNode, defineComponent, PropType, VNode } from 'vue';
 
 export default defineComponent({

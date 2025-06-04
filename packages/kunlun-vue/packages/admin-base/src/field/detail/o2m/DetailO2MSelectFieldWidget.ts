@@ -1,7 +1,7 @@
-import { ActiveRecord, getLabelFieldList4query, RuntimeO2MField } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord, getLabelFieldList4query, RuntimeO2MField } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic/field';
 import { DetailRelationSelectFieldWidget } from '../abstract/DetailRelationSelectFieldWidget';
 import Select from './Select.vue';

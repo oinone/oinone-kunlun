@@ -25,7 +25,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 export default defineComponent({
   setup() {
     const active = ref(0);

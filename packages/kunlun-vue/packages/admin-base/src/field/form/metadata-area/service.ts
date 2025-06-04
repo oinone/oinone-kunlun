@@ -1,5 +1,5 @@
-import { HttpClient } from '@kunlun/request';
-import { RuntimeAction } from '@kunlun/engine';
+import { HttpClient } from '@oinone/kunlun-request';
+import { RuntimeAction } from '@oinone/kunlun-engine';
 
 const http = HttpClient.getInstance();
 

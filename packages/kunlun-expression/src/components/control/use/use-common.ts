@@ -6,8 +6,8 @@ import {
   createExpressionDisplayName,
   createExpressionValue
 } from '../../../share';
-import { deepClone, isEmptyValue } from '@kunlun/meta';
-import { ExpressionExecutor } from '@kunlun/engine';
+import { deepClone, isEmptyValue } from '@oinone/kunlun-meta';
+import { ExpressionExecutor } from '@oinone/kunlun-engine';
 
 export function useExpressionLabelMaybeSourceCode(props: { [key: string]: any }) {
   const existing = (props.expressionItemList || []).some((v) => !!v.valueList?.find((val) => val.value));

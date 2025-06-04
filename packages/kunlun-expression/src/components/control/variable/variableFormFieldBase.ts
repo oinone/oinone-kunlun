@@ -2,9 +2,9 @@
  * VariableInputFormField.vue
  * VariableTagFormField.vue
  */
-import { Pagination } from '@kunlun/engine';
-import { IModelField, isDateTtype, isNumberTtype, ModelFieldType } from '@kunlun/meta';
-import { BooleanHelper, OioNotification } from '@kunlun/vue-ui-antd';
+import { Pagination } from '@oinone/kunlun-engine';
+import { IModelField, isDateTtype, isNumberTtype, ModelFieldType } from '@oinone/kunlun-meta';
+import { BooleanHelper, OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { isNil } from 'lodash-es';
 import {
   computed,

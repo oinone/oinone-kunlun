@@ -1,4 +1,4 @@
-import { ActionDslDefinition, DslDefinitionType, TemplateDslDefinition } from '@kunlun/dsl';
+import { ActionDslDefinition, DslDefinitionType, TemplateDslDefinition } from '@oinone/kunlun-dsl';
 import {
   ActiveRecord,
   ActiveRecordExtendKeys,
@@ -15,15 +15,15 @@ import {
   RuntimeModelField,
   RuntimeRelationField,
   translateValueByKey
-} from '@kunlun/engine';
-import { Entity, ViewType } from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
-import { DEFAULT_TRUE_CONDITION, ISort } from '@kunlun/service';
-import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { VxeTableHelper } from '@kunlun/vue-ui';
-import { StyleHelper } from '@kunlun/vue-ui-antd';
-import { DslDefinitionWidget, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { Entity, ViewType } from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
+import { DEFAULT_TRUE_CONDITION, ISort } from '@oinone/kunlun-service';
+import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { VxeTableHelper } from '@oinone/kunlun-vue-ui';
+import { StyleHelper } from '@oinone/kunlun-vue-ui-antd';
+import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { find, isBoolean, isNaN, isNil, isNumber, isPlainObject, isString, toString } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTableDefines } from 'vxe-table';

@@ -37,7 +37,13 @@
     </template>
     <template #content>
       <div ref="dropdownRef">
-        <expression-designer-cascader :group-by-store="isRsqlField" :options="availableOptions" :load-data="fetchChildrenInner" :change-on-select="changeOnSelect" @change="onChange">
+        <expression-designer-cascader
+          :group-by-store="isRsqlField"
+          :options="availableOptions"
+          :load-data="fetchChildrenInner"
+          :change-on-select="changeOnSelect"
+          @change="onChange"
+        >
           <template #header>
             <div class="variable-input-form-field-dropdown-header">
               <oio-input
@@ -56,10 +62,10 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, PropType, ref, watch } from 'vue';
-import { OioInput } from '@kunlun/vue-ui-antd';
+import { OioInput } from '@oinone/kunlun-vue-ui-antd';
 import { CloseCircleFilled, DownOutlined } from '@ant-design/icons-vue';
-import { ModelFieldType } from '@kunlun/meta';
-import { CastHelper } from '@kunlun/shared';
+import { ModelFieldType } from '@oinone/kunlun-meta';
+import { CastHelper } from '@oinone/kunlun-shared';
 import ControlTag from '../control/control-tag/ControlTag.vue';
 import ExpressionDesignerCascader from '../cascader/Cascader.vue';
 import {

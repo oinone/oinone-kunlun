@@ -1,6 +1,6 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { CastHelper, CSSStyle, StringHelper } from '@kunlun/shared';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { CastHelper, CSSStyle, StringHelper } from '@oinone/kunlun-shared';
 import {
   FlexDirection,
   FormLayout,
@@ -10,8 +10,8 @@ import {
   StyleHelper,
   useInjectOioFormContext,
   useProviderOioFormContext
-} from '@kunlun/vue-ui-mobile-vant';
-import { onAllMounted } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
 import { useProviderOioDefaultRowContext } from './context';
 

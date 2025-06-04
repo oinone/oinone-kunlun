@@ -1,7 +1,7 @@
-import { ViewType } from '@kunlun/meta';
-import { http } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { VueWidget, Widget } from '@kunlun/vue-widget';
+import { ViewType } from '@oinone/kunlun-meta';
+import { http } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 
 import { FormStringFieldWidget } from '../FormStringFieldWidget';
 import Component from './VerificationCode.vue';

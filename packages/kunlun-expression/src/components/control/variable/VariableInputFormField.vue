@@ -191,7 +191,7 @@
 import { defineComponent } from 'vue';
 import { CloseCircleFilled } from '@ant-design/icons-vue';
 import { Select as ASelect, Tooltip as ATooltip, Popover as APopover } from 'ant-design-vue';
-import { OioInput, OioDatePicker, OioDateTimePicker, OioYearPicker, OioTimePicker } from '@kunlun/vue-ui-antd';
+import { OioInput, OioDatePicker, OioDateTimePicker, OioYearPicker, OioTimePicker } from '@oinone/kunlun-vue-ui-antd';
 import ControlTag from '../control-tag/ControlTag.vue';
 import ExpressionDesignerCascader from '../../cascader/Cascader.vue';
 import { createComponent, IVariableFormFieldProps } from './variableFormFieldBase';

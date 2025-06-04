@@ -1,5 +1,5 @@
 <script lang="ts">
-import { PropRecordHelper } from '@kunlun/vue-ui-common';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent } from 'vue';
 import { InlineForm } from '../inline-form';
 

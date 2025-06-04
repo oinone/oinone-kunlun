@@ -1,4 +1,4 @@
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { BaseMaskWidget, MaskWidget } from '../../basic';
 import DividerComponent from './Divider.vue';
 

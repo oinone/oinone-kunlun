@@ -1,4 +1,4 @@
-import { BooleanHelper, StringHelper } from '@kunlun/shared';
+import { BooleanHelper, StringHelper } from '@oinone/kunlun-shared';
 
 export interface PropConfigDefinition {
   key: string;

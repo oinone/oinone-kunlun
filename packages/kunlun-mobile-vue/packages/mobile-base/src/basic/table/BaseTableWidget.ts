@@ -1,4 +1,4 @@
-import { DEFAULT_SLOT_NAME } from '@kunlun/dsl';
+import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import {
   ActiveRecord,
   ActiveRecords,
@@ -13,10 +13,10 @@ import {
   SubmitCacheManager,
   SubmitValue,
   translateValueByKey
-} from '@kunlun/engine';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
-import { MessageHub } from '@kunlun/request';
-import { BooleanHelper, Optional, ReturnPromise } from '@kunlun/shared';
+} from '@oinone/kunlun-engine';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { MessageHub } from '@oinone/kunlun-request';
+import { BooleanHelper, Optional, ReturnPromise } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
   OioTableInstance,
@@ -26,8 +26,8 @@ import {
   TableEditorTrigger,
   VxeTableHelper
 } from '../../ui';
-import { ListPaginationStyle, ListSelectMode, OioNotification, StyleHelper } from '@kunlun/vue-ui-mobile-vant';
-import { Widget } from '@kunlun/vue-widget';
+import { ListPaginationStyle, ListSelectMode, OioNotification, StyleHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isEmpty, isEqual, isPlainObject } from 'lodash-es';
 import { UserPreferService } from '../../service';
 import { UserTablePrefer } from '../../typing';

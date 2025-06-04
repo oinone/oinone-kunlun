@@ -9,7 +9,7 @@
   </div>
 </template>
 <script lang="ts">
-import { ReturnPromise } from '@kunlun/shared';
+import { ReturnPromise } from '@oinone/kunlun-shared';
 import { defineComponent, PropType } from 'vue';
 import { DefaultUserPrefer } from '../../components';
 

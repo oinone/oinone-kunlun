@@ -1,4 +1,4 @@
-import { DEFAULT_SLOT_NAME, DslDefinition } from '@kunlun/dsl';
+import { DEFAULT_SLOT_NAME, DslDefinition } from '@oinone/kunlun-dsl';
 import {
   DslRender,
   RenderWidget,
@@ -6,7 +6,7 @@ import {
   reportAllMounted,
   VueWidget,
   WidgetTagProps
-} from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-widget';
 import { ComponentOptionsMixin, computed, Slots } from 'vue';
 import { useInjectMaskContext, useProviderMaskContext } from '../context';
 import { createMaskWidget, CreateMaskWidgetProps, InternalMaskWidget } from '../resolve';

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { ButtonType, OioButton, OioModal, PropRecordHelper, ReturnPromise } from '@kunlun/vue-ui-antd';
+import { ButtonType, OioButton, OioModal, PropRecordHelper, ReturnPromise } from '@oinone/kunlun-vue-ui-antd';
 import { Transfer as ATransfer } from 'ant-design-vue';
 import { createVNode, defineComponent, nextTick, PropType, ref, VNode } from 'vue';
 import SimpleUserPreferSetting from './SimpleUserPreferSetting.vue';

@@ -1,7 +1,7 @@
-import { DEFAULT_SLOT_NAME, DslDefinition, DslSlotUtils } from '@kunlun/dsl';
-import { Align, Layout, Overflow } from '@kunlun/engine';
-import { useMatched } from '@kunlun/router';
-import { Constructor, CSSStyle, StringHelper } from '@kunlun/shared';
+import { DEFAULT_SLOT_NAME, DslDefinition, DslSlotUtils } from '@oinone/kunlun-dsl';
+import { Align, Layout, Overflow } from '@oinone/kunlun-engine';
+import { useMatched } from '@oinone/kunlun-router';
+import { Constructor, CSSStyle, StringHelper } from '@oinone/kunlun-shared';
 import {
   SPIFactory,
   SPIOperator,
@@ -9,9 +9,9 @@ import {
   SPISelectorFactory,
   SPISingleSelector,
   SPITokenFactory
-} from '@kunlun/spi';
-import { StyleHelper } from '@kunlun/vue-ui-common';
-import { DslRender, DslRenderWidget, DslRenderWidgetProps, Widget, InnerWidgetType } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-spi';
+import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
+import { DslRender, DslRenderWidget, DslRenderWidgetProps, Widget, InnerWidgetType } from '@oinone/kunlun-vue-widget';
 import { Slots, VNode } from 'vue';
 import { getMaskTagManagerInstance } from '../register';
 import { IMobileViewFilterOptions, MobileViewWidget } from '../MobileViewWidget';

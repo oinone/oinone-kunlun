@@ -18,12 +18,12 @@ import {
   systemMajorConfig,
   ViewActionCache,
   ViewActionQueryParameter
-} from '@kunlun/engine';
-import { ActionType, IModule, ViewActionTarget } from '@kunlun/meta';
-import { BooleanHelper, CallChaining, Consumer, Executor, Optional, TreeNode } from '@kunlun/shared';
-import { Subscription } from '@kunlun/state';
-import { MenuService, MenuUrlParameters, RuntimeMenu } from '@kunlun/vue-admin-layout';
-import { DslDefinitionWidget, DslDefinitionWidgetProps, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { ActionType, IModule, ViewActionTarget } from '@oinone/kunlun-meta';
+import { BooleanHelper, CallChaining, Consumer, Executor, Optional, TreeNode } from '@oinone/kunlun-shared';
+import { Subscription } from '@oinone/kunlun-state';
+import { MenuService, MenuUrlParameters, RuntimeMenu } from '@oinone/kunlun-vue-admin-layout';
+import { DslDefinitionWidget, DslDefinitionWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isString } from 'lodash-es';
 import { Component, Ref } from 'vue';
 import { MultiTabContainerWidget } from './MultiTabContainerWidget';

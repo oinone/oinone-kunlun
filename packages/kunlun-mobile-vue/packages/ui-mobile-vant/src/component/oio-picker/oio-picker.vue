@@ -1,5 +1,5 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   defaultSelectProperties,
   fillSelectItemProperties,
@@ -7,7 +7,7 @@ import {
   PropRecordHelper,
   SelectItem,
   SelectProperties
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { Popup as VanPopup, Picker as VanPicker } from 'vant';
 import { isNil, isObject } from 'lodash-es';
 import { computed, createVNode, defineComponent, ref } from 'vue';
@@ -122,7 +122,7 @@ export default defineComponent({
           this.show = !this.show;
         }
       },
-      [ referenceNode, popupVNode ]
+      [referenceNode, popupVNode]
     );
   }
 });

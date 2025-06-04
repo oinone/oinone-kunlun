@@ -10,10 +10,10 @@ import {
   QueryService,
   QueryVariables,
   SubmitValue
-} from '@kunlun/engine';
-import { FieldEventName, FieldEventNames, LifeCycleTypes } from '@kunlun/event';
-import { ActionContextType, ModelType, ViewMode } from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
+} from '@oinone/kunlun-engine';
+import { FieldEventName, FieldEventNames, LifeCycleTypes } from '@oinone/kunlun-event';
+import { ActionContextType, ModelType, ViewMode } from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
 import {
   BooleanHelper,
   CallChaining,
@@ -22,9 +22,9 @@ import {
   ObjectUtils,
   Optional,
   StringHelper
-} from '@kunlun/shared';
-import { OioMessage } from '@kunlun/vue-ui-mobile-vant';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-shared';
+import { OioMessage } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isFunction, isNil, isPlainObject, isString } from 'lodash-es';
 import { isValidatorError } from '../../typing';
 import { validatorCallChainingCallAfterFn } from '../constant';

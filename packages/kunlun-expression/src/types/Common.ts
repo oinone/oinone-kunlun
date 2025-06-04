@@ -6,7 +6,7 @@ import {
   ModelFieldType,
   ModelFieldTypeDisplayName,
   SystemSource
-} from '@kunlun/meta';
+} from '@oinone/kunlun-meta';
 
 export enum ElementSize {
   LARGE = 'large',

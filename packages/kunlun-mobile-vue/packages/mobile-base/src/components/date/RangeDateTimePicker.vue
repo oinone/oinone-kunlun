@@ -6,7 +6,7 @@
 <script lang="ts">
 import { ConfigProvider as VanConfigProvider, DatetimePicker as VanRangePicker } from 'vant';
 import { defineComponent, PropType } from 'vue';
-import { DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 
 export default defineComponent({
   components: {

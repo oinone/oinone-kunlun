@@ -1,6 +1,6 @@
-import { DslDefinition, DslDefinitionType } from '@kunlun/dsl';
-import { BooleanHelper } from '@kunlun/shared';
-import { Widget } from '@kunlun/vue-widget';
+import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseTableColumnWidget } from '../../basic';
 import { UserPreferService } from '../../service';
 import { OperateEntity, UserTablePrefer, VisibleField } from '../../typing';

@@ -1,5 +1,5 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../basic';
 import { DetailNumberWidget } from '../../detail';
 import GalleryString from '../string/default/GalleryString.vue';

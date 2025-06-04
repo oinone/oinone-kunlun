@@ -1,6 +1,6 @@
-import { ViewType } from '@kunlun/meta';
-import { defaultTimeFormat, TimeFormatMap } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { ViewType } from '@oinone/kunlun-meta';
+import { defaultTimeFormat, TimeFormatMap } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { BaseElementWidget } from '../../../../basic';
 import { TableDateTimeRangeFieldWidget } from './TableDateTimeRangeFieldWidget';
 

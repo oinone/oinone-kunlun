@@ -3,13 +3,13 @@ import {
   activeRecordsToJSONString,
   RefreshCallChainingParameters,
   RefreshCallChainingScope
-} from '@kunlun/engine';
-import { Entity, ViewType } from '@kunlun/meta';
-import { getRouterInstance } from '@kunlun/router';
-import { BooleanHelper, NumberHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { OioMessage } from '@kunlun/vue-ui-antd';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { Entity, ViewType } from '@oinone/kunlun-meta';
+import { getRouterInstance } from '@oinone/kunlun-router';
+import { BooleanHelper, NumberHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { toString } from 'lodash-es';
 import { BaseElementWidget, BaseSearchWidget } from '../../basic';
 import { UserPreferService } from '../../service';

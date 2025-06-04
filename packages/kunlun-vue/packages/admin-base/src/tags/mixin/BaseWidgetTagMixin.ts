@@ -1,5 +1,5 @@
-import { DEFAULT_SLOT_NAME, DslDefinition } from '@kunlun/dsl';
-import { Optional } from '@kunlun/shared';
+import { DEFAULT_SLOT_NAME, DslDefinition } from '@oinone/kunlun-dsl';
+import { Optional } from '@oinone/kunlun-shared';
 import {
   DslRender,
   RenderWidget,
@@ -7,7 +7,7 @@ import {
   reportAllMounted,
   VueWidget,
   WidgetTagProps
-} from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { ComponentOptionsMixin, computed, Slots } from 'vue';
 import { useInjectMetaContext, useProviderMetaContext } from '../context';

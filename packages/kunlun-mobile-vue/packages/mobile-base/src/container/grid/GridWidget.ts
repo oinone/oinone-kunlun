@@ -1,6 +1,6 @@
-import { ViewType } from '@kunlun/meta';
-import { Widget, DslNodeWidget } from '@kunlun/vue-widget';
-import { IGridWidgetProps } from '@kunlun/engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { Widget, DslNodeWidget } from '@oinone/kunlun-vue-widget';
+import { IGridWidgetProps } from '@oinone/kunlun-engine';
 import Grid from './Grid.vue';
 
 export class GridWidget extends DslNodeWidget {

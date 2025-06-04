@@ -1,6 +1,6 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { WidgetComponent } from '@kunlun/vue-widget';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { WidgetComponent } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
 import DefaultTimePicker from './DefaultTimePicker.vue';
 import { FormDateTimeFieldWidget } from './FormDateTimeFieldWidget';

@@ -1,6 +1,6 @@
-import { ExpressionExecutor, SubmitValue } from '@kunlun/engine';
-import { IModelField, isEmptyValue, ModelFieldType } from '@kunlun/meta';
-import { BooleanHelper } from '@kunlun/shared';
+import { ExpressionExecutor, SubmitValue } from '@oinone/kunlun-engine';
+import { IModelField, isEmptyValue, ModelFieldType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import {
   createContextItems,
   createDefaultExpressionItem,
@@ -19,8 +19,8 @@ import {
   IVariableCustomMethodContext,
   IVariableValueType,
   queryExpression
-} from '@kunlun/vue-expression';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-expression';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString } from 'lodash-es';
 import { FormFieldWidget } from '../../../../basic';
 

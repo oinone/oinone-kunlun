@@ -32,8 +32,8 @@
   </default-form-item>
 </template>
 <script lang="ts">
-import { OioDateRangePicker } from '@kunlun/vue-ui-antd';
-import { OioDateRangePickerProps } from '@kunlun/vue-ui-common';
+import { OioDateRangePicker } from '@oinone/kunlun-vue-ui-antd';
+import { OioDateRangePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { defineComponent } from 'vue';
 import {
   BaseFormItemProps,

@@ -1,4 +1,4 @@
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { Root, ROOT_TOKEN } from '../basic';
 import { RootComponentSPI } from '../spi';
 

@@ -1,5 +1,5 @@
-import { ActionElement, IServerAction } from '@kunlun/meta';
-import { callFunction } from '@kunlun/service';
+import { ActionElement, IServerAction } from '@oinone/kunlun-meta';
+import { callFunction } from '@oinone/kunlun-service';
 import { requestMutationByActionElement } from '../../helper';
 import { RuntimeServerAction } from '../../runtime-metadata';
 

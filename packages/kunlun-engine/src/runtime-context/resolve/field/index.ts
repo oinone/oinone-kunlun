@@ -1,4 +1,4 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { NUMBER_FIELD_TTYPES, RELATION_FIELD_TTYPES, STRING_FIELD_TTYPES } from '../../helper';
 import { convertDateField } from './date-field';
 import { convertDateTimeField } from './date-time-field';

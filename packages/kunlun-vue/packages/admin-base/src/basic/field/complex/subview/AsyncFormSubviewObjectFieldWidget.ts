@@ -1,5 +1,5 @@
-import { DslDefinition } from '@kunlun/dsl';
-import { RuntimeM2OField, RuntimeO2OField, RuntimeView } from '@kunlun/engine';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { RuntimeM2OField, RuntimeO2OField, RuntimeView } from '@oinone/kunlun-engine';
 import { FormComplexFieldProps } from '../FormComplexFieldWidget';
 import { FormSubviewObjectFieldWidget } from './FormSubviewObjectFieldWidget';
 

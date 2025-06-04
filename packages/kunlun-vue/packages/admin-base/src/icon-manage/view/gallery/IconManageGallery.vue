@@ -30,8 +30,14 @@
   </div>
 </template>
 <script lang="ts">
-import { ActiveRecord, Pagination } from '@kunlun/engine';
-import { CommonGutterType, ListPaginationStyle, OioPagination, OioSpin, OioEmptyData } from '@kunlun/vue-ui-antd';
+import { ActiveRecord, Pagination } from '@oinone/kunlun-engine';
+import {
+  CommonGutterType,
+  ListPaginationStyle,
+  OioPagination,
+  OioSpin,
+  OioEmptyData
+} from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, PropType } from 'vue';
 import IconCard from '../card/IconCard.vue';
 import { UploadStatus } from '../../typing';

@@ -1,11 +1,11 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 
 import { FormFieldWidget } from '../../../../basic';
 import { FormStringFieldWidget } from '../FormStringFieldWidget';
 import Media from './Media.vue';
-import { WidgetTrigger } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({

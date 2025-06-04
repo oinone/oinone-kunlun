@@ -1,4 +1,4 @@
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { BaseFormWidget, CustomWidget } from '../../basic';
 
 import WorkbenchView from './Workbench.vue';

@@ -1,4 +1,4 @@
-import { ActionDslDefinition, FieldDslDefinition } from '@kunlun/dsl';
+import { ActionDslDefinition, FieldDslDefinition } from '@oinone/kunlun-dsl';
 import { isObject } from 'lodash-es';
 import { RuntimeContext } from '../runtime-context';
 

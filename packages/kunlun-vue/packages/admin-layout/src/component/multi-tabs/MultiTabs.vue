@@ -1,6 +1,6 @@
 <script lang="ts">
-import { MultiTabsRuntimeManifestMergedConfigManager, MultiTabType, translateValueByKey } from '@kunlun/engine';
-import { DraggableDirection, DraggableMovedEvent, DraggableSendEvent, OioDraggable } from '@kunlun/vue-ui';
+import { MultiTabsRuntimeManifestMergedConfigManager, MultiTabType, translateValueByKey } from '@oinone/kunlun-engine';
+import { DraggableDirection, DraggableMovedEvent, DraggableSendEvent, OioDraggable } from '@oinone/kunlun-vue-ui';
 import {
   ButtonType,
   DividerType,
@@ -11,7 +11,7 @@ import {
   OioDropdownTrigger,
   OioIcon,
   useScrollOperator
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import { Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import { debounce, isFunction, isNil } from 'lodash-es';
 import {

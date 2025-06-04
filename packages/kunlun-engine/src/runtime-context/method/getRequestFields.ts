@@ -1,4 +1,4 @@
-import { IModelField, ViewMode, ViewType } from '@kunlun/meta';
+import { IModelField, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { isFunction, isBoolean } from 'lodash-es';
 import { RuntimeModelField } from '../../runtime-metadata';
 import { RelationUpdateType, SubmitType } from '../../submit';

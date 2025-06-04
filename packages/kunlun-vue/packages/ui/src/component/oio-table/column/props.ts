@@ -1,5 +1,5 @@
-import { ReturnPromise } from '@kunlun/shared';
-import { OioComponentData, PopconfirmPlacement } from '@kunlun/vue-ui-common';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { OioComponentData, PopconfirmPlacement } from '@oinone/kunlun-vue-ui-common';
 import { PropType } from 'vue';
 import { TableEditorCloseTrigger, TableEditorMode, TableEditorTrigger } from '../table';
 import { CellRenderFunction, RenderCellContext, RowContext } from '../typing';

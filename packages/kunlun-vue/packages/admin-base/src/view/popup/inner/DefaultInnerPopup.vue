@@ -1,9 +1,9 @@
 <script lang="ts">
-import { ButtonType, OioButton, OioInnerPopup, StringHelper } from '@kunlun/vue-ui-antd';
-import { DrawerPlacement, PropRecordHelper } from '@kunlun/vue-ui-common';
-import { onAllMounted } from '@kunlun/vue-widget';
+import { ButtonType, OioButton, OioInnerPopup, StringHelper } from '@oinone/kunlun-vue-ui-antd';
+import { DrawerPlacement, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, PropType, Slot, VNode } from 'vue';
-import { ViewType } from '@kunlun/meta';
+import { ViewType } from '@oinone/kunlun-meta';
 
 export default defineComponent({
   name: 'DefaultInnerPopup',

@@ -1,10 +1,10 @@
-import { SPI } from '@kunlun/spi';
-import { ViewWidget, Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { ViewWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { tableViewToGalleryView } from '../../tags';
-import { RuntimeContext } from '@kunlun/engine';
-import { Entity, IViewAction, ViewType } from '@kunlun/meta';
+import { RuntimeContext } from '@oinone/kunlun-engine';
+import { Entity, IViewAction, ViewType } from '@oinone/kunlun-meta';
 import { GalleryView, TableView } from '../view';
-import { IQueryPageOption } from '@kunlun/service';
+import { IQueryPageOption } from '@oinone/kunlun-service';
 import { GalleryWidget } from '../gallery';
 import { MetadataViewWidget } from '../../basic';
 import { MobileViewWidget } from '../../layout';

@@ -1,4 +1,4 @@
-import { Observable, of, concatAll, last as lastValue, map } from '@kunlun/state';
+import { Observable, of, concatAll, last as lastValue, map } from '@oinone/kunlun-state';
 
 import { Params, PRIMARY_OUTLET } from '../shared';
 

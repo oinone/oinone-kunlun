@@ -12,7 +12,7 @@
   </div>
 </template>
 <script lang="ts">
-import { OioGroupHelpProps, OioIcon } from '@kunlun/vue-ui-common';
+import { OioGroupHelpProps, OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { defineComponent } from 'vue';
 
 export default defineComponent({

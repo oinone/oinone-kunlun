@@ -49,8 +49,8 @@
   </div>
 </template>
 <script lang="ts">
-import { BooleanHelper, OioButton } from '@kunlun/vue-ui-antd';
-import { translateValueByKey } from '@kunlun/engine';
+import { BooleanHelper, OioButton } from '@oinone/kunlun-vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { computed, defineComponent } from 'vue';
 import { enumFetchLabelByValue } from '../../../../field';
 import { usePlaceholderProps } from '../../../../basic';

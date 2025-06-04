@@ -1,4 +1,4 @@
-import { CSSStyle } from '@kunlun/shared';
+import { CSSStyle } from '@oinone/kunlun-shared';
 import { PropType } from 'vue';
 import { CommonGutterType } from '../oio-block';
 import { ListSelectMode } from '../oio-list';

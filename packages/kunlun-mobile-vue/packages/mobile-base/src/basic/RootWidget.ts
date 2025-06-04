@@ -1,6 +1,6 @@
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 
-import { VueWidget } from '@kunlun/vue-widget';
+import { VueWidget } from '@oinone/kunlun-vue-widget';
 
 export const ROOT_TOKEN = SPI.Token<Root>('Root token');
 

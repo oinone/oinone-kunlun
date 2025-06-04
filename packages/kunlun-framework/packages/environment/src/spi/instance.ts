@@ -1,4 +1,4 @@
-import { SPIOperator } from '@kunlun/spi';
+import { SPIOperator } from '@oinone/kunlun-spi';
 import { FrameworkInitializeOptions } from '../framework';
 import { FrameworkInstanceGetter } from '../instance/typing';
 

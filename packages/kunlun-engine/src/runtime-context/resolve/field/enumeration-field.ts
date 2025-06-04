@@ -1,6 +1,6 @@
-import { FieldDslDefinition } from '@kunlun/dsl';
+import { FieldDslDefinition } from '@oinone/kunlun-dsl';
 import { toString } from 'lodash-es';
-import { EnumOptionState } from '@kunlun/meta';
+import { EnumOptionState } from '@oinone/kunlun-meta';
 import { RuntimeEnumerationField, RuntimeEnumerationOption } from '../../../runtime-metadata';
 import { RuntimeContext } from '../../runtime-context';
 

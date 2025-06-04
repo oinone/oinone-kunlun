@@ -1,4 +1,4 @@
-import { ModelFieldType } from '@kunlun/meta';
+import { ModelFieldType } from '@oinone/kunlun-meta';
 import { IExpSelectOption } from './Common';
 import { IOperatorSelectOption } from './ExpressionDefinition';
 

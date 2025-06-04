@@ -1,4 +1,4 @@
-import { instantiate } from '@kunlun/shared';
+import { instantiate } from '@oinone/kunlun-shared';
 import { selectorEventProducer } from '../spi';
 import { EventCategoryType, EventEngineOptions, EventProducer, EventProducerOptions } from '../typing';
 

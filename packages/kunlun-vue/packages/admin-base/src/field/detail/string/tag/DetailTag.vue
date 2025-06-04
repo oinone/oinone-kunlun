@@ -10,7 +10,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue';
-import { RuntimeModelField } from '@kunlun/engine';
+import { RuntimeModelField } from '@oinone/kunlun-engine';
 
 import DetailCommonField from '../../common/DetailCommonField.vue';
 

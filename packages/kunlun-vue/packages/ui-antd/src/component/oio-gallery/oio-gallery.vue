@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, CSSStyle, StringHelper } from '@kunlun/shared';
-import { OioGalleryItem, OioGalleryProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CastHelper, CSSStyle, StringHelper } from '@oinone/kunlun-shared';
+import { OioGalleryItem, OioGalleryProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isNil, isObject, isString } from 'lodash-es';
 import { computed, createVNode, defineComponent, VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

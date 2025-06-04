@@ -1,8 +1,8 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../../../basic';
 import { VariableFormFieldBaseWidget } from '../variable/variableFormFieldBaseWidget';
-import { FieldSelectControl } from '@kunlun/vue-expression';
+import { FieldSelectControl } from '@oinone/kunlun-vue-expression';
 
 /**
  * 先选模型再选字段的选择控件

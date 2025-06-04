@@ -1,7 +1,7 @@
-import { RuntimeNumberField } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { BooleanHelper, Optional } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { RuntimeNumberField } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper, Optional } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { RowContext } from '../../../ui';
 import { isNil, toString } from 'lodash-es';
 import { BaseFieldWidget, BaseTableFieldWidget } from '../../../basic';

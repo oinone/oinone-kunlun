@@ -1,10 +1,10 @@
-import { RelationUpdateType, RuntimeAction, SubmitType, SubmitValue } from '@kunlun/engine';
-import { ActionType, ViewActionTarget, ViewMode, ViewType } from '@kunlun/meta';
-import { Matched, Router, useMatched } from '@kunlun/router';
-import { CallChaining, Constructor } from '@kunlun/shared';
-import { SPI, SPISingleSelector, SPITokenFactory } from '@kunlun/spi';
-import { useRouter } from '@kunlun/vue-router';
-import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@kunlun/vue-widget';
+import { RelationUpdateType, RuntimeAction, SubmitType, SubmitValue } from '@oinone/kunlun-engine';
+import { ActionType, ViewActionTarget, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { CallChaining, Constructor } from '@oinone/kunlun-shared';
+import { SPI, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
+import { useRouter } from '@oinone/kunlun-vue-router';
+import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../typing';
 import { BaseRuntimePropertiesWidget } from '../common';
 import { MobileSPIOptions } from '../types';

@@ -62,7 +62,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import ForCard from './components/CardList.vue';
 import RelationGraph from './components/RelationGraph.vue';
 

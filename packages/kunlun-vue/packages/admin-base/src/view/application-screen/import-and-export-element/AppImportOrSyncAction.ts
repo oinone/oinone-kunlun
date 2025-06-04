@@ -1,8 +1,8 @@
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { ActionWidget } from '../../../action/component/action/ActionWidget';
-import { ActionType, ViewType } from '@kunlun/meta';
+import { ActionType, ViewType } from '@oinone/kunlun-meta';
 import { ServerActionWidget } from '../../../action/server-actions';
-import { ActiveRecord, ViewActionCache, executeViewAction } from '@kunlun/engine';
+import { ActiveRecord, ViewActionCache, executeViewAction } from '@oinone/kunlun-engine';
 
 @SPI.ClassFactory(
   ActionWidget.Token({

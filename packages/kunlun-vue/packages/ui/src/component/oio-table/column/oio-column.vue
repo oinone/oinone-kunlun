@@ -1,7 +1,7 @@
 <script lang="ts">
-import { StringHelper } from '@kunlun/shared';
-import { OioPopconfirm } from '@kunlun/vue-ui-antd';
-import { OioIcon, PropRecordHelper, StyleHelper } from '@kunlun/vue-ui-common';
+import { StringHelper } from '@oinone/kunlun-shared';
+import { OioPopconfirm } from '@oinone/kunlun-vue-ui-antd';
+import { OioIcon, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { debounce, isBoolean, isFunction, isNil, isString, toString } from 'lodash-es';
 import { computed, createVNode, defineComponent, Slot, VNode, vShow, watch, withDirectives, withModifiers } from 'vue';
 import { Column } from 'vxe-table';

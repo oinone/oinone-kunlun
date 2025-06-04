@@ -1,4 +1,4 @@
-import { DslDefinitionWidget, DslRender } from '@kunlun/vue-widget';
+import { DslDefinitionWidget, DslRender } from '@oinone/kunlun-vue-widget';
 import { SetupContext, Slot, VNode } from 'vue';
 import { useWidgetTag, UseWidgetTagContext } from '../mixin';
 import { InternalWidget } from '../resolve';

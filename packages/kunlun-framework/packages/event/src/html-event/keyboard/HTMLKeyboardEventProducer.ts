@@ -1,4 +1,4 @@
-import { KeyboardEventHelper } from '@kunlun/shared';
+import { KeyboardEventHelper } from '@oinone/kunlun-shared';
 import {
   EventCategory,
   EventProducer,

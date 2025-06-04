@@ -1,7 +1,7 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { OioColgroup, OioColgroupProps } from '@kunlun/vue-ui';
-import { PropRecordHelper } from '@kunlun/vue-ui-common';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { OioColgroup, OioColgroupProps } from '@oinone/kunlun-vue-ui';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { computed, createVNode, defineComponent, PropType } from 'vue';
 
 export default defineComponent({

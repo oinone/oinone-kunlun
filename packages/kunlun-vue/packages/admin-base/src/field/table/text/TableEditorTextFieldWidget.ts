@@ -1,6 +1,6 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNaN } from 'lodash-es';
 import { EditorFieldWidget } from '../../../basic';
 import { FormTextFieldWidget } from '../../form';

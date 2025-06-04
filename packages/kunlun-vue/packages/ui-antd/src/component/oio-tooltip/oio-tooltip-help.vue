@@ -1,6 +1,6 @@
 <script lang="ts">
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
-import { PropRecordHelper } from '@kunlun/vue-ui-common';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import OioTooltip from './oio-tooltip.vue';

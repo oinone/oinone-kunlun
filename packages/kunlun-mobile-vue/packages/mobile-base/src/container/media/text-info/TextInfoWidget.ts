@@ -1,6 +1,6 @@
-import { SPI } from '@kunlun/spi';
-import { FormLayout } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { FormLayout } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
 import DefaultTextInfo from './DefaultTextInfo.vue';
 import { TextInfoJustifyContent, TextInfoMediaType, TextInfoTemplateType } from './typing';

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { BooleanHelper, CSSStyle, uniqueKeyGenerator } from '@kunlun/shared';
+import { BooleanHelper, CSSStyle, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import {
   CleanableEvent,
   OioTabPosition,
@@ -10,7 +10,7 @@ import {
   useCleanableEvent,
   useOioFormLayoutContext,
   useProviderOioTabsContext
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { Tabs as ATabs } from 'ant-design-vue';
 import useConfigInject from 'ant-design-vue/lib/_util/hooks/useConfigInject.js';
 import { isNil } from 'lodash-es';

@@ -7,12 +7,12 @@ import {
   RuntimeViewAction,
   ViewActionCache,
   ViewActionQueryParameter
-} from '@kunlun/engine';
-import { useSessionPath } from '@kunlun/request';
-import { Router } from '@kunlun/router';
-import { TreeNode, uniqueKeyGenerator } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { VueWidget, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { useSessionPath } from '@oinone/kunlun-request';
+import { Router } from '@oinone/kunlun-router';
+import { TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { MenuService } from '../../../../service';
 import { RuntimeMenu } from '../../../../typing';
 import { DebugErrorPanel } from '../../typing';

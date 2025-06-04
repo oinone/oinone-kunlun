@@ -10,7 +10,7 @@ import {
   TreeSelectNode,
   TreeSelectNodeChangeEvent,
   TreeSelectProperties
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, PropType, VNode, withModifiers } from 'vue';
 import { OioCommonProps, OioMetadataProps, useInjectOioDefaultFormContext } from '../../basic';
 import { TreeData } from '../../typing';

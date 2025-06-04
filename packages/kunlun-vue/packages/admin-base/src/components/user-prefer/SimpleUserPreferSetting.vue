@@ -1,5 +1,5 @@
 <script lang="ts">
-import { OioCheckbox, OioEmptyData, OioIcon, OioInputSearch, PropRecordHelper } from '@kunlun/vue-ui-antd';
+import { OioCheckbox, OioEmptyData, OioIcon, OioInputSearch, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Popover as APopover } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, PropType, ref, watch } from 'vue';
 import { Container, Draggable } from 'vue3-smooth-dnd';

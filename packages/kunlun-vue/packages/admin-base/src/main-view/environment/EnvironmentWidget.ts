@@ -1,14 +1,14 @@
-import { IPopupInstance, IWidget, PopupManager, PopupType, ROOT_HANDLE } from '@kunlun/engine';
+import { IPopupInstance, IWidget, PopupManager, PopupType, ROOT_HANDLE } from '@oinone/kunlun-engine';
 import {
   CLICK_ACTIVATED_CLASS,
   createVisibleArea,
   RuntimeEnvironmentManager,
   useEnv,
   VisibleArea
-} from '@kunlun/environment';
-import { EventBus, EventConsumer, EventMessage } from '@kunlun/event';
-import { SPIFactory } from '@kunlun/spi';
-import { VueWidget, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-environment';
+import { EventBus, EventConsumer, EventMessage } from '@oinone/kunlun-event';
+import { SPIFactory } from '@oinone/kunlun-spi';
+import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { ComponentInternalInstance, VNode } from 'vue';
 import { BaseView } from '../../basic';
 import { RootComponentSPI } from '../../spi';

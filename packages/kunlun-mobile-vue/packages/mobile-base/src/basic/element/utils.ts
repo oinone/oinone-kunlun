@@ -1,6 +1,6 @@
-import { ActiveRecord, buildQueryCondition, RuntimeContext } from '@kunlun/engine';
-import { Condition } from '@kunlun/request';
-import { DEFAULT_TRUE_CONDITION, EDirection } from '@kunlun/service';
+import { ActiveRecord, buildQueryCondition, RuntimeContext } from '@oinone/kunlun-engine';
+import { Condition } from '@oinone/kunlun-request';
+import { DEFAULT_TRUE_CONDITION, EDirection } from '@oinone/kunlun-service';
 import { isString } from 'lodash-es';
 import { QueryExpression } from '../types';
 

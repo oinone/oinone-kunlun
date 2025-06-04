@@ -1,4 +1,4 @@
-import { ActionType, ViewActionTarget, ViewMode, ViewType } from '@kunlun/meta';
+import { ActionType, ViewActionTarget, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { RuntimeAction, RuntimeModel, RuntimeModule } from './base';
 import { RuntimeFunctionDefinition } from './function';
 import { RuntimeLayoutDefinition } from './layout';

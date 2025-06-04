@@ -1,6 +1,6 @@
 <script lang="ts">
 import { CloseOutlined } from '@ant-design/icons-vue';
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import {
   CascaderCheckedStrategy,
   CascaderDisplayRenderFunction,
@@ -11,7 +11,7 @@ import {
   OioCascader,
   OioTreeNode,
   SelectMode
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, PropType, VNode, vShow, withDirectives, withModifiers } from 'vue';
 import { OioCommonProps, OioMetadataProps, useInjectOioDefaultFormContext } from '../../basic';
 import { TreeData } from '../../typing';

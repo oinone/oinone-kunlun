@@ -1,5 +1,5 @@
-import { IResourceDateTimeFormat, queryResourceDateTimeFormat, RuntimeSearchField } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
+import { IResourceDateTimeFormat, queryResourceDateTimeFormat, RuntimeSearchField } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
 import {
   BooleanHelper,
   defaultDateFormatKey,
@@ -7,10 +7,10 @@ import {
   ObjectUtils,
   Optional,
   RSQLOperators
-} from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { ValidateTrigger } from '@kunlun/vue-ui-common';
-import { Widget, WidgetComponent } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { ValidateTrigger } from '@oinone/kunlun-vue-ui-common';
+import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
 import moment from 'moment';
 import { BaseElementWidget } from '../../../../../basic';
 import DefaultDateTimeRangePicker from '../../../../form/date/range/DefaultDateTimeRangePicker.vue';

@@ -1,4 +1,4 @@
-import { Optional } from '@kunlun/shared';
+import { Optional } from '@oinone/kunlun-shared';
 import { clearTriggerDirective, isUsingTriggerDirective, TriggerDirective, useTriggerDirective } from './directive';
 
 let activeEffect: ReactiveEffect | undefined;

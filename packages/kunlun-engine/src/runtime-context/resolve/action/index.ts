@@ -1,4 +1,4 @@
-import { ActionType } from '@kunlun/meta';
+import { ActionType } from '@oinone/kunlun-meta';
 import { convertClientAction } from './client-action';
 import { convertCompositionAction } from './composition-action';
 import { convertServerAction } from './server-action';

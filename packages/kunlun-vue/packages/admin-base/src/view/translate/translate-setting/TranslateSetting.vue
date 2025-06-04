@@ -25,7 +25,7 @@
 </template>
 <script lang="ts" setup>
 import { computed, defineProps } from 'vue';
-import { genStaticPath, translateValueByKey, TranslateSettingType } from '@kunlun/engine';
+import { genStaticPath, translateValueByKey, TranslateSettingType } from '@oinone/kunlun-engine';
 
 const toolboxTranslationOpenImg = genStaticPath('toolboxTranslationOpen.png?x-oss-process=image/resize,m_lfit,h_800');
 const toolboxTranslationClosedImg = genStaticPath(

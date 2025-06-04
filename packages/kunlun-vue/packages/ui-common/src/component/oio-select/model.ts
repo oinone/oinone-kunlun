@@ -1,4 +1,4 @@
-import { EnumOptionState } from '@kunlun/meta';
+import { EnumOptionState } from '@oinone/kunlun-meta';
 
 export interface SelectItem<T = unknown> {
   key: string;

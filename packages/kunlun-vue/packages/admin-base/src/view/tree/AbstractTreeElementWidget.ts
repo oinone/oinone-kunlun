@@ -1,8 +1,8 @@
-import { DEFAULT_SLOT_NAME } from '@kunlun/dsl';
-import { ExpressionRunParam } from '@kunlun/expression';
-import { BooleanHelper, ReturnPromise, uniqueKeyGenerator } from '@kunlun/shared';
-import { OioTreeNode } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
+import { ExpressionRunParam } from '@oinone/kunlun-expression';
+import { BooleanHelper, ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { TreeNodeResponseBody, TreeService } from '../../service';
 import { TreeData, TreeNodeMetadata } from '../../typing';
 import { TreeUtils } from '../../util';

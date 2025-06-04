@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { OioBreadcrumbItemProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { OioBreadcrumbItemProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { BreadcrumbItem as ABreadcrumbItem } from 'ant-design-vue';
 import { createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

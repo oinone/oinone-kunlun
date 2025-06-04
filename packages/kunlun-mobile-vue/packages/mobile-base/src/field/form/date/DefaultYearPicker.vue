@@ -19,8 +19,8 @@
   </van-config-provider>
 </template>
 <script lang="ts">
-import { OioYearPicker } from '@kunlun/vue-ui-mobile-vant';
-import { OioYearPickerProps } from '@kunlun/vue-ui-common';
+import { OioYearPicker } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { OioYearPickerProps } from '@oinone/kunlun-vue-ui-common';
 import { ConfigProvider as VanConfigProvider } from 'vant';
 import { defineComponent } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic';

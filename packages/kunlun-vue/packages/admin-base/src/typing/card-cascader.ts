@@ -1,4 +1,4 @@
-import { OioTreeNode } from '@kunlun/vue-ui-common';
+import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
 import { TreeData } from './tree';
 
 export interface CardCascaderItemData extends TreeData {

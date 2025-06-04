@@ -1,5 +1,5 @@
-import { ModelDefaultActionName } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ModelDefaultActionName } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 import { ActionWidget } from '../component';
 
 @SPI.ClassFactory(ActionWidget.Token({ name: ModelDefaultActionName.$$internal_Download }))

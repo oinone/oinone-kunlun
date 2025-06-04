@@ -1,5 +1,5 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPIOperator, SPIOptions } from '@kunlun/spi';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPIOperator, SPIOptions } from '@oinone/kunlun-spi';
 import { Component } from 'vue';
 
 /**

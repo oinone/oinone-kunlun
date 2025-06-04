@@ -130,9 +130,9 @@
   </div>
 </template>
 <script lang="ts">
-import { OioButton, OioIcon } from '@kunlun/vue-ui-antd';
+import { OioButton, OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineComponent, ref } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 export default defineComponent({
   name: 'DefaultNotification',

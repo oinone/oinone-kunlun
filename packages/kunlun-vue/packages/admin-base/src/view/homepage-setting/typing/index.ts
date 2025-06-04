@@ -1,4 +1,4 @@
-import { Pagination } from '@kunlun/engine';
+import { Pagination } from '@oinone/kunlun-engine';
 import { Slot } from 'vue';
 
 export interface Options {

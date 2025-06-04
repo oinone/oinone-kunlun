@@ -1,4 +1,4 @@
-import { ReturnPromise, ReturnVoid } from '@kunlun/shared';
+import { ReturnPromise, ReturnVoid } from '@oinone/kunlun-shared';
 import { PropType, Slot } from 'vue';
 import { DrawerPlacement } from '../oio-drawer';
 import { VcPopupAppearanceProps, VcPopupDataProps } from '../vc-popup';

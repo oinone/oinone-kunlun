@@ -1,6 +1,6 @@
 <script lang="ts">
-import { OioSpin, PropRecordHelper } from '@kunlun/vue-ui-mobile-vant';
-import { OioSpinProps } from '@kunlun/vue-ui-common';
+import { OioSpin, PropRecordHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { OioSpinProps } from '@oinone/kunlun-vue-ui-common';
 import { computed, createVNode, defineComponent } from 'vue';
 import { useProviderMaskContext } from '../../layout';
 import { useProviderMetaContext } from '../../tags';

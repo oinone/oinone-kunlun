@@ -1,5 +1,5 @@
 <script lang="ts">
-import { OioEmpty, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { OioEmpty, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isBoolean, isFunction, isNil, isArray, toString } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType } from 'vue';
 import { DEFAULT_PREFIX } from '../../../ui/theme';
@@ -76,7 +76,11 @@ export default defineComponent({
       }
     ]);
     const children = isRealEmpty ? slots.empty() : slots.default({ realValue: this.realValue });
-    return createVNode('div', PropRecordHelper.collectionBasicProps($attrs, [`${DEFAULT_PREFIX}-detail-common-field`]), children);
+    return createVNode(
+      'div',
+      PropRecordHelper.collectionBasicProps($attrs, [`${DEFAULT_PREFIX}-detail-common-field`]),
+      children
+    );
   }
 });
 </script>

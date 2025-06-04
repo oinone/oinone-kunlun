@@ -1,6 +1,6 @@
 import { computed } from 'vue';
-import { BooleanHelper } from '@kunlun/shared';
-import { translateValueByKey } from '@kunlun/engine';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 export function useBoolean(props: any) {
   const realLabel = computed(() => {

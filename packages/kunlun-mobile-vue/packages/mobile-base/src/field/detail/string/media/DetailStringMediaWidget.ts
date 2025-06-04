@@ -1,5 +1,5 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 
 import { FormStringFieldWidget } from '../../../form/string/FormStringFieldWidget';
 import { FormFieldWidget } from '../../../../basic';

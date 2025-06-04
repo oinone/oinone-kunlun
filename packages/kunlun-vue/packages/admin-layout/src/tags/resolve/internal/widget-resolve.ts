@@ -1,5 +1,5 @@
-import { Constructor } from '@kunlun/shared';
-import { getWidgetNotNull, RenderWidget, ViewWidget, VueWidget } from '@kunlun/vue-widget';
+import { Constructor } from '@oinone/kunlun-shared';
+import { getWidgetNotNull, RenderWidget, ViewWidget, VueWidget } from '@oinone/kunlun-vue-widget';
 import { BaseMaskOptions, BaseMaskWidget, BaseMaskWidgetProps } from '../../../basic';
 import { InternalMaskWidget } from '../typing';
 import { DslDefinitionTypeProps } from './typing';

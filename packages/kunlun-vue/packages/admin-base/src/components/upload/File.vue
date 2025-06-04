@@ -1,8 +1,8 @@
 <script lang="ts">
-import { translateValueByKey } from '@kunlun/engine';
-import { NumberHelper } from '@kunlun/shared';
-import { OioEmpty, OioMessage, OioUpload } from '@kunlun/vue-ui-antd';
-import { AUploadProps, FileHelper, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { NumberHelper } from '@oinone/kunlun-shared';
+import { OioEmpty, OioMessage, OioUpload } from '@oinone/kunlun-vue-ui-antd';
+import { AUploadProps, FileHelper, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty } from 'lodash-es';
 import { createVNode, defineComponent, PropType, ref, watch } from 'vue';
 import { useMetadataProps } from '../../basic';

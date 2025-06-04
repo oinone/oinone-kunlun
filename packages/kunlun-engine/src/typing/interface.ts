@@ -1,6 +1,6 @@
-import { DslDefinition } from '@kunlun/dsl';
-import { Entity, EntityId, IDslNode, IModel, IModelField, IView, ViewType } from '@kunlun/meta';
-import { ISort } from '@kunlun/service';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { Entity, EntityId, IDslNode, IModel, IModelField, IView, ViewType } from '@oinone/kunlun-meta';
+import { ISort } from '@oinone/kunlun-service';
 import { WidgetProps } from '../view/widget/typing';
 
 export type Align = 'left' | 'right' | 'center';

@@ -11,7 +11,7 @@ import {
   TemplateDslDefinition,
   UnknownDslDefinition,
   ViewDslDefinition
-} from '@kunlun/dsl';
+} from '@oinone/kunlun-dsl';
 import {
   ModelCache,
   resolveDslDefinition,
@@ -19,11 +19,11 @@ import {
   RuntimeViewAction,
   translateValueByKey,
   ViewActionCache
-} from '@kunlun/engine';
-import { ActionType, ModelDefaultActionName, ViewType } from '@kunlun/meta';
-import { useSessionPath } from '@kunlun/request';
-import { debugConsole, Optional } from '@kunlun/shared';
-import { ButtonType } from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-engine';
+import { ActionType, ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
+import { useSessionPath } from '@oinone/kunlun-request';
+import { debugConsole, Optional } from '@oinone/kunlun-shared';
+import { ButtonType } from '@oinone/kunlun-vue-ui-common';
 import { LayoutManager } from '../../../spi';
 import { DETAIL_WIDGET, FORM_WIDGET, SEARCH_WIDGET, TABLE_WIDGET } from '../../../typing/widget-names';
 
@@ -304,18 +304,17 @@ export async function createPopupDslDefinition(
     widgets.push(header);
   }
   if (defaultSlot) {
-    let popupLayout =
-      LayoutManager.selector({
-        viewType,
-        module: action.resModule || resModel.module || action.module || model.moduleName,
-        moduleName: action.resModuleName || resModel.moduleName || action.moduleName || model.moduleName,
-        model: resModel.model,
-        modelName: resModel.name,
-        viewName: view?.name,
-        inline: true,
-        actionName: action.name,
-        actionWidget: action.widget
-      });
+    let popupLayout = LayoutManager.selector({
+      viewType,
+      module: action.resModule || resModel.module || action.module || model.moduleName,
+      moduleName: action.resModuleName || resModel.moduleName || action.moduleName || model.moduleName,
+      model: resModel.model,
+      modelName: resModel.name,
+      viewName: view?.name,
+      inline: true,
+      actionName: action.name,
+      actionWidget: action.widget
+    });
     if (!popupLayout) {
       popupLayout = createPopupDefaultLayout(viewType);
       debugConsole.log('使用弹出层默认layout', popupLayout);

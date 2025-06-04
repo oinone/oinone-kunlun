@@ -1,5 +1,5 @@
-import { ViewMode } from '@kunlun/meta';
-import { ReturnPromise } from '@kunlun/shared';
+import { ViewMode } from '@oinone/kunlun-meta';
+import { ReturnPromise } from '@oinone/kunlun-shared';
 import { RuntimeModelField, RuntimeRelationField } from '../../runtime-metadata';
 import { ActiveRecord, ActiveRecords } from '../../typing';
 import { SubmitCacheManager } from '../SubmitCacheManager';

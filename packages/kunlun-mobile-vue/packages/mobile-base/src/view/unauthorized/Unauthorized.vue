@@ -9,7 +9,7 @@
 </template>
 <script lang="ts" setup>
 import { defineProps, computed } from 'vue';
-import { genStaticPath } from '@kunlun/engine';
+import { genStaticPath } from '@oinone/kunlun-engine';
 </script>
 <style lang="scss">
 .mobile-unauthorized-widget {

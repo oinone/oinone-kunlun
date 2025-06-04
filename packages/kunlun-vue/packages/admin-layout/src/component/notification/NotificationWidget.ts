@@ -1,12 +1,12 @@
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import {
   IResourceDateTimeFormat,
   RedirectTargetEnum,
   executeViewAction,
   queryResourceDateTimeFormat
-} from '@kunlun/engine';
-import { getModel } from '@kunlun/service';
+} from '@oinone/kunlun-engine';
+import { getModel } from '@oinone/kunlun-service';
 import {
   CastHelper,
   DateUtil,
@@ -14,8 +14,8 @@ import {
   defaultFormat,
   defaultTimeFormatKey,
   ObjectUtils
-} from '@kunlun/shared';
-import { isDev } from '@kunlun/router';
+} from '@oinone/kunlun-shared';
+import { isDev } from '@oinone/kunlun-router';
 import { MaskWidget } from '../../basic';
 import { MessageService, PamirsMessage } from '../../service';
 import DefaultNotification from './DefaultNotification.vue';

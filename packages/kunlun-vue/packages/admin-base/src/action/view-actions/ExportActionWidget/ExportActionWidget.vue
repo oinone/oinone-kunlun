@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { OioButton, OioForm, OioFormItem, OioModal } from '@kunlun/vue-ui-antd';
+import { OioButton, OioForm, OioFormItem, OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent } from 'vue';
 import DefaultAction from '../../component/action/DefaultAction.vue';
 import { ActionProps } from '../../component/action/typing';

@@ -6,7 +6,7 @@ import {
   OioInputNumber,
   StandardNumber,
   StringHelper
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType, ref, watch } from 'vue';
 import { getFormItemThemeConfig, OioMetadataProps } from '../../basic';

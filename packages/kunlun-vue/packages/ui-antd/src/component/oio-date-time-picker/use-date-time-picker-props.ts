@@ -1,4 +1,4 @@
-import { DateTimePickerMode, DateUtil, defaultFormat } from '@kunlun/shared';
+import { DateTimePickerMode, DateUtil, defaultFormat } from '@oinone/kunlun-shared';
 import { isNil, isString } from 'lodash-es';
 import { Moment } from 'moment';
 

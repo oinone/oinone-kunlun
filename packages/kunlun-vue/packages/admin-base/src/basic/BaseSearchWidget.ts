@@ -1,8 +1,8 @@
-import { ActiveRecord, RefreshCallChainingParameters, RefreshCallChainingScope } from '@kunlun/engine';
-import { getRouterInstance } from '@kunlun/router';
-import { CallChaining, CastHelper, NumberHelper } from '@kunlun/shared';
-import { parseActionDomain4search } from '@kunlun/vue-admin-layout';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord, RefreshCallChainingParameters, RefreshCallChainingScope } from '@oinone/kunlun-engine';
+import { getRouterInstance } from '@oinone/kunlun-router';
+import { CallChaining, CastHelper, NumberHelper } from '@oinone/kunlun-shared';
+import { parseActionDomain4search } from '@oinone/kunlun-vue-admin-layout';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isNil } from 'lodash-es';
 import { BaseElementWidget } from './token';
 import { QueryExpression } from './types';

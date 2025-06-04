@@ -7,13 +7,13 @@ import {
   ModelCache,
   Pagination,
   RefreshCallChainingScope
-} from '@kunlun/engine';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
-import { Condition } from '@kunlun/request';
-import { DEFAULT_FALSE_CONDITION, DEFAULT_TRUE_CONDITION } from '@kunlun/service';
-import { BooleanHelper, CallChaining, Optional, ReturnPromise, uniqueKeyGenerator } from '@kunlun/shared';
-import { OioTreeNode } from '@kunlun/vue-ui-antd';
-import { isAllInvisible, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { Condition } from '@oinone/kunlun-request';
+import { DEFAULT_FALSE_CONDITION, DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
+import { BooleanHelper, CallChaining, Optional, ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { OioTreeNode } from '@oinone/kunlun-vue-ui-antd';
+import { isAllInvisible, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toInteger } from 'lodash-es';
 import { BaseElementWidget } from '../../basic';
 import { FETCH_DATA_WIDGET_PRIORITY } from '../../basic/constant';

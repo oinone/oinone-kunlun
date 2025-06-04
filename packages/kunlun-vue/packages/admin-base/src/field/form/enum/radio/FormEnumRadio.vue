@@ -57,9 +57,9 @@
   </div>
 </template>
 <script lang="ts">
-import { RuntimeEnumerationOption } from '@kunlun/engine';
-import { OioTooltipHelp } from '@kunlun/vue-ui-antd';
-import { SelectItem } from '@kunlun/vue-ui-common';
+import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import { OioTooltipHelp } from '@oinone/kunlun-vue-ui-antd';
+import { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { Radio as ARadio, RadioButton as ARadioButton, RadioGroup as ARadioGroup } from 'ant-design-vue';
 import { isNil, toNumber, toString } from 'lodash-es';
 import { computed, defineComponent, PropType, watch } from 'vue';

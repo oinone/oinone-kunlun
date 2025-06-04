@@ -1,6 +1,6 @@
-import { RuntimeContextManager, ViewCache } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { RuntimeContextManager, ViewCache } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 import { BaseElementWidget } from '../../../basic';
 import { createRuntimeContextForWidget } from '../../../tags';
 import { DetailWidget } from '../../../view';

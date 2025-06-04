@@ -40,10 +40,10 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, watch } from 'vue';
-import { OioIcon } from '@kunlun/vue-ui-common';
-import { translateValueByKey } from '@kunlun/engine';
+import { OioIcon } from '@oinone/kunlun-vue-ui-common';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Tree as ATree } from 'ant-design-vue';
-import { OioInput } from '@kunlun/vue-ui-antd';
+import { OioInput } from '@oinone/kunlun-vue-ui-antd';
 import { collectSelectedKeys } from './service';
 
 export default defineComponent({

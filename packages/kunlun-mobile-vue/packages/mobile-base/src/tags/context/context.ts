@@ -1,4 +1,4 @@
-import { ViewType } from '@kunlun/meta';
+import { ViewType } from '@oinone/kunlun-meta';
 import { computed, ComputedRef, inject, InjectionKey, provide } from 'vue';
 
 /**

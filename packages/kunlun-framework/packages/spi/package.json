@@ -1,5 +1,5 @@
 {
-  "name": "@kunlun/spi",
+  "name": "@oinone/kunlun-spi",
   "version": "6.2.0",
   "main": "index.ts",
   "scripts": {
@@ -15,7 +15,7 @@
     "inversify": "6.0.1"
   },
   "devDependencies": {
-    "@kunlun/shared": "6.2.0",
+    "@oinone/kunlun-shared": "6.2.0",
     "reflect-metadata": "0.1.13",
     "tslib": "2.3.1"
   },

@@ -1,12 +1,12 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   NamePath,
   OioFormInstance,
   OioFormProps,
   PropRecordHelper,
   useOioFormLayoutContext
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { Form as AForm, FormInstance as AFormInstance } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
 import { createVNode, defineComponent, ref, VNode } from 'vue';

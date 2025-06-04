@@ -34,7 +34,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
 import MdSelectionBase from './MdSelectionBase.vue';
-import { OioInputSearch, OioIcon } from '@kunlun/vue-ui-antd';
+import { OioInputSearch, OioIcon } from '@oinone/kunlun-vue-ui-antd';
 
 export default defineComponent({
   components: { MdSelectionBase, OioInputSearch, OioIcon },

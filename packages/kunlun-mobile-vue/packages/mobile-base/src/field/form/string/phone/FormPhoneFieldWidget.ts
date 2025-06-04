@@ -1,8 +1,8 @@
-import { isEmptyValue, ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { IInputmodeEnum } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
-import { translateValueByKey } from '@kunlun/engine';
+import { isEmptyValue, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { IInputmodeEnum } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 import { FormFieldWidget } from '../../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';

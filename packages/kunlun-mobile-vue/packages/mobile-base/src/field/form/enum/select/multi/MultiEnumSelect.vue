@@ -17,17 +17,17 @@
         @change="multiSelectChange"
         @blur="blur"
       >
-<!--        <van-cell v-for="(item, index) in options" :key="index" :value="item.name">-->
-<!--          {{ item.displayName }}-->
-<!--        </van-cell>-->
+        <!--        <van-cell v-for="(item, index) in options" :key="index" :value="item.name">-->
+        <!--          {{ item.displayName }}-->
+        <!--        </van-cell>-->
       </oio-select>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { IModelFieldOption } from '@kunlun/meta';
+import { IModelFieldOption } from '@oinone/kunlun-meta';
 import { defineComponent, PropType, ref } from 'vue';
-import { OioSelect } from '@kunlun/vue-ui-mobile-vant';
+import { OioSelect } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Cell as VanCell } from 'vant';
 
 import {

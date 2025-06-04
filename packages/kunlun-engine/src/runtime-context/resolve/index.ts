@@ -1,4 +1,4 @@
-import { DslDefinitionType } from '@kunlun/dsl';
+import { DslDefinitionType } from '@oinone/kunlun-dsl';
 import { resolveAction } from './action';
 import { resolveField } from './field';
 import { resolveProperties } from './resolve-properties';

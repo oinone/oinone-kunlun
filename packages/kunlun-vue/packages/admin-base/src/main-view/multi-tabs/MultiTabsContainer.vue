@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Consumer, Executor } from '@kunlun/shared';
-import { OioSpin } from '@kunlun/vue-ui-antd';
+import { Consumer, Executor } from '@oinone/kunlun-shared';
+import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import {
   Component,
   createVNode,

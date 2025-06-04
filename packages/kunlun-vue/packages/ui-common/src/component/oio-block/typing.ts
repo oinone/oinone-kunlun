@@ -1,4 +1,4 @@
-import { CSSStyle } from '@kunlun/shared';
+import { CSSStyle } from '@oinone/kunlun-shared';
 
 export enum FlexRowAlign {
   TOP = 'top',

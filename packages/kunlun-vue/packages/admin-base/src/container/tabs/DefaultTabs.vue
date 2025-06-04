@@ -1,5 +1,11 @@
 <script lang="ts">
-import { OioBaseContainerProps, OioTabAlign, OioTabPosition, OioTabs, PropRecordHelper } from '@kunlun/vue-ui-antd';
+import {
+  OioBaseContainerProps,
+  OioTabAlign,
+  OioTabPosition,
+  OioTabs,
+  PropRecordHelper
+} from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, PropType } from 'vue';
 
 export default defineComponent({

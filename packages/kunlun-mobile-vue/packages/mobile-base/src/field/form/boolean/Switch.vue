@@ -13,7 +13,7 @@
   </div>
 </template>
 <script lang="ts">
-import { BooleanHelper, OioSwitch } from '@kunlun/vue-ui-mobile-vant';
+import { BooleanHelper, OioSwitch } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { computed, defineComponent } from 'vue';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../basic';
 

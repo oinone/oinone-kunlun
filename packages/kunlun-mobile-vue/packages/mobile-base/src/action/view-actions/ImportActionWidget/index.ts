@@ -1,12 +1,12 @@
-import { ModelDefaultActionName } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { getExportWorkBook, notification } from '@kunlun/vue-ui-mobile-vant';
-import { createEasyImportTask, getEasyImportTemplate } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelDefaultActionName } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { getExportWorkBook, notification } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { createEasyImportTask, getEasyImportTemplate } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { ValidatorStatus } from '../../../typing';
 import { ActionWidget } from '../../component';
 import ImportCom from './ImportActionWidget.vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 @SPI.ClassFactory(ActionWidget.Token({ name: ModelDefaultActionName.$$internal_GotoListImportDialog }))
 export class ImportActionWidget extends ActionWidget {

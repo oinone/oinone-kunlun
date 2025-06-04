@@ -1,10 +1,10 @@
-import { ActiveRecord, RuntimeM2MField, SubmitRelationHandler, SubmitValue } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { ReturnPromise } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { ActiveRecord, RuntimeM2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget, FormSubviewListFieldWidget, RelationQueryHelper } from '../../../../basic';
-import { Widget } from '@kunlun/vue-widget';
-import { FormLayout } from '@kunlun/vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { FormLayout } from '@oinone/kunlun-vue-ui-common';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({

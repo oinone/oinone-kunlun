@@ -1,6 +1,6 @@
-import { ModuleCache } from '@kunlun/engine';
-import { IMenu } from '@kunlun/meta';
-import { Comparator, TreeHelper, TreeNode } from '@kunlun/shared';
+import { ModuleCache } from '@oinone/kunlun-engine';
+import { IMenu } from '@oinone/kunlun-meta';
+import { Comparator, TreeHelper, TreeNode } from '@oinone/kunlun-shared';
 import { MenuUrlParameters, RuntimeMenu } from '../typing';
 
 const defaultCompareFunction: Comparator<TreeNode<RuntimeMenu>> = (a, b) => {

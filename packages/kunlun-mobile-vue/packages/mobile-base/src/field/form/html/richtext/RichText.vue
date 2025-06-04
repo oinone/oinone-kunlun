@@ -16,12 +16,12 @@
 </template>
 <script lang="ts">
 import { delay } from 'lodash-es';
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { IToolbarConfig } from '@wangeditor/editor';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
-import { createResourceFile, getFileSignature } from '@kunlun/vue-ui-common';
+import { createResourceFile, getFileSignature } from '@oinone/kunlun-vue-ui-common';
 import { computed, defineComponent, onBeforeUnmount, ref, shallowRef, watch } from 'vue';
-import { DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 import '@wangeditor/editor/dist/css/style.css';
 
 type InsertImgFnType = (url: string, alt?: string, href?: string) => void;

@@ -1,5 +1,5 @@
-import { DslDefinition, DslSlots, DslSlotUtils, UnknownDslDefinition } from '@kunlun/dsl';
-import { WidgetProps } from '@kunlun/engine';
+import { DslDefinition, DslSlots, DslSlotUtils, UnknownDslDefinition } from '@oinone/kunlun-dsl';
+import { WidgetProps } from '@oinone/kunlun-engine';
 import { Slots, VNode } from 'vue';
 import { VueWidget, Widget } from '../basic';
 import { DslRender } from '../util';

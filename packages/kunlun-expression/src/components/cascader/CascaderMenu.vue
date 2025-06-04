@@ -73,9 +73,9 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
 import { ExpActiveType, ExpTtypeInfoMap, IExpSelectOption } from '../../types';
-import { Pagination } from '@kunlun/engine';
-import { OioPagination } from '@kunlun/vue-ui-antd';
-import { isComplexTtype } from '@kunlun/meta';
+import { Pagination } from '@oinone/kunlun-engine';
+import { OioPagination } from '@oinone/kunlun-vue-ui-antd';
+import { isComplexTtype } from '@oinone/kunlun-meta';
 import { translateExpValue } from '../../share';
 import { groupBy } from 'lodash-es';
 

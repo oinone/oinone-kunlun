@@ -1,10 +1,10 @@
-import { EntityBody, IViewProps, ListVM, ObjectVM, RuntimeModel, ViewVM } from '@kunlun/engine';
-import { LifeCycleTypes, ViewEventName } from '@kunlun/event';
-import { createViewElement, Entity, IDslNode, IModel, IView, ViewElement, ViewId, ViewType } from '@kunlun/meta';
-import { Matched, useMatched } from '@kunlun/router';
-import { Constructor } from '@kunlun/shared';
-import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@kunlun/spi';
-import { Subscription } from '@kunlun/state';
+import { EntityBody, IViewProps, ListVM, ObjectVM, RuntimeModel, ViewVM } from '@oinone/kunlun-engine';
+import { LifeCycleTypes, ViewEventName } from '@oinone/kunlun-event';
+import { createViewElement, Entity, IDslNode, IModel, IView, ViewElement, ViewId, ViewType } from '@oinone/kunlun-meta';
+import { Matched, useMatched } from '@oinone/kunlun-router';
+import { Constructor } from '@oinone/kunlun-shared';
+import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
+import { Subscription } from '@oinone/kunlun-state';
 
 import { Widget } from '../basic';
 

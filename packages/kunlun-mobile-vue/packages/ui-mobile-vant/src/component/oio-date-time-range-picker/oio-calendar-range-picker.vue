@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { OioDateTimeRangePickerProps } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { OioDateTimeRangePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent, VNodeProps } from 'vue';
 import { Calendar as VanCalendar } from 'vant';
 import dayjs from 'dayjs';

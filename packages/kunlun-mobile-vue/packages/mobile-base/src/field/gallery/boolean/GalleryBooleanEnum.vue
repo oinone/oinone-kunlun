@@ -13,7 +13,7 @@
   </gallery-common-field>
 </template>
 <script lang="ts">
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { isNil, toString } from 'lodash-es';
 import { computed, defineComponent } from 'vue';
 import { enumFetchLabelByValue } from '../../util';

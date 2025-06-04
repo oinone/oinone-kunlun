@@ -1,7 +1,7 @@
-import { ActiveRecord } from '@kunlun/engine';
-import { BooleanHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord } from '@oinone/kunlun-engine';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../basic';
 import { FormTransferFieldWidget } from './FormTransferFieldWidget';
 

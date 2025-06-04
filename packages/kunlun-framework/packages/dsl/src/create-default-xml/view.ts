@@ -1,4 +1,4 @@
-import { ViewType } from '@kunlun/meta';
+import { ViewType } from '@oinone/kunlun-meta';
 
 const localViewTplMap = new Map<string, string>();
 const setLocalViewTpl = (modelModel: string, viewType: ViewType, viewName: string, tpl: string) => {

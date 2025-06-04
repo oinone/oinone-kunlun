@@ -1,5 +1,10 @@
-import { HttpClientHook, HttpClientHookBeforeData, HttpClientHookOptions, HttpClientHookToken } from '@kunlun/request';
-import { SPI } from '@kunlun/spi';
+import {
+  HttpClientHook,
+  HttpClientHookBeforeData,
+  HttpClientHookOptions,
+  HttpClientHookToken
+} from '@oinone/kunlun-request';
+import { SPI } from '@oinone/kunlun-spi';
 import { getSharedSession } from '../session';
 
 @SPI.Service(HttpClientHookToken, { name: 'shared' })

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { OioEmpty } from '@kunlun/vue-ui-common';
+import { OioEmpty } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../../../ui/theme';
 

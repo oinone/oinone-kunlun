@@ -1,6 +1,6 @@
-import { SPI } from '@kunlun/spi';
-import { ViewType } from '@kunlun/meta';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { ViewType } from '@oinone/kunlun-meta';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
 import GalleryString from '../string/default/GalleryString.vue';
 

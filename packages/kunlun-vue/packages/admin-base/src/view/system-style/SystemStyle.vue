@@ -219,8 +219,8 @@
 </template>
 <script lang="ts" setup>
 import { ref, computed, defineProps, watchEffect, watch } from 'vue';
-import { getTheme } from '@kunlun/theme';
-import { OioIcon, OioButton } from '@kunlun/vue-ui-antd';
+import { getTheme } from '@oinone/kunlun-theme';
+import { OioIcon, OioButton } from '@oinone/kunlun-vue-ui-antd';
 import {
   translateValueByKey,
   SideBarThemeColor,
@@ -228,7 +228,7 @@ import {
   MultiTabTheme,
   MajorConfig,
   MultiTabsApplicationHomepageConfig
-} from '@kunlun/engine';
+} from '@oinone/kunlun-engine';
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 
 import { useFullscreen } from '../../util';

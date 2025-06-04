@@ -1,8 +1,8 @@
-import { ActiveRecordsOperator } from '@kunlun/engine';
-import { deepClone, ModelDefaultActionName } from '@kunlun/meta';
-import { CallChaining } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecordsOperator } from '@oinone/kunlun-engine';
+import { deepClone, ModelDefaultActionName } from '@oinone/kunlun-meta';
+import { CallChaining } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { TableRowEditMode } from '../../typing';
 import { ActionWidget } from '../component';
 

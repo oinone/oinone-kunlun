@@ -1,5 +1,5 @@
-import { CallChaining, CastHelper } from '@kunlun/shared';
-import { ActiveRecordsWidgetProps, executeInvisible, Widget } from '@kunlun/vue-widget';
+import { CallChaining, CastHelper } from '@oinone/kunlun-shared';
+import { ActiveRecordsWidgetProps, executeInvisible, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseActionWidget, BaseElementWidget } from './token';
 
 export class BaseActionGroupWidget<

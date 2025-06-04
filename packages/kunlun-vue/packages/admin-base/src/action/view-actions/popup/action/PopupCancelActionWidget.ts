@@ -1,8 +1,8 @@
-import { Dialog, Drawer, translateValueByKey } from '@kunlun/engine';
-import { ModelDefaultActionName } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { ButtonType } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { Dialog, Drawer, translateValueByKey } from '@oinone/kunlun-engine';
+import { ModelDefaultActionName } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { ButtonType } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isFunction } from 'lodash-es';
 import { ClickResult } from '../../../../typing';
 import { ActionWidget } from '../../../component';

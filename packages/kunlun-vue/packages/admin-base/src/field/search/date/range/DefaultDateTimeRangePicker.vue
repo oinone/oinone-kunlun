@@ -30,8 +30,8 @@
   />
 </template>
 <script lang="ts">
-import { OioDateTimePicker, OioDateTimeRangePicker } from '@kunlun/vue-ui-antd';
-import { OioDateTimeRangePickerProps } from '@kunlun/vue-ui-common';
+import { OioDateTimePicker, OioDateTimeRangePicker } from '@oinone/kunlun-vue-ui-antd';
+import { OioDateTimeRangePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { defineComponent } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../../basic';
 import { DefaultDateTimeRangePickerProps, useDateTimeRangePickerProps } from '../../../form/date/range/props';

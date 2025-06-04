@@ -5,11 +5,17 @@
         <div class="field-permission-model-table-search">
           <div class="field-permission-model-table-search-input">
             <oio-input :placeholder="translateValueByKey('名称')" allow-clear v-model:value="modelSearchData.name" />
-            <oio-input :placeholder="translateValueByKey('登录账号')" allow-clear v-model:value="modelSearchData.login" />
+            <oio-input
+              :placeholder="translateValueByKey('登录账号')"
+              allow-clear
+              v-model:value="modelSearchData.login"
+            />
           </div>
 
           <div class="field-permission-model-table-search-button">
-            <oio-button type="primary" @click="onTableSearch('model', modelSearchData)">{{translateValueByKey('搜索')}}</oio-button>
+            <oio-button type="primary" @click="onTableSearch('model', modelSearchData)">{{
+              translateValueByKey('搜索')
+            }}</oio-button>
             <oio-button @click="onResetModelSearch">{{ translateValueByKey('重置') }} </oio-button>
           </div>
         </div>
@@ -19,8 +25,8 @@
   </div>
 </template>
 <script lang="ts">
-import { OioButton, OioInput } from '@kunlun/vue-ui-antd';
-import { translateValueByKey } from '@kunlun/engine';
+import { OioButton, OioInput } from '@oinone/kunlun-vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -32,17 +38,16 @@ export default defineComponent({
   setup(props) {
     const modelSearchData = ref({
       name: '',
-      login: '',
+      login: ''
     });
 
     const onResetModelSearch = () => {
       modelSearchData.value = {
         name: '',
-      login: '',
+        login: ''
       };
       props.onTableSearch('model', modelSearchData.value);
     };
-
 
     return {
       modelSearchData,
@@ -52,4 +57,3 @@ export default defineComponent({
   }
 });
 </script>
-

@@ -280,8 +280,8 @@
   </div>
 </template>
 <script lang="ts">
-import { deepClone, IModelField, isComplexTtype } from '@kunlun/meta';
-import { OioTextarea } from '@kunlun/vue-ui-antd';
+import { deepClone, IModelField, isComplexTtype } from '@oinone/kunlun-meta';
+import { OioTextarea } from '@oinone/kunlun-vue-ui-antd';
 import {
   Checkbox as ACheckbox,
   Popconfirm as APopconfirm,

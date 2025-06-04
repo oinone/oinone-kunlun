@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from 'vue';
-import { UrlHelper } from '@kunlun/shared';
+import { UrlHelper } from '@oinone/kunlun-shared';
 import { Locale } from 'vant';
 import zhCN from 'vant/es/locale/lang/zh-CN';
 import enUS from 'vant/es/locale/lang/en-US';

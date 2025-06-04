@@ -1,4 +1,4 @@
-import { ModelFieldType, SYSTEM_MODULE, SYSTEM_MODULE_NAME } from '@kunlun/meta';
+import { ModelFieldType, SYSTEM_MODULE, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { FunctionSelfFlag, RuntimeModel, RuntimeRelationField } from '../../runtime-metadata';
 import { ActiveRecord } from '../../typing';
 import { MetadataHelper } from '../util';

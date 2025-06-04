@@ -1,5 +1,5 @@
-import { NonBlockingEventManager } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { NonBlockingEventManager } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { UserLang } from '../typing';
 import { LanguageService, LanguageServiceToken } from './LanguageService';
 

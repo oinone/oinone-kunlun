@@ -1,5 +1,5 @@
-import { SubmitValue } from '@kunlun/engine';
-import { BooleanHelper, CallChaining, Optional } from '@kunlun/shared';
+import { SubmitValue } from '@oinone/kunlun-engine';
+import { BooleanHelper, CallChaining, Optional } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
   RenderCellContext,
@@ -8,9 +8,9 @@ import {
   TableEditorMode,
   TableEditorTrigger
 } from '../../ui';
-import { ActiveRecordsWidgetProps, Widget } from '@kunlun/vue-widget';
+import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isString } from 'lodash-es';
-import { OioNotification } from '@kunlun/vue-ui-mobile-vant';
+import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { VNode } from 'vue';
 import { BaseDataWidget } from '../common';
 import DefaultTableColumn from './DefaultTableColumn.vue';

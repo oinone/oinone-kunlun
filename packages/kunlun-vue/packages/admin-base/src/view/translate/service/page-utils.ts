@@ -1,4 +1,4 @@
-import { HttpClient } from '@kunlun/request';
+import { HttpClient } from '@oinone/kunlun-request';
 import { SearchCommonParams, TranslateManageItem } from '../translate-page-util/typings';
 
 const http = HttpClient.getInstance();

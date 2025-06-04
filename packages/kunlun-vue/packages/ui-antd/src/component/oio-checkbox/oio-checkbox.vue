@@ -1,5 +1,5 @@
 <script lang="ts">
-import { OioCheckboxProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { OioCheckboxProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Checkbox as ACheckbox } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, ref } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

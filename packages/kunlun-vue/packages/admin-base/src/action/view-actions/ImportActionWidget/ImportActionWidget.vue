@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts">
-import { OioButton, OioForm, OioFormItem, OioModal } from '@kunlun/vue-ui-antd';
+import { OioButton, OioForm, OioFormItem, OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent } from 'vue';
 import { FileUpload } from '../../../components';
 import { useInjectActionContext } from '../../component';

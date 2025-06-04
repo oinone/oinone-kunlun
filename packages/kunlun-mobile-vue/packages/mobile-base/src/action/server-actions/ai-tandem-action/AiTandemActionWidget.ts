@@ -1,7 +1,7 @@
-import { SPI } from '@kunlun/spi';
-import { ActionType } from '@kunlun/meta';
-import { RuntimeServerAction } from '@kunlun/engine';
-import { Widget, WidgetSubjection } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { ActionType } from '@oinone/kunlun-meta';
+import { RuntimeServerAction } from '@oinone/kunlun-engine';
+import { Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { ActionWidget } from '../../component';
 import { ServerActionWidget } from '../ServerActionWidget';
 import { ClickResult } from '../../../typing';

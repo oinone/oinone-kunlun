@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { RuntimeEnumerationField, RuntimeEnumerationOption, translateValueByKey } from '@kunlun/engine';
-import { EnumOptionState, deepClone } from '@kunlun/meta';
-import { BooleanHelper } from '@kunlun/shared';
-import { WidgetTrigger } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { RuntimeEnumerationField, RuntimeEnumerationOption, translateValueByKey } from '@oinone/kunlun-engine';
+import { EnumOptionState, deepClone } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toString } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../typing';

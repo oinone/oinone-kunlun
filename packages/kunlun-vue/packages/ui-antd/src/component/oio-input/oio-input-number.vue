@@ -8,8 +8,8 @@ import {
   Optional,
   StandardNumber,
   StringHelper
-} from '@kunlun/shared';
-import { OioInputNumberProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-shared';
+import { OioInputNumberProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty, isNil, isString, toString } from 'lodash-es';
 import { computed, createVNode, defineComponent, ref, Slot } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

@@ -1,8 +1,8 @@
 <script lang="ts">
 import { createVNode, defineComponent } from 'vue';
-import { InputMediaMode } from '@kunlun/vue-ui-common';
-import { DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
-import { translateValueByKey } from '@kunlun/engine';
+import { InputMediaMode } from '@oinone/kunlun-vue-ui-common';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { InputMediaProps } from '../../../prop';
 import DefaultString from '../DefaultString.vue';
 
@@ -21,7 +21,11 @@ export default defineComponent({
     if (this.mode === InputMediaMode.DYNAMIC) {
       return createVNode(DefaultString, _props);
     }
-    const designNode = createVNode('div', { class: 'mobile-form-iframe-area-design' }, translateValueByKey('示例iframe网页'));
+    const designNode = createVNode(
+      'div',
+      { class: 'mobile-form-iframe-area-design' },
+      translateValueByKey('示例iframe网页')
+    );
     const designEmptyNode = createVNode('span', { class: `${DEFAULT_PREFIX}-empty` }, '-');
     const runNode = createVNode('iframe', {
       class: 'mobile-form-iframe-area',

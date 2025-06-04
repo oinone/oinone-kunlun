@@ -1,5 +1,5 @@
-import { FunctionType, RuntimeFunctionDefinition } from '@kunlun/engine';
-import { ModelFieldType } from '@kunlun/meta';
+import { FunctionType, RuntimeFunctionDefinition } from '@oinone/kunlun-engine';
+import { ModelFieldType } from '@oinone/kunlun-meta';
 import { StaticFileMetadata } from './model';
 
 export namespace StaticFileFunction {

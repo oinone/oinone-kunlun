@@ -7,7 +7,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { OioButton } from '@kunlun/vue-ui-antd';
+import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { onJumpUiDesignerHomePage } from '../../../../util';
 
 export default defineComponent({

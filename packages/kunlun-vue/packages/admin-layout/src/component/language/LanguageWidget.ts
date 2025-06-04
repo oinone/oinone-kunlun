@@ -1,9 +1,9 @@
-import { ClearCache, CurrentLanguage, ReloadMaskCallChainingParameters } from '@kunlun/engine';
-import { Matched, Router, useMatched } from '@kunlun/router';
-import { SPI } from '@kunlun/spi';
-import { useRouter } from '@kunlun/vue-router';
-import { Widget } from '@kunlun/vue-widget';
-import { EN_US_CODE, RuntimeLanguage, ZH_CN_CODE } from '@kunlun/vue-ui-common';
+import { ClearCache, CurrentLanguage, ReloadMaskCallChainingParameters } from '@oinone/kunlun-engine';
+import { Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { SPI } from '@oinone/kunlun-spi';
+import { useRouter } from '@oinone/kunlun-vue-router';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { EN_US_CODE, RuntimeLanguage, ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
 import { MaskWidget } from '../../basic';
 import { TopBarService } from '../../service';
 import DefaultLanguage from './DefaultLanguage.vue';

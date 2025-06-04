@@ -26,27 +26,26 @@
       </div>
       <div :class="`${mainClassName}-footer`" v-if="!footerInvisible">
         <slot name="footer">
-          <oio-button type="default" size="large" @click="onCancel">{{ cancelText || translate('kunlun.common.cancel') }}</oio-button>
-          <oio-button type="primary" size="large" @click="onOk">{{ enterText || translate('kunlun.common.confirm') }}</oio-button>
+          <oio-button type="default" size="large" @click="onCancel">{{
+            cancelText || translate('kunlun.common.cancel')
+          }}</oio-button>
+          <oio-button type="primary" size="large" @click="onOk">{{
+            enterText || translate('kunlun.common.confirm')
+          }}</oio-button>
         </slot>
       </div>
     </template>
   </van-popup>
 </template>
 <script lang="ts">
-import {
-  ModalWidthType,
-  OioModalProps,
-  StyleHelper,
-  useModal
-} from '@kunlun/vue-ui-common';
+import { ModalWidthType, OioModalProps, StyleHelper, useModal } from '@oinone/kunlun-vue-ui-common';
 import { Popup as VanPopup } from 'vant';
 import { defineComponent, PropType } from 'vue';
 import { isNumber } from 'lodash-es';
 import { DEFAULT_PREFIX } from '../../theme';
 import { OioButton } from '../oio-button';
 import { OioSpin } from '../oio-spin';
-import { CastHelper, StringHelper } from '@kunlun/shared';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 
 export default defineComponent({
   name: 'OioModal',

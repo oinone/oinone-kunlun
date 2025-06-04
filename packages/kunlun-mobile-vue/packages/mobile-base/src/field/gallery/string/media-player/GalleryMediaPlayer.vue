@@ -21,7 +21,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import { Image as VanImage } from 'vant';
-import { VIDEO_SUFFIX_LIST } from '@kunlun/vue-ui-common';
+import { VIDEO_SUFFIX_LIST } from '@oinone/kunlun-vue-ui-common';
 import { PreviewMedia } from '../../../../components';
 import GalleryCommonField from '../../common/GalleryCommonField.vue';
 

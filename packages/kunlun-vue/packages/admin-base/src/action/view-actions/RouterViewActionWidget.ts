@@ -1,10 +1,10 @@
-import { executeViewAction, Popup, RuntimeViewAction } from '@kunlun/engine';
-import { ActionContextType, ActionType, isEmptyKeObject, ViewActionTarget, ViewType } from '@kunlun/meta';
-import { Matched, Router } from '@kunlun/router';
-import { getModel } from '@kunlun/service';
-import { debugConsole, StringHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { parseActionDomain4search } from '@kunlun/vue-admin-layout';
+import { executeViewAction, Popup, RuntimeViewAction } from '@oinone/kunlun-engine';
+import { ActionContextType, ActionType, isEmptyKeObject, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import { Matched, Router } from '@oinone/kunlun-router';
+import { getModel } from '@oinone/kunlun-service';
+import { debugConsole, StringHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { parseActionDomain4search } from '@oinone/kunlun-vue-admin-layout';
 import { UrlQueryParameters } from '../../basic';
 import { ActionWidget } from '../component';
 import { ViewActionWidget } from './ViewActionWidget';

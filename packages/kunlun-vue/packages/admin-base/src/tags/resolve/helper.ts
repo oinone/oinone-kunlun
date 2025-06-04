@@ -1,8 +1,8 @@
-import { ViewType } from '@kunlun/meta';
-import { DEFAULT_SLOT_NAME, DslDefinition, DslDefinitionHelper, DslDefinitionType } from '@kunlun/dsl';
-import { DslRender } from '@kunlun/vue-widget';
-import { CSSStyle } from '@kunlun/shared';
-import { DEFAULT_COLS, FlexColMode } from '@kunlun/vue-ui-common';
+import { ViewType } from '@oinone/kunlun-meta';
+import { DEFAULT_SLOT_NAME, DslDefinition, DslDefinitionHelper, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { DslRender } from '@oinone/kunlun-vue-widget';
+import { CSSStyle } from '@oinone/kunlun-shared';
+import { DEFAULT_COLS, FlexColMode } from '@oinone/kunlun-vue-ui-common';
 import { isNil } from 'lodash-es';
 import { Slot, VNode, createVNode } from 'vue';
 import { InternalWidget, ResolveMode } from './typing';

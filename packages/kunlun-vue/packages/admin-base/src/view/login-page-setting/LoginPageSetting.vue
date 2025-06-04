@@ -121,8 +121,8 @@
 </template>
 <script lang="ts" setup>
 import { ref, computed, defineProps, watchEffect, h } from 'vue';
-import { genStaticPath, OioLoginThemeName, translateValueByKey } from '@kunlun/engine';
-import { OioIcon, OioButton } from '@kunlun/vue-ui-antd';
+import { genStaticPath, OioLoginThemeName, translateValueByKey } from '@oinone/kunlun-engine';
+import { OioIcon, OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { CheckCircleFilled, PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue';
 
 import { useFullscreen } from '../../util';

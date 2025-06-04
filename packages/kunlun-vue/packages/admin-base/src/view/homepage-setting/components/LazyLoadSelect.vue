@@ -32,7 +32,7 @@
   ></SingleSelect>
 </template>
 <script lang="ts">
-import { Pagination } from '@kunlun/engine';
+import { Pagination } from '@oinone/kunlun-engine';
 import { debounce, isEmpty } from 'lodash-es';
 import { defineComponent, PropType, ref, watch } from 'vue';
 import { FetchValueOptions, FetchValueReturnType } from '../typing';

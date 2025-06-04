@@ -15,8 +15,8 @@ module.exports = {
   },
   setupFiles: ['./jest.setup.js'],
   extensionsToTreatAsEsm: ['.ts'],
-  transformIgnorePatterns: ["/node_modules/(?!(@kunlun)/)"],
+  transformIgnorePatterns: ['/node_modules/(?!(@kunlun|@oinone)/)'],
   moduleNameMapper: {
     '^lodash-es$': 'lodash'
-  },
-}
+  }
+};

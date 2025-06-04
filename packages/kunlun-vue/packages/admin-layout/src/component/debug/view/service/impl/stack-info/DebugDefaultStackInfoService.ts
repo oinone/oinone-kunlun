@@ -1,4 +1,4 @@
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { isArray } from 'lodash-es';
 import { DebugErrorAnalysisResult, DebugResponseError } from '../../../../typing';
 import { DebugUtils } from '../../../debug-utils';

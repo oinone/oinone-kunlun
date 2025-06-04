@@ -1,5 +1,5 @@
-import { ViewType } from '@kunlun/meta';
-import { translateValueByKey } from '@kunlun/engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { LayoutManager } from '../../../spi';
 
 LayoutManager.register(

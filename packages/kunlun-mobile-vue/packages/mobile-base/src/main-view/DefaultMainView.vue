@@ -1,6 +1,6 @@
 <script lang="ts">
-import { DslRender } from '@kunlun/vue-widget';
-import { PropRecordHelper } from '@kunlun/vue-ui-common';
+import { DslRender } from '@oinone/kunlun-vue-widget';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { computed, createVNode, defineComponent, Fragment, VNode } from 'vue';
 import { MetadataViewProps } from '../basic';
 import { useInjectMetaContext, useProviderMetaContext } from '../tags';

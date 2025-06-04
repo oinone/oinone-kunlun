@@ -1,6 +1,6 @@
-import { IStaticDrawerWidget, translateValueByKey } from '@kunlun/engine';
-import { DrawerHeight, DrawerPlacement, DrawerWidth, OioDrawerProps } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { IStaticDrawerWidget, translateValueByKey } from '@oinone/kunlun-engine';
+import { DrawerHeight, DrawerPlacement, DrawerWidth, OioDrawerProps } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../../typing';
 import { StaticPopupWidget } from '../StaticPopupWidget';
 import DefaultDrawer from './DefaultDrawer.vue';

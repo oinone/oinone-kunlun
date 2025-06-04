@@ -317,9 +317,9 @@ import {
   OioLoginThemeConfig,
   genStaticPath,
   translateValueByKey
-} from '@kunlun/engine';
-import { LoginMode, LoginData, RuntimeLanguage } from '@kunlun/vue-ui-common';
-import { OioForm, OioButton, OioFormItem, OioInput, OioIcon, VIDEO_SUFFIX_LIST } from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-engine';
+import { LoginMode, LoginData, RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
+import { OioForm, OioButton, OioFormItem, OioInput, OioIcon, VIDEO_SUFFIX_LIST } from '@oinone/kunlun-vue-ui-antd';
 
 const props = defineProps({
   login: { type: Function as PropType<() => void>, required: true },

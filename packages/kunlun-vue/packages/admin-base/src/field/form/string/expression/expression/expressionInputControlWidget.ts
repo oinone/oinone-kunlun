@@ -1,7 +1,7 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../../../basic';
-import { ExpressionInputControl } from '@kunlun/vue-expression';
+import { ExpressionInputControl } from '@oinone/kunlun-vue-expression';
 import { ExpressionBaseControlWidget } from './expressionBaseControlWidget';
 
 /**

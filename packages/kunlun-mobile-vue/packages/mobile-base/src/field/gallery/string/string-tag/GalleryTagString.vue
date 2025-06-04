@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { OioIcon } from '@kunlun/vue-ui-mobile-vant';
+import { OioIcon } from '@oinone/kunlun-vue-ui-mobile-vant';
 
 export default defineComponent({
   props: {

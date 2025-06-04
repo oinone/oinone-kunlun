@@ -1,13 +1,13 @@
-import { ActiveRecord, ActiveRecords, RuntimeM2OField, RuntimeO2OField } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
-import { ReturnPromise } from '@kunlun/shared';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord, ActiveRecords, RuntimeM2OField, RuntimeO2OField } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { InlineForm } from '../../../../components';
 import { IFormSubviewObjectFieldWidget, RefreshProcessFunction } from '../../../types';
 import { FormComplexFieldProps } from '../FormComplexFieldWidget';
 import { FormSubviewFieldWidget } from './FormSubviewFieldWidget';
-import { LifeCycleTypes } from '@kunlun/event';
+import { LifeCycleTypes } from '@oinone/kunlun-event';
 
 export class FormSubviewObjectFieldWidget<
     Field extends RuntimeO2OField | RuntimeM2OField = RuntimeO2OField | RuntimeM2OField,

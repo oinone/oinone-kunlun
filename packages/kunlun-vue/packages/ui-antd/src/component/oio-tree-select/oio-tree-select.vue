@@ -1,5 +1,5 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   defaultTreeSelectProperties,
   fillTreeSelectNodesProperties,
@@ -10,7 +10,7 @@ import {
   TreeSelectNode,
   TreeSelectNodeChangeEvent,
   TreeSelectProperties
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { Popover as APopover, TreeSelect as ATreeSelect } from 'ant-design-vue';
 import { computed, createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

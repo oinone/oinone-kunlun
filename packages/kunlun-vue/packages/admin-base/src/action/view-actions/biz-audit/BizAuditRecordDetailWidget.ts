@@ -1,6 +1,6 @@
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
-import { ViewType } from '@kunlun/meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { ViewType } from '@oinone/kunlun-meta';
 import { CustomWidget, BaseElementWidget } from '../../../basic';
 import { queryAuditDetail } from './service';
 import BizAuditRecordDetail from './BizAuditRecordDetail.vue';

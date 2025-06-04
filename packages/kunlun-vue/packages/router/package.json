@@ -1,5 +1,5 @@
 {
-  "name": "@kunlun/vue-router",
+  "name": "@oinone/kunlun-vue-router",
   "version": "6.2.0",
   "main": "index.ts",
   "scripts": {
@@ -12,12 +12,12 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@kunlun/vue-widget": "6.2.0"
+    "@oinone/kunlun-vue-widget": "6.2.0"
   },
   "devDependencies": {
-    "@kunlun/router": "~6.2.0",
-    "@kunlun/shared": "~6.2.0",
-    "@kunlun/spi": "~6.2.0",
+    "@oinone/kunlun-router": "~6.2.0",
+    "@oinone/kunlun-shared": "~6.2.0",
+    "@oinone/kunlun-spi": "~6.2.0",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "11.2.1",
     "@rollup/plugin-replace": "2.4.2",

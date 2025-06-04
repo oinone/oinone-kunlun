@@ -1,6 +1,6 @@
-import { DslDefinition, DslDefinitionHelper, FieldDslDefinition } from '@kunlun/dsl';
-import { isRelationTtype, ModelFieldSerializeType, ModelFieldType } from '@kunlun/meta';
-import { BooleanHelper } from '@kunlun/shared';
+import { DslDefinition, DslDefinitionHelper, FieldDslDefinition } from '@oinone/kunlun-dsl';
+import { isRelationTtype, ModelFieldSerializeType, ModelFieldType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { generatorModelName, RuntimeModelField } from '../../../runtime-metadata';
 import { RuntimeContext } from '../../runtime-context';
 import { resolveAction } from '../action';

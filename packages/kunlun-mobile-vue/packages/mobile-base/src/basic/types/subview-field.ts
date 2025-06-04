@@ -6,8 +6,8 @@ import {
   RuntimeO2MField,
   RuntimeO2OField,
   RuntimeRelationField
-} from '@kunlun/engine';
-import { WidgetTrigger } from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-engine';
+import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 
 /**
  * 关系字段子视图组件

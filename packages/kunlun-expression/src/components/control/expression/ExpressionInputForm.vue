@@ -290,8 +290,8 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, watch } from 'vue';
-import { ModelFieldType, deepClone, isDateTtype, isEmptyKeObject as isEmptyObject } from '@kunlun/meta';
-import { OioTextarea } from '@kunlun/vue-ui-antd';
+import { ModelFieldType, deepClone, isDateTtype, isEmptyKeObject as isEmptyObject } from '@oinone/kunlun-meta';
+import { OioTextarea } from '@oinone/kunlun-vue-ui-antd';
 import {
   Popconfirm as APopconfirm,
   Select as ASelect,

@@ -1,7 +1,7 @@
 <script lang="ts">
-import { translate, translateValueByKey } from '@kunlun/engine';
-import { RenderRowContext, useInjectOioTableInstance } from '@kunlun/vue-ui';
-import { StableSlotProp, StyleHelper } from '@kunlun/vue-ui-common';
+import { translate, translateValueByKey } from '@oinone/kunlun-engine';
+import { RenderRowContext, useInjectOioTableInstance } from '@oinone/kunlun-vue-ui';
+import { StableSlotProp, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { debounce, isBoolean } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType } from 'vue';
 import { Column } from 'vxe-table';

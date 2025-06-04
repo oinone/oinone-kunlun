@@ -91,10 +91,10 @@ import {
   OioDatePicker,
   OioTimePicker,
   OioYearPicker
-} from '@kunlun/vue-ui-antd';
-import { IModelField, ModelFieldType } from '@kunlun/meta';
-import { queryPage, getModel } from '@kunlun/service';
-import { translateValueByKey } from '@kunlun/engine';
+} from '@oinone/kunlun-vue-ui-antd';
+import { IModelField, ModelFieldType } from '@oinone/kunlun-meta';
+import { queryPage, getModel } from '@oinone/kunlun-service';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Select as ASelect } from 'ant-design-vue';
 
 export default defineComponent({

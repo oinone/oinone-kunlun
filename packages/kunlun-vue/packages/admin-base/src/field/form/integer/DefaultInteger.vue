@@ -31,8 +31,8 @@
 </template>
 
 <script lang="ts">
-import { OioInputNumber } from '@kunlun/vue-ui-antd';
-import { OioInputNumberProps } from '@kunlun/vue-ui-common';
+import { OioInputNumber } from '@oinone/kunlun-vue-ui-antd';
+import { OioInputNumberProps } from '@oinone/kunlun-vue-ui-common';
 import { defineComponent } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic';
 import { PreSuffixProps } from '../../prop';

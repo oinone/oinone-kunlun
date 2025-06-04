@@ -1,6 +1,6 @@
-import { ActiveRecord } from '@kunlun/engine';
-import { ActionType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ActiveRecord } from '@oinone/kunlun-engine';
+import { ActionType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 import { ActionWidget, ServerActionWidget } from '../../action';
 import { ClickResult } from '../../typing';
 import { IconActionBarWidget } from './IconActionBarWidget';

@@ -1,4 +1,4 @@
-import { Converter } from '@kunlun/shared';
+import { Converter } from '@oinone/kunlun-shared';
 import { isString } from 'lodash-es';
 import { SelectItem, SelectProperties } from './model';
 

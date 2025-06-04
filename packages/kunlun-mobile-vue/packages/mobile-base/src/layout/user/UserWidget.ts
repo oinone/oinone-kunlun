@@ -1,7 +1,7 @@
-import { VueWidget, Widget, WidgetBehaviorSubjection } from '@kunlun/vue-widget';
-import { GlobalConfig } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Matched, Router, useMatched } from '@kunlun/router';
+import { VueWidget, Widget, WidgetBehaviorSubjection } from '@oinone/kunlun-vue-widget';
+import { GlobalConfig } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Matched, Router, useMatched } from '@oinone/kunlun-router';
 import {
   executeServerAction,
   executeViewAction,
@@ -12,11 +12,11 @@ import {
   RuntimeAction,
   isRuntimeViewAction,
   ServerActionCache
-} from '@kunlun/engine';
-import { useRouter } from '@kunlun/vue-router';
-import { notification } from '@kunlun/vue-ui-mobile-vant';
+} from '@oinone/kunlun-engine';
+import { useRouter } from '@oinone/kunlun-vue-router';
+import { notification } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { get as getValue } from 'lodash-es';
-import { setSessionPath, useSessionPath } from '@kunlun/request';
+import { setSessionPath, useSessionPath } from '@oinone/kunlun-request';
 import { GlobalStateSubSymbol, IGlobalState } from '../type';
 import UserComponent from './User.vue';
 

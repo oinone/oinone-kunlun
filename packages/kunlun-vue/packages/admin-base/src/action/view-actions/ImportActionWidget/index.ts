@@ -1,9 +1,9 @@
-import { ModelDefaultActionName } from '@kunlun/meta';
-import { translateValueByKey } from '@kunlun/engine';
-import { SPI } from '@kunlun/spi';
-import { getExportWorkBook, OioNotification } from '@kunlun/vue-ui-antd';
-import { createEasyImportTask, getEasyImportTemplate } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelDefaultActionName } from '@oinone/kunlun-meta';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { SPI } from '@oinone/kunlun-spi';
+import { getExportWorkBook, OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { createEasyImportTask, getEasyImportTemplate } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { ValidatorStatus } from '../../../typing';
 import { ActionWidget } from '../../component';
 import ImportCom from './ImportActionWidget.vue';

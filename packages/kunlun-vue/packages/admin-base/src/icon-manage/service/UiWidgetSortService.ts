@@ -1,6 +1,6 @@
-import { translateValueByKey } from '@kunlun/engine';
-// import { UI_DESIGNER, WidgetCategoryGroup, WidgetCategoryList } from '@kunlun/ui-designer-core';
-import { HttpClient } from '@kunlun/request';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+// import { UI_DESIGNER, WidgetCategoryGroup, WidgetCategoryList } from '@oinone/kunlun-ui-designer-core';
+import { HttpClient } from '@oinone/kunlun-request';
 
 const http = HttpClient.getInstance();
 

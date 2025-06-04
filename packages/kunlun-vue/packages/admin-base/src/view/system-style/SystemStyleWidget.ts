@@ -1,14 +1,14 @@
 import { createVNode } from 'vue';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { Modal } from 'ant-design-vue';
 import { CheckCircleOutlined } from '@ant-design/icons-vue';
-import { initOioComponentTheme } from '@kunlun/theme';
-import { HttpClient } from '@kunlun/request';
-import { customMutation } from '@kunlun/service';
-import { OioProvider, translateValueByKey } from '@kunlun/engine';
-import { Matched, Router, useMatched } from '@kunlun/router';
-import { useRouter } from '@kunlun/vue-router';
+import { initOioComponentTheme } from '@oinone/kunlun-theme';
+import { HttpClient } from '@oinone/kunlun-request';
+import { customMutation } from '@oinone/kunlun-service';
+import { OioProvider, translateValueByKey } from '@oinone/kunlun-engine';
+import { Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { useRouter } from '@oinone/kunlun-vue-router';
 
 import { BaseElementWidget } from '../../basic';
 

@@ -52,10 +52,10 @@
   </div>
 </template>
 <script lang="ts">
-import { BooleanHelper } from '@kunlun/shared';
-import { OioIcon, OioInput, OioSelect, SelectItem } from '@kunlun/vue-ui-antd';
-import { InputType } from '@kunlun/vue-ui-common';
-import { translateValueByKey } from '@kunlun/engine';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { OioIcon, OioInput, OioSelect, SelectItem } from '@oinone/kunlun-vue-ui-antd';
+import { InputType } from '@oinone/kunlun-vue-ui-common';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { isNil, toNumber } from 'lodash-es';
 import { computed, defineComponent, ref, watch } from 'vue';
 import { InputStringCommonProps } from '../../prop';

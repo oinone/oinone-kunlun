@@ -1,5 +1,5 @@
 {
-  "name": "@kunlun/state",
+  "name": "@oinone/kunlun-state",
   "version": "6.2.0",
   "main": "index.ts",
   "scripts": {

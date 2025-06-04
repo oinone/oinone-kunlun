@@ -3,9 +3,9 @@ import {
   getReloadMaskParameters,
   ReloadMainViewCallChainingParameters,
   ReloadMaskCallChainingParameters
-} from '@kunlun/engine';
-import { CallChaining, ReturnPromise } from '@kunlun/shared';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { CallChaining, ReturnPromise } from '@oinone/kunlun-shared';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseMaskWidget } from './token';
 
 export abstract class MobileMaskWidget extends BaseMaskWidget {

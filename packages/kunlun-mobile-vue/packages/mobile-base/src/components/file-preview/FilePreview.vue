@@ -5,13 +5,12 @@
       <div class="mobile-file-preview-filename">{{ filename }}</div>
       <div class="mobile-file-preview-desc">
         <span class="" v-if="fileSize">{{ fileSize }} </span>
-        <span
-          v-if="iconName === 'oinone-jpg'"
-          class="mobile-file-preview-btn"
-          @click.stop="handlePreview"
-          >{{ translateValueByKey('预览') }}</span
-        >
-        <span class="mobile-file-preview-download-btn" @click.stop="handleDownload">{{ translateValueByKey('下载') }}</span>
+        <span v-if="iconName === 'oinone-jpg'" class="mobile-file-preview-btn" @click.stop="handlePreview">{{
+          translateValueByKey('预览')
+        }}</span>
+        <span class="mobile-file-preview-download-btn" @click.stop="handleDownload">{{
+          translateValueByKey('下载')
+        }}</span>
       </div>
     </div>
   </div>
@@ -28,8 +27,8 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import { Popup as VanPopup, Image as VanImage } from 'vant';
-import { OioIcon, VIDEO_SUFFIX_LIST } from '@kunlun/vue-ui-common';
-import { translateValueByKey } from '@kunlun/engine';
+import { OioIcon, VIDEO_SUFFIX_LIST } from '@oinone/kunlun-vue-ui-common';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 export default defineComponent({
   components: {

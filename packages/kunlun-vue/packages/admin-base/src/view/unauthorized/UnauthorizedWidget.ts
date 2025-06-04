@@ -1,6 +1,6 @@
-import { SPI } from '@kunlun/spi';
-import { useMatched } from '@kunlun/router';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { useMatched } from '@oinone/kunlun-router';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../basic';
 import Unauthorized from './Unauthorized.vue';
 

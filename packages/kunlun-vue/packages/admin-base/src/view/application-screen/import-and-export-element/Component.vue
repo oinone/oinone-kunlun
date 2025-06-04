@@ -26,8 +26,8 @@
   </div>
 </template>
 <script lang="ts">
-import { translateValueByKey, getUrlParamByKey } from '@kunlun/engine';
-import { ModuleService } from '@kunlun/vue-admin-layout';
+import { translateValueByKey, getUrlParamByKey } from '@oinone/kunlun-engine';
+import { ModuleService } from '@oinone/kunlun-vue-admin-layout';
 import { defineComponent, computed, ref, onMounted, nextTick } from 'vue';
 
 export default defineComponent({

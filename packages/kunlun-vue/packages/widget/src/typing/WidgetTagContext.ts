@@ -1,4 +1,4 @@
-import { DslDefinition } from '@kunlun/dsl';
+import { DslDefinition } from '@oinone/kunlun-dsl';
 import { Slots } from 'vue';
 import { VueWidget } from '../basic';
 import { DslDefinitionWidgetProps } from '../dsl';

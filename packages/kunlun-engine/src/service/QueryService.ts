@@ -1,6 +1,6 @@
-import { ModelFieldType } from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
-import { ISort } from '@kunlun/service';
+import { ModelFieldType } from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
+import { ISort } from '@oinone/kunlun-service';
 import { isArray, toInteger } from 'lodash-es';
 import { FunctionCache, ModelCache } from '../cache';
 import { RELATION_2M_FIELD_TTYPES, RELATION_2O_FIELD_TTYPES } from '../runtime-context';

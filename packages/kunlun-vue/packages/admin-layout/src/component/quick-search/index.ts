@@ -1,7 +1,7 @@
-import { IModel } from '@kunlun/meta';
-import { queryPage } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { IModel } from '@oinone/kunlun-meta';
+import { queryPage } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { MaskWidget } from '../../basic';
 import QuickSearchComponent from './QuickSearch.vue';
 

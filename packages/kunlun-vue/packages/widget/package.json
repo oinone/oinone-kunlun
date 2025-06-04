@@ -1,5 +1,5 @@
 {
-  "name": "@kunlun/vue-widget",
+  "name": "@oinone/kunlun-vue-widget",
   "version": "6.2.0",
   "main": "index.ts",
   "scripts": {
@@ -11,17 +11,17 @@
     "x-postpublish": "node ../../scripts/postpublish.js"
   },
   "dependencies": {
-    "@kunlun/vue-ui-common": "6.2.0"
+    "@oinone/kunlun-vue-ui-common": "6.2.0"
   },
   "devDependencies": {
-    "@kunlun/dsl": "~6.2.0",
-    "@kunlun/engine": "~6.2.0",
-    "@kunlun/event": "~6.2.0",
-    "@kunlun/meta": "~6.2.0",
-    "@kunlun/router": "~6.2.0",
-    "@kunlun/shared": "~6.2.0",
-    "@kunlun/spi": "~6.2.0",
-    "@kunlun/state": "~6.2.0",
+    "@oinone/kunlun-dsl": "~6.2.0",
+    "@oinone/kunlun-engine": "~6.2.0",
+    "@oinone/kunlun-event": "~6.2.0",
+    "@oinone/kunlun-meta": "~6.2.0",
+    "@oinone/kunlun-router": "~6.2.0",
+    "@oinone/kunlun-shared": "~6.2.0",
+    "@oinone/kunlun-spi": "~6.2.0",
+    "@oinone/kunlun-state": "~6.2.0",
     "@types/lodash": "4.14.182",
     "@types/lodash-es": "4.17.6",
     "lodash": "4.17.21",

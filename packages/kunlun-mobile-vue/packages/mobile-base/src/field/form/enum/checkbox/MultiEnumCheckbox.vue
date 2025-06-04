@@ -58,8 +58,8 @@
   </div>
 </template>
 <script lang="ts">
-import { deepClone, IModelFieldOption } from '@kunlun/meta';
-import { translateValueByKey } from '@kunlun/engine';
+import { deepClone, IModelFieldOption } from '@oinone/kunlun-meta';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { isEmpty, isNil } from 'lodash-es';
 import { computed, defineComponent, PropType, watch, ref, nextTick } from 'vue';
 import {

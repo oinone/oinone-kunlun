@@ -7,8 +7,8 @@
 </template>
 <script lang="ts" setup>
 import { defineProps, computed } from 'vue';
-import { genStaticPath } from '@kunlun/engine';
-import { emptyHomepageModelName } from '@kunlun/vue-admin-layout';
+import { genStaticPath } from '@oinone/kunlun-engine';
+import { emptyHomepageModelName } from '@oinone/kunlun-vue-admin-layout';
 
 const props = defineProps<{ currentModel: string }>();
 const tips = computed(() => (props.currentModel === emptyHomepageModelName ? '暂无首页' : '暂无访问权限'));

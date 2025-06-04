@@ -1,7 +1,7 @@
-import { ActiveRecords, RuntimeContext, SubmitValue, RuntimeView } from '@kunlun/engine';
-import { CallChaining } from '@kunlun/shared';
-import { Widget } from '@kunlun/vue-widget';
-import { Subscription } from '@kunlun/state';
+import { ActiveRecords, RuntimeContext, SubmitValue, RuntimeView } from '@oinone/kunlun-engine';
+import { CallChaining } from '@oinone/kunlun-shared';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { Subscription } from '@oinone/kunlun-state';
 import { FormFieldWidget } from '../../../basic/field';
 import { FormWidget } from '../../form';
 import { HomepageConfigRule } from '../typing';

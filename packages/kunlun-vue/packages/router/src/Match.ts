@@ -13,7 +13,7 @@ import {
   ref,
   watch
 } from 'vue';
-import { UrlSegment, matchPath, Matched, _useMatched } from '@kunlun/router';
+import { UrlSegment, matchPath, Matched, _useMatched } from '@oinone/kunlun-router';
 
 import { RouteProps, ROUTE_COMPONENT_NAME } from './Route';
 import { REDIRECT_COMPONENT_NAME } from './Redirect';

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { OioInputGroupProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { OioInputGroupProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { InputGroup as AInputGroup } from 'ant-design-vue';
 import { computed, createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

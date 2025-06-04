@@ -34,10 +34,10 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue';
-import { OioButton, OioNotification } from '@kunlun/vue-ui-antd';
-import { translateValueByKey } from '@kunlun/engine';
+import { OioButton, OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import Draggable from 'vuedraggable';
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { OioMetadataProps } from '../../../../basic/props';
 import SelectNode from './SelectFieldActionNode.vue';
 import {

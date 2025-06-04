@@ -7,15 +7,15 @@ import {
   RuntimeContext,
   translate,
   ViewActionCache
-} from '@kunlun/engine';
-import { ViewActionTarget } from '@kunlun/meta';
-import { ISort } from '@kunlun/service';
-import { getCookie, setCookie } from '@kunlun/shared';
+} from '@oinone/kunlun-engine';
+import { ViewActionTarget } from '@oinone/kunlun-meta';
+import { ISort } from '@oinone/kunlun-service';
+import { getCookie, setCookie } from '@oinone/kunlun-shared';
 import { Dialog as VanDialog } from 'vant';
 import { isString, trim } from 'lodash-es';
-import { HttpClient } from '@kunlun/request';
-import { DslDefinition, DslDefinitionType } from '@kunlun/dsl';
-import { DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
+import { HttpClient } from '@oinone/kunlun-request';
+import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { UrlQueryParameters } from '../basic';
 
 export interface MobileConfirmOptions extends ConfirmOptions {

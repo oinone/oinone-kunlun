@@ -33,9 +33,9 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, watch } from 'vue';
 import { isNil } from 'lodash-es';
-import { Pagination } from '@kunlun/engine';
-import { ExpressionKeyword } from '@kunlun/expression';
-import { isComplexTtype } from '@kunlun/meta';
+import { Pagination } from '@oinone/kunlun-engine';
+import { ExpressionKeyword } from '@oinone/kunlun-expression';
+import { isComplexTtype } from '@oinone/kunlun-meta';
 import { translateExpValue } from '../../share';
 import ExpressionCascaderMenu from './CascaderMenu.vue';
 import { IExpSelectOption } from '../../types';

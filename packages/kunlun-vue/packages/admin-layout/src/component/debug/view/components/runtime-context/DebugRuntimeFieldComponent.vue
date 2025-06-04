@@ -2,7 +2,7 @@
   <div class="oio-debug-runtime-context-fields">这是一个自定义组件</div>
 </template>
 <script lang="ts">
-import { RuntimeModelField } from '@kunlun/engine';
+import { RuntimeModelField } from '@oinone/kunlun-engine';
 import { defineComponent, PropType } from 'vue';
 import { DebugInfoProps } from '../../../typing';
 

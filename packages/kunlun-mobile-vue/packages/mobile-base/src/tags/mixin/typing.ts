@@ -1,4 +1,4 @@
-import { WidgetTagContext } from '@kunlun/vue-widget';
+import { WidgetTagContext } from '@oinone/kunlun-vue-widget';
 import { InternalWidget } from '../resolve';
 
 export interface BaseWidgetTagMixinContext extends WidgetTagContext {

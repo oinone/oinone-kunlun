@@ -1,4 +1,4 @@
-import { RuntimeConfig } from '@kunlun/meta';
+import { RuntimeConfig } from '@oinone/kunlun-meta';
 
 const getStaticImgPath = () => {
   const runtimeConfig = RuntimeConfig.get();

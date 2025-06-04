@@ -1,6 +1,6 @@
-import { SPI } from '@kunlun/spi';
-import { BooleanHelper, CallChaining, DEFAULT_TAB_TITLE, useTabBar } from '@kunlun/vue-ui-antd';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { BooleanHelper, CallChaining, DEFAULT_TAB_TITLE, useTabBar } from '@oinone/kunlun-vue-ui-antd';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString } from 'lodash-es';
 import { Component, createVNode, Slots, VNode } from 'vue';
 import { BasePackWidget } from '../../basic';

@@ -21,9 +21,9 @@
 </template>
 
 <script lang="ts">
-import { CurrentLanguage } from '@kunlun/engine';
-import { UrlHelper } from '@kunlun/shared';
-import { ZH_CN_CODE } from '@kunlun/vue-ui-common';
+import { CurrentLanguage } from '@oinone/kunlun-engine';
+import { UrlHelper } from '@oinone/kunlun-shared';
+import { ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
 import { ConfigProvider as AConfigProvider } from 'ant-design-vue';
 import enUS from 'ant-design-vue/es/locale/en_US';
 import zhCN from 'ant-design-vue/lib/locale/zh_CN';

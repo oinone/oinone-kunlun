@@ -1,5 +1,5 @@
-import { FieldDslDefinition } from '@kunlun/dsl';
-import { BooleanHelper, RSQLOperators } from '@kunlun/shared';
+import { FieldDslDefinition } from '@oinone/kunlun-dsl';
+import { BooleanHelper, RSQLOperators } from '@oinone/kunlun-shared';
 import { RuntimeSearchField } from '../../../runtime-metadata';
 import { RuntimeContext } from '../../runtime-context';
 

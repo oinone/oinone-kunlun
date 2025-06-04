@@ -92,8 +92,8 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { translateValueByKey } from '@kunlun/engine';
-import { OioButton, OioForm, OioFormItem, OioInput, OioTooltipHelp } from '@kunlun/vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { OioButton, OioForm, OioFormItem, OioInput, OioTooltipHelp } from '@oinone/kunlun-vue-ui-antd';
 import { defineProps, ref, watchEffect } from 'vue';
 import UploadImg from '../../components/upload/UploadImg.vue';
 

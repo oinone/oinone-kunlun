@@ -1,6 +1,6 @@
-import { DslDefinition, XMLTemplateParser } from '@kunlun/dsl';
-import { DslProps, RuntimeContext, RuntimeContextManager } from '@kunlun/engine';
-import { IDslNode } from '@kunlun/meta';
+import { DslDefinition, XMLTemplateParser } from '@oinone/kunlun-dsl';
+import { DslProps, RuntimeContext, RuntimeContextManager } from '@oinone/kunlun-engine';
+import { IDslNode } from '@oinone/kunlun-meta';
 import { isNil } from 'lodash-es';
 import { VueWidget, Widget } from '../basic';
 

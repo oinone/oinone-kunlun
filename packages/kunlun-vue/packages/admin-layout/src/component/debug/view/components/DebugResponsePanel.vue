@@ -29,7 +29,7 @@
   </div>
 </template>
 <script lang="ts">
-import { OioCol, OioForm, OioFormItem, OioRow, OioTab, OioTabs, OioTextarea } from '@kunlun/vue-ui-antd';
+import { OioCol, OioForm, OioFormItem, OioRow, OioTab, OioTabs, OioTextarea } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, PropType } from 'vue';
 import { DebugRequestInfo } from '../../typing';
 import DebugJsonView from '../components/DebugJsonView.vue';

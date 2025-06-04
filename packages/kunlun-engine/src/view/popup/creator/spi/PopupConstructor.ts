@@ -1,4 +1,4 @@
-import { SPIOperator, SPIOptions } from '@kunlun/spi';
+import { SPIOperator, SPIOptions } from '@oinone/kunlun-spi';
 import { IPopupWidget } from '../../typing';
 
 /**

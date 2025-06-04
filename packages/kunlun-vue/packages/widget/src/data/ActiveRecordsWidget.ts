@@ -15,7 +15,7 @@ import {
   UpdateActiveRecordsByEntityPredict,
   UpdateActiveRecordsFunction,
   UpdateEntity
-} from '@kunlun/engine';
+} from '@oinone/kunlun-engine';
 import { Widget } from '../basic';
 import { PathWidget, PathWidgetProps } from './PathWidget';
 

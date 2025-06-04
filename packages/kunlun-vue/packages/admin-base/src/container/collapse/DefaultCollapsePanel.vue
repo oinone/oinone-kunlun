@@ -1,14 +1,14 @@
 <script lang="ts">
-import { DslDefinition, DslDefinitionType } from '@kunlun/dsl';
-import { StringHelper } from '@kunlun/shared';
-import { DEFAULT_PREFIX } from '@kunlun/theme';
+import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { StringHelper } from '@oinone/kunlun-shared';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import {
   OioCollapsePanelProps,
   PropRecordHelper,
   useInjectOioCollapseContext,
   useOioFormLayoutContext
-} from '@kunlun/vue-ui-common';
-import { DslRender } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-ui-common';
+import { DslRender } from '@oinone/kunlun-vue-widget';
 import { CollapsePanel as ACollapsePanel } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
 import {

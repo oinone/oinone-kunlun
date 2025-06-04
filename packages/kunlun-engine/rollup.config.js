@@ -6,23 +6,23 @@ import { terser } from 'rollup-plugin-terser';
 import commonjs from 'rollup-plugin-commonjs';
 import json from '@rollup/plugin-json';
 
-const libraryName = 'kunlun-engine';
+const libraryName = 'oinone-kunlun-engine';
 
 const external = [
-  '@kunlun/dsl',
-  '@kunlun/event',
-  '@kunlun/environment',
-  '@kunlun/expression',
-  '@kunlun/meta',
-  '@kunlun/request',
-  '@kunlun/router',
-  '@kunlun/service',
-  '@kunlun/shared',
-  '@kunlun/cache',
-  '@kunlun/spi',
-  '@kunlun/state',
-  '@kunlun/theme',
-  '@kunlun/vue-widget',
+  '@oinone/kunlun-dsl',
+  '@oinone/kunlun-event',
+  '@oinone/kunlun-environment',
+  '@oinone/kunlun-expression',
+  '@oinone/kunlun-meta',
+  '@oinone/kunlun-request',
+  '@oinone/kunlun-router',
+  '@oinone/kunlun-service',
+  '@oinone/kunlun-shared',
+  '@oinone/kunlun-cache',
+  '@oinone/kunlun-spi',
+  '@oinone/kunlun-state',
+  '@oinone/kunlun-theme',
+  '@oinone/kunlun-vue-widget',
   '@ctrl/tinycolor',
   'bignumber.js',
   'lodash',

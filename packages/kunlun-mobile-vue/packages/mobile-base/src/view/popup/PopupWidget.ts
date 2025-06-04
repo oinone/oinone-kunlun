@@ -13,10 +13,10 @@ import {
   RuntimeAction,
   RuntimeViewAction,
   SubmitValue
-} from '@kunlun/engine';
-import { ExpressionRunParam } from '@kunlun/expression';
-import { CallChaining, ObjectUtils, Optional } from '@kunlun/shared';
-import { ActiveRecordsWidget, ActiveRecordsWidgetProps, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { ExpressionRunParam } from '@oinone/kunlun-expression';
+import { CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
+import { ActiveRecordsWidget, ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isFunction, isNil } from 'lodash-es';
 import { computed } from 'vue';
 import { validatorCallChainingCallAfterFn } from '../../basic/constant';
@@ -31,7 +31,7 @@ import {
   PopupSubmitType
 } from '../../typing';
 import { executeMapping } from '../../util';
-import { ViewType } from '@kunlun/meta';
+import { ViewType } from '@oinone/kunlun-meta';
 
 export interface PopupWidgetProps extends ActiveRecordsWidgetProps {
   mountedVisible?: boolean;

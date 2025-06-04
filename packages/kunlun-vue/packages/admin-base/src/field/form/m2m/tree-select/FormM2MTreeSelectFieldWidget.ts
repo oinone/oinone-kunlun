@@ -1,8 +1,8 @@
-import { ActiveRecord, RuntimeM2MField, SubmitRelationHandler, SubmitValue } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { SelectMode } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord, RuntimeM2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { SelectMode } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
 import { FormTreeSelectFieldWidget } from '../../../tree-select';
 

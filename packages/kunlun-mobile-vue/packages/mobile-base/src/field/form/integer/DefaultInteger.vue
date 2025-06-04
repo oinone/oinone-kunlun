@@ -30,8 +30,8 @@
 </template>
 
 <script lang="ts">
-import { OioInputNumber } from '@kunlun/vue-ui-mobile-vant';
-import { OioInputNumberProps } from '@kunlun/vue-ui-common';
+import { OioInputNumber } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { OioInputNumberProps } from '@oinone/kunlun-vue-ui-common';
 import { defineComponent } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic';
 import { PreSuffixProps } from '../../prop';

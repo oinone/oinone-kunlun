@@ -1,8 +1,8 @@
-import { useGlobalEnv } from '@kunlun/environment';
-import { useMatched } from '@kunlun/router';
-import { StringHelper, uniqueKeyGenerator } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { useGlobalEnv } from '@oinone/kunlun-environment';
+import { useMatched } from '@oinone/kunlun-router';
+import { StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { MaskWidget } from '../../../basic';
 import { DEFAULT_PREFIX } from '../../../theme';
 import { BaseMaskLayoutWidget } from '../BaseMaskLayoutWidget';

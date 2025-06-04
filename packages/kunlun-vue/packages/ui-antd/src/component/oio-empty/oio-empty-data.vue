@@ -1,5 +1,5 @@
 <script lang="ts">
-import { OioEmptyDataProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { OioEmptyDataProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Empty as AEmpty } from 'ant-design-vue';
 import { createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

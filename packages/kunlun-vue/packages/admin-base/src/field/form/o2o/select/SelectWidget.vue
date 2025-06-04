@@ -49,7 +49,7 @@
 <script lang="ts">
 import { CheckOutlined } from '@ant-design/icons-vue';
 import { computed, defineComponent, ref, watch } from 'vue';
-import { OioSpin } from '@kunlun/vue-ui-antd';
+import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { useInjectOioDefaultFormContext } from '../../../../basic';
 import { RelationSelectProps, relationSelectSetup } from '../../../prop';

@@ -1,11 +1,11 @@
-import { ActionDslDefinition, DEFAULT_SLOT_NAME, DslDefinitionType, TemplateDslDefinition } from '@kunlun/dsl';
-import { ActiveRecord, ActiveRecordsOperator } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { BooleanHelper, NumberHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { ActionDslDefinition, DEFAULT_SLOT_NAME, DslDefinitionType, TemplateDslDefinition } from '@oinone/kunlun-dsl';
+import { ActiveRecord, ActiveRecordsOperator } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper, NumberHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { RowContext } from '../../ui';
-import { DEFAULT_COLS, ListSelectMode } from '@kunlun/vue-ui-common';
-import { DslDefinitionWidget, Widget } from '@kunlun/vue-widget';
+import { DEFAULT_COLS, ListSelectMode } from '@oinone/kunlun-vue-ui-common';
+import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { ActionWidget } from '../../action';
 import { BaseActionWidget, BaseElementWidget } from '../../basic';

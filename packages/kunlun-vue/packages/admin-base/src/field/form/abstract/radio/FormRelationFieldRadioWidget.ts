@@ -6,11 +6,11 @@ import {
   RequestHelper,
   RuntimeRelationField,
   translateValueByKey
-} from '@kunlun/engine';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
-import { BooleanHelper, NumberHelper } from '@kunlun/shared';
-import { SelectItem, WidgetTrigger } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { BooleanHelper, NumberHelper } from '@oinone/kunlun-shared';
+import { SelectItem, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormComplexFieldWidget } from '../../../../basic/field/complex/FormComplexFieldWidget';
 import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
 

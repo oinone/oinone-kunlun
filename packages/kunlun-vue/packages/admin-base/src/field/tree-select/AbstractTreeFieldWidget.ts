@@ -5,8 +5,8 @@ import {
   resolveDynamicDomain,
   RuntimeModel,
   RuntimeRelationField
-} from '@kunlun/engine';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
+} from '@oinone/kunlun-engine';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import {
   BooleanHelper,
   CallChaining,
@@ -18,10 +18,10 @@ import {
   TreeHelper,
   TreeNode,
   uniqueKeyGenerator
-} from '@kunlun/shared';
-import { EmptyStyle, SelectMode, WidgetTrigger } from '@kunlun/vue-ui-antd';
-import { OioTreeNode } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-shared';
+import { EmptyStyle, SelectMode, WidgetTrigger } from '@oinone/kunlun-vue-ui-antd';
+import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { debounce, DebouncedFunc, isNil, toInteger } from 'lodash-es';
 import { BaseFieldProps, FormFieldWidget } from '../../basic';
 import { TreeNodeResponseBody, TreeService } from '../../service';

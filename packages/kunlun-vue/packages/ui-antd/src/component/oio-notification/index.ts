@@ -1,5 +1,5 @@
-import { StringHelper } from '@kunlun/shared';
-import { OioCloseIcon, OioIcon, OioNotificationOptions } from '@kunlun/vue-ui-common';
+import { StringHelper } from '@oinone/kunlun-shared';
+import { OioCloseIcon, OioIcon, OioNotificationOptions } from '@oinone/kunlun-vue-ui-common';
 import { message as AMessage, notification as ANotification } from 'ant-design-vue';
 import { createVNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

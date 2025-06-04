@@ -1,8 +1,8 @@
-import { ActiveRecord, ModelCache, RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@kunlun/engine';
-import { IModel, isEmptyKeObject, isEmptyValue, ModelFieldType, ViewType } from '@kunlun/meta';
-import { queryOne } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord, ModelCache, RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { IModel, isEmptyKeObject, isEmptyValue, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { queryOne } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { debounce, isNil, isNumber, isString } from 'lodash-es';
 import { FormFieldWidget, FormSelectComplexFieldWidget } from '../../../../basic';
 import VueComponent from './SelectWidget.vue';

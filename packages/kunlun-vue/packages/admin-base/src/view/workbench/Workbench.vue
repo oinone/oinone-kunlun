@@ -85,12 +85,12 @@ import {
   MultiTabsManager,
   RuntimeViewAction,
   translateValueByKey
-} from '@kunlun/engine';
-import { IURLAction, ViewActionTarget, ViewType } from '@kunlun/meta';
-import { Matched, Router, useMatched } from '@kunlun/router';
-import { gotoHomepage } from '@kunlun/vue-admin-layout';
-import { useRouter } from '@kunlun/vue-router';
-import { OioButton, OioIcon } from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-engine';
+import { IURLAction, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import { Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { gotoHomepage } from '@oinone/kunlun-vue-admin-layout';
+import { useRouter } from '@oinone/kunlun-vue-router';
+import { OioButton, OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { get as getValue } from 'lodash-es';
 import { defineComponent, onMounted, ref } from 'vue';
 import { getApps, getWorkbenchInfo } from './services';
@@ -127,7 +127,12 @@ export default defineComponent({
       isLoadData.value = true;
     });
 
-    const gotoApplicationHomepage = (app: { module: string; name: string; homePage: RuntimeViewAction; urlHomePage?: IURLAction; }) => {
+    const gotoApplicationHomepage = (app: {
+      module: string;
+      name: string;
+      homePage: RuntimeViewAction;
+      urlHomePage?: IURLAction;
+    }) => {
       gotoHomepage(app.module, app.name, app.urlHomePage);
     };
 

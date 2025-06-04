@@ -36,9 +36,9 @@
 </template>
 <script lang="ts">
 import { CaretDownOutlined } from '@ant-design/icons-vue';
-import { UserInfo } from '@kunlun/engine';
+import { UserInfo } from '@oinone/kunlun-engine';
 
-import { OioIcon } from '@kunlun/vue-ui-antd';
+import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineComponent, PropType } from 'vue';
 
 export default defineComponent({

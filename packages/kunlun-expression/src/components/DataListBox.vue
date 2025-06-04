@@ -39,8 +39,8 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
-import { Entity } from '@kunlun/meta';
-import { Pagination } from '@kunlun/engine';
+import { Entity } from '@oinone/kunlun-meta';
+import { Pagination } from '@oinone/kunlun-engine';
 import MdPagination from './pagination/MdPagination.vue';
 import { translateExpValue } from '../share';
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { ButtonType, OioModalProps, PropRecordHelper, useModal } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { ButtonType, OioModalProps, PropRecordHelper, useModal } from '@oinone/kunlun-vue-ui-common';
 import { ElButton, ElDialog, ElLoadingDirective } from 'element-plus';
 import { createVNode, defineComponent, withDirectives } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

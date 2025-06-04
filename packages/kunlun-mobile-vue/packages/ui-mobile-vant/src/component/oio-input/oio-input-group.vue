@@ -26,8 +26,8 @@
   </div>
 </template>
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { IInputmodeEnum, OioInputProps } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { IInputmodeEnum, OioInputProps } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty } from 'lodash-es';
 import { computed, defineComponent, PropType, ref } from 'vue';
 import OioCustomInput from './oio-custome-input.vue';

@@ -1,5 +1,5 @@
-import { ActiveRecord } from '@kunlun/engine';
-import { http } from '@kunlun/service';
+import { ActiveRecord } from '@oinone/kunlun-engine';
+import { http } from '@oinone/kunlun-service';
 
 interface WorkflowTandemActionParams {
   workflowCode: string;

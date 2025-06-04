@@ -18,8 +18,8 @@
   />
 </template>
 <script lang="ts">
-import { OioTimePicker } from '@kunlun/vue-ui-antd';
-import { OioTimePickerProps } from '@kunlun/vue-ui-common';
+import { OioTimePicker } from '@oinone/kunlun-vue-ui-antd';
+import { OioTimePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { defineComponent } from 'vue';
 import { OioCommonProps, OioMetadataProps, useInjectOioDefaultFormContext } from '../../../basic';
 import { useDateTimePickerProps } from './use-date-time-picker-props';

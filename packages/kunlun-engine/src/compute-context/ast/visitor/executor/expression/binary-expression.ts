@@ -4,7 +4,7 @@ import {
   isNullableComputableType,
   NullableComputableType,
   NumberHelper
-} from '@kunlun/shared';
+} from '@oinone/kunlun-shared';
 import { BinaryExpression, isBinaryExpression, Node, NodeVisitor, VisitContext } from '../../../types';
 
 export class BinaryExpressionExecutor implements NodeVisitor<BinaryExpression> {

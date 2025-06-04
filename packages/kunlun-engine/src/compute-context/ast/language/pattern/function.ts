@@ -7,7 +7,7 @@ import {
   MATH_FUNCTION,
   OBJECT_FUNCTION,
   STRING_FUNCTION
-} from '@kunlun/expression';
+} from '@oinone/kunlun-expression';
 import * as charCodes from '../../charcodes';
 import * as types from '../../tokens';
 import {

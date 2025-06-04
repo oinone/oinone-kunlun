@@ -1,6 +1,6 @@
-import { FrameworkInitializeOptions } from '@kunlun/environment';
-import { ReturnPromise } from '@kunlun/shared';
-import { SPIFactory, SPIMultiSelector, SPIOperator, SPITokenFactory } from '@kunlun/spi';
+import { FrameworkInitializeOptions } from '@oinone/kunlun-environment';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { SPIFactory, SPIMultiSelector, SPIOperator, SPITokenFactory } from '@oinone/kunlun-spi';
 import { OioProviderProps } from './typing';
 
 export interface FrameworkInitializeService {

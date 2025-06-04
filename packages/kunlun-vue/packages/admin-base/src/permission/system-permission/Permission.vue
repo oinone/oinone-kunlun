@@ -13,7 +13,7 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, nextTick, onBeforeUnmount, onActivated, onDeactivated, defineProps } from 'vue';
-import { OioSpin } from '@kunlun/vue-ui-antd';
+import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import LeftMenu from './components/Menu.vue';
 import RightConfig from './components/Config.vue';
 import { useStore } from './store';

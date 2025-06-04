@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CSSStyle, CastHelper } from '@kunlun/shared';
-import { ColProps, OioColProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CSSStyle, CastHelper } from '@oinone/kunlun-shared';
+import { ColProps, OioColProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Col as ACol } from 'ant-design-vue';
 import { createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

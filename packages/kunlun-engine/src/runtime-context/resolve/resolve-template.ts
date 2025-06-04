@@ -1,5 +1,5 @@
-import { DslDefinition, DslDefinitionHelper, ViewDslDefinition } from '@kunlun/dsl';
-import { ModelFieldType } from '@kunlun/meta';
+import { DslDefinition, DslDefinitionHelper, ViewDslDefinition } from '@oinone/kunlun-dsl';
+import { ModelFieldType } from '@oinone/kunlun-meta';
 import { RuntimeModel } from '../../runtime-metadata';
 import { RuntimeContext } from '../runtime-context';
 import { convert as fieldConvert } from './field/resolve';

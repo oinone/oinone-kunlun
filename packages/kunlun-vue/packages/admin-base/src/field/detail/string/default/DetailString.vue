@@ -30,8 +30,8 @@
   </detail-common-field>
 </template>
 <script lang="ts">
-import { CSSStyle } from '@kunlun/shared';
-import { OioEmpty } from '@kunlun/vue-ui-common';
+import { CSSStyle } from '@oinone/kunlun-shared';
+import { OioEmpty } from '@oinone/kunlun-vue-ui-common';
 import { computed, defineComponent } from 'vue';
 import InputPreSuffix from '../../../form/common/InputPreSuffix.vue';
 import { PreSuffixProps } from '../../../prop';

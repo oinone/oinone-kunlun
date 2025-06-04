@@ -1,6 +1,6 @@
-import { ExpressionKeyword } from '@kunlun/expression';
-import { isNumberTtype, ModelFieldSerializeType } from '@kunlun/meta';
-import { DefaultComparisonOperator } from '@kunlun/request';
+import { ExpressionKeyword } from '@oinone/kunlun-expression';
+import { isNumberTtype, ModelFieldSerializeType } from '@oinone/kunlun-meta';
+import { DefaultComparisonOperator } from '@oinone/kunlun-request';
 import {
   AUTO_SINGLE_QUOTE_OPERATOR_LIST,
   BooleanConditionComparisonOperator,

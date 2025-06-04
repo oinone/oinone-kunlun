@@ -5,7 +5,7 @@ import {
   PropRecordHelper,
   useInjectOioCollapseContext,
   useOioFormLayoutContext
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { CollapsePanel as ACollapsePanel } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, onBeforeMount, vShow, withDirectives } from 'vue';

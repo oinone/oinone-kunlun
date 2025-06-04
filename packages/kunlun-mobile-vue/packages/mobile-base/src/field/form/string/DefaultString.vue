@@ -56,9 +56,9 @@
   </div>
 </template>
 <script lang="ts">
-import { BooleanHelper } from '@kunlun/shared';
-import { OioIcon, OioInput, SelectItem, OioSelect, DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
-import { InputType } from '@kunlun/vue-ui-common';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { OioIcon, OioInput, SelectItem, OioSelect, DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { InputType } from '@oinone/kunlun-vue-ui-common';
 import { isNil, toNumber } from 'lodash-es';
 import { computed, defineComponent, ref, watch } from 'vue';
 import { InputStringCommonProps } from '../../prop';
@@ -108,10 +108,10 @@ export default defineComponent({
     function buildPrefixesRealValue(): string | undefined {
       const realVal = realValue.value;
       if (realVal && props.prefixes?.length) {
-        const sortedPrefixArray =  [...props.prefixes];
+        const sortedPrefixArray = [...props.prefixes];
         // 字符串长的有限匹配
         sortedPrefixArray.sort((a, b) => (b?.length || 0) - (a?.length || 0));
-        return sortedPrefixArray.find((a) => (realVal?.startsWith(a)));
+        return sortedPrefixArray.find((a) => realVal?.startsWith(a));
       }
       return isNil(props.prefixesValue)
         ? props.prefixes && props.prefixes.length

@@ -1,6 +1,6 @@
 <script lang="ts">
-import { translateValueByKey } from '@kunlun/engine';
-import { BooleanHelper, ButtonType, OioButton, OioInput, OioTextarea } from '@kunlun/vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { BooleanHelper, ButtonType, OioButton, OioInput, OioTextarea } from '@oinone/kunlun-vue-ui-antd';
 import { debounce, isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType, VNode } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic';

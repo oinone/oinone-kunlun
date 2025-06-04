@@ -1,5 +1,5 @@
-import { ActiveRecord, ActiveRecords } from '@kunlun/engine';
-import { Condition } from '@kunlun/request';
+import { ActiveRecord, ActiveRecords } from '@oinone/kunlun-engine';
+import { Condition } from '@oinone/kunlun-request';
 import { TableWidgetProps } from '../../../../view';
 import { InlineTableWidget } from './InlineTableWidget';
 

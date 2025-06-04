@@ -7,12 +7,12 @@ import {
   Popup,
   RuntimeViewAction,
   translate
-} from '@kunlun/engine';
-import { ModelDefaultActionName, ViewType } from '@kunlun/meta';
-import { CallChaining } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { ButtonType } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
+import { CallChaining } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { ButtonType } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { gotoPrevPage } from '../../util';
 import { ActionWidget } from '../component';
 

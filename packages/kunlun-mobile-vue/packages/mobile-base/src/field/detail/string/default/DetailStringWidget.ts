@@ -1,8 +1,8 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 
-import { Widget } from '@kunlun/vue-widget';
-import { InputType } from '@kunlun/vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { InputType } from '@oinone/kunlun-vue-ui-common';
 import { FormFieldWidget } from '../../../../basic';
 import DetailString from './DetailString.vue';
 import { FormInputAbstractFieldWidget } from '../../../form';

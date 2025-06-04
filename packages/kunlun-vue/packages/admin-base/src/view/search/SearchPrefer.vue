@@ -108,8 +108,8 @@ import {
   OioMessage,
   OioModal,
   OioSpin
-} from '@kunlun/vue-ui-antd';
-import { translateValueByKey } from '@kunlun/engine';
+} from '@oinone/kunlun-vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Popover as APopover } from 'ant-design-vue';
 import { cloneDeep, trim } from 'lodash-es';
 import { computed, defineComponent, ref } from 'vue';
@@ -388,7 +388,7 @@ export default defineComponent({
         justify-content: flex-start;
         span {
           &:last-child {
-            flex:1;
+            flex: 1;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import { MatrixRouteHelper } from '@kunlun/shared';
+import { MatrixRouteHelper } from '@oinone/kunlun-shared';
 import { convertToParamMap, ParamMap, Params, PRIMARY_OUTLET } from './shared';
 import { equalArraysOrString, forEach, shallowEqual } from './util/collection';
 

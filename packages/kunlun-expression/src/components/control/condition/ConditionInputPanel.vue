@@ -21,7 +21,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, PropType, ref } from 'vue';
-import { StringHelper } from '@kunlun/shared';
+import { StringHelper } from '@oinone/kunlun-shared';
 import ConditionInputForm from './ConditionInputForm.vue';
 import { createDefaultExpressionItem } from '../../../share';
 import { IExpressionItem } from '../../../types';

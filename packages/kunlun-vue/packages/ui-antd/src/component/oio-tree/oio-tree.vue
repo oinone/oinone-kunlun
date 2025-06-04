@@ -1,5 +1,5 @@
 <script lang="ts">
-import { StringHelper } from '@kunlun/shared';
+import { StringHelper } from '@oinone/kunlun-shared';
 import {
   OioTreeNode,
   OioTreeProps,
@@ -7,7 +7,7 @@ import {
   TreeNodeCheckedEvent,
   TreeNodeExpandedEvent,
   TreeNodeSelectedEvent
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { Tree as ATree } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, ref } from 'vue';

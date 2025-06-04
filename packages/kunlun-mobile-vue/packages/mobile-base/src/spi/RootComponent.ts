@@ -5,8 +5,8 @@ import {
   SPIOperator,
   SPIOptions,
   SPITokenFactory
-} from '@kunlun/spi';
-import { VueWidget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-spi';
+import { VueWidget } from '@oinone/kunlun-vue-widget';
 import { MobileSPIOptions } from '../basic/types';
 
 type RootComponentType = VueWidget | { new (): VueWidget };

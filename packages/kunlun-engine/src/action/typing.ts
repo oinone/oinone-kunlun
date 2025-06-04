@@ -1,4 +1,4 @@
-import { ViewActionTarget, ViewType } from '@kunlun/meta';
+import { ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
 
 /**
  * window.open(URL, name, specs, replace)

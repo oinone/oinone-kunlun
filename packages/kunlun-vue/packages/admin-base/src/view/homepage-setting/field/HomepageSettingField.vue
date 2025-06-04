@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { OioButton, OioIcon, OioSpin } from '@kunlun/vue-ui-antd';
+import { OioButton, OioIcon, OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, PropType } from 'vue';
 import draggable from 'vuedraggable';
 import { HomepageConfigRule } from '../typing';

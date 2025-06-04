@@ -1,6 +1,6 @@
-import { ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { MaskWidget } from '@kunlun/vue-admin-layout';
+import { ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { MaskWidget } from '@oinone/kunlun-vue-admin-layout';
 import ApplicationDescription from './ApplicationDescription.vue';
 
 @SPI.ClassFactory(MaskWidget.Token({ widget: 'ApplicationDescriptionWidget', type: ViewType.Detail }))

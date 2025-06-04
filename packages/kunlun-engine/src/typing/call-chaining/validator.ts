@@ -1,4 +1,4 @@
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { isBoolean, isNil } from 'lodash-es';
 
 export interface ValidatorCallChainingParameters {

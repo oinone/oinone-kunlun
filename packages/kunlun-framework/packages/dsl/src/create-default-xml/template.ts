@@ -1,4 +1,4 @@
-import { IModel, IModelField, ViewType } from '@kunlun/meta';
+import { IModel, IModelField, ViewType } from '@oinone/kunlun-meta';
 
 import { isSimpleField, isComplexField, isManyToOneField } from './boolean';
 import { getDefaultFieldRenderType } from './field';

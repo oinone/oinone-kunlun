@@ -1,6 +1,6 @@
-import { GenericFunctionService } from '@kunlun/engine';
-import { Condition, HttpClient, ObjectValue } from '@kunlun/request';
-import { GraphqlHelper, UrlHelper } from '@kunlun/shared';
+import { GenericFunctionService } from '@oinone/kunlun-engine';
+import { Condition, HttpClient, ObjectValue } from '@oinone/kunlun-request';
+import { GraphqlHelper, UrlHelper } from '@oinone/kunlun-shared';
 
 export interface CdnFileSingleUploadData {
   /**

@@ -1,10 +1,10 @@
-import { ActionDslDefinition, DslDefinitionType, TemplateDslDefinition } from '@kunlun/dsl';
-import { ActiveRecord, ActiveRecords } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { BooleanHelper, NumberHelper, Optional, StringHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { DslDefinitionWidget, Widget } from '@kunlun/vue-widget';
-import { ListPaginationStyle, ListSelectMode, PageSizeEnum } from '@kunlun/vue-ui-common';
+import { ActionDslDefinition, DslDefinitionType, TemplateDslDefinition } from '@oinone/kunlun-dsl';
+import { ActiveRecord, ActiveRecords } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
+import { ListPaginationStyle, ListSelectMode, PageSizeEnum } from '@oinone/kunlun-vue-ui-common';
 import { isNil } from 'lodash-es';
 import { ActionWidget } from '../../action/component/action';
 import { BaseElementListViewWidgetProps, BaseElementWidget, BaseTableWidget } from '../../basic';

@@ -1,5 +1,5 @@
-import { IMenu } from '@kunlun/meta';
-import { StateStream } from '@kunlun/state';
+import { IMenu } from '@oinone/kunlun-meta';
+import { StateStream } from '@oinone/kunlun-state';
 
 import { Page, useCurrentContextService } from './typing';
 

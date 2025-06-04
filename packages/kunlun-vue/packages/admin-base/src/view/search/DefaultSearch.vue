@@ -1,8 +1,8 @@
 <script lang="ts">
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons-vue';
-import { DslDefinition, DslDefinitionType } from '@kunlun/dsl';
-import { translateValueByKey } from '@kunlun/engine';
-import { DEFAULT_PREFIX } from '@kunlun/theme';
+import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import {
   BooleanHelper,
   ButtonType,
@@ -18,9 +18,9 @@ import {
   PropRecordHelper,
   StringHelper,
   ValidateTrigger
-} from '@kunlun/vue-ui-antd';
-import { StableSlotProp } from '@kunlun/vue-ui-common';
-import { DslRender, DslRenderDefinition } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-ui-antd';
+import { StableSlotProp } from '@oinone/kunlun-vue-ui-common';
+import { DslRender, DslRenderDefinition } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { computed, createVNode, defineComponent, ref, VNode, vShow, withDirectives, withKeys } from 'vue';
 import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../basic';

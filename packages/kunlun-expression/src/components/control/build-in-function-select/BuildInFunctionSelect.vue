@@ -9,11 +9,11 @@
       <span
         class="ant-select ant-select-single build-in-function-select-control"
         :class="{
-      'ant-select-allow-clear': isAllowClear,
-      'ant-select-show-arrow': isShowDownArrow,
-      'ant-select-open': isShowDropdown,
-      'ant-select-focus': true,
-    }"
+          'ant-select-allow-clear': isAllowClear,
+          'ant-select-show-arrow': isShowDownArrow,
+          'ant-select-open': isShowDropdown,
+          'ant-select-focus': true
+        }"
         ref="controlRef"
       >
         <div class="ant-select-selector" @click="toggleDropdown">
@@ -21,8 +21,8 @@
             {{ showValueLabel ? selectValue.value : selectValue.label }}
           </span>
           <span class="ant-select-selection-placeholder" v-if="isShowPlaceholder" @click="toggleDropdown">{{
-              placeholder
-            }}</span>
+            placeholder
+          }}</span>
         </div>
         <span class="ant-select-arrow" v-if="isShowDownArrow">
           <down-outlined class="ant-select-suffix" />
@@ -34,8 +34,7 @@
     </template>
     <template #content>
       <div ref="dropdownRef">
-        <expression-designer-cascader :options="options" @change="onChange">
-        </expression-designer-cascader>
+        <expression-designer-cascader :options="options" @change="onChange"> </expression-designer-cascader>
       </div>
     </template>
   </a-popover>
@@ -48,7 +47,7 @@ import { checkBlurFocus, createDefaultVariableItemList, translateExpValue } from
 import { FunctionCategoryList, IExpSelectOption } from '../../../types';
 import ExpressionDesignerCascader from '../../cascader/Cascader.vue';
 import { queryExpBuildInFunction } from '../../../service';
-import { deepClone } from '@kunlun/meta';
+import { deepClone } from '@oinone/kunlun-meta';
 
 /**
  * 适用于表单类变量控件
@@ -59,7 +58,7 @@ export default defineComponent({
     ExpressionDesignerCascader,
     CloseCircleOutlined,
     CloseCircleFilled,
-    DownOutlined,
+    DownOutlined
   },
 
   props: {
@@ -73,8 +72,8 @@ export default defineComponent({
     showValueLabel: Boolean,
     allowClear: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   emits: ['change-fun', 'update:value'],
   setup(props, context) {
@@ -144,14 +143,14 @@ export default defineComponent({
 
     const getPopupContainer = (triggerNode) => {
       return document.body;
-    }
+    };
 
     watch(
       () => props.value,
       (newVal) => {
         setSelectedValue(newVal);
       },
-      { immediate: true },
+      { immediate: true }
     );
 
     const controlRef = ref<HTMLElement>(null as any);

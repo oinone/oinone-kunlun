@@ -1,7 +1,7 @@
-import { DEFAULT_SLOT_NAME } from '@kunlun/dsl';
-import { SPI } from '@kunlun/spi';
-import { ButtonType } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
+import { SPI } from '@oinone/kunlun-spi';
+import { ButtonType } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isString } from 'lodash-es';
 import { BaseActionGroupWidget, BaseElementWidget } from '../../../basic';
 import DefaultDropdown from './DefaultDropdown.vue';

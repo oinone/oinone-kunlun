@@ -1,5 +1,5 @@
-import { SPI } from '@kunlun/spi';
-import { VueWidget, Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { DefinitionNode, FieldNode, OperationDefinitionNode, SelectionNode } from 'graphql';
 import gql from 'graphql-tag';
 import { isArray, isPlainObject } from 'lodash-es';

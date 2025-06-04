@@ -18,8 +18,8 @@
   </van-config-provider>
 </template>
 <script lang="ts">
-import { OioDateRangePicker } from '@kunlun/vue-ui-mobile-vant';
-import { OioDateRangePickerProps } from '@kunlun/vue-ui-common';
+import { OioDateRangePicker } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { OioDateRangePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { ConfigProvider as VanConfigProvider } from 'vant';
 import { defineComponent } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../../basic';

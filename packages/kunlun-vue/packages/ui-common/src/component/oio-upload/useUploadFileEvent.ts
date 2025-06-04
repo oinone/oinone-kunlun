@@ -1,6 +1,6 @@
-import { ConfigHelper } from '@kunlun/engine';
-import { RuntimeConfig } from '@kunlun/meta';
-import { uniqueKeyGenerator } from '@kunlun/shared';
+import { ConfigHelper } from '@oinone/kunlun-engine';
+import { RuntimeConfig } from '@oinone/kunlun-meta';
+import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { get as getValue, set as setValue } from 'lodash-es';
 import {
   CdnFileMultipartUploadData,

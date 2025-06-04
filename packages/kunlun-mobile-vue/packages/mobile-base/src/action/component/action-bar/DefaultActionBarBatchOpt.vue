@@ -9,7 +9,9 @@
   </div>
   <div :class="`${DEFAULT_PREFIX}-action-bar-batch-opt-toolbar`" v-if="showCheck">
     <div class="checkall-btn">
-      <van-checkbox v-model="checkAll" shape="square" @click="checkAllChange(checkAll)"> {{ translateValueByKey('全选') }}</van-checkbox>
+      <van-checkbox v-model="checkAll" shape="square" @click="checkAllChange(checkAll)">
+        {{ translateValueByKey('全选') }}</van-checkbox
+      >
     </div>
     <span class="count" v-if="showCheck">({{ translateValueByKey('已选') }}{{ checkboxAllState.count || 0 }})</span>
   </div>
@@ -17,7 +19,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
 import { Checkbox as VanCheckbox } from 'vant';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { DEFAULT_PREFIX } from '../../../ui/theme';
 
 export default defineComponent({

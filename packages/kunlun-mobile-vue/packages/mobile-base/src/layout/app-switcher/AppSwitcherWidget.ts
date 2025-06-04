@@ -1,16 +1,16 @@
-import { Subscription } from '@kunlun/state';
-import { Router, useMatched } from '@kunlun/router';
-import { IMenu, IModule, ViewActionTarget } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget, WidgetBehaviorSubjection, WidgetSubjection } from '@kunlun/vue-widget';
-import { http, queryHomePageDsl } from '@kunlun/service';
+import { Subscription } from '@oinone/kunlun-state';
+import { Router, useMatched } from '@oinone/kunlun-router';
+import { IMenu, IModule, ViewActionTarget } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget, WidgetBehaviorSubjection, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { http, queryHomePageDsl } from '@oinone/kunlun-service';
 import {
   getMajorConfigByModuleModule,
   MajorConfig,
   useCurrentContextService,
   useMultiTabsService
-} from '@kunlun/engine';
-import { useRouter } from '@kunlun/vue-router';
+} from '@oinone/kunlun-engine';
+import { useRouter } from '@oinone/kunlun-vue-router';
 
 import {
   EXECUTE_HOME_PAGE,

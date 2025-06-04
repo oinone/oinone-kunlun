@@ -1,4 +1,4 @@
-import { EntityId } from '@kunlun/meta';
+import { EntityId } from '@oinone/kunlun-meta';
 
 // interface IGlobalConfig {
 //   // TODO 根据数据结构描述定义

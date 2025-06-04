@@ -1,5 +1,5 @@
-import { RuntimeContext, RuntimeContextServiceToken } from '@kunlun/engine';
-import { SPI } from '@kunlun/spi';
+import { RuntimeContext, RuntimeContextServiceToken } from '@oinone/kunlun-engine';
+import { SPI } from '@oinone/kunlun-spi';
 import { DebugErrorAnalysisResult } from '../../../../typing';
 import { DebugUtils } from '../../../debug-utils';
 import { DebugRuntimeContextService, DebugRuntimeContextServiceToken } from '../../DebugRuntimeContextService';

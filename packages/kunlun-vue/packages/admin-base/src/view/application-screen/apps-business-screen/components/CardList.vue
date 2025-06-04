@@ -28,7 +28,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import Card from './Card.vue';
 
 export default defineComponent({

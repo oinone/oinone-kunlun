@@ -1,6 +1,6 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { CastHelper, CSSStyle, StringHelper } from '@kunlun/shared';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { CastHelper, CSSStyle, StringHelper } from '@oinone/kunlun-shared';
 import {
   DEFAULT_COLS,
   FlexColMode,
@@ -10,11 +10,11 @@ import {
   OioColProps,
   PropRecordHelper,
   StyleHelper
-} from '@kunlun/vue-ui-mobile-vant';
-import { onAllMounted } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
 import { useInjectOioDefaultRowContext, useProviderOioDefaultRowContext } from './context';
-import { ViewType } from '@kunlun/meta';
+import { ViewType } from '@oinone/kunlun-meta';
 
 export default defineComponent({
   name: 'DefaultCol',
@@ -70,7 +70,7 @@ export default defineComponent({
     };
   },
   render() {
-    const { $attrs, $slots, template, mode, invisible, rowFlexDirection, rowWrap,span,viewType } = this;
+    const { $attrs, $slots, template, mode, invisible, rowFlexDirection, rowWrap, span, viewType } = this;
     const classList: string[] = [];
     if (mode === FlexColMode.FULL) {
       classList.push('mobile-default-col-full');

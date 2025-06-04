@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { OioPaginationProps } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { OioPaginationProps } from '@oinone/kunlun-vue-ui-common';
 import { Pagination as VanPagination } from 'vant';
 import { isBoolean, isFunction } from 'lodash-es';
 import { createVNode, defineComponent } from 'vue';

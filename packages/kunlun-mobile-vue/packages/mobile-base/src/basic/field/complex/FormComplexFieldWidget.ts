@@ -4,10 +4,10 @@ import {
   RuntimeModel,
   RuntimeRelationField,
   SubmitCacheManager
-} from '@kunlun/engine';
-import { isDev } from '@kunlun/router';
-import { CallChaining, ReturnPromise } from '@kunlun/shared';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { isDev } from '@oinone/kunlun-router';
+import { CallChaining, ReturnPromise } from '@oinone/kunlun-shared';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { SUBVIEW_WIDGET_PRIORITY } from '../../constant';
 import { BaseFieldProps } from '../../token';
 import { FormFieldWidget } from '../FormFieldWidget';

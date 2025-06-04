@@ -21,14 +21,14 @@
       <template v-if="!$slots.footer">
         <template v-if="actionReverse">
           <oio-button type="primary" size="large" :loading="actionLoading" @click="onOk"
-          >{{ okText || translate('kunlun.common.confirm') }}
+            >{{ okText || translate('kunlun.common.confirm') }}
           </oio-button>
           <oio-button size="large" @click="onCancel">{{ cancelText || translate('kunlun.common.cancel') }}</oio-button>
         </template>
         <template v-else>
           <oio-button size="large" @click="onCancel">{{ cancelText || translate('kunlun.common.cancel') }}</oio-button>
           <oio-button type="primary" size="large" @click="onOk" :loading="actionLoading"
-          >{{ okText || translate('kunlun.common.confirm') }}
+            >{{ okText || translate('kunlun.common.confirm') }}
           </oio-button>
         </template>
       </template>
@@ -37,10 +37,10 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { StringHelper } from '@kunlun/shared';
-import { DEFAULT_PREFIX, OioButton, OioModal } from '@kunlun/vue-ui-mobile-vant';
+import { StringHelper } from '@oinone/kunlun-shared';
+import { DEFAULT_PREFIX, OioButton, OioModal } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../../basic';
-import { onAllMounted } from '@kunlun/vue-widget';
+import { onAllMounted } from '@oinone/kunlun-vue-widget';
 
 export default defineComponent({
   name: 'DefaultDialog',

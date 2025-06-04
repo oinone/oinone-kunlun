@@ -1,4 +1,4 @@
-import { useMatched } from '@kunlun/router';
+import { useMatched } from '@oinone/kunlun-router';
 
 export interface SharedActionParameter {
   code: string;

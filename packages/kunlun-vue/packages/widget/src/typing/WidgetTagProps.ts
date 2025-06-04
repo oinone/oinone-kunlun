@@ -1,4 +1,4 @@
-import { DslDefinition } from '@kunlun/dsl';
+import { DslDefinition } from '@oinone/kunlun-dsl';
 import { PropType } from 'vue';
 
 /**

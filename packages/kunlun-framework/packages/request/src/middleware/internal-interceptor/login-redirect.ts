@@ -1,4 +1,4 @@
-import { UrlHelper } from '@kunlun/shared';
+import { UrlHelper } from '@oinone/kunlun-shared';
 import { IResponseErrorResult, NetworkInterceptor } from '../../types';
 import { setSessionPath } from '../../session';
 

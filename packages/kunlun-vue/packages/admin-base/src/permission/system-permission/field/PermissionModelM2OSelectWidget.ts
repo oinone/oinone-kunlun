@@ -1,9 +1,9 @@
 import { FormM2OSelectFieldWidget } from '../../../field';
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../basic';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { Widget } from '@kunlun/vue-widget';
-import { Condition } from '@kunlun/request';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { Condition } from '@oinone/kunlun-request';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({

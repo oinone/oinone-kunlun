@@ -1,8 +1,8 @@
-import { IMenu } from '@kunlun/meta';
-import { Router } from '@kunlun/router';
-import { SPI } from '@kunlun/spi';
-import { MaskWidget } from '@kunlun/vue-admin-layout';
-import { Widget } from '@kunlun/vue-widget';
+import { IMenu } from '@oinone/kunlun-meta';
+import { Router } from '@oinone/kunlun-router';
+import { SPI } from '@oinone/kunlun-spi';
+import { MaskWidget } from '@oinone/kunlun-vue-admin-layout';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import MenuComponent from './Menu.vue';
 
 interface IResolvedMenu {

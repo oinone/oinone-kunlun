@@ -1,5 +1,5 @@
-import { ViewType } from '@kunlun/meta';
-import { DslDefinitionWidget, DslDefinitionWidgetProps, DslRender } from '@kunlun/vue-widget';
+import { ViewType } from '@oinone/kunlun-meta';
+import { DslDefinitionWidget, DslDefinitionWidgetProps, DslRender } from '@oinone/kunlun-vue-widget';
 import { Slot, Slots, VNode } from 'vue';
 import { BasePackOptions, BasePackWidget } from '../../../basic';
 import { ActiveLayoutEffectOpt } from '../../context';

@@ -66,7 +66,7 @@ import {
   Popover as APopover,
   SelectOption as ASelectOption
 } from 'ant-design-vue';
-import { OioIcon, ResourceDateTimeOption } from '@kunlun/vue-ui-antd';
+import { OioIcon, ResourceDateTimeOption } from '@oinone/kunlun-vue-ui-antd';
 import ControlTag from './ControlTag.vue';
 import FormatConcat from './FormatConcat.vue';
 

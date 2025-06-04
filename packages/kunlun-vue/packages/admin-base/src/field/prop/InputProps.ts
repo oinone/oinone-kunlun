@@ -1,5 +1,5 @@
 import { PropType } from 'vue';
-import { InputType } from '@kunlun/vue-ui-common';
+import { InputType } from '@oinone/kunlun-vue-ui-common';
 import { OioCommonProps, OioMetadataProps } from '../../basic/props';
 
 export const PreSuffixProps = {

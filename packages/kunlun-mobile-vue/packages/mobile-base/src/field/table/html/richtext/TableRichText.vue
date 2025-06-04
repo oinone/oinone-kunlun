@@ -9,8 +9,8 @@
   </oio-modal>
 </template>
 <script lang="ts">
-import { OioModal } from '@kunlun/vue-ui-mobile-vant';
-import { translateValueByKey } from '@kunlun/engine';
+import { OioModal } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { defineComponent, ref } from 'vue';
 import { PreviewHtml } from '../../../../components/common';
 

@@ -1,5 +1,5 @@
-import { encodeBase64, MatrixRouteHelper, ReturnPromise } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { encodeBase64, MatrixRouteHelper, ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
 import { ApolloLink } from 'apollo-link';

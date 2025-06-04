@@ -40,13 +40,13 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, watch } from 'vue';
-import { getModel } from '@kunlun/service';
-import { Router, useMatched } from '@kunlun/router';
-import { useRouter } from '@kunlun/vue-router';
-import { ActionType, IModel, ViewActionTarget } from '@kunlun/meta';
-import { executeServerAction, executeViewAction, RedirectTargetEnum, translateValueByKey } from '@kunlun/engine';
+import { getModel } from '@oinone/kunlun-service';
+import { Router, useMatched } from '@oinone/kunlun-router';
+import { useRouter } from '@oinone/kunlun-vue-router';
+import { ActionType, IModel, ViewActionTarget } from '@oinone/kunlun-meta';
+import { executeServerAction, executeViewAction, RedirectTargetEnum, translateValueByKey } from '@oinone/kunlun-engine';
 
-import { OioButton } from '@kunlun/vue-ui-antd';
+import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { getInstallPaaSModules } from './service';
 import { DialogViewActionWidget } from '../../action';
 import { executeConfirm } from '../../util';

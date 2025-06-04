@@ -152,10 +152,10 @@ import {
   OioMessage,
   OioFormInstance,
   OioSpin
-} from '@kunlun/vue-ui-antd';
-import { getUrlParamByKey, translateValueByKey, CurrentLanguage, genStaticPath, OioProvider } from '@kunlun/engine';
-import { IModelField, ModelFieldType } from '@kunlun/meta';
-import { buildSingleItemParam } from '@kunlun/service';
+} from '@oinone/kunlun-vue-ui-antd';
+import { getUrlParamByKey, translateValueByKey, CurrentLanguage, genStaticPath, OioProvider } from '@oinone/kunlun-engine';
+import { IModelField, ModelFieldType } from '@oinone/kunlun-meta';
+import { buildSingleItemParam } from '@oinone/kunlun-service';
 import { queryTranslateBox, queryTranslateBoxUpdate, saveAndRefreshForBox, saveForBoxWithUpdate } from '../../service';
 import { SearchCommonParams, TranslateManageItem, TranslateMode, TranslateScopeValue } from '../typings';
 import { defaultCurrentTranslate, translateAddText, translateUpdateText } from './constants';

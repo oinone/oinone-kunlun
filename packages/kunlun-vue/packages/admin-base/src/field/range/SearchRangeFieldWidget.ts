@@ -1,6 +1,6 @@
-import { RuntimeModelField, RuntimeSearchField, translateValueByKey } from '@kunlun/engine';
-import { BooleanHelper, Optional, RSQLCompositeOperators } from '@kunlun/shared';
-import { Widget, WidgetComponent } from '@kunlun/vue-widget';
+import { RuntimeModelField, RuntimeSearchField, translateValueByKey } from '@oinone/kunlun-engine';
+import { BooleanHelper, Optional, RSQLCompositeOperators } from '@oinone/kunlun-shared';
+import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../basic';
 
 export abstract class SearchRangeFieldWidget<

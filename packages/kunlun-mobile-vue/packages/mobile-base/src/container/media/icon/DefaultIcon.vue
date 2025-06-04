@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { OioIcon } from '@kunlun/vue-ui-common';
+import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 
 export default defineComponent({
   name: 'DefaultIcon',

@@ -1,7 +1,7 @@
-import { SPI } from '@kunlun/spi';
-import { MaskWidget } from '@kunlun/vue-admin-layout';
-import { useMatched } from '@kunlun/vue-router';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { MaskWidget } from '@oinone/kunlun-vue-admin-layout';
+import { useMatched } from '@oinone/kunlun-vue-router';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import PaaSManagerView from './PaaSManager.vue';
 
 @SPI.ClassFactory(MaskWidget.Token({ widget: 'PaaSManager' }))

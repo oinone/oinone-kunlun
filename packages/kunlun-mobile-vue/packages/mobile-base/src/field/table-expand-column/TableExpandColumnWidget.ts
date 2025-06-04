@@ -1,4 +1,4 @@
-import { DslDefinition, DslDefinitionHelper, DslSlotUtils, ViewDslDefinition } from '@kunlun/dsl';
+import { DslDefinition, DslDefinitionHelper, DslSlotUtils, ViewDslDefinition } from '@oinone/kunlun-dsl';
 import {
   ActiveRecord,
   ActiveRecords,
@@ -8,12 +8,12 @@ import {
   ModelCache,
   RuntimeModel,
   RuntimeRelationField
-} from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { CallChaining, Optional, StringHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+} from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { CallChaining, Optional, StringHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { RowContext } from '../../ui';
-import { DslRender, Widget } from '@kunlun/vue-widget';
+import { DslRender, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { VNode } from 'vue';
 import { BaseElementWidget, BaseTableColumnWidget } from '../../basic';

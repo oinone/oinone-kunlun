@@ -1,4 +1,4 @@
-import { http } from '@kunlun/service';
+import { http } from '@oinone/kunlun-service';
 import { ModelCache } from '../cache';
 import { CurrentLanguage } from '../user';
 

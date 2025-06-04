@@ -1,5 +1,5 @@
-import { CastHelper } from '@kunlun/shared';
-import { RenderWidget } from '@kunlun/vue-widget';
+import { CastHelper } from '@oinone/kunlun-shared';
+import { RenderWidget } from '@oinone/kunlun-vue-widget';
 import { unref } from 'vue';
 import { BaseMaskWidgetProps } from '../../basic';
 import { defaultMaskContext } from '../context';

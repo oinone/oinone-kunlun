@@ -1,6 +1,6 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { CastHelper, StringHelper } from '@kunlun/shared';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   FormLayout,
   OioBlock,
@@ -8,7 +8,7 @@ import {
   PropRecordHelper,
   useInjectOioFormContext,
   useProviderOioFormContext
-} from '@kunlun/vue-ui-mobile-vant';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
 import { computed, createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
 
 export default defineComponent({

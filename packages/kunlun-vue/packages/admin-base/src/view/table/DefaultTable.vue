@@ -1,8 +1,8 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { ActiveRecord, ActiveRecords, Pagination, translateValueByKey } from '@kunlun/engine';
-import { EDirection, ISort } from '@kunlun/service';
-import { ReturnPromise } from '@kunlun/shared';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { ActiveRecord, ActiveRecords, Pagination, translateValueByKey } from '@oinone/kunlun-engine';
+import { EDirection, ISort } from '@oinone/kunlun-service';
+import { ReturnPromise } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
   CheckedChangeEvent,
@@ -19,9 +19,9 @@ import {
   TableSize,
   VxeTableActiveEditorEventContext,
   VxeTableHelper
-} from '@kunlun/vue-ui';
-import { ListPaginationStyle, ListSelectMode, OioPagination, OioSpin, StyleHelper } from '@kunlun/vue-ui-antd';
-import { DslRender } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-ui';
+import { ListPaginationStyle, ListSelectMode, OioPagination, OioSpin, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
+import { DslRender } from '@oinone/kunlun-vue-widget';
 import { debounce } from 'lodash-es';
 import {
   computed,

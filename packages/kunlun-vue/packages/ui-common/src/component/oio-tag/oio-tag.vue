@@ -1,5 +1,5 @@
 <script lang="ts">
-import { CSSStyle } from '@kunlun/shared';
+import { CSSStyle } from '@oinone/kunlun-shared';
 import { createVNode, defineComponent, VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { PropRecordHelper } from '../../util';

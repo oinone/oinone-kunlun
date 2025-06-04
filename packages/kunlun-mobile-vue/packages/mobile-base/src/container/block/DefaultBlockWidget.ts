@@ -1,7 +1,7 @@
-import { BooleanHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { DEFAULT_GUTTERS, LayoutHelper, StandardGutterType } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { DEFAULT_GUTTERS, LayoutHelper, StandardGutterType } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNil, isString } from 'lodash-es';
 import { BasePackWidget } from '../../basic';
 import DefaultBlock from './DefaultBlock.vue';

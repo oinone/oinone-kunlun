@@ -1,4 +1,4 @@
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { cloneDeep } from 'lodash-es';
 import { ref, watch } from 'vue';
 

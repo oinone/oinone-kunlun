@@ -1,5 +1,5 @@
-import { NumberHelper } from '@kunlun/shared';
-import { PageSizeEnum, PopconfirmPlacement } from '@kunlun/vue-ui-common';
+import { NumberHelper } from '@oinone/kunlun-shared';
+import { PageSizeEnum, PopconfirmPlacement } from '@oinone/kunlun-vue-ui-common';
 import { isNil } from 'lodash-es';
 
 export const DEFAULT_PAGE_SIZE = 15;

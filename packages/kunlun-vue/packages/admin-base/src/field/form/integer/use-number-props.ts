@@ -1,4 +1,4 @@
-import { NumberHelper } from '@kunlun/shared';
+import { NumberHelper } from '@oinone/kunlun-shared';
 import { isNil } from 'lodash-es';
 import { computed } from 'vue';
 import { useMetadataProps } from '../../../basic';

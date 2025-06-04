@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import { InputMediaMode } from '@kunlun/vue-ui-common';
+import { InputMediaMode } from '@oinone/kunlun-vue-ui-common';
 import DefaultFormIframe from '../../iframe/DefaultFormIframe.vue';
 
 describe('DefaultFormIframe', () => {

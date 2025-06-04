@@ -5,7 +5,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { genStaticPath } from '@kunlun/engine';
+import { genStaticPath } from '@oinone/kunlun-engine';
 </script>
 <style lang="scss">
 .oio-empty-view-container {

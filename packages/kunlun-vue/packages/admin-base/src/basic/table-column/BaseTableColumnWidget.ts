@@ -1,5 +1,5 @@
-import { SubmitValue } from '@kunlun/engine';
-import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@kunlun/shared';
+import { SubmitValue } from '@oinone/kunlun-engine';
+import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
   OioTableInstance,
@@ -8,9 +8,9 @@ import {
   TableEditorCloseTrigger,
   TableEditorMode,
   TableEditorTrigger
-} from '@kunlun/vue-ui';
-import { ConfirmType, PopconfirmPlacement } from '@kunlun/vue-ui-antd';
-import { ActiveRecordsWidgetProps, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-ui';
+import { ConfirmType, PopconfirmPlacement } from '@oinone/kunlun-vue-ui-antd';
+import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, isString, toString } from 'lodash-es';
 import { VNode, toRaw } from 'vue';
 import { fetchPopconfirmPlacement } from '../../typing';

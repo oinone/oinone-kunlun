@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts">
-import { OioColorPreview } from '@kunlun/vue-ui-mobile-vant';
+import { OioColorPreview } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { defineComponent } from 'vue';
 
 export default defineComponent({

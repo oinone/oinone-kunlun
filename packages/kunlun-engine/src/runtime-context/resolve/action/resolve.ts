@@ -1,6 +1,6 @@
-import { ActionDslDefinition } from '@kunlun/dsl';
-import { ActionContextType, ActionType, ViewType } from '@kunlun/meta';
-import { uniqueKeyGenerator } from '@kunlun/shared';
+import { ActionDslDefinition } from '@oinone/kunlun-dsl';
+import { ActionContextType, ActionType, ViewType } from '@oinone/kunlun-meta';
+import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { generatorModelName, RuntimeAction } from '../../../runtime-metadata';
 import { parseConfigs } from '../../../util';
 import { RuntimeContext } from '../../runtime-context';

@@ -42,10 +42,16 @@
 
 <script lang="ts" setup>
 import { defineProps, nextTick, onMounted, reactive, ref, watch, withDefaults } from 'vue';
-import { OioButton, OioSwitch } from '@kunlun/vue-ui-antd';
-import { OioTable, OioColumn } from '@kunlun/vue-ui';
+import { OioButton, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
+import { OioTable, OioColumn } from '@oinone/kunlun-vue-ui';
 import { IPermission } from '../../../permission/type';
-import { ActionContextType, ModelDefaultActionName, ModelFieldType, ViewActionTarget, ViewType } from '@kunlun/meta';
+import {
+  ActionContextType,
+  ModelDefaultActionName,
+  ModelFieldType,
+  ViewActionTarget,
+  ViewType
+} from '@oinone/kunlun-meta';
 import {
   Dialog,
   IPopupInstance,
@@ -55,7 +61,7 @@ import {
   OpenEventHandler,
   RuntimeAction,
   translateValueByKey
-} from '@kunlun/engine';
+} from '@oinone/kunlun-engine';
 import { DialogWidget } from '../../../popup';
 import { ClickResult, PopupSubmitParameters } from '../../../../typing';
 

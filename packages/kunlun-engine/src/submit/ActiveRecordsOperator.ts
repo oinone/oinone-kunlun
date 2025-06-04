@@ -1,5 +1,5 @@
-import { Entity } from '@kunlun/meta';
-import { uniqueKeyGenerator } from '@kunlun/shared';
+import { Entity } from '@oinone/kunlun-meta';
+import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { isArray, isNil } from 'lodash-es';
 import {
   ActiveRecord,

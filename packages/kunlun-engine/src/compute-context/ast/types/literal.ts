@@ -1,4 +1,4 @@
-import { BigNumber } from '@kunlun/shared';
+import { BigNumber } from '@oinone/kunlun-shared';
 import { AnyExpression, Literal, Node } from './base';
 
 /**

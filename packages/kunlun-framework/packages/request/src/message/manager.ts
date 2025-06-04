@@ -1,4 +1,4 @@
-import { NonBlockingEventManager } from '@kunlun/shared';
+import { NonBlockingEventManager } from '@oinone/kunlun-shared';
 import { ILevel } from '../types';
 import { MessageHandler, MessageOptions } from './typing';
 

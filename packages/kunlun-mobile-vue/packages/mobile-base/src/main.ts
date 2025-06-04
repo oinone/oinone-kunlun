@@ -7,10 +7,10 @@ import {
   OioProviderProps,
   registryLanguage,
   RuntimeContextManager
-} from '@kunlun/engine';
-import { isMobile } from '@kunlun/shared';
-import { SPIFactory } from '@kunlun/spi';
-import { DefaultThemeName, isSystemTheme } from '@kunlun/theme';
+} from '@oinone/kunlun-engine';
+import { isMobile } from '@oinone/kunlun-shared';
+import { SPIFactory } from '@oinone/kunlun-spi';
+import { DefaultThemeName, isSystemTheme } from '@oinone/kunlun-theme';
 import { Boot } from '@wangeditor/editor';
 import attachmentModule from '@wangeditor/plugin-upload-attachment';
 import { Locale } from 'vant';

@@ -1,4 +1,4 @@
-import { ModelFieldType, IModelField, isComplexTtype, isSimpleField } from '@kunlun/meta';
+import { ModelFieldType, IModelField, isComplexTtype, isSimpleField } from '@oinone/kunlun-meta';
 
 const nativeFields = ['id', 'createUid', 'createDate', 'writeUid', 'writeDate'];
 

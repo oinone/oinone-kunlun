@@ -1,4 +1,4 @@
-import { Widget } from '@kunlun/vue-widget';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import {
   ExpActiveType,
   IExpressionDefinition,
@@ -13,9 +13,9 @@ import {
   createExpressionItemByExpressionDefinition,
   queryExpModelFields,
   createConditionExpressionDisplayName
-} from '@kunlun/vue-expression';
+} from '@oinone/kunlun-vue-expression';
 import { ExpressionAbstractWidget } from '../ExpressionAbstractWidget';
-import { ExpressionExecutor } from '@kunlun/engine';
+import { ExpressionExecutor } from '@oinone/kunlun-engine';
 
 export class ConditionBaseControlWidget extends ExpressionAbstractWidget {
   public initialize(props) {

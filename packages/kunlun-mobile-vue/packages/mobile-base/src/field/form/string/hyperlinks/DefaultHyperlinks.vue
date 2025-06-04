@@ -1,7 +1,7 @@
 <script lang="ts">
 import { createVNode, defineComponent } from 'vue';
-import { InputMediaMode } from '@kunlun/vue-ui-common';
-import { DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
+import { InputMediaMode } from '@oinone/kunlun-vue-ui-common';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { useMetadataProps } from '../../../../basic';
 import { InputMediaProps } from '../../../prop';
 import DefaultString from '../DefaultString.vue';
@@ -36,25 +36,31 @@ export default defineComponent({
     if (this.mode === InputMediaMode.DYNAMIC) {
       return createVNode(DefaultString, _linkProps);
     }
-    return createVNode('div',
+    return createVNode(
+      'div',
       {
         class: `${DEFAULT_PREFIX}-form-string-hyperlinks`,
         title: this.realValue
       },
       [
-      !this.text && !this.realValue
-        ? createVNode('span', { class: `${DEFAULT_PREFIX}-empty` }, '-')
-        : createVNode('a', {
-          href: this.realValue,
-          target: this.target,
-          onClick: (e) => {
-            if (!autoNoticeOuterUrl(this.realValue, false)) {
-              e.preventDefault();
-              e.stopPropagation();
-            }
-          }
-        }, this.text || this.realValue)
-    ]);
+        !this.text && !this.realValue
+          ? createVNode('span', { class: `${DEFAULT_PREFIX}-empty` }, '-')
+          : createVNode(
+              'a',
+              {
+                href: this.realValue,
+                target: this.target,
+                onClick: (e) => {
+                  if (!autoNoticeOuterUrl(this.realValue, false)) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }
+                }
+              },
+              this.text || this.realValue
+            )
+      ]
+    );
   }
 });
 </script>

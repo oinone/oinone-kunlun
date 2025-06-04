@@ -1,6 +1,6 @@
-import { RuntimeEnumerationOption } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 import { isNil } from 'lodash-es';
 import { FormFieldWidget } from '../../../../../basic';
 import { FormEnumMultiSelectFieldWidget } from './FormEnumMultiSelectFieldWidget';

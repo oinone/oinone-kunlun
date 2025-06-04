@@ -1,7 +1,7 @@
-import { ViewType, ModelFieldType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ViewType, ModelFieldType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 
-import { Widget } from '@kunlun/vue-widget';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic/field';
 import Select from './Select.vue';
 import { DetailO2MSelectFieldWidget } from '../../detail';

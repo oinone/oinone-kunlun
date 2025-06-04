@@ -1,7 +1,7 @@
-import { RuntimeStringField, translateValueByKey } from '@kunlun/engine';
-import { isEmptyValue } from '@kunlun/meta';
-import { InputType } from '@kunlun/vue-ui-antd';
-import { Widget } from '@kunlun/vue-widget';
+import { RuntimeStringField, translateValueByKey } from '@oinone/kunlun-engine';
+import { isEmptyValue } from '@oinone/kunlun-meta';
+import { InputType } from '@oinone/kunlun-vue-ui-antd';
+import { Widget } from '@oinone/kunlun-vue-widget';
 
 import { isNil, isNumber } from 'lodash-es';
 import { isValidatorSuccess, ValidatorInfo } from '../../../typing';

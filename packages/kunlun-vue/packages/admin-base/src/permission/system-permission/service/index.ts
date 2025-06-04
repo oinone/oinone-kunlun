@@ -1,7 +1,7 @@
-import { SYSTEM_MODULE_NAME } from '@kunlun/meta';
-import { GQL } from '@kunlun/request';
-import { http } from '@kunlun/service';
-import { GraphqlHelper } from '@kunlun/shared';
+import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
+import { GQL } from '@oinone/kunlun-request';
+import { http } from '@oinone/kunlun-service';
+import { GraphqlHelper } from '@oinone/kunlun-shared';
 import { IPermission } from '../../permission/type';
 import { AnyPermissionNode, MenuPermissionNode, PermissionNode } from '../../types';
 

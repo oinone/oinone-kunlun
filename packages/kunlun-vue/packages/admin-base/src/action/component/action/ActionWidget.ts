@@ -11,15 +11,15 @@ import {
   translate,
   translateValueByKey,
   ValidatorCallChainingParameters
-} from '@kunlun/engine';
-import { EventBus, EventConsumer, KeyboardEventMessage } from '@kunlun/event';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
-import { ActionContextType, ActionElement, IAction, ViewType } from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
-import { DEFAULT_TRUE_CONDITION } from '@kunlun/service';
-import { BooleanHelper, debugConsole, GraphqlHelper, ReturnPromise } from '@kunlun/shared';
-import { ButtonBizStyle, ButtonType, ConfirmType, PopconfirmPlacement } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { EventBus, EventConsumer, KeyboardEventMessage } from '@oinone/kunlun-event';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { ActionContextType, ActionElement, IAction, ViewType } from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
+import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
+import { BooleanHelper, debugConsole, GraphqlHelper, ReturnPromise } from '@oinone/kunlun-shared';
+import { ButtonBizStyle, ButtonType, ConfirmType, PopconfirmPlacement } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString, set as setData } from 'lodash-es';
 import { Component, toRaw } from 'vue';
 import { BaseActionWidget, BaseActionWidgetProps, BaseView, QueryExpression } from '../../../basic';

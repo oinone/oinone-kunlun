@@ -1,9 +1,15 @@
-import { Dialog, executeServerAction, executeViewAction, translateValueByKey, ViewActionCache } from '@kunlun/engine';
-import { ActionType, IModel, ModelFieldType, ViewActionTarget, ViewType } from '@kunlun/meta';
-import { customMutation, getModel } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { OioNotification } from '@kunlun/vue-ui-antd';
-import { Widget } from '@kunlun/vue-widget';
+import {
+  Dialog,
+  executeServerAction,
+  executeViewAction,
+  translateValueByKey,
+  ViewActionCache
+} from '@oinone/kunlun-engine';
+import { ActionType, IModel, ModelFieldType, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import { customMutation, getModel } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
 import { FormO2MTableFieldWidget } from '../../../../field';
 import { createRuntimeContextForWidget } from '../../../../tags';

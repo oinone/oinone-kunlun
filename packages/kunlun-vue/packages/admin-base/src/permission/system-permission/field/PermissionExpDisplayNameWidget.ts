@@ -1,7 +1,7 @@
 import { FormStringFieldWidget } from '../../../field';
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../basic';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import Component from './PermissionExpDisplayName.vue';
 
 @SPI.ClassFactory(

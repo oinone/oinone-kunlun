@@ -9,7 +9,7 @@ import {
   Optional,
   StandardNumber,
   StringHelper
-} from '@kunlun/shared';
+} from '@oinone/kunlun-shared';
 import { parseStringStyle } from '@vue/shared';
 import { isArray, isBoolean, isNil, isObject, isString, toString } from 'lodash-es';
 import { DEFAULT_DSL_STYLE_VALUE } from './DslStyleConstant';

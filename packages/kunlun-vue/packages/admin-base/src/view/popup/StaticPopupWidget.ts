@@ -12,9 +12,9 @@ import {
   UpdateActiveRecordsByEntityPredict,
   UpdateEntity,
   WidgetProps
-} from '@kunlun/engine';
-import { emitEvent } from '@kunlun/shared';
-import { VueWidget, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { emitEvent } from '@oinone/kunlun-shared';
+import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { isFunction } from 'lodash-es';
 import { PopupEventHandle, PopupEventHandles } from '../../typing';
 

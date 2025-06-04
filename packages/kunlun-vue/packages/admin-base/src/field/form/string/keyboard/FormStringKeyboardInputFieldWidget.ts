@@ -1,7 +1,7 @@
-import { KeyboardEventMessage } from '@kunlun/event';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { KeyboardEventMessage } from '@oinone/kunlun-event';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseFieldWidget, FormFieldWidget } from '../../../../basic';
 import DefaultKeyboardInput from './DefaultKeyboardInput.vue';
 

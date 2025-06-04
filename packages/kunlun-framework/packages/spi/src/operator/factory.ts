@@ -1,4 +1,4 @@
-import { uniqueKeyGenerator } from '@kunlun/shared';
+import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPIMatchKeys, SPIOptions } from '../typing';
 import { SPIOperator } from './operator';
 import { StorageKey } from './storage';

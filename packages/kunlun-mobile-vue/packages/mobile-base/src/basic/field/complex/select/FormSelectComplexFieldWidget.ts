@@ -7,18 +7,18 @@ import {
   RuntimeModel,
   RuntimeModelField,
   RuntimeRelationField
-} from '@kunlun/engine';
-import { Entity, IModelField, isEmptyValue, ModelType } from '@kunlun/meta';
-import { Condition, ObjectValue } from '@kunlun/request';
-import { IQueryPageOption, IQueryPageResult, queryPage } from '@kunlun/service';
-import { CastHelper, NumberHelper } from '@kunlun/shared';
+} from '@oinone/kunlun-engine';
+import { Entity, IModelField, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
+import { Condition, ObjectValue } from '@oinone/kunlun-request';
+import { IQueryPageOption, IQueryPageResult, queryPage } from '@oinone/kunlun-service';
+import { CastHelper, NumberHelper } from '@oinone/kunlun-shared';
 import {
   autoFillSelectedValueToOptions,
   autoFillSelectedValueToOptionsByLabel,
   builderSelectSearchCondition
 } from '../../../../layout';
-import { PageSizeEnum, WidgetTrigger } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { PageSizeEnum, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
 import { FormComplexFieldProps } from '../FormComplexFieldWidget';

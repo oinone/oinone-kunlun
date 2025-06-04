@@ -30,7 +30,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
-import { OioIcon } from '@kunlun/vue-ui-common';
+import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 import GalleryCommonField from '../../common/GalleryCommonField.vue';
 
 export default defineComponent({

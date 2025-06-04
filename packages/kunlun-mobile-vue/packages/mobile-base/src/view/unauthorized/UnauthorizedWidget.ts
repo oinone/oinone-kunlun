@@ -1,7 +1,7 @@
-import { SPI } from '@kunlun/spi';
-import { useMatched } from '@kunlun/router';
-import { Widget } from '@kunlun/vue-widget';
-import { BaseRouterWidget } from '@kunlun/vue-router';
+import { SPI } from '@oinone/kunlun-spi';
+import { useMatched } from '@oinone/kunlun-router';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { BaseRouterWidget } from '@oinone/kunlun-vue-router';
 import Unauthorized from './Unauthorized.vue';
 
 @SPI.ClassFactory(BaseRouterWidget.Token({ widget: 'MobileUnauthorizedWidget' }))

@@ -1,8 +1,8 @@
 <script lang="ts">
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
-import { translateValueByKey } from '@kunlun/engine';
-import { BooleanHelper } from '@kunlun/shared';
-import { OioFormItem, PropRecordHelper } from '@kunlun/vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { OioFormItem, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Tooltip as ATooltip } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, Slot, VNode, vShow, withDirectives } from 'vue';
 import { ValidatorStatus } from '../../typing';

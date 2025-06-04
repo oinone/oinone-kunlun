@@ -1,4 +1,4 @@
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { BaseElementWidget } from '../../basic';
 import ApplicationScreenComponent from './ApplicationScreen.vue';
 

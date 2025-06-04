@@ -1,4 +1,4 @@
-import { BooleanHelper, RSQLOperators } from '@kunlun/shared';
+import { BooleanHelper, RSQLOperators } from '@oinone/kunlun-shared';
 import {
   ArrayPattern,
   BinaryExpression,

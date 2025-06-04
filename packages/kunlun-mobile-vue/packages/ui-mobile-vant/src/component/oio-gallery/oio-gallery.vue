@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { OioGalleryItem, OioGalleryProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { OioGalleryItem, OioGalleryProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import OioSpin from '../oio-spin/oio-spin.vue';
 import { isNil, isObject, isString } from 'lodash-es';
 import { computed, createVNode, defineComponent, VNode, ref, provide } from 'vue';
@@ -31,10 +31,10 @@ export default defineComponent({
   },
   slots: ['default', 'header', 'footer'],
   setup(props, { expose }) {
-    const checkedRowMap = ref({} as { [key:string]: any });
+    const checkedRowMap = ref({} as { [key: string]: any });
     provide(OioGalleryInjectKey, {
       ...OioGalleryInjectContext,
-      onRowCheckboxChange: ({ checked, row, rowIndex } : { checked: boolean, row: any, rowIndex: number }) => {
+      onRowCheckboxChange: ({ checked, row, rowIndex }: { checked: boolean; row: any; rowIndex: number }) => {
         const keys = Object.keys(checkedRowMap.value);
         if (checked) {
           if (!keys.includes(rowIndex + '')) {

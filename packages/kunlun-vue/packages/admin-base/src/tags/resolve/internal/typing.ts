@@ -1,4 +1,4 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { CustomWidgetProps } from '../typing';
 
 export interface ViewWidgetProps extends CustomWidgetProps {

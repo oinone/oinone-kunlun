@@ -76,7 +76,8 @@
     </div>
     <div class="mobile-app-switcher-popup-footer" @click.stop="onClose">
       <oio-button v-if="!isRunModeSAP" type="ghost" plain round @click="goToWorkbenchPage"
-        ><template #icon><i class="iconfont oinone-guanwangshouye" /></template>{{ translateValueByKey('工作台') }}</oio-button
+        ><template #icon><i class="iconfont oinone-guanwangshouye" /></template
+        >{{ translateValueByKey('工作台') }}</oio-button
       >
     </div>
   </van-popup>
@@ -84,9 +85,9 @@
 <script lang="ts">
 import { computed, defineComponent, nextTick, ref, watch } from 'vue';
 import { Popup as VanPopup, Search as VanSearch } from 'vant';
-import { OioButton } from '@kunlun/vue-ui-mobile-vant';
-import { genStaticPath } from '@kunlun/engine';
-import { translateValueByKey } from '@kunlun/engine';
+import { OioButton } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { genStaticPath } from '@oinone/kunlun-engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { isMiniProgram } from '../../util';
 
 export default defineComponent({

@@ -1,5 +1,5 @@
-import { NumberHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { NumberHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import {
   COLLECTION_FUNCTION,
   CONVERT_FUNCTION,

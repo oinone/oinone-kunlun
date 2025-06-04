@@ -15,8 +15,8 @@
 </template>
 <script lang="ts">
 import { computed, onBeforeUnmount, PropType, ref, shallowRef, watch } from 'vue';
-import { ZH_CN_CODE } from '@kunlun/vue-ui-common';
-import { translateValueByKey } from '@kunlun/engine';
+import { ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import { i18nChangeLanguage } from '@wangeditor/editor';
 import {
@@ -25,9 +25,9 @@ import {
   OioWangEditExpressionModalMenuConf,
   EXPRESSION_MODAL_CLASS_NAME,
   EXPRESSION_MODAL_PANEL_CLASS_NAME
-} from '@kunlun/vue-expression';
+} from '@oinone/kunlun-vue-expression';
 import '@wangeditor/editor/dist/css/style.css';
-import { uniqueKeyGenerator } from '@kunlun/shared';
+import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 
 const EDITOR_DEFAULT_HTML = '<p><br></p>';
 const EDITOR_EXP_MODAL_CLASS = 'exp-modal-in-body';

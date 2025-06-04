@@ -149,8 +149,8 @@
 <script lang="ts" setup>
 import { computed, defineProps, PropType, ref } from 'vue';
 import { UserOutlined, LockOutlined, MailOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons-vue';
-import { RuntimeLanguage } from '@kunlun/vue-ui-common';
-import { OioButton, OioPicker, DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
+import { RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
+import { OioButton, OioPicker, DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Row as VanRow, Col as VanCol, Form as VanForm, Field as VanField, CellGroup as VanCellGroup } from 'vant';
 
 import {
@@ -160,7 +160,7 @@ import {
   OioLoginThemeConfig,
   OioLoginThemeName,
   translateValueByKey
-} from '@kunlun/engine';
+} from '@oinone/kunlun-engine';
 
 import { LoginMode, LoginData } from './types';
 

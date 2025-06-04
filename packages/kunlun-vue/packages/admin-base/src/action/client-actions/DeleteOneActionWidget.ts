@@ -1,7 +1,7 @@
-import { ActionContextType, ModelDefaultActionName } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { translateValueByKey } from '@kunlun/engine';
-import { Widget } from '@kunlun/vue-widget';
+import { ActionContextType, ModelDefaultActionName } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { ActionWidget } from '../component';
 
 @SPI.ClassFactory(ActionWidget.Token({ name: ModelDefaultActionName.$$internal_DeleteOne }))

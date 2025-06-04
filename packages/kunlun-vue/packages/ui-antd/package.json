@@ -1,11 +1,11 @@
 {
-  "name": "@kunlun/vue-ui-antd",
+  "name": "@oinone/kunlun-vue-ui-antd",
   "version": "6.2.0",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rollup -c && npm run build-css",
-    "build-css": "sass --style compressed --no-source-map ./dist/kunlun-vue-ui-antd.scss ./dist/kunlun-vue-ui-antd.css",
+    "build-css": "sass --style compressed --no-source-map ./dist/oinone-kunlun-vue-ui-antd.scss ./dist/oinone-kunlun-vue-ui-antd.css",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
     "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
@@ -13,10 +13,10 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@kunlun/vue-ui-common": "6.2.0"
+    "@oinone/kunlun-vue-ui-common": "6.2.0"
   },
   "devDependencies": {
-    "@kunlun/shared": "~6.2.0",
+    "@oinone/kunlun-shared": "~6.2.0",
     "@types/lodash": "4.14.182",
     "@types/lodash-es": "4.17.6",
     "ant-design-vue": "3.2.14",

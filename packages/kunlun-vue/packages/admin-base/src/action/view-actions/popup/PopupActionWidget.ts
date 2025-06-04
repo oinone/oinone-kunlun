@@ -1,4 +1,4 @@
-import { DslDefinition } from '@kunlun/dsl';
+import { DslDefinition } from '@oinone/kunlun-dsl';
 import {
   ActiveRecord,
   ActiveRecordsOperator,
@@ -11,12 +11,12 @@ import {
   SubmitCacheManager,
   translateValueByKey,
   UpdateActiveRecordsByEntityPredict
-} from '@kunlun/engine';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
-import { ActionContextType, ViewMode, ViewType } from '@kunlun/meta';
-import { debugConsole, ReturnPromise } from '@kunlun/shared';
-import { OioNotification } from '@kunlun/vue-ui-antd';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { ActionContextType, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { debugConsole, ReturnPromise } from '@oinone/kunlun-shared';
+import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { MetadataViewWidget } from '../../../basic';
 import { ClickResult, PopupSubmitParameters } from '../../../typing';

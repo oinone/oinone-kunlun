@@ -1,12 +1,12 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   AFormItemProps,
   FormLayout,
   OioFormItemProps,
   PropRecordHelper,
   useInjectOioFormContext
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { FormItem as AFormItem } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, ref } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

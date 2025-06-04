@@ -1,5 +1,5 @@
-import { constructOne, insertOne, queryOne, updateOne } from '@kunlun/service';
-import { ActionElement } from '@kunlun/meta';
+import { constructOne, insertOne, queryOne, updateOne } from '@oinone/kunlun-service';
+import { ActionElement } from '@oinone/kunlun-meta';
 
 import { IObjectValue, IBaseObjectProps } from '../typing/interface';
 import { ViewVM } from './view';

@@ -1,5 +1,5 @@
-import { ActionType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ActionType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 import { ActionWidget, ServerActionWidget } from '../../action';
 import { ClickResult } from '../../typing';
 import { groupChangeBehavior } from './constants';

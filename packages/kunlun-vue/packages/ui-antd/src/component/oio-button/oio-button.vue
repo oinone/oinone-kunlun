@@ -6,7 +6,7 @@ import {
   OioButtonProps,
   OioIcon,
   PropRecordHelper
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { Button as AButton } from 'ant-design-vue';
 import { isEmpty } from 'lodash-es';
 import { computed, createVNode, defineComponent, nextTick, reactive, VNode } from 'vue';

@@ -77,8 +77,8 @@
   </div>
 </template>
 <script lang="ts">
-import { translateValueByKey } from '@kunlun/engine';
-import { OioIcon, OioSpin, TreeNode } from '@kunlun/vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { OioIcon, OioSpin, TreeNode } from '@oinone/kunlun-vue-ui-antd';
 import { Menu as AMenu, MenuItem as AMenuItem, Select as ASelect, SelectOption as ASelectOption } from 'ant-design-vue';
 import { computed, defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue';
 import { RuntimeMenu } from '../../typing';

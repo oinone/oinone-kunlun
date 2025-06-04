@@ -1,7 +1,7 @@
-import { DslDefinitionType } from '@kunlun/dsl';
-import { ActionType } from '@kunlun/meta';
-import { Router, useMatched } from '@kunlun/router';
-import { SPI } from '@kunlun/spi';
+import { DslDefinitionType } from '@oinone/kunlun-dsl';
+import { ActionType } from '@oinone/kunlun-meta';
+import { Router, useMatched } from '@oinone/kunlun-router';
+import { SPI } from '@oinone/kunlun-spi';
 import { isBoolean } from 'lodash-es';
 import { ActionWidgetProps, createActionWidget } from '../../tags/resolve/internal';
 import { ActionWidget } from '../component';

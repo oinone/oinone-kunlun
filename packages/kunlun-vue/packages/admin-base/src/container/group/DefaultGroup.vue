@@ -1,8 +1,14 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { translateValueByKey } from '@kunlun/engine';
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { FormLayout, OioGroup, PropRecordHelper, StyleHelper, useOioFormLayoutContext } from '@kunlun/vue-ui-antd';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import {
+  FormLayout,
+  OioGroup,
+  PropRecordHelper,
+  StyleHelper,
+  useOioFormLayoutContext
+} from '@oinone/kunlun-vue-ui-antd';
 import { createVNode, defineComponent, PropType, Slot, vShow, withDirectives } from 'vue';
 import { defaultFlexResolve } from '../../tags/resolve/helper';
 import DefaultGroupTitleToolbar from './DefaultGroupTitleToolbar.vue';

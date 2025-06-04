@@ -21,12 +21,12 @@ import {
   SubmitValue,
   translateValueByKey,
   UpdateOneWithRelationsService
-} from '@kunlun/engine';
-import { ActionContextType, ActionType, ModelFieldType, ViewType } from '@kunlun/meta';
-import { HttpClientError, SystemErrorCode } from '@kunlun/request';
-import { SPI } from '@kunlun/spi';
-import { BooleanHelper, CallChaining, OioNotification } from '@kunlun/vue-ui-mobile-vant';
-import { InnerWidgetType, VueWidget, Widget, WidgetSubjection } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { ActionContextType, ActionType, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { HttpClientError, SystemErrorCode } from '@oinone/kunlun-request';
+import { SPI } from '@oinone/kunlun-spi';
+import { BooleanHelper, CallChaining, OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { InnerWidgetType, VueWidget, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isFunction, isNil } from 'lodash-es';
 import { FormValidateResult } from '../../basic';
 import { REFRESH_FORM_DATA } from '../../basic/constant/state-stream';

@@ -1,7 +1,7 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { translateValueByKey } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
 import {
   ButtonType,
   CastHelper,
@@ -13,7 +13,7 @@ import {
   PropRecordHelper,
   StringHelper,
   StyleHelper
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import {
   computed,
   createVNode,

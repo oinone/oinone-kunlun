@@ -1,6 +1,6 @@
-import { ActionContextType, ActionType, IModel, IModule, IViewAction, ViewMode, ViewType } from '@kunlun/meta';
-import { isNotPermission } from '@kunlun/request';
-import { queryHomePageDsl, queryPageDslByModelAndName, queryPageDslBySharedCode } from '@kunlun/service';
+import { ActionContextType, ActionType, IModel, IModule, IViewAction, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { isNotPermission } from '@oinone/kunlun-request';
+import { queryHomePageDsl, queryPageDslByModelAndName, queryPageDslBySharedCode } from '@oinone/kunlun-service';
 import {
   RuntimeFunctionDefinition,
   RuntimeModel,
@@ -12,7 +12,7 @@ import { MemoryAsyncCache } from './cache';
 import { ClearCache } from './CacheClear';
 import { toRecord } from './helper';
 import { ModelCache } from './ModelCache';
-import { debugConsole, UrlHelper } from '@kunlun/shared';
+import { debugConsole, UrlHelper } from '@oinone/kunlun-shared';
 
 interface ViewActionKey {
   model: string;
@@ -209,7 +209,12 @@ async function viewActionConvertRuntime(viewAction: IViewAction): Promise<Runtim
     sessionPath,
     context
   } = viewAction;
-  debugConsole.prettySuccess('viewAction debug url', `${location.origin}${UrlHelper.appendBasePath(`/debug;module=${moduleName};viewType=${viewType};model=${model};action=${name};target=${target}`)}`);
+  debugConsole.prettySuccess(
+    'viewAction debug url',
+    `${location.origin}${UrlHelper.appendBasePath(
+      `/debug;module=${moduleName};viewType=${viewType};model=${model};action=${name};target=${target}`
+    )}`
+  );
   let runtimeModule: RuntimeModule | undefined;
   const finalModule = moduleDefinition?.module || module;
   if (finalModule && moduleName) {

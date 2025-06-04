@@ -1,4 +1,4 @@
-import { emitEvent, Optional } from '@kunlun/shared';
+import { emitEvent, Optional } from '@oinone/kunlun-shared';
 import { onBeforeUnmount, onMounted, unref, watchEffect } from 'vue';
 import { UnrefType } from '../../typing';
 import { CleanableEvent, useCleanableEvent } from '../use-cleanable-event';

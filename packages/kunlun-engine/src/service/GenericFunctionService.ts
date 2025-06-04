@@ -1,4 +1,4 @@
-import { isComplexTtype, ModelFieldType } from '@kunlun/meta';
+import { isComplexTtype, ModelFieldType } from '@oinone/kunlun-meta';
 import { FunctionCache, ModelCache } from '../cache';
 import { isRelationField, RequestModelField } from '../runtime-context';
 import { RuntimeFunctionDefinition, RuntimeModel } from '../runtime-metadata';

@@ -1,6 +1,6 @@
-import { DslDefinition, XMLParse } from '@kunlun/dsl';
-import { ViewType } from '@kunlun/meta';
-import { debugConsole } from '@kunlun/shared';
+import { DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
+import { ViewType } from '@oinone/kunlun-meta';
+import { debugConsole } from '@oinone/kunlun-shared';
 
 export function createDefaultLayout(viewType: ViewType, inline: boolean): DslDefinition | undefined {
   let xml: string | undefined;

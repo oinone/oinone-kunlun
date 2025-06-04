@@ -1,8 +1,8 @@
-import { RuntimeModel } from '@kunlun/engine';
-import { Entity, IModel, IModelField } from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
-import { getModel, queryOne } from '@kunlun/service';
-import { ObjectUtils } from '@kunlun/shared';
+import { RuntimeModel } from '@oinone/kunlun-engine';
+import { Entity, IModel, IModelField } from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
+import { getModel, queryOne } from '@oinone/kunlun-service';
+import { ObjectUtils } from '@oinone/kunlun-shared';
 
 export class FunctionConstant {
   public static readonly FUNCTION_DEFINITION = 'base.Function';

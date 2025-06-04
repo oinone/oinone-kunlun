@@ -1,9 +1,9 @@
-import { RuntimeO2MField, SubmitValue, ViewCache } from '@kunlun/engine';
-import { ModelDefaultActionName, ViewType } from '@kunlun/meta';
-import { http } from '@kunlun/service';
-import { CallChaining, GraphqlHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { RuntimeO2MField, SubmitValue, ViewCache } from '@oinone/kunlun-engine';
+import { ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
+import { http } from '@oinone/kunlun-service';
+import { CallChaining, GraphqlHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { AsyncFormSubviewListFieldWidget, FormFieldWidget } from '../../../basic';
 import { IPermission, ResourcePermissionModel } from '../type';
 

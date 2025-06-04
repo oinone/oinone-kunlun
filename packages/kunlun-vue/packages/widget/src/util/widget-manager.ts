@@ -1,4 +1,4 @@
-import { CastHelper } from '@kunlun/shared';
+import { CastHelper } from '@oinone/kunlun-shared';
 import { VueWidget, Widget } from '../basic';
 
 export function newVueWidget(): VueWidget {

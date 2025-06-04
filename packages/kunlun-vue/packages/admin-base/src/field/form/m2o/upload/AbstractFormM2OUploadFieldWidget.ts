@@ -1,6 +1,6 @@
-import { BooleanHelper } from '@kunlun/shared';
-import { defaultMultiPartConfig } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { defaultMultiPartConfig } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNumber } from 'lodash-es';
 import { FormM2OFieldWidget } from '../../../../basic';
 

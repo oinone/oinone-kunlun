@@ -1,8 +1,8 @@
 <script lang="ts">
 import { DownOutlined } from '@ant-design/icons-vue';
-import { ButtonType, OioButton, OioDivider, OioDropdownPlacement, uniqueKeyGenerator } from '@kunlun/vue-ui-antd';
-import { DividerType, OioDropdownTrigger, PropRecordHelper } from '@kunlun/vue-ui-common';
-import { onAllMounted } from '@kunlun/vue-widget';
+import { ButtonType, OioButton, OioDivider, OioDropdownPlacement, uniqueKeyGenerator } from '@oinone/kunlun-vue-ui-antd';
+import { DividerType, OioDropdownTrigger, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType, VNode, vShow, withDirectives, withModifiers } from 'vue';

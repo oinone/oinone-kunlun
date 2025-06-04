@@ -1,10 +1,10 @@
-import { RuntimeO2MField } from '@kunlun/engine';
-import { ModelFieldType, ViewMode, ViewType } from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
-import { SPI } from '@kunlun/spi';
-import { ReturnPromise } from '@kunlun/shared';
+import { RuntimeO2MField } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
+import { SPI } from '@oinone/kunlun-spi';
+import { ReturnPromise } from '@oinone/kunlun-shared';
 import { BaseFieldWidget, FormSubviewListFieldWidget, RelationQueryHelper } from '../../../../basic';
-import { Widget } from '@kunlun/vue-widget';
+import { Widget } from '@oinone/kunlun-vue-widget';
 
 @SPI.ClassFactory(
   BaseFieldWidget.Token({
