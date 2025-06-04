@@ -17,7 +17,7 @@ const external = [
   'element-plus',
   '@element-plus/icons-vue',
   'vuedraggable',
-  /^(@kunlun|@vue|@wangeditor)/
+  /^(@oinone|@kunlun|@vue|@wangeditor)/
 ];
 
 const tsconfigOverride = {
