@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-expression",
-  "version": "6.2.2",
+  "version": "6.2.3",
   "main": "index.ts",
   "scripts": {
     "clean": "rimraf dist package-lock.json node_modules",
