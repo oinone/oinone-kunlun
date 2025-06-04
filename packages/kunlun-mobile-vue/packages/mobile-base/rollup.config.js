@@ -5,7 +5,7 @@ export default rollupConfig(
   pkg.name,
   [
     'vue',
-    /^(@oinone|@kunlun||@vue|@wangeditor|vant\/|dayjs\/|vxe-table\/)/,
+    /^(@oinone|@kunlun|@vue|@wangeditor|vant\/|dayjs\/|vxe-table\/)/,
     'vuedraggable',
     'vxe-table',
     'xe-utils',
