@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2657071 */
-  src: url('iconfont.woff2?t=1747967317173') format('woff2'),
-       url('iconfont.woff?t=1747967317173') format('woff'),
-       url('iconfont.ttf?t=1747967317173') format('truetype');
+  src: url('iconfont.woff2?t=1748330483831') format('woff2'),
+       url('iconfont.woff?t=1748330483831') format('woff'),
+       url('iconfont.ttf?t=1748330483831') format('truetype');
 }
 
 .iconfont {
@@ -13,11 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.oinone-jiaochabiao-weixuanzhong:before {
+.oinone-cross-table:before {
   content: "\e8b9";
 }
 
-.oinone-jiaochabiao-xuanzhong:before {
+.oinone-cross-table-active:before {
   content: "\e8ba";
 }
 
