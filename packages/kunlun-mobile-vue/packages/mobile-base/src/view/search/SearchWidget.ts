@@ -4,15 +4,15 @@ import {
   RefreshCallChainingParameters,
   RefreshCallChainingScope,
   RuntimeModelField
-} from '@kunlun/engine';
-import { ViewType, Entity, IModelField, ModelFieldType } from '@kunlun/meta';
-import { getRouterInstance } from '@kunlun/router';
-import { BooleanHelper, NumberHelper, StringHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { OioMessage } from '@kunlun/vue-ui-mobile-vant';
-import { Widget, WidgetSubjection } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { ViewType, Entity, IModelField, ModelFieldType } from '@oinone/kunlun-meta';
+import { getRouterInstance } from '@oinone/kunlun-router';
+import { BooleanHelper, NumberHelper, StringHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { OioMessage } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { toString, isNil } from 'lodash-es';
-import { EDirection, ISort } from '@kunlun/service';
+import { EDirection, ISort } from '@oinone/kunlun-service';
 import { BaseElementWidget, BaseSearchWidget, URL_SPLIT_SEPARATOR } from '../../basic';
 import { UserPreferService } from '../../service';
 import {

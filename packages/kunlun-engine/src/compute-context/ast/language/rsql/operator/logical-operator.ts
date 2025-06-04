@@ -1,4 +1,4 @@
-import { RSQLLogicalOperator, RSQLLogicalOperators } from '@kunlun/shared';
+import { RSQLLogicalOperator, RSQLLogicalOperators } from '@oinone/kunlun-shared';
 import * as types from '../../../tokens';
 import {
   createExpression,

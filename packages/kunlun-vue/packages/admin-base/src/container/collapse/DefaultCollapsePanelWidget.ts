@@ -1,7 +1,7 @@
-import { translateValueByKey } from '@kunlun/engine';
-import { SPI } from '@kunlun/spi';
-import { DEFAULT_COLLAPSE_PANEL_TITLE } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { SPI } from '@oinone/kunlun-spi';
+import { DEFAULT_COLLAPSE_PANEL_TITLE } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isString } from 'lodash-es';
 import { Component, createVNode, Slots, VNode } from 'vue';
 import { BasePackWidget } from '../../basic';

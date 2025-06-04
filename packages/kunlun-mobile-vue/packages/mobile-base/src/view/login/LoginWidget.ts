@@ -8,8 +8,8 @@ import {
   OioProvider,
   systemMajorConfig,
   translateValueByKey
-} from '@kunlun/engine';
-import { isEmptyKeObject, MetadataFragment, RuntimeConfig, SYSTEM_MODULE_NAME } from '@kunlun/meta';
+} from '@oinone/kunlun-engine';
+import { isEmptyKeObject, MetadataFragment, RuntimeConfig, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import {
   gql,
   HttpClient,
@@ -18,14 +18,14 @@ import {
   ILevel,
   SystemErrorCode,
   useMessageHub
-} from '@kunlun/request';
-import { Router } from '@kunlun/router';
-import { http } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { RouterWidget, useRouter } from '@kunlun/vue-router';
-import { defaultLoginErrorMessages, EN_US_CODE, RuntimeLanguage } from '@kunlun/vue-ui-common';
-import { OioNotification } from '@kunlun/vue-ui-mobile-vant';
-import { VueWidget, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-request';
+import { Router } from '@oinone/kunlun-router';
+import { http } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { RouterWidget, useRouter } from '@oinone/kunlun-vue-router';
+import { defaultLoginErrorMessages, EN_US_CODE, RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
+import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseI18nRouterWidget } from '../../basic';
 import { encrypt, homepageMaybeRuntimeContext } from '../../util';
 import LoginComponent from './Login.vue';

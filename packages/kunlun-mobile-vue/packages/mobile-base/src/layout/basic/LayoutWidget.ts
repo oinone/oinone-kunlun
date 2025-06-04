@@ -1,7 +1,7 @@
-import { ILayoutWidgetProps, Layout } from '@kunlun/engine';
-import { BooleanHelper, StringHelper } from '@kunlun/shared';
-import { FlexDirection } from '@kunlun/vue-ui-common';
-import { DslNodeWidget, Widget } from '@kunlun/vue-widget';
+import { ILayoutWidgetProps, Layout } from '@oinone/kunlun-engine';
+import { BooleanHelper, StringHelper } from '@oinone/kunlun-shared';
+import { FlexDirection } from '@oinone/kunlun-vue-ui-common';
+import { DslNodeWidget, Widget } from '@oinone/kunlun-vue-widget';
 
 export abstract class LayoutWidget extends DslNodeWidget<ILayoutWidgetProps> {
   public widget = '';

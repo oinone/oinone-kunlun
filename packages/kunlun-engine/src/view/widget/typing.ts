@@ -1,4 +1,4 @@
-import { Constructor } from '@kunlun/shared';
+import { Constructor } from '@oinone/kunlun-shared';
 import { DisposableSupported } from '../feature';
 
 /**

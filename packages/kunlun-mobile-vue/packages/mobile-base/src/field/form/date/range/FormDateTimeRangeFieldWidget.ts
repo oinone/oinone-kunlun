@@ -1,5 +1,5 @@
-import { ActiveRecord, IResourceDateTimeFormat, queryResourceDateTimeFormat } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
+import { ActiveRecord, IResourceDateTimeFormat, queryResourceDateTimeFormat } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
 import {
   BooleanHelper,
   defaultDateFormatKey,
@@ -7,10 +7,10 @@ import {
   ObjectUtils,
   Optional,
   StandardString
-} from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { ValidateTrigger } from '@kunlun/vue-ui-common';
-import { Widget, WidgetComponent } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { ValidateTrigger } from '@oinone/kunlun-vue-ui-common';
+import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../../basic';
 import { FormRangeFieldsWidget } from '../../../range';
 import DefaultDateTimeRangePicker from './DefaultDateTimeRangePicker.vue';

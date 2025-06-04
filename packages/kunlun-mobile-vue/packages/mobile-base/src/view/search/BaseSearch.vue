@@ -1,9 +1,9 @@
 <script lang="ts">
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons-vue';
-import { DslDefinition, DslDefinitionType, ElementDslDefinition } from '@kunlun/dsl';
+import { DslDefinition, DslDefinitionType, ElementDslDefinition } from '@oinone/kunlun-dsl';
 import { Icon as VanIcon } from 'vant';
-import { translateValueByKey } from '@kunlun/engine';
-import { BooleanHelper, CastHelper, StringHelper } from '@kunlun/shared';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { BooleanHelper, CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   DEFAULT_PREFIX,
   ButtonType,
@@ -13,10 +13,10 @@ import {
   OioFormProps,
   PropRecordHelper,
   ValidateTrigger
-} from '@kunlun/vue-ui-mobile-vant';
-import { DslRender, DslRenderExtendProp } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { DslRender, DslRenderExtendProp } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
-import { PatchFlags } from '@kunlun/vue-ui-common';
+import { PatchFlags } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent, PropType, ref, VNode, vShow, withDirectives, withKeys } from 'vue';
 import { CustomWidgetProps, InternalWidget, ResolveMode } from '../../tags';
 import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../basic';
@@ -79,10 +79,17 @@ function createSearchBar(
       OioButton,
       { type: ButtonType.default, onClick: options.onReset },
       {
-        default: () => `${options.translate?.('kunlun.button.reset') || translateValueByKey('重置')}${translateValueByKey('筛选条件')}`,
-        icon: () => createVNode(VanIcon, { name: 'replay', style: {
-          transform: 'rotate(280deg)'
-        } })
+        default: () =>
+          `${options.translate?.('kunlun.button.reset') || translateValueByKey('重置')}${translateValueByKey(
+            '筛选条件'
+          )}`,
+        icon: () =>
+          createVNode(VanIcon, {
+            name: 'replay',
+            style: {
+              transform: 'rotate(280deg)'
+            }
+          })
       }
     )
   ];

@@ -1,4 +1,4 @@
-import { isDev } from '@kunlun/router';
+import { isDev } from '@oinone/kunlun-router';
 import { ILogger } from './interface';
 
 const con = console;

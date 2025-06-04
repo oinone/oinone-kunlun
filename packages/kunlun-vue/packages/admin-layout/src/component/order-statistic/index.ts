@@ -1,8 +1,8 @@
-import { Condition, HttpClient } from '@kunlun/request';
-import { useMatched } from '@kunlun/router';
-import { getModel } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { Condition, HttpClient } from '@oinone/kunlun-request';
+import { useMatched } from '@oinone/kunlun-router';
+import { getModel } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { MaskWidget } from '../../basic';
 
 import OrderStatisticComponent from './OrderStatistic.vue';

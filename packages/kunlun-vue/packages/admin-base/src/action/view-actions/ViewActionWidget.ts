@@ -1,7 +1,7 @@
-import { RuntimeViewAction } from '@kunlun/engine';
-import { ActionType, IDslNode } from '@kunlun/meta';
-import { ReturnPromise } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { RuntimeViewAction } from '@oinone/kunlun-engine';
+import { ActionType, IDslNode } from '@oinone/kunlun-meta';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { ClickResult } from '../../typing';
 import { ActionWidget } from '../component';
 

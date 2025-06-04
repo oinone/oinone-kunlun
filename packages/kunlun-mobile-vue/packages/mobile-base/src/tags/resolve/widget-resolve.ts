@@ -1,6 +1,6 @@
-import { isDev } from '@kunlun/router';
-import { CastHelper } from '@kunlun/shared';
-import { RenderWidget } from '@kunlun/vue-widget';
+import { isDev } from '@oinone/kunlun-router';
+import { CastHelper } from '@oinone/kunlun-shared';
+import { RenderWidget } from '@oinone/kunlun-vue-widget';
 import { unref } from 'vue';
 import { defaultMetaContext } from '../context';
 import {

@@ -1,4 +1,4 @@
-import { ActionType, ModelFieldType, ViewType } from '@kunlun/meta';
+import { ActionType, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 
 /**
  * 默认模板插槽名称

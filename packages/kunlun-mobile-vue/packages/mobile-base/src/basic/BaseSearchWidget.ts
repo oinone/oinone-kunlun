@@ -1,7 +1,7 @@
-import { ActiveRecord } from '@kunlun/engine';
-import { getRouterInstance, useMatched } from '@kunlun/router';
-import { CallChaining, CastHelper, NumberHelper } from '@kunlun/shared';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord } from '@oinone/kunlun-engine';
+import { getRouterInstance, useMatched } from '@oinone/kunlun-router';
+import { CallChaining, CastHelper, NumberHelper } from '@oinone/kunlun-shared';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isNil } from 'lodash-es';
 import { parseActionDomain4search } from '../layout/utils';
 import { BaseElementWidget } from './token';

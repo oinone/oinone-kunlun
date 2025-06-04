@@ -94,7 +94,7 @@
   </div>
 </template>
 <script lang="ts">
-import { ActiveRecord, Pagination } from '@kunlun/engine';
+import { ActiveRecord, Pagination } from '@oinone/kunlun-engine';
 import {
   CommonGutterType,
   ListPaginationStyle,
@@ -103,7 +103,7 @@ import {
   OioIcon,
   OioPagination,
   OioSpin
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, PropType } from 'vue';
 import { FileUpload, GroupListItem, OioManageGroup } from '../../../components';
 import { GroupList } from '../../components';

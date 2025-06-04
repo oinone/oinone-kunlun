@@ -24,7 +24,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { genStaticPath, translateValueByKey } from '@kunlun/engine';
+import { genStaticPath, translateValueByKey } from '@oinone/kunlun-engine';
 
 interface module {
   name: string;

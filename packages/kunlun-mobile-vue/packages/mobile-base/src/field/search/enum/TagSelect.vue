@@ -1,6 +1,6 @@
 <script lang="ts">
-import { deepClone } from '@kunlun/meta';
-import { OioSelect, SelectItem } from '@kunlun/vue-ui-mobile-vant';
+import { deepClone } from '@oinone/kunlun-meta';
+import { OioSelect, SelectItem } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Radio as ARadioButton, RadioGroup as ARadioGroup } from 'vant';
 import { computed, createVNode, defineComponent } from 'vue';
 import { OioCommonProps, OioMetadataProps, useInjectOioDefaultFormContext, useMetadataProps } from '../../../basic';

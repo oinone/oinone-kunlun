@@ -1,4 +1,4 @@
-import { registerPopupConstructor } from '@kunlun/engine';
+import { registerPopupConstructor } from '@oinone/kunlun-engine';
 import { StaticDialogWidget, StaticDrawerWidget } from '../view';
 
 registerPopupConstructor({ type: 'dialog' }, StaticDialogWidget);

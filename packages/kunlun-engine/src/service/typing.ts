@@ -1,4 +1,4 @@
-import { ModelFieldType } from '@kunlun/meta';
+import { ModelFieldType } from '@oinone/kunlun-meta';
 
 export interface QueryVariables extends Record<string, unknown> {
   scene?: string;

@@ -5,7 +5,7 @@
   </div>
 </template>
 <script lang="ts">
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { computed, defineComponent } from 'vue';
 import { Checkbox as ACheckbox } from 'ant-design-vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic';

@@ -19,10 +19,10 @@ import {
   SubmitType,
   SubmitValue,
   translateValueByKey
-} from '@kunlun/engine';
-import { ActionContextType, Entity, ModelFieldType, ViewMode, ViewType } from '@kunlun/meta';
-import { Condition, DefaultComparisonOperator } from '@kunlun/request';
-import { DEFAULT_LIST_TRUE_CONDITION, DEFAULT_TRUE_CONDITION, EDirection, ISort } from '@kunlun/service';
+} from '@oinone/kunlun-engine';
+import { ActionContextType, Entity, ModelFieldType, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { Condition, DefaultComparisonOperator } from '@oinone/kunlun-request';
+import { DEFAULT_LIST_TRUE_CONDITION, DEFAULT_TRUE_CONDITION, EDirection, ISort } from '@oinone/kunlun-service';
 import {
   BooleanHelper,
   CallChaining,
@@ -37,10 +37,10 @@ import {
   SortHelper,
   StringHelper,
   TreeNode
-} from '@kunlun/shared';
-import { CheckedChangeEvent, RadioChangeEvent } from '@kunlun/vue-ui';
-import { ListPaginationStyle, ListSelectMode, PageSizeEnum } from '@kunlun/vue-ui-antd';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-shared';
+import { CheckedChangeEvent, RadioChangeEvent } from '@oinone/kunlun-vue-ui';
+import { ListPaginationStyle, ListSelectMode, PageSizeEnum } from '@oinone/kunlun-vue-ui-antd';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { ceil, get as getValue, isEmpty, isNil, isString, toInteger, toString } from 'lodash-es';
 import { VxeTablePropTypes } from 'vxe-table';
 import { fetchPageSize } from '../../typing';

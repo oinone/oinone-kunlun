@@ -1,7 +1,7 @@
 <script lang="ts">
-import { translateValueByKey } from '@kunlun/engine';
-import { ButtonType, OioButton, OioInputSearch, OioSpin, OioTree } from '@kunlun/vue-ui-antd';
-import { OioCard, OioCardCascader, OioTreeNode, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { ButtonType, OioButton, OioInputSearch, OioSpin, OioTree } from '@oinone/kunlun-vue-ui-antd';
+import { OioCard, OioCardCascader, OioTreeNode, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType, VNode, vShow, withDirectives, withModifiers } from 'vue';
 import { ActionBar } from '../../tags';

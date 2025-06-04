@@ -1,8 +1,8 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { BooleanHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { StyleHelper } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
 import { FormStringFieldWidget } from '../../string';

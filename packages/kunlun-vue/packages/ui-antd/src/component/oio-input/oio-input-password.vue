@@ -1,7 +1,7 @@
 <script lang="ts">
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons-vue';
-import { BooleanHelper, CastHelper, StringHelper } from '@kunlun/shared';
-import { AInputPasswordProps, OioInputPasswordProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { BooleanHelper, CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { AInputPasswordProps, OioInputPasswordProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { InputPassword as AInputPassword } from 'ant-design-vue';
 import { isBoolean, isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, VNode } from 'vue';

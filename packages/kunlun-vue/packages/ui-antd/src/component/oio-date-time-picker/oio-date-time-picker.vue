@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CSSStyle, DateTimePickerMode, StringHelper } from '@kunlun/shared';
-import { OioDateTimePickerProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CSSStyle, DateTimePickerMode, StringHelper } from '@oinone/kunlun-shared';
+import { OioDateTimePickerProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { DatePicker as ADatePicker, TimePicker as ATimePicker } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
 import { Component, createVNode, defineComponent, VNodeProps } from 'vue';

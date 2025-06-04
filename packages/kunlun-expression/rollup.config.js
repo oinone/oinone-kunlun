@@ -7,7 +7,7 @@ import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
 
-const libraryName = 'kunlun-vue-expression';
+const libraryName = 'oinone-kunlun-vue-expression';
 
 const external = [
   'vue',

@@ -1,5 +1,9 @@
 <template>
-  <div class="mobile-form-multi-string-tag" :class="[readonly && 'readonly', disabled && 'disabled']" @click="showInputHandle">
+  <div
+    class="mobile-form-multi-string-tag"
+    :class="[readonly && 'readonly', disabled && 'disabled']"
+    @click="showInputHandle"
+  >
     <van-tag
       :title="item"
       :show="true"
@@ -34,9 +38,9 @@
 </template>
 
 <script lang="ts">
-import { BooleanHelper } from '@kunlun/shared';
-import { OioNotification } from '@kunlun/vue-ui-mobile-vant';
-import { translateValueByKey } from '@kunlun/engine';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Tag as VanTag } from 'vant';
 import { computed, defineComponent, nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../../basic';

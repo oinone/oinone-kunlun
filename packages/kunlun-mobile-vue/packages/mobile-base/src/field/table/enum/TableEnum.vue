@@ -14,9 +14,9 @@
   <span v-else>{{ currentValue }}</span>
 </template>
 <script lang="ts">
-import { RuntimeEnumerationOption } from '@kunlun/engine';
-import { CSSStyle } from '@kunlun/shared';
-import { SelectItem } from '@kunlun/vue-ui-common';
+import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import { CSSStyle } from '@oinone/kunlun-shared';
+import { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { computed, defineComponent, PropType } from 'vue';
 import { enumFetchOptionByValue, optionsConvertSelectItem } from '../../util';
 

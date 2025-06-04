@@ -1,6 +1,6 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { ReturnPromise } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../../basic';
 import WorkScope from './WorkScope.vue';
 

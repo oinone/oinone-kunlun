@@ -1,7 +1,7 @@
 <script lang="ts">
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
-import { CastHelper, OioFormItem, PropRecordHelper } from '@kunlun/vue-ui-mobile-vant';
-import { BooleanHelper } from '@kunlun/shared';
+import { CastHelper, OioFormItem, PropRecordHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { Popover as VanPopover } from 'vant';
 import { computed, createVNode, defineComponent, Slot, VNode, vShow, withDirectives } from 'vue';
 import { BaseFormItemProps } from './props';

@@ -50,7 +50,7 @@
 </template>
 <script lang="ts">
 import { CheckOutlined } from '@ant-design/icons-vue';
-import { OioSpin, OioEmptyData, OioIcon } from '@kunlun/vue-ui-antd';
+import { OioSpin, OioEmptyData, OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineComponent, ref, watch } from 'vue';
 import { Select as ASelect, SelectOption as ASelectOption } from 'ant-design-vue';
 import { useInjectOioDefaultFormContext } from '../../../basic';

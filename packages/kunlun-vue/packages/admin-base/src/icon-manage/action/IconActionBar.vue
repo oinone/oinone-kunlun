@@ -1,5 +1,5 @@
 <script lang="ts">
-import { OioIcon, PropRecordHelper } from '@kunlun/vue-ui-antd';
+import { OioIcon, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { createVNode, defineComponent, withDirectives, vShow } from 'vue';
 
 export default defineComponent({

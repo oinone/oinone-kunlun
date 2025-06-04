@@ -7,7 +7,7 @@ import {
   PropRecordHelper,
   useResizableHandle,
   OioCloseIcon
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { isFunction, isString } from 'lodash-es';
 import {
   computed,

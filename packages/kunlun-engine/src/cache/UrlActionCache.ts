@@ -1,4 +1,4 @@
-import { queryUrlActionByModelAndName } from '@kunlun/service';
+import { queryUrlActionByModelAndName } from '@oinone/kunlun-service';
 import { RuntimeUrlAction } from '../runtime-metadata';
 import { MemoryAsyncCache } from './cache';
 import { ClearCache } from './CacheClear';

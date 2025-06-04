@@ -1,4 +1,4 @@
-import { ModelFieldType } from '@kunlun/meta';
+import { ModelFieldType } from '@oinone/kunlun-meta';
 import { RuntimeModel } from './base';
 
 export const FunctionSelfFlag = '__self__';

@@ -4,7 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import sourceMaps from 'rollup-plugin-sourcemaps';
 import { terser } from 'rollup-plugin-terser';
 
-const packagePrefix = 'kunlun-';
+const packagePrefix = 'oinone-kunlun-';
 
 export const buildName = (name) => {
   const libraryName = name.replace('@', '').replace('/', '-');

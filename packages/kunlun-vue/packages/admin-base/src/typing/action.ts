@@ -1,5 +1,5 @@
-import { EventConsumerScope } from '@kunlun/event';
-import { ReturnVoid } from '@kunlun/shared';
+import { EventConsumerScope } from '@oinone/kunlun-event';
+import { ReturnVoid } from '@oinone/kunlun-shared';
 
 export type ClickResult = ReturnVoid | boolean | Record<string, unknown> | Record<string, unknown>[];
 

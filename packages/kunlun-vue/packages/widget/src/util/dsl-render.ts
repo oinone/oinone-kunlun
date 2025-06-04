@@ -8,9 +8,9 @@ import {
   ElementDslDefinition,
   PackDslDefinition,
   TemplateDslDefinition
-} from '@kunlun/dsl';
-import { StringHelper, uniqueKeyGenerator } from '@kunlun/shared';
-import { PropRecordHelper } from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-dsl';
+import { StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { intersection, isNil, isString } from 'lodash-es';
 import { Component, createVNode, resolveDynamicComponent, Slots, VNode, withCtx } from 'vue';
 

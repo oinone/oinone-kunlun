@@ -1,8 +1,8 @@
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
-import { ExtendSettingType, OioProvider, TranslateSettingType } from '@kunlun/engine';
-import { Matched, Router, useMatched } from '@kunlun/router';
-import { useRouter } from '@kunlun/vue-router';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { ExtendSettingType, OioProvider, TranslateSettingType } from '@oinone/kunlun-engine';
+import { Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { useRouter } from '@oinone/kunlun-vue-router';
 
 import { BaseElementWidget } from '../../../basic';
 

@@ -1,4 +1,4 @@
-import { DEFAULT_SLOT_NAME } from '@kunlun/dsl';
+import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import {
   ActiveRecord,
   ActiveRecords,
@@ -15,10 +15,10 @@ import {
   SubmitCacheManager,
   SubmitValue,
   translateValueByKey
-} from '@kunlun/engine';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
-import { MessageHub } from '@kunlun/request';
-import { BooleanHelper, CallChaining, Optional, ReturnPromise } from '@kunlun/shared';
+} from '@oinone/kunlun-engine';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { MessageHub } from '@oinone/kunlun-request';
+import { BooleanHelper, CallChaining, Optional, ReturnPromise } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
   OioTableInstance,
@@ -27,9 +27,9 @@ import {
   TableEditorMode,
   TableEditorTrigger,
   VxeTableHelper
-} from '@kunlun/vue-ui';
-import { ListSelectMode, OioNotification, StyleHelper } from '@kunlun/vue-ui-antd';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-ui';
+import { ListSelectMode, OioNotification, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy } from 'lodash-es';
 import { nextTick } from 'vue';
 import { UserPreferEventManager, UserPreferService } from '../../service';

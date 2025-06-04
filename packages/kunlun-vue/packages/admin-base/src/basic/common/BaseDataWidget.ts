@@ -1,4 +1,4 @@
-import { ActiveRecordsWidgetProps, Widget } from '@kunlun/vue-widget';
+import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseRuntimePropertiesWidget } from './BaseRuntimePropertiesWidget';
 

@@ -19,7 +19,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { OioIcon, OioNotification } from '@kunlun/vue-ui-antd';
+import { OioIcon, OioNotification } from '@oinone/kunlun-vue-ui-antd';
 
 export default defineComponent({
   props: {

@@ -7,11 +7,11 @@ import {
   OioProviderProps,
   registryLanguage,
   RuntimeContextManager
-} from '@kunlun/engine';
-import { registerCurrentInstanceGetter } from '@kunlun/environment';
-import { isMobile } from '@kunlun/shared';
-import { SPIFactory } from '@kunlun/spi';
-import { maskInstall } from '@kunlun/vue-admin-layout';
+} from '@oinone/kunlun-engine';
+import { registerCurrentInstanceGetter } from '@oinone/kunlun-environment';
+import { isMobile } from '@oinone/kunlun-shared';
+import { SPIFactory } from '@oinone/kunlun-spi';
+import { maskInstall } from '@oinone/kunlun-vue-admin-layout';
 import { Boot } from '@wangeditor/editor';
 import attachmentModule from '@wangeditor/plugin-upload-attachment';
 import { App, getCurrentInstance } from 'vue';

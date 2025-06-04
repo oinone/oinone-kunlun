@@ -1,6 +1,6 @@
-import { SYSTEM_MODULE_NAME } from '@kunlun/meta';
-import { gql } from '@kunlun/request';
-import { http } from '@kunlun/service';
+import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
+import { gql } from '@oinone/kunlun-request';
+import { http } from '@oinone/kunlun-service';
 
 export interface PamirsMessage {
   id: string;

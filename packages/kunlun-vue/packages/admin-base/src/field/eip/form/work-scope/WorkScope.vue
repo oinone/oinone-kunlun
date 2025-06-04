@@ -12,7 +12,7 @@
   </div>
 </template>
 <script lang="ts">
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Tree as ATree } from 'ant-design-vue';
 import { computed, defineComponent, ref } from 'vue';
 import { queryOpenInterface, queryWorkScope } from './service';

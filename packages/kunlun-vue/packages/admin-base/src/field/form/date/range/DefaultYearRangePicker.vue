@@ -31,8 +31,8 @@
   </default-form-item>
 </template>
 <script lang="ts">
-import { OioYearRangePicker } from '@kunlun/vue-ui-antd';
-import { OioYearRangePickerProps } from '@kunlun/vue-ui-common';
+import { OioYearRangePicker } from '@oinone/kunlun-vue-ui-antd';
+import { OioYearRangePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { defineComponent } from 'vue';
 import {
   BaseFormItemProps,

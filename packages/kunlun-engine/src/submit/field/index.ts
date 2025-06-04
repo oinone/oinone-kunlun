@@ -1,4 +1,4 @@
-import { ViewMode } from '@kunlun/meta';
+import { ViewMode } from '@oinone/kunlun-meta';
 import {
   RuntimeM2MField,
   RuntimeM2OField,

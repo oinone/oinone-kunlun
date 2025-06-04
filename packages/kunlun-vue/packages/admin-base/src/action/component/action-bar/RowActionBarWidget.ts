@@ -1,6 +1,6 @@
-import { Optional } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { Optional } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseElementWidget } from '../../../basic';
 import { ActionBarWidget, ActionBarWidgetProps } from './ActionBarWidget';

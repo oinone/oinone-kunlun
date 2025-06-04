@@ -9,7 +9,7 @@ import {
   ElementType,
   IDslNode,
   IDslTree
-} from '@kunlun/meta';
+} from '@oinone/kunlun-meta';
 import { getDefaultFieldRenderType } from '../create-default-xml/field';
 
 const ModelFieldTypeValues = Object.values(ModelFieldType);

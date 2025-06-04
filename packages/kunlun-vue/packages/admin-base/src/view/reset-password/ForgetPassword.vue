@@ -80,7 +80,7 @@
   </reset-password-layout>
 </template>
 <script lang="ts">
-import { MajorConfig, translateValueByKey } from '@kunlun/engine';
+import { MajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
 import {
   OioButton,
   OioForm,
@@ -91,7 +91,7 @@ import {
   OioInputPassword,
   OioMessage,
   SelectItem
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import { FormItemRest as AFormItemRest, Select as ASelect } from 'ant-design-vue';
 import { defineComponent, onMounted, PropType, reactive, ref } from 'vue';
 import { ResourceCountry } from '../../typing';

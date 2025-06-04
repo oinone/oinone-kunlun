@@ -1,6 +1,6 @@
-import { DslDefinition } from '@kunlun/dsl';
-import { IModelField, ViewMode, ViewType } from '@kunlun/meta';
-import { ContextNode } from '@kunlun/shared';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { IModelField, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { ContextNode } from '@oinone/kunlun-shared';
 import {
   RouterPath,
   RuntimeModel,

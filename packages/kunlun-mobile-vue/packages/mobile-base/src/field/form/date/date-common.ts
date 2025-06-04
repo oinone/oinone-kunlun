@@ -1,5 +1,5 @@
-import { translateValueByKey } from '@kunlun/engine';
-import { DateUtil } from '@kunlun/shared';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { DateUtil } from '@oinone/kunlun-shared';
 import moment from 'moment';
 
 export enum DateQuickOption {

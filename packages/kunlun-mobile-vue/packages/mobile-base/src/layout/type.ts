@@ -1,12 +1,5 @@
-import {
-  ActionElement,
-  Entity,
-  IAction,
-  IDslNode,
-  IModel,
-  IModule
-} from '@kunlun/meta';
-import { UserInfo } from '@kunlun/engine';
+import { ActionElement, Entity, IAction, IDslNode, IModel, IModule } from '@oinone/kunlun-meta';
+import { UserInfo } from '@oinone/kunlun-engine';
 
 interface IAstNode {
   name: string;

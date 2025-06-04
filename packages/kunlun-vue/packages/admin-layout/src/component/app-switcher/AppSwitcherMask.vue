@@ -107,9 +107,9 @@
   </div>
 </template>
 <script lang="ts">
-import { genStaticPath, translateValueByKey } from '@kunlun/engine';
-import { IModule } from '@kunlun/meta';
-import { OioIcon } from '@kunlun/vue-ui-antd';
+import { genStaticPath, translateValueByKey } from '@oinone/kunlun-engine';
+import { IModule } from '@oinone/kunlun-meta';
+import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 
 import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue';
 import { DEFAULT_APPLICATION_LOGO } from '../../typing';

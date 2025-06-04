@@ -1,4 +1,4 @@
-import { ReturnPromise } from '@kunlun/shared';
+import { ReturnPromise } from '@oinone/kunlun-shared';
 import { NextLink, Operation } from 'apollo-link';
 import { IResponseErrorResult, IResponseResult } from './message';
 

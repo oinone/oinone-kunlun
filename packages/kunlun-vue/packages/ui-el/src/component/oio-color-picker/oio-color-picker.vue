@@ -1,6 +1,6 @@
 <script lang="ts">
-import { autoRgbaStr, CastHelper, NumberHelper, StringHelper } from '@kunlun/shared';
-import { OioColorPickerProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { autoRgbaStr, CastHelper, NumberHelper, StringHelper } from '@oinone/kunlun-shared';
+import { OioColorPickerProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { ElColorPicker, ElInput } from 'element-plus';
 import { isString } from 'lodash-es';
 import { computed, createVNode, defineComponent, ref, VNode } from 'vue';

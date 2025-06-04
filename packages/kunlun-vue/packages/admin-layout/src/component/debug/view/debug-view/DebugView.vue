@@ -51,8 +51,8 @@
   </div>
 </template>
 <script lang="ts">
-import { RuntimeModule, RuntimeViewAction, ViewActionQueryParameter } from '@kunlun/engine';
-import { TreeNode } from '@kunlun/shared';
+import { RuntimeModule, RuntimeViewAction, ViewActionQueryParameter } from '@oinone/kunlun-engine';
+import { TreeNode } from '@oinone/kunlun-shared';
 import {
   OioButton,
   OioCol,
@@ -63,7 +63,7 @@ import {
   OioTab,
   OioTabs,
   OioTextarea
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import { get as getValue, isArray, isPlainObject } from 'lodash-es';
 import { computed, defineComponent, PropType } from 'vue';
 import { RuntimeMenu } from '../../../../typing';

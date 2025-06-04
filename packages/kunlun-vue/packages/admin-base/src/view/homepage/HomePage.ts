@@ -1,8 +1,8 @@
-import { MultiTabsRuntimeManifestMergedConfigManager, ViewActionCache } from '@kunlun/engine';
-import { GlobalConfig, ViewActionTarget } from '@kunlun/meta';
-import { Router } from '@kunlun/router';
-import { useRouter } from '@kunlun/vue-router';
-import { VueWidget } from '@kunlun/vue-widget';
+import { MultiTabsRuntimeManifestMergedConfigManager, ViewActionCache } from '@oinone/kunlun-engine';
+import { GlobalConfig, ViewActionTarget } from '@oinone/kunlun-meta';
+import { Router } from '@oinone/kunlun-router';
+import { useRouter } from '@oinone/kunlun-vue-router';
+import { VueWidget } from '@oinone/kunlun-vue-widget';
 import { homepageMaybeRuntimeContext } from '../../util';
 import Home from './Home.vue';
 

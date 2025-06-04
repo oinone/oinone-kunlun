@@ -1,5 +1,5 @@
-import { RuntimeModelField } from '@kunlun/engine';
-import { Widget } from '@kunlun/vue-widget';
+import { RuntimeModelField } from '@oinone/kunlun-engine';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseFormItemWidget, BaseFormItemWidgetProps } from '../../basic';
 import { ValidatorInfo } from '../../typing';

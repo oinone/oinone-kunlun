@@ -1,8 +1,8 @@
-import { ConfigHelper, RuntimeStringField, translateValueByKey } from '@kunlun/engine';
-import { ModelFieldType, RuntimeConfig, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { MultipartUploadRuntimeConfig, ValidateTrigger, WidgetTrigger } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ConfigHelper, RuntimeStringField, translateValueByKey } from '@oinone/kunlun-engine';
+import { ModelFieldType, RuntimeConfig, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { MultipartUploadRuntimeConfig, ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isNumber } from 'lodash-es';
 import { BaseFieldWidget, FormFieldWidget } from '../../../../basic';
 import { UploadCom } from '../../../../components';

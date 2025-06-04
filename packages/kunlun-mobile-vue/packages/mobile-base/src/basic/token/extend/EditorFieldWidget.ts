@@ -1,6 +1,6 @@
-import { Constructor } from '@kunlun/shared';
-import { SPI, SPISingleSelector, SPITokenFactory } from '@kunlun/spi';
-import { VueWidget } from '@kunlun/vue-widget';
+import { Constructor } from '@oinone/kunlun-shared';
+import { SPI, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
+import { VueWidget } from '@oinone/kunlun-vue-widget';
 import { BaseFieldOptions, BaseFieldWidget } from '../BaseFieldWidget';
 
 /**

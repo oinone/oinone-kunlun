@@ -46,8 +46,8 @@
 import { computed, defineComponent, PropType, ref, watch } from 'vue';
 import draggable from 'vuedraggable';
 import { Checkbox as VxeCheckbox } from 'vxe-table';
-import { translate } from '@kunlun/engine';
-import { DEFAULT_PREFIX, OioButton, OioIcon } from '@kunlun/vue-ui-mobile-vant';
+import { translate } from '@oinone/kunlun-engine';
+import { DEFAULT_PREFIX, OioButton, OioIcon } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Popover as VanPopover } from 'vant';
 import { OperateEntity, VisibleField, UserTablePrefer } from '../../typing';
 

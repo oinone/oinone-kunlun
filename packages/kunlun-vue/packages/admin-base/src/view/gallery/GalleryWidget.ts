@@ -1,10 +1,10 @@
-import { DslDefinitionType } from '@kunlun/dsl';
-import { ViewType } from '@kunlun/meta';
-import { NumberHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { getCurrentThemeSize } from '@kunlun/engine';
-import { DEFAULT_GUTTERS, LayoutHelper, DEFAULT_VERTICAL_GUTTERS, DEFAULT_CARD_GUTTERS } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { DslDefinitionType } from '@oinone/kunlun-dsl';
+import { ViewType } from '@oinone/kunlun-meta';
+import { NumberHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { getCurrentThemeSize } from '@oinone/kunlun-engine';
+import { DEFAULT_GUTTERS, LayoutHelper, DEFAULT_VERTICAL_GUTTERS, DEFAULT_CARD_GUTTERS } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNil, isString } from 'lodash-es';
 import { BaseElementListViewWidget, BaseElementWidget } from '../../basic';
 import DefaultGallery from './DefaultGallery.vue';

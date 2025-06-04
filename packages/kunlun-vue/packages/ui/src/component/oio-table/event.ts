@@ -1,4 +1,4 @@
-import { SortDirection } from '@kunlun/shared';
+import { SortDirection } from '@oinone/kunlun-shared';
 
 export interface SortChangeEvent {
   origin: unknown;

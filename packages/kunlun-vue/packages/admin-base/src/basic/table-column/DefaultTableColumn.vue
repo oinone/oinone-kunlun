@@ -1,5 +1,5 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
+import { DslDefinition } from '@oinone/kunlun-dsl';
 import {
   OioColumn,
   OioColumnAppearanceProps,
@@ -9,7 +9,7 @@ import {
   RowContext,
   TableEditorMode,
   useInjectOioTableInstance
-} from '@kunlun/vue-ui';
+} from '@oinone/kunlun-vue-ui';
 import { computed, createVNode, defineComponent, onMounted, PropType, VNode } from 'vue';
 import { ManualWidget } from '../mixin';
 

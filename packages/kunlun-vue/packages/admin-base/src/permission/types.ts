@@ -1,4 +1,4 @@
-import { ActionType } from '@kunlun/meta';
+import { ActionType } from '@oinone/kunlun-meta';
 
 export enum ResourcePermissionTypeEnum {
   MODULE = 'MODULE',

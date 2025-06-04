@@ -3,6 +3,6 @@ import rollupConfig from '../../scripts/build.config.js';
 
 export default rollupConfig(
   pkg.name,
-  ['@kunlun/router', '@kunlun/spi', '@kunlun/vue-widget', 'lodash', 'lodash-es', 'vue'],
+  ['@oinone/kunlun-router', '@oinone/kunlun-spi', '@oinone/kunlun-vue-widget', 'lodash', 'lodash-es', 'vue'],
   false
 );

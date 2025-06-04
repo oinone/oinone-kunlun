@@ -1,10 +1,10 @@
-import { executeViewAction, ModelCache, RuntimeModel } from '@kunlun/engine';
-import { IModel } from '@kunlun/meta';
-import { getRouterInstance, Matched, Router, useMatched } from '@kunlun/router';
-import { http } from '@kunlun/service';
-import { CastHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { VueWidget, Widget } from '@kunlun/vue-widget';
+import { executeViewAction, ModelCache, RuntimeModel } from '@oinone/kunlun-engine';
+import { IModel } from '@oinone/kunlun-meta';
+import { getRouterInstance, Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { http } from '@oinone/kunlun-service';
+import { CastHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
 import AppsBusinessScreen from './AppsBusinessScreen.vue';
 

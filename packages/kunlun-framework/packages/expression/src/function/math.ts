@@ -1,4 +1,4 @@
-import { NumberHelper } from '@kunlun/shared';
+import { NumberHelper } from '@oinone/kunlun-shared';
 
 export const MATH_FUNCTION = {
   ABS,

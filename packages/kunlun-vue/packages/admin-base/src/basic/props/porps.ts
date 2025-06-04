@@ -1,4 +1,4 @@
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { isNil } from 'lodash-es';
 import { computed, ref, watch } from 'vue';
 import { getFormItemThemeConfig } from '../theme';

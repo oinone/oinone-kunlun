@@ -1,4 +1,4 @@
-import { ILevel } from '@kunlun/request';
+import { ILevel } from '@oinone/kunlun-request';
 import { OperationTypeNode } from 'graphql';
 import { Component } from 'vue';
 

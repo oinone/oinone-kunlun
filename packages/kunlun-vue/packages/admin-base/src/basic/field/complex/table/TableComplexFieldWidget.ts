@@ -1,8 +1,8 @@
-import { ActiveRecords, ModelCache, RuntimeModel, RuntimeRelationField } from '@kunlun/engine';
-import { isEmptyValue } from '@kunlun/meta';
-import { CallChaining } from '@kunlun/shared';
-import { autoFillByLabel, autoFillByLabelFields } from '@kunlun/vue-admin-layout';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecords, ModelCache, RuntimeModel, RuntimeRelationField } from '@oinone/kunlun-engine';
+import { isEmptyValue } from '@oinone/kunlun-meta';
+import { CallChaining } from '@oinone/kunlun-shared';
+import { autoFillByLabel, autoFillByLabelFields } from '@oinone/kunlun-vue-admin-layout';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseTableFieldWidget, BaseTableFieldWidgetProps } from '../../../table-column';
 
 export class TableComplexFieldWidget<

@@ -16,9 +16,9 @@
     "patch": "patch-package",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "test:@kunlun/spi": "jest --selectProjects=@kunlun/spi",
-    "test:@kunlun/dsl": "jest --selectProjects=@kunlun/dsl",
-    "test:@kunlun/request": "jest --selectProjects=@kunlun/request",
+    "test:@oinone/kunlun-spi": "jest --selectProjects=@oinone/kunlun-spi",
+    "test:@oinone/kunlun-dsl": "jest --selectProjects=@oinone/kunlun-dsl",
+    "test:@oinone/kunlun-request": "jest --selectProjects=@oinone/kunlun-request",
     "publish": "lerna publish --no-git-reset --skip-git --exact -y",
     "format": "prettier --write --parser typescript \"packages/**/*.ts\""
   },

@@ -10,10 +10,22 @@
       {{ label }}
     </oio-button>
   </div>
-  <oio-modal width="100%" :class="`${DEFAULT_PREFIX}-view-dialog`" :visible="visible" popup-mode @update:visible="change" :title="translateValueByKey('导出')">
+  <oio-modal
+    width="100%"
+    :class="`${DEFAULT_PREFIX}-view-dialog`"
+    :visible="visible"
+    popup-mode
+    @update:visible="change"
+    :title="translateValueByKey('导出')"
+  >
     <oio-spin :spinning="loading">
       <oio-form>
-        <oio-form-item :label="translateValueByKey('导出模板')" :required="true" :validateStatus="validation1.status" :help="translateValueByKey(validation1.help)">
+        <oio-form-item
+          :label="translateValueByKey('导出模板')"
+          :required="true"
+          :validateStatus="validation1.status"
+          :help="translateValueByKey(validation1.help)"
+        >
           <oio-select
             :title="translateValueByKey('导出模板')"
             :value="selectValue"
@@ -40,9 +52,9 @@ import {
   OioFormItem,
   OioModal,
   OioSpin
-} from '@kunlun/vue-ui-mobile-vant';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
 import { defineComponent } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 export default defineComponent({
   name: 'Action',

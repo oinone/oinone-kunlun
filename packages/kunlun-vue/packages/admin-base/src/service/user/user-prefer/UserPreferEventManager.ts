@@ -1,4 +1,4 @@
-import { BlockingEventManager } from '@kunlun/shared';
+import { BlockingEventManager } from '@oinone/kunlun-shared';
 import { UserTablePrefer } from '../../../typing';
 
 enum EventKeys {

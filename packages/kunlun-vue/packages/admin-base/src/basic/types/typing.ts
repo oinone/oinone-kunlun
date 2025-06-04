@@ -1,6 +1,6 @@
-import { ViewActionTarget, ViewType } from '@kunlun/meta';
-import { Condition, ILevel } from '@kunlun/request';
-import { ReturnPromise } from '@kunlun/shared';
+import { ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import { Condition, ILevel } from '@oinone/kunlun-request';
+import { ReturnPromise } from '@oinone/kunlun-shared';
 import { Component } from 'vue';
 
 export interface QueryExpression {

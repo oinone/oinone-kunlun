@@ -7,7 +7,7 @@ import scss from 'rollup-plugin-scss';
 import json from '@rollup/plugin-json';
 import { terser } from 'rollup-plugin-terser';
 
-const packagePrefix = 'kunlun-vue-';
+const packagePrefix = 'oinone-kunlun-vue-';
 
 const buildName = (name) => {
   const libraryName = name.replace('@', '').replace('/', '-');

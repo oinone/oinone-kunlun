@@ -1,13 +1,13 @@
 <script lang="ts">
-import { ButtonType, OioDropdownTrigger, PropRecordHelper } from '@kunlun/vue-ui-common';
-import { onAllMounted } from '@kunlun/vue-widget';
+import { ButtonType, OioDropdownTrigger, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType, VNode, vShow, withDirectives } from 'vue';
 import DefaultDropdown from '../../action/component/dropdown/DefaultDropdown.vue';
 import { ActiveCountEnum } from '../../typing';
 import { CollectionActions } from '../../util/collection-actions';
-import { OioButton, DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
-import { translateValueByKey } from '@kunlun/engine';
+import { OioButton, DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 const ACTION_BAR_CLASS_NAME = `${DEFAULT_PREFIX}-action-bar`;
 
 function createMoreAction(
@@ -38,7 +38,11 @@ function createMoreAction(
           { class: `${DEFAULT_PREFIX}-action-item` },
           {
             default: () => [
-              createVNode(OioButton, { type: ButtonType.link, icon: 'oinone-gengduo11' }, { default: () => translateValueByKey('更多') })
+              createVNode(
+                OioButton,
+                { type: ButtonType.link, icon: 'oinone-gengduo11' },
+                { default: () => translateValueByKey('更多') }
+              )
             ]
           }
         )

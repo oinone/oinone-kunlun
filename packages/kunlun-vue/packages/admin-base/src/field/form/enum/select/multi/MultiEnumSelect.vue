@@ -30,8 +30,8 @@
   </div>
 </template>
 <script lang="ts">
-import { RuntimeEnumerationOption } from '@kunlun/engine';
-import { SelectItem } from '@kunlun/vue-ui-common';
+import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { computed, defineComponent, PropType, ref } from 'vue';
 import { Select as ASelect } from 'ant-design-vue';
 import {

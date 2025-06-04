@@ -7,14 +7,14 @@ import {
   translateValueByKey,
   ViewActionCache,
   ViewActionQueryParameter
-} from '@kunlun/engine';
-import { MessageHub, setSessionPath } from '@kunlun/request';
-import { useMatched } from '@kunlun/router';
-import { CallChaining, uniqueKeyGenerator } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { ModuleService } from '@kunlun/vue-admin-layout';
-import { RouterWidget } from '@kunlun/vue-router';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { MessageHub, setSessionPath } from '@oinone/kunlun-request';
+import { useMatched } from '@oinone/kunlun-router';
+import { CallChaining, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { ModuleService } from '@oinone/kunlun-vue-admin-layout';
+import { RouterWidget } from '@oinone/kunlun-vue-router';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { nextTick } from 'vue';
 import { MetadataViewWidget } from '../../basic';
 import { MODULE_CLASS_PREFIX } from '../constants';

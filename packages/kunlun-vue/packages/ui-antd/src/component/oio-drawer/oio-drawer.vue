@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { OioCloseIcon, OioDrawerProps, PropRecordHelper, StyleHelper, useDrawer } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { OioCloseIcon, OioDrawerProps, PropRecordHelper, StyleHelper, useDrawer } from '@oinone/kunlun-vue-ui-common';
 import { Drawer as ADrawer } from 'ant-design-vue';
 import { isBoolean } from 'lodash-es';
 import { createVNode, defineComponent } from 'vue';

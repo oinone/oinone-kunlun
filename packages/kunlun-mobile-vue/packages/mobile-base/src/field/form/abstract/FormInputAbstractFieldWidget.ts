@@ -1,7 +1,7 @@
-import { RuntimeModelField } from '@kunlun/engine';
-import { BooleanHelper } from '@kunlun/shared';
-import { InputMediaMode } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { RuntimeModelField } from '@oinone/kunlun-engine';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { InputMediaMode } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';
 
@@ -190,7 +190,6 @@ export class FormInputAbstractFieldWidget<
               handledValue = handledValue.replace(this.prefix, '');
             }
           }
-
         }
       }
     }

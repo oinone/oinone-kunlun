@@ -1,5 +1,5 @@
-import { IResourceDateTimeFormat, queryResourceDateTimeFormat } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
+import { IResourceDateTimeFormat, queryResourceDateTimeFormat } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import {
   DateFormatMap,
   DateTimeFormatMap,
@@ -9,10 +9,10 @@ import {
   defaultTimeFormatKey,
   ObjectUtils,
   TimeFormatMap
-} from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { RowContext } from '@kunlun/vue-ui';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { RowContext } from '@oinone/kunlun-vue-ui';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseFieldWidget, BaseTableFieldWidget } from '../../../basic';
 

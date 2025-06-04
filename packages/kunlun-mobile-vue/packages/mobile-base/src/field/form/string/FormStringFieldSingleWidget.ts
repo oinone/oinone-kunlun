@@ -1,6 +1,6 @@
-import { SubmitHandler, SubmitValue } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 import { BaseFieldWidget } from '../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
 import { encrypt } from '../../../util';

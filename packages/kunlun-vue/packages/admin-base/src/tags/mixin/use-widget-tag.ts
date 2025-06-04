@@ -1,4 +1,4 @@
-import { DEFAULT_SLOT_NAME, DslDefinition } from '@kunlun/dsl';
+import { DEFAULT_SLOT_NAME, DslDefinition } from '@oinone/kunlun-dsl';
 import {
   DslRender,
   RenderWidget,
@@ -6,7 +6,7 @@ import {
   reportAllMounted,
   VueWidget,
   WidgetTagProps
-} from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { ComponentOptionsMixin, computed, Ref, ref, SetupContext, Slots } from 'vue';
 import { useInjectMetaContext, useProviderMetaContext } from '../context';

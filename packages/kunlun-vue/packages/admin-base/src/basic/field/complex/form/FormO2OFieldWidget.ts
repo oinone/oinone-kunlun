@@ -1,4 +1,4 @@
-import { RuntimeO2OField, SubmitRelationHandler, SubmitValue } from '@kunlun/engine';
+import { RuntimeO2OField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { FormComplexObjectFieldWidget } from '../FormComplexObjectFieldWidget';
 
 export abstract class FormO2OFieldWidget extends FormComplexObjectFieldWidget<RuntimeO2OField> {

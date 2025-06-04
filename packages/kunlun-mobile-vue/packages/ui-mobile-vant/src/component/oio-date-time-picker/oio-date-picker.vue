@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, DateTimePickerMode } from '@kunlun/shared';
-import { OioDatePickerProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CastHelper, DateTimePickerMode } from '@oinone/kunlun-shared';
+import { OioDatePickerProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { computed, createVNode, defineComponent } from 'vue';
 import OioDateTimePicker from './oio-date-time-picker.vue';
 
@@ -14,19 +14,19 @@ export default defineComponent({
   },
   emits: ['update:value'],
   setup(props) {
-    const YYYMMFormat = ["YYYY年MM月", 'YYYY-MM', 'YYYY/MM']
+    const YYYMMFormat = ['YYYY年MM月', 'YYYY-MM', 'YYYY/MM'];
 
     const mode = computed(() => {
-      if(props.format) {
-        if(YYYMMFormat.includes(props.format)) {
-          return 'year-month'
+      if (props.format) {
+        if (YYYMMFormat.includes(props.format)) {
+          return 'year-month';
         }
       }
 
-      return DateTimePickerMode.date
-    })
+      return DateTimePickerMode.date;
+    });
 
-    return {mode}
+    return { mode };
   },
   render() {
     return createVNode(OioDateTimePicker, {

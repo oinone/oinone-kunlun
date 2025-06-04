@@ -82,8 +82,8 @@
 </template>
 <script lang="ts" setup>
 import { ref, watch, defineProps, withDefaults, defineEmits, computed, onMounted, nextTick } from 'vue';
-import { OioModal, OioInput, OioButton, OioIcon } from '@kunlun/vue-ui-antd';
-import { translateValueByKey } from '@kunlun/engine';
+import { OioModal, OioInput, OioButton, OioIcon } from '@oinone/kunlun-vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { queryRoleList } from '../service';
 
 const columns = [

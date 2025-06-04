@@ -1,8 +1,8 @@
-import { ActiveRecord, RuntimeModel, RuntimeView, RuntimeViewAction } from '@kunlun/engine';
-import { ViewClientType } from '@kunlun/meta';
-import { useMatched } from '@kunlun/router';
-import { BooleanHelper, Optional, StringHelper } from '@kunlun/shared';
-import { ActiveRecordsWidget, ActiveRecordsWidgetProps, Widget } from '@kunlun/vue-widget';
+import { ActiveRecord, RuntimeModel, RuntimeView, RuntimeViewAction } from '@oinone/kunlun-engine';
+import { ViewClientType } from '@oinone/kunlun-meta';
+import { useMatched } from '@oinone/kunlun-router';
+import { BooleanHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
+import { ActiveRecordsWidget, ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { UrlQueryParameters } from '../types';
 
 // fixme @zbh 20230209 获取真实的当前客户端类型

@@ -1,4 +1,4 @@
-import { StableSlotProp } from '@kunlun/vue-ui-common';
+import { StableSlotProp } from '@oinone/kunlun-vue-ui-common';
 import { Slots, VNode } from 'vue';
 import { VueWidget } from '../basic';
 

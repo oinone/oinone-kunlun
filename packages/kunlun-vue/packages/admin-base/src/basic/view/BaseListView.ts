@@ -1,7 +1,7 @@
-import { ActiveRecord } from '@kunlun/engine';
-import { CallChaining } from '@kunlun/shared';
-import { SelectMode } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord } from '@oinone/kunlun-engine';
+import { CallChaining } from '@oinone/kunlun-shared';
+import { SelectMode } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseView, BaseViewProps } from '../token';
 import { QueryExpression } from '../types';
 

@@ -1,4 +1,4 @@
-import { serialExecutor } from '@kunlun/shared';
+import { serialExecutor } from '@oinone/kunlun-shared';
 import { ApolloLink, NextLink, Observable, Operation } from 'apollo-link';
 import { IResponseErrorResult, IResponseResult, NetworkInterceptor, NetworkMiddlewareHandler } from '../types';
 

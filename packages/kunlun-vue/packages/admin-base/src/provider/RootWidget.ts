@@ -1,13 +1,13 @@
-import { RouterPath, RuntimeContextManager } from '@kunlun/engine';
-import { GlobalConfig } from '@kunlun/meta';
-import { UrlHelper } from '@kunlun/shared';
-import { SPIFactory } from '@kunlun/spi';
-import { VueWidget } from '@kunlun/vue-widget';
+import { RouterPath, RuntimeContextManager } from '@oinone/kunlun-engine';
+import { GlobalConfig } from '@oinone/kunlun-meta';
+import { UrlHelper } from '@oinone/kunlun-shared';
+import { SPIFactory } from '@oinone/kunlun-spi';
+import { VueWidget } from '@oinone/kunlun-vue-widget';
 import { DefaultMetadataMainViewWidget } from '../main-view';
 import { RootComponentSPI } from '../spi';
 import { FirstResetPasswordWidget, ForgetPasswordWidget, HomePageWidget, LoginPageWidget } from '../view';
 import RootView from './Root.vue';
-import { setGlobalEnv } from '@kunlun/router';
+import { setGlobalEnv } from '@oinone/kunlun-router';
 
 interface Page extends RouterPath {
   slotName?: string;

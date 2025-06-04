@@ -1,6 +1,6 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { DateFormatMap, defaultDateFormat } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { DateFormatMap, defaultDateFormat } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { BaseFieldWidget } from '../../../basic';
 import { TableDateTimeFieldWidget } from './TableDateTimeFieldWidget';
 

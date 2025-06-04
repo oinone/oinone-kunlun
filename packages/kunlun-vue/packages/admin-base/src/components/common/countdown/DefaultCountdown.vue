@@ -11,8 +11,8 @@
   </div>
 </template>
 <script lang="ts">
-import { OioDateTimePickerFormatProps } from '@kunlun/vue-ui-common';
-import { translateValueByKey } from '@kunlun/engine';
+import { OioDateTimePickerFormatProps } from '@oinone/kunlun-vue-ui-common';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { computed, defineComponent } from 'vue';
 import { useDateTimePicker } from '../../../field/detail/date/use-date-time-picker';
 

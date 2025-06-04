@@ -20,8 +20,8 @@ import {
   useInjectOioFormContext,
   useInjectOioTabsContext,
   useProviderOioFormContext
-} from '@kunlun/vue-ui-mobile-vant';
-import { DslDefinition } from '@kunlun/dsl';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { DslDefinition } from '@oinone/kunlun-dsl';
 import { Tab as VanTab } from 'vant';
 import { computed, defineComponent, PropType } from 'vue';
 

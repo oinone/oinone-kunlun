@@ -5,14 +5,14 @@ import {
   RuntimeAction,
   RuntimeViewAction,
   translateValueByKey
-} from '@kunlun/engine';
-import { ActionType, ViewActionTarget } from '@kunlun/meta';
-import { MessageHub } from '@kunlun/request';
-import { useMatched } from '@kunlun/router';
-import { ReturnPromise } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { ModuleService } from '@kunlun/vue-admin-layout';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { ActionType, ViewActionTarget } from '@oinone/kunlun-meta';
+import { MessageHub } from '@oinone/kunlun-request';
+import { useMatched } from '@oinone/kunlun-router';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { ModuleService } from '@oinone/kunlun-vue-admin-layout';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseActionWidget } from '../../../../basic';
 import { PopupLoadDataResult } from '../typing';
 import { DialogViewActionWidget } from './DialogViewActionWidget';

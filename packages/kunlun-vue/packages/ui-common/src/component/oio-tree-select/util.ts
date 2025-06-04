@@ -1,4 +1,4 @@
-import { Optional } from '@kunlun/shared';
+import { Optional } from '@oinone/kunlun-shared';
 import { isString } from 'lodash-es';
 import { TreeSelectNode, TreeSelectProperties } from './model';
 

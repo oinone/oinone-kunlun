@@ -1,7 +1,7 @@
-import { ViewType } from '@kunlun/meta';
-import { CallChaining } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ViewType } from '@oinone/kunlun-meta';
+import { CallChaining } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseObjectView, BaseView, FormValidateResult } from '../../basic';
 
 @SPI.ClassFactory(BaseView.Token({ type: ViewType.Form }))

@@ -1,6 +1,6 @@
-import { Widget } from '@kunlun/vue-widget';
-import { ModelCache } from '@kunlun/engine';
-import { isRelationTtype } from '@kunlun/meta';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { ModelCache } from '@oinone/kunlun-engine';
+import { isRelationTtype } from '@oinone/kunlun-meta';
 import { queryAction } from './service';
 import {
   SelectInstance,

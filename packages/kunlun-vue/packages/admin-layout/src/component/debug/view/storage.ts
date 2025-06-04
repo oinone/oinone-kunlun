@@ -1,5 +1,5 @@
-import { RuntimeContext, RuntimeViewAction, ViewActionQueryParameter } from '@kunlun/engine';
-import { StandardEventManager } from '@kunlun/shared';
+import { RuntimeContext, RuntimeViewAction, ViewActionQueryParameter } from '@oinone/kunlun-engine';
+import { StandardEventManager } from '@oinone/kunlun-shared';
 import { DebugRequestInfo } from '../typing';
 
 enum EventKeys {

@@ -1,9 +1,9 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { useProviderMaskContext } from '@kunlun/vue-admin-layout';
-import { OioSpin, OioSpinProps } from '@kunlun/vue-ui-antd';
-import { PropRecordHelper } from '@kunlun/vue-ui-common';
-import { DslRender } from '@kunlun/vue-widget';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { useProviderMaskContext } from '@oinone/kunlun-vue-admin-layout';
+import { OioSpin, OioSpinProps } from '@oinone/kunlun-vue-ui-antd';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { DslRender } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, PropType, VNode } from 'vue';
 import { MetadataViewProps } from '../basic';
 import { useProviderMetaContext } from '../tags';

@@ -1,5 +1,5 @@
 {
-  "name": "@kunlun/router",
+  "name": "@oinone/kunlun-router",
   "version": "6.2.0",
   "main": "index.ts",
   "scripts": {
@@ -16,8 +16,8 @@
     "path-to-regexp": "6.2.0"
   },
   "devDependencies": {
-    "@kunlun/shared": "6.2.0",
-    "@kunlun/state": "6.2.0"
+    "@oinone/kunlun-shared": "6.2.0",
+    "@oinone/kunlun-state": "6.2.0"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

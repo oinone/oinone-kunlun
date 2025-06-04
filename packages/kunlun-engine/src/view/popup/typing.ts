@@ -1,4 +1,4 @@
-import { ObjectValue } from '@kunlun/request';
+import { ObjectValue } from '@oinone/kunlun-request';
 import { RuntimeAction, RuntimeViewAction } from '../../runtime-metadata';
 import { IWidget, WidgetProps } from '../widget';
 

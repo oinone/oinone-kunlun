@@ -1,4 +1,4 @@
-import { ServiceIdentifier } from '@kunlun/spi';
+import { ServiceIdentifier } from '@oinone/kunlun-spi';
 import { DebugErrorAnalysisResult, DebugResponseError } from '../../typing';
 
 /**

@@ -17,7 +17,7 @@ import {
   OioTabPosition,
   useInjectOioFormContext,
   useProviderOioFormContext
-} from '@kunlun/vue-ui-mobile-vant';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Tabs as VanTabs } from 'vant';
 import { computed, defineComponent, PropType } from 'vue';
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { ATextareaProps, OioTextareaProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { ATextareaProps, OioTextareaProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty, isNil } from 'lodash-es';
 import { createVNode, defineComponent, ref } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
@@ -8,8 +8,7 @@ import OioCustomInput from '../oio-input/oio-custome-input.vue';
 
 export default defineComponent({
   name: 'OioTextarea',
-  components: {
-  },
+  components: {},
   inheritAttrs: false,
   props: {
     ...OioTextareaProps
@@ -42,7 +41,7 @@ export default defineComponent({
       ...PropRecordHelper.convert(ATextareaProps, CastHelper.cast(this)),
       ...this.$attrs,
       readonly: this.readonly,
-      'onInput': (event) => this.$emit('update:value', event && event.target && event.target.value ),
+      onInput: (event) => this.$emit('update:value', event && event.target && event.target.value),
       ref: 'origin'
     };
     if (this.showCount && (!isNil(maxlength) || !isNil(truncateMaxLength))) {
@@ -58,7 +57,9 @@ export default defineComponent({
       textareaProps.class = StringHelper.append(textareaClassList, CastHelper.cast(this.$attrs.class));
     }
 
-    let textareaNode = this.readonly ? createVNode(OioCustomInput, { ...textareaProps, textarea: true }) : createVNode('textarea', textareaProps);
+    let textareaNode = this.readonly
+      ? createVNode(OioCustomInput, { ...textareaProps, textarea: true })
+      : createVNode('textarea', textareaProps);
     if (!isEmpty(otherProps)) {
       textareaNode = createVNode(
         'div',

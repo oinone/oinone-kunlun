@@ -47,9 +47,9 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
-import { OioIcon } from '@kunlun/vue-ui-common';
-import { OioGroup } from '@kunlun/vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { OioIcon } from '@oinone/kunlun-vue-ui-common';
+import { OioGroup } from '@oinone/kunlun-vue-ui-antd';
 import BizAuditRecordDetailFieldValue from './BizAuditRecordDetailFieldValue.vue';
 
 const commonColumns = [

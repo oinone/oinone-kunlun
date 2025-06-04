@@ -19,14 +19,14 @@
       <template v-if="!$slots.footer">
         <template v-if="actionReverse">
           <oio-button type="primary" :loading="actionLoading" @click="onOk"
-          >{{ okText || translate('kunlun.common.confirm') }}
+            >{{ okText || translate('kunlun.common.confirm') }}
           </oio-button>
           <oio-button @click="onCancel">{{ cancelText || translate('kunlun.common.cancel') }}</oio-button>
         </template>
         <template v-else>
           <oio-button @click="onCancel">{{ cancelText || translate('kunlun.common.cancel') }}</oio-button>
           <oio-button type="primary" @click="onOk" :loading="actionLoading"
-          >{{ okText || translate('kunlun.common.confirm') }}
+            >{{ okText || translate('kunlun.common.confirm') }}
           </oio-button>
         </template>
       </template>
@@ -35,8 +35,8 @@
 </template>
 
 <script lang="ts">
-import { OioButton, OioModal } from '@kunlun/vue-ui-mobile-vant';
-import { onAllMounted } from '@kunlun/vue-widget';
+import { OioButton, OioModal } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { defineComponent } from 'vue';
 import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../../basic';
 import { DEFAULT_PREFIX } from '../../../ui/theme';
@@ -86,5 +86,4 @@ export default defineComponent({
   }
 });
 </script>
-<style lang="scss">
-</style>
+<style lang="scss"></style>

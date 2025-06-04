@@ -28,11 +28,11 @@
   </div>
 </template>
 <script lang="ts">
-import { executeViewAction, RedirectTargetEnum } from '@kunlun/engine';
-import { translateValueByKey } from '@kunlun/engine';
-import { IMenu } from '@kunlun/meta';
-import { CastHelper } from '@kunlun/shared';
-import { useMatched, useRouter } from '@kunlun/vue-router';
+import { executeViewAction, RedirectTargetEnum } from '@oinone/kunlun-engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { IMenu } from '@oinone/kunlun-meta';
+import { CastHelper } from '@oinone/kunlun-shared';
+import { useMatched, useRouter } from '@oinone/kunlun-vue-router';
 import { Menu as AMenu } from 'ant-design-vue';
 import { defineComponent, onMounted, ref } from 'vue';
 import { getIFrameMenus } from '../service';

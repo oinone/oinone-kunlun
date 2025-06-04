@@ -1,4 +1,4 @@
-import { http } from '@kunlun/service';
+import { http } from '@oinone/kunlun-service';
 
 export const BizAuditRecordModel = 'data.audit.OperationLog';
 export const BizAuditRecordCommonDetailName = '操作日志detail';

@@ -1,7 +1,7 @@
 <script lang="ts">
-import { ActiveRecord, ActiveRecordExtendKeys, Pagination } from '@kunlun/engine';
+import { ActiveRecord, ActiveRecordExtendKeys, Pagination } from '@oinone/kunlun-engine';
 import { RowContext } from '../../ui';
-import { CSSStyle } from '@kunlun/shared';
+import { CSSStyle } from '@oinone/kunlun-shared';
 import {
   CommonGutterType,
   DEFAULT_PREFIX,
@@ -9,8 +9,8 @@ import {
   OioGalleryItem,
   OioPagination,
   StyleHelper
-} from '@kunlun/vue-ui-mobile-vant';
-import { PropRecordHelper } from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent, PropType, VNode } from 'vue';
 import { Icon as VanIcon } from 'vant';
 import { DEFAULT_VIEW_CLASS } from '../../ui/theme';

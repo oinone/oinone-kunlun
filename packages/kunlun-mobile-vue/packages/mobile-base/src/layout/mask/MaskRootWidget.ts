@@ -1,6 +1,6 @@
-import { StringHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { StringHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { MobileMaskWidget } from '../basic';
 import { BaseMaskLayoutWidget } from '../BaseMaskLayoutWidget';
 

@@ -1,5 +1,5 @@
-import { RuntimeContext } from '@kunlun/engine';
-import { ServiceIdentifier } from '@kunlun/spi';
+import { RuntimeContext } from '@oinone/kunlun-engine';
+import { ServiceIdentifier } from '@oinone/kunlun-spi';
 import { DebugErrorAnalysisResult } from '../../typing';
 
 /**

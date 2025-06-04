@@ -1,4 +1,4 @@
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { DebugErrorAnalysisResult, DebugResponseError } from '../../../../typing';
 import { DebugStackInfoService, DebugStackInfoServiceToken } from '../../DebugStackInfoService';
 import { DebugDefaultStackInfoService } from './DebugDefaultStackInfoService';

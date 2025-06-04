@@ -8,7 +8,7 @@ import {
   PropRecordHelper,
   useOioFormLayoutContext,
   useProviderOioCollapseContext
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { Collapse as ACollapse } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, ref, vShow, withDirectives } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

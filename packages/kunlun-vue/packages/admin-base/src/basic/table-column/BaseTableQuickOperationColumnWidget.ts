@@ -1,5 +1,5 @@
-import { RowContext, TableFixed, VxeTableHelper, VxeTableRowContext } from '@kunlun/vue-ui';
-import { ActiveRecordsWidgetProps, Widget } from '@kunlun/vue-widget';
+import { RowContext, TableFixed, VxeTableHelper, VxeTableRowContext } from '@oinone/kunlun-vue-ui';
+import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { createVNode, VNode } from 'vue';
 import type { VxeTableConstructor, VxeTableDefines, VxeTableMethods, VxeTablePrivateMethods } from 'vxe-table';
 import { UserPreferEventManager } from '../../service';

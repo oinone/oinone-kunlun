@@ -1,5 +1,5 @@
-import { SPI } from '@kunlun/spi';
-import { ViewWidget, VueWidget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { ViewWidget, VueWidget } from '@oinone/kunlun-vue-widget';
 import DefaultError from './DefaultError.vue';
 
 @SPI.ClassFactory(ViewWidget.Token({}))

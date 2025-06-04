@@ -1,4 +1,4 @@
-import { Optional } from '@kunlun/shared';
+import { Optional } from '@oinone/kunlun-shared';
 import { Node, NodeVisitor, VisitContext } from '../../types';
 import { AdapterContext, VisitorAdapter } from './types';
 

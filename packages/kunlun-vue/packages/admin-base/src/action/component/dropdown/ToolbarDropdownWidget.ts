@@ -1,6 +1,6 @@
-import { SPI } from '@kunlun/spi';
-import { translateValueByKey } from '@kunlun/engine';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
 import { DropdownWidget } from './DropdownWidget';
 

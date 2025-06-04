@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts">
-import { OioButton } from '@kunlun/vue-ui-antd';
+import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({

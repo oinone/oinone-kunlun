@@ -1,7 +1,7 @@
 <script lang="ts">
-import { useProviderMaskContext } from '@kunlun/vue-admin-layout';
-import { OioSpin, PropRecordHelper } from '@kunlun/vue-ui-antd';
-import { OioSpinProps } from '@kunlun/vue-ui-common';
+import { useProviderMaskContext } from '@oinone/kunlun-vue-admin-layout';
+import { OioSpin, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
+import { OioSpinProps } from '@oinone/kunlun-vue-ui-common';
 import { computed, createVNode, defineComponent } from 'vue';
 import { useProviderMetaContext } from '../../tags';
 

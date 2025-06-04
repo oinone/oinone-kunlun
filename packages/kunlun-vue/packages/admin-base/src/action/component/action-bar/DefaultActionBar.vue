@@ -1,11 +1,11 @@
 <script lang="ts">
 import { DownOutlined } from '@ant-design/icons-vue';
-import { ActiveRecord, translateValueByKey } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { CastHelper, CSSStyle, StringHelper, uniqueKeyGenerator } from '@kunlun/shared';
-import { ButtonType, IconPlacement, OioButton, OioCheckbox, OioSwitch } from '@kunlun/vue-ui-antd';
-import { ListSelectMode, OioDropdownTrigger, PropRecordHelper, StyleHelper } from '@kunlun/vue-ui-common';
-import { DslRenderDefinition, onAllMounted } from '@kunlun/vue-widget';
+import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { CastHelper, CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { ButtonType, IconPlacement, OioButton, OioCheckbox, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
+import { ListSelectMode, OioDropdownTrigger, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
+import { DslRenderDefinition, onAllMounted } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType, VNode, vShow, withDirectives, withModifiers } from 'vue';
 import { ActiveCountEnum, MoreActionRender, OperationColumnDirection } from '../../../typing';
@@ -258,7 +258,7 @@ export default defineComponent({
     if (this.justify) {
       style.justifyContent = this.justify;
     }
-    if(this.isFloat){
+    if (this.isFloat) {
       style.position = 'sticky';
       style.bottom = '0px';
       style.top = '0px';

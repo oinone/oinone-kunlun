@@ -1,9 +1,9 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { isDev } from '@kunlun/router';
-import { BooleanHelper, NumberHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { SliderDirection } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { isDev } from '@oinone/kunlun-router';
+import { BooleanHelper, NumberHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { SliderDirection } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';
 import DefaultSlider from './DefaultSlider.vue';

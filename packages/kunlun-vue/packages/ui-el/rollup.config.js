@@ -3,8 +3,8 @@ import rollupConfig from '../../scripts/build.config.js';
 
 export default rollupConfig(pkg.name, [
   '@element-plus/icons-vue',
-  '@kunlun/shared',
-  '@kunlun/vue-ui-common',
+  '@oinone/kunlun-shared',
+  '@oinone/kunlun-vue-ui-common',
   'element-plus',
   'lodash',
   'lodash-es',

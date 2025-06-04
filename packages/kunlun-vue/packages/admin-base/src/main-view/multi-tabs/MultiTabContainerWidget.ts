@@ -1,4 +1,4 @@
-import { MultiTabInstance, MultiTabWidget, RuntimeContextManager } from '@kunlun/engine';
+import { MultiTabInstance, MultiTabWidget, RuntimeContextManager } from '@oinone/kunlun-engine';
 import { MetadataViewWidget, MetadataViewWidgetProps } from '../../basic';
 
 export interface MultiTabContainerWidgetProps extends MetadataViewWidgetProps {

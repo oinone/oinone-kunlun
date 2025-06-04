@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CSSStyle, DateTimePickerMode, StringHelper } from '@kunlun/shared';
-import { OioDateTimeRangePickerProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CSSStyle, DateTimePickerMode, StringHelper } from '@oinone/kunlun-shared';
+import { OioDateTimeRangePickerProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { RangePicker as ARangePicker } from 'ant-design-vue';
 import { Component, createVNode, defineComponent, VNodeProps } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

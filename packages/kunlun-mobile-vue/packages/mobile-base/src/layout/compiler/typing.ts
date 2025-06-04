@@ -1,5 +1,5 @@
-import { IDslNode } from '@kunlun/meta';
-import { ViewWidget } from '@kunlun/vue-widget';
+import { IDslNode } from '@oinone/kunlun-meta';
+import { ViewWidget } from '@oinone/kunlun-vue-widget';
 
 type Align = 'left' | 'center' | 'right';
 

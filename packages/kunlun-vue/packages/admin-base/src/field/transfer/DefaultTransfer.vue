@@ -93,8 +93,8 @@
   </div>
 </template>
 <script lang="ts">
-import { ActiveRecord, translateValueByKey } from '@kunlun/engine';
-import { OioIcon } from '@kunlun/vue-ui-common';
+import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
+import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 import {
   CheckboxGroup as ACheckboxGroup,
   Pagination as APagination,

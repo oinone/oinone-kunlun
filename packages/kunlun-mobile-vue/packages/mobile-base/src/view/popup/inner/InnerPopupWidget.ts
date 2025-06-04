@@ -1,8 +1,8 @@
-import { DEFAULT_SLOT_NAME } from '@kunlun/dsl';
-import { ROOT_HANDLE, RuntimeContext } from '@kunlun/engine';
-import { BooleanHelper, Optional } from '@kunlun/shared';
-import { DrawerPlacement, InnerPopupSize, OioDrawerProps } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
+import { ROOT_HANDLE, RuntimeContext } from '@oinone/kunlun-engine';
+import { BooleanHelper, Optional } from '@oinone/kunlun-shared';
+import { DrawerPlacement, InnerPopupSize, OioDrawerProps } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../../typing';
 import { PopupWidget } from '../PopupWidget';
 import DefaultInnerPopup from './DefaultInnerPopup.vue';

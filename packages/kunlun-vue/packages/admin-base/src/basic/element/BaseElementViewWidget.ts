@@ -1,10 +1,10 @@
-import { parseConfigs, RelationUpdateType, ROOT_HANDLE, SubmitType, SubmitValue } from '@kunlun/engine';
-import { LifeCycleHeart, LifeCycleTypes } from '@kunlun/event';
-import { ViewMode } from '@kunlun/meta';
-import { Router } from '@kunlun/router';
-import { CallChaining, RSQLHelper } from '@kunlun/shared';
-import { useRouter } from '@kunlun/vue-router';
-import { ActiveRecordsWidgetProps, Widget, WidgetSubjection } from '@kunlun/vue-widget';
+import { parseConfigs, RelationUpdateType, ROOT_HANDLE, SubmitType, SubmitValue } from '@oinone/kunlun-engine';
+import { LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
+import { ViewMode } from '@oinone/kunlun-meta';
+import { Router } from '@oinone/kunlun-router';
+import { CallChaining, RSQLHelper } from '@oinone/kunlun-shared';
+import { useRouter } from '@oinone/kunlun-vue-router';
+import { ActiveRecordsWidgetProps, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { FETCH_DATA_WIDGET_PRIORITY, REFRESH_FORM_DATA } from '../constant';
 import { BaseElementWidget } from '../token';
 

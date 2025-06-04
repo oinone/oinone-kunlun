@@ -1,8 +1,8 @@
-import { Pagination } from '@kunlun/engine';
-import { SYSTEM_MODULE_NAME } from '@kunlun/meta';
-import { ObjectValue, RequestContext } from '@kunlun/request';
-import { http, IQueryPageResult } from '@kunlun/service';
-import { GraphqlHelper } from '@kunlun/shared';
+import { Pagination } from '@oinone/kunlun-engine';
+import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
+import { ObjectValue, RequestContext } from '@oinone/kunlun-request';
+import { http, IQueryPageResult } from '@oinone/kunlun-service';
+import { GraphqlHelper } from '@oinone/kunlun-shared';
 import { ResourceAddress } from '../../typing';
 
 export class AddressService {

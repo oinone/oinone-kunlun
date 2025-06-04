@@ -1,6 +1,6 @@
-import { RuntimeM2OField } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { RuntimeM2OField } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 import { BaseFieldWidget, FormSubviewObjectFieldWidget } from '../../../../basic';
 import { FORM_WIDGET } from '../../../../typing';
 

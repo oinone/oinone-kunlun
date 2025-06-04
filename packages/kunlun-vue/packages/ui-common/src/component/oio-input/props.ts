@@ -1,4 +1,4 @@
-import { BigNumber } from '@kunlun/shared';
+import { BigNumber } from '@oinone/kunlun-shared';
 import { PropType } from 'vue';
 
 const MIN_PRECISION = 0;

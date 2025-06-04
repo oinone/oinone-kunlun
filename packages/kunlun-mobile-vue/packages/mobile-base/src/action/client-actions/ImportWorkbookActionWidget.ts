@@ -1,10 +1,10 @@
-import { RuntimeServerAction, SubmitValue } from '@kunlun/engine';
-import { ModelDefaultActionName, ModelFieldType } from '@kunlun/meta';
-import { getSessionPath } from '@kunlun/request';
-import { ReturnPromise } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { createEasyImportTask, importTaskWithTableField } from '@kunlun/vue-ui-common';
-import { OioNotification } from '@kunlun/vue-ui-mobile-vant';
+import { RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
+import { ModelDefaultActionName, ModelFieldType } from '@oinone/kunlun-meta';
+import { getSessionPath } from '@oinone/kunlun-request';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { createEasyImportTask, importTaskWithTableField } from '@oinone/kunlun-vue-ui-common';
+import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { isFunction } from 'lodash-es';
 import { ClickResult } from '../../typing';
 import { ActionWidget } from '../component';

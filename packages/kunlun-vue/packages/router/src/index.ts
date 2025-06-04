@@ -6,4 +6,4 @@ export * from './Match';
 export * from './Redirect';
 
 export * from './helpers/useRouter';
-export { useMatched } from '@kunlun/router';
+export { useMatched } from '@oinone/kunlun-router';

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { DEFAULT_PREFIX } from '@kunlun/theme';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import {
   FormLayout,
   OioTabAlign,
@@ -7,7 +7,7 @@ import {
   OioTabs,
   PropRecordHelper,
   useOioFormLayoutContext
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, PropType } from 'vue';
 
 export default defineComponent({

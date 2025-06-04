@@ -1,5 +1,5 @@
-import { ActiveRecord, FunctionOptions, FunctionService, RuntimeModel, StaticMetadata } from '@kunlun/engine';
-import { Condition } from '@kunlun/request';
+import { ActiveRecord, FunctionOptions, FunctionService, RuntimeModel, StaticMetadata } from '@oinone/kunlun-engine';
+import { Condition } from '@oinone/kunlun-request';
 import { ExcelExportTask } from '../../typing';
 import { StaticFileFunction, StaticFileMetadata } from './metadata';
 

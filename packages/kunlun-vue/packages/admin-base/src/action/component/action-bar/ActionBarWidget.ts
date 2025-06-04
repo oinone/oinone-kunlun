@@ -1,7 +1,7 @@
-import { CallChaining, NumberHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { FlexRowJustify, ListSelectMode, OioDropdownTrigger } from '@kunlun/vue-ui-common';
-import { ActiveRecordsWidgetProps, Widget } from '@kunlun/vue-widget';
+import { CallChaining, NumberHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { FlexRowJustify, ListSelectMode, OioDropdownTrigger } from '@oinone/kunlun-vue-ui-common';
+import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseActionGroupWidget, BaseElementWidget } from '../../../basic';
 import { ActiveCountEnum, MoreActionRender } from '../../../typing';
@@ -32,11 +32,10 @@ export class ActionBarWidget<
   @Widget.Provide()
   protected inline: boolean | undefined;
 
-
   @Widget.Reactive()
-  protected get isFloat():boolean | undefined{
-    const { isFloat } = this.getDsl()
-    return isFloat
+  protected get isFloat(): boolean | undefined {
+    const { isFloat } = this.getDsl();
+    return isFloat;
   }
 
   @Widget.Reactive()

@@ -10,11 +10,11 @@ import {
   RuntimeView,
   RuntimeViewAction,
   translateValueByKey
-} from '@kunlun/engine';
-import { ActionContextType, ViewMode, ViewType } from '@kunlun/meta';
-import { debugConsole, ReturnPromise, uniqueKeyGenerator } from '@kunlun/shared';
-import { OioNotification } from '@kunlun/vue-ui-antd';
-import { VueWidget, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { ActionContextType, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { debugConsole, ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { createPopupDslDefinition, PopupDslDefinition, seekPopupDslDefinition } from '../../action';
 import { MetadataViewWidget } from '../../basic';
 import { createRuntimeContextByView, createRuntimeContextByViewAction } from '../../tags';

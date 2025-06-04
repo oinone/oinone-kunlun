@@ -1,8 +1,8 @@
-import { ActiveRecord, executeViewAction, RuntimeViewAction } from '@kunlun/engine';
-import { ActionType } from '@kunlun/meta';
-import { http } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord, executeViewAction, RuntimeViewAction } from '@oinone/kunlun-engine';
+import { ActionType } from '@oinone/kunlun-meta';
+import { http } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { ActionWidget } from '../../../action/component/action/ActionWidget';
 import { gotoPrevPage } from '../../../util';
 import { IPermission } from '../type';
@@ -96,7 +96,9 @@ export class PermissionSubmitActionWidget extends ActionWidget {
       fp.forEach((p) => permissions.push(p));
 
       const defaultAuthGroupName = `页面配置#${role.name}#权限组`;
-      const authGroupId = ((role.groups as { id: number, name: string }[]).find((a => a.name === defaultAuthGroupName)) || {}).id;
+      const authGroupId = (
+        (role.groups as { id: number; name: string }[]).find((a) => a.name === defaultAuthGroupName) || {}
+      ).id;
       const method = role.id ? 'interactionUpdate' : 'interactionCreate';
       const submitStr = `
     mutation {

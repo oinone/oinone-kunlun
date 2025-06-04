@@ -1,8 +1,8 @@
-import { ColSpanEnum } from '@kunlun/engine';
-import { NumberHelper, Optional } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { DEFAULT_COLS } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ColSpanEnum } from '@oinone/kunlun-engine';
+import { NumberHelper, Optional } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { DEFAULT_COLS } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNaN, isNil, isString } from 'lodash-es';
 import { BasePackWidget } from '../../basic';
 import DefaultCol from './DefaultCol.vue';

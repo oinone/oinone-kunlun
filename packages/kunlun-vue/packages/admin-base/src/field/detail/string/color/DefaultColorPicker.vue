@@ -16,10 +16,10 @@
   </detail-common-field>
 </template>
 <script lang="ts">
-import { ColorFormat, ColorInputPlacement, DEFAULT_PREDEFINE } from '@kunlun/vue-ui-common';
-import { OioColorPicker } from '@kunlun/vue-ui-el';
+import { ColorFormat, ColorInputPlacement, DEFAULT_PREDEFINE } from '@oinone/kunlun-vue-ui-common';
+import { OioColorPicker } from '@oinone/kunlun-vue-ui-el';
 import { defineComponent, PropType } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../basic';
 import DetailCommonField from '../../common/DetailCommonField.vue';
 

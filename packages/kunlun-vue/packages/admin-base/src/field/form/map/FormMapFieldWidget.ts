@@ -1,8 +1,8 @@
-import { SubmitHandler, SubmitValue, translateValueByKey } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { CallChaining, NumberHelper, ReturnPromise } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { SubmitHandler, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { CallChaining, NumberHelper, ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
 import { ValidatorInfo } from '../../../typing';
 import DefaultMap from './DefaultMap.vue';

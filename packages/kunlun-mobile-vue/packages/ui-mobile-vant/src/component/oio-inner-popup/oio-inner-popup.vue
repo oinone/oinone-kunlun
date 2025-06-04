@@ -1,5 +1,11 @@
 <script lang="ts">
-import { ButtonType, DrawerPlacement, OioIcon, OioInnerPopupProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import {
+  ButtonType,
+  DrawerPlacement,
+  OioIcon,
+  OioInnerPopupProps,
+  PropRecordHelper
+} from '@oinone/kunlun-vue-ui-common';
 import { isFunction, isString } from 'lodash-es';
 import { computed, createVNode, defineComponent, Teleport, VNode, VNodeProps, vShow, watch, withDirectives } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

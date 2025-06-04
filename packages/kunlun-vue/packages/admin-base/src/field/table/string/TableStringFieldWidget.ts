@@ -1,8 +1,8 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { RowContext } from '@kunlun/vue-ui';
-import { InputType } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { RowContext } from '@oinone/kunlun-vue-ui';
+import { InputType } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { VNode } from 'vue';
 import { BaseFieldWidget, BaseTableFieldWidget } from '../../../basic';
 import { toCiphertext } from '../../util';

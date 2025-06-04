@@ -1,7 +1,7 @@
-import { ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { OioTreeNode } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../basic';
 import { TreeData } from '../../typing';
 import { AbstractTreeElementWidget } from './AbstractTreeElementWidget';

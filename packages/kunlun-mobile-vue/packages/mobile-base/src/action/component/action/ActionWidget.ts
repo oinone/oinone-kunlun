@@ -8,17 +8,17 @@ import {
   buildQueryCondition,
   resolveDynamicExpression,
   translate
-} from '@kunlun/engine';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
-import { ActionContextType, ActionElement, IAction, ViewActionTarget, ViewType } from '@kunlun/meta';
-import { BooleanHelper, debugConsole, GraphqlHelper, ReturnPromise } from '@kunlun/shared';
-import { Subject } from '@kunlun/state';
-import { ButtonBizStyle, ButtonType, PopconfirmPlacement, ConfirmType } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { ActionContextType, ActionElement, IAction, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper, debugConsole, GraphqlHelper, ReturnPromise } from '@oinone/kunlun-shared';
+import { Subject } from '@oinone/kunlun-state';
+import { ButtonBizStyle, ButtonType, PopconfirmPlacement, ConfirmType } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString } from 'lodash-es';
 import { Component, toRaw } from 'vue';
-import { DEFAULT_TRUE_CONDITION } from '@kunlun/service';
-import { Condition } from '@kunlun/request';
+import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
+import { Condition } from '@oinone/kunlun-request';
 import { BaseActionWidget, BaseActionWidgetProps, BaseView, QueryExpression } from '../../../basic';
 import { ClickResult, fetchPopconfirmPlacement } from '../../../typing';
 import { executeConfirm } from '../../../util';

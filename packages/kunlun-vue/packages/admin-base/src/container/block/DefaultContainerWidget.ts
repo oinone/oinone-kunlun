@@ -1,7 +1,7 @@
-import { BooleanHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
-import { StyleHelper } from '@kunlun/vue-ui-common';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { isNil, isString } from 'lodash-es';
 import { BasePackWidget } from '../../basic';
 import { DefaultRowWidget } from './DefaultRowWidget';

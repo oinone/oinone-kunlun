@@ -1,5 +1,5 @@
-import { ModelCache } from '@kunlun/engine';
-import { http } from '@kunlun/service';
+import { ModelCache } from '@oinone/kunlun-engine';
+import { http } from '@oinone/kunlun-service';
 
 export enum AppBindType {
   MENU = 'MENU',

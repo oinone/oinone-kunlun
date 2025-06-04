@@ -11,8 +11,8 @@ import {
   ModelFieldType,
   ModelType,
   QueryType
-} from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
+} from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
 import {
   customQuery,
   customQueryPage,
@@ -22,14 +22,14 @@ import {
   IQueryPageResult,
   queryOne,
   queryPage
-} from '@kunlun/service';
+} from '@oinone/kunlun-service';
 import {
   BooleanHelper,
   GraphqlHelper,
   RSQLCompositeOperators,
   RSQLLogicalOperator,
   RSQLOperators
-} from '@kunlun/shared';
+} from '@oinone/kunlun-shared';
 import { ExperimentalConfigManager } from '../experimental';
 import {
   getRealTtype,

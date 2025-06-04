@@ -1,7 +1,7 @@
-import { QueryPageResult, RuntimeViewAction } from '@kunlun/engine';
-import { IModule, SYSTEM_MODULE_NAME } from '@kunlun/meta';
-import { gql } from '@kunlun/request';
-import { http } from '@kunlun/service';
+import { QueryPageResult, RuntimeViewAction } from '@oinone/kunlun-engine';
+import { IModule, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
+import { gql } from '@oinone/kunlun-request';
+import { http } from '@oinone/kunlun-service';
 
 export class ModuleService {
   public static async queryApplications(): Promise<IModule[]> {

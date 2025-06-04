@@ -1,6 +1,6 @@
-import { translate } from '@kunlun/engine';
-import { MessageHub, MessageOptions } from '@kunlun/request';
-import { NotificationType, OioNotification } from '@kunlun/vue-ui-mobile-vant';
+import { translate } from '@oinone/kunlun-engine';
+import { MessageHub, MessageOptions } from '@oinone/kunlun-request';
+import { NotificationType, OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { get as getValue } from 'lodash-es';
 import zh_CN from '../locale/zh_CN';
 

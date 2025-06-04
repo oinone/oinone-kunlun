@@ -44,7 +44,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, computed, onMounted } from 'vue';
-import { OioIcon } from '@kunlun/vue-ui-common';
+import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { Icon } from 'vant';
 
 export default defineComponent({

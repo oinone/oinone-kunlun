@@ -1,4 +1,4 @@
-import { ModelFieldType } from '@kunlun/meta';
+import { ModelFieldType } from '@oinone/kunlun-meta';
 import {
   generatorGQLResponseParameterMap,
   GQL,
@@ -8,8 +8,8 @@ import {
   GQLResponseParameterBuilder,
   GQLResponseParameterMap,
   isGQLResponseParameterMap
-} from '@kunlun/request';
-import { BigNumber, BooleanHelper, GraphqlHelper } from '@kunlun/shared';
+} from '@oinone/kunlun-request';
+import { BigNumber, BooleanHelper, GraphqlHelper } from '@oinone/kunlun-shared';
 import { isArray, toString } from 'lodash-es';
 import { FunctionCache, MemoryCache } from '../cache';
 import {

@@ -1,9 +1,9 @@
-import { ActiveRecord, RuntimeO2MField, SubmitValue, ViewCache } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { HttpClient } from '@kunlun/request';
-import { CallChaining } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord, RuntimeO2MField, SubmitValue, ViewCache } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { HttpClient } from '@oinone/kunlun-request';
+import { CallChaining } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { AsyncFormSubviewListFieldWidget, FormFieldWidget } from '../../../basic';
 import { createRuntimeContextForWidget } from '../../../tags';
 import { IPermission, ResourcePermissionFieldGroupsModel, ResourcePermissionModel } from '../type';

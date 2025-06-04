@@ -1,5 +1,5 @@
-import { ModelFieldType, isNumberTtype, isStringTtype, deepClone } from '@kunlun/meta';
-import { Condition, DefaultComparisonOperator } from '@kunlun/request';
+import { ModelFieldType, isNumberTtype, isStringTtype, deepClone } from '@oinone/kunlun-meta';
+import { Condition, DefaultComparisonOperator } from '@oinone/kunlun-request';
 import { IExpSelectOption } from './Common';
 import { IVariableItem, VariableItemType } from './ExpressionDefinition';
 import { translateExpValue } from '../share';

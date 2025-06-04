@@ -19,8 +19,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { OioIcon } from '@kunlun/vue-ui-common';
-import { translateValueByKey } from '@kunlun/engine';
+import { OioIcon } from '@oinone/kunlun-vue-ui-common';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import CommonRow from './CommonRow.vue';
 
 export default defineComponent({

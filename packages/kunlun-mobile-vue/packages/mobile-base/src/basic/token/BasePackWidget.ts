@@ -1,8 +1,8 @@
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
-import { ViewType } from '@kunlun/meta';
-import { Constructor, NumberHelper } from '@kunlun/shared';
-import { SPI, SPISingleSelector, SPITokenFactory } from '@kunlun/spi';
-import { PathWidgetProps, Widget } from '@kunlun/vue-widget';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { ViewType } from '@oinone/kunlun-meta';
+import { Constructor, NumberHelper } from '@oinone/kunlun-shared';
+import { SPI, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
+import { PathWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { PopupScene } from '../../typing';
 import { BaseRuntimePropertiesWidget } from '../common';

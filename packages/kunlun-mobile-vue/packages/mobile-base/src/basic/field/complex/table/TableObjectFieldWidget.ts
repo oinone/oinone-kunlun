@@ -1,6 +1,6 @@
-import { ActiveRecord } from '@kunlun/engine';
+import { ActiveRecord } from '@oinone/kunlun-engine';
 import { RowContext } from '../../../../ui';
-import { Widget } from '@kunlun/vue-widget';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { VNode } from 'vue';
 import { TableComplexFieldWidget } from './TableComplexFieldWidget';
 

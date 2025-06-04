@@ -1,5 +1,5 @@
-import { DslDefinition, DslDefinitionType } from '@kunlun/dsl';
-import { BooleanHelper } from '@kunlun/shared';
+import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { isObjectLike } from 'lodash-es';
 import { RuntimeContext } from '../runtime-context';
 

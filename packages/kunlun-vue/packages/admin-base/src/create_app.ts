@@ -1,4 +1,4 @@
-import { createVueRouter } from '@kunlun/vue-router';
+import { createVueRouter } from '@oinone/kunlun-vue-router';
 import Antd from 'ant-design-vue';
 import { createApp as createVueApp } from 'vue';
 import VXETable from 'vxe-table';

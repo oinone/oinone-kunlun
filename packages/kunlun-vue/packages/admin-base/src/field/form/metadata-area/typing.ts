@@ -1,5 +1,5 @@
-import { RuntimeAction, RuntimeModelField } from '@kunlun/engine';
-import { ActionType } from '@kunlun/meta';
+import { RuntimeAction, RuntimeModelField } from '@oinone/kunlun-engine';
+import { ActionType } from '@oinone/kunlun-meta';
 import type { TransferProps } from 'ant-design-vue';
 import { definePropertyTranslate } from '../../../util';
 

@@ -6,7 +6,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { OioInput } from '@kunlun/vue-ui-antd';
+import { OioInput } from '@oinone/kunlun-vue-ui-antd';
 
 export default defineComponent({
   props: ['imageSrc', 'reload', 'change', 'value', 'blur', 'focus'],

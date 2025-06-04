@@ -1,7 +1,7 @@
-import { RuntimeView, ViewCache } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { RuntimeView, ViewCache } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormWidget } from '../../form';
 import { FormFieldWidget } from '../../../basic/field';
 import { createRuntimeContextForWidget } from '../../../tags';

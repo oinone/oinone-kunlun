@@ -8,14 +8,14 @@ import {
   OioProvider,
   systemMajorConfig,
   translateValueByKey
-} from '@kunlun/engine';
-import { RuntimeConfig, SYSTEM_MODULE_NAME } from '@kunlun/meta';
-import { gql, HttpClientError, ILevel, useMessageHub } from '@kunlun/request';
-import { Router } from '@kunlun/router';
-import { http } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { RouterWidget, useRouter } from '@kunlun/vue-router';
-import { OioNotification } from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-engine';
+import { RuntimeConfig, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
+import { gql, HttpClientError, ILevel, useMessageHub } from '@oinone/kunlun-request';
+import { Router } from '@oinone/kunlun-router';
+import { http } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { RouterWidget, useRouter } from '@oinone/kunlun-vue-router';
+import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import {
   defaultLoginErrorMessages,
   defaultLoginPageSettings,
@@ -27,8 +27,8 @@ import {
   loginMessageHubName,
   LoginMode,
   RuntimeLanguage
-} from '@kunlun/vue-ui-common';
-import { VueWidget, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-ui-common';
+import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { toString } from 'lodash-es';
 import { BaseI18nRouterWidget } from '../../basic/BaseI18nRouterWidget';
 

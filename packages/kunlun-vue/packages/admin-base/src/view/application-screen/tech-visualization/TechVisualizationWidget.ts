@@ -1,7 +1,7 @@
-import { HttpClient } from '@kunlun/request';
-import { translateValueByKey } from '@kunlun/engine';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { HttpClient } from '@oinone/kunlun-request';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
 
 import TechVisualization from './TechVisualization.vue';

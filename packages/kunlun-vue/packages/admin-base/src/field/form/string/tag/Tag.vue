@@ -23,10 +23,10 @@
 </template>
 <script lang="ts">
 import { CloseCircleFilled, CloseOutlined } from '@ant-design/icons-vue';
-import { BooleanHelper } from '@kunlun/shared';
-import { translateValueByKey } from '@kunlun/engine';
-import { OioNotification } from '@kunlun/vue-ui-antd';
-import { ViewType } from '@kunlun/meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { ViewType } from '@oinone/kunlun-meta';
 import { Tag as ATag } from 'ant-design-vue';
 import { computed, defineComponent, ref, watch } from 'vue';
 import { OioCommonProps, OioMetadataProps, usePlaceholderProps } from '../../../../basic';

@@ -19,7 +19,7 @@
         </div>
       </slot>
       <div class="van-dialog__content">
-        <div class="van-dialog__message" :class="{'van-dialog__message--has-title' : $slots.title || title}">
+        <div class="van-dialog__message" :class="{ 'van-dialog__message--has-title': $slots.title || title }">
           <slot>{{ message }}</slot>
         </div>
       </div>
@@ -47,7 +47,7 @@
   </van-popup>
 </template>
 <script lang="ts">
-import { ModalWidthType, OioModalProps, StyleHelper, useModal } from '@kunlun/vue-ui-common';
+import { ModalWidthType, OioModalProps, StyleHelper, useModal } from '@oinone/kunlun-vue-ui-common';
 import { Popup as VanPopup } from 'vant';
 import { defineComponent, PropType } from 'vue';
 import { isNumber } from 'lodash-es';

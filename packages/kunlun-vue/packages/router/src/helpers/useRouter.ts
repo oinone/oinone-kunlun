@@ -1,5 +1,5 @@
 import { getCurrentInstance } from 'vue';
-import { Router } from '@kunlun/router';
+import { Router } from '@oinone/kunlun-router';
 
 // export type Router = Omit<ReturnType<typeof createRouter>, '_instance' | 'ignite' | 'activatedRoute'>;
 export const useRouter = (): { router: Router } => {

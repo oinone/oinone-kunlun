@@ -50,7 +50,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, watch } from 'vue';
-import { OioSpin, OioEmptyData } from '@kunlun/vue-ui-antd';
+import { OioSpin, OioEmptyData } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { relationSelectSetup, RelationSelectProps } from '../../../prop';
 import { useInjectOioDefaultFormContext } from '../../../../basic';

@@ -8,8 +8,8 @@
   </div>
 </template>
 <script lang="ts">
-import { ActiveRecord, translateValueByKey } from '@kunlun/engine';
-import { SelectItem } from '@kunlun/vue-ui-common';
+import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
+import { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { Radio as ARadio, RadioGroup as ARadioGroup } from 'ant-design-vue';
 import { computed, defineComponent, PropType } from 'vue';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../basic';

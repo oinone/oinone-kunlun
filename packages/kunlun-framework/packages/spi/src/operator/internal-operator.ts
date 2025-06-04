@@ -1,4 +1,4 @@
-import { debugConsole } from '@kunlun/shared';
+import { debugConsole } from '@oinone/kunlun-shared';
 import { InternalMatchKey, MatchKeys } from '../typing/match-key';
 import { isMultiValueNode, MatchNode, MultiValueNode, NodeType, SingleValueNode } from '../typing/node';
 import { isMatchAnyValue, isMatchArrayValue, MatchValues, Options } from '../typing/options';
@@ -72,8 +72,9 @@ function _buildMatchNodeOptions(options: Record<string, any>, node: NodeType<any
   if (!node) {
     return;
   }
-  options[node.matchKey.key] = (node as SingleValueNode<any>).matchValue || (node as MultiValueNode<any>).matchValues?.join(',');
-  _buildMatchNodeOptions(options, node.parent)
+  options[node.matchKey.key] =
+    (node as SingleValueNode<any>).matchValue || (node as MultiValueNode<any>).matchValues?.join(',');
+  _buildMatchNodeOptions(options, node.parent);
 }
 
 export class InternalOperator<V> {
@@ -120,7 +121,7 @@ export class InternalOperator<V> {
     }
     debugConsole.run(() => {
       const debugKeys = Object.keys(options).filter((a) => a !== 'priority');
-      console.table({ '匹配入参': options, '匹配结果': matchedOptions }, debugKeys);
+      console.table({ 匹配入参: options, 匹配结果: matchedOptions }, debugKeys);
     });
     return res;
   }

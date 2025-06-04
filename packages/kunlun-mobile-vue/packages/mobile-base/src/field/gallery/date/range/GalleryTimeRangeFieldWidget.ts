@@ -1,6 +1,6 @@
-import { ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../../basic';
 import { DetailTimeRangeFieldWidget } from '../../../detail';
 import ReadonlyDateTimeRangePicker from './ReadonlyDateTimeRangePicker.vue';

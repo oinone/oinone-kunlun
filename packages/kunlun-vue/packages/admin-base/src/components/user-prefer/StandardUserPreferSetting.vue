@@ -1,7 +1,14 @@
 <script lang="ts">
-import { uniqueKeyGenerator } from '@kunlun/shared';
-import { ButtonType, InputSearchEvent, OioButton, OioCheckbox, OioInputSearch, OioModal } from '@kunlun/vue-ui-antd';
-import { OioIcon } from '@kunlun/vue-ui-common';
+import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import {
+  ButtonType,
+  InputSearchEvent,
+  OioButton,
+  OioCheckbox,
+  OioInputSearch,
+  OioModal
+} from '@oinone/kunlun-vue-ui-antd';
+import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { Transfer as ATransfer } from 'ant-design-vue';
 import AListBody from 'ant-design-vue/es/transfer/ListBody';
 import Sortable from 'sortablejs';

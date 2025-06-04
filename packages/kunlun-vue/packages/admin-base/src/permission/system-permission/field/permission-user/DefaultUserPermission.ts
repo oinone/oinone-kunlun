@@ -1,8 +1,8 @@
-import { ViewType } from '@kunlun/meta';
-import { ViewCache } from '@kunlun/engine';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
-import { Condition } from '@kunlun/request';
+import { ViewType } from '@oinone/kunlun-meta';
+import { ViewCache } from '@oinone/kunlun-engine';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { Condition } from '@oinone/kunlun-request';
 
 import { FormFieldWidget } from '../../../../basic';
 import { DefaultFieldPermissionWidget } from '../permission-field/DefaultFieldPermissionWidget';

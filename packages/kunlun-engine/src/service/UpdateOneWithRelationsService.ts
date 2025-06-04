@@ -1,4 +1,4 @@
-import { GQLBuilder, GQLRequestParameterBuilder } from '@kunlun/request';
+import { GQLBuilder, GQLRequestParameterBuilder } from '@oinone/kunlun-request';
 import { isRelation2MField, RequestModelField } from '../runtime-context';
 import { RuntimeModel, RuntimeRelationField } from '../runtime-metadata';
 import { SubmitRelationValue, SubmitValue } from '../submit';

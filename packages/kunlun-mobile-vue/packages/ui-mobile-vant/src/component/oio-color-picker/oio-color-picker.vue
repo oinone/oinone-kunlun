@@ -10,13 +10,20 @@
       <oio-color-preview :value="value" />
     </div>
     <teleport to="body">
-      <color-picker v-if="(!readonly || !disabled) && show" ref="colorPickerRef" :color="color" :spare-color="predefineColors" @confirm="handleChange" @show="(val) => show = val" />
+      <color-picker
+        v-if="(!readonly || !disabled) && show"
+        ref="colorPickerRef"
+        :color="color"
+        :spare-color="predefineColors"
+        @confirm="handleChange"
+        @show="(val) => (show = val)"
+      />
     </teleport>
   </div>
 </template>
 <script lang="ts">
-import { autoRgba, autoRgbaStr } from '@kunlun/shared';
-import { OioColorPickerProps } from '@kunlun/vue-ui-common';
+import { autoRgba, autoRgbaStr } from '@oinone/kunlun-shared';
+import { OioColorPickerProps } from '@oinone/kunlun-vue-ui-common';
 import ColorPicker from './ColorPicker.vue';
 import OioColorPreview from './oio-color-preview.vue';
 import { computed, defineComponent, nextTick, ref } from 'vue';
@@ -48,7 +55,7 @@ export default defineComponent({
       return [...rgbaRes, ...usableColors].map((a) => autoRgba(a));
     });
 
-    function handleChange(res: {rgba: any, hex: string}) {
+    function handleChange(res: { rgba: any; hex: string }) {
       const rgba = res.rgba;
       const val = `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`;
       if (val && !(props.predefine || []).includes(val) && !lastColors.value.includes(val)) {

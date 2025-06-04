@@ -1,5 +1,5 @@
-import { Condition } from '@kunlun/request';
-import { BooleanHelper } from '@kunlun/shared';
+import { Condition } from '@oinone/kunlun-request';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { isBoolean, isNil } from 'lodash-es';
 
 export enum RefreshCallChainingScope {

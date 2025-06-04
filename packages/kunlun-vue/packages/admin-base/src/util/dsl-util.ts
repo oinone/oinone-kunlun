@@ -1,8 +1,8 @@
-import { VueWidget, Widget } from '@kunlun/vue-widget';
-import { ActiveRecordExtendKeys } from '@kunlun/engine';
+import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
+import { ActiveRecordExtendKeys } from '@oinone/kunlun-engine';
 import { ActionWidget, ActionBarWidget, RowActionBarWidget } from '../action/component';
 import { BaseSearchWidget } from '../basic/BaseSearchWidget';
-import { DslDefinitionType } from '@kunlun/dsl';
+import { DslDefinitionType } from '@oinone/kunlun-dsl';
 
 export const queryDslWidget = <T extends VueWidget>(
   widgets: Widget[] | undefined,

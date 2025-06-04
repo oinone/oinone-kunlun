@@ -1,7 +1,7 @@
 <script lang="ts">
-import { translateValueByKey } from '@kunlun/engine';
-import { OioIcon, OioInputSearch, OioTooltip } from '@kunlun/vue-ui-antd';
-import { DESIGNER_ICON_LIST, MENU_ICON_LIST } from '@kunlun/vue-ui-common';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { OioIcon, OioInputSearch, OioTooltip } from '@oinone/kunlun-vue-ui-antd';
+import { DESIGNER_ICON_LIST, MENU_ICON_LIST } from '@oinone/kunlun-vue-ui-common';
 import { RadioButton as ARadioButton, RadioGroup as ARadioGroup } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, PropType, ref } from 'vue';
 import { IconDefine } from './typing';

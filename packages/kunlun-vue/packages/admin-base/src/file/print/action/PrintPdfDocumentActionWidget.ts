@@ -1,10 +1,10 @@
-import { RuntimeContext, RuntimeServerAction, SubmitValue } from '@kunlun/engine';
-import { ModelDefaultActionName } from '@kunlun/meta';
-import { Condition, GQL } from '@kunlun/request';
-import { DEFAULT_TRUE_CONDITION } from '@kunlun/service';
-import { BooleanHelper, GraphqlHelper, ReturnPromise } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { RuntimeContext, RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
+import { ModelDefaultActionName } from '@oinone/kunlun-meta';
+import { Condition, GQL } from '@oinone/kunlun-request';
+import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
+import { BooleanHelper, GraphqlHelper, ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { ActionWidget } from '../../../action';
 import { ClickResult } from '../../../typing';
 import { AbstractTaskAction } from '../../task';

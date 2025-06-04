@@ -1,5 +1,5 @@
-import { DslDefinition } from '@kunlun/dsl';
-import { ViewType } from '@kunlun/meta';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { ViewType } from '@oinone/kunlun-meta';
 import { BaseRuntimeModelMetadata } from './base';
 
 /**

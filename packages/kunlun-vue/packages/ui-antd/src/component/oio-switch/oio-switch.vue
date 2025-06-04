@@ -1,5 +1,5 @@
 <script lang="ts">
-import { OioSwitchProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { OioSwitchProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Switch as ASwitch } from 'ant-design-vue';
 import { createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

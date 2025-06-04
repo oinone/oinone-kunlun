@@ -67,7 +67,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, inject, ref, computed } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 interface Tag {
   name: string;

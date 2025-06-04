@@ -21,9 +21,9 @@
   </div>
 </template>
 <script lang="ts">
-import { OioButton, OioIcon, OioModal } from '@kunlun/vue-ui-mobile-vant';
+import { OioButton, OioIcon, OioModal } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { isEmpty, isString } from 'lodash-es';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { computed, defineComponent, PropType, ref } from 'vue';
 import { IconDefine, IconSelect } from '../../../../components';
 

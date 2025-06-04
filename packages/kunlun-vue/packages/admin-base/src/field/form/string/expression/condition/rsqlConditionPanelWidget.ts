@@ -1,6 +1,6 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { ConditionInputPanel } from '@kunlun/vue-expression';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { ConditionInputPanel } from '@oinone/kunlun-vue-expression';
 import { RsqlConditionInputControlWidget } from './rsqlConditionInputControlWidget';
 import { FormFieldWidget } from '../../../../../basic';
 

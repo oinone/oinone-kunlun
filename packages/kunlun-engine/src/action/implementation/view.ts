@@ -1,7 +1,7 @@
-import { ViewActionTarget } from '@kunlun/meta';
-import { getSessionPath } from '@kunlun/request';
-import { getRouterInstance, Matched, Router, useMatched } from '@kunlun/router';
-import { StandardString } from '@kunlun/shared';
+import { ViewActionTarget } from '@oinone/kunlun-meta';
+import { getSessionPath } from '@oinone/kunlun-request';
+import { getRouterInstance, Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { StandardString } from '@oinone/kunlun-shared';
 import { RuntimeViewAction } from '../../runtime-metadata';
 import { Dialog, Drawer } from '../../view';
 import { RedirectTargetEnum } from '../typing';

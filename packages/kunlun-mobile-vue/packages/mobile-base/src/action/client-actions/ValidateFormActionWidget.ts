@@ -1,7 +1,7 @@
-import { ModelDefaultActionName } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
-import { translateValueByKey } from '@kunlun/engine';
+import { ModelDefaultActionName } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { ActionWidget } from '../component';
 
 @SPI.ClassFactory(ActionWidget.Token({ name: ModelDefaultActionName.$$internal_ValidateForm }))

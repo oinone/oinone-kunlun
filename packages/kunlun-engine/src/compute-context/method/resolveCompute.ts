@@ -1,4 +1,4 @@
-import { ExpressionRunParam } from '@kunlun/expression';
+import { ExpressionRunParam } from '@oinone/kunlun-expression';
 import { isString } from 'lodash-es';
 import { RuntimeModelField } from '../../runtime-metadata';
 import { EffectManager, ExpressionExecutor, Node, ReactiveEffect, ReactiveEffectRunner } from '../ast';

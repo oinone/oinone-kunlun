@@ -1,5 +1,5 @@
 {
-  "name": "@kunlun/shared",
+  "name": "@oinone/kunlun-shared",
   "version": "6.2.0",
   "main": "index.ts",
   "scripts": {

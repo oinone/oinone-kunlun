@@ -1,4 +1,4 @@
-import { RSQLOperators, StringHelper } from '@kunlun/shared';
+import { RSQLOperators, StringHelper } from '@oinone/kunlun-shared';
 import * as charCodes from '../../../charcodes';
 import * as types from '../../../tokens';
 import { ParserContext, Token, TokenParser, TokenReader, TokenType } from '../../../types';

@@ -1,12 +1,12 @@
 <script lang="ts">
-import { CastHelper, CSSStyle, StringHelper } from '@kunlun/shared';
+import { CastHelper, CSSStyle, StringHelper } from '@oinone/kunlun-shared';
 import {
   OioTabPosition,
   OioTabsProps,
   PropRecordHelper,
   StyleHelper,
   useProviderOioTabsContext
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { Tabs as VanTabs } from 'vant';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent } from 'vue';

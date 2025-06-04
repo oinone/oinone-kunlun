@@ -1,5 +1,5 @@
 <script lang="ts">
-import { CastHelper } from '@kunlun/shared';
+import { CastHelper } from '@oinone/kunlun-shared';
 import { computed, createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { PropRecordHelper } from '../../util';

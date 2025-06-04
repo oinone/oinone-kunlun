@@ -1,7 +1,7 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
-import { ConditionInputControl, ExpressionDefinitionType } from '@kunlun/vue-expression';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { ConditionInputControl, ExpressionDefinitionType } from '@oinone/kunlun-vue-expression';
 import { FormFieldWidget } from '../../../../../basic';
 import { ConditionBaseControlWidget } from './conditionBaseControlWidget';
 

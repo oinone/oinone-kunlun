@@ -1,4 +1,4 @@
-import { StandardEventHandler, StandardEventManager } from '@kunlun/shared';
+import { StandardEventHandler, StandardEventManager } from '@oinone/kunlun-shared';
 import { IPopupInstance, IPopupManager } from './typing';
 import { RuntimeAction } from '../../runtime-metadata';
 

@@ -1,9 +1,9 @@
-import { RuntimeNumberField } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { BooleanHelper, NumberHelper, Optional } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { RowContext } from '@kunlun/vue-ui';
-import { Widget } from '@kunlun/vue-widget';
+import { RuntimeNumberField } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { RowContext } from '@oinone/kunlun-vue-ui';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toString } from 'lodash-es';
 import { VNode } from 'vue';
 import { BaseFieldWidget, BaseTableFieldWidget } from '../../../basic';

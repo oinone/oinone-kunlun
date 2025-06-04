@@ -4,7 +4,7 @@
   </gallery-common-field>
 </template>
 <script lang="ts">
-import { StyleHelper } from '@kunlun/vue-ui-common';
+import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { computed, defineComponent } from 'vue';
 import GalleryCommonField from '../common/GalleryCommonField.vue';
 

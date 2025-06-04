@@ -1,6 +1,6 @@
-import { Constructor } from '@kunlun/shared';
-import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@kunlun/spi';
-import { VueWidget } from '@kunlun/vue-widget';
+import { Constructor } from '@oinone/kunlun-shared';
+import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
+import { VueWidget } from '@oinone/kunlun-vue-widget';
 
 export interface BaseRouterOptions extends SPIOptions {
   widget?: string;

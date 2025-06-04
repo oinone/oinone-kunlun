@@ -1,5 +1,5 @@
 <script lang="ts">
-import { OioPaginationProps, PatchFlags, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { OioPaginationProps, PatchFlags, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Pagination as APagination } from 'ant-design-vue';
 import { isBoolean, isFunction, toString } from 'lodash-es';
 import { computed, createVNode, defineComponent } from 'vue';

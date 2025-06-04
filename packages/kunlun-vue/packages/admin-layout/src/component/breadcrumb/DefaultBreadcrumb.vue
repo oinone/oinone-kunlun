@@ -1,8 +1,8 @@
 <script lang="ts">
-import { IMenu } from '@kunlun/meta';
+import { IMenu } from '@oinone/kunlun-meta';
 import { Breadcrumb as ABreadcrumb, BreadcrumbItem as ABreadcrumbItem } from 'ant-design-vue';
 import { createVNode, defineComponent, PropType, VNode } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 export default defineComponent({
   name: 'DefaultBreadcrumb',

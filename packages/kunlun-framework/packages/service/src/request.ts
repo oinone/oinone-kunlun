@@ -17,7 +17,7 @@ import {
   MetadataRuntimeFragmentName,
   ModelFieldType,
   SYSTEM_MODULE_NAME
-} from '@kunlun/meta';
+} from '@oinone/kunlun-meta';
 import {
   Condition,
   ConditionBuilder,
@@ -27,8 +27,8 @@ import {
   HttpClient,
   RawValue,
   StructValue
-} from '@kunlun/request';
-import { useMatched } from '@kunlun/router';
+} from '@oinone/kunlun-request';
+import { useMatched } from '@oinone/kunlun-router';
 import { isArray } from 'lodash-es';
 
 const ModelMap = new Map<string, IModel>();

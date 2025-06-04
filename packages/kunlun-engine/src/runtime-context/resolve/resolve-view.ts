@@ -1,4 +1,4 @@
-import { DslDefinition, DslSlotUtils, XMLParse } from '@kunlun/dsl';
+import { DslDefinition, DslSlotUtils, XMLParse } from '@oinone/kunlun-dsl';
 import { isString } from 'lodash-es';
 import { RuntimeView } from '../../runtime-metadata';
 import { translateDslDefinition } from '../../util';

@@ -56,12 +56,12 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
 import { Toast } from 'vant';
-import { OioIcon } from '@kunlun/vue-ui-mobile-vant';
+import { OioIcon } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { get as getValue } from 'lodash-es';
-import { Matched, Router, useMatched } from '@kunlun/router';
-import { useRouter } from '@kunlun/vue-router';
-import { Entity, IViewAction, ViewActionTarget } from '@kunlun/meta';
-import { executeViewAction, RuntimeViewAction, translateValueByKey } from '@kunlun/engine';
+import { Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { useRouter } from '@oinone/kunlun-vue-router';
+import { Entity, IViewAction, ViewActionTarget } from '@oinone/kunlun-meta';
+import { executeViewAction, RuntimeViewAction, translateValueByKey } from '@oinone/kunlun-engine';
 import { getWorkbenchInfo } from './services';
 import { getCurrentTenant } from '../../util';
 

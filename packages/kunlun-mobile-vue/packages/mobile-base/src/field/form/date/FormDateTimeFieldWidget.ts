@@ -3,8 +3,8 @@ import {
   IResourceDateTimeFormat,
   queryResourceDateTimeFormat,
   translateValueByKey
-} from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
+} from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import {
   BooleanHelper,
   defaultDateFormat,
@@ -13,10 +13,10 @@ import {
   defaultTimeFormatKey,
   ObjectUtils,
   Optional
-} from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { WidgetTrigger } from '@kunlun/vue-ui-common';
-import { Widget, WidgetComponent } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
 import moment from 'moment';
 import { FormFieldWidget } from '../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../typing';

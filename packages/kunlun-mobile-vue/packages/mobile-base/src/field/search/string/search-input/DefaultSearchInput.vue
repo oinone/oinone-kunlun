@@ -53,9 +53,9 @@
   </div>
 </template>
 <script lang="ts">
-import { BooleanHelper } from '@kunlun/shared';
-import { OioIcon, OioInputSearch, OioSelect, SelectItem } from '@kunlun/vue-ui-mobile-vant';
-import { InputType } from '@kunlun/vue-ui-common';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { OioIcon, OioInputSearch, OioSelect, SelectItem } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { InputType } from '@oinone/kunlun-vue-ui-common';
 import { isNil, toNumber } from 'lodash-es';
 import { computed, defineComponent, ref, watch } from 'vue';
 import InputPreSuffix from '../../../form/common/InputPreSuffix.vue';

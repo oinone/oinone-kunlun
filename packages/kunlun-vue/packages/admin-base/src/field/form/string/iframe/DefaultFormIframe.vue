@@ -1,7 +1,7 @@
 <script lang="ts">
 import { createVNode, defineComponent } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
-import { InputMediaMode } from '@kunlun/vue-ui-common';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { InputMediaMode } from '@oinone/kunlun-vue-ui-common';
 import { InputMediaProps } from '../../../prop';
 import DefaultString from '../DefaultString.vue';
 

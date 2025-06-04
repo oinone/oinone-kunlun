@@ -66,7 +66,7 @@
   </div>
 </template>
 <script lang="ts">
-import { OioSelect } from '@kunlun/vue-ui-antd';
+import { OioSelect } from '@oinone/kunlun-vue-ui-antd';
 import { isEmpty } from 'lodash-es';
 import { computed, defineComponent, PropType, ref, watch } from 'vue';
 import LazyLoadSelect from '../components/LazyLoadSelect.vue';

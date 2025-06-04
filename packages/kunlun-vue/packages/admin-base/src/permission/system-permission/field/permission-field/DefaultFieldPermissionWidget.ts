@@ -1,7 +1,7 @@
-import { Condition } from '@kunlun/request';
-import { DEFAULT_TRUE_CONDITION } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { Condition } from '@oinone/kunlun-request';
+import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
 import { FieldPermissionWidget } from '../../../permission';
 import FieldPermission from './FieldPermission.vue';

@@ -1,7 +1,7 @@
-import { DEFAULT_SLOT_NAME } from '@kunlun/dsl';
-import { BooleanHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, isString } from 'lodash-es';
 import { BasePackWidget } from '../../basic';
 import DefaultGroup from './DefaultGroup.vue';

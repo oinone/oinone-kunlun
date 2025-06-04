@@ -5,11 +5,11 @@ import {
   SubmitValue,
   UpdateActiveRecordsByEntityPredict,
   UpdateEntity
-} from '@kunlun/engine';
-import { ViewMode, ViewType } from '@kunlun/meta';
-import { CSSStyle, CallChaining } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { CSSStyle, CallChaining } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseObjectView, BaseView } from '../../basic';
 
 /**

@@ -1,5 +1,5 @@
-import { useCurrentInstance } from '@kunlun/environment';
-import { instantiate } from '@kunlun/shared';
+import { useCurrentInstance } from '@oinone/kunlun-environment';
+import { instantiate } from '@oinone/kunlun-shared';
 import { selectorEventConsumer } from '../spi';
 import {
   EventConsumer,

@@ -1,9 +1,9 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { ActiveRecord, ActiveRecords, Pagination, translateValueByKey } from '@kunlun/engine';
-import { EDirection, ISort } from '@kunlun/service';
-import { ReturnPromise } from '@kunlun/shared';
-import { DEFAULT_PREFIX, THEME_CONFIG } from '@kunlun/theme';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { ActiveRecord, ActiveRecords, Pagination, translateValueByKey } from '@oinone/kunlun-engine';
+import { EDirection, ISort } from '@oinone/kunlun-service';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { DEFAULT_PREFIX, THEME_CONFIG } from '@oinone/kunlun-theme';
 import {
   ActiveEditorContext,
   CheckedChangeEvent,
@@ -21,9 +21,9 @@ import {
   VXE_TABLE_X_ID,
   VxeTableActiveEditorEventContext
 } from '../../ui';
-import { ListSelectMode, OioPagination, OioSpin, StyleHelper } from '@kunlun/vue-ui-mobile-vant';
-import { DslRender } from '@kunlun/vue-widget';
-import { ListPaginationStyle } from '@kunlun/vue-ui-mobile-vant';
+import { ListSelectMode, OioPagination, OioSpin, StyleHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { DslRender } from '@oinone/kunlun-vue-widget';
+import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { computed, createVNode, defineComponent, nextTick, onMounted, PropType, ref, Slot, VNode, watch } from 'vue';
 import { VxeTableDefines } from 'vxe-table';
 import { ManualWidget } from '../../basic';

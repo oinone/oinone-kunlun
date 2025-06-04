@@ -29,8 +29,8 @@
   </div>
 </template>
 <script lang="ts">
-import { RuntimeEnumerationOption } from '@kunlun/engine';
-import { defaultSelectProperties, OioSelect, SelectItem } from '@kunlun/vue-ui-antd';
+import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import { defaultSelectProperties, OioSelect, SelectItem } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineComponent, PropType } from 'vue';
 import {
   OioCommonProps,

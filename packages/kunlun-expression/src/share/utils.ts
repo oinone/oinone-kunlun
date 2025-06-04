@@ -1,7 +1,7 @@
-import { ModelFieldType } from '@kunlun/meta';
+import { ModelFieldType } from '@oinone/kunlun-meta';
 import scrollIntoViewUtil from 'dom-scroll-into-view/dist-src/util';
 import { ExpModelConfig } from '../types';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 /**
  * 根据父元素在页面的位置给子元素设置基于body节点的绝对定位css，使用场景：选择器(父)和下拉菜单(子)
@@ -9,7 +9,12 @@ import { translateValueByKey } from '@kunlun/engine';
  * @param childElement
  * @param sameWidth 子元素和父元素同宽
  */
-function autoSetPopoverCss(parentElement: HTMLElement, childElement: HTMLElement, childMatchParentWidth = false, zIndex = 99999) {
+function autoSetPopoverCss(
+  parentElement: HTMLElement,
+  childElement: HTMLElement,
+  childMatchParentWidth = false,
+  zIndex = 99999
+) {
   if (!parentElement || !childElement) {
     return;
   }

@@ -1,4 +1,4 @@
-import { ObjectUtils } from '@kunlun/shared';
+import { ObjectUtils } from '@oinone/kunlun-shared';
 import { isArray, isObject } from 'lodash-es';
 import { isRelatedField } from '../../runtime-context';
 import { SubmitType } from '../typing';

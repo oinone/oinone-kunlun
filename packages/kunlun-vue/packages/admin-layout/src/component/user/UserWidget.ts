@@ -18,13 +18,13 @@ import {
   UrlActionCache,
   UserInfo,
   ViewActionCache
-} from '@kunlun/engine';
-import { GlobalConfig, IURLAction, ViewActionTarget } from '@kunlun/meta';
-import { setSessionPath, useSessionPath } from '@kunlun/request';
-import { Matched, Router, useMatched } from '@kunlun/router';
-import { SPI, SPIOperator } from '@kunlun/spi';
-import { useRouter } from '@kunlun/vue-router';
-import { Widget, WidgetSubjection } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { GlobalConfig, IURLAction, ViewActionTarget } from '@oinone/kunlun-meta';
+import { setSessionPath, useSessionPath } from '@oinone/kunlun-request';
+import { Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { SPI, SPIOperator } from '@oinone/kunlun-spi';
+import { useRouter } from '@oinone/kunlun-vue-router';
+import { Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { MaskWidget } from '../../basic';
 import { TopBarService } from '../../service';
 import { pamirsUserSymbol } from '../../typing';

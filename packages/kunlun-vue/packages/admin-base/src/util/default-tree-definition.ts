@@ -1,4 +1,4 @@
-import { XMLParse } from '@kunlun/dsl';
+import { XMLParse } from '@oinone/kunlun-dsl';
 import { TreeNodeMetadata } from '../typing';
 import { TreeUtils } from './tree-utils';
 

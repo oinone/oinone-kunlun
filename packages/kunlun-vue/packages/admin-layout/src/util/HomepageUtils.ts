@@ -1,11 +1,11 @@
-import { generatorViewActionQueryParameter, ViewActionCache } from '@kunlun/engine';
-import { getRouterInstance, Router } from '@kunlun/router';
+import { generatorViewActionQueryParameter, ViewActionCache } from '@oinone/kunlun-engine';
+import { getRouterInstance, Router } from '@oinone/kunlun-router';
 import {
   getUnauthorizedAction,
   unauthorizedActionName,
   urlHomepageModelName
 } from './unauthorized-action';
-import { IURLAction, ViewActionTarget } from "@kunlun/meta";
+import { IURLAction, ViewActionTarget } from "@oinone/kunlun-meta";
 
 export async function gotoHomepage(module: string, moduleName: string, urlHomePage?: IURLAction, router: Router = getRouterInstance()) {
   let homepage = await ViewActionCache.getHomepage(module);

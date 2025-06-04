@@ -52,7 +52,7 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, ref } from 'vue';
 import { Cascader as ACascader } from 'ant-design-vue';
-import { OioIcon, OioInput } from '@kunlun/vue-ui-antd';
+import { OioIcon, OioInput } from '@oinone/kunlun-vue-ui-antd';
 import { CascaderOptionType } from 'ant-design-vue/lib/cascader';
 import { SelectListType, FormValue, ActionTypeMap, OioSelectMetadataProps } from '../typing';
 

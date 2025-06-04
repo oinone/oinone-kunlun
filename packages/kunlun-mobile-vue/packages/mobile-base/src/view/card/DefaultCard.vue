@@ -1,10 +1,10 @@
 <script lang="ts">
-import { DslDefinitionType, DslSlotUtils } from '@kunlun/dsl';
-import { CastHelper, CSSStyle } from '@kunlun/shared';
+import { DslDefinitionType, DslSlotUtils } from '@oinone/kunlun-dsl';
+import { CastHelper, CSSStyle } from '@oinone/kunlun-shared';
 import { RowContext } from '../../ui';
-import { DEFAULT_CARD_GUTTERS, FlexRowJustify, useClick } from '@kunlun/vue-ui-mobile-vant';
-import { FlexRowAlign, ListSelectMode, PropRecordHelper, StyleHelper } from '@kunlun/vue-ui-common';
-import { DslRender, DslRenderDefinition } from '@kunlun/vue-widget';
+import { DEFAULT_CARD_GUTTERS, FlexRowJustify, useClick } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { FlexRowAlign, ListSelectMode, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
+import { DslRender, DslRenderDefinition } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, PropType, VNode } from 'vue';
 import { ActionBar, InternalWidget, ResolveMode } from '../../tags';
 import DefaultCardTitleToolbar from './DefaultCardTitleToolbar.vue';

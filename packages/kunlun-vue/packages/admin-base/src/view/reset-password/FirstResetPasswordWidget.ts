@@ -1,10 +1,10 @@
-import { MultiTabsRuntimeManifestMergedConfigManager } from '@kunlun/engine';
-import { ViewActionTarget } from '@kunlun/meta';
-import { UrlHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { RouterWidget } from '@kunlun/vue-router';
-import { OioMessage } from '@kunlun/vue-ui-antd';
-import { Widget } from '@kunlun/vue-widget';
+import { MultiTabsRuntimeManifestMergedConfigManager } from '@oinone/kunlun-engine';
+import { ViewActionTarget } from '@oinone/kunlun-meta';
+import { UrlHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { RouterWidget } from '@oinone/kunlun-vue-router';
+import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { UserService } from '../../service';
 import FirstResetPassword from './FirstResetPassword.vue';
 import { ForgetPasswordWidget } from './ForgetPasswordWidget';

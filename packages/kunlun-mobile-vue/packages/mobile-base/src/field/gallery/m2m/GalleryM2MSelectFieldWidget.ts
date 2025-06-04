@@ -1,9 +1,9 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 
 import { FormFieldWidget } from '../../../basic/field';
 import { GalleryO2MSelectFieldWidget } from '../o2m';
-import { Widget } from '@kunlun/vue-widget';
+import { Widget } from '@oinone/kunlun-vue-widget';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({

@@ -1,4 +1,4 @@
-import { JSONUtils } from '@kunlun/shared';
+import { JSONUtils } from '@oinone/kunlun-shared';
 
 export interface ActiveRecord {
   // 数据在前端的唯一标识

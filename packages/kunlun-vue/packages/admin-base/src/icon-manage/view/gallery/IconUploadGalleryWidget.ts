@@ -1,10 +1,10 @@
-import { ActiveRecord, genStaticPath, Pagination, QueryPageResult, translateValueByKey } from '@kunlun/engine';
-import { PluginsLoader, ViewType } from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
-import { Matched, useMatched } from '@kunlun/router';
-import { SPI } from '@kunlun/spi';
-import { OioMessage } from '@kunlun/vue-ui-antd';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord, genStaticPath, Pagination, QueryPageResult, translateValueByKey } from '@oinone/kunlun-engine';
+import { PluginsLoader, ViewType } from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
+import { Matched, useMatched } from '@oinone/kunlun-router';
+import { SPI } from '@oinone/kunlun-spi';
+import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementListViewWidget, BaseElementWidget } from '../../../basic';
 import { IconGroup, IconUpload, iconZipUpload, queryIconsWithCondition } from '../../service/IconManageService';
 import { UploadStatus } from '../../typing';

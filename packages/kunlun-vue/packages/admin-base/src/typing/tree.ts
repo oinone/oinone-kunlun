@@ -1,5 +1,5 @@
-import { ActiveRecord, Pagination, RefreshCallChainingParameters } from '@kunlun/engine';
-import { TreeNode } from '@kunlun/shared';
+import { ActiveRecord, Pagination, RefreshCallChainingParameters } from '@oinone/kunlun-engine';
+import { TreeNode } from '@oinone/kunlun-shared';
 import { Slot } from 'vue';
 
 export type SimpleTreeModelField = {

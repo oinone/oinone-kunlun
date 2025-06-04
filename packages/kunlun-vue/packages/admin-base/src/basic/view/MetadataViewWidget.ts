@@ -1,4 +1,4 @@
-import { DslDefinition } from '@kunlun/dsl';
+import { DslDefinition } from '@oinone/kunlun-dsl';
 import {
   RuntimeContext,
   RuntimeContextManager,
@@ -7,9 +7,9 @@ import {
   RuntimeViewAction,
   WidgetConstructor,
   WidgetProps
-} from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { DslDefinitionWidget, DslDefinitionWidgetProps, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { DslDefinitionWidget, DslDefinitionWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import {
   createRuntimeContextByFieldSubview,
   createRuntimeContextByView,

@@ -6,7 +6,7 @@ import {
   TabHTMLNode,
   useInjectOioTabsContext,
   useOioFormLayoutContext
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { TabPane as ATabPane } from 'ant-design-vue';
 import { createVNode, defineComponent, onUpdated, watch } from 'vue';
 import { onTabInvisibleChange } from './use-tab-bar';

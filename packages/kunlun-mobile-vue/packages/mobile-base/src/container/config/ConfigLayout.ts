@@ -1,5 +1,5 @@
-import { IDslNode } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { IDslNode } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 
 import { LayoutWidget, MobileViewWidget } from '../../layout';
 import ConfigComponent from './Config.vue';

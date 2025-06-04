@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, DateTimePickerMode, DateUtil, StringHelper } from '@kunlun/shared';
-import { OioDateTimePickerProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CastHelper, DateTimePickerMode, DateUtil, StringHelper } from '@oinone/kunlun-shared';
+import { OioDateTimePickerProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { DatetimePicker as VanDatetimePicker, Popup as VanPopup } from 'vant';
 import { createVNode, defineComponent, ref, VNodeProps } from 'vue';
 import dayjs from 'dayjs';

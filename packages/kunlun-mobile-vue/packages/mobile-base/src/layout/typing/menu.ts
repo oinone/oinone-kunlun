@@ -1,4 +1,4 @@
-import { IMenu } from '@kunlun/meta';
+import { IMenu } from '@oinone/kunlun-meta';
 
 export interface RuntimeMenu extends IMenu {
   title: string;

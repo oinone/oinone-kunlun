@@ -1,9 +1,9 @@
 <script lang="ts">
-import { CastHelper, OioButton, OioDrawer, PropRecordHelper, StringHelper } from '@kunlun/vue-ui-antd';
-import { onAllMounted } from '@kunlun/vue-widget';
+import { CastHelper, OioButton, OioDrawer, PropRecordHelper, StringHelper } from '@oinone/kunlun-vue-ui-antd';
+import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { createVNode, defineComponent, PropType } from 'vue';
 import { FooterProps, useFooter } from '../useFooter';
-import { ViewType } from '@kunlun/meta';
+import { ViewType } from '@oinone/kunlun-meta';
 
 export default defineComponent({
   components: {

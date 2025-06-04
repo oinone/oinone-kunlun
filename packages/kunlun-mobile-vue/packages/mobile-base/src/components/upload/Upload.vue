@@ -53,9 +53,9 @@ import {
   OioIcon,
   StringHelper,
   useInjectOioFormContext
-} from '@kunlun/vue-ui-mobile-vant';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
 import { computed, defineComponent, ref, watch } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { isNil } from 'lodash-es';
 import { useMetadataProps } from '../../basic';
 import { UploadCommonProps } from '../prop';

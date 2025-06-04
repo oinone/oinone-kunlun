@@ -1,7 +1,13 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { FormLayout, OioBlock, OioBlockProps, PropRecordHelper, useOioFormLayoutContext } from '@kunlun/vue-ui-antd';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import {
+  FormLayout,
+  OioBlock,
+  OioBlockProps,
+  PropRecordHelper,
+  useOioFormLayoutContext
+} from '@oinone/kunlun-vue-ui-antd';
 import { createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
 
 export default defineComponent({

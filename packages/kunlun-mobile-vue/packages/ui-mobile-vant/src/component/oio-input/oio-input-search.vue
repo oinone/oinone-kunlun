@@ -1,10 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import {
-  AInputSearchProps,
-  OioInputSearchProps,
-  PropRecordHelper
-} from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { AInputSearchProps, OioInputSearchProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Search as VanSearch } from 'vant';
 import { isEmpty } from 'lodash-es';
 import { createVNode, defineComponent } from 'vue';

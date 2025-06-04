@@ -42,8 +42,8 @@
   </div>
 </template>
 <script lang="ts">
-import { DateTimePickerMode, DateUtil, StringHelper } from '@kunlun/shared';
-import { OioDateTimeRangePickerProps } from '@kunlun/vue-ui-common';
+import { DateTimePickerMode, DateUtil, StringHelper } from '@oinone/kunlun-shared';
+import { OioDateTimeRangePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { computed, defineComponent, ref } from 'vue';
 import { DatetimePicker as VanDatetimePicker, Popup as VanPopup } from 'vant';
 import { isString } from 'lodash-es';

@@ -1,11 +1,11 @@
 import { generatorViewActionQueryParameter } from '../helper';
-import { ViewActionTarget } from '@kunlun/meta';
+import { ViewActionTarget } from '@oinone/kunlun-meta';
 import { MultiTabsRuntimeManifestMergedConfigManager } from '../../view/multi-tabs/config-manager';
 import { RuntimeViewAction, RuntimeServerAction } from '../../runtime-metadata';
-import { ActionElement, IServerAction } from '@kunlun/meta';
+import { ActionElement, IServerAction } from '@oinone/kunlun-meta';
 import { executeServerAction, runServerAction } from '../implementation/server';
 
-jest.mock('@kunlun/router', () => ({
+jest.mock('@oinone/kunlun-router', () => ({
   useMatched: () => ({
     matched: {
       segmentParams: {
@@ -18,8 +18,8 @@ jest.mock('@kunlun/router', () => ({
 }));
 
 const callFunction = jest.fn();
-jest.mock('@kunlun/service', () => ({
-  ...jest.requireActual('@kunlun/service'),
+jest.mock('@oinone/kunlun-service', () => ({
+  ...jest.requireActual('@oinone/kunlun-service'),
   callFunction: (...arg) => callFunction(...arg)
 }));
 

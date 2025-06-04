@@ -4,11 +4,11 @@ import {
   MultiTabsRouter,
   RuntimeAction,
   RuntimeViewAction
-} from '@kunlun/engine';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
-import { IViewAction, ViewType } from '@kunlun/meta';
-import { NavigateOptions } from '@kunlun/router';
-import { getModel } from '@kunlun/service';
+} from '@oinone/kunlun-engine';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { IViewAction, ViewType } from '@oinone/kunlun-meta';
+import { NavigateOptions } from '@oinone/kunlun-router';
+import { getModel } from '@oinone/kunlun-service';
 import { isString, set as setValue } from 'lodash-es';
 import { homepageMaybeRuntimeContext } from './utils';
 

@@ -5,7 +5,13 @@
         <LeftOutlined :class="[currentValue === 1 ? 'icon-first-last' : 'pagination-icon']" />
       </span>
       <span>
-        <oio-input :size="size" :value="`${currentValue}`" @input="onChangeValue" @blur="unfocus" @keyup.enter="unfocus" />
+        <oio-input
+          :size="size"
+          :value="`${currentValue}`"
+          @input="onChangeValue"
+          @blur="unfocus"
+          @keyup.enter="unfocus"
+        />
       </span>
       <i>/</i>
       <span>{{ maxPageNum }}</span>
@@ -20,7 +26,7 @@
 import { defineComponent, ref, computed, SetupContext, watch } from 'vue';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
 import { ElementSize } from '../../types';
-import { OioInput } from '@kunlun/vue-ui-antd';
+import { OioInput } from '@oinone/kunlun-vue-ui-antd';
 
 export default defineComponent({
   components: {
@@ -31,20 +37,20 @@ export default defineComponent({
   props: {
     current: {
       type: Number,
-      required: true,
+      required: true
     },
     total: {
       type: Number,
-      required: true,
+      required: true
     },
     pageSize: {
       type: Number,
-      required: true,
+      required: true
     },
     size: {
       type: String,
-      default: ElementSize.MIDDLE,
-    },
+      default: ElementSize.MIDDLE
+    }
   },
 
   emits: ['change'],
@@ -62,9 +68,13 @@ export default defineComponent({
       return Math.ceil(props.total / props.pageSize);
     });
 
-    watch(() => props.current, () => {
-      currentValue.value = props.current;
-    }, { immediate: true });
+    watch(
+      () => props.current,
+      () => {
+        currentValue.value = props.current;
+      },
+      { immediate: true }
+    );
 
     const unfocus = () => {
       if (currentValue.value < 1) {
@@ -123,8 +133,8 @@ export default defineComponent({
       onChangeValue,
       unfocus,
       prevClick,
-      nextClick,
+      nextClick
     };
-  },
+  }
 });
 </script>

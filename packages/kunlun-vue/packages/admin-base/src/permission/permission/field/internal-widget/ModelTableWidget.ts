@@ -1,8 +1,8 @@
-import { ActiveRecord, Pagination } from '@kunlun/engine';
-import { Condition } from '@kunlun/request';
-import { IQueryPageResult, queryPage } from '@kunlun/service';
-import { ListSelectMode } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord, Pagination } from '@oinone/kunlun-engine';
+import { Condition } from '@oinone/kunlun-request';
+import { IQueryPageResult, queryPage } from '@oinone/kunlun-service';
+import { ListSelectMode } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { TableWidgetProps } from '../../../../view';
 import { ResourcePermissionFieldGroupsModel } from '../../type';
 import { InlineTableWidget } from './InlineTableWidget';

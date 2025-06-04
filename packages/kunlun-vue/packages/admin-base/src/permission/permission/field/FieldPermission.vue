@@ -24,8 +24,8 @@
   </div>
 </template>
 <script lang="ts">
-import { OioButton, OioInputSearch } from '@kunlun/vue-ui-antd';
-import { translateValueByKey } from '@kunlun/engine';
+import { OioButton, OioInputSearch } from '@oinone/kunlun-vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { defineComponent } from 'vue';
 
 export default defineComponent({

@@ -20,8 +20,12 @@
 
     <template #footer>
       <slot name="footer">
-        <oio-button class="cancel-btn" v-if="footer !== null" @click="onHandleCancel">{{ translateExpValue('取消') }}</oio-button>
-        <oio-button class="ok-btn" v-if="footer !== null" type="primary" @click="onHandleOk">{{ translateExpValue('确定') }}</oio-button>
+        <oio-button class="cancel-btn" v-if="footer !== null" @click="onHandleCancel">{{
+          translateExpValue('取消')
+        }}</oio-button>
+        <oio-button class="ok-btn" v-if="footer !== null" type="primary" @click="onHandleOk">{{
+          translateExpValue('确定')
+        }}</oio-button>
       </slot>
     </template>
   </a-modal>
@@ -30,7 +34,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Modal } from 'ant-design-vue';
-import { OioButton, OioCloseIcon } from '@kunlun/vue-ui-antd';
+import { OioButton, OioCloseIcon } from '@oinone/kunlun-vue-ui-antd';
 import { translateExpValue } from '../../share';
 
 export default defineComponent({
@@ -53,7 +57,7 @@ export default defineComponent({
     },
     footer: {
       type: String,
-      required: false,
+      required: false
     },
     destroyOnClose: {
       type: Boolean,

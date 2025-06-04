@@ -1,5 +1,5 @@
 import { isNil } from 'lodash';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import {
   ActiveRecord,
   Dialog,
@@ -17,9 +17,9 @@ import {
   RuntimeViewAction,
   translateValueByKey,
   ViewCache
-} from '@kunlun/engine';
-import { IModelField, ViewType } from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
+} from '@oinone/kunlun-engine';
+import { IModelField, ViewType } from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
 import {
   customQueryPage,
   DEFAULT_TRUE_CONDITION,
@@ -30,12 +30,12 @@ import {
   IQueryPageResult,
   ISort,
   updateOne
-} from '@kunlun/service';
-import { CastHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { appFinderSymbol } from '@kunlun/vue-admin-layout';
-import { OioNotification } from '@kunlun/vue-ui-antd';
-import { Widget, WidgetSubjection } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-service';
+import { CastHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { appFinderSymbol } from '@oinone/kunlun-vue-admin-layout';
+import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { BaseElementListViewWidget, BaseElementWidget } from '../../../basic';
 import { createRuntimeContextForWidget } from '../../../tags';
 import { onJumpCodeFuse, onJumpModelDesigner, onJumpUiDesignerHomePage } from '../../../util';

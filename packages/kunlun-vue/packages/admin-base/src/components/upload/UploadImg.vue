@@ -69,9 +69,9 @@
 
 <script lang="ts">
 import { PlusOutlined, EyeOutlined } from '@ant-design/icons-vue';
-import { Entity } from '@kunlun/meta';
-import { OioIcon } from '@kunlun/vue-ui-common';
-import { OioModal } from '@kunlun/vue-ui-antd';
+import { Entity } from '@oinone/kunlun-meta';
+import { OioIcon } from '@oinone/kunlun-vue-ui-common';
+import { OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { isString } from 'lodash-es';
 import { computed, defineComponent, PropType, ref } from 'vue';
 import { useMetadataProps } from '../../basic';

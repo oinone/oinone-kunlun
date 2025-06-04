@@ -45,7 +45,7 @@ import {
   OioTextarea,
   OioTooltipHelp,
   uniqueKeyGenerator
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, PropType, Ref, ref } from 'vue';
 import { DebugFetchRequest, DebugFetchResponse, DebugRequestInfo } from '../../typing';
 import DebugJsonView from '../components/DebugJsonView.vue';

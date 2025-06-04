@@ -4,12 +4,12 @@ import {
   resolveDynamicExpression,
   RuntimeContext,
   RuntimeContextManager
-} from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { Condition, getSessionPath } from '@kunlun/request';
-import { UrlHelper } from '@kunlun/shared';
-import { OioNotification } from '@kunlun/vue-ui-antd';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { Condition, getSessionPath } from '@oinone/kunlun-request';
+import { UrlHelper } from '@oinone/kunlun-shared';
+import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isString } from 'lodash-es';
 import { ServerActionWidget } from '../../action';
 import { BaseView } from '../../basic';

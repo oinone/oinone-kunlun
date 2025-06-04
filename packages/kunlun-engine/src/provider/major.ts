@@ -1,7 +1,7 @@
-import { SYSTEM_MODULE_NAME } from '@kunlun/meta';
-import { gql } from '@kunlun/request';
-import { http } from '@kunlun/service';
-import { Subject } from '@kunlun/state';
+import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
+import { gql } from '@oinone/kunlun-request';
+import { http } from '@oinone/kunlun-service';
+import { Subject } from '@oinone/kunlun-state';
 import { ClearCache } from '../cache';
 import {
   DEFAULT_APP_SIDE_LOGO,

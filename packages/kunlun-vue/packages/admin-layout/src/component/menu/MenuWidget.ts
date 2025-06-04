@@ -7,16 +7,16 @@ import {
   SideBarTheme,
   systemMajorConfig,
   translateValueByKey
-} from '@kunlun/engine';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
-import { ActionType, IServerAction, IURLAction, IViewAction, ViewActionTarget } from '@kunlun/meta';
-import { Router, useMatched } from '@kunlun/router';
-import { callFunction } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { Subscription } from '@kunlun/state';
-import { useRouter } from '@kunlun/vue-router';
-import { OioMessage, TreeNode } from '@kunlun/vue-ui-antd';
-import { Widget, WidgetBehaviorSubjection } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { ActionType, IServerAction, IURLAction, IViewAction, ViewActionTarget } from '@oinone/kunlun-meta';
+import { Router, useMatched } from '@oinone/kunlun-router';
+import { callFunction } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { Subscription } from '@oinone/kunlun-state';
+import { useRouter } from '@oinone/kunlun-vue-router';
+import { OioMessage, TreeNode } from '@oinone/kunlun-vue-ui-antd';
+import { Widget, WidgetBehaviorSubjection } from '@oinone/kunlun-vue-widget';
 import { MaskWidget } from '../../basic';
 import { MenuService } from '../../service';
 import { MenuCollapsedSymbol, MenuUrlParameters, RuntimeMenu } from '../../typing';

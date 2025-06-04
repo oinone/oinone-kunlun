@@ -1,4 +1,4 @@
-import { DateUtil } from '@kunlun/shared';
+import { DateUtil } from '@oinone/kunlun-shared';
 import { computed } from 'vue';
 import { useMetadataProps } from '../../../basic';
 import { DateQuickOptionListMap } from './date-common';

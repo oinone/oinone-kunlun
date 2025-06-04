@@ -84,8 +84,8 @@
 </template>
 <script lang="ts" setup>
 import { ref, watch, computed, defineProps, withDefaults } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
-import { OioButton, OioSpin } from '@kunlun/vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { OioButton, OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { useDslActionPermission } from '../hooks';
 import { collectionPermissionItems, queryGroups } from '../service';
 import { useStore } from '../store';

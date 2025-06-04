@@ -111,8 +111,8 @@
 </template>
 <script lang="ts">
 import { PlusOutlined } from '@ant-design/icons-vue';
-import { OioButton, OioModal, OioNotification } from '@kunlun/vue-ui-antd';
-import { OioIcon } from '@kunlun/vue-ui-common';
+import { OioButton, OioModal, OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { computed, defineComponent, nextTick, ref, Ref, watch } from 'vue';
 import { OioManageGroupProps } from './props';
 

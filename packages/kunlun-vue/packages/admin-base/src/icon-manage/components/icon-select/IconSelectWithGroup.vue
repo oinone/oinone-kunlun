@@ -54,8 +54,8 @@
   </div>
 </template>
 <script lang="ts">
-import { Pagination, translateValueByKey } from '@kunlun/engine';
-import { OioEmptyData, OioIcon, OioInputSearch, OioSpin } from '@kunlun/vue-ui-antd';
+import { Pagination, translateValueByKey } from '@oinone/kunlun-engine';
+import { OioEmptyData, OioIcon, OioInputSearch, OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { debounce } from 'lodash-es';
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import { OioManageGroup } from '../../../components';

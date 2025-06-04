@@ -1,8 +1,8 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { IconPlacement, OioButton, OioDropdown, OioDropdownProps, PropRecordHelper } from '@kunlun/vue-ui-antd';
-import { onAllMounted } from '@kunlun/vue-widget';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { IconPlacement, OioButton, OioDropdown, OioDropdownProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
+import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { Menu as AMenu, Popover as APopover } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
 import {

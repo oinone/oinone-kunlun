@@ -1,4 +1,4 @@
-import { IdModel, QueryWrapper } from '@kunlun/engine';
+import { IdModel, QueryWrapper } from '@oinone/kunlun-engine';
 
 export type ExcelWorkDefinition = Required<IdModel>;
 

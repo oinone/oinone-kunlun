@@ -1,4 +1,4 @@
-import { isDev } from '@kunlun/router';
+import { isDev } from '@oinone/kunlun-router';
 import { isArray } from 'lodash-es';
 import { VNode } from 'vue';
 import { InternalWidget } from '../tags';

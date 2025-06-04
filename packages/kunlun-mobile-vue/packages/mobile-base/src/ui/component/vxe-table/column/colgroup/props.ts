@@ -1,4 +1,4 @@
-import { OioComponentData } from '@kunlun/vue-ui-common';
+import { OioComponentData } from '@oinone/kunlun-vue-ui-common';
 import { OioColumnAppearanceProps } from '../props';
 
 export const OioColgroupControlProps = {

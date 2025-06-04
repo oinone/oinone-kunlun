@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { OioRowProps, PropRecordHelper, RowProps } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { OioRowProps, PropRecordHelper, RowProps } from '@oinone/kunlun-vue-ui-common';
 import { Row as VanRow } from 'vant';
 import { createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

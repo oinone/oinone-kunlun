@@ -1,4 +1,4 @@
-import { instantiate } from '@kunlun/shared';
+import { instantiate } from '@oinone/kunlun-shared';
 import { IMessage } from '../../types';
 import { IMessageHub, MessageHubConstructor } from '../typing';
 

@@ -52,18 +52,18 @@
   </van-popup>
 </template>
 <script lang="ts">
-import { StyleHelper } from '@kunlun/vue-ui-common';
-import { ActiveRecord, translateValueByKey } from '@kunlun/engine';
+import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
+import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
 import { computed, defineComponent, PropType, ref } from 'vue';
 import { Column } from 'vxe-table';
-import { DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
-import { DslDefinition } from '@kunlun/dsl';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { DslDefinition } from '@oinone/kunlun-dsl';
 import { Popup as VanPopup } from 'vant';
 import { isBoolean, isString } from 'lodash-es';
 import ActionBar from '../../tags/ActionBar.vue';
 import OperationTitle from '../../view/table/OperationTitle.vue';
 import { OperateEntity } from '../../typing';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 
 export default defineComponent({
   name: 'TableOperationColumn',

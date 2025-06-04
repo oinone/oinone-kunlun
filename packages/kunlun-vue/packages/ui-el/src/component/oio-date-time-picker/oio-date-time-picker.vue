@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, DateTimePickerMode, DateUtil, defaultFormat, StringHelper } from '@kunlun/shared';
-import { OioDateTimePickerProps } from '@kunlun/vue-ui-common';
+import { CastHelper, DateTimePickerMode, DateUtil, defaultFormat, StringHelper } from '@oinone/kunlun-shared';
+import { OioDateTimePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { ElDatePicker, ElTimePicker } from 'element-plus';
 import { Component, computed, createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { translate } from '@kunlun/engine';
+import { translate } from '@oinone/kunlun-engine';
 import GalleryCommonField from '../common/GalleryCommonField.vue';
 import { useBoolean } from '../../../basic/field/boolean';
 

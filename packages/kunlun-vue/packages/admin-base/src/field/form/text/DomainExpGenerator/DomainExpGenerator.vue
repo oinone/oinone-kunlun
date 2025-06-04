@@ -28,8 +28,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
-import { OioButton, OioForm, OioFormItem } from '@kunlun/vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { OioButton, OioForm, OioFormItem } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import Item from './ExpItem.vue';
 

@@ -46,7 +46,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, computed, watch } from 'vue';
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { CloseCircleFilled } from '@ant-design/icons-vue';
 import ExpressionDialog from '../../dialog/ExpressionDialog.vue';
 import ExpressionInputForm from './ExpressionInputForm.vue';

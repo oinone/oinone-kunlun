@@ -1,6 +1,6 @@
 <script lang="ts">
 import { createVNode, defineComponent } from 'vue';
-import { InputMediaMode } from '@kunlun/vue-ui-common';
+import { InputMediaMode } from '@oinone/kunlun-vue-ui-common';
 import { useMetadataProps } from '../../../../basic';
 import { InputMediaProps } from '../../../prop';
 import DefaultString from '../DefaultString.vue';

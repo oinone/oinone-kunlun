@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper } from '@kunlun/shared';
-import { PropRecordHelper } from '@kunlun/vue-ui-antd';
+import { CastHelper } from '@oinone/kunlun-shared';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { createVNode, defineComponent } from 'vue';
 import DefaultAction from '../component/action/DefaultAction.vue';
 import { ActionProps, useAction } from '../component/action/typing';

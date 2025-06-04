@@ -17,7 +17,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import { PreviewMedia } from '../../../../components';
-import { VIDEO_SUFFIX_LIST } from '@kunlun/vue-ui-common';
+import { VIDEO_SUFFIX_LIST } from '@oinone/kunlun-vue-ui-common';
 
 export default defineComponent({
   inheritAttrs: false,

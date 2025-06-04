@@ -1,6 +1,6 @@
-import { ModelFieldType, IModelField } from '@kunlun/meta';
-import { Widget } from '@kunlun/vue-widget';
-import { Pagination, SubmitValue, translateValueByKey } from '@kunlun/engine';
+import { ModelFieldType, IModelField } from '@oinone/kunlun-meta';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { Pagination, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
 import {
   fetchModelData,
   createExpressionDefinition,
@@ -24,7 +24,7 @@ import {
   VariableItemType,
   IQueryExpressionParam,
   fetchExpressionChildren
-} from '@kunlun/vue-expression';
+} from '@oinone/kunlun-vue-expression';
 
 import { FormFieldWidget } from '../../../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../../../typing';

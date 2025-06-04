@@ -1,4 +1,4 @@
-import { http } from '@kunlun/service';
+import { http } from '@oinone/kunlun-service';
 
 export async function queryWorkScope() {
   const body = `

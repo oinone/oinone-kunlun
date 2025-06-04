@@ -1,9 +1,9 @@
 <script lang="ts">
-import { ViewType } from '@kunlun/meta';
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { DEFAULT_PREFIX } from '@kunlun/theme';
-import { PropRecordHelper, StableSlotProp } from '@kunlun/vue-ui-common';
-import { DslRenderDefinition } from '@kunlun/vue-widget';
+import { ViewType } from '@oinone/kunlun-meta';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
+import { PropRecordHelper, StableSlotProp } from '@oinone/kunlun-vue-ui-common';
+import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
 import { createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
 
 export default defineComponent({

@@ -1,4 +1,4 @@
-import { OioComponentData, OioSpinProps } from '@kunlun/vue-ui-common';
+import { OioComponentData, OioSpinProps } from '@oinone/kunlun-vue-ui-common';
 import { PropType } from 'vue';
 import { VxeTablePropTypes } from 'vxe-table';
 import { TableBorder, TableOverflow, TableSize } from './typing';

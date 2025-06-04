@@ -1,11 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import {
-  AInputProps,
-  IInputmodeEnum,
-  OioInputProps,
-  PropRecordHelper
-} from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { AInputProps, IInputmodeEnum, OioInputProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty, isNil } from 'lodash-es';
 import { createVNode, defineComponent, PropType, ref } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
@@ -13,8 +8,7 @@ import OioInputGroup from './oio-input-group.vue';
 
 export default defineComponent({
   name: 'OioInput',
-  components: {
-  },
+  components: {},
   inheritAttrs: false,
   props: {
     ...OioInputProps,
@@ -83,7 +77,7 @@ export default defineComponent({
       if (isNil(value)) {
         value = '';
       }
-      component.props = { ...component.props, style: {}};
+      component.props = { ...component.props, style: {} };
       component = createVNode(
         'div',
         {

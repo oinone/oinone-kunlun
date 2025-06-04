@@ -1,9 +1,9 @@
-import { http } from '@kunlun/service';
-import { ModelCache } from "@kunlun/engine";
+import { http } from '@oinone/kunlun-service';
+import { ModelCache } from '@oinone/kunlun-engine';
 
 const getApps = async () => {
   const model = await ModelCache.get('apps.AppsManagementModule');
-  const bindUrlFieldExist = (model?.modelFields ?? []).filter(it => it.data === 'urlHomePage').length > 0;
+  const bindUrlFieldExist = (model?.modelFields ?? []).filter((it) => it.data === 'urlHomePage').length > 0;
 
   const body = `{
       appSwitcherModuleProxyQuery {

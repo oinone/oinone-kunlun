@@ -1,5 +1,5 @@
-import { RuntimeViewAction, ViewActionQueryParameter } from '@kunlun/engine';
-import { NonBlockingEventManager } from '@kunlun/shared';
+import { RuntimeViewAction, ViewActionQueryParameter } from '@oinone/kunlun-engine';
+import { NonBlockingEventManager } from '@oinone/kunlun-shared';
 import { MetadataMainViewBeforeRender, MetadataMainViewLifecycleEventKeys } from './typing';
 
 class MetadataMainViewLifecycleManager extends NonBlockingEventManager<typeof MetadataMainViewLifecycleEventKeys> {

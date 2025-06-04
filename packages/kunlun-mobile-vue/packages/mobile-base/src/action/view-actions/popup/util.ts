@@ -11,7 +11,7 @@ import {
   TemplateDslDefinition,
   UnknownDslDefinition,
   ViewDslDefinition
-} from '@kunlun/dsl';
+} from '@oinone/kunlun-dsl';
 import {
   DisposeEventHandler,
   IPopupInstance,
@@ -24,12 +24,12 @@ import {
   RuntimeViewAction,
   translateValueByKey,
   ViewActionCache
-} from '@kunlun/engine';
-import { ActionType, ModelDefaultActionName, ViewType } from '@kunlun/meta';
-import { debugConsole, Optional } from '@kunlun/shared';
-import { ButtonType } from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-engine';
+import { ActionType, ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
+import { debugConsole, Optional } from '@oinone/kunlun-shared';
+import { ButtonType } from '@oinone/kunlun-vue-ui-common';
 import { nextTick } from 'vue';
-import { useSessionPath } from '@kunlun/request';
+import { useSessionPath } from '@oinone/kunlun-request';
 import { DETAIL_WIDGET, FORM_WIDGET, SEARCH_WIDGET, TABLE_WIDGET } from '../../../typing/widget-names';
 import { generatorLayout } from '../../../spi';
 

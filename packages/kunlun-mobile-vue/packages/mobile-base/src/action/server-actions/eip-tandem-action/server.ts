@@ -1,6 +1,6 @@
-import { ActiveRecord } from '@kunlun/engine';
-import { http } from '@kunlun/service';
-import { GraphqlHelper } from '@kunlun/shared';
+import { ActiveRecord } from '@oinone/kunlun-engine';
+import { http } from '@oinone/kunlun-service';
+import { GraphqlHelper } from '@oinone/kunlun-shared';
 
 interface EipTandemActionParams {
   interfaceName: string;

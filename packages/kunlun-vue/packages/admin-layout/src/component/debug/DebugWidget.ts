@@ -1,8 +1,8 @@
-import { RedirectTargetEnum } from '@kunlun/engine';
-import { Router } from '@kunlun/router';
-import { SPI } from '@kunlun/spi';
-import { useRouter } from '@kunlun/vue-router';
-import { Widget } from '@kunlun/vue-widget';
+import { RedirectTargetEnum } from '@oinone/kunlun-engine';
+import { Router } from '@oinone/kunlun-router';
+import { SPI } from '@oinone/kunlun-spi';
+import { useRouter } from '@oinone/kunlun-vue-router';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { MaskWidget } from '../../basic';
 import { DEBUG_ROUTER } from './constants';
 import Debug from './Debug.vue';

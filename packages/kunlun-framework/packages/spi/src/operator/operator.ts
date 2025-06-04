@@ -1,4 +1,4 @@
-import { debugConsole, Optional, prettyConsole } from '@kunlun/shared';
+import { debugConsole, Optional, prettyConsole } from '@oinone/kunlun-shared';
 import { SPIMatchAnyValue, SPIMatchKeys, SPIMatchPriorityKey, SPIOptions } from '../typing';
 import { InternalOperator } from './internal-operator';
 import { Storage, StorageKey } from './storage';
@@ -50,7 +50,7 @@ export class SPIOperator {
     );
     debugConsole.run(() => {
       const isResFun = res instanceof Function;
-      const matchRes = !res ? '无匹配项' : (isResFun ? res?.name : ' ');
+      const matchRes = !res ? '无匹配项' : isResFun ? res?.name : ' ';
       prettyConsole.info(isResFun ? 'Widget' : 'Result', matchRes);
       if (!isResFun && res) {
         console.log(res);

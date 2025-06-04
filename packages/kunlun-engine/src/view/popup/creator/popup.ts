@@ -1,5 +1,5 @@
-import { ObjectValue } from '@kunlun/request';
-import { instantiate } from '@kunlun/shared';
+import { ObjectValue } from '@oinone/kunlun-request';
+import { instantiate } from '@oinone/kunlun-shared';
 import { RuntimeAction, RuntimeViewAction } from '../../../runtime-metadata';
 import { PopupManager } from '../manager';
 import { IPopupInstance, IPopupWidget, PopupType } from '../typing';

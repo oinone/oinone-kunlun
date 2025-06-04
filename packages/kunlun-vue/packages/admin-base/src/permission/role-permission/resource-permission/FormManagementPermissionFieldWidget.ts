@@ -1,7 +1,7 @@
-import { SubmitHandler, SubmitValue } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { OioTreeNode } from '@kunlun/vue-ui-common';
+import { SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
 import { FormFieldWidget } from '../../../basic';
 import { TreeData } from '../../../typing';
 import {

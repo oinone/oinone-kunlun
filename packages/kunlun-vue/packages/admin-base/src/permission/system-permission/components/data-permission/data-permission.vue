@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ExpressionMode } from '@kunlun/vue-expression';
+import { ExpressionMode } from '@oinone/kunlun-vue-expression';
 import { defineEmits, defineExpose, defineProps, ref, withDefaults } from 'vue';
 import { IPermission } from '../../../permission/type';
 import RsqlExpress from '../RsqlExpress.vue';

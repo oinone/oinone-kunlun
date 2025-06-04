@@ -23,8 +23,8 @@
   </div>
 </template>
 <script lang="ts">
-import { useMatched } from '@kunlun/router';
-import { translateValueByKey } from '@kunlun/engine';
+import { useMatched } from '@oinone/kunlun-router';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({

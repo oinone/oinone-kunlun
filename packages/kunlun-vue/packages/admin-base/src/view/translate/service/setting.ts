@@ -1,4 +1,4 @@
-import { HttpClient } from '@kunlun/request';
+import { HttpClient } from '@oinone/kunlun-request';
 
 const http = HttpClient.getInstance();
 

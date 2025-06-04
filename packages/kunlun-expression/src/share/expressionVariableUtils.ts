@@ -1,5 +1,5 @@
-import { Pagination, translateValueByKey } from '@kunlun/engine';
-import { ExpressionKeyword } from '@kunlun/expression';
+import { Pagination, translateValueByKey } from '@oinone/kunlun-engine';
+import { ExpressionKeyword } from '@oinone/kunlun-expression';
 import {
   IModelField,
   isComplexTtype,
@@ -8,10 +8,10 @@ import {
   isRelationTtype,
   ModelFieldSerializeType,
   ModelFieldType
-} from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
-import { IQueryPageResult } from '@kunlun/service';
-import { OioNotification, StringHelper } from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
+import { IQueryPageResult } from '@oinone/kunlun-service';
+import { OioNotification, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import { toString } from 'lodash-es';
 import { queryExpModelFields, queryExpModelPage } from '../service';
 import {

@@ -5,19 +5,19 @@ import {
   RuntimeContext,
   RuntimeContextManager,
   translateValueByKey
-} from '@kunlun/engine';
-import { ModelDefaultActionName, ViewType } from '@kunlun/meta';
-import { Condition } from '@kunlun/request';
-import { DEFAULT_TRUE_CONDITION } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { createEasyExportTask, getExportWorkBook, OioNotification } from '@kunlun/vue-ui-mobile-vant';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
+import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { createEasyExportTask, getExportWorkBook, OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { QueryExpression } from '../../../basic';
 import { ValidatorStatus } from '../../../typing';
 import { ActionWidget } from '../../component';
 import ImportCom from './ExportActionWidget.vue';
 import { SearchView } from '../../../view';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { isString } from 'lodash-es';
 
 @SPI.ClassFactory(ActionWidget.Token({ name: ModelDefaultActionName.$$internal_GotoListExportDialog }))

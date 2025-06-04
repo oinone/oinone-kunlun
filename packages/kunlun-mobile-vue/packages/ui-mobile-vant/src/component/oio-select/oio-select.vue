@@ -140,7 +140,7 @@
   </div>
 </template>
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   defaultSelectProperties,
   fillSelectItemProperties,
@@ -148,7 +148,7 @@ import {
   SelectItem,
   SelectProperties,
   OioIcon
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import {
   Loading as VanLoading,
   Field as VanField,

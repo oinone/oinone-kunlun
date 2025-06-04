@@ -1,11 +1,11 @@
 {
-  "name": "@kunlun/vue-ui-el",
+  "name": "@oinone/kunlun-vue-ui-el",
   "version": "6.2.0",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rollup -c && npm run build-css",
-    "build-css": "sass --style compressed --no-source-map ./dist/kunlun-vue-ui-el.scss ./dist/kunlun-vue-ui-el.css",
+    "build-css": "sass --style compressed --no-source-map ./dist/oinone-kunlun-vue-ui-el.scss ./dist/oinone-kunlun-vue-ui-el.css",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
     "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
@@ -13,11 +13,11 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@kunlun/vue-ui-common": "6.2.0"
+    "@oinone/kunlun-vue-ui-common": "6.2.0"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "2.0.9",
-    "@kunlun/shared": "~6.2.0",
+    "@oinone/kunlun-shared": "~6.2.0",
     "@types/lodash": "4.14.182",
     "@types/lodash-es": "4.17.6",
     "element-plus": "2.2.17",

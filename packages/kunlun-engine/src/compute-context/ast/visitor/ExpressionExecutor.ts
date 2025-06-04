@@ -1,4 +1,4 @@
-import { ExpressionRunParam } from '@kunlun/expression';
+import { ExpressionRunParam } from '@oinone/kunlun-expression';
 import { Options, parser } from '../parser';
 import { Node } from '../types';
 import { Executor } from './executor';

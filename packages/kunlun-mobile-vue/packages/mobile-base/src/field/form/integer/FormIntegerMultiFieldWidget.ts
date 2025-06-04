@@ -1,13 +1,13 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { get as getValue } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
 import { NumberValue } from '../abstract/FormNumberAbstractFieldWidget';
 import Tag from '../string/tag/Tag.vue';
 import { FormIntegerFieldWidget } from './FormIntegerFieldWidget';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({

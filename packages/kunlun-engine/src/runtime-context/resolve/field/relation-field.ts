@@ -1,6 +1,6 @@
-import { ActionDslDefinition, DslDefinition, DslDefinitionHelper, FieldDslDefinition } from '@kunlun/dsl';
-import { ModelFieldType, ModelType } from '@kunlun/meta';
-import { uniqueKeyGenerator } from '@kunlun/shared';
+import { ActionDslDefinition, DslDefinition, DslDefinitionHelper, FieldDslDefinition } from '@oinone/kunlun-dsl';
+import { ModelFieldType, ModelType } from '@oinone/kunlun-meta';
+import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import {
   RuntimeM2MField,
   RuntimeM2OField,

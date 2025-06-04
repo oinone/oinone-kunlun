@@ -12,9 +12,9 @@
   </div>
 </template>
 <script lang="ts">
-import { EventCategory } from '@kunlun/event';
-import { KeyboardEventHelper } from '@kunlun/shared';
-import { OioInput } from '@kunlun/vue-ui-antd';
+import { EventCategory } from '@oinone/kunlun-event';
+import { KeyboardEventHelper } from '@oinone/kunlun-shared';
+import { OioInput } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent } from 'vue';
 import { OioCommonProps } from '../../../../basic';
 

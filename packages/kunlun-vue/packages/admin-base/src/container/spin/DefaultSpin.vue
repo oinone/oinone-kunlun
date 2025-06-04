@@ -1,6 +1,6 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { CastHelper, StringHelper } from '@kunlun/shared';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   FormLayout,
   OioGroup,
@@ -10,7 +10,7 @@ import {
   SpinSize,
   useInjectOioFormContext,
   useProviderOioFormContext
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, PropType, Slot, vShow, withDirectives } from 'vue';
 import { defaultFlexResolve } from '../../tags/resolve/helper';
 

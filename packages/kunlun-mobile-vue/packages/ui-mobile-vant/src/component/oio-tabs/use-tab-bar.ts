@@ -1,4 +1,4 @@
-import { DEFAULT_TAB_TITLE } from '@kunlun/vue-ui-common';
+import { DEFAULT_TAB_TITLE } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, Ref, unref, VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 

@@ -1,13 +1,7 @@
 <template>
   <div class="mobile-form-multi-select" :class="[!allowClear && 'hide-clear']">
     <div class="readonly" v-if="innerReadonly && !innerDisabled">
-      <oio-select
-        label-in-value
-        mode="multiple"
-        :title="fieldLabel"
-        :value="selectedOptions"
-        :options="optionList"
-      />
+      <oio-select label-in-value mode="multiple" :title="fieldLabel" :value="selectedOptions" :options="optionList" />
     </div>
     <div v-else>
       <oio-select
@@ -41,7 +35,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, watch } from 'vue';
-import { OioSelect } from '@kunlun/vue-ui-mobile-vant';
+import { OioSelect } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { isNil } from 'lodash-es';
 import { relationSelectSetup, RelationSelectProps } from '../../../prop';
 

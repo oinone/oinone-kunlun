@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { OioInputPassword } from '@kunlun/vue-ui-mobile-vant';
+import { OioInputPassword } from '@oinone/kunlun-vue-ui-mobile-vant';
 
 export default defineComponent({
   inheritAttrs: false,

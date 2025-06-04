@@ -1,4 +1,4 @@
-import { Converter } from '@kunlun/shared';
+import { Converter } from '@oinone/kunlun-shared';
 import { RuntimeViewAction } from '../../runtime-metadata';
 
 /**

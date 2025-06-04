@@ -1,6 +1,6 @@
 <script lang="ts">
-import { DslDefinition, DslDefinitionType } from '@kunlun/dsl';
-import { DEFAULT_PREFIX, useTabBar } from '@kunlun/vue-ui-mobile-vant';
+import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { DEFAULT_PREFIX, useTabBar } from '@oinone/kunlun-vue-ui-mobile-vant';
 import {
   DEFAULT_TAB_TITLE,
   OioTabProps,
@@ -8,8 +8,8 @@ import {
   useInjectOioFormContext,
   useInjectOioTabsContext,
   useProviderOioFormContext
-} from '@kunlun/vue-ui-common';
-import { DslRender } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-ui-common';
+import { DslRender } from '@oinone/kunlun-vue-widget';
 import { Tab as VanTab } from 'vant';
 import { computed, createVNode, defineComponent, getCurrentInstance, PropType } from 'vue';
 import { InternalWidget, ResolveMode } from '../../tags/resolve/typing';

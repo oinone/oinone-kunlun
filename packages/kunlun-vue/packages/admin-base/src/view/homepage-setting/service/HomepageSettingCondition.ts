@@ -1,4 +1,4 @@
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { RoleUserOptionsEnum } from '../typing';
 
 class StrControl {

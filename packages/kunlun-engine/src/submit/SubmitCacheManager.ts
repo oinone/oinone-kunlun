@@ -1,6 +1,6 @@
 import { isNil, isString } from 'lodash-es';
 import { ActiveRecord, ActiveRecordExtendKeys, DeleteEntity, UpdateEntity } from '../typing';
-import { deepClone } from '@kunlun/meta';
+import { deepClone } from '@oinone/kunlun-meta';
 
 /**
  * 提交模型

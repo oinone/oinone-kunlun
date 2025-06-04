@@ -10,18 +10,18 @@ import {
   RuntimeModelField,
   RuntimeRelationField,
   translateValueByKey
-} from '@kunlun/engine';
-import { Entity, isEmptyValue, ModelType } from '@kunlun/meta';
-import { Condition, ObjectValue } from '@kunlun/request';
-import { DEFAULT_TRUE_CONDITION, IQueryPageOption, IQueryPageResult } from '@kunlun/service';
-import { CastHelper, NumberHelper } from '@kunlun/shared';
+} from '@oinone/kunlun-engine';
+import { Entity, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
+import { Condition, ObjectValue } from '@oinone/kunlun-request';
+import { DEFAULT_TRUE_CONDITION, IQueryPageOption, IQueryPageResult } from '@oinone/kunlun-service';
+import { CastHelper, NumberHelper } from '@oinone/kunlun-shared';
 import {
   autoFillSelectedValueToOptions,
   autoFillSelectedValueToOptionsByLabel,
   buildSelectSearchCondition
-} from '@kunlun/vue-admin-layout';
-import { PageSizeEnum, WidgetTrigger } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-admin-layout';
+import { PageSizeEnum, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, isPlainObject } from 'lodash-es';
 import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
 import { FormComplexFieldProps } from '../FormComplexFieldWidget';

@@ -32,7 +32,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { OioButton, OioIcon } from '@kunlun/vue-ui-antd';
+import { OioButton, OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import InlineTable from '../../../../components/common/inline-table/InlineTable.vue';
 
 export default defineComponent({

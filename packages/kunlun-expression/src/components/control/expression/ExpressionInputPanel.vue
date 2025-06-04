@@ -13,14 +13,14 @@
       @change-list="handleChangeList"
     />
     <div class="expression-input-panel-footer">
-      <oio-button @click="cancelHandler">{{translateExpValue('取消')}}</oio-button>
-      <oio-button type="primary" @click="submitHandler">{{translateExpValue('确定')}}</oio-button>
+      <oio-button @click="cancelHandler">{{ translateExpValue('取消') }}</oio-button>
+      <oio-button type="primary" @click="submitHandler">{{ translateExpValue('确定') }}</oio-button>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { computed, defineComponent, PropType, ref } from 'vue';
-import { OioButton, StringHelper } from '@kunlun/vue-ui-antd';
+import { OioButton, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import ExpressionInputForm from './ExpressionInputForm.vue';
 import { createDefaultExpressionItem, translateExpValue } from '../../../share';
 import { IExpressionItem } from '../../../types';

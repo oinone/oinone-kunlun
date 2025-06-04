@@ -14,7 +14,7 @@
   </a-tooltip>
 </template>
 <script lang="ts">
-import { FlexRowJustify, OioColorPicker } from '@kunlun/vue-ui-el';
+import { FlexRowJustify, OioColorPicker } from '@oinone/kunlun-vue-ui-el';
 import { isEmpty } from 'lodash-es';
 import { Tooltip as ATooltip } from 'ant-design-vue';
 import { computed, defineComponent, PropType, ref } from 'vue';

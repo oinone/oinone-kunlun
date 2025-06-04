@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CSSStyle, Optional } from '@kunlun/shared';
-import { FlexRowJustify, OioEmpty, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CSSStyle, Optional } from '@oinone/kunlun-shared';
+import { FlexRowJustify, OioEmpty, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isArray, isBoolean, isFunction, isNil, toString } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType } from 'vue';
 

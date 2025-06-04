@@ -1,9 +1,9 @@
-import { ActiveRecord, ActiveRecords, RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { ReturnPromise } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { ValidateTrigger, WidgetTrigger } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecord, ActiveRecords, RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget, FormSubviewObjectFieldWidget } from '../../../../basic';
 import { InlineTable } from '../../../../components';
 import { TABLE_WIDGET } from '../../../../typing';

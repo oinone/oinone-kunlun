@@ -1,7 +1,7 @@
-import { ModelDefaultActionName } from '@kunlun/meta';
-import { ReturnPromise } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { getEasyImportTemplate } from '@kunlun/vue-ui-mobile-vant';
+import { ModelDefaultActionName } from '@oinone/kunlun-meta';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { getEasyImportTemplate } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { ActionWidget } from '../component';
 import { UrlActionWidget } from '../url-actions';
 import { DEFAULT_WORKBOOK_DEFINITION_ID_EXPRESSION } from './constant';

@@ -1,7 +1,7 @@
-import { RuntimeNumberField, RuntimeStringField } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { RuntimeNumberField, RuntimeStringField } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic/field/FormFieldWidget';
 import DetailTag from './DetailTag.vue';
 import { OptionColorStyle } from '../../../FieldCommonEnum';

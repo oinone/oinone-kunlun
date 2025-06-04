@@ -27,8 +27,8 @@
   </div>
 </template>
 <script lang="ts">
-import { RuntimeEnumerationOption } from '@kunlun/engine';
-import { SelectItem } from '@kunlun/vue-ui-common';
+import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty, isNil } from 'lodash-es';
 import { computed, defineComponent, PropType, watch } from 'vue';
 import { Checkbox as ACheckbox, CheckboxGroup as ACheckboxGroup } from 'ant-design-vue';

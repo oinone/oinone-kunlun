@@ -1,7 +1,7 @@
-import { RedirectTargetEnum } from '@kunlun/engine';
-import { ModelFieldType, ViewActionTarget, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { RedirectTargetEnum } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
 import { FormStringHyperlinksFieldWidget } from '../../../form';
 import GalleryHyperlinks from './GalleryHyperlinks.vue';

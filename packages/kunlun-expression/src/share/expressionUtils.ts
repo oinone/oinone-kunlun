@@ -1,4 +1,4 @@
-import { deepClone, isEmptyKeObject as isEmptyObject } from '@kunlun/meta';
+import { deepClone, isEmptyKeObject as isEmptyObject } from '@oinone/kunlun-meta';
 import { nextTick } from 'vue';
 import { isNil } from 'lodash-es';
 import {

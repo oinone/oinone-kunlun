@@ -42,10 +42,10 @@
 </template>
 <script lang="ts">
 import { CaretDownOutlined } from '@ant-design/icons-vue';
-import { OioIcon } from '@kunlun/vue-ui-antd';
+import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import { computed, defineComponent, PropType } from 'vue';
-import { RuntimeLanguage, ZH_CN_CODE } from '@kunlun/vue-ui-common';
+import { RuntimeLanguage, ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
 
 export default defineComponent({
   name: 'DefaultLanguage',

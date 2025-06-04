@@ -1,4 +1,4 @@
-import { getRouterInstance, Router } from '@kunlun/router';
+import { getRouterInstance, Router } from '@oinone/kunlun-router';
 import { isString } from 'lodash-es';
 import { BackRouter, ForwardRouter } from '../../router/typing';
 import { MultiTabsHelper } from './helper';

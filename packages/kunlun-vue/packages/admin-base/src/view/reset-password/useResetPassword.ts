@@ -1,4 +1,4 @@
-import { getLoginTheme, MajorConfig } from '@kunlun/engine';
+import { getLoginTheme, MajorConfig } from '@oinone/kunlun-engine';
 import { computed, reactive, ref } from 'vue';
 import { Copyright } from '../../typing';
 

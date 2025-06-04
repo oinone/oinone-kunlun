@@ -1,4 +1,4 @@
-import { gql, HttpClient } from '@kunlun/request';
+import { gql, HttpClient } from '@oinone/kunlun-request';
 import { SYSTEM_MODULE_NAME } from '../../metadata';
 import { RemoteLoadOption } from '../typing';
 import { PluginLoadHelper } from '../util';

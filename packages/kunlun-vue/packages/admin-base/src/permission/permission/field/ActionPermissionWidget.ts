@@ -1,9 +1,9 @@
-import { RuntimeO2MField } from '@kunlun/engine';
-import { ModelType, ViewType } from '@kunlun/meta';
-import { getModel, http } from '@kunlun/service';
-import { CallChaining } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { RuntimeO2MField } from '@oinone/kunlun-engine';
+import { ModelType, ViewType } from '@oinone/kunlun-meta';
+import { getModel, http } from '@oinone/kunlun-service';
+import { CallChaining } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { Tree as ATree } from 'ant-design-vue';
 import { FormFieldWidget } from '../../../basic';
 import { IPermission } from '../type';

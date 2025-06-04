@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { ASwitchProps, OioSwitchProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { ASwitchProps, OioSwitchProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Switch as VanSwitch } from 'vant';
 import { createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

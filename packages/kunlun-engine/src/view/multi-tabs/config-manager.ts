@@ -1,5 +1,5 @@
-import { RuntimeConfig } from '@kunlun/meta';
-import { StringHelper } from '@kunlun/shared';
+import { RuntimeConfig } from '@oinone/kunlun-meta';
+import { StringHelper } from '@oinone/kunlun-shared';
 import { ConfigHelper } from '../../config';
 import { getSystemMajorConfig } from '../../provider/major';
 import { MajorConfig } from '../../provider/typing';

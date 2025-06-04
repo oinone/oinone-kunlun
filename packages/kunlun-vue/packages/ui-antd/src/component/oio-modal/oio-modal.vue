@@ -1,5 +1,5 @@
 <script lang="ts">
-import { CastHelper, StringHelper, uniqueKeyGenerator } from '@kunlun/shared';
+import { CastHelper, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import {
   OioCloseIcon,
   OioModalProps,
@@ -7,7 +7,7 @@ import {
   StyleHelper,
   useDraggable,
   useModal
-} from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-common';
 import { Modal as AModal } from 'ant-design-vue';
 import { isBoolean } from 'lodash-es';
 import { computed, createVNode, defineComponent, nextTick, ref, watch } from 'vue';

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { CSSStyle } from '@kunlun/shared';
+import { CSSStyle } from '@oinone/kunlun-shared';
 import { createVNode, defineComponent, PropType } from 'vue';
 
 export default defineComponent({

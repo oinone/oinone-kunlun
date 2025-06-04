@@ -1,4 +1,4 @@
-import { RuntimeConfig } from '@kunlun/meta';
+import { RuntimeConfig } from '@oinone/kunlun-meta';
 import { ExperimentalConfig } from './config';
 
 export class ExperimentalConfigManager {

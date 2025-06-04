@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import { CaretDownOutlined } from '@ant-design/icons-vue';
-import { OioDropdown } from '@kunlun/vue-ui-antd';
+import { OioDropdown } from '@oinone/kunlun-vue-ui-antd';
 import { Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import { defineComponent, PropType } from 'vue';
 import { PartnerItem } from './typing';

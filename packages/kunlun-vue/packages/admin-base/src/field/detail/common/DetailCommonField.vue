@@ -1,5 +1,5 @@
 <script lang="ts">
-import { OioEmpty, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { OioEmpty, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isBoolean, isFunction, isNil, isArray, toString } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType } from 'vue';
 

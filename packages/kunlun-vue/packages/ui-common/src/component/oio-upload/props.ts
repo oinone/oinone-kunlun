@@ -1,4 +1,4 @@
-import { ReturnPromise, ReturnVoid } from '@kunlun/shared';
+import { ReturnPromise, ReturnVoid } from '@oinone/kunlun-shared';
 import { PropType } from 'vue';
 import { FileModel } from '../../util';
 

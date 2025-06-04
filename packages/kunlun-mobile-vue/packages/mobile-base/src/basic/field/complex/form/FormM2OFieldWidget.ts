@@ -1,4 +1,4 @@
-import { RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@kunlun/engine';
+import { RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { FormComplexObjectFieldWidget } from '../FormComplexObjectFieldWidget';
 
 export abstract class FormM2OFieldWidget extends FormComplexObjectFieldWidget<RuntimeM2OField> {

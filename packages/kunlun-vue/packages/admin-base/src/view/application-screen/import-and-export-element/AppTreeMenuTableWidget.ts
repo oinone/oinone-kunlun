@@ -1,13 +1,13 @@
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 
 import { BaseElementWidget } from '../../../basic';
 import { TableWidget } from '../../table';
-import { ViewType } from '@kunlun/meta';
-import { ListPaginationStyle } from '@kunlun/vue-ui-common';
-import { ActiveRecord, Pagination, QueryContext, QueryPageResult, QueryVariables } from '@kunlun/engine';
-import { Condition } from '@kunlun/request';
-import { ISort, customQueryPage, queryPage } from '@kunlun/service';
+import { ViewType } from '@oinone/kunlun-meta';
+import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-common';
+import { ActiveRecord, Pagination, QueryContext, QueryPageResult, QueryVariables } from '@oinone/kunlun-engine';
+import { Condition } from '@oinone/kunlun-request';
+import { ISort, customQueryPage, queryPage } from '@oinone/kunlun-service';
 
 @SPI.ClassFactory(
   BaseElementWidget.Token({

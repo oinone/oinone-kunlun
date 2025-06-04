@@ -1,5 +1,5 @@
-import { vAutoHidden, vFocus } from '@kunlun/vue-ui-common';
-import { componentInstall, directiveInstall, pluginInstall } from '@kunlun/vue-widget';
+import { vAutoHidden, vFocus } from '@oinone/kunlun-vue-ui-common';
+import { componentInstall, directiveInstall, pluginInstall } from '@oinone/kunlun-vue-widget';
 import { $translate } from '../plugins';
 import Action from './Action.vue';
 import ActionBar from './ActionBar.vue';

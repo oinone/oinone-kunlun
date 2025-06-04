@@ -1,8 +1,8 @@
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
-import { OioNotification } from '@kunlun/vue-ui-antd';
-import { translateValueByKey } from '@kunlun/engine';
-import { IModule } from '@kunlun/meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { IModule } from '@oinone/kunlun-meta';
 import { BaseElementWidget, BaseFormWidget, UrlQueryParameters } from '../../../../basic';
 import AdvancedHomepageSetting from './AdvancedHomepageSetting.vue';
 import {

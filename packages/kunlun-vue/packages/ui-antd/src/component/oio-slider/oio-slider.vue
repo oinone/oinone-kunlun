@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { convertAntdTooltipPlacement, OioSliderProps, SliderDirection } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { convertAntdTooltipPlacement, OioSliderProps, SliderDirection } from '@oinone/kunlun-vue-ui-common';
 import { Slider as ASlider } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, onBeforeMount, ref } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

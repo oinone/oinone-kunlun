@@ -1,4 +1,4 @@
-import { RuntimeConfig, RuntimeConfigOptions } from '@kunlun/meta';
+import { RuntimeConfig, RuntimeConfigOptions } from '@oinone/kunlun-meta';
 import { ConfigHelper, EnabledConfig } from '../../config';
 
 /**

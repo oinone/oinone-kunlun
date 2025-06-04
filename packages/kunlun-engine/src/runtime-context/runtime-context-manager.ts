@@ -1,4 +1,4 @@
-import { Handler, Manager, ObjectUtils } from '@kunlun/shared';
+import { Handler, Manager, ObjectUtils } from '@oinone/kunlun-shared';
 import { RouterPath, RuntimeModelField } from '../runtime-metadata';
 import {
   deepResolve,

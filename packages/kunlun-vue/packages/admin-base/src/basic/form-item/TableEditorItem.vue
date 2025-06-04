@@ -1,7 +1,7 @@
 <script lang="ts">
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
-import { BooleanHelper } from '@kunlun/shared';
-import { OioFormItem, PropRecordHelper } from '@kunlun/vue-ui-antd';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { OioFormItem, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Tooltip as ATooltip } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, Slot, vShow, withDirectives } from 'vue';
 import { BaseFormItemProps } from './props';

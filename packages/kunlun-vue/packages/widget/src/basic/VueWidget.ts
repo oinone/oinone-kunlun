@@ -1,5 +1,5 @@
-import { genStaticPath, translateValueByKey, WidgetConstructor, WidgetProps } from '@kunlun/engine';
-import { ReturnPromise, uniqueKeyGenerator } from '@kunlun/shared';
+import { genStaticPath, translateValueByKey, WidgetConstructor, WidgetProps } from '@oinone/kunlun-engine';
+import { ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { ComponentPublicInstance, SetupContext } from '@vue/runtime-core';
 import {
   Component,

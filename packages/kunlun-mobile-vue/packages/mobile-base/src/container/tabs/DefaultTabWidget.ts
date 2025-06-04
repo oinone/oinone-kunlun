@@ -1,6 +1,6 @@
-import { SPI } from '@kunlun/spi';
-import { DEFAULT_TAB_TITLE } from '@kunlun/vue-ui-mobile-vant';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { DEFAULT_TAB_TITLE } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isString } from 'lodash-es';
 import { BasePackWidget } from '../../basic';
 import DefaultTab from './DefaultTab.vue';

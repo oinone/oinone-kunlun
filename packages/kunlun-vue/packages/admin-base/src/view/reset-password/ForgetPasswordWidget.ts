@@ -1,17 +1,17 @@
-import { getMajorConfig, MajorConfig, translateValueByKey } from '@kunlun/engine';
-import { Router } from '@kunlun/router';
-import { http } from '@kunlun/service';
-import { SPI } from '@kunlun/spi';
-import { RouterWidget, useRouter } from '@kunlun/vue-router';
-import { FormItemRule, OioFormInstance, OioMessage } from '@kunlun/vue-ui-antd';
-import { SelectItem } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { getMajorConfig, MajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
+import { Router } from '@oinone/kunlun-router';
+import { http } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
+import { RouterWidget, useRouter } from '@oinone/kunlun-vue-router';
+import { FormItemRule, OioFormInstance, OioMessage } from '@oinone/kunlun-vue-ui-antd';
+import { SelectItem } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { PhoneCodeQueryService, UserService } from '../../service';
 import { ResourceCountry } from '../../typing';
 import ForgetPassword from './ForgetPassword.vue';
 import { ResetPasswordData } from './typing';
 import { BaseI18nRouterWidget } from '../../basic/BaseI18nRouterWidget';
-import { SYSTEM_MODULE_NAME } from '@kunlun/meta';
+import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 
 @SPI.ClassFactory(RouterWidget.Token({ widget: 'ForgetPassword' }))
 export class ForgetPasswordWidget extends BaseI18nRouterWidget {

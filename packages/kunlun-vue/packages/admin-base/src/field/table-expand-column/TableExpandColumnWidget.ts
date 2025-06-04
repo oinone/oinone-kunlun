@@ -1,4 +1,4 @@
-import { DslDefinition, DslDefinitionHelper, DslSlotUtils, ViewDslDefinition } from '@kunlun/dsl';
+import { DslDefinition, DslDefinitionHelper, DslSlotUtils, ViewDslDefinition } from '@oinone/kunlun-dsl';
 import {
   ActiveRecord,
   ActiveRecords,
@@ -8,14 +8,14 @@ import {
   ModelCache,
   RuntimeModel,
   RuntimeRelationField
-} from '@kunlun/engine';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
-import { ModelFieldType, ViewMode, ViewType } from '@kunlun/meta';
-import { CallChaining, Optional, StringHelper } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { DEFAULT_PREFIX } from '@kunlun/theme';
-import { RenderCellContext, RowContext } from '@kunlun/vue-ui';
-import { DslRender, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { ModelFieldType, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { CallChaining, Optional, StringHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
+import { RenderCellContext, RowContext } from '@oinone/kunlun-vue-ui';
+import { DslRender, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isString } from 'lodash-es';
 import { VNode } from 'vue';
 import { BaseElementWidget, BaseTableColumnWidget } from '../../basic';

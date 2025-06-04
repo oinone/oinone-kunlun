@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { OioPopconfirm } from '@kunlun/vue-ui-mobile-vant';
+import { OioPopconfirm } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { DropdownItem as VanDropdownItem } from 'vant';
 
 import { defineComponent } from 'vue';

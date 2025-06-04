@@ -1,8 +1,8 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
-import { OioFormProps, PropRecordHelper } from '@kunlun/vue-ui-common';
-import { DslRenderDefinition } from '@kunlun/vue-widget';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { OioFormProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
 import { createVNode, defineComponent, PropType } from 'vue';
 import { DefaultForm, ManualWidget } from '../../basic';
 import { DEFAULT_VIEW_CLASS } from '../../ui/theme';

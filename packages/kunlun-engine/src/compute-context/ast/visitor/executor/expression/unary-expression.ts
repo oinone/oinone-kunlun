@@ -1,4 +1,4 @@
-import { ComputableType, isNullableComputableType } from '@kunlun/shared';
+import { ComputableType, isNullableComputableType } from '@oinone/kunlun-shared';
 import { isUnaryExpression, Node, NodeVisitor, UnaryExpression, VisitContext } from '../../../types';
 
 export class UnaryExpressionExecutor implements NodeVisitor<UnaryExpression> {

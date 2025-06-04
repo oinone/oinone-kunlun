@@ -1,4 +1,4 @@
-import { BooleanHelper, CastHelper, CSSStyle, NumberHelper } from '@kunlun/shared';
+import { BooleanHelper, CastHelper, CSSStyle, NumberHelper } from '@oinone/kunlun-shared';
 import { ObjectDirective } from '@vue/runtime-core';
 import { isObject } from 'lodash-es';
 import { nextTick } from 'vue';

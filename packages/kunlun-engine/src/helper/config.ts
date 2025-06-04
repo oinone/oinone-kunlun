@@ -1,4 +1,4 @@
-import { Entity } from '@kunlun/meta';
+import { Entity } from '@oinone/kunlun-meta';
 import { RuntimeModelField } from '../runtime-metadata';
 
 const getLabelFieldList = (labelFieldsStr: string | undefined, modelLabelFields: string[]): string[] => {

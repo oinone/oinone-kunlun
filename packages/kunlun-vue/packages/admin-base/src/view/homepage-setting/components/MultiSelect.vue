@@ -47,7 +47,7 @@
   </div>
 </template>
 <script lang="ts">
-import { OioSpin, OioEmptyData } from '@kunlun/vue-ui-antd';
+import { OioSpin, OioEmptyData } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, PropType, ref, watch } from 'vue';
 import { Select as ASelect } from 'ant-design-vue';
 import { useInjectOioDefaultFormContext } from '../../../basic';

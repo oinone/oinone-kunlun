@@ -9,7 +9,7 @@
   </a-tooltip>
 </template>
 <script lang="ts">
-import { OioColorPicker } from '@kunlun/vue-ui-el';
+import { OioColorPicker } from '@oinone/kunlun-vue-ui-el';
 import { Tooltip as ATooltip } from 'ant-design-vue';
 import { defineComponent } from 'vue';
 

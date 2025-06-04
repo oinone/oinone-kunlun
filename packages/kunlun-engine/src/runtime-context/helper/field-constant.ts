@@ -1,4 +1,4 @@
-import { ModelFieldType } from '@kunlun/meta';
+import { ModelFieldType } from '@oinone/kunlun-meta';
 
 export const STRING_FIELD_TTYPES = [
   ModelFieldType.String,

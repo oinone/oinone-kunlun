@@ -1,5 +1,5 @@
-import { _useMatched, Matched, matchPath } from '@kunlun/router';
-import { ViewWidget } from '@kunlun/vue-widget';
+import { _useMatched, Matched, matchPath } from '@oinone/kunlun-router';
+import { ViewWidget } from '@oinone/kunlun-vue-widget';
 import { SetupContext, toRefs, VNodeProps } from 'vue';
 import { BaseRouterWidget } from './basic';
 import { useSegmentGroup } from './helpers/useSegmentGroup';

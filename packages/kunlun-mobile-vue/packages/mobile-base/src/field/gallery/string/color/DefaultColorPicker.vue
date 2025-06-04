@@ -9,7 +9,7 @@
   </gallery-common-field>
 </template>
 <script lang="ts">
-import { FlexRowJustify, OioColorPicker } from '@kunlun/vue-ui-mobile-vant';
+import { FlexRowJustify, OioColorPicker } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { isEmpty } from 'lodash-es';
 import { computed, defineComponent, PropType, ref } from 'vue';
 import GalleryCommonField from '../../common/GalleryCommonField.vue';

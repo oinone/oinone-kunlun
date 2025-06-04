@@ -1,4 +1,4 @@
-import { ExpressionKeyword } from '@kunlun/expression';
+import { ExpressionKeyword } from '@oinone/kunlun-expression';
 import { RuntimeModelField, RuntimeRelatedField, RuntimeRelationField } from '../../runtime-metadata';
 import { isRelatedField, isRelation2MField, isRelationField } from '../helper';
 import { RuntimeContext } from '../runtime-context';

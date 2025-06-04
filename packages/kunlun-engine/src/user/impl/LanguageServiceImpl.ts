@@ -1,4 +1,4 @@
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { UserLang } from '../../typing';
 import { LanguageService, LanguageServiceToken } from '../LanguageService';
 import { UserService, UserServiceToken } from '../UserService';

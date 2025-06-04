@@ -1,7 +1,7 @@
-import { translateValueByKey } from '@kunlun/engine';
-import { Widget } from '@kunlun/vue-widget';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { UploadFile } from 'ant-design-vue';
-import { FileModel, getEasyImportTemplate } from '@kunlun/vue-ui-common';
+import { FileModel, getEasyImportTemplate } from '@oinone/kunlun-vue-ui-common';
 import { FormWidget } from '../../form';
 import TranslateUpload from './TranslateUpload.vue';
 

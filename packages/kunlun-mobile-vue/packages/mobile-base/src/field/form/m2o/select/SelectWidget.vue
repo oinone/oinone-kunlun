@@ -43,7 +43,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue';
-import { OioSelect } from '@kunlun/vue-ui-mobile-vant';
+import { OioSelect } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { relationSelectSetup, RelationSelectProps } from '../../../prop';
 import { isNil } from 'lodash-es';
 

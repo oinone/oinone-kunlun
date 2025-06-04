@@ -19,8 +19,19 @@
   >
     <oio-spin :spinning="loading">
       <oio-form>
-        <oio-form-item :label="translateValueByKey('导入模板')" :required="true" :validateStatus="validation1.status" :help="translateValueByKey(validation1.help)">
-          <oio-select :title="translateValueByKey('导入模板')" :value="selectValue" :options="workbookList" @change="handleSelectChange"> </oio-select>
+        <oio-form-item
+          :label="translateValueByKey('导入模板')"
+          :required="true"
+          :validateStatus="validation1.status"
+          :help="translateValueByKey(validation1.help)"
+        >
+          <oio-select
+            :title="translateValueByKey('导入模板')"
+            :value="selectValue"
+            :options="workbookList"
+            @change="handleSelectChange"
+          >
+          </oio-select>
         </oio-form-item>
         <oio-form-item
           :label="translateValueByKey('上传文件')"
@@ -56,9 +67,9 @@ import {
   OioSelect,
   OioModal,
   OioSpin
-} from '@kunlun/vue-ui-mobile-vant';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
 import { defineComponent } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { FileUpload } from '../../../components';
 
 export default defineComponent({

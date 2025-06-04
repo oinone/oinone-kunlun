@@ -1,5 +1,5 @@
-import { ExpressionRunParam } from '@kunlun/expression';
-import { ObjectUtils } from '@kunlun/shared';
+import { ExpressionRunParam } from '@oinone/kunlun-expression';
+import { ObjectUtils } from '@oinone/kunlun-shared';
 import { RuntimeModelField } from '../../runtime-metadata';
 import { EffectManager, isUsingTriggerDirective, TriggerDirective } from '../ast';
 import { ComputeContext } from '../compute-context';

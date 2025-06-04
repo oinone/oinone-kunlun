@@ -1,6 +1,6 @@
-import { IWidget, WidgetConstructor, WidgetProps } from '@kunlun/engine';
-import { instantiate } from '@kunlun/shared';
-import { BehaviorSubject, Subject, Subscription } from '@kunlun/state';
+import { IWidget, WidgetConstructor, WidgetProps } from '@oinone/kunlun-engine';
+import { instantiate } from '@oinone/kunlun-shared';
+import { BehaviorSubject, Subject, Subscription } from '@oinone/kunlun-state';
 import { InnerWidgetType } from '../typing/typing';
 
 interface NameContextMap<T> {

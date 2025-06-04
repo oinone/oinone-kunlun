@@ -1,9 +1,9 @@
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
 import { DropdownWidget } from './DropdownWidget';
-import { DEFAULT_PREFIX } from '@kunlun/vue-ui-mobile-vant';
-import { translateValueByKey } from '@kunlun/engine';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 export enum DropdownContentType {
   TEXT = 'TEXT',

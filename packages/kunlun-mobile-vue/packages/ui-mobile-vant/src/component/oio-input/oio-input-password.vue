@@ -1,10 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import {
-  AInputPasswordProps,
-  OioInputPasswordProps,
-  PropRecordHelper
-} from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { AInputPasswordProps, OioInputPasswordProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons-vue';
 import { isNil } from 'lodash-es';
 import { createVNode, defineComponent, VNode } from 'vue';

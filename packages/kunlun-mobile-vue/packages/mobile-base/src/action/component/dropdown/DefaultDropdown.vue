@@ -1,14 +1,14 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { CastHelper, StringHelper } from '@kunlun/shared';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   DEFAULT_PREFIX,
   IconPlacement,
   OioButton,
   OioDropdownProps,
   PropRecordHelper
-} from '@kunlun/vue-ui-mobile-vant';
-import { onAllMounted } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { isArray } from 'lodash-es';
 import { cloneVNode, createVNode, defineComponent, Fragment, PropType, ref, VNode, watch } from 'vue';
 import { InternalWidget } from '../../../tags';
@@ -73,10 +73,13 @@ export default defineComponent({
       }
     });
     const show = ref(false);
-    watch(() => props.showActionPopup, () => {
-      show.value = props.showActionPopup;
-    });
-    return {show};
+    watch(
+      () => props.showActionPopup,
+      () => {
+        show.value = props.showActionPopup;
+      }
+    );
+    return { show };
   },
   render() {
     const slots = PropRecordHelper.collectionSlots(this.$slots, [
@@ -144,7 +147,10 @@ export default defineComponent({
         this.show = v;
         this.onShowActionsPopup?.(v);
       },
-      class: StringHelper.append([ this.subActionBar ? `${DEFAULT_PREFIX}-action-dropdown-inline` : ''], CastHelper.cast(this.$attrs.class)),
+      class: StringHelper.append(
+        [this.subActionBar ? `${DEFAULT_PREFIX}-action-dropdown-inline` : ''],
+        CastHelper.cast(this.$attrs.class)
+      ),
       overlayClass: StringHelper.append(['default-dropdown-overlay'], CastHelper.cast(this.overlayClassName)),
       overlayStyle: this.overlayStyle,
       teleport: this.getTriggerContainer || 'body',
@@ -159,22 +165,26 @@ export default defineComponent({
     const node = createVNode(
       this.subActionBar ? VanPopup : VanPopover,
       props,
-      this.subActionBar ?
-        {
-          default: () => createVNode('div', { class: `${DEFAULT_PREFIX}-action-dropdown-content`}, children)
-        }
-        :
-        {
-          reference: () => [triggerNode],
-          default: () => children
-        }
+      this.subActionBar
+        ? {
+            default: () => createVNode('div', { class: `${DEFAULT_PREFIX}-action-dropdown-content` }, children)
+          }
+        : {
+            reference: () => [triggerNode],
+            default: () => children
+          }
     );
-    return !this.subActionBar ? node : createVNode(Fragment, null, [cloneVNode(triggerNode, {
-      onClick: () => {
-        this.show = !this.show;
-        this.onShowActionsPopup?.(this.show);
-      }
-    }), node]);
+    return !this.subActionBar
+      ? node
+      : createVNode(Fragment, null, [
+          cloneVNode(triggerNode, {
+            onClick: () => {
+              this.show = !this.show;
+              this.onShowActionsPopup?.(this.show);
+            }
+          }),
+          node
+        ]);
   }
 });
 </script>

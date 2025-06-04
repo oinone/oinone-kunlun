@@ -7,7 +7,7 @@ import {
   useInjectOioFormContext,
   useProviderOioFormContext,
   DEFAULT_PREFIX
-} from '@kunlun/vue-ui-mobile-vant';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
 import { computed, createVNode, defineComponent, PropType } from 'vue';
 
 export default defineComponent({

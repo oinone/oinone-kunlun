@@ -4,12 +4,12 @@ import {
   MultiTabsManager,
   RuntimeContextManager,
   systemMajorConfig
-} from '@kunlun/engine';
-import { useMatched } from '@kunlun/router';
-import { CallChaining } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { MaskWidget } from '@kunlun/vue-admin-layout';
-import { VueWidget, Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { useMatched } from '@oinone/kunlun-router';
+import { CallChaining } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { MaskWidget } from '@oinone/kunlun-vue-admin-layout';
+import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { MetadataViewWidget, UrlQueryParameters } from '../basic';
 import { TeleportWidget } from '../components/teleport';
 import { useInjectMetaContext } from '../tags';

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { NumberHelper } from '@kunlun/shared';
+import { NumberHelper } from '@oinone/kunlun-shared';
 import {
   FileHelper,
   PropRecordHelper,
@@ -7,8 +7,8 @@ import {
   notification,
   OioEmpty,
   OioUpload
-} from '@kunlun/vue-ui-mobile-vant';
-import { translateValueByKey } from '@kunlun/engine';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { isEmpty } from 'lodash-es';
 import { createVNode, defineComponent, PropType, ref, watch } from 'vue';
 import { useMetadataProps } from '../../basic';

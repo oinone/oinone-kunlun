@@ -33,8 +33,8 @@
   </default-form-item>
 </template>
 <script lang="ts">
-import { OioTimeRangePicker } from '@kunlun/vue-ui-mobile-vant';
-import { OioTimeRangePickerProps } from '@kunlun/vue-ui-common';
+import { OioTimeRangePicker } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { OioTimeRangePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { ConfigProvider as VanConfigProvider } from 'vant';
 import { defineComponent } from 'vue';
 import { BaseFormItemProps, DefaultFormItem, OioCommonProps, OioMetadataProps } from '../../../../basic';

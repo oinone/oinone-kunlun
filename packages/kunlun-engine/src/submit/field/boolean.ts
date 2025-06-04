@@ -1,4 +1,4 @@
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { RuntimeModelField } from '../../runtime-metadata';
 import { defaultSubmit } from './default';
 import { SubmitFn } from './typing';

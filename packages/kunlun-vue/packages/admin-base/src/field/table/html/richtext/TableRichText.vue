@@ -9,9 +9,9 @@
   </oio-modal>
 </template>
 <script lang="ts">
-import { OioModal } from '@kunlun/vue-ui-antd';
+import { OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, ref } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { PreviewHtml } from '../../../../components/common';
 
 export default defineComponent({

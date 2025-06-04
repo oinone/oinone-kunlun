@@ -1,4 +1,4 @@
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { PartnerInfo, PartnerItem } from '../../typing';
 import { PartnerInfoSession, PartnerInfoSessionToken } from '../PartnerInfoSession';
 

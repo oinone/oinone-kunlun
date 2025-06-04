@@ -1,6 +1,6 @@
 <script lang="ts">
-import { ObjectUtils, StringHelper } from '@kunlun/shared';
-import { OioPopconfirmProps, PopconfirmPlacement, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { ObjectUtils, StringHelper } from '@oinone/kunlun-shared';
+import { OioPopconfirmProps, PopconfirmPlacement, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Popconfirm as APopconfirm, Popover as APopover } from 'ant-design-vue';
 import { isBoolean, isFunction } from 'lodash-es';
 import { computed, createVNode, defineComponent, h, ref, Slot } from 'vue';

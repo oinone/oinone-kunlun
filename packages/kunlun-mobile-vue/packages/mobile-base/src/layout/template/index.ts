@@ -1,7 +1,7 @@
-import { DslDefinition, XMLParse } from '@kunlun/dsl';
-import { MultiTabsRuntimeManifestMergedConfigManager } from '@kunlun/engine';
-import { SPI } from '@kunlun/spi';
-import { debugConsole } from '@kunlun/shared';
+import { DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
+import { MultiTabsRuntimeManifestMergedConfigManager } from '@oinone/kunlun-engine';
+import { SPI } from '@oinone/kunlun-spi';
+import { debugConsole } from '@oinone/kunlun-shared';
 import { MaskEditorContext, MaskEditorToken } from '../spi';
 import { InlineMultiTabsMaskXML, MaskTemplate } from './mask-template';
 

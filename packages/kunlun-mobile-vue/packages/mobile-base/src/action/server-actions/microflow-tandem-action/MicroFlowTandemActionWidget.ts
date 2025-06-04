@@ -1,6 +1,6 @@
-import { SPI } from '@kunlun/spi';
-import { ActionType } from '@kunlun/meta';
-import { RuntimeServerAction, SubmitValue } from '@kunlun/engine';
+import { SPI } from '@oinone/kunlun-spi';
+import { ActionType } from '@oinone/kunlun-meta';
+import { RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
 
 import { ActionWidget } from '../../component';
 import { ClickResult } from '../../../typing';

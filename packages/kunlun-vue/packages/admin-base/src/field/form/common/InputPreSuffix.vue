@@ -7,7 +7,7 @@
   </div>
 </template>
 <script lang="ts">
-import { OioIcon } from '@kunlun/vue-ui-antd';
+import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, PropType } from 'vue';
 import { InputPreSuffixType } from '../abstract/FormInputAbstractFieldWidget';
 

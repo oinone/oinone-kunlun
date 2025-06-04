@@ -2,7 +2,7 @@
   <detail-common-field :value="realLabel" />
 </template>
 <script lang="ts">
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { computed, defineComponent } from 'vue';
 import DetailCommonField from '../common/DetailCommonField.vue';
 import { useBoolean } from '../../../basic/field/boolean';

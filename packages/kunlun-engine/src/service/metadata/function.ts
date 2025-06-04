@@ -1,4 +1,4 @@
-import { ModelFieldType } from '@kunlun/meta';
+import { ModelFieldType } from '@oinone/kunlun-meta';
 import { FunctionSelfFlag, FunctionType, RuntimeFunctionDefinition } from '../../runtime-metadata';
 import { StaticMetadata } from './model';
 
@@ -115,7 +115,7 @@ export namespace FunctionMetadata {
     type: [FunctionType.CREATE],
     namespace: FunctionSelfFlag,
     name: CREATE_NAME,
-    fun:CREATE_NAME,
+    fun: CREATE_NAME,
     argumentList: [
       {
         name: 'data',
@@ -125,7 +125,7 @@ export namespace FunctionMetadata {
     returnType: {
       ttype: FunctionSelfFlag
     }
-  }
+  };
 
   export const UPDATE_NAME = 'update';
 

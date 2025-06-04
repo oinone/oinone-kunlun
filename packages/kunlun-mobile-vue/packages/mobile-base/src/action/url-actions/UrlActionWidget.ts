@@ -1,10 +1,10 @@
-import { RedirectTargetEnum, RuntimeUrlAction, translateValueByKey } from '@kunlun/engine';
-import { Expression } from '@kunlun/expression';
-import { ActionType, ViewActionTarget } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { OioMessage } from '@kunlun/vue-ui-mobile-vant';
-import { ReturnPromise } from '@kunlun/shared';
-import { Widget } from '@kunlun/vue-widget';
+import { RedirectTargetEnum, RuntimeUrlAction, translateValueByKey } from '@oinone/kunlun-engine';
+import { Expression } from '@oinone/kunlun-expression';
+import { ActionType, ViewActionTarget } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { OioMessage } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { Widget } from '@oinone/kunlun-vue-widget';
 
 import { ActionWidget } from '../component';
 

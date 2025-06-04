@@ -1,4 +1,4 @@
-import { DslDefinition, DslDefinitionType } from '@kunlun/dsl';
+import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import {
   ClientType,
   resolveView,
@@ -11,10 +11,10 @@ import {
   RuntimeRelatedField,
   RuntimeView,
   RuntimeViewAction
-} from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { BooleanHelper, debugConsole, uniqueKeyGenerator } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+} from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper, debugConsole, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { isNil, isPlainObject, isString } from 'lodash-es';
 import { LayoutManager, LayoutRegisterOptions } from '../../spi';
 import { findWidget } from '../../util/utils';
@@ -307,7 +307,10 @@ const GALLERY_CONTENT_SHOW_FIELDS_MAX_LENGTH = 3;
  * @param viewAction
  */
 export function tableViewToGalleryView(viewAction: RuntimeViewAction) {
-  if (viewAction.resViewType !== ViewType.Table || (viewAction.name === 'homepage' && viewAction.model === 'workbench.WorkBenchHomePage')) {
+  if (
+    viewAction.resViewType !== ViewType.Table ||
+    (viewAction.name === 'homepage' && viewAction.model === 'workbench.WorkBenchHomePage')
+  ) {
     return viewAction;
   }
   const dslObj = JSON.parse((viewAction.resView?.dsl as string) || '{}');

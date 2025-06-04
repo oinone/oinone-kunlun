@@ -1,6 +1,6 @@
-import { IStaticDialogWidget, translateValueByKey } from '@kunlun/engine';
-import { ModalWidth, OioModalProps } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { IStaticDialogWidget, translateValueByKey } from '@oinone/kunlun-engine';
+import { ModalWidth, OioModalProps } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../../typing';
 import { StaticPopupWidget } from '../StaticPopupWidget';
 import DefaultDialog from './DefaultDialog.vue';

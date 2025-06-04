@@ -1,12 +1,6 @@
 <script lang="ts">
-import { CastHelper } from '@kunlun/shared';
-import {
-  ButtonSize,
-  IconPlacement,
-  OioButtonProps,
-  OioIcon,
-  PropRecordHelper
-} from '@kunlun/vue-ui-common';
+import { CastHelper } from '@oinone/kunlun-shared';
+import { ButtonSize, IconPlacement, OioButtonProps, OioIcon, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Button as VanButton } from 'vant';
 import { createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

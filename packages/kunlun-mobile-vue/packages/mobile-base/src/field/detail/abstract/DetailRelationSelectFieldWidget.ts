@@ -1,7 +1,7 @@
-import { ActiveRecords, getRelationFieldKey, RuntimeRelationField } from '@kunlun/engine';
-import { isEmptyValue } from '@kunlun/meta';
+import { ActiveRecords, getRelationFieldKey, RuntimeRelationField } from '@oinone/kunlun-engine';
+import { isEmptyValue } from '@oinone/kunlun-meta';
 import { autoFillByLabel, autoFillByLabelFields } from '../../../layout';
-import { Widget } from '@kunlun/vue-widget';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseSelectFieldWidget, FormComplexFieldProps } from '../../../basic';
 
 export class DetailRelationSelectFieldWidget<

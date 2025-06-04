@@ -1,4 +1,4 @@
-import { ContextNode } from '@kunlun/shared';
+import { ContextNode } from '@oinone/kunlun-shared';
 
 export interface RuntimeEnvironment extends ContextNode<RuntimeEnvironment> {
   contentSelector: string;

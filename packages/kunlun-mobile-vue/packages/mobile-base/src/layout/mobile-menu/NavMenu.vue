@@ -1,5 +1,12 @@
 <template>
-  <nav-bar v-if="!miniProgram" class="mobile-nav-bar" safe-area-inset-top fixed :left-arrow="allowBack" @click-left="goHistory">
+  <nav-bar
+    v-if="!miniProgram"
+    class="mobile-nav-bar"
+    safe-area-inset-top
+    fixed
+    :left-arrow="allowBack"
+    @click-left="goHistory"
+  >
     <!--    <template #left>-->
     <!--      <van-icon name="arrow-left" @click="goHistory" />-->
     <!--    </template>-->
@@ -34,7 +41,9 @@
   >
     <div class="k-m-user">
       <img class="k-m-user-avatar" :src="pamirsUser.avatarUrl || genStaticPath('man_1651543408256.png')" />
-      <div class="k-m-user-name" v-if="hasCurrentUser">{{ pamirsUser.nickname || pamirsUser.name || pamirsUser.realname }}</div>
+      <div class="k-m-user-name" v-if="hasCurrentUser">
+        {{ pamirsUser.nickname || pamirsUser.name || pamirsUser.realname }}
+      </div>
       <div class="k-m-user-logout" @click="logout"><i class="iconfont oinone-tuichu" /></div>
     </div>
     <search v-if="showSearchInput" v-model="menuSearchKey" :placeholder="translateValueByKey('请输入搜索关键词')" />
@@ -53,9 +62,9 @@
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue';
 import { Icon as VanIcon, Popup as VanPopup, Search, NavBar } from 'vant';
-import { OioIcon } from '@kunlun/vue-ui-common';
+import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { cloneDeep } from 'lodash-es';
-import { genStaticPath, translateValueByKey } from '@kunlun/engine';
+import { genStaticPath, translateValueByKey } from '@oinone/kunlun-engine';
 import MenuComponent from './Menu.vue';
 import { isMiniProgram } from '../../util';
 import FreeDraggable from './FreeDraggable.vue';

@@ -1,5 +1,5 @@
-import { RuntimeStringField } from '@kunlun/engine';
-import { DEFAULT_PREDEFINE } from '@kunlun/vue-ui-common';
+import { RuntimeStringField } from '@oinone/kunlun-engine';
+import { DEFAULT_PREDEFINE } from '@oinone/kunlun-vue-ui-common';
 import { FormStringColorPickerFieldWidget } from '../../color/FormStringColorPickerFieldWidget';
 
 describe('FormStringColorPickerFieldWidget', () => {

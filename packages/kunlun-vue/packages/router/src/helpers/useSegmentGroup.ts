@@ -1,5 +1,5 @@
-import { UrlSegmentGroup } from '@kunlun/router';
-import { genToken } from '@kunlun/vue-widget';
+import { UrlSegmentGroup } from '@oinone/kunlun-router';
+import { genToken } from '@oinone/kunlun-vue-widget';
 import { computed, ComputedRef, inject, provide } from 'vue';
 import { ACTIVATED_ROUTE_TOKEN } from '../token';
 

@@ -166,10 +166,10 @@
   </div>
 </template>
 <script lang="ts">
-import { executeViewAction, genStaticPath, RedirectTargetEnum, translateValueByKey } from '@kunlun/engine';
-import { getRouterInstance, useMatched } from '@kunlun/router';
-import { getModel } from '@kunlun/service';
-import { CastHelper, OioButton, OioEmptyData, OioIcon, OioPagination, OioSpin } from '@kunlun/vue-ui-antd';
+import { executeViewAction, genStaticPath, RedirectTargetEnum, translateValueByKey } from '@oinone/kunlun-engine';
+import { getRouterInstance, useMatched } from '@oinone/kunlun-router';
+import { getModel } from '@oinone/kunlun-service';
+import { CastHelper, OioButton, OioEmptyData, OioIcon, OioPagination, OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineComponent, ref, watch } from 'vue';
 
 import { onJumpCodeFuse, onJumpModelDesigner, onJumpUiDesignerHomePage, onJumpWorkflowDesigner } from '../../../util';

@@ -1,4 +1,4 @@
-import { genToken, VueWidget, Widget } from '@kunlun/vue-widget';
+import { genToken, VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { inject, provide } from 'vue';
 
 export interface Widgets {

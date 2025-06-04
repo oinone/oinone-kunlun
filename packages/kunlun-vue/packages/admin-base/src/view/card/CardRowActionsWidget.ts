@@ -1,4 +1,4 @@
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { RowActionBarWidget } from '../../action/component/action-bar';
 import { BaseElementWidget } from '../../basic';
 import DefaultCardRowActions from './DefaultCardRowActions.vue';

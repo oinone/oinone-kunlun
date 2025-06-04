@@ -1,6 +1,6 @@
-import { SYSTEM_MODULE_NAME } from '@kunlun/meta';
-import { GQL } from '@kunlun/request';
-import { SPI } from '@kunlun/spi';
+import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
+import { GQL } from '@oinone/kunlun-request';
+import { SPI } from '@oinone/kunlun-spi';
 import { PartnerInfo, PartnerItem } from '../../typing';
 import { PartnerSwitcherService, PartnerSwitcherServiceToken } from '../PartnerSwitcherService';
 

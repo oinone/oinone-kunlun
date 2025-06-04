@@ -1,5 +1,5 @@
-import { DslDefinition } from '@kunlun/dsl';
-import { RuntimeContext } from '@kunlun/engine';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { RuntimeContext } from '@oinone/kunlun-engine';
 
 /**
  * 获取宿主视图名称

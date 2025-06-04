@@ -1,4 +1,4 @@
-import { Nullable } from '@kunlun/shared';
+import { Nullable } from '@oinone/kunlun-shared';
 import { parser } from '../../parser';
 import { IVisitor, Node, NodeVisitor, TokenContext, VisitContext } from '../../types';
 import {

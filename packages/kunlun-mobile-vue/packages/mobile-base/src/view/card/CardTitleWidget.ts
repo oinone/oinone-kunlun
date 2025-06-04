@@ -1,6 +1,6 @@
-import { deepClone, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { deepClone, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget, BaseFieldProps } from '../../basic';
 import DefaultCardTitle from './DefaultCardTitle.vue';
 import { isEmptyObject } from '../../layout';

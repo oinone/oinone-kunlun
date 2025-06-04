@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref } from 'vue';
-import { OioEmpty, VIDEO_SUFFIX_LIST } from '@kunlun/vue-ui-common';
+import { OioEmpty, VIDEO_SUFFIX_LIST } from '@oinone/kunlun-vue-ui-common';
 import PreviewMedia from '../preview/PreviewMedia.vue';
 import { useMetadataProps } from '../../../basic';
 

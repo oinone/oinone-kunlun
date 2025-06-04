@@ -16,10 +16,10 @@
 </template>
 <script lang="ts">
 import { delay } from 'lodash-es';
-import { BooleanHelper, CSSStyle } from '@kunlun/shared';
-import { DEFAULT_PREFIX } from '@kunlun/theme';
-import { createResourceFile, getFileSignature, ZH_CN_CODE } from '@kunlun/vue-ui-common';
-import { translateValueByKey } from '@kunlun/engine';
+import { BooleanHelper, CSSStyle } from '@oinone/kunlun-shared';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
+import { createResourceFile, getFileSignature, ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { IToolbarConfig, i18nChangeLanguage } from '@wangeditor/editor';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import '@wangeditor/editor/dist/css/style.css';

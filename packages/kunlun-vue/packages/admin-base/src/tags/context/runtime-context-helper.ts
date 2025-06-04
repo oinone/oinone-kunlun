@@ -1,4 +1,4 @@
-import { DslDefinition, XMLParse } from '@kunlun/dsl';
+import { DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
 import {
   ClientType,
   createDefaultLayout,
@@ -12,11 +12,11 @@ import {
   RuntimeRelatedField,
   RuntimeView,
   RuntimeViewAction
-} from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { debugConsole, uniqueKeyGenerator } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { getDefaultMaskTemplate, maskTemplateEdit } from '@kunlun/vue-admin-layout';
+} from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { debugConsole, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { getDefaultMaskTemplate, maskTemplateEdit } from '@oinone/kunlun-vue-admin-layout';
 import { isNil, isPlainObject, isString } from 'lodash-es';
 import { LayoutManager, LayoutRegisterOptions, MaskManager } from '../../spi';
 import { useInjectMetaContext } from './context';

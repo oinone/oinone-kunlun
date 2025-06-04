@@ -1,7 +1,7 @@
-import { PluginsLoader, PluginsLoaderConfig, RuntimeConfig } from '@kunlun/meta';
-import { HttpClient } from '@kunlun/request';
-import { blockingSerialExecutor, instantiate, isMobile, MatrixRouteHelper } from '@kunlun/shared';
-import { DefaultThemeName, genCSSVars, initOioComponentTheme, ThemeName, ThemeSize } from '@kunlun/theme';
+import { PluginsLoader, PluginsLoaderConfig, RuntimeConfig } from '@oinone/kunlun-meta';
+import { HttpClient } from '@oinone/kunlun-request';
+import { blockingSerialExecutor, instantiate, isMobile, MatrixRouteHelper } from '@oinone/kunlun-shared';
+import { DefaultThemeName, genCSSVars, initOioComponentTheme, ThemeName, ThemeSize } from '@oinone/kunlun-theme';
 import { RuntimeContextManager } from '../runtime-context/runtime-context-manager';
 import { genStaticPath } from '../util/resources';
 import { MultiTabsRuntimeManifestMergedConfigManager, MultiTabTheme } from '../view';

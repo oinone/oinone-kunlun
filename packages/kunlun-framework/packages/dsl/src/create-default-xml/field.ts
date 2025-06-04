@@ -1,4 +1,4 @@
-import { IModelField, ModelFieldType, ViewType } from '@kunlun/meta';
+import { IModelField, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 
 // 新增类型后需要同步在 packages/core/src/extension/token.ts 的 baseWidgetArray常量对应的加一下
 enum ViewFieldType {

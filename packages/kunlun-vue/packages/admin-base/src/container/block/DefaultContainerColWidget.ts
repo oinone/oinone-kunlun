@@ -1,5 +1,5 @@
-import { FlexColMode } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { FlexColMode } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { DefaultColWidget } from './DefaultColWidget';
 
 /**

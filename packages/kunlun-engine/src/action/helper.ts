@@ -1,5 +1,5 @@
-import { ViewActionTarget } from '@kunlun/meta';
-import { useMatched } from '@kunlun/router';
+import { ViewActionTarget } from '@oinone/kunlun-meta';
+import { useMatched } from '@oinone/kunlun-router';
 import { RuntimeViewAction } from '../runtime-metadata';
 import { MultiTabsRuntimeManifestMergedConfigManager } from '../view/multi-tabs/config-manager';
 import { ViewActionQueryParameter } from './typing';

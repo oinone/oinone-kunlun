@@ -1,5 +1,5 @@
 <script lang="ts">
-import { StringHelper } from '@kunlun/shared';
+import { StringHelper } from '@oinone/kunlun-shared';
 import { computed, createVNode, defineComponent, Fragment, ref, SetupContext, Teleport, VNode, VNodeProps } from 'vue';
 import { PropRecordHelper } from '../../util';
 import { OioPopperProps } from './props';

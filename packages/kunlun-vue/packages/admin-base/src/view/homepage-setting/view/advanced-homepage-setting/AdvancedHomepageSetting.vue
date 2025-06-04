@@ -68,8 +68,8 @@
   </div>
 </template>
 <script lang="ts">
-import { IModule } from '@kunlun/meta';
-import { OioButton, OioIcon, OioSwitch } from '@kunlun/vue-ui-antd';
+import { IModule } from '@oinone/kunlun-meta';
+import { OioButton, OioIcon, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
 import { debounce } from 'lodash-es';
 import { defineComponent, PropType, ref, watchEffect } from 'vue';
 import LazyLoadSelect from '../../components/LazyLoadSelect.vue';

@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { ATextareaProps, OioTextareaProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { ATextareaProps, OioTextareaProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Textarea as ATextarea } from 'ant-design-vue';
 import { isEmpty, isNil } from 'lodash-es';
 import { createVNode, defineComponent, ref } from 'vue';

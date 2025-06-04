@@ -1,6 +1,6 @@
-import { IPopupWidget, PopupManager } from '@kunlun/engine';
-import { ReturnPromise } from '@kunlun/shared';
-import { SPIFactory } from '@kunlun/spi';
+import { IPopupWidget, PopupManager } from '@oinone/kunlun-engine';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { SPIFactory } from '@oinone/kunlun-spi';
 import { RootComponentSPI } from '../../spi';
 import { PopupScene } from '../../typing';
 import { DialogWidget } from '../../view';

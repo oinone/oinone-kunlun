@@ -1,4 +1,4 @@
-import { ObjectUtils } from '@kunlun/shared';
+import { ObjectUtils } from '@oinone/kunlun-shared';
 import { Declaration, Expression, getNodeType, Literal, Node, NodeType, Pattern, Statement } from '../../types';
 
 export class NodeConverter {

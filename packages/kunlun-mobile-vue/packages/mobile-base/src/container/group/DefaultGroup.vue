@@ -1,6 +1,6 @@
 <script lang="ts">
-import { DslDefinition } from '@kunlun/dsl';
-import { CastHelper, StringHelper } from '@kunlun/shared';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   FormLayout,
   OioGroup,
@@ -9,8 +9,8 @@ import {
   useInjectOioFormContext,
   useProviderOioFormContext,
   DEFAULT_PREFIX
-} from '@kunlun/vue-ui-mobile-vant';
-import { translateValueByKey } from '@kunlun/engine';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { computed, createVNode, defineComponent, PropType, Slot, vShow, withDirectives } from 'vue';
 import { defaultFlexResolve } from '../../tags/resolve/helper';
 import DefaultGroupTitleToolbar from './DefaultGroupTitleToolbar.vue';

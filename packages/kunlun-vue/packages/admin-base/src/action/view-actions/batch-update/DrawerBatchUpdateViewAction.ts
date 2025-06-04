@@ -1,5 +1,5 @@
-import { ActionType, ViewActionTarget } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
+import { ActionType, ViewActionTarget } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
 import { ActionWidget } from '../../component';
 import { DrawerViewActionWidget } from '../popup/drawer';
 

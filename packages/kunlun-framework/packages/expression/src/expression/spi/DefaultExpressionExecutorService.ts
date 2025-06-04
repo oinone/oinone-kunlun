@@ -1,4 +1,4 @@
-import { SPI } from '@kunlun/spi';
+import { SPI } from '@oinone/kunlun-spi';
 import { isEmpty, isString } from 'lodash-es';
 import { Expression } from '../Expression';
 import { ExpressionRunParam } from '../ExpressionDefinition';

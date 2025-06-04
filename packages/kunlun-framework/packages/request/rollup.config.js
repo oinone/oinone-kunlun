@@ -1,4 +1,4 @@
 import pkg from './package.json';
 import rollupConfig from '../../scripts/build.config.js';
 
-export default rollupConfig(pkg.name, ['@kunlun/shared', '@kunlun/spi', '@kunlun/state']);
+export default rollupConfig(pkg.name, ['@oinone/kunlun-shared', '@oinone/kunlun-spi', '@oinone/kunlun-state']);

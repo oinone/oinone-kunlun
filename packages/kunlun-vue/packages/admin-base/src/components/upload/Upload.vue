@@ -57,8 +57,8 @@
 
 <script lang="ts">
 import { DeleteOutlined, UploadOutlined } from '@ant-design/icons-vue';
-import { RedirectTargetEnum } from '@kunlun/engine';
-import { downloadFile, OioButton, OioIcon } from '@kunlun/vue-ui-antd';
+import { RedirectTargetEnum } from '@oinone/kunlun-engine';
+import { downloadFile, OioButton, OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { UploadFile } from 'ant-design-vue';
 import { defineComponent } from 'vue';
 import { useMetadataProps } from '../../basic';

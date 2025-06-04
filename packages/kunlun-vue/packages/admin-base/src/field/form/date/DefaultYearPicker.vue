@@ -15,8 +15,8 @@
   />
 </template>
 <script lang="ts">
-import { OioYearPicker } from '@kunlun/vue-ui-antd';
-import { OioYearPickerProps } from '@kunlun/vue-ui-common';
+import { OioYearPicker } from '@oinone/kunlun-vue-ui-antd';
+import { OioYearPickerProps } from '@oinone/kunlun-vue-ui-common';
 import { defineComponent } from 'vue';
 import { OioCommonProps, OioMetadataProps, useInjectOioDefaultFormContext } from '../../../basic';
 import { useDateTimePickerProps } from './use-date-time-picker-props';

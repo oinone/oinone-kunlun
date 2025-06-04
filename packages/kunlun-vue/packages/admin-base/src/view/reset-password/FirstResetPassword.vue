@@ -25,18 +25,23 @@
           />
         </oio-form-item>
         <oio-form-item v-bind="formButtonLayout">
-          <oio-button type="primary" html-type="submit" :loading="loading" block>{{
-              $translate('确定')
-          }}</oio-button>
+          <oio-button type="primary" html-type="submit" :loading="loading" block>{{ $translate('确定') }}</oio-button>
         </oio-form-item>
       </oio-form>
     </div>
   </reset-password-layout>
 </template>
 <script lang="ts">
-import { MajorConfig, translateValueByKey } from '@kunlun/engine';
+import { MajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
 
-import { FormItemRule, OioButton, OioForm, OioFormInstance, OioFormItem, OioInputPassword } from '@kunlun/vue-ui-antd';
+import {
+  FormItemRule,
+  OioButton,
+  OioForm,
+  OioFormInstance,
+  OioFormItem,
+  OioInputPassword
+} from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, onMounted, PropType, reactive, ref } from 'vue';
 import ResetPasswordLayout from './layout/ResetPasswordLayout.vue';
 import { ResetPasswordData } from './typing';

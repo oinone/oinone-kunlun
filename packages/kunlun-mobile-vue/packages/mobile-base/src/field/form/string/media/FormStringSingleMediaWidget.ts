@@ -1,13 +1,13 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { ValidateTrigger, WidgetTrigger } from '@kunlun/vue-ui-common';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isNumber } from 'lodash-es';
 import { FormFieldWidget } from '../../../../basic';
 import { ValidatorInfo } from '../../../../typing';
 import { FormStringFieldSingleWidget } from '../FormStringFieldSingleWidget';
 import DefaultFormSingleMedia from './DefaultFormSingleMedia.vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 enum FileSource {
   UPLOAD = 'UPLOAD',

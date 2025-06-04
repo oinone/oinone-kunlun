@@ -1,8 +1,8 @@
-import { ViewType, ModelFieldType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { useMatched } from '@kunlun/router';
-import { getModel } from '@kunlun/service';
-import { getLabelFieldList4query, queryFieldDataList4Detail } from '@kunlun/engine';
+import { ViewType, ModelFieldType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { useMatched } from '@oinone/kunlun-router';
+import { getModel } from '@oinone/kunlun-service';
+import { getLabelFieldList4query, queryFieldDataList4Detail } from '@oinone/kunlun-engine';
 
 import { FormFieldWidget, FormComplexFieldWidget } from '../../../../basic';
 import UploadImgWidget from './UploadImgWidget';

@@ -7,8 +7,8 @@ import {
   IURLAction,
   IViewAction,
   ViewType
-} from '@kunlun/meta';
-import { getModel, getModelByFields } from '@kunlun/service';
+} from '@oinone/kunlun-meta';
+import { getModel, getModelByFields } from '@oinone/kunlun-service';
 import { ResolveUtil } from '../runtime-context/resolve/util';
 import { RuntimeAction, RuntimeEnumerationOption, RuntimeModel, RuntimeModelField } from '../runtime-metadata';
 import { MemoryAsyncCache } from './cache';

@@ -1,6 +1,6 @@
-import { ActionType, ActionContextType, ViewType, ViewMode, ViewActionTarget, deepClone } from '@kunlun/meta';
-import { DslDefinition, XMLParse, DslDefinitionType } from '@kunlun/dsl';
-import { MultiTabsRuntimeManifestMergedConfigManager, RuntimeViewAction } from '@kunlun/engine';
+import { ActionType, ActionContextType, ViewType, ViewMode, ViewActionTarget, deepClone } from '@oinone/kunlun-meta';
+import { DslDefinition, XMLParse, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { MultiTabsRuntimeManifestMergedConfigManager, RuntimeViewAction } from '@oinone/kunlun-engine';
 import { getDefaultMaskTemplate } from '../template';
 
 function findNodeByType(dsl: DslDefinition, dslNodeType: DslDefinitionType | string): DslDefinition | null {

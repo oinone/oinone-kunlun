@@ -1,4 +1,4 @@
-import { Manager, ObjectUtils } from '@kunlun/shared';
+import { Manager, ObjectUtils } from '@oinone/kunlun-shared';
 import { CONTENT_NULL_SELECTOR } from './constant';
 import { getContentHTMLElement } from './method';
 import { RuntimeEnvironment, VisibleArea } from './typing';

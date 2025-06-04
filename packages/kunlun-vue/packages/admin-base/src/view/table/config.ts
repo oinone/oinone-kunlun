@@ -1,5 +1,5 @@
-import { ConfigHelper } from '@kunlun/engine';
-import { RuntimeConfigOptions } from '@kunlun/meta';
+import { ConfigHelper } from '@oinone/kunlun-engine';
+import { RuntimeConfigOptions } from '@oinone/kunlun-meta';
 
 /**
  * Table配置

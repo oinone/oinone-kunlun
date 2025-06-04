@@ -11,7 +11,7 @@
   </div>
 </template>
 <script lang="ts">
-import { StringHelper } from '@kunlun/shared';
+import { StringHelper } from '@oinone/kunlun-shared';
 import { Loading as VanLoading } from 'vant';
 import { computed, defineComponent, PropType } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

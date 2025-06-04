@@ -1,4 +1,4 @@
-import { DateUtil } from '@kunlun/shared';
+import { DateUtil } from '@oinone/kunlun-shared';
 import { isArray, isNil } from 'lodash-es';
 import { computed, PropType, watch } from 'vue';
 import { useMetadataProps } from '../../../../basic';

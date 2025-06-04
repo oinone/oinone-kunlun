@@ -1,7 +1,7 @@
-import { ViewActionTarget, ViewType } from '@kunlun/meta';
-import { Condition, ILevel } from '@kunlun/request';
-import { ReturnPromise } from '@kunlun/shared';
-import { SPIOptions } from '@kunlun/spi';
+import { ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import { Condition, ILevel } from '@oinone/kunlun-request';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { SPIOptions } from '@oinone/kunlun-spi';
 
 export interface QueryExpression {
   leftValue: string[];

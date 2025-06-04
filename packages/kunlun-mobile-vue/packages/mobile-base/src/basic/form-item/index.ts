@@ -1,4 +1,4 @@
-import { ViewType } from '@kunlun/meta';
+import { ViewType } from '@oinone/kunlun-meta';
 import { registerEditorFieldMixinComponent, registerFieldMixinComponent } from '../../spi';
 import DefaultFormItem from './DefaultFormItem.vue';
 import TableEditorItem from './TableEditorItem.vue';

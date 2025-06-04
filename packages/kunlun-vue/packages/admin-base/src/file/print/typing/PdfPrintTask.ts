@@ -1,4 +1,4 @@
-import { QueryWrapper } from '@kunlun/engine';
+import { QueryWrapper } from '@oinone/kunlun-engine';
 
 export interface PdfPrintTask {
   model?: string;

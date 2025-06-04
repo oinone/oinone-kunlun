@@ -1,4 +1,4 @@
-import { StandardEventManager } from '@kunlun/shared';
+import { StandardEventManager } from '@oinone/kunlun-shared';
 import { ClearCache } from '../../cache';
 import { IMultiTabsManager, MultiTabInstance } from './typing';
 

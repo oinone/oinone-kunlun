@@ -1,6 +1,6 @@
 <script lang="ts">
-import { StringHelper } from '@kunlun/shared';
-import { OioEmptyData, OioSpin, PropRecordHelper } from '@kunlun/vue-ui-mobile-vant';
+import { StringHelper } from '@oinone/kunlun-shared';
+import { OioEmptyData, OioSpin, PropRecordHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, ref, VNode } from 'vue';
 import { Column as VxeColumn, Table as VxeTable, VxeTableDefines, VxeTableInstance } from 'vxe-table';

@@ -1,4 +1,4 @@
-import { RuntimeConfigOptions } from '@kunlun/meta';
+import { RuntimeConfigOptions } from '@oinone/kunlun-meta';
 
 export interface LoginData {
   login?: string;

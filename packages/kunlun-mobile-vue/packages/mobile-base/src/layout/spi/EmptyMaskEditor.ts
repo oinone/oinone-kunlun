@@ -1,5 +1,5 @@
-import { DslDefinition } from '@kunlun/dsl';
-import { SPI } from '@kunlun/spi';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { SPI } from '@oinone/kunlun-spi';
 import { MaskEditor, MaskEditorContext, MaskEditorToken } from './mask-editor';
 
 // inversify至少要有1个实现类，否则会报错

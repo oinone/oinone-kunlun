@@ -55,9 +55,9 @@
 <script lang="ts" setup>
 import { ref, computed, defineProps } from 'vue';
 import { UploadDragger as AUploadDragger, Progress as AProgress, UploadFile } from 'ant-design-vue';
-import { OioIcon, OioButton, OioNotification } from '@kunlun/vue-ui-antd';
-import { FileModel, IUploadMethod, useUploadFileEvent } from '@kunlun/vue-ui-common';
-import { translateValueByKey } from '@kunlun/engine';
+import { OioIcon, OioButton, OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { FileModel, IUploadMethod, useUploadFileEvent } from '@oinone/kunlun-vue-ui-common';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 const props = defineProps<{
   uploadIcon: string;

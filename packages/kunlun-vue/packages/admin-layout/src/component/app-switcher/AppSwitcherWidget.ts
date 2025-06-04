@@ -6,12 +6,12 @@ import {
   ReloadMaskCallChainingParameters,
   setDefaultMajorConfig,
   systemMajorConfig
-} from '@kunlun/engine';
-import { GlobalConfig, IModule } from '@kunlun/meta';
-import { Router } from '@kunlun/router';
-import { SPI } from '@kunlun/spi';
-import { useRouter } from '@kunlun/vue-router';
-import { Widget, WidgetSubjection } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { GlobalConfig, IModule } from '@oinone/kunlun-meta';
+import { Router } from '@oinone/kunlun-router';
+import { SPI } from '@oinone/kunlun-spi';
+import { useRouter } from '@oinone/kunlun-vue-router';
+import { Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { MaskWidget } from '../../basic';
 import { ModuleService } from '../../service';
 import { appFinderSymbol, MenuCollapsedSymbol } from '../../typing';

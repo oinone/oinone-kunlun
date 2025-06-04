@@ -12,13 +12,13 @@ import {
   RuntimeUrlAction,
   StaticMetadata,
   translateValueByKey
-} from '@kunlun/engine';
-import { Expression } from '@kunlun/expression';
-import { ActionType, ViewActionTarget, ViewType } from '@kunlun/meta';
-import { ReturnPromise } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { OioMessage, OioNotification } from '@kunlun/vue-ui-antd';
-import { Widget } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-engine';
+import { Expression } from '@oinone/kunlun-expression';
+import { ActionType, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { OioMessage, OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { Widget } from '@oinone/kunlun-vue-widget';
 
 import { ActionWidget } from '../component';
 

@@ -1,4 +1,4 @@
-import { ActiveRecord } from '@kunlun/engine';
+import { ActiveRecord } from '@oinone/kunlun-engine';
 import { PropType } from 'vue';
 
 export enum ChildrenViewType {

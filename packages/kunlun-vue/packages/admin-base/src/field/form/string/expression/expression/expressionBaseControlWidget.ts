@@ -1,7 +1,7 @@
-import { createDefaultExpressionItem, EXPRESSION_TTYPES, queryExpBuildInFunction } from '@kunlun/vue-expression';
+import { createDefaultExpressionItem, EXPRESSION_TTYPES, queryExpBuildInFunction } from '@oinone/kunlun-vue-expression';
 import { ExpressionAbstractWidget } from '../ExpressionAbstractWidget';
-import { Widget } from '@kunlun/vue-widget';
-import { isNumberTtype, isStringTtype, ModelFieldType } from '@kunlun/meta';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { isNumberTtype, isStringTtype, ModelFieldType } from '@oinone/kunlun-meta';
 
 export class ExpressionBaseControlWidget extends ExpressionAbstractWidget {
   public initialize(props) {

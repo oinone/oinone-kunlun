@@ -1,7 +1,7 @@
-import { ActiveRecord, SubmitHandler, SubmitValue } from '@kunlun/engine';
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { ReturnPromise } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { ActiveRecord, SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../basic';
 import { FormM2MTableFieldWidget } from '../../../field';
 

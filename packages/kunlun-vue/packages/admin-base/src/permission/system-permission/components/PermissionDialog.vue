@@ -130,9 +130,9 @@
   </oio-modal>
 </template>
 <script lang="ts" setup>
-import { translateValueByKey } from '@kunlun/engine';
-import { ModelFieldTypeDisplayName } from '@kunlun/meta';
-import { GraphqlHelper } from '@kunlun/shared';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { ModelFieldTypeDisplayName } from '@oinone/kunlun-meta';
+import { GraphqlHelper } from '@oinone/kunlun-shared';
 import {
   OioButton,
   OioForm,
@@ -143,7 +143,7 @@ import {
   OioTab,
   OioTabs,
   OioTextarea
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineEmits, defineProps, ref, watch, withDefaults } from 'vue';
 import { IPermission } from '../../permission/type';
 import { queryActionsByMenu, queryGroupData } from '../service';

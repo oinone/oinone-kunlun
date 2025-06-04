@@ -1,5 +1,5 @@
 <script lang="ts">
-import { WidgetTagProps } from '@kunlun/vue-widget';
+import { WidgetTagProps } from '@oinone/kunlun-vue-widget';
 import { defineComponent } from 'vue';
 import { UseWidgetTagMixin } from '../mixin';
 import { useTabsWidgetTag } from './useTabsWidgetTag';

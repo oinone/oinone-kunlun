@@ -1,6 +1,6 @@
-import { ViewType } from '@kunlun/meta';
-import { defaultYearFormat, defaultYearValueFormat } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { ViewType } from '@oinone/kunlun-meta';
+import { defaultYearFormat, defaultYearValueFormat } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { BaseElementWidget } from '../../../../basic';
 import { TableDateTimeRangeFieldWidget } from './TableDateTimeRangeFieldWidget';
 

@@ -1,8 +1,8 @@
-import { ActiveRecords } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { CallChaining } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ActiveRecords } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { CallChaining } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseListView, BaseView } from '../../basic';
 
 /**

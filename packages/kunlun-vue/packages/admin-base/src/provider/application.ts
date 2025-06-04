@@ -1,4 +1,4 @@
-import { VueWidget } from '@kunlun/vue-widget';
+import { VueWidget } from '@oinone/kunlun-vue-widget';
 import { RootComponentSPI } from '../spi';
 
 export class DefaultRoot extends VueWidget {

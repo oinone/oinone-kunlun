@@ -1,4 +1,4 @@
-import { CSSStyle, StandardTreeNode } from '@kunlun/shared';
+import { CSSStyle, StandardTreeNode } from '@oinone/kunlun-shared';
 import { PropType } from 'vue';
 import { OioSpinProps } from '../oio-spin';
 

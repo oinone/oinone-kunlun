@@ -1,5 +1,5 @@
 {
-  "name": "@kunlun/request",
+  "name": "@oinone/kunlun-request",
   "version": "6.2.0",
   "main": "index.ts",
   "scripts": {
@@ -24,9 +24,9 @@
     "jstz": "2.1.1"
   },
   "devDependencies": {
-    "@kunlun/shared": "6.2.0",
-    "@kunlun/spi": "6.2.0",
-    "@kunlun/state": "6.2.0",
+    "@oinone/kunlun-shared": "6.2.0",
+    "@oinone/kunlun-spi": "6.2.0",
+    "@oinone/kunlun-state": "6.2.0",
     "@types/crypto-js": "4.1.1"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"

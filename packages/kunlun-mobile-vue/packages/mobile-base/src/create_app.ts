@@ -1,5 +1,5 @@
-import { ExtLoader } from '@kunlun/spi';
-import { createVueRouter } from '@kunlun/vue-router';
+import { ExtLoader } from '@oinone/kunlun-spi';
+import { createVueRouter } from '@oinone/kunlun-vue-router';
 import { createApp as createVueApp } from 'vue';
 import VXETable from 'vxe-table';
 // import 'vxe-table/lib/style.css';

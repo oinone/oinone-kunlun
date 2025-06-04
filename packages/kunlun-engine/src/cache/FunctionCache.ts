@@ -1,5 +1,5 @@
-import { MetadataRuntimeFragment, MetadataRuntimeFragmentName, SYSTEM_MODULE_NAME } from '@kunlun/meta';
-import { http } from '@kunlun/service';
+import { MetadataRuntimeFragment, MetadataRuntimeFragmentName, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
+import { http } from '@oinone/kunlun-service';
 import gql from 'graphql-tag';
 import { RuntimeFunctionDefinition } from '../runtime-metadata';
 import { MemoryAsyncCache } from './cache';

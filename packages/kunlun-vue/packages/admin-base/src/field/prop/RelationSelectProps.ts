@@ -1,4 +1,4 @@
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { computed, PropType, ref } from 'vue';
 import { usePlaceholderProps } from '../../basic';
 

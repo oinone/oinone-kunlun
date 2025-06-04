@@ -8,7 +8,7 @@
 </template>
 <script lang="ts" setup>
 import { defineProps, withDefaults } from 'vue';
-import { genStaticPath } from '@kunlun/engine';
+import { genStaticPath } from '@oinone/kunlun-engine';
 
 withDefaults(defineProps<{ title: string }>(), { title: '当前无可配置权限，请先选择应用/菜单' });
 </script>

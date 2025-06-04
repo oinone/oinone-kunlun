@@ -1,11 +1,11 @@
-import { ModelFieldType, RuntimeConfig, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { ModelFieldType, RuntimeConfig, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 
 import { FormFieldWidget, FormM2OFieldWidget } from '../../../../basic';
 import { UploadImgCom } from '../../../../components';
-import { MultipartUploadRuntimeConfig } from '@kunlun/vue-ui-common';
-import { ConfigHelper } from '@kunlun/engine';
+import { MultipartUploadRuntimeConfig } from '@oinone/kunlun-vue-ui-common';
+import { ConfigHelper } from '@oinone/kunlun-engine';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({

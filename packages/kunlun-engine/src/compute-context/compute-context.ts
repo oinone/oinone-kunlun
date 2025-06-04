@@ -1,5 +1,5 @@
-import { ExpressionRunParam } from '@kunlun/expression';
-import { ContextNode } from '@kunlun/shared';
+import { ExpressionRunParam } from '@oinone/kunlun-expression';
+import { ContextNode } from '@oinone/kunlun-shared';
 import { RuntimeContext } from '../runtime-context';
 import { RuntimeModelField } from '../runtime-metadata';
 import { Node, ReactiveEffectRunner } from './ast';

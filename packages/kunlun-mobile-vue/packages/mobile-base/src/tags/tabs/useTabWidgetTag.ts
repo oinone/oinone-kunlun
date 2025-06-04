@@ -1,4 +1,4 @@
-import { DslDefinitionWidget, DslDefinitionWidgetProps, DslRender } from '@kunlun/vue-widget';
+import { DslDefinitionWidget, DslDefinitionWidgetProps, DslRender } from '@oinone/kunlun-vue-widget';
 import { Slot, Slots, VNode } from 'vue';
 import { DefaultTabWidget } from '../../container';
 

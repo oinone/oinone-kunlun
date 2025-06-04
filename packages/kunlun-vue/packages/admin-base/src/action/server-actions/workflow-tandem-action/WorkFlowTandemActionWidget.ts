@@ -1,7 +1,7 @@
-import { SPI } from '@kunlun/spi';
-import { ActionType } from '@kunlun/meta';
-import { RuntimeServerAction, SubmitValue } from '@kunlun/engine';
-import { Widget } from '@kunlun/vue-widget';
+import { SPI } from '@oinone/kunlun-spi';
+import { ActionType } from '@oinone/kunlun-meta';
+import { RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
+import { Widget } from '@oinone/kunlun-vue-widget';
 
 import { ActionWidget } from '../../component';
 import { ServerActionWidget } from '../ServerActionWidget';

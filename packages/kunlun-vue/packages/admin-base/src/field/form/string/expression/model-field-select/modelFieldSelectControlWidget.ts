@@ -1,16 +1,16 @@
-import { ModelFieldType, IModelField, ViewType, SystemSource } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { ExpressionKeyword } from '@kunlun/expression';
+import { ModelFieldType, IModelField, ViewType, SystemSource } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { ExpressionKeyword } from '@oinone/kunlun-expression';
 import { FormFieldWidget } from '../../../../../basic';
-import { Widget } from '@kunlun/vue-widget';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import {
   ModelFieldSelectControl,
   ExpressionKeywordDisplayName,
   IVariableContextItem,
   IVariableItem
-} from '@kunlun/vue-expression';
+} from '@oinone/kunlun-vue-expression';
 import { isBoolean, isNil, isString } from 'lodash-es';
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 
 /**
  * 指定模型下的字段选择控件

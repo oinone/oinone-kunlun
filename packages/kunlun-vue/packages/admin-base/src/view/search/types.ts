@@ -1,7 +1,7 @@
-import { IModelFieldOption } from '@kunlun/meta';
-import { DslDefinition } from '@kunlun/dsl';
-import { ActiveRecord, RuntimeModelField } from '@kunlun/engine';
-import { OioFormProps } from '@kunlun/vue-ui-antd';
+import { IModelFieldOption } from '@oinone/kunlun-meta';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
+import { OioFormProps } from '@oinone/kunlun-vue-ui-antd';
 import { PropType } from 'vue';
 import { UserSearchPrefer } from '../../typing';
 

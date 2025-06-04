@@ -1,6 +1,6 @@
-import { TreeNode } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
-import { Widget } from '@kunlun/vue-widget';
+import { TreeNode } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
 import { TreeData } from '../../../typing';
 import { ActionBarWidget, ActionBarWidgetProps } from './ActionBarWidget';

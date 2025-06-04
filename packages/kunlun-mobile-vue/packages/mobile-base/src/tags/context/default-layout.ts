@@ -1,7 +1,7 @@
-import { DslDefinition, XMLParse } from '@kunlun/dsl';
-import { ViewType } from '@kunlun/meta';
+import { DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
+import { ViewType } from '@oinone/kunlun-meta';
 import { DEFAULT_VIEW_CLASS } from '../../ui/theme';
-import { debugConsole } from '@kunlun/shared';
+import { debugConsole } from '@oinone/kunlun-shared';
 
 export function createMobileDefaultLayout(viewType: ViewType, inline: boolean): DslDefinition | undefined {
   let xml: string | undefined;

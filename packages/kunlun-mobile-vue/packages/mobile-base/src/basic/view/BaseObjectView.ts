@@ -1,5 +1,5 @@
-import { NumberHelper } from '@kunlun/shared';
-import { Widget } from '@kunlun/vue-widget';
+import { NumberHelper } from '@oinone/kunlun-shared';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseView, BaseViewProps } from '../token';
 

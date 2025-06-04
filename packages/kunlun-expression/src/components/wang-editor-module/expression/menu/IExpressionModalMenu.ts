@@ -1,6 +1,6 @@
 import { DomEditor, IDomEditor, IModalMenu, t } from '@wangeditor/core';
 import { DOMElement } from '@wangeditor/editor/dist/editor/src/utils/dom';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { createExpressionDialog } from './util';
 
 // 定义菜单 class

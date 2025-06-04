@@ -1,4 +1,4 @@
-import { RenderWidget as ViewTagCustomWidget } from '@kunlun/vue-widget';
+import { RenderWidget as ViewTagCustomWidget } from '@oinone/kunlun-vue-widget';
 import './spi-register';
 import {
   CustomWidgetProps,

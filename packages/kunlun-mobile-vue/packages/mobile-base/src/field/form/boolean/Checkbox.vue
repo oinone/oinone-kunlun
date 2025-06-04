@@ -5,7 +5,7 @@
   </div>
 </template>
 <script lang="ts">
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { defineComponent, computed, ref, watch } from 'vue';
 import { Checkbox as VanCheckbox } from 'vant';
 import { OioCommonProps, OioMetadataProps, useBoolean } from '../../../basic';

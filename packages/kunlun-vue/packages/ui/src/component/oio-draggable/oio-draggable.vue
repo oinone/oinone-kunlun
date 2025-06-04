@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, DomHelper, Optional, StringHelper } from '@kunlun/shared';
-import { StyleHelper } from '@kunlun/vue-ui-common';
+import { CastHelper, DomHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
+import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent, ref, VNode, VNodeProps } from 'vue';
 import draggable from 'vuedraggable';
 import { EndEvent, GhostBody, MoveBody, StartEvent } from './draggable-types';

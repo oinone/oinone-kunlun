@@ -1,4 +1,4 @@
-import { RuntimeStringField } from '@kunlun/engine';
+import { RuntimeStringField } from '@oinone/kunlun-engine';
 import { FormStringUploadFieldWidget } from '../../upload/FormStringUploadFieldWidget';
 import { FormFieldWidget } from '../../../../../basic';
 

@@ -1,10 +1,10 @@
-import { RuntimeModelField } from '@kunlun/engine';
-import { ViewType } from '@kunlun/meta';
-import { isDev } from '@kunlun/router';
-import { DateFormatMap, DateTimeFormatMap, DateUtil, defaultFormat, TimeFormatMap } from '@kunlun/shared';
-import { SPI } from '@kunlun/spi';
+import { RuntimeModelField } from '@oinone/kunlun-engine';
+import { ViewType } from '@oinone/kunlun-meta';
+import { isDev } from '@oinone/kunlun-router';
+import { DateFormatMap, DateTimeFormatMap, DateUtil, defaultFormat, TimeFormatMap } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { RowContext } from '../../../../ui';
-import { Widget } from '@kunlun/vue-widget';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isDate, isEmpty, isString, toString } from 'lodash-es';
 import { VNode } from 'vue';
 import { BaseElementWidget, BaseTableColumnWidget } from '../../../../basic';

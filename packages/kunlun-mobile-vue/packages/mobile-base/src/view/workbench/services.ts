@@ -1,4 +1,4 @@
-import { http } from '@kunlun/service';
+import { http } from '@oinone/kunlun-service';
 
 const getWorkbenchInfo = async () => {
   const body = `mutation {

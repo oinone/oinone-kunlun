@@ -5,9 +5,9 @@ import {
   translate,
   translateValueByKey,
   ViewActionCache
-} from '@kunlun/engine';
-import { ViewActionTarget } from '@kunlun/meta';
-import { MessageHub } from '@kunlun/request';
+} from '@oinone/kunlun-engine';
+import { ViewActionTarget } from '@oinone/kunlun-meta';
+import { MessageHub } from '@oinone/kunlun-request';
 import { Modal } from 'ant-design-vue';
 import { isString } from 'lodash-es';
 import { createVNode } from 'vue';

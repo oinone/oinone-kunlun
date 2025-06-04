@@ -2,8 +2,8 @@
  * VariableFormInput.vue
  * VariableFormTag.vue
  */
-import { Pagination } from '@kunlun/engine';
-import { IModelField, ModelFieldType } from '@kunlun/meta';
+import { Pagination } from '@oinone/kunlun-engine';
+import { IModelField, ModelFieldType } from '@oinone/kunlun-meta';
 import { ExtractPropTypes } from '@vue/runtime-core';
 import { toString } from 'lodash-es';
 import { computed, onMounted, PropType, ref, SetupContext } from 'vue';

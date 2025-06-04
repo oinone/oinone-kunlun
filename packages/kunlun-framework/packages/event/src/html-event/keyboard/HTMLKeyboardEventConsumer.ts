@@ -1,4 +1,4 @@
-import { useEnv } from '@kunlun/environment';
+import { useEnv } from '@oinone/kunlun-environment';
 import {
   AbstractEventConsumer,
   EventCategory,

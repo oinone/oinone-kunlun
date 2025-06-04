@@ -1,6 +1,6 @@
-import { DateUtil } from '@kunlun/shared';
+import { DateUtil } from '@oinone/kunlun-shared';
 import moment from 'moment';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 export enum DateQuickOption {
   TODAY = 'TODAY',

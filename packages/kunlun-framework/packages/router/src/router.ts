@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
-import { UrlHelper, __DEV__, debugConsole } from '@kunlun/shared';
-import { BehaviorSubject, take } from '@kunlun/state';
+import { UrlHelper, __DEV__, debugConsole } from '@oinone/kunlun-shared';
+import { BehaviorSubject, take } from '@oinone/kunlun-state';
 import page from 'page';
 import { DefaultUrlSerializer, UrlSegment, UrlSegmentGroup, UrlTree } from './url_tree';
 import { _useMatched } from './useMatched';

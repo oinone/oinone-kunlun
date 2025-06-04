@@ -1,6 +1,6 @@
 <script lang="ts">
-import { ReturnPromise, ReturnVoid } from '@kunlun/shared';
-import { FileModel, IUploadMethod, OioUploadProps, PropRecordHelper, useUploadFileEvent } from '@kunlun/vue-ui-common';
+import { ReturnPromise, ReturnVoid } from '@oinone/kunlun-shared';
+import { FileModel, IUploadMethod, OioUploadProps, PropRecordHelper, useUploadFileEvent } from '@oinone/kunlun-vue-ui-common';
 import { Upload as AUpload } from 'ant-design-vue';
 import { isArray, isNil, isString } from 'lodash-es';
 import { computed, createVNode, defineComponent, nextTick, ref, watch } from 'vue';

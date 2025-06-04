@@ -1,6 +1,6 @@
 <script lang="ts">
-import { StringHelper } from '@kunlun/shared';
-import { getCopyrightStatus, systemMajorConfig } from '@kunlun/engine';
+import { StringHelper } from '@oinone/kunlun-shared';
+import { getCopyrightStatus, systemMajorConfig } from '@oinone/kunlun-engine';
 import { computed, createVNode, defineComponent, PropType } from 'vue';
 import { Copyright } from '../../../typing';
 

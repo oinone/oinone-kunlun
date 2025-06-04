@@ -1,7 +1,7 @@
-import { ModelFieldType, ViewType } from '@kunlun/meta';
-import { SPI } from '@kunlun/spi';
-import { Widget, WidgetComponent } from '@kunlun/vue-widget';
-import { WidgetTrigger } from '@kunlun/vue-ui-common';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
+import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 
 import { FormFieldWidget } from '../../../basic';
 import DefaultDatePicker from './DefaultDatePicker.vue';

@@ -1,5 +1,5 @@
-import { DslDefinition } from '@kunlun/dsl';
-import { SPI } from '@kunlun/spi';
+import { DslDefinition } from '@oinone/kunlun-dsl';
+import { SPI } from '@oinone/kunlun-spi';
 import { DebugConfigManager } from '../../../config';
 import { MaskEditor, MaskEditorContext, MaskEditorToken, MaskEditService, MaskEditServiceToken } from '../../../spi';
 

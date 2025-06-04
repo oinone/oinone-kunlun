@@ -1,8 +1,8 @@
 <script lang="ts">
-import { DEFAULT_PREFIX, OioIcon, OioInputSearch } from '@kunlun/vue-ui-mobile-vant';
+import { DEFAULT_PREFIX, OioIcon, OioInputSearch } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Radio as VanRadio, RadioGroup as VanRadioGroup } from 'vant';
 import { computed, createVNode, defineComponent, PropType, ref } from 'vue';
-import { translateValueByKey } from '@kunlun/engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { data1, data2 } from './data';
 import { IconDefine } from './typing';
 

@@ -12,7 +12,7 @@ import {
   useCurrentContextService,
   UserInfo,
   ViewActionCache
-} from '@kunlun/engine';
+} from '@oinone/kunlun-engine';
 import {
   ActionType,
   Entity,
@@ -23,15 +23,15 @@ import {
   IView,
   ViewActionTarget,
   ViewType
-} from '@kunlun/meta';
-import { getRouterInstance, Router, subscribeRoute, useMatched } from '@kunlun/router';
-import { SPI } from '@kunlun/spi';
-import { Subscription } from '@kunlun/state';
-import { ViewSubSymbol, Widget, WidgetBehaviorSubjection, WidgetSubjection } from '@kunlun/vue-widget';
+} from '@oinone/kunlun-meta';
+import { getRouterInstance, Router, subscribeRoute, useMatched } from '@oinone/kunlun-router';
+import { SPI } from '@oinone/kunlun-spi';
+import { Subscription } from '@oinone/kunlun-state';
+import { ViewSubSymbol, Widget, WidgetBehaviorSubjection, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
-import { callFunction, getModel } from '@kunlun/service';
-import { Expression, ExpressionRunParam } from '@kunlun/expression';
-import { OioNotification, TreeNode } from '@kunlun/vue-ui-mobile-vant';
+import { callFunction, getModel } from '@oinone/kunlun-service';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { OioNotification, TreeNode } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { GlobalStateSubSymbol, IGlobalState, MenusSubSymbol } from '../type';
 import { parseActionDomain4search } from '../utils';
 import MenuComponent from './NavMenu.vue';

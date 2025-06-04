@@ -1,6 +1,6 @@
-import { ActiveRecord, Pagination } from '@kunlun/engine';
-import { Condition } from '@kunlun/request';
-import { IQueryPageResult, queryPage } from '@kunlun/service';
+import { ActiveRecord, Pagination } from '@oinone/kunlun-engine';
+import { Condition } from '@oinone/kunlun-request';
+import { IQueryPageResult, queryPage } from '@oinone/kunlun-service';
 import { ResourcePermissionUserModel } from '../../type';
 import { InlineTableWidget } from './InlineTableWidget';
 

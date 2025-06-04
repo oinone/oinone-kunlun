@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { OioDividerProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { OioDividerProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Divider as ADivider } from 'ant-design-vue';
 import { createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

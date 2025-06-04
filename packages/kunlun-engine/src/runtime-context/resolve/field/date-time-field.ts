@@ -1,4 +1,4 @@
-import { FieldDslDefinition } from '@kunlun/dsl';
+import { FieldDslDefinition } from '@oinone/kunlun-dsl';
 import { RuntimeDateTimeField } from '../../../runtime-metadata';
 import { RuntimeContext } from '../../runtime-context';
 

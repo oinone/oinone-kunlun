@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { InputType, OioInputProps } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { InputType, OioInputProps } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent, ref } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 
@@ -28,7 +28,11 @@ export default defineComponent({
     }
     if (this.readonly) {
       classList.push(`${mainClassName}-readonly`);
-      childrenNode.push(this.value || !this.placeholder ? this.value : createVNode('span', { class: `${mainClassName}-placeholder`}, this.placeholder));
+      childrenNode.push(
+        this.value || !this.placeholder
+          ? this.value
+          : createVNode('span', { class: `${mainClassName}-placeholder` }, this.placeholder)
+      );
     }
 
     const props = {

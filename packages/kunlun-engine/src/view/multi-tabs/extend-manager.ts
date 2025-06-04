@@ -1,4 +1,4 @@
-import { getRouterInstance } from '@kunlun/router';
+import { getRouterInstance } from '@oinone/kunlun-router';
 import { MultiTabsManager } from './manager';
 import { MultiTabsRouter } from './router';
 import { MultiTabInstance } from './typing';

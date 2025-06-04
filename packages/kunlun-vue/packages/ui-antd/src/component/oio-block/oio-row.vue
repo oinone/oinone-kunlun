@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@kunlun/shared';
-import { FlexHelper, OioRowProps, PropRecordHelper, RowProps } from '@kunlun/vue-ui-common';
+import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { FlexHelper, OioRowProps, PropRecordHelper, RowProps } from '@oinone/kunlun-vue-ui-common';
 import { Row as ARow } from 'ant-design-vue';
 import { computed, createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

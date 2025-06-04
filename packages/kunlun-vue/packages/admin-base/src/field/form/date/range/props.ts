@@ -1,4 +1,4 @@
-import { DateUtil, RSQLOperators } from '@kunlun/shared';
+import { DateUtil, RSQLOperators } from '@oinone/kunlun-shared';
 import { isArray, isNil } from 'lodash-es';
 import { computed, PropType, watch } from 'vue';
 import { useMetadataProps, buildPlaceholder } from '../../../../basic';

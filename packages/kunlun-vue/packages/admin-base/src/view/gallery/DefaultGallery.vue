@@ -1,6 +1,6 @@
 <script lang="ts">
-import { ActiveRecord, ActiveRecordExtendKeys, Pagination } from '@kunlun/engine';
-import { RowContext } from '@kunlun/vue-ui';
+import { ActiveRecord, ActiveRecordExtendKeys, Pagination } from '@oinone/kunlun-engine';
+import { RowContext } from '@oinone/kunlun-vue-ui';
 import {
   CommonGutterType,
   CSSStyle,
@@ -9,8 +9,8 @@ import {
   OioGalleryItem,
   OioPagination,
   StyleHelper
-} from '@kunlun/vue-ui-antd';
-import { PropRecordHelper } from '@kunlun/vue-ui-common';
+} from '@oinone/kunlun-vue-ui-antd';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent, PropType, VNode } from 'vue';
 
 export default defineComponent({

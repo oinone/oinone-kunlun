@@ -1,9 +1,9 @@
-import { RuntimeNumberField } from '@kunlun/engine';
-import { BooleanHelper, NumberHelper, Optional } from '@kunlun/shared';
-import { Widget } from '@kunlun/vue-widget';
+import { RuntimeNumberField } from '@oinone/kunlun-engine';
+import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toString } from 'lodash-es';
 import { FormInputAbstractFieldWidget } from './FormInputAbstractFieldWidget';
-import { IInputmodeEnum } from '@kunlun/vue-ui-common';
+import { IInputmodeEnum } from '@oinone/kunlun-vue-ui-common';
 
 export type NumberValue = string | number;
 

@@ -1,5 +1,5 @@
-import { translateValueByKey } from '@kunlun/engine';
-import { ResourceDateTimeOption } from '@kunlun/shared';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { ResourceDateTimeOption } from '@oinone/kunlun-shared';
 
 /**
  * 每个选项的ID不可修改

@@ -46,9 +46,9 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue';
-import { deepClone } from '@kunlun/meta';
+import { deepClone } from '@oinone/kunlun-meta';
 import { CloseCircleFilled } from '@ant-design/icons-vue';
-import { BooleanHelper } from '@kunlun/shared';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import ExpressionDialog from '../../dialog/ExpressionDialog.vue';
 import ConditionInputForm from './ConditionInputForm.vue';
 import { createDefaultFieldExpressionItem } from '../../../share';

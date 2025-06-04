@@ -1,4 +1,4 @@
-import { FlexDirection } from '@kunlun/vue-ui-common';
+import { FlexDirection } from '@oinone/kunlun-vue-ui-common';
 import { computed, ComputedRef, inject, InjectionKey, provide } from 'vue';
 
 export interface OioDefaultRowContext {

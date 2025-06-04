@@ -1,7 +1,7 @@
 <script lang="ts">
-import { ViewType } from '@kunlun/meta';
-import { CastHelper, OioButton, OioModal, PropRecordHelper, StringHelper } from '@kunlun/vue-ui-antd';
-import { onAllMounted } from '@kunlun/vue-widget';
+import { ViewType } from '@oinone/kunlun-meta';
+import { CastHelper, OioButton, OioModal, PropRecordHelper, StringHelper } from '@oinone/kunlun-vue-ui-antd';
+import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { createVNode, defineComponent, PropType } from 'vue';
 import { FooterProps, useFooter } from '../useFooter';
 

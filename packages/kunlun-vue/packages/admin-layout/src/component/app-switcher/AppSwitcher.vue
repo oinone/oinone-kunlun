@@ -31,7 +31,7 @@
 </template>
 <script lang="ts">
 import { CaretDownOutlined } from '@ant-design/icons-vue';
-import { IModule } from '@kunlun/meta';
+import { IModule } from '@oinone/kunlun-meta';
 import { computed, defineComponent, PropType, ref } from 'vue';
 import { DEFAULT_APPLICATION_LOGO } from '../../typing';
 import AppSwitcherMask from './AppSwitcherMask.vue';

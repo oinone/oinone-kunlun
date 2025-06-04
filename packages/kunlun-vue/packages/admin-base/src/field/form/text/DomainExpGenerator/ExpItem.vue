@@ -34,9 +34,9 @@
 </template>
 <script lang="ts">
 import { defineComponent, computed, watch, ref } from 'vue';
-import { ModelFieldType, IModelField } from '@kunlun/meta';
-import { translateValueByKey } from '@kunlun/engine';
-import { OioButton, OioFormItem } from '@kunlun/vue-ui-antd';
+import { ModelFieldType, IModelField } from '@oinone/kunlun-meta';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { OioButton, OioFormItem } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import ExpRight from './ExpRight.vue';
 

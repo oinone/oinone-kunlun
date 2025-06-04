@@ -1,4 +1,4 @@
-import { SPIFactory, SPIOperator, SPIOptions, SPISingleSelector, SPITokenFactory } from '@kunlun/spi';
+import { SPIFactory, SPIOperator, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
 
 export interface MaskRegisterOptions extends SPIOptions {
   module?: string;

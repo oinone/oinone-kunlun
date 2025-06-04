@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CastHelper, DateTimePickerMode } from '@kunlun/shared';
-import { OioYearRangePickerProps, PropRecordHelper } from '@kunlun/vue-ui-common';
+import { CastHelper, DateTimePickerMode } from '@oinone/kunlun-shared';
+import { OioYearRangePickerProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent } from 'vue';
 import OioDateTimeRangePicker from './oio-date-time-range-picker.vue';
 

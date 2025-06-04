@@ -18,7 +18,7 @@
   </div>
 </template>
 <script lang="ts">
-import { RuntimeContext } from '@kunlun/engine';
+import { RuntimeContext } from '@oinone/kunlun-engine';
 import {
   CleanableEvent,
   OioButton,
@@ -27,7 +27,7 @@ import {
   Optional,
   uniqueKeyGenerator,
   useCleanableEvent
-} from '@kunlun/vue-ui-antd';
+} from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, onMounted, onUnmounted, PropType } from 'vue';
 import 'vue-json-pretty/lib/styles.css';
 import { DebugResponseData } from '../typing';

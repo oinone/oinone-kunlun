@@ -3,8 +3,8 @@ import rollupConfig from '../../scripts/build.config.js';
 
 export default rollupConfig(pkg.name, [
   '@ant-design/icons-vue',
-  '@kunlun/shared',
-  '@kunlun/vue-ui-common',
+  '@oinone/kunlun-shared',
+  '@oinone/kunlun-vue-ui-common',
   'ant-design-vue',
   'ant-design-vue/lib/_util/hooks/useConfigInject.js',
   'ant-design-vue/lib/tabs/src/TabContext.js',

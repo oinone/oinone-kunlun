@@ -1,6 +1,6 @@
 <script lang="ts">
-import { DEFAULT_PREFIX } from '@kunlun/theme';
-import { ButtonType, OioButton, OioPopconfirm, PropRecordHelper } from '@kunlun/vue-ui-antd';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
+import { ButtonType, OioButton, OioPopconfirm, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { MenuItem as AMenuItem } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, VNode, vShow, withDirectives, withModifiers } from 'vue';
 import { useInjectActionContext, useProviderActionContext } from '../context';
