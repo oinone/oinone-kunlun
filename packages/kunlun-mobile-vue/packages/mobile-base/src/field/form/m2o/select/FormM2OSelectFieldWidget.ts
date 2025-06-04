@@ -1,9 +1,9 @@
-import { ActiveRecord, RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@kunlun/engine';
+import { ActiveRecord, ModelCache, RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@kunlun/engine';
 import { IModel, isEmptyKeObject, isEmptyValue, ModelFieldType, ViewType } from '@kunlun/meta';
 import { getModel, queryOne } from '@kunlun/service';
 import { SPI } from '@kunlun/spi';
 import { Widget } from '@kunlun/vue-widget';
-import { isNil, isNumber, isString } from 'lodash-es';
+import { debounce, isNil, isNumber, isString } from 'lodash-es';
 import { FormFieldWidget, FormSelectComplexFieldWidget } from '../../../../basic';
 import VueComponent from './SelectWidget.vue';
 
@@ -93,7 +93,15 @@ export class FormM2OSelectFieldWidget extends FormSelectComplexFieldWidget<Activ
   }
 
   @Widget.Watch('formData', { deep: true })
-  public async watchM2OValue(formValue) {
+  public async watchM2OValue() {
+    this.delayUpdateM2oValue();
+  }
+
+  public delayUpdateM2oValue = debounce(() => {
+    this.updateM2oValue();
+  });
+
+  public async updateM2oValue() {
     const val = this.getValue();
     const _compute = this.getCompute(this.formData);
     if (_compute != null && _compute !== '') {
@@ -101,10 +109,11 @@ export class FormM2OSelectFieldWidget extends FormSelectComplexFieldWidget<Activ
       let queryOneKey = this.computeQueryOneKey;
       const _computeList = _compute.split('.');
       if (_computeList[0] === 'activeRecord' && _computeList[1] && _computeList[2] && !queryOneKey) {
-        const currentModel = (await getModel(this.field!.model)) as IModel;
+        const currentModel = (await ModelCache.get(this.field!.model)) as unknown as IModel;
+
         const relatedField = currentModel?.modelFields?.find((_f) => _f.name === _computeList[1]);
         if (relatedField && relatedField.references) {
-          const relatedFieldModel = (await getModel(relatedField.references)) as IModel;
+          const relatedFieldModel = (await ModelCache.get(relatedField.references)) as unknown as IModel;
           if (relatedFieldModel && relatedFieldModel.modelFields) {
             const finalField = relatedFieldModel.modelFields.find(
               (_f) => _f.relationFields && _f.relationFields.includes(_computeList[2])
