@@ -10,7 +10,7 @@
       @onFocus="focus"
       @onBlur="onBlur"
       @onChange="handleChange"
-      style="height: 200px; overflow-y: hidden; padding-bottom: 1px"
+      :style="editorStyle"
     />
   </div>
 </template>
@@ -116,7 +116,9 @@ export default defineComponent({
     'readonly',
     'disabled',
     'maxLength',
-    'encode'
+    'encode',
+    'height',
+    'richTextToolbarExcludeKeys'
   ],
   setup(props) {
     const editorId = `${DEFAULT_PREFIX}-richtext-${Math.random().toString().slice(-5)}`; // 【注意】编辑器 id ，要全局唯一
@@ -138,7 +140,8 @@ export default defineComponent({
       insertKeys: {
         index: 0, // 自定义插入的位置
         keys: ['mobileUploadAttachment'] // “上传附件”菜单
-      }
+      },
+      excludeKeys: props.richTextToolbarExcludeKeys || [] // 排除的菜单
     };
     const editorConfig = computed(() => {
       return {
@@ -225,6 +228,14 @@ export default defineComponent({
       };
     });
 
+    const editorStyle = computed(() => {
+      return {
+        'overflow-y': 'hidden',
+        'padding-bottom': '1px',
+        height: props.height || '200px'
+      };
+    });
+
     watch(
       () => props.value,
       () => {
@@ -305,7 +316,8 @@ export default defineComponent({
       editorConfig,
       innerReadonly,
       innerDisabled,
-      className
+      className,
+      editorStyle
     };
   }
 });

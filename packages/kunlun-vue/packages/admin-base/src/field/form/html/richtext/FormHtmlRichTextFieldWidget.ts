@@ -16,6 +16,22 @@ export class FormHtmlRichTextFieldWidget extends FormStringFieldWidget {
     return this;
   }
 
+  /**
+   * 富文本工具栏排除的key
+   *
+   * @example
+   * richTextToolbarExcludeKeys="fullScreen,uploadImage"
+   */
+  @Widget.Reactive()
+  protected get richTextToolbarExcludeKeys(): string[] | null {
+    const { richTextToolbarExcludeKeys } = this.getDsl() as { richTextToolbarExcludeKeys?: string };
+    if (!richTextToolbarExcludeKeys) {
+      return null;
+    }
+
+    return richTextToolbarExcludeKeys.split(',').map((v) => v.trim());
+  }
+
   @Widget.Reactive()
   protected get encode() {
     const _encode = this.getDsl().encode;

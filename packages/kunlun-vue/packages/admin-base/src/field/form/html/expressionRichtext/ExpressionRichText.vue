@@ -9,16 +9,16 @@
       @onCreated="handleCreated"
       @onDestroyed="handleDestroyed"
       @onChange="handleChange"
-      style="height: 500px; overflow-y: hidden"
+      :style="editorStyle"
     />
   </div>
 </template>
 <script lang="ts">
-import { computed, onBeforeUnmount, PropType, ref, shallowRef, watch } from 'vue';
+import { computed, onBeforeUnmount, PropType, ref, shallowRef, watch, defineComponent } from 'vue';
 import { ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
-import { i18nChangeLanguage } from '@wangeditor/editor';
+import { DomEditor, i18nChangeLanguage } from '@wangeditor/editor';
 import {
   IVariableContextItem,
   ExpressionElementClass,
@@ -27,16 +27,27 @@ import {
   EXPRESSION_MODAL_PANEL_CLASS_NAME
 } from '@oinone/kunlun-vue-expression';
 import '@wangeditor/editor/dist/css/style.css';
-import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { CSSStyle, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 
 const EDITOR_DEFAULT_HTML = '<p><br></p>';
 const EDITOR_EXP_MODAL_CLASS = 'exp-modal-in-body';
-export default {
+export default defineComponent({
   components: { Editor, Toolbar },
   props: {
     contextItems: Array as PropType<IVariableContextItem[]>,
-    change: Function,
-    value: String
+    change: {
+      type: Function
+    },
+    value: {
+      type: String
+    },
+    height: {
+      type: String
+    },
+    richTextToolbarExcludeKeys: {
+      type: Array as PropType<string[]>,
+      default: () => []
+    }
   },
   setup(props) {
     const editorId = `${ExpressionElementClass}-${Math.random().toString().slice(-5)}`; //【注意】编辑器 id ，要全局唯一
@@ -50,21 +61,31 @@ export default {
       i18nChangeLanguage('en');
     }
 
-    const toolbarConfig = {
-      insertKeys: {
-        index: 28, //
-        keys: [OioWangEditExpressionModalMenuConf.key]
-      },
-      // FIXME: 全屏显示有些bug
-      excludeKeys: ['fullScreen', 'uploadImage', 'insertVideo'],
-      modalAppendToBody: true
-    };
+    const toolbarConfig = computed(() => {
+      return {
+        insertKeys: {
+          index: 28, //
+          keys: [OioWangEditExpressionModalMenuConf.key]
+        },
+        excludeKeys: [...(props.richTextToolbarExcludeKeys || []), 'fullScreen', 'uploadImage', 'insertVideo'],
+        modalAppendToBody: true
+      };
+    });
+
     const editorConfig = computed(() => {
       return {
         placeholder: `${translateValueByKey('请输入内容')}...`,
         EXTEND_CONF: { contextItems: props.contextItems }
       };
     });
+
+    const editorStyle = computed(() => {
+      const style = {} as CSSStyle;
+      style.height = props.height || '400px';
+      style.overflowY = 'hidden';
+      return style;
+    });
+
     watch(
       () => props.contextItems,
       (newVal) => {
@@ -137,6 +158,7 @@ export default {
     };
 
     return {
+      editorStyle,
       editorId,
       mode: 'simple',
       defaultHtml,
@@ -148,7 +170,7 @@ export default {
       handleChange
     };
   }
-};
+});
 </script>
 <style lang="scss">
 .exp-modal-in-body.w-e-modal {

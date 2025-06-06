@@ -1,10 +1,10 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-
+import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
-import { isValidatorSuccess, ValidatorInfo, ValidatorStatus } from '../../../../typing';
+import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
 import { FormStringFieldWidget } from '../../string';
 import RichText from './RichText.vue';
 
@@ -14,6 +14,27 @@ export class FormHTMLRichTextFieldWidget extends FormStringFieldWidget {
     super.initialize(props);
     this.setComponent(RichText);
     return this;
+  }
+
+  /**
+   * 富文本工具栏排除的key
+   *
+   * @example
+   * richTextToolbarExcludeKeys="fullScreen,uploadImage"
+   */
+  @Widget.Reactive()
+  protected get richTextToolbarExcludeKeys(): string[] | null {
+    const { richTextToolbarExcludeKeys } = this.getDsl() as { richTextToolbarExcludeKeys?: string };
+    if (!richTextToolbarExcludeKeys) {
+      return null;
+    }
+
+    return richTextToolbarExcludeKeys.split(',').map((v) => v.trim());
+  }
+
+  @Widget.Reactive()
+  protected get height(): string | undefined {
+    return StyleHelper.px(this.getDsl().height);
   }
 
   @Widget.Reactive()

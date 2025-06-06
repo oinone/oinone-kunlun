@@ -118,7 +118,8 @@ export default defineComponent({
     'disabled',
     'maxLength',
     'encode',
-    'height'
+    'height',
+    'richTextToolbarExcludeKeys'
   ],
   setup(props) {
     const editorId = `${DEFAULT_PREFIX}-richtext-${Math.random().toString().slice(-5)}`; // 【注意】编辑器 id ，要全局唯一
@@ -137,13 +138,17 @@ export default defineComponent({
       return { 'form-rich-text-disabled': innerDisabled.value, 'form-rich-text-readonly': innerReadonly.value };
     });
 
-    const toolbarConfig: Partial<IToolbarConfig> = {
-      // 插入哪些菜单
-      insertKeys: {
-        index: 0, // 自定义插入的位置
-        keys: ['uploadAttachment'] // “上传附件”菜单
-      }
-    };
+    const toolbarConfig = computed<Partial<IToolbarConfig>>(() => {
+      return {
+        // 插入哪些菜单
+        insertKeys: {
+          index: 0, // 自定义插入的位置
+          keys: ['uploadAttachment'] // “上传附件”菜单
+        },
+        excludeKeys: props.richTextToolbarExcludeKeys
+      };
+    });
+
     const editorConfig = computed(() => {
       return {
         placeholder: props.placeholder || `${translateValueByKey('请输入内容')}...`,
