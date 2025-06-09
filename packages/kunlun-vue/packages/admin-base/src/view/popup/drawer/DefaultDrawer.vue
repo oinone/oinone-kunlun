@@ -199,6 +199,8 @@ export default defineComponent({
         headerInvisible,
         footerInvisible,
         destroyOnClose,
+        showFullscreen,
+        showDisplayAs,
         enterCallback: onOk,
         cancelCallback: onCancel,
         'onUpdate:visible': onVisibleChange

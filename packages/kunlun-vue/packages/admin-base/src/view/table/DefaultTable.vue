@@ -41,7 +41,7 @@ import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 
 import { VxeTableDefines, VxeTablePropTypes } from 'vxe-table';
 import { getTableThemeConfig, ManualWidget } from '../../basic';
-import { UserTablePrefer } from '../../typing';
+import { TableLineHeightEnum, UserTablePrefer } from '../../typing';
 import { TableRowClickMode } from './typing';
 import DefaultTableLineHeight from './DefaultTableLineHeight.vue';
 

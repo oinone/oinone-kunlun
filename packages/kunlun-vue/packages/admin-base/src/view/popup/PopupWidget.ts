@@ -69,15 +69,13 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
   // 是否显示切换全屏按钮
   @Widget.Reactive()
   protected get showFullscreen() {
-    return true;
-    // return !!this.getDsl()?.showFullscreen;
+    return !!this.getDsl()?.showFullscreen;
   }
 
   // 是否显示切换窗口类型按钮
   @Widget.Reactive()
   protected get showDisplayAs() {
-    return true;
-    // return !!this.getDsl()?.showDisplayAs;
+    return !!this.getDsl()?.showDisplayAs;
   }
 
   // 是否显示上一条、下一条数据切换
@@ -88,8 +86,7 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
       this.action?.contextType !== ActionContextType.ContextFree &&
       this.openerDataSource?.length
     ) {
-      return true;
-      // return !!this.getDsl()?.showPreNextToggle;
+      return !!this.getDsl()?.showPreNextToggle;
     }
 
     return false;
