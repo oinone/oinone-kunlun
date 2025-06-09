@@ -11,7 +11,7 @@ export const cssVars = {
   'active-color': `var(--${DEFAULT_PREFIX}-primary-color)`,
   'active-font-weight': 500,
   'active-background': '#ffffff',
-  'icon-color': 'rgba(0, 0, 0, 0.2)',
+  'icon-color': 'rgba(0, 0, 0, 0.3)',
   'hover-background-color': '#f6f6f6',
 
   /**
