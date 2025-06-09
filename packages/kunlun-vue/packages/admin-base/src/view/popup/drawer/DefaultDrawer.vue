@@ -1,14 +1,16 @@
 <script lang="ts">
+import { createVNode, defineComponent, PropType } from 'vue';
 import { CastHelper, OioButton, OioDrawer, PropRecordHelper, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
-import { createVNode, defineComponent, PropType } from 'vue';
-import { FooterProps, useFooter } from '../useFooter';
 import { ViewType } from '@oinone/kunlun-meta';
+import { FooterProps, useFooter } from '../useFooter';
+import { OioSimplePagination } from '../../../components';
 
 export default defineComponent({
   components: {
     OioDrawer,
-    OioButton
+    OioButton,
+    OioSimplePagination
   },
   props: {
     ...FooterProps,
@@ -73,6 +75,34 @@ export default defineComponent({
     },
     allMounted: {
       type: Function
+    },
+    // 是否显示切换全屏按钮
+    showFullscreen: {
+      type: Boolean,
+      default: false
+    },
+    // 是否显示切换窗口类型按钮
+    showDisplayAs: {
+      type: Boolean,
+      default: false
+    },
+    // 是否显示上一条、下一条数据切换
+    showPreNextToggle: {
+      type: Boolean,
+      default: false
+    },
+    // 列表视图总页数
+    listViewTotalPage: {
+      type: Number,
+      default: 0
+    },
+    // 列表视图当前行号
+    listViewRowNumber: {
+      type: Number,
+      default: 1
+    },
+    onChangeRowNumber: {
+      type: Function
     }
   },
   setup(props) {
@@ -102,7 +132,13 @@ export default defineComponent({
       footerInvisible,
       onOk,
       onCancel,
-      viewType
+      viewType,
+      showFullscreen,
+      showDisplayAs,
+      showPreNextToggle,
+      listViewTotalPage,
+      listViewRowNumber,
+      onChangeRowNumber
     } = this;
     const children = PropRecordHelper.collectionSlots($slots, [
       { origin: 'default', isNotNull: true },
@@ -113,6 +149,32 @@ export default defineComponent({
     if (!children.footer) {
       children.footer = () => [
         createVNode('div', { class: 'default-drawer-footer' }, useFooter(CastHelper.cast(this)))
+      ];
+    }
+
+    if (showPreNextToggle) {
+      /**
+       * 上一条、下一条数据切换
+       */
+      const defaultFooterSlot = children.footer();
+      children.footer = () => [
+        createVNode(
+          'div',
+          {
+            class: 'default-drawer-pre-next-switch-footer'
+          },
+          {
+            default: () => [
+              createVNode(OioSimplePagination, {
+                total: listViewTotalPage,
+                current: listViewRowNumber,
+                pageSize: 1,
+                onChange: onChangeRowNumber
+              }),
+              ...defaultFooterSlot
+            ]
+          }
+        )
       ];
     }
 

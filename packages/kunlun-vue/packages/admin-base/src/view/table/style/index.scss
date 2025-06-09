@@ -92,6 +92,13 @@
       }
     }
   }
+
+  .default-table-line-height-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    column-gap: var(--oio-row-gap);
+  }
 }
 
 .ant-form-item-has-error {

@@ -2,6 +2,11 @@
 @import '../../../style/global-parameters';
 @import './parameters.scss';
 
+.#{$modalClassPrefix}-drawer-mode {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .#{$modalClassPrefix} {
   padding: 0;
   &.#{$modalClassPrefix}-width-small {
@@ -97,8 +102,12 @@
   .ant-modal-content {
     background: var($parameterPrefix + -background);
     border: 1px solid var($parameterPrefix + -border-color);
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: var(--oio-box-shadow);
     border-radius: var($parameterPrefix + -border-radius);
+
+    .ant-modal-close {
+      top: 2px;
+    }
   }
 
   .ant-modal-close-x {
@@ -107,6 +116,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    top: 1px;
   }
 
   .ant-modal-header {
@@ -120,6 +131,16 @@
       color: var($parameterPrefix + -text-color);
       line-height: 24px;
       font-weight: var($parameterPrefix + -font-weight-bold);
+      display: flex;
+
+      .#{$modalClassPrefix}-title-extend {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: calc(var(--oio-row-gap) + 20px);
+        gap: var(--oio-row-gap);
+      }
     }
   }
 

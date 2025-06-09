@@ -1,10 +1,21 @@
 import { isString } from 'lodash-es';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { usePopup } from '../vc-popup/usePopup';
-import { ModalHeight, ModalWidth } from './typing';
+import { ModalHeight, ModalWidth, PopupDisplayAs } from './typing';
 import { StyleHelper } from '../../util/style';
-
+import { DEFAULT_PREFIX } from '../../theme';
 export function useModal(props, context) {
+  const displayAs = ref(PopupDisplayAs.MODAL);
+
+  const isFullScreen = ref(false);
+  const internalWidth = ref<keyof typeof ModalWidth>();
+  const internalHeight = ref<keyof typeof ModalWidth>();
+
+  // 抽屉形式的模态框
+  const drawerModalClassName = computed(() =>
+    displayAs.value === PopupDisplayAs.DRAWER ? `${DEFAULT_PREFIX}-modal-drawer-mode` : ''
+  );
+
   const width = computed(() => {
     const _width = props.width;
     if (isString(_width)) {
@@ -17,7 +28,7 @@ export function useModal(props, context) {
   });
 
   const widthClassSuffix = computed(() => {
-    const _width = props.width;
+    const _width = internalWidth.value || props.width;
     if (isString(_width)) {
       const realWidth = ModalWidth[_width.toLowerCase()];
       if (realWidth) {
@@ -28,7 +39,7 @@ export function useModal(props, context) {
   });
 
   const heightClassSuffix = computed(() => {
-    const height = props.height;
+    const height = internalHeight.value || props.height;
     if (isString(height)) {
       const realHeight = ModalHeight[height.toLowerCase()];
       if (realHeight) {
@@ -47,12 +58,49 @@ export function useModal(props, context) {
     return null;
   });
 
+  /**
+   * 全屏切换
+   */
+  const onFullSwitch = () => {
+    displayAs.value = PopupDisplayAs.MODAL;
+    if (isFullScreen.value) {
+      internalHeight.value = undefined;
+      internalWidth.value = undefined;
+      isFullScreen.value = false;
+    } else {
+      isFullScreen.value = true;
+      internalHeight.value = 'full';
+      internalWidth.value = 'full';
+    }
+  };
+
+  /**
+   * 弹窗展示模式切换
+   */
+  const onDisplayAsSwitch = () => {
+    internalHeight.value = undefined;
+    internalWidth.value = undefined;
+    isFullScreen.value = false;
+
+    if (displayAs.value === PopupDisplayAs.MODAL) {
+      displayAs.value = PopupDisplayAs.DRAWER;
+      internalHeight.value = 'full';
+    } else {
+      displayAs.value = PopupDisplayAs.MODAL;
+      internalHeight.value = undefined;
+    }
+  };
+
   return {
     ...usePopup(props, context),
+    isFullScreen,
+    drawerModalClassName,
     width,
     widthClassSuffix,
     heightClassSuffix,
     customHeightClassSuffix,
-    heightPx
+    heightPx,
+    onFullSwitch,
+    onDisplayAsSwitch
   };
 }

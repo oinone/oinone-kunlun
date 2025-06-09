@@ -9,6 +9,19 @@
     padding: 0;
     border-top: 0;
 
+    .default-dialog-pre-next-switch-footer {
+      display: flex;
+      align-items: center;
+      border-top: 1px solid var(--oio-border-color);
+      .oio-simple-pagination {
+        padding-left: var($parameterPrefix + -margin-md);
+      }
+      .action-bar {
+        flex: 1;
+        border-top: 0;
+      }
+    }
+
     .action-bar {
       height: unset;
       padding: var($parameterPrefix + -margin-md);

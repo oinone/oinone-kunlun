@@ -4,12 +4,14 @@ import { CastHelper, OioButton, OioModal, PropRecordHelper, StringHelper } from 
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { createVNode, defineComponent, PropType } from 'vue';
 import { FooterProps, useFooter } from '../useFooter';
+import { OioSimplePagination } from '../../../components';
 
 export default defineComponent({
   name: 'DefaultDialog',
   components: {
     OioModal,
-    OioButton
+    OioButton,
+    OioSimplePagination
   },
   inheritAttrs: false,
   props: {
@@ -78,6 +80,34 @@ export default defineComponent({
     },
     allMounted: {
       type: Function
+    },
+    // 是否显示切换全屏按钮
+    showFullscreen: {
+      type: Boolean,
+      default: false
+    },
+    // 是否显示切换窗口类型按钮
+    showDisplayAs: {
+      type: Boolean,
+      default: false
+    },
+    // 是否显示上一条、下一条数据切换
+    showPreNextToggle: {
+      type: Boolean,
+      default: false
+    },
+    // 列表视图总页数
+    listViewTotalPage: {
+      type: Number,
+      default: 0
+    },
+    // 列表视图当前行号
+    listViewRowNumber: {
+      type: Number,
+      default: 1
+    },
+    onChangeRowNumber: {
+      type: Function
     }
   },
   setup(props) {
@@ -108,7 +138,13 @@ export default defineComponent({
       footerInvisible,
       onOk,
       onCancel,
-      viewType
+      viewType,
+      showDisplayAs,
+      showFullscreen,
+      showPreNextToggle,
+      listViewTotalPage,
+      listViewRowNumber,
+      onChangeRowNumber
     } = this;
     const children = PropRecordHelper.collectionSlots($slots, [
       { origin: 'default', isNotNull: true },
@@ -118,6 +154,31 @@ export default defineComponent({
     if (!children.footer) {
       children.footer = () => [
         createVNode('div', { class: 'default-dialog-footer' }, useFooter(CastHelper.cast(this)))
+      ];
+    }
+
+    if (showPreNextToggle) {
+      /**
+       * 上一条、下一条数据切换
+       */
+      const defaultFooterSlot = children.footer();
+      children.footer = () => [
+        createVNode(
+          'div',
+          {
+            class: 'default-dialog-pre-next-switch-footer'
+          },
+          {
+            default: () => [
+              createVNode(OioSimplePagination, {
+                total: listViewTotalPage,
+                current: listViewRowNumber,
+                onChange: onChangeRowNumber
+              }),
+              ...defaultFooterSlot
+            ]
+          }
+        )
       ];
     }
 

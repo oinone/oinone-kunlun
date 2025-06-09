@@ -132,6 +132,15 @@ export class BaseTableWidget<
     return StyleHelper.px(this.getDsl().maxHeight);
   }
 
+  /**
+   * 是否显示行高切换操作
+   */
+  @Widget.Reactive()
+  protected get showLineHeightToggle() {
+    const { showLineHeightToggle } = this.getDsl();
+    return typeof showLineHeightToggle === 'boolean' ? showLineHeightToggle : true;
+  }
+
   @Widget.Reactive()
   @Widget.Provide()
   protected get sortable() {

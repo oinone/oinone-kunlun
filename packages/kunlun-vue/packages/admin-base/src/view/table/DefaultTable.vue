@@ -1,4 +1,19 @@
 <script lang="ts">
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  nextTick,
+  onActivated,
+  onBeforeUnmount,
+  onMounted,
+  PropType,
+  ref,
+  Slot,
+  VNode,
+  watch
+} from 'vue';
+import { debounce } from 'lodash-es';
 import { DslDefinition } from '@oinone/kunlun-dsl';
 import { ActiveRecord, ActiveRecords, Pagination, translateValueByKey } from '@oinone/kunlun-engine';
 import { EDirection, ISort } from '@oinone/kunlun-service';
@@ -22,25 +37,13 @@ import {
 } from '@oinone/kunlun-vue-ui';
 import { ListPaginationStyle, ListSelectMode, OioPagination, OioSpin, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { DslRender } from '@oinone/kunlun-vue-widget';
-import { debounce } from 'lodash-es';
-import {
-  computed,
-  createVNode,
-  defineComponent,
-  nextTick,
-  onActivated,
-  onBeforeUnmount,
-  onMounted,
-  PropType,
-  ref,
-  Slot,
-  VNode,
-  watch
-} from 'vue';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
+
 import { VxeTableDefines, VxeTablePropTypes } from 'vxe-table';
 import { getTableThemeConfig, ManualWidget } from '../../basic';
 import { UserTablePrefer } from '../../typing';
 import { TableRowClickMode } from './typing';
+import DefaultTableLineHeight from './DefaultTableLineHeight.vue';
 
 const SortDirections = {
   desc: EDirection.DESC,
@@ -107,7 +110,8 @@ export default defineComponent({
     OioTable,
     OioColumn,
     OioSpin,
-    OioPagination
+    OioPagination,
+    DefaultTableLineHeight
   },
   inheritAttrs: false,
   props: {
@@ -336,11 +340,16 @@ export default defineComponent({
     enableSequence: {
       type: Boolean,
       default: undefined
+    },
+    showLineHeightToggle: {
+      type: Boolean,
+      default: true
     }
   },
   setup(props) {
     const defaultTableRef = ref<HTMLElement>(null as any);
     const table = ref<OioTableInstance | undefined>();
+    const tableLineHeightWithOpt = ref(TableLineHeightEnum.AUTO);
 
     const tableContentElement = computed(
       () => defaultTableRef.value && defaultTableRef.value.querySelector('.oio-table-content-wrapper')!
@@ -430,6 +439,10 @@ export default defineComponent({
     const calcHeight = ref('');
 
     const tableLineHeight = computed(() => {
+      if (tableLineHeightWithOpt.value) {
+        return tableLineHeightWithOpt.value;
+      }
+
       if (props.lineHeight && props.lineHeight > 0) {
         return `${props.lineHeight}px`;
       }
@@ -468,8 +481,8 @@ export default defineComponent({
       );
       const operationColumn = tableEle.querySelector('.vxe-table--fixed-right-wrapper .operation-column');
       if (defaultColumn && operationColumn) {
-        const defaultHeight = defaultColumn?.getBoundingClientRect().height!;
-        const operationHeight = operationColumn?.getBoundingClientRect().height!;
+        const defaultHeight = defaultColumn?.getBoundingClientRect().height;
+        const operationHeight = operationColumn?.getBoundingClientRect().height;
 
         if (defaultHeight > 0 && operationHeight > 0) {
           if (operationHeight >= defaultHeight) {
@@ -485,8 +498,8 @@ export default defineComponent({
         '.vxe-table--fixed-wrapper > .vxe-table--fixed-right-wrapper .vxe-header--column'
       );
       if (headerTable && fixedRightColumn) {
-        const headerTableHeight = headerTable?.getBoundingClientRect().height!;
-        const fixedRightColumnHeight = fixedRightColumn?.getBoundingClientRect().height!;
+        const headerTableHeight = headerTable?.getBoundingClientRect().height;
+        const fixedRightColumnHeight = fixedRightColumn?.getBoundingClientRect().height;
         if (headerTableHeight > 0 && fixedRightColumnHeight > 0) {
           if (headerTableHeight >= fixedRightColumnHeight) {
             calcHeaderHeight.value = `${headerTableHeight}px`;
@@ -547,7 +560,15 @@ export default defineComponent({
 
       if (target) {
         const { height } = target.contentRect;
-        if (_height !== height) {
+        const inPopupContainer =
+          Array.from(document.querySelectorAll(`.${DEFAULT_PREFIX}-drawer`))?.some((el) =>
+            el?.contains?.(tableContentElement.value)
+          ) ||
+          Array.from(document.querySelectorAll(`.${DEFAULT_PREFIX}-modal`))?.some((el) =>
+            el?.contains?.(tableContentElement.value)
+          );
+
+        if (_height !== height || inPopupContainer) {
           _height = height;
 
           table.value?.refreshColumn();
@@ -646,6 +667,7 @@ export default defineComponent({
       style,
       tableLineHeight,
       tableHeaderHeight,
+      tableLineHeightWithOpt,
 
       pagination,
       editorMode,
@@ -691,6 +713,7 @@ export default defineComponent({
       onSortChange,
 
       showPagination,
+      showLineHeightToggle,
       paginationStyle,
       pagination,
       onPaginationChange,
@@ -727,7 +750,8 @@ export default defineComponent({
 
       emptyText,
       emptyImage,
-      pageSizeOptions
+      pageSizeOptions,
+      tableLineHeightWithOpt
     } = this;
     let { border = false, stripe = false, isCurrent = true, isHover = false } = getTableThemeConfig() || {};
     const VEX_TABLE_BORDER_MODE = [true, false, 'default', 'outer', 'full', 'inner'];
@@ -782,6 +806,31 @@ export default defineComponent({
         ];
       };
     }
+
+    if (showLineHeightToggle) {
+      const defaultFooter = tableSlots.footer?.() || [];
+      tableSlots.footer = () => {
+        return [
+          createVNode(
+            'div',
+            {
+              class: 'default-table-line-height-toggle'
+            },
+            {
+              default: () => [
+                createVNode(DefaultTableLineHeight, {
+                  onChange: (value) => {
+                    this.tableLineHeightWithOpt = value;
+                  }
+                }),
+                ...defaultFooter
+              ]
+            }
+          )
+        ];
+      };
+    }
+
     const tableProps: Record<string, unknown> = {
       ref: 'table',
       loading: this.loading,

@@ -2,10 +2,10 @@ import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { ModalWidth, OioModalProps } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { PopupScene } from '../../../typing';
 import { PopupWidget, PopupWidgetProps } from '../PopupWidget';
 import DefaultDialog from './DefaultDialog.vue';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 
 export type DialogWidgetProps = PopupWidgetProps;
 

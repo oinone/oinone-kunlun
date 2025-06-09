@@ -4,6 +4,25 @@
 $titleHeight: 55px;
 $footerHeight: 73px;
 
+.#{$drawerClassPrefix}-modal-mode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .ant-drawer-content-wrapper {
+    right: auto;
+    left: auto;
+    top: auto;
+    bottom: auto;
+
+    .ant-drawer-content {
+      background: var(--oio-background);
+      border: 1px solid var(--oio-border-color);
+      box-shadow: var(--oio-box-shadow);
+      border-radius: var(--oio-border-radius);
+    }
+  }
+}
+
 .#{$drawerClassPrefix} {
   &-header-invisible {
     .ant-drawer-wrapper-body > .ant-drawer-header {
@@ -29,14 +48,20 @@ $footerHeight: 73px;
   &.#{$drawerClassPrefix}-width-large .ant-drawer-content-wrapper {
     width: var($drawerParameterPrefix + -width-large) !important;
   }
+  &.#{$drawerClassPrefix}-width-full .ant-drawer-content-wrapper {
+    width: 100vw !important;
+  }
   &.#{$drawerClassPrefix}-height-small .ant-drawer-content-wrapper {
-    height: var($drawerParameterPrefix + -height-small) !important;
+    height: var($parameterPrefix + -modal-height-small) !important;
   }
   &.#{$drawerClassPrefix}-height-medium .ant-drawer-content-wrapper {
-    height: var($drawerParameterPrefix + -height-medium) !important;
+    height: var($parameterPrefix + -modal-height-medium) !important;
   }
   &.#{$drawerClassPrefix}-height-large .ant-drawer-content-wrapper {
-    height: var($drawerParameterPrefix + -height-large) !important;
+    height: var($parameterPrefix + -modal-height-large) !important;
+  }
+  &.#{$drawerClassPrefix}-height-full .ant-drawer-content-wrapper {
+    height: 100vh !important;
   }
 
   & > .ant-drawer-content-wrapper {
@@ -63,6 +88,19 @@ $footerHeight: 73px;
         & > .ant-spin-container {
           min-height: 100%;
         }
+      }
+    }
+
+    .ant-drawer-title {
+      display: flex;
+
+      .#{$drawerClassPrefix}-title-extend {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: var(--oio-padding);
+        gap: var(--oio-row-gap);
       }
     }
 
