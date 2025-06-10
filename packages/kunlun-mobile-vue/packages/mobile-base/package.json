@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-mobile-base",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -38,7 +38,7 @@
     "@oinone/kunlun-theme": "~6.2.0",
     "@oinone/kunlun-vue-router": "~6.2.0",
     "@oinone/kunlun-vue-ui-common": "~6.2.0",
-    "@oinone/kunlun-vue-ui-mobile-vant": "6.2.0",
+    "@oinone/kunlun-vue-ui-mobile-vant": "6.2.1",
     "@oinone/kunlun-vue-widget": "~6.2.0",
     "@types/crypto-js": "4.1.1",
     "@types/lodash-es": "4.17.6",
@@ -51,5 +51,5 @@
     "vant": "~3.6.0",
     "vue": "3.2.40"
   },
-  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
+  "gitHead": "ad1e6c63539b7d6baf64cf209f100b1c0bcc2d53"
 }

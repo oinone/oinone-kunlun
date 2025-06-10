@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-widget",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -11,7 +11,7 @@
     "x-postpublish": "node ../../scripts/postpublish.js"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-common": "6.2.0"
+    "@oinone/kunlun-vue-ui-common": "6.2.1"
   },
   "devDependencies": {
     "@oinone/kunlun-dsl": "~6.2.0",
@@ -30,5 +30,5 @@
   "peerDependencies": {
     "vue": ">=3.2.40"
   },
-  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
+  "gitHead": "ad1e6c63539b7d6baf64cf209f100b1c0bcc2d53"
 }

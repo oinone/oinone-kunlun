@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -13,8 +13,8 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-antd": "6.2.0",
-    "@oinone/kunlun-vue-ui-common": "6.2.0",
+    "@oinone/kunlun-vue-ui-antd": "6.2.1",
+    "@oinone/kunlun-vue-ui-common": "6.2.1",
     "sortablejs": "1.14.0",
     "vue3-smooth-dnd": "0.0.5",
     "vuedraggable": "4.1.0",
@@ -36,5 +36,5 @@
     "vue": ">=3.2.40",
     "vuedraggable": ">=4.1.0"
   },
-  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
+  "gitHead": "ad1e6c63539b7d6baf64cf209f100b1c0bcc2d53"
 }

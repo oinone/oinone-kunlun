@@ -1,14 +1,21 @@
 {
-  "packages": ["packages/*"],
-  "version": "6.2.0",
+  "packages": [
+    "packages/*"
+  ],
+  "version": "6.2.1",
   "command": {
     "bootstrap": {
       "hoist": true,
-      "npmClientArgs": ["--no-package-lock"]
+      "npmClientArgs": [
+        "--no-package-lock"
+      ]
     },
     "version": {},
     "publish": {
-      "ignoreChanges": ["*.md", "integration/*"]
+      "ignoreChanges": [
+        "*.md",
+        "integration/*"
+      ]
     }
   }
 }
