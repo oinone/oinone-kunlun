@@ -60,4 +60,12 @@ const isStringTtype = (ttype: ModelFieldType) => {
     ModelFieldType.Email
   ].includes(ttype);
 };
-export { isSimpleField, isComplexTtype, isDateTtype, isNumberTtype, isStringTtype };
+
+const isBooleanTtype = (ttype: ModelFieldType) => {
+  return ttype === ModelFieldType.Boolean;
+};
+
+const isEnumTtype = (ttype: ModelFieldType) => {
+  return ttype === ModelFieldType.Enum;
+};
+export { isSimpleField, isComplexTtype, isDateTtype, isNumberTtype, isStringTtype, isBooleanTtype, isEnumTtype };
