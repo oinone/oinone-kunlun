@@ -515,9 +515,13 @@ export default defineComponent({
 
         rows.forEach((row, index) => {
           const height = row.clientHeight;
+          row.style.height = 'auto';
 
           const leftFixedRow = leftFixedRows[index];
           const rightFixedRow = rightFixedRows[index];
+
+          leftFixedRow && (leftFixedRow.style.height = 'auto');
+          rightFixedRow && (rightFixedRow.style.height = 'auto');
 
           const maxHeight = Math.max(
             height || 0,
@@ -589,8 +593,6 @@ export default defineComponent({
         if (v && v.length) {
           nextTick(() => {
             calcTableColumnHeight();
-
-            stop();
           });
         }
       },
