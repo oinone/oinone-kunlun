@@ -114,11 +114,12 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return undefined;
   }
 
+  /**
+   * 表格行高是否自适应，默认开启
+   */
   @Widget.Reactive()
-  protected get autoLineHeight(): boolean | undefined {
-    const autoLineHeight = Optional.ofNullable(this.getDsl().autoLineHeight)
-      .map(BooleanHelper.toBoolean)
-      .orElse(undefined);
+  protected get autoLineHeight(): boolean {
+    const autoLineHeight = Optional.ofNullable(this.getDsl().autoLineHeight).map(BooleanHelper.toBoolean).orElse(true);
 
     if (typeof autoLineHeight === 'boolean') {
       return autoLineHeight;
@@ -128,7 +129,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       return this.tableConfig.autoLineHeight;
     }
 
-    return undefined;
+    return true;
   }
 
   @Widget.Reactive()
