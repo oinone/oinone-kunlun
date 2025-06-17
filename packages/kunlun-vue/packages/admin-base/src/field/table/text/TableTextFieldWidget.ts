@@ -18,10 +18,13 @@ export class TableTextFieldWidget extends TableStringFieldWidget {
     const value = this.compute(context);
 
     return [
-      createVNode('span', {
-        // innerHTML: value ? value.replace(/\r?\n/g, '<br/>') : ''
-        innerHTML: value
-      })
+      createVNode(
+        'span',
+        {
+          class: 'table-text-field-value'
+        },
+        value
+      )
     ];
   }
 }
