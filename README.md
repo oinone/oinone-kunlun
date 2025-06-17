@@ -87,7 +87,7 @@ Oinone is an enterprise-grade productization engine that focuses on business sof
 - [FAQ](https://guide.oinone.top/zh-cn/DevManual/FAQ)
 
 ### 11. License
-- Oinone Pamirs repository is licensed under AGPL-3.0.
+- Oinone Kunlun repository is licensed under AGPL-3.0.
 
 ### 12. Community Participation
 - Join the community: Go to [[Oinone Community](https://doc.oinone.top)] ❤️

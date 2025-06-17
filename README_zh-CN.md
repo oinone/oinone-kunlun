@@ -83,7 +83,7 @@ Oinone 是一个企业级产品化引擎，专注于业务软件产品构建及�
 - [常见问题](https://guide.oinone.top/zh-cn/DevManual/FAQ)
 
 ### 11、许可协议
-- Oinone Pamirs 遵循 AGPL-3.0 协议。
+- Oinone Kunlun 遵循 AGPL-3.0 协议。
 
 ### 12、如何参与
 - 参与社区：您可以前往[[Oinone 社区](https://doc.oinone.top/)]与大家互动哦❤️
