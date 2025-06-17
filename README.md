@@ -38,7 +38,8 @@ Oinone is an enterprise-grade productization engine that focuses on business sof
     - Continuous adaptation to evolving requirements.
 
 ### 5. Learn More
-To learn more about Oinone，please visit【[Website](https://www.oinone.top) | [Gitee-中文](https://gitee.com/oinone) | [Github-EN](https://github.com/Oinone)】。
+- To learn more about Oinone，please visit【[Website](https://www.oinone.top) | [Gitee-中文](https://gitee.com/oinone) | [Github-EN](https://github.com/Oinone)】.
+- 【[后端框架-中文](https://gitee.com/oinone/oinone-pamirs) | [前端框架-中文](https://gitee.com/oinone/oinone-kunlun) | [Back-end Framework](https://github.com/oinone/oinone-pamirs) | [Front-end Framework](https://github.com/oinone/oinone-kunlun)】
 
 ### 6. Project Overview
 - kunlun-framework             : Framework - Core Package
@@ -47,16 +48,55 @@ To learn more about Oinone，please visit【[Website](https://www.oinone.top) | 
 - kunlun-vue                   : Widgets Package - PC 
 - kunlun-mobile-vue            : Widgets Package - Mobile
 
-### 7. License
+### 7. Quickstart
+#### 7.1 [Installation or Upgrade](https://guide.oinone.top/zh-cn/InstallOrUpgrade/)
+- [Development Environments](https://guide.oinone.top/zh-cn/InstallOrUpgrade/Dev-ENV/)
+- [Community Edition - Source Code Installation](https://guide.oinone.top/zh-cn/InstallOrUpgrade/CommunityEdition/source-code-installation.html)
+- [Enterprise Edition - Docker-full Installation](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)
+- [Enterprise Edition - Docker-mini Installation](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-mini-installation.html)
+- [Enterprise Edition - Package Installation](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)
+#### 7.2 [Tutorials](https://guide.oinone.top/zh-cn/DevManual/Tutorials/)
+- [Discover the Front-end Framework](https://guide.oinone.top/zh-cn/DevManual/Tutorials/DiscoverTheFront-endFramework/)
+- - [Chapter 1 - Widget](https://guide.oinone.top/zh-cn/DevManual/Tutorials/DiscoverTheFront-endFramework/chapter1-widget.html)
+- - [Chapter 2 - Build a dashboard](https://guide.oinone.top/zh-cn/DevManual/Tutorials/DiscoverTheFront-endFramework/chapter2-build-a-dashboard.html)
+- [Master the Front-end Framework](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/)
+- - [Chapter 1 - Front-End Overview](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/chapter1-front-end-overview.html)
+- - [Chapter 2 - Create a gantt view](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/chapter2-create-a-gantt-view.html)
+- - [Chapter 3 - Customize a gallery view](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/chapter3-customize-a-gallery-view.html)
+- [Debug Tools](https://guide.oinone.top/zh-cn/DevManual/Tutorials/debug-tools.html)
+
+### 8. Training
+- [[Oinone] #Productization Demonstration# Work with Front-end Framework](https://www.bilibili.com/video/BV1DoMizbECt/?vd_source=ee004011d0afa992f50d15c8738450b3)
+- [[Oinone] #Customization# Front-end Interaction](https://www.bilibili.com/video/BV1eDMizYED1/?vd_source=ee004011d0afa992f50d15c8738450b3)
+- [[Oinone] #Customization# No-code mode](https://www.bilibili.com/video/BV1eDMizYEdF/?vd_source=ee004011d0afa992f50d15c8738450b3)
+- [[Oinone] #Productization Demonstration# Work with Back-end And No-code](https://www.bilibili.com/video/BV1eDMizYEts/?vd_source=ee004011d0afa992f50d15c8738450b3)
+- [[Oinone] #Customization# Work with Back-end Framework](https://www.bilibili.com/video/BV1RDMizYELg/?vd_source=ee004011d0afa992f50d15c8738450b3)
+
+### 9. DEMO
+- [Direct to DEMO](https://demo.oinone.top)
+- Account: admin
+- Password: admin
+
+### 10. Documentation
+- [Installation Or Upgrade](https://guide.oinone.top/zh-cn/InstallOrUpgrade)
+- [User Manual](https://guide.oinone.top/zh-cn/UserManual)
+- [DEV Manual](https://guide.oinone.top/zh-cn/DevManual)
+- [White Paper](https://www.oinone.top/whitePaper)
+- [R&D Paradigm](https://guide.oinone.top/zh-cn/DevManual/R_DParadigm)
+- [Common Solutions](https://guide.oinone.top/zh-cn/DevManual/CommonSolutions)
+- [FAQ](https://guide.oinone.top/zh-cn/DevManual/FAQ)
+
+### 11. License
 - Oinone Pamirs repository is licensed under AGPL-3.0.
 
-### 8. Community Participation
+### 12. Community Participation
 - Join the community: Go to [[Oinone Community](https://doc.oinone.top)] ❤️
 - [How to contribute](https://guide.oinone.top/zh-cn/Contribute)
 
-### 9. Contact Us
+### 13. Contact Us
 - Website：https://www.oinone.top
 - Email：oinone@shushi.pro
+- Assistant：![assistant](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/Oinone%E5%B0%8F%E5%8A%A9%E6%89%8B.png)
 
 
 

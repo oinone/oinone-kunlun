@@ -44,13 +44,52 @@ Oinone 是一个企业级产品化引擎，专注于业务软件产品构建及�
 - kunlun-vue                   : 前端 PC 端组件包
 - kunlun-mobile-vue            : 前端移动端组件包
 
-### 7、许可协议
+### 7、快速入门
+#### 7.1 [安装与升级](https://guide.oinone.top/zh-cn/InstallOrUpgrade/)
+- [环境准备](https://guide.oinone.top/zh-cn/InstallOrUpgrade/Dev-ENV/)
+- [社区版：源码安装](https://guide.oinone.top/zh-cn/InstallOrUpgrade/CommunityEdition/source-code-installation.html)
+- [企业版：Docker-full 方式安装](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)
+- [企业版：Docker-mini 方式安装](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-mini-installation.html)
+- [企业版：运行程序包方式安装](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)
+#### 7.2 [教程](https://guide.oinone.top/zh-cn/DevManual/Tutorials/)
+- [探索前端框架](https://guide.oinone.top/zh-cn/DevManual/Tutorials/DiscoverTheFront-endFramework/)
+- - [章节 1 - 组件（Widget）](https://guide.oinone.top/zh-cn/DevManual/Tutorials/DiscoverTheFront-endFramework/chapter1-widget.html)
+- - [章节 2 - 构建仪表盘（Build a dashboard）](https://guide.oinone.top/zh-cn/DevManual/Tutorials/DiscoverTheFront-endFramework/chapter2-build-a-dashboard.html)
+- [精通前端框架](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/)
+- - [章节 1 - 前端框架概览（Front-End Overview）](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/chapter1-front-end-overview.html)
+- - [章节 2 - 创建甘特视图（Create a gantt view）](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/chapter2-create-a-gantt-view.html)
+- - [章节 3 - 自定义画廊视图（Customize a gallery view）](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/chapter3-customize-a-gallery-view.html)
+- [调试工具（Debug Tools）](https://guide.oinone.top/zh-cn/DevManual/Tutorials/debug-tools.html)
+
+### 8、教学视频
+- [[数式Oinone] #产品化演示# 前端开发](https://www.bilibili.com/video/BV1DoMizbECt/?vd_source=ee004011d0afa992f50d15c8738450b3)
+- [[数式Oinone] #个性化二开# 前端交互](https://www.bilibili.com/video/BV1eDMizYED1/?vd_source=ee004011d0afa992f50d15c8738450b3)
+- [[数式Oinone] #个性化二开# 无代码模式](https://www.bilibili.com/video/BV1eDMizYEdF/?vd_source=ee004011d0afa992f50d15c8738450b3)
+- [[数式Oinone] #产品化演示# 后端研发与无代码辅助](https://www.bilibili.com/video/BV1eDMizYEts/?vd_source=ee004011d0afa992f50d15c8738450b3)
+- [[数式Oinone] #个性化二开# 后端逻辑](https://www.bilibili.com/video/BV1RDMizYELg/?vd_source=ee004011d0afa992f50d15c8738450b3)
+
+### 9、演示环境
+- [直达演示环境](https://demo.oinone.top)
+- 账号: admin
+- 密码: admin
+
+### 10. 文档链接
+- [安装与升级](https://guide.oinone.top/zh-cn/InstallOrUpgrade)
+- [用户手册](https://guide.oinone.top/zh-cn/UserManual)
+- [研发手册](https://guide.oinone.top/zh-cn/DevManual)
+- [产品白皮书](https://www.oinone.top/whitePaper)
+- [最佳范式](https://guide.oinone.top/zh-cn/DevManual/R_DParadigm)
+- [常见解决方案](https://guide.oinone.top/zh-cn/DevManual/CommonSolutions)
+- [常见问题](https://guide.oinone.top/zh-cn/DevManual/FAQ)
+
+### 11、许可协议
 - Oinone Pamirs 遵循 AGPL-3.0 协议。
 
-### 8、如何参与
+### 12、如何参与
 - 参与社区：您可以前往[[Oinone 社区](https://doc.oinone.top/)]与大家互动哦❤️
 - [参与贡献](https://guide.oinone.top/zh-cn/Contribute)
 
-### 9、联系我们
+### 13、联系我们
 - 官网：https://www.oinone.top
 - 邮箱：oinone@shushi.pro
+- 小助手：![assistant](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/Oinone%E5%B0%8F%E5%8A%A9%E6%89%8B.png)
