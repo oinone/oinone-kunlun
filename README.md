@@ -33,20 +33,22 @@ The "O" symbolizes open source while phonetically resonating with "All in one," 
 - [Debug Tools](https://guide.oinone.top/zh-cn/DevManual/Tutorials/debug-tools.html)
 
 ### 5. Project Overview
-- kunlun-framework             : Framework - Core Package
-- kunlun-engine                : Framework - Extension Package
-- kunlun-expression            : Expression Package
-- kunlun-vue                   : Widgets Package - PC
-- kunlun-mobile-vue            : Widgets Package - Mobile
+| Packge               | Content                          |
+|----------------------|----------------------------------|
+| 📦 kunlun-framework  | 🌟 Framework - Core Package      |
+| 📦 kunlun-engine     | 🌟 Framework - Extension Package |
+| 📦 kunlun-expression | 🌟 Expression Package            |
+| 📦 kunlun-vue        | 🌟 Widgets Package - PC          |
+| 📦 kunlun-mobile-vue | 🌟 Widgets Package - Mobile      |
 
 ### 6. Documentation
-- [Installation Or Upgrade](https://guide.oinone.top/zh-cn/InstallOrUpgrade)
-- [User Manual](https://guide.oinone.top/zh-cn/UserManual)
-- [DEV Manual](https://guide.oinone.top/zh-cn/DevManual)
-- [White Paper](https://www.oinone.top/whitePaper)
-- [R&D Paradigm](https://guide.oinone.top/zh-cn/DevManual/R_DParadigm)
-- [Common Solutions](https://guide.oinone.top/zh-cn/DevManual/CommonSolutions)
-- [FAQ](https://guide.oinone.top/zh-cn/DevManual/FAQ)
+- [📗 Installation Or Upgrade](https://guide.oinone.top/zh-cn/InstallOrUpgrade)
+- [📗 User Manual](https://guide.oinone.top/zh-cn/UserManual)
+- [📗 DEV Manual](https://guide.oinone.top/zh-cn/DevManual)
+- [📗 White Paper](https://www.oinone.top/whitePaper)
+- [📗 R&D Paradigm](https://guide.oinone.top/zh-cn/DevManual/R_DParadigm)
+- [📗 Common Solutions](https://guide.oinone.top/zh-cn/DevManual/CommonSolutions)
+- [📗 FAQ](https://guide.oinone.top/zh-cn/DevManual/FAQ)
 
 ### 7. Product Ecosystem
 Comprehensive coverage of product development and implementation needs.
@@ -61,7 +63,7 @@ Comprehensive coverage of product development and implementation needs.
 - [Third Party Open Source Software and License Notice](https://guide.oinone.top/en/Third-Party-Open-Source-Software-And-License-Notice.html).
 
 ### 10. Community Participation
-- Join the community: Go to [[Oinone Community](https://doc.oinone.top)] ❤️
+- Join the community: Go to [⚡Oinone Community](https://doc.oinone.top)❤️
 - [How to contribute](https://guide.oinone.top/zh-cn/Contribute)
 
 ### 11. Contact Us

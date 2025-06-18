@@ -2,7 +2,7 @@
 
 欢迎访问 Oinone Kunlun，与我们一起完善企业级产品化引擎，此仓库为 Oinone 前端框架。
 
-Oinone 是企业级产品化引擎，以低代码和无代码驱动的标准化研发与敏捷交付一体化研发框架。借鉴Odoo的工程化理念，并在无代码能力上显著增强，即面向专业研发，又能面向公民研发。
+Oinone 是企业级产品化引擎，以低代码和无代码驱动的标准化研发与敏捷交付一体化研发框架。借鉴Odoo的工程化理念，并在无代码能力上显著增强，即面向专业研发，又能面向公民研发。Oinone 响应信创工程，全栈支持国产操作系统、中间件、数据库等。
 
 O 代表开源，谐音 All in one 之意，象征：一站式、敏捷响应、持续创新。
 
@@ -33,20 +33,22 @@ O 代表开源，谐音 All in one 之意，象征：一站式、敏捷响应、
 - [调试工具（Debug Tools）](https://guide.oinone.top/zh-cn/DevManual/Tutorials/debug-tools.html)
 
 ### 5、工程概览
-- kunlun-framework             : 前端核心功能包
-- kunlun-engine                : 前端核心功能扩展包
-- kunlun-expression            : 前端表达式组件包
-- kunlun-vue                   : 前端 PC 端组件包
-- kunlun-mobile-vue            : 前端移动端组件包
+| Package              | 内容            |
+|----------------------|---------------|
+| 📦 kunlun-framework  | 🌟 前端核心功能包    |
+| 📦 kunlun-engine     | 🌟 前端核心功能扩展包  |
+| 📦 kunlun-expression | 🌟 前端表达式组件包   |
+| 📦 kunlun-vue        | 🌟 前端 PC 端组件包 |
+| 📦 kunlun-mobile-vue | 🌟 前端移动端组件包   |
 
 ### 6. 文档链接
-- [安装与升级](https://guide.oinone.top/zh-cn/InstallOrUpgrade)
-- [用户手册](https://guide.oinone.top/zh-cn/UserManual)
-- [研发手册](https://guide.oinone.top/zh-cn/DevManual)
-- [产品白皮书](https://www.oinone.top/whitePaper)
-- [最佳范式](https://guide.oinone.top/zh-cn/DevManual/R_DParadigm)
-- [常见解决方案](https://guide.oinone.top/zh-cn/DevManual/CommonSolutions)
-- [常见问题](https://guide.oinone.top/zh-cn/DevManual/FAQ)
+- [📗 安装与升级](https://guide.oinone.top/zh-cn/InstallOrUpgrade)
+- [📗 用户手册](https://guide.oinone.top/zh-cn/UserManual)
+- [📗 研发手册](https://guide.oinone.top/zh-cn/DevManual)
+- [📗 产品白皮书](https://www.oinone.top/whitePaper)
+- [📗 最佳范式](https://guide.oinone.top/zh-cn/DevManual/R_DParadigm)
+- [📗 常见解决方案](https://guide.oinone.top/zh-cn/DevManual/CommonSolutions)
+- [📗 常见问题](https://guide.oinone.top/zh-cn/DevManual/FAQ)
 
 ### 7、产品体系
 全方位覆盖产品研发及实施所需。
@@ -61,7 +63,7 @@ O 代表开源，谐音 All in one 之意，象征：一站式、敏捷响应、
 - [第三方开源软件及许可说明](https://guide.oinone.top/zh-cn/Third-Party-Open-Source-Software-And-License-Notice.html)。
 
 ### 10、如何参与
-- 参与社区：您可以前往[[Oinone 社区](https://doc.oinone.top/)]与大家互动哦❤️
+- 参与社区：您可以前往 [⚡Oinone 社区](https://doc.oinone.top/) 与大家互动哦❤️
 - [参与贡献](https://guide.oinone.top/zh-cn/Contribute)
 
 ### 11、联系我们
