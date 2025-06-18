@@ -29,9 +29,9 @@ let titleCache: Record<string, string> | undefined;
 function getNotificationTitle(type: string): string {
   if (!titleCache) {
     titleCache = {};
-    for (const item of typeof NotificationType) {
-      const key = `kunlun.common.${type}`;
-      titleCache[type] = translateValueByKey(getValue(zh_CN, key) as string);
+    for (const item in NotificationType) {
+      const key = `kunlun.common.${item}`;
+      titleCache[item] = translateValueByKey(getValue(zh_CN, key) as string);
     }
   }
   return titleCache[type] as string;

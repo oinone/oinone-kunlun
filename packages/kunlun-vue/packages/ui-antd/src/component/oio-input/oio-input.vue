@@ -23,7 +23,10 @@ export default defineComponent({
     const internalValue = ref<string | undefined>();
     const value = computed<string | undefined>({
       get() {
-        return props.value || internalValue.value;
+        if (props.value === undefined) {
+          return internalValue.value;
+        }
+        return props.value;
       },
       set(value) {
         context.emit('update:value', value);

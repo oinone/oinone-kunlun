@@ -1,4 +1,4 @@
-import { translate } from '@oinone/kunlun-engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { MessageHub, MessageOptions } from '@oinone/kunlun-request';
 import { NotificationType, OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { get as getValue } from 'lodash-es';
@@ -26,11 +26,19 @@ export function installMessageHub() {
   });
 }
 
+let titleCache: Record<string, string> | undefined;
+
 function getNotificationTitle(type: string): string {
   // vant的NotificationType.error的值跟pc端的不一样
   type = type === 'danger' ? 'error' : type;
-  const key = `kunlun.common.${type}`;
-  return translate(key) || getValue(zh_CN, key);
+  if (!titleCache) {
+    titleCache = {};
+    for (const item in NotificationType) {
+      const key = `kunlun.common.${item}`;
+      titleCache[item] = translateValueByKey(getValue(zh_CN, key) as string);
+    }
+  }
+  return titleCache[type] as string;
 }
 
 function notification(type: NotificationType, message: string | undefined, options?: MessageOptions) {
