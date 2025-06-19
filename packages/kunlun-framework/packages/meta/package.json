@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-meta",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -11,7 +11,7 @@
     "x-postpublish": "node ../../scripts/postpublish.js"
   },
   "devDependencies": {
-    "@oinone/kunlun-request": "6.2.0"
+    "@oinone/kunlun-request": "6.2.1"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }
