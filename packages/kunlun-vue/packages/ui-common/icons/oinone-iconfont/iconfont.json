@@ -8,14 +8,14 @@
     {
       "icon_id": "44385661",
       "name": "交叉表-未选中",
-      "font_class": "jiaochabiao-weixuanzhong",
+      "font_class": "cross-table",
       "unicode": "e8b9",
       "unicode_decimal": 59577
     },
     {
       "icon_id": "44385660",
       "name": "交叉表-选中",
-      "font_class": "jiaochabiao-xuanzhong",
+      "font_class": "cross-table-active",
       "unicode": "e8ba",
       "unicode_decimal": 59578
     },

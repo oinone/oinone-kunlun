@@ -1,8 +1,12 @@
 import { MessageHub } from '../../message';
 import { notPermissionCodes, SystemErrorCode } from '../../permission';
-import { IResponseErrorResult, NetworkInterceptor } from '../../types';
+import { IMessage, IResponseErrorResult, NetworkInterceptor } from '../../types';
 
 export class RequestErrorInterceptor implements NetworkInterceptor {
+  public static ignoredFormValidateMessage(message: IMessage): boolean {
+    return message.code === SystemErrorCode.FORM_VALIDATE_ERROR || !!message.field || !message.message;
+  }
+
   public error(response: IResponseErrorResult) {
     const { errors } = response;
 
@@ -14,14 +18,35 @@ export class RequestErrorInterceptor implements NetworkInterceptor {
 
       for (const errorItem of errors) {
         const errorCode = errorItem.extensions?.errorCode || '';
-        if (errorCode === SystemErrorCode.FORM_VALIDATE_ERROR || notPermissionCodes.includes(errorCode)) {
+        if (notPermissionCodes.includes(errorCode)) {
           continue;
         }
-        const errorMessage = errorItem.extensions?.messages?.[0]?.message || errorItem.message;
-        if (!executedMessages.includes(errorMessage)) {
-          MessageHub.error(errorMessage);
+        if (errorCode === SystemErrorCode.FORM_VALIDATE_ERROR) {
+          let isPush = false;
+          for (const message of errorItem.extensions?.messages || []) {
+            if (RequestErrorInterceptor.ignoredFormValidateMessage(message)) {
+              continue;
+            }
+            const errorMessage = message.message;
+            if (errorMessage && !executedMessages.includes(errorMessage)) {
+              MessageHub.error(errorMessage);
+              executedMessages.push(errorMessage);
+              isPush = true;
+            }
+            if (!isPush) {
+              const errorMessage = errorItem.message;
+              if (errorMessage && !executedMessages.includes(errorMessage)) {
+                MessageHub.error(errorMessage);
+              }
+            }
+          }
+        } else {
+          const errorMessage = errorItem.extensions?.messages?.[0]?.message || errorItem.message;
+          if (!executedMessages.includes(errorMessage)) {
+            MessageHub.error(errorMessage);
+            executedMessages.push(errorMessage);
+          }
         }
-        executedMessages.push(errorMessage);
       }
     }
     return true;

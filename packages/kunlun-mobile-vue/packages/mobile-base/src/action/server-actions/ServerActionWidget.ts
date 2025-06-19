@@ -23,7 +23,7 @@ import {
   UpdateOneWithRelationsService
 } from '@oinone/kunlun-engine';
 import { ActionContextType, ActionType, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { HttpClientError, SystemErrorCode } from '@oinone/kunlun-request';
+import { HttpClientError, MessageHub, RequestErrorInterceptor, SystemErrorCode } from '@oinone/kunlun-request';
 import { SPI } from '@oinone/kunlun-spi';
 import { BooleanHelper, CallChaining, OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { InnerWidgetType, VueWidget, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
@@ -88,6 +88,7 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
 
   protected formValidateProcess(e: HttpClientError) {
     if (this.view?.type !== ViewType.Form) {
+      this.notifyValidateResults(e);
       return;
     }
     const { formValidateCallChaining } = this;
@@ -126,6 +127,21 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
       });
     }
     return results;
+  }
+
+  protected notifyValidateResults(e: HttpClientError): void {
+    const error = e.errors?.[0];
+    if (!error) {
+      return;
+    }
+    if (error.extensions?.errorCode !== SystemErrorCode.FORM_VALIDATE_ERROR) {
+      return;
+    }
+    for (const messageItem of error.extensions?.messages || []) {
+      if (RequestErrorInterceptor.ignoredFormValidateMessage(messageItem)) {
+        MessageHub.error(messageItem.message);
+      }
+    }
   }
 
   protected async submit(action: RuntimeServerAction): Promise<SubmitValue> {

@@ -26,7 +26,7 @@ export class FormHtmlRichTextFieldWidget extends FormStringFieldWidget {
   protected get richTextToolbarExcludeKeys(): string[] | null {
     const { richTextToolbarExcludeKeys } = this.getDsl() as { richTextToolbarExcludeKeys?: string };
     if (!richTextToolbarExcludeKeys) {
-      return null;
+      return [];
     }
 
     return richTextToolbarExcludeKeys.split(',').map((v) => v.trim());
