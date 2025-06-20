@@ -100,7 +100,7 @@
           <div class="oio-group-title">{{ translateValueByKey('多tab栏样式') }}</div>
         </div>
         <a-form>
-          <a-row>
+          <a-row class="enable-multitab-config">
             <a-col :span="24">
               <a-form-item :label="$translate('标签页')">
                 <a-switch class="oio-switch" v-model:checked="enabled" @change="onEnabledChange" />
@@ -291,6 +291,14 @@ watchEffect(() => {
       SideBarThemeColor.default;
     currentSidebar.value = extendSideBarTheme?.theme ?? sideBarTheme?.theme! ?? SideBarTheme.side1;
   }
+},{
+  /**
+   * 这个 watchEffect 依赖 inline.value，下面还有一个 watch 同样依赖 inline.value
+   * 响应式更新时，通常 watchEffect 会先于 watch 执行
+   * 这就导致 inline.value 先走了遍数据回填的逻辑，值被恢复了，内外部多 tab 切换失败
+   * 所以这里指定 flush:'post'，让 watchEffect 晚于 watch 执行，先改值，再回填
+   */
+  flush:'post'
 });
 
 const currentThemeImage = computed(() => {
@@ -469,12 +477,22 @@ const onDownloadTheme = () => {
       }
     }
 
+    .enable-multitab-config {
+      label{
+        color:var(--oio-text-color);
+      }
+    }
+
     .multitab-config {
       margin-bottom: 24px;
 
+      label{
+        color:var(--oio-text-color);
+      }
+
       .multitab-config-container {
         padding: 12px;
-        background-color: #f5f6f8;
+        background-color: var(--oio-background);
         border-radius: var(--oio-border-radius);
 
         .checkbox-center {
