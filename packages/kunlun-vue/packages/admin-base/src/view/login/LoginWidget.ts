@@ -10,7 +10,14 @@ import {
   translateValueByKey
 } from '@oinone/kunlun-engine';
 import { RuntimeConfig, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
-import { gql, HttpClientError, ILevel, useMessageHub } from '@oinone/kunlun-request';
+import {
+  gql,
+  HttpClientError,
+  ILevel,
+  isFirstResetPasswordError,
+  isPicCodeError,
+  useMessageHub
+} from '@oinone/kunlun-request';
 import { Router } from '@oinone/kunlun-router';
 import { http } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
@@ -28,15 +35,17 @@ import {
   LoginMode,
   RuntimeLanguage
 } from '@oinone/kunlun-vue-ui-common';
-import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
-import { toString } from 'lodash-es';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseI18nRouterWidget } from '../../basic/BaseI18nRouterWidget';
-
 import { encrypt, homepageMaybeRuntimeContext } from '../../util';
 import LoginComponent from './Login.vue';
 
-@SPI.ClassFactory(RouterWidget.Token({ widget: 'Login' }))
-export class LoginPageWidget extends BaseI18nRouterWidget {
+@SPI.ClassFactory(
+  RouterWidget.Token({
+    widget: 'Login'
+  })
+)
+export class LoginWidget extends BaseI18nRouterWidget {
   protected moduleName = SYSTEM_MODULE_NAME.USER;
 
   public errorMessages = defaultLoginErrorMessages;
@@ -601,7 +610,7 @@ export class LoginPageWidget extends BaseI18nRouterWidget {
         return;
       }
 
-      if (['20200008', '20060008'].includes(toString(errorCode))) {
+      if (isFirstResetPasswordError(errorCode)) {
         // 首次登录需修改密码
         this.router.push({ segments: [{ path: 'first' }] });
         return;
@@ -635,7 +644,7 @@ export class LoginPageWidget extends BaseI18nRouterWidget {
     const hub = useMessageHub(loginMessageHubName);
     hub.subscribe((error) => {
       const { errorCode } = error;
-      if (errorCode === '20060080') {
+      if (isPicCodeError(errorCode)) {
         this.getPicCode();
       }
       hub.unsubscribe();
@@ -689,3 +698,8 @@ export class LoginPageWidget extends BaseI18nRouterWidget {
     });
   }
 }
+
+/**
+ * @deprecated please using LoginWidget
+ */
+export const LoginPageWidget = LoginWidget;
