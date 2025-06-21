@@ -1,6 +1,6 @@
+import { SPI } from '@oinone/kunlun-spi';
 import { BaseRouterWidget } from '@oinone/kunlun-vue-router';
 import component from './notice.vue';
-import { SPI } from '@oinone/kunlun-spi';
 
 @SPI.ClassFactory(BaseRouterWidget.Token({ widget: 'Notice' }))
 export class NoticePageWidget extends BaseRouterWidget {

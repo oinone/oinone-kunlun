@@ -9,7 +9,11 @@ import { UserService } from '../../service';
 import FirstResetPassword from './FirstResetPassword.vue';
 import { ForgetPasswordWidget } from './ForgetPasswordWidget';
 
-@SPI.ClassFactory(RouterWidget.Token({ widget: 'FirstResetPassword' }))
+@SPI.ClassFactory(
+  RouterWidget.Token({
+    widget: 'FirstResetPassword'
+  })
+)
 export class FirstResetPasswordWidget extends ForgetPasswordWidget {
   public initialize(config) {
     super.initialize(config);
