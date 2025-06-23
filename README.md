@@ -16,21 +16,21 @@ The "O" symbolizes open source while phonetically resonating with "All in one," 
 | [⚡ Direct to the Demo](https://demo.oinone.top)<br>☕ Account：admin<br>☕ Password：admin | [🎬 1. [Oinone] #Productization Demonstration# Work with Back-end And No-code](https://www.bilibili.com/video/BV1eDMizYEts/?vd_source=ee004011d0afa992f50d15c8738450b3) <br>[🎬 2. [Oinone] #Productization Demonstration# Work with Front-end Framework](https://www.bilibili.com/video/BV1DoMizbECt/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 3. [Oinone] #Customization# Work with Back-end Framework](https://www.bilibili.com/video/BV1RDMizYELg/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 4. [Oinone] #Customization# Front-end Interaction](https://www.bilibili.com/video/BV1eDMizYED1/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 5. [Oinone] #Customization# No-code mode](https://www.bilibili.com/video/BV1eDMizYEdF/?vd_source=ee004011d0afa992f50d15c8738450b3) |
 
 ### 4. Quickstart
-- [Installation or Upgrade](https://guide.oinone.top/zh-cn/InstallOrUpgrade/)
-  - [Development Environments](https://guide.oinone.top/zh-cn/InstallOrUpgrade/Dev-ENV/)
-  - [Community Edition - Source Code Installation](https://guide.oinone.top/zh-cn/InstallOrUpgrade/CommunityEdition/source-code-installation.html)
-  - [Enterprise Edition - Docker-full Installation](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)
-  - [Enterprise Edition - Docker-mini Installation](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-mini-installation.html)
-  - [Enterprise Edition - Package Installation](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)
-- [Tutorials](https://guide.oinone.top/zh-cn/DevManual/Tutorials/)
-  - [Discover the Front-end Framework](https://guide.oinone.top/zh-cn/DevManual/Tutorials/DiscoverTheFront-endFramework/)
-    - [Chapter 1 - Widget](https://guide.oinone.top/zh-cn/DevManual/Tutorials/DiscoverTheFront-endFramework/chapter1-widget.html)
-    - [Chapter 2 - Build a dashboard](https://guide.oinone.top/zh-cn/DevManual/Tutorials/DiscoverTheFront-endFramework/chapter2-build-a-dashboard.html)
-  - [Master the Front-end Framework](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/)
-    - [Chapter 1 - Front-End Overview](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/chapter1-front-end-overview.html)
-    - [Chapter 2 - Create a gantt view](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/chapter2-create-a-gantt-view.html)
-    - [Chapter 3 - Customize a gallery view](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/chapter3-customize-a-gallery-view.html)
-- [Debug Tools](https://guide.oinone.top/zh-cn/DevManual/Tutorials/debug-tools.html)
+- [Installation or Upgrade](https://guide.oinone.top/en/InstallOrUpgrade/)
+  - [Development Environments](https://guide.oinone.top/en/InstallOrUpgrade/Dev-ENV/)
+  - [Community Edition - Source Code Installation](https://guide.oinone.top/en/InstallOrUpgrade/CommunityEdition/source-code-installation.html)
+  - [Enterprise Edition - Docker-full Installation](https://guide.oinone.top/en/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)
+  - [Enterprise Edition - Docker-mini Installation](https://guide.oinone.top/en/InstallOrUpgrade/EnterpriseEdition/docker-mini-installation.html)
+  - [Enterprise Edition - Package Installation](https://guide.oinone.top/en/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)
+- [Tutorials](https://guide.oinone.top/en/DevManual/Tutorials/)
+  - [Discover the Front-end Framework](https://guide.oinone.top/en/DevManual/Tutorials/DiscoverTheFront-endFramework/)
+    - [Chapter 1 - Widget](https://guide.oinone.top/en/DevManual/Tutorials/DiscoverTheFront-endFramework/chapter1-widget.html)
+    - [Chapter 2 - Build a dashboard](https://guide.oinone.top/en/DevManual/Tutorials/DiscoverTheFront-endFramework/chapter2-build-a-dashboard.html)
+  - [Master the Front-end Framework](https://guide.oinone.top/en/DevManual/Tutorials/MasterTheFront-endFramework/)
+    - [Chapter 1 - Front-End Overview](https://guide.oinone.top/en/DevManual/Tutorials/MasterTheFront-endFramework/chapter1-front-end-overview.html)
+    - [Chapter 2 - Create a gantt view](https://guide.oinone.top/en/DevManual/Tutorials/MasterTheFront-endFramework/chapter2-create-a-gantt-view.html)
+    - [Chapter 3 - Customize a gallery view](https://guide.oinone.top/en/DevManual/Tutorials/MasterTheFront-endFramework/chapter3-customize-a-gallery-view.html)
+- [Debug Tools](https://guide.oinone.top/en/DevManual/Tutorials/debug-tools.html)
 
 ### 5. Project Overview
 | Packge               | Content                          |
@@ -42,13 +42,13 @@ The "O" symbolizes open source while phonetically resonating with "All in one," 
 | 📦 kunlun-mobile-vue | 🌟 Widgets Package - Mobile      |
 
 ### 6. Documentation
-- [📗 Installation Or Upgrade](https://guide.oinone.top/zh-cn/InstallOrUpgrade)
-- [📗 User Manual](https://guide.oinone.top/zh-cn/UserManual)
-- [📗 DEV Manual](https://guide.oinone.top/zh-cn/DevManual)
+- [📗 Installation Or Upgrade](https://guide.oinone.top/en/InstallOrUpgrade)
+- [📗 User Manual](https://guide.oinone.top/en/UserManual)
+- [📗 DEV Manual](https://guide.oinone.top/en/DevManual)
 - [📗 White Paper](https://www.oinone.top/whitePaper)
-- [📗 R&D Paradigm](https://guide.oinone.top/zh-cn/DevManual/R_DParadigm)
-- [📗 Common Solutions](https://guide.oinone.top/zh-cn/DevManual/CommonSolutions)
-- [📗 FAQ](https://guide.oinone.top/zh-cn/DevManual/FAQ)
+- [📗 R&D Paradigm](https://guide.oinone.top/en/DevManual/R_DParadigm)
+- [📗 Common Solutions](https://guide.oinone.top/en/DevManual/CommonSolutions)
+- [📗 FAQ](https://guide.oinone.top/en/DevManual/FAQ)
 
 ### 7. Product Ecosystem
 Comprehensive coverage of product development and implementation needs.
@@ -64,7 +64,7 @@ Comprehensive coverage of product development and implementation needs.
 
 ### 10. Community Participation
 - Join the community: Go to [⚡Oinone Community](https://doc.oinone.top)❤️
-- [How to contribute](https://guide.oinone.top/zh-cn/Contribute)
+- [How to contribute](https://guide.oinone.top/en/Contribute)
 
 ### 11. Contact Us
 - Website：https://www.oinone.top
