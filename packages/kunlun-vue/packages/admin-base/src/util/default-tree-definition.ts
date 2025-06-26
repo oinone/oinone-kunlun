@@ -1,5 +1,5 @@
 import { XMLParse } from '@oinone/kunlun-dsl';
-import { ExperimentalConfigManager } from '@oinone/kunlun-engine/src/experimental';
+import { ExperimentalConfigManager } from '@oinone/kunlun-engine';
 import { TreeNodeMetadata } from '../typing';
 import { TreeUtils } from './tree-utils';
 

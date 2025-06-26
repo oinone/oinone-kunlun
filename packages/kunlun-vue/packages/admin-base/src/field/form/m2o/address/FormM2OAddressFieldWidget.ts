@@ -1,5 +1,11 @@
-import { ActiveRecord, ActiveRecordExtendKeys, parseConfigs, SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
-import { ExperimentalConfigManager } from '@oinone/kunlun-engine/src/experimental';
+import {
+  ActiveRecord,
+  ActiveRecordExtendKeys,
+  ExperimentalConfigManager,
+  parseConfigs,
+  SubmitHandler,
+  SubmitValue
+} from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import {
   BooleanHelper,
