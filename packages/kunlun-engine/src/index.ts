@@ -10,6 +10,7 @@ export * from './cache';
 export * from './config';
 export * from './constant';
 export * from './exception';
+export * from './experimental';
 export * from './field';
 export * from './helper';
 export * from './log';

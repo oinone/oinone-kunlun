@@ -20,11 +20,11 @@ class ServerActionInternalCache extends MemoryAsyncCache<ServerActionKey, Runtim
 
 export class ServerActionCache {
   /**
-   * 通过模型编码和名称获取action
+   * 通过模型编码和名称获取提交动作
    * @param model 模型编码
    * @param name 名称
    * @param force 强制查询
-   * @return 运行时action
+   * @return {@link RuntimeServerAction} 提交动作元数据
    */
   public static async get(model: string, name: string, force = false): Promise<RuntimeServerAction | undefined> {
     const key: ServerActionKey = { model, name };

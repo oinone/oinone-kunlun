@@ -70,7 +70,7 @@ export class GraphqlHelper {
     return s;
   }
 
-  public static buildStringGQLParameter(key: string, value: string | undefined, serialize?: boolean) {
+  public static buildStringGQLParameter(key: string, value: string | null | undefined, serialize?: boolean) {
     if (isNil(value)) {
       return '';
     }
@@ -80,7 +80,7 @@ export class GraphqlHelper {
     return `${key}: "${value}"`;
   }
 
-  public static buildNotStringGQLParameter(key: string, value: string | number | boolean | undefined) {
+  public static buildNotStringGQLParameter(key: string, value: string | number | boolean | null | undefined) {
     if (isNil(value)) {
       return '';
     }

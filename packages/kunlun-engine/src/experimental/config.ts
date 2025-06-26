@@ -8,4 +8,8 @@ export interface ExperimentalConfig extends RuntimeConfigOptions {
    * buildQueryCondition方法版本；目前仅有next和非next两个版本；
    */
   buildQueryCondition?: string;
+  /**
+   * AddressWidget 组件版本；目前仅有next和非next两个版本；
+   */
+  AddressWidget?: string;
 }
