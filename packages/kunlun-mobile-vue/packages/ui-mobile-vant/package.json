@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui-mobile-vant",
-  "version": "6.2.2",
+  "version": "6.2.3",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
