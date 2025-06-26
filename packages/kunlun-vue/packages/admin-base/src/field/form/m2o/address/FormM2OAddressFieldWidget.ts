@@ -1,12 +1,20 @@
 import { ActiveRecord, ActiveRecordExtendKeys, parseConfigs, SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { ExperimentalConfigManager } from '@oinone/kunlun-engine/src/experimental';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { BooleanHelper, CastHelper, ObjectUtils, Optional, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import {
+  BooleanHelper,
+  CastHelper,
+  ObjectUtils,
+  Optional,
+  StandardString,
+  uniqueKeyGenerator
+} from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
 import { TreeNodeResponseBody, TreeService } from '../../../../service';
-import { TreeData, TreeNodeMetadata } from '../../../../typing';
+import { AddressTypeEnum, ResourceAddress, ResourceRegion, TreeData, TreeNodeMetadata } from '../../../../typing';
 import { FetchUtil } from '../../../../util';
 import { generatorDefaultAddressTreeDefinition } from '../../../../util/default-tree-definition';
 import { FormM2OCascaderFieldWidget } from '../cascader/FormM2OCascaderFieldWidget';
@@ -19,6 +27,14 @@ import { FormM2OCascaderFieldWidget } from '../cascader/FormM2OCascaderFieldWidg
   })
 )
 export class FormM2OAddressFieldWidget extends FormM2OCascaderFieldWidget {
+  public static readonly AddressTypes = [
+    AddressTypeEnum.Street,
+    AddressTypeEnum.District,
+    AddressTypeEnum.City,
+    AddressTypeEnum.Province,
+    AddressTypeEnum.Country
+  ];
+
   @Widget.Reactive()
   protected get changeOnSelect(): boolean {
     return Optional.ofNullable(this.getDsl().changeOnSelect).map(BooleanHelper.toBoolean).orElse(true)!;
@@ -63,7 +79,7 @@ export class FormM2OAddressFieldWidget extends FormM2OCascaderFieldWidget {
       return;
     }
     const { value } = this;
-    let currentValue: ActiveRecord | undefined;
+    let currentValue: ResourceAddress | undefined;
     if (value) {
       currentValue = FetchUtil.generatorPksObjectByPks(['id'], value);
       if (currentValue) {
@@ -77,25 +93,130 @@ export class FormM2OAddressFieldWidget extends FormM2OCascaderFieldWidget {
         __draftId: uniqueKeyGenerator()
       };
     }
-    while (selectedNode) {
-      const targetValue = selectedNode.value.data;
-      if (targetValue) {
-        const submitFields = this.getSubmitField(selectedNode.value.metadata);
-        if (submitFields) {
-          Object.entries(submitFields).forEach(([relationField, referenceField]) => {
-            currentValue![relationField] = targetValue[referenceField as string];
-          });
+    if (ExperimentalConfigManager.addressWidgetNext()) {
+      this.$onSelectedChangeNext(currentValue, selectedNode);
+    } else {
+      while (selectedNode) {
+        const targetValue = selectedNode.value.data;
+        if (targetValue) {
+          const submitFields = this.getSubmitField(selectedNode.value.metadata);
+          if (submitFields) {
+            Object.entries(submitFields).forEach(([relationField, referenceField]) => {
+              currentValue![relationField] = targetValue[referenceField as string];
+            });
+          }
         }
+        selectedNode = selectedNode.parent;
+      }
+    }
+    this.change(currentValue);
+  }
+
+  protected $onSelectedChangeNext(currentValue: ResourceAddress, selectedNode: OioTreeNode<TreeData> | undefined) {
+    let nextAddressType: AddressTypeEnum | null | undefined;
+    while (selectedNode) {
+      const targetValue = selectedNode.value.data as ResourceRegion | undefined;
+      if (!targetValue) {
+        selectedNode = selectedNode.parent;
+        continue;
+      }
+      const { type, code, name } = targetValue;
+      if (!type) {
+        console.error('Invalid region type.', selectedNode);
+        this.change(null);
+        return;
+      }
+      if (nextAddressType) {
+        while (type !== nextAddressType) {
+          nextAddressType = this.setResourceAddressValue(currentValue, nextAddressType, null, null);
+          if (nextAddressType === null) {
+            break;
+          }
+          if (!nextAddressType) {
+            return;
+          }
+        }
+      } else {
+        nextAddressType = type;
+      }
+      nextAddressType = this.setResourceAddressValue(currentValue, type, code, name);
+      if (nextAddressType === null) {
+        break;
+      }
+      if (!nextAddressType) {
+        return;
       }
       selectedNode = selectedNode.parent;
     }
-    this.change(currentValue);
+  }
+
+  protected getResourceAddressValue(
+    currentValue: ResourceAddress,
+    type: AddressTypeEnum
+  ):
+    | {
+        code: StandardString;
+        name: StandardString;
+      }
+    | undefined {
+    switch (type) {
+      case AddressTypeEnum.Country:
+        return { code: currentValue.countryCode, name: currentValue.countryName };
+      case AddressTypeEnum.Province:
+        return { code: currentValue.provinceCode, name: currentValue.provinceName };
+      case AddressTypeEnum.City:
+        return { code: currentValue.cityCode, name: currentValue.cityName };
+      case AddressTypeEnum.District:
+        return { code: currentValue.districtCode, name: currentValue.districtName };
+      case AddressTypeEnum.Street:
+        return { code: currentValue.streetCode, name: currentValue.streetName };
+      default:
+        console.error('Invalid region type.', type);
+        return undefined;
+    }
+  }
+
+  protected setResourceAddressValue(
+    currentValue: ResourceAddress,
+    type: AddressTypeEnum,
+    code: StandardString,
+    name: StandardString
+  ): AddressTypeEnum | null | undefined {
+    switch (type) {
+      case AddressTypeEnum.Country:
+        currentValue.countryCode = code;
+        currentValue.countryName = name;
+        return null;
+      case AddressTypeEnum.Province:
+        currentValue.provinceCode = code;
+        currentValue.provinceName = name;
+        return AddressTypeEnum.Country;
+      case AddressTypeEnum.City:
+        currentValue.cityCode = code;
+        currentValue.cityName = name;
+        return AddressTypeEnum.Province;
+      case AddressTypeEnum.District:
+        currentValue.districtCode = code;
+        currentValue.districtName = name;
+        return AddressTypeEnum.City;
+      case AddressTypeEnum.Street:
+        currentValue.streetCode = code;
+        currentValue.streetName = name;
+        return AddressTypeEnum.District;
+      default:
+        console.error('Invalid region type.', type);
+        this.change(null);
+        return undefined;
+    }
   }
 
   protected async fetchBackfillData(
     currentValues: ActiveRecord[],
     metadataList: TreeNodeMetadata[]
   ): Promise<TreeNodeResponseBody[] | undefined> {
+    if (ExperimentalConfigManager.addressWidgetNext()) {
+      return this.fetchBackfillDataNext(currentValues, metadataList);
+    }
     const finalValues: ActiveRecord[] = [];
     let finalMetadataList: TreeNodeMetadata[] | undefined;
     for (const currentValue of currentValues) {
@@ -130,10 +251,37 @@ export class FormM2OAddressFieldWidget extends FormM2OCascaderFieldWidget {
     return undefined;
   }
 
+  protected async fetchBackfillDataNext(
+    currentValues: ActiveRecord[],
+    metadataList: TreeNodeMetadata[]
+  ): Promise<TreeNodeResponseBody[] | undefined> {
+    const currentValue = currentValues[0] as ResourceAddress | undefined;
+    if (!currentValue) {
+      return undefined;
+    }
+    let lastRegion: ResourceRegion | undefined;
+    for (const type of FormM2OAddressFieldWidget.AddressTypes) {
+      lastRegion = this.getResourceAddressValue(currentValue, type);
+      if (lastRegion) {
+        break;
+      }
+    }
+    if (lastRegion) {
+      return TreeService.reverselyQueryWithSize([lastRegion], metadataList, {
+        expressionParameters: this.generatorExpressionParameters(),
+        disabledIsLeaf: true
+      });
+    }
+    return undefined;
+  }
+
   protected generatorCompareRecords(
     currentValues: ActiveRecord[],
     metadataList: TreeNodeMetadata[]
   ): ActiveRecord[] | undefined {
+    if (ExperimentalConfigManager.addressWidgetNext()) {
+      return this.generatorCompareRecordsNext(currentValues, metadataList);
+    }
     const compareRecords: ActiveRecord[] = [];
     for (const currentValue of currentValues) {
       for (const metadata of metadataList) {
@@ -159,6 +307,27 @@ export class FormM2OAddressFieldWidget extends FormM2OCascaderFieldWidget {
       return undefined;
     }
     return [compareRecords[compareRecords.length - 1]];
+  }
+
+  protected generatorCompareRecordsNext(
+    currentValues: ActiveRecord[],
+    metadataList: TreeNodeMetadata[]
+  ): ActiveRecord[] | undefined {
+    const currentValue = currentValues[0] as ResourceAddress | undefined;
+    if (!currentValue) {
+      return undefined;
+    }
+    let lastRegion: ResourceRegion | undefined;
+    for (const type of FormM2OAddressFieldWidget.AddressTypes) {
+      lastRegion = this.getResourceAddressValue(currentValue, type);
+      if (lastRegion) {
+        break;
+      }
+    }
+    if (lastRegion) {
+      return [lastRegion];
+    }
+    return undefined;
   }
 
   public async submit(submitValue: SubmitValue) {

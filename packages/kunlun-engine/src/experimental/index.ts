@@ -10,6 +10,11 @@ export class ExperimentalConfigManager {
     const version = process.env.BUILD_QUERY_CONDITION || ExperimentalConfigManager.getConfig().buildQueryCondition;
     return version === 'next';
   }
+
+  public static addressWidgetNext(): boolean {
+    const version = process.env.ADDRESS_WIDGET || ExperimentalConfigManager.getConfig().AddressWidget || 'next';
+    return version === 'next';
+  }
 }
 
 export * from './config';
