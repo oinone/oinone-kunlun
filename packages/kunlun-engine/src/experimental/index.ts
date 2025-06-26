@@ -12,7 +12,7 @@ export class ExperimentalConfigManager {
   }
 
   public static addressWidgetNext(): boolean {
-    const version = process.env.ADDRESS_WIDGET || ExperimentalConfigManager.getConfig().AddressWidget;
+    const version = process.env.ADDRESS_WIDGET || ExperimentalConfigManager.getConfig().AddressWidget || 'next';
     return version === 'next';
   }
 }
