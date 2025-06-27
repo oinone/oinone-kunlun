@@ -119,7 +119,7 @@ export class FormM2OAddressFieldWidget extends FormM2OCascaderFieldWidget {
   }
 
   protected $onSelectedChangeNext(currentValue: ResourceAddress, selectedNode: OioTreeNode<TreeData> | undefined) {
-    let nextAddressType: AddressTypeEnum | null | undefined;
+    let nextAddressType: AddressTypeEnum | null | undefined = AddressTypeEnum.Street;
     while (selectedNode) {
       const targetValue = selectedNode.value.data as ResourceRegion | undefined;
       if (!targetValue) {
@@ -166,16 +166,41 @@ export class FormM2OAddressFieldWidget extends FormM2OCascaderFieldWidget {
       }
     | undefined {
     switch (type) {
-      case AddressTypeEnum.Country:
-        return { code: currentValue.countryCode, name: currentValue.countryName };
-      case AddressTypeEnum.Province:
-        return { code: currentValue.provinceCode, name: currentValue.provinceName };
-      case AddressTypeEnum.City:
-        return { code: currentValue.cityCode, name: currentValue.cityName };
-      case AddressTypeEnum.District:
-        return { code: currentValue.districtCode, name: currentValue.districtName };
-      case AddressTypeEnum.Street:
-        return { code: currentValue.streetCode, name: currentValue.streetName };
+      case AddressTypeEnum.Country: {
+        const { countryCode, countryName } = currentValue;
+        if (countryCode && countryName) {
+          return { code: countryCode, name: countryName };
+        }
+        return undefined;
+      }
+      case AddressTypeEnum.Province: {
+        const { provinceCode, provinceName } = currentValue;
+        if (provinceCode && provinceName) {
+          return { code: provinceCode, name: provinceName };
+        }
+        return undefined;
+      }
+      case AddressTypeEnum.City: {
+        const { cityCode, cityName } = currentValue;
+        if (cityCode && cityName) {
+          return { code: cityCode, name: cityName };
+        }
+        return undefined;
+      }
+      case AddressTypeEnum.District: {
+        const { districtCode, districtName } = currentValue;
+        if (districtCode && districtName) {
+          return { code: districtCode, name: districtName };
+        }
+        return undefined;
+      }
+      case AddressTypeEnum.Street: {
+        const { streetCode, streetName } = currentValue;
+        if (streetCode && streetName) {
+          return { code: streetCode, name: streetName };
+        }
+        return undefined;
+      }
       default:
         console.error('Invalid region type.', type);
         return undefined;
