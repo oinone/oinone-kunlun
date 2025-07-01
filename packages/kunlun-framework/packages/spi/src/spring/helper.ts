@@ -1,36 +1,24 @@
-export type ProxyConstructor = Function & { __proxy__?: boolean };
+type FunctionExtend = {
+  __proxy_constructor__?: ProxyConstructor | ProxyNewableConstructor;
+};
 
-export type ProxyNewableConstructor = (new (...args) => Object) & { __proxy__?: boolean };
+export type ProxyConstructor = Function & FunctionExtend;
+
+export type ProxyNewableConstructor = (new (...args) => Object) & FunctionExtend;
 
 export function isProxyConstructor(
   constructor: ProxyConstructor | ProxyNewableConstructor
 ): constructor is ProxyConstructor {
-  return !!constructor.__proxy__;
-}
-
-export function proxy(fn: Function): ProxyConstructor {
-  (fn as ProxyConstructor).__proxy__ = true;
-  return fn;
+  return !!constructor.__proxy_constructor__;
 }
 
 export function proxyTargetConstructor(
   target: Object | ObjectConstructor,
   proxy: (constructor: ProxyConstructor | ProxyNewableConstructor) => ProxyConstructor
 ): void {
-  let constructor = (target as ObjectConstructor).prototype?.constructor;
-  const isPrototype = !!constructor;
-  if (!isPrototype) {
+  let constructor: ProxyConstructor = (target as ObjectConstructor).prototype?.constructor;
+  if (!constructor) {
     constructor = target.constructor;
   }
-  if (typeof constructor !== 'function') {
-    return;
-  }
-  const proxyConstructor = proxy(constructor);
-  if (proxyConstructor) {
-    if (isPrototype) {
-      (target as ObjectConstructor).prototype.constructor = proxyConstructor;
-    } else {
-      target.constructor = proxyConstructor;
-    }
-  }
+  constructor.__proxy_constructor__ = proxy(constructor.__proxy_constructor__ || constructor);
 }
