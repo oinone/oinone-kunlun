@@ -41,6 +41,14 @@ export class NumberHelper {
     return val!.indexOf('.') !== val!.length - 1;
   }
 
+  public static isInteger(n: number): boolean {
+    return n % 1 === 0;
+  }
+
+  public static isZero(n: number): boolean {
+    return Math.abs(n) < Number.EPSILON;
+  }
+
   /**
    * a + b
    * @param a
