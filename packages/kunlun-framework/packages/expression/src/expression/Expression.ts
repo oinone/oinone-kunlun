@@ -888,8 +888,8 @@ export class Expression {
       [(type: any) => (typeof type !== 'number' && typeof type !== 'string' ? 'number|string' : '')],
       MATH_FUNCTION.UPPER_MONEY
     );
-    this.registerFunction('POW', ['number', 'number'], MATH_FUNCTION.POW);
-    this.registerFunction('LOG', ['number', 'number'], MATH_FUNCTION.POW);
+    this.registerFunction('POW', ['number|string', 'number|string'], MATH_FUNCTION.POW);
+    this.registerFunction('LOG', ['number|string', 'number|string'], MATH_FUNCTION.LOG);
 
     // 字符串函数
     this.registerFunction('TRIM', ['string'], STRING_FUNCTION.TRIM);

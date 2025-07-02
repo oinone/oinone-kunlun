@@ -230,8 +230,8 @@ function POW(a: number, b: number): number | null {
     return null;
   }
 
-  if (NumberHelper.isZero(b)) {
-    return 1;
+  if (isNaN(a as number) || isNaN(b as number)) {
+    return null;
   }
 
   if (a < 0 && !NumberHelper.isInteger(b)) {
@@ -252,6 +252,10 @@ function POW(a: number, b: number): number | null {
 
 function LOG(a: number, b: number): number | null {
   if (a === null || b === null) {
+    return null;
+  }
+
+  if (isNaN(a as number) || isNaN(b as number)) {
     return null;
   }
 
