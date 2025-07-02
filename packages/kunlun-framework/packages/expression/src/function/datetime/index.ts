@@ -17,7 +17,10 @@ export const DATETIME_FUNCTION = {
   COUNT_DAY,
   LESS_THAN,
   LESS_EQUAL,
-  DATE_EQUALS
+  DATE_EQUALS,
+  YEAR,
+  MONTH,
+  DAY
 };
 
 function NOW() {
@@ -120,4 +123,73 @@ function DATE_EQUALS(date1: string, date2: string) {
     return false;
   }
   return DateUtils.parse(date1).value.isSame(DateUtils.parse(date2).value);
+}
+
+function YEAR(date: string | Date): number | null {
+  if (date == null) {
+    return null;
+  }
+
+  let dateObj: Date | null = null;
+
+  if (date instanceof Date) {
+    dateObj = date;
+  } else if (typeof date === 'string') {
+    dateObj = new Date(date);
+    if (isNaN(dateObj.getTime())) {
+      return null;
+    }
+  }
+
+  if (dateObj == null) {
+    return null;
+  }
+
+  return dateObj.getFullYear();
+}
+
+function MONTH(date: string | Date): number | null {
+  if (date == null) {
+    return null;
+  }
+
+  let dateObj: Date | null = null;
+
+  if (date instanceof Date) {
+    dateObj = date;
+  } else if (typeof date === 'string') {
+    dateObj = new Date(date);
+    if (isNaN(dateObj.getTime())) {
+      return null;
+    }
+  }
+
+  if (dateObj == null) {
+    return null;
+  }
+
+  return dateObj.getMonth() + 1;
+}
+
+function DAY(date: string | Date): number | null {
+  if (date == null) {
+    return null;
+  }
+
+  let dateObj: Date | null = null;
+
+  if (date instanceof Date) {
+    dateObj = date;
+  } else if (typeof date === 'string') {
+    dateObj = new Date(date);
+    if (isNaN(dateObj.getTime())) {
+      return null;
+    }
+  }
+
+  if (dateObj == null) {
+    return null;
+  }
+
+  return dateObj.getDate();
 }
