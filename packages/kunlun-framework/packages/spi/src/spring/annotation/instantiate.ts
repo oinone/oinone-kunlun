@@ -1,12 +1,6 @@
 import { ServiceIdentifier, ServiceNamed } from '../../typing';
 import { container } from '../container';
-import {
-  isProxyConstructor,
-  proxy,
-  ProxyConstructor,
-  ProxyNewableConstructor,
-  proxyTargetConstructor
-} from '../helper';
+import { isProxyConstructor, ProxyConstructor, ProxyNewableConstructor, proxyTargetConstructor } from '../helper';
 import { ServicePriorityManager } from './priority';
 
 export function RawInstantiate<Interface>(
@@ -84,15 +78,15 @@ function InstantiateParameter<Interface>(
 ): ProxyConstructor {
   let proxyFunction: ProxyConstructor;
   if (isProxyConstructor(constructor)) {
-    proxyFunction = proxy(function InstantiateParameter(...args) {
+    proxyFunction = function InstantiateParameter(...args) {
       args[parameterIndex] = RawInstantiate(token, options);
       return (constructor as ProxyConstructor)(...args);
-    });
+    };
   } else {
-    proxyFunction = proxy(function InstantiateParameter(...args) {
+    proxyFunction = function InstantiateParameter(...args) {
       args[parameterIndex] = RawInstantiate(token, options);
       return new (constructor as ProxyNewableConstructor)(...args);
-    });
+    };
   }
   return proxyFunction;
 }
@@ -105,17 +99,17 @@ function InstantiateProperty<Interface>(
 ): ProxyConstructor {
   let proxyFunction: ProxyConstructor;
   if (isProxyConstructor(constructor)) {
-    proxyFunction = proxy(function InstantiateProperty(...args) {
+    proxyFunction = function InstantiateProperty(...args) {
       const object = (constructor as ProxyConstructor)(...args);
       object[propertyKey] = RawInstantiate(token, options);
       return object;
-    });
+    };
   } else {
-    proxyFunction = proxy(function InstantiateProperty(...args) {
+    proxyFunction = function InstantiateProperty(...args) {
       const object = new (constructor as ProxyNewableConstructor)(...args);
       object[propertyKey] = RawInstantiate(token, options);
       return object;
-    });
+    };
   }
   return proxyFunction;
 }
@@ -140,15 +134,15 @@ function InstantiatesParameter<Interface>(
 ): ProxyConstructor {
   let proxyFunction: ProxyConstructor;
   if (isProxyConstructor(constructor)) {
-    proxyFunction = proxy(function InstantiateParameter(...args) {
+    proxyFunction = function InstantiateParameter(...args) {
       args[parameterIndex] = RawInstantiates(token, options);
       return (constructor as ProxyConstructor)(...args);
-    });
+    };
   } else {
-    proxyFunction = proxy(function InstantiateParameter(...args) {
+    proxyFunction = function InstantiateParameter(...args) {
       args[parameterIndex] = RawInstantiates(token, options);
       return new (constructor as ProxyNewableConstructor)(...args);
-    });
+    };
   }
   return proxyFunction;
 }
@@ -161,17 +155,17 @@ function InstantiatesProperty<Interface>(
 ): ProxyConstructor {
   let proxyFunction: ProxyConstructor;
   if (isProxyConstructor(constructor)) {
-    proxyFunction = proxy(function InstantiateProperty(...args) {
+    proxyFunction = function InstantiateProperty(...args) {
       const object = (constructor as ProxyConstructor)(...args);
       object[propertyKey] = RawInstantiates(token, options);
       return object;
-    });
+    };
   } else {
-    proxyFunction = proxy(function InstantiateProperty(...args) {
+    proxyFunction = function InstantiateProperty(...args) {
       const object = new (constructor as ProxyNewableConstructor)(...args);
       object[propertyKey] = RawInstantiates(token, options);
       return object;
-    });
+    };
   }
   return proxyFunction;
 }

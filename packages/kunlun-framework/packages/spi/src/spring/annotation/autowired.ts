@@ -19,7 +19,7 @@ export function Autowired<Interface>(
     autowired()(target, propertyKey, parameterIndex);
     if (
       Optional.ofNullable(options)
-        .map((v) => v!.required)
+        .map((v) => v.required)
         .orElse(true) === false
     ) {
       optional()(target, propertyKey, parameterIndex);
