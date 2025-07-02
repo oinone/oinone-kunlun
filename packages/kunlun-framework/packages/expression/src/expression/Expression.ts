@@ -908,7 +908,7 @@ export class Expression {
     this.registerFunction('PARSE', ['string'], STRING_FUNCTION.PARSE);
     this.registerFunction('JSON', ['any'], STRING_FUNCTION.JSON);
     this.registerFunction('SUBSTRING', ['string', 'number', 'number'], STRING_FUNCTION.SUBSTRING);
-    this.registerFunction('SUBSTRING_END', ['string', 'number'], STRING_FUNCTION.SUBSTRING_END);
+    this.registerFunction('SUBSTRING_END', ['string', 'number|string'], STRING_FUNCTION.SUBSTRING_END);
     this.registerFunction('SPLIT', ['string', 'string'], STRING_FUNCTION.SPLIT);
     this.registerFunction('INDEXOF', ['string', 'string'], STRING_FUNCTION.INDEXOF);
 

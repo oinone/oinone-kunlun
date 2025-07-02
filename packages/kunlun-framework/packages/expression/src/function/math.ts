@@ -226,7 +226,7 @@ function UPPER_MONEY(money: string | number) {
 }
 
 function POW(a: number, b: number): number | null {
-  if (a === null || b === null) {
+  if (a == null || b == null) {
     return null;
   }
 
@@ -251,7 +251,7 @@ function POW(a: number, b: number): number | null {
 }
 
 function LOG(a: number, b: number): number | null {
-  if (a === null || b === null) {
+  if (a == null || b == null) {
     return null;
   }
 

@@ -126,7 +126,7 @@ function DATE_EQUALS(date1: string, date2: string) {
 }
 
 function YEAR(date: string | Date): number | null {
-  if (date === null) {
+  if (date == null) {
     return null;
   }
 
@@ -141,7 +141,7 @@ function YEAR(date: string | Date): number | null {
     }
   }
 
-  if (dateObj === null) {
+  if (dateObj == null) {
     return null;
   }
 
@@ -149,7 +149,7 @@ function YEAR(date: string | Date): number | null {
 }
 
 function MONTH(date: string | Date): number | null {
-  if (date === null) {
+  if (date == null) {
     return null;
   }
 
@@ -164,7 +164,7 @@ function MONTH(date: string | Date): number | null {
     }
   }
 
-  if (dateObj === null) {
+  if (dateObj == null) {
     return null;
   }
 
@@ -172,7 +172,7 @@ function MONTH(date: string | Date): number | null {
 }
 
 function DAY(date: string | Date): number | null {
-  if (date === null) {
+  if (date == null) {
     return null;
   }
 
@@ -187,7 +187,7 @@ function DAY(date: string | Date): number | null {
     }
   }
 
-  if (dateObj === null) {
+  if (dateObj == null) {
     return null;
   }
 

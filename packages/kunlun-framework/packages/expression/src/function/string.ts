@@ -115,11 +115,11 @@ function SUBSTRING(str: string, start: number, end: number) {
 }
 
 function NOT_CONTAINS(text: string, subtext: string): boolean {
-  if (text === null) {
+  if (text == null) {
     text = '';
   }
 
-  if (subtext === null) {
+  if (subtext == null) {
     return true;
   }
 
@@ -127,14 +127,14 @@ function NOT_CONTAINS(text: string, subtext: string): boolean {
 }
 
 function SUBSTRING_END(text: string, start: number): string | null {
-  if (text === null || start === null) {
+  if (text == null || start == null) {
     return null;
   }
   return text.substring(start);
 }
 
 function SPLIT(text: string, separator: string): string[] | null {
-  if (text === null || separator === null) {
+  if (text == null || separator == null) {
     return null;
   }
   return text
@@ -144,7 +144,7 @@ function SPLIT(text: string, separator: string): string[] | null {
 }
 
 function INDEXOF(text: string, search: string): number | null {
-  if (text === null || search === null) {
+  if (text == null || search == null) {
     return null;
   }
 
