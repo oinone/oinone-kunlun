@@ -9,9 +9,20 @@ export interface CreateStorageOptions {
   force?: boolean;
 }
 
+/**
+ * SPI 操作器
+ */
 export class SPIOperator {
+  /**
+   * 存储实例集合
+   * @private
+   */
   private static storageMap = new Map<string | symbol, Storage<unknown>>();
 
+  /**
+   * 创建存储实例
+   * @param options 可选项
+   */
   public static createStorage(options: CreateStorageOptions): boolean {
     const { key, force = false } = options;
     if (!key) {
@@ -25,10 +36,22 @@ export class SPIOperator {
     return true;
   }
 
+  /**
+   * 注册存储数据
+   * @param store 存储 Key
+   * @param options 维度值
+   * @param value 存储数据
+   * @param replace 是否允许替换；默认覆盖旧数据；
+   */
   public static register<V = unknown>(store: StorageKey, options: SPIOptions, value: V, replace = true): boolean {
     return SPIOperator.consumerStorage(store, (storage) => storage.operator.push(options, value, replace)) || false;
   }
 
+  /**
+   * 获取与维度值匹配度最高的存储数据
+   * @param store 存储 Key
+   * @param options 维度值
+   */
   public static selector<V = unknown>(store: StorageKey, options: SPIOptions): V | undefined {
     debugConsole.run(() => {
       const key = typeof store === 'string' ? store : store.description!;
@@ -60,6 +83,11 @@ export class SPIOperator {
     return res;
   }
 
+  /**
+   * 获取与维度值相关的所有存储数据集合，并根据匹配度进行排序
+   * @param store 存储 Key
+   * @param options 维度值
+   */
   public static selectors<V = unknown>(store: StorageKey, options: SPIOptions): V[] {
     return SPIOperator.consumerStorage<V, V[]>(store, (storage) =>
       storage.operator.getAll({
