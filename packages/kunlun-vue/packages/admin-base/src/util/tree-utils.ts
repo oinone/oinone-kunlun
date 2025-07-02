@@ -277,7 +277,14 @@ export class TreeUtils {
     slotName: string,
     inline: boolean,
     view: RuntimeView | undefined
-  ): { targetSlot: TemplateDslDefinition; viewDsl: ViewDslDefinition; viewTemplate: DslDefinition } | undefined {
+  ):
+    | {
+        viewType: ViewType;
+        targetSlot: TemplateDslDefinition;
+        viewDsl: ViewDslDefinition;
+        viewTemplate: DslDefinition;
+      }
+    | undefined {
     let targetSlot = dslSlots[slotName];
     if (targetSlot) {
       const viewDsl = targetSlot?.widgets?.find((v) => v.dslNodeType === DslDefinitionType.VIEW);
@@ -300,7 +307,7 @@ export class TreeUtils {
         }
       }
       dslSlots[slotName] = targetSlot;
-      return { targetSlot, viewDsl, viewTemplate };
+      return { viewType: viewDsl.type, targetSlot, viewDsl, viewTemplate };
     }
     return undefined;
   }

@@ -1,3 +1,4 @@
+import { ActiveRecord } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
@@ -29,14 +30,21 @@ export class TreeWidget extends AbstractTreeElementWidget {
   }
 
   protected async onUnselected() {
-    const currentValue = [];
+    const currentValue = this.generatorEmptyValue();
     this.reloadDataSource(currentValue);
     this.reloadActiveRecords(currentValue);
   }
 
   protected $$mounted() {
     super.$$mounted();
-    const currentValue = [];
+    const currentValue = this.generatorEmptyValue();
     this.reloadDataSource(currentValue);
+  }
+
+  protected generatorEmptyValue(): ActiveRecord[] {
+    if (this.contentViewType === ViewType.Form) {
+      return [{}];
+    }
+    return [];
   }
 }
