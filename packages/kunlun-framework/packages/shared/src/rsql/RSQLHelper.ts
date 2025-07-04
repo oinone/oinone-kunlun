@@ -3,9 +3,10 @@ import { parse } from '@rsql/parser';
 import { BooleanHelper } from '../BooleanHeler';
 import { ObjectUtils } from '../ObjectUtils';
 import { TreeNode } from '../tree-node';
+import { RSQLNodeComputer } from './computer/NodeComputer';
 import { NodeConnector, RSQLNodeConnector } from './connector/NodeConnector';
 import { RSQLNodeFactory } from './node';
-import { RSQLField, RSQLModel, RSQLNodeInfo, RSQLNodeInfoType } from './RSQLNodeInfo';
+import { BaseRSQLNodeInfo, RSQLField, RSQLModel, RSQLNodeInfo, RSQLNodeInfoType } from './RSQLNodeInfo';
 import { RSQLLogicalOperator, RSQLLogicalOperators, RSQLOperators } from './RSQLOperator';
 
 const RELATION_FIELD_TTYPES = ['O2O', 'O2M', 'M2O', 'M2M'];
@@ -263,7 +264,7 @@ export class RSQLHelper {
     return undefined;
   }
 
-  public static toRSQL(root: TreeNode<RSQLNodeInfo>) {
+  public static toRSQL(root: TreeNode<RSQLNodeInfo>): string | undefined {
     const result = RSQLHelper.toTargetString(root, RSQLNodeConnector.INSTANCE);
     if (result && result[0] === '(' && result[result.length - 1] === ')') {
       return result.substring(1, result.length - 1);
@@ -271,7 +272,10 @@ export class RSQLHelper {
     return result;
   }
 
-  public static toTargetString(node: TreeNode<RSQLNodeInfo>, connector: NodeConnector): string | undefined {
+  public static toTargetString<T extends BaseRSQLNodeInfo>(
+    node: TreeNode<T>,
+    connector: NodeConnector<T>
+  ): string | undefined {
     const type = node.value?.type;
     if (type == null) {
       return '';
