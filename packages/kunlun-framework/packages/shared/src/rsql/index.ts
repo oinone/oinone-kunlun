@@ -1,6 +1,5 @@
 export * from './RSQLOperator';
 
-export * from './computer';
 export * from './connector';
 export * from './node';
 
