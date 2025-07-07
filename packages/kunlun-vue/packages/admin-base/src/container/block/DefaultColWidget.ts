@@ -76,4 +76,9 @@ export class DefaultColWidget extends BasePackWidget {
   public get maxWidth() {
     return this.getDsl().maxWidth;
   }
+
+  @Widget.Reactive()
+  public get height(){
+    return this.getDsl().height
+  }
 }

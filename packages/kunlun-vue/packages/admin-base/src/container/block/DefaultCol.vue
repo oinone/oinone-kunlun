@@ -43,6 +43,9 @@ export default defineComponent({
     },
     maxWidth: {
       type: [String, Number]
+    },
+    height: {
+      type: [String, Number]
     }
   },
   setup(props) {
@@ -98,7 +101,8 @@ export default defineComponent({
     const width = StyleHelper.px(this.width);
     const minWidth = StyleHelper.px(this.minWidth);
     const maxWidth = StyleHelper.px(this.maxWidth);
-    if (width || minWidth || maxWidth) {
+    const height = StyleHelper.px(this.height);
+    if (width || minWidth || maxWidth || height) {
       const style = {} as CSSStyle;
       if (width) {
         style.minWidth = width;
@@ -109,6 +113,9 @@ export default defineComponent({
       }
       if (maxWidth) {
         style.maxWidth = maxWidth;
+      }
+      if (height) {
+        style.height = height;
       }
       colProps.style = style;
     }
