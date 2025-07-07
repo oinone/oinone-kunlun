@@ -96,11 +96,7 @@ export class RSQLNodeInfo implements RSQLConditionNodeInfo {
     return new RSQLNodeInfo(type);
   }
 
-  public static newNodeInfoByComparisonNode(
-    node: RSQLComparisonNode,
-    model: RSQLModel | undefined,
-    field: RSQLField | undefined
-  ) {
+  public static newNodeInfoByComparisonNode(node: RSQLComparisonNode, model?: RSQLModel, field?: RSQLField) {
     return new RSQLNodeInfo(RSQLNodeInfoType.COMPARISON, model, field, node.selector, node.operator, node.args);
   }
 }
