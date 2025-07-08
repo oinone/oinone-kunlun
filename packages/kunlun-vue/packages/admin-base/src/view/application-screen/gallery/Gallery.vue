@@ -75,7 +75,13 @@
                       <div v-if="record.state === AppState.INSTALLED" class="state">
                         {{ translateValueByKey('已安装') }}
                       </div>
-                      <div v-else-if="!record.state || record.state === AppState.UNINSTALLED" class="install-action">
+                      <div
+                        v-else-if="
+                          (!record.state || record.state === AppState.UNINSTALLED) &&
+                          actionPermission.hasCreateAppAction
+                        "
+                        class="install-action"
+                      >
                         <span class="install-action-font" @click="installApp(record)">{{
                           translateValueByKey('安装')
                         }}</span>
