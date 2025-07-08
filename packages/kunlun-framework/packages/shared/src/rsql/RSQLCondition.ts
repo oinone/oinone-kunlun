@@ -1,6 +1,6 @@
 import { BooleanHelper } from '../BooleanHeler';
 import { TreeNode } from '../tree-node';
-import { RSQLConditionConnector } from './connector/NodeConnector';
+import { RSQLConditionConnector } from './connector';
 import { RSQLHelper } from './RSQLHelper';
 import { RSQLConditionNodeInfo, RSQLNodeInfo, RSQLNodeInfoType, RSQLQuote } from './RSQLNodeInfo';
 import { RSQLComparisonOperator, RSQLOperators } from './RSQLOperator';
@@ -10,9 +10,9 @@ export class RSQLCondition {
 
   private readonly root: TreeNode<RSQLConditionNodeInfo>;
 
-  private constructor(counter?: number, root?: TreeNode<RSQLConditionNodeInfo>) {
-    this.counter = counter || 0;
+  private constructor(root?: TreeNode<RSQLConditionNodeInfo>, counter?: number) {
     this.root = root || this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND));
+    this.counter = counter || 0;
   }
 
   public eq(field: string, value: string | number | boolean | null | undefined, quote?: RSQLQuote): RSQLCondition {
@@ -126,20 +126,21 @@ export class RSQLCondition {
   }
 
   public and(consumer: (condition: RSQLCondition) => RSQLCondition): RSQLCondition {
-    const conditionNode = this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND));
-    const condition = consumer(new RSQLCondition(this.counter, conditionNode));
+    const condition = consumer(
+      new RSQLCondition(this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND)), this.counter)
+    );
     this.root.addChild(condition.root);
     return this.swapAnd();
   }
 
   public or(consumer?: (condition: RSQLCondition) => RSQLCondition): RSQLCondition {
     const condition = new RSQLCondition(
-      this.counter,
-      this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.OR))
+      this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.OR)),
+      this.counter
     );
     if (consumer) {
       const target = consumer(
-        new RSQLCondition(this.counter, this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND)))
+        new RSQLCondition(this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND)), this.counter)
       );
       if (!target.root.children.length) {
         return this;
@@ -156,7 +157,7 @@ export class RSQLCondition {
     if (this.root.value?.type === RSQLNodeInfoType.OR) {
       const conditionNode = this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND));
       conditionNode.addChild(this.root);
-      return new RSQLCondition(this.counter, conditionNode);
+      return new RSQLCondition(conditionNode, this.counter);
     }
     return this;
   }
@@ -233,7 +234,9 @@ export class RSQLCondition {
     });
   }
 
-  public static wrapper(): RSQLCondition {
-    return new RSQLCondition();
+  public static wrapper(root?: TreeNode<RSQLConditionNodeInfo>): RSQLCondition {
+    return new RSQLCondition(root);
   }
 }
+
+console.log(RSQLCondition.wrapper().in('status', ['INSTALLED', 'UPGRADED']).toString());
