@@ -1,17 +1,15 @@
 import { BooleanHelper } from '../BooleanHeler';
 import { TreeNode } from '../tree-node';
+import { uniqueKeyGenerator } from '../UniqueKeyGenerator';
 import { RSQLHelper } from './RSQLHelper';
 import { RSQLConditionNodeInfo, RSQLNodeInfo, RSQLNodeInfoType, RSQLQuote } from './RSQLNodeInfo';
 import { RSQLComparisonOperator, RSQLOperators } from './RSQLOperator';
 
 export class RSQLCondition {
-  private counter: number;
-
   private readonly root: TreeNode<RSQLConditionNodeInfo>;
 
-  private constructor(root?: TreeNode<RSQLConditionNodeInfo>, counter?: number) {
+  private constructor(root?: TreeNode<RSQLConditionNodeInfo>) {
     this.root = root || this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND));
-    this.counter = counter || 0;
   }
 
   public eq(field: string, value: string | number | boolean | null | undefined, quote?: RSQLQuote): RSQLCondition {
@@ -125,22 +123,15 @@ export class RSQLCondition {
   }
 
   public and(consumer: (condition: RSQLCondition) => RSQLCondition): RSQLCondition {
-    const condition = consumer(
-      new RSQLCondition(this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND)), this.counter)
-    );
+    const condition = consumer(new RSQLCondition(this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND))));
     this.root.addChild(condition.root);
     return this.swapAnd();
   }
 
   public or(consumer?: (condition: RSQLCondition) => RSQLCondition): RSQLCondition {
-    const condition = new RSQLCondition(
-      this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.OR)),
-      this.counter
-    );
+    const condition = new RSQLCondition(this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.OR)));
     if (consumer) {
-      const target = consumer(
-        new RSQLCondition(this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND)), this.counter)
-      );
+      const target = consumer(new RSQLCondition(this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND))));
       if (!target.root.children.length) {
         return this;
       }
@@ -156,7 +147,7 @@ export class RSQLCondition {
     if (this.root.value?.type === RSQLNodeInfoType.OR) {
       const conditionNode = this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND));
       conditionNode.addChild(this.root);
-      return new RSQLCondition(conditionNode, this.counter);
+      return new RSQLCondition(conditionNode);
     }
     return this;
   }
@@ -166,7 +157,7 @@ export class RSQLCondition {
   }
 
   private generatorNode(nodeInfo: RSQLConditionNodeInfo): TreeNode<RSQLConditionNodeInfo> {
-    return new TreeNode((this.counter++).toString(), nodeInfo);
+    return new TreeNode(uniqueKeyGenerator(), nodeInfo);
   }
 
   private generatorIsNullNode(field: string) {
@@ -230,8 +221,12 @@ export class RSQLCondition {
   }
 
   public static wrapper(root?: TreeNode<RSQLConditionNodeInfo>): RSQLCondition {
+    const nodeType = root?.value?.type;
+    if (nodeType === RSQLNodeInfoType.COMPARISON || nodeType === RSQLNodeInfoType.OR) {
+      const newRoot = new TreeNode(uniqueKeyGenerator(), RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND));
+      newRoot.addChild(root);
+      return new RSQLCondition(newRoot);
+    }
     return new RSQLCondition(root);
   }
 }
-
-console.log(RSQLCondition.wrapper().in('status', ['INSTALLED', 'UPGRADED']).toString());

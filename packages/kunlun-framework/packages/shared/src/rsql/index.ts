@@ -1,5 +1,3 @@
-import './__tests__';
-
 export * from './RSQLOperator';
 
 export * from './computer';
