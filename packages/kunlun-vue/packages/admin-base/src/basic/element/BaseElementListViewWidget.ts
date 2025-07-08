@@ -26,11 +26,11 @@ import { DEFAULT_LIST_TRUE_CONDITION, DEFAULT_TRUE_CONDITION, EDirection, ISort 
 import {
   BooleanHelper,
   CallChaining,
-  CastHelper,
   debugConsole,
   NumberHelper,
   ObjectUtils,
   Optional,
+  RSQLField,
   RSQLHelper,
   RSQLNodeInfo,
   SortDirection,
@@ -688,13 +688,10 @@ export abstract class BaseElementListViewWidget<
     if (!rsql || rsql === DEFAULT_LIST_TRUE_CONDITION) {
       return undefined;
     }
-    const searchCondition = RSQLHelper.parse(
-      {
-        model: this.model.model,
-        fields: CastHelper.cast(this.seekSearchRuntimeContext()?.model.modelFields)
-      },
-      rsql
-    );
+    const searchCondition = RSQLHelper.parseRSQL(rsql, {
+      model: this.model.model,
+      fields: (this.seekSearchRuntimeContext()?.model.modelFields || []) as unknown as RSQLField[]
+    });
     if (!searchCondition) {
       return undefined;
     }

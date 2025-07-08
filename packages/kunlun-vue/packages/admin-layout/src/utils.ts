@@ -25,6 +25,7 @@ import {
   BooleanHelper,
   CastHelper,
   RSQLComparisonOperator,
+  RSQLField,
   RSQLHelper,
   RSQLNodeInfo,
   RSQLNodeInfoType,
@@ -396,13 +397,10 @@ interface QueryExpression {
 }
 
 const parseActionDomain = (model: IModel, domain: string) => {
-  const root = RSQLHelper.parse(
-    {
-      model: model.model,
-      fields: CastHelper.cast(model.modelFields)
-    },
-    domain
-  );
+  const root = RSQLHelper.parseRSQL(domain, {
+    model: model.model,
+    fields: model.modelFields as unknown as RSQLField[]
+  });
   const searchBody = {};
   const searchConditions: QueryExpression[] = [];
   if (root) {

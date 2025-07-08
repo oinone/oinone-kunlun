@@ -1,6 +1,5 @@
 import { BooleanHelper } from '../BooleanHeler';
 import { TreeNode } from '../tree-node';
-import { RSQLConditionConnector } from './connector';
 import { RSQLHelper } from './RSQLHelper';
 import { RSQLConditionNodeInfo, RSQLNodeInfo, RSQLNodeInfoType, RSQLQuote } from './RSQLNodeInfo';
 import { RSQLComparisonOperator, RSQLOperators } from './RSQLOperator';
@@ -163,11 +162,7 @@ export class RSQLCondition {
   }
 
   public toString(): string {
-    const result = RSQLHelper.toTargetString(this.root, RSQLConditionConnector.INSTANCE);
-    if (result && result[0] === '(' && result[result.length - 1] === ')') {
-      return result.substring(1, result.length - 1);
-    }
-    return result || '';
+    return RSQLHelper.toRSQL(this.root) || '';
   }
 
   private generatorNode(nodeInfo: RSQLConditionNodeInfo): TreeNode<RSQLConditionNodeInfo> {
