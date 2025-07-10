@@ -349,6 +349,38 @@ export class RSQLNodeComputer<T extends object = object>
 {
   public static INSTANCE: NodeComputer<RSQLNodeInfo, Record<string, unknown>> = new RSQLNodeComputer();
 
+  protected computeEq(nodeInfo: RSQLNodeInfo, origin: string, input: unknown): boolean {
+    const ttype = this.getTtype(nodeInfo);
+    if (!ttype) {
+      return super.computeEq(nodeInfo, origin, input);
+    }
+    if (this.isNumberTtype(ttype)) {
+      const res = this.resolveNumber(nodeInfo, origin, input);
+      if (res == null) {
+        return false;
+      }
+      const { a, b } = res;
+      return a === b;
+    }
+    return super.computeEq(nodeInfo, origin, input);
+  }
+
+  protected computeNe(nodeInfo: RSQLNodeInfo, origin: string, input: unknown): boolean {
+    const ttype = this.getTtype(nodeInfo);
+    if (!ttype) {
+      return super.computeEq(nodeInfo, origin, input);
+    }
+    if (this.isNumberTtype(ttype)) {
+      const res = this.resolveNumber(nodeInfo, origin, input);
+      if (res == null) {
+        return false;
+      }
+      const { a, b } = res;
+      return a !== b;
+    }
+    return super.computeNe(nodeInfo, origin, input);
+  }
+
   protected resolveNumber(
     nodeInfo: RSQLNodeInfo,
     origin: string,
@@ -359,10 +391,7 @@ export class RSQLNodeComputer<T extends object = object>
         b: number;
       }
     | undefined {
-    let ttype = nodeInfo.field?.ttype;
-    if (ttype === 'RELATED') {
-      ttype = nodeInfo.field?.relatedTtype;
-    }
+    const ttype = this.getTtype(nodeInfo);
     if (!ttype) {
       return super.resolveNumber(nodeInfo, origin, input);
     }
@@ -405,5 +434,17 @@ export class RSQLNodeComputer<T extends object = object>
       return undefined;
     }
     return { a, b };
+  }
+
+  protected getTtype(nodeInfo: RSQLNodeInfo) {
+    let ttype = nodeInfo.field?.ttype;
+    if (ttype === 'RELATED') {
+      ttype = nodeInfo.field?.relatedTtype;
+    }
+    return ttype;
+  }
+
+  protected isNumberTtype(ttype: string): boolean {
+    return ['INTEGER', 'LONG', 'FLOAT', 'MONEY'].includes(ttype);
   }
 }
