@@ -155,7 +155,6 @@ export default defineComponent({
         treeData: mappingOptions ? internalOptions : options,
         filterTreeNode: filterOption,
         treeNodeFilterProp: internalProperties.filterProp,
-        treeNodeLabelProp: internalProperties.labelProp,
         multiple,
         treeCheckable: multiple,
         showCheckedStrategy: multipleCheckedStrategy,

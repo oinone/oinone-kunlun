@@ -134,8 +134,8 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
     return {
       hasCreateAppAction: !!CreateAppAction && !this.executeInvisibleExpress(CreateAppAction.invisible),
       hasUpdateAppAction: !!UpdateAppAction && !this.executeInvisibleExpress(UpdateAppAction.invisible),
-      hasUninstallAction: !!UninstallAction && !this.executeInvisibleExpress(UninstallAction.invisible),
-      hasInstallAction: !!InstallAction && !this.executeInvisibleExpress(InstallAction.invisible),
+      hasUninstallAction: !!UninstallAction,
+      hasInstallAction: !!InstallAction,
       hasBindHomepageAction: !!BindHomepageAction && !this.executeInvisibleExpress(BindHomepageAction.invisible),
       hasDetailAction: !!DetailAction && !this.executeInvisibleExpress(DetailAction.invisible),
 
