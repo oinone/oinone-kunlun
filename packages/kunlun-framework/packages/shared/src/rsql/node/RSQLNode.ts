@@ -9,6 +9,14 @@ export interface RSQLNode<R = unknown, C = unknown> {
   equals(o: unknown): boolean;
 }
 
+export interface RSQLVisitor<R, C> {
+  visitAnd(node: RSQLAndNode, context?: C): R;
+
+  visitOr(node: RSQLOrNode, context?: C): R;
+
+  visitComparison(node: RSQLComparisonNode, context?: C): R;
+}
+
 export abstract class RSQLAbstractNode<R = unknown, C = unknown> extends JObject implements RSQLNode<R, C> {
   public abstract accept(visitor: RSQLVisitor<R, C>, context?: C): R;
 
@@ -172,12 +180,4 @@ export class RSQLComparisonNode<R = unknown, C = unknown> extends RSQLAbstractNo
     }
     return true;
   }
-}
-
-export interface RSQLVisitor<R, C> {
-  visitAnd(node: RSQLAndNode, context?: C): R;
-
-  visitOr(node: RSQLOrNode, context?: C): R;
-
-  visitComparison(node: RSQLComparisonNode, context?: C): R;
 }

@@ -11,6 +11,16 @@ export interface RSQLModel {
 export interface RSQLField {
   name: string;
 
+  /**
+   * ModelFieldType
+   */
+  ttype?: string;
+
+  /**
+   * ModelFieldType
+   */
+  relatedTtype?: string;
+
   referencesModel?: {
     modelFields?: RSQLField[];
     [key: string]: unknown;
@@ -25,12 +35,40 @@ export enum RSQLNodeInfoType {
   COMPARISON
 }
 
-export class RSQLNodeInfo {
+export interface BaseRSQLNodeInfo {
+  type: RSQLNodeInfoType;
+}
+
+export interface RSQLConditionNodeInfo extends BaseRSQLNodeInfo {
+  quote?: RSQLQuote;
+
+  selector?: string;
+
+  operator?: RSQLComparisonOperator;
+
+  args?: string[];
+}
+
+/**
+ * RSQL 引号类型
+ * <p>
+ * <ul>
+ *   <li>null: automatic add single quote marks when the value is not number or boolean</li>
+ *   <li>true: single quote marks</li>
+ *   <li>false: none quote marks</li>
+ *   <li>string: any quote marks</li>
+ * </ul>
+ */
+export type RSQLQuote = boolean | string;
+
+export class RSQLNodeInfo implements RSQLConditionNodeInfo {
   public readonly type: RSQLNodeInfoType;
 
   public model?: RSQLModel;
 
   public field?: RSQLField;
+
+  public quote?: RSQLQuote;
 
   public selector?: string;
 
@@ -58,11 +96,7 @@ export class RSQLNodeInfo {
     return new RSQLNodeInfo(type);
   }
 
-  public static newNodeInfoByComparisonNode(
-    node: RSQLComparisonNode,
-    model: RSQLModel | undefined,
-    field: RSQLField | undefined
-  ) {
+  public static newNodeInfoByComparisonNode(node: RSQLComparisonNode, model?: RSQLModel, field?: RSQLField) {
     return new RSQLNodeInfo(RSQLNodeInfoType.COMPARISON, model, field, node.selector, node.operator, node.args);
   }
 }
