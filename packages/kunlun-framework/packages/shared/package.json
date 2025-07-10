@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-shared",
-  "version": "6.2.3",
+  "version": "6.2.4",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
