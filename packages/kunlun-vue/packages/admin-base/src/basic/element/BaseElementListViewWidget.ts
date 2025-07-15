@@ -20,17 +20,17 @@ import {
   SubmitValue,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { ActionContextType, Entity, ModelFieldType, ViewMode, ViewType } from '@oinone/kunlun-meta';
-import { Condition, DefaultComparisonOperator } from '@oinone/kunlun-request';
+import { ActionContextType, Entity, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_LIST_TRUE_CONDITION, DEFAULT_TRUE_CONDITION, EDirection, ISort } from '@oinone/kunlun-service';
 import {
   BooleanHelper,
   CallChaining,
-  CastHelper,
   debugConsole,
   NumberHelper,
   ObjectUtils,
   Optional,
+  RSQLField,
   RSQLHelper,
   RSQLNodeInfo,
   SortDirection,
@@ -41,7 +41,7 @@ import {
 import { CheckedChangeEvent, RadioChangeEvent } from '@oinone/kunlun-vue-ui';
 import { ListPaginationStyle, ListSelectMode, PageSizeEnum } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { ceil, get as getValue, isEmpty, isNil, isString, toInteger, toString } from 'lodash-es';
+import { ceil, isEmpty, isNil, isString, toInteger, toString } from 'lodash-es';
 import { VxeTablePropTypes } from 'vxe-table';
 import { fetchPageSize } from '../../typing';
 import { FetchUtil } from '../../util';
@@ -123,7 +123,7 @@ export abstract class BaseElementListViewWidget<
       if (this.usingSearchCondition || !this.isDataSourceProvider) {
         // 前端搜索
         if (searchCondition) {
-          dataSource = RsqlFilterExecutor.filter(dataSource, searchCondition);
+          dataSource = dataSource.filter((v) => RSQLHelper.compute(searchCondition, v));
         }
       }
       if (!this.isDataSourceProvider) {
@@ -374,7 +374,7 @@ export abstract class BaseElementListViewWidget<
           }
           if (record) {
             if (searchCondition) {
-              if (RsqlFilterExecutor.filter([record], searchCondition).length) {
+              if (RSQLHelper.compute(searchCondition, record)) {
                 dataSource.push(record);
               } else {
                 filterSize++;
@@ -688,13 +688,10 @@ export abstract class BaseElementListViewWidget<
     if (!rsql || rsql === DEFAULT_LIST_TRUE_CONDITION) {
       return undefined;
     }
-    const searchCondition = RSQLHelper.parse(
-      {
-        model: this.model.model,
-        fields: CastHelper.cast(this.seekSearchRuntimeContext()?.model.modelFields)
-      },
-      rsql
-    );
+    const searchCondition = RSQLHelper.parseRSQL(rsql, {
+      model: this.model.model,
+      fields: (this.seekSearchRuntimeContext()?.model.modelFields || []) as unknown as RSQLField[]
+    });
     if (!searchCondition) {
       return undefined;
     }
@@ -971,231 +968,5 @@ export abstract class BaseElementListViewWidget<
       }
     }
     await this.refreshProcess(condition);
-  }
-}
-
-type RsqlToObjectItem = {
-  value: Array<string | number | boolean>;
-  operator: DefaultComparisonOperator;
-  ttype: ModelFieldType;
-};
-
-interface IRsqlToObject {
-  [key: string]: RsqlToObjectItem | RsqlToObjectItem[];
-}
-
-class RsqlFilterExecutor {
-  public static filter<T extends Record<string, unknown> = Record<string, unknown>>(
-    list: T[],
-    root: TreeNode<RSQLNodeInfo>
-  ): T[] {
-    return this.rsqlNodeToCondition(list, root);
-  }
-
-  private static rsqlNodeToCondition<T extends Record<string, unknown>>(list: T[], root: TreeNode<RSQLNodeInfo>): T[] {
-    const { children } = root;
-
-    const realChildren = children.filter((child) => (child.children && child.children.length) || child.value?.field);
-
-    /**
-     * 将rsql node tree 转换成正确的数据格式，格式如下。
-     *
-     * [
-     *  {
-     *   code: {
-     *     value: '110',
-     *     ttype: 'STRING'
-     *     operator: '=like='
-     *   },
-     *  },
-     *  {
-     *   writeDate: {
-     *    value: '2023-02-28 10:51:04',
-     *    ttype: 'DATETIME'
-     *    operator: '=lt='
-     *   }
-     *  },
-     *  {
-     *   writeDate: {
-     *    value: '2023-02-28 09:51:04',
-     *    ttype: 'DATETIME'
-     *    operator: '=gt='
-     *   }
-     *  }
-     * ]
-     */
-
-    const arr: IRsqlToObject[] = [];
-
-    realChildren.forEach((child) => {
-      if (child.children.length === 0) {
-        const { selector, operator, field, args } = child.value!;
-
-        /**
-         * {value: xxx, operator: 'xxx', ttype: xxx}
-         */
-        const result = this.buildRsqlToObjectItem({
-          value: args![0],
-          operator: operator!.symbol! as any,
-          ttype: field ? field.ttype : null
-        });
-
-        arr.push({
-          [selector as string]: result
-        });
-      } else if (child.value?.type === 1) {
-        // 如果 type  === 1 , 那么是 `or` 的查询条件
-        const selector = child.children[0].value?.selector as string;
-
-        /**
-         * [{value: xxx, operator: 'xxx', ttype: xxx}, {value: xxx, operator: 'xxx', ttype: xxx}]
-         */
-        const list = child.children.map((c) => {
-          const { operator, field, args } = c.value!;
-          return this.buildRsqlToObjectItem({
-            value: args![0],
-            operator: operator!.symbol! as any,
-            ttype: field ? field.ttype : null
-          });
-        });
-
-        arr.push({
-          [selector as string]: list
-        });
-      }
-    });
-
-    return this.getFilterResultWithConditionArr(list, arr) as T[];
-  }
-
-  private static buildRsqlToObjectItem({ value, operator, ttype }) {
-    return {
-      value: this.getValueByTType(value, ttype),
-      operator,
-      ttype
-    };
-  }
-
-  private static getFilterResultWithConditionArr(list, arr: IRsqlToObject[]) {
-    const filterArr: ((val: any) => boolean)[] = [];
-
-    arr.forEach((obj) => {
-      Object.keys(obj).forEach((key) => {
-        filterArr.push((dataSourceItem) => {
-          const conditionObject = obj[key];
-
-          /**
-           * 如果当前条件是数组，那么是 `or` 查询
-           */
-          if (Array.isArray(conditionObject)) {
-            const [k, relationK] = key.split('.');
-            const itemValue = getValue<any[]>(dataSourceItem, k, []).map((v) => v[relationK]);
-            return itemValue === null ? false : conditionObject.some((v) => this.executeOperator(v, itemValue));
-          }
-
-          let itemValue: null | any[] | Record<string, any> = null;
-          if ([ModelFieldType.ManyToMany, ModelFieldType.OneToMany].includes(conditionObject.ttype)) {
-            const [k, relationK] = key.split('.');
-            itemValue = getValue<any[]>(dataSourceItem, k, []).map((v) => v[relationK]);
-          } else {
-            itemValue = getValue(dataSourceItem, key, null);
-          }
-
-          return this.executeOperator(conditionObject, itemValue);
-        });
-      });
-    });
-
-    return filterArr.reduce((pre, next) => {
-      return pre?.filter(next);
-    }, list);
-  }
-
-  /**
-   * 通过 `条件` + `table每一行`，执行对应的操作
-   */
-  private static executeOperator(obj: RsqlToObjectItem, dataSourceItem) {
-    if (dataSourceItem === null) {
-      return false;
-    }
-
-    const realValue = this.getValueByTType(dataSourceItem, obj.ttype);
-
-    if (obj.operator === DefaultComparisonOperator.GREATER_THAN) {
-      return realValue > obj.value;
-    }
-
-    if (obj.operator === DefaultComparisonOperator.GREATER_THAN_OR_EQUAL) {
-      return realValue >= obj.value;
-    }
-
-    if (obj.operator === DefaultComparisonOperator.LESS_THAN) {
-      return realValue < obj.value;
-    }
-
-    if (obj.operator === DefaultComparisonOperator.LESS_THAN_OR_EQUAL) {
-      return realValue < obj.value;
-    }
-
-    if ([ModelFieldType.ManyToMany, ModelFieldType.OneToMany].includes(obj.ttype)) {
-      return realValue.includes(obj.value);
-    }
-
-    if (obj.operator === DefaultComparisonOperator.LIKE) {
-      return realValue.indexOf(obj.value) > -1;
-    }
-
-    if (obj.operator === DefaultComparisonOperator.NOT_LIKE) {
-      return realValue.indexOf(obj.value) === -1;
-    }
-
-    if (obj.operator === DefaultComparisonOperator.STARTS) {
-      return realValue.startsWith(obj.value);
-    }
-
-    if (obj.operator === DefaultComparisonOperator.NOT_STARTS) {
-      return !realValue.startsWith(obj.value);
-    }
-
-    if (obj.operator === DefaultComparisonOperator.ENDS) {
-      return realValue.endsWith(obj.value);
-    }
-
-    if (obj.operator === DefaultComparisonOperator.NOT_ENDS) {
-      return !realValue.endsWith(obj.value);
-    }
-
-    if (obj.operator === DefaultComparisonOperator.IS_NULL) {
-      return realValue === null;
-    }
-
-    if (obj.operator === DefaultComparisonOperator.NOT_NULL) {
-      return realValue !== null;
-    }
-
-    if (obj.operator === DefaultComparisonOperator.EQUAL) {
-      return realValue === obj.value;
-    }
-
-    if (obj.operator === DefaultComparisonOperator.NOT_EQUAL) {
-      return realValue !== obj.value;
-    }
-
-    throw new TypeError(`搜索失败，不支持${obj.operator}搜索`);
-  }
-
-  /**
-   * 根据 ttype，将value变成正确的值
-   *   时间类型，就要转成时间戳
-   */
-  private static getValueByTType(value, ttype: ModelFieldType) {
-    switch (ttype) {
-      case ModelFieldType.Date:
-      case ModelFieldType.DateTime:
-        return new Date(value).getTime();
-
-      default:
-        return value;
-    }
   }
 }

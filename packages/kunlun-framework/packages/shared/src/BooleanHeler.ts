@@ -1,7 +1,7 @@
 export class BooleanHelper {
-  private static TRUE_STRING = 'true';
+  public static TRUE_STRING = 'true';
 
-  private static FALSE_STRING = 'false';
+  public static FALSE_STRING = 'false';
 
   private static TRUE_NUMBER = 1;
 
