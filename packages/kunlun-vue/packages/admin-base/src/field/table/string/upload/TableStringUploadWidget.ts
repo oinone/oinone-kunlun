@@ -11,7 +11,6 @@ import DefaultTableUpload from './DefaultTableUpload.vue';
   BaseFieldWidget.Token({
     viewType: ViewType.Table,
     ttype: [ModelFieldType.String, ModelFieldType.Text],
-    multi: false,
     widget: 'Upload'
   })
 )

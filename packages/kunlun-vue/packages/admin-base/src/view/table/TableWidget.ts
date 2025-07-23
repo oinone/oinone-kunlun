@@ -61,6 +61,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Provide()
   protected get cellWidth() {
+    // fixme @zbh 20250723 请使用语义明确的dsl属性名称
     const { autoColumnWidth } = this.getDsl();
     if (autoColumnWidth) {
       return 'auto';
@@ -69,6 +70,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Provide()
   protected get cellMinWidth() {
+    // fixme @zbh 20250723 请使用语义明确的dsl属性名称
     const { minFieldWidth } = this.getDsl();
     if (minFieldWidth) {
       return StyleHelper.px(minFieldWidth) as string;
@@ -119,7 +121,9 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Reactive()
   protected get autoLineHeight(): boolean {
-    const autoLineHeight = Optional.ofNullable(this.getDsl().autoLineHeight).map(BooleanHelper.toBoolean).orElse(true);
+    const autoLineHeight = Optional.ofNullable(this.getDsl().autoLineHeight)
+      .map(BooleanHelper.toBoolean)
+      .orElse(undefined);
 
     if (typeof autoLineHeight === 'boolean') {
       return autoLineHeight;
