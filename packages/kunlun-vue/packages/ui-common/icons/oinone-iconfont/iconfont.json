@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "45043677",
+      "name": "圆形",
+      "font_class": "yuan",
+      "unicode": "e96b",
+      "unicode_decimal": 59755
+    },
+    {
+      "icon_id": "45026988",
+      "name": "当前页面",
+      "font_class": "dangqianyemian",
+      "unicode": "e96a",
+      "unicode_decimal": 59754
+    },
+    {
+      "icon_id": "44979118",
+      "name": "组织",
+      "font_class": "zuzhi",
+      "unicode": "e969",
+      "unicode_decimal": 59753
+    },
+    {
       "icon_id": "44958229",
       "name": "多柱+折线图",
       "font_class": "complex-multi-column-line-active",
@@ -1068,13 +1089,6 @@
       "font_class": "zheng-triangle",
       "unicode": "e651",
       "unicode_decimal": 58961
-    },
-    {
-      "icon_id": "1250665",
-      "name": "圆",
-      "font_class": "yuan",
-      "unicode": "e664",
-      "unicode_decimal": 58980
     },
     {
       "icon_id": "3820377",
