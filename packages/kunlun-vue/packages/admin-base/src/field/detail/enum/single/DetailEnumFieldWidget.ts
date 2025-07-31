@@ -1,12 +1,18 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { EnumerationValue } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
-import { EnumerationValue, FormEnumFieldAbstractWidget } from '../../../form/enum/FormEnumFieldAbstractWidget';
+import { FormEnumFieldAbstractWidget } from '../../../form';
 import { enumFetchOptionByValue } from '../../../util';
 import Enum from '../Enum.vue';
 
-@SPI.ClassFactory(FormFieldWidget.Token({ viewType: [ViewType.Detail], ttype: ModelFieldType.Enum }))
+@SPI.ClassFactory(
+  FormFieldWidget.Token({
+    viewType: ViewType.Detail,
+    ttype: ModelFieldType.Enum
+  })
+)
 export class DetailEnumFieldWidget extends FormEnumFieldAbstractWidget<EnumerationValue> {
   public initialize(props) {
     super.initialize(props);

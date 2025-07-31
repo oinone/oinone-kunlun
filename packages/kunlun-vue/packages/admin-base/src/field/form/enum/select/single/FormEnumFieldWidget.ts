@@ -1,7 +1,8 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { EnumerationValue } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../../../basic';
-import { EnumerationValue, FormEnumFieldAbstractWidget } from '../../FormEnumFieldAbstractWidget';
+import { FormEnumFieldAbstractWidget } from '../../FormEnumFieldAbstractWidget';
 import EnumSelect from './EnumSelect.vue';
 
 @SPI.ClassFactory(

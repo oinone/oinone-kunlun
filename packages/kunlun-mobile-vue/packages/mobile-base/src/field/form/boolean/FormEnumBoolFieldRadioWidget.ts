@@ -1,10 +1,10 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { EnumerationValue } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { FormFieldWidget } from '../../../../basic';
-import { EnumerationValue } from '../FormEnumFieldAbstractWidget';
-import { FormEnumBoolFieldSelectWidget } from '../select/bool/FormEnumBoolFieldSelectWidget';
-import FormEnumRadio from './FormEnumRadio.vue';
+import { FormFieldWidget } from '../../../basic';
+import FormEnumRadio from '../enum/radio/FormEnumRadio.vue';
+import { FormEnumBoolFieldSelectWidget } from './FormEnumBoolFieldSelectWidget';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({

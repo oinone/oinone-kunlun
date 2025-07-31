@@ -3,6 +3,7 @@ export * from './currency';
 export * from './date';
 export * from './enum';
 export * from './float';
+export * from './html';
 export * from './integer';
 export * from './m2m';
 export * from './m2o';
@@ -18,6 +19,3 @@ export * from './abstract/FormInputAbstractFieldWidget';
 
 export * from './related/FormRelatedFieldWidget';
 // export * from '.M2MFieldSelectWidget';
-
-export * from './html';
-export * from './metadata-area';
