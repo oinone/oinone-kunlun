@@ -52,6 +52,11 @@ export type StandardBoolean = 'true' | 'false' | boolean | null | undefined;
 export type StandardEnumerationValue = number | boolean | StandardString;
 
 /**
+ * 枚举值
+ */
+export type EnumerationValue = boolean | string;
+
+/**
  * 标准日期/时间范围
  */
 export type StandardDateTimeRangeValue = [StandardString, StandardString] | null | undefined;
