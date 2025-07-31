@@ -7,9 +7,9 @@ import { RowContext } from '@oinone/kunlun-vue-ui';
 import { DEFAULT_COLS, ListSelectMode } from '@oinone/kunlun-vue-ui-common';
 import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
-import { ActionWidget } from '../../action/component/action/ActionWidget';
+import type { ActionWidget } from '../../action';
 import { BaseActionWidget, BaseElementWidget, BasePackWidget } from '../../basic';
-import { ActiveCountEnum } from '../../typing';
+import { ActiveCountEnum, CARD_WIDGET } from '../../typing';
 import DefaultCard from './DefaultCard.vue';
 
 const CLICK_SLOT_NAME = 'click';
@@ -17,13 +17,13 @@ const CLICK_SLOT_NAME = 'click';
 @SPI.ClassFactory(
   BasePackWidget.Token({
     viewType: ViewType.Gallery,
-    widget: 'card'
+    widget: ['card', CARD_WIDGET]
   })
 )
 @SPI.ClassFactory(
   BaseElementWidget.Token({
     viewType: ViewType.Gallery,
-    widget: 'card'
+    widget: ['card', CARD_WIDGET]
   })
 )
 export class CardWidget extends BaseElementWidget {
