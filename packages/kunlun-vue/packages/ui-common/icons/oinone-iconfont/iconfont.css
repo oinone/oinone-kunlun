@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2657071 */
-  src: url('iconfont.woff2?t=1748330483831') format('woff2'),
-       url('iconfont.woff?t=1748330483831') format('woff'),
-       url('iconfont.ttf?t=1748330483831') format('truetype');
+  src: url('iconfont.woff2?t=1753345477863') format('woff2'),
+       url('iconfont.woff?t=1753345477863') format('woff'),
+       url('iconfont.ttf?t=1753345477863') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,738 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.oinone-yuan:before {
+  content: "\e96b";
+}
+
+.oinone-dangqianyemian:before {
+  content: "\e96a";
+}
+
+.oinone-zuzhi:before {
+  content: "\e969";
+}
+
+.oinone-complex-multi-column-line-active:before {
+  content: "\e962";
+}
+
+.oinone-complex-multi-column-symbol-active:before {
+  content: "\e966";
+}
+
+.oinone-complex-accumulate-column-line-active:before {
+  content: "\e967";
+}
+
+.oinone-complex-accumulate-column-symbol-active:before {
+  content: "\e968";
+}
+
+.oinone-complex-accumulate-column-line:before {
+  content: "\e8c5";
+}
+
+.oinone-bushurenwu:before {
+  content: "\e646";
+}
+
+.oinone-bushuhuanjingpeizhi:before {
+  content: "\e963";
+}
+
+.oinone-daochurenwu:before {
+  content: "\e964";
+}
+
+.oinone-chufarenwu:before {
+  content: "\e965";
+}
+
+.oinone-gongzuoliu:before {
+  content: "\e95a";
+}
+
+.oinone-dongtaibiaodan:before {
+  content: "\e95b";
+}
+
+.oinone-dizhiku:before {
+  content: "\e95c";
+}
+
+.oinone-denglurizhi:before {
+  content: "\e95d";
+}
+
+.oinone-fanyi:before {
+  content: "\e95e";
+}
+
+.oinone-gerenshezhi:before {
+  content: "\e95f";
+}
+
+.oinone-daorurenwu:before {
+  content: "\e960";
+}
+
+.oinone-duanxinpeizhiguanli:before {
+  content: "\e961";
+}
+
+.oinone-jiekourizhi:before {
+  content: "\e950";
+}
+
+.oinone-tubiaoguanli:before {
+  content: "\e951";
+}
+
+.oinone-shuishuai:before {
+  content: "\e952";
+}
+
+.oinone-jihuarenwu:before {
+  content: "\e953";
+}
+
+.oinone-liuchengyunhangjilu:before {
+  content: "\e954";
+}
+
+.oinone-shejidaochu:before {
+  content: "\e955";
+}
+
+.oinone-shejidaoru:before {
+  content: "\e956";
+}
+
+.oinone-jichengguanli:before {
+  content: "\e957";
+}
+
+.oinone-jiaoseyuquanxian:before {
+  content: "\e958";
+}
+
+.oinone-kaifangguanli:before {
+  content: "\e959";
+}
+
+.oinone-pindaoguanli:before {
+  content: "\e946";
+}
+
+.oinone-yingyongrizhi:before {
+  content: "\e947";
+}
+
+.oinone-xiaoxiliebiao:before {
+  content: "\e948";
+}
+
+.oinone-huobi:before {
+  content: "\e949";
+}
+
+.oinone-yonghu1:before {
+  content: "\e94a";
+}
+
+.oinone-shenjiguize:before {
+  content: "\e94b";
+}
+
+.oinone-jichushuju1:before {
+  content: "\e94c";
+}
+
+.oinone-tongyong:before {
+  content: "\e94d";
+}
+
+.oinone-hezuohuoban:before {
+  content: "\e94e";
+}
+
+.oinone-weiliuyunhangjilu:before {
+  content: "\e94f";
+}
+
+.oinone-yuyan:before {
+  content: "\e941";
+}
+
+.oinone-youjianpeizhiguanli:before {
+  content: "\e942";
+}
+
+.oinone-zuzhijiagou:before {
+  content: "\e943";
+}
+
+.oinone-xitongshezhi:before {
+  content: "\e944";
+}
+
+.oinone-zhihangrenwu:before {
+  content: "\e945";
+}
+
+.oinone-guanbi3:before {
+  content: "\e940";
+}
+
+.oinone-tixing1:before {
+  content: "\e93e";
+}
+
+.oinone-mima1:before {
+  content: "\e93f";
+}
+
+.oinone-yonghu:before {
+  content: "\e645";
+}
+
+.oinone-a-ApplicationEnvironment:before {
+  content: "\e93c";
+}
+
+.oinone-a-UnifiedLow-CodeandNo-Code:before {
+  content: "\e93d";
+}
+
+.oinone-message1:before {
+  content: "\e937";
+}
+
+.oinone-data_audit1:before {
+  content: "\e938";
+}
+
+.oinone-a-ControlCenter1:before {
+  content: "\e939";
+}
+
+.oinone-file1:before {
+  content: "\e93a";
+}
+
+.oinone-apps1:before {
+  content: "\e93b";
+}
+
+.oinone-user1:before {
+  content: "\e931";
+}
+
+.oinone-resource1:before {
+  content: "\e932";
+}
+
+.oinone-workflow1:before {
+  content: "\e933";
+}
+
+.oinone-eip1:before {
+  content: "\e934";
+}
+
+.oinone-translate2:before {
+  content: "\e935";
+}
+
+.oinone-trigger1:before {
+  content: "\e936";
+}
+
+.oinone-qiyekanban:before {
+  content: "\e927";
+}
+
+.oinone-liebiaoshili:before {
+  content: "\e928";
+}
+
+.oinone-qiyedaping:before {
+  content: "\e929";
+}
+
+.oinone-chanpinshili:before {
+  content: "\e92a";
+}
+
+.oinone-jichubiaodanxinxi:before {
+  content: "\e92b";
+}
+
+.oinone-gexinghua:before {
+  content: "\e92c";
+}
+
+.oinone-daorudaochu:before {
+  content: "\e92d";
+}
+
+.oinone-jichushuju:before {
+  content: "\e92e";
+}
+
+.oinone-biaodanshili:before {
+  content: "\e92f";
+}
+
+.oinone-biaodanshili-1:before {
+  content: "\e930";
+}
+
+.oinone-a-CustomerProject1:before {
+  content: "\e91e";
+}
+
+.oinone-baoxiao:before {
+  content: "\e91f";
+}
+
+.oinone-a-DeveloperContext1:before {
+  content: "\e920";
+}
+
+.oinone-zuzhiguanli:before {
+  content: "\e921";
+}
+
+.oinone-tiyanbidu:before {
+  content: "\e922";
+}
+
+.oinone-a-StandardProduct101:before {
+  content: "\e923";
+}
+
+.oinone-tubiao1:before {
+  content: "\e924";
+}
+
+.oinone-shouye2:before {
+  content: "\e925";
+}
+
+.oinone-chuchaguanli:before {
+  content: "\e926";
+}
+
+.oinone-fullscreen:before {
+  content: "\e91d";
+}
+
+.oinone-fullscreen-exit:before {
+  content: "\e91c";
+}
+
+.oinone-apps:before {
+  content: "\e91b";
+}
+
+.oinone-a-DeveloperContext:before {
+  content: "\e91a";
+}
+
+.oinone-workflow_designer:before {
+  content: "\e919";
+}
+
+.oinone-auth:before {
+  content: "\e917";
+}
+
+.oinone-common:before {
+  content: "\e918";
+}
+
+.oinone-himalaya_inventory:before {
+  content: "\e90d";
+}
+
+.oinone-libra_common:before {
+  content: "\e90e";
+}
+
+.oinone-business:before {
+  content: "\e90f";
+}
+
+.oinone-eip:before {
+  content: "\e910";
+}
+
+.oinone-base:before {
+  content: "\e911";
+}
+
+.oinone-AI_designer:before {
+  content: "\e912";
+}
+
+.oinone-a-ControlCenter:before {
+  content: "\e913";
+}
+
+.oinone-data_audit:before {
+  content: "\e914";
+}
+
+.oinone-himalaya_seller:before {
+  content: "\e915";
+}
+
+.oinone-libra_eip:before {
+  content: "\e916";
+}
+
+.oinone-a-ExperienceGuide:before {
+  content: "\e90b";
+}
+
+.oinone-himalaya_common:before {
+  content: "\e90c";
+}
+
+.oinone-himalaya_member:before {
+  content: "\e8ff";
+}
+
+.oinone-tanggula_pay:before {
+  content: "\e900";
+}
+
+.oinone-a-CustomerProject:before {
+  content: "\e901";
+}
+
+.oinone-designer_common:before {
+  content: "\e902";
+}
+
+.oinone-libra_major:before {
+  content: "\e903";
+}
+
+.oinone-himalaya_logistics:before {
+  content: "\e904";
+}
+
+.oinone-datavi:before {
+  content: "\e905";
+}
+
+.oinone-libra_eip_open:before {
+  content: "\e906";
+}
+
+.oinone-libra_settlement:before {
+  content: "\e907";
+}
+
+.oinone-Integrated_Designer:before {
+  content: "\e908";
+}
+
+.oinone-libra_trade:before {
+  content: "\e909";
+}
+
+.oinone-himalaya_trade:before {
+  content: "\e90a";
+}
+
+.oinone-ui_designer:before {
+  content: "\e8f3";
+}
+
+.oinone-tanggula_billcheck:before {
+  content: "\e8f4";
+}
+
+.oinone-aries_core:before {
+  content: "\e8f5";
+}
+
+.oinone-a-StandardProduct10:before {
+  content: "\e8f6";
+}
+
+.oinone-Microfluidic_designer:before {
+  content: "\e8f7";
+}
+
+.oinone-tanggula_settlement:before {
+  content: "\e8f8";
+}
+
+.oinone-resource:before {
+  content: "\e8f9";
+}
+
+.oinone-tanggula_common:before {
+  content: "\e8fa";
+}
+
+.oinone-translate1:before {
+  content: "\e8fb";
+}
+
+.oinone-himalaya_major:before {
+  content: "\e8fc";
+}
+
+.oinone-himalaya_item:before {
+  content: "\e8fd";
+}
+
+.oinone-a-ProductFeatures:before {
+  content: "\e8fe";
+}
+
+.oinone-libra_inv:before {
+  content: "\e8e6";
+}
+
+.oinone-workflow:before {
+  content: "\e8e7";
+}
+
+.oinone-trigger:before {
+  content: "\e8e8";
+}
+
+.oinone-paas:before {
+  content: "\e8e9";
+}
+
+.oinone-tp_communication:before {
+  content: "\e8ea";
+}
+
+.oinone-model_designer:before {
+  content: "\e8eb";
+}
+
+.oinone-sequence1:before {
+  content: "\e8ec";
+}
+
+.oinone-data_designer:before {
+  content: "\e8ed";
+}
+
+.oinone-tp_message:before {
+  content: "\e8ee";
+}
+
+.oinone-himalaya_promotion:before {
+  content: "\e8ef";
+}
+
+.oinone-tp_map:before {
+  content: "\e8f0";
+}
+
+.oinone-file:before {
+  content: "\e8f1";
+}
+
+.oinone-leo_core:before {
+  content: "\e8f2";
+}
+
+.oinone-report1:before {
+  content: "\e8db";
+}
+
+.oinone-message:before {
+  content: "\e8dc";
+}
+
+.oinone-user:before {
+  content: "\e8dd";
+}
+
+.oinone-himalaya_evaluation:before {
+  content: "\e8de";
+}
+
+.oinone-libra_item:before {
+  content: "\e8df";
+}
+
+.oinone-libra_core:before {
+  content: "\e8e0";
+}
+
+.oinone-tanggula_rating:before {
+  content: "\e8e1";
+}
+
+.oinone-channel:before {
+  content: "\e8e2";
+}
+
+.oinone-tanggula_fund:before {
+  content: "\e8e3";
+}
+
+.oinone-tanggula_invoice:before {
+  content: "\e8e4";
+}
+
+.oinone-web:before {
+  content: "\e8e5";
+}
+
+.oinone-sousuo2:before {
+  content: "\e8d9";
+}
+
+.oinone-xiala7:before {
+  content: "\e8da";
+}
+
+.oinone-xiala6:before {
+  content: "\e8d8";
+}
+
+.oinone-demoshili:before {
+  content: "\e8d5";
+}
+
+.oinone-yingyong1:before {
+  content: "\e8d6";
+}
+
+.oinone-yewuyingyong:before {
+  content: "\e8d7";
+}
+
+.oinone-zheng-triangle:before {
+  content: "\e651";
+}
+
+.oinone-zhengfangxing:before {
+  content: "\e6ca";
+}
+
+.oinone-sanjiaoxing:before {
+  content: "\e611";
+}
+
+.oinone-block:before {
+  content: "\e644";
+}
+
+.oinone-Excel:before {
+  content: "\e8d4";
+}
+
+.oinone-PDF:before {
+  content: "\e8d1";
+}
+
+.oinone-tupian2:before {
+  content: "\e8d2";
+}
+
+.oinone-Word:before {
+  content: "\e8d3";
+}
+
+.oinone-dantiaozhuzhuangtu:before {
+  content: "\e8cf";
+}
+
+.oinone-bingtu1:before {
+  content: "\e8d0";
+}
+
+.oinone-huanxingtu:before {
+  content: "\e8c6";
+}
+
+.oinone-loudoutu:before {
+  content: "\e8c7";
+}
+
+.oinone-duotiaoxingtu:before {
+  content: "\e8c8";
+}
+
+.oinone-jichutiaoxingtu:before {
+  content: "\e8c9";
+}
+
+.oinone-danzhexiantu:before {
+  content: "\e8ca";
+}
+
+.oinone-biaoge1:before {
+  content: "\e8cb";
+}
+
+.oinone-complex-accumulate-column-symbol:before {
+  content: "\e8cc";
+}
+
+.oinone-jiaochabiao:before {
+  content: "\e8cd";
+}
+
+.oinone-dongtaiqipaotu:before {
+  content: "\e8ce";
+}
+
+.oinone-shuangYzhouzhexiantu:before {
+  content: "\e8bb";
+}
+
+.oinone-yibiaopan1:before {
+  content: "\e8bc";
+}
+
+.oinone-complex-multi-column-line:before {
+  content: "\e8bd";
+}
+
+.oinone-sandiantu:before {
+  content: "\e8be";
+}
+
+.oinone-zhibiaotongjitu:before {
+  content: "\e8bf";
+}
+
+.oinone-complex-multi-column-symbol:before {
+  content: "\e8c0";
+}
+
+.oinone-duozhexiantu:before {
+  content: "\e8c1";
+}
+
+.oinone-duotiaozhuzhuangtu:before {
+  content: "\e8c2";
+}
+
+.oinone-mianjitu:before {
+  content: "\e8c3";
+}
+
+.oinone-qipaotu:before {
+  content: "\e8c4";
 }
 
 .oinone-cross-table:before {
