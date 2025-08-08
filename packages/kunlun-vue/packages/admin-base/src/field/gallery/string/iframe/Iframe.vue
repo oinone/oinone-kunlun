@@ -42,7 +42,7 @@ export default defineComponent({
 
   .detail-iframe {
     height: 100%;
-
+    width: 100%;
     iframe {
       width: 100%;
       height: 100%;
