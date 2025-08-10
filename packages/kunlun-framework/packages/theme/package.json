@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-theme",
-  "version": "6.2.4",
+  "version": "6.2.5",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
