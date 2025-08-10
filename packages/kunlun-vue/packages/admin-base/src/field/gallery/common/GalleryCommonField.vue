@@ -52,7 +52,13 @@ export default defineComponent({
 
     const justifyContent = computed(() => {
       return Optional.ofNullable(props.justifyContent)
-        .map((v) => FlexRowJustify[v!])
+        .map((v) => {
+          const target = FlexRowJustify[v];
+          if (target) {
+            return target;
+          }
+          return v as FlexRowJustify;
+        })
         .orElse(FlexRowJustify.START);
     });
 

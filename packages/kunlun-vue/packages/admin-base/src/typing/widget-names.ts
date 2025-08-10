@@ -7,3 +7,5 @@ export const DETAIL_WIDGET = 'Detail';
 export const SEARCH_WIDGET = 'Search';
 
 export const GALLERY_WIDGET = 'Gallery';
+
+export const CARD_WIDGET = 'Card';
