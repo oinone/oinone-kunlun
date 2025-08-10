@@ -450,6 +450,13 @@ function matchSegments(str: string): string {
   return match ? match[0] : '';
 }
 
+const SEGMENT_RE_VALUE = /^[^\/();#]+/;
+
+function matchSegmentValue(str: string): string {
+  const match = str.match(SEGMENT_RE_VALUE);
+  return match ? match[0] : '';
+}
+
 const QUERY_PARAM_RE = /^[^=?&#]+/;
 
 // Return the name of the query param at the start of the string or an empty string
@@ -561,7 +568,7 @@ class UrlParser {
     this.capture(key);
     let value: any = '';
     if (this.consumeOptional('=')) {
-      const valueMatch = matchSegments(this.remaining);
+      const valueMatch = matchSegmentValue(this.remaining);
       if (valueMatch) {
         value = valueMatch;
         this.capture(value);
