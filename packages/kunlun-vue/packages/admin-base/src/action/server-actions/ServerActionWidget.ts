@@ -207,8 +207,8 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
         await this.clickActionAfterRefreshData(result, refreshParent);
         this.closeAllDialog ? Dialog.disposeAll() : Dialog.dispose(this.action);
         return result;
-      } else if (this.goBack) {
-        // eslint-disable-next-line no-restricted-globals
+      }
+      if (this.goBack) {
         this.historyBack();
         return result;
       }
@@ -218,13 +218,12 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
         await this.clickActionAfterRefreshData(result, refreshParent);
         this.closeAllDrawer ? Drawer.disposeAll() : Drawer.dispose(this.action);
         return result;
-      } else if (this.goBack) {
-        // eslint-disable-next-line no-restricted-globals
+      }
+      if (this.goBack) {
         this.historyBack();
         return result;
       }
     } else if (this.goBack) {
-      // eslint-disable-next-line no-restricted-globals
       this.historyBack();
       return result;
     }
