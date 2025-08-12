@@ -1192,6 +1192,12 @@ export class Expression {
     return SPI.RawInstantiate(ExpressionExecutorServiceToken)?.run(param, expression, errorValue);
   }
 
+  public static replaceRun(param: ExpressionRunParam, content: string) {
+    return content.replace(/\$\{([^}]+)}/g, (match, expression) => {
+      return SPI.RawInstantiate(ExpressionExecutorServiceToken)?.run(param, expression, expression);
+    });
+  }
+
   /**
    * 是否有表达式的内置关键字
    * 注意：字符串的true、false需要通过表达式转换才能变成布尔类型的，布尔类型的地方不要用此方法判断，像field.label这种字符串类型的可以用
