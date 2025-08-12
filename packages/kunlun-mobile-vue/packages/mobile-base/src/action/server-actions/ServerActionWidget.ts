@@ -5,24 +5,19 @@ import {
   executeViewAction,
   FunctionCache,
   FunctionService,
-  GetRequestModelFieldsOptions,
-  ModelCache,
   Popup,
   RelationUpdateType,
   RequestModelField,
   ROOT_HANDLE,
   RuntimeContext,
-  RuntimeContextManager,
   RuntimeFunctionDefinition,
   RuntimeServerAction,
   RuntimeViewAction,
-  StaticMetadata,
-  SubmitRelationValue,
   SubmitValue,
   translateValueByKey,
   UpdateOneWithRelationsService
 } from '@oinone/kunlun-engine';
-import { ActionContextType, ActionType, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { ActionType, ViewType } from '@oinone/kunlun-meta';
 import { HttpClientError, MessageHub, RequestErrorInterceptor, SystemErrorCode } from '@oinone/kunlun-request';
 import { SPI } from '@oinone/kunlun-spi';
 import { BooleanHelper, CallChaining, OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
@@ -144,43 +139,6 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
     }
   }
 
-  protected async submit(action: RuntimeServerAction): Promise<SubmitValue> {
-    let records: ActiveRecords | undefined;
-    let relationRecords: SubmitRelationValue[] | undefined;
-    if (!this.inline && this.submitCallChaining) {
-      const callResult = await this.submitCallChaining?.syncCall();
-      if (callResult != null) {
-        records = callResult.records;
-        relationRecords = callResult.relationRecords;
-      }
-    }
-    if (records == null) {
-      records = this.activeRecords || [];
-    }
-    if (action.contextType === ActionContextType.Batch || action.contextType === ActionContextType.SingleAndBatch) {
-      // do nothing.
-    } else if (action.contextType === ActionContextType.Single) {
-      if (Array.isArray(records)) {
-        [records] = records;
-      }
-    } else {
-      const ttype = action.functionDefinition?.argumentList?.[0]?.ttype;
-      if (ttype && [ModelFieldType.ManyToOne, ModelFieldType.OneToOne].includes(ttype as ModelFieldType)) {
-        if (Array.isArray(records)) {
-          [records] = records;
-        }
-      }
-    }
-    if (!records) {
-      if (action.contextType !== ActionContextType.ContextFree) {
-        const name = this.action?.displayName || this.action?.label;
-        throw new Error(`${name} action not params`);
-      }
-      records = {};
-    }
-    return new SubmitValue(records, relationRecords);
-  }
-
   protected async clickActionAfter(result: ClickResult): Promise<ClickResult> {
     const res = this.clickActionAfterInner(result);
     this.onShowActionsPopup?.(false);
@@ -272,7 +230,7 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
       } else {
         targetRuntimeContext = parentRuntimeContext;
 
-        const widget = (Widget.select(targetRuntimeContext?.handle!) as VueWidget).getOperator() as any;
+        const widget = (Widget.select(targetRuntimeContext!.handle!) as VueWidget).getOperator() as any;
 
         const widgetPath = widget.path || '';
 
@@ -322,36 +280,6 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
     return !!parameters.relationRecords.length;
   }
 
-  protected seekPopupMainRuntimeContext(): RuntimeContext {
-    if (this.metadataHandle === this.rootHandle) {
-      const modelModel = this.model.model;
-      if (modelModel) {
-        const popupMainRuntimeContext = RuntimeContextManager.getOthers(this.rootHandle)?.find(
-          (v) => v.model.model === modelModel
-        );
-        if (popupMainRuntimeContext) {
-          return popupMainRuntimeContext;
-        }
-      }
-    }
-    return this.rootRuntimeContext;
-  }
-
-  protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
-    const { viewType } = this;
-    if (viewType === ViewType.Tree) {
-      const runtimeModel = await ModelCache.get(this.model.model);
-      if (runtimeModel) {
-        return runtimeModel.modelFields.map((field) => ({ field }));
-      }
-      return [];
-    }
-    if (this.popupScene) {
-      return this.seekPopupMainRuntimeContext().getRequestModelFields(options);
-    }
-    return this.rootRuntimeContext.getRequestModelFields(options);
-  }
-
   protected async executeAction(action: RuntimeServerAction, submitValue: SubmitValue): Promise<ClickResult> {
     if (this.usingDiffUpdate(submitValue)) {
       const requestFields = await this.getRequestModelFields();
@@ -379,7 +307,7 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
       this.model,
       functionDefinition,
       {
-        requestModels: [StaticMetadata.ResourceAddress],
+        requestModels: FunctionService.usingStaticModels(),
         requestFields,
         variables: this.rootRuntimeContext.generatorVariables({ path: this.action.sessionPath })
       },
@@ -389,7 +317,7 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
 
   protected executeRelationUpdate<T>(requestFields: RequestModelField[], submitValue: SubmitValue): Promise<T> {
     return UpdateOneWithRelationsService.execute(this.model, submitValue, {
-      requestModels: [StaticMetadata.ResourceAddress],
+      requestModels: FunctionService.usingStaticModels(),
       requestFields,
       variables: this.rootRuntimeContext.generatorVariables({ path: this.action.sessionPath })
     });

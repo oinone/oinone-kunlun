@@ -1,3 +1,4 @@
+import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import {
   ConfirmOptions,
   MultiTabsRuntimeManifestMergedConfigManager,
@@ -9,14 +10,13 @@ import {
   ViewActionCache
 } from '@oinone/kunlun-engine';
 import { ViewActionTarget } from '@oinone/kunlun-meta';
+import { HttpClient } from '@oinone/kunlun-request';
 import { ISort } from '@oinone/kunlun-service';
 import { getCookie, setCookie } from '@oinone/kunlun-shared';
-import { Dialog as VanDialog } from 'vant';
-import { isString, trim } from 'lodash-es';
-import { HttpClient } from '@oinone/kunlun-request';
-import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { UrlQueryParameters } from '../basic';
+import { isString, trim } from 'lodash-es';
+import { Dialog as VanDialog } from 'vant';
+import type { UrlQueryParameters } from '../basic/types';
 
 export interface MobileConfirmOptions extends ConfirmOptions {
   teleport?: string | HTMLElement;
@@ -177,6 +177,7 @@ function createFakeElement(value) {
 
   return fakeElement;
 }
+
 function copyText(copyData: string) {
   // 创建range对象
   const range = document.createRange();

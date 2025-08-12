@@ -2,19 +2,14 @@ import {
   ActiveRecord,
   FunctionCache,
   FunctionService,
-  GetRequestModelFieldsOptions,
-  ModelCache,
   RedirectTargetEnum,
   RequestModelField,
-  RuntimeContext,
-  RuntimeContextManager,
   RuntimeFunctionDefinition,
   RuntimeUrlAction,
-  StaticMetadata,
   translateValueByKey
 } from '@oinone/kunlun-engine';
 import { Expression } from '@oinone/kunlun-expression';
-import { ActionType, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import { ActionType, ViewActionTarget } from '@oinone/kunlun-meta';
 import { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioMessage, OioNotification } from '@oinone/kunlun-vue-ui-antd';
@@ -67,36 +62,6 @@ export class UrlActionWidget extends ActionWidget<RuntimeUrlAction> {
     return res;
   }
 
-  protected seekPopupMainRuntimeContext(): RuntimeContext {
-    if (this.metadataHandle === this.rootHandle) {
-      const modelModel = this.model.model;
-      if (modelModel) {
-        const popupMainRuntimeContext = RuntimeContextManager.getOthers(this.rootHandle)?.find(
-          (v) => v.model.model === modelModel
-        );
-        if (popupMainRuntimeContext) {
-          return popupMainRuntimeContext;
-        }
-      }
-    }
-    return this.rootRuntimeContext;
-  }
-
-  protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
-    const { viewType } = this;
-    if (viewType === ViewType.Tree) {
-      const runtimeModel = await ModelCache.get(this.model.model);
-      if (runtimeModel) {
-        return runtimeModel.modelFields.map((field) => ({ field }));
-      }
-      return [];
-    }
-    if (this.popupScene) {
-      return this.seekPopupMainRuntimeContext().getRequestModelFields(options);
-    }
-    return this.rootRuntimeContext.getRequestModelFields(options);
-  }
-
   protected executeFunction<T>(
     functionDefinition: RuntimeFunctionDefinition,
     requestFields: RequestModelField[],
@@ -109,7 +74,7 @@ export class UrlActionWidget extends ActionWidget<RuntimeUrlAction> {
       this.model,
       functionDefinition,
       {
-        requestModels: [StaticMetadata.ResourceAddress],
+        requestModels: FunctionService.usingStaticModels(),
         requestFields,
         variables: { path: this.action.sessionPath }
       },

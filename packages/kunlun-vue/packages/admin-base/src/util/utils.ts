@@ -33,9 +33,10 @@ const executeConfirm = (confirm: string | ConfirmOptions): Promise<boolean> => {
     // 这个要helper里面拿各种工具类
     Modal.confirm({
       class: `oio-modal`,
-      title: translateValueByKey(translate('kunlun.common.prompt')),
+      title: translateValueByKey(options.title || translate('kunlun.common.prompt')),
       icon: createVNode(ExclamationCircleOutlined),
       zIndex: options.zIndex,
+      width: options.width,
       content: options.confirm,
       okText: options.enterText || translateValueByKey(translate('kunlun.common.confirm')),
       cancelText: options.cancelText || translateValueByKey(translate('kunlun.common.cancel')),
