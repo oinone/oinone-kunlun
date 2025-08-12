@@ -9,6 +9,8 @@
       :is-simple-mode="isSimpleMode"
       :is-low-code="isLowCode"
       :show-footer="showFooter"
+      :sourceCode="sourceCodes"
+      @change-source-code="changeSourceCode"
       :change-variable-on-select="changeVariableOnSelect"
       @change-list="handleChangeList"
     />
@@ -22,8 +24,8 @@
 import { computed, defineComponent, PropType, ref } from 'vue';
 import { OioButton, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import ExpressionInputForm from './ExpressionInputForm.vue';
-import { createDefaultExpressionItem, translateExpValue } from '../../../share';
-import { IExpressionItem } from '../../../types';
+import { createDefaultExpressionItem, createExpressionValue, translateExpValue } from '../../../share';
+import { IExpressionItem, IExpressionOption } from '../../../types';
 import { ExpressionCommonProps } from '../typing';
 import { useExpressionOptions } from '../use/use-expression';
 import { useWatchExpressionItemList } from '../use/use-common';
@@ -43,8 +45,20 @@ export default defineComponent({
     const { expressionOption } = useExpressionOptions(props, expressionItemList);
     useWatchExpressionItemList(props, expressionOption, expressionItemList);
 
+    const sourceCodes = ref('');
+
+    const changeSourceCode = (value) => {
+      if(value instanceof  Array){
+        sourceCodes.value = createExpressionValue(value, expressionOption as IExpressionOption);
+      }
+      else {
+        sourceCodes.value = value;
+      }
+    };
     const handleChangeList = (newList) => {
       expressionItemList.value = newList || [];
+
+      sourceCodes.value = createExpressionValue(newList, expressionOption as IExpressionOption);
     };
 
     const cancelHandler = () => {
@@ -53,7 +67,13 @@ export default defineComponent({
     };
 
     const submitHandler = () => {
-      props.onChangeList?.(expressionItemList.value);
+      if(expressionItemList.value)
+      {
+        props.onChangeList?.(expressionItemList.value);
+      }
+      else {
+        props.onChangeSourceCode?.(sourceCodes.value);
+      }
       emit('change-expression-items', expressionItemList.value);
     };
     const className = computed(() =>
@@ -67,11 +87,13 @@ export default defineComponent({
     return {
       expressionOption,
       expressionItemList,
+      sourceCodes,
       handleChangeList,
       cancelHandler,
       submitHandler,
       className,
-      translateExpValue
+      translateExpValue,
+      changeSourceCode
     };
   }
 });
