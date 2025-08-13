@@ -25,7 +25,7 @@ import { computed, defineComponent, PropType, ref } from 'vue';
 import { OioButton, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import ExpressionInputForm from './ExpressionInputForm.vue';
 import { createDefaultExpressionItem, createExpressionValue, translateExpValue } from '../../../share';
-import { IExpressionItem, IExpressionOption } from '../../../types';
+import { IExpressionItem } from '../../../types';
 import { ExpressionCommonProps } from '../typing';
 import { useExpressionOptions } from '../use/use-expression';
 import { useWatchExpressionItemList } from '../use/use-common';
@@ -48,17 +48,16 @@ export default defineComponent({
     const sourceCodes = ref('');
 
     const changeSourceCode = (value) => {
-      if(value instanceof  Array){
-        sourceCodes.value = createExpressionValue(value, expressionOption as IExpressionOption);
-      }
-      else {
+      if (value instanceof Array) {
+        sourceCodes.value = createExpressionValue(value, expressionOption.value);
+      } else {
         sourceCodes.value = value;
       }
     };
     const handleChangeList = (newList) => {
       expressionItemList.value = newList || [];
 
-      sourceCodes.value = createExpressionValue(newList, expressionOption as IExpressionOption);
+      sourceCodes.value = createExpressionValue(newList, expressionOption.value);
     };
 
     const cancelHandler = () => {
@@ -67,11 +66,9 @@ export default defineComponent({
     };
 
     const submitHandler = () => {
-      if(expressionItemList.value)
-      {
+      if (expressionItemList.value) {
         props.onChangeList?.(expressionItemList.value);
-      }
-      else {
+      } else {
         props.onChangeSourceCode?.(sourceCodes.value);
       }
       emit('change-expression-items', expressionItemList.value);
