@@ -10,7 +10,7 @@ import Enum from '../enum/Enum.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Detail],
+    viewType: ViewType.Detail,
     ttype: [ModelFieldType.Boolean],
     widget: ['Select', 'Radio']
   })

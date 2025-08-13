@@ -11,7 +11,6 @@ export * from './enum/multi/DetailEnumMultiFieldWidget';
 export * from './boolean/DetailBooleanFieldWidget';
 export * from './boolean/DetailBooleanSelectFieldWidget';
 export * from './html/DetailHtmlFieldWidget';
-export * from './o2m/DetailO2MSelectFieldWidget';
 export * from './m2o/DetailM2OSelectFieldWidget';
 export * from './m2o/upload/DetailM2OUploadWidget';
 export * from './o2o/DetailO2OSelectFieldWidget';

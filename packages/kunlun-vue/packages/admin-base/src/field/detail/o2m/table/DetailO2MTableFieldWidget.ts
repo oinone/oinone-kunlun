@@ -4,11 +4,13 @@ import { Condition } from '@oinone/kunlun-request';
 import { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { BaseFieldWidget, FormSubviewListFieldWidget, RelationQueryHelper } from '../../../../basic';
+import { TABLE_WIDGET } from '../../../../typing';
 
 @SPI.ClassFactory(
   BaseFieldWidget.Token({
     viewType: ViewType.Detail,
-    ttype: ModelFieldType.OneToMany
+    ttype: ModelFieldType.OneToMany,
+    widget: ['table', TABLE_WIDGET]
   })
 )
 export class DetailO2MTableFieldWidget extends FormSubviewListFieldWidget<RuntimeO2MField> {

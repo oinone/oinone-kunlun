@@ -7,7 +7,7 @@ import GalleryTag from './GalleryTag.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Gallery],
+    viewType: ViewType.Gallery,
     ttype: [ModelFieldType.String, ModelFieldType.Integer],
     multi: true
   })

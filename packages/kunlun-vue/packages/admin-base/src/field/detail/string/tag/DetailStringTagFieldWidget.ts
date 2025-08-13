@@ -8,7 +8,7 @@ import DetailTag from './DetailTag.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Detail],
+    viewType: ViewType.Detail,
     ttype: [ModelFieldType.String, ModelFieldType.Integer, ModelFieldType.Text],
     multi: true
   })

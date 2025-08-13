@@ -5,16 +5,16 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString } from 'lodash-es';
 import { FormFieldWidget } from '../../../../basic';
 import { UploadImgCom } from '../../../../components';
-import { AbstractFormM2OUploadFieldWidget } from './AbstractFormM2OUploadFieldWidget';
+import { AbstractFormO2OUploadFieldWidget } from './AbstractFormO2OUploadFieldWidget';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
     viewType: [ViewType.Form, ViewType.Detail],
-    ttype: ModelFieldType.ManyToOne,
+    ttype: ModelFieldType.OneToOne,
     widget: 'UploadImg'
   })
 )
-export class FormM2OUploadImgFieldWidget extends AbstractFormM2OUploadFieldWidget {
+export class FormO2OUploadImgFieldWidget extends AbstractFormO2OUploadFieldWidget {
   public initialize(config) {
     super.initialize(config);
     this.setComponent(UploadImgCom);

@@ -1,10 +1,10 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { BaseFieldWidget } from '../../../../basic';
-import { TableStringTagFieldWidget } from '../tag/TableStringTagFieldWidget';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { createVNode, VNode } from 'vue';
-import { BooleanHelper } from '@oinone/kunlun-shared';
+import { BaseFieldWidget } from '../../../../basic';
+import { TableStringTagFieldWidget } from '../tag';
 import DefaultTableUpload from './DefaultTableUpload.vue';
 
 @SPI.ClassFactory(

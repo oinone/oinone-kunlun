@@ -97,10 +97,10 @@ export default defineComponent({
 
     const computeRealLength = (length) => {
       let finalLength = toNumber(length);
-      if (props.showSuffix && props.suffixStore) {
+      if (props.suffixStore) {
         finalLength -= props.suffix?.length || 0;
       }
-      if (props.showPrefix && props.prefixStore) {
+      if (props.prefixStore) {
         finalLength -= props.prefix?.length || 0;
       }
       return finalLength > 0 ? finalLength : 0;

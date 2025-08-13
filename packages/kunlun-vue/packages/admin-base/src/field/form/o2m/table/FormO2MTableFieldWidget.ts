@@ -10,7 +10,7 @@ import { TABLE_WIDGET } from '../../../../typing';
   BaseFieldWidget.Token({
     viewType: ViewType.Form,
     ttype: ModelFieldType.OneToMany,
-    widget: TABLE_WIDGET
+    widget: ['table', TABLE_WIDGET]
   })
 )
 export class FormO2MTableFieldWidget extends FormSubviewListFieldWidget<RuntimeO2MField> {

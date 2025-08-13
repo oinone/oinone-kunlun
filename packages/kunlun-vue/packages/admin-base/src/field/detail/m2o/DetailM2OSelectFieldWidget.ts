@@ -6,7 +6,7 @@ import Select from './Select.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Detail],
+    viewType: ViewType.Detail,
     ttype: ModelFieldType.ManyToOne
   })
 )

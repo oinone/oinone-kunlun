@@ -5,7 +5,7 @@ import Boolean from './Boolean.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Detail],
+    viewType: ViewType.Detail,
     ttype: ModelFieldType.Boolean
   })
 )

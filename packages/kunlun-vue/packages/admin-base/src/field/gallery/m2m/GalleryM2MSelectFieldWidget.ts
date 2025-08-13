@@ -6,7 +6,7 @@ import { GalleryO2MSelectFieldWidget } from '../o2m';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Gallery],
+    viewType: ViewType.Gallery,
     ttype: ModelFieldType.ManyToMany
   })
 )

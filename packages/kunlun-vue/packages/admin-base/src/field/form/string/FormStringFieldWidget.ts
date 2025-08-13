@@ -52,33 +52,6 @@ export class FormStringFieldWidget extends FormInputAbstractFieldWidget<string, 
   }
 
   @Widget.Reactive()
-  protected get patternType() {
-    const _patternType = this.getDsl().patternType;
-    if (_patternType) {
-      return this.executeExpression(_patternType);
-    }
-    return undefined;
-  }
-
-  @Widget.Reactive()
-  protected get pattern() {
-    const _pattern = this.getDsl().pattern;
-    if (_pattern) {
-      return _pattern;
-    }
-    return undefined;
-  }
-
-  @Widget.Reactive()
-  protected get clearSetEmpty() {
-    const _clearSetEmpty = this.getDsl().clearSetEmpty;
-    if (isNil(_clearSetEmpty)) {
-      return true;
-    }
-    return _clearSetEmpty || false;
-  }
-
-  @Widget.Reactive()
   protected get crypto() {
     return this.getDsl().crypto || false;
   }
@@ -144,5 +117,41 @@ export class FormStringFieldWidget extends FormInputAbstractFieldWidget<string, 
     }
 
     super.change(val);
+  }
+
+  /**
+   * @deprecated invalid prop
+   */
+  @Widget.Reactive()
+  protected get patternType() {
+    const _patternType = this.getDsl().patternType;
+    if (_patternType) {
+      return this.executeExpression(_patternType);
+    }
+    return undefined;
+  }
+
+  /**
+   * @deprecated invalid prop
+   */
+  @Widget.Reactive()
+  protected get pattern() {
+    const _pattern = this.getDsl().pattern;
+    if (_pattern) {
+      return _pattern;
+    }
+    return undefined;
+  }
+
+  /**
+   * @deprecated invalid prop
+   */
+  @Widget.Reactive()
+  protected get clearSetEmpty() {
+    const _clearSetEmpty = this.getDsl().clearSetEmpty;
+    if (isNil(_clearSetEmpty)) {
+      return true;
+    }
+    return _clearSetEmpty || false;
   }
 }

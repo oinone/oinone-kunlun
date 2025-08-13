@@ -7,9 +7,9 @@ import Iframe from './Iframe.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Gallery],
+    viewType: ViewType.Gallery,
     ttype: ModelFieldType.String,
-    widget: ['Iframe']
+    widget: 'Iframe'
   })
 )
 export class GalleryStringIframeFieldWidget extends DetailStringIframeFieldWidget {

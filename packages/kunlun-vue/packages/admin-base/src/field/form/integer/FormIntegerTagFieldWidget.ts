@@ -7,6 +7,7 @@ import { FormStringMultiTagFieldWidget } from '../string';
   BaseFieldWidget.Token({
     viewType: ViewType.Form,
     ttype: ModelFieldType.Integer,
+    multi: true,
     widget: 'Tag'
   })
 )

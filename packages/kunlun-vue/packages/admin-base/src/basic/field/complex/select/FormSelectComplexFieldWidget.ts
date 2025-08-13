@@ -214,38 +214,6 @@ export abstract class FormSelectComplexFieldWidget<
     }
     this.dataList = dataList;
     this.options = this.handleSelectOption(this.dataList, this.referencesModel);
-
-    // if (!insetDefaultValue && !isEmptyValue(this.value)) {
-    //   this.selectedOption = {
-    //     value: this.value?.[this.relationFieldKey]
-    //   };
-    // }
-
-    // let existInOptions = false;
-    // if (this.selectedOption && this.selectedOption.value) {
-    //   existInOptions = !!this.options.find((option) => option.value === this.selectedOption.value);
-    //   if (!existInOptions && !isEmpty(this.options) && !this.clearBackFillSelected) {
-    //     this.options.unshift(this.selectedOption);
-    //   }
-    // }
-  }
-
-  @Widget.Reactive()
-  protected get renderOnParent() {
-    const _renderOnParent = this.getDsl().renderOnParent;
-    if (isNil(_renderOnParent)) {
-      return false;
-    }
-    return _renderOnParent;
-  }
-
-  @Widget.Reactive()
-  protected get clearBackFillSelected() {
-    const _clearBackFillSelected = this.getDsl().clearBackFillSelected;
-    if (isNil(_clearBackFillSelected)) {
-      return false;
-    }
-    return _clearBackFillSelected;
   }
 
   @Widget.Reactive()
@@ -691,5 +659,29 @@ export abstract class FormSelectComplexFieldWidget<
       variables,
       context
     }) as unknown as IQueryPageResult<T>;
+  }
+
+  /**
+   * @deprecated invalid prop
+   */
+  @Widget.Reactive()
+  protected get renderOnParent() {
+    const _renderOnParent = this.getDsl().renderOnParent;
+    if (isNil(_renderOnParent)) {
+      return false;
+    }
+    return _renderOnParent;
+  }
+
+  /**
+   * @deprecated invalid prop
+   */
+  @Widget.Reactive()
+  protected get clearBackFillSelected() {
+    const _clearBackFillSelected = this.getDsl().clearBackFillSelected;
+    if (isNil(_clearBackFillSelected)) {
+      return false;
+    }
+    return _clearBackFillSelected;
   }
 }

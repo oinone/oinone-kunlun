@@ -12,12 +12,12 @@ import {
 import { ConfirmType, PopconfirmPlacement } from '@oinone/kunlun-vue-ui-antd';
 import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, isString, toString } from 'lodash-es';
-import { VNode, toRaw } from 'vue';
+import { toRaw, VNode } from 'vue';
 import { fetchPopconfirmPlacement } from '../../typing';
 import { executeConfirm } from '../../util';
 import { BaseDataWidget } from '../common';
-import DefaultTableColumn from './DefaultTableColumn.vue';
 import { FieldWidgetComponentFunction } from '../types';
+import DefaultTableColumn from './DefaultTableColumn.vue';
 
 export abstract class BaseTableColumnWidget<
   Value = unknown,
@@ -156,6 +156,9 @@ export abstract class BaseTableColumnWidget<
     return this.clientInvisible || BooleanHelper.toBoolean(this.getDsl().invisible) || false;
   }
 
+  /**
+   * @deprecated invalid prop in the table column
+   */
   @Widget.Reactive()
   public get readonly() {
     return BooleanHelper.toBoolean(this.getDsl().readonly) || false;

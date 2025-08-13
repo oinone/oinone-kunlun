@@ -3,7 +3,6 @@ import { SPI } from '@oinone/kunlun-spi';
 import { ValidateTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
-import { ValidatorInfo } from '../../../../typing';
 import { FormEnumFieldAbstractWidget } from '../FormEnumFieldAbstractWidget';
 import MultiEnumCheckbox from './MultiEnumCheckbox.vue';
 
@@ -20,6 +19,15 @@ export class FormEnumMultiCheckboxFieldWidget extends FormEnumFieldAbstractWidge
     super.initialize(props);
     this.setComponent(MultiEnumCheckbox);
     return this;
+  }
+
+  @Widget.Reactive()
+  protected get orientation() {
+    const _orientation = this.getDsl().orientation as string;
+    if (_orientation) {
+      return _orientation;
+    }
+    return undefined;
   }
 
   @Widget.Reactive()

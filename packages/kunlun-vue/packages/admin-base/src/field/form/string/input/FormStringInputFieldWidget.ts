@@ -18,10 +18,6 @@ import { FormStringFieldWidget } from '../FormStringFieldWidget';
 )
 export class FormStringInputFieldWidget extends FormStringFieldWidget {
   public submit(submitValue: SubmitValue) {
-    // const finalValue = this.addPrefixSuffix(this.inputRealValue);
-    // if (!finalValue && this.inputRealValue === undefined) {
-    //   return undefined;
-    // }
     let finalValue = this.value;
     /**
      * 数据提交的时候，如果判断当前字段是否需要加密

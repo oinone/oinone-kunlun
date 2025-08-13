@@ -18,7 +18,12 @@ export default defineComponent({
     ...BaseGalleryItemProps
   },
   setup(props) {
-    const showLabel = computed(() => !!props.label);
+    const showLabel = computed(() => {
+      if (props.labelInvisible) {
+        return false;
+      }
+      return !!props.label;
+    });
 
     return {
       showLabel

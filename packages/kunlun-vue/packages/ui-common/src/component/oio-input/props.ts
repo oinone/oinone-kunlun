@@ -22,17 +22,8 @@ export enum InputType {
 }
 
 export enum InputMediaMode {
-  /**
-   * @deprecated please use InputMediaMode#dynamic
-   */
   DYNAMIC = 'DYNAMIC',
-  /**
-   * @deprecated please use InputMediaMode#static
-   */
-  STATIC = 'STATIC',
-
-  dynamic = 'dynamic',
-  static = 'static'
+  STATIC = 'STATIC'
 }
 
 export const AInputProps = {

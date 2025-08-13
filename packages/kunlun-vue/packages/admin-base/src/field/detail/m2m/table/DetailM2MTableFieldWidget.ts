@@ -3,11 +3,13 @@ import { ModelFieldType, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { BaseFieldWidget, FormSubviewListFieldWidget, RelationQueryHelper } from '../../../../basic';
+import { TABLE_WIDGET } from '../../../../typing';
 
 @SPI.ClassFactory(
   BaseFieldWidget.Token({
     viewType: ViewType.Detail,
-    ttype: ModelFieldType.ManyToMany
+    ttype: ModelFieldType.ManyToMany,
+    widget: ['table', TABLE_WIDGET]
   })
 )
 export class DetailM2MTableFieldWidget extends FormSubviewListFieldWidget<RuntimeM2MField> {

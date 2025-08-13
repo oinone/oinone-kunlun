@@ -9,7 +9,7 @@ import { DetailM2OSelectFieldWidget } from '../m2o/DetailM2OSelectFieldWidget';
  */
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Detail],
+    viewType: ViewType.Detail,
     ttype: ModelFieldType.OneToOne,
     widget: 'Select'
   })

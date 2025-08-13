@@ -3,16 +3,16 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
 import { UploadCom } from '../../../../components';
-import { AbstractFormM2OUploadFieldWidget } from './AbstractFormM2OUploadFieldWidget';
+import { AbstractFormO2OUploadFieldWidget } from './AbstractFormO2OUploadFieldWidget';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Form, ViewType.Gallery],
-    ttype: ModelFieldType.ManyToOne,
+    viewType: [ViewType.Form, ViewType.Detail, ViewType.Gallery, ViewType.Table],
+    ttype: ModelFieldType.OneToOne,
     widget: 'Upload'
   })
 )
-export class FormM2OUploadFieldWidget extends AbstractFormM2OUploadFieldWidget {
+export class FormO2OUploadFieldWidget extends AbstractFormO2OUploadFieldWidget {
   public initialize(config) {
     super.initialize(config);
     this.setComponent(UploadCom);

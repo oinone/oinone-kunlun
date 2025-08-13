@@ -9,7 +9,7 @@ import { TABLE_WIDGET } from '../../../../typing';
   FormFieldWidget.Token({
     viewType: ViewType.Form,
     ttype: ModelFieldType.ManyToMany,
-    widget: TABLE_WIDGET
+    widget: ['table', TABLE_WIDGET]
   })
 )
 export class FormM2MTableFieldWidget extends FormSubviewListFieldWidget<RuntimeM2MField> {

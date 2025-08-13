@@ -8,7 +8,7 @@ import { FormStringUploadFieldWidget } from './FormStringUploadFieldWidget';
   BaseFieldWidget.Token({
     viewType: ViewType.Form,
     ttype: [ModelFieldType.String, ModelFieldType.Text],
-    widget: ['UploadImg']
+    widget: 'UploadImg'
   })
 )
 export class FormStringUploadImgFieldWidget extends FormStringUploadFieldWidget {
