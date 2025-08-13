@@ -60,9 +60,6 @@ export function createExpressionDialog(contextItems: IVariableContextItem[], edi
             editor.insertNode(expressionSourceCode);
           }
         },
-        onSaveSourceCode: () => {
-          
-        },
         expressionItemList: [createDefaultExpressionItem(ExpressionDefinitionType.OPERATION)],
         type: ExpressionDefinitionType.OPERATION,
         expressionOption: createExpressionOption(contextItems),

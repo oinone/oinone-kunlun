@@ -57,7 +57,7 @@ export default defineComponent({
     const handleChangeList = (newList) => {
       expressionItemList.value = newList || [];
 
-      sourceCodes.value = createExpressionValue(newList, expressionOption.value);
+      sourceCodes.value = expressionItemList.value[0]?.valueListApiName as string;
     };
 
     const cancelHandler = () => {
@@ -66,7 +66,7 @@ export default defineComponent({
     };
 
     const submitHandler = () => {
-      if (expressionItemList.value) {
+      if (expressionItemList.value[0]?.valueListApiName) {
         props.onChangeList?.(expressionItemList.value);
       } else {
         props.onChangeSourceCode?.(sourceCodes.value);
