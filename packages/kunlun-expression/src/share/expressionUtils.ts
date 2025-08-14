@@ -642,6 +642,9 @@ export function createExpressionDefinitionByExpressionItem(
     expressionItemList
       .filter((a) => a.checked)
       .forEach((item) => {
+        if (item.valueList?.length === 0) {
+          return;
+        }
         const blockList: IExpressionBlock[] = [];
         const row = {
           rowType: item.type,
@@ -655,6 +658,8 @@ export function createExpressionDefinitionByExpressionItem(
         }
         if (item.type === ExpressionItemType.LEFT_BRACKET || item.type === ExpressionItemType.RIGHT_BRACKET) {
         } else if (item.type === ExpressionItemType.VARIABLE) {
+          // if (ExpressionDefinitionType.BOOLEAN_CONDITION === expressionOption.type)
+          //   return;
           blockList.push({
             blockType: ExpressionItemType.VARIABLE,
             cellList: variableItemList2expressionCellList(item.valueList!)
