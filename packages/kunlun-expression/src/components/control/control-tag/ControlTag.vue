@@ -21,10 +21,11 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { CloseCircleOutlined } from '@ant-design/icons-vue';
+import { Divider as ADivider } from 'ant-design-vue';
 import { ElementSize } from '../../../types';
 
 export default defineComponent({
-  components: { CloseCircleOutlined },
+  components: { CloseCircleOutlined,ADivider },
 
   props: {
     title: {

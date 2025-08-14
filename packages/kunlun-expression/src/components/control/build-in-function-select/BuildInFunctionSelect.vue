@@ -41,7 +41,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue';
-import { Select as ASelect } from 'ant-design-vue';
+import { Select as ASelect, Popover as APopover} from 'ant-design-vue';
 import { CloseCircleOutlined, CloseCircleFilled, DownOutlined } from '@ant-design/icons-vue';
 import { checkBlurFocus, createDefaultVariableItemList, translateExpValue } from '../../../share';
 import { FunctionCategoryList, IExpSelectOption } from '../../../types';
@@ -55,6 +55,7 @@ import { deepClone } from '@oinone/kunlun-meta';
 export default defineComponent({
   components: {
     ASelect,
+    APopover,
     ExpressionDesignerCascader,
     CloseCircleOutlined,
     CloseCircleFilled,

@@ -24,7 +24,12 @@
 import { computed, defineComponent, PropType, ref } from 'vue';
 import { OioButton, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import ExpressionInputForm from './ExpressionInputForm.vue';
-import { createDefaultExpressionItem, createExpressionValue, translateExpValue } from '../../../share';
+import {
+  createDefaultExpressionItem,
+  createExpressionApiName,
+  createExpressionValue,
+  translateExpValue
+} from '../../../share';
 import { IExpressionItem } from '../../../types';
 import { ExpressionCommonProps } from '../typing';
 import { useExpressionOptions } from '../use/use-expression';
@@ -49,7 +54,7 @@ export default defineComponent({
 
     const changeSourceCode = (value) => {
       if (value instanceof Array) {
-        sourceCodes.value = createExpressionValue(value, expressionOption.value);
+        sourceCodes.value = createExpressionApiName(value, expressionOption.value);
       } else {
         sourceCodes.value = value;
       }
