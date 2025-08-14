@@ -9,7 +9,9 @@ import { TABLE_WIDGET } from '../../../../typing';
   FormFieldWidget.Token({
     viewType: ViewType.Form,
     ttype: ModelFieldType.ManyToMany,
-    widget: ['table', TABLE_WIDGET]
+    // fixme @zbh 20250814 6.3.0版本使用多别称
+    // widget: ['table', TABLE_WIDGET]
+    widget: TABLE_WIDGET
   })
 )
 export class FormM2MTableFieldWidget extends FormSubviewListFieldWidget<RuntimeM2MField> {
