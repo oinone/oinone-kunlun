@@ -85,6 +85,9 @@ export default defineComponent({
         return true;
       }
       if (typeof rows === 'number') {
+        if (rows < 0) {
+          return undefined;
+        }
         return {
           minRows: rows
         };

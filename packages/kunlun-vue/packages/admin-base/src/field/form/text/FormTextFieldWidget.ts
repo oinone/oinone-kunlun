@@ -37,9 +37,6 @@ export class FormTextFieldWidget extends FormStringFieldWidget {
       return minRows;
     }
     if (typeof rows === 'string') {
-      if (rows === 'null') {
-        return undefined;
-      }
       const [minRows, maxRows] = rows.split(',');
       const minRowsNumber = Number(minRows);
       const maxRowsNumber = Number(maxRows);
