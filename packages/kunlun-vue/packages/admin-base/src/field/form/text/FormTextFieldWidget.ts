@@ -7,6 +7,7 @@ import { FormFieldWidget } from '../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
 import { FormStringFieldWidget } from '../string/FormStringFieldWidget';
 import DefaultTextarea from './DefaultTextarea.vue';
+import { InputTextareaSize } from './typing';
 
 @SPI.ClassFactory(FormFieldWidget.Token({ viewType: [ViewType.Form, ViewType.Search], ttype: ModelFieldType.Text }))
 export class FormTextFieldWidget extends FormStringFieldWidget {
@@ -17,12 +18,12 @@ export class FormTextFieldWidget extends FormStringFieldWidget {
   }
 
   @Widget.Reactive()
-  protected get defaultRows(): number | boolean | { minRows?: number; maxRows?: number } {
+  protected get defaultRows(): InputTextareaSize {
     return 3;
   }
 
   @Widget.Reactive()
-  protected get rows(): number | boolean | { minRows?: number; maxRows?: number } {
+  protected get rows(): InputTextareaSize {
     const { rows } = this.getDsl();
     if (rows == null) {
       return this.defaultRows;
@@ -36,6 +37,9 @@ export class FormTextFieldWidget extends FormStringFieldWidget {
       return minRows;
     }
     if (typeof rows === 'string') {
+      if (rows === 'null') {
+        return undefined;
+      }
       const [minRows, maxRows] = rows.split(',');
       const minRowsNumber = Number(minRows);
       const maxRowsNumber = Number(maxRows);
