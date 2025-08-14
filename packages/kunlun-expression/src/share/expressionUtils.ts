@@ -642,7 +642,7 @@ export function createExpressionDefinitionByExpressionItem(
     expressionItemList
       .filter((a) => a.checked)
       .forEach((item) => {
-        if (item.valueList?.length === 0) {
+        if (expressionOption.type === ExpressionDefinitionType.BOOLEAN_CONDITION && item.valueList?.length === 0) {
           return;
         }
         const blockList: IExpressionBlock[] = [];

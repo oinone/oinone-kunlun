@@ -21,15 +21,10 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, PropType, ref, watch } from 'vue';
 import { OioButton, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import ExpressionInputForm from './ExpressionInputForm.vue';
-import {
-  createDefaultExpressionItem,
-  createExpressionApiName,
-  createExpressionValue,
-  translateExpValue
-} from '../../../share';
+import { createDefaultExpressionItem, createExpressionApiName, translateExpValue } from '../../../share';
 import { IExpressionItem } from '../../../types';
 import { ExpressionCommonProps } from '../typing';
 import { useExpressionOptions } from '../use/use-expression';
@@ -52,6 +47,10 @@ export default defineComponent({
 
     const sourceCodes = ref('');
 
+    watch(sourceCodes, (newValue, oldValue) => {
+      console.log(newValue, oldValue);
+    });
+
     const changeSourceCode = (value) => {
       if (value instanceof Array) {
         sourceCodes.value = createExpressionApiName(value, expressionOption.value);
@@ -62,7 +61,7 @@ export default defineComponent({
     const handleChangeList = (newList) => {
       expressionItemList.value = newList || [];
 
-      sourceCodes.value = expressionItemList.value[0]?.valueListApiName as string;
+      changeSourceCode(newList);
     };
 
     const cancelHandler = () => {
