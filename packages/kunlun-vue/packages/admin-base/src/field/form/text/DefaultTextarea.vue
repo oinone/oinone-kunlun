@@ -47,7 +47,7 @@ export default defineComponent({
       type: String
     },
     rows: {
-      type: Number,
+      type: [Number, Boolean, Object],
       default: 3
     },
     allowClear: {
@@ -80,13 +80,16 @@ export default defineComponent({
     const realValue = ref(props.value || props.defaultValue);
 
     const autoSize = computed(() => {
-      const { rows } = props;
+      const rows = props.rows;
       if (isNil(rows)) {
         return true;
       }
-      return {
-        minRows: rows
-      };
+      if (typeof rows === 'number') {
+        return {
+          minRows: rows
+        };
+      }
+      return rows;
     });
 
     watch(

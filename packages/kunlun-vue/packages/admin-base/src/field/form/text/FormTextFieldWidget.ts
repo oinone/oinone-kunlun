@@ -1,4 +1,5 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNaN, isNumber } from 'lodash-es';
@@ -16,12 +17,37 @@ export class FormTextFieldWidget extends FormStringFieldWidget {
   }
 
   @Widget.Reactive()
-  protected get rows(): number {
-    const rows = Number(this.getDsl().rows);
-    if (isNaN(rows)) {
-      return 3;
+  protected get defaultRows(): number | boolean | { minRows?: number; maxRows?: number } {
+    return 3;
+  }
+
+  @Widget.Reactive()
+  protected get rows(): number | boolean | { minRows?: number; maxRows?: number } {
+    const { rows } = this.getDsl();
+    if (rows == null) {
+      return this.defaultRows;
     }
-    return rows;
+    const autoSize = BooleanHelper.toBoolean(rows);
+    if (autoSize != null) {
+      return autoSize;
+    }
+    const minRows = Number(rows);
+    if (!isNaN(minRows)) {
+      return minRows;
+    }
+    if (typeof rows === 'string') {
+      const [minRows, maxRows] = rows.split(',');
+      const minRowsNumber = Number(minRows);
+      const maxRowsNumber = Number(maxRows);
+      if (isNaN(minRowsNumber) || isNaN(maxRowsNumber)) {
+        return this.defaultRows;
+      }
+      return {
+        minRows: minRowsNumber,
+        maxRows: maxRowsNumber
+      };
+    }
+    return this.defaultRows;
   }
 
   @Widget.Reactive()
