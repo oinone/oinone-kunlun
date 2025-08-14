@@ -11,8 +11,6 @@ interface LogicalOperator {
 }
 
 interface ComparisonOperator {
-  COL_EQUAL: string;
-  COL_NOT_EQUAL: string;
   EQUAL: string;
   NOT_EQUAL: string;
   GREATER_THAN: string;
@@ -31,6 +29,10 @@ interface ComparisonOperator {
 
   IS_NULL: string;
   NOT_NULL: string;
+
+  // Column Operator
+  COL_EQUAL: string;
+  COL_NOT_EQUAL: string;
 
   // Binary Enumeration
   BIT: string;

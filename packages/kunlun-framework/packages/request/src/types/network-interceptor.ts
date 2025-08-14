@@ -40,7 +40,7 @@ export interface InterceptorOptions {
   translate: NetworkInterceptor;
 
   /**
-   * 网络错误拦截器
+   * 网络错误拦截器（error）
    */
   networkError: NetworkInterceptor;
 

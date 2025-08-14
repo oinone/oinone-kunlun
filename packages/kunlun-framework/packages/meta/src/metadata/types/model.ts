@@ -488,6 +488,9 @@ export enum ActionContextType {
   ContextFree = 'CONTEXT_FREE'
 }
 
+/**
+ * @deprecated please using string
+ */
 export type ActionId = EntityId;
 
 export interface IBaseAbstractAction {
@@ -503,7 +506,7 @@ export interface IBaseAbstractAction {
 }
 
 export interface IBaseAction extends IBaseAbstractAction {
-  id: ActionId;
+  id: string;
   name: string;
   model: string;
   modelDefinition?: IModel;

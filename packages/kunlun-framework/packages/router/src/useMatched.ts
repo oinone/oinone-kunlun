@@ -1,13 +1,11 @@
-import { BehaviorSubject, distinctUntilChanged } from '@oinone/kunlun-state';
+import { BehaviorSubject, distinctUntilChanged, Subscription } from '@oinone/kunlun-state';
 
 import { Matched } from './matchPath';
-
-type LevelMatched = Matched;
 
 let matched: Matched;
 let globePrevMatched: Matched | null = null;
 
-const matched$ = new BehaviorSubject<LevelMatched>(null as any);
+const matched$ = new BehaviorSubject<Matched>(null as any);
 
 export const _useMatched = () => {
   let prevMatched: Matched | null = null;
@@ -28,7 +26,7 @@ export const _useMatched = () => {
     matched$.next(_matched);
   };
 
-  const getMatched$ = () => {
+  const getMatched$ = (): BehaviorSubject<Matched> => {
     return matched$;
   };
 
@@ -92,13 +90,18 @@ export const setGlobalEnv = () => {
 
 /**
  * 监听路由
- * @param  {(route:Matched)=>void} callback
- * @param  {distinct: boolean} options 是否去重复
+ * @param  callback 回调函数
+ * @param  options 监听路由可选项；distinct 是否去重
  *
- * @returns {Subscription}
+ * @return 订阅对象，可操作取消订阅。
  */
-export const subscribeRoute = (callback: (route: Matched) => void, options = { distinct: false }) => {
-  if (options && options.distinct) {
+export const subscribeRoute = (
+  callback: (matched: Matched) => void,
+  options?: {
+    distinct: boolean;
+  }
+): Subscription => {
+  if (options?.distinct) {
     return useMatched()
       .getMatched$()
       .pipe(distinctUntilChanged((x, y) => JSON.stringify(x.segmentParams) === JSON.stringify(y.segmentParams)))

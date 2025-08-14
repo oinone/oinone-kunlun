@@ -16,7 +16,7 @@ class ModuleInternalCache extends MemoryAsyncCache<string, IModule> {
 }
 
 export class ModuleCache {
-  public static get(moduleName: string, force = false) {
+  public static get(moduleName: string, force = false): Promise<IModule | undefined> {
     const key = moduleName;
     if (force) {
       return ModuleInternalCache.INSTANCE.fetchValue(key);

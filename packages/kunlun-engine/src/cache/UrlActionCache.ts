@@ -20,11 +20,11 @@ class UrlActionInternalCache extends MemoryAsyncCache<UrlActionKey, RuntimeUrlAc
 
 export class UrlActionCache {
   /**
-   * 通过模型编码和名称获取action
+   * 通过模型编码和名称获取链接动作
    * @param model 模型编码
    * @param name 名称
    * @param force 强制查询
-   * @return 运行时action
+   * @return {@link RuntimeUrlAction} 链接动作元数据
    */
   public static async get(model: string, name: string, force = false): Promise<RuntimeUrlAction | undefined> {
     const key: UrlActionKey = { model, name };

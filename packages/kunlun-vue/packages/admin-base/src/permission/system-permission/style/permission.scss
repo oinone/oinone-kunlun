@@ -56,15 +56,16 @@
     align-items: center;
   }
 
-  .ant-tree-treenode {
-    width: 100%;
+  .ant-tree-list-holder-inner {
+    display: block !important;
   }
 
   .ant-tree-checkbox {
     margin-top: 12px;
   }
 
-  .ant-tree-treenode-selected {
+  .permission-menu .ant-tree-treenode-selected,
+  .permission-menu .ant-tree-treenode:hover {
     background: var(--oio-menu-selected-background-color);
     border-radius: 4px;
     .ant-tree-title {
@@ -72,7 +73,7 @@
     }
   }
 
-  .ant-tree .ant-tree-node-content-wrapper:hover {
+  .oio-tree.ant-tree .ant-tree-node-content-wrapper:hover {
     background-color: transparent;
   }
 
@@ -116,7 +117,7 @@
     margin-bottom: 10px;
   }
 
-  .oio-tabs{
+  .oio-tabs {
     .oio-tab-content {
       padding: 0;
     }
@@ -486,11 +487,11 @@
 }
 
 .permission-dialog-content {
-  .oio-modal{
+  .oio-modal {
     .ant-modal-body {
       padding: 0 0 var(--oio-margin-md) 0;
       position: relative;
-  
+
       .oio-tabs.ant-tabs-top .ant-tabs-nav .ant-tabs-tab {
         padding: calc(var(--oio-padding) / 2);
         border-top: none;
@@ -498,7 +499,7 @@
           border-bottom: none;
         }
       }
-  
+
       .permission-mode-switch {
         position: absolute;
         right: var(--oio-margin);
@@ -511,22 +512,27 @@
           }
         }
       }
-  
+
+      .ant-spin-container {
+        width: 100%;
+        overflow-x: hidden;
+      }
+
       .oio-tree {
         max-height: 55vh;
         overflow-y: scroll;
       }
-  
+
       .data-permission-tab {
         &-label {
           font-weight: bold;
           font-size: 16px;
         }
-  
+
         .oio-tab {
           padding: var(--oio-padding) 0 var(--oio-padding) 0;
         }
-  
+
         .data-permission-rsql,
         .data-permission-operator {
           color: var(--oio-text-color-secondary);

@@ -12,7 +12,11 @@ export const STRING_FUNCTION = {
   JOIN,
   PARSE: JSON_PARSE,
   JSON: JSON_STRINGIFY,
-  SUBSTRING
+  SUBSTRING,
+  NOT_CONTAINS,
+  SUBSTRING_END,
+  SPLIT,
+  INDEXOF
 };
 
 function TRIM(str: string) {
@@ -108,4 +112,41 @@ function JSON_STRINGIFY(obj: unknown) {
 
 function SUBSTRING(str: string, start: number, end: number) {
   return str?.substring(start, end);
+}
+
+function NOT_CONTAINS(text: string, subtext: string): boolean {
+  if (text == null) {
+    text = '';
+  }
+
+  if (subtext == null) {
+    return true;
+  }
+
+  return !text.includes(subtext);
+}
+
+function SUBSTRING_END(text: string, start: number): string | null {
+  if (text == null || start == null) {
+    return null;
+  }
+  return text.substring(start);
+}
+
+function SPLIT(text: string, separator: string): string[] | null {
+  if (text == null || separator == null) {
+    return null;
+  }
+  return text
+    .split(separator)
+    .map((s) => s.trim())
+    .filter((s) => s !== '');
+}
+
+function INDEXOF(text: string, search: string): number | null {
+  if (text == null || search == null) {
+    return null;
+  }
+
+  return text.indexOf(search);
 }

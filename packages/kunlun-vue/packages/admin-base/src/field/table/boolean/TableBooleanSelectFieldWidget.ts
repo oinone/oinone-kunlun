@@ -3,6 +3,7 @@ import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { RowContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
+import { toString } from 'lodash-es';
 import { createVNode, VNode } from 'vue';
 import { BaseFieldWidget, BaseTableFieldWidget } from '../../../basic';
 import { OptionColorStyle } from '../../FieldCommonEnum';
@@ -13,7 +14,7 @@ import TableEnum from '../enum/TableEnum.vue';
   BaseFieldWidget.Token({
     viewType: ViewType.Table,
     ttype: ModelFieldType.Boolean,
-    widget: ['Select', 'radio']
+    widget: ['Select', 'Radio']
   })
 )
 export class TableBooleanSelectFieldWidget extends BaseTableFieldWidget<string | string[], RuntimeEnumerationField> {
@@ -35,9 +36,13 @@ export class TableBooleanSelectFieldWidget extends BaseTableFieldWidget<string |
   @Widget.Method()
   public renderDefaultSlot(context: RowContext): VNode[] | string {
     const value = this.compute(context);
+    let stringValue: string | undefined;
+    if (value != null) {
+      stringValue = toString(value);
+    }
     return [
       createVNode(TableEnum, {
-        value,
+        value: stringValue,
         currentValue: this.handleValue(value),
         options: this.options,
         optionColor: this.optionColor,

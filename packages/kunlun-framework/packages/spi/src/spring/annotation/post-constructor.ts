@@ -1,12 +1,6 @@
 import { postConstruct } from 'inversify';
 import { ServiceNamed } from '../../typing';
-import {
-  isProxyConstructor,
-  proxy,
-  ProxyConstructor,
-  ProxyNewableConstructor,
-  proxyTargetConstructor
-} from '../helper';
+import { isProxyConstructor, ProxyConstructor, ProxyNewableConstructor, proxyTargetConstructor } from '../helper';
 
 export function PostConstruct() {
   return <T extends Object, R>(target: T, propertyKey: string, descriptor: TypedPropertyDescriptor<R>) => {
@@ -24,17 +18,17 @@ export function InstantiatePostConstruct(): MethodDecorator {
     proxyTargetConstructor(target, (constructor) => {
       let proxyFunction: ProxyConstructor;
       if (isProxyConstructor(constructor)) {
-        proxyFunction = proxy(function InstantiateProperty(...args: unknown[]) {
+        proxyFunction = function InstantiateProperty(...args: unknown[]) {
           const object = (constructor as ProxyConstructor)(...args);
           fn.bind(object)();
           return object;
-        });
+        };
       } else {
-        proxyFunction = proxy(function InstantiateProperty(...args: unknown[]) {
+        proxyFunction = function InstantiateProperty(...args: unknown[]) {
           const object = new (constructor as ProxyNewableConstructor)(...args);
           fn.bind(object)();
           return object;
-        });
+        };
       }
       return proxyFunction;
     });

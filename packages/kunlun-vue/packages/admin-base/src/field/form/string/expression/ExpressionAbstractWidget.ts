@@ -313,19 +313,23 @@ export class ExpressionAbstractWidget extends FormFieldWidget {
   public async initData(): Promise<IExpressionItem[]> {
     if (this.value) {
       const expression = (await this.queryExpression()) as IExpressionDefinition;
+
+      const defaultExpressionItem = createDefaultExpressionItem(this.type);
       if (expression) {
         createExpressionItemByExpressionDefinition(expression, this.createExpressionOption());
         const valueList = expression.itemList;
-        this.setExpressionItemList(!valueList?.length ? [createDefaultExpressionItem(this.type)] : valueList);
+        this.setExpressionItemList(!valueList?.length ? [defaultExpressionItem] : valueList);
         this.sourceCode = this.value as string;
 
         const list = valueList || [];
 
-        if (list.length && this.sourceCode && !list.some((v) => !!v.valueList?.find((val) => val.value))) {
+        const isDefaultCondition = list.length === 1 && list[0].valueList?.length === 1 && !list[0].valueList[0].value;
+
+        if (this.sourceCode && isDefaultCondition) {
           this.hasChangeSourceCode = true;
         }
       } else {
-        this.setExpressionItemList([createDefaultExpressionItem(this.type)]);
+        this.setExpressionItemList([defaultExpressionItem]);
         this.sourceCode = this.value as string;
         this.hasChangeSourceCode = true;
       }

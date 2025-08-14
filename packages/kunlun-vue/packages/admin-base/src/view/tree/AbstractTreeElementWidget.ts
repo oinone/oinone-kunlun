@@ -1,5 +1,6 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { ExpressionRunParam } from '@oinone/kunlun-expression';
+import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -43,6 +44,9 @@ export abstract class AbstractTreeElementWidget<V extends TreeData = TreeData> e
 
   @Widget.Reactive()
   protected showContent = false;
+
+  @Widget.Reactive()
+  protected contentViewType: ViewType | undefined;
 
   @Widget.Reactive()
   protected get searchPlaceHolder() {
@@ -99,7 +103,12 @@ export abstract class AbstractTreeElementWidget<V extends TreeData = TreeData> e
     }
     const { dslSlots, inline, view } = this;
     if (dslSlots) {
-      TreeUtils.mergeLayoutBySlotName(dslSlots, CONTENT_SLOT_NAME, inline || false, view);
+      this.contentViewType = TreeUtils.mergeLayoutBySlotName(
+        dslSlots,
+        CONTENT_SLOT_NAME,
+        inline || false,
+        view
+      )?.viewType;
     }
 
     this.runtimeInitialed();

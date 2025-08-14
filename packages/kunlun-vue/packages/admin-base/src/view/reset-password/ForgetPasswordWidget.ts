@@ -1,4 +1,5 @@
 import { getMajorConfig, MajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
+import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { Router } from '@oinone/kunlun-router';
 import { http } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
@@ -6,14 +7,17 @@ import { RouterWidget, useRouter } from '@oinone/kunlun-vue-router';
 import { FormItemRule, OioFormInstance, OioMessage } from '@oinone/kunlun-vue-ui-antd';
 import { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
+import { BaseI18nRouterWidget } from '../../basic';
 import { PhoneCodeQueryService, UserService } from '../../service';
 import { ResourceCountry } from '../../typing';
 import ForgetPassword from './ForgetPassword.vue';
 import { ResetPasswordData } from './typing';
-import { BaseI18nRouterWidget } from '../../basic/BaseI18nRouterWidget';
-import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 
-@SPI.ClassFactory(RouterWidget.Token({ widget: 'ForgetPassword' }))
+@SPI.ClassFactory(
+  RouterWidget.Token({
+    widget: 'ForgetPassword'
+  })
+)
 export class ForgetPasswordWidget extends BaseI18nRouterWidget {
   protected moduleName = SYSTEM_MODULE_NAME.USER;
 

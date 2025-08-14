@@ -20,7 +20,7 @@ import {
   uniqueKeyGenerator
 } from '@oinone/kunlun-shared';
 import { EmptyStyle, SelectMode, WidgetTrigger } from '@oinone/kunlun-vue-ui-antd';
-import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
+import { defaultTreeSelectProperties, OioTreeNode, TreeSelectProperties } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { debounce, DebouncedFunc, isNil, toInteger } from 'lodash-es';
 import { BaseFieldProps, FormFieldWidget } from '../../basic';
@@ -87,6 +87,15 @@ export abstract class AbstractTreeFieldWidget<
 
   @Widget.Reactive()
   protected expandedKeys: string[] | undefined;
+
+  @Widget.Reactive()
+  protected get mappingProperties(): TreeSelectProperties {
+    return {
+      ...defaultTreeSelectProperties,
+      labelProp: 'title',
+      valueProp: 'key'
+    };
+  }
 
   @Widget.Reactive()
   protected get referencesModel(): RuntimeModel | undefined {

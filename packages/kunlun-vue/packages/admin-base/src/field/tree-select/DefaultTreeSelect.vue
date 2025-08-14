@@ -16,12 +16,6 @@ import { OioCommonProps, OioMetadataProps, useInjectOioDefaultFormContext } from
 import { TreeData } from '../../typing';
 import { TreeUtils } from '../../util';
 
-const mappingProperties: TreeSelectProperties = {
-  ...defaultTreeSelectProperties,
-  labelProp: 'title',
-  valueProp: 'key'
-};
-
 export default defineComponent({
   name: 'DefaultTreeSelect',
   components: {
@@ -31,6 +25,9 @@ export default defineComponent({
   props: {
     ...OioCommonProps,
     ...OioMetadataProps,
+    mappingProperties: {
+      type: Object as PropType<TreeSelectProperties>
+    },
     maxTagCount: {
       type: Number
     },
@@ -189,6 +186,7 @@ export default defineComponent({
       enableLoadData,
       onlySelectedLeaf,
       maxTagCount,
+      mappingProperties,
 
       loadData,
       onDropdownVisibleChange,

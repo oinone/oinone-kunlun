@@ -1,14 +1,13 @@
 <template>
   <div class="mobile-unauthorized-widget">
     <div><img :src="genStaticPath('mobile-unauthorized.png')" alt="" /></div>
-    <div class="title" style="margin-bottom: 8px">您没有访问权限！</div>
-    <div class="sub-title">对不起，您没有访问权限</div>
-    <div class="sub-title">请不要进行非法操作！</div>
-    <div class="sub-title" style="margin-top: 20px">401错误！</div>
+    <div class="title" style="margin-bottom: 8px">{{ $translate('您没有访问权限！') }}</div>
+    <div class="sub-title">{{ $translate('对不起，您没有访问权限') }}</div>
+    <div class="sub-title">{{ $translate('请不要进行非法操作！') }}</div>
+    <div class="sub-title" style="margin-top: 20px">{{ $translate('401错误！') }}</div>
   </div>
 </template>
 <script lang="ts" setup>
-import { defineProps, computed } from 'vue';
 import { genStaticPath } from '@oinone/kunlun-engine';
 </script>
 <style lang="scss">
@@ -19,6 +18,7 @@ import { genStaticPath } from '@oinone/kunlun-engine';
   align-items: center;
   justify-content: center;
   color: var(--oio-text-color-secondary);
+
   img {
     width: 400px;
     margin-bottom: 24px;

@@ -8,7 +8,7 @@
     line-height: normal;
     border-radius: 8px;
     box-shadow: var(--oio-box-shadow);
-    background: var(--oio-background);
+    background: var(--oio-background, #ffffff);
 
     .ant-notification-notice-icon {
       margin-left: 0;
@@ -31,7 +31,7 @@
     }
     .ant-notification-notice-message,
     .ant-notification-notice-description {
-      margin-left: calc(var(--oio-margin) + 24px);
+      margin-left: calc(var(--oio-margin, 24px) + 24px);
     }
   }
 }

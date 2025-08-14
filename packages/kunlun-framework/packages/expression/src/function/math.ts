@@ -23,7 +23,9 @@ export const MATH_FUNCTION = {
   SUM,
   AVG,
   COUNT,
-  UPPER_MONEY
+  UPPER_MONEY,
+  POW,
+  LOG
 };
 
 function ABS(input: number | string) {
@@ -221,4 +223,48 @@ function UPPER_MONEY(money: string | number) {
     chineseStr += cnInteger;
   }
   return chineseStr;
+}
+
+function POW(a: number, b: number): number | null {
+  if (a == null || b == null) {
+    return null;
+  }
+
+  if (isNaN(a as number) || isNaN(b as number)) {
+    return null;
+  }
+
+  if (a < 0 && !NumberHelper.isInteger(b)) {
+    return null;
+  }
+
+  if (NumberHelper.isInteger(a) && NumberHelper.isInteger(b)) {
+    const _a = BigInt(Math.trunc(a));
+    const _b = b;
+    if (_b < 0) {
+      return 1 / Math.pow(Number(_a), -_b);
+    }
+    return Math.pow(Number(_a), _b);
+  }
+
+  return Math.pow(a, b);
+}
+
+function LOG(a: number, b: number): number | null {
+  if (a == null || b == null) {
+    return null;
+  }
+
+  if (isNaN(a as number) || isNaN(b as number)) {
+    return null;
+  }
+
+  if (a <= 0.0) {
+    return null;
+  }
+  if (b <= 0.0 || b === 1.0) {
+    return null;
+  }
+
+  return Math.log(b) / Math.log(a);
 }

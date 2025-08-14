@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-event",
-  "version": "6.2.0",
+  "version": "6.2.5",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -11,9 +11,9 @@
     "x-postpublish": "node ../../scripts/postpublish.js"
   },
   "devDependencies": {
-    "@oinone/kunlun-environment": "6.2.0",
-    "@oinone/kunlun-shared": "6.2.0",
-    "@oinone/kunlun-spi": "6.2.0"
+    "@oinone/kunlun-environment": "6.2.5",
+    "@oinone/kunlun-shared": "6.2.5",
+    "@oinone/kunlun-spi": "6.2.5"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

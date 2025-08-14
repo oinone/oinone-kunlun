@@ -16,6 +16,8 @@ import {
   HttpClientError,
   IErrorMessage,
   ILevel,
+  isFirstResetPasswordError,
+  isPicCodeError,
   SystemErrorCode,
   useMessageHub
 } from '@oinone/kunlun-request';
@@ -25,7 +27,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { RouterWidget, useRouter } from '@oinone/kunlun-vue-router';
 import { defaultLoginErrorMessages, EN_US_CODE, RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
 import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseI18nRouterWidget } from '../../basic';
 import { encrypt, homepageMaybeRuntimeContext } from '../../util';
 import LoginComponent from './Login.vue';
@@ -40,7 +42,7 @@ import {
 } from './types';
 
 @SPI.ClassFactory(RouterWidget.Token({ widget: 'MobileLogin' }))
-export class LoginPageWidget extends BaseI18nRouterWidget {
+export class LoginWidget extends BaseI18nRouterWidget {
   public errorMessages = defaultLoginErrorMessages;
 
   @Widget.Reactive()
@@ -557,16 +559,16 @@ export class LoginPageWidget extends BaseI18nRouterWidget {
         this.getPicCode(errorMsg);
       }
 
-      if (['20200008', '20060008', 20060008].includes(errorCode)) {
+      if (isFirstResetPasswordError(errorCode)) {
         // 首次登录需修改密码
         this.router.push({ segments: [{ path: 'first' }] });
       }
     } else if (redirect) {
       // 项目目录network-interceptor.ts拼入的redirect_url
       localStorage.setItem(OINONE_HOMEPAGE_KEY, JSON.stringify(redirect));
-      const redirect_url = location.search.split('?redirect_url=')[1];
+      const redirect_url = window.location.search.split('?redirect_url=')[1];
       if (redirect_url) {
-        location.href = redirect_url;
+        window.location.href = redirect_url;
       } else {
         this.validateUnauthorized(async () => {
           const parameters = await homepageMaybeRuntimeContext();
@@ -586,8 +588,10 @@ export class LoginPageWidget extends BaseI18nRouterWidget {
   public watchPicCodeError() {
     const hub = useMessageHub(loginMessageHubName);
     hub.subscribe((error) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      error.errorCode === '20060080' && this.getPicCode();
+      const { errorCode } = error;
+      if (isPicCodeError(errorCode)) {
+        this.getPicCode();
+      }
       hub.unsubscribe();
     }, ILevel.ERROR);
   }
@@ -645,3 +649,8 @@ export class LoginPageWidget extends BaseI18nRouterWidget {
     super.mounted();
   }
 }
+
+/**
+ * @deprecated please using LoginWidget
+ */
+export const LoginPageWidget = LoginWidget;

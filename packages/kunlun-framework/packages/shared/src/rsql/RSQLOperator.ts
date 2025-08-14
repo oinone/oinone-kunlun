@@ -8,10 +8,13 @@ export class RSQLComparisonOperator extends JObject {
 
   private readonly _multi: boolean;
 
-  public constructor(symbols: string[], multi = false) {
+  private readonly _invert: boolean;
+
+  public constructor(symbols: string[], multi = false, invert = false) {
     super();
     this._symbols = [...symbols];
     this._multi = multi;
+    this._invert = invert;
   }
 
   public get symbols() {
@@ -24,6 +27,10 @@ export class RSQLComparisonOperator extends JObject {
 
   public get isMulti() {
     return this._multi;
+  }
+
+  public get isInvert() {
+    return this._invert;
   }
 
   public isSymbolEquals(symbol: string) {
@@ -62,7 +69,7 @@ export class RSQLLogicalOperators {
 export class RSQLOperators {
   public static EQUAL = new RSQLComparisonOperator(['==']);
 
-  public static NOT_EQUAL = new RSQLComparisonOperator(['!=']);
+  public static NOT_EQUAL = new RSQLComparisonOperator(['!='], false, true);
 
   public static GREATER_THAN = new RSQLComparisonOperator(['=gt=', '>']);
 
@@ -71,10 +78,6 @@ export class RSQLOperators {
   public static LESS_THAN = new RSQLComparisonOperator(['=lt=', '<']);
 
   public static LESS_THAN_OR_EQUAL = new RSQLComparisonOperator(['=le=', '<=']);
-
-  public static IN = new RSQLComparisonOperator(['=in='], true);
-
-  public static NOT_IN = new RSQLComparisonOperator(['=out='], true);
 
   public static IS_NULL = new RSQLComparisonOperator(['=isnull=']);
 
@@ -90,23 +93,27 @@ export class RSQLOperators {
 
   public static LIKE_LEFT = new RSQLComparisonOperator(['=ends=']);
 
-  public static NOT_LIKE = new RSQLComparisonOperator(['=notlike=']);
+  public static NOT_LIKE = new RSQLComparisonOperator(['=notlike='], false, true);
 
-  public static NOT_LIKE_RIGHT = new RSQLComparisonOperator(['=notstarts=']);
+  public static NOT_LIKE_RIGHT = new RSQLComparisonOperator(['=notstarts='], false, true);
 
-  public static NOT_LIKE_LEFT = new RSQLComparisonOperator(['=notends=']);
+  public static NOT_LIKE_LEFT = new RSQLComparisonOperator(['=notends='], false, true);
+
+  public static IN = new RSQLComparisonOperator(['=in='], true);
+
+  public static NOT_IN = new RSQLComparisonOperator(['=out='], true, true);
 
   public static BIT = new RSQLComparisonOperator(['=bit='], true);
 
-  public static NOT_BIT = new RSQLComparisonOperator(['=notbit='], true);
+  public static NOT_BIT = new RSQLComparisonOperator(['=notbit='], true, true);
 
   public static HAS = new RSQLComparisonOperator(['=has='], true);
 
-  public static NOT_HAS = new RSQLComparisonOperator(['=hasnt='], true);
+  public static NOT_HAS = new RSQLComparisonOperator(['=hasnt='], true, true);
 
   public static HAS_OR = new RSQLComparisonOperator(['=hasor='], true);
 
-  public static HAS_NOT_OR = new RSQLComparisonOperator(['=hasntor='], true);
+  public static HAS_NOT_OR = new RSQLComparisonOperator(['=hasntor='], true, true);
 
   public static operators(): Set<RSQLComparisonOperator> {
     return new Set<RSQLComparisonOperator>([

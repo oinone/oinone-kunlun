@@ -58,11 +58,17 @@ export default defineComponent({
         origin: 'default',
         default: ({ realValue }) => {
           return [
-            createVNode('div', {
-              class: 'detail-common-field-value',
-              title: realValue,
-              innerHTML: realValue.replace(/\r?\n/g, '<br/>')
-            })
+            createVNode(
+              'div',
+              {
+                class: 'detail-common-field-value',
+                title: realValue,
+                style: {
+                  whiteSpace: 'pre-line'
+                }
+              },
+              realValue
+            )
           ];
         }
       },

@@ -888,6 +888,8 @@ export class Expression {
       [(type: any) => (typeof type !== 'number' && typeof type !== 'string' ? 'number|string' : '')],
       MATH_FUNCTION.UPPER_MONEY
     );
+    this.registerFunction('POW', ['number|string', 'number|string'], MATH_FUNCTION.POW);
+    this.registerFunction('LOG', ['number|string', 'number|string'], MATH_FUNCTION.LOG);
 
     // 字符串函数
     this.registerFunction('TRIM', ['string'], STRING_FUNCTION.TRIM);
@@ -895,6 +897,7 @@ export class Expression {
     this.registerFunction('STARTS_WITH', ['string', 'string'], STRING_FUNCTION.STARTS_WITH);
     this.registerFunction('ENDS_WITH', ['string', 'string'], STRING_FUNCTION.ENDS_WITH);
     this.registerFunction('CONTAINS', ['string', 'string'], STRING_FUNCTION.CONTAINS);
+    this.registerFunction('NOT_CONTAINS', ['string', 'string'], STRING_FUNCTION.NOT_CONTAINS);
     // 逗号分隔的字符串数组
     this.registerFunction('STR_LIST_CONTAINS', ['string', 'object', 'string'], STRING_FUNCTION.STR_LIST_CONTAINS);
     this.registerFunction('LOWER', ['string'], STRING_FUNCTION.LOWER);
@@ -904,7 +907,10 @@ export class Expression {
     this.registerFunction('JOIN', ['any', 'any'], STRING_FUNCTION.JOIN);
     this.registerFunction('PARSE', ['string'], STRING_FUNCTION.PARSE);
     this.registerFunction('JSON', ['any'], STRING_FUNCTION.JSON);
-    this.registerFunction('SUBSTRING', ['string', 'number', 'number'], STRING_FUNCTION.SUBSTRING);
+    this.registerFunction('SUBSTRING', ['string', 'number|string', 'number|string'], STRING_FUNCTION.SUBSTRING);
+    this.registerFunction('SUBSTRING_END', ['string', 'number|string'], STRING_FUNCTION.SUBSTRING_END);
+    this.registerFunction('SPLIT', ['string', 'string'], STRING_FUNCTION.SPLIT);
+    this.registerFunction('INDEXOF', ['string', 'string'], STRING_FUNCTION.INDEXOF);
 
     // 正则函数
     this.registerFunction('MATCHES', ['string', 'string'], MATCH_FUNCTION.MATCHES);
@@ -942,6 +948,9 @@ export class Expression {
     this.registerFunction('LESS_THAN', ['string', 'string'], DATETIME_FUNCTION.LESS_THAN);
     this.registerFunction('LESS_EQUAL', ['string', 'string'], DATETIME_FUNCTION.LESS_EQUAL);
     this.registerFunction('DATE_EQUALS', ['string', 'string'], DATETIME_FUNCTION.DATE_EQUALS);
+    this.registerFunction('YEAR', ['string'], DATETIME_FUNCTION.YEAR);
+    this.registerFunction('MONTH', ['string'], DATETIME_FUNCTION.MONTH);
+    this.registerFunction('DAY', ['string'], DATETIME_FUNCTION.DAY);
 
     // 集合(数组)函数
     this.registerFunction('LIST_GET', ['array', 'number'], COLLECTION_FUNCTION.LIST_GET);

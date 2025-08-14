@@ -9,8 +9,8 @@ import DefaultTableImage from './DefaultTableImage.vue';
 @SPI.ClassFactory(
   BaseFieldWidget.Token({
     viewType: ViewType.Table,
-    widget: 'UploadImg',
-    ttype: [ModelFieldType.String, ModelFieldType.Text]
+    ttype: [ModelFieldType.String, ModelFieldType.Text],
+    widget: 'UploadImg'
   })
 )
 export class TableStringUploadImageFieldWidget extends BaseTableFieldWidget {

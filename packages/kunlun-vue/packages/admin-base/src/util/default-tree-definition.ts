@@ -1,4 +1,5 @@
 import { XMLParse } from '@oinone/kunlun-dsl';
+import { ExperimentalConfigManager } from '@oinone/kunlun-engine';
 import { TreeNodeMetadata } from '../typing';
 import { TreeUtils } from './tree-utils';
 
@@ -13,7 +14,17 @@ const defaultAddressTemplate = XMLParse.INSTANCE.parse(`<template>
 </template>
 `);
 
+const defaultAddressTemplateNext = XMLParse.INSTANCE.parse(`<template>
+  <nodes>
+    <node model="resource.ResourceRegion" label="activeRecord.name" labelFields="name" selfReferences="parent" />
+  </nodes>
+</template>
+`);
+
 export function generatorDefaultAddressTreeDefinition(): TreeNodeMetadata | undefined {
+  if (ExperimentalConfigManager.addressWidgetNext()) {
+    return TreeUtils.convert(defaultAddressTemplateNext);
+  }
   return TreeUtils.convert(defaultAddressTemplate);
 }
 

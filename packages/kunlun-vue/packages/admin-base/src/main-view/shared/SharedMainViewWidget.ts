@@ -23,7 +23,11 @@ import { clearSharedSession, getSharedSession, setSharedSession } from './sessio
 import SharedMainView from './SharedMainView.vue';
 import { SharedViewUtils } from './utils';
 
-@SPI.ClassFactory(RouterWidget.Token({ widget: SHARED_VIEW_WIDGET }))
+@SPI.ClassFactory(
+  RouterWidget.Token({
+    widget: SHARED_VIEW_WIDGET
+  })
+)
 export class SharedMainViewWidget extends RouterWidget {
   protected metadataViewWidget: MetadataViewWidget | undefined;
 

@@ -142,7 +142,7 @@ const createRouter = () => {
     const href = serializer.serialize(tree);
     debugConsole.info('router change', options.segments?.[0]);
     if (target) {
-      window.open(href, '_blank');
+      window.open(href, target);
     } else {
       navigate(href);
     }

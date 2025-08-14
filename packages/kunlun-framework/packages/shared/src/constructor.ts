@@ -8,7 +8,13 @@ export function instantiate<T extends object = object>(constructor: Constructor<
   if (typeof constructor === 'object') {
     newInstance = constructor;
   } else {
-    newInstance = new (constructor.prototype?.constructor || constructor)(...args);
+    newInstance = new ((
+      constructor as {
+        __proxy_constructor__?: Constructor<T>;
+      }
+    ).__proxy_constructor__ ||
+      constructor.prototype?.constructor ||
+      constructor)(...args);
   }
   return newInstance;
 }

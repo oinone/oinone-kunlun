@@ -1,6 +1,6 @@
-import { RouterWidget } from '@oinone/kunlun-vue-router';
 import { getDefaultBrowser, initI18n, OioProvider, translateValueByKey } from '@oinone/kunlun-engine';
 import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
+import { RouterWidget } from '@oinone/kunlun-vue-router';
 
 /**
  * 无模块需要国际化的路由页面
