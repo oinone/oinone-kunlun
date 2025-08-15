@@ -39,11 +39,4 @@ export class FormM2OUploadFieldWidget extends AbstractFormM2OUploadFieldWidget {
       this.change(null as any);
     }
   }
-
-  @Widget.Method()
-  protected drop(e) {
-    if (e) {
-      console.log('draggable drop', e);
-    }
-  }
 }
