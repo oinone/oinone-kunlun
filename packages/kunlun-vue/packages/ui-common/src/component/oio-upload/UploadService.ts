@@ -174,12 +174,16 @@ const getFileSignature = async (
   return res;
 };
 
-const downloadFile = async (url: string, cdnKey?: string) => {
+const generatorDownloadUrl = (url: string, cdnKey?: string): string => {
   const mutation = `query{resourceFileFormQuery{downloadFormData(resourceFileForm:{downloadUrl: "${url}"${GraphqlHelper.buildStringGQLParameter(
     'cdnKey',
     cdnKey
   )}}){filename}}}`;
-  window.open(UrlHelper.appendBasePath(`/pamirs/${FILE_MODULE_NAME}?query=${encodeURIComponent(mutation)}`), '_blank');
+  return UrlHelper.appendBasePath(`/pamirs/${FILE_MODULE_NAME}?query=${encodeURIComponent(mutation)}`);
+};
+
+const downloadFile = (url: string, cdnKey?: string) => {
+  window.open(generatorDownloadUrl(url, cdnKey), '_blank');
 };
 
 // 创建ResourceFile

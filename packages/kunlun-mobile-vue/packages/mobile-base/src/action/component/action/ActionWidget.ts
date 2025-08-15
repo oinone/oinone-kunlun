@@ -1,24 +1,38 @@
 import {
-  RuntimeAction,
-  ValidatorCallChainingParameters,
-  translateValueByKey,
   ActiveRecord,
+  ActiveRecords,
+  buildQueryCondition,
+  GetRequestModelFieldsOptions,
+  ModelCache,
+  RequestModelField,
+  resolveDynamicExpression,
+  RuntimeAction,
   RuntimeContext,
   RuntimeContextManager,
-  buildQueryCondition,
-  resolveDynamicExpression,
-  translate
+  RuntimeServerAction,
+  SubmitRelationValue,
+  SubmitValue,
+  translate,
+  translateValueByKey,
+  ValidatorCallChainingParameters
 } from '@oinone/kunlun-engine';
 import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
-import { ActionContextType, ActionElement, IAction, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import {
+  ActionContextType,
+  ActionElement,
+  IAction,
+  ModelFieldType,
+  ViewActionTarget,
+  ViewType
+} from '@oinone/kunlun-meta';
+import { Condition } from '@oinone/kunlun-request';
+import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
 import { BooleanHelper, debugConsole, GraphqlHelper, ReturnPromise } from '@oinone/kunlun-shared';
 import { Subject } from '@oinone/kunlun-state';
-import { ButtonBizStyle, ButtonType, PopconfirmPlacement, ConfirmType } from '@oinone/kunlun-vue-ui-common';
+import { ButtonBizStyle, ButtonType, ConfirmType, PopconfirmPlacement } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString } from 'lodash-es';
 import { Component, toRaw } from 'vue';
-import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
-import { Condition } from '@oinone/kunlun-request';
 import { BaseActionWidget, BaseActionWidgetProps, BaseView, QueryExpression } from '../../../basic';
 import { ClickResult, fetchPopconfirmPlacement } from '../../../typing';
 import { executeConfirm } from '../../../util';
@@ -879,6 +893,73 @@ export class ActionWidget<
     // }
 
     return result;
+  }
+
+  protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
+    const { viewType } = this;
+    if (viewType === ViewType.Tree) {
+      const runtimeModel = await ModelCache.get(this.model.model);
+      if (runtimeModel) {
+        return runtimeModel.modelFields.map((field) => ({ field }));
+      }
+      return [];
+    }
+    if (this.popupScene) {
+      return this.seekPopupMainRuntimeContext().getRequestModelFields(options);
+    }
+    return this.rootRuntimeContext.getRequestModelFields(options);
+  }
+
+  protected seekPopupMainRuntimeContext(): RuntimeContext {
+    if (this.metadataHandle === this.rootHandle) {
+      const modelModel = this.model.model;
+      if (modelModel) {
+        const popupMainRuntimeContext = RuntimeContextManager.getOthers(this.rootHandle)?.find(
+          (v) => v.model.model === modelModel
+        );
+        if (popupMainRuntimeContext) {
+          return popupMainRuntimeContext;
+        }
+      }
+    }
+    return this.rootRuntimeContext;
+  }
+
+  protected async submit(action: RuntimeServerAction): Promise<SubmitValue> {
+    let records: ActiveRecords | undefined;
+    let relationRecords: SubmitRelationValue[] | undefined;
+    if (!this.inline && this.submitCallChaining) {
+      const callResult = await this.submitCallChaining?.syncCall();
+      if (callResult != null) {
+        records = callResult.records;
+        relationRecords = callResult.relationRecords;
+      }
+    }
+    if (records == null) {
+      records = this.activeRecords || [];
+    }
+    if (action.contextType === ActionContextType.Batch || action.contextType === ActionContextType.SingleAndBatch) {
+      // do nothing.
+    } else if (action.contextType === ActionContextType.Single) {
+      if (Array.isArray(records)) {
+        [records] = records;
+      }
+    } else {
+      const ttype = action.functionDefinition?.argumentList?.[0]?.ttype;
+      if (ttype && [ModelFieldType.ManyToOne, ModelFieldType.OneToOne].includes(ttype as ModelFieldType)) {
+        if (Array.isArray(records)) {
+          [records] = records;
+        }
+      }
+    }
+    if (!records) {
+      if (action.contextType !== ActionContextType.ContextFree) {
+        const name = this.action?.displayName || this.action?.label;
+        throw new Error(`${name} action not params`);
+      }
+      records = {};
+    }
+    return new SubmitValue(records, relationRecords);
   }
 
   protected validatorByExpression(expression: string) {

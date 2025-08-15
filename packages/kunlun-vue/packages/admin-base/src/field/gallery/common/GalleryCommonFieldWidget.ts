@@ -8,14 +8,8 @@ import GalleryCommonField from './GalleryCommonField.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Gallery],
-    ttype: [
-      ModelFieldType.String,
-      ModelFieldType.Text,
-      ModelFieldType.Phone,
-      ModelFieldType.Email,
-      ModelFieldType.Related
-    ]
+    viewType: ViewType.Gallery,
+    ttype: [ModelFieldType.Text, ModelFieldType.Related]
   })
 )
 export class GalleryCommonFieldWidget extends DetailCommonFieldWidget {

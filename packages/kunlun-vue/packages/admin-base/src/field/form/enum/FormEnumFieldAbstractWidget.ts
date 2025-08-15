@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { RuntimeEnumerationField, RuntimeEnumerationOption, translateValueByKey } from '@oinone/kunlun-engine';
-import { EnumOptionState, deepClone } from '@oinone/kunlun-meta';
-import { BooleanHelper } from '@oinone/kunlun-shared';
+import { deepClone, EnumOptionState } from '@oinone/kunlun-meta';
+import { BooleanHelper, EnumerationValue } from '@oinone/kunlun-shared';
 import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toString } from 'lodash-es';
@@ -9,8 +8,6 @@ import { FormFieldWidget } from '../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
 import { OptionColorStyle } from '../../FieldCommonEnum';
 import { enumFetchLabelByValue } from '../../util';
-
-export type EnumerationValue = boolean | string;
 
 export abstract class FormEnumFieldAbstractWidget<
   Value extends EnumerationValue | EnumerationValue[] = EnumerationValue | EnumerationValue[]
@@ -41,34 +38,6 @@ export abstract class FormEnumFieldAbstractWidget<
     // }
     // return super.compute() || defaultVal;
     return super.compute();
-  }
-
-  @Widget.Reactive()
-  private get orientation() {
-    const _orientation = this.getDsl().orientation as string;
-    if (_orientation) {
-      return _orientation;
-    }
-    return undefined;
-  }
-
-  @Widget.Reactive()
-  private get radioMode() {
-    const _radioMode = this.getDsl().radioMode as string;
-    if (_radioMode) {
-      return _radioMode;
-    }
-    return undefined;
-  }
-
-  @Widget.Reactive()
-  protected get optionColor() {
-    return this.optionColorStyle === OptionColorStyle.COLORFUL;
-  }
-
-  @Widget.Reactive()
-  protected get optionColorStyle() {
-    return this.getDsl().optionColorStyle || OptionColorStyle.COLORFUL;
   }
 
   @Widget.Reactive()
@@ -251,5 +220,45 @@ export abstract class FormEnumFieldAbstractWidget<
   protected getMetaOptionNames() {
     const metaOptions = this.field.options;
     return metaOptions?.map((_o) => _o.name);
+  }
+
+  /**
+   * @deprecated please move to the location of use.
+   */
+  @Widget.Reactive()
+  protected get optionColor() {
+    return this.optionColorStyle === OptionColorStyle.COLORFUL;
+  }
+
+  /**
+   * @deprecated please move to the location of use.
+   */
+  @Widget.Reactive()
+  protected get optionColorStyle() {
+    return this.getDsl().optionColorStyle || OptionColorStyle.COLORFUL;
+  }
+
+  /**
+   * @deprecated please move to the location of use.
+   */
+  @Widget.Reactive()
+  protected get orientation() {
+    const _orientation = this.getDsl().orientation as string;
+    if (_orientation) {
+      return _orientation;
+    }
+    return undefined;
+  }
+
+  /**
+   * @deprecated please move to the location of use.
+   */
+  @Widget.Reactive()
+  protected get radioMode() {
+    const _radioMode = this.getDsl().radioMode as string;
+    if (_radioMode) {
+      return _radioMode;
+    }
+    return undefined;
   }
 }

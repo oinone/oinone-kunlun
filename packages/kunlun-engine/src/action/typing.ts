@@ -15,9 +15,16 @@ export enum RedirectTargetEnum {
 export interface ConfirmOptions {
   zIndex?: number;
   title?: string;
+  width?: string | number;
   confirm: string;
   enterText?: string;
   cancelText?: string;
+}
+
+export interface ConfirmModal {
+  title?: string;
+  content?: string;
+  context?: Record<string, unknown>;
 }
 
 export interface ViewActionQueryParameter extends Record<string, string | undefined> {

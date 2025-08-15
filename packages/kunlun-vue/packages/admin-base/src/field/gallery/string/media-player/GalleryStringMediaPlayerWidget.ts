@@ -8,7 +8,7 @@ import GalleryMediaPlayer from './GalleryMediaPlayer.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Gallery],
+    viewType: ViewType.Gallery,
     ttype: [ModelFieldType.String],
     widget: 'MediaPlayer'
   })

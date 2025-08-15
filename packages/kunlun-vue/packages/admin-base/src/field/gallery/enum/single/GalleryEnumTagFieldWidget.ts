@@ -8,7 +8,7 @@ import GalleryTagEnum from './GalleryTagEnum.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Gallery],
+    viewType: ViewType.Gallery,
     ttype: ModelFieldType.Enum,
     widget: ['Tag', 'TagEnum']
   })

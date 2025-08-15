@@ -7,7 +7,7 @@ import { GalleryStringFieldWidget } from '../../string';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Gallery],
+    viewType: ViewType.Gallery,
     ttype: [ModelFieldType.String],
     multi: false,
     widget: 'TextContent'

@@ -7,7 +7,7 @@ import Html from './Html.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Gallery],
+    viewType: ViewType.Gallery,
     ttype: ModelFieldType.HTML
   })
 )
@@ -20,6 +20,6 @@ export class GalleryHtmlFieldWidget extends DetailHtmlFieldWidget {
 
   @Widget.Reactive()
   public get showHeight() {
-    return this.getDsl()?.showHeight;
+    return this.getDsl().showHeight;
   }
 }

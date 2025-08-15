@@ -1,10 +1,10 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { EnumerationValue } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { FormFieldWidget } from '../../../../basic';
-import { EnumerationValue } from '../FormEnumFieldAbstractWidget';
-import { FormBooleanSelectFieldWidget } from '../select';
-import FormEnumRadio from './FormEnumRadio.vue';
+import { FormFieldWidget } from '../../../basic';
+import FormEnumRadio from '../enum/radio/FormEnumRadio.vue';
+import { FormBooleanSelectFieldWidget } from './FormBooleanSelectFieldWidget';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
@@ -18,6 +18,24 @@ export class FormBooleanRadioFieldWidget extends FormBooleanSelectFieldWidget {
     super.initialize(props);
     this.setComponent(FormEnumRadio);
     return this;
+  }
+
+  @Widget.Reactive()
+  protected get orientation() {
+    const _orientation = this.getDsl().orientation as string;
+    if (_orientation) {
+      return _orientation;
+    }
+    return undefined;
+  }
+
+  @Widget.Reactive()
+  protected get radioMode() {
+    const _radioMode = this.getDsl().radioMode as string;
+    if (_radioMode) {
+      return _radioMode;
+    }
+    return undefined;
   }
 
   @Widget.Reactive()

@@ -6,7 +6,7 @@ import { FORM_WIDGET } from '../../../../typing';
 
 @SPI.ClassFactory(
   BaseFieldWidget.Token({
-    viewType: [ViewType.Form, ViewType.Detail],
+    viewType: [ViewType.Form, ViewType.Detail, ViewType.Gallery],
     ttype: [ModelFieldType.ManyToOne],
     widget: ['form', FORM_WIDGET]
   })

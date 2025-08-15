@@ -1,15 +1,14 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { BooleanHelper } from '@oinone/kunlun-shared';
-
 import { FormFieldWidget } from '../../../../basic/field';
 import { DetailRelationSelectFieldWidget } from '../../abstract/DetailRelationSelectFieldWidget';
 import DetailUpload from './DetailUpload.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Detail],
+    viewType: ViewType.Detail,
     ttype: ModelFieldType.ManyToOne,
     widget: 'Upload'
   })

@@ -10,7 +10,7 @@ import Media from './Media.vue';
     viewType: [ViewType.Form, ViewType.Detail, ViewType.Table],
     ttype: ModelFieldType.String,
     multi: true,
-    widget: ['MediaPlayer']
+    widget: 'MediaPlayer'
   })
 )
 export class FormStringMultiMediaPlayerFieldWidget extends FormStringFieldWidget {

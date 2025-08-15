@@ -11,7 +11,7 @@ import { AbstractFormM2OUploadFieldWidget } from './AbstractFormM2OUploadFieldWi
   FormFieldWidget.Token({
     viewType: [ViewType.Form, ViewType.Detail],
     ttype: ModelFieldType.ManyToOne,
-    widget: ['UploadImg']
+    widget: 'UploadImg'
   })
 )
 export class FormM2OUploadImgFieldWidget extends AbstractFormM2OUploadFieldWidget {

@@ -1,7 +1,7 @@
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { defaultMultiPartConfig, ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { defaultMultiPartConfig, InputMediaMode, ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isNumber } from 'lodash-es';
 import { FormFieldWidget } from '../../../../basic';
@@ -18,7 +18,7 @@ enum FileSource {
   FormFieldWidget.Token({
     viewType: ViewType.Form,
     ttype: ModelFieldType.String,
-    widget: ['MediaPlayer']
+    widget: 'MediaPlayer'
   })
 )
 export class FormStringMediaPlayerFieldWidget extends FormStringInputFieldWidget {
@@ -26,6 +26,11 @@ export class FormStringMediaPlayerFieldWidget extends FormStringInputFieldWidget
     super.initialize(props);
     this.setComponent(DefaultFormSingleMedia);
     return this;
+  }
+
+  @Widget.Reactive()
+  protected get mode() {
+    return this.getDsl().mode || InputMediaMode.DYNAMIC;
   }
 
   @Widget.Reactive()

@@ -754,12 +754,16 @@ export class FunctionService {
       virtualModel.fields[data] = { ttype };
     }
   }
+
+  public static usingStaticModels() {
+    return [StaticMetadata.ResourceAddress, StaticMetadata.ConfirmModal];
+  }
 }
 
 class StaticRequestModelFieldsCache extends MemoryCache<string, RequestModelField[]> {
   public static INSTANCE = new StaticRequestModelFieldsCache();
 
-  private static StaticModels: RuntimeModel[] = [StaticMetadata.ResourceAddress];
+  private static StaticModels: RuntimeModel[] = FunctionService.usingStaticModels();
 
   public fetchValue(key: string): RequestModelField[] | undefined {
     const staticModel = StaticRequestModelFieldsCache.StaticModels.find((v) => v.model === key);

@@ -44,9 +44,6 @@ export default defineComponent({
     tagChange: {
       type: Function
     },
-    blur: {
-      type: Function
-    },
     placeholder: {
       type: String
     },

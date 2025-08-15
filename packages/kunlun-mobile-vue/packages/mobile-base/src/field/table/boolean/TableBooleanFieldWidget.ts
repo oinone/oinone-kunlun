@@ -1,13 +1,18 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { SPI } from '@oinone/kunlun-spi';
-import { RowContext } from '../../../ui';
 import { BooleanHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { VNode } from 'vue';
 import { BaseFieldWidget, BaseTableFieldWidget } from '../../../basic';
+import { RowContext } from '../../../ui';
 import { enumFetchLabelByValue } from '../../util';
 
-@SPI.ClassFactory(BaseFieldWidget.Token({ viewType: ViewType.Table, ttype: ModelFieldType.Boolean }))
+@SPI.ClassFactory(
+  BaseFieldWidget.Token({
+    viewType: ViewType.Table,
+    ttype: ModelFieldType.Boolean
+  })
+)
 export class TableBooleanFieldWidget extends BaseTableFieldWidget<boolean | string> {
   @Widget.Method()
   public renderDefaultSlot(context: RowContext): VNode[] | string {

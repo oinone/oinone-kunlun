@@ -7,7 +7,7 @@ import DetailHyperlinks from './DetailHyperlinks.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Detail],
+    viewType: ViewType.Detail,
     ttype: ModelFieldType.String,
     widget: 'Hyperlinks'
   })

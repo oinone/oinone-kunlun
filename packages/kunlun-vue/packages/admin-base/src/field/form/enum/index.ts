@@ -1,3 +1,4 @@
+export * from './FormEnumFieldAbstractWidget';
 export * from './checkbox';
 export * from './radio';
 export * from './select';

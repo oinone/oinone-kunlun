@@ -18,32 +18,6 @@ export class FormInputAbstractFieldWidget<
   Field extends RuntimeModelField = RuntimeModelField
 > extends FormFieldWidget<Value, Field> {
   /**
-   * 是否支持前缀
-   * @protected
-   */
-  @Widget.Reactive()
-  protected get showPrefix() {
-    const _showPrefix = this.getDsl().showSuffix;
-    if (_showPrefix) {
-      return _showPrefix;
-    }
-    return false;
-  }
-
-  /**
-   * 是否支持后缀
-   * @protected
-   */
-  @Widget.Reactive()
-  protected get showSuffix() {
-    const _showSuffix = this.getDsl().showSuffix;
-    if (_showSuffix) {
-      return _showSuffix;
-    }
-    return false;
-  }
-
-  /**
    * 前缀具体内容
    * @protected
    */
@@ -54,36 +28,12 @@ export class FormInputAbstractFieldWidget<
   }
 
   /**
-   * 后缀具体内容
-   * @protected
-   */
-  @Widget.Reactive()
-  protected get suffix() {
-    const { suffix = '' } = this.getDsl();
-    return translateValueByKey(suffix);
-  }
-
-  @Widget.Reactive()
-  protected get independentlyEditable() {
-    return BooleanHelper.toBoolean(this.getDsl().independentlyEditable);
-  }
-
-  /**
    * 前缀类型
    * @protected
    */
   @Widget.Reactive()
   protected get prefixType() {
     return this.getDsl().prefixType;
-  }
-
-  /**
-   * 后缀类型
-   * @protected
-   */
-  @Widget.Reactive()
-  protected get suffixType() {
-    return this.getDsl().suffixType;
   }
 
   /**
@@ -97,6 +47,25 @@ export class FormInputAbstractFieldWidget<
       return _prefixStore;
     }
     return false;
+  }
+
+  /**
+   * 后缀具体内容
+   * @protected
+   */
+  @Widget.Reactive()
+  protected get suffix() {
+    const { suffix = '' } = this.getDsl();
+    return translateValueByKey(suffix);
+  }
+
+  /**
+   * 后缀类型
+   * @protected
+   */
+  @Widget.Reactive()
+  protected get suffixType() {
+    return this.getDsl().suffixType;
   }
 
   /**
@@ -119,11 +88,6 @@ export class FormInputAbstractFieldWidget<
       return _prefixes.split(',');
     }
     return _prefixes;
-  }
-
-  @Widget.Reactive()
-  protected get mode() {
-    return this.getDsl().mode || InputMediaMode.DYNAMIC;
   }
 
   @Widget.Reactive()
@@ -249,5 +213,45 @@ export class FormInputAbstractFieldWidget<
       this.change(repVal as unknown as Value);
     }
     this.prefixesValue = val;
+  }
+
+  /**
+   * @deprecated please move to the place of use.
+   */
+  @Widget.Reactive()
+  protected get mode() {
+    return this.getDsl().mode || InputMediaMode.DYNAMIC;
+  }
+
+  /**
+   * @deprecated invalid prop
+   */
+  @Widget.Reactive()
+  protected get showPrefix() {
+    const _showPrefix = this.getDsl().showSuffix;
+    if (_showPrefix) {
+      return _showPrefix;
+    }
+    return false;
+  }
+
+  /**
+   * @deprecated invalid prop
+   */
+  @Widget.Reactive()
+  protected get showSuffix() {
+    const _showSuffix = this.getDsl().showSuffix;
+    if (_showSuffix) {
+      return _showSuffix;
+    }
+    return false;
+  }
+
+  /**
+   * @deprecated invalid prop
+   */
+  @Widget.Reactive()
+  protected get independentlyEditable() {
+    return BooleanHelper.toBoolean(this.getDsl().independentlyEditable);
   }
 }

@@ -1,15 +1,15 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { EnumerationValue } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { FormFieldWidget } from '../../../../../basic';
-import { EnumerationValue, FormEnumFieldAbstractWidget } from '../../FormEnumFieldAbstractWidget';
-import MultiEnumSelect from './MultiEnumSelect.vue';
 import { Widget } from '@oinone/kunlun-vue-widget';
+import { FormFieldWidget } from '../../../../../basic';
+import { FormEnumFieldAbstractWidget } from '../../FormEnumFieldAbstractWidget';
+import MultiEnumSelect from './MultiEnumSelect.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
     viewType: [ViewType.Form, ViewType.Search],
     ttype: ModelFieldType.Enum,
-    /* widget: 'Select', */
     multi: true
   })
 )
