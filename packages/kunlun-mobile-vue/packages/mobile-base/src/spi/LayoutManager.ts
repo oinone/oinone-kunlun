@@ -117,10 +117,7 @@ export class LayoutManager {
  */
 export type ILayoutOption = LayoutRegisterOptions;
 
-/**
- * @deprecated please use {@link LayoutManager.register}
- */
-export function registerLayout(layoutTpl: string, layoutOption: ILayoutOption): boolean {
+export function registerLayout(layoutTpl: string, layoutOption: LayoutRegisterOptions): boolean {
   if (!layoutOption.viewType) {
     console.warn('viewType is blank');
     return false;
@@ -132,9 +129,6 @@ export function registerLayout(layoutTpl: string, layoutOption: ILayoutOption): 
   return LayoutManager.register(layoutOption, layoutTpl);
 }
 
-/**
- * @deprecated please use {@link LayoutManager.selector}
- */
-export function generatorLayout(layoutOption: ILayoutOption): DslDefinition | undefined {
+export function generatorLayout(layoutOption: LayoutRegisterOptions): DslDefinition | undefined {
   return LayoutManager.selector(layoutOption);
 }

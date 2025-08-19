@@ -1,4 +1,4 @@
-import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { DslDefinition, DslDefinitionType, XMLParse } from '@oinone/kunlun-dsl';
 import {
   ClientType,
   resolveView,
@@ -16,11 +16,38 @@ import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, debugConsole, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { isNil, isPlainObject, isString } from 'lodash-es';
-import { LayoutManager, LayoutRegisterOptions } from '../../spi';
+import { getDefaultMaskTemplate, maskTemplateEdit } from '../../layout';
+import { LayoutManager, LayoutRegisterOptions, MaskManager } from '../../spi';
 import { findWidget } from '../../util/utils';
+import { ActiveLayoutEffectOpt } from './active';
 import { useInjectMetaContext } from './context';
 import { createMobileDefaultLayout } from './default-layout';
-import { ActiveLayoutEffectOpt } from './active';
+
+export function seekViewMask(viewAction: RuntimeViewAction, moduleName?: string): DslDefinition {
+  let maskTemplate: string | undefined = MaskManager.selector({
+    viewType: viewAction.resViewType || viewAction.viewType,
+    module: viewAction.moduleDefinition?.module || viewAction.resModuleDefinition?.module,
+    moduleName: viewAction.moduleDefinition?.name || viewAction.resModuleDefinition?.name || moduleName,
+    model: viewAction.modelDefinition?.model || viewAction.model,
+    modelName: viewAction.modelDefinition?.name || viewAction.modelName,
+    viewName: viewAction.resViewName || viewAction.viewName,
+    actionName: viewAction.name
+  });
+  if (!maskTemplate) {
+    maskTemplate = viewAction.resMaskDefinition?.template as string;
+    if (maskTemplate) {
+      debugConsole.log('使用后端mask', maskTemplate);
+    }
+  }
+  let finalMaskTemplate: DslDefinition;
+  if (maskTemplate) {
+    finalMaskTemplate = XMLParse.INSTANCE.parse(maskTemplate);
+  } else {
+    finalMaskTemplate = getDefaultMaskTemplate();
+  }
+  finalMaskTemplate = maskTemplateEdit({ isDefault: false }, finalMaskTemplate);
+  return finalMaskTemplate;
+}
 
 function addTableWidgetStyle(widgetObj: any) {
   const { slot, widget, type, dslNodeType, widgets = [] as any[] } = widgetObj || {};

@@ -1,6 +1,6 @@
 import { DslDefinition } from '@oinone/kunlun-dsl';
 import { ServiceIdentifier, SPI } from '@oinone/kunlun-spi';
-import { InternalMaskWidget } from '../tags';
+import { InternalMaskWidget } from '../tags/resolve/typing';
 
 /**
  * 母版编辑上下文

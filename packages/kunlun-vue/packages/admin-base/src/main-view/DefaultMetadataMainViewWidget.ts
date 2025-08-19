@@ -1,4 +1,4 @@
-import { DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
+import { DslDefinition } from '@oinone/kunlun-dsl';
 import {
   $systemMajorConfig,
   CurrentLanguage,
@@ -22,21 +22,20 @@ import {
 import { ViewActionTarget } from '@oinone/kunlun-meta';
 import { isNotPermission, setSessionPath, useSessionPath } from '@oinone/kunlun-request';
 import { useMatched } from '@oinone/kunlun-router';
-import { CallChaining, debugConsole } from '@oinone/kunlun-shared';
+import { CallChaining } from '@oinone/kunlun-shared';
 import { distinctUntilChanged, Subscription } from '@oinone/kunlun-state';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 
 import {
   emptyHomepageModelName,
-  getDefaultMaskTemplate,
   getUnauthorizedAction,
-  maskTemplateEdit,
   MenuService,
   ModuleService,
   replaceStanderMainView,
   RuntimeMenu,
   TopBarService,
-  unauthorizedActionName, urlHomepageModelName
+  unauthorizedActionName,
+  urlHomepageModelName
 } from '@oinone/kunlun-vue-admin-layout';
 import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
@@ -44,7 +43,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { nextTick, VNode } from 'vue';
 import { MetadataViewWidget } from '../basic';
 import { TeleportWidget } from '../components/teleport';
-import { MaskManager } from '../spi';
+import { seekViewMask } from '../tags';
 import { TranslateBox } from '../view/translate';
 import DefaultMetadataMainView from './DefaultMetadataMainView.vue';
 import { MetadataMainViewLifecycle } from './lifecycle';
@@ -355,24 +354,8 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
     newPage: ViewActionQueryParameter
   ): Promise<void> {
     const { module: moduleName, model, action } = newPage;
-    let maskTemplate: string = MaskManager.selector({
-      module: viewAction.moduleDefinition?.module || viewAction.resModuleDefinition?.module,
-      moduleName: viewAction.moduleDefinition?.name || viewAction.resModuleDefinition?.name || moduleName,
-      model,
-      actionName: action
-    })!;
-    if (!maskTemplate) {
-      maskTemplate = viewAction.resMaskDefinition?.template as string;
-      if (maskTemplate) {
-        debugConsole.log('使用后端mask', maskTemplate);
-      }
-    }
-    let finalMaskTemplate: DslDefinition;
-    if (maskTemplate) {
-      finalMaskTemplate = maskTemplateEdit({ isDefault: false }, XMLParse.INSTANCE.parse(maskTemplate));
-    } else {
-      finalMaskTemplate = getDefaultMaskTemplate();
-    }
+
+    let finalMaskTemplate: DslDefinition = seekViewMask(viewAction, moduleName);
 
     /**
      * 当前用户没有该视图没有权限

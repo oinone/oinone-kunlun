@@ -11,31 +11,31 @@ export interface LayoutRegisterOptions extends SPIOptions {
   /**
    * 视图类型
    */
-  viewType: ViewType;
+  viewType: ViewType | ViewType[];
   /**
-   * 视图模型所在模块编码，一般是驼峰风格的英文 designerCommon
+   * 视图模型所在模块编码，一般是下划线风格的英文 designer_common
    */
-  module?: string;
+  module?: string | string[];
   /**
-   * 视图模型所在模块名称，一般是下划线风格的英文 designer_common
+   * 视图模型所在模块名称，一般是驼峰风格的英文 designerCommon
    */
-  moduleName?: string;
+  moduleName?: string | string[];
   /**
-   * 布局名称，对应viewActionQuery.load.resView.baseLayoutName
+   * 布局名称，对应 viewActionQuery.load.resView.baseLayoutName
    */
-  layoutName?: string;
+  layoutName?: string | string[];
   /**
    * 视图的模型编码
    */
-  model?: string;
+  model?: string | string[];
   /**
    * 视图的模型名称
    */
-  modelName?: string;
+  modelName?: string | string[];
   /**
    * 视图的名称
    */
-  viewName?: string;
+  viewName?: string | string[];
   /**
    * 是否为内嵌视图(子视图特有)，表单页内有个o2m的子表格，该表格的inline为true
    */
@@ -48,15 +48,15 @@ export interface LayoutRegisterOptions extends SPIOptions {
   /**
    * 模型字段类型(子视图特有)
    */
-  ttype?: ModelFieldType;
+  ttype?: ModelFieldType | ModelFieldType[];
   /**
    * 关联模型字段类型(子视图特有)
    */
-  relatedTtype?: ModelFieldType;
+  relatedTtype?: ModelFieldType | ModelFieldType[];
   /**
    * 字段(子视图特有)
    */
-  field?: string;
+  field?: string | string[];
 
   // endregion
 
@@ -65,11 +65,11 @@ export interface LayoutRegisterOptions extends SPIOptions {
   /**
    * 动作名称
    */
-  actionName?: string;
+  actionName?: string | string[];
   /**
    * 动作使用的组件名称
    */
-  actionWidget?: string;
+  actionWidget?: string | string[];
 
   // endregion
 }
@@ -115,9 +115,12 @@ export class LayoutManager {
   }
 }
 
+/**
+ * @deprecated please use {@link LayoutRegisterOptions}
+ */
 export type ILayoutOption = LayoutRegisterOptions;
 
-export function registerLayout(layoutTpl: string, layoutOption: ILayoutOption): boolean {
+export function registerLayout(layoutTpl: string, layoutOption: LayoutRegisterOptions): boolean {
   if (!layoutOption.viewType) {
     console.warn('viewType is blank');
     return false;
@@ -129,6 +132,6 @@ export function registerLayout(layoutTpl: string, layoutOption: ILayoutOption): 
   return LayoutManager.register(layoutOption, layoutTpl);
 }
 
-export function generatorLayout(layoutOption: ILayoutOption): DslDefinition | undefined {
+export function generatorLayout(layoutOption: LayoutRegisterOptions): DslDefinition | undefined {
   return LayoutManager.selector(layoutOption);
 }
