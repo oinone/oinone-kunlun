@@ -1,8 +1,9 @@
-import { ActiveRecordsOperator } from '@oinone/kunlun-engine';
+import { ActiveRecordExtendKeys, ActiveRecordsOperator } from '@oinone/kunlun-engine';
 import { deepClone, ModelDefaultActionName } from '@oinone/kunlun-meta';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
+import { VXE_TABLE_X_ID } from '@oinone/kunlun-vue-ui';
 import { TableRowEditMode } from '../../typing';
 import { ActionWidget } from '../component';
 
@@ -12,18 +13,19 @@ export class TableCopyOneAction extends ActionWidget {
     const { activeRecords } = this;
     const newActiveRecords = activeRecords?.map((item) => {
       const result = deepClone(item);
-      Reflect.deleteProperty(result, '__draftId');
-      Reflect.deleteProperty(result, '__parentDraftId');
-      Reflect.deleteProperty(result, '__hasChildren');
-      Reflect.deleteProperty(result, '__lastUpdateFromLocal');
-      Reflect.deleteProperty(result, '__updateTimestamp');
-      Reflect.deleteProperty(result, '_X_ROW_KEY');
+      Object.values(ActiveRecordExtendKeys).forEach((val) => {
+        Reflect.deleteProperty(result, val);
+      });
+
+      Reflect.deleteProperty(result, VXE_TABLE_X_ID);
       return result;
     });
+
     const newRecord = ActiveRecordsOperator.repairRecordsNullable(newActiveRecords);
     if (!newRecord) {
       return;
     }
+
     this.createDataSourceByEntity(newRecord);
     this.editRowCallChaining?.call(TableRowEditMode.COPY, {
       record: newRecord[0],
