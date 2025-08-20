@@ -199,10 +199,18 @@ export class BaseTableWidget<
   protected editRowCallChaining: CallChaining | undefined;
 
   protected async editRow(type: unknown, data: unknown) {
+    const newRecords = ActiveRecordsOperator.repairRecordsNullable({});
+    if (!newRecords) {
+      return;
+    }
+    this.createDataSourceByEntity(newRecords);
+
     this.createMode = type !== TableRowEditMode.EXIST;
     this.tableRowEditMode = type as TableRowEditMode;
-    const { record, action } = data as { record: ActiveRecord | undefined; action: RuntimeAction };
+    const { action } = data as { action: RuntimeAction };
+
     nextTick(() => {
+      const [record] = newRecords;
       this.tableInstance?.setEditRow(record);
       this.cachedEditActiveRecords = cloneDeep(record);
       this.currentTriggerCreateAction = action;
