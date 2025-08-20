@@ -15,6 +15,11 @@ export class ExperimentalConfigManager {
     const version = process.env.ADDRESS_WIDGET || ExperimentalConfigManager.getConfig().AddressWidget;
     return version === 'next';
   }
+
+  public static baseElementViewWidgetNext(): boolean {
+    const version = process.env.BASE_ELEMENT_VIEW_WIDGET || ExperimentalConfigManager.getConfig().BaseElementViewWidget;
+    return version === 'next';
+  }
 }
 
 export * from './config';
