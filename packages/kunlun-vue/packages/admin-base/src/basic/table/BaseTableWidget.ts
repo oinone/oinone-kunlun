@@ -198,19 +198,11 @@ export class BaseTableWidget<
   @Widget.Inject()
   protected editRowCallChaining: CallChaining | undefined;
 
-  protected async editRow(type: TableRowEditMode, data: { action?: RuntimeAction }) {
-    const newRecords = ActiveRecordsOperator.repairRecordsNullable({});
-    if (!newRecords) {
-      return;
-    }
-    const { action } = data || {};
-
-    this.createDataSourceByEntity(newRecords);
+  protected async editRow(type: unknown, data: unknown) {
     this.createMode = type !== TableRowEditMode.EXIST;
-    this.tableRowEditMode = type;
-
+    this.tableRowEditMode = type as TableRowEditMode;
+    const { record, action } = data as { record: ActiveRecord | undefined; action: RuntimeAction };
     nextTick(() => {
-      const [record] = newRecords;
       this.tableInstance?.setEditRow(record);
       this.cachedEditActiveRecords = cloneDeep(record);
       this.currentTriggerCreateAction = action;
@@ -787,7 +779,7 @@ export class BaseTableWidget<
       { force: true, immutable: false }
     );
     this.editRowCallChaining?.hook(this.path, (args) => {
-      return this.editRow(args?.[0] as TableRowEditMode, args?.[1] as { action?: RuntimeAction });
+      return this.editRow(args?.[0], args?.[1]);
     });
   }
 
