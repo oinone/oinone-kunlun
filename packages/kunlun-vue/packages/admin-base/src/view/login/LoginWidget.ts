@@ -590,7 +590,7 @@ export class LoginWidget extends BaseI18nRouterWidget {
    * @protected
    */
   protected async executeResult(result, isByLogin = false) {
-    const rst = this.afterClick(result);
+    const rst = await this.afterClick(result);
 
     if (!rst) {
       return;
