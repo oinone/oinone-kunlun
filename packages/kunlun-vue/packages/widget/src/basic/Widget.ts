@@ -3,10 +3,17 @@ import { instantiate } from '@oinone/kunlun-shared';
 import { BehaviorSubject, Subject, Subscription } from '@oinone/kunlun-state';
 import { InnerWidgetType } from '../typing/typing';
 
+type WidgetTypeKey = keyof typeof InnerWidgetType;
+
+type AnySubject<T = unknown> = Subject<T> | BehaviorSubject<T>;
+
 interface NameContextMap<T> {
   paramName_NameMap: Map<string, Symbol>;
   subject: BehaviorSubject<T> | Subject<T>;
   value?: T;
+  option?: {
+    scope?: WidgetTypeKey;
+  };
 }
 
 interface BaseWidgetSubjection<T> {
@@ -45,6 +52,8 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
   private subscriptionMap = new Map<Symbol, Subscription>();
 
   private $$props?: string[];
+
+  private $$subNames?: string[];
 
   private static Attribute(params?: { displayName?: string; render?: boolean }) {
     return <T extends Widget, K>(target: T, nativeName: string, description?: TypedPropertyDescriptor<K>) => {
@@ -98,21 +107,35 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
     };
   }
 
-  private static Sub<T>(name: Symbol, SubjectType: { new (T): Subject<T> | BehaviorSubject<T> }, value?: T) {
+  private static Sub<T>(
+    name: Symbol,
+    SubjectType: { new (T): Subject<T> | BehaviorSubject<T> },
+    value?: T,
+    option?: { scope?: WidgetTypeKey }
+  ) {
     return <K extends Widget>(target: K, paramName: string) => {
       const nameContextMap = this.nameContextMap.get(name);
       if (!nameContextMap) {
         const subject = new SubjectType(value);
         const paramName_NameMap = new Map<string, Symbol>();
         paramName_NameMap.set(paramName, name);
+
         this.nameContextMap.set(name, {
           paramName_NameMap,
           subject,
-          value
+          value,
+          option
         } as NameContextMap<unknown>);
       } else if (nameContextMap && !nameContextMap.paramName_NameMap.get(paramName)) {
         nameContextMap.paramName_NameMap.set(paramName, name);
       }
+
+      const widgetType = target.constructor;
+      const $$subNames = widgetType.prototype.$$subNames || [];
+      if (!$$subNames.includes(paramName)) {
+        $$subNames.push(paramName);
+      }
+      target.$$subNames = $$subNames;
     };
   }
 
@@ -121,6 +144,7 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
    *
    * @param  {Symbol} name 唯一标示
    * @param  {unknown} value? 默认值
+   * @param {scope?: WidgetTypeKey} option? 作用域检查，如果设置了该值，那么发布的时候会携带发布者的widget实例，订阅的时候会检查发布者的widget实例是否和订阅者在同一个作用域下，如果是，那么才会触发订阅函数
    *
    * @example
    *
@@ -146,8 +170,8 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
    * }
    *
    */
-  protected static BehaviorSubContext(name: Symbol, value?: unknown) {
-    return Widget.Sub(name, BehaviorSubject, value);
+  protected static BehaviorSubContext(name: Symbol, value?: unknown, option?: { scope?: WidgetTypeKey }) {
+    return Widget.Sub(name, BehaviorSubject, value, option);
   }
 
   /**
@@ -155,9 +179,10 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
    *
    * @param  {Symbol} name 唯一标示
    * @param  {unknown} value? 默认值
+   * @param {scope?: WidgetTypeKey} option? 作用域检查，如果设置了该值，那么发布订阅只会在同一个作用域下的widget之间进行
    */
-  protected static SubContext(name: Symbol, value?: unknown) {
-    return Widget.Sub(name, Subject, value);
+  protected static SubContext(name: Symbol, value?: unknown, option?: { scope?: WidgetTypeKey }) {
+    return Widget.Sub(name, Subject, value, option);
   }
 
   /**
@@ -320,23 +345,6 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
     this.config = config;
     Widget.widgetMap.set(this.getHandle(), this);
 
-    Widget.nameContextMap.forEach((contextMap) => {
-      const { subject, paramName_NameMap } = contextMap;
-      const d: BaseWidgetSubjection<unknown> = {
-        subscribe: (func) => {
-          const subscription = subject.subscribe((data) => {
-            func(data);
-          });
-          this.subscriptionMap.set(Symbol('random'), subscription);
-          return subscription;
-        },
-        subject
-      };
-      paramName_NameMap.forEach((_name, paramName) => {
-        this[paramName] = d;
-      });
-    });
-
     if (this.$$innerWidgetType) {
       const parentWidget = this.getParentWidget();
       if (parentWidget && parentWidget.$$innerWidgetType) {
@@ -344,7 +352,70 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
       }
     }
 
+    this.startSubscription();
+
     return this;
+  }
+
+  /**
+   * 启动订阅
+   */
+  private startSubscription() {
+    const wrapSubjectWithScope = (subject: AnySubject, scope?: WidgetTypeKey): AnySubject => {
+      if (!scope) {
+        return subject;
+      }
+      /**
+       *  发布
+       *  如果启动了作用域检查，那么发布的时候会携带发布者的widget实例
+       **/
+      return {
+        ...subject,
+        next: (value) => {
+          subject.next({
+            __publisherWidget: this,
+            payload: value
+          });
+        }
+      } as AnySubject;
+    };
+
+    Widget.nameContextMap.forEach((contextMap) => {
+      const { subject, paramName_NameMap, option } = contextMap;
+
+      const d: BaseWidgetSubjection<unknown> = {
+        subscribe: (func) => {
+          const subscription = subject.subscribe((data: any) => {
+            /**
+             * 订阅
+             * 如果启动了作用域检查，那么订阅的时候会检查发布者的widget实例是否和订阅者在同一个作用域下
+             */
+            if (option?.scope && data?.__publisherWidget) {
+              if (this.isSameScopeWidget(data.__publisherWidget, option?.scope)) {
+                func(data.payload);
+              }
+            } else {
+              func(option?.scope ? data.payload : data);
+            }
+          });
+          this.subscriptionMap.set(Symbol('random'), subscription);
+          return subscription;
+        },
+        subject: wrapSubjectWithScope(subject, option?.scope)
+      };
+
+      paramName_NameMap.forEach((_name, paramName) => {
+        if (this.$$subNames?.includes(paramName)) {
+          this[paramName] = d;
+        }
+      });
+    });
+  }
+
+  private isSameScopeWidget(otherWidget: Widget, widgetType: WidgetTypeKey): boolean {
+    const selfWidget = this.getParentWidgetByType(widgetType);
+    const otherOther = otherWidget.getParentWidgetByType(widgetType);
+    return selfWidget === otherOther && selfWidget !== null;
   }
 
   /**
@@ -525,6 +596,17 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
     }
 
     return this.parent;
+  }
+
+  private getParentWidgetByType(type: WidgetTypeKey) {
+    let current = this.parent;
+    while (current) {
+      if (current.$$innerWidgetType === type) {
+        return current;
+      }
+      current = current.parent;
+    }
+    return null;
   }
 
   /**
