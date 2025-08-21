@@ -361,55 +361,65 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
    * 启动订阅
    */
   private startSubscription() {
-    const wrapSubjectWithScope = (subject: AnySubject, scope?: WidgetTypeKey): AnySubject => {
-      if (!scope) {
-        return subject;
-      }
-      /**
-       *  发布
-       *  如果启动了作用域检查，那么发布的时候会携带发布者的widget实例
-       **/
-      return {
-        ...subject,
-        next: (value) => {
-          subject.next({
-            __publisherWidget: this,
-            payload: value
-          });
-        }
-      } as AnySubject;
-    };
+    if (!this.$$subNames?.length) {
+      return;
+    }
 
-    Widget.nameContextMap.forEach((contextMap) => {
-      const { subject, paramName_NameMap, option } = contextMap;
-
-      const d: BaseWidgetSubjection<unknown> = {
-        subscribe: (func) => {
-          const subscription = subject.subscribe((data: any) => {
-            /**
-             * 订阅
-             * 如果启动了作用域检查，那么订阅的时候会检查发布者的widget实例是否和订阅者在同一个作用域下
-             */
-            if (option?.scope && data?.__publisherWidget) {
-              if (this.isSameScopeWidget(data.__publisherWidget, option?.scope)) {
-                func(data.payload);
-              }
-            } else {
-              func(option?.scope ? data.payload : data);
-            }
-          });
-          this.subscriptionMap.set(Symbol('random'), subscription);
-          return subscription;
-        },
-        subject: wrapSubjectWithScope(subject, option?.scope)
-      };
-
-      paramName_NameMap.forEach((_name, paramName) => {
+    for (const [, contextMap] of Widget.nameContextMap) {
+      for (const [paramName] of contextMap.paramName_NameMap) {
         if (this.$$subNames?.includes(paramName)) {
-          this[paramName] = d;
+          this[paramName] = this.createWidgetSubjection(contextMap);
         }
-      });
-    });
+      }
+    }
+  }
+
+  /**
+   * 包装发布者事件
+   * 如果启动了作用域检查，那么发布的时候会携带发布者的widget实例
+   **/
+  private wrapSubjectWithScope(subject: AnySubject, scope?: WidgetTypeKey): AnySubject {
+    if (!scope) {
+      return subject;
+    }
+
+    return {
+      ...subject,
+      next: (value) => {
+        subject.next({
+          __publisherWidget: this,
+          payload: value
+        });
+      }
+    } as AnySubject;
+  }
+
+  /**
+   * 创建发布订阅对象
+   */
+  private createWidgetSubjection(contextMap: NameContextMap<unknown>): BaseWidgetSubjection<unknown> {
+    const { subject, option } = contextMap;
+
+    return {
+      subscribe: (func) => {
+        const subscription = subject.subscribe((data: any) => {
+          /**
+           * 订阅
+           * 如果启动了作用域检查，那么订阅的时候会检查发布者的widget实例是否和订阅者在同一个作用域下
+           */
+          if (option?.scope && data?.__publisherWidget) {
+            if (this.isSameScopeWidget(data.__publisherWidget, option?.scope)) {
+              func(data.payload);
+            }
+          } else {
+            func(option?.scope ? data.payload : data);
+          }
+        });
+        this.subscriptionMap.set(Symbol('random'), subscription);
+        return subscription;
+      },
+      subject: this.wrapSubjectWithScope(subject, option?.scope)
+    } as BaseWidgetSubjection<unknown>;
   }
 
   private isSameScopeWidget(otherWidget: Widget, widgetType: WidgetTypeKey): boolean {
