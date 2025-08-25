@@ -16,7 +16,6 @@ export class TableControlIconWidget extends BaseElementWidget {
   public initialize(props) {
     super.initialize(props);
     this.setComponent(TableControlIcon);
-    console.log(this.rootRuntimeContext);
     return this;
   }
 
