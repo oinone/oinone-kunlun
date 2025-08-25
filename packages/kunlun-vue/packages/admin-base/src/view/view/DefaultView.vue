@@ -26,16 +26,23 @@ export default defineComponent({
     invisible: {
       type: Boolean,
       default: false
+    },
+    fullScreen: {
+      type: Boolean,
+      default: false
     }
   },
   render() {
-    const { viewType, currentHandle } = this;
+    const { viewType, currentHandle, fullScreen } = this;
     const classList: string[] = [`${DEFAULT_PREFIX}-default-view`];
     if (viewType) {
       classList.push(`${DEFAULT_PREFIX}-default-${viewType.toLowerCase()}-view`);
     }
     if (this.inline) {
       classList.push(`${DEFAULT_PREFIX}-default-view-inline`);
+    }
+    if(fullScreen) {
+      classList.push(`${DEFAULT_PREFIX}-full-screen-view`);
     }
     return withDirectives(
       createVNode(

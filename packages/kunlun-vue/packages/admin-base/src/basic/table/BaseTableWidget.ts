@@ -31,9 +31,10 @@ import {
 import { ListSelectMode, OioNotification, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy } from 'lodash-es';
+import { ISort } from '@oinone/kunlun-service';
 import { nextTick } from 'vue';
 import { UserPreferEventManager, UserPreferService } from '../../service';
-import { UserTablePrefer } from '../../typing';
+import { UserTablePrefer, TableLineHeightType } from '../../typing';
 import { TableRowEditMode } from '../../typing/action';
 import { FetchUtil } from '../../util';
 import { BaseElementListViewWidget, BaseElementListViewWidgetProps } from '../element';
@@ -47,6 +48,13 @@ interface ColumnWidgetEntity {
 
 function isActiveRecordArray(value: ActiveRecords): value is ActiveRecord[] {
   return Array.isArray(value);
+}
+
+enum DEFAULT_HEIGHT_MAP {
+  auto = 'auto',
+  small = '40px',
+  middle = '60px',
+  large = '80px'
 }
 
 export class BaseTableWidget<
@@ -122,8 +130,20 @@ export class BaseTableWidget<
     return height;
   }
 
+  @Widget.Provide()
+  @Widget.Reactive()
+  protected lineHeightType: TableLineHeightType = TableLineHeightType.default;
+
+  @Widget.Provide()
+  protected setLineHeightType(value: TableLineHeightType) {
+    this.lineHeightType = value;
+  }
+
   @Widget.Reactive()
   protected get minHeight(): string | undefined {
+    if (this.lineHeightType) {
+      return DEFAULT_HEIGHT_MAP[this.lineHeightType];
+    }
     return StyleHelper.px(this.getDsl().minHeight);
   }
 
@@ -159,6 +179,14 @@ export class BaseTableWidget<
    */
   protected filterEditable(context: ActiveEditorContext, columnWidget: BaseTableColumnWidget, index: number): boolean {
     return true;
+  }
+
+  /**
+   * 允许键盘快捷操作
+   * @protected
+   */
+  protected get keyBoardAble(): boolean {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().keyBoardAble)).orElse(false);
   }
 
   /**
@@ -778,5 +806,19 @@ export class BaseTableWidget<
     super.$$unmounted();
     this.userPreferEventManager?.dispose();
     this.editRowCallChaining?.unhook(this.path);
+  }
+
+  @Widget.Provide()
+  @Widget.Method()
+  public override onSortChange(sortList: ISort[]) {
+    super.onSortChange(sortList);
+    if (this.sortList && this.sortList.length) {
+      this.tableInstance?.sort(
+        this.sortList.map((sort) => ({
+          field: sort.sortField,
+          order: sort.direction.toLowerCase() as 'asc' | 'desc'
+        }))
+      );
+    }
   }
 }

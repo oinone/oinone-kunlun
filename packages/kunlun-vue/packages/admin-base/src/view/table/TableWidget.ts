@@ -19,9 +19,9 @@ import {
 import { Entity, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, ISort } from '@oinone/kunlun-service';
-import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
+import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper, ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { VxeTableHelper } from '@oinone/kunlun-vue-ui';
+import { VxeTableHelper, TableEditorTrigger, TableEditorMode, ActiveEditorContext } from '@oinone/kunlun-vue-ui';
 import { StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { find, isBoolean, isNaN, isNil, isNumber, isPlainObject, isString, toString } from 'lodash-es';
@@ -30,7 +30,15 @@ import { VxeTableDefines } from 'vxe-table';
 import { ActionWidget } from '../../action/component/action';
 import { BaseElementListViewWidgetProps, BaseElementWidget, BaseTableColumnWidget, BaseTableWidget } from '../../basic';
 import { ExpandColumnWidgetNames } from '../../field';
-import { ActiveCountEnum, fetchPageSize, fetchPageSizeNullable, TABLE_WIDGET, UserTablePrefer } from '../../typing';
+import {
+  ActiveCountEnum,
+  fetchPageSize,
+  fetchPageSizeNullable,
+  TABLE_WIDGET,
+  UserTablePrefer,
+  TableLineHeightType,
+  TableLineHeightMap
+} from '../../typing';
 import { TreeUtils } from '../../util';
 import { TableConfigManager } from './config';
 import DefaultTable from './DefaultTable.vue';
@@ -81,13 +89,17 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return TableConfigManager.getConfig();
   }
 
-  @Widget.Reactive()
-  protected get checkbox(): boolean {
-    return Optional.ofNullable(this.getDsl().checkbox).map(BooleanHelper.toBoolean).orElse(true)!;
-  }
+  // @Widget.Reactive()
+  // protected get checkbox(): boolean {
+  //   return Optional.ofNullable(this.getDsl().checkbox).map(BooleanHelper.toBoolean).orElse(true)!;
+  // }
 
   @Widget.Reactive()
   protected get lineHeight(): number | undefined {
+    const lineHeightTypeNumber = TableLineHeightMap[this.lineHeightType];
+    if (lineHeightTypeNumber) {
+      return lineHeightTypeNumber;
+    }
     const lineHeight = Optional.ofNullable(this.getDsl().lineHeight).map(NumberHelper.toNumber).orElse(undefined);
 
     if (lineHeight) {
@@ -121,6 +133,9 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Reactive()
   protected get autoLineHeight(): boolean {
+    if (this.lineHeightType === TableLineHeightType.auto) {
+      return true;
+    }
     const autoLineHeight = Optional.ofNullable(this.getDsl().autoLineHeight)
       .map(BooleanHelper.toBoolean)
       .orElse(undefined);
@@ -185,21 +200,21 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   }
 
   @Widget.Reactive()
-  protected get allowChecked(): string | boolean | undefined {
-    return this.getDsl().allowChecked;
+  protected get checkbox(): boolean {
+    return Optional.ofNullable(this.getDsl().checkbox).map(BooleanHelper.toBoolean).orElse(true)!;
   }
 
   @Widget.Method()
   protected checkMethod({ row }: { row: ActiveRecord }) {
-    const { allowChecked } = this;
-    if (isNil(allowChecked)) {
+    const { checkbox } = this.getDsl();
+    if (isNil(checkbox)) {
       return true;
     }
-    if (isBoolean(allowChecked)) {
-      return allowChecked;
+    if (isBoolean(checkbox)) {
+      return checkbox;
     }
-    if (isString(allowChecked)) {
-      return this.executeExpression<boolean>(row, allowChecked, false);
+    if (isString(checkbox)) {
+      return this.executeExpression<boolean>(row, checkbox, false);
     }
     return true;
   }
@@ -674,6 +689,19 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
+
+  protected override mounted() {
+    super.mounted();
+    if(this.keyBoardAble){
+      window.addEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
+    }
+  }
+
+  protected override unmounted() {
+    super.unmounted();
+    window.removeEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
+  }
+
   @Widget.Method()
   protected async onRowDblClick({ column, row }) {
     if (!column?.field || !this.allowRowClick) {
@@ -995,4 +1023,86 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   }
 
   // endregion
+
+  protected getCellEditable(field: string, row: ActiveRecord, rowIndex: number): boolean {
+    let isEnabled = true;
+    const columnWidget = this.getColumnWidgets().find((v) => v.itemData === field);
+      if (
+        columnWidget &&
+        columnWidget.editable &&
+        columnWidget.editorTrigger !== TableEditorTrigger.manual &&
+        columnWidget.editorMode === TableEditorMode.cell
+      ) {
+        isEnabled = columnWidget.cellEditable({
+          key: VxeTableHelper.getKey(row),
+          data: row,
+          index: rowIndex,
+          origin: row
+        });
+      }
+      return isEnabled;
+    }
+
+  protected async onMoveColumnActiveEditor(offset: number) {
+    const lastedCurrentEditorContext = this.lastedCurrentEditorContext;
+    const { column, rowIndex } = lastedCurrentEditorContext!;
+    const allColumns = this.tableInstance?.getAllColumns() || [];
+    const currentColumnIndex = allColumns.findIndex((v) => v.field === column.field);
+    let nextColumnIndex = currentColumnIndex + offset
+    let nextColumn = allColumns[nextColumnIndex];
+    let row = this.dataSource?.[rowIndex];
+
+    while(!nextColumn.field || nextColumn.field === "$$internalOperator" || !nextColumn.visible){
+      nextColumnIndex = nextColumnIndex + offset ;
+      nextColumn = allColumns[nextColumnIndex % allColumns.length];
+    }
+
+    if(nextColumnIndex < 0 || nextColumnIndex >= allColumns.length){
+      row = this.dataSource?.[rowIndex + Math.sign(offset)];
+    }
+    const isEnabled = row && nextColumn && nextColumn.field && this.getCellEditable(nextColumn.field, row, rowIndex + (row ? offset : 0));
+    if(!isEnabled){
+      return this.onMoveColumnActiveEditor(offset + offset)
+    }
+    const result = await this.tableInstance?.activeCellEditor(row, nextColumn.field);
+  }
+
+  protected async onMoveRowActiveEditor(offset: 1 | -1) {
+    const lastedCurrentEditorContext = this.lastedCurrentEditorContext;
+    const { column, rowIndex } = lastedCurrentEditorContext!;
+    const { field } = column;
+    if (field) {
+      const currentIndex = rowIndex + offset;
+      const currentRow = this.dataSource![currentIndex];
+      const isEnabled = this.getCellEditable(field, currentRow, currentIndex);
+      if(!isEnabled){
+        return
+      }
+      const result = await this.tableInstance?.activeCellEditor(currentRow, field);
+    }
+  }
+
+
+  protected bindKeyboardShortcut(event:KeyboardEvent){
+    const { code, shiftKey, ctrlKey, metaKey } = event;
+    if (code === 'Tab') {
+      this.onMoveColumnActiveEditor(shiftKey ? -1 : 1);
+    } else if (code === 'Escape') {
+      this.tableInstance?.clearEditor();
+    } else if (code === 'Enter' && (ctrlKey || metaKey)) {
+      this.onMoveRowActiveEditor(!shiftKey ? -1 : 1);
+    }
+  }
+
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected groupMode: boolean = false;
+
+  @Widget.Reactive()
+  protected get showPagination() {
+    if(this.groupMode) {
+      return false;
+    }
+    return super.showPagination;
+  }
 }

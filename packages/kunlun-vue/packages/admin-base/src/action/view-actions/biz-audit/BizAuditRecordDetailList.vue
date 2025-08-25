@@ -1,4 +1,5 @@
 <template>
+  <div class="biz-audit-record-refresh"></div>
   <div class="biz-audit-record-detail-list">
     <div class="oio-scrollbar content" v-if="dataSource && dataSource.length">
       <div v-for="(item, index) in dataSource" :key="item.id" class="single-record">
@@ -127,5 +128,10 @@ export default defineComponent({
 
 .biz-data-record-detail-inner-popup {
   min-width: 400px;
+}
+.biz-audit-record-refresh {
+  width: 20px;
+  height: 20px;
+  background-color: red;
 }
 </style>
