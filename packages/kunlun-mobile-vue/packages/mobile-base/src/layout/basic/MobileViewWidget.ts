@@ -1,9 +1,9 @@
 import { IViewProps, ListVM, ObjectVM } from '@oinone/kunlun-engine';
 import { Constructor } from '@oinone/kunlun-shared';
-import { SPI, SPIOperator, SPISelectorFactory, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
+import { SPI, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
 import { IViewFilterOptions, ViewWidget } from '@oinone/kunlun-vue-widget';
-import { MobileSPIOptions } from '../../basic';
-import { getMaskTagManagerInstance } from './register';
+import { MobileSPIOptions } from '../../basic/types';
+
 // import { MASK_WIDGET_STORAGE_KEY } from './token';
 
 export interface IMobileViewFilterOptions extends IViewFilterOptions, MobileSPIOptions {}

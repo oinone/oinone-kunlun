@@ -1,13 +1,40 @@
+import { ViewType } from '@oinone/kunlun-meta';
 import { SPIFactory, SPIOperator, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
 
 export interface MaskRegisterOptions extends SPIOptions {
-  module?: string;
-  moduleName?: string;
-  model?: string;
+  /**
+   * 视图类型
+   */
+  viewType?: ViewType | ViewType[];
+  /**
+   * 模块编码
+   */
+  module?: string | string[];
+  /**
+   * 模块名称
+   */
+  moduleName?: string | string[];
+  /**
+   * 模型编码
+   */
+  model?: string | string[];
+  /**
+   * 模型名称
+   */
+  modelName?: string | string[];
+  /**
+   * 视图名称
+   */
+  viewName?: string | string[];
+  /**
+   * 动作名称
+   */
   actionName?: string | string[];
 }
 
-@SPIFactory.Storage(['module', 'moduleName', 'model', 'actionName'], { key: Symbol('MaskTpl') })
+@SPIFactory.Storage(['viewType', 'module', 'moduleName', 'model', 'modelName', 'viewName', 'actionName'], {
+  key: Symbol('MaskTpl')
+})
 export class MaskManager {
   private static Token: SPITokenFactory<MaskRegisterOptions>;
 
@@ -26,9 +53,12 @@ export class MaskManager {
   }
 }
 
+/**
+ * @deprecated please use {@link MaskRegisterOptions}
+ */
 export type IMaskOption = MaskRegisterOptions;
 
-export function registerMask(maskTpl: string, maskOption?: IMaskOption) {
+export function registerMask(maskTpl: string, maskOption?: MaskRegisterOptions) {
   if (!maskTpl) {
     console.warn('maskTpl is blank');
     return false;
@@ -36,6 +66,6 @@ export function registerMask(maskTpl: string, maskOption?: IMaskOption) {
   return MaskManager.register(maskOption || {}, maskTpl);
 }
 
-export function generatorMask(maskOption?: IMaskOption): string | undefined {
+export function generatorMask(maskOption?: MaskRegisterOptions): string | undefined {
   return MaskManager.selector(maskOption || {});
 }
