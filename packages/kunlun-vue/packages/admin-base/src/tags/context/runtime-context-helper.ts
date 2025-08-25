@@ -40,11 +40,10 @@ export function seekViewMask(viewAction: RuntimeViewAction, moduleName?: string)
   }
   let finalMaskTemplate: DslDefinition;
   if (maskTemplate) {
-    finalMaskTemplate = XMLParse.INSTANCE.parse(maskTemplate);
+    finalMaskTemplate = maskTemplateEdit({ isDefault: false }, XMLParse.INSTANCE.parse(maskTemplate));
   } else {
     finalMaskTemplate = getDefaultMaskTemplate();
   }
-  finalMaskTemplate = maskTemplateEdit({ isDefault: false }, finalMaskTemplate);
   return finalMaskTemplate;
 }
 
