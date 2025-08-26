@@ -243,21 +243,6 @@ export abstract class BaseElementListViewWidget<
     return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().fullScreenAble)).orElse(false);
   }
 
-
-  protected get defaultFullScreen() {
-    return this.getDsl().fullScreen || false;
-  }
-
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected fullScreen = this.defaultFullScreen;
-
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected switchFullScreen() {
-    this.fullScreen = !this.fullScreen;
-  }
-
   @Widget.Reactive()
   protected get defaultPageSizeOptions() {
     return Object.keys(PageSizeEnum)
