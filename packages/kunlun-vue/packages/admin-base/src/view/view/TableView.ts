@@ -26,15 +26,11 @@ export class TableView extends BaseListView {
 
   @Widget.Reactive()
   @Widget.Provide()
-  protected fullScreen: boolean = this.defaultFullScreen;
+  protected fullScreen: boolean = false;
 
   @Widget.Reactive()
   @Widget.Provide()
   protected switchFullScreen() {
     this.fullScreen = !this.fullScreen;
-  }
-
-  protected get defaultFullScreen() {
-    return this.getDsl().fullScreen || false;
   }
 }

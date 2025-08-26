@@ -1093,16 +1093,4 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       this.onMoveRowActiveEditor(!shiftKey ? -1 : 1);
     }
   }
-
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected groupMode: boolean = false;
-
-  @Widget.Reactive()
-  protected get showPagination() {
-    if(this.groupMode) {
-      return false;
-    }
-    return super.showPagination;
-  }
 }
