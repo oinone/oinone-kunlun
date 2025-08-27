@@ -36,7 +36,7 @@ import {
   fetchPageSizeNullable,
   TABLE_WIDGET,
   UserTablePrefer,
-  TableLineHeightType,
+  TableLineHeightEnum,
   TableLineHeightMap
 } from '../../typing';
 import { TreeUtils } from '../../util';
@@ -96,9 +96,8 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get lineHeight(): number | undefined {
-    const lineHeightTypeNumber = TableLineHeightMap[this.lineHeightType];
-    if (lineHeightTypeNumber) {
-      return lineHeightTypeNumber;
+    if (this.lineHeightType && TableLineHeightMap[this.lineHeightType]) {
+      return TableLineHeightMap[this.lineHeightType];
     }
     const lineHeight = Optional.ofNullable(this.getDsl().lineHeight).map(NumberHelper.toNumber).orElse(undefined);
 
@@ -133,7 +132,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Reactive()
   protected get autoLineHeight(): boolean {
-    if (this.lineHeightType === TableLineHeightType.auto) {
+    if (this.lineHeightType === TableLineHeightEnum.auto) {
       return true;
     }
     const autoLineHeight = Optional.ofNullable(this.getDsl().autoLineHeight)
@@ -689,10 +688,9 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
-
   protected override mounted() {
     super.mounted();
-    if(this.keyBoardAble){
+    if (this.keyBoardAble) {
       window.addEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
     }
   }
@@ -1027,42 +1025,46 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   protected getCellEditable(field: string, row: ActiveRecord, rowIndex: number): boolean {
     let isEnabled = true;
     const columnWidget = this.getColumnWidgets().find((v) => v.itemData === field);
-      if (
-        columnWidget &&
-        columnWidget.editable &&
-        columnWidget.editorTrigger !== TableEditorTrigger.manual &&
-        columnWidget.editorMode === TableEditorMode.cell
-      ) {
-        isEnabled = columnWidget.cellEditable({
-          key: VxeTableHelper.getKey(row),
-          data: row,
-          index: rowIndex,
-          origin: row
-        });
-      }
-      return isEnabled;
+    if (
+      columnWidget &&
+      columnWidget.editable &&
+      columnWidget.editorTrigger !== TableEditorTrigger.manual &&
+      columnWidget.editorMode === TableEditorMode.cell
+    ) {
+      isEnabled = columnWidget.cellEditable({
+        key: VxeTableHelper.getKey(row),
+        data: row,
+        index: rowIndex,
+        origin: row
+      });
     }
+    return isEnabled;
+  }
 
   protected async onMoveColumnActiveEditor(offset: number) {
     const lastedCurrentEditorContext = this.lastedCurrentEditorContext;
     const { column, rowIndex } = lastedCurrentEditorContext!;
     const allColumns = this.tableInstance?.getAllColumns() || [];
     const currentColumnIndex = allColumns.findIndex((v) => v.field === column.field);
-    let nextColumnIndex = currentColumnIndex + offset
+    let nextColumnIndex = currentColumnIndex + offset;
     let nextColumn = allColumns[nextColumnIndex];
     let row = this.dataSource?.[rowIndex];
 
-    while(!nextColumn.field || nextColumn.field === "$$internalOperator" || !nextColumn.visible){
-      nextColumnIndex = nextColumnIndex + offset ;
+    while (!nextColumn.field || nextColumn.field === '$$internalOperator' || !nextColumn.visible) {
+      nextColumnIndex = nextColumnIndex + offset;
       nextColumn = allColumns[nextColumnIndex % allColumns.length];
     }
 
-    if(nextColumnIndex < 0 || nextColumnIndex >= allColumns.length){
+    if (nextColumnIndex < 0 || nextColumnIndex >= allColumns.length) {
       row = this.dataSource?.[rowIndex + Math.sign(offset)];
     }
-    const isEnabled = row && nextColumn && nextColumn.field && this.getCellEditable(nextColumn.field, row, rowIndex + (row ? offset : 0));
-    if(!isEnabled){
-      return this.onMoveColumnActiveEditor(offset + offset)
+    const isEnabled =
+      row &&
+      nextColumn &&
+      nextColumn.field &&
+      this.getCellEditable(nextColumn.field, row, rowIndex + (row ? offset : 0));
+    if (!isEnabled) {
+      return this.onMoveColumnActiveEditor(offset + offset);
     }
     const result = await this.tableInstance?.activeCellEditor(row, nextColumn.field);
   }
@@ -1075,15 +1077,14 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       const currentIndex = rowIndex + offset;
       const currentRow = this.dataSource![currentIndex];
       const isEnabled = this.getCellEditable(field, currentRow, currentIndex);
-      if(!isEnabled){
-        return
+      if (!isEnabled) {
+        return;
       }
       const result = await this.tableInstance?.activeCellEditor(currentRow, field);
     }
   }
 
-
-  protected bindKeyboardShortcut(event:KeyboardEvent){
+  protected bindKeyboardShortcut(event: KeyboardEvent) {
     const { code, shiftKey, ctrlKey, metaKey } = event;
     if (code === 'Tab') {
       this.onMoveColumnActiveEditor(shiftKey ? -1 : 1);

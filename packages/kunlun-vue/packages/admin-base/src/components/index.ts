@@ -6,6 +6,6 @@ export * from './user-prefer';
 export * from './prop';
 export * from './oio-simple-pagination';
 export * from './control-icon';
-export * from './line-height';
-export * from './full-screen';
+export * from './table-line-height';
+export * from './oio-full-screen';
 export * from './keyboard-shortcut';

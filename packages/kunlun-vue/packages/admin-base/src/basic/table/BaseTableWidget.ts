@@ -34,7 +34,7 @@ import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy } from 'lodas
 import { ISort } from '@oinone/kunlun-service';
 import { nextTick } from 'vue';
 import { UserPreferEventManager, UserPreferService } from '../../service';
-import { UserTablePrefer, TableLineHeightType } from '../../typing';
+import { UserTablePrefer, TableLineHeightEnum, TableLineHeightMap } from '../../typing';
 import { TableRowEditMode } from '../../typing/action';
 import { FetchUtil } from '../../util';
 import { BaseElementListViewWidget, BaseElementListViewWidgetProps } from '../element';
@@ -48,13 +48,6 @@ interface ColumnWidgetEntity {
 
 function isActiveRecordArray(value: ActiveRecords): value is ActiveRecord[] {
   return Array.isArray(value);
-}
-
-enum DEFAULT_HEIGHT_MAP {
-  auto = 'auto',
-  small = '40px',
-  middle = '60px',
-  large = '80px'
 }
 
 export class BaseTableWidget<
@@ -132,33 +125,21 @@ export class BaseTableWidget<
 
   @Widget.Provide()
   @Widget.Reactive()
-  protected lineHeightType: TableLineHeightType = TableLineHeightType.default;
+  protected lineHeightType = TableLineHeightEnum.AUTO;
 
   @Widget.Provide()
-  protected setLineHeightType(value: TableLineHeightType) {
+  protected setLineHeightType(value: TableLineHeightEnum) {
     this.lineHeightType = value;
   }
 
   @Widget.Reactive()
   protected get minHeight(): string | undefined {
-    if (this.lineHeightType) {
-      return DEFAULT_HEIGHT_MAP[this.lineHeightType];
-    }
     return StyleHelper.px(this.getDsl().minHeight);
   }
 
   @Widget.Reactive()
   protected get maxHeight(): string | undefined {
     return StyleHelper.px(this.getDsl().maxHeight);
-  }
-
-  /**
-   * 是否显示行高切换操作
-   */
-  @Widget.Reactive()
-  protected get showLineHeightToggle() {
-    const { showLineHeightToggle } = this.getDsl();
-    return typeof showLineHeightToggle === 'boolean' ? showLineHeightToggle : true;
   }
 
   @Widget.Reactive()

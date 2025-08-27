@@ -71,7 +71,11 @@ function SortFieldPopoverFooter(props) {
 }
 
 function SortAddField(props) {
-  return createVNode('a', { class: `${classNamePrefix}-add-field`, onClick: () => props.onAdd() }, translateValueByKey('+ 添加排序字段'));
+  return createVNode(
+    'a',
+    { class: `${classNamePrefix}-add-field`, onClick: () => props.onAdd() },
+    translateValueByKey('+ 添加排序字段')
+  );
 }
 
 export default defineComponent({
@@ -90,7 +94,7 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const dataSource = ref<(ISort & { title?: string})[]>(props.fields);
+    const dataSource = ref<(ISort & { title?: string })[]>(props.fields);
 
     watch(
       () => props.fields,
@@ -124,7 +128,6 @@ export default defineComponent({
       }
     };
     const onSave = () => {
-      console.log(22);
       props.onSortChange?.(
         dataSource.value.map((item) => {
           const { title, ...rest } = item;

@@ -4,7 +4,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { ISort } from '@oinone/kunlun-service';
 import { BaseElementWidget } from '../../basic';
 import TableControlIcon from './TableControlIcon.vue';
-import { TableLineHeightType } from '../../typing';
+import { TableLineHeightEnum } from '../../typing';
 
 @SPI.ClassFactory(
   BaseElementWidget.Token({
@@ -29,11 +29,11 @@ export class TableControlIconWidget extends BaseElementWidget {
 
   @Widget.Reactive()
   @Widget.Inject('lineHeightType')
-  protected lineHeightType: TableLineHeightType | undefined;
+  protected lineHeightType: TableLineHeightEnum | undefined;
 
   @Widget.Reactive()
   @Widget.Inject('setLineHeightType')
-  protected onLineHeightTypeChange!: (value: TableLineHeightType) => void;
+  protected onLineHeightTypeChange!: (value: TableLineHeightEnum) => void;
 
   @Widget.Reactive()
   @Widget.Inject('fullScreen')

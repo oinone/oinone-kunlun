@@ -4,13 +4,6 @@ import { isNil } from 'lodash-es';
 
 export const DEFAULT_PAGE_SIZE = 15;
 
-export enum TableLineHeightEnum {
-  AUTO = '',
-  SMALL = '40px',
-  MIDDLE = '48px',
-  LARGE = '54px'
-}
-
 export function fetchPageSizeNullable(pageSize: string | number | null | undefined): number | undefined {
   let realPageSize;
   if (pageSize) {

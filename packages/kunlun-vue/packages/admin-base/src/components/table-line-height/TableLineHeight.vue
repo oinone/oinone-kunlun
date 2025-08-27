@@ -1,5 +1,5 @@
 <template>
-  <a-dropdown overlay-class-name="default-table-line-height-dropdown" trigger="click" placement="top">
+  <a-dropdown overlay-class-name="default-table-line-height-dropdown" trigger="click" placement="bottom">
     <div class="default-table-line-height">
       <oio-icon size="16" :icon="icon"></oio-icon>
     </div>
@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent, PropType, ref } from 'vue';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { translateValueByKey } from '@oinone/kunlun-engine';
@@ -28,6 +28,13 @@ import { TableLineHeightEnum } from '../../typing';
 
 export default defineComponent({
   name: 'DefaultTableLineHeight',
+  props: {
+    value: {
+      type: String as PropType<TableLineHeightEnum>,
+      default: TableLineHeightEnum.AUTO
+    }
+  },
+  emits: ['change', 'update:value'],
   components: {
     ADropdown,
     AMenu,
@@ -42,11 +49,12 @@ export default defineComponent({
       { label: translateValueByKey('自适应'), icon: 'oinone-zishiying', value: TableLineHeightEnum.AUTO }
     ];
 
-    const active = ref(TableLineHeightEnum.AUTO);
+    const active = ref(props.value);
     const icon = computed(() => options.find((item) => item.value === active.value)?.icon);
 
     const onChange = (value: TableLineHeightEnum) => {
       active.value = value;
+      emit('update:value', value);
       emit('change', value);
     };
 

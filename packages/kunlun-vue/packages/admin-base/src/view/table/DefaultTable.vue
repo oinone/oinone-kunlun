@@ -43,7 +43,6 @@ import { VxeTableDefines, VxeTablePropTypes } from 'vxe-table';
 import { getTableThemeConfig, ManualWidget } from '../../basic';
 import { TableLineHeightEnum, UserTablePrefer } from '../../typing';
 import { TableRowClickMode } from './typing';
-import DefaultTableLineHeight from './DefaultTableLineHeight.vue';
 
 const SortDirections = {
   desc: EDirection.DESC,
@@ -110,8 +109,7 @@ export default defineComponent({
     OioTable,
     OioColumn,
     OioSpin,
-    OioPagination,
-    DefaultTableLineHeight
+    OioPagination
   },
   inheritAttrs: false,
   props: {
@@ -340,16 +338,11 @@ export default defineComponent({
     enableSequence: {
       type: Boolean,
       default: undefined
-    },
-    showLineHeightToggle: {
-      type: Boolean,
-      default: true
     }
   },
   setup(props) {
     const defaultTableRef = ref<HTMLElement>(null as any);
     const table = ref<OioTableInstance | undefined>();
-    const tableLineHeightWithOpt = ref(TableLineHeightEnum.AUTO);
 
     const tableContentElement = computed(
       () => defaultTableRef.value && defaultTableRef.value.querySelector('.oio-table-content-wrapper')!
@@ -439,10 +432,6 @@ export default defineComponent({
     const calcHeight = ref('');
 
     const tableLineHeight = computed(() => {
-      if (tableLineHeightWithOpt.value) {
-        return tableLineHeightWithOpt.value;
-      }
-
       if (props.lineHeight && props.lineHeight > 0) {
         return `${props.lineHeight}px`;
       }
@@ -669,7 +658,6 @@ export default defineComponent({
       style,
       tableLineHeight,
       tableHeaderHeight,
-      tableLineHeightWithOpt,
 
       pagination,
       editorMode,
@@ -715,7 +703,6 @@ export default defineComponent({
       onSortChange,
 
       showPagination,
-      showLineHeightToggle,
       paginationStyle,
       pagination,
       onPaginationChange,
@@ -752,8 +739,7 @@ export default defineComponent({
 
       emptyText,
       emptyImage,
-      pageSizeOptions,
-      tableLineHeightWithOpt
+      pageSizeOptions
     } = this;
     let { border = false, stripe = false, isCurrent = true, isHover = false } = getTableThemeConfig() || {};
     const VEX_TABLE_BORDER_MODE = [true, false, 'default', 'outer', 'full', 'inner'];
@@ -805,30 +791,6 @@ export default defineComponent({
             showLastPage: paginationStyle != ListPaginationStyle.SIMPLE,
             onChange: onPaginationChange
           })
-        ];
-      };
-    }
-
-    if (showLineHeightToggle) {
-      const defaultFooter = tableSlots.footer?.() || [];
-      tableSlots.footer = () => {
-        return [
-          createVNode(
-            'div',
-            {
-              class: 'default-table-line-height-toggle'
-            },
-            {
-              default: () => [
-                createVNode(DefaultTableLineHeight, {
-                  onChange: (value) => {
-                    this.tableLineHeightWithOpt = value;
-                  }
-                }),
-                ...defaultFooter
-              ]
-            }
-          )
         ];
       };
     }
