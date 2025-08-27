@@ -30,4 +30,9 @@ export class BizAuditRecordViewAction extends InnerViewActionWidget {
       isFetchData: false
     };
   }
+
+  protected async reFetchData() {
+    const { data } = await this.loadData();
+    this.innerPopup?.setCurrentDataSource(data);
+  }
 }

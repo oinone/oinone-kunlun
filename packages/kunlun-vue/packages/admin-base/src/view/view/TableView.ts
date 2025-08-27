@@ -14,12 +14,23 @@ import { BaseListView, BaseView } from '../../basic';
  */
 @SPI.ClassFactory(BaseView.Token({ type: ViewType.Table }))
 export class TableView extends BaseListView {
+  protected $$beforeMount() {
+    super.$$beforeMount();
+    this.editRowCallChaining = new CallChaining<[string, ActiveRecords]>();
+  }
+
   @Widget.Reactive()
   @Widget.Provide()
   protected editRowCallChaining: CallChaining<[string, ActiveRecords]> | undefined;
 
-  protected $$beforeMount() {
-    super.$$beforeMount();
-    this.editRowCallChaining = new CallChaining<[string, ActiveRecords]>();
+
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected fullScreen: boolean = false;
+
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected switchFullScreen() {
+    this.fullScreen = !this.fullScreen;
   }
 }

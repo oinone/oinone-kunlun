@@ -29,6 +29,10 @@ export abstract class BaseTableQuickOperationColumnWidget<
           widget: 'user-prefer',
           subPath: 'user-prefer',
           dslDefinition: { simple: (table.props?.customConfig as any)?.usingSimpleUserPrefer }
+        }),
+        createVNode(Element, {
+          widget: 'control-icon',
+          subPath: 'control-icon'
         })
       );
     }

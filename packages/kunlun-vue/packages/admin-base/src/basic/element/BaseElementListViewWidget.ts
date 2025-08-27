@@ -202,11 +202,45 @@ export abstract class BaseElementListViewWidget<
 
   @Widget.Reactive()
   protected get sortConfig(): VxeTablePropTypes.SortConfig {
-    let config: VxeTablePropTypes.SortConfig = this.getDsl().sortConfig || {};
+    const config: VxeTablePropTypes.SortConfig = this.getDsl().sortConfig || {
+      multiple: true
+    };
     if (!config.remote) {
       config.remote = true;
     }
     return config;
+  }
+
+   /**
+   * 启用分组
+   * @protected
+   */
+  @Widget.Reactive()
+  protected get groupable(){
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().groupable)).orElse(false);
+  }
+
+
+  /**
+   * 默认分组字段
+   * @protected
+   * @example "field00003,field00004"
+   * @returns [field00003 desc,field00004 desc]
+   */
+  @Widget.Reactive()
+  protected get groups(): string[] | undefined {
+    const dsf: string = this.getDsl().groups;
+    if (dsf) {
+      const dsfArr = dsf.split(ORDERING_SEPARATOR).filter((v) => !isEmpty(v));
+      return dsfArr
+    }
+    return undefined;
+  }
+
+
+  @Widget.Reactive()
+  protected get fullScreenAble():boolean {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().fullScreenAble)).orElse(false);
   }
 
   @Widget.Reactive()
@@ -220,6 +254,7 @@ export abstract class BaseElementListViewWidget<
    * 排序参数
    * @protected
    */
+  @Widget.Provide()
   @Widget.Reactive()
   protected sortList: ISort[] | undefined = undefined;
 

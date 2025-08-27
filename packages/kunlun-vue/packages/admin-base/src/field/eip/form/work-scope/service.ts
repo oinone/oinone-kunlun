@@ -28,3 +28,20 @@ export async function queryOpenInterface() {
   const result = await http.mutate('base', body);
   return result.data.eipOpenInterfaceQuery.queryListByWrapper as unknown as any[];
 }
+
+export async function queryMCPToolInterface() {
+  const body = `{
+    mcpToolQuery {
+      queryListByWrapper(queryWrapper: {
+        rsql: \"featureType==TOOL\"
+      }) {
+        interfaceName
+        name
+        description
+        dataStatus
+      }
+    }
+  }`;
+  const result = await http.mutate('base', body);
+  return result.data.mcpToolQuery.queryListByWrapper as unknown as any[];
+}
