@@ -129,6 +129,11 @@ export class BaseFormItemWidget<
   }
 
   @Widget.Reactive()
+  public get class(): string | string[] | undefined {
+    return this.getDsl().class;
+  }
+
+  @Widget.Reactive()
   public get layout(): string | undefined {
     const { layout } = this.getDsl();
     if (isString(layout)) {
