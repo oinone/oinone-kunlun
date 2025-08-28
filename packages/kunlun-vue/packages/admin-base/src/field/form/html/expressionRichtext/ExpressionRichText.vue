@@ -14,17 +14,17 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, onBeforeUnmount, PropType, ref, shallowRef, watch, defineComponent } from 'vue';
+import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref, shallowRef, watch, nextTick } from 'vue';
 import { ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
-import { DomEditor, i18nChangeLanguage } from '@wangeditor/editor';
+import { i18nChangeLanguage } from '@wangeditor/editor';
 import {
-  IVariableContextItem,
-  ExpressionElementClass,
-  OioWangEditExpressionModalMenuConf,
   EXPRESSION_MODAL_CLASS_NAME,
-  EXPRESSION_MODAL_PANEL_CLASS_NAME
+  EXPRESSION_MODAL_PANEL_CLASS_NAME,
+  ExpressionElementClass,
+  IVariableContextItem,
+  OioWangEditExpressionModalMenuConf
 } from '@oinone/kunlun-vue-expression';
 import '@wangeditor/editor/dist/css/style.css';
 import { CSSStyle, uniqueKeyGenerator } from '@oinone/kunlun-shared';
@@ -47,6 +47,10 @@ export default defineComponent({
     richTextToolbarExcludeKeys: {
       type: Array as PropType<string[]>,
       default: () => []
+    },
+    mode: {
+      type: String,
+      default: 'simple'
     }
   },
   setup(props) {
@@ -75,7 +79,8 @@ export default defineComponent({
     const editorConfig = computed(() => {
       return {
         placeholder: `${translateValueByKey('请输入内容')}...`,
-        EXTEND_CONF: { contextItems: props.contextItems }
+        EXTEND_CONF: { contextItems: props.contextItems },
+        readonly: props.mode === 'readonly'
       };
     });
 
@@ -141,6 +146,13 @@ export default defineComponent({
         dom.remove();
       });
     };
+
+    onMounted( async () => {
+      await nextTick();
+      if (editorConfig.value.readonly) {
+        editorRef.value.disable();
+      }
+    });
 
     // 组件销毁时，也及时销毁编辑器
     onBeforeUnmount(() => {
