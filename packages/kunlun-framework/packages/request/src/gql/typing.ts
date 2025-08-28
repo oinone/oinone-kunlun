@@ -24,7 +24,7 @@ export type GQLRequestParameter = {
   serialize?: boolean;
 };
 
-export type SimpleGQLResponseParameter = string | [string, string | SimpleGQLResponseParameter[]];
+export type SimpleGQLResponseParameter = string | [string, SimpleGQLResponseParameter[]];
 
 /**
  * GQL响应参数
