@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-environment",
-  "version": "6.2.6",
+  "version": "6.2.7",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -11,8 +11,8 @@
     "x-postpublish": "node ../../scripts/postpublish.js"
   },
   "devDependencies": {
-    "@oinone/kunlun-shared": "6.2.6",
-    "@oinone/kunlun-spi": "6.2.6"
+    "@oinone/kunlun-shared": "6.2.7",
+    "@oinone/kunlun-spi": "6.2.7"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }
