@@ -1,6 +1,6 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { ReturnPromise } from '@oinone/kunlun-shared';
-import { Widget } from '@oinone/kunlun-dependencies';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../../basic';
 import MCPToolList from './MCPToolList.vue';
