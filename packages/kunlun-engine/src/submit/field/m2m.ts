@@ -50,7 +50,7 @@ function verification(field: RuntimeM2MField, values: ActiveRecord[] | null | un
 }
 
 function collectionResult(field: RuntimeM2MField, values: ActiveRecord[]): Record<string, unknown>[] | undefined {
-  const { referenceFields } = field;
+  const { referenceFields, throughReferenceFields } = field;
   const submitValues: Record<string, unknown>[] = [];
   let isSubmit = true;
   for (const value of values) {
@@ -60,8 +60,11 @@ function collectionResult(field: RuntimeM2MField, values: ActiveRecord[]): Recor
     const submitValue: Record<string, unknown> = {};
     for (let i = 0; i < referenceFields.length; i++) {
       const referenceField = referenceFields[i];
-      let targetValue;
+      const throughReferenceField = throughReferenceFields[i];
+      let targetField: string = referenceField;
+      let targetValue: unknown;
       if (isStaticRelationField(referenceField)) {
+        targetField = throughReferenceField;
         targetValue = getStaticRelationField(referenceField);
       } else {
         targetValue = value[referenceField];
@@ -70,7 +73,7 @@ function collectionResult(field: RuntimeM2MField, values: ActiveRecord[]): Recor
         isSubmit = false;
         break;
       }
-      submitValue[referenceField] = targetValue;
+      submitValue[targetField] = targetValue;
     }
     if (isSubmit) {
       submitValues.push(submitValue);
