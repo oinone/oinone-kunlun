@@ -23,6 +23,8 @@ export default function requestParametersToString(
           return buildBooleanRequestParameters(key, value, keepParameter);
         case 'enumeration':
           return buildEnumerationRequestParameters(key, value, keepParameter);
+        case 'map':
+          return buildMapRequestParameters(key, value, keepParameter);
         case 'object':
           return buildObjectRequestParameters(key, value, keepParameter);
         case 'array':
@@ -98,6 +100,25 @@ function buildBooleanRequestParameters(key: string, value: unknown, keepParamete
 
 function buildEnumerationRequestParameters(key: string, value: unknown, keepParameter: boolean): string | undefined {
   return buildNotStringRequestParameters(key, value, keepParameter);
+}
+
+function buildMapRequestParameters(key: string, value: unknown, keepParameter: boolean): string | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  if (value === null) {
+    if (keepParameter) {
+      return `${key}: null`;
+    }
+    return undefined;
+  }
+  let result: string;
+  if (Array.isArray(value)) {
+    result = GraphqlHelper.serializableObjectArray(value);
+  } else {
+    result = GraphqlHelper.serializableObject(value as object);
+  }
+  return `${key}:"${result}"`;
 }
 
 async function buildObjectRequestParameters(
