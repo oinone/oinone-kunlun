@@ -21,7 +21,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, PropType, ref } from 'vue';
 import { OioButton, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import ExpressionInputForm from './ExpressionInputForm.vue';
 import { createDefaultExpressionItem, createExpressionApiName, translateExpValue } from '../../../share';
@@ -46,12 +46,15 @@ export default defineComponent({
     useWatchExpressionItemList(props, expressionOption, expressionItemList);
 
     const sourceCodes = ref('');
+    const hasChangeSourceCode = ref(false);
 
     const changeSourceCode = (value) => {
       if (value instanceof Array) {
         sourceCodes.value = createExpressionApiName(value, expressionOption.value);
+        hasChangeSourceCode.value = false;
       } else {
         sourceCodes.value = value;
+        hasChangeSourceCode.value = true;
       }
     };
     const handleChangeList = (newList) => {
@@ -66,7 +69,7 @@ export default defineComponent({
     };
 
     const submitHandler = () => {
-      if (expressionItemList.value[0]?.valueListApiName) {
+      if (expressionItemList.value[0]?.valueListApiName && !hasChangeSourceCode.value) {
         props.onChangeList?.(expressionItemList.value);
       } else {
         props.onChangeSourceCode?.(sourceCodes.value);
