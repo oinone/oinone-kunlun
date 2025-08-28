@@ -1,4 +1,10 @@
-import { parseConfigs, RelationUpdateType, SubmitType, SubmitValue } from '@oinone/kunlun-engine';
+import {
+  ExperimentalConfigManager,
+  parseConfigs,
+  RelationUpdateType,
+  SubmitType,
+  SubmitValue
+} from '@oinone/kunlun-engine';
 import { LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
 import { ViewMode } from '@oinone/kunlun-meta';
 import { Router } from '@oinone/kunlun-router';
@@ -217,7 +223,9 @@ export abstract class BaseElementViewWidget<
       this.metadataRuntimeContext.view.filter
     );
     this.setViewFilter?.(internalFilter);
-    this.internalDomain = RSQLHelper.concatByAnd(this.viewAction?.domain, this.getDsl().domain as string | undefined);
+    if (!ExperimentalConfigManager.baseElementViewWidgetNext()) {
+      this.internalDomain = RSQLHelper.concatByAnd(this.viewAction?.domain, this.getDsl().domain as string | undefined);
+    }
   }
 
   public initialize(props: Props) {
