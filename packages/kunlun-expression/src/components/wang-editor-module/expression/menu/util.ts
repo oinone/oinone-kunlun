@@ -34,7 +34,6 @@ export function createExpressionDialog(contextItems: IVariableContextItem[], edi
   });
   const currentSelection = editor.selection;
 
-  let sourceCode = '';
   const app = createApp({
     components: { ExpressionInputPanel },
     props: {

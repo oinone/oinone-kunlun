@@ -9,7 +9,7 @@
       :is-simple-mode="isSimpleMode"
       :is-low-code="isLowCode"
       :show-footer="showFooter"
-      :sourceCode="sourceCodes"
+      :source-code="sourceCodes"
       @change-source-code="changeSourceCode"
       :change-variable-on-select="changeVariableOnSelect"
       @change-list="handleChangeList"
@@ -46,10 +46,6 @@ export default defineComponent({
     useWatchExpressionItemList(props, expressionOption, expressionItemList);
 
     const sourceCodes = ref('');
-
-    watch(sourceCodes, (newValue, oldValue) => {
-      console.log(newValue, oldValue);
-    });
 
     const changeSourceCode = (value) => {
       if (value instanceof Array) {
