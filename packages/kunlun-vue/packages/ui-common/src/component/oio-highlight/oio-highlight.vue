@@ -37,13 +37,7 @@ export default defineComponent({
         return [];
       }
       if (Array.isArray(contents)) {
-        if (props.ignoredCase) {
-          return contents.map((c) => c.toLowerCase());
-        }
         return contents;
-      }
-      if (props.ignoredCase) {
-        return [contents.toLowerCase()];
       }
       return [contents];
     });
@@ -64,8 +58,12 @@ export default defineComponent({
       const results: HighlightValue[] = [];
       let finalContent: string | undefined;
       for (const content of contents) {
+        let searchContent = content;
+        if (props.ignoredCase) {
+          searchContent = content.toLowerCase();
+        }
         let lastIndex = 0;
-        let index = content.indexOf(search);
+        let index = searchContent.indexOf(search);
         const values: HighlightValue[] = [];
         while (index !== -1) {
           if (index > lastIndex) {
@@ -76,7 +74,7 @@ export default defineComponent({
             content: content.substring(index, lastIndex),
             highlight: true
           });
-          index = content.indexOf(search!, lastIndex);
+          index = searchContent.indexOf(search, lastIndex);
         }
         if (values.length !== 0) {
           if (content.length > lastIndex) {
