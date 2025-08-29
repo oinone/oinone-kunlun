@@ -1,0 +1,22 @@
+.field-permission {
+  .field-permission-header {
+    display: flex;
+    column-gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .field-permission-wrapper {
+    display: flex;
+  }
+
+  .field-permission-model-table-search,
+  .field-permission-model-table {
+    flex: 1;
+  }
+
+  .field-permission-permission-table-operators,
+  .field-permission-permission-table {
+    width: 40%;
+    margin-left: var(--oio-margin);
+  }
+}
