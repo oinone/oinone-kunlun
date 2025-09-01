@@ -52,8 +52,8 @@ export default defineComponent({
         return;
       }
       try {
-        await props.loadData?.(event.dataRef);
         loadedKeys.value = [...new Set([...loadedKeys.value, event.dataRef.key])];
+        await props.loadData?.(event.dataRef);
       } catch (e) {
         console.error(e);
       }
