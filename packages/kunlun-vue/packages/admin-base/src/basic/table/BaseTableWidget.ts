@@ -81,14 +81,6 @@ export class BaseTableWidget<
   /**
    * 表格单元格快捷键编辑
    */
-  // protected keyboardShortcut:TableKeyboardConfig = {
-  //   down: 'Ctrl+Enter', // 向下移动单元格
-  //   up: 'Ctrl+Shift+Enter', // 向上移动单元格
-  //   left: 'Shift+Tab', // 向左移动单元格
-  //   right: 'Tab', // 向右移动单元格
-  //   cancel: 'Esc', // 取消操作
-  //   submit: 'Enter' // 提交数据
-  // };
   protected keyboardShortcut: TableKeyboardConfig = {
     down: [{ key: 'Enter', ctrl: true }], // 向下移动单元格
     up: [{ key: 'Enter', ctrl: true, shift: true }], // 向上移动单元格
