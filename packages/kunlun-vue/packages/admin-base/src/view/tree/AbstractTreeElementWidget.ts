@@ -85,7 +85,11 @@ export abstract class AbstractTreeElementWidget<V extends TreeData = TreeData> e
 
   @Widget.Reactive()
   public get width(): string | undefined {
-    return StyleHelper.px(this.getDsl().width);
+    let { width } = this.getDsl();
+    if (width == null) {
+      width = this.treeDefinition?.nodes?.width;
+    }
+    return StyleHelper.px(width);
   }
 
   public initialize(props) {
