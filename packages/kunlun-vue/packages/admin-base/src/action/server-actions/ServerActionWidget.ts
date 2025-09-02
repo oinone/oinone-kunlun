@@ -41,6 +41,7 @@ import { ActionWidget } from '../component';
 )
 export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
   protected updateActionName = 'update';
+  protected createActionName = 'create';
 
   protected updateOneWithRelationName = 'updateOneWithRelations';
 
@@ -199,7 +200,22 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
     return new SubmitValue(records, relationRecords);
   }
 
+  protected async deleteDraftWhenClickAfter() {
+    const { fun, name } = this.action;
+    const { updateOneWithRelationName, updateActionName, createActionName, existDraftAction } = this;
+
+    if (!existDraftAction) {
+      return;
+    }
+
+    if (updateOneWithRelationName === fun || [updateActionName, createActionName].includes(name)) {
+      await this.deleteDraft();
+    }
+  }
+
   protected async clickActionAfter(result: ClickResult): Promise<ClickResult> {
+    this.deleteDraftWhenClickAfter();
+
     let refreshParent = false;
     if (this.isDialog) {
       if (this.closeDialog || this.closeAllDialog) {

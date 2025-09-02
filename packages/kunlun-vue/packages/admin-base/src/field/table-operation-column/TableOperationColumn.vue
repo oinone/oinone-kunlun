@@ -101,10 +101,6 @@ export default defineComponent({
             widget: 'user-prefer',
             subPath: 'user-prefer',
             dslDefinition: { simple: (table?.getOrigin().props?.customConfig as any)?.usingSimpleUserPrefer }
-          }),
-          createVNode(Element, {
-            widget: 'control-icon',
-            subPath: 'control-icon'
           })
         ]
       : [];

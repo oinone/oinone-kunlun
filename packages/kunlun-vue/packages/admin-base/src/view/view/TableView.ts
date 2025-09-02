@@ -22,15 +22,4 @@ export class TableView extends BaseListView {
   @Widget.Reactive()
   @Widget.Provide()
   protected editRowCallChaining: CallChaining<[string, ActiveRecords]> | undefined;
-
-
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected fullScreen: boolean = false;
-
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected switchFullScreen() {
-    this.fullScreen = !this.fullScreen;
-  }
 }

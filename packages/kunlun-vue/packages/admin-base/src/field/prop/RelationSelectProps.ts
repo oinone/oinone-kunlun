@@ -1,5 +1,6 @@
+import { computed, PropType, ref, onBeforeUnmount, onBeforeMount } from 'vue';
+import { delay } from 'lodash-es';
 import { BooleanHelper } from '@oinone/kunlun-shared';
-import { computed, PropType, ref } from 'vue';
 import { usePlaceholderProps } from '../../basic';
 
 export const RelationSelectProps = {
@@ -52,6 +53,9 @@ export const RelationSelectProps = {
   options: {
     type: Array as PropType<Record<string, unknown>[]>
   },
+  searchValue: {
+    type: String
+  },
   change: {
     type: Function,
     default: () => ({})
@@ -90,6 +94,12 @@ export const RelationSelectProps = {
 };
 
 export function relationSelectSetup(props) {
+  // 记录鼠标按下的元素
+  let mouseDownEventTarget: EventTarget | null = null;
+
+  const selectRef = ref();
+  const dropdownInputRef = ref();
+  const dropdownOpen = ref(false);
   const innerReadonly = computed(() => BooleanHelper.toBoolean(props.readonly));
 
   const innerDisabled = computed(() => BooleanHelper.toBoolean(props.disabled));
@@ -104,13 +114,37 @@ export function relationSelectSetup(props) {
     });
     return values;
   });
-  const selectRef = ref();
+
+  const onGlobalMouseDown = (event: MouseEvent) => {
+    mouseDownEventTarget = event.target;
+  };
+
   const innerChange = (e) => {
     if (props.change) {
       props.change(e);
     }
 
     selectRef.value.focus();
+  };
+
+  const dropdownVisibleChange = (val) => {
+    // 如果点击的是下拉框的输入框，则不关闭下拉框
+    if (mouseDownEventTarget === dropdownInputRef.value?.originInput?.input) {
+      return;
+    }
+
+    dropdownOpen.value = val;
+    props.dropdownVisibleChange(val);
+
+    /**
+     * 下拉展开自动获取焦点
+     */
+    if (val) {
+      delay(() => {
+        mouseDownEventTarget = dropdownInputRef.value?.originInput?.input;
+        dropdownInputRef.value?.focus();
+      }, 200);
+    }
   };
 
   // 后于change执行
@@ -126,14 +160,25 @@ export function relationSelectSetup(props) {
     }
   };
   const { placeholder } = usePlaceholderProps(props);
+
+  onBeforeMount(function () {
+    window.addEventListener('mousedown', onGlobalMouseDown);
+  });
+  onBeforeUnmount(function () {
+    window.removeEventListener('mousedown', onGlobalMouseDown);
+  });
+
   return {
     placeholder,
     innerReadonly,
     innerDisabled,
     selectRef,
     currentValue,
+    dropdownOpen,
+    dropdownInputRef,
     innerChange,
     innerSelect,
-    slipSelect
+    slipSelect,
+    dropdownVisibleChange
   };
 }

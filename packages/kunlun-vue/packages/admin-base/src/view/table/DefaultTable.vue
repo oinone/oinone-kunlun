@@ -11,11 +11,12 @@ import {
   ref,
   Slot,
   VNode,
-  watch
+  watch,
+  Fragment
 } from 'vue';
 import { debounce } from 'lodash-es';
 import { DslDefinition } from '@oinone/kunlun-dsl';
-import { ActiveRecord, ActiveRecords, Pagination, translateValueByKey } from '@oinone/kunlun-engine';
+import { ActiveRecord, ActiveRecords, Pagination, RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
 import { EDirection, ISort } from '@oinone/kunlun-service';
 import { ReturnPromise } from '@oinone/kunlun-shared';
 import {
@@ -214,6 +215,10 @@ export default defineComponent({
     onSortChange: {
       type: Function as PropType<(sorts: ISort[]) => void>
     },
+    sortList: {
+      type: Array as PropType<ISort[]>,
+      default: () => []
+    },
     editorTrigger: {
       type: String as PropType<TableEditorTrigger>
     },
@@ -249,9 +254,13 @@ export default defineComponent({
     onRowClick: {
       type: Function
     },
+    onCellClick: {
+      type: Function
+    },
     onRowDblClick: {
       type: Function
     },
+
     expandAccordion: {
       type: Boolean,
       default: undefined
@@ -281,6 +290,9 @@ export default defineComponent({
     },
     lineHeight: {
       type: Number
+    },
+    lineHeightType: {
+      type: String as PropType<TableLineHeightEnum>
     },
     minLineHeight: {
       type: Number
@@ -338,6 +350,14 @@ export default defineComponent({
     enableSequence: {
       type: Boolean,
       default: undefined
+    },
+    modelFields: {
+      type: Array as PropType<RuntimeModelField[]>,
+      default: () => []
+    },
+    viewControlWidget: {
+      type: Object as PropType<VNode>,
+      default: () => null
     }
   },
   setup(props) {
@@ -396,14 +416,19 @@ export default defineComponent({
     const onSortChange = (event: SortChangeEvent) => {
       const { field, direction } = event;
       if (direction === false) {
-        props.onSortChange?.([]);
+        const sortList = props.sortList.filter((item) => item.sortField !== field);
+        props.onSortChange?.(sortList);
       } else {
-        props.onSortChange?.([
-          {
+        const index = props.sortList.findIndex((item) => item.sortField === field);
+        if (index > -1) {
+          props.sortList[index].direction = SortDirections[direction];
+        } else {
+          props.sortList.push({
             sortField: field,
             direction: SortDirections[direction]
-          }
-        ]);
+          });
+        }
+        props.onSortChange?.(props.sortList);
       }
       // nextTick(() => {
       //   table.value?.refreshColumn();
@@ -516,8 +541,8 @@ export default defineComponent({
         ) as HTMLElement[];
 
         rows.forEach((row, index) => {
-          const height = row.clientHeight;
           row.style.height = 'auto';
+          const height = row.clientHeight;
 
           const leftFixedRow = leftFixedRows[index];
           const rightFixedRow = rightFixedRows[index];
@@ -596,6 +621,15 @@ export default defineComponent({
       window.removeEventListener('resize', calcTableColumnHeight);
       resizeObserver.unobserve(tableContentElement.value);
     });
+
+    watch(
+      () => props.lineHeightType,
+      () => {
+        nextTick(() => {
+          calcTableColumnHeight();
+        });
+      }
+    );
 
     const stop = watch(
       () => props.dataSource,
@@ -691,6 +725,7 @@ export default defineComponent({
 
       enableSequence,
 
+      viewControlWidget,
       selectMode,
       checkbox,
       checkMethod,
@@ -711,6 +746,7 @@ export default defineComponent({
       rowClickMode,
       onRowClick,
       onRowDblClick,
+      onCellClick,
 
       expandAccordion,
       expandAll,
@@ -804,7 +840,7 @@ export default defineComponent({
       showOverflow: true,
       showHeaderOverflow: true,
       border,
-      resizable: true,
+      resizable: false,
       data: showDataSource,
       scrollX,
       scrollY,
@@ -869,9 +905,11 @@ export default defineComponent({
         }
       } else {
         tableProps.onCellDblclick = onRowDblClick;
+        tableProps.onCellClick = onCellClick;
       }
     }
-    const containerChildren: VNode[] = [createVNode(OioTable, tableProps, tableSlots)];
+
+    const containerChildren: VNode[] = [viewControlWidget, createVNode(OioTable, tableProps, tableSlots)];
 
     if (allowRowClick) {
       const clickSlot = DslRender.fetchVNodeSlots(this.template, ['click'])?.click;
@@ -880,17 +918,19 @@ export default defineComponent({
       }
     }
     return createVNode(
-      'div',
-      {
-        class: 'default-table',
-        style: {
-          height,
-          minHeight,
-          maxHeight
+      createVNode(
+        'div',
+        {
+          class: 'default-table',
+          style: {
+            height,
+            minHeight,
+            maxHeight
+          },
+          ref: 'defaultTableRef'
         },
-        ref: 'defaultTableRef'
-      },
-      containerChildren
+        containerChildren
+      )
     );
   }
 });

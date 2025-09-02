@@ -28,7 +28,7 @@ import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isFunction, isNil, isPlainObject, isString } from 'lodash-es';
 import { isValidatorError } from '../../typing';
-import { validatorCallChainingCallAfterFn } from '../constant';
+import { FETCH_DRAFT_DATA_WIDGET_PRIORITY, validatorCallChainingCallAfterFn } from '../constant';
 import { BaseFieldWidget, BaseView } from '../token';
 import { HandlerEvent as FieldHandlerEvent } from '../token/BaseFieldWidget';
 import { RefreshProcessFunction } from '../types';
@@ -50,6 +50,10 @@ export class BaseElementObjectViewWidget<
 > extends BaseElementViewWidget<Props> {
   @Widget.Reactive()
   protected currentSubmitCallChaining: CallChaining<SubmitValue> | undefined;
+
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected draftDataCallChaining: CallChaining | undefined;
 
   /**
    * 数据提交

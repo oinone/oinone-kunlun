@@ -31,7 +31,7 @@ export default defineComponent({
     ...OioModalProps
   },
   slots: ['default', 'title', 'header', 'footer', 'closeIcon'],
-  emits: ['update:visible'],
+  emits: ['update:visible', 'enter', 'cancel'],
   setup(props, context) {
     const internalId = `${DEFAULT_PREFIX}-modal-${uniqueKeyGenerator()}`;
 
@@ -167,7 +167,7 @@ export default defineComponent({
     }
 
     if (!slots.closeIcon) {
-      slots.closeIcon = () => [createVNode(OioCloseIcon, { size: 16 })];
+      slots.closeIcon = () => [createVNode(OioCloseIcon)];
     }
 
     const classNames = [mainClassName];

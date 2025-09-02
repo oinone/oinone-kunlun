@@ -383,15 +383,36 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
       return subject;
     }
 
-    return {
-      ...subject,
-      next: (value) => {
-        subject.next({
-          __publisherWidget: this,
-          payload: value
-        });
-      }
-    } as AnySubject;
+    const next = subject.next;
+    const self = this;
+
+    subject.next = function (payload) {
+      next.call(
+        subject,
+        payload.__publisherWidget
+          ? payload
+          : {
+              payload,
+              __publisherWidget: self
+            }
+      );
+    };
+
+    const behaviorSubject = subject as BehaviorSubject<any>;
+
+    if (behaviorSubject.getValue) {
+      const getValue = behaviorSubject.getValue;
+      behaviorSubject.getValue = function () {
+        const value = getValue.call(behaviorSubject);
+        if (value.__publisherWidget) {
+          return value.payload;
+        }
+
+        return value;
+      };
+    }
+
+    return subject as AnySubject;
   }
 
   /**
@@ -412,7 +433,7 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
               func(data.payload);
             }
           } else {
-            func(option?.scope ? data.payload : data);
+            func(option?.scope && data?.__publisherWidget ? data.payload : data);
           }
         });
         this.subscriptionMap.set(Symbol('random'), subscription);
@@ -425,7 +446,8 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
   private isSameScopeWidget(otherWidget: Widget, widgetType: WidgetTypeKey): boolean {
     const selfWidget = this.getParentWidgetByType(widgetType);
     const otherOther = otherWidget.getParentWidgetByType(widgetType);
-    return selfWidget === otherOther && selfWidget !== null;
+
+    return (selfWidget === otherOther && selfWidget !== null) || this.getHandle() === otherOther?.getHandle();
   }
 
   /**

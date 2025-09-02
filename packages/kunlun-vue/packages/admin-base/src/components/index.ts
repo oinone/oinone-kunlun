@@ -8,4 +8,7 @@ export * from './oio-simple-pagination';
 export * from './control-icon';
 export * from './table-line-height';
 export * from './oio-full-screen';
-export * from './keyboard-shortcut';
+export * from './select-table/SelectTable.vue';
+export * from './sortable-group';
+export * from './select-table';
+export * from './select-modal';

@@ -1,6 +1,6 @@
 <template>
-  <div class="table-full-screen">
-    <oio-icon :icon="icon" @click="onChange" />
+  <div class="default-view-control-item default-view-control-full-screen">
+    <oio-icon size="16" :icon="icon" @click="onChange" />
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const icon = computed(() => {
-      return props.value ? 'oinone-shousuo' : 'oinone-quanping';
+      return props.value ? 'icon-fullscreen-exit-outlined' : 'icon-fullscreen-outlined';
     });
 
     const onChange = () => {

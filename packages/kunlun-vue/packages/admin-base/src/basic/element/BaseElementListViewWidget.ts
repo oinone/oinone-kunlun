@@ -22,7 +22,7 @@ import {
 } from '@oinone/kunlun-engine';
 import { ActionContextType, Entity, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
-import { DEFAULT_LIST_TRUE_CONDITION, DEFAULT_TRUE_CONDITION, EDirection, ISort } from '@oinone/kunlun-service';
+import { DEFAULT_LIST_TRUE_CONDITION, DEFAULT_TRUE_CONDITION, EDirection, IGroup, ISort } from '@oinone/kunlun-service';
 import {
   BooleanHelper,
   CallChaining,
@@ -40,8 +40,8 @@ import {
 } from '@oinone/kunlun-shared';
 import { CheckedChangeEvent, RadioChangeEvent } from '@oinone/kunlun-vue-ui';
 import { ListPaginationStyle, ListSelectMode, PageSizeEnum } from '@oinone/kunlun-vue-ui-antd';
-import { Widget } from '@oinone/kunlun-vue-widget';
-import { ceil, isEmpty, isNil, isString, toInteger, toString } from 'lodash-es';
+import { DslRender, Widget } from '@oinone/kunlun-vue-widget';
+import { ceil, isEmpty, isNil, isString, template, toInteger, toString } from 'lodash-es';
 import { VxeTablePropTypes } from 'vxe-table';
 import { fetchPageSize } from '../../typing';
 import { FetchUtil } from '../../util';
@@ -49,6 +49,11 @@ import { BaseRuntimePropertiesWidget } from '../common';
 import { QueryExpression, RefreshProcessFunction, UrlQueryParameters } from '../types';
 import { BaseElementViewWidget, BaseElementViewWidgetProps } from './BaseElementViewWidget';
 import { generatorCondition, getSortFieldDirection } from './utils';
+import { DEFAULT_SLOT_NAME, DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { Element, InternalWidget, ResolveMode } from '../../tags';
+import { createVNode } from 'vue';
+import Element from '../../tags/Element.vue';
+import { ActionWidget } from '../../action';
 
 const URL_SPLIT_SEPARATOR = ',';
 const ORDERING_SEPARATOR = ',';
@@ -211,15 +216,23 @@ export abstract class BaseElementListViewWidget<
     return config;
   }
 
-   /**
+  /**
    * 启用分组
    * @protected
    */
   @Widget.Reactive()
-  protected get groupable(){
+  protected get groupable() {
     return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().groupable)).orElse(false);
   }
 
+  /**
+   * 启用行高
+   * @protected
+   */
+  @Widget.Reactive()
+  protected get lineHeightAble() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().lineHeightAble)).orElse(false);
+  }
 
   /**
    * 默认分组字段
@@ -228,18 +241,24 @@ export abstract class BaseElementListViewWidget<
    * @returns [field00003 desc,field00004 desc]
    */
   @Widget.Reactive()
-  protected get groups(): string[] | undefined {
+  protected get groups(): IGroup[] | undefined {
     const dsf: string = this.getDsl().groups;
     if (dsf) {
       const dsfArr = dsf.split(ORDERING_SEPARATOR).filter((v) => !isEmpty(v));
-      return dsfArr
+      return dsfArr.map((v: string) => {
+        const [groupField, groupDirection] = getSortFieldDirection(
+          v,
+          ORDERING_FIELD_ORDER_SEPARATOR,
+          DEFAULT_ORDERING_ORDER
+        );
+        return { groupField, groupDirection };
+      });
     }
     return undefined;
   }
 
-
   @Widget.Reactive()
-  protected get fullScreenAble():boolean {
+  protected get fullScreenAble(): boolean {
     return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().fullScreenAble)).orElse(false);
   }
 
@@ -257,6 +276,14 @@ export abstract class BaseElementListViewWidget<
   @Widget.Provide()
   @Widget.Reactive()
   protected sortList: ISort[] | undefined = undefined;
+
+  /**
+   * 排序参数
+   * @protected
+   */
+  @Widget.Provide()
+  @Widget.Reactive()
+  protected groupList: IGroup[] | undefined = undefined;
 
   @Widget.Reactive()
   protected get showPagination() {
@@ -360,6 +387,43 @@ export abstract class BaseElementListViewWidget<
   @Widget.Reactive()
   public get loadFunctionFun(): string | undefined {
     return Optional.ofNullable(this.getDsl().load).orElse(this.viewAction?.load);
+  }
+
+  /**
+   * 视图控制相关的子组件, 可能包含（排序、分组、行高切换、全屏）
+   */
+  @Widget.Method()
+  public get viewControlChildren(): DslDefinition[] {
+    const controls = [
+      { enabled: this.sortable, widget: 'SortControl' },
+      { enabled: this.groupable, widget: 'GroupControl' },
+      { enabled: this.lineHeightAble, widget: 'LineHeightControl' },
+      { enabled: this.fullScreenAble, widget: 'FullScreenControl' }
+    ];
+
+    return controls
+      .filter(({ enabled }) => enabled)
+      .map(({ widget }) => ({
+        dslNodeType: DslDefinitionType.ELEMENT,
+        widget,
+        widgets: []
+      }));
+  }
+
+  /**
+   * 视图控制组，包含所有子组件
+   */
+  @Widget.Method()
+  public get viewControlWidget() {
+    if (!this.viewControlChildren.length) {
+      return null;
+    }
+
+    return DslRender.render({
+      dslNodeType: DslDefinitionType.ELEMENT,
+      widget: 'ViewControl',
+      widgets: this.viewControlChildren
+    });
   }
 
   /**
@@ -480,6 +544,36 @@ export abstract class BaseElementListViewWidget<
     this.refreshProcess();
   }
 
+  /**
+   * 修改分组配置
+   */
+  @Widget.Provide()
+  @Widget.Method()
+  public onGroupChange(groupList: IGroup[]): void {
+    const finalGroupList = groupList.length ? groupList : this.groups;
+    const groupParameters: UrlQueryParameters = {};
+    if (finalGroupList?.length) {
+      groupParameters.groupField = finalGroupList.map((v) => v.groupField).join(URL_SPLIT_SEPARATOR);
+      groupParameters.groupDirection = finalGroupList.map((v) => v.groupDirection).join(URL_SPLIT_SEPARATOR);
+    } else {
+      groupParameters.groupField = null;
+      groupParameters.groupDirection = null;
+    }
+    this.$router.push({
+      segments: [
+        {
+          path: 'page',
+          parameters: groupParameters,
+          extra: {
+            preserveParameter: true
+          }
+        }
+      ]
+    });
+    this.refreshProcess();
+  }
+
+  @Widget.Provide()
   @Widget.Method()
   public onSortChange(sortList: ISort[]): void {
     const sortFields: string[] = [];
@@ -940,17 +1034,41 @@ export abstract class BaseElementListViewWidget<
     this.reloadActiveRecords([]);
   }
 
-  protected $$beforeMount() {
-    super.$$beforeMount();
-    const { currentPage, pageSize, sortField, direction } = this.urlParameters;
-    let { pagination, sortList } = this;
-    if (!pagination && (currentPage || pageSize)) {
-      pagination = {
-        current: toInteger(currentPage),
-        pageSize: toInteger(pageSize)
-      } as Pagination;
-      this.pagination = pagination;
+  /**
+   * 初始化分组字段列表，优选取url上面的配置，如果没有就取设计器配置
+   */
+  protected initGroupList() {
+    const { groupField, groupDirection } = this.urlParameters;
+    let { groupList } = this;
+
+    if (!groupList && groupField && groupDirection) {
+      groupList = [];
+      const sortFields = groupField.split(URL_SPLIT_SEPARATOR);
+      const directions = groupDirection.split(URL_SPLIT_SEPARATOR);
+      if (sortFields.length && directions.length && sortFields.length === directions.length) {
+        this.sortConfig.defaultSort = [];
+        for (let i = 0; i < sortFields.length; i++) {
+          groupList.push({ groupField: sortFields[i], groupDirection: directions[i] as EDirection });
+          this.sortConfig.defaultSort.push({
+            field: sortFields[i],
+            order: directions[i].toLowerCase() as VxeTablePropTypes.SortOrder
+          });
+        }
+      }
+      this.groupList = groupList;
+    } else {
+      if (!groupList && this.groups?.length) {
+        this.groupList = this.groups;
+      }
     }
+  }
+
+  /**
+   * 初始化排序字段列表页, 优选取url上面的配置，如果没有就取设计器配置
+   */
+  protected initSortList() {
+    const { sortField, direction } = this.urlParameters;
+    let { sortList } = this;
     if (!sortList && sortField && direction) {
       sortList = [];
       const sortFields = sortField.split(URL_SPLIT_SEPARATOR);
@@ -969,6 +1087,22 @@ export abstract class BaseElementListViewWidget<
     }
     if (!sortList && this.ordering?.length) {
       this.sortList = this.ordering;
+    }
+  }
+
+  protected $$beforeMount() {
+    super.$$beforeMount();
+    this.initGroupList();
+    this.initSortList();
+
+    const { currentPage, pageSize } = this.urlParameters;
+    let { pagination } = this;
+    if (!pagination && (currentPage || pageSize)) {
+      pagination = {
+        current: toInteger(currentPage),
+        pageSize: toInteger(pageSize)
+      } as Pagination;
+      this.pagination = pagination;
     }
   }
 

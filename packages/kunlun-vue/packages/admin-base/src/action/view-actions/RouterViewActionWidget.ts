@@ -42,6 +42,9 @@ export class RouterViewActionWidget extends ViewActionWidget {
     if (!$router || !$matched) {
       return;
     }
+
+    const { queryData } = this.getSearchRsqlAndQueryParams();
+    this.action.context = queryData;
     /**
      * 如果当前action是弹窗里面嵌入视图（o2m/m2m）里面的行内动作，执行该action的时候，是跳转路由，但是弹窗不会关闭
      * 所有要主动关闭弹窗

@@ -1,11 +1,18 @@
-import { parseConfigs, RelationUpdateType, ROOT_HANDLE, SubmitType, SubmitValue } from '@oinone/kunlun-engine';
+import {
+  parseConfigs,
+  RelationUpdateType,
+  ROOT_HANDLE,
+  RuntimeClientAction,
+  SubmitType,
+  SubmitValue
+} from '@oinone/kunlun-engine';
 import { LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
-import { ViewMode } from '@oinone/kunlun-meta';
+import { ModelDefaultActionName, ViewMode } from '@oinone/kunlun-meta';
 import { Router } from '@oinone/kunlun-router';
 import { CallChaining, RSQLHelper } from '@oinone/kunlun-shared';
 import { useRouter } from '@oinone/kunlun-vue-router';
 import { ActiveRecordsWidgetProps, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
-import { FETCH_DATA_WIDGET_PRIORITY, REFRESH_FORM_DATA } from '../constant';
+import { FETCH_DATA_WIDGET_PRIORITY, FETCH_DRAFT_DATA_WIDGET_PRIORITY, REFRESH_FORM_DATA } from '../constant';
 import { BaseElementWidget } from '../token';
 
 export interface BaseElementViewWidgetProps extends ActiveRecordsWidgetProps {
@@ -126,6 +133,10 @@ export abstract class BaseElementViewWidget<
 
   @Widget.Reactive()
   protected currentMountedCallChaining: CallChaining | undefined;
+
+  protected get draftDataPath() {
+    return this.path + '_draft';
+  }
 
   /**
    * 挂载时
@@ -284,6 +295,29 @@ export abstract class BaseElementViewWidget<
       },
       CallChaining.MAX_PRIORITY
     );
+
+    this.parentMountedCallChaining?.hook(
+      this.draftDataPath,
+      async (arg) => {
+        return new Promise((resolve, reject) => {
+          const hasDraftAction = this.metadataRuntimeContext.model.modelActions.some(
+            (a) => (a as RuntimeClientAction).fun === ModelDefaultActionName.$$internal_SaveDraft
+          );
+          if (!hasDraftAction) {
+            resolve(true);
+          } else {
+            const [next] = arg as boolean[];
+            if (next) {
+              resolve(true);
+            } else {
+              reject(false);
+            }
+          }
+        });
+      },
+      FETCH_DRAFT_DATA_WIDGET_PRIORITY
+    );
+
     this.parentMountedCallChaining?.hook(
       this.path,
       async () => {
@@ -295,6 +329,7 @@ export abstract class BaseElementViewWidget<
       },
       FETCH_DATA_WIDGET_PRIORITY
     );
+
     if (!this.parentMountedCallChaining || !this.automatic) {
       this.currentMountedCallChaining?.syncCall();
     }
@@ -344,6 +379,7 @@ export abstract class BaseElementViewWidget<
     super.$$unmounted();
     this.mountedCallChaining?.unhook(this.path);
     this.refreshCallChaining?.unhook(this.path);
+    this.parentMountedCallChaining?.unhook(this.draftDataPath);
     this.notify(LifeCycleTypes.ON_VIEW_UNMOUNTED);
   }
 

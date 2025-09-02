@@ -1,4 +1,4 @@
-import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
+import { DEFAULT_SLOT_NAME, DslDefinitionType } from '@oinone/kunlun-dsl';
 import {
   ActiveRecord,
   ActiveRecords,
@@ -35,7 +35,7 @@ import { ISort } from '@oinone/kunlun-service';
 import { nextTick } from 'vue';
 import { UserPreferEventManager, UserPreferService } from '../../service';
 import { UserTablePrefer, TableLineHeightEnum, TableLineHeightMap } from '../../typing';
-import { TableRowEditMode } from '../../typing/action';
+import { ActionKeyboardConfig, TableRowEditMode } from '../../typing/action';
 import { FetchUtil } from '../../util';
 import { BaseElementListViewWidget, BaseElementListViewWidgetProps } from '../element';
 import { BaseTableColumnWidget } from '../table-column';
@@ -48,6 +48,15 @@ interface ColumnWidgetEntity {
 
 function isActiveRecordArray(value: ActiveRecords): value is ActiveRecord[] {
   return Array.isArray(value);
+}
+
+interface TableKeyboardConfig {
+  down: ActionKeyboardConfig[]; // 向下移动单元格
+  up: ActionKeyboardConfig[]; // 向上移动单元格
+  left: ActionKeyboardConfig[]; // 向左移动单元格
+  right: ActionKeyboardConfig[]; // 向右移动单元格
+  cancel: ActionKeyboardConfig[]; // 取消操作
+  submit: ActionKeyboardConfig[]; // 提交数据
 }
 
 export class BaseTableWidget<
@@ -68,6 +77,26 @@ export class BaseTableWidget<
   public getTableInstance() {
     return this.tableInstance;
   }
+
+  /**
+   * 表格单元格快捷键编辑
+   */
+  // protected keyboardShortcut:TableKeyboardConfig = {
+  //   down: 'Ctrl+Enter', // 向下移动单元格
+  //   up: 'Ctrl+Shift+Enter', // 向上移动单元格
+  //   left: 'Shift+Tab', // 向左移动单元格
+  //   right: 'Tab', // 向右移动单元格
+  //   cancel: 'Esc', // 取消操作
+  //   submit: 'Enter' // 提交数据
+  // };
+  protected keyboardShortcut: TableKeyboardConfig = {
+    down: [{ key: 'Enter', ctrl: true }], // 向下移动单元格
+    up: [{ key: 'Enter', ctrl: true, shift: true }], // 向上移动单元格
+    left: [{ key: 'Tab', shift: true }], // 向左移动单元格
+    right: [{ key: 'Tab' }], // 向右移动单元格
+    cancel: [{ key: 'Esc' }], // 取消操作
+    submit: [{ key: 'Enter' }] // 提交数据
+  };
 
   @Widget.Method()
   protected setTableInstance(tableInstance: OioTableInstance | undefined) {
@@ -125,7 +154,7 @@ export class BaseTableWidget<
 
   @Widget.Provide()
   @Widget.Reactive()
-  protected lineHeightType = TableLineHeightEnum.AUTO;
+  protected lineHeightType = TableLineHeightEnum.DEFAULT;
 
   @Widget.Provide()
   protected setLineHeightType(value: TableLineHeightEnum) {
@@ -177,6 +206,24 @@ export class BaseTableWidget<
    */
   protected get keyBoardAble(): boolean {
     return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().keyBoardAble)).orElse(false);
+  }
+
+  /**
+   * 视图控制相关的子组件, 可能包含（排序、分组、行高切换、全屏、快捷点）
+   */
+  @Widget.Method()
+  public get viewControlChildren() {
+    const widgets = super.viewControlChildren;
+
+    if (this.keyBoardAble) {
+      widgets.push({
+        dslNodeType: DslDefinitionType.ELEMENT,
+        widget: 'KeyboardShortcut',
+        widgets: []
+      });
+    }
+
+    return widgets;
   }
 
   /**

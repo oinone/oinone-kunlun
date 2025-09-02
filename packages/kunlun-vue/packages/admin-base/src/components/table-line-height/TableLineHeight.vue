@@ -1,6 +1,6 @@
 <template>
   <a-dropdown overlay-class-name="default-table-line-height-dropdown" trigger="click" placement="bottom">
-    <div class="default-table-line-height">
+    <div class="default-view-control-item default-table-line-height">
       <oio-icon size="16" :icon="icon"></oio-icon>
     </div>
     <template #overlay>
@@ -43,10 +43,11 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const options = [
-      { label: translateValueByKey('高'), icon: 'oinone-gao', value: TableLineHeightEnum.LARGE },
-      { label: translateValueByKey('中'), icon: 'oinone-zhong', value: TableLineHeightEnum.MIDDLE },
-      { label: translateValueByKey('低'), icon: 'oinone-di', value: TableLineHeightEnum.SMALL },
-      { label: translateValueByKey('自适应'), icon: 'oinone-zishiying', value: TableLineHeightEnum.AUTO }
+      { label: translateValueByKey('默认'), icon: 'oinone-gao', value: TableLineHeightEnum.DEFAULT },
+      { label: translateValueByKey('高'), icon: 'icon-high-height-outlined', value: TableLineHeightEnum.LARGE },
+      { label: translateValueByKey('中'), icon: 'icon-medium-height-outlined', value: TableLineHeightEnum.MIDDLE },
+      { label: translateValueByKey('低'), icon: 'icon-medium-height-outlined', value: TableLineHeightEnum.SMALL },
+      { label: translateValueByKey('自适应'), icon: 'icon-adaptive-outlined', value: TableLineHeightEnum.AUTO }
     ];
 
     const active = ref(props.value);
@@ -69,17 +70,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.default-table-line-height {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--oio-border-radius);
-  border: 1px solid var(--oio-border-color);
-  height: var(--oio-pagination-item-height);
-  width: var(--oio-pagination-item-width);
-  cursor: pointer;
-}
-
 .default-table-line-height-dropdown {
   .ant-dropdown-menu-item {
     margin: 4px;

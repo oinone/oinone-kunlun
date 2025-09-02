@@ -25,6 +25,7 @@ export * from './login-page-setting';
 export * from './company-setting';
 export * from './system-style';
 export * from './profile-center';
+export * from './view-control';
 
 // 没有权限的页面
 export * from './unauthorized/UnauthorizedWidget';

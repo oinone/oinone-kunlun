@@ -40,6 +40,9 @@ export abstract class BaseSelectFieldWidget<
     return NumberHelper.toNumber(maxTagCount) || undefined;
   }
 
+  /**
+   * 选项字段标题(界面设计器配置属性)
+   */
   @Widget.Reactive()
   protected get optionLabel() {
     const _optionLabel = this.getDsl().optionLabel;

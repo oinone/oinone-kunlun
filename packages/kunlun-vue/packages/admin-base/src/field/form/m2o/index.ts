@@ -10,3 +10,5 @@ export * from './select/FormM2OSelectFieldWidget';
 export * from './table/FormM2OTableFieldWidget';
 export * from './tree-select/FormM2OTreeSelectFieldWidget';
 export * from './upload';
+export * from './select/select-table/FormM2OSelectTableFieldWidget';
+export * from './select/select-modal/FormM2OSelectModalFieldWidget';

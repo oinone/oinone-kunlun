@@ -2,10 +2,12 @@ import {
   ActiveRecord,
   ActiveRecords,
   buildQueryCondition,
+  GenericFunctionService,
   parseConfigs,
   resolveDynamicDomain,
   resolveDynamicExpression,
   RuntimeAction,
+  RuntimeClientAction,
   RuntimeContext,
   RuntimeContextManager,
   translate,
@@ -14,7 +16,7 @@ import {
 } from '@oinone/kunlun-engine';
 import { EventBus, EventConsumer, KeyboardEventMessage } from '@oinone/kunlun-event';
 import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
-import { ActionContextType, ActionElement, IAction, ViewType } from '@oinone/kunlun-meta';
+import { ActionContextType, ActionElement, IAction, ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
 import { BooleanHelper, debugConsole, GraphqlHelper, ReturnPromise } from '@oinone/kunlun-shared';
@@ -35,6 +37,23 @@ export class ActionWidget<
   Action extends RuntimeAction = RuntimeAction,
   Props extends ActionWidgetProps<Action> = ActionWidgetProps<Action>
 > extends BaseActionWidget<Action, Props> {
+  protected draftModelModal = 'base.Draft';
+
+  @Widget.Reactive()
+  protected get viewDraftDataIdentifier() {
+    const pk = this.model.pks?.[0] || 'id';
+    const value = this.initialValue?.[0][pk] || this.initialContext?.[pk] || this.urlParameters.id;
+
+    return `${this.viewAction?.name || ''}-${this.viewAction?.resViewName || ''}-${value || ''}`;
+  }
+
+  @Widget.Reactive()
+  protected get existDraftAction() {
+    return this.metadataRuntimeContext.model.modelActions.some(
+      (a) => (a as RuntimeClientAction).fun === ModelDefaultActionName.$$internal_SaveDraft
+    );
+  }
+
   /**
    * 搜索数据
    * @protected
@@ -779,6 +798,18 @@ export class ActionWidget<
       return this.validator(true);
     }
     return Promise.resolve(true);
+  }
+
+  /**
+   * 删除草稿
+   */
+  @Widget.Method()
+  protected async deleteDraft() {
+    return GenericFunctionService.INSTANCE.simpleExecuteByFun(
+      this.draftModelModal,
+      'deleteDraft',
+      this.viewDraftDataIdentifier
+    );
   }
 
   /**

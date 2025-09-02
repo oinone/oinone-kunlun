@@ -273,7 +273,7 @@ export default defineComponent({
     const {
       $attrs,
       $slots,
-
+      autoResize,
       size,
       resizable,
       height,
@@ -347,7 +347,7 @@ export default defineComponent({
           createVNode(
             VxeTable,
             {
-              autoResize: false,
+              autoResize: autoResize,
               ...(componentData || {}),
 
               ref: 'vxeTable',

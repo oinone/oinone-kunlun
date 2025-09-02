@@ -121,7 +121,7 @@ export default defineComponent({
       };
     }
     if (!slots.closeIcon) {
-      slots.closeIcon = () => [createVNode(OioCloseIcon, { size: 16 })];
+      slots.closeIcon = () => [createVNode(OioCloseIcon)];
     }
 
     const classNames = [mainClassName, `${mainClassName}-wrapper`, this.modalDrawerClassName];

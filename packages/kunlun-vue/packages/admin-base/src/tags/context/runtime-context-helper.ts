@@ -23,13 +23,12 @@ import { useInjectMetaContext } from './context';
 import { ActiveLayoutEffectOpt } from './active';
 
 function seekViewMask(viewAction: RuntimeViewAction, moduleName?: string): DslDefinition {
-  let maskTemplate: string =
-    MaskManager.selector({
-      module: viewAction.moduleDefinition?.module || viewAction.resModuleDefinition?.module,
-      moduleName: viewAction.moduleDefinition?.name || viewAction.resModuleDefinition?.name || moduleName,
-      model: viewAction.model,
-      actionName: viewAction.name
-    })!;
+  let maskTemplate: string = MaskManager.selector({
+    module: viewAction.moduleDefinition?.module || viewAction.resModuleDefinition?.module,
+    moduleName: viewAction.moduleDefinition?.name || viewAction.resModuleDefinition?.name || moduleName,
+    model: viewAction.model,
+    actionName: viewAction.name
+  })!;
   if (!maskTemplate) {
     maskTemplate = viewAction.resMaskDefinition?.template as string;
     if (maskTemplate) {
@@ -79,6 +78,7 @@ function seekViewLayout(
   if (!finalViewLayout) {
     finalViewLayout = createDefaultLayout(viewType, inline);
   }
+
   return finalViewLayout;
 }
 

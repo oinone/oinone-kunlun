@@ -6,12 +6,17 @@ import { CallAfterFunction } from '@oinone/kunlun-shared';
 export const VIEW_WIDGET_PRIORITY = 0;
 
 /**
- * 数据组件挂载 - 2
+ * 加载视图草稿数据 - 2
+ */
+export const FETCH_DRAFT_DATA_WIDGET_PRIORITY = 99;
+
+/**
+ * 数据组件挂载 - 3
  */
 export const FETCH_DATA_WIDGET_PRIORITY = 100;
 
 /**
- * 子视图组件挂载 - 3
+ * 子视图组件挂载 - 4
  */
 export const SUBVIEW_WIDGET_PRIORITY = 200;
 

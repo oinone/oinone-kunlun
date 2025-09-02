@@ -45,6 +45,11 @@ interface ISort {
   direction: EDirection;
 }
 
+interface IGroup {
+  groupField: string;
+  groupDirection: EDirection;
+}
+
 export const DEFAULT_LIST_TRUE_CONDITION = '(1==1) and (1==1)';
 
 export const DEFAULT_TRUE_CONDITION = '1==1';
@@ -1623,6 +1628,7 @@ export {
   IQueryPageResult,
   EDirection,
   ISort,
+  IGroup,
   http,
   cleanModelCache,
   buildSingleItemParam,

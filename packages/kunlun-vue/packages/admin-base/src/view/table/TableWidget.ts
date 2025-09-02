@@ -24,7 +24,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { VxeTableHelper, TableEditorTrigger, TableEditorMode, ActiveEditorContext } from '@oinone/kunlun-vue-ui';
 import { StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
-import { find, isBoolean, isNaN, isNil, isNumber, isPlainObject, isString, toString } from 'lodash-es';
+import { delay, find, isBoolean, isNaN, isNil, isNumber, isPlainObject, isString, toString } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTableDefines } from 'vxe-table';
 import { ActionWidget } from '../../action/component/action';
@@ -37,7 +37,8 @@ import {
   TABLE_WIDGET,
   UserTablePrefer,
   TableLineHeightEnum,
-  TableLineHeightMap
+  TableLineHeightMap,
+  ActionKeyboardConfig
 } from '../../typing';
 import { TreeUtils } from '../../util';
 import { TableConfigManager } from './config';
@@ -89,16 +90,12 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return TableConfigManager.getConfig();
   }
 
-  // @Widget.Reactive()
-  // protected get checkbox(): boolean {
-  //   return Optional.ofNullable(this.getDsl().checkbox).map(BooleanHelper.toBoolean).orElse(true)!;
-  // }
-
   @Widget.Reactive()
   protected get lineHeight(): number | undefined {
-    if (this.lineHeightType && TableLineHeightMap[this.lineHeightType]) {
+    if (this.lineHeightType && this.lineHeightType !== TableLineHeightEnum.DEFAULT) {
       return TableLineHeightMap[this.lineHeightType];
     }
+
     const lineHeight = Optional.ofNullable(this.getDsl().lineHeight).map(NumberHelper.toNumber).orElse(undefined);
 
     if (lineHeight) {
@@ -132,7 +129,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Reactive()
   protected get autoLineHeight(): boolean {
-    if (this.lineHeightType === TableLineHeightEnum.auto) {
+    if (this.lineHeightType === TableLineHeightEnum.AUTO) {
       return true;
     }
     const autoLineHeight = Optional.ofNullable(this.getDsl().autoLineHeight)
@@ -675,6 +672,17 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
+  /**
+   * 整行、全表编辑开启时，点击单元格需要记录最新的行+单元格数据
+   */
+  @Widget.Method()
+  protected onCellClick(context: ActiveEditorContext) {
+    if (this.lastedCurrentEditorContext && [TableEditorMode.row, TableEditorMode.table].includes(this.editorMode)) {
+      this.lastedCurrentEditorContext.column = context.column;
+      this.lastedCurrentEditorContext.columnIndex = context.columnIndex;
+    }
+  }
+
   @Widget.Method()
   protected async onRowClick({ column, row }) {
     if (!column?.field || !this.allowRowClick) {
@@ -695,9 +703,12 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
-  protected override unmounted() {
-    super.unmounted();
-    window.removeEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
+  protected override beforeUnmount() {
+    if (this.keyBoardAble) {
+      window.removeEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
+    }
+
+    super.beforeUnmount();
   }
 
   @Widget.Method()
@@ -1022,7 +1033,69 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   // endregion
 
-  protected getCellEditable(field: string, row: ActiveRecord, rowIndex: number): boolean {
+  // region 快捷键操作
+
+  /**
+   * 兼容不同系统的快捷键
+   * Esc / Escape
+   */
+  private normalizeKey(key: string): string {
+    return key === 'Esc' ? 'Escape' : key;
+  }
+
+  /**
+   * 检查按键是否匹配快捷键配置
+   * @param {KeyboardEvent} event 键盘事件
+   * @param {ActionKeyboardConfig[]} configs  快捷键配置数组
+   * @returns {boolean} 是否匹配
+   */
+  private isShortcutMatch(event: KeyboardEvent, configs: ActionKeyboardConfig[]) {
+    const eventKey = this.normalizeKey(event.key);
+
+    return configs.some((config) => {
+      const { key, ctrl = false, shift = false, alt = false } = config;
+
+      if (this.normalizeKey(key) !== eventKey) {
+        return false;
+      }
+
+      const isCtrlMatch = event.ctrlKey === ctrl || event.metaKey === ctrl;
+      const isShiftMatch = event.shiftKey === shift;
+      const isAltMatch = event.altKey === alt;
+
+      return isCtrlMatch && isShiftMatch && isAltMatch;
+    });
+  }
+
+  /**
+   * 单元格自动聚焦
+   * @param {number} rowIndex 行索引
+   * @param {number} columnIndex 行索引
+   */
+  protected columnAutoFocus(rowIndex = 0, columnIndex = 0) {
+    const tableEl = this.getTableInstance()?.getOrigin()?.$el as HTMLElement | undefined;
+    if (!tableEl) {
+      return;
+    }
+
+    const rowsEl = tableEl.querySelectorAll('.vxe-table--main-wrapper .vxe-table--body .vxe-body--row');
+    const currentRow = rowsEl[rowIndex] as HTMLElement | undefined;
+
+    if (!currentRow) {
+      return;
+    }
+
+    const columnsEl = currentRow.querySelectorAll('.vxe-body--column');
+
+    if (!columnsEl || !columnsEl[columnIndex]) {
+      return;
+    }
+
+    const input = columnsEl[columnIndex].querySelector('input');
+    input?.focus();
+  }
+
+  protected getCellEditable(field: string, row: ActiveRecord, rowIndex: number) {
     let isEnabled = true;
     const columnWidget = this.getColumnWidgets().find((v) => v.itemData === field);
     if (
@@ -1041,14 +1114,17 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return isEnabled;
   }
 
-  protected async onMoveColumnActiveEditor(offset: number) {
-    const lastedCurrentEditorContext = this.lastedCurrentEditorContext;
-    const { column, rowIndex } = lastedCurrentEditorContext!;
+  /**
+   * 单元格左右移动
+   */
+  protected async onMoveColumnActiveEditor(event: KeyboardEvent, offset: number) {
+    const { column, rowIndex } = this.lastedCurrentEditorContext!;
     const allColumns = this.tableInstance?.getAllColumns() || [];
     const currentColumnIndex = allColumns.findIndex((v) => v.field === column.field);
     let nextColumnIndex = currentColumnIndex + offset;
     let nextColumn = allColumns[nextColumnIndex];
-    let row = this.dataSource?.[rowIndex];
+    let row = this.showDataSource?.[rowIndex];
+    let toNextRow = false;
 
     while (!nextColumn.field || nextColumn.field === '$$internalOperator' || !nextColumn.visible) {
       nextColumnIndex = nextColumnIndex + offset;
@@ -1056,7 +1132,8 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
 
     if (nextColumnIndex < 0 || nextColumnIndex >= allColumns.length) {
-      row = this.dataSource?.[rowIndex + Math.sign(offset)];
+      toNextRow = true;
+      row = this.showDataSource?.[rowIndex + Math.sign(offset)];
     }
     const isEnabled =
       row &&
@@ -1064,34 +1141,91 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       nextColumn.field &&
       this.getCellEditable(nextColumn.field, row, rowIndex + (row ? offset : 0));
     if (!isEnabled) {
-      return this.onMoveColumnActiveEditor(offset + offset);
+      return this.onMoveColumnActiveEditor(event, offset + offset);
     }
-    const result = await this.tableInstance?.activeCellEditor(row, nextColumn.field);
+
+    if (this.lastedCurrentEditorContext) {
+      this.lastedCurrentEditorContext.column = nextColumn;
+      this.lastedCurrentEditorContext.columnIndex = nextColumnIndex;
+    }
+
+    // 如果是换行编辑，那么需要下一行可编辑项的第一个默认选中，并且修改激活行的数据
+    if (toNextRow) {
+      this.columnAutoFocus(rowIndex + 1, 0);
+
+      delay(() => {
+        const context = this.getTableInstance()?.getActiveEditorRecord()?.origin as ActiveEditorContext;
+
+        if (context) {
+          this.activeEditor({ ...context, editableMap: {} });
+        }
+      }, 200);
+    } else {
+      // 否则直接切换对应单元格的焦点
+      await this.tableInstance?.activeCellEditor(row, nextColumn.field);
+      this.columnAutoFocus(rowIndex, nextColumnIndex);
+    }
   }
 
-  protected async onMoveRowActiveEditor(offset: 1 | -1) {
-    const lastedCurrentEditorContext = this.lastedCurrentEditorContext;
-    const { column, rowIndex } = lastedCurrentEditorContext!;
+  /**
+   * 上下移动
+   */
+  protected async onMoveRowActiveEditor(event: KeyboardEvent, offset: 1 | -1) {
+    const { column, rowIndex } = this.lastedCurrentEditorContext!;
     const { field } = column;
     if (field) {
       const currentIndex = rowIndex + offset;
-      const currentRow = this.dataSource![currentIndex];
+      const currentRow = this.showDataSource![currentIndex];
       const isEnabled = this.getCellEditable(field, currentRow, currentIndex);
-      if (!isEnabled) {
+      if (!currentRow || !isEnabled) {
         return;
       }
-      const result = await this.tableInstance?.activeCellEditor(currentRow, field);
+
+      await this.tableInstance?.activeCellEditor(currentRow, field);
+
+      this.columnAutoFocus(currentIndex, 0);
+
+      delay(() => {
+        const context = this.getTableInstance()?.getActiveEditorRecord()?.origin as ActiveEditorContext;
+
+        if (context) {
+          this.activeEditor({ ...context, editableMap: {} });
+        }
+      }, 200);
     }
   }
 
+  /**
+   * 键盘事件处理
+   */
   protected bindKeyboardShortcut(event: KeyboardEvent) {
-    const { code, shiftKey, ctrlKey, metaKey } = event;
-    if (code === 'Tab') {
-      this.onMoveColumnActiveEditor(shiftKey ? -1 : 1);
-    } else if (code === 'Escape') {
+    if (!this.lastedCurrentEditorContext) {
+      return;
+    }
+
+    // 右移动
+    if (this.isShortcutMatch(event, this.keyboardShortcut.right)) {
+      event.preventDefault();
+      this.onMoveColumnActiveEditor(event, 1);
+    } else if (this.isShortcutMatch(event, this.keyboardShortcut.left)) {
+      /// 左移动
+      event.preventDefault();
+      this.onMoveColumnActiveEditor(event, -1);
+    } else if (this.isShortcutMatch(event, this.keyboardShortcut.down)) {
+      console.log('xia ');
+      // 下移动
+      event.preventDefault();
+      this.onMoveRowActiveEditor(event, 1);
+    } else if (this.isShortcutMatch(event, this.keyboardShortcut.up)) {
+      // 上移动
+      event.preventDefault();
+      this.onMoveRowActiveEditor(event, -1);
+    } else if (this.isShortcutMatch(event, this.keyboardShortcut.cancel)) {
+      // 取消
+      event.preventDefault();
       this.tableInstance?.clearEditor();
-    } else if (code === 'Enter' && (ctrlKey || metaKey)) {
-      this.onMoveRowActiveEditor(!shiftKey ? -1 : 1);
     }
   }
+
+  // endregion
 }
