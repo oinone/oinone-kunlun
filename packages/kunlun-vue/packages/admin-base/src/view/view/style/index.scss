@@ -113,3 +113,13 @@ $treeMinWidth: 324px;
   height: 100vh;
   background-color: var(--oio-background);
 }
+
+.oio-draft-data-modal-confirm {
+  .ant-modal-confirm-body {
+    display: flex;
+    gap: var(--oio-row-gap);
+    .ant-modal-close-x {
+      top: -4px;
+    }
+  }
+}

@@ -347,7 +347,7 @@ export default defineComponent({
           createVNode(
             VxeTable,
             {
-              autoResize: autoResize,
+              autoResize,
               ...(componentData || {}),
 
               ref: 'vxeTable',
