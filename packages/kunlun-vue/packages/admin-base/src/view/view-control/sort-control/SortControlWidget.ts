@@ -1,6 +1,5 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { ISort } from '@oinone/kunlun-service';
 import { BaseElementWidget } from '../../../basic';
 import DefaultSortControl from './DefaultSortControl.vue';
 
@@ -22,7 +21,7 @@ export class SortControlWidget extends BaseElementWidget {
    */
   @Widget.Reactive()
   @Widget.Inject('sortList')
-  protected parentSortList: ISort[] | undefined;
+  protected parentSortList: any[] | undefined;
 
   /**
    * 修改排序
@@ -30,7 +29,7 @@ export class SortControlWidget extends BaseElementWidget {
    */
   @Widget.Method()
   @Widget.Inject()
-  protected onSortChange!: (sortList: ISort[]) => void;
+  protected onSortChange!: (sortList: any[]) => void;
 
   /**
    * 排序字段列表

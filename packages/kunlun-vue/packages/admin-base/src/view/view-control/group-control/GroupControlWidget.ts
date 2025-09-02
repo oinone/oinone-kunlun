@@ -1,6 +1,5 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { IGroup } from '@oinone/kunlun-service';
 import { BaseElementWidget } from '../../../basic';
 import DefaultGroupControl from './DefaultGroupControl.vue';
 
@@ -22,7 +21,7 @@ export class GroupControlWidget extends BaseElementWidget {
    */
   @Widget.Reactive()
   @Widget.Inject('groupList')
-  protected parentGroupList: IGroup[] | undefined;
+  protected parentGroupList: any[] | undefined;
 
   /**
    * 修改分组
@@ -30,7 +29,7 @@ export class GroupControlWidget extends BaseElementWidget {
    */
   @Widget.Method()
   @Widget.Inject()
-  protected onGroupChange!: (groupList: IGroup[]) => void;
+  protected onGroupChange!: (groupList: any[]) => void;
 
   @Widget.Reactive()
   protected get groupList() {

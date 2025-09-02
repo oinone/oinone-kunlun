@@ -57,6 +57,10 @@ export class FormM2OSelectFieldWidget extends FormSelectComplexFieldWidget<Activ
     return undefined;
   }
 
+  public m2oChange(value: Record<string, unknown>) {
+    super.change(value);
+  }
+
   @Widget.Watch('formData', { deep: true })
   public async watchM2OValue() {
     this.delayUpdateM2oValue();
