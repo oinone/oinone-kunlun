@@ -49,11 +49,7 @@ import { BaseRuntimePropertiesWidget } from '../common';
 import { QueryExpression, RefreshProcessFunction, UrlQueryParameters } from '../types';
 import { BaseElementViewWidget, BaseElementViewWidgetProps } from './BaseElementViewWidget';
 import { generatorCondition, getSortFieldDirection } from './utils';
-import { DEFAULT_SLOT_NAME, DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
-import { Element, InternalWidget, ResolveMode } from '../../tags';
-import { createVNode } from 'vue';
-import Element from '../../tags/Element.vue';
-import { ActionWidget } from '../../action';
+import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 
 const URL_SPLIT_SEPARATOR = ',';
 const ORDERING_SEPARATOR = ',';
