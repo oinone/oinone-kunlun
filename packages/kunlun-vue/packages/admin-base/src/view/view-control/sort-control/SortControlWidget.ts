@@ -21,7 +21,7 @@ export class SortControlWidget extends BaseElementWidget {
    */
   @Widget.Reactive()
   @Widget.Inject('sortList')
-  protected parentSortList: any[] | undefined;
+  protected parentSortList;
 
   /**
    * 修改排序
@@ -29,7 +29,7 @@ export class SortControlWidget extends BaseElementWidget {
    */
   @Widget.Method()
   @Widget.Inject()
-  protected onSortChange!: (sortList: any[]) => void;
+  protected onSortChange!: (sortList) => void;
 
   /**
    * 排序字段列表

@@ -21,7 +21,7 @@ export class GroupControlWidget extends BaseElementWidget {
    */
   @Widget.Reactive()
   @Widget.Inject('groupList')
-  protected parentGroupList: any[] | undefined;
+  protected parentGroupList;
 
   /**
    * 修改分组
@@ -29,7 +29,7 @@ export class GroupControlWidget extends BaseElementWidget {
    */
   @Widget.Method()
   @Widget.Inject()
-  protected onGroupChange!: (groupList: any[]) => void;
+  protected onGroupChange!: (groupList) => void;
 
   @Widget.Reactive()
   protected get groupList() {
