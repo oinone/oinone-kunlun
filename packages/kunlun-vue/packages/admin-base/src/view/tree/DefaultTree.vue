@@ -47,6 +47,9 @@ export default defineComponent({
     template: {
       type: Object as PropType<DslDefinition>
     },
+    width: {
+      type: String
+    },
     autoExpandParent: {
       type: Boolean
     },
@@ -99,6 +102,13 @@ export default defineComponent({
         metadata = metadata.child;
       }
       return !!model;
+    });
+
+    const width = computed(() => {
+      if (props.width == null) {
+        return '234px';
+      }
+      return props.width;
     });
 
     const internalExpandedKeys = ref<string[]>([]);
@@ -183,6 +193,7 @@ export default defineComponent({
     return {
       treeData,
       isSameModel,
+      width,
 
       internalExpandedKeys,
       selectedKeys,
@@ -331,3 +342,9 @@ export default defineComponent({
   }
 });
 </script>
+<style lang="scss">
+.default-tree.default-tree-content-wrapper .oio-tree-wrapper {
+  width: v-bind('width');
+  flex-basis: v-bind('width');
+}
+</style>
