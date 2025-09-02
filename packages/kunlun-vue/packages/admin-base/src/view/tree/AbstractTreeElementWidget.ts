@@ -84,6 +84,11 @@ export abstract class AbstractTreeElementWidget<V extends TreeData = TreeData> e
   }
 
   @Widget.Reactive()
+  public get viewModel(): string | undefined {
+    return this.model.model;
+  }
+
+  @Widget.Reactive()
   public get width(): string | undefined {
     let { width } = this.getDsl();
     if (width == null) {

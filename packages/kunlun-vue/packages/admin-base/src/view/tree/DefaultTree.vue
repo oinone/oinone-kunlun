@@ -44,6 +44,9 @@ export default defineComponent({
     viewType: {
       type: String as PropType<ViewType>
     },
+    viewModel: {
+      type: String
+    },
     template: {
       type: Object as PropType<DslDefinition>
     },
@@ -83,25 +86,6 @@ export default defineComponent({
       }
       treeNodeList.push(...TreeUtils.fillLoadMoreAction([...(props.rootNode?.children || [])]));
       return treeNodeList;
-    });
-
-    const isSameModel = computed(() => {
-      let model: string | undefined;
-      let metadata = props.rootNode?.value?.metadata;
-      while (metadata) {
-        const nodeModel = metadata.model;
-        if (nodeModel) {
-          if (model) {
-            if (model !== nodeModel) {
-              return false;
-            }
-          } else {
-            model = nodeModel;
-          }
-        }
-        metadata = metadata.child;
-      }
-      return !!model;
     });
 
     const width = computed(() => {
@@ -192,7 +176,6 @@ export default defineComponent({
 
     return {
       treeData,
-      isSameModel,
       width,
 
       internalExpandedKeys,
@@ -207,6 +190,7 @@ export default defineComponent({
     };
   },
   render() {
+    const { viewModel } = this;
     const treeComponent = createVNode(
       OioTree,
       {
@@ -252,7 +236,7 @@ export default defineComponent({
             ];
           }
           let rowActionsSlot = dataRef.value?.metadata?.rowActionsSlot;
-          if (!rowActionsSlot && this.isSameModel) {
+          if (!rowActionsSlot && dataRef.value?.metadata?.model === viewModel) {
             rowActionsSlot = this.$slots.rowActions;
           }
           if (rowActionsSlot) {
