@@ -52,7 +52,7 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
   }
 
   @Widget.Reactive()
-  public get class(): string | undefined {
+  public get class(): string | string[] | undefined {
     return this.getDsl().class;
   }
 
