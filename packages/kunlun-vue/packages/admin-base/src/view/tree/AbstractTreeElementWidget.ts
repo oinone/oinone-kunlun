@@ -2,7 +2,7 @@ import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { ExpressionRunParam } from '@oinone/kunlun-expression';
 import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
+import { OioTreeNode, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { TreeNodeResponseBody, TreeService } from '../../service';
 import { TreeData, TreeNodeMetadata } from '../../typing';
@@ -81,6 +81,11 @@ export abstract class AbstractTreeElementWidget<V extends TreeData = TreeData> e
   @Widget.Reactive()
   public get searchRemote() {
     return this.getDsl().searchRemote ?? true;
+  }
+
+  @Widget.Reactive()
+  public get width(): string | undefined {
+    return StyleHelper.px(this.getDsl().width);
   }
 
   public initialize(props) {
