@@ -5,7 +5,6 @@ export * from './upload';
 export * from './user-prefer';
 export * from './prop';
 export * from './oio-simple-pagination';
-export * from './control-icon';
 export * from './table-line-height';
 export * from './oio-full-screen';
 export * from './select-table/SelectTable.vue';
