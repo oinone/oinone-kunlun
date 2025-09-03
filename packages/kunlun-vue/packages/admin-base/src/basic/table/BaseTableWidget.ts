@@ -342,11 +342,7 @@ export class BaseTableWidget<
     const data = await this.rowEditorClosedForSubmit(context);
     if (this.inline) {
       if (res && data) {
-        if (this.createMode) {
-          this.createSubviewFieldWidget(context, data);
-        } else {
-          this.updateSubviewFieldWidget(context, data);
-        }
+        this.updateSubviewFieldWidget(context, data);
       }
     } else if (data) {
       try {
