@@ -29,7 +29,7 @@ export const cssVars = {
   'background-focus': `var(--${prefix}-background)`,
   'border-width-focus': `var(--${prefix}-border-width)`,
   'border-style-focus': `var(--${prefix}-border-style)`,
-  'border-color-focus': `var(--${DEFAULT_PREFIX}-primary-color-hover)`,
+  'border-color-focus': `var(--${DEFAULT_PREFIX}-primary-color-focus)`,
   'border-radius-focus': `var(--${prefix}-border-radius)`,
   'outline-focus': `var(--${prefix}-outline)`,
   'shadow-focus': `0px 0px 0px 2px rgba(3,93,255,0.1);`,
@@ -44,6 +44,8 @@ export const cssVars = {
   'dropdown-selected-color': 'var(--oio-primary-color)',
   'dropdown-color': 'var(--oio-text-color-secondary)',
   'dropdown-selected': 'rgba(var(--oio-primary-color-rgb), 0.1)',
+  'dropdown-hover-color': 'var(--oio-text-color-secondary)',
+  'dropdown-hover-background': 'rgba(var(--oio-primary-color-rgb), 0.1)',
   'dropdown-box-shadow':
     '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),0 9px 28px 8px rgba(0, 0, 0, 0.05)'
 };

@@ -193,10 +193,10 @@ export default defineComponent({
   .default-dropdown-menu {
     background-color: var(--oio-background);
     border: 1px solid var(--oio-border-color);
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
+    box-shadow: var(--oio-box-shadow);
+    border-radius: var(--oio-border-radius);
     position: unset;
-    padding: 7px 0;
+    padding: 4px;
 
     .ant-dropdown-menu-title-content {
       position: unset;
@@ -236,7 +236,7 @@ export default defineComponent({
     }
 
     .ant-dropdown-menu-item {
-      padding: 6px 12px;
+      padding: 5px 10px;
 
       &:not(:first-child) {
         margin-top: 7px;
@@ -258,8 +258,8 @@ export default defineComponent({
 
       .oio-button {
         width: 100%;
-
-        &.oio-button-icon-before,
+        color: var(--oio-dropdown-button-text-color);
+        & &.oio-button-icon-before,
         &.oio-button-icon-after {
           .oio-action-content {
             max-width: calc(100% - 18px);
@@ -272,6 +272,12 @@ export default defineComponent({
           text-overflow: ellipsis;
           white-space: nowrap;
           vertical-align: middle;
+        }
+      }
+
+      &.ant-dropdown-menu-item-disabled {
+        .oio-button {
+          color: var(--oio-dropdown-color-disabled);
         }
       }
 

@@ -73,8 +73,8 @@ $tagRemoveLineHeight: $tagHeight - 4px;
     color: var(--oio-select-dropdown-color) !important;
 
     &:hover {
-      background: var(--oio-select-dropdown-selected) !important;
-      color: var(--oio-select-dropdown-selected-color) !important;
+      background: var(--oio-select-dropdown-hover-background) !important;
+      color: var(--oio-select-dropdown-hover-color) !important;
     }
 
     &.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {

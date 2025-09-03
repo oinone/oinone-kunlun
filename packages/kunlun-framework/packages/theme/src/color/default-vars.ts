@@ -63,6 +63,9 @@ export const defaultVars = {
   'text-color-secondary': 'rgba(0,0,0,0.65)',
   'text-color-three': 'rgba(0,0,0,0.45)',
 
+  // 下拉
+  'dropdown-primary-color-hover': `var(--${DEFAULT_PREFIX}-primary-color-hover)`,
+
   /**
    * @deprecated Please use --${DEFAULT_PREFIX}-font-weight-bold property.
    */

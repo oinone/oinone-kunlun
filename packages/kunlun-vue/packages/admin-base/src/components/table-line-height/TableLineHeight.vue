@@ -1,7 +1,12 @@
 <template>
   <a-dropdown overlay-class-name="default-table-line-height-dropdown" trigger="click" placement="bottom">
     <div class="default-view-control-item default-table-line-height">
-      <oio-icon size="16" :icon="icon"></oio-icon>
+      <a-tooltip placement="bottom" class="oio-tooltip">
+        <template #title>
+          <span>{{ $translate('行高切换') }}</span>
+        </template>
+        <oio-icon size="16" :icon="icon"></oio-icon>
+      </a-tooltip>
     </div>
     <template #overlay>
       <a-menu>
@@ -21,7 +26,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref } from 'vue';
-import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
+import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem, Tooltip as ATooltip } from 'ant-design-vue';
+
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { TableLineHeightEnum } from '../../typing';
@@ -39,11 +45,12 @@ export default defineComponent({
     ADropdown,
     AMenu,
     AMenuItem,
-    OioIcon
+    OioIcon,
+    ATooltip
   },
   setup(props, { emit }) {
     const options = [
-      { label: translateValueByKey('默认'), icon: 'oinone-gao', value: TableLineHeightEnum.DEFAULT },
+      { label: translateValueByKey('默认'), icon: 'icon-a-defaultrowheight', value: TableLineHeightEnum.DEFAULT },
       { label: translateValueByKey('高'), icon: 'icon-high-height-outlined', value: TableLineHeightEnum.LARGE },
       { label: translateValueByKey('中'), icon: 'icon-medium-height-outlined', value: TableLineHeightEnum.MIDDLE },
       { label: translateValueByKey('低'), icon: 'icon-medium-height-outlined', value: TableLineHeightEnum.SMALL },

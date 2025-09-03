@@ -10,7 +10,12 @@
       ></sortable-group>
     </template>
     <div class="default-view-control-item default-view-control-sort">
-      <oio-icon size="16" icon="icon-a-defaultrowheight"> </oio-icon>
+      <a-tooltip placement="bottom" class="oio-tooltip">
+        <template #title>
+          <span>{{ $translate('排序') }}</span>
+        </template>
+        <oio-icon size="16" icon="icon-a-defaultrowheight"> </oio-icon>
+      </a-tooltip>
     </div>
   </a-popover>
 </template>

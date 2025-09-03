@@ -1,3 +1,4 @@
+import { kebabCase } from 'lodash-es';
 import { PluginsLoader, PluginsLoaderConfig, RuntimeConfig } from '@oinone/kunlun-meta';
 import { HttpClient } from '@oinone/kunlun-request';
 import { blockingSerialExecutor, instantiate, isMobile, MatrixRouteHelper } from '@oinone/kunlun-shared';
@@ -108,7 +109,7 @@ async function refreshSystemMajorConfig() {
   MultiTabsRuntimeManifestMergedConfigManager.refreshConfig(systemMajorConfig);
 
   const { mode, size, extend } = systemMajorConfig;
-  const _mode = (mode || 'default').toLocaleLowerCase();
+  const _mode = kebabCase(mode || 'default');
   const _size = (size || 'medium').toLocaleLowerCase();
   // 修改主题
   await OioProvider.setTheme([`${_mode}-${_size}`], false);
@@ -338,7 +339,11 @@ export async function OioProvider(
 
   OioProvider.setLoginTheme(loginTheme);
 
-  const _mode = (mode || 'default').toLocaleLowerCase();
+  const _mode = kebabCase(mode || 'default');
+  // const _mode = 'default-modern';
+
+  // const _mode = 'dark';
+  // const _mode = 'dark-modern';
   const _size = (size || 'medium').toLocaleLowerCase();
 
   // 初始化主题变量

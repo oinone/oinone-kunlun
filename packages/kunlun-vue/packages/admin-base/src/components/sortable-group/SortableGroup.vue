@@ -34,7 +34,12 @@
       </a-popover>
 
       <!-- 列表 -->
-      <draggable v-model="draggableList" item-key="sort" handle=".sortable-group-field-drag-icon">
+      <draggable
+        v-model="draggableList"
+        item-key="sort"
+        :class="[draggableList.length && 'sortable-group-draggable-content']"
+        handle=".sortable-group-field-drag-icon"
+      >
         <template #item="{ element, index }">
           <div class="sortable-group-field">
             <oio-icon
@@ -182,7 +187,7 @@ export default defineComponent({
     padding: var(--oio-padding-lg) var(--oio-padding-sm);
     .sortable-group-title {
       display: inline-block;
-      padding: 0 0 var(--oio-padding-lg) var(--oio-padding-sm);
+      padding: 0 0 0 var(--oio-padding-sm);
     }
     .sortable-group-title-content {
       cursor: pointer;
@@ -191,6 +196,9 @@ export default defineComponent({
       color: var(--oio-primary-color);
     }
 
+    .sortable-group-draggable-content {
+      margin-top: var(--oio-margin);
+    }
     .sortable-group-field {
       display: flex;
       align-items: center;
@@ -287,7 +295,7 @@ export default defineComponent({
   }
   .sortable-group-select {
     max-height: 200px;
-    padding: 12px 16px;
+    padding: 4px;
     overflow-y: scroll;
     border-top: 1px solid var(--oio-border-color);
 
@@ -297,10 +305,22 @@ export default defineComponent({
       vertical-align: middle;
       line-height: var(--oio-height);
       color: var(--oio-text-color);
+      border-radius: var(--oio-border-radius-md);
+      line-height: normal;
+      padding: 5px;
+      margin-bottom: 4px;
+      &:last-child {
+        margin-bottom: 0;
+      }
       cursor: pointer;
       &.sortable-group-select-item-disabled {
         color: var(--oio-disabled-color);
         cursor: no-drop;
+      }
+
+      &:hover {
+        background: var(--oio-select-dropdown-hover-background);
+        color: var(--oio-select-dropdown-hover-color);
       }
     }
   }

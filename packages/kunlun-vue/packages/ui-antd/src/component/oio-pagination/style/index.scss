@@ -62,30 +62,30 @@
   .ant-pagination-next .ant-pagination-item-link,
   .ant-pagination-item {
     border: var($parameterPrefix + -border-width) var($parameterPrefix + -border-style)
-      var($parameterPrefix + -border-color);
+      var($paginationParameterPrefix + -border-color);
     border-radius: var($parameterPrefix + -border-radius);
 
     a {
-      color: var($parameterPrefix + -text-color);
+      color: var($paginationParameterPrefix + -text-color);
     }
 
     &:hover {
-      background-color: var($parameterPrefix + -primary-color-hover);
-      border-color: var($parameterPrefix + -primary-color-hover);
-      color: #ffffff;
+      background-color: var($paginationParameterPrefix + -background-hover);
+      border-color: var($paginationParameterPrefix + -border-color-hover);
+      color: var($paginationParameterPrefix + -text-color-hover);
 
       a {
-        color: #ffffff;
+        color: var($paginationParameterPrefix + -text-color-hover);
       }
     }
   }
 
   .ant-pagination-item-active {
-    background-color: var($parameterPrefix + -primary-color);
-    border-color: var($parameterPrefix + -primary-color);
+    background-color: var($paginationParameterPrefix + -background-active);
+    border-color: var($paginationParameterPrefix + -border-color-active);
 
     a {
-      color: #ffffff;
+      color: var($paginationParameterPrefix + -text-color-active);
     }
   }
 
@@ -162,8 +162,9 @@
   }
 
   .ant-pagination-item-active {
-    background-color: var(--oio-primary-color);
-    border-color: var(--oio-primary-color);
+    background-color: var($paginationParameterPrefix + -background-active);
+    border: var($parameterPrefix + -border-width) var($parameterPrefix + -border-style)
+      var($paginationParameterPrefix + -border-color-active);
   }
 
   .ant-pagination-options-quick-jumper {

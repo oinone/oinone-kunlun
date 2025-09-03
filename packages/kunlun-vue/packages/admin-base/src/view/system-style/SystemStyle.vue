@@ -219,6 +219,7 @@
 </template>
 <script lang="ts" setup>
 import { ref, computed, defineProps, watchEffect, watch } from 'vue';
+import { kebabCase } from 'lodash-es';
 import { getTheme } from '@oinone/kunlun-theme';
 import { OioIcon, OioButton } from '@oinone/kunlun-vue-ui-antd';
 import {
@@ -264,7 +265,7 @@ watchEffect(() => {
   const { mode: m, size: s, multiTabTheme, sideBarTheme, extend } = props.systemConfig;
 
   if (m) {
-    mode.value = m.toLocaleLowerCase();
+    mode.value = kebabCase(m);
   }
 
   if (s) {

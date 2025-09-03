@@ -85,8 +85,10 @@ export enum OioLoginThemeName {
 export enum SideBarThemeColor {
   // 默认
   default = 'default',
+  'default-modern' = 'default-modern',
   // 深色
-  dark = 'dark'
+  dark = 'dark',
+  'dark-modern' = 'dark-modern'
 }
 
 /**

@@ -236,8 +236,8 @@ a:hover {
 
 .ant-dropdown-menu-item:not(.ant-dropdown-menu-item-disabled):hover,
 .ant-dropdown-menu-submenu-title:hover {
-  background: var(--oio-hover-background-color);
-  color: var(--oio-hover-text-color);
+  background: var(--oio-dropdown-background-hover);
+  color: var(--oio-dropdown-color-hover);
 }
 
 .anticon.ant-input-clear-icon {
@@ -306,8 +306,8 @@ a:hover {
   .ant-select-item {
     color: var(--oio-select-dropdown-color) !important;
     &:hover {
-      background: var(--oio-select-dropdown-selected) !important;
-      color: var(--oio-select-dropdown-selected-color) !important;
+      background: var(--oio-select-dropdown-hover-background) !important;
+      color: var(--oio-select-dropdown-hover-color) !important;
     }
     &.ant-select-item-option-selected {
       background: var(--oio-select-dropdown-selected) !important;
@@ -334,7 +334,7 @@ a:hover {
 .ant-picker-cell:hover:not(.ant-picker-cell-in-view) .ant-picker-cell-inner,
 .ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end)
   .ant-picker-cell-inner {
-  color: var(--oio-primary-color);
+  color: var(--oio-datetime-text-color-hover);
 }
 
 .ant-picker-header,

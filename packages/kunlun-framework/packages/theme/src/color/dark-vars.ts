@@ -62,6 +62,9 @@ export const darkVars = {
   'text-color-secondary': 'rgba(255,255,255,0.45)',
   'text-color-three': 'rgba(255,255,255,0.25)',
 
+  // 下拉
+  'dropdown-primary-color-hover': `var(--${DEFAULT_PREFIX}-primary-color-hover)`,
+
   /**
    * @deprecated Please use --${DEFAULT_PREFIX}-font-weight-bold property.
    */

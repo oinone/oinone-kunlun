@@ -1,16 +1,23 @@
 <template>
   <div class="default-view-control-item default-view-control-full-screen">
-    <oio-icon size="16" :icon="icon" @click="onChange" />
+    <a-tooltip placement="bottom" class="oio-tooltip">
+      <template #title>
+        <span>{{ $translate('全屏') }}</span>
+      </template>
+      <oio-icon size="16" :icon="icon" @click="onChange" />
+    </a-tooltip>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
+import { Tooltip as ATooltip } from 'ant-design-vue';
 
 export default defineComponent({
   components: {
-    OioIcon
+    OioIcon,
+    ATooltip
   },
   emits: ['update:value', 'change'],
   props: {

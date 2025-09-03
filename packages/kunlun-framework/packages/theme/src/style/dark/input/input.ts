@@ -27,7 +27,7 @@ export const cssVars = {
   'background-focus': `var(--${prefix}-background)`,
   'border-width-focus': `var(--${prefix}-border-width)`,
   'border-style-focus': `var(--${prefix}-border-style)`,
-  'border-color-focus': `var(--${DEFAULT_PREFIX}-primary-color-hover)`,
+  'border-color-focus': `var(--${DEFAULT_PREFIX}-primary-color-focus)`,
   'border-radius-focus': `var(--${prefix}-border-radius)`,
   'outline-focus': `var(--${prefix}-outline)`,
   'shadow-focus': `0px 0px 0px 2px rgba(var(--${DEFAULT_PREFIX}-primary-color-rgb),0.1);`,

@@ -61,8 +61,7 @@ export default defineComponent({
       border-radius: var(--oio-border-radius);
 
       &:hover {
-        background: var(--oio-select-dropdown-selected);
-        color: var(--oio-primary-color);
+        background: var(--oio-dropdown-primary-color-hover);
       }
     }
   }
