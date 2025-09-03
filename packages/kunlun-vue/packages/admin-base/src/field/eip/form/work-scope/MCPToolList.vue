@@ -22,7 +22,6 @@ import { CheckboxGroup as ACheckboxGroup, InputSearch as AInputSearch, Row as AR
 
 interface InterfaceItem {
   interfaceName: string;
-  // add other properties if needed
 }
 
 const props = withDefaults(
@@ -43,7 +42,6 @@ const filteredOptions = ref<any[]>([]);
 
 const currentValue = computed(() => {
   const value =  (props.value || []).map((v: InterfaceItem) => v.interfaceName);
-  console.log("🚀 ~ value:", value)
   return value;
 });
 
