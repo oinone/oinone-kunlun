@@ -42,7 +42,7 @@ export class ActionWidget<
   @Widget.Reactive()
   protected get viewDraftDataIdentifier() {
     const pk = this.model.pks?.[0] || 'id';
-    const value = this.initialValue?.[0][pk] || this.initialContext?.[pk] || this.urlParameters.id;
+    const value = this.initialValue?.[0]?.[pk] || this.initialContext?.[pk] || this.urlParameters?.id;
 
     return `${this.viewAction?.name || ''}-${this.viewAction?.resViewName || ''}-${value || ''}`;
   }
