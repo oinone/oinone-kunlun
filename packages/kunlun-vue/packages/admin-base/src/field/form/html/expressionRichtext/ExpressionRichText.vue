@@ -14,7 +14,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref, shallowRef, watch, nextTick } from 'vue';
+import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, PropType, ref, shallowRef, watch } from 'vue';
 import { ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
@@ -48,9 +48,8 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       default: () => []
     },
-    mode: {
-      type: String,
-      default: 'simple'
+    readonly: {
+      type: String
     }
   },
   setup(props) {
@@ -80,7 +79,7 @@ export default defineComponent({
       return {
         placeholder: `${translateValueByKey('请输入内容')}...`,
         EXTEND_CONF: { contextItems: props.contextItems },
-        readonly: props.mode === 'readonly'
+        readonly: props.readonly
       };
     });
 
@@ -147,7 +146,7 @@ export default defineComponent({
       });
     };
 
-    onMounted( async () => {
+    onMounted(async () => {
       await nextTick();
       if (editorConfig.value.readonly) {
         editorRef.value.disable();
