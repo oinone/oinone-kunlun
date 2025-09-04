@@ -37,8 +37,7 @@ export function createExpressionDialog(contextItems: IVariableContextItem[], edi
   const app = createApp({
     components: { ExpressionInputPanel },
     props: {
-      onExpressionSave: () => {
-      }
+      onExpressionSave: () => {}
     },
     render() {
       return h(ExpressionInputPanel, {
@@ -49,7 +48,7 @@ export function createExpressionDialog(contextItems: IVariableContextItem[], edi
           const expressionSourceCode = {
             type: ExpressionElementType,
             displayName: value,
-            value:value,
+            value: value,
             children: [{ text: '' }]
           };
           if (currentSelection) {
