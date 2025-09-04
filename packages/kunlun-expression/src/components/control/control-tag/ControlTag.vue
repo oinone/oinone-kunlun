@@ -25,7 +25,7 @@ import { Divider as ADivider } from 'ant-design-vue';
 import { ElementSize } from '../../../types';
 
 export default defineComponent({
-  components: { CloseCircleOutlined,ADivider },
+  components: { CloseCircleOutlined, ADivider },
 
   props: {
     title: {
