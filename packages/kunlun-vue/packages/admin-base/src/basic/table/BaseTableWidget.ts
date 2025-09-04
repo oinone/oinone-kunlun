@@ -14,7 +14,8 @@ import {
   RuntimeO2MField,
   SubmitCacheManager,
   SubmitValue,
-  translateValueByKey
+  translateValueByKey,
+  RelationUpdateType
 } from '@oinone/kunlun-engine';
 import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { MessageHub } from '@oinone/kunlun-request';
@@ -340,13 +341,15 @@ export class BaseTableWidget<
       return false;
     }
     const data = await this.rowEditorClosedForSubmit(context);
+    const useDiffUpdate = [RelationUpdateType.diff, RelationUpdateType.batch].includes(this.relationUpdateType)
     if (this.inline) {
       if (res && data) {
-        if (this.createMode) {
+        if (this.createMode && useDiffUpdate) {
           this.createSubviewFieldWidget(context, data);
         } else {
           this.updateSubviewFieldWidget(context, data);
         }
+
       }
     } else if (data) {
       try {
