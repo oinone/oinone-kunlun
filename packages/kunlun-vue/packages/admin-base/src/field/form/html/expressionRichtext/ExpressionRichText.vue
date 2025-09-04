@@ -79,7 +79,6 @@ export default defineComponent({
       return {
         placeholder: `${translateValueByKey('请输入内容')}...`,
         EXTEND_CONF: { contextItems: props.contextItems },
-        readonly: props.readonly
       };
     });
 
@@ -148,7 +147,7 @@ export default defineComponent({
 
     onMounted(async () => {
       await nextTick();
-      if (editorConfig.value.readonly) {
+      if (props.readonly) {
         editorRef.value.disable();
       }
     });

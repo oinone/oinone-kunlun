@@ -658,8 +658,6 @@ export function createExpressionDefinitionByExpressionItem(
         }
         if (item.type === ExpressionItemType.LEFT_BRACKET || item.type === ExpressionItemType.RIGHT_BRACKET) {
         } else if (item.type === ExpressionItemType.VARIABLE) {
-          // if (ExpressionDefinitionType.BOOLEAN_CONDITION === expressionOption.type)
-          //   return;
           blockList.push({
             blockType: ExpressionItemType.VARIABLE,
             cellList: variableItemList2expressionCellList(item.valueList!)
