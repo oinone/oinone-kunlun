@@ -20,6 +20,11 @@ export class ExperimentalConfigManager {
     const version = process.env.BASE_ELEMENT_VIEW_WIDGET || ExperimentalConfigManager.getConfig().BaseElementViewWidget;
     return version === 'next';
   }
+
+  public static treeWidgetNext(): boolean {
+    const version = process.env.TREE_WIDGET || ExperimentalConfigManager.getConfig().TreeWidget;
+    return version === 'next';
+  }
 }
 
 export * from './config';

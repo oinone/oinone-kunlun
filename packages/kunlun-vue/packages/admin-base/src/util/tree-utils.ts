@@ -44,6 +44,7 @@ export class TreeUtils {
     }
     let root: TreeNodeMetadata | undefined;
     let parent: TreeNodeMetadata | undefined;
+    let nodes: DslDefinition | undefined;
     const appendChild = (widget: DslDefinition) => {
       const { model, title, label, labelFields, searchFields, references, selfReferences, filter, search, icon } =
         widget;
@@ -80,27 +81,33 @@ export class TreeUtils {
       }
       parent = metadata;
     };
-    for (const widget of widgets) {
-      const appendWidget = (targetWidget: DslDefinition) => {
-        if (targetWidget.dslNodeType === TreeUtils.DSL_NODES_TYPE) {
-          const nodesWidgets = targetWidget.widgets;
-          if (nodesWidgets) {
-            for (const nodeWidget of nodesWidgets) {
-              appendChild(nodeWidget);
-            }
+    const appendWidget = (targetWidget: DslDefinition) => {
+      if (targetWidget.dslNodeType === TreeUtils.DSL_NODES_TYPE) {
+        const nodesWidgets = targetWidget.widgets;
+        if (nodesWidgets) {
+          if (!nodes) {
+            nodes = targetWidget;
           }
-        } else if (targetWidget.dslNodeType === TreeUtils.DSL_NODE_TYPE) {
-          appendChild(targetWidget);
-        } else if (DslDefinitionHelper.isTemplate(targetWidget) && targetWidget.slot === DEFAULT_SLOT_NAME) {
-          const nodesWidgets = targetWidget.widgets;
-          if (nodesWidgets) {
-            for (const nodeWidget of nodesWidgets) {
-              appendWidget(nodeWidget);
-            }
+          for (const nodeWidget of nodesWidgets) {
+            appendChild(nodeWidget);
           }
         }
-      };
+      } else if (targetWidget.dslNodeType === TreeUtils.DSL_NODE_TYPE) {
+        appendChild(targetWidget);
+      } else if (DslDefinitionHelper.isTemplate(targetWidget) && targetWidget.slot === DEFAULT_SLOT_NAME) {
+        const nodesWidgets = targetWidget.widgets;
+        if (nodesWidgets) {
+          for (const nodeWidget of nodesWidgets) {
+            appendWidget(nodeWidget);
+          }
+        }
+      }
+    };
+    for (const widget of widgets) {
       appendWidget(widget);
+    }
+    if (root) {
+      root.nodes = nodes;
     }
     return root;
   }

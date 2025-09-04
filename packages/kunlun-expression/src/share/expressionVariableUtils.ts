@@ -884,7 +884,7 @@ export async function fetchModelData(
   }
   const condition = new Condition('model').in(models);
   if (keyword) {
-    condition.and(new Condition(`displayName`).like(`%${keyword}%`));
+    condition.and(new Condition(`displayName`).like(`${keyword}`));
   }
 
   return queryExpModelPage('queryPage', responseFields, condition.toString(), pagination, isFetchModelFields);

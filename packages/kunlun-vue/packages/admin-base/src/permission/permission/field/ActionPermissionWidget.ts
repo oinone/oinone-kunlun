@@ -57,7 +57,9 @@ let counter = 0;
 @SPI.ClassFactory(FormFieldWidget.Token({ widget: 'action-permission' }))
 export class ActionPermissionWidget extends FormFieldWidget<unknown, RuntimeO2MField> {
   @Widget.Reactive()
-  private class = 'oio-tree';
+  public get class() {
+    return 'oio-tree';
+  }
 
   public initialize(props) {
     super.initialize(props);

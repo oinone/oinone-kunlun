@@ -29,6 +29,9 @@ export default defineComponent({
     onActiveKeyChange: {
       type: Function as PropType<(key: string | string[]) => void>
     },
+    setAllKeys: {
+      type: Function as PropType<(keys: string[]) => void>
+    },
     type: {
       type: String as PropType<OioCollapseType | keyof typeof OioCollapseType>,
       default: OioCollapseType.bordered
@@ -58,9 +61,10 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      if (props.expandAll && !props.accordion) {
-        const panelKeys = origin.value?.getPanelKeys();
-        if (panelKeys) {
+      const panelKeys = origin.value?.getPanelKeys();
+      if (panelKeys) {
+        props.setAllKeys?.(panelKeys);
+        if (props.expandAll && !props.accordion) {
           onUpdateActiveKey(panelKeys);
         }
       }

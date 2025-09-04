@@ -4,7 +4,7 @@ import { translateValueByKey } from '@oinone/kunlun-engine';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { OioFormItem, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Tooltip as ATooltip } from 'ant-design-vue';
-import { computed, createVNode, defineComponent, Slot, VNode, vShow, withDirectives } from 'vue';
+import { computed, createVNode, defineComponent, PropType, Slot, VNode, vShow, withDirectives } from 'vue';
 import { ValidatorStatus } from '../../typing';
 import { BaseFormItemProps } from './props';
 

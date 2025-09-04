@@ -44,8 +44,14 @@ export default defineComponent({
     viewType: {
       type: String as PropType<ViewType>
     },
+    viewModel: {
+      type: String
+    },
     template: {
       type: Object as PropType<DslDefinition>
+    },
+    width: {
+      type: String
     },
     autoExpandParent: {
       type: Boolean
@@ -82,23 +88,11 @@ export default defineComponent({
       return treeNodeList;
     });
 
-    const isSameModel = computed(() => {
-      let model: string | undefined;
-      let metadata = props.rootNode?.value?.metadata;
-      while (metadata) {
-        const nodeModel = metadata.model;
-        if (nodeModel) {
-          if (model) {
-            if (model !== nodeModel) {
-              return false;
-            }
-          } else {
-            model = nodeModel;
-          }
-        }
-        metadata = metadata.child;
+    const width = computed(() => {
+      if (props.width == null) {
+        return '234px';
       }
-      return !!model;
+      return props.width;
     });
 
     const internalExpandedKeys = ref<string[]>([]);
@@ -182,7 +176,7 @@ export default defineComponent({
 
     return {
       treeData,
-      isSameModel,
+      width,
 
       internalExpandedKeys,
       selectedKeys,
@@ -196,6 +190,7 @@ export default defineComponent({
     };
   },
   render() {
+    const { viewModel } = this;
     const treeComponent = createVNode(
       OioTree,
       {
@@ -241,7 +236,7 @@ export default defineComponent({
             ];
           }
           let rowActionsSlot = dataRef.value?.metadata?.rowActionsSlot;
-          if (!rowActionsSlot && this.isSameModel) {
+          if (!rowActionsSlot && dataRef.value?.metadata?.model === viewModel) {
             rowActionsSlot = this.$slots.rowActions;
           }
           if (rowActionsSlot) {
@@ -331,3 +326,9 @@ export default defineComponent({
   }
 });
 </script>
+<style lang="scss">
+.default-tree.default-tree-content-wrapper .oio-tree-wrapper {
+  width: v-bind('width');
+  flex-basis: v-bind('width');
+}
+</style>

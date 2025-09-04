@@ -17,7 +17,15 @@ export class DefaultCollapseWidget extends BasePackWidget {
   }
 
   @Widget.Reactive()
-  private activeKey: string | string[] | undefined;
+  protected allKeys: string[] | undefined;
+
+  @Widget.Method()
+  public setAllKeys(keys: string[]) {
+    this.allKeys = keys;
+  }
+
+  @Widget.Reactive()
+  protected activeKey: string | string[] | undefined;
 
   public getActiveKey() {
     return this.activeKey;
@@ -68,5 +76,15 @@ export class DefaultCollapseWidget extends BasePackWidget {
   @Widget.Reactive()
   protected get expandIconPosition() {
     return this.getDsl()?.expandIconPosition?.toLowerCase() || OioCollapseExpandIconPosition.right;
+  }
+
+  @Widget.Method()
+  public onExpandAll() {
+    this.setActiveKey(this.allKeys);
+  }
+
+  @Widget.Method()
+  public onCollapseAll() {
+    this.setActiveKey([]);
   }
 }

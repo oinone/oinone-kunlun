@@ -3,7 +3,7 @@ import { BooleanHelper, CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { AInputProps, InputFocusOptions, OioInputProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Input as AInput } from 'ant-design-vue';
 import { isBoolean, isEmpty, isNil } from 'lodash-es';
-import { computed, createVNode, defineComponent, onMounted, ref } from 'vue';
+import { computed, createVNode, defineComponent, onMounted, ref, watch } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 
 export default defineComponent({
@@ -33,6 +33,13 @@ export default defineComponent({
         internalValue.value = value;
       }
     });
+
+    watch(
+      () => props.value,
+      (value) => {
+        internalValue.value = value;
+      }
+    );
 
     const autocomplete = computed<string | undefined>(() => {
       if (props.autocomplete == null) {
