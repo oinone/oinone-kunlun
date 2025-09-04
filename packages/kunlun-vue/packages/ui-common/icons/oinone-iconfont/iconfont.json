@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "45441464",
+      "name": "跳转",
+      "font_class": "tiaozhuan",
+      "unicode": "e970",
+      "unicode_decimal": 59760
+    },
+    {
+      "icon_id": "45441465",
+      "name": "下钻",
+      "font_class": "xiazuan2",
+      "unicode": "e971",
+      "unicode_decimal": 59761
+    },
+    {
       "icon_id": "45216204",
       "name": "复制",
       "font_class": "fuzhi3",
