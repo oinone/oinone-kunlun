@@ -642,6 +642,9 @@ export function createExpressionDefinitionByExpressionItem(
     expressionItemList
       .filter((a) => a.checked)
       .forEach((item) => {
+        if (expressionOption.type === ExpressionDefinitionType.BOOLEAN_CONDITION && item.valueList?.length === 0) {
+          return;
+        }
         const blockList: IExpressionBlock[] = [];
         const row = {
           rowType: item.type,
