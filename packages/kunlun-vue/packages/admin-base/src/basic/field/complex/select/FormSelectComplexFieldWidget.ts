@@ -122,25 +122,25 @@ export abstract class FormSelectComplexFieldWidget<
 
   public x2oChange(value) {
     if (value == null) {
-      this.change(null as any);
+      super.change(null as any);
       this.handleEmpty();
       return;
     }
 
     const selectedValue = this.dataList.find((d) => d[this.relationFieldKey] === value.value)! || value;
-    this.change(selectedValue as any);
+    super.change(selectedValue as any);
   }
 
   protected x2mChange(value) {
     if (value == null) {
-      this.change(value);
+      super.change(value);
       this.handleEmpty();
     } else {
       if (!value.length) {
         this.handleEmpty();
       }
       const submitData = this.filterX2mChangeValue(value);
-      this.change(submitData);
+      super.change(submitData);
     }
   }
 
