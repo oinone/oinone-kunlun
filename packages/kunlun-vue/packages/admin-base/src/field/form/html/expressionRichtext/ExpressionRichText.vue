@@ -49,7 +49,7 @@ export default defineComponent({
       default: () => []
     },
     readonly: {
-      type: String
+      type: Boolean
     }
   },
   setup(props) {
