@@ -17,6 +17,15 @@ export abstract class FormSelectModalComplexFieldWidget<
 
   protected isFirstFillOptions = true;
 
+  @Widget.Method()
+  public change(value) {
+    if (this.field.multi) {
+      this.x2mChange(value);
+    } else {
+      this.x2oChange(value);
+    }
+  }
+
   @Widget.Reactive()
   protected get pagination(): Pagination {
     return {

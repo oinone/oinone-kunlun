@@ -23,6 +23,11 @@ export class FormM2OSelectFieldWidget extends FormSelectComplexFieldWidget<Activ
   protected currentValueLabel!: string;
 
   @Widget.Method()
+  public change(value) {
+    this.x2oChange(value);
+  }
+
+  @Widget.Method()
   public async handleSelectedValueLabel(val) {
     this.currentValueLabel = this.handleSelectOption([val], this.referencesModel)[0]?.label as string;
   }

@@ -1,6 +1,7 @@
 import { ActiveRecord, RuntimeM2MField, SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget, FormSelectComplexFieldWidget } from '../../../../basic';
 import SelectWidget from './SelectWidget.vue';
 
@@ -15,6 +16,11 @@ export class FormM2MFieldSelectWidget extends FormSelectComplexFieldWidget<Activ
     super.initialize(props);
     this.setComponent(SelectWidget);
     return this;
+  }
+
+  @Widget.Method()
+  public change(value) {
+    this.x2mChange(value);
   }
 
   public async submit(submitValue: SubmitValue) {

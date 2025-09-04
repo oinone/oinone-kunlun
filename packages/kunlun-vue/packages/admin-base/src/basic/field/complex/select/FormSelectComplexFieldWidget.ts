@@ -12,7 +12,7 @@ import {
   RuntimeRelationField,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { Entity, IModel, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
+import { deepClone, Entity, IModel, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
 import { Condition, ObjectValue } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, IQueryPageOption, IQueryPageResult, queryOne } from '@oinone/kunlun-service';
 import { CastHelper, NumberHelper } from '@oinone/kunlun-shared';
@@ -81,7 +81,6 @@ export abstract class FormSelectComplexFieldWidget<
   @Widget.Reactive()
   protected options: Record<string, unknown>[] = [];
 
-  @Widget.Reactive()
   protected dataList: Record<string, unknown>[] = [];
 
   @Widget.Reactive()
@@ -117,40 +116,31 @@ export abstract class FormSelectComplexFieldWidget<
     }
   }
 
-  @Widget.Reactive()
-  public change(value) {
-    if (this.field.multi) {
-      this.x2mChange(value);
-    } else {
-      this.x2oChange(value);
-    }
-  }
-
   protected async fillOptions(dataList: Record<string, unknown>[], insetDefaultValue = true) {
     this.field.multi ? this.fillOptionsForMulti(dataList) : this.fillOptionsForSingle(dataList, insetDefaultValue);
   }
 
   public x2oChange(value) {
     if (value == null) {
-      super.change(null as any);
+      this.change(null as any);
       this.handleEmpty();
       return;
     }
 
     const selectedValue = this.dataList.find((d) => d[this.relationFieldKey] === value.value)! || value;
-    super.change(selectedValue as any);
+    this.change(selectedValue as any);
   }
 
   protected x2mChange(value) {
     if (value == null) {
-      super.change(value);
+      this.change(value);
       this.handleEmpty();
     } else {
       if (!value.length) {
         this.handleEmpty();
       }
       const submitData = this.filterX2mChangeValue(value);
-      super.change(submitData);
+      this.change(submitData);
     }
   }
 
@@ -204,6 +194,7 @@ export abstract class FormSelectComplexFieldWidget<
   }
 
   protected async fillOptionsForMulti(dataList: Record<string, unknown>[]) {
+    const list = deepClone(dataList || []);
     const pk = this.referencesModel!.pks!;
     if (this.selectedValues) {
       for (let j = 0; j < this.selectedValues.length; j++) {

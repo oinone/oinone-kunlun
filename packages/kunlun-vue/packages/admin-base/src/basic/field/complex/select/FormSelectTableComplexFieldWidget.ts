@@ -24,6 +24,15 @@ export abstract class FormSelectTableComplexFieldWidget<
     return names;
   }
 
+  @Widget.Method()
+  public change(value) {
+    if (this.field.multi) {
+      this.x2mChange(value);
+    } else {
+      this.x2oChange(value);
+    }
+  }
+
   /**
    * 选项字段列表，每一项都是对应的字段元数据
    */
