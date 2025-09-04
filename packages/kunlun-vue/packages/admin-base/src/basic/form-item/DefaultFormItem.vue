@@ -18,9 +18,6 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     ...BaseFormItemProps,
-    class: {
-      type: [String, Array] as PropType<string | string[]>
-    },
     itemName: {
       type: String
     },
@@ -37,15 +34,7 @@ export default defineComponent({
     };
   },
   render() {
-    const { class: classNames } = this;
     const classList = ['form-field-widget', 'item'];
-    if (classNames) {
-      if (Array.isArray(classNames)) {
-        classList.push(...classNames);
-      } else {
-        classList.push(classNames);
-      }
-    }
     const defaultSlots = PropRecordHelper.collectionSlots(this.$slots, [
       { origin: 'default', isNotNull: true }
     ]).default();
