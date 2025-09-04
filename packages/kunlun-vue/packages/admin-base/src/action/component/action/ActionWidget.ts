@@ -37,23 +37,6 @@ export class ActionWidget<
   Action extends RuntimeAction = RuntimeAction,
   Props extends ActionWidgetProps<Action> = ActionWidgetProps<Action>
 > extends BaseActionWidget<Action, Props> {
-  protected draftModelModal = 'base.Draft';
-
-  @Widget.Reactive()
-  protected get viewDraftDataIdentifier() {
-    const pk = this.model.pks?.[0] || 'id';
-    const value = this.initialValue?.[0]?.[pk] || this.initialContext?.[pk] || this.urlParameters?.id;
-
-    return `${this.viewAction?.name || ''}-${this.viewAction?.resViewName || ''}-${value || ''}`;
-  }
-
-  @Widget.Reactive()
-  protected get existDraftAction() {
-    return this.metadataRuntimeContext.model.modelActions.some(
-      (a) => (a as RuntimeClientAction).fun === ModelDefaultActionName.$$internal_SaveDraft
-    );
-  }
-
   /**
    * 搜索数据
    * @protected
@@ -798,18 +781,6 @@ export class ActionWidget<
       return this.validator(true);
     }
     return Promise.resolve(true);
-  }
-
-  /**
-   * 删除草稿
-   */
-  @Widget.Method()
-  protected async deleteDraft() {
-    return GenericFunctionService.INSTANCE.simpleExecuteByFun(
-      this.draftModelModal,
-      'deleteDraft',
-      this.viewDraftDataIdentifier
-    );
   }
 
   /**

@@ -11,6 +11,7 @@ import {
   RelationUpdateType,
   RequestModelField,
   ROOT_HANDLE,
+  RuntimeClientAction,
   RuntimeContext,
   RuntimeContextManager,
   RuntimeFunctionDefinition,
@@ -22,7 +23,7 @@ import {
   translateValueByKey,
   UpdateOneWithRelationsService
 } from '@oinone/kunlun-engine';
-import { ActionContextType, ActionType, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { ActionContextType, ActionType, ModelDefaultActionName, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { HttpClientError, MessageHub, RequestErrorInterceptor, SystemErrorCode } from '@oinone/kunlun-request';
 import { SPI } from '@oinone/kunlun-spi';
 import { BooleanHelper, CallChaining, debugConsole, OioNotification } from '@oinone/kunlun-vue-ui-antd';
@@ -31,7 +32,7 @@ import { isBoolean, isFunction, isNil } from 'lodash-es';
 import { FormValidateResult } from '../../basic';
 import { REFRESH_FORM_DATA } from '../../basic/constant/state-stream';
 import { ClickResult, PopupSubmitFunction } from '../../typing';
-import { gotoPrevPage } from '../../util';
+import { gotoPrevPage, useDraftDataOperator } from '../../util';
 import { ActionWidget } from '../component';
 
 @SPI.ClassFactory(
@@ -44,6 +45,27 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
   protected createActionName = 'create';
 
   protected updateOneWithRelationName = 'updateOneWithRelations';
+
+  /**
+   * 当前视图是否存在草稿动作
+   */
+  @Widget.Reactive()
+  protected get existDraftAction() {
+    return this.metadataRuntimeContext.model.modelActions.some(
+      (a) => (a as RuntimeClientAction).fun === ModelDefaultActionName.$$internal_SaveDraft
+    );
+  }
+
+  /**
+   * 草稿动作的唯一标识
+   */
+  @Widget.Reactive()
+  protected get viewDraftDataIdentifier() {
+    const pk = this.model.pks?.[0] || 'id';
+    const value = this.initialValue?.[0]?.[pk] || this.initialContext?.[pk] || this.urlParameters?.id;
+
+    return `${this.viewAction?.name || ''}-${this.viewAction?.resViewName || ''}-${value || ''}`;
+  }
 
   @Widget.Method()
   @Widget.Inject()
@@ -209,7 +231,7 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
     }
 
     if (updateOneWithRelationName === fun || [updateActionName, createActionName].includes(name)) {
-      await this.deleteDraft();
+      await useDraftDataOperator(this.viewDraftDataIdentifier).deleteDraft();
     }
   }
 

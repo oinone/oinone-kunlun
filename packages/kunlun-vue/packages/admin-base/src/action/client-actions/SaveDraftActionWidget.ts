@@ -8,11 +8,7 @@ import { OioNotification, OioButton, OioIcon, OioCloseIcon } from '@oinone/kunlu
 import { Modal } from 'ant-design-vue';
 import { ActionWidget } from '../component';
 import { REFRESH_FORM_DATA } from '../../basic/constant';
-
-interface DraftValueRecord {
-  hasDraft: boolean;
-  draftContent: string;
-}
+import { useDraftDataOperator } from '../../util';
 
 @SPI.ClassFactory(
   ActionWidget.Token({
@@ -20,6 +16,14 @@ interface DraftValueRecord {
   })
 )
 export class SaveDraftAction extends ActionWidget {
+  @Widget.Reactive()
+  protected get viewDraftDataIdentifier() {
+    const pk = this.model.pks?.[0] || 'id';
+    const value = this.initialValue?.[0]?.[pk] || this.initialContext?.[pk] || this.urlParameters?.id;
+
+    return `${this.viewAction?.name || ''}-${this.viewAction?.resViewName || ''}-${value || ''}`;
+  }
+
   @Widget.Reactive()
   @Widget.Inject('mountedCallChaining')
   protected parentMountedCallChaining: CallChaining | undefined;
@@ -30,8 +34,10 @@ export class SaveDraftAction extends ActionWidget {
   @Widget.Reactive()
   protected draftValue: ActiveRecord | undefined;
 
+  private draftDataOperator!: ReturnType<typeof useDraftDataOperator>;
+
   /**
-   * 删除草稿
+   * 草稿数据回填
    */
   @Widget.Method()
   protected useDraftValue() {
@@ -52,7 +58,7 @@ export class SaveDraftAction extends ActionWidget {
           OioButton,
           {
             onClick: async () => {
-              await this.deleteDraft();
+              await this.draftDataOperator.deleteDraft();
               this.parentMountedCallChaining?.syncCall(true);
               _modal.destroy();
             },
@@ -78,12 +84,10 @@ export class SaveDraftAction extends ActionWidget {
   }
 
   protected async created() {
+    this.draftDataOperator = useDraftDataOperator(this.viewDraftDataIdentifier);
+
     // 查询当前视图是否有草稿数据,如果存在，那么打开弹窗提示
-    const rst = await GenericFunctionService.INSTANCE.simpleExecuteByFun<DraftValueRecord>(
-      this.draftModelModal,
-      'queryDraft',
-      this.viewDraftDataIdentifier
-    );
+    const rst = await this.draftDataOperator.queryDraft();
 
     if (rst?.hasDraft) {
       this.draftValue = JSON.parse(rst.draftContent || '{}');
@@ -96,10 +100,7 @@ export class SaveDraftAction extends ActionWidget {
   protected async clickAction(...args: unknown[]) {
     const record = this.activeRecords?.[0];
 
-    await GenericFunctionService.INSTANCE.simpleExecuteByFun(this.draftModelModal, 'createOrUpdateDraft', {
-      viewIdentifier: this.viewDraftDataIdentifier,
-      draftContent: JSON.stringify(record || {})
-    });
+    await this.draftDataOperator.createOrUpdateDraft(record);
 
     OioNotification.success(translateValueByKey('提示'), translateValueByKey('保存成功'));
 
