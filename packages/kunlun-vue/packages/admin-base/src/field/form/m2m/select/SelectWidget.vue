@@ -5,7 +5,7 @@
         :max-tag-count="maxTagCount"
         :placeholder="placeholder"
         label-in-value
-        :mode="mode"
+        mode="multiple"
         :value="currentValue"
         :options="optionList"
       />
@@ -13,7 +13,7 @@
     <div v-else>
       <a-select
         ref="selectRef"
-        :mode="mode"
+        mode="multiple"
         class="oio-select"
         show-search
         label-in-value
@@ -48,7 +48,7 @@
   </div>
 </template>
 <script lang="ts">
-import { OioEmptyData, OioSpin } from '@oinone/kunlun-vue-ui-antd';
+import { OioSpin, OioEmptyData } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, PropType, ref, watch } from 'vue';
 import { Select as ASelect } from 'ant-design-vue';
 import { RelationSelectProps, relationSelectSetup } from '../../../prop';
@@ -59,10 +59,6 @@ export default defineComponent({
     ...RelationSelectProps,
     value: {
       type: Array as PropType<Record<string, unknown>[]>
-    },
-    mode: {
-      type: String,
-      default: 'multiple'
     },
     generatorSelectOption: Function
   },
