@@ -24,7 +24,7 @@
     "xe-utils": "3.5.7"
   },
   "devDependencies": {
-    "@oinone/kunlun-shared": "~6.2.0",
+    "@oinone/kunlun-shared": "~6.3.0",
     "@types/lodash": "4.14.182",
     "@types/lodash-es": "4.17.6",
     "lodash": "4.17.21",

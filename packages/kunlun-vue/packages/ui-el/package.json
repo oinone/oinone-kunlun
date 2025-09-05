@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@element-plus/icons-vue": "2.0.9",
-    "@oinone/kunlun-shared": "~6.2.0",
+    "@oinone/kunlun-shared": "~6.3.0",
     "@types/lodash": "4.14.182",
     "@types/lodash-es": "4.17.6",
     "element-plus": "2.2.17",
