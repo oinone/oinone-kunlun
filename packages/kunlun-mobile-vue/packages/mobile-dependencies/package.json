@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-mobile-dependencies",
-  "version": "6.2.8",
+  "version": "6.3.0",
   "main": "index.ts",
   "dependencies": {
     "@oinone/kunlun-cache": "~6.3.0",
@@ -16,7 +16,7 @@
     "@oinone/kunlun-spi": "~6.3.0",
     "@oinone/kunlun-state": "~6.3.0",
     "@oinone/kunlun-theme": "~6.3.0",
-    "@oinone/kunlun-vue-mobile-base": "6.2.8",
+    "@oinone/kunlun-vue-mobile-base": "6.3.0",
     "@oinone/kunlun-vue-router": "~6.3.0",
     "@oinone/kunlun-vue-ui-common": "~6.3.0",
     "@oinone/kunlun-vue-widget": "~6.3.0",
