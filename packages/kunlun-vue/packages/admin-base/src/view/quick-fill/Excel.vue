@@ -320,7 +320,7 @@ const handleCellMouseDown = (cellId: CellId): void => {
 const handleGlobalMouseMove = (event: MouseEvent): void => {
   if (!isSelecting.value) return;
   const targetCell = event.target as HTMLElement;
-  const tdElement = targetCell.closest('td[data-cell]');
+  const tdElement = targetCell.closest('td[data-cell]') as HTMLElement;
   if (tdElement) {
     const cellId = tdElement.dataset.cell;
     if (cellId && cellId !== selectionEnd.value) {
@@ -364,7 +364,7 @@ const startEditing = (cellId: CellId, initialInput: string | null = null): void 
   nextTick(() => {
     const inputs = inputRef.value;
     if (Array.isArray(inputs)) {
-      const input = inputs.find((inp) => inp?.parentNode?.closest('td')?.dataset?.cell === cellId);
+      const input = inputs.find((inp) => (inp?.parentNode as HTMLElement)?.closest('td')?.dataset?.cell === cellId);
       if (input) {
         input.focus();
         if (initialInput !== null && initialInput !== 'Backspace' && initialInput !== 'Delete') {
@@ -564,7 +564,7 @@ const handlePaste = (event: ClipboardEvent): void => {
   }
 
   event.preventDefault();
-  const clipboardData = event.clipboardData || window.clipboardData;
+  const clipboardData = event.clipboardData || (window as any).clipboardData;
   const pastedData = clipboardData.getData('text/plain');
   if (!pastedData || selectionRange.value.size === 0) return;
 

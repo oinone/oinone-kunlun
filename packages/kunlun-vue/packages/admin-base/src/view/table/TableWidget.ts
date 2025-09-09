@@ -20,7 +20,7 @@ import {
 import { Entity, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, ISort } from '@oinone/kunlun-service';
-import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper, ReturnPromise } from '@oinone/kunlun-shared';
+import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import {
   VxeTableHelper,
@@ -1089,7 +1089,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
-  protected genGroupDataCondition() {
+  protected generatorGroupQueryCondition() {
     const variables = this.generatorQueryVariables();
     const context = this.generatorQueryContext();
     const searchBody = this.generatorSearchBody();
@@ -1101,7 +1101,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       queryData: searchBody,
       variables,
       context
-    };
+    } as any;
   }
 
   /**
@@ -1110,7 +1110,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   protected async loadGroupData(expandGroupPaths = [] as ExpandGroupPath[]) {
     const result = await fetchGroupData({
       expandGroupPaths,
-      ...this.genGroupDataCondition()
+      ...this.generatorGroupQueryCondition()
     });
 
     return JSON.parse(result.expandGroupDataStr?.[0] || '[]');
@@ -1126,7 +1126,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       deep: this.groupList?.length || 1,
       currentPage: this.pagination?.current || 1,
       size: this.showPagination ? pagination.pageSize : -1,
-      ...this.genGroupDataCondition()
+      ...this.generatorGroupQueryCondition()
     });
 
     this.groupTotalDataCount = toNumber(result.totalDataCount);
