@@ -7,9 +7,7 @@ export abstract class LayoutWidget extends DslNodeWidget<ILayoutWidgetProps> {
   public widget = '';
 
   @Widget.Reactive()
-  public get class() {
-    return [];
-  }
+  protected class: string[] = [];
 
   @Widget.Reactive()
   protected style: CSSStyleDeclaration = {} as CSSStyleDeclaration;
