@@ -907,12 +907,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
         children: GROUP_TREE_KEY.CHILDREN_KEY,
         lazy: !this.groupViewFooterExpandControl,
         loadMethod: async ({ row }) => {
-          const path = this.findGroupTreePath(this.dataSource, row);
-          if (path?.length) {
-            return this.loadGroupData([{ nodeList: path.map((v) => v[GROUP_TREE_KEY.PROPS_KEY]) }]);
-          }
-
-          return [];
+          return this.loadGroupData(row);
         }
       };
     }
@@ -1093,12 +1088,16 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     const variables = this.generatorQueryVariables();
     const context = this.generatorQueryContext();
     const searchBody = this.generatorSearchBody();
+    const condition = this.generatorCondition(undefined, this.usingSearchCondition);
 
     return {
       model: this.model.model,
       groupFields: this.groupList?.map((v) => ({ field: v.groupField, orderType: v.groupDirection })) || [],
       sort: { orders: this.sortList?.map((item) => ({ field: item.sortField, direction: item.direction })) },
-      queryData: searchBody,
+      queryWrapper: {
+        queryData: searchBody,
+        rsql: condition.toString()
+      },
       variables,
       context
     } as any;
@@ -1107,13 +1106,19 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   /**
    * 查询分组下对应的数据源（懒加载）
    */
-  protected async loadGroupData(expandGroupPaths = [] as ExpandGroupPath[]) {
-    const result = await fetchGroupData({
-      expandGroupPaths,
-      ...this.generatorGroupQueryCondition()
-    });
+  @Widget.Provide()
+  @Widget.Method()
+  protected async loadGroupData(row: ActiveRecord) {
+    const path = this.findGroupTreePath(this.dataSource, row);
+    if (path?.length) {
+      const result = await fetchGroupData({
+        expandGroupPaths: [{ nodeList: path.map((v) => v[GROUP_TREE_KEY.PROPS_KEY]) }],
+        ...this.generatorGroupQueryCondition()
+      });
 
-    return JSON.parse(result.expandGroupDataStr?.[0] || '[]');
+      return JSON.parse(result.expandGroupDataStr?.[0] || '[]');
+    }
+    return [];
   }
 
   /**

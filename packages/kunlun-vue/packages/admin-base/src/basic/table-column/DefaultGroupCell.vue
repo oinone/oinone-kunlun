@@ -59,8 +59,7 @@ import {
 } from '@oinone/kunlun-engine';
 import dayjs from 'dayjs';
 import { isNil, sum, mean, min, max, uniq, sortBy, round } from 'lodash-es';
-import { fetchGroupData, GroupStatisticsEnum } from '../../service';
-import { IGroup } from '@oinone/kunlun-service';
+import { GroupStatisticsEnum } from '../../service';
 
 export default defineComponent({
   inheritAttrs: false,
@@ -78,20 +77,12 @@ export default defineComponent({
       type: Object as PropType<RuntimeModel>,
       default: () => ({})
     },
-    dataSource: {
-      type: Array as PropType<ActiveRecord[]>,
-      default: () => []
-    },
-    generatorSearchBody: {
-      type: Function as PropType<() => ActiveRecord | undefined>
-    },
-    groupList: {
-      type: Array as PropType<IGroup[]>,
-      default: () => []
-    },
     groupViewFooterExpandControl: {
       type: Boolean,
       default: true
+    },
+    loadGroupData: {
+      type: Function as PropType<(row: ActiveRecord) => Promise<ActiveRecord[]>>
     }
   },
   components: {
@@ -405,36 +396,17 @@ export default defineComponent({
       return document.body;
     };
 
-    const findGroupTreePath = (list, targetRow, path = [] as any[]) => {
-      for (const item of list) {
-        const newPath = [...path, item];
-        if (item === targetRow) {
-          return newPath;
-        }
-        if (item?.[GROUP_TREE_KEY.CHILDREN_KEY]?.length) {
-          const result = findGroupTreePath(item[GROUP_TREE_KEY.CHILDREN_KEY], targetRow, newPath);
-          if (result) return result;
-        }
-      }
-      return null;
-    };
-
     watch(
       () => selectValue.value,
       async (val) => {
+        // 分组一次性全部展开
         if (props.groupViewFooterExpandControl) {
           return;
         }
 
-        const path = findGroupTreePath(props.dataSource, props.context.data);
-        const result = await fetchGroupData({
-          model: props.model.model,
-          groupFields: props.groupList?.map((v) => ({ field: v.groupField, orderType: v.groupDirection })) || [],
-          expandGroupPaths: [{ nodeList: path.map((v) => v[GROUP_TREE_KEY.PROPS_KEY]) }],
-          queryData: props.generatorSearchBody?.()
-        });
+        const result = await props.loadGroupData?.(props.context.data);
 
-        backendGroupSource.value = JSON.parse(result.expandGroupDataStr?.[0] || '[]');
+        backendGroupSource.value = result;
       }
     );
 

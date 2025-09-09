@@ -36,7 +36,10 @@ interface GroupParams {
   groupFields: { field: string; orderType: EDirection }[];
   expandGroupPaths?: ExpandGroupPath[];
   sort?: { orders?: { field: string; direction: EDirection }[] };
-  queryData?: ObjectValue;
+  queryWrapper?: {
+    queryData?: ObjectValue;
+    rsql?: string;
+  };
   variables?: ObjectValue;
   context?: RequestContext;
 }
@@ -103,6 +106,7 @@ const groupModelFields = [
     name: 'queryWrapper',
     ttype: ModelFieldType.ManyToOne,
     modelFields: [
+      { name: 'rsql', ttype: ModelFieldType.String },
       {
         name: 'queryData',
         ttype: ModelFieldType.Map
@@ -172,8 +176,7 @@ function generateGroupsString(level: number) {
 export const fetchGroupPage = async (options: GroupParams) => {
   const groupsGql = generateGroupsString(options.deep);
 
-  const queryWrapper = { queryData: options.queryData || {} };
-  const groupStr = await buildSingleItemParam(groupModelFields, { ...options, queryWrapper } as any);
+  const groupStr = await buildSingleItemParam(groupModelFields, options as any);
   const pageStr = await buildSingleItemParam(pageModelFields, options as any);
 
   const gql = `{
@@ -205,9 +208,7 @@ export const fetchGroupData = async (options: Partial<GroupParams>): Promise<{ e
     return groupDataMap.get(optStr);
   }
 
-  const queryWrapper = { queryData: options.queryData || {} };
-
-  const groupStr = await buildSingleItemParam(groupModelFields, { ...options, queryWrapper } as any);
+  const groupStr = await buildSingleItemParam(groupModelFields, options);
   const gql = `{
     groupingQuery {
       fetchGroupData(

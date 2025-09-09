@@ -105,13 +105,13 @@ export class BaseTableFieldWidget<
   protected expandOperationField: string | undefined;
 
   /**
-   * 搜索条件
+   * 加载分组某个节点的数据源
    *
-   * @see @link {BaseElementListViewWidget}
+   * @see @link {TableWidget}
    */
   @Widget.Method()
   @Widget.Inject()
-  protected generatorSearchBody!: () => ActiveRecord | undefined;
+  protected loadGroupData!: (row: ActiveRecord) => ActiveRecord[];
 
   /**
    * 支持展开全部
@@ -660,12 +660,8 @@ export class BaseTableFieldWidget<
         context,
         field: this.field,
         model: this.model,
-        dataSource: this.dataSource,
         groupViewFooterExpandControl: this.groupViewFooterExpandControl,
-        groupList: this.groupList,
-        enabledGroupView: this.enabledGroupView,
-        groupable: this.groupable,
-        generatorSearchBody: this.generatorSearchBody
+        loadGroupData: this.loadGroupData
       })
     ];
   }
