@@ -22,6 +22,7 @@ import {
   TableColumnMinWidthComputeConfigContext
 } from '../theme';
 import { BaseTableQuickOperationColumnWidget } from './BaseTableQuickOperationColumnWidget';
+import DefaultGroupCell from './DefaultGroupCell.vue';
 
 export type HandlerEvent = (field: BaseTableFieldWidget) => void;
 
@@ -102,6 +103,24 @@ export class BaseTableFieldWidget<
   @Widget.Reactive()
   @Widget.Inject()
   protected expandOperationField: string | undefined;
+
+  /**
+   * 搜索条件
+   *
+   * @see @link {BaseElementListViewWidget}
+   */
+  @Widget.Method()
+  @Widget.Inject()
+  protected generatorSearchBody!: () => ActiveRecord | undefined;
+
+  /**
+   * 支持展开全部
+   *
+   * @see @link {BaseElementListViewWidget}
+   */
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected groupViewFooterExpandControl!: boolean;
 
   @Widget.Reactive()
   public get isExpandOperationField(): boolean {
@@ -218,6 +237,33 @@ export class BaseTableFieldWidget<
       return store;
     }
     return sortable || false;
+  }
+
+  @Widget.Reactive()
+  public get groupable(): boolean {
+    if (this.isExpandOperationField) {
+      return false;
+    }
+    const groupable = BooleanHelper.toBoolean(this.getDsl().groupable);
+    if (groupable == null) {
+      if (!this.tableGroupable) {
+        return false;
+      }
+      const { field, relationSortFields } = this;
+      const { store } = field;
+      if (isRelationField(field)) {
+        const { relationStore } = field;
+        if (store) {
+          return false;
+        }
+        if (!relationStore) {
+          return false;
+        }
+        return !!relationSortFields && !!relationSortFields.length;
+      }
+      return store;
+    }
+    return groupable || false;
   }
 
   @Widget.Reactive()
@@ -602,6 +648,26 @@ export class BaseTableFieldWidget<
     if (clickMethod.toLowerCase() === e.type) {
       this.executeAction(context);
     }
+  }
+
+  /**
+   * 渲染分组展开行的单元格
+   */
+  @Widget.Method()
+  protected renderGroupCellSlot(context: RowContext) {
+    return [
+      createVNode(DefaultGroupCell, {
+        context,
+        field: this.field,
+        model: this.model,
+        dataSource: this.dataSource,
+        groupViewFooterExpandControl: this.groupViewFooterExpandControl,
+        groupList: this.groupList,
+        enabledGroupView: this.enabledGroupView,
+        groupable: this.groupable,
+        generatorSearchBody: this.generatorSearchBody
+      })
+    ];
   }
 
   @Widget.Method()

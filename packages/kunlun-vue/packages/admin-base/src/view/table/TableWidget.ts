@@ -10,6 +10,7 @@ import {
   isRelationField,
   Pagination,
   QueryContext,
+  QueryGroupsValue,
   QueryService,
   QueryVariables,
   RuntimeModelField,
@@ -21,10 +22,16 @@ import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, ISort } from '@oinone/kunlun-service';
 import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper, ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { VxeTableHelper, TableEditorTrigger, TableEditorMode, ActiveEditorContext } from '@oinone/kunlun-vue-ui';
+import {
+  VxeTableHelper,
+  TableEditorTrigger,
+  TableEditorMode,
+  ActiveEditorContext,
+  GROUP_TREE_KEY
+} from '@oinone/kunlun-vue-ui';
 import { StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
-import { delay, find, isBoolean, isNaN, isNil, isNumber, isPlainObject, isString, toString } from 'lodash-es';
+import { delay, find, isBoolean, isNaN, isNil, isNumber, isPlainObject, isString, toNumber, toString } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTableDefines } from 'vxe-table';
 import { ActionWidget } from '../../action/component/action';
@@ -38,12 +45,14 @@ import {
   UserTablePrefer,
   TableLineHeightEnum,
   TableLineHeightMap,
-  ActionKeyboardConfig
+  ActionKeyboardConfig,
+  TableRowEditMode
 } from '../../typing';
 import { TreeUtils } from '../../util';
 import { TableConfigManager } from './config';
 import DefaultTable from './DefaultTable.vue';
 import { TableRowClickMode } from './typing';
+import { ExpandGroupPath, fetchGroupData, fetchGroupPage } from '../../service';
 
 const CLICK_SLOT_NAME = 'click';
 
@@ -66,6 +75,22 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     super.initialize(props);
     this.setComponent(DefaultTable);
     return this;
+  }
+
+  /**
+   * 表格底部开启「添加一行」操作
+   */
+  @Widget.Reactive()
+  protected get enableAddRow(): boolean {
+    return Optional.ofNullable(this.getDsl().enableAddRow).map(BooleanHelper.toBoolean).orElse(false)!;
+  }
+
+  /**
+   * 表格底部开启「快速填报」操作
+   */
+  @Widget.Reactive()
+  protected get enableQuickFill(): boolean {
+    return Optional.ofNullable(this.getDsl().enableQuickFill).map(BooleanHelper.toBoolean).orElse(false)!;
   }
 
   @Widget.Provide()
@@ -202,7 +227,8 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Method()
   protected checkMethod({ row }: { row: ActiveRecord }) {
-    const { checkbox } = this.getDsl();
+    const { checkbox } = this;
+
     if (isNil(checkbox)) {
       return true;
     }
@@ -663,6 +689,19 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return StringHelper.convertArray(this.getDsl().rowClickMode)?.map((v) => v.toLowerCase()) as TableRowClickMode[];
   }
 
+  /**
+   * 添加一行
+   */
+  @Widget.Method()
+  protected onAddRow() {
+    const record = ActiveRecordsOperator.repairRecordsNullable({});
+    if (!record) {
+      return;
+    }
+    this.createDataSourceByEntity(record);
+    this.editRow(TableRowEditMode.CREATE, { record, action: null });
+  }
+
   @Widget.Method()
   protected onCurrentChange(e) {
     if (this.currentRow) {
@@ -756,6 +795,24 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return this.expandTreeField?.data;
   }
 
+  /**
+   * 展开、关闭所有的分组
+   *
+   */
+  @Widget.Method()
+  protected setAllGroupExpand(expand: boolean) {
+    if (!this.enabledGroupView) {
+      return;
+    }
+
+    // 如果全部展开，但是展开全部功能未启动，则不处理
+    if (expand && !this.groupViewFooterExpandControl) {
+      return;
+    }
+
+    this.tableInstance?.getOrigin().setAllTreeExpand(expand);
+  }
+
   protected getEnabledTreeConfig(): boolean | undefined {
     return BooleanHelper.toBoolean(this.getDsl().enabledTreeConfig);
   }
@@ -819,6 +876,20 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     this.expandTreeField = this.getExpandTreeField();
   }
 
+  protected findGroupTreePath = (list, targetRow, path = [] as any[]) => {
+    for (const item of list) {
+      const newPath = [...path, item];
+      if (item === targetRow) {
+        return newPath;
+      }
+      if (item?.[GROUP_TREE_KEY.CHILDREN_KEY]?.length) {
+        const result = this.findGroupTreePath(item[GROUP_TREE_KEY.CHILDREN_KEY], targetRow, newPath);
+        if (result) return result;
+      }
+    }
+    return null;
+  };
+
   @Widget.Reactive()
   protected get enabledTreeConfig(): boolean {
     const { internalEnabledTreeConfig, treeRelationField, expandTreeField } = this;
@@ -827,6 +898,23 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get treeConfig() {
+    if (this.enabledGroupView) {
+      return {
+        hasChild: GROUP_TREE_KEY.IS_LEAF_KEY,
+        expandAll: this.groupViewFooterExpandControl,
+        children: GROUP_TREE_KEY.CHILDREN_KEY,
+        lazy: !this.groupViewFooterExpandControl,
+        loadMethod: async ({ row }) => {
+          const path = this.findGroupTreePath(this.dataSource, row);
+          if (path?.length) {
+            return this.loadGroupData([{ nodeList: path.map((v) => v[GROUP_TREE_KEY.PROPS_KEY]) }]);
+          }
+
+          return [];
+        }
+      };
+    }
+
     if (this.enabledTreeConfig) {
       return {
         transform: true,
@@ -990,14 +1078,107 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return content;
   }
 
+  /**
+   * 初始化分组展开字段
+   */
+  protected initGroupTreeField() {
+    if (this.enabledGroupView) {
+      this.expandTreeField = this.metadataRuntimeContext.model.modelFields.find((v) => !v.invisible);
+    }
+  }
+
+  protected genGroupDataCondition() {
+    const variables = this.generatorQueryVariables();
+    const context = this.generatorQueryContext();
+    const searchBody = this.generatorSearchBody();
+
+    return {
+      model: this.model.model,
+      groupFields: this.groupList?.map((v) => ({ field: v.groupField, orderType: v.groupDirection })) || [],
+      sort: { orders: this.sortList?.map((item) => ({ field: item.sortField, direction: item.direction })) },
+      queryData: searchBody,
+      variables,
+      context
+    };
+  }
+
+  /**
+   * 查询分组下对应的数据源（懒加载）
+   */
+  protected async loadGroupData(expandGroupPaths = [] as ExpandGroupPath[]) {
+    const result = await fetchGroupData({
+      expandGroupPaths,
+      ...this.genGroupDataCondition()
+    });
+
+    return JSON.parse(result.expandGroupDataStr?.[0] || '[]');
+  }
+
+  /**
+   * 查询分组分页数据
+   */
+  protected async loadGroupPage(condition?: Condition) {
+    const pagination = this.generatorPagination();
+
+    const result = await fetchGroupPage({
+      deep: this.groupList?.length || 1,
+      currentPage: this.pagination?.current || 1,
+      size: this.showPagination ? pagination.pageSize : -1,
+      ...this.genGroupDataCondition()
+    });
+
+    this.groupTotalDataCount = toNumber(result.totalDataCount);
+
+    pagination.total = toNumber(result?.totalElements);
+    pagination.totalPageSize = toNumber(result?.totalPages);
+
+    return this.generatorGroupTree(result?.groups);
+  }
+
+  public generatorGroupTree(groups?: QueryGroupsValue[]) {
+    return groups?.map((g) => {
+      if (g.groups?.length) {
+        return {
+          [this.expandTreeFieldColumn as string]: g.valueStr,
+          [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
+          [GROUP_TREE_KEY.PROPS_KEY]: g,
+          [GROUP_TREE_KEY.CHILDREN_KEY]: this.generatorGroupTree(g.groups)
+        };
+      }
+
+      const children = g.dataListStr ? JSON.parse(g.dataListStr || '[]') : [];
+      return {
+        [this.expandTreeFieldColumn as string]: g.valueStr,
+        [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
+        [GROUP_TREE_KEY.PROPS_KEY]: g,
+        [GROUP_TREE_KEY.CHILDREN_KEY]: children
+      };
+    });
+  }
+
   public async fetchData(condition?: Condition): Promise<ActiveRecord[]> {
     const searchBody = this.generatorSearchBody();
     this.internalEnabledTreeConfig =
       this.getEnabledTreeConfig() && (!(searchBody && Object.keys(searchBody).length) || !this.showPagination);
     const { enabledTreeConfig } = this;
+
+    /**
+     * 分组请求
+     */
+    if (this.enabledGroupView) {
+      return this.load(() => this.loadGroupPage(condition));
+    }
+
+    /**
+     * 树行表格
+     */
     if (enabledTreeConfig) {
       return this.load(() => this.loadTreeNodes(condition));
     }
+
+    /**
+     * 默认请求
+     */
     return super.fetchData(condition);
   }
 
@@ -1011,6 +1192,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     this.resetExpandRowIndexes();
     this.refreshStatistics();
     this.refreshTree();
+    this.setAllGroupExpand(true);
   }
 
   protected refreshTree() {
@@ -1031,6 +1213,10 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     super.$$beforeCreated();
   }
 
+  protected $$beforeMount() {
+    super.$$beforeMount();
+    this.initGroupTreeField();
+  }
   // endregion
 
   // region 快捷键操作

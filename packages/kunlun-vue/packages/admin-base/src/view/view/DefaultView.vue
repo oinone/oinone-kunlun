@@ -41,9 +41,14 @@ export default defineComponent({
     if (this.inline) {
       classList.push(`${DEFAULT_PREFIX}-default-view-inline`);
     }
-    if(fullScreen) {
+    if (fullScreen) {
       classList.push(`${DEFAULT_PREFIX}-full-screen-view`);
     }
+
+    // if (!this.inline && viewType !== ViewType.Search) {
+    //   classList.push(`${DEFAULT_PREFIX}-default-compact-view`);
+    // }
+
     return withDirectives(
       createVNode(
         'div',

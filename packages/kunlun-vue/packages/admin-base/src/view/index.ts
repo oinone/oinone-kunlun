@@ -26,6 +26,7 @@ export * from './company-setting';
 export * from './system-style';
 export * from './profile-center';
 export * from './view-control';
+export * from './quick-fill';
 
 // 没有权限的页面
 export * from './unauthorized/UnauthorizedWidget';

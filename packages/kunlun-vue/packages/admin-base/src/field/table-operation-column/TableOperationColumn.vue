@@ -1,6 +1,6 @@
 <script lang="ts">
 import { translate, translateValueByKey } from '@oinone/kunlun-engine';
-import { RenderRowContext, useInjectOioTableInstance } from '@oinone/kunlun-vue-ui';
+import { GROUP_TREE_KEY, RenderRowContext, useInjectOioTableInstance } from '@oinone/kunlun-vue-ui';
 import { StableSlotProp, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { debounce, isBoolean } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType } from 'vue';
@@ -49,6 +49,10 @@ export default defineComponent({
     },
     headerClassName: {
       type: Function
+    },
+    enabledGroupView: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props) {
@@ -93,7 +97,8 @@ export default defineComponent({
       invisible,
       currentHandle,
       table,
-      isLastColumn
+      isLastColumn,
+      enabledGroupView
     } = this;
     const userPreferNodes = isLastColumn
       ? [
@@ -119,6 +124,11 @@ export default defineComponent({
       },
       {
         default: (context: RenderRowContext) => {
+          // 如果当前表格开启了分组，并且当前行是展开行，则不渲染
+          if (enabledGroupView && context.row[GROUP_TREE_KEY.CHILDREN_KEY]) {
+            return;
+          }
+
           return createVNode(
             ActionBar,
             {

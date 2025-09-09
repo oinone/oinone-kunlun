@@ -1,5 +1,5 @@
 <template>
-  <div class="default-view-control-icon" :style="style">
+  <div class="default-view-control-icon" :class="[hasActionBar && 'default-view-control-icon-has-action-bar']">
     <div class="default-view-control-icon-inner">
       <slot></slot>
     </div>
@@ -18,26 +18,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const style = computed(() => {
-      let style = {} as CSSStyle;
-      if (props.hasActionBar) {
-        style = {
-          position: 'absolute',
-          right: '0',
-          bottom: `calc(100% + var(--oio-row-gap)`
-        } as CSSStyle;
-      } else {
-        style = {
-          marginBottom: 'var(--oio-row-gap)',
-          justifyContent: 'flex-end'
-        } as CSSStyle;
-      }
-      return style;
-    });
-
-    return {
-      style
-    };
+    return {};
   }
 });
 </script>
@@ -46,6 +27,15 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: var(--oio-row-gap);
+  justify-content: flex-end;
+
+  &.default-view-control-icon-has-action-bar {
+    position: absolute;
+    right: 0;
+    margin-bottom: 0;
+    bottom: calc(100% + var(--oio-row-gap));
+  }
 
   .default-view-control-icon-inner {
     display: flex;
@@ -61,9 +51,17 @@ export default defineComponent({
       border-radius: var(--oio-border-radius);
 
       &:hover {
-        background: var(--oio-dropdown-primary-color-hover);
+        background: var(--oio-hover-background-color);
+        color: var(--oio-hover-text-color);
       }
     }
+  }
+}
+
+.oio-default-compact-view {
+  .default-view-control-icon-has-action-bar {
+    right: var(--oio-padding);
+    bottom: 100%;
   }
 }
 

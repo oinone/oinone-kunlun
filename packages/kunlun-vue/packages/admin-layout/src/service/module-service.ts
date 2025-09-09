@@ -19,8 +19,6 @@ export class ModuleService {
     ClearCache.register(() => {
       ModuleService.apps = [];
     });
-    const model = await ModelCache.get('base.AppSwitcherModuleProxy');
-    const bindUrlFieldExist = (model?.modelFields ?? []).filter((it) => it.data === 'urlHomePage').length > 0;
 
     const body = gql`
       {
@@ -46,7 +44,10 @@ export class ModuleService {
               application
               latestVersion
               platformVersion
-              ${bindUrlFieldExist ? 'urlHomePage {\ntarget\nurl\n}' : ''}
+              urlHomePage {
+                target
+                url
+              }
             }
             size
             totalPages

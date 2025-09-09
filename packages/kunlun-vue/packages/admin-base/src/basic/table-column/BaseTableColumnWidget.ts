@@ -18,6 +18,7 @@ import { executeConfirm } from '../../util';
 import { BaseDataWidget } from '../common';
 import DefaultTableColumn from './DefaultTableColumn.vue';
 import { FieldWidgetComponentFunction } from '../types';
+import { IGroup } from '@oinone/kunlun-service';
 
 export abstract class BaseTableColumnWidget<
   Value = unknown,
@@ -149,6 +150,44 @@ export abstract class BaseTableColumnWidget<
       return this.tableSortable || false;
     }
     return sortable;
+  }
+
+  /**
+   * 当前视图使用分组结构展示
+   * 启动了分组并且有分组字段
+   *
+   * @see {@link BaseElementListViewWidget}
+   */
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected enabledGroupView: boolean | undefined;
+
+  /**
+   * 表格配置 -> 启用分组
+   * @see {@link BaseElementListViewWidget}
+   */
+  @Widget.Reactive()
+  @Widget.Inject('groupable')
+  protected tableGroupable!: boolean;
+
+  /**
+   * 分组字段
+   * @see {@link BaseElementListViewWidget}
+   */
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected groupList!: IGroup[];
+
+  /**
+   * 当前字段是否启动的分组
+   */
+  @Widget.Reactive()
+  public get groupable(): boolean {
+    const groupable = BooleanHelper.toBoolean(this.getDsl().groupable);
+    if (groupable == null) {
+      return this.tableGroupable || false;
+    }
+    return groupable;
   }
 
   @Widget.Reactive()
@@ -361,9 +400,17 @@ export abstract class BaseTableColumnWidget<
     return true;
   }
 
+  /**
+   * 修改分组配置
+   *  @see {@link BaseElementListViewWidget}
+   */
+  @Widget.Method()
+  @Widget.Inject()
+  public onGroupChange!: (list: IGroup[]) => void;
+
   @Widget.Reactive()
   @Widget.Inject('expandTreeFieldColumn')
-  private tableExpandTreeFieldColumn: string | undefined;
+  protected tableExpandTreeFieldColumn: string | undefined;
 
   @Widget.Reactive()
   protected get treeNode(): boolean | undefined {

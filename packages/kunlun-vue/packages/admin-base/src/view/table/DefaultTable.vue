@@ -3,6 +3,7 @@ import {
   computed,
   createVNode,
   defineComponent,
+  Fragment,
   nextTick,
   onActivated,
   onBeforeUnmount,
@@ -11,8 +12,7 @@ import {
   ref,
   Slot,
   VNode,
-  watch,
-  Fragment
+  watch
 } from 'vue';
 import { debounce } from 'lodash-es';
 import { DslDefinition } from '@oinone/kunlun-dsl';
@@ -36,7 +36,14 @@ import {
   VxeTableActiveEditorEventContext,
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
-import { ListPaginationStyle, ListSelectMode, OioPagination, OioSpin, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
+import {
+  ListPaginationStyle,
+  ListSelectMode,
+  OioIcon,
+  OioPagination,
+  OioSpin,
+  StyleHelper
+} from '@oinone/kunlun-vue-ui-antd';
 import { DslRender } from '@oinone/kunlun-vue-widget';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 
@@ -44,6 +51,8 @@ import { VxeTableDefines, VxeTablePropTypes } from 'vxe-table';
 import { getTableThemeConfig, ManualWidget } from '../../basic';
 import { TableLineHeightEnum, UserTablePrefer } from '../../typing';
 import { TableRowClickMode } from './typing';
+import DefaultTableFooterOperator from './DefaultTableFooterOperator.vue';
+import DefaultTableGroupCollapse from './DefaultTableGroupCollapse.vue';
 
 const SortDirections = {
   desc: EDirection.DESC,
@@ -358,6 +367,37 @@ export default defineComponent({
     viewControlWidget: {
       type: Object as PropType<VNode>,
       default: () => null
+    },
+    enableAddRow: {
+      type: Boolean,
+      default: false
+    },
+    enableQuickFill: {
+      type: Boolean,
+      default: false
+    },
+    onAddRow: {
+      type: Function,
+      required: true
+    },
+    enabledGroupView: {
+      type: Boolean,
+      default: false
+    },
+    setAllGroupExpand: {
+      type: Function
+    },
+    groupViewFooterExpandControl: {
+      type: Boolean,
+      default: false
+    },
+    groupViewFooterFoldControl: {
+      type: Boolean,
+      default: false
+    },
+    inline: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props) {
@@ -761,6 +801,10 @@ export default defineComponent({
       activeEditorBefore,
       activeEditor,
       editorClosed,
+      setAllGroupExpand,
+      enabledGroupView,
+      groupViewFooterExpandControl,
+      groupViewFooterFoldControl,
 
       treeConfig,
       scrollX,
@@ -775,7 +819,10 @@ export default defineComponent({
 
       emptyText,
       emptyImage,
-      pageSizeOptions
+      pageSizeOptions,
+      enableAddRow,
+      enableQuickFill,
+      onAddRow
     } = this;
     let { border = false, stripe = false, isCurrent = true, isHover = false } = getTableThemeConfig() || {};
     const VEX_TABLE_BORDER_MODE = [true, false, 'default', 'outer', 'full', 'inner'];
@@ -784,6 +831,7 @@ export default defineComponent({
       tableCustomClass = border as string;
       border = 'inner';
     }
+
     const tableSlots: Record<string, Slot> = {
       default: () => {
         const children: VNode[] = [];
@@ -814,9 +862,17 @@ export default defineComponent({
         return [...children, ...columns];
       }
     };
+
+    const footerOperatorVNode = createVNode(DefaultTableFooterOperator, {
+      enableAddRow,
+      enableQuickFill,
+      onAddRow
+    });
+
+    // 有分页器
     if (showPagination) {
       tableSlots.footer = () => {
-        return [
+        const footerVNodeChildren = [
           createVNode(OioPagination, {
             pageSizeOptions,
             currentPage: pagination.current,
@@ -828,6 +884,50 @@ export default defineComponent({
             onChange: onPaginationChange
           })
         ];
+
+        // 分组展开折叠
+        if (enabledGroupView) {
+          footerVNodeChildren.unshift(
+            createVNode(DefaultTableGroupCollapse, {
+              groupViewFooterExpandControl,
+              groupViewFooterFoldControl,
+              setAllGroupExpand: setAllGroupExpand
+            })
+          );
+        }
+
+        const footerVNode = [createVNode('div', { class: 'default-table-footer-content' }, [footerVNodeChildren])];
+
+        // 添加行、快速填报
+        if (enableAddRow || enableQuickFill) {
+          footerVNode.unshift(footerOperatorVNode);
+        }
+
+        return footerVNode;
+      };
+    } else {
+      const footerSlots = [] as VNode[];
+
+      // 添加行、快速填报
+      if (enableAddRow || enableQuickFill) {
+        footerSlots.push(footerOperatorVNode);
+      }
+
+      // 分组展开折叠
+      if (enabledGroupView) {
+        footerSlots.push(
+          createVNode('div', { class: 'default-table-footer-content' }, [
+            createVNode(DefaultTableGroupCollapse, {
+              groupViewFooterExpandControl,
+              groupViewFooterFoldControl,
+              setAllGroupExpand: setAllGroupExpand
+            })
+          ])
+        );
+      }
+
+      tableSlots.footer = () => {
+        return [createVNode(Fragment, null, footerSlots)];
       };
     }
 
@@ -840,7 +940,7 @@ export default defineComponent({
       showOverflow: true,
       showHeaderOverflow: true,
       border,
-      resizable: false,
+      resizable: true,
       data: showDataSource,
       scrollX,
       scrollY,
@@ -917,11 +1017,17 @@ export default defineComponent({
         containerChildren.push(createVNode('div', { class: 'table-container-click' }, clickSlot()));
       }
     }
+
+    const classs = ['default-table'];
+    if (!this.inline) {
+      classs.push('default-main-table');
+    }
+
     return createVNode(
       createVNode(
         'div',
         {
-          class: 'default-table',
+          class: classs,
           style: {
             height,
             minHeight,

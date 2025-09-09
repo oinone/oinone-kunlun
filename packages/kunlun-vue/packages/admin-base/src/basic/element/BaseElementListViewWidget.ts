@@ -38,7 +38,7 @@ import {
   StringHelper,
   TreeNode
 } from '@oinone/kunlun-shared';
-import { CheckedChangeEvent, RadioChangeEvent } from '@oinone/kunlun-vue-ui';
+import { CheckedChangeEvent, GROUP_TREE_KEY, RadioChangeEvent } from '@oinone/kunlun-vue-ui';
 import { ListPaginationStyle, ListSelectMode, PageSizeEnum } from '@oinone/kunlun-vue-ui-antd';
 import { DslRender, Widget } from '@oinone/kunlun-vue-widget';
 import { ceil, isEmpty, isNil, isString, template, toInteger, toString } from 'lodash-es';
@@ -213,10 +213,45 @@ export abstract class BaseElementListViewWidget<
   }
 
   /**
+   * 分组视图数据源的总数量
+   */
+  @Widget.Reactive()
+  protected groupTotalDataCount = 0;
+
+  /**
+   * 当前视图使用分组结构展示
+   *  启动了分组并且有分组字段
+   */
+  @Widget.Provide()
+  @Widget.Reactive()
+  protected get enabledGroupView(): boolean {
+    return this.groupable && !!this.groupList?.length;
+  }
+
+  /**
+   * 分组视图底部展示「展开全部」操作
+   */
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get groupViewFooterExpandControl() {
+    return this.groupTotalDataCount <= 300 || this.showPagination;
+  }
+
+  /**
+   * 分组视图底部展示「收起全部」操作
+   */
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get groupViewFooterFoldControl() {
+    return true;
+  }
+
+  /**
    * 启用分组
    * @protected
    */
   @Widget.Reactive()
+  @Widget.Provide()
   protected get groupable() {
     return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().groupable)).orElse(false);
   }
@@ -237,8 +272,8 @@ export abstract class BaseElementListViewWidget<
    * @returns [field00003 desc,field00004 desc]
    */
   @Widget.Reactive()
-  protected get groups(): IGroup[] | undefined {
-    const dsf: string = this.getDsl().groups;
+  protected get grouping(): IGroup[] | undefined {
+    const dsf: string = this.getDsl().grouping;
     if (dsf) {
       const dsfArr = dsf.split(ORDERING_SEPARATOR).filter((v) => !isEmpty(v));
       return dsfArr.map((v: string) => {
@@ -286,6 +321,11 @@ export abstract class BaseElementListViewWidget<
     if (this.paginationStyle === ListPaginationStyle.HIDDEN) {
       return false;
     }
+
+    if (this.groupable) {
+      return Optional.ofNullable(BooleanHelper.toBoolean(!this.getDsl().hidePageByGroup)).orElse(true);
+    }
+
     return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showPagination)).orElse(true);
   }
 
@@ -546,7 +586,7 @@ export abstract class BaseElementListViewWidget<
   @Widget.Provide()
   @Widget.Method()
   public onGroupChange(groupList: IGroup[]): void {
-    const finalGroupList = groupList.length ? groupList : this.groups;
+    const finalGroupList = groupList.length ? groupList : [];
     const groupParameters: UrlQueryParameters = {};
     if (finalGroupList?.length) {
       groupParameters.groupField = finalGroupList.map((v) => v.groupField).join(URL_SPLIT_SEPARATOR);
@@ -555,6 +595,9 @@ export abstract class BaseElementListViewWidget<
       groupParameters.groupField = null;
       groupParameters.groupDirection = null;
     }
+
+    this.groupList = finalGroupList;
+
     this.$router.push({
       segments: [
         {
@@ -641,13 +684,22 @@ export abstract class BaseElementListViewWidget<
 
   @Widget.Method()
   public onCheckedChange(data: ActiveRecords, event?: CheckedChangeEvent) {
-    this.reloadActiveRecords(ActiveRecordsOperator.repairRecords(data, { fillDraftId: false }));
+    const records =
+      this.enabledGroupView && Array.isArray(data)
+        ? data.filter((record) => !record[GROUP_TREE_KEY.CHILDREN_KEY])
+        : data;
+
+    this.reloadActiveRecords(ActiveRecordsOperator.repairRecords(records, { fillDraftId: false }));
   }
 
   @Widget.Method()
   public onCheckedAllChange(selected: boolean, data: ActiveRecord[], event?: CheckedChangeEvent) {
     if (selected) {
-      this.reloadActiveRecords(data);
+      const records =
+        this.enabledGroupView && Array.isArray(data)
+          ? data.filter((record) => !record[GROUP_TREE_KEY.CHILDREN_KEY])
+          : data;
+      this.reloadActiveRecords(records);
     } else {
       this.reloadActiveRecords([]);
     }
@@ -735,6 +787,8 @@ export abstract class BaseElementListViewWidget<
     return finalCondition;
   }
 
+  @Widget.Provide()
+  @Widget.Method()
   protected generatorSearchBody(): ActiveRecord | undefined {
     const { searchBody } = this;
     if (!searchBody) {
@@ -1039,22 +1093,17 @@ export abstract class BaseElementListViewWidget<
 
     if (!groupList && groupField && groupDirection) {
       groupList = [];
-      const sortFields = groupField.split(URL_SPLIT_SEPARATOR);
+      const groupFields = groupField.split(URL_SPLIT_SEPARATOR);
       const directions = groupDirection.split(URL_SPLIT_SEPARATOR);
-      if (sortFields.length && directions.length && sortFields.length === directions.length) {
-        this.sortConfig.defaultSort = [];
-        for (let i = 0; i < sortFields.length; i++) {
-          groupList.push({ groupField: sortFields[i], groupDirection: directions[i] as EDirection });
-          this.sortConfig.defaultSort.push({
-            field: sortFields[i],
-            order: directions[i].toLowerCase() as VxeTablePropTypes.SortOrder
-          });
+      if (groupFields.length && directions.length && groupFields.length === directions.length) {
+        for (let i = 0; i < groupFields.length; i++) {
+          groupList.push({ groupField: groupFields[i], groupDirection: directions[i] as EDirection });
         }
       }
       this.groupList = groupList;
     } else {
-      if (!groupList && this.groups?.length) {
-        this.groupList = this.groups;
+      if (!groupList && this.grouping?.length) {
+        this.groupList = this.grouping;
       }
     }
   }

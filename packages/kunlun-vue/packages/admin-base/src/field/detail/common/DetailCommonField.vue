@@ -17,9 +17,6 @@ export default defineComponent({
     },
     emptyStyle: {
       type: String
-    },
-    styleType: {
-      type: String
     }
   },
   slots: ['default', 'empty'],
@@ -49,23 +46,13 @@ export default defineComponent({
       return isNil(props.value);
     });
 
-    const borderClassName = computed(() => {
-      const names: string[] = [];
-      if (props.styleType === 'border') {
-        names.push('oio-detail-common-field-border');
-      }
-
-      return names.join(' ');
-    });
-
     return {
       realValue,
-      isRealEmpty,
-      borderClassName
+      isRealEmpty
     };
   },
   render() {
-    const { $attrs, $slots, isRealEmpty, emptyStyle, borderClassName } = this;
+    const { $attrs, $slots, isRealEmpty, emptyStyle } = this;
     const slots = PropRecordHelper.collectionSlots($slots, [
       {
         origin: 'default',
@@ -74,7 +61,7 @@ export default defineComponent({
             createVNode(
               'div',
               {
-                class: `${borderClassName} detail-common-field-value`,
+                class: 'detail-common-field-value',
                 title: realValue,
                 style: {
                   whiteSpace: 'pre-line'
@@ -87,11 +74,15 @@ export default defineComponent({
       },
       {
         origin: 'empty',
-        default: () => [createVNode(OioEmpty, { emptyStyle, class: borderClassName })]
+        default: () => [createVNode(OioEmpty, { emptyStyle })]
       }
     ]);
     const children = isRealEmpty ? slots.empty() : slots.default({ realValue: this.realValue });
-    return createVNode('div', PropRecordHelper.collectionBasicProps($attrs, ['detail-common-field']), children);
+    return createVNode(
+      'div',
+      PropRecordHelper.collectionBasicProps($attrs, ['detail-common-field detail-common-field-border']),
+      children
+    );
   }
 });
 </script>

@@ -25,6 +25,11 @@ export abstract class FormSelectTableComplexFieldWidget<
   }
 
   @Widget.Method()
+  public getDataList() {
+    return this.dataList;
+  }
+
+  @Widget.Method()
   public change(value) {
     if (this.field.multi) {
       this.x2mChange(value);
