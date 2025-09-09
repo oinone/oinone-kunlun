@@ -900,6 +900,8 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   protected get treeConfig() {
     if (this.enabledGroupView) {
       return {
+        rowField: ActiveRecordExtendKeys.DRAFT_ID,
+        parentField: ActiveRecordExtendKeys.PARENT_DRAFT_ID,
         hasChild: GROUP_TREE_KEY.IS_LEAF_KEY,
         expandAll: this.groupViewFooterExpandControl,
         children: GROUP_TREE_KEY.CHILDREN_KEY,
