@@ -108,7 +108,7 @@ export function createDefaultLayout(viewType: ViewType, inline: boolean): DslDef
         <element widget="actionBar" slot="actionBar" slotSupport="action">
             <xslot name="actions" slotSupport="action" />
         </element>
-        <element widget="card-cascader" slot="tree" slotSupport="nodes,node" />
+        <element widget="tree" slot="tree" slotSupport="nodes,node" />
     </pack>
 </view>`;
       break;

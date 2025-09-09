@@ -9,8 +9,8 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { BaseGalleryItemProps } from './props';
 import { DEFAULT_PREFIX } from '../../ui/theme';
+import { BaseGalleryItemProps } from './props';
 
 export default defineComponent({
   name: 'DefaultGalleryItem',
@@ -19,10 +19,17 @@ export default defineComponent({
     ...BaseGalleryItemProps
   },
   setup(props) {
-    const showLabel = computed(() => !props.labelInvisible);
+    const showLabel = computed(() => {
+      if (props.labelInvisible) {
+        return false;
+      }
+      return !!props.label;
+    });
+
     const classes = computed(() => {
       return [`${DEFAULT_PREFIX}-gallery-common-item`, showLabel.value ? '' : 'gallery-common-item-hide-label'];
     });
+
     return {
       showLabel,
       classes

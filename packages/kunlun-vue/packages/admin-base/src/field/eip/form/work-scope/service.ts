@@ -1,4 +1,5 @@
 import { http } from '@oinone/kunlun-service';
+import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 
 export async function queryWorkScope() {
   const body = `
@@ -11,7 +12,7 @@ export async function queryWorkScope() {
     }
   }
   `;
-  const result = await http.mutate('base', body);
+  const result = await http.mutate(SYSTEM_MODULE_NAME.EIP, body);
   return result.data.eipConnGroupQuery.queryListByWrapper as unknown as any[];
 }
 
@@ -25,23 +26,6 @@ export async function queryOpenInterface() {
       }
     }
   }`;
-  const result = await http.mutate('base', body);
+  const result = await http.mutate(SYSTEM_MODULE_NAME.EIP, body);
   return result.data.eipOpenInterfaceQuery.queryListByWrapper as unknown as any[];
-}
-
-export async function queryMCPToolInterface() {
-  const body = `{
-    mcpToolQuery {
-      queryListByWrapper(queryWrapper: {
-        rsql: \"featureType==TOOL\"
-      }) {
-        interfaceName
-        name
-        description
-        dataStatus
-      }
-    }
-  }`;
-  const result = await http.mutate('base', body);
-  return result.data.mcpToolQuery.queryListByWrapper as unknown as any[];
 }

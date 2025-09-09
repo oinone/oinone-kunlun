@@ -6,6 +6,48 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "45441464",
+      "name": "跳转",
+      "font_class": "tiaozhuan",
+      "unicode": "e970",
+      "unicode_decimal": 59760
+    },
+    {
+      "icon_id": "45441465",
+      "name": "下钻",
+      "font_class": "xiazuan2",
+      "unicode": "e971",
+      "unicode_decimal": 59761
+    },
+    {
+      "icon_id": "45216204",
+      "name": "复制",
+      "font_class": "fuzhi3",
+      "unicode": "e96c",
+      "unicode_decimal": 59756
+    },
+    {
+      "icon_id": "45216205",
+      "name": "剪切",
+      "font_class": "jianqie1",
+      "unicode": "e96d",
+      "unicode_decimal": 59757
+    },
+    {
+      "icon_id": "45216206",
+      "name": "删除",
+      "font_class": "shanchu21",
+      "unicode": "e96e",
+      "unicode_decimal": 59758
+    },
+    {
+      "icon_id": "45216216",
+      "name": "分享",
+      "font_class": "a-fenxiang2",
+      "unicode": "e96f",
+      "unicode_decimal": 59759
+    },
+    {
       "icon_id": "45043677",
       "name": "圆形",
       "font_class": "yuan",

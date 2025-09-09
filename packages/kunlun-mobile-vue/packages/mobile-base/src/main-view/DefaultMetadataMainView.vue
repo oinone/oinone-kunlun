@@ -1,11 +1,10 @@
 <script lang="ts">
-import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { computed, createVNode, defineComponent, Fragment, PropType, VNode } from 'vue';
-import { MetadataViewProps } from '../basic';
-import { useInjectMetaContext, useProviderMetaContext } from '../tags';
 import { DslDefinition } from '@oinone/kunlun-dsl';
 import { DslRender } from '@oinone/kunlun-vue-widget';
+import { computed, createVNode, defineComponent, Fragment, PropType, VNode } from 'vue';
+import { MetadataViewProps } from '../basic';
 import { useProviderMaskContext } from '../layout';
+import { useInjectMetaContext, useProviderMetaContext } from '../tags';
 
 export default defineComponent({
   name: 'DefaultMetadataMainView',

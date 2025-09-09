@@ -505,6 +505,10 @@ export class BaseFormItemWidget<
   protected formValidateCallChaining: CallChaining<FormValidateResult[] | undefined> | undefined;
 
   protected get isSkipValidator(): boolean {
+    const isSkipValidator = BooleanHelper.toBoolean(this.getDsl().isSkipValidator);
+    if (isSkipValidator != null) {
+      return isSkipValidator;
+    }
     return this.invisible || this.parentInvisible || false;
   }
 

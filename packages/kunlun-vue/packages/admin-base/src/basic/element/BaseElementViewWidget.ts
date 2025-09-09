@@ -1,4 +1,5 @@
 import {
+  ExperimentalConfigManager,
   parseConfigs,
   RelationUpdateType,
   ROOT_HANDLE,
@@ -239,7 +240,9 @@ export abstract class BaseElementViewWidget<
       mainViewFilter
     );
     this.setViewFilter?.(internalFilter);
-    this.internalDomain = RSQLHelper.concatByAnd(this.viewAction?.domain, this.getDsl().domain as string | undefined);
+    if (!ExperimentalConfigManager.baseElementViewWidgetNext()) {
+      this.internalDomain = RSQLHelper.concatByAnd(this.viewAction?.domain, this.getDsl().domain as string | undefined);
+    }
   }
 
   protected refreshConditionContext(): Record<string, unknown> | undefined {

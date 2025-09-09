@@ -9,7 +9,7 @@ import { GalleryM2OSelectFieldWidget } from '../m2o';
  */
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Gallery],
+    viewType: ViewType.Gallery,
     ttype: ModelFieldType.OneToOne
   })
 )

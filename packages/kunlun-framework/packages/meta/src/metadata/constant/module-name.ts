@@ -6,6 +6,7 @@ export const SYSTEM_MODULE = {
   MESSAGE: 'message',
   RESOURCE: 'resource',
   FILE: 'file',
+  EIP: 'eip',
   DESIGNER_COMMON: 'designer_common'
 };
 
@@ -17,5 +18,6 @@ export const SYSTEM_MODULE_NAME = {
   MESSAGE: 'message',
   RESOURCE: 'resource',
   FILE: 'file',
+  EIP: 'eip',
   DESIGNER_COMMON: 'designerCommon'
 };

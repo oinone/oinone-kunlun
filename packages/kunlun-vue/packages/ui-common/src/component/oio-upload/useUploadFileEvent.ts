@@ -1,5 +1,5 @@
 import { ConfigHelper } from '@oinone/kunlun-engine';
-import { RuntimeConfig } from '@oinone/kunlun-meta';
+import { RuntimeConfig, RuntimeConfigOptions } from '@oinone/kunlun-meta';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { get as getValue, set as setValue } from 'lodash-es';
 import {
@@ -17,12 +17,10 @@ interface IUploadedPartHeader {
 
 type Fn = (...arg) => unknown;
 
-export interface MultipartUploadRuntimeConfig {
+export interface MultipartUploadRuntimeConfig extends RuntimeConfigOptions {
   partSize?: number;
   parallel?: number;
   chunkUploadThreshold?: number;
-
-  [key: string]: unknown;
 }
 
 export enum IUploadMethod {

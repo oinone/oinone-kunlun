@@ -47,7 +47,7 @@ export default defineComponent({
     };
   },
   render() {
-    const { onUpdateChecked, onChange } = this;
+    const { onUpdateChecked } = this;
     const checkboxClassList = [`${DEFAULT_PREFIX}-checkbox`];
     if (this.readonly) {
       checkboxClassList.push(`${DEFAULT_PREFIX}-checkbox-readonly`);

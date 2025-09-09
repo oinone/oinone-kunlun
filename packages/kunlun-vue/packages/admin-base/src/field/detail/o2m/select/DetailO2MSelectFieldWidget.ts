@@ -2,15 +2,14 @@ import { ActiveRecord, getLabelFieldList4query, RuntimeO2MField } from '@oinone/
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { FormFieldWidget } from '../../../basic/field';
-import { DetailRelationSelectFieldWidget } from '../abstract/DetailRelationSelectFieldWidget';
+import { FormFieldWidget } from '../../../../basic/field';
+import { DetailRelationSelectFieldWidget } from '../../abstract/DetailRelationSelectFieldWidget';
 import Select from './Select.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Detail],
-    ttype: ModelFieldType.OneToMany,
-    widget: 'Select'
+    viewType: ViewType.Detail,
+    ttype: ModelFieldType.OneToMany
   })
 )
 export class DetailO2MSelectFieldWidget extends DetailRelationSelectFieldWidget<ActiveRecord[], RuntimeO2MField> {

@@ -1,4 +1,4 @@
-import { DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
+import { DslDefinition } from '@oinone/kunlun-dsl';
 import {
   CurrentLanguage,
   initI18n,
@@ -16,32 +16,24 @@ import {
 import { IView, ViewActionTarget } from '@oinone/kunlun-meta';
 import { isNotPermission, setSessionPath, useSessionPath } from '@oinone/kunlun-request';
 import { useMatched } from '@oinone/kunlun-router';
-import { CallChaining, debugConsole } from '@oinone/kunlun-shared';
+import { CallChaining } from '@oinone/kunlun-shared';
 import { distinctUntilChanged, Subscription } from '@oinone/kunlun-state';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-import { ViewSubSymbol, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
-import { nextTick } from 'vue';
 import { ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
 import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { ViewSubSymbol, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { nextTick } from 'vue';
 import { MetadataViewWidget } from '../basic';
-import { MaskManager } from '../spi';
-import DefaultMetadataMainView from './DefaultMetadataMainView.vue';
+import { fetchBreadcrumbCurrentViewTitle, MenuService, ModuleService, RuntimeMenu, TopBarService } from '../layout';
 import {
   emptyHomepageModelName,
   getUnauthorizedAction,
-  unauthorizedActionName,
-  replaceStanderMainView
+  replaceStanderMainView,
+  unauthorizedActionName
 } from '../layout/util/unauthorized-action';
-import {
-  maskTemplateEdit,
-  getDefaultMaskTemplate,
-  MenuService,
-  ModuleService,
-  RuntimeMenu,
-  TopBarService,
-  fetchBreadcrumbCurrentViewTitle
-} from '../layout';
+import { seekViewMask } from '../tags';
 import { isMiniProgram } from '../util';
+import DefaultMetadataMainView from './DefaultMetadataMainView.vue';
 
 /**
  * <h3>元数据主视图</h3>
@@ -326,24 +318,7 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
     newPage: ViewActionQueryParameter
   ): Promise<void> {
     const { module: moduleName, model, action } = newPage;
-    let maskTemplate: string = MaskManager.selector({
-      module: viewAction.moduleDefinition?.module || viewAction.resModuleDefinition?.module,
-      moduleName: viewAction.moduleDefinition?.name || viewAction.resModuleDefinition?.name || moduleName,
-      model,
-      actionName: action
-    })!;
-    if (!maskTemplate) {
-      maskTemplate = viewAction.resMaskDefinition?.template as string;
-      if (maskTemplate) {
-        debugConsole.log('使用后端mask', maskTemplate);
-      }
-    }
-    let finalMaskTemplate: DslDefinition;
-    if (maskTemplate) {
-      finalMaskTemplate = maskTemplateEdit({ isDefault: false }, XMLParse.INSTANCE.parse(maskTemplate));
-    } else {
-      finalMaskTemplate = getDefaultMaskTemplate();
-    }
+    let finalMaskTemplate: DslDefinition = seekViewMask(viewAction, moduleName);
 
     /**
      * 当前用户没有该视图没有权限
@@ -355,7 +330,9 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
     }
 
     const preMaskTemplate = JSON.stringify(this.maskTemplate, (key, value) => {
-      if (key === '__index') return undefined;
+      if (key === '__index') {
+        return undefined;
+      }
       return value;
     });
 

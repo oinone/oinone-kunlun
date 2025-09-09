@@ -6,7 +6,7 @@ import { FormStringFieldWidget } from '../../../form';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Detail],
+    viewType: ViewType.Detail,
     ttype: ModelFieldType.String,
     widget: ['MediaPlayer']
   })

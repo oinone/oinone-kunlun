@@ -1,21 +1,20 @@
 import { RuntimeEnumerationOption, SubmitHandler, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { BooleanHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, EnumerationValue } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { toString } from 'lodash-es';
-import { FormFieldWidget } from '../../../../../basic';
-import { EnumerationValue } from '../../FormEnumFieldAbstractWidget';
-import { FormEnumFieldWidget } from '../single';
+import { FormFieldWidget } from '../../../basic';
+import { FormEnumFieldWidget } from '../enum';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
     viewType: [ViewType.Form, ViewType.Search],
-    ttype: [ModelFieldType.Boolean],
+    ttype: ModelFieldType.Boolean,
     widget: 'Select'
   })
 )
-export class FormEnumBoolFieldSelectWidget extends FormEnumFieldWidget<EnumerationValue | EnumerationValue[]> {
+export class FormBooleanSelectFieldWidget extends FormEnumFieldWidget<EnumerationValue | EnumerationValue[]> {
   @Widget.Reactive()
   public get value() {
     const value = super.value;
@@ -65,9 +64,9 @@ export class FormEnumBoolFieldSelectWidget extends FormEnumFieldWidget<Enumerati
   public submit(submitValue: SubmitValue) {
     return SubmitHandler.BOOLEAN(this.field, this.itemName, submitValue, this.value);
   }
-
-  @Widget.Reactive()
-  public get isLink() {
-    return !this.readonly && true;
-  }
 }
+
+/**
+ * @deprecated please using FormBooleanSelectFieldWidget
+ */
+export const FormEnumBoolFieldSelectWidget = FormBooleanSelectFieldWidget;

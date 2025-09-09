@@ -129,11 +129,6 @@ export class FormStringUploadFieldWidget extends FormFieldWidget<string[], Runti
   }
 
   @Widget.Reactive()
-  protected get allLimitSize() {
-    return this.getDsl().allLimitSize || '';
-  }
-
-  @Widget.Reactive()
   protected get multiple(): boolean {
     const _multiple = this.getDsl().multi;
     return _multiple === true;
@@ -152,18 +147,6 @@ export class FormStringUploadFieldWidget extends FormFieldWidget<string[], Runti
   @Widget.Reactive()
   protected get privateLink() {
     return BooleanHelper.toBoolean(this.getDsl().privateLink);
-  }
-
-  // 文件展示的前缀文本
-  @Widget.Reactive()
-  protected get fileDisplayPrefixText() {
-    return this.getDsl().displayPrefixText || 'prefix：';
-  }
-
-  // 文件展示的占位文本
-  @Widget.Reactive()
-  protected get fileDisplayText() {
-    return this.getDsl().fileDisplayText || 'fileDisplayText';
   }
 
   public async validator(): Promise<ValidatorInfo> {
@@ -186,5 +169,29 @@ export class FormStringUploadFieldWidget extends FormFieldWidget<string[], Runti
       }
     }
     return this.validatorSuccess();
+  }
+
+  /**
+   * @deprecated invalid prop
+   */
+  @Widget.Reactive()
+  protected get allLimitSize() {
+    return this.getDsl().allLimitSize || '';
+  }
+
+  /**
+   * @deprecated invalid code
+   */
+  @Widget.Reactive()
+  protected get fileDisplayPrefixText() {
+    return this.getDsl().displayPrefixText || 'prefix：';
+  }
+
+  /**
+   * @deprecated invalid code
+   */
+  @Widget.Reactive()
+  protected get fileDisplayText() {
+    return this.getDsl().fileDisplayText || 'fileDisplayText';
   }
 }

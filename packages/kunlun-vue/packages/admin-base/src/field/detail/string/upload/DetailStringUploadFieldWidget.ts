@@ -7,7 +7,7 @@ import ReadonlyUpload from './ReadonlyUpload.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Detail],
+    viewType: ViewType.Detail,
     ttype: [ModelFieldType.String, ModelFieldType.Text],
     widget: ['Upload']
   })

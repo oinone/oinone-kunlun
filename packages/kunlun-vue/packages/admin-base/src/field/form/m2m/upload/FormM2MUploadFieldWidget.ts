@@ -1,7 +1,7 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { BooleanHelper } from '@oinone/kunlun-shared';
 
 import { FormFieldWidget } from '../../../../basic';
 import { UploadCom } from '../../../../components';
@@ -9,9 +9,9 @@ import { FormM2MFieldUploadBaseWidget } from '../base/FormM2MFieldUploadBaseWidg
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Form, ViewType.Detail, ViewType.Gallery, ViewType.Table],
+    viewType: [ViewType.Form, ViewType.Detail, ViewType.Gallery],
     ttype: ModelFieldType.ManyToMany,
-    widget: ['Upload']
+    widget: 'Upload'
   })
 )
 export class FormM2MUploadFieldWidget extends FormM2MFieldUploadBaseWidget {

@@ -14,7 +14,7 @@ import TableEnum from '../enum/TableEnum.vue';
   BaseFieldWidget.Token({
     viewType: ViewType.Table,
     ttype: ModelFieldType.Boolean,
-    widget: ['Select', 'Radio']
+    widget: 'Select'
   })
 )
 export class TableBooleanSelectFieldWidget extends BaseTableFieldWidget<string | string[], RuntimeEnumerationField> {

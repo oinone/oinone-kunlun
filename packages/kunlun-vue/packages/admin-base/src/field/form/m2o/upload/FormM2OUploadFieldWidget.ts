@@ -7,9 +7,9 @@ import { AbstractFormM2OUploadFieldWidget } from './AbstractFormM2OUploadFieldWi
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Form, ViewType.Detail, ViewType.Gallery, ViewType.Table],
+    viewType: [ViewType.Form, ViewType.Gallery],
     ttype: ModelFieldType.ManyToOne,
-    widget: ['Upload']
+    widget: 'Upload'
   })
 )
 export class FormM2OUploadFieldWidget extends AbstractFormM2OUploadFieldWidget {
@@ -37,13 +37,6 @@ export class FormM2OUploadFieldWidget extends AbstractFormM2OUploadFieldWidget {
   protected remove(file) {
     if (file) {
       this.change(null as any);
-    }
-  }
-
-  @Widget.Method()
-  protected drop(e) {
-    if (e) {
-      console.log('draggable drop', e);
     }
   }
 }

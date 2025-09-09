@@ -16,15 +16,15 @@ import {
 const http = HttpClient.getInstance();
 
 export class GQL {
-  public static query(modelName: string, name: string, fragments?: GQLFragment[]) {
+  public static query(modelName: string, name: string, fragments?: GQLFragment[]): QueryGQL {
     return new QueryGQL(modelName, name, fragments);
   }
 
-  public static mutation(modelName: string, name: string, fragments?: GQLFragment[]) {
+  public static mutation(modelName: string, name: string, fragments?: GQLFragment[]): MutationGQL {
     return new MutationGQL(modelName, name, fragments);
   }
 
-  public static fragment(name: string, definition: string) {
+  public static fragment(name: string, definition: string): GQLResponseParameterBuilder {
     return new GQLFragmentBuilderImpl({
       name,
       definition,

@@ -262,7 +262,7 @@ export class QueryService {
   }
 
   public static generatorInternalResponseModels(): RuntimeModel[] {
-    return [StaticMetadata.QueryPageResult, StaticMetadata.ResourceAddress];
+    return [StaticMetadata.QueryPageResult, ...FunctionService.usingStaticModels()];
   }
 
   public static readonly INTERNAL_REQUEST_MODELS = QueryService.generatorInternalRequestModels().map((v) => v.model);

@@ -1,3 +1,4 @@
+import { DslDefinition } from '@oinone/kunlun-dsl';
 import { ActiveRecord, Pagination, RefreshCallChainingParameters } from '@oinone/kunlun-engine';
 import { TreeNode } from '@oinone/kunlun-shared';
 import { Slot } from 'vue';
@@ -63,6 +64,11 @@ export interface TreeNodeMetadata {
    * 行内按钮插槽
    */
   rowActionsSlot?: Slot;
+
+  /**
+   * 当配置了 nodes 节点时，根元数据节点具有该属性
+   */
+  nodes?: DslDefinition;
 
   /**
    * 图标 iconfont/https

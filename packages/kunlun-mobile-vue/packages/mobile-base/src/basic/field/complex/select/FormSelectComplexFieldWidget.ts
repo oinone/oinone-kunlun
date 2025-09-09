@@ -4,13 +4,15 @@ import {
   getRelationFieldKey,
   isRelatedField,
   parseConfigs,
+  QueryService,
+  RequestHelper,
   RuntimeModel,
   RuntimeModelField,
   RuntimeRelationField
 } from '@oinone/kunlun-engine';
 import { Entity, IModelField, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
 import { Condition, ObjectValue } from '@oinone/kunlun-request';
-import { IQueryPageOption, IQueryPageResult, queryPage } from '@oinone/kunlun-service';
+import { DEFAULT_TRUE_CONDITION, IQueryPageOption, IQueryPageResult, queryPage } from '@oinone/kunlun-service';
 import { CastHelper, NumberHelper } from '@oinone/kunlun-shared';
 import {
   autoFillSelectedValueToOptions,
@@ -71,6 +73,11 @@ export abstract class FormSelectComplexFieldWidget<
 
   @Widget.Reactive()
   protected options: Record<string, unknown>[] = [];
+
+  @Widget.Reactive()
+  protected get loadFunctionFun(): string | undefined {
+    return this.getDsl().load;
+  }
 
   @Widget.Reactive()
   protected get selectedOptions(): Entity[] {
@@ -621,11 +628,28 @@ export abstract class FormSelectComplexFieldWidget<
     variables?: ObjectValue,
     context: ObjectValue = {}
   ): Promise<IQueryPageResult<T>> {
+    let { condition } = option;
     if (!isEmptyValue(option.queryData)) {
-      const condition = new Condition((option?.condition as Condition)?.toString());
-      condition.setConditionBodyData(option.queryData as any);
-      option.condition = condition;
+      const { queryData } = option;
+      if (typeof condition === 'string') {
+        condition = new Condition(condition);
+      }
+      if (!condition) {
+        condition = new Condition(DEFAULT_TRUE_CONDITION);
+      }
+      condition.setConditionBodyData({
+        ...(condition.getConditionBodyData() || {}),
+        ...queryData
+      });
     }
-    return queryPage(modelModel, option, fields as unknown as IModelField[], variables, context);
+    return QueryService.queryPage(this.referencesModel!, {
+      fun: this.loadFunctionFun,
+      currentPage: option.currentPage!,
+      pageSize: option.pageSize!,
+      condition,
+      requestFields: RequestHelper.convertRequestFields(fields || []),
+      variables,
+      context
+    }) as unknown as IQueryPageResult<T>;
   }
 }

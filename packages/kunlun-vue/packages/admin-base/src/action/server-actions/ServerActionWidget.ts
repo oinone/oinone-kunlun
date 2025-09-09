@@ -1,29 +1,22 @@
 import {
-  ActiveRecords,
   Dialog,
   Drawer,
   executeViewAction,
   FunctionCache,
   FunctionService,
-  GetRequestModelFieldsOptions,
-  ModelCache,
   MultiTabsManager,
   RelationUpdateType,
   RequestModelField,
   ROOT_HANDLE,
   RuntimeClientAction,
   RuntimeContext,
-  RuntimeContextManager,
-  RuntimeFunctionDefinition,
   RuntimeServerAction,
   RuntimeViewAction,
-  StaticMetadata,
-  SubmitRelationValue,
   SubmitValue,
   translateValueByKey,
   UpdateOneWithRelationsService
 } from '@oinone/kunlun-engine';
-import { ActionContextType, ActionType, ModelDefaultActionName, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { ActionType, ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
 import { HttpClientError, MessageHub, RequestErrorInterceptor, SystemErrorCode } from '@oinone/kunlun-request';
 import { SPI } from '@oinone/kunlun-spi';
 import { BooleanHelper, CallChaining, debugConsole, OioNotification } from '@oinone/kunlun-vue-ui-antd';
@@ -180,48 +173,6 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
     }
   }
 
-  protected async submit(action: RuntimeServerAction): Promise<SubmitValue> {
-    let records: ActiveRecords | undefined;
-    let relationRecords: SubmitRelationValue[] | undefined;
-    if (!this.inline && this.submitCallChaining) {
-      debugConsole.run(() => {
-        if ([ViewType.Detail, ViewType.Form].includes(this.viewType!)) {
-          debugConsole.log('formData in view:', this.activeRecords?.[0]);
-        }
-      });
-      const callResult = await this.submitCallChaining?.syncCall();
-      if (callResult != null) {
-        records = callResult.records;
-        relationRecords = callResult.relationRecords;
-      }
-    }
-    if (records == null) {
-      records = this.activeRecords || [];
-    }
-    if (action.contextType === ActionContextType.Batch || action.contextType === ActionContextType.SingleAndBatch) {
-      // do nothing.
-    } else if (action.contextType === ActionContextType.Single) {
-      if (Array.isArray(records)) {
-        [records] = records;
-      }
-    } else {
-      const ttype = action.functionDefinition?.argumentList?.[0]?.ttype;
-      if (ttype && [ModelFieldType.ManyToOne, ModelFieldType.OneToOne].includes(ttype as ModelFieldType)) {
-        if (Array.isArray(records)) {
-          [records] = records;
-        }
-      }
-    }
-    if (!records) {
-      if (action.contextType !== ActionContextType.ContextFree) {
-        const name = this.action?.displayName || this.action?.label;
-        throw new Error(`${name} action not params`);
-      }
-      records = {};
-    }
-    return new SubmitValue(records, relationRecords);
-  }
-
   protected async deleteDraftWhenClickAfter() {
     const { fun, name } = this.action;
     const { updateOneWithRelationName, updateActionName, createActionName, existDraftAction } = this;
@@ -245,8 +196,8 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
         await this.clickActionAfterRefreshData(result, refreshParent);
         this.closeAllDialog ? Dialog.disposeAll() : Dialog.dispose(this.action);
         return result;
-      } else if (this.goBack) {
-        // eslint-disable-next-line no-restricted-globals
+      }
+      if (this.goBack) {
         this.historyBack();
         return result;
       }
@@ -256,13 +207,12 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
         await this.clickActionAfterRefreshData(result, refreshParent);
         this.closeAllDrawer ? Drawer.disposeAll() : Drawer.dispose(this.action);
         return result;
-      } else if (this.goBack) {
-        // eslint-disable-next-line no-restricted-globals
+      }
+      if (this.goBack) {
         this.historyBack();
         return result;
       }
     } else if (this.goBack) {
-      // eslint-disable-next-line no-restricted-globals
       this.historyBack();
       return result;
     }
@@ -393,36 +343,6 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
     return !!parameters.relationRecords.length;
   }
 
-  protected seekPopupMainRuntimeContext(): RuntimeContext {
-    if (this.metadataHandle === this.rootHandle) {
-      const modelModel = this.model.model;
-      if (modelModel) {
-        const popupMainRuntimeContext = RuntimeContextManager.getOthers(this.rootHandle)?.find(
-          (v) => v.model.model === modelModel
-        );
-        if (popupMainRuntimeContext) {
-          return popupMainRuntimeContext;
-        }
-      }
-    }
-    return this.rootRuntimeContext;
-  }
-
-  protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
-    const { viewType } = this;
-    if (viewType === ViewType.Tree) {
-      const runtimeModel = await ModelCache.get(this.model.model);
-      if (runtimeModel) {
-        return runtimeModel.modelFields.map((field) => ({ field }));
-      }
-      return [];
-    }
-    if (this.popupScene) {
-      return this.seekPopupMainRuntimeContext().getRequestModelFields(options);
-    }
-    return this.rootRuntimeContext.getRequestModelFields(options);
-  }
-
   protected async executeAction(action: RuntimeServerAction, submitValue: SubmitValue): Promise<ClickResult> {
     if (
       (this.updateOneWithRelationName === action.fun || this.updateActionName === action.name) &&
@@ -445,27 +365,9 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
     return this.executeFunction(functionDefinition, requestFields, submitValue.records);
   }
 
-  protected executeFunction<T>(
-    functionDefinition: RuntimeFunctionDefinition,
-    requestFields: RequestModelField[],
-    activeRecords: ActiveRecords | undefined
-  ): Promise<T> {
-    activeRecords = this.mergeContext(activeRecords);
-    return FunctionService.INSTANCE.simpleExecute(
-      this.model,
-      functionDefinition,
-      {
-        requestModels: [StaticMetadata.ResourceAddress],
-        requestFields,
-        variables: this.rootRuntimeContext.generatorVariables({ path: this.action.sessionPath })
-      },
-      activeRecords
-    );
-  }
-
   protected executeRelationUpdate<T>(requestFields: RequestModelField[], submitValue: SubmitValue): Promise<T> {
     return UpdateOneWithRelationsService.execute(this.model, submitValue, {
-      requestModels: [StaticMetadata.ResourceAddress],
+      requestModels: FunctionService.usingStaticModels(),
       requestFields,
       variables: this.rootRuntimeContext.generatorVariables({ path: this.action.sessionPath })
     });

@@ -4,7 +4,7 @@ import { BaseFieldWidget } from '../../../../basic';
 import String from './String.vue';
 
 @SPI.ClassFactory(
-  BaseFieldWidget.Token({ viewType: [ViewType.Detail], ttype: ModelFieldType.String, widget: 'StringWithCopy' })
+  BaseFieldWidget.Token({ viewType: ViewType.Detail, ttype: ModelFieldType.String, widget: 'StringWithCopy' })
 )
 export class DetailStringWithCopyFieldWidget extends BaseFieldWidget {
   public initialize(props: any): this {

@@ -1,6 +1,6 @@
 import { RuntimeEnumerationField, RuntimeEnumerationOption, translateValueByKey } from '@oinone/kunlun-engine';
 import { deepClone } from '@oinone/kunlun-meta';
-import { BooleanHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, EnumerationValue } from '@oinone/kunlun-shared';
 import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toString } from 'lodash-es';
@@ -8,8 +8,6 @@ import { FormFieldWidget } from '../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
 import { OptionColorStyle } from '../../FieldCommonEnum';
 import { enumFetchLabelByValue } from '../../util';
-
-export type EnumerationValue = boolean | string;
 
 export abstract class FormEnumFieldAbstractWidget<
   Value extends EnumerationValue | EnumerationValue[] = EnumerationValue | EnumerationValue[]

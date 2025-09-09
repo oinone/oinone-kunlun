@@ -26,6 +26,15 @@ export class GQLRequestParameterBuilderImpl implements GQLRequestParameterBuilde
     return this;
   }
 
+  public booleanParameter(key: string, value: unknown) {
+    this.parameters[key] = {
+      type: 'boolean',
+      key,
+      value
+    };
+    return this;
+  }
+
   public enumerationParameter(key: string, value: unknown) {
     this.parameters[key] = {
       type: 'enumeration',
@@ -35,9 +44,9 @@ export class GQLRequestParameterBuilderImpl implements GQLRequestParameterBuilde
     return this;
   }
 
-  public booleanParameter(key: string, value: unknown) {
+  public mapParameter(key: string, value: unknown) {
     this.parameters[key] = {
-      type: 'boolean',
+      type: 'map',
       key,
       value
     };

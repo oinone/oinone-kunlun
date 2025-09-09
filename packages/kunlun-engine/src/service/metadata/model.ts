@@ -423,4 +423,30 @@ export namespace StaticMetadata {
       })
     ]
   };
+
+  export const ConfirmModalModel = 'base.ConfirmModal';
+
+  export const ConfirmModalModelName = 'confirmModal';
+
+  export const ConfirmModal: RuntimeModel = {
+    model: ConfirmModalModel,
+    name: ConfirmModalModelName,
+    module: SYSTEM_MODULE.BASE,
+    moduleName: SYSTEM_MODULE_NAME.BASE,
+    modelActions: [],
+    modelFields: [
+      MetadataHelper.buildSimpleModelField(ConfirmModalModel, ConfirmModalModelName, {
+        data: 'title',
+        ttype: ModelFieldType.String
+      }),
+      MetadataHelper.buildSimpleModelField(ConfirmModalModel, ConfirmModalModelName, {
+        data: 'content',
+        ttype: ModelFieldType.String
+      }),
+      MetadataHelper.buildSimpleModelField(ConfirmModalModel, ConfirmModalModelName, {
+        data: 'context',
+        ttype: ModelFieldType.Map
+      })
+    ]
+  };
 }

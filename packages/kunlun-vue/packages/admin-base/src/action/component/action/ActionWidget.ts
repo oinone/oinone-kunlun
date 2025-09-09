@@ -2,28 +2,43 @@ import {
   ActiveRecord,
   ActiveRecords,
   buildQueryCondition,
-  GenericFunctionService,
+  ConfirmModal,
+  FunctionCache,
+  FunctionService,
+  GetRequestModelFieldsOptions,
+  ModelCache,
   parseConfigs,
+  RequestModelField,
   resolveDynamicDomain,
   resolveDynamicExpression,
   RuntimeAction,
   RuntimeClientAction,
   RuntimeContext,
   RuntimeContextManager,
+  RuntimeFunctionDefinition,
+  RuntimeServerAction,
+  SubmitRelationValue,
+  SubmitValue,
   translate,
   translateValueByKey,
   ValidatorCallChainingParameters
 } from '@oinone/kunlun-engine';
 import { EventBus, EventConsumer, KeyboardEventMessage } from '@oinone/kunlun-event';
 import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
-import { ActionContextType, ActionElement, IAction, ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
+import { ActionContextType, ActionElement, IAction, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
 import { BooleanHelper, debugConsole, GraphqlHelper, ReturnPromise } from '@oinone/kunlun-shared';
-import { ButtonBizStyle, ButtonType, ConfirmType, PopconfirmPlacement } from '@oinone/kunlun-vue-ui-common';
+import {
+  ButtonBizStyle,
+  ButtonType,
+  ConfirmType,
+  PopconfirmPlacement,
+  StyleHelper
+} from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString, set as setData } from 'lodash-es';
-import { Component, toRaw } from 'vue';
+import { Component, createVNode, toRaw } from 'vue';
 import { BaseActionWidget, BaseActionWidgetProps, BaseView, QueryExpression } from '../../../basic';
 import { ActionKeyboardConfig, ClickResult, fetchPopconfirmPlacement } from '../../../typing';
 import { executeConfirm } from '../../../util';
@@ -312,9 +327,8 @@ export class ActionWidget<
 
       if (length) {
         return GraphqlHelper.serializableObject(queryData);
-      } else {
-        return '{}';
       }
+      return '{}';
     };
 
     return { rsql, queryData, condition, queryDataToString };
@@ -473,26 +487,28 @@ export class ActionWidget<
   @Widget.Reactive()
   protected get enableConfirm(): boolean {
     const enableConfirm = this.getDsl().enableConfirm;
-    const rst = BooleanHelper.toBoolean(enableConfirm);
+    if (enableConfirm != null) {
+      const rst = BooleanHelper.toBoolean(enableConfirm);
+      if (isNil(rst)) {
+        const scene = this.scene;
 
-    // 如果返回值是undefined ｜ null，说明enableConfirm是表达式，需要执行表达式
-    if (isNil(rst)) {
-      const scene = this.scene;
-
-      return Expression.run(
-        {
-          activeRecords: this.activeRecords,
-          rootRecord: this.rootData?.[0] || {},
-          openerRecord: this.openerActiveRecords?.[0] || {},
-          scene: scene,
-          activeRecord: this.activeRecords?.[0] || {},
-          parentRecord: this.parentViewActiveRecords?.[0] || {}
-        } as ExpressionRunParam,
-        enableConfirm,
-        enableConfirm
-      );
+        return Expression.run(
+          {
+            activeRecords: this.activeRecords,
+            rootRecord: this.rootData?.[0] || {},
+            openerRecord: this.openerActiveRecords?.[0] || {},
+            scene,
+            activeRecord: this.activeRecords?.[0] || {},
+            parentRecord: this.parentViewActiveRecords?.[0] || {}
+          } as ExpressionRunParam,
+          enableConfirm,
+          enableConfirm
+        );
+      }
+      return rst;
     }
-    return rst;
+    const { confirmText, confirmFun } = this;
+    return !!confirmText || !!confirmFun;
   }
 
   /**
@@ -512,7 +528,7 @@ export class ActionWidget<
   protected get confirmType(): ConfirmType | undefined {
     const { confirmType } = this.getDsl();
     if (confirmType) {
-      const realConfirmType = ConfirmType[confirmType];
+      const realConfirmType = ConfirmType[confirmType.toUpperCase()];
       if (realConfirmType) {
         return realConfirmType;
       }
@@ -539,6 +555,16 @@ export class ActionWidget<
   }
 
   @Widget.Reactive()
+  protected get confirmHtml(): boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().confirmHtml);
+  }
+
+  @Widget.Reactive()
+  protected get confirmFun(): string | undefined {
+    return this.getDsl().confirmFun;
+  }
+
+  @Widget.Reactive()
   protected get confirmPosition(): PopconfirmPlacement {
     return fetchPopconfirmPlacement(this.getDsl().confirmPosition) || PopconfirmPlacement.BM;
   }
@@ -550,6 +576,11 @@ export class ActionWidget<
       return confirmTitle;
     }
     return translate('kunlun.common.prompt');
+  }
+
+  @Widget.Reactive()
+  protected get confirmWidth(): string | undefined {
+    return StyleHelper.px(this.getDsl().confirmWidth);
   }
 
   @Widget.Reactive()
@@ -762,12 +793,70 @@ export class ActionWidget<
    * 二次弹窗校验
    */
   @Widget.Method()
-  public validateConfirm(): Promise<boolean> {
+  public async validateConfirm(): Promise<boolean> {
     if (this.enableConfirm && this.confirmType === ConfirmType.MODAL) {
-      const { confirmText } = this;
+      const { confirmText, confirmFun } = this;
       if (confirmText) {
+        return this.validateConfirmByText();
+      }
+      if (confirmFun) {
+        return this.validateConfirmByFun();
+      }
+    }
+    return Promise.resolve(true);
+  }
+
+  protected async validateConfirmByText(): Promise<boolean> {
+    const { confirmTitle, confirmWidth, confirmHtml, confirmText } = this;
+    let confirm: string | Function = confirmText!;
+    if (confirmHtml) {
+      confirm = () => createVNode('span', { innerHTML: confirmText });
+    }
+    return executeConfirm({
+      title: confirmTitle,
+      width: confirmWidth,
+      confirm: confirm as unknown as string,
+      enterText: this.enterText,
+      cancelText: this.cancelText
+    });
+  }
+
+  protected async validateConfirmByFun(): Promise<boolean> {
+    const { confirmTitle, confirmWidth, confirmHtml, confirmFun } = this;
+    const functionDefinition = await FunctionCache.get(this.model.model, confirmFun!);
+    if (functionDefinition) {
+      const requestFields = await this.getRequestModelFields();
+      const submitValue = await this.submit(this.action);
+      const message = await this.executeFunction<string | ConfirmModal>(
+        functionDefinition,
+        requestFields,
+        submitValue.records
+      );
+      if (message) {
+        let title: string = confirmTitle!;
+        let confirm: string | Function;
+        if (typeof message === 'string') {
+          confirm = message;
+        } else {
+          const expressionParam: ExpressionRunParam = {
+            activeRecords: [message.context || {}],
+            rootRecord: this.rootData?.[0] || {},
+            activeRecord: message.context || {},
+            scene: this.scene,
+            openerRecord: this.openerActiveRecords?.[0] || {},
+            parentRecord: this.parentViewActiveRecords?.[0] || {}
+          };
+          title = Expression.replaceRun(expressionParam, message.title || title || '');
+          confirm = Expression.replaceRun(expressionParam, translateValueByKey(message.content || ''));
+        }
+        if (confirmHtml) {
+          const finalMessage = confirm;
+          confirm = () => createVNode('span', { innerHTML: finalMessage });
+        }
         return executeConfirm({
-          confirm: confirmText,
+          title,
+          width: confirmWidth,
+          confirm: confirm as unknown as string,
           enterText: this.enterText,
           cancelText: this.cancelText
         });
@@ -947,6 +1036,91 @@ export class ActionWidget<
     // }
 
     return result;
+  }
+
+  protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
+    const { viewType } = this;
+    if (viewType === ViewType.Tree) {
+      const runtimeModel = await ModelCache.get(this.model.model);
+      if (runtimeModel) {
+        return runtimeModel.modelFields.map((field) => ({ field }));
+      }
+      return [];
+    }
+    if (this.popupScene) {
+      return this.seekPopupMainRuntimeContext().getRequestModelFields(options);
+    }
+    return this.rootRuntimeContext.getRequestModelFields(options);
+  }
+
+  protected seekPopupMainRuntimeContext(): RuntimeContext {
+    if (this.metadataHandle === this.rootHandle) {
+      const modelModel = this.model.model;
+      if (modelModel) {
+        const popupMainRuntimeContext = RuntimeContextManager.getOthers(this.rootHandle)?.find(
+          (v) => v.model.model === modelModel
+        );
+        if (popupMainRuntimeContext) {
+          return popupMainRuntimeContext;
+        }
+      }
+    }
+    return this.rootRuntimeContext;
+  }
+
+  protected async submit(action: RuntimeServerAction): Promise<SubmitValue> {
+    let records: ActiveRecords | undefined;
+    let relationRecords: SubmitRelationValue[] | undefined;
+    if (!this.inline && this.submitCallChaining) {
+      const callResult = await this.submitCallChaining?.syncCall();
+      if (callResult != null) {
+        records = callResult.records;
+        relationRecords = callResult.relationRecords;
+      }
+    }
+    if (records == null) {
+      records = this.activeRecords || [];
+    }
+    if (action.contextType === ActionContextType.Batch || action.contextType === ActionContextType.SingleAndBatch) {
+      // do nothing.
+    } else if (action.contextType === ActionContextType.Single) {
+      if (Array.isArray(records)) {
+        [records] = records;
+      }
+    } else {
+      const ttype = action.functionDefinition?.argumentList?.[0]?.ttype;
+      if (ttype && [ModelFieldType.ManyToOne, ModelFieldType.OneToOne].includes(ttype as ModelFieldType)) {
+        if (Array.isArray(records)) {
+          [records] = records;
+        }
+      }
+    }
+    if (!records) {
+      if (action.contextType !== ActionContextType.ContextFree) {
+        const name = this.action?.displayName || this.action?.label;
+        throw new Error(`${name} action not params`);
+      }
+      records = {};
+    }
+    return new SubmitValue(records, relationRecords);
+  }
+
+  protected executeFunction<T>(
+    functionDefinition: RuntimeFunctionDefinition,
+    requestFields: RequestModelField[],
+    activeRecords: ActiveRecords | undefined
+  ): Promise<T> {
+    activeRecords = this.mergeContext(activeRecords);
+    return FunctionService.INSTANCE.simpleExecute(
+      this.model,
+      functionDefinition,
+      {
+        requestModels: FunctionService.usingStaticModels(),
+        requestFields,
+        variables: this.rootRuntimeContext.generatorVariables({ path: this.action.sessionPath })
+      },
+      activeRecords
+    );
   }
 
   private validatorByExpression(expression: string) {

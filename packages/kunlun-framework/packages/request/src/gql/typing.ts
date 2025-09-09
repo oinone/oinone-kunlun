@@ -12,7 +12,7 @@ export const GQLMutationType: GQLType = 'mutation';
 /**
  * GQL参数类型
  */
-export type GQLParameterType = 'string' | 'number' | 'boolean' | 'enumeration' | 'object' | 'array';
+export type GQLParameterType = 'string' | 'number' | 'boolean' | 'enumeration' | 'map' | 'object' | 'array';
 
 /**
  * GQL请求参数
@@ -153,4 +153,6 @@ interface AbstractGQLRequestParameterBuilder {
   booleanParameter(key: string, value: unknown): this;
 
   enumerationParameter(key: string, value: unknown): this;
+
+  mapParameter(key: string, value: unknown): this;
 }

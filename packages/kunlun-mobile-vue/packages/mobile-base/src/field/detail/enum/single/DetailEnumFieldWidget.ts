@@ -1,8 +1,9 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { EnumerationValue } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
-import { EnumerationValue, FormEnumFieldAbstractWidget } from '../../../form/enum/FormEnumFieldAbstractWidget';
+import { FormEnumFieldAbstractWidget } from '../../../form';
 import { enumFetchOptionByValue } from '../../../util';
 import Enum from '../Enum.vue';
 

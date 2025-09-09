@@ -10,6 +10,8 @@ import { TABLE_WIDGET } from '../../../../typing';
   BaseFieldWidget.Token({
     viewType: ViewType.Form,
     ttype: ModelFieldType.OneToMany,
+    // fixme @zbh 20250814 6.3.0版本使用多别称
+    // widget: ['table', TABLE_WIDGET]
     widget: TABLE_WIDGET
   })
 )

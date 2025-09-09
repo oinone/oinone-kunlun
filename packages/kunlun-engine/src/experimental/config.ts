@@ -12,4 +12,12 @@ export interface ExperimentalConfig extends RuntimeConfigOptions {
    * AddressWidget 组件版本；目前仅有next和非next两个版本；
    */
   AddressWidget?: string;
+  /**
+   * BaseElementViewWidget 组件版本；目前仅有next和非next两个版本；
+   */
+  BaseElementViewWidget?: string;
+  /**
+   * TreeWidget 组件版本；目前仅有next和非next两个版本；
+   */
+  TreeWidget?: string;
 }

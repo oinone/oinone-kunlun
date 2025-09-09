@@ -6,7 +6,7 @@ import GalleryEnum from '../enum/GalleryEnum.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Gallery],
+    viewType: ViewType.Gallery,
     ttype: [ModelFieldType.Boolean],
     widget: ['Select', 'Radio']
   })

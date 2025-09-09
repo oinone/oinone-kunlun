@@ -1,4 +1,5 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNaN, isNumber } from 'lodash-es';
@@ -6,6 +7,7 @@ import { FormFieldWidget } from '../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
 import { FormStringFieldWidget } from '../string/FormStringFieldWidget';
 import DefaultTextarea from './DefaultTextarea.vue';
+import { InputTextareaSize } from './typing';
 
 @SPI.ClassFactory(FormFieldWidget.Token({ viewType: [ViewType.Form, ViewType.Search], ttype: ModelFieldType.Text }))
 export class FormTextFieldWidget extends FormStringFieldWidget {
@@ -16,12 +18,37 @@ export class FormTextFieldWidget extends FormStringFieldWidget {
   }
 
   @Widget.Reactive()
-  protected get rows(): number {
-    const rows = Number(this.getDsl().rows);
-    if (isNaN(rows)) {
-      return 3;
+  protected get defaultRows(): InputTextareaSize {
+    return 3;
+  }
+
+  @Widget.Reactive()
+  protected get rows(): InputTextareaSize {
+    const { rows } = this.getDsl();
+    if (rows == null) {
+      return this.defaultRows;
     }
-    return rows;
+    const autoSize = BooleanHelper.toBoolean(rows);
+    if (autoSize != null) {
+      return autoSize;
+    }
+    const minRows = Number(rows);
+    if (!isNaN(minRows)) {
+      return minRows;
+    }
+    if (typeof rows === 'string') {
+      const [minRows, maxRows] = rows.split(',');
+      const minRowsNumber = Number(minRows);
+      const maxRowsNumber = Number(maxRows);
+      if (isNaN(minRowsNumber) || isNaN(maxRowsNumber)) {
+        return this.defaultRows;
+      }
+      return {
+        minRows: minRowsNumber,
+        maxRows: maxRowsNumber
+      };
+    }
+    return this.defaultRows;
   }
 
   @Widget.Reactive()

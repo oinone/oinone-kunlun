@@ -1,10 +1,8 @@
 import { RuntimeEnumerationOption, RuntimeModelField } from '@oinone/kunlun-engine';
-import { BooleanHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, EnumerationValue } from '@oinone/kunlun-shared';
 import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic/field/FormFieldWidget';
-
-export type EnumerationValue = boolean | string;
 
 export abstract class FormCheckboxWidget<
   Value extends EnumerationValue | EnumerationValue[] = EnumerationValue | EnumerationValue[],

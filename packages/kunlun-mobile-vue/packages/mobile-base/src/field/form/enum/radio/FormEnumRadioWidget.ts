@@ -1,10 +1,10 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { BooleanHelper, Optional } from '@oinone/kunlun-shared';
+import { BooleanHelper, EnumerationValue, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { FormFieldWidget } from '../../../../basic';
-import { EnumerationValue, FormEnumFieldAbstractWidget } from '../FormEnumFieldAbstractWidget';
+import { FormEnumFieldAbstractWidget } from '../FormEnumFieldAbstractWidget';
 import FormEnumRadio from './FormEnumRadio.vue';
 
 @SPI.ClassFactory(

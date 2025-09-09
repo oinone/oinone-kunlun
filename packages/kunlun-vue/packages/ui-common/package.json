@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui-common",
-  "version": "6.2.10",
+  "version": "6.3.0",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -17,10 +17,10 @@
     "lodash-es": "4.17.21"
   },
   "devDependencies": {
-    "@oinone/kunlun-engine": "~6.2.0",
-    "@oinone/kunlun-meta": "~6.2.0",
-    "@oinone/kunlun-request": "~6.2.0",
-    "@oinone/kunlun-shared": "~6.2.0",
+    "@oinone/kunlun-engine": "~6.3.0",
+    "@oinone/kunlun-meta": "~6.3.0",
+    "@oinone/kunlun-request": "~6.3.0",
+    "@oinone/kunlun-shared": "~6.3.0",
     "@types/lodash": "4.14.182",
     "@types/lodash-es": "4.17.6",
     "rollup-plugin-copy": "3.4.0",

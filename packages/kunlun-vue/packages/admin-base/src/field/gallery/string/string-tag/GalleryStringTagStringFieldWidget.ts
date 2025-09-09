@@ -8,7 +8,7 @@ import GalleryTagString from './GalleryTagString.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Gallery],
+    viewType: ViewType.Gallery,
     ttype: [ModelFieldType.String, ModelFieldType.Phone, ModelFieldType.Email],
     widget: 'TagString'
   })

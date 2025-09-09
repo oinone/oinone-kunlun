@@ -19,16 +19,19 @@ import { SPI } from '@oinone/kunlun-spi';
 import { getDefaultMaskTemplate, maskTemplateEdit } from '@oinone/kunlun-vue-admin-layout';
 import { isNil, isPlainObject, isString } from 'lodash-es';
 import { LayoutManager, LayoutRegisterOptions, MaskManager } from '../../spi';
-import { useInjectMetaContext } from './context';
 import { ActiveLayoutEffectOpt } from './active';
+import { useInjectMetaContext } from './context';
 
-function seekViewMask(viewAction: RuntimeViewAction, moduleName?: string): DslDefinition {
-  let maskTemplate: string = MaskManager.selector({
+export function seekViewMask(viewAction: RuntimeViewAction, moduleName?: string): DslDefinition {
+  let maskTemplate: string | undefined = MaskManager.selector({
+    viewType: viewAction.resViewType || viewAction.viewType,
     module: viewAction.moduleDefinition?.module || viewAction.resModuleDefinition?.module,
     moduleName: viewAction.moduleDefinition?.name || viewAction.resModuleDefinition?.name || moduleName,
-    model: viewAction.model,
+    model: viewAction.modelDefinition?.model || viewAction.model,
+    modelName: viewAction.modelDefinition?.name || viewAction.modelName,
+    viewName: viewAction.resViewName || viewAction.viewName,
     actionName: viewAction.name
-  })!;
+  });
   if (!maskTemplate) {
     maskTemplate = viewAction.resMaskDefinition?.template as string;
     if (maskTemplate) {

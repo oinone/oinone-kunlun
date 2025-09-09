@@ -9,7 +9,7 @@ import { FormO2MFieldUploadBaseWidget } from '../base/FormO2MFieldUploadBaseWidg
   FormFieldWidget.Token({
     viewType: [ViewType.Form, ViewType.Detail],
     ttype: ModelFieldType.OneToMany,
-    widget: ['UploadImg']
+    widget: 'UploadImg'
   })
 )
 export class FormO2MUploadImgFieldWidget extends FormO2MFieldUploadBaseWidget {

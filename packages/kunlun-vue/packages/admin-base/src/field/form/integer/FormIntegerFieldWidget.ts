@@ -87,11 +87,6 @@ export class FormIntegerFieldWidget<
   }
 
   @Widget.Reactive()
-  protected get unit(): string | undefined {
-    return this.executeExpression<string>(this.getDsl().unit);
-  }
-
-  @Widget.Reactive()
   protected get autocorrection() {
     return Optional.ofNullable(this.getDsl().autocorrection)
       .map((v) => BooleanHelper.toBoolean(v))

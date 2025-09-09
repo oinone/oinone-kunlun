@@ -1,10 +1,9 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { BooleanHelper, Optional } from '@oinone/kunlun-shared';
+import { BooleanHelper, EnumerationValue, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { isNil } from 'lodash-es';
 import { FormFieldWidget } from '../../../../basic';
-import { EnumerationValue, FormEnumFieldAbstractWidget } from '../FormEnumFieldAbstractWidget';
+import { FormEnumFieldAbstractWidget } from '../FormEnumFieldAbstractWidget';
 import FormEnumRadio from './FormEnumRadio.vue';
 
 @SPI.ClassFactory(
@@ -22,12 +21,26 @@ export class FormEnumRadioWidget extends FormEnumFieldAbstractWidget<Enumeration
   }
 
   @Widget.Reactive()
-  protected get allowClear() {
-    const { allowClear } = this.getDsl();
-    if (isNil(allowClear)) {
-      return false;
+  protected get orientation() {
+    const _orientation = this.getDsl().orientation as string;
+    if (_orientation) {
+      return _orientation;
     }
-    return allowClear;
+    return undefined;
+  }
+
+  @Widget.Reactive()
+  protected get radioMode() {
+    const _radioMode = this.getDsl().radioMode as string;
+    if (_radioMode) {
+      return _radioMode;
+    }
+    return undefined;
+  }
+
+  @Widget.Reactive()
+  protected get allowClear() {
+    return Optional.ofNullable(this.getDsl().allowClear).orElse(false);
   }
 
   @Widget.Reactive()

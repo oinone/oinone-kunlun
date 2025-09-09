@@ -1,4 +1,4 @@
-import { ActiveRecord } from '@oinone/kunlun-engine';
+import { ActiveRecord, ExperimentalConfigManager } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
@@ -18,7 +18,14 @@ export class TreeWidget extends AbstractTreeElementWidget {
   protected showContent = true;
 
   protected async onNodeSelected(node: OioTreeNode<TreeData>) {
-    await this.onSelectedForQuery(node);
+    if (ExperimentalConfigManager.treeWidgetNext()) {
+      const nodeModel = node.value.metadata?.model;
+      if (nodeModel === this.model.model) {
+        await this.onSelectedForQuery(node);
+      }
+    } else {
+      await this.onSelectedForQuery(node);
+    }
   }
 
   protected async onNodeUnselected(node: OioTreeNode<TreeData>) {

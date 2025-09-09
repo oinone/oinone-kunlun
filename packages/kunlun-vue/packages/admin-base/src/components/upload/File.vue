@@ -41,11 +41,6 @@ export default defineComponent({
     value: {
       type: Object
     },
-    // 上传总文件大小限制
-    allLimitSize: {
-      type: String,
-      default: '' // 1B、1KB、1MB、1GB、1TG
-    },
     cdnKey: {
       type: String
     },
@@ -108,46 +103,6 @@ export default defineComponent({
     const onSuccess = (file) => {
       fileList.value.push(file);
       context.emit('change', fileList.value);
-    };
-
-    function pow1024(number: number) {
-      return Math.pow(1024, number);
-    }
-
-    function toUpCase(str: string) {
-      return str.toLocaleUpperCase();
-    }
-
-    const sizeUnit = {
-      // kb -> b
-      KB(size: number) {
-        const [s] = toUpCase(props.allLimitSize).split('KB');
-        return Number(s) * pow1024(1) > size;
-      },
-
-      // MB -> b
-      MB(size: number) {
-        const [s] = toUpCase(props.allLimitSize).split('MB');
-
-        return Number(s) * pow1024(2) > size;
-      },
-
-      // GB -> b
-      GB(size: number) {
-        const [s] = toUpCase(props.allLimitSize).split('GB');
-        return Number(s) * pow1024(3) > size;
-      },
-
-      // TB -> b
-      TG(size: number) {
-        const [s] = toUpCase(props.allLimitSize).split('TB');
-        return Number(s) * pow1024(4) > size;
-      },
-
-      B(size: number) {
-        const [s] = toUpCase(props.allLimitSize).split('B');
-        return Number(s) > size;
-      }
     };
 
     /**

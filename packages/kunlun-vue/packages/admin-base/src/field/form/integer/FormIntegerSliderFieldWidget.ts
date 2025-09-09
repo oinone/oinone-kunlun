@@ -12,7 +12,7 @@ import { FormIntegerFieldWidget } from './FormIntegerFieldWidget';
 @SPI.ClassFactory(
   FormFieldWidget.Token({
     viewType: ViewType.Form,
-    ttype: [ModelFieldType.Integer],
+    ttype: ModelFieldType.Integer,
     widget: 'Slider'
   })
 )

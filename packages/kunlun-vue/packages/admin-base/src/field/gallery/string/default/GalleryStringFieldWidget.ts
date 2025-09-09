@@ -3,12 +3,11 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
 import { DetailStringFieldWidget } from '../../../detail';
-
 import GalleryString from './GalleryString.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
-    viewType: [ViewType.Gallery],
+    viewType: ViewType.Gallery,
     ttype: [ModelFieldType.String, ModelFieldType.Phone, ModelFieldType.Email]
   })
 )

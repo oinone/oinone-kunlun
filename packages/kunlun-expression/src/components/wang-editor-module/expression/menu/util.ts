@@ -33,6 +33,7 @@ export function createExpressionDialog(contextItems: IVariableContextItem[], edi
     a?.models && models.push(...a.models);
   });
   const currentSelection = editor.selection;
+
   const app = createApp({
     components: { ExpressionInputPanel },
     props: {
@@ -43,6 +44,20 @@ export function createExpressionDialog(contextItems: IVariableContextItem[], edi
         class: EXPRESSION_MODAL_PANEL_CLASS_NAME,
         contextItems,
         models,
+        onChangeSourceCode: (value) => {
+          const expressionSourceCode = {
+            type: ExpressionElementType,
+            displayName: value,
+            value: value,
+            children: [{ text: '' }]
+          };
+          if (currentSelection) {
+            // 插入到当前光标处
+            SlateTransforms.insertNodes(editor, expressionSourceCode, { at: currentSelection });
+          } else {
+            editor.insertNode(expressionSourceCode);
+          }
+        },
         expressionItemList: [createDefaultExpressionItem(ExpressionDefinitionType.OPERATION)],
         type: ExpressionDefinitionType.OPERATION,
         expressionOption: createExpressionOption(contextItems),
