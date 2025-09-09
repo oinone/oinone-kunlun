@@ -22,7 +22,7 @@
             <a-select
               class="oio-select"
               :options="selectOptions"
-              v-model:value="tableHeaderValues[index].value"
+              :value="getThSelectValue(index)"
               @change="onChangeTableHeader($event, index)"
             ></a-select>
           </th>
@@ -191,6 +191,10 @@ const onChangeTableHeader = (value, index) => {
       v.value = NON_CUT;
     }
   });
+};
+
+const getThSelectValue = (index) => {
+  return tableHeaderValues.value[index].value;
 };
 
 // 获取单元格 ID 的行和列
@@ -578,7 +582,7 @@ const handlePaste = (event: ClipboardEvent): void => {
   const rowsData = pastedData.split('\n').filter((row) => row.trim() !== '');
   let currentRowOffset = 0;
   rowsData.forEach((rowData) => {
-    const cellsData = rowData.split('\t');
+    const cellsData = rowData.split('\t') as string[];
     let currentColOffset = 0;
     cellsData.forEach((cellData) => {
       const targetRowIdx = startRow + currentRowOffset - 1;
