@@ -9,19 +9,29 @@
         :class="{ 'expression-designer-cascader-content-single': optionsList.length === 1 }"
       >
         <slot name="empty">
-          <div class="empty" v-if="!options || !options.length">
+          <div class="empty" v-if="isEmpty">
             {{ translateExpValue('没有可选数据') }}
           </div>
         </slot>
-        <expression-cascader-menu
-          v-for="(opts, index) in optionsList"
-          :options="opts"
-          :pagination="pagination"
-          :on-pagination-change="onPaginationChange"
-          :group-by-store="groupByStore"
-          @click-option="(option, isMouse) => onClickOption(option, index, isMouse)"
-          @load-data="(option) => onLoadData(option, index)"
-        />
+        <div v-if="searchKeyWords === '' && !isEmpty">
+          <expression-cascader-menu
+            v-for="(opts, index) in optionsList"
+            :options="opts"
+            :pagination="pagination"
+            :on-pagination-change="onPaginationChange"
+            :group-by-store="groupByStore"
+            @click-option="(option, isMouse) => onClickOption(option, index, isMouse)"
+            @load-data="(option) => onLoadData(option, index)"
+          />
+        </div>
+        <div v-if="searchKeyWords !== '' && !isEmpty">
+          <expression-cascader-menu
+            :options="searchFilterOptions"
+            :pagination="pagination"
+            :on-pagination-change="onPaginationChange"
+            @click-option="searchOptionClick"
+          />
+        </div>
       </div>
       <div class="expression-designer-cascader-footer" v-if="footerTitle || footerDesc">
         <div class="expression-designer-cascader-footer-title" v-if="footerTitle">{{ footerTitle }}</div>
@@ -31,7 +41,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, onUpdated, PropType, ref, watch } from 'vue';
 import { isNil } from 'lodash-es';
 import { Pagination } from '@oinone/kunlun-engine';
 import { ExpressionKeyword } from '@oinone/kunlun-expression';
@@ -120,16 +130,31 @@ export default defineComponent({
     groupByStore: {
       type: Boolean,
       default: false
+    },
+    searchKeyWords: {
+      type: String,
+      default: ''
     }
   },
   emits: ['update:value', 'change'],
   setup(props, { emit }) {
     const selectedValues = ref([] as string[]);
 
+    // 搜索过滤-仅前端
+    const searchFilterOptions = ref([]);
+
     const optionsList = computed(() => {
       const list = [] as IExpSelectOption[][];
       appendOptions(props.options, list, props.maxDepth);
       return list;
+    });
+
+    const isEmpty = computed(() => {
+      return (
+        !props.options ||
+        !props.options.length ||
+        (props.searchKeyWords !== '' && searchFilterOptions.value.length === 0)
+      );
     });
 
     async function onLoadData(option: IExpSelectOption, currentDepth: number) {
@@ -162,6 +187,7 @@ export default defineComponent({
         emit('change', selectedValues.value, selectedOptions);
       }
     }
+
     watch(
       () => props.value,
       () => {
@@ -171,12 +197,97 @@ export default defineComponent({
       },
       { deep: true }
     );
+
+    watch(
+      () => props.searchKeyWords,
+      (newValue) => {
+        if (newValue !== '') {
+          searchFilterOptions.value = optionsSearchWalk(newValue, props.options);
+        }
+      }
+    );
+
+    /**
+     * @param keyword 搜索关键字
+     * @param optionsList option列表
+     * @param walkList 祖先列表-保存根节点到当前节点的所有节点
+     * @param res 返回值数组
+     * @desc 遍历所有叶子节点，找到包含keyword的options返回
+     * @returns Record<string,any>[]
+     */
+    function optionsSearchWalk(keyword, optionsList, parent = null, walkList = [], res = []) {
+      if (optionsList === []) {
+        return [];
+      }
+      optionsList.forEach((ch) => {
+        const tempObj = {
+          ...ch,
+          parent
+        };
+        walkList.push(ch.label);
+        if (ch.children.length === 0 && (ch.label.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 || ch.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1)) {
+          const displayLabel = walkList.join(' / ');
+          res.push({
+            ...ch,
+            label: displayLabel,
+            parent
+          });
+        } else {
+          optionsSearchWalk(keyword, tempObj.children, tempObj, walkList, res);
+        }
+        walkList.pop();
+      });
+      return res;
+    }
+
+    async function buildStartOptions(options, deep: number = 0, loadOptionsList = []) {
+      if (deep >= 3) {
+        return;
+      }
+      for (let i = 0; i < options.length; i++) {
+        const tempList = [...loadOptionsList, options[i]];
+        await props.loadData?.(tempList);
+        if (options[i].children.length !== 0) {
+          await buildStartOptions(options[i].children, deep + 1, tempList);
+        }
+      }
+    }
+
+    function buildSubmitOptions(targetOption) {
+      let res = [];
+      let ob = targetOption;
+      while (ob !== null) {
+        res.push(ob);
+        ob = ob.parent;
+      }
+      res = res.reverse();
+      return res;
+    }
+
+    function searchOptionClick(option: IExpSelectOption, isMouse = false) {
+      if (isMouse || isViewDataKeywords(option.value as string)) {
+        return;
+      }
+
+      const selectedOptions = buildSubmitOptions(option);
+      selectedValues.value = selectedOptions.map((a) => a.value as string);
+
+      emit('update:value', selectedValues.value);
+      emit('change', selectedValues.value, selectedOptions);
+    }
+
+    onUpdated(() => {
+      buildStartOptions(optionsList.value[0], 0, []);
+    });
     return {
       optionsList,
       selectedValues,
+      searchFilterOptions,
+      isEmpty,
       onClickOption,
       onLoadData,
-      translateExpValue
+      translateExpValue,
+      searchOptionClick
     };
   }
 });

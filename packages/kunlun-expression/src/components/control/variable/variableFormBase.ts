@@ -120,6 +120,8 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
 
   const variableType = ref<VariableItemType>();
 
+  const optionsCatch = new Map();
+
   const availableOptions = computed<IExpSelectOption[]>(() => {
     let list = finaleOptions.value;
     if ([VariableItemType.VARIABLE, VariableItemType.FIELD].includes(variableType.value!)) {
@@ -138,6 +140,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
         list = filterListOption(list);
       }
     }
+    debugger;
     return list;
   });
 
@@ -352,6 +355,7 @@ export function createComponent() {
     setup(props, context) {
       return createSetup(props, context);
     },
-    onCreated() {}
+    onCreated() {
+    }
   };
 }
