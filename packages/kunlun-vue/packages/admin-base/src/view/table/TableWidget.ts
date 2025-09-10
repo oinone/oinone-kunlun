@@ -404,11 +404,6 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
-  @Widget.Reactive()
-  protected get usingSimpleUserPrefer(): boolean | undefined {
-    return BooleanHelper.toBoolean(this.getDsl().usingSimpleUserPrefer);
-  }
-
   @Widget.Method()
   protected onToggleRowExpand({ expanded, rowIndex }) {
     const expandIndex = this.expandRowIndexes.findIndex((v) => v === rowIndex);

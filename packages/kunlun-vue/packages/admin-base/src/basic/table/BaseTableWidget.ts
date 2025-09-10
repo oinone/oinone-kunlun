@@ -34,8 +34,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy } from 'lodash-es';
 import { ISort } from '@oinone/kunlun-service';
 import { nextTick } from 'vue';
-import { UserPreferEventManager, UserPreferService } from '../../service';
-import { UserTablePrefer, TableLineHeightEnum, TableLineHeightMap } from '../../typing';
+import { TableLineHeightEnum } from '../../typing';
 import { ActionKeyboardConfig, TableRowEditMode } from '../../typing/action';
 import { FetchUtil } from '../../util';
 import { BaseElementListViewWidget, BaseElementListViewWidgetProps } from '../element';
@@ -398,7 +397,7 @@ export class BaseTableWidget<
       return false;
     }
     const data = await this.rowEditorClosedForSubmit(context);
-    const useDiffUpdate = [RelationUpdateType.diff, RelationUpdateType.batch].includes(this.relationUpdateType)
+    const useDiffUpdate = [RelationUpdateType.diff, RelationUpdateType.batch].includes(this.relationUpdateType);
     if (this.inline) {
       if (res && data) {
         if (this.createMode && useDiffUpdate) {
@@ -406,7 +405,6 @@ export class BaseTableWidget<
         } else {
           this.updateSubviewFieldWidget(context, data);
         }
-
       }
     } else if (data) {
       try {
@@ -763,61 +761,6 @@ export class BaseTableWidget<
 
   // endregion
 
-  // region user prefer
-
-  protected userPreferEventManager: UserPreferEventManager | undefined;
-
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected userPrefer?: UserTablePrefer;
-
-  protected initUserPrefer() {
-    this.userPreferEventManager = UserPreferEventManager.get(this.rootHandle || this.currentHandle);
-    if (this.inline) {
-      this.userPrefer = {} as UserTablePrefer;
-    } else {
-      this.userPrefer = (UserPreferService.parsePreferForTable(
-        this.metadataRuntimeContext.view?.extension?.userPreference as Record<string, unknown>
-      ) || {}) as UserTablePrefer;
-      this.userPreferEventManager.onSave(this.$saveUserPrefer.bind(this));
-    }
-    this.userPreferEventManager.setData(this.userPrefer);
-    this.userPreferEventManager.onReload(this.$reloadUserPrefer.bind(this), CallChaining.MAX_PRIORITY);
-  }
-
-  /**
-   *
-   * @param userPrefer
-   * @deprecated 兼容原有逻辑 使用UserPreferEventManager.INSTANCE.reload方法替换
-   */
-  @Widget.Provide()
-  @Widget.Method()
-  public reloadUserPrefer(userPrefer: UserTablePrefer) {
-    this.userPreferEventManager?.reload(userPrefer);
-  }
-
-  protected $reloadUserPrefer(userPrefer: Partial<UserTablePrefer>) {
-    this.userPrefer = { ...(this.userPrefer || {}), ...userPrefer } as UserTablePrefer;
-    this.userPreferEventManager?.setData(this.userPrefer);
-  }
-
-  protected async $saveUserPrefer(userPrefer: Partial<UserTablePrefer>) {
-    const viewName = userPrefer.viewName || this.metadataRuntimeContext.view.name;
-    if (viewName) {
-      const saveUserPrefer = {
-        ...userPrefer,
-        model: userPrefer.model || this.metadataRuntimeContext.model.model,
-        viewName
-      } as UserTablePrefer;
-      await UserPreferService.savePreferForTable(saveUserPrefer);
-    }
-  }
-
-  protected $$beforeMount() {
-    super.$$beforeMount();
-    this.initUserPrefer();
-  }
-
   protected $$mounted() {
     super.$$mounted();
     this.submitCallChaining?.callBefore(
@@ -836,7 +779,6 @@ export class BaseTableWidget<
 
   protected $$unmounted() {
     super.$$unmounted();
-    this.userPreferEventManager?.dispose();
     this.editRowCallChaining?.unhook(this.path);
   }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="default-table-footer-operator">
     <div class="default-table-footer-operator-add-one" v-if="enableAddRow" @click.stop="onAddRow">
-      <oio-icon size="14" icon="icon-plus-outlined" color="var(--oio-primary-color)"></oio-icon>
+      <oio-icon size="14" icon="oinone-plus-outlined" color="var(--oio-primary-color)"></oio-icon>
       {{ $translate('添加一行 ') }}
     </div>
 

@@ -55,11 +55,15 @@ export default defineComponent({
     },
     onPaginationChange: {
       type: Function
+    },
+    viewControlWidget: {
+      type: Object as PropType<VNode>,
+      default: () => null
     }
   },
   render() {
     const defaultSlot = PropRecordHelper.collectionSlots(this.$slots, [{ origin: 'default', isNotNull: true }]).default;
-    const children: VNode[] = [];
+    const children: VNode[] = [createVNode(this.viewControlWidget)];
     const galleryProps: Record<string, unknown> = {
       list: this.dataSource || [],
       itemKey: ActiveRecordExtendKeys.DRAFT_ID,

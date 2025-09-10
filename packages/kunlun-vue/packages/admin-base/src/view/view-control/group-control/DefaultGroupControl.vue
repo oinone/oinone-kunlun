@@ -16,7 +16,7 @@
         <template #title>
           <span>{{ $translate('分组') }}</span>
         </template>
-        <oio-icon size="16" icon="icon-group-outlined"> </oio-icon>
+        <oio-icon size="16" icon="oinone-group-outlined"> </oio-icon>
       </a-tooltip>
     </div>
   </a-popover>

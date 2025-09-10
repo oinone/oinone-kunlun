@@ -47,7 +47,7 @@ export class BaseListView<T extends BaseViewProps = BaseViewProps> extends BaseV
 
   @Widget.Reactive()
   @Widget.Provide()
-  protected setActionBarChildren(children) {
+  protected storeActionBarChildren(children) {
     this.actionBarChildren = children;
   }
 

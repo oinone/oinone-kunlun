@@ -40,6 +40,9 @@ export default defineComponent({
     selectMode: {
       type: String as PropType<keyof typeof ListSelectMode>
     },
+    defaultGutter: {
+      type: Array as PropType<number[]>
+    },
     allowClick: {
       type: Boolean,
       default: undefined
@@ -250,7 +253,7 @@ export default defineComponent({
               resolveOptions: {
                 mode: ResolveMode.NORMAL
               },
-              gutter: DEFAULT_CARD_GUTTERS,
+              gutter: this.defaultGutter,
               align: FlexRowAlign.TOP
             },
             undefined,

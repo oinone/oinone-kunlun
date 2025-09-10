@@ -5,11 +5,11 @@
       class="default-table-group-collapse-item"
       @click="setAllGroupExpand(true)"
     >
-      <oio-icon icon="icon-double-down-outlined" size="16"></oio-icon>
+      <oio-icon icon="oinone-double-down-outlined" size="16"></oio-icon>
       <span>{{ $translate('展开全部') }}</span>
     </span>
     <span v-if="groupViewFooterFoldControl" class="default-table-group-collapse-item" @click="setAllGroupExpand(false)">
-      <oio-icon icon="icon-double-up-outlined" size="16"></oio-icon>
+      <oio-icon icon="oinone-double-up-outlined" size="16"></oio-icon>
       <span>{{ $translate('收起全部') }}</span>
     </span>
   </div>

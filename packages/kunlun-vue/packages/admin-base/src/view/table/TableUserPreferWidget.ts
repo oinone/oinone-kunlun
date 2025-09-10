@@ -16,7 +16,7 @@ interface DataOption {
 
 @SPI.ClassFactory(
   BaseElementWidget.Token({
-    viewType: ViewType.Table,
+    viewType: [ViewType.Table, ViewType.Gallery],
     widget: ['userPrefer', 'user-prefer', 'UserPrefer']
   })
 )

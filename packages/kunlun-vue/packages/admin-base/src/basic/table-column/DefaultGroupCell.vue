@@ -14,7 +14,7 @@
       >
         <div class="default-group-cell-stander">
           {{ placeholder }}
-          <oio-icon icon="icon-caret-down-filled"></oio-icon>
+          <oio-icon icon="oinone-caret-down-filled"></oio-icon>
         </div>
       </div>
 

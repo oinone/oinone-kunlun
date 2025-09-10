@@ -220,7 +220,7 @@ export default defineComponent({
           if (groupable) {
             if (groupList?.length && groupList.some((item) => item.groupField === field)) {
               options.push(
-                createOperationItem('取消分组', 'icon-group-outlined', () => {
+                createOperationItem('取消分组', 'oinone-ungroup-outlined', () => {
                   const list = groupList || [];
                   const index = list?.findIndex((item) => item.groupField === field);
                   list.splice(index, 1);
@@ -229,7 +229,7 @@ export default defineComponent({
               );
             } else {
               options.push(
-                createOperationItem('以此字段分组', 'icon-group-outlined', () => {
+                createOperationItem('以此字段分组', 'oinone-group-outlined', () => {
                   const list = groupList || [];
                   list.push({ groupField: field, groupDirection: EDirection.ASC });
                   onGroupChange?.(list);

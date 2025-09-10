@@ -13,19 +13,28 @@ $rowActionsHeight: 40px;
   border: var($parameterPrefix + -border-width) var($parameterPrefix + -border-style)
     var($parameterPrefix + -border-color);
   border-radius: var($parameterPrefix + -border-radius, 4px);
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: var($parameterPrefix + -box-shadow);
   position: relative;
 
   &-title {
-    padding: 16px 16px;
     font-weight: var($parameterPrefix + -font-weight-bold);
-    border-color: var(--oio-border-color);
+    border-color: var($parameterPrefix + -border-color);
+
+    padding: var($parameterPrefix + -padding);
 
     .default-card-title-content {
       overflow: hidden;
       padding-right: 6px;
       padding-left: 6px;
       flex: 1 1 0;
+    }
+
+    .gallery-common-item {
+      padding: 0;
+      .gallery-common-item-label,
+      .gallery-common-field {
+        color: var($parameterPrefix + -text-color);
+      }
     }
   }
 
@@ -59,7 +68,6 @@ $rowActionsHeight: 40px;
     @include oio-scrollbar();
 
     flex: 1 1 calc(100% - #{$rowActionsHeight});
-    padding: 0 16px 16px;
     overflow: hidden auto;
 
     &-padding-top {
@@ -71,9 +79,10 @@ $rowActionsHeight: 40px;
     flex: 1 0 $rowActionsHeight;
     height: $rowActionsHeight;
     max-height: $rowActionsHeight;
-    background-color: var(--oio-background);
-    border-top: 1px solid var(--oio-border-color);
+    background-color: var(--oio-card-action-background);
+    border-top: 1px solid var(--oio-card-action-border-color);
     position: relative;
+    border-radius: 0 0 var($parameterPrefix + -border-radius, 4px) var($parameterPrefix + -border-radius, 4px);
 
     & > .action-bar {
       gap: 0;
@@ -94,6 +103,7 @@ $rowActionsHeight: 40px;
 
           .oio-button {
             width: 100%;
+            color: var(--oio-card-action-text-color);
 
             &.oio-button-icon-before,
             &.oio-button-icon-after {
@@ -117,7 +127,7 @@ $rowActionsHeight: 40px;
         top: 1em;
         height: 14px;
         color: var(--oio-text-color-three);
-        border-left-color: var(--oio-border-color);
+        border-left-color: var(--oio-card-action-divider-color);
       }
     }
   }
@@ -155,6 +165,12 @@ $rowActionsHeight: 40px;
     &-show-handler {
       .default-card-selected-wrapper-handler {
         display: block;
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        z-index: 1;
+        padding: 0;
+        transform: scale(0.8);
       }
 
       .default-card-selected-wrapper-content {

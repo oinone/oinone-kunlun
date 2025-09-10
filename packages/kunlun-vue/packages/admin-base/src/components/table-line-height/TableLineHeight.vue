@@ -50,11 +50,11 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const options = [
-      { label: translateValueByKey('默认'), icon: 'icon-a-defaultrowheight', value: TableLineHeightEnum.DEFAULT },
-      { label: translateValueByKey('高'), icon: 'icon-high-height-outlined', value: TableLineHeightEnum.LARGE },
-      { label: translateValueByKey('中'), icon: 'icon-medium-height-outlined', value: TableLineHeightEnum.MIDDLE },
-      { label: translateValueByKey('低'), icon: 'icon-medium-height-outlined', value: TableLineHeightEnum.SMALL },
-      { label: translateValueByKey('自适应'), icon: 'icon-adaptive-outlined', value: TableLineHeightEnum.AUTO }
+      { label: translateValueByKey('默认'), icon: 'oinone-a-defaultrowheight', value: TableLineHeightEnum.DEFAULT },
+      { label: translateValueByKey('高'), icon: 'oinone-high-height-outlined', value: TableLineHeightEnum.LARGE },
+      { label: translateValueByKey('中'), icon: 'oinone-medium-height-outlined', value: TableLineHeightEnum.MIDDLE },
+      { label: translateValueByKey('低'), icon: 'oinone-medium-height-outlined', value: TableLineHeightEnum.SMALL },
+      { label: translateValueByKey('自适应'), icon: 'oinone-adaptive-outlined', value: TableLineHeightEnum.AUTO }
     ];
 
     const active = ref(props.value);

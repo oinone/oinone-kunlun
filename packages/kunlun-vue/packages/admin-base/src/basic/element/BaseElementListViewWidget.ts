@@ -43,13 +43,14 @@ import { ListPaginationStyle, ListSelectMode, PageSizeEnum } from '@oinone/kunlu
 import { DslRender, Widget } from '@oinone/kunlun-vue-widget';
 import { ceil, isEmpty, isNil, isString, template, toInteger, toString } from 'lodash-es';
 import { VxeTablePropTypes } from 'vxe-table';
-import { fetchPageSize } from '../../typing';
+import { fetchPageSize, UserTablePrefer } from '../../typing';
 import { FetchUtil } from '../../util';
 import { BaseRuntimePropertiesWidget } from '../common';
 import { QueryExpression, RefreshProcessFunction, UrlQueryParameters } from '../types';
 import { BaseElementViewWidget, BaseElementViewWidgetProps } from './BaseElementViewWidget';
 import { generatorCondition, getSortFieldDirection } from './utils';
 import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { UserPreferEventManager, UserPreferService } from '../../service';
 
 const URL_SPLIT_SEPARATOR = ',';
 const ORDERING_SEPARATOR = ',';
@@ -1039,6 +1040,62 @@ export abstract class BaseElementListViewWidget<
   @Widget.Inject('refreshProcess')
   protected parentRefreshProcess: RefreshProcessFunction | undefined;
 
+  // region user prefer
+
+  @Widget.Reactive()
+  protected get usingSimpleUserPrefer(): boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().usingSimpleUserPrefer);
+  }
+
+  protected userPreferEventManager: UserPreferEventManager | undefined;
+
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected userPrefer?: UserTablePrefer;
+
+  protected initUserPrefer() {
+    this.userPreferEventManager = UserPreferEventManager.get(this.rootHandle || this.currentHandle);
+    if (this.inline) {
+      this.userPrefer = {} as UserTablePrefer;
+    } else {
+      this.userPrefer = (UserPreferService.parsePreferForTable(
+        this.metadataRuntimeContext.view?.extension?.userPreference as Record<string, unknown>
+      ) || {}) as UserTablePrefer;
+      this.userPreferEventManager.onSave(this.$saveUserPrefer.bind(this));
+    }
+    this.userPreferEventManager.setData(this.userPrefer);
+    this.userPreferEventManager.onReload(this.$reloadUserPrefer.bind(this), CallChaining.MAX_PRIORITY);
+  }
+
+  /**
+   *
+   * @param userPrefer
+   * @deprecated 兼容原有逻辑 使用UserPreferEventManager.INSTANCE.reload方法替换
+   */
+  @Widget.Provide()
+  @Widget.Method()
+  public reloadUserPrefer(userPrefer: UserTablePrefer) {
+    this.userPreferEventManager?.reload(userPrefer);
+  }
+
+  protected $reloadUserPrefer(userPrefer: Partial<UserTablePrefer>) {
+    this.userPrefer = { ...(this.userPrefer || {}), ...userPrefer } as UserTablePrefer;
+    this.userPreferEventManager?.setData(this.userPrefer);
+  }
+
+  protected async $saveUserPrefer(userPrefer: Partial<UserTablePrefer>) {
+    const viewName = userPrefer.viewName || this.metadataRuntimeContext.view.name;
+    if (viewName) {
+      const saveUserPrefer = {
+        ...userPrefer,
+        model: userPrefer.model || this.metadataRuntimeContext.model.model,
+        viewName
+      } as UserTablePrefer;
+      await UserPreferService.savePreferForTable(saveUserPrefer);
+    }
+  }
+
+  // endregion user prefer
   @Widget.Method()
   protected async refreshProcess(condition?: Condition) {
     const rootConditionBodyData = this.rootRuntimeContext.view.context?.rootConditionBodyData as Record<
@@ -1137,6 +1194,7 @@ export abstract class BaseElementListViewWidget<
 
   protected $$beforeMount() {
     super.$$beforeMount();
+    this.initUserPrefer();
     this.initGroupList();
     this.initSortList();
 
@@ -1167,6 +1225,7 @@ export abstract class BaseElementListViewWidget<
 
   protected $$unmounted() {
     super.$$unmounted();
+    this.userPreferEventManager?.dispose();
     this.checkboxAllCallChaining?.unhook(this.path);
   }
 

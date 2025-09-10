@@ -6,25 +6,37 @@ $labelWidth: 72px;
   display: flex;
   flex-flow: row nowrap;
   overflow: hidden;
+  padding: 0 var($parameterPrefix + -padding);
+
+  &.gallery-common-item-vertical {
+    flex-direction: column;
+    gap: var(--oio-padding-sm);
+    .gallery-common-item-label {
+      flex: auto;
+      width: 100%;
+    }
+    .gallery-common-item-content {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
 
   .gallery-common-item-label {
     flex: 1 0 $labelWidth;
     width: $labelWidth;
+    color: var($parameterPrefix + -text-color-secondary);
     margin-right: 8px;
     font-size: var($parameterPrefix + -font-size);
-    font-weight: var($parameterPrefix + -font-weight-bold);
-    text-align: right;
+    text-align: left;
     align-self: flex-start;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-top: 5px;
   }
 
   .gallery-common-item-content {
     flex: 1 0 100%;
     max-width: calc(100% - #{$labelWidth} - 8px);
-    min-height: 32px;
     display: flex;
     align-items: center;
   }

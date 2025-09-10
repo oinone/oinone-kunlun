@@ -43,7 +43,7 @@ import { component as Textarea, cssVars as TextareaCSSVars } from './textarea/te
 import { component as Transfer, cssVars as TransferCSSVars } from './transfer/transfer';
 import { component as TreeSelect } from './tree-select/tree-select';
 import { component as Upload, cssVars as UploadCSSVars } from './upload/upload';
-
+import { component as Card, cssVars as CardCSSVars } from './card/card';
 export const getComponentTheme = () => {
   return {
     [MultiTab]: {
@@ -169,6 +169,11 @@ export const getComponentTheme = () => {
       large: largeTabsSizeVars,
       medium: mediumTabsSizeVars,
       small: smallTabsSizeVars
+    },
+    [Card]: {
+      large: CardCSSVars,
+      medium: CardCSSVars,
+      small: CardCSSVars
     }
   };
 };

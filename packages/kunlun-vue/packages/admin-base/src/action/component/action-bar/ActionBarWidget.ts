@@ -62,13 +62,13 @@ export class ActionBarWidget<
   }
 
   /**
-   * 获取actionBar下面的所有动作
+   * 存储 actionBar下面的所有动作
    *
    * @see {@link BaseListView}
    */
   @Widget.Reactive()
   @Widget.Inject()
-  protected setActionBarChildren?: (children) => void;
+  protected storeActionBarChildren?: (children) => void;
 
   @Widget.Reactive()
   protected get justify(): string | undefined {
@@ -126,11 +126,18 @@ export class ActionBarWidget<
     this.checkboxAllCallChaining?.call(selected);
   }
 
+  protected async executeStoreChildren() {
+    if (this.inline) {
+      return;
+    }
+
+    await nextTick();
+    this.storeActionBarChildren?.(this.getChildrenInstance());
+  }
+
   protected $$mounted(): void {
     super.$$mounted();
 
-    nextTick(() => {
-      this.setActionBarChildren?.(this.getChildrenInstance());
-    });
+    this.executeStoreChildren();
   }
 }

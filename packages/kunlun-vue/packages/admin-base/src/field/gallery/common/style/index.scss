@@ -10,6 +10,15 @@ $height: 20px;
   display: flex;
   flex-flow: row nowrap;
 
+  .ant-upload-list-picture-card-container {
+    width: 50px;
+    height: 50px;
+    .ant-upload-list-item {
+      padding: 0;
+      border: 1px solid var(--oio-border-color);
+    }
+  }
+
   .gallery-common-field-value {
     white-space: nowrap;
     overflow: hidden;

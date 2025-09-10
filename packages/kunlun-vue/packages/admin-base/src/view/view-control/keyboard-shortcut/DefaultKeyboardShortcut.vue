@@ -12,7 +12,7 @@
           <template #title>
             <span>{{ $translate('快捷键') }}</span>
           </template>
-          <oio-icon size="16" icon="icon-a-shortcutkey"></oio-icon>
+          <oio-icon size="16" icon="oinone-a-shortcutkey"></oio-icon>
         </a-tooltip>
       </template>
       <template #content>

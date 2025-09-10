@@ -28,7 +28,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const icon = computed(() => {
-      return props.value ? 'icon-fullscreen-exit-outlined' : 'icon-fullscreen-outlined';
+      return props.value ? 'oinone-fullscreen-exit-outlined' : 'oinone-fullscreen-outlined';
     });
 
     const onChange = () => {
