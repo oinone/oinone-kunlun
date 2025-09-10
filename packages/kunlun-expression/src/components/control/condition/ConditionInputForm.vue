@@ -119,7 +119,6 @@
           v-model:value="expressionItem.operator"
           @change="changeHandler"
         />
-        <div v-else class="logic-operator-select logic-operator-select-blank expression-input-operator"></div>
 
         <div class="expression-item-toolbar">
           <a-tooltip :title="translateExpValue('点击添加条件')" v-if="isShowAddNext(expressionItem)">
