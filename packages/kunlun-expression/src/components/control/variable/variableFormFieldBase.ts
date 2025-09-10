@@ -137,6 +137,10 @@ export const IVariableFormFieldProps = {
   changeOnSelect: {
     type: Boolean,
     default: false
+  },
+  // 操作符类型
+  compareOperatorOption: {
+    type: String
   }
 };
 
@@ -145,6 +149,33 @@ export function createEmits() {
 }
 
 export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFormFieldProps>>, context: SetupContext) {
+  const datePickerType = ref('DATETIME');
+
+  const datePickerTypeList = [
+    {
+      label: '年份',
+      value: 'YEAR'
+    },
+    {
+      label: '日期',
+      value: 'DATE'
+    },
+    {
+      label: '日期时间',
+      value: 'DATETIME'
+    },
+    {
+      label: '时间',
+      value: 'TIME'
+    }
+  ];
+  
+  watch(datePickerType,()=>{
+    scopeDate.value = [];
+  })
+  
+  const scoptNumber = ref([null,null]);
+
   const readonly = computed<boolean>(() => BooleanHelper.toBoolean(props.readonly) || false);
   const disabled = computed<boolean>(() => BooleanHelper.toBoolean(props.disabled) || false);
 
@@ -154,6 +185,8 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
   const leftJoinTtype = computed((): ModelFieldType | undefined => {
     return props.leftJoinField?.ttype || props.leftJoinTtype;
   });
+
+  const scopeDate = ref([]);
 
   watch(
     () => props.showVariableType,
@@ -664,6 +697,10 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     return [ModelFieldType.Float, ModelFieldType.Currency].includes(ttype);
   };
   return {
+    datePickerType,
+    datePickerTypeList,
+    scoptNumber,
+    scopeDate,
     disabled,
     readonly,
     focusNodes,

@@ -34,6 +34,22 @@
                 translateExpValue(opt.label)
               }}</a-select-option>
             </a-select>
+            <a-select
+              v-if="leftJoinTtype === ModelFieldType.Date || leftJoinTtype === ModelFieldType.DateTime"
+              class="expression-date-type-selector"
+              dropdown-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
+              v-model:value="datePickerType"
+              :get-popup-container="null"
+              @change="changeHandler"
+            >
+              <a-select-option
+                v-for="item in datePickerTypeList"
+                :value="item.value"
+                :key="item.value"
+                :title="translateExpValue(item.label)"
+                >{{ translateExpValue(item.label) }}
+              </a-select-option>
+            </a-select>
           </span>
 
           <div
@@ -61,6 +77,19 @@
                   >
                     <template v-if="readonly">{{ variableItem.value }}</template>
                     <template v-else>
+                      <template
+                        v-if="
+                          leftJoinTtype === ModelFieldType.Integer &&
+                          (compareOperatorOption.value === BooleanConditionComparisonOperator.NOT_BETWEEN_AND ||
+                            compareOperatorOption.value === BooleanConditionComparisonOperator.BETWEEN_AND)
+                        "
+                      >
+                        <div class="scope-number-input">
+                          <oio-input-number v-model:value="scoptNumber[0]"/>
+                          <span>~</span>
+                          <oio-input-number v-model:value="scoptNumber[1]"/>
+                        </div>
+                      </template>
                       <template v-if="!isDateTtype(leftJoinTtype)">
                         <input
                           v-model="variableItem.value"
@@ -83,6 +112,19 @@
                           <template v-if="!variableItem.value">&nbsp;</template>
                           <template v-else>{{ variableItem.value }}</template>
                         </span>
+                      </template>
+                      <template
+                        v-else-if="
+                          compareOperatorOption.value === BooleanConditionComparisonOperator.BETWEEN_AND ||
+                          compareOperatorOption.value === BooleanConditionComparisonOperator.NOT_BETWEEN_AND
+                        "
+                      >
+                        <div class="scope-date-selector">
+                          <oio-date-range-picker v-if="datePickerType === 'DATE'" v-model:value="scopeDate" />
+                          <oio-date-time-range-picker v-if="datePickerType === 'DATETIME'" v-model:value="scopeDate" />
+                          <oio-year-range-picker v-if="datePickerType === 'YEAR'" v-model:value="scopeDate" />
+                          <oio-time-range-picker v-if="datePickerType === 'TIME'" v-model:value="scopeDate" />
+                        </div>
                       </template>
                       <!-- TODO 日期类型 -->
                       <template v-else>
@@ -199,23 +241,43 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { CloseCircleFilled } from '@ant-design/icons-vue';
-import { Popover as APopover, Select as ASelect, Tooltip as ATooltip } from 'ant-design-vue';
+import {
+  Popover as APopover,
+  Select as ASelect,
+  SelectOption as ASelectOption,
+  Tooltip as ATooltip
+} from 'ant-design-vue';
 import {
   OioDatePicker,
+  OioDateRangePicker,
   OioDateTimePicker,
+  OioDateTimeRangePicker,
   OioIcon,
   OioInput,
   OioTimePicker,
-  OioYearPicker
+  OioTimeRangePicker,
+  OioYearPicker,
+  OioYearRangePicker,
+  OioInputNumber
 } from '@oinone/kunlun-vue-ui-antd';
 import ControlTag from '../control-tag/ControlTag.vue';
 import ExpressionDesignerCascader from '../../cascader/Cascader.vue';
 import { createComponent, IVariableFormFieldProps } from './variableFormFieldBase';
+import { BooleanConditionComparisonOperator } from '../../../types';
+import { ModelFieldType } from '@oinone/kunlun-meta';
 
 /**
  * 适用于表单类变量控件
  */
 export default defineComponent({
+  computed: {
+    ModelFieldType() {
+      return ModelFieldType;
+    },
+    BooleanConditionComparisonOperator() {
+      return BooleanConditionComparisonOperator;
+    }
+  },
   components: {
     OioIcon,
     CloseCircleFilled,
@@ -223,10 +285,16 @@ export default defineComponent({
     ASelect,
     ATooltip,
     APopover,
+    ASelectOption,
+    OioDateRangePicker,
+    OioDateTimeRangePicker,
+    OioYearRangePicker,
+    OioTimeRangePicker,
     OioDatePicker,
     OioDateTimePicker,
     OioYearPicker,
     OioTimePicker,
+    OioInputNumber,
     ExpressionDesignerCascader,
     ControlTag
   },
