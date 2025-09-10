@@ -339,11 +339,7 @@ export async function OioProvider(
 
   OioProvider.setLoginTheme(loginTheme);
 
-  // const _mode = kebabCase(mode || 'default');
-  const _mode = 'default-modern';
-
-  // const _mode = 'dark';
-  // const _mode = 'dark-modern';
+  const _mode = kebabCase(mode || 'default');
   const _size = (size || 'medium').toLocaleLowerCase();
 
   // 初始化主题变量

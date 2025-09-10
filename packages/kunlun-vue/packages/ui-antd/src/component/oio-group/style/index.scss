@@ -82,6 +82,28 @@
     text-overflow: ellipsis;
   }
 
+  &-accent-line {
+    .#{$groupClassPrefix}-title-wrapper {
+      &::before {
+        content: '';
+        width: 3px;
+        height: var(--oio-font-size-lg);
+        display: block;
+        background: var(--oio-primary-color);
+        margin-right: var(--oio-margin-sm);
+      }
+    }
+  }
+
+  &-underline {
+    .#{$groupClassPrefix}-title-wrapper {
+      padding: 0;
+      padding-bottom: var(--oio-padding);
+      margin: var(--oio-margin) var(--oio-margin) 0 var(--oio-margin);
+      border-bottom: 1px solid var(--oio-border-color);
+    }
+  }
+
   &-content {
     padding: var(--oio-padding);
   }
