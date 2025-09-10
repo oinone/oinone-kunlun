@@ -1,10 +1,15 @@
 $select-width: 328px;
 
+.ant-picker-dropdown {
+  z-index: 100000;
+}
+
 .expression-designer-cascader {
   .ant-cascader-menu {
     background: var(--oio-select-dropdown-background);
   }
 }
+
 .ant-form-item-has-error {
   .variable-input-form-field,
   .expression-input-control {
@@ -18,6 +23,7 @@ $select-width: 328px;
         border-color: var(--oio-error-color);
         box-shadow: none;
       }
+
       &:hover {
         > .ant-input,
         .ant-input-affix-wrapper,
@@ -29,22 +35,28 @@ $select-width: 328px;
     }
   }
 }
+
+
 .variable-input-form-field {
   position: relative;
+  max-width: 450px !important;
   //overflow-x: auto;
 
   .ant-input-group {
     display: flex;
+
     &.ant-input-wrapper:hover {
       .ant-input-affix-wrapper,
       .ant-input-group-addon {
         border-color: var(--oio-input-border-color-hover);
       }
     }
+
     .ant-input-group-addon + .ant-input-affix-wrapper {
       border-radius: 0 var(--oio-input-border-radius) var(--oio-input-border-radius) 0;
       flex: 1;
     }
+
     .ant-input-affix-wrapper {
       overflow: hidden;
       padding: 0 5px 0 0;
@@ -53,9 +65,11 @@ $select-width: 328px;
       border: var(--oio-input-border-width) var(--oio-input-border-style) var(--oio-input-border-color);
       color: var(--oio-input-text-color);
       height: 100%;
+
       &:hover {
         border-color: var(--oio-input-border-color-hover);
       }
+
       & > .ant-input {
         height: calc(var(--oio-height) - 2px);
         line-height: calc(var(--oio-height) - 2px);
@@ -71,7 +85,7 @@ $select-width: 328px;
 
         &:hover {
           cursor: text;
-          overflow: auto;
+          overflow: hidden;
         }
 
         &.placeholder {
@@ -96,6 +110,13 @@ $select-width: 328px;
           input[type='number']::-webkit-outer-spin-button {
             -webkit-appearance: none;
           }
+
+          input[type='text'] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+            margin: 0;
+          }
+
           &:first-child {
             &.variable-string {
               margin-left: 6px;
@@ -122,6 +143,7 @@ $select-width: 328px;
 
           &.variable-string {
             height: var(--oio-height);
+
             &-empty {
               margin-right: 0;
               margin-left: -5px;
@@ -130,20 +152,24 @@ $select-width: 328px;
                 text-align: center;
               }
             }
+
             .oio-date-time-picker {
               border: none;
               padding-right: 0;
+
               .ant-picker-input {
                 .ant-input {
                   border-color: transparent;
                   padding-left: 8px;
                   padding-right: 0;
                 }
+
                 .anticon {
                   display: none;
                 }
               }
             }
+
             .variable-item-input-mirror {
               visibility: hidden;
               position: absolute;
@@ -171,11 +197,34 @@ $select-width: 328px;
             border: none;
             outline: 0;
             appearance: none;
+
             &:focus {
               box-shadow: none;
             }
+
             &::placeholder {
               font-size: var(--oio-font-size);
+            }
+          }
+
+          .scope-number-input {
+            display: flex;
+            justify-content: space-around;
+
+            .oio-input-number {
+              border: none;
+              height: 100%;
+              .ant-input-suffix{
+                display: none;
+              }
+              
+              &:focus{
+                box-shadow: none;
+              }
+            }
+
+            span {
+              padding: 0 var(--oio-margin-xs);
             }
           }
         }
@@ -282,6 +331,12 @@ $select-width: 328px;
     line-height: calc(var(--oio-height) - 2px);
     display: flex;
     border-radius: 0 4px 4px 0;
+
+    .expression-date-type-selector {
+      border-left: 1px solid #F3F3F3;
+      min-width: 90px;
+    }
+
     > .d-iconfont {
       width: calc(var(--oio-height) - 2px);
     }
@@ -290,11 +345,14 @@ $select-width: 328px;
       border-radius: var(--oio-input-border-radius) 0 0 var(--oio-input-border-radius);
       min-width: 56px;
       width: auto;
+
       .ant-select {
         margin: 0;
+
         &-show-arrow {
           width: auto;
         }
+
         .ant-select-selector {
           font-size: var(--oio-font-size);
           height: calc(var(--oio-height) - 2px);
@@ -304,14 +362,17 @@ $select-width: 328px;
           background-color: var(--oio-select-background);
           box-shadow: var(--oio-select-shadow);
           color: var(--oio-select-text-color);
+
           .ant-select-selection-item {
             line-height: calc(var(--oio-height) - 2px);
             padding-right: 10px;
           }
         }
+
         .ant-select-arrow {
           right: 3px;
         }
+
         &.ant-select-focused .ant-select-selector,
         &:hover .ant-select-selector {
           border-color: transparent !important;
@@ -325,9 +386,11 @@ $select-width: 328px;
   padding-top: 0;
   padding-bottom: 0;
   z-index: 99999;
+
   .ant-popover-arrow {
     display: none;
   }
+
   .ant-popover-inner {
     &-content {
       padding: 0;
@@ -335,6 +398,7 @@ $select-width: 328px;
     }
   }
 }
+
 .variable-input-form-field-dropdown-box {
   position: absolute;
   top: 41px;
@@ -357,11 +421,14 @@ $select-width: 328px;
     font-size: var(--oio-font-size);
   }
 }
+
 .variable-type-addon-dropdown {
   //width: 56px !important;
 }
+
 .expression-date-picker-popup {
   z-index: 99999;
+
   .ant-picker-today-btn {
     color: var(--oio-primary-color);
   }
