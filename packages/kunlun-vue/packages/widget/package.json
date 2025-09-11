@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-widget",
-  "version": "6.2.13",
+  "version": "6.2.14",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -11,7 +11,7 @@
     "x-postpublish": "node ../../scripts/postpublish.js"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-common": "6.2.13"
+    "@oinone/kunlun-vue-ui-common": "6.2.14"
   },
   "devDependencies": {
     "@oinone/kunlun-dsl": "~6.2.0",
