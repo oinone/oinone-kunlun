@@ -70,12 +70,20 @@
 <script lang="ts">
 import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue';
 import { Select as ASelect } from 'ant-design-vue';
-import { OioSpin, OioInput, OioIcon, OioModal, ModalWidth, OioPagination } from '@oinone/kunlun-vue-ui-antd';
+import {
+  OioSpin,
+  OioInput,
+  OioIcon,
+  OioModal,
+  ModalWidth,
+  OioPagination,
+  SelectMode
+} from '@oinone/kunlun-vue-ui-antd';
 import { OioTable, OioColumn, OioTableInstance, CheckedChangeEvent } from '@oinone/kunlun-vue-ui';
 import { Pagination, RuntimeModelField } from '@oinone/kunlun-engine';
 import { deepClone, Entity } from '@oinone/kunlun-meta';
 import { RelationSelectProps, relationSelectSetup } from '../../field/prop';
-import { isPlainObject, uniqBy } from 'lodash-es';
+import { uniqBy } from 'lodash-es';
 
 export default defineComponent({
   inheritAttrs: false,
@@ -134,7 +142,7 @@ export default defineComponent({
       /**
        * 多选
        */
-      if (props.selectMode === 'multiple') {
+      if (props.selectMode === SelectMode.multiple) {
         return selectSetup.currentValue;
       }
 

@@ -2,7 +2,6 @@ import { ActiveRecord, RuntimeM2MField, SubmitHandler, SubmitValue } from '@oino
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { isEmpty } from 'lodash-es';
 import { FormFieldWidget, FormSelectComplexFieldWidget } from '../../../../basic';
 import SelectWidget from './SelectWidget.vue';
 

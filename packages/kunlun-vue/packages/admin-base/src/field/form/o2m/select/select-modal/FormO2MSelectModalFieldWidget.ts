@@ -1,8 +1,8 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
+import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { FormFieldWidget, FormSelectModalComplexFieldWidget } from '../../../../../basic';
-import { SelectTableMode } from '../../../../../typing';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
@@ -13,7 +13,9 @@ import { SelectTableMode } from '../../../../../typing';
 )
 export class FormO2MSelectModalFieldWidget extends FormSelectModalComplexFieldWidget {
   @Widget.Reactive()
-  protected selectMode = SelectTableMode.Multiple;
+  protected get selectMode() {
+    return SelectMode.multiple;
+  }
 
   protected filterX2mChangeValue(value: any) {
     return value;

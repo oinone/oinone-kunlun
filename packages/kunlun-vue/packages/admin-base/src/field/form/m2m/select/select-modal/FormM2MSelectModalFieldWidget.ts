@@ -2,8 +2,8 @@ import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { ActiveRecord, RuntimeM2MField, SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { FormFieldWidget, FormSelectModalComplexFieldWidget } from '../../../../../basic';
-import { SelectTableMode } from '../../../../../typing';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
@@ -14,7 +14,9 @@ import { SelectTableMode } from '../../../../../typing';
 )
 export class FormM2MSelectModalFieldWidget extends FormSelectModalComplexFieldWidget<ActiveRecord[], RuntimeM2MField> {
   @Widget.Reactive()
-  protected selectMode = SelectTableMode.Multiple;
+  protected get selectMode() {
+    return SelectMode.multiple;
+  }
 
   public async submit(submitValue: SubmitValue) {
     const { field, itemName, value } = this;
