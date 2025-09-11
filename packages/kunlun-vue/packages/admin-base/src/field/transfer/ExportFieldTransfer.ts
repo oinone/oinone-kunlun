@@ -30,7 +30,8 @@ export class ExportFieldTransfer extends FormTransferFieldWidget {
         return {
           ...target,
           displayName: f.label || target.displayName,
-          invisible: f.invisible
+          invisible: f.invisible,
+          optionLabel: f.template?.optionLabel
         };
       })
       .filter((v) => !!v && BooleanHelper.isFalse(v.invisible));
@@ -50,7 +51,8 @@ export class ExportFieldTransfer extends FormTransferFieldWidget {
         }
         return {
           ...o,
-          displayName: target.label || o.displayName
+          displayName: target.label || o.displayName,
+          optionLabel: target.template?.optionLabel
         };
       })
     );

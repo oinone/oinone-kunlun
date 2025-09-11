@@ -9,7 +9,7 @@ export interface ExcelExportTask extends IdModel {
   workbookDefinition?: ExcelWorkDefinition;
   conditionWrapper?: QueryWrapper;
   exportMethod?: ExcelExportMethodEnum;
-  selectedFields?: IModelField[];
+  selectedFields?: (IModelField & { optionLabel?: string })[];
   requestId?: string;
   sync?: boolean;
 }
