@@ -368,11 +368,11 @@ export default defineComponent({
       type: Object as PropType<VNode>,
       default: () => null
     },
-    enableAddRow: {
+    gotoO2MCreateRow: {
       type: Boolean,
       default: false
     },
-    enableQuickFill: {
+    gotoO2MQuickFilling: {
       type: Boolean,
       default: false
     },
@@ -820,8 +820,8 @@ export default defineComponent({
       emptyText,
       emptyImage,
       pageSizeOptions,
-      enableAddRow,
-      enableQuickFill,
+      gotoO2MCreateRow,
+      gotoO2MQuickFilling,
       onAddRow
     } = this;
     let { border = false, stripe = false, isCurrent = true, isHover = false } = getTableThemeConfig() || {};
@@ -864,8 +864,8 @@ export default defineComponent({
     };
 
     const footerOperatorVNode = createVNode(DefaultTableFooterOperator, {
-      enableAddRow,
-      enableQuickFill,
+      gotoO2MCreateRow,
+      gotoO2MQuickFilling,
       onAddRow
     });
 
@@ -899,7 +899,7 @@ export default defineComponent({
         const footerVNode = [createVNode('div', { class: 'default-table-footer-content' }, [footerVNodeChildren])];
 
         // 添加行、快速填报
-        if (enableAddRow || enableQuickFill) {
+        if (gotoO2MCreateRow || gotoO2MQuickFilling) {
           footerVNode.unshift(footerOperatorVNode);
         }
 
@@ -909,7 +909,7 @@ export default defineComponent({
       const footerSlots = [] as VNode[];
 
       // 添加行、快速填报
-      if (enableAddRow || enableQuickFill) {
+      if (gotoO2MCreateRow || gotoO2MQuickFilling) {
         footerSlots.push(footerOperatorVNode);
       }
 

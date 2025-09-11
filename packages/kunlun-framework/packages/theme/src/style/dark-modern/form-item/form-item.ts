@@ -6,5 +6,8 @@ export const cssVars = {
     readonlyShowPlaceholder: false,
     // 禁用模式展示占位符
     disabledShowPlaceholder: false
-  }
+  },
+
+  'label-color': 'var(--oio-text-color-secondary)',
+  'label-weight': '0'
 };

@@ -81,17 +81,15 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    * 表格底部开启「添加一行」操作
    */
   @Widget.Reactive()
-  protected get enableAddRow(): boolean {
-    return Optional.ofNullable(this.getDsl().enableAddRow).map(BooleanHelper.toBoolean).orElse(false)!;
-  }
+  @Widget.Inject()
+  protected gotoO2MCreateRow: boolean = false;
 
   /**
    * 表格底部开启「快速填报」操作
    */
   @Widget.Reactive()
-  protected get enableQuickFill(): boolean {
-    return Optional.ofNullable(this.getDsl().enableQuickFill).map(BooleanHelper.toBoolean).orElse(false)!;
-  }
+  @Widget.Inject()
+  protected gotoO2MQuickFilling: boolean = false;
 
   @Widget.Provide()
   protected get cellWidth() {
@@ -689,12 +687,13 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Method()
   protected onAddRow() {
-    const record = ActiveRecordsOperator.repairRecordsNullable({});
-    if (!record) {
+    const records = ActiveRecordsOperator.repairRecordsNullable({});
+    if (!records) {
       return;
     }
-    this.createDataSourceByEntity(record);
-    this.editRow(TableRowEditMode.CREATE, { record, action: null });
+    this.createDataSourceByEntity(records);
+
+    this.editRow(TableRowEditMode.CREATE, { record: records[0], action: null });
   }
 
   @Widget.Method()

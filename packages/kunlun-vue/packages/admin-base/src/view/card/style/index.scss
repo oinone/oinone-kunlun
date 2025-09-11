@@ -34,6 +34,7 @@ $rowActionsHeight: 40px;
       .gallery-common-item-label,
       .gallery-common-field {
         color: var($parameterPrefix + -text-color);
+        font-size: var($parameterPrefix + -font-size);
       }
     }
   }
@@ -69,6 +70,7 @@ $rowActionsHeight: 40px;
 
     flex: 1 1 calc(100% - #{$rowActionsHeight});
     overflow: hidden auto;
+    padding: 0 var(--oio-padding) var(--oio-padding) var(--oio-padding);
 
     &-padding-top {
       padding-top: 16px;
@@ -144,7 +146,7 @@ $rowActionsHeight: 40px;
 
     .default-card-content {
       flex: 1 0 calc(100% - #{$rowActionsHeight});
-      padding: 16px;
+      padding: var(--oio-padding);
     }
   }
 

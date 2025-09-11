@@ -98,13 +98,13 @@ export default defineComponent({
     },
     modalWidth: {
       type: [String, Number],
-      default: ModalWidth.small
+      default: ModalWidth.medium
     },
     selectMode: {
       type: String
     },
-    dataList: {
-      type: Array as PropType<Entity[]>
+    getDataList: {
+      type: Function
     },
     pagination: {
       type: Object as PropType<Pagination>
@@ -257,10 +257,10 @@ export default defineComponent({
     };
 
     watch(
-      () => props.dataList,
+      () => props.options,
       () => {
-        if (props.dataList && props.dataList.length) {
-          getOptionList(props.dataList);
+        if (props.options && props.options.length) {
+          getOptionList(props.getDataList?.() || []);
         } else {
           optionList.value = [];
         }

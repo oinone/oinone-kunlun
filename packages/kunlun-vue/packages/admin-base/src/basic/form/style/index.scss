@@ -1,10 +1,12 @@
 @import '../../../style/global-parameters.scss';
+@import './word-form.scss';
 
 .oio-default-form {
   position: relative;
   width: 100%;
 
   .oio-row {
+    row-gap: var(--oio-row-gap) !important;
     .ant-form-item {
       margin-bottom: 0;
 

@@ -132,7 +132,7 @@ class Notification {
       message: title ? createVNode('div', { class: `${DEFAULT_PREFIX}-notification-message-title` }, title) : '',
       description: message,
       icon: genNotificationIcon(type),
-      closeIcon: createVNode(OioCloseIcon, { volume: '16', size: '6' }),
+      closeIcon: createVNode(OioCloseIcon, { volume: '18', size: '10' }),
       class: StringHelper.append(
         [`${DEFAULT_PREFIX}-notification ${DEFAULT_PREFIX}-notification-${type}`],
         options?.class

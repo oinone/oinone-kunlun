@@ -1,7 +1,7 @@
 <template>
   <gallery-common-field :value="value" :justify-content="justifyContent" :empty-style="emptyStyle">
     <template #default>
-      <div class="gallery-media-widget-internal" @click.stop>
+      <div class="gallery-media-internal-widget" @click.stop>
         <div class="gallery-media-widget-item" v-if="currentValue.src" @click="onPreview">
           <div class="gallery-media-video" v-if="currentValue.video">
             <video :src="currentValue.src" alt="" style="width: 100%; height: 100%"></video>
@@ -68,7 +68,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.gallery-media-widget-internal {
+.gallery-media-internal-widget {
   display: flex;
   flex-wrap: wrap;
   gap: var(--oio-row-gap);

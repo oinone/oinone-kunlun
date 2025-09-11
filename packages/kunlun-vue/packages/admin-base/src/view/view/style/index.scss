@@ -115,12 +115,12 @@ $treeMinWidth: 324px;
 }
 
 .oio-draft-data-modal-confirm {
+  .ant-modal-close-x {
+    top: -4px;
+  }
   .ant-modal-confirm-body {
     display: flex;
     gap: var(--oio-row-gap);
-    .ant-modal-close-x {
-      top: -4px;
-    }
   }
 }
 
@@ -175,6 +175,9 @@ $treeMinWidth: 324px;
 
       .oio-group-content {
         padding: var(--oio-padding) 0 0 0;
+        .oio-group {
+          padding: 0 var(--oio-padding);
+        }
       }
     }
   }

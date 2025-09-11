@@ -1,12 +1,12 @@
 <template>
   <div class="default-table-footer-operator">
-    <div class="default-table-footer-operator-add-one" v-if="enableAddRow" @click.stop="onAddRow">
+    <div class="default-table-footer-operator-add-one" v-if="gotoO2MCreateRow" @click.stop="onAddRow">
       <oio-icon size="14" icon="oinone-plus-outlined" color="var(--oio-primary-color)"></oio-icon>
       {{ $translate('添加一行 ') }}
     </div>
 
     <!-- 快速填报 -->
-    <element-tag widget="QuickFill" v-if="enableQuickFill"></element-tag>
+    <element-tag widget="QuickFill" v-if="gotoO2MQuickFilling"></element-tag>
   </div>
 </template>
 
@@ -17,11 +17,11 @@ import Element from '../../tags/Element.vue';
 
 export default defineComponent({
   props: {
-    enableAddRow: {
+    gotoO2MCreateRow: {
       type: Boolean,
       default: false
     },
-    enableQuickFill: {
+    gotoO2MQuickFilling: {
       type: Boolean,
       default: false
     },

@@ -97,8 +97,8 @@ export default defineComponent({
     selectMode: {
       type: String
     },
-    dataList: {
-      type: Array as PropType<Record<string, unknown>[]>
+    getDataList: {
+      type: Function
     }
   },
   components: {
@@ -224,10 +224,10 @@ export default defineComponent({
     };
 
     watch(
-      () => props.dataList,
+      () => props.options,
       () => {
-        if (props.dataList && props.dataList.length) {
-          getOptionList(props.dataList);
+        if (props.options && props.options.length) {
+          getOptionList(props.getDataList?.() || []);
         } else {
           optionList.value = [];
         }

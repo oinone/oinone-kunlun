@@ -1,5 +1,5 @@
 <template>
-  <oio-icon class="oio-close-icon" icon="oinone-guanbi1" :size="size" :style="iconVolumeStyle"></oio-icon>
+  <oio-icon class="oio-close-icon" icon="oinone-close-outlined" :size="size" :style="iconVolumeStyle"></oio-icon>
 </template>
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
@@ -14,7 +14,7 @@ export default defineComponent({
   props: {
     size: {
       type: String,
-      default: '10'
+      default: '16'
     },
     volume: {
       type: String,

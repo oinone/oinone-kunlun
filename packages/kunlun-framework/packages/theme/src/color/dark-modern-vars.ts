@@ -99,7 +99,7 @@ export const darkModernVars = {
   'normal-icon-filter': `var(--${DEFAULT_PREFIX}-icon-filter)`,
   'icon-filter': 'invert(0.7) hue-rotate(180deg) brightness(0.5)',
   'icon-filter-opacity': '0.4',
-  'close-icon-background': '#333E4C',
+  'close-icon-background': 'transparent',
   'group-border-width': '0px',
   'box-shadow-size': '0px',
   'box-shadow': '0px 0px 6px 0px rgba(0,0,0,0.2)',

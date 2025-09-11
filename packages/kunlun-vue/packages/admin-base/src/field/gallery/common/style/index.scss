@@ -6,6 +6,7 @@ $height: 20px;
   width: 100%;
   line-height: $height;
   color: var($parameterPrefix + -text-color);
+  font-size: var($parameterPrefix + -font-size-sm);
   white-space: pre-wrap;
   display: flex;
   flex-flow: row nowrap;

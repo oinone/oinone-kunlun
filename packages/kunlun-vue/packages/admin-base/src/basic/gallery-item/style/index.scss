@@ -6,7 +6,6 @@ $labelWidth: 72px;
   display: flex;
   flex-flow: row nowrap;
   overflow: hidden;
-  padding: 0 var($parameterPrefix + -padding);
 
   &.gallery-common-item-vertical {
     flex-direction: column;
@@ -26,7 +25,7 @@ $labelWidth: 72px;
     width: $labelWidth;
     color: var($parameterPrefix + -text-color-secondary);
     margin-right: 8px;
-    font-size: var($parameterPrefix + -font-size);
+    font-size: var($parameterPrefix + -font-size-sm);
     text-align: left;
     align-self: flex-start;
     white-space: nowrap;
