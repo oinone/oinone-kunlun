@@ -48,6 +48,7 @@ export const defaultModernVars = {
   'main-background': '#ffffff',
   'footer-background': '#ffffff',
   'menu-background': '#ffffff',
+  'stripe-color': '#f7f8fa',
 
   'placeholder-color': 'rgba(0,0,0,0.25)',
 

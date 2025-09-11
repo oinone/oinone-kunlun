@@ -40,14 +40,6 @@ export class DefaultGroupWidget extends BasePackWidget {
     return this.getDsl().desc || '';
   }
 
-  /**
-   * 样式风格
-   */
-  @Widget.Reactive()
-  public get bizStyle(): string {
-    return this.getDsl().bizStyle || '';
-  }
-
   @Widget.Reactive()
   public get border() {
     let border = BooleanHelper.toBoolean(this.getDsl().border);

@@ -38,7 +38,7 @@ import { component as Scrollbar, cssVars as ScrollbarCSSVars } from './scrollbar
 import { component as Select, cssVars as SelectCSSVars } from './select/select';
 import { component as Switch, cssVars as switchCSSVars } from './switch/switch';
 import { component as Table, cssVars as TableCSSVars } from './table/table';
-import { component as Tabs } from './tabs/tabs';
+import { component as Tabs, cssVars as TabsCSSVars } from './tabs/tabs';
 import { component as Textarea, cssVars as TextareaCSSVars } from './textarea/textarea';
 import { component as Transfer, cssVars as TransferCSSVars } from './transfer/transfer';
 import { component as TreeSelect } from './tree-select/tree-select';
@@ -166,9 +166,9 @@ export const getComponentTheme = () => {
       small: RichTextCSSVars
     },
     [Tabs]: {
-      large: largeTabsSizeVars,
-      medium: mediumTabsSizeVars,
-      small: smallTabsSizeVars
+      large: { ...largeTabsSizeVars, ...TabsCSSVars },
+      medium: { ...mediumTabsSizeVars, ...TabsCSSVars },
+      small: { ...smallTabsSizeVars, ...TabsCSSVars }
     },
     [Card]: {
       large: CardCSSVars,

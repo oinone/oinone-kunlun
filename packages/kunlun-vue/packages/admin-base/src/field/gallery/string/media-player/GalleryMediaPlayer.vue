@@ -6,7 +6,7 @@
           <div class="gallery-media-video" v-if="currentValue.video">
             <video :src="currentValue.src" alt="" style="width: 100%; height: 100%"></video>
             <div class="gallery-media-video-play">
-              <i class="iconfont oinone-zantingbofang"></i>
+              <oio-icon color="#fff" size="16" icon="oinone-zantingbofang"></oio-icon>
             </div>
           </div>
           <a-image :src="currentValue.src" alt="" v-else @click.stop style="width: 100%; height: 100%" />
@@ -21,15 +21,16 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import { Image as AImage } from 'ant-design-vue';
+import { VIDEO_SUFFIX_LIST, OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { PreviewMedia } from '../../../../components';
 import GalleryCommonField from '../../common/GalleryCommonField.vue';
-import { VIDEO_SUFFIX_LIST } from '@oinone/kunlun-vue-ui-common';
 
 export default defineComponent({
   components: {
     PreviewMedia,
     GalleryCommonField,
-    AImage
+    AImage,
+    OioIcon
   },
   inheritAttrs: false,
   props: {
@@ -70,13 +71,13 @@ export default defineComponent({
 .gallery-media-widget-internal {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: var(--oio-row-gap);
 
   .gallery-media-widget-item {
     cursor: pointer;
     position: relative;
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -90,23 +91,18 @@ export default defineComponent({
   .gallery-media-video-play {
     position: absolute;
     background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(227, 231, 238, 1);
-    border-radius: 4px;
+    border: 1px solid var(--oio-border-color);
+    border-radius: var(--oio-border-radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-
-    i {
-      font-size: 12px;
-      color: #fff;
-    }
+    width: 48px;
+    height: 48px;
   }
 
   img {
-    border: 1px solid rgba(227, 231, 238, 1);
-    border-radius: 4px;
+    border: 1px solid var(--oio-border-color);
+    border-radius: var(--oio-border-radius-sm);
   }
 }
 </style>

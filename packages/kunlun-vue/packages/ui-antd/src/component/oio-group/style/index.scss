@@ -58,7 +58,7 @@
     text-overflow: ellipsis;
 
     & + .#{$groupClassPrefix}-description {
-      margin-left: 12px;
+      margin-left: var(--oio-margin-sm);
     }
   }
 
@@ -73,9 +73,8 @@
   }
 
   &-description {
-    color: var(--oio-text-color-secondary);
+    color: var(--oio-placeholder-color);
     font-size: var(--oio-font-size-sm);
-    line-height: var(--oio-line-height-lg);
     max-width: 400px;
     white-space: nowrap;
     overflow: hidden;

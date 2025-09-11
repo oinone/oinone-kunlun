@@ -48,6 +48,7 @@ export const darkVars = {
   'footer-background': '#1F2935',
   'menu-background': '#1F2935',
   'multi-tabs-background': '#F3F7FA',
+  'stripe-color': 'rgba(255, 255, 255, 0.1)',
   'placeholder-color': 'rgba(255,255,255,0.25)',
 
   // hover
