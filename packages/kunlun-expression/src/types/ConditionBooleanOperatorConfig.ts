@@ -48,7 +48,10 @@ export enum BooleanConditionComparisonOperator {
 
   // 范围
   BETWEEN_AND = 'BETWEEN_AND',
-  NOT_BETWEEN_AND = 'NOT_BETWEEN_AND'
+  NOT_BETWEEN_AND = 'NOT_BETWEEN_AND',
+
+  IN_SET = 'IN',
+  NOT_IN_SET = '!IN'
   //
   // // Binary Enumeration
   // HAS = '=has=',
@@ -141,6 +144,32 @@ export const BooleanExpressionCompareOperatorList: IExpSelectOption[] = [
   {
     label: '大于等于',
     value: BooleanConditionComparisonOperator.GREATER_THAN_OR_EQUAL
+  },
+  {
+    label: '包含',
+    value: BooleanConditionComparisonOperator.IN,
+    multi: true
+  },
+  {
+    label: '不包含',
+    value: BooleanConditionComparisonOperator.NOT_IN,
+    multi: true
+  },
+  {
+    label: '在...之内',
+    value: BooleanConditionComparisonOperator.IN_SET
+  },
+  {
+    label: '不在...之内',
+    value: BooleanConditionComparisonOperator.NOT_IN_SET
+  },
+  {
+    label: '为空',
+    value: BooleanConditionComparisonOperator.IS_NULL
+  },
+  {
+    label: '非空',
+    value: BooleanConditionComparisonOperator.NOT_NULL
   }
 ];
 
@@ -282,6 +311,11 @@ export const StringBooleanCompareOperatorList = [
     multi: false
   },
   {
+    label: '不包含',
+    value: BooleanConditionComparisonOperator.NOT_LIKE,
+    multi: false
+  },
+  {
     label: '开始于',
     value: BooleanConditionComparisonOperator.STARTS,
     multi: false
@@ -290,6 +324,14 @@ export const StringBooleanCompareOperatorList = [
     label: '结束于',
     value: BooleanConditionComparisonOperator.ENDS,
     multi: false
+  },
+  {
+    label: '在...之内',
+    value: BooleanConditionComparisonOperator.IN_SET
+  },
+  {
+    label: '不在...之内',
+    value: BooleanConditionComparisonOperator.NOT_IN_SET
   }
 ] as IOperatorSelectOption[];
 
@@ -440,6 +482,14 @@ export const ExpressionTtypeXBooleanCompareOperatorListMap = {
       // bitEnum: true,
       multi: true,
       rightArgMulti: true
+    },
+    {
+      label: '在...之内',
+      value: BooleanConditionComparisonOperator.IN_SET
+    },
+    {
+      label: '不在...之内',
+      value: BooleanConditionComparisonOperator.NOT_IN_SET
     }
   ] as IOperatorSelectOption[]
 };

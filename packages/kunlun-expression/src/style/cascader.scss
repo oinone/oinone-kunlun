@@ -37,6 +37,14 @@
       color: var(--oio-text-color-three);
       text-align: center;
     }
+    
+    .ant-cascader-menu {
+      display: inline-block;
+      max-width: 400px;
+      width: fit-content;
+      
+      scrollbar-width: none;
+    }
 
     //.ant-cascader-menus {
     //  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -44,14 +52,6 @@
     &-single .expression-designer-cascader-menu {
       width: 100%;
       border-right: 0;
-    }
-
-    .ant-cascader-menu {
-      display: inline-block;
-      max-width: 400px;
-      width: fit-content;
-      
-      scrollbar-width: none;
     }
 
     .ant-cascader-menu-item {

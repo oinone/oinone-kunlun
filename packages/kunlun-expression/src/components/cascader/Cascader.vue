@@ -220,12 +220,25 @@ export default defineComponent({
         return [];
       }
       optionsList.forEach((ch) => {
+        if (!ch.children) {
+          if (
+            ch.label.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 ||
+            ch.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
+          ) {
+            res.push(ch);
+          }
+          return;
+        }
         const tempObj = {
           ...ch,
           parent
         };
         walkList.push(ch.label);
-        if (ch.children.length === 0 && (ch.label.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 || ch.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1)) {
+        if (
+          ch?.children?.length === 0 &&
+          (ch.label.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 ||
+            ch.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1)
+        ) {
           const displayLabel = walkList.join(' / ');
           res.push({
             ...ch,
@@ -247,7 +260,7 @@ export default defineComponent({
       for (let i = 0; i < options.length; i++) {
         const tempList = [...loadOptionsList, options[i]];
         await props.loadData?.(tempList);
-        if (options[i].children.length !== 0) {
+        if (options[i]?.children !== undefined && options[i]?.children?.length !== 0) {
           await buildStartOptions(options[i].children, deep + 1, tempList);
         }
       }

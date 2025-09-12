@@ -1,5 +1,5 @@
 <template>
-  <div class="ant-cascader-menu expression-designer-cascader-menu">
+  <div class="ant-cascader-menu expression-designer-cascader-menu expression-cascader-menu-container">
     <div class="expression-designer-cascader-menu-inner">
       <div class="expression-designer-cascader-menu-inner-header" v-if="$slots.header">
         <slot name="header" />

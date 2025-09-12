@@ -15,6 +15,7 @@ import { OioNotification, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import { toString } from 'lodash-es';
 import { queryExpModelFields, queryExpModelPage } from '../service';
 import {
+  BooleanConditionComparisonOperator,
   ExpressionDefinitionType,
   ExpressionItemType,
   ExpressionKeywordDisplayName,
@@ -194,7 +195,8 @@ export function createApiNameVariableListStr(
 export function createDisplayNameVariableListStr(
   variableItemList: IVariableItem[],
   expressionOption: IExpressionOption,
-  leftVariableItem: IVariableItem | undefined = undefined
+  leftVariableItem: IVariableItem | undefined = undefined,
+  operator: string = ''
   // variableContextItems: IVariableContextItem[],
   // isBetweenInBrackets = true,
   // isAddQuote = true
@@ -214,7 +216,8 @@ export function createDisplayNameVariableListStr(
       }
       item.subTitle && list.push(item.subTitle);
       return list.join(VARIABLE_SEPARATE);
-    }
+    },
+    operator
   );
 }
 
@@ -225,13 +228,15 @@ export function createDisplayNameVariableListStr(
  * @param variableItemList
  * @param expressionOption
  * @param processFunc
+ * @param operator
  */
 function createVariableListStr(
   expressionSeniorMode: ExpressionSeniorMode,
   leftVariableItem: IVariableItem | undefined = undefined,
   variableItemList: IVariableItem[],
   expressionOption: IExpressionOption,
-  processFunc: Function
+  processFunc: Function,
+  operator: string = ''
 ) {
   if (!variableItemList) {
     return '';
@@ -293,6 +298,31 @@ function createVariableListStr(
         return processFunc(a);
       }
     });
+
+  const operatorNameList: string[] = [
+    BooleanConditionComparisonOperator.IN_SET,
+    BooleanConditionComparisonOperator.NOT_IN_SET,
+    BooleanConditionComparisonOperator.BETWEEN_AND,
+    BooleanConditionComparisonOperator.NOT_BETWEEN_AND
+  ];
+
+  const isInSetType = () => {
+    if (variableItemList.length === 1 && typeof variableItemList[0].value === 'string') {
+      return true;
+    }
+    return false;
+  };
+
+  const isBetweenType = () => {
+    return variableItemList.length === 1 && variableItemList[0].value instanceof Array;
+  };
+
+  if (operatorNameList.find((item) => item === operator) !== -1) {
+    return (expressionOption.isBetweenInBrackets && list.length > 1) || isBetweenType() || isInSetType()
+      ? `(${list.join(' , ')})`
+      : list.join(' , ');
+  }
+
   // 单个变量下多余2个值就需要用 "+" 连接,且用括号包裹
   return expressionOption.isBetweenInBrackets && list.length > 1 ? `(${list.join(' + ')})` : list.join(' + ');
 }

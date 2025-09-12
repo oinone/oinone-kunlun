@@ -71,16 +71,50 @@ $select-width: 328px;
       }
 
       & > .ant-input {
-        height: calc(var(--oio-height) - 2px);
+        height: auto;
+        min-height: calc(var(--oio-height) - 2px);
         line-height: calc(var(--oio-height) - 2px);
         border: none;
         padding: 0;
         background-color: var(--oio-input-background);
 
+        .scope-input {
+          justify-content: space-between;
+          position: relative;
+        }
+
         .ant-input-inner {
           display: flex;
           align-items: center;
           height: 100%;
+          flex-wrap: wrap;
+
+
+          .scope-variable-input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+
+            display: flex;
+
+            .scope-variable-input-item {
+              height: 100%;
+              width: 90%;
+            }
+          }
+
+          .scope-tag {
+            max-width: 40%;
+            display: flex;
+            justify-content: center;
+            
+            .control-tag{
+              display: inline-flex;
+              align-items: center;
+            }
+          }
         }
 
         &:hover {
@@ -153,8 +187,11 @@ $select-width: 328px;
               }
             }
 
-            .oio-date-time-picker {
+            .ant-picker-range {
               border: none;
+            }
+
+            .oio-date-time-picker {
               padding-right: 0;
 
               .ant-picker-input {
@@ -214,11 +251,12 @@ $select-width: 328px;
             .oio-input-number {
               border: none;
               height: 100%;
-              .ant-input-suffix{
+
+              .ant-input-suffix {
                 display: none;
               }
-              
-              &:focus{
+
+              &:focus {
                 box-shadow: none;
               }
             }
@@ -345,6 +383,7 @@ $select-width: 328px;
       border-radius: var(--oio-input-border-radius) 0 0 var(--oio-input-border-radius);
       min-width: 56px;
       width: auto;
+      max-height: var(--oio-height);
 
       .ant-select {
         margin: 0;

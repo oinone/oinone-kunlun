@@ -33,6 +33,7 @@ import {
   translateExpValue
 } from '../../../share';
 import {
+  BooleanConditionComparisonOperator,
   ElementSize,
   ExpressionDefinitionType,
   ExpressionSeniorMode,
@@ -169,12 +170,12 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
       value: 'TIME'
     }
   ];
-  
-  watch(datePickerType,()=>{
+
+  watch(datePickerType, () => {
     scopeDate.value = [];
-  })
-  
-  const scoptNumber = ref([null,null]);
+  });
+
+  const scoptNumber = ref([0, 0]);
 
   const readonly = computed<boolean>(() => BooleanHelper.toBoolean(props.readonly) || false);
   const disabled = computed<boolean>(() => BooleanHelper.toBoolean(props.disabled) || false);
@@ -225,6 +226,9 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
   // });
 
   const innerPlaceholder = computed(() => {
+    if (variableItemList.value[0].value || variableItemList.value.length !== 1) {
+      return '';
+    }
     if (variableType.value) {
       const variableItemTypeDisplayName = VariableItemTypeDisplayName[variableType.value.toString().toUpperCase()];
       if (variableItemTypeDisplayName) {
@@ -360,7 +364,48 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
 
   const inputSelectionInfo = { index: null, selectionStart: null };
 
+  const isBetweenOperator = computed(() => {
+    return (
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.BETWEEN_AND ||
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_BETWEEN_AND
+    );
+  });
+  
+  const isInSetOperator = computed(()=>{
+    return (
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.IN_SET ||
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_IN_SET
+    );
+  })
+
+  const isInSetOperation = computed(() => {
+    return (
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.IN_SET ||
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_IN_SET
+    );
+  });
+
+  const insetSetOperationValue = (selectedValues: string[]) => {
+    const variableItem = createVariableItemBySelectedOptions(
+      props.options!,
+      selectedValues,
+      createVariableContextItem(selectedValues, props.contextItems!),
+      variableType.value,
+      props.ttypes,
+      props.useContextName
+    );
+    variableItemList.value.push(variableItem);
+
+    isShowDropdown.value = false;
+
+    props.blur && props.blur();
+  };
+
   const onSelectVariableInner = (selectedValues: string[]) => {
+    if (isInSetOperation.value) {
+      insetSetOperationValue(selectedValues);
+      return;
+    }
     if (!isVariableMode.value && variableItemNum.value >= props.maxVariableNum) {
       OioNotification.error(
         translateExpValue('错误'),
@@ -381,7 +426,9 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
       return;
     }
     if (isVariableMode.value) {
-      variableItemList.value = [variableItem];
+      variableItemNum.value < props.maxVariableNum || (isBetweenOperator.value && variableItemNum.value <= 3)
+        ? variableItemList.value.push(variableItem)
+        : (variableItemList.value = [variableItemList.value[0], variableItem]);
     } else {
       if (variableItemList.value.length > 0) {
         const lastValue = variableItemList.value[variableItemList.value.length - 1];
@@ -633,6 +680,17 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
       computeInputWidth(index);
     });
   };
+
+  const scopeIntValueChange = (index) => {
+    const variableItem = variableItemList.value[index];
+    variableItem.value = scoptNumber.value;
+  };
+
+  const scopeDateValueChange = (index) => {
+    const variableItem = variableItemList.value[index];
+    variableItem.value = scopeDate.value;
+  };
+
   const computeInputWidth = (index: number) => {
     const isLast = index === variableItemList.value.length - 1;
     const variableItemInputRef = variableItemInputRefs[index];
@@ -697,6 +755,8 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     return [ModelFieldType.Float, ModelFieldType.Currency].includes(ttype);
   };
   return {
+    isBetweenOperator,
+    isInSetOperator,
     datePickerType,
     datePickerTypeList,
     scoptNumber,
@@ -745,7 +805,9 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     isRealNumberTtype,
     createInputPatternByTtype,
     isDateTtype,
-    translateExpValue
+    translateExpValue,
+    scopeIntValueChange,
+    scopeDateValueChange
   };
 }
 

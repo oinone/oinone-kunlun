@@ -35,7 +35,10 @@
               }}</a-select-option>
             </a-select>
             <a-select
-              v-if="leftJoinTtype === ModelFieldType.Date || leftJoinTtype === ModelFieldType.DateTime"
+              v-if="
+                variableType === 'string' &&
+                (leftJoinTtype === ModelFieldType.Date || leftJoinTtype === ModelFieldType.DateTime)
+              "
               class="expression-date-type-selector"
               dropdown-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
               v-model:value="datePickerType"
@@ -62,10 +65,21 @@
           </div>
           <div v-else class="ant-input-affix-wrapper">
             <span class="ant-input" ref="variableItemListRef" :class="{ 'only-one-input': isOnlyOneInput }">
-              <div class="ant-input-inner" @click="(e) => isVariableMode && onAddVariableItem('input')">
+              <div
+                class="ant-input-inner"
+                :class="{
+                  'scope-input': isVariableMode && isBetweenOperator
+                }"
+                @click="(e) => isVariableMode && onAddVariableItem('input')"
+              >
+                <div class="scope-variable-input" v-if="isVariableMode && valueList?.length !== 3 && isBetweenOperator">
+                  <div class="scope-variable-input-item"></div>
+                  <span>~</span>
+                  <div class="scope-variable-input-item"></div>
+                </div>
                 <span
                   class="variable-item variable-string placeholder"
-                  v-if="isVariableMode && !variableItemNum && !valueList[0].value"
+                  v-else-if="isVariableMode && !variableItemNum && !valueList[0].value && innerPlaceholder !== ''"
                 >
                   {{ innerPlaceholder }}
                 </span>
@@ -77,17 +91,11 @@
                   >
                     <template v-if="readonly">{{ variableItem.value }}</template>
                     <template v-else>
-                      <template
-                        v-if="
-                          leftJoinTtype === ModelFieldType.Integer &&
-                          (compareOperatorOption.value === BooleanConditionComparisonOperator.NOT_BETWEEN_AND ||
-                            compareOperatorOption.value === BooleanConditionComparisonOperator.BETWEEN_AND)
-                        "
-                      >
+                      <template v-if="leftJoinTtype === ModelFieldType.Integer && isBetweenOperator">
                         <div class="scope-number-input">
-                          <oio-input-number v-model:value="scoptNumber[0]"/>
+                          <oio-input-number v-model:value="scoptNumber[0]" @blur="scopeIntValueChange(index)" />
                           <span>~</span>
-                          <oio-input-number v-model:value="scoptNumber[1]"/>
+                          <oio-input-number v-model:value="scoptNumber[1]" @blur="scopeIntValueChange(index)" />
                         </div>
                       </template>
                       <template v-if="!isDateTtype(leftJoinTtype)">
@@ -113,17 +121,28 @@
                           <template v-else>{{ variableItem.value }}</template>
                         </span>
                       </template>
-                      <template
-                        v-else-if="
-                          compareOperatorOption.value === BooleanConditionComparisonOperator.BETWEEN_AND ||
-                          compareOperatorOption.value === BooleanConditionComparisonOperator.NOT_BETWEEN_AND
-                        "
-                      >
+                      <template v-else-if="isBetweenOperator">
                         <div class="scope-date-selector">
-                          <oio-date-range-picker v-if="datePickerType === 'DATE'" v-model:value="scopeDate" />
-                          <oio-date-time-range-picker v-if="datePickerType === 'DATETIME'" v-model:value="scopeDate" />
-                          <oio-year-range-picker v-if="datePickerType === 'YEAR'" v-model:value="scopeDate" />
-                          <oio-time-range-picker v-if="datePickerType === 'TIME'" v-model:value="scopeDate" />
+                          <oio-date-range-picker
+                            v-if="datePickerType === 'DATE'"
+                            v-model:value="scopeDate"
+                            @change="scopeDateValueChange(index)"
+                          />
+                          <oio-date-time-range-picker
+                            v-if="datePickerType === 'DATETIME'"
+                            v-model:value="scopeDate"
+                            @change="scopeDateValueChange(index)"
+                          />
+                          <oio-year-range-picker
+                            v-if="datePickerType === 'YEAR'"
+                            v-model:value="scopeDate"
+                            @change="scopeDateValueChange(index)"
+                          />
+                          <oio-time-range-picker
+                            v-if="datePickerType === 'TIME'"
+                            v-model:value="scopeDate"
+                            @change="scopeDateValueChange(index)"
+                          />
                         </div>
                       </template>
                       <!-- TODO 日期类型 -->
@@ -156,14 +175,33 @@
                     </template>
                   </span>
                   <control-tag
-                    v-if="['variable', 'option', 'field', 'session'].includes(variableItem.type)"
+                    v-if="['variable', 'option', 'field', 'session'].includes(variableItem.type) && !isBetweenOperator && !isInSetOperator"
                     class="variable-item variable-tag"
+                    :index="index"
                     :class="`variable-item-${index}`"
                     :title="variableItem.displayName"
                     :desc="variableItem.subTitle"
                     :closable="!readonly && !showTypeSelect"
                     @close="onCloseTagItem(index)"
                   />
+                  <div class="scope-tag" v-else-if="index !== 0">
+                    <control-tag
+                      v-if="['variable', 'option', 'field', 'session'].includes(variableItem.type)"
+                      class="variable-item variable-tag"
+                      :index="index"
+                      :class="`variable-item-${index}`"
+                      :title="variableItem.displayName"
+                      :desc="variableItem.subTitle"
+                      :closable="true"
+                      @close="onCloseTagItem(index)"
+                    />
+                    <span
+                      class="test1"
+                      :index="index"
+                      v-if="isBetweenOperator && index !== variableItemList.length - 1 && index !== 0"
+                      >~</span
+                    >
+                  </div>
                 </template>
               </div>
             </span>
@@ -254,11 +292,11 @@ import {
   OioDateTimeRangePicker,
   OioIcon,
   OioInput,
+  OioInputNumber,
   OioTimePicker,
   OioTimeRangePicker,
   OioYearPicker,
-  OioYearRangePicker,
-  OioInputNumber
+  OioYearRangePicker
 } from '@oinone/kunlun-vue-ui-antd';
 import ControlTag from '../control-tag/ControlTag.vue';
 import ExpressionDesignerCascader from '../../cascader/Cascader.vue';

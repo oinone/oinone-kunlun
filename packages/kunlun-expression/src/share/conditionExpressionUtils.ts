@@ -423,12 +423,13 @@ function getCompareExp4DisplayName(
   compareOperatorOptions: IExpSelectOption[],
   expressionOption: IExpressionOption
 ) {
-  const left = createDisplayNameVariableListStr(valueList!, expressionOption);
+  const left = createDisplayNameVariableListStr(valueList!, expressionOption, undefined, operator);
   const right = compareValueList
     ? createDisplayNameVariableListStr(
         compareValueList!,
         { ...expressionOption, isBetweenInBrackets: true, quoteType: IExpressionQuoteType.SINGLE } as IExpressionOption,
-        valueList && valueList[0]
+        valueList && valueList[0],
+        operator
       )
     : '';
   const translateOpt = translateCompareOperatorDisplayName(operator, compareOperatorOptions, expressionOption);
