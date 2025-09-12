@@ -490,6 +490,26 @@ export class BaseFormItemWidget<
     return Expression.run(params, expression, errorValue);
   }
 
+  public executeExpressionByParameters<T>(
+    parameters: Partial<ExpressionRunParam>,
+    expression: string,
+    errorValue?: T
+  ): T | string | undefined {
+    const activeRecords = parameters.activeRecords || [this.formData || {}];
+    return Expression.run(
+      {
+        activeRecords,
+        rootRecord: parameters.rootRecord || this.rootData?.[0] || {},
+        openerRecord: parameters.openerRecord || this.openerActiveRecords?.[0] || {},
+        scene: parameters.scene || this.scene,
+        activeRecord: parameters.activeRecord || activeRecords[0] || {},
+        parentRecord: parameters.parentRecord || this.parentViewActiveRecords?.[0] || []
+      } as ExpressionRunParam,
+      expression,
+      errorValue
+    );
+  }
+
   public executeCompute?(trigger: ComputeTrigger);
 
   /**

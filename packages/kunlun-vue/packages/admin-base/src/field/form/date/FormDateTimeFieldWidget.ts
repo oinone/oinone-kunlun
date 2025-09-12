@@ -109,13 +109,6 @@ export class FormDateTimeFieldWidget extends FormFieldWidget<string> {
   }
 
   @Widget.Reactive()
-  protected get allowClear(): boolean {
-    return Optional.ofNullable(this.getDsl().allowClear)
-      .map((v) => BooleanHelper.toBoolean(v))
-      .orElse(true)!;
-  }
-
-  @Widget.Reactive()
   protected get quickOptions(): DateQuickOption[] {
     const _quickOptions = this.getDsl().quickOptions;
     if (_quickOptions) {

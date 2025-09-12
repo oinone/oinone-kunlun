@@ -1,5 +1,5 @@
 import { IModelField, ViewMode, ViewType } from '@oinone/kunlun-meta';
-import { isFunction, isBoolean } from 'lodash-es';
+import { isBoolean, isFunction } from 'lodash-es';
 import { RuntimeModelField } from '../../runtime-metadata';
 import { RelationUpdateType, SubmitType } from '../../submit';
 import { isRelation2MField, isRelationField } from '../helper';
@@ -59,10 +59,10 @@ function generatorRequestModelFields(
   runtimeContext?: RuntimeContext
 ) {
   const targetFields: RequestModelField[] = [];
-  fields.forEach((field) => {
+  for (const field of fields) {
     const target: RequestModelField = { field };
     if (isSkip(field, viewType, viewMode, submitType, relationUpdateType, filter)) {
-      return;
+      continue;
     }
     if (isRelationField(field)) {
       const { referencesModel } = field;
@@ -95,11 +95,11 @@ function generatorRequestModelFields(
       }
       if (!isFillReferencesFields) {
         console.error('referencesFields collection failure.', field);
-        return;
+        continue;
       }
     }
     targetFields.push(target);
-  });
+  }
   return targetFields;
 }
 

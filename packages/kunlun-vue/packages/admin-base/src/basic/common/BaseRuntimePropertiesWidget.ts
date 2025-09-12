@@ -172,6 +172,13 @@ export class BaseRuntimePropertiesWidget<
       .orElse(true);
   }
 
+  @Widget.Reactive()
+  protected get usingParentLoading(): boolean {
+    return Optional.ofNullable(this.getDsl().usingParentLoading)
+      .map((v) => BooleanHelper.toBoolean(v))
+      .orElse(true);
+  }
+
   /**
    * 加载状态调用函数
    * @param fn
@@ -182,7 +189,7 @@ export class BaseRuntimePropertiesWidget<
     if (!this.usingLoading) {
       return await fn(...args);
     }
-    if (this.parentLoad) {
+    if (this.parentLoad && this.usingParentLoading) {
       return await this.parentLoad(fn, ...args);
     }
     this.loading = true;

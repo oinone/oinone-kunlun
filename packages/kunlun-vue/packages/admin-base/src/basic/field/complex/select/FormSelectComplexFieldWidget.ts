@@ -3,7 +3,6 @@ import {
   ActiveRecords,
   getRelationFieldKey,
   isRelatedField,
-  parseConfigs,
   QueryService,
   RequestHelper,
   RuntimeModel,
@@ -50,9 +49,6 @@ export abstract class FormSelectComplexFieldWidget<
   protected abstract fillOptions(dataList: Record<string, unknown>[], insetDefaultValue?: boolean);
 
   @Widget.Reactive()
-  protected loadMoreLoading = false;
-
-  @Widget.Reactive()
   protected showMoreButton = false;
 
   @Widget.Reactive()
@@ -68,11 +64,6 @@ export abstract class FormSelectComplexFieldWidget<
   protected options: Record<string, unknown>[] = [];
 
   protected dataList: Record<string, unknown>[] = [];
-
-  @Widget.Reactive()
-  protected get loadFunctionFun(): string | undefined {
-    return this.getDsl().load;
-  }
 
   protected defaultConstructDataTrigger() {
     return [WidgetTrigger.CHANGE];
@@ -219,24 +210,6 @@ export abstract class FormSelectComplexFieldWidget<
   @Widget.Reactive()
   protected get relationFieldKey() {
     return getRelationFieldKey(this.field, this.referencesModel);
-  }
-
-  @Widget.Reactive()
-  protected get allowClear() {
-    const { allowClear } = this.getDsl();
-    if (isNil(allowClear)) {
-      return true;
-    }
-    return allowClear;
-  }
-
-  @Widget.Reactive()
-  protected get showSearch() {
-    const show = this.getDsl().showSearch;
-    if (!isNil(show)) {
-      return show;
-    }
-    return true;
   }
 
   @Widget.Method()
@@ -616,17 +589,7 @@ export abstract class FormSelectComplexFieldWidget<
   }
 
   protected genQueryData() {
-    const queryData = {};
-    const dslConfig = this.getDsl();
-    const { queryDataConfig } = parseConfigs(dslConfig, { key: 'queryDataConfig', prefix: 'queryData' });
-    if (queryDataConfig) {
-      for (const queryDataConfigKey in queryDataConfig) {
-        const value = queryDataConfig[queryDataConfigKey] as any;
-        queryData[queryDataConfigKey] = this.executeExpression(value, value);
-      }
-      return queryData;
-    }
-    return {};
+    return this.generatorQueryData();
   }
 
   protected async innerQueryPage<T = Record<string, unknown>>(

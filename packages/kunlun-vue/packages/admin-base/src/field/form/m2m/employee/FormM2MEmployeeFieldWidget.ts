@@ -1,8 +1,8 @@
+import { ActiveRecord, RuntimeM2MField } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { FormFieldWidget } from '../../../../basic';
-import { generatorDefaultEmployeeTreeDefinition } from '../../../../util/default-tree-definition';
-import { FormM2MTreeSelectFieldWidget } from '../tree-select/FormM2MTreeSelectFieldWidget';
+import { BaseSelectFieldWidget, FormFieldWidget } from '../../../../basic';
+import { EmployeeSelect } from '../../../../components';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
@@ -11,8 +11,10 @@ import { FormM2MTreeSelectFieldWidget } from '../tree-select/FormM2MTreeSelectFi
     widget: 'Employee'
   })
 )
-export class FormM2MEmployeeFieldWidget extends FormM2MTreeSelectFieldWidget {
-  protected generatorDefaultTreeDefinition(props) {
-    return generatorDefaultEmployeeTreeDefinition();
+export class FormM2MEmployeeFieldWidget extends BaseSelectFieldWidget<ActiveRecord[], RuntimeM2MField> {
+  public initialize(props) {
+    super.initialize(props);
+    this.setComponent(EmployeeSelect);
+    return this;
   }
 }

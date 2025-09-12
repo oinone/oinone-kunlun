@@ -1,0 +1,338 @@
+{
+  "id": "5011527",
+  "name": "new-oinone",
+  "font_family": "iconfont",
+  "css_prefix_text": "oinone-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "45472501",
+      "name": "DoubleUpOutlined",
+      "font_class": "double-up-outlined",
+      "unicode": "e81a",
+      "unicode_decimal": 59418
+    },
+    {
+      "icon_id": "45472500",
+      "name": "DoubleLeftOutlined",
+      "font_class": "double-left-outlined",
+      "unicode": "e81b",
+      "unicode_decimal": 59419
+    },
+    {
+      "icon_id": "45472498",
+      "name": "double-down-outlined",
+      "font_class": "double-down-outlined",
+      "unicode": "e81c",
+      "unicode_decimal": 59420
+    },
+    {
+      "icon_id": "45472499",
+      "name": "double-right-outlined",
+      "font_class": "double-right-outlined",
+      "unicode": "e81d",
+      "unicode_decimal": 59421
+    },
+    {
+      "icon_id": "45437443",
+      "name": "drill-down-outlined",
+      "font_class": "drill-down-outlined",
+      "unicode": "e818",
+      "unicode_decimal": 59416
+    },
+    {
+      "icon_id": "45437442",
+      "name": "jump-outlined",
+      "font_class": "jump-outlined",
+      "unicode": "e819",
+      "unicode_decimal": 59417
+    },
+    {
+      "icon_id": "45417039",
+      "name": "default row height",
+      "font_class": "a-defaultrowheight",
+      "unicode": "e815",
+      "unicode_decimal": 59413
+    },
+    {
+      "icon_id": "45417038",
+      "name": "order-outlined",
+      "font_class": "order-outlined",
+      "unicode": "e816",
+      "unicode_decimal": 59414
+    },
+    {
+      "icon_id": "45417037",
+      "name": "shortcut key-outlined",
+      "font_class": "shortcutkey-outlined",
+      "unicode": "e817",
+      "unicode_decimal": 59415
+    },
+    {
+      "icon_id": "45415531",
+      "name": "high-height-outlined",
+      "font_class": "high-height-outlined",
+      "unicode": "e803",
+      "unicode_decimal": 59395
+    },
+    {
+      "icon_id": "45415529",
+      "name": "fullscreen-outlined",
+      "font_class": "fullscreen-outlined",
+      "unicode": "e804",
+      "unicode_decimal": 59396
+    },
+    {
+      "icon_id": "45415524",
+      "name": "drag-outlined",
+      "font_class": "drag-outlined",
+      "unicode": "e805",
+      "unicode_decimal": 59397
+    },
+    {
+      "icon_id": "45415526",
+      "name": "file-text-outlined",
+      "font_class": "file-text-outlined",
+      "unicode": "e806",
+      "unicode_decimal": 59398
+    },
+    {
+      "icon_id": "45415528",
+      "name": "drawer-outlined",
+      "font_class": "drawer-outlined",
+      "unicode": "e807",
+      "unicode_decimal": 59399
+    },
+    {
+      "icon_id": "45415525",
+      "name": "export-outlined",
+      "font_class": "export-outlined",
+      "unicode": "e808",
+      "unicode_decimal": 59400
+    },
+    {
+      "icon_id": "45415522",
+      "name": "delete-outlined",
+      "font_class": "delete-outlined",
+      "unicode": "e809",
+      "unicode_decimal": 59401
+    },
+    {
+      "icon_id": "45415523",
+      "name": "down-outlined",
+      "font_class": "down-outlined",
+      "unicode": "e80a",
+      "unicode_decimal": 59402
+    },
+    {
+      "icon_id": "45415521",
+      "name": "dialog-box-outlined",
+      "font_class": "dialog-box-outlined",
+      "unicode": "e80b",
+      "unicode_decimal": 59403
+    },
+    {
+      "icon_id": "45415516",
+      "name": "adaptive-outlined",
+      "font_class": "adaptive-outlined",
+      "unicode": "e7ef",
+      "unicode_decimal": 59375
+    },
+    {
+      "icon_id": "45415514",
+      "name": "caret-down-filled",
+      "font_class": "caret-down-filled",
+      "unicode": "e80c",
+      "unicode_decimal": 59404
+    },
+    {
+      "icon_id": "45415520",
+      "name": "display-outlined",
+      "font_class": "display-outlined",
+      "unicode": "e80d",
+      "unicode_decimal": 59405
+    },
+    {
+      "icon_id": "45415511",
+      "name": "apartment-outlined",
+      "font_class": "apartment-outlined",
+      "unicode": "e80e",
+      "unicode_decimal": 59406
+    },
+    {
+      "icon_id": "45415517",
+      "name": "close-outlined",
+      "font_class": "close-outlined",
+      "unicode": "e80f",
+      "unicode_decimal": 59407
+    },
+    {
+      "icon_id": "45415519",
+      "name": "copy-outlined",
+      "font_class": "copy-outlined",
+      "unicode": "e810",
+      "unicode_decimal": 59408
+    },
+    {
+      "icon_id": "45415518",
+      "name": "check-outlined",
+      "font_class": "check-outlined",
+      "unicode": "e811",
+      "unicode_decimal": 59409
+    },
+    {
+      "icon_id": "45415515",
+      "name": "caret-up-filled",
+      "font_class": "caret-up-filled",
+      "unicode": "e812",
+      "unicode_decimal": 59410
+    },
+    {
+      "icon_id": "45415513",
+      "name": "caret-right-filled",
+      "font_class": "caret-right-filled",
+      "unicode": "e813",
+      "unicode_decimal": 59411
+    },
+    {
+      "icon_id": "45415512",
+      "name": "caret-left-filled",
+      "font_class": "caret-left-filled",
+      "unicode": "e814",
+      "unicode_decimal": 59412
+    },
+    {
+      "icon_id": "45415547",
+      "name": "ungroup-outlined",
+      "font_class": "ungroup-outlined",
+      "unicode": "e7f4",
+      "unicode_decimal": 59380
+    },
+    {
+      "icon_id": "45415536",
+      "name": "height-outlined",
+      "font_class": "height-outlined",
+      "unicode": "e7f1",
+      "unicode_decimal": 59377
+    },
+    {
+      "icon_id": "45415546",
+      "name": "zoom-out-outlined",
+      "font_class": "zoom-out-outlined",
+      "unicode": "e7f5",
+      "unicode_decimal": 59381
+    },
+    {
+      "icon_id": "45415545",
+      "name": "zoom-in-outlined",
+      "font_class": "zoom-in-outlined",
+      "unicode": "e7f6",
+      "unicode_decimal": 59382
+    },
+    {
+      "icon_id": "45415544",
+      "name": "user-outlined",
+      "font_class": "user-outlined",
+      "unicode": "e7f7",
+      "unicode_decimal": 59383
+    },
+    {
+      "icon_id": "45415543",
+      "name": "up-outlined",
+      "font_class": "up-outlined",
+      "unicode": "e7f8",
+      "unicode_decimal": 59384
+    },
+    {
+      "icon_id": "45415542",
+      "name": "fullscreen-exit-outlined",
+      "font_class": "fullscreen-exit-outlined",
+      "unicode": "e7f2",
+      "unicode_decimal": 59378
+    },
+    {
+      "icon_id": "45415541",
+      "name": "low-height-outlined",
+      "font_class": "low-height-outlined",
+      "unicode": "e7f9",
+      "unicode_decimal": 59385
+    },
+    {
+      "icon_id": "45415540",
+      "name": "medium-height-outlined",
+      "font_class": "medium-height-outlined",
+      "unicode": "e7fa",
+      "unicode_decimal": 59386
+    },
+    {
+      "icon_id": "45415539",
+      "name": "plus-outlined",
+      "font_class": "plus-outlined",
+      "unicode": "e7fb",
+      "unicode_decimal": 59387
+    },
+    {
+      "icon_id": "45415538",
+      "name": "group-outlined",
+      "font_class": "group-outlined",
+      "unicode": "e7fc",
+      "unicode_decimal": 59388
+    },
+    {
+      "icon_id": "45415537",
+      "name": "right-outlined",
+      "font_class": "right-outlined",
+      "unicode": "e7fd",
+      "unicode_decimal": 59389
+    },
+    {
+      "icon_id": "45415535",
+      "name": "folder-outlined",
+      "font_class": "folder-outlined",
+      "unicode": "e7fe",
+      "unicode_decimal": 59390
+    },
+    {
+      "icon_id": "45415527",
+      "name": "edit-square-outlined",
+      "font_class": "edit-square-outlined",
+      "unicode": "e7f0",
+      "unicode_decimal": 59376
+    },
+    {
+      "icon_id": "45415533",
+      "name": "minus-outlined",
+      "font_class": "minus-outlined",
+      "unicode": "e7ff",
+      "unicode_decimal": 59391
+    },
+    {
+      "icon_id": "45415534",
+      "name": "import-outlined",
+      "font_class": "import-outlined",
+      "unicode": "e800",
+      "unicode_decimal": 59392
+    },
+    {
+      "icon_id": "45415532",
+      "name": "left-outlined",
+      "font_class": "left-outlined",
+      "unicode": "e801",
+      "unicode_decimal": 59393
+    },
+    {
+      "icon_id": "45415530",
+      "name": "hide-outlined",
+      "font_class": "hide-outlined",
+      "unicode": "e802",
+      "unicode_decimal": 59394
+    },
+    {
+      "icon_id": "45415548",
+      "name": "upload-outlined",
+      "font_class": "upload-outlined",
+      "unicode": "e7f3",
+      "unicode_decimal": 59379
+    }
+  ]
+}

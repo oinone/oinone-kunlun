@@ -3,6 +3,7 @@ export * from './checkbox';
 export * from './company/FormM2MCompanyFieldWidget';
 export * from './department/FormM2MDepartmentFieldWidget';
 export * from './employee/FormM2MEmployeeFieldWidget';
+export * from './role/FormM2MRoleFieldWidget';
 export * from './select/FormM2MFieldSelectWidget';
 export * from './table/FormM2MTableFieldWidget';
 export * from './tree';

@@ -1,5 +1,5 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { BooleanHelper, EnumerationValue, Optional } from '@oinone/kunlun-shared';
+import { BooleanHelper, EnumerationValue } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
@@ -39,15 +39,13 @@ export class FormEnumRadioWidget extends FormEnumFieldAbstractWidget<Enumeration
   }
 
   @Widget.Reactive()
-  protected get allowClear() {
-    return Optional.ofNullable(this.getDsl().allowClear).orElse(false);
+  protected get allowClear(): boolean {
+    return BooleanHelper.toBoolean(this.getDsl().allowClear) || false;
   }
 
   @Widget.Reactive()
   protected get autocorrection() {
-    return Optional.ofNullable(this.getDsl().autocorrection)
-      .map((v) => BooleanHelper.toBoolean(v))
-      .orElse(false);
+    return BooleanHelper.toBoolean(this.getDsl().autocorrection) || false;
   }
 
   @Widget.Reactive()

@@ -1,4 +1,4 @@
-import { isRelatedField, isRelation2OField, RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
+import { isRelatedField, RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
 import { ExpressionKeyword } from '@oinone/kunlun-expression';
 import { isComplexTtype, ModelFieldType, ViewMode } from '@oinone/kunlun-meta';
 import { BooleanHelper, Optional } from '@oinone/kunlun-shared';
@@ -89,8 +89,8 @@ export class FormFieldWidget<
   }
 
   @Widget.Reactive()
-  protected get allowClear() {
-    return Optional.ofNullable(this.getDsl().allowClear).orElse(true);
+  protected get allowClear(): boolean {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().allowClear)).orElse(true);
   }
 
   @Widget.Reactive()

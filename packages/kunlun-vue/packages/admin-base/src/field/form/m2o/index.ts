@@ -5,6 +5,7 @@ export * from './department/FormM2ODepartmentFieldWidget';
 export * from './employee/FormM2OEmployeeFieldWidget';
 export * from './form/FormM2OFormFieldWidget';
 export * from './radio';
+export * from './role/FormM2ORoleFieldWidget';
 export * from './select/FormM2OConstructSelectFieldWidget';
 export * from './select/FormM2OSelectFieldWidget';
 export * from './table/FormM2OTableFieldWidget';
