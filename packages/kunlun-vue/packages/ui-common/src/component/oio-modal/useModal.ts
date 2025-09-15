@@ -1,12 +1,23 @@
 import { isString } from 'lodash-es';
 import { computed } from 'vue';
+import { StyleHelper } from '../../util/style';
 import { usePopup } from '../vc-popup/usePopup';
 import { ModalHeight, ModalWidth } from './typing';
-import { StyleHelper } from '../../util/style';
 
 export function useModal(props, context) {
+  const title = computed(() => {
+    const val = props.title;
+    if (val == null) {
+      return '对话框';
+    }
+    return val;
+  });
+
   const width = computed(() => {
     const _width = props.width;
+    if (_width == null) {
+      return ModalWidth.small;
+    }
     if (isString(_width)) {
       const realWidth = ModalWidth[_width.toLowerCase()];
       if (realWidth) {
@@ -18,6 +29,9 @@ export function useModal(props, context) {
 
   const widthClassSuffix = computed(() => {
     const _width = props.width;
+    if (_width == null) {
+      return ModalWidth.small;
+    }
     if (isString(_width)) {
       const realWidth = ModalWidth[_width.toLowerCase()];
       if (realWidth) {
@@ -49,6 +63,7 @@ export function useModal(props, context) {
 
   return {
     ...usePopup(props, context),
+    title,
     width,
     widthClassSuffix,
     heightClassSuffix,

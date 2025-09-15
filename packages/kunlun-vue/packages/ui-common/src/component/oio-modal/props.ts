@@ -1,20 +1,18 @@
 import { PropType } from 'vue';
 import { VcMaskPopupAppearanceProps, VcPopupAppearanceProps, VcPopupControlProps, VcPopupDataProps } from '../vc-popup';
-import { ModalWidth, ModalWidthType } from './typing';
+import { ModalWidthType } from './typing';
 
 const OioModalAppearanceProps = {
   ...VcPopupAppearanceProps,
   ...VcMaskPopupAppearanceProps,
   title: {
-    type: String,
-    default: '对话框'
+    type: String
   },
   help: {
     type: String
   },
   width: {
-    type: [Number, String] as PropType<ModalWidthType | string | number>,
-    default: ModalWidth.small
+    type: [Number, String] as PropType<ModalWidthType | string | number>
   },
   height: {
     type: [Number, String] as PropType<ModalWidthType | string | number>

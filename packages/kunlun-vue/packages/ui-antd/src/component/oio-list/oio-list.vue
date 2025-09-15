@@ -8,7 +8,7 @@ import { OioCheckbox } from '../oio-checkbox';
 import { OioEmptyData } from '../oio-empty';
 
 export default defineComponent({
-  name: 'oio-list',
+  name: 'OioList',
   components: {
     OioEmptyData,
     OioIcon,

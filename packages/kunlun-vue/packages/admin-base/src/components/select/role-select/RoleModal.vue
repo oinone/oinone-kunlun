@@ -264,6 +264,7 @@ export default defineComponent({
     height: 400px;
 
     .oio-role-list {
+      height: 100%;
       overflow: auto;
     }
   }

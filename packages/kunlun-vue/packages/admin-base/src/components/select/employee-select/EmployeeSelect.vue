@@ -66,7 +66,7 @@ export default defineComponent({
       onShowModal,
       onChange
     } = this;
-    const classNames = ['oio-department-select'];
+    const classNames = ['oio-employee-select'];
     return createVNode(
       DefaultSelect,
       {
