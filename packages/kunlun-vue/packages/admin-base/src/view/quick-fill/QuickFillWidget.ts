@@ -297,16 +297,32 @@ export class QuickFillWidget extends BaseElementWidget {
           {
             name: 'field',
             ttype: ModelFieldType.String
+          },
+          {
+            name: 'relationSelectFields',
+            ttype: ModelFieldType.String,
+            multi: true
           }
         ]
       }
     ] as IModelField[];
 
+    const fieldHeaders = this.modelFields
+      .filter((f) => !!f.template?.independentlyEditable)
+      .map((field) => {
+        if (isRelationField(field)) {
+          return {
+            field: field.name,
+            relationSelectFields: field.template?.searchFields?.split?.(',') || ['name']
+          };
+        }
+
+        return { field: field.name };
+      });
+
     const gqlStr = await buildSingleItemParam(quickFillFields, {
       model: this.model.model,
-      fieldHeaders: this.modelFields
-        .filter((f) => !!f.template?.independentlyEditable)
-        .map((field) => ({ field: field.name })),
+      fieldHeaders,
       valuesStr
     });
 
