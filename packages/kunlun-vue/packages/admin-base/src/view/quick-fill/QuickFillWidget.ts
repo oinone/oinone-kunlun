@@ -118,19 +118,22 @@ export class QuickFillWidget extends BaseElementWidget {
     cells.forEach((row) => {
       const rowValue = {} as Record<string, MayBeEmptyString>;
       // 国家、省、市、区、街道需合并
-      const addressStr = [] as MayBeEmptyString[];
+      const addressStr = [] as { [key: string]: MayBeEmptyString }[];
 
       row.forEach((cell, index) => {
         const { name } = this.editableModelFields[index]!;
         if (fullAddressField.some((f) => f.name === name)) {
-          addressStr.push(cell);
+          addressStr.push({
+            field: name,
+            value: cell
+          });
         } else {
           rowValue[name] = cell;
         }
       });
 
       if (this.addressFieldIndex > -1) {
-        rowValue[this.modelFields[this.addressFieldIndex].name] = addressStr.join(' ');
+        rowValue[this.modelFields[this.addressFieldIndex].name] = JSON.stringify(addressStr);
       }
 
       valueStr.push(rowValue);
