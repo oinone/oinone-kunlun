@@ -1,6 +1,11 @@
 <script lang="ts">
 import { BooleanHelper, CastHelper } from '@oinone/kunlun-shared';
-import { AInputSearchProps, InputSearchEvent, OioInputSearchProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import {
+  AInputSearchProps,
+  InputSearchEvent,
+  OioInputSearchProps,
+  PropRecordHelper
+} from '@oinone/kunlun-vue-ui-common';
 import { InputSearch as AInputSearch } from 'ant-design-vue';
 import { isBoolean, isEmpty } from 'lodash-es';
 import { computed, createVNode, defineComponent, ref } from 'vue';

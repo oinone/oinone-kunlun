@@ -1,7 +1,7 @@
-import { ActiveRecord, RuntimeM2OField } from '@oinone/kunlun-engine';
+import { PamirsDepartment, RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { BaseSelectFieldWidget, FormFieldWidget } from '../../../../basic';
+import { FormFieldWidget, SelectFieldWidget } from '../../../../basic';
 import { DepartmentSelect } from '../../../../components';
 
 @SPI.ClassFactory(
@@ -11,10 +11,32 @@ import { DepartmentSelect } from '../../../../components';
     widget: 'Department'
   })
 )
-export class FormM2ODepartmentFieldWidget extends BaseSelectFieldWidget<ActiveRecord, RuntimeM2OField> {
+export class FormM2ODepartmentFieldWidget extends SelectFieldWidget<
+  PamirsDepartment,
+  PamirsDepartment,
+  RuntimeM2OField
+> {
   public initialize(props) {
     super.initialize(props);
     this.setComponent(DepartmentSelect);
     return this;
+  }
+
+  protected generatorSelectItemKey(value: PamirsDepartment): string {
+    return value.code || super.generatorSelectItemKey(value);
+  }
+
+  public async submit(submitValue: SubmitValue) {
+    const { field, itemName, value, viewMode, submitCache, submitType, relationUpdateType } = this;
+    return SubmitRelationHandler.M2O(
+      field,
+      itemName,
+      submitValue,
+      value,
+      viewMode,
+      submitCache,
+      submitType,
+      relationUpdateType
+    );
   }
 }

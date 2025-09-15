@@ -1,34 +1,63 @@
 import { DEFAULT_PREFIX } from '../mount';
+import { ColorHelper } from '../utils/ColorHelper';
+
+const standardColorVars = {
+  /**
+   * 主色
+   */
+  'primary-color': '#035dff',
+  /**
+   * 成功色
+   */
+  'success-color': '#6dd400',
+  /**
+   * 警告色
+   */
+  'warning-color': '#f7b500',
+  /**
+   * 通知色
+   */
+  'info-color': '#8c8c8c',
+  /**
+   * 错误色
+   */
+  'error-color': '#e02020'
+};
+
+function computeAlphaColor(colors: Record<string, string>): Record<string, string> {
+  const newColors: Record<string, string> = {};
+  for (const [key, color] of Object.entries(colors)) {
+    newColors[`${key}-10`] = ColorHelper.getAlphaColor(color, 0.1);
+  }
+  return newColors;
+}
 
 export const defaultVars = {
+  ...standardColorVars,
+  ...computeAlphaColor(standardColorVars),
   // primary
   'primary-color-rgb': '3, 93, 255', // 主色
-  'primary-color': '#035DFF', // 主色
   'primary-color-hover': '#3F84FF', // 主悬停色
   'primary-color-focus': '#3F84FF', // 主焦点色
   'primary-color-active': '#024CDE', // 主激活色
   'primary-color-outline': '#035DFF', // 主轮廓色
   // success
-  'success-color': '#6DD400', // 成功色
   'success-color-hover': '#90DE3D', // 成功悬停色
   'success-color-focus': '#90DE3D', // 成功悬停色
   'success-color-active': '#6BBB00', // 成功激活色
   'success-color-outline': '#6DD400', // 成功轮廓色
   // waring
-  'warning-color': '#F7B500', // 警告色
   'warning-color-hover': '#F9C73D', // 警告悬停色
   'warning-color-focus': '#F9C73D', // 警告悬停色
   'warning-color-active': '#D99200', // 警告激活色
   'warning-color-outline': '#F7B500', // 警告轮廓色
   // info
-  'info-color': '#8c8c8c', // 通知色
   'info-color-hover': '#999999', // 通知悬停色
   'info-color-focus': '#999999', // 通知悬停色
   'info-color-active': '#666666', // 通知激活色
-  'info-color-outline': '#8c8c8c', // 通知轮廓色
+  'info-color-outline': '#8C8C8C', // 通知轮廓色
   // error
   'error-color-rgb': '224, 32, 32', // 错误色
-  'error-color': '#E02020', // 错误色
   'error-color-hover': '#E75555',
   'error-color-focus': '#E75555',
   'error-color-active': '#C51C26',

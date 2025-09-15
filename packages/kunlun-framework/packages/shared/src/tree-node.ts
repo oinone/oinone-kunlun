@@ -41,7 +41,7 @@ export interface StandardTreeNode<T, SELF extends StandardTreeNode<T, SELF>> {
    * @param value
    * @param position
    */
-  setParent?(value: SELF | undefined, position?: number);
+  setParent?(value: SELF | undefined, position?: number): void;
 }
 
 /**

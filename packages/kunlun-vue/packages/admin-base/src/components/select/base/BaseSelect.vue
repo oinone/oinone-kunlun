@@ -28,10 +28,6 @@ export default defineComponent({
   },
   props: {
     ...BaseSelectProps,
-    showArrow: {
-      type: Boolean,
-      default: true
-    },
     notFoundContent: {
       type: [Object, Function]
     }
@@ -130,7 +126,7 @@ export default defineComponent({
       onChange,
       blur,
       focus,
-      showArrow,
+      allowArrow,
       allowClear,
       allowSearch,
       onSearch,
@@ -151,11 +147,11 @@ export default defineComponent({
       maxTagCount: 'responsive',
 
       mode,
-      value,
       options,
       placeholder,
       allowClear,
-      showArrow,
+      disabled,
+      showArrow: allowArrow,
       getPopupContainer: getTriggerContainer,
       onChange,
       onFocus: focus,
@@ -164,6 +160,23 @@ export default defineComponent({
       onDropdownVisibleChange,
       onPopupScroll
     };
+    if (mode === SelectMode.multiple) {
+      if (value == null) {
+        props.value = undefined;
+      } else if (Array.isArray(value)) {
+        if (value.length) {
+          props.value = value;
+        } else {
+          props.value = undefined;
+        }
+      } else {
+        props.value = [value];
+      }
+    } else if (value == null) {
+      props.value = undefined;
+    } else {
+      props.value = value;
+    }
     const slotNames = [
       {
         origin: 'dropdownRender',
@@ -201,7 +214,9 @@ export default defineComponent({
     } else {
       props.showSearch = false;
     }
-    if (notFoundContent === null) {
+    if (readonly) {
+      props.notFoundContent = null;
+    } else if (notFoundContent === null) {
       props.notFoundContent = null;
     } else {
       slotNames.push({

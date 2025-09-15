@@ -34,6 +34,9 @@ export const AInputProps = {
   value: {
     type: String
   },
+  'onUpdate:value': {
+    type: Function as PropType<(value: string) => void>
+  },
   defaultValue: {
     type: String
   },

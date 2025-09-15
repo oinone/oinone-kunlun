@@ -1,16 +1,108 @@
-<template>
-  <div>hello world</div>
-</template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { PamirsDepartment, translateValueByKey } from '@oinone/kunlun-engine';
+import { OioButton, SelectMode } from '@oinone/kunlun-vue-ui-antd';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { computed, createVNode, defineComponent, ref } from 'vue';
+import { DefaultSelect } from '../base';
+import { DefaultSelectProps } from '../base/props';
+import DepartmentModal from './DepartmentModal.vue';
 
 export default defineComponent({
   name: 'DepartmentSelect',
-  components: {},
+  components: {
+    DefaultSelect
+  },
   inheritAttrs: false,
-  props: {},
+  props: {
+    ...DefaultSelectProps
+  },
   setup(props) {
-    return {};
+    const visible = ref(false);
+
+    const options = computed(() => {
+      if (!props.selected) {
+        return [];
+      }
+      if (Array.isArray(props.selected)) {
+        return props.selected;
+      }
+      return [props.selected];
+    });
+
+    const onUpdateVisible = (val: boolean) => {
+      visible.value = val;
+    };
+
+    const onShowModal = () => {
+      visible.value = true;
+    };
+
+    const onChange = (values: PamirsDepartment | PamirsDepartment[] | null | undefined) => {
+      props.change?.(values);
+      props.blur?.();
+    };
+
+    return {
+      visible,
+      options,
+      onUpdateVisible,
+      onShowModal,
+      onChange
+    };
+  },
+  render() {
+    const {
+      $attrs,
+      mode,
+      selected,
+      options,
+      placeholder,
+      allowClear,
+      visible,
+      change,
+      focus,
+      blur,
+      onUpdateVisible,
+      onShowModal,
+      onChange
+    } = this;
+    const classNames = ['oio-department-select'];
+    return createVNode(
+      DefaultSelect,
+      {
+        ...PropRecordHelper.collectionBasicProps($attrs, classNames),
+        mode,
+        selected,
+        options,
+        placeholder,
+        allowClear,
+        allowArrow: false,
+        allowSearch: false,
+        notFoundContent: null,
+        change,
+        focus,
+        blur
+      },
+      {
+        suffix: () => {
+          return [
+            createVNode(OioButton, {
+              icon: 'oinone-apartment-outlined',
+              onClick: onShowModal
+            }),
+            createVNode(DepartmentModal, {
+              title: translateValueByKey('选择部门'),
+              width: '720px',
+              mode,
+              selected,
+              visible,
+              'onUpdate:visible': onUpdateVisible,
+              onChange
+            })
+          ];
+        }
+      }
+    );
   }
 });
 </script>

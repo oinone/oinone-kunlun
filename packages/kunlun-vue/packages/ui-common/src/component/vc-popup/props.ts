@@ -45,6 +45,9 @@ export const VcPopupControlProps = {
     type: Boolean,
     default: undefined
   },
+  'onUpdate:visible': {
+    type: Function as PropType<(visible: boolean) => void>
+  },
   closable: {
     type: Boolean,
     default: undefined

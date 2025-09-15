@@ -9,6 +9,10 @@ const AppearanceProps = {
   placeholder: {
     type: String
   },
+  allowArrow: {
+    type: Boolean,
+    default: undefined
+  },
   allowClear: {
     type: Boolean,
     default: undefined

@@ -10,7 +10,10 @@ export default defineComponent({
   components: {},
   inheritAttrs: false,
   props: {
-    ...DefaultSelectProps
+    ...DefaultSelectProps,
+    notFoundContent: {
+      type: [Object, Function]
+    }
   },
   setup(props) {
     const onChange = (val: SelectItem | SelectItem[] | null | undefined) => {
@@ -54,6 +57,7 @@ export default defineComponent({
       placeholder,
       loadMoreLoading,
       loadCompleted,
+      allowArrow,
       allowSearch,
       allowClear,
       onChange,
@@ -61,7 +65,8 @@ export default defineComponent({
       blur,
       search,
       initLoad,
-      loadMore
+      loadMore,
+      notFoundContent
     } = this;
     return createVNode(
       BaseSelect,
@@ -69,11 +74,12 @@ export default defineComponent({
         ...PropRecordHelper.collectionBasicProps($attrs, ['default-select']),
         dropdownClassName: StringHelper.append(['default-select-dropdown'], dropdownClassName),
         mode,
-        value: selected == null ? undefined : selected,
+        value: selected,
         options,
         placeholder,
         loadMoreLoading,
         loadCompleted,
+        allowArrow,
         allowSearch,
         allowClear,
         change: onChange,
@@ -81,7 +87,8 @@ export default defineComponent({
         blur,
         search,
         initLoad,
-        loadMore
+        loadMore,
+        notFoundContent
       },
       $slots
     );

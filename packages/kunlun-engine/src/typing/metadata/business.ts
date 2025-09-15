@@ -1,3 +1,4 @@
+import { DataStatusEnum } from '@oinone/kunlun-meta';
 import { BizCodeModel } from './base';
 
 export enum StaffSize {
@@ -21,10 +22,46 @@ export interface PamirsCompany extends BizCodeModel {
   licenseRegisterTime?: string;
   responsiblePerson?: PamirsEmployee;
   responsiblePersonCode?: string;
+
+  parentCode?: string;
+  parent?: PamirsCompany;
+
+  departmentList?: PamirsDepartment[];
+
+  employeeList?: PamirsEmployee[];
 }
 
 export interface PamirsDepartment extends BizCodeModel {
   name?: string;
+  description?: string;
+  dataStatus?: DataStatusEnum;
+
+  parentCode?: string;
+  parent?: PamirsDepartment;
+  treeCode?: string;
+
+  companyCode?: string;
+  company?: PamirsCompany;
+
+  positionList?: PamirsPosition[];
+
+  employeeList?: PamirsEmployee[];
+}
+
+export interface PamirsPosition extends BizCodeModel {
+  name?: string;
+  dataStatus?: DataStatusEnum;
+
+  parentCode?: string;
+  parent?: PamirsPosition;
+
+  companyCode?: string;
+  company?: PamirsCompany;
+
+  departmentCode?: string;
+  department?: PamirsDepartment;
+
+  employeeList?: PamirsEmployee[];
 }
 
 export interface PamirsEmployee extends BizCodeModel {

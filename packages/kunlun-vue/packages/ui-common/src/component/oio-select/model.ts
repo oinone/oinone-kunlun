@@ -6,6 +6,7 @@ export interface SelectItem<T = unknown> {
   label: string;
   state?: EnumOptionState;
   disabled?: boolean;
+  icon?: string;
   data: T;
 }
 
@@ -14,6 +15,7 @@ export interface SelectProperties {
   keyProp: string;
   labelProp: string;
   disabledProp: string;
+  iconProp?: string;
   filterProp: string;
 }
 
@@ -22,6 +24,7 @@ export const defaultSelectProperties: SelectProperties = {
   keyProp: 'key',
   labelProp: 'label',
   disabledProp: 'disabled',
+  iconProp: 'icon',
   filterProp: 'label'
 };
 
