@@ -1,10 +1,9 @@
 <script lang="ts">
-import { AuthRole, translateValueByKey } from '@oinone/kunlun-engine';
+import { AuthRole } from '@oinone/kunlun-engine';
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { computed, createVNode, defineComponent, ref } from 'vue';
-import { DefaultSelect } from '../base';
-import { DefaultSelectProps } from '../base/props';
+import { DefaultSelect, DefaultSelectProps } from '../base';
 import RoleModal from './RoleModal.vue';
 
 export default defineComponent({
@@ -92,8 +91,6 @@ export default defineComponent({
               onClick: onShowModal
             }),
             createVNode(RoleModal, {
-              title: translateValueByKey('选择角色'),
-              width: '720px',
               mode,
               selected,
               visible,

@@ -1,10 +1,9 @@
 <script lang="ts">
-import { PamirsEmployee, translateValueByKey } from '@oinone/kunlun-engine';
+import { PamirsEmployee } from '@oinone/kunlun-engine';
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { computed, createVNode, defineComponent, ref } from 'vue';
-import { DefaultSelect } from '../base';
-import { DefaultSelectProps } from '../base/props';
+import { DefaultSelect, DefaultSelectProps } from '../base';
 import EmployeeModal from './EmployeeModal.vue';
 
 export default defineComponent({
@@ -92,8 +91,6 @@ export default defineComponent({
               onClick: onShowModal
             }),
             createVNode(EmployeeModal, {
-              title: translateValueByKey('选择员工'),
-              width: '720px',
               mode,
               selected,
               visible,

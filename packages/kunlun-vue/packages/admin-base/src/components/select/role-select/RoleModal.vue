@@ -1,5 +1,5 @@
 <script lang="ts">
-import { AuthRole } from '@oinone/kunlun-engine';
+import { AuthRole, translateValueByKey } from '@oinone/kunlun-engine';
 import {
   CastHelper,
   OioInput,
@@ -175,6 +175,8 @@ export default defineComponent({
     return createVNode(
       OioModal,
       {
+        title: translateValueByKey('选择角色'),
+        width: '720px',
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
         destroyOnClose: true,
         loading: state.loading,

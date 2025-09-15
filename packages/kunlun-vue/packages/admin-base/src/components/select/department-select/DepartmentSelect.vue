@@ -1,10 +1,9 @@
 <script lang="ts">
-import { PamirsDepartment, translateValueByKey } from '@oinone/kunlun-engine';
+import { PamirsDepartment } from '@oinone/kunlun-engine';
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { computed, createVNode, defineComponent, ref } from 'vue';
-import { DefaultSelect } from '../base';
-import { DefaultSelectProps } from '../base/props';
+import { DefaultSelect, DefaultSelectProps } from '../base';
 import DepartmentModal from './DepartmentModal.vue';
 
 export default defineComponent({
@@ -91,8 +90,6 @@ export default defineComponent({
               onClick: onShowModal
             }),
             createVNode(DepartmentModal, {
-              title: translateValueByKey('选择部门'),
-              width: '720px',
               mode,
               selected,
               visible,

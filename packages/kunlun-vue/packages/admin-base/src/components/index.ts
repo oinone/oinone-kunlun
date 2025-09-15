@@ -4,4 +4,5 @@ export * from './oio-manage-group';
 export * from './upload';
 export * from './user-prefer';
 export * from './prop';
+export * from './quick-utils';
 export * from './select';

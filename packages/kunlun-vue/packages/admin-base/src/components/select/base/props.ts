@@ -1,6 +1,6 @@
 import { SelectItem, SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { PropType } from 'vue';
-import { OioCommonProps, OioMetadataProps } from '../../../basic';
+import { OioCommonProps, OioMetadataProps } from '../../../basic/props';
 
 const AppearanceProps = {
   dropdownClassName: {

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { PamirsDepartment } from '@oinone/kunlun-engine';
+import { PamirsDepartment, translateValueByKey } from '@oinone/kunlun-engine';
 import {
   CastHelper,
   OioInput,
@@ -203,6 +203,8 @@ export default defineComponent({
     return createVNode(
       OioModal,
       {
+        title: translateValueByKey('选择部门'),
+        width: '720px',
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
         destroyOnClose: true,
         loading: state.loading,
