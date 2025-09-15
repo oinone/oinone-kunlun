@@ -1,17 +1,109 @@
-<template>
-  <div>hello world</div>
-</template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { AuthRole, translateValueByKey } from '@oinone/kunlun-engine';
+import { OioButton } from '@oinone/kunlun-vue-ui-antd';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { computed, createVNode, defineComponent, ref } from 'vue';
+import { DefaultSelect } from '../base';
+import { DefaultSelectProps } from '../base/props';
+import RoleModal from './RoleModal.vue';
 
 export default defineComponent({
-  name: 'RoleSelect',
-  components: {},
+  name: 'EmployeeSelect',
+  components: {
+    DefaultSelect,
+    RoleModal
+  },
   inheritAttrs: false,
-  props: {},
+  props: {
+    ...DefaultSelectProps
+  },
   setup(props) {
-    return {};
+    const visible = ref(false);
+
+    const options = computed(() => {
+      if (!props.selected) {
+        return [];
+      }
+      if (Array.isArray(props.selected)) {
+        return props.selected;
+      }
+      return [props.selected];
+    });
+
+    const onUpdateVisible = (val: boolean) => {
+      visible.value = val;
+    };
+
+    const onShowModal = () => {
+      visible.value = true;
+    };
+
+    const onChange = (values: AuthRole | AuthRole[] | null | undefined) => {
+      props.change?.(values);
+      props.blur?.();
+    };
+
+    return {
+      visible,
+      options,
+      onUpdateVisible,
+      onShowModal,
+      onChange
+    };
+  },
+  render() {
+    const {
+      $attrs,
+      mode,
+      selected,
+      options,
+      placeholder,
+      allowClear,
+      visible,
+      change,
+      focus,
+      blur,
+      onUpdateVisible,
+      onShowModal,
+      onChange
+    } = this;
+    const classNames = ['oio-role-select'];
+    return createVNode(
+      DefaultSelect,
+      {
+        ...PropRecordHelper.collectionBasicProps($attrs, classNames),
+        mode,
+        selected,
+        options,
+        placeholder,
+        allowClear,
+        allowArrow: false,
+        allowSearch: false,
+        notFoundContent: null,
+        change,
+        focus,
+        blur
+      },
+      {
+        suffix: () => {
+          return [
+            createVNode(OioButton, {
+              icon: 'oinone-apartment-outlined',
+              onClick: onShowModal
+            }),
+            createVNode(RoleModal, {
+              title: translateValueByKey('选择角色'),
+              width: '720px',
+              mode,
+              selected,
+              visible,
+              'onUpdate:visible': onUpdateVisible,
+              onChange
+            })
+          ];
+        }
+      }
+    );
   }
 });
 </script>
-<style lang="scss"></style>

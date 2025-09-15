@@ -3,8 +3,7 @@ import { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { reactive } from 'vue';
-import { useTreeChecked } from '../../quick-utils';
-import { useCheckedAll } from '../../quick-utils/checked-all';
+import { useCheckedAll, useTreeChecked } from '../../quick-utils';
 
 interface InitContext {
   storage: Record<string, OioTreeNode<PamirsDepartment>>;

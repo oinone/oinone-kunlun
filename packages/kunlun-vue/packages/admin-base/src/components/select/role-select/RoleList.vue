@@ -1,11 +1,11 @@
 <script lang="ts">
-import { PamirsEmployee } from '@oinone/kunlun-engine';
+import { AuthRole } from '@oinone/kunlun-engine';
 import { OioList, OioListItem, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, PropType } from 'vue';
-import { useEmployeeList } from './init';
+import { useRoleList } from './init';
 
 export default defineComponent({
-  name: 'EmployeeList',
+  name: 'RoleList',
   components: {},
   props: {
     searchValue: {
@@ -20,14 +20,14 @@ export default defineComponent({
   },
   emits: ['update:checkedKeys'],
   setup(props, { emit, expose }) {
-    const { state, init, onChecked, onCheckedAll, updateCheckedAllState } = useEmployeeList({
+    const { state, init, onChecked, onCheckedAll, updateCheckedAllState } = useRoleList({
       mode: props.selectMode
     });
 
     const filterData = computed(() => {
       const searchValue = props.searchValue;
       if (searchValue) {
-        const filterList: OioListItem<PamirsEmployee>[] = [];
+        const filterList: OioListItem<AuthRole>[] = [];
         for (const item of state.data) {
           if (item.label.indexOf(searchValue) > -1) {
             filterList.push(item);
@@ -45,7 +45,7 @@ export default defineComponent({
       updateListData();
     };
 
-    const onUpdateChecked = (node: OioListItem<PamirsEmployee>, checked: boolean) => {
+    const onUpdateChecked = (node: OioListItem<AuthRole>, checked: boolean) => {
       onChecked(node, checked);
       updateCheckedAllState();
       updateListData();
@@ -70,7 +70,7 @@ export default defineComponent({
   render() {
     const { selectMode, checkedKeys, state, filterData, onUpdateChecked, onUpdateCheckedAll } = this;
     return createVNode(OioList, {
-      class: 'oio-employee-list oio-scrollbar',
+      class: 'oio-role-list oio-scrollbar',
       mode: selectMode,
       list: filterData,
       checkedKeys,

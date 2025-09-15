@@ -1,5 +1,5 @@
 <script lang="ts">
-import { PamirsDepartment, translateValueByKey } from '@oinone/kunlun-engine';
+import { PamirsEmployee, translateValueByKey } from '@oinone/kunlun-engine';
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { computed, createVNode, defineComponent, ref } from 'vue';
@@ -38,7 +38,7 @@ export default defineComponent({
       visible.value = true;
     };
 
-    const onChange = (values: PamirsDepartment | PamirsDepartment[] | null | undefined) => {
+    const onChange = (values: PamirsEmployee | PamirsEmployee[] | null | undefined) => {
       props.change?.(values);
       props.blur?.();
     };
@@ -107,4 +107,3 @@ export default defineComponent({
   }
 });
 </script>
-<style lang="scss"></style>
