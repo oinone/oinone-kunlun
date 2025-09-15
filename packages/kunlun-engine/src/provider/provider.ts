@@ -81,16 +81,16 @@ let initializeTheme = [] as any;
 // 获取当前主题
 export const getCurrentTheme = () => defaultProviderConfig.theme!;
 
-// 当前主题风格是否是紧凑风格
-export const isCompactTheme = () => {
+// 当前主题风格是否是极简风格
+export const isMinimalismTheme = () => {
   const theme = getCurrentTheme();
   if (
-    theme.includes(DefaultThemeName.DARK_COMPACT_LARGE) ||
-    theme.includes(DefaultThemeName.DARK_COMPACT_MEDIUM) ||
-    theme.includes(DefaultThemeName.DARK_COMPACT_SMALL) ||
-    theme.includes(DefaultThemeName.DEFAULT_COMPACT_LARGE) ||
-    theme.includes(DefaultThemeName.DEFAULT_COMPACT_MEDIUM) ||
-    theme.includes(DefaultThemeName.DEFAULT_COMPACT_SMALL)
+    theme.includes(DefaultThemeName.DARK_MINIMALISM_LARGE) ||
+    theme.includes(DefaultThemeName.DARK_MINIMALISM_MEDIUM) ||
+    theme.includes(DefaultThemeName.DARK_MINIMALISM_SMALL) ||
+    theme.includes(DefaultThemeName.DEFAULT_MINIMALISM_LARGE) ||
+    theme.includes(DefaultThemeName.DEFAULT_MINIMALISM_MEDIUM) ||
+    theme.includes(DefaultThemeName.DEFAULT_MINIMALISM_SMALL)
   ) {
     return true;
   }
@@ -309,7 +309,8 @@ export async function OioProvider(
     systemMajorConfig = await getMajorConfig();
     setSystemMajorConfig(systemMajorConfig);
   }
-  const { loginBackground, loginPageLogo, loginLayoutType, mode, size, favicon, extend } = systemMajorConfig || {};
+  const { loginBackground, loginPageLogo, loginLayoutType, mode, size, favicon, extend, style } =
+    systemMajorConfig || {};
 
   if (extend) {
     defaultProviderConfig.extend = defaultProviderConfig.extend ?? {};
@@ -363,8 +364,12 @@ export async function OioProvider(
 
   OioProvider.setLoginTheme(loginTheme);
 
-  const _mode = kebabCase(mode || 'default');
-  // const _mode = 'default-compact';
+  let _mode = kebabCase(mode || 'default');
+
+  if (style && style !== 'CLASSIC') {
+    _mode = `${_mode}-${style.toLocaleLowerCase()}`;
+  }
+
   const _size = (size || 'medium').toLocaleLowerCase();
 
   // 初始化主题变量

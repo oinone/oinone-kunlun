@@ -1,6 +1,17 @@
 <template>
   <div class="system-style system-setting-page-view">
     <div class="system-style-left">
+      <!-- 主题风格 -->
+      <div class="oio-group oio-default-group">
+        <div class="oio-group-title-wrapper">
+          <div class="oio-group-title">{{ translateValueByKey('主题风格') }}</div>
+        </div>
+        <a-radio-group v-model:value="style">
+          <a-radio style="color: var(--oio-text-color)" value="minimalism">{{ translateValueByKey('极简') }}</a-radio>
+          <a-radio style="color: var(--oio-text-color)" value="classic">{{ translateValueByKey('经典') }}</a-radio>
+        </a-radio-group>
+      </div>
+
       <!-- 主题模式 -->
       <div class="oio-group oio-default-group">
         <div class="oio-group-title-wrapper">
@@ -246,6 +257,7 @@ const loginPageRef = ref<HTMLElement>('' as any);
 const hostRef = ref();
 const mode = ref('default');
 const size = ref('medium');
+const style = ref('classic');
 const currentMenuColor = ref(SideBarThemeColor.default);
 const currentSidebar = ref(SideBarTheme.side1);
 
@@ -262,10 +274,14 @@ const inline = ref(false); // 多 tab 是否内联
  * 数据回填
  */
 watchEffect(() => {
-  const { mode: m, size: s, multiTabTheme, sideBarTheme, extend } = props.systemConfig;
+  const { mode: m, size: s, multiTabTheme, sideBarTheme, extend, style: sysStyle } = props.systemConfig;
 
   if (m) {
     mode.value = kebabCase(m);
+  }
+
+  if (sysStyle) {
+    style.value = sysStyle.toLocaleLowerCase();
   }
 
   if (s) {

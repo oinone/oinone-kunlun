@@ -23,6 +23,7 @@ export interface MajorConfig {
   loginLayoutType: any; // 登录页布局主题
   mode: any; // 主题
   size: string; // 主题大小
+  style?: string; // 主题风格
   // 侧边栏主题
   sideBarTheme?: OioProviderProps['sideBarTheme'];
   // 多tab主题
@@ -85,10 +86,10 @@ export enum OioLoginThemeName {
 export enum SideBarThemeColor {
   // 默认
   default = 'default',
-  'default-compact' = 'default-compact',
+  'default-minimalism' = 'default-minimalism',
   // 深色
   dark = 'dark',
-  'dark-compact' = 'dark-compact'
+  'dark-minimalism' = 'dark-minimalism'
 }
 
 /**

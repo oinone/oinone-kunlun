@@ -3,7 +3,7 @@ import {
   ActiveRecords,
   ConfigHelper,
   getRelationFieldKey,
-  isCompactTheme,
+  isMinimalismTheme,
   isRelatedField,
   ModelCache,
   parseConfigs,
@@ -312,7 +312,7 @@ export abstract class FormSelectComplexFieldWidget<
       return this.selectRuntimeConfig().searchArea!;
     }
 
-    return isCompactTheme() ? SelectSearchArea.Dropdown : SelectSearchArea.Default;
+    return isMinimalismTheme() ? SelectSearchArea.Dropdown : SelectSearchArea.Default;
   }
 
   @Widget.Reactive()

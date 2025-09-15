@@ -11,32 +11,32 @@ export enum DefaultThemeName {
   DEFAULT_MEDIUM = 'default-medium',
   DEFAULT_SMALL = 'default-small',
 
-  DEFAULT_COMPACT_LARGE = 'default-compact-large',
-  DEFAULT_COMPACT_MEDIUM = 'default-compact-medium',
-  DEFAULT_COMPACT_SMALL = 'default-compact-small',
+  DEFAULT_MINIMALISM_LARGE = 'default-minimalism-large',
+  DEFAULT_MINIMALISM_MEDIUM = 'default-minimalism-medium',
+  DEFAULT_MINIMALISM_SMALL = 'default-minimalism-small',
 
   DARK_LARGE = 'dark-large',
   DARK_MEDIUM = 'dark-medium',
   DARK_SMALL = 'dark-small',
 
-  DARK_COMPACT_LARGE = 'dark-compact-large',
-  DARK_COMPACT_MEDIUM = 'dark-compact-medium',
-  DARK_COMPACT_SMALL = 'dark-compact-small'
+  DARK_MINIMALISM_LARGE = 'dark-minimalism-large',
+  DARK_MINIMALISM_MEDIUM = 'dark-minimalism-medium',
+  DARK_MINIMALISM_SMALL = 'dark-minimalism-small'
 }
 
 export type ThemeName =
   | 'default-large'
   | 'default-medium'
   | 'default-small'
-  | 'default-compact-large'
-  | 'default-compact-medium'
-  | 'default-compact-small'
+  | 'default-minimalism-large'
+  | 'default-minimalism-medium'
+  | 'default-minimalism-small'
   | 'dark-large'
   | 'dark-medium'
   | 'dark-small'
-  | 'dark-compact-large'
-  | 'dark-compact-medium'
-  | 'dark-compact-small'
+  | 'dark-minimalism-large'
+  | 'dark-minimalism-medium'
+  | 'dark-minimalism-small'
   | string;
 
 export const isSystemTheme = (name: ThemeName) => {

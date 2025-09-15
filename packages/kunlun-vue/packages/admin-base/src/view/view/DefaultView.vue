@@ -5,7 +5,7 @@ import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { PropRecordHelper, StableSlotProp } from '@oinone/kunlun-vue-ui-common';
 import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { isCompactTheme } from '@oinone/kunlun-engine';
+import { isMinimalismTheme } from '@oinone/kunlun-engine';
 import { ViewBizStyle } from '../../typing';
 
 export default defineComponent({
@@ -52,8 +52,8 @@ export default defineComponent({
 
     if (bizStyle) {
       classList.push(`${DEFAULT_PREFIX}-default-${bizStyle.toLowerCase()}-view`);
-    } else if (isCompactTheme() && !this.inline && viewType !== ViewType.Search) {
-      classList.push(`${DEFAULT_PREFIX}-default-compact-view`);
+    } else if (isMinimalismTheme() && !this.inline && viewType !== ViewType.Search) {
+      classList.push(`${DEFAULT_PREFIX}-default-minimalism-view`);
     }
 
     return withDirectives(

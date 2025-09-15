@@ -100,7 +100,7 @@ export default defineComponent({
   }
 }
 
-.oio-default-compact-view {
+.oio-default-minimalism-view {
   .default-view-control-icon-has-action-bar {
     right: var(--oio-padding);
     bottom: 100%;
