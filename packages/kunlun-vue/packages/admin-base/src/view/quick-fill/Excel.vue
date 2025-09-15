@@ -97,27 +97,6 @@ const props = defineProps<{
   rowCount: number; // 行数
 }>();
 
-defineExpose({
-  getCells() {
-    return cells.value;
-  },
-  setCells(value) {
-    cells.value = value;
-  },
-  getCellStatus() {
-    return hasChangeCellValue.value;
-  },
-  resetExcel() {
-    cells.value = {};
-    selectedCell.value = '';
-    editingCell.value = null;
-    selectionStart.value = null;
-    selectionEnd.value = null;
-    selectionRange.value = new Set();
-    hasChangeCellValue.value = false;
-  }
-});
-
 const cellWidth = 110; // 单元格宽度
 const cellHeight = 30; // 单元格高度
 const colCount = computed(() => props.modelFields.length || 0); // 列数
@@ -154,13 +133,17 @@ const selectionStart = ref<CellId | null>(null); // 框选的起始单元格
 const selectionEnd = ref<CellId | null>(null); // 框选的结束单元格 (即当前鼠标位置)
 const selectionRange = ref<Set<CellId>>(new Set()); // 存储当前选区内的所有单元格 ID
 
+const initTableHeaderValues = () => {
+  tableHeaderValues.value = props.modelFields.map((v) => ({
+    value: v.name,
+    label: v.displayName || v.label || ''
+  }));
+};
+
 watch(
   () => props.modelFields,
   () => {
-    tableHeaderValues.value = props.modelFields.map((v) => ({
-      value: v.name,
-      label: v.displayName || v.label || ''
-    }));
+    initTableHeaderValues();
   },
   { immediate: true, deep: true }
 );
@@ -182,9 +165,7 @@ const rows = Array.from({ length: props.rowCount }, (_, i) => i + 1);
 
 // 修改表头
 const onChangeTableHeader = (value, index) => {
-  if (value === NON_CUT) {
-    return;
-  }
+  tableHeaderValues.value[index].value = value;
 
   tableHeaderValues.value.forEach((v, idx) => {
     if (v.value === value && index !== idx) {
@@ -601,6 +582,63 @@ const handlePaste = (event: ClipboardEvent): void => {
     stopEditing();
   }
 };
+
+const convertCellsToArray = (obj: Record<CellId, string>) => {
+  const result = [] as (string | null)[][];
+  const rows = new Set();
+  let maxRow = 0;
+  let maxCol = 0;
+
+  // 收集所有行号和列号，并计算最大行和最大列
+  Object.keys(obj).forEach((key) => {
+    const [row, col] = key.split('-').map(Number);
+    rows.add(row);
+    if (row > maxRow) maxRow = row;
+    if (col > maxCol) maxCol = col;
+  });
+
+  // 从第1行到最大行，依次处理
+  for (let row = 1; row <= maxRow; row++) {
+    const currentRow = [] as (string | null)[];
+    // 从第1列到最大列，检查是否存在该键
+    for (let col = 1; col <= maxCol; col++) {
+      const key = `${row}-${col}`;
+      currentRow.push(obj.hasOwnProperty(key) ? obj[key] : null);
+    }
+    result.push(currentRow);
+  }
+
+  return result;
+};
+
+defineExpose({
+  getOriginCells() {
+    return cells.value;
+  },
+  getCells() {
+    return convertCellsToArray(cells.value);
+  },
+  getTableHeaderValues() {
+    return tableHeaderValues.value;
+  },
+  setCells(value) {
+    cells.value = value;
+  },
+  getCellStatus() {
+    return hasChangeCellValue.value;
+  },
+  resetExcel() {
+    cells.value = {};
+    selectedCell.value = '';
+    editingCell.value = null;
+    selectionStart.value = null;
+    selectionEnd.value = null;
+    selectionRange.value = new Set();
+    hasChangeCellValue.value = false;
+    tableHeaderValues.value = [];
+    initTableHeaderValues();
+  }
+});
 
 // ======== 生命周期 =========
 onMounted(() => {

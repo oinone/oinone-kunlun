@@ -2,7 +2,14 @@ import { kebabCase } from 'lodash-es';
 import { PluginsLoader, PluginsLoaderConfig, RuntimeConfig } from '@oinone/kunlun-meta';
 import { HttpClient } from '@oinone/kunlun-request';
 import { blockingSerialExecutor, instantiate, isMobile, MatrixRouteHelper } from '@oinone/kunlun-shared';
-import { DefaultThemeName, genCSSVars, initOioComponentTheme, ThemeName, ThemeSize } from '@oinone/kunlun-theme';
+import {
+  DefaultThemeName,
+  genCSSVars,
+  initOioComponentTheme,
+  isSystemTheme,
+  ThemeName,
+  ThemeSize
+} from '@oinone/kunlun-theme';
 import { RuntimeContextManager } from '../runtime-context/runtime-context-manager';
 import { genStaticPath } from '../util/resources';
 import { MultiTabsRuntimeManifestMergedConfigManager, MultiTabTheme } from '../view';
@@ -73,6 +80,23 @@ let initializeTheme = [] as any;
 
 // 获取当前主题
 export const getCurrentTheme = () => defaultProviderConfig.theme!;
+
+// 当前主题风格是否是紧凑风格
+export const isCompactTheme = () => {
+  const theme = getCurrentTheme();
+  if (
+    theme.includes(DefaultThemeName.DARK_COMPACT_LARGE) ||
+    theme.includes(DefaultThemeName.DARK_COMPACT_MEDIUM) ||
+    theme.includes(DefaultThemeName.DARK_COMPACT_SMALL) ||
+    theme.includes(DefaultThemeName.DEFAULT_COMPACT_LARGE) ||
+    theme.includes(DefaultThemeName.DEFAULT_COMPACT_MEDIUM) ||
+    theme.includes(DefaultThemeName.DEFAULT_COMPACT_SMALL)
+  ) {
+    return true;
+  }
+
+  return false;
+};
 
 // 获取当前主题大小
 export const getCurrentThemeSize = (): ThemeSize | undefined => {
@@ -340,6 +364,7 @@ export async function OioProvider(
   OioProvider.setLoginTheme(loginTheme);
 
   const _mode = kebabCase(mode || 'default');
+  // const _mode = 'default-compact';
   const _size = (size || 'medium').toLocaleLowerCase();
 
   // 初始化主题变量

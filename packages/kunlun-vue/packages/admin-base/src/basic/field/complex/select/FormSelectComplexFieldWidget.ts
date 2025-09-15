@@ -2,9 +2,8 @@ import {
   ActiveRecord,
   ActiveRecords,
   ConfigHelper,
-  getCurrentTheme,
   getRelationFieldKey,
-  isModernTheme,
+  isCompactTheme,
   isRelatedField,
   ModelCache,
   parseConfigs,
@@ -313,7 +312,7 @@ export abstract class FormSelectComplexFieldWidget<
       return this.selectRuntimeConfig().searchArea!;
     }
 
-    return isModernTheme() ? SelectSearchArea.Dropdown : SelectSearchArea.Default;
+    return isCompactTheme() ? SelectSearchArea.Dropdown : SelectSearchArea.Default;
   }
 
   @Widget.Reactive()

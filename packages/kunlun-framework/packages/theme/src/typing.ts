@@ -11,17 +11,17 @@ export enum DefaultThemeName {
   DEFAULT_MEDIUM = 'default-medium',
   DEFAULT_SMALL = 'default-small',
 
-  DEFAULT_MODERN_LARGE = 'default-compact-large',
-  DEFAULT_MODERN_MEDIUM = 'default-compact-medium',
-  DEFAULT_MODERN_SMALL = 'default-compact-small',
+  DEFAULT_COMPACT_LARGE = 'default-compact-large',
+  DEFAULT_COMPACT_MEDIUM = 'default-compact-medium',
+  DEFAULT_COMPACT_SMALL = 'default-compact-small',
 
   DARK_LARGE = 'dark-large',
   DARK_MEDIUM = 'dark-medium',
   DARK_SMALL = 'dark-small',
 
-  DARK_MODERN_LARGE = 'dark-compact-large',
-  DARK_MODERN_MEDIUM = 'dark-compact-medium',
-  DARK_MODERN_SMALL = 'dark-compact-small'
+  DARK_COMPACT_LARGE = 'dark-compact-large',
+  DARK_COMPACT_MEDIUM = 'dark-compact-medium',
+  DARK_COMPACT_SMALL = 'dark-compact-small'
 }
 
 export type ThemeName =

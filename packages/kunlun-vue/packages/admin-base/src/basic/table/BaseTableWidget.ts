@@ -476,7 +476,7 @@ export class BaseTableWidget<
     return undefined;
   }
 
-  protected updateSubviewFieldWidget(context: RowContext, data: ActiveRecord) {
+  public updateSubviewFieldWidget(context: RowContext, data: ActiveRecord) {
     Optional.ofNullable(this.metadataRuntimeContext.field)
       .filter<RuntimeO2MField | RuntimeM2MField>((v) => isRelation2MField(v!))
       .ifPresent((field) => {
@@ -501,7 +501,7 @@ export class BaseTableWidget<
       });
   }
 
-  protected createSubviewFieldWidget(context: RowContext, data: ActiveRecord) {
+  public createSubviewFieldWidget(context: RowContext, data: ActiveRecord) {
     Optional.ofNullable(this.metadataRuntimeContext.field)
       .filter<RuntimeO2MField | RuntimeM2MField>((v) => isRelation2MField(v!))
       .ifPresent((field) => {

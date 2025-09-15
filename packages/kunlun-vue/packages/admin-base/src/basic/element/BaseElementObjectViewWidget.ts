@@ -27,8 +27,8 @@ import {
 import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isFunction, isNil, isPlainObject, isString } from 'lodash-es';
-import { isValidatorError } from '../../typing';
-import { FETCH_DRAFT_DATA_WIDGET_PRIORITY, validatorCallChainingCallAfterFn } from '../constant';
+import { DetailBizStyle, FormBizStyle, isValidatorError } from '../../typing';
+import { validatorCallChainingCallAfterFn } from '../constant';
 import { BaseFieldWidget, BaseView } from '../token';
 import { HandlerEvent as FieldHandlerEvent } from '../token/BaseFieldWidget';
 import { RefreshProcessFunction } from '../types';
@@ -48,6 +48,12 @@ interface FieldWidgetEntity {
 export class BaseElementObjectViewWidget<
   Props extends BaseElementObjectViewWidgetProps = BaseElementObjectViewWidgetProps
 > extends BaseElementViewWidget<Props> {
+  @Widget.Provide()
+  @Widget.Reactive()
+  public get bizStyle(): DetailBizStyle | FormBizStyle | undefined {
+    return this.getDsl().bizStyle;
+  }
+
   @Widget.Reactive()
   protected currentSubmitCallChaining: CallChaining<SubmitValue> | undefined;
 
