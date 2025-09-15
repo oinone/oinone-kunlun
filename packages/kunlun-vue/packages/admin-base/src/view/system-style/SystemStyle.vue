@@ -379,11 +379,12 @@ const onHomepageAutoInvisibleChange = (value: any) => {
 };
 
 watch(
-  () => [mode.value, size.value, currentMenuColor.value, currentSidebar.value, theme.value, inline.value],
+  () => [mode.value, size.value, currentMenuColor.value, currentSidebar.value, theme.value, inline.value, style.value],
   (arr) => {
-    const [m, s, menuColor, menuTheme, theme, inline] = arr;
+    const [m, s, menuColor, menuTheme, theme, inline, style] = arr;
     props.systemConfig.mode = (m as string).toLocaleUpperCase();
     props.systemConfig.size = (s as string).toLocaleUpperCase();
+    props.systemConfig.style = (style as string).toLocaleUpperCase();
     props.systemConfig.sideBarTheme = {
       mode: (menuColor as string).toLocaleUpperCase() as SideBarThemeColor,
       theme: menuTheme as SideBarTheme
