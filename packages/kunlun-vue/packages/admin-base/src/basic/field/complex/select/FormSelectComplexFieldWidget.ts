@@ -1,7 +1,10 @@
 import {
   ActiveRecord,
   ActiveRecords,
+  ConfigHelper,
+  getCurrentTheme,
   getRelationFieldKey,
+  isModernTheme,
   isRelatedField,
   ModelCache,
   parseConfigs,
@@ -12,7 +15,15 @@ import {
   RuntimeRelationField,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { deepClone, Entity, IModel, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
+import {
+  deepClone,
+  Entity,
+  IModel,
+  isEmptyValue,
+  ModelType,
+  RuntimeConfig,
+  RuntimeConfigOptions
+} from '@oinone/kunlun-meta';
 import { Condition, ObjectValue } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, IQueryPageOption, IQueryPageResult, queryOne } from '@oinone/kunlun-service';
 import { CastHelper, NumberHelper } from '@oinone/kunlun-shared';
@@ -27,6 +38,11 @@ import { isEmpty, isNil, isNumber, isPlainObject, isString, toInteger } from 'lo
 import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
 import { FormComplexFieldProps } from '../FormComplexFieldWidget';
 import { BaseSelectFieldWidget } from './BaseSelectFieldWidget';
+import { SelectSearchArea } from '../../../types';
+
+interface SelectRuntimeConfig extends RuntimeConfigOptions {
+  searchArea?: SelectSearchArea;
+}
 
 /**
  * 关系字段下拉选的抽象类
@@ -43,6 +59,10 @@ export abstract class FormSelectComplexFieldWidget<
   protected selectedValues!: Record<string, unknown>[]; // 多选选中的值
 
   protected timeout;
+
+  protected selectRuntimeConfig(): SelectRuntimeConfig {
+    return ConfigHelper.getConfig(RuntimeConfig.getConfig('select'));
+  }
 
   @Widget.Reactive()
   protected searchValue = '';
@@ -281,6 +301,19 @@ export abstract class FormSelectComplexFieldWidget<
       return true;
     }
     return allowClear;
+  }
+
+  /**
+   * 搜索所在区域
+   * 值域：「搜索框内、下拉框内」
+   */
+  @Widget.Reactive()
+  protected get searchArea(): SelectSearchArea {
+    if (this.selectRuntimeConfig().searchArea) {
+      return this.selectRuntimeConfig().searchArea!;
+    }
+
+    return isModernTheme() ? SelectSearchArea.Dropdown : SelectSearchArea.Default;
   }
 
   @Widget.Reactive()

@@ -1,8 +1,9 @@
-import { darkModernVars } from '../../color';
 import { registerTheme } from '../../register';
-import { defaultLargeSizeVars, defaultMediumSizeVars, defaultSmallSizeVars } from '../../size';
 import { ThemeSize } from '../../typing';
 import { getComponentTheme } from './component-theme';
+
+import { defaultModernVars } from '../../color';
+import { defaultLargeSizeVars, defaultMediumSizeVars, defaultSmallSizeVars } from '../../size';
 
 function registerComponentThemeWithBase(baseCssVars) {
   return function registerComponentTheme(
@@ -21,7 +22,7 @@ function registerDefaultTheme(size: ThemeSize) {
     size === 'large' ? defaultLargeSizeVars : size === 'medium' ? defaultMediumSizeVars : defaultSmallSizeVars;
 
   const cssVars = {
-    ...darkModernVars,
+    ...defaultModernVars,
     ...defaultSizeVars
   };
 
@@ -44,18 +45,18 @@ function registerDefaultTheme(size: ThemeSize) {
    *   .....
    * }
    */
-  const componentTheme = getComponentTheme();
 
+  const componentTheme = getComponentTheme();
   Object.entries(componentTheme).forEach(([key, value]) => {
     if (value[size]) {
       registerComponentTheme(key, value[size]);
     }
   });
 
-  registerTheme(`dark-modern-${size}`, cssVars);
+  registerTheme(`default-compact-${size}`, cssVars);
 }
 
-export function registerDarkModernThemeFn() {
+export function registerDefaultModernThemeFn() {
   registerDefaultTheme('large');
   registerDefaultTheme('medium');
   registerDefaultTheme('small');

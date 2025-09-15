@@ -87,3 +87,8 @@ export interface FormValidateResult {
   path: string;
   message?: string;
 }
+
+export enum SelectSearchArea {
+  Default = 'default',
+  Dropdown = 'Dropdown'
+}

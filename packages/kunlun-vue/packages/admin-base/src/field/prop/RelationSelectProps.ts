@@ -1,7 +1,7 @@
 import { computed, PropType, ref, onBeforeUnmount, onBeforeMount } from 'vue';
 import { delay } from 'lodash-es';
 import { BooleanHelper } from '@oinone/kunlun-shared';
-import { usePlaceholderProps } from '../../basic';
+import { SelectSearchArea, usePlaceholderProps } from '../../basic';
 
 export const RelationSelectProps = {
   dropdownClassName: {
@@ -90,6 +90,10 @@ export const RelationSelectProps = {
   },
   getPopupContainer: {
     type: Function
+  },
+  searchArea: {
+    type: String as PropType<SelectSearchArea>,
+    default: SelectSearchArea.Default
   }
 };
 
@@ -169,6 +173,7 @@ export function relationSelectSetup(props) {
   });
 
   return {
+    SelectSearchArea,
     placeholder,
     innerReadonly,
     innerDisabled,

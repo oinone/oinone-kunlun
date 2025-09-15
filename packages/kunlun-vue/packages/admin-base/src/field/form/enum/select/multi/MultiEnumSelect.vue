@@ -6,6 +6,7 @@
         class="oio-select"
         mode="multiple"
         dropdownClassName="oio-select-dropdown"
+        :show-search="false"
         :placeholder="placeholder"
         :allowClear="allowClear"
         :filter-option="false"

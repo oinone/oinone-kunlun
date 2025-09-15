@@ -1,4 +1,4 @@
 export * from './default';
-export * from './default-modern';
+export * from './default-compact';
 export * from './dark';
-export * from './dark-modern';
+export * from './dark-compact';

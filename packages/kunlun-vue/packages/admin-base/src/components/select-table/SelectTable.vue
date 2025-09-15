@@ -14,6 +14,7 @@
     :placeholder="placeholder"
     :get-popup-container="getTriggerContainer"
     :dropdownClassName="dropdownTableClassName"
+    :show-search="showSearch && searchArea === SelectSearchArea.Default"
     :open="dropdownOpen"
     @change="innerChange"
     @blur="blur"
@@ -26,7 +27,13 @@
         <v-nodes :vnodes="menu" />
       </div>
       <div class="select-table-dropdown">
-        <oio-input ref="dropdownInputRef" :placeholder="placeholder" :value="searchValue" @change="search">
+        <oio-input
+          v-if="showSearch && searchArea === SelectSearchArea.Dropdown"
+          ref="dropdownInputRef"
+          :placeholder="placeholder"
+          :value="searchValue"
+          @change="search"
+        >
           <template #prefix>
             <oio-icon icon="oinone-sousuo2" size="16"></oio-icon>
           </template>
@@ -64,16 +71,15 @@
   </a-select>
 </template>
 <script lang="ts">
-import { computed, defineComponent, nextTick, onBeforeMount, onBeforeUnmount, Prop, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue';
 import { Select as ASelect } from 'ant-design-vue';
 import { delay } from 'lodash-es';
-import { OioSpin, OioEmptyData, OioInput, OioIcon } from '@oinone/kunlun-vue-ui-antd';
+import { OioSpin, OioEmptyData, OioInput, OioIcon, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { OioTable, OioColumn, OioTableInstance, CheckedChangeEvent } from '@oinone/kunlun-vue-ui';
 import { RuntimeModelField } from '@oinone/kunlun-engine';
 import { Entity } from '@oinone/kunlun-meta';
 import { RelationSelectProps, relationSelectSetup } from '../../field/prop';
 import { useInjectOioDefaultFormContext } from '../../basic';
-import { SelectTableMode } from '../../typing';
 
 export default defineComponent({
   inheritAttrs: false,
@@ -198,7 +204,7 @@ export default defineComponent({
      * 单元格点击选中当前行
      */
     const onCellClick = ({ row, triggerCheckbox, triggerRadio }) => {
-      if (props.selectMode !== SelectTableMode.Multiple) {
+      if (props.selectMode !== SelectMode.multiple) {
         selectSetup.dropdownOpen.value = false;
       }
 
@@ -274,7 +280,6 @@ export default defineComponent({
   }
 
   .select-table-dropdown-body {
-    border-top: 1px solid var(--oio-border-color);
     padding: var(--oio-padding-sm);
   }
   .oio-table .vxe-table--render-default.size--mini .vxe-body--column.col--ellipsis,

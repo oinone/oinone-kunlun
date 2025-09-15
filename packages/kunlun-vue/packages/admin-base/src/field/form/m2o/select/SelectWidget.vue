@@ -16,7 +16,7 @@
       <a-select
         class="oio-select"
         label-in-value
-        :show-search="showSearch"
+        :show-search="showSearch && searchArea === SelectSearchArea.Default"
         :allow-clear="allowClear"
         :disabled="innerDisabled"
         :value="currentValue"
@@ -24,6 +24,7 @@
         :default-active-first-option="false"
         :options="optionList"
         :placeholder="placeholder"
+        :open="dropdownOpen"
         :getPopupContainer="getTriggerContainer"
         :dropdownClassName="dropdownClassName"
         @change="change"
@@ -35,6 +36,17 @@
         @popup-scroll="slipSelect"
       >
         <template #dropdownRender="{ menuNode: menu }">
+          <oio-input
+            v-if="showSearch && searchArea === SelectSearchArea.Dropdown"
+            ref="dropdownInputRef"
+            :placeholder="placeholder"
+            :value="searchValue"
+            @change="search"
+          >
+            <template #prefix>
+              <oio-icon icon="oinone-sousuo2" size="16"></oio-icon>
+            </template>
+          </oio-input>
           <v-nodes :vnodes="menu" />
           <div class="form-relation-select-dropdown-spin">
             <oio-spin v-if="loadMoreLoading" size="small" loading />
@@ -52,7 +64,7 @@
 </template>
 <script lang="ts">
 import { CheckOutlined } from '@ant-design/icons-vue';
-import { OioSpin, OioEmptyData } from '@oinone/kunlun-vue-ui-antd';
+import { OioSpin, OioEmptyData, OioInput, OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineComponent, ref, watch } from 'vue';
 import { Select as ASelect } from 'ant-design-vue';
 import { useInjectOioDefaultFormContext } from '../../../../basic';
@@ -74,7 +86,9 @@ export default defineComponent({
     CheckOutlined,
     OioEmptyData,
     OioSpin,
-    ASelect
+    ASelect,
+    OioInput,
+    OioIcon
   },
   setup(props) {
     const optionList = ref<Record<string, unknown>[]>([]);
