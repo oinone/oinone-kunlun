@@ -9,6 +9,6 @@ export enum DetailBizStyle {
 }
 
 export enum FormBizStyle {
-  NONE = 'NONE',
+  COMMON = 'COMMON', // 默认风格
   WORD = 'WORD' // word 风格
 }

@@ -46,11 +46,17 @@ export default defineComponent({
     if (this.inline) {
       classList.push(`${DEFAULT_PREFIX}-default-view-inline`);
     }
+
+    // 全屏
     if (fullScreen) {
       classList.push(`${DEFAULT_PREFIX}-full-screen-view`);
     }
 
+    // 视图风格
     if (bizStyle) {
+      if (bizStyle === ViewBizStyle.COMPACT) {
+        classList.push(`${DEFAULT_PREFIX}-default-minimalism-view`);
+      }
       classList.push(`${DEFAULT_PREFIX}-default-${bizStyle.toLowerCase()}-view`);
     } else if (isMinimalismTheme() && !this.inline && viewType !== ViewType.Search) {
       classList.push(`${DEFAULT_PREFIX}-default-minimalism-view`);

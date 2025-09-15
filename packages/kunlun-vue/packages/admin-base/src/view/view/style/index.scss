@@ -112,6 +112,11 @@ $treeMinWidth: 324px;
   width: 100vw;
   height: 100vh;
   background-color: var(--oio-background);
+  z-index: 10;
+
+  &.oio-default-view-inline {
+    padding: var(--oio-padding) 0;
+  }
 }
 
 .oio-draft-data-modal-confirm {
@@ -152,15 +157,10 @@ $treeMinWidth: 324px;
     }
 
     .oio-tabs {
-      box-shadow: unset;
       &.ant-tabs-top {
         .ant-tabs-nav {
           padding-left: 0;
         }
-      }
-
-      .oio-tab-top-content {
-        padding: var(--oio-padding) 0;
       }
     }
 

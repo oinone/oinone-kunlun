@@ -7,6 +7,11 @@
         row-gap: 0 !important;
       }
 
+      .default-container-wrapper {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+
       // region 分组、折叠面板、选项卡
       .oio-col {
         padding-left: 0 !important;
@@ -45,6 +50,10 @@
         align-items: stretch;
       }
 
+      &.ant-form-vertical .oio-form-item-horizontal > .ant-form-item-control {
+        max-width: unset;
+      }
+
       &.ant-form-vertical .oio-form-item-vertical > .ant-form-item-label {
         margin: 0;
       }
@@ -77,6 +86,21 @@
         .form-rich-text .w-e-toolbar,
         .form-rich-text .w-e-text-container {
           border: none !important;
+        }
+
+        .oio-select-dropdown .oio-input {
+          border: 0;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+          border-radius: 0;
+          border-bottom: 1px solid var(--oio-border-color);
+        }
+
+        .ant-select-selector {
+          & > .ant-select-selection-search > input {
+            height: var(--oio-height);
+            line-height: var(--oio-select-line-height);
+          }
         }
       }
 
@@ -129,6 +153,11 @@
 
           .form-multi-string-tag {
             justify-self: center;
+          }
+
+          .oio-select-dropdown .oio-input {
+            border-bottom: 1px solid var(--oio-border-color) !important;
+            padding: 0 var(--oio-padding-sm);
           }
         }
       }
@@ -193,6 +222,28 @@
 
           .ant-select-selection-search {
             padding: 0 !important;
+          }
+
+          .oio-select-dropdown .oio-input {
+            border-bottom: 1px solid var(--oio-border-color) !important;
+            padding: 0 var(--oio-padding-sm);
+          }
+
+          .form-multi-select {
+            .ant-select-selector {
+              padding: 0;
+            }
+          }
+
+          .ant-select-selector {
+            &:not(:has(.ant-select-selection-overflow .ant-select-selection-item)) {
+              .ant-select-selection-overflow-item {
+                display: none;
+              }
+              .ant-select-selection-placeholder {
+                left: 0;
+              }
+            }
           }
         }
       }

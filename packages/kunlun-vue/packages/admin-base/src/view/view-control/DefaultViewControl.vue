@@ -32,6 +32,8 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
+$bottom: calc(100% + var(--oio-row-gap) / 2);
+
 .oio-group-toolbar-flex-end {
   .default-view-control-icon {
     &.default-view-control-icon-has-action {
@@ -44,14 +46,14 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: var(--oio-row-gap);
+  margin-bottom: calc(var(--oio-row-gap) / 2);
   justify-content: flex-end;
 
   &.default-view-control-icon-has-action {
     position: absolute;
     right: 0;
     margin-bottom: 0;
-    bottom: calc(100% + var(--oio-row-gap));
+    bottom: $bottom;
   }
 
   &.default-view-control-icon-left {
@@ -59,7 +61,7 @@ export default defineComponent({
     left: 0;
     right: unset;
     margin-bottom: 0;
-    bottom: calc(100% + var(--oio-row-gap));
+    bottom: $bottom;
   }
 
   .default-view-control-icon-inner {
@@ -104,6 +106,16 @@ export default defineComponent({
   .default-view-control-icon-has-action-bar {
     right: var(--oio-padding);
     bottom: 100%;
+  }
+
+  .oio-default-view-inline {
+    .default-view-control-icon-has-action-bar {
+      right: 0;
+      bottom: $bottom;
+    }
+    .default-view-control-icon {
+      margin-bottom: calc(var(--oio-row-gap) / 2);
+    }
   }
 }
 
