@@ -257,7 +257,7 @@ const loginPageRef = ref<HTMLElement>('' as any);
 const hostRef = ref();
 const mode = ref('default');
 const size = ref('medium');
-const style = ref('classic');
+const style = ref();
 const currentMenuColor = ref(SideBarThemeColor.default);
 const currentSidebar = ref(SideBarTheme.side1);
 

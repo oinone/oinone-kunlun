@@ -77,6 +77,7 @@ export class SystemStyleWidget extends BaseElementWidget {
             mode
             size
             extend 
+            style
             sideBarTheme {
               mode
               theme
