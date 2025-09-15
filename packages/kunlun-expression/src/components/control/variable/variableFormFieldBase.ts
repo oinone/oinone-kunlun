@@ -141,7 +141,7 @@ export const IVariableFormFieldProps = {
   },
   // 操作符类型
   compareOperatorOption: {
-    type: String
+    type: Object
   }
 };
 
@@ -268,7 +268,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     if (!props.showVariableType) {
       list = list.filter((a) => a.value !== VariableItemType.VARIABLE);
     }
-    const vt = list.find((_a) => _a.value == variableType.value);
+    const vt = list.find((_a) => _a.value === variableType.value);
     if (!vt && list.length) {
       variableType.value = list[0].value as VariableItemType;
       context.emit('changeVariableType', variableType.value);
@@ -370,7 +370,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
       props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_BETWEEN_AND
     );
   });
-  
+
   const isInSetOperator = computed(()=>{
     return (
       props.compareOperatorOption?.value === BooleanConditionComparisonOperator.IN_SET ||
@@ -393,7 +393,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
       variableType.value,
       props.ttypes,
       props.useContextName
-    );
+    ) as IVariableItem;
     variableItemList.value.push(variableItem);
 
     isShowDropdown.value = false;

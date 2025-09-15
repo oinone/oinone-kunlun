@@ -41,7 +41,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, onUpdated, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, onUpdated, PropType, Ref, ref, watch } from 'vue';
 import { isNil } from 'lodash-es';
 import { Pagination } from '@oinone/kunlun-engine';
 import { ExpressionKeyword } from '@oinone/kunlun-expression';
@@ -141,7 +141,7 @@ export default defineComponent({
     const selectedValues = ref([] as string[]);
 
     // 搜索过滤-仅前端
-    const searchFilterOptions = ref([]);
+    const searchFilterOptions: Ref<Record<string, any>[]> = ref([]);
 
     const optionsList = computed(() => {
       const list = [] as IExpSelectOption[][];
@@ -215,7 +215,13 @@ export default defineComponent({
      * @desc 遍历所有叶子节点，找到包含keyword的options返回
      * @returns Record<string,any>[]
      */
-    function optionsSearchWalk(keyword, optionsList, parent = null, walkList = [], res = []) {
+    function optionsSearchWalk(
+      keyword,
+      optionsList,
+      parent = null,
+      walkList: string[] = [],
+      res: Record<string, any>[] = []
+    ) {
       if (optionsList === []) {
         return [];
       }
@@ -253,7 +259,7 @@ export default defineComponent({
       return res;
     }
 
-    async function buildStartOptions(options, deep: number = 0, loadOptionsList = []) {
+    async function buildStartOptions(options, deep = 0, loadOptionsList: Record<string, any>[] = []) {
       if (deep >= 3) {
         return;
       }
@@ -267,7 +273,7 @@ export default defineComponent({
     }
 
     function buildSubmitOptions(targetOption) {
-      let res = [];
+      let res: Record<string, any>[] = [];
       let ob = targetOption;
       while (ob !== null) {
         res.push(ob);
