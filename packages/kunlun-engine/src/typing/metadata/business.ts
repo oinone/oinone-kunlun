@@ -1,4 +1,5 @@
 import { DataStatusEnum } from '@oinone/kunlun-meta';
+import { ActiveRecord } from '../active-record';
 import { BizCodeModel } from './base';
 
 export enum StaffSize {
@@ -12,7 +13,7 @@ export enum StaffSize {
   SS_2000 = '>2000'
 }
 
-export interface PamirsCompany extends BizCodeModel {
+export interface PamirsCompany extends BizCodeModel, ActiveRecord {
   name?: string;
   /**
    * {@link StaffSize}
@@ -31,7 +32,7 @@ export interface PamirsCompany extends BizCodeModel {
   employeeList?: PamirsEmployee[];
 }
 
-export interface PamirsDepartment extends BizCodeModel {
+export interface PamirsDepartment extends BizCodeModel, ActiveRecord {
   name?: string;
   description?: string;
   dataStatus?: DataStatusEnum;
@@ -48,7 +49,7 @@ export interface PamirsDepartment extends BizCodeModel {
   employeeList?: PamirsEmployee[];
 }
 
-export interface PamirsPosition extends BizCodeModel {
+export interface PamirsPosition extends BizCodeModel, ActiveRecord {
   name?: string;
   dataStatus?: DataStatusEnum;
 
@@ -64,6 +65,6 @@ export interface PamirsPosition extends BizCodeModel {
   employeeList?: PamirsEmployee[];
 }
 
-export interface PamirsEmployee extends BizCodeModel {
+export interface PamirsEmployee extends BizCodeModel, ActiveRecord {
   name?: string;
 }
