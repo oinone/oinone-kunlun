@@ -1,48 +1,6 @@
 import { isString } from 'lodash-es';
-import { BiConverter, Consumer, Converter } from './LambdaFunction';
-
-/**
- * 标准树节点
- */
-export interface StandardTreeNode<T, SELF extends StandardTreeNode<T, SELF>> {
-  /**
-   * 唯一键
-   */
-  key: string;
-  /**
-   * 值
-   */
-  value?: T;
-  /**
-   * 上级节点
-   */
-  parent?: SELF;
-  /**
-   * 子节点列表
-   */
-  children: SELF[];
-  /**
-   * 是否叶节点
-   */
-  isLeaf: boolean;
-  /**
-   * 节点所在层级
-   */
-  level?: number;
-
-  /**
-   * <h3>设置父节点</h3>
-   * <p>
-   * 设置父节点时，根据当前树的构建需要进行实现
-   * </p>
-   * <p>
-   * 默认设置父节点方法请直接使用{@link TreeNode#setParent}方法
-   * </p>
-   * @param value
-   * @param position
-   */
-  setParent?(value: SELF | undefined, position?: number): void;
-}
+import { BiConverter, Consumer, Converter, Predict } from './LambdaFunction';
+import { StandardTreeNode } from './typing';
 
 /**
  * 树节点构造函数
@@ -328,5 +286,26 @@ export class TreeHelper {
         return target;
       }
     }
+  }
+
+  public static filter<V, NODE extends StandardTreeNode<V, NODE>>(nodes: NODE[], filter: Predict<NODE>) {
+    const filterNodes: NODE[] = [];
+    for (const node of nodes) {
+      if (filter(node)) {
+        filterNodes.push({
+          ...node,
+          children: TreeHelper.filter(node.children, filter)
+        });
+      } else {
+        const children = TreeHelper.filter(node.children, filter);
+        if (children.length) {
+          filterNodes.push({
+            ...node,
+            children
+          });
+        }
+      }
+    }
+    return filterNodes;
   }
 }

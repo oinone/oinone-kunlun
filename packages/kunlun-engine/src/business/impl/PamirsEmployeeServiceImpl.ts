@@ -2,9 +2,9 @@ import { OioListItem, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { AbstractModelApi } from '../../service';
 import { PamirsEmployee } from '../../typing';
-import { PamirsEmployeeMetadata, PamirsEmployeeService, PamirsEmployeeToken } from '../PamirsEmployeeService';
+import { PamirsEmployeeMetadata, PamirsEmployeeService, PamirsEmployeeServiceToken } from '../PamirsEmployeeService';
 
-@SPI.Service(PamirsEmployeeToken)
+@SPI.Service(PamirsEmployeeServiceToken)
 export class PamirsEmployeeServiceImpl extends AbstractModelApi<PamirsEmployee> implements PamirsEmployeeService {
   protected get modelModel() {
     return PamirsEmployeeMetadata.MODEL_MODEL;

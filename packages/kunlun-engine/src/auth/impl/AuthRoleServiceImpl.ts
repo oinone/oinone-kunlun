@@ -2,9 +2,9 @@ import { OioListItem, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { AbstractModelApi } from '../../service';
 import { AuthRole } from '../../typing';
-import { AuthRoleMetadata, AuthRoleService, AuthRoleToken } from '../AuthRoleService';
+import { AuthRoleMetadata, AuthRoleService, AuthRoleServiceToken } from '../AuthRoleService';
 
-@SPI.Service(AuthRoleToken)
+@SPI.Service(AuthRoleServiceToken)
 export class AuthRoleServiceImpl extends AbstractModelApi<AuthRole> implements AuthRoleService {
   protected get modelModel() {
     return AuthRoleMetadata.MODEL_MODEL;

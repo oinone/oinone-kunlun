@@ -3,7 +3,7 @@ import { PamirsDepartment } from '@oinone/kunlun-engine';
 import { OioTreeNode } from '@oinone/kunlun-shared';
 import { OioCheckbox, OioIcon, OioTree, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { Radio as ARadio } from 'ant-design-vue';
-import { computed, createVNode, defineComponent, onMounted, PropType, VNode } from 'vue';
+import { createVNode, defineComponent, onMounted, PropType, VNode } from 'vue';
 import { useDepartmentTree } from './init';
 
 export default defineComponent({
@@ -33,20 +33,16 @@ export default defineComponent({
     },
     domain: {
       type: String
+    },
+    checkedKeys: {
+      type: Array as PropType<string[]>
     }
   },
-  emits: ['update:checkedKeys'],
+  emits: ['update:checkedKeys', 'change'],
   setup(props, { emit, expose }) {
-    const { state, init, updateCheckedAllState, onCheckedAll, onCheckedStrictly } = useDepartmentTree({
-      mode: props.selectMode
-    });
-
-    const filterData = computed(() => {
-      const searchValue = props.searchValue;
-      if (searchValue) {
-
-      }
-      return state.data;
+    const { state, filterData, checkedAll, halfCheckedAll, init, onCheckedAll, onCheckedStrictly } = useDepartmentTree({
+      mode: props.selectMode,
+      getSearchValue: () => props.searchValue
     });
 
     const onUpdateExpandedKeys = (keys: string[]) => {
@@ -54,38 +50,46 @@ export default defineComponent({
     };
 
     const onUpdateCheckedAll = (checked: boolean) => {
-      onCheckedAll(state.data, checked);
-      state.checkedAll = checked;
-      state.halfCheckedAll = false;
+      onCheckedAll(filterData.value, checked);
       updateTreeData();
     };
 
     const onUpdateChecked = (node: OioTreeNode<PamirsDepartment>, checked: boolean) => {
       onCheckedStrictly(node, checked);
-      if (props.selectMode === SelectMode.multiple) {
-        updateCheckedAllState();
-      }
       updateTreeData();
     };
 
     const updateTreeData = () => {
       state.data = [...state.data];
       emit('update:checkedKeys', state.checkedKeys);
+      emit('change', {
+        nodes: state.data,
+        checkedKeys: state.checkedKeys
+      });
     };
 
     if (props.autoInit) {
       onMounted(() => {
-        init();
+        init({
+          rsql: props.domain,
+          checkedKeys: props.checkedKeys
+        });
       });
     }
 
     expose({
+      state,
+      filterData,
+      checkedAll,
+      halfCheckedAll,
       init
     });
 
     return {
       state,
       filterData,
+      checkedAll,
+      halfCheckedAll,
       onUpdateExpandedKeys,
       onUpdateCheckedAll,
       onUpdateChecked
@@ -94,8 +98,10 @@ export default defineComponent({
   render() {
     const {
       state,
-      icon,
       filterData,
+      checkedAll,
+      halfCheckedAll,
+      icon,
 
       selectMode,
       showCheckedAll,
@@ -157,8 +163,8 @@ export default defineComponent({
         createVNode('div', { class: 'oio-department-tree-node oio-department-tree-node-checked-all' }, [
           createVNode('div', { class: 'oio-department-tree-node-title' }, '全选'),
           createVNode(OioCheckbox, {
-            checked: state.checkedAll,
-            indeterminate: state.halfCheckedAll,
+            checked: checkedAll,
+            indeterminate: halfCheckedAll,
             'onUpdate:checked': onUpdateCheckedAll
           })
         ]),

@@ -52,7 +52,9 @@ export default defineComponent({
   },
   render() {
     const {
+      $translate,
       $attrs,
+
       mode,
       selected,
       options,
@@ -67,40 +69,59 @@ export default defineComponent({
       onChange
     } = this;
     const classNames = ['oio-role-select'];
-    return createVNode(
-      DefaultSelect,
-      {
-        ...PropRecordHelper.collectionBasicProps($attrs, classNames),
-        mode,
-        selected,
-        options,
-        placeholder,
-        allowClear,
-        allowArrow: false,
-        allowSearch: false,
-        notFoundContent: null,
-        change,
-        focus,
-        blur
-      },
-      {
-        suffix: () => {
-          return [
-            createVNode(OioButton, {
+    const modal = createVNode(RoleModal, {
+      mode,
+      selected,
+      visible,
+      'onUpdate:visible': onUpdateVisible,
+      onChange
+    });
+    if (selected == null || (Array.isArray(selected) && !selected.length)) {
+      return createVNode('div', PropRecordHelper.collectionBasicProps($attrs, classNames), [
+        createVNode(
+          OioButton,
+          {
+            type: 'default',
+            block: true,
+            icon: 'oinone-plus-outlined',
+            onClick: onShowModal
+          },
+          {
+            default: () => {
+              return $translate('选择角色');
+            }
+          }
+        ),
+        modal
+      ]);
+    }
+    return createVNode('div', PropRecordHelper.collectionBasicProps($attrs, classNames), [
+      createVNode(
+        DefaultSelect,
+        {
+          mode,
+          selected,
+          options,
+          placeholder,
+          allowClear,
+          allowArrow: false,
+          allowSearch: false,
+          notFoundContent: null,
+          change,
+          focus,
+          blur
+        },
+        {
+          suffix: () => {
+            return createVNode(OioButton, {
               icon: 'oinone-apartment-outlined',
               onClick: onShowModal
-            }),
-            createVNode(RoleModal, {
-              mode,
-              selected,
-              visible,
-              'onUpdate:visible': onUpdateVisible,
-              onChange
-            })
-          ];
+            });
+          }
         }
-      }
-    );
+      ),
+      modal
+    ]);
   }
 });
 </script>

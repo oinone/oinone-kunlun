@@ -1,14 +1,18 @@
 import { OioListItem } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 
-export function useListChecked(state: { mode: SelectMode; checkedKeys: string[] }) {
+type Options = {
+  hasFilter?: () => boolean;
+};
+
+export function useListChecked(state: { mode: SelectMode; checkedKeys: string[] }, options?: Options) {
   if (state.mode === SelectMode.single) {
     return useSingleListChecked(state);
   }
-  return useMultipleListChecked(state);
+  return useMultipleListChecked(state, options);
 }
 
-function useMultipleListChecked(state: { checkedKeys: string[] }) {
+function useMultipleListChecked(state: { checkedKeys: string[] }, options?: Options) {
   const onChecked = (item: OioListItem, checked: boolean) => {
     $$updateChecked(item, checked);
   };
@@ -29,6 +33,32 @@ function useMultipleListChecked(state: { checkedKeys: string[] }) {
   };
 
   const onCheckedAll = (items: OioListItem[], checked: boolean) => {
+    const hasFilter = options?.hasFilter?.();
+    if (hasFilter) {
+      if (checked) {
+        const checkedKeys: string[] = [];
+        $$updateCheckedAll(items, checkedKeys);
+        for (const checkedKey of checkedKeys) {
+          if (state.checkedKeys.indexOf(checkedKey) <= -1) {
+            state.checkedKeys.push(checkedKey);
+          }
+        }
+      } else {
+        const uncheckedKeys: string[] = [];
+        $$updateUncheckedAll(items, uncheckedKeys);
+        for (const checkedKey of uncheckedKeys) {
+          const index = state.checkedKeys.indexOf(checkedKey);
+          if (index !== -1) {
+            state.checkedKeys.splice(index, 1);
+          }
+        }
+      }
+    } else {
+      $$checkedAll(items, checked);
+    }
+  };
+
+  const $$checkedAll = (items: OioListItem[], checked: boolean) => {
     if (checked) {
       const nextCheckedKeys = [];
       $$updateCheckedAll(items, nextCheckedKeys);
@@ -46,8 +76,9 @@ function useMultipleListChecked(state: { checkedKeys: string[] }) {
     }
   };
 
-  const $$updateUncheckedAll = (items: OioListItem[]) => {
+  const $$updateUncheckedAll = (items: OioListItem[], uncheckedKeys?: string[]) => {
     for (const item of items) {
+      uncheckedKeys?.push(item.key);
       item.checked = false;
     }
   };

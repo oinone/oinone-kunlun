@@ -1,7 +1,9 @@
+import { OioSelectItem } from './select';
+
 /**
  * 通用列表项数据结构
  */
-export interface OioListItem<T = unknown> {
+export interface OioListItem<T = unknown> extends OioSelectItem<T> {
   key: string;
   value: string;
   label: string;

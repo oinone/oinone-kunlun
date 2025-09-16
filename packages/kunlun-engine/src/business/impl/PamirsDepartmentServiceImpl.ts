@@ -1,13 +1,40 @@
-import { OioTreeNode, TreeHelper, TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { OioListItem, OioTreeNode, TreeHelper, TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { AbstractModelApi } from '../../service';
-import { PamirsDepartment } from '../../typing';
-import { PamirsDepartmentMetadata, PamirsDepartmentService, PamirsDepartmentToken } from '../PamirsDepartmentService';
+import { PamirsDepartment, PamirsEmployee } from '../../typing';
+import {
+  PamirsDepartmentMetadata,
+  PamirsDepartmentService,
+  PamirsDepartmentServiceToken
+} from '../PamirsDepartmentService';
 
-@SPI.Service(PamirsDepartmentToken)
+@SPI.Service(PamirsDepartmentServiceToken)
 export class PamirsDepartmentServiceImpl extends AbstractModelApi<PamirsDepartment> implements PamirsDepartmentService {
   protected get modelModel() {
     return PamirsDepartmentMetadata.MODEL_MODEL;
+  }
+
+  public convertListData(
+    list: PamirsEmployee[],
+    options?: {
+      computeTitle?: () => string;
+    }
+  ): OioListItem<PamirsEmployee>[] {
+    const computeTitle =
+      options?.computeTitle ||
+      ((data: PamirsEmployee) => {
+        return data.name || data.code || data.id || uniqueKeyGenerator();
+      });
+    return list.map((v) => {
+      const key = v.code!;
+      const option: OioListItem<PamirsEmployee> = {
+        key,
+        value: key,
+        label: computeTitle(v),
+        data: v
+      };
+      return option;
+    });
   }
 
   public convertTreeData(

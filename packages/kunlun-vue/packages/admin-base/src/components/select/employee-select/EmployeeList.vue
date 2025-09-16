@@ -1,7 +1,7 @@
 <script lang="ts">
 import { PamirsEmployee } from '@oinone/kunlun-engine';
 import { OioList, OioListItem, SelectMode } from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType } from 'vue';
+import { createVNode, defineComponent, onMounted, PropType } from 'vue';
 import { useEmployeeList } from './init';
 
 export default defineComponent({
@@ -14,61 +14,71 @@ export default defineComponent({
     selectMode: {
       type: String as PropType<SelectMode | keyof typeof SelectMode>
     },
+    autoInit: {
+      type: Boolean
+    },
+    domain: {
+      type: String
+    },
     checkedKeys: {
       type: Array as PropType<string[]>
     }
   },
-  emits: ['update:checkedKeys'],
+  emits: ['update:checkedKeys', 'change'],
   setup(props, { emit, expose }) {
-    const { state, init, onChecked, onCheckedAll, updateCheckedAllState } = useEmployeeList({
-      mode: props.selectMode
-    });
-
-    const filterData = computed(() => {
-      const searchValue = props.searchValue;
-      if (searchValue) {
-        const filterList: OioListItem<PamirsEmployee>[] = [];
-        for (const item of state.data) {
-          if (item.label.indexOf(searchValue) > -1) {
-            filterList.push(item);
-          }
-        }
-        return filterList;
-      }
-      return state.data;
+    const { state, filterData, checkedAll, halfCheckedAll, init, onChecked, onCheckedAll } = useEmployeeList({
+      mode: props.selectMode,
+      getSearchValue: () => props.searchValue
     });
 
     const onUpdateCheckedAll = (checked: boolean) => {
-      onCheckedAll(state.data, checked);
-      state.checkedAll = checked;
-      state.halfCheckedAll = false;
+      onCheckedAll(filterData.value, checked);
       updateListData();
     };
 
     const onUpdateChecked = (node: OioListItem<PamirsEmployee>, checked: boolean) => {
       onChecked(node, checked);
-      updateCheckedAllState();
       updateListData();
     };
 
     const updateListData = () => {
       state.data = [...state.data];
       emit('update:checkedKeys', state.checkedKeys);
+      emit('change', {
+        items: state.data,
+        checkedKeys: state.checkedKeys
+      });
     };
 
+    if (props.autoInit) {
+      onMounted(() => {
+        init({
+          rsql: props.domain,
+          checkedKeys: props.checkedKeys
+        });
+      });
+    }
+
     expose({
+      state,
+      filterData,
+      checkedAll,
+      halfCheckedAll,
       init
     });
 
     return {
       state,
       filterData,
+      checkedAll,
+      halfCheckedAll,
       onUpdateCheckedAll,
       onUpdateChecked
     };
   },
   render() {
-    const { selectMode, checkedKeys, state, filterData, onUpdateChecked, onUpdateCheckedAll } = this;
+    const { selectMode, checkedKeys, filterData, checkedAll, halfCheckedAll, onUpdateChecked, onUpdateCheckedAll } =
+      this;
     return createVNode(OioList, {
       class: 'oio-employee-list oio-scrollbar',
       mode: selectMode,
@@ -76,8 +86,8 @@ export default defineComponent({
       checkedKeys,
       showIcon: true,
       showCheckedAll: true,
-      checkedAll: state.checkedAll,
-      halfCheckedAll: state.halfCheckedAll,
+      checkedAll,
+      halfCheckedAll,
       onChecked: onUpdateChecked,
       'onUpdate:checkedAll': onUpdateCheckedAll
     });

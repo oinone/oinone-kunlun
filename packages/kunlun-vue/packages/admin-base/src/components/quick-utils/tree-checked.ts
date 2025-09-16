@@ -1,14 +1,18 @@
 import { OioTreeNode } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 
-export function useTreeChecked(state: { mode: SelectMode; checkedKeys: string[] }) {
+type Options = {
+  hasFilter?: () => boolean;
+};
+
+export function useTreeChecked(state: { mode: SelectMode; checkedKeys: string[] }, options?: Options) {
   if (state.mode === SelectMode.single) {
     return useSingleTreeChecked(state);
   }
-  return useMultipleTreeChecked(state);
+  return useMultipleTreeChecked(state, options);
 }
 
-function useMultipleTreeChecked(state: { checkedKeys: string[] }) {
+function useMultipleTreeChecked(state: { checkedKeys: string[] }, options?: Options) {
   const onChecked = (node: OioTreeNode, checked: boolean) => {
     $$updateChecked(node, checked);
   };
@@ -67,6 +71,32 @@ function useMultipleTreeChecked(state: { checkedKeys: string[] }) {
   };
 
   const onCheckedAll = (nodes: OioTreeNode[], checked: boolean) => {
+    const hasFilter = options?.hasFilter?.();
+    if (hasFilter) {
+      if (checked) {
+        const checkedKeys: string[] = [];
+        $$updateCheckedAll(nodes, checkedKeys);
+        for (const checkedKey of checkedKeys) {
+          if (state.checkedKeys.indexOf(checkedKey) <= -1) {
+            state.checkedKeys.push(checkedKey);
+          }
+        }
+      } else {
+        const uncheckedKeys: string[] = [];
+        $$updateUncheckedAll(nodes, uncheckedKeys);
+        for (const checkedKey of uncheckedKeys) {
+          const index = state.checkedKeys.indexOf(checkedKey);
+          if (index !== -1) {
+            state.checkedKeys.splice(index, 1);
+          }
+        }
+      }
+    } else {
+      $$checkedAll(nodes, checked);
+    }
+  };
+
+  const $$checkedAll = (nodes: OioTreeNode[], checked: boolean) => {
     if (checked) {
       const nextCheckedKeys = [];
       $$updateCheckedAll(nodes, nextCheckedKeys);
@@ -86,11 +116,12 @@ function useMultipleTreeChecked(state: { checkedKeys: string[] }) {
     }
   };
 
-  const $$updateUncheckedAll = (nodes: OioTreeNode[]) => {
+  const $$updateUncheckedAll = (nodes: OioTreeNode[], uncheckedKeys?: string[]) => {
     for (const node of nodes) {
+      uncheckedKeys?.push(node.key);
       node.checked = false;
       node.halfChecked = false;
-      $$updateUncheckedAll(node.children);
+      $$updateUncheckedAll(node.children, uncheckedKeys);
     }
   };
 

@@ -8,6 +8,7 @@ import {
   SelectMode,
   StringHelper
 } from '@oinone/kunlun-vue-ui-antd';
+import { useMaxTagPlaceholder } from '@oinone/kunlun-vue-ui-antd/src/vc-component';
 import { Select as ASelect } from 'ant-design-vue';
 import { debounce } from 'lodash-es';
 import { createVNode, defineComponent, nextTick, ref, VNode } from 'vue';
@@ -96,6 +97,7 @@ export default defineComponent({
     };
 
     return {
+      ...useMaxTagPlaceholder(),
       origin,
       readonly,
       disabled,
@@ -126,6 +128,7 @@ export default defineComponent({
       onChange,
       blur,
       focus,
+      defaultMaxTagPlaceholder,
       allowArrow,
       allowClear,
       allowSearch,
@@ -145,6 +148,7 @@ export default defineComponent({
       filterOption: false,
       defaultActiveFirstOption: false,
       maxTagCount: 'responsive',
+      maxTagPlaceholder: defaultMaxTagPlaceholder,
 
       mode,
       options,
