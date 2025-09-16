@@ -367,7 +367,8 @@ export class QuickFillWidget extends BaseElementWidget {
     template.editorMode = TableEditorMode.table;
     template.paginationStyle = ListPaginationStyle.HIDDEN;
 
-    const map = new Map(this.editableModelFields.map((v) => [v.name, true]));
+    const fields = this.modelFields.filter((f) => !!f.template?.independentlyEditable);
+    const map = new Map(fields.map((v) => [v.name, true]));
     template.widgets = template.widgets.filter((w) => map.has(w.name));
 
     this.tableWidget = this.createWidget(TableWidget, 'table', {

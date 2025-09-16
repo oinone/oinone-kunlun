@@ -27,6 +27,11 @@ export class TableUserPreferWidget extends BaseElementWidget {
   private userPrefer?: UserTablePrefer;
 
   @Widget.Reactive()
+  private get modalTitle() {
+    return this.getDsl().modalTitle;
+  }
+
+  @Widget.Reactive()
   private get internalVisibleFields(): VisibleField[] {
     return this.metadataRuntimeContext.model.modelFields
       .filter((f) => BooleanHelper.isFalse(f.invisible))

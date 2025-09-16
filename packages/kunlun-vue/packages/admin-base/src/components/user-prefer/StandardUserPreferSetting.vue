@@ -44,6 +44,10 @@ export default defineComponent({
     visible: {
       type: Boolean
     },
+    title: {
+      type: String,
+      default: '表头设置'
+    },
     fields: {
       type: Array as PropType<DataOption[]>
     },
@@ -385,7 +389,7 @@ export default defineComponent({
   render() {
     const {
       modalId,
-
+      title,
       visible,
       onUpdateVisible,
 
@@ -409,7 +413,7 @@ export default defineComponent({
     return createVNode(
       OioModal,
       {
-        title: this.$translate('表头设置'),
+        title: this.$translate(title),
         wrapperClassName: `${classNamePrefix}-modal`,
         wrapperProps: {
           id: modalId

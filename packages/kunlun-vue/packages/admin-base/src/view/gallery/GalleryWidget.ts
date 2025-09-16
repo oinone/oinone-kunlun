@@ -54,9 +54,10 @@ export class GalleryWidget extends BaseElementListViewWidget {
         dslNodeType: DslDefinitionType.ELEMENT,
         widget: 'UserPrefer',
         subPath: 'user-prefer',
+        modalTitle: '字段设置',
         widgets: []
       }
-    ];
+    ] as DslDefinition[];
 
     if (this.switchCols) {
       children.unshift({
