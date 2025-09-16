@@ -1,4 +1,4 @@
-import { IdModel, ListModelApi, PamirsEmployee, QueryWrapper } from '@oinone/kunlun-engine';
+import { IdModel, ListModelApi, QueryWrapper } from '@oinone/kunlun-engine';
 import { Converter, OioListItem, Optional } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { computed, reactive } from 'vue';
@@ -56,7 +56,7 @@ export function useListState<T extends IdModel>(initOptions: {
   const filterData = computed(() => {
     const searchValue = props?.getSearchValue?.();
     if (searchValue) {
-      const filterList: OioListItem<PamirsEmployee>[] = [];
+      const filterList: OioListItem<T>[] = [];
       for (const item of state.data) {
         if (item.label.indexOf(searchValue) > -1) {
           filterList.push(item);

@@ -18,8 +18,8 @@ export interface PamirsCompany extends BizCodeModel, ActiveRecord {
   /**
    * {@link StaffSize}
    */
-  logoUrl?: string;
   staffSize?: string;
+  logoUrl?: string;
   licenseRegisterTime?: string;
   responsiblePerson?: PamirsEmployee;
   responsiblePersonCode?: string;
