@@ -1,7 +1,7 @@
 import { ActiveRecord, ExperimentalConfigManager } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
+import { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../basic';
 import { TreeData } from '../../typing';

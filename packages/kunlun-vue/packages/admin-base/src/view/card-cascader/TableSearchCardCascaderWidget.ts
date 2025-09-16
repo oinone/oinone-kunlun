@@ -1,6 +1,6 @@
 import { ViewType } from '@oinone/kunlun-meta';
+import { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
 import { BaseElementWidget } from '../../basic';
 import { CardCascaderItemData } from '../../typing';
 import { AbstractCardCascaderElementWidget } from './AbstractCardCascaderElementWidget';

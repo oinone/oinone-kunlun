@@ -1,4 +1,4 @@
-import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
+import { OioTreeNode } from '@oinone/kunlun-shared';
 import { PropType } from 'vue';
 import { TreeData } from '../../typing';
 
