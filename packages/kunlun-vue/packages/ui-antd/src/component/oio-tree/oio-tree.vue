@@ -1,7 +1,6 @@
 <script lang="ts">
-import { StringHelper } from '@oinone/kunlun-shared';
+import { OioTreeNode, StringHelper } from '@oinone/kunlun-shared';
 import {
-  OioTreeNode,
   OioTreeProps,
   PropRecordHelper,
   TreeNodeCheckedEvent,

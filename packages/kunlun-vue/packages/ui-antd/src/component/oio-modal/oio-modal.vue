@@ -110,7 +110,7 @@ export default defineComponent({
       let titleSlot = slots.title;
       if (!titleSlot) {
         titleSlot = () => {
-          const title = this.title || OioModalProps.title.default;
+          const title = this.title;
           return [createVNode('span', {}, this.$translate(title))];
         };
       }

@@ -13,6 +13,7 @@ import {
   CastHelper,
   NumberHelper,
   ObjectUtils,
+  OioTreeNode,
   Optional,
   ReturnPromise,
   TreeHelper,
@@ -20,7 +21,7 @@ import {
   uniqueKeyGenerator
 } from '@oinone/kunlun-shared';
 import { EmptyStyle, SelectMode, WidgetTrigger } from '@oinone/kunlun-vue-ui-antd';
-import { defaultTreeSelectProperties, OioTreeNode, TreeSelectProperties } from '@oinone/kunlun-vue-ui-common';
+import { defaultTreeSelectProperties, TreeSelectProperties } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { debounce, DebouncedFunc, isNil, toInteger } from 'lodash-es';
 import { BaseFieldProps, FormFieldWidget } from '../../basic';

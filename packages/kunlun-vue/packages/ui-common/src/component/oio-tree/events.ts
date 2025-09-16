@@ -1,5 +1,5 @@
+import { OioTreeNode } from '@oinone/kunlun-shared';
 import { OioEvent } from '../../event';
-import { OioTreeNode } from './props';
 
 /**
  * 树节点选中事件

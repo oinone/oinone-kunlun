@@ -1,6 +1,4 @@
-import { ActiveRecord } from '../active-record';
-
-export interface IdModel extends ActiveRecord {
+export interface IdModel {
   id?: string;
 }
 

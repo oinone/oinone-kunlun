@@ -24,7 +24,7 @@ export class StaticDialogWidget extends StaticPopupWidget<DialogWidgetProps> imp
   private destroyOnClose = true;
 
   @Widget.Reactive()
-  private title: string | null = OioModalProps.title.default;
+  private title: string | null = null;
 
   @Widget.Reactive()
   private help: string | undefined;
