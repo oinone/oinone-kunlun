@@ -3,7 +3,7 @@ import { PamirsDepartment } from '@oinone/kunlun-engine';
 import { OioTreeNode } from '@oinone/kunlun-shared';
 import { OioCheckbox, OioIcon, OioTree, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { Radio as ARadio } from 'ant-design-vue';
-import { createVNode, defineComponent, onMounted, PropType, VNode } from 'vue';
+import { computed, createVNode, defineComponent, onMounted, PropType, VNode } from 'vue';
 import { useDepartmentTree } from './init';
 
 export default defineComponent({
@@ -28,26 +28,54 @@ export default defineComponent({
     showCheckedAll: {
       type: Boolean
     },
+    loading: {
+      type: Boolean
+    },
+    usingLoading: {
+      type: Boolean
+    },
     autoInit: {
       type: Boolean
     },
     domain: {
       type: String
     },
+    initCheckedKeys: {
+      type: Array as PropType<string[]>
+    },
     checkedKeys: {
       type: Array as PropType<string[]>
     }
   },
-  emits: ['update:checkedKeys', 'change'],
+  emits: ['update:loading', 'update:checkedKeys', 'init', 'change'],
   setup(props, { emit, expose }) {
-    const { state, filterData, checkedAll, halfCheckedAll, init, onCheckedAll, onCheckedStrictly } = useDepartmentTree({
+    const {
+      state,
+      filterData,
+      checkedAll,
+      halfCheckedAll,
+      init,
+      onUpdateExpandedKeys,
+      onCheckedAll,
+      onCheckedStrictly
+    } = useDepartmentTree({
       mode: props.selectMode,
+      getCheckedKeys: () => props.checkedKeys,
       getSearchValue: () => props.searchValue
     });
 
-    const onUpdateExpandedKeys = (keys: string[]) => {
-      state.expandedKeys = keys;
-    };
+    const loading = computed({
+      get: () => {
+        if (props.loading == null) {
+          return state.loading;
+        }
+        return props.loading;
+      },
+      set: (value) => {
+        emit('update:loading', value);
+        state.loading = value;
+      }
+    });
 
     const onUpdateCheckedAll = (checked: boolean) => {
       onCheckedAll(filterData.value, checked);
@@ -69,11 +97,17 @@ export default defineComponent({
     };
 
     if (props.autoInit) {
-      onMounted(() => {
-        init({
-          rsql: props.domain,
-          checkedKeys: props.checkedKeys
-        });
+      onMounted(async () => {
+        loading.value = true;
+        try {
+          const res = await init({
+            rsql: props.domain,
+            checkedKeys: props.initCheckedKeys || props.checkedKeys
+          });
+          emit('init', res);
+        } finally {
+          loading.value = false;
+        }
       });
     }
 
@@ -103,62 +137,62 @@ export default defineComponent({
       halfCheckedAll,
       icon,
 
+      loading,
+      usingLoading,
       selectMode,
       showCheckedAll,
       onUpdateExpandedKeys,
       onUpdateCheckedAll,
       onUpdateChecked
     } = this;
-    const treeNode = createVNode(
-      OioTree,
-      {
-        class: 'oio-department-tree oio-scrollbar',
-        data: filterData,
-        blockNode: true,
-        selectable: false,
-        expandedKeys: state.expandedKeys,
-        'onUpdate:expandedKeys': onUpdateExpandedKeys
-      },
-      {
-        title: ({ title, key, dataRef }) => {
-          const nodes: VNode[] = [];
-          if (icon) {
-            nodes.push(
-              createVNode('div', { class: 'oio-department-tree-node-title' }, [
-                createVNode(OioIcon, {
-                  icon,
-                  color: 'var(--oio-primary-color)'
-                }),
-                createVNode('span', {}, title)
-              ])
-            );
-          } else {
-            nodes.push(
-              createVNode('div', { class: 'oio-department-tree-node-title' }, [createVNode('span', {}, title)])
-            );
-          }
-          if (selectMode === SelectMode.multiple) {
-            nodes.push(
-              createVNode(OioCheckbox, {
-                checked: dataRef.checked,
-                indeterminate: dataRef.halfChecked,
-                'onUpdate:checked': (val: boolean) => onUpdateChecked(dataRef, val)
-              })
-            );
-          } else if (selectMode === SelectMode.single) {
-            nodes.push(
-              createVNode(ARadio, {
-                class: 'oio-radio',
-                checked: key === state.checkedKeys[0],
-                'onUpdate:checked': (val: boolean) => onUpdateChecked(dataRef, key !== state.checkedKeys[0])
-              })
-            );
-          }
-          return [createVNode('div', { class: 'oio-department-tree-node' }, nodes)];
+    const treeProps: Record<string, unknown> = {
+      class: 'oio-department-tree oio-scrollbar',
+      data: filterData,
+      blockNode: true,
+      selectable: false,
+      expandedKeys: state.expandedKeys,
+      'onUpdate:expandedKeys': onUpdateExpandedKeys
+    };
+    if (usingLoading) {
+      treeProps.loading = loading;
+    }
+    const treeNode = createVNode(OioTree, treeProps, {
+      title: ({ title, key, dataRef }) => {
+        const nodes: VNode[] = [];
+        if (icon) {
+          nodes.push(
+            createVNode('div', { class: 'oio-department-tree-node-title' }, [
+              createVNode(OioIcon, {
+                icon,
+                color: 'var(--oio-primary-color)'
+              }),
+              createVNode('span', {}, title)
+            ])
+          );
+        } else {
+          nodes.push(createVNode('div', { class: 'oio-department-tree-node-title' }, [createVNode('span', {}, title)]));
         }
+        if (selectMode === SelectMode.multiple) {
+          nodes.push(
+            createVNode(OioCheckbox, {
+              checked: dataRef.checked,
+              indeterminate: dataRef.halfChecked,
+              'onUpdate:checked': (val: boolean) => onUpdateChecked(dataRef, val)
+            })
+          );
+        } else if (selectMode === SelectMode.single) {
+          nodes.push(
+            createVNode(ARadio, {
+              class: 'oio-radio',
+              checked: key === state.checkedKeys[0],
+              'onUpdate:checked': (val: boolean) => onUpdateChecked(dataRef, key !== state.checkedKeys[0])
+            })
+          );
+        }
+        return [createVNode('div', { class: 'oio-department-tree-node' }, nodes)];
       }
-    );
-    if (selectMode === SelectMode.multiple && showCheckedAll) {
+    });
+    if (!!filterData.length && selectMode === SelectMode.multiple && showCheckedAll) {
       return createVNode('div', { class: 'oio-department-tree-wrapper' }, [
         createVNode('div', { class: 'oio-department-tree-node oio-department-tree-node-checked-all' }, [
           createVNode('div', { class: 'oio-department-tree-node-title' }, '全选'),

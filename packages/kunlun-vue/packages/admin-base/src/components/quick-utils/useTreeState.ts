@@ -1,7 +1,7 @@
 import { IdModel, TreeModelApi } from '@oinone/kunlun-engine';
 import { Converter, OioTreeNode, Optional, TreeHelper } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
-import { computed, reactive } from 'vue';
+import { computed, reactive, watch } from 'vue';
 import { useTreeChecked } from './tree-checked';
 
 export interface TreeInitContext<T = unknown> {
@@ -23,12 +23,15 @@ export interface TreeState<T = unknown> {
   storage: Record<string, OioTreeNode<T>>;
   data: OioTreeNode<T>[];
   count: number;
+  loading: boolean;
   checkedKeys: string[];
+  checkedNodes: OioTreeNode<T>[];
   expandedKeys: string[];
 }
 
 export interface TreeStateProps {
   mode?: SelectMode | keyof typeof SelectMode;
+  getCheckedKeys?: () => string[] | undefined;
   getSearchValue?: () => string | null | undefined;
 }
 
@@ -102,9 +105,9 @@ export function useTreeState<T extends IdModel>(initOptions: {
     return false;
   };
 
-  const treeCheckedMethods = useTreeChecked(state, { hasFilter: () => hasFilter.value });
-
-  const { onCheckedStrictly } = treeCheckedMethods;
+  const { onChecked, onCheckedStrictly, onCheckedAll, $$updateParent, onRefreshCheckedState } = useTreeChecked(state, {
+    hasFilter: () => hasFilter.value
+  });
 
   const onUpdateExpandedKeys = (keys: string[]) => {
     state.expandedKeys = keys;
@@ -142,6 +145,7 @@ export function useTreeState<T extends IdModel>(initOptions: {
       expandedAll: state.data.length <= 100
     };
     state.checkedKeys = [];
+    state.checkedNodes = [];
     $$initTreeState(context, state.data);
     state.count = context.count;
     state.storage = context.storage;
@@ -165,6 +169,17 @@ export function useTreeState<T extends IdModel>(initOptions: {
     }
   };
 
+  const getCheckedKeys = props?.getCheckedKeys;
+  if (getCheckedKeys) {
+    watch(getCheckedKeys, (val: string[] | undefined) => {
+      if (state.checkedKeys === val) {
+        return;
+      }
+      onRefreshCheckedState(state.data, val || []);
+      state.data = [...state.data];
+    });
+  }
+
   return {
     state,
     filterData,
@@ -172,7 +187,10 @@ export function useTreeState<T extends IdModel>(initOptions: {
     halfCheckedAll,
     init,
     onUpdateExpandedKeys,
-    ...treeCheckedMethods
+    onChecked,
+    onCheckedStrictly,
+    onCheckedAll,
+    $$updateParent
   };
 }
 
@@ -182,7 +200,9 @@ function initDefaultState(props?: { mode?: SelectMode | keyof typeof SelectMode 
     storage: {},
     data: [],
     count: 0,
+    loading: false,
     checkedKeys: [],
+    checkedNodes: [],
     expandedKeys: []
   };
 }

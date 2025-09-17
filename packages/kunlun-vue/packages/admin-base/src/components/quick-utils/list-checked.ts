@@ -104,7 +104,7 @@ function useSingleListChecked(state: { checkedKeys: string[] }) {
   };
 
   const onCheckedAll = (items: OioListItem[], checked: boolean) => {
-    console.error('this method is unsupported. cause: mode is multiple.');
+    console.error('this method is unsupported. cause: mode is single.');
   };
 
   return {

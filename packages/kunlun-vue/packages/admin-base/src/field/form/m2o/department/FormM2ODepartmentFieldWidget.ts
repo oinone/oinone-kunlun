@@ -1,6 +1,8 @@
 import { PamirsDepartment, RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget, SelectFieldWidget } from '../../../../basic';
 import { DepartmentSelect } from '../../../../components';
 
@@ -20,6 +22,16 @@ export class FormM2ODepartmentFieldWidget extends SelectFieldWidget<
     super.initialize(props);
     this.setComponent(DepartmentSelect);
     return this;
+  }
+
+  @Widget.Reactive()
+  protected get userDept(): boolean {
+    return BooleanHelper.toBoolean(this.getDsl().userDept);
+  }
+
+  @Widget.Reactive()
+  protected get userDeptAndChildren(): boolean {
+    return BooleanHelper.toBoolean(this.getDsl().userDeptAndChildren);
   }
 
   protected generatorSelectItemKey(value: PamirsDepartment): string {
