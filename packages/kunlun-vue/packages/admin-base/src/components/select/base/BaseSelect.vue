@@ -6,9 +6,9 @@ import {
   OioSpin,
   PropRecordHelper,
   SelectMode,
-  StringHelper
+  StringHelper,
+  useMaxTagPlaceholder
 } from '@oinone/kunlun-vue-ui-antd';
-import { useMaxTagPlaceholder } from '@oinone/kunlun-vue-ui-antd/src/vc-component';
 import { Select as ASelect } from 'ant-design-vue';
 import { debounce } from 'lodash-es';
 import { createVNode, defineComponent, nextTick, ref, VNode } from 'vue';
