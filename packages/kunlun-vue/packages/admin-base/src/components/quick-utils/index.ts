@@ -1,4 +1,4 @@
-export * from './list-checked';
-export * from './tree-checked';
+export * from './useListChecked';
 export * from './useListState';
+export * from './useTreeChecked';
 export * from './useTreeState';

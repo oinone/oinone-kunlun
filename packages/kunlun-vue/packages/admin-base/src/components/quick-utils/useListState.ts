@@ -2,7 +2,7 @@ import { IdModel, ListModelApi, QueryWrapper } from '@oinone/kunlun-engine';
 import { Converter, OioListItem, Optional } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { computed, reactive } from 'vue';
-import { useListChecked } from './list-checked';
+import { useListChecked } from './useListChecked';
 
 interface ListInitContext<T> {
   storage: Record<string, OioListItem<T>>;

@@ -2,7 +2,7 @@ import { IdModel, TreeModelApi } from '@oinone/kunlun-engine';
 import { Converter, OioTreeNode, Optional, TreeHelper } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { computed, reactive, watch } from 'vue';
-import { useTreeChecked } from './tree-checked';
+import { useTreeChecked } from './useTreeChecked';
 
 export interface TreeInitContext<T = unknown> {
   storage: Record<string, OioTreeNode<T>>;
@@ -105,7 +105,7 @@ export function useTreeState<T extends IdModel>(initOptions: {
     return false;
   };
 
-  const { onChecked, onCheckedStrictly, onCheckedAll, $$updateParent, onRefreshCheckedState } = useTreeChecked(state, {
+  const { onChecked, onCheckedStrictly, onCheckedAll, onRefreshCheckedState } = useTreeChecked(state, {
     hasFilter: () => hasFilter.value
   });
 
@@ -189,8 +189,7 @@ export function useTreeState<T extends IdModel>(initOptions: {
     onUpdateExpandedKeys,
     onChecked,
     onCheckedStrictly,
-    onCheckedAll,
-    $$updateParent
+    onCheckedAll
   };
 }
 
