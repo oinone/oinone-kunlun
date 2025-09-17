@@ -163,8 +163,13 @@ function useMultipleTreeChecked(state: State, options?: Options) {
       if (checked) {
         newState.checkedKeys.push(node.key);
         newState.checkedNodes.push(node);
+        if (node.parent) {
+          if (!node.parent.checked) {
+            node.parent.halfChecked = true;
+          }
+        }
       }
-      node.halfChecked = !!node.parent?.checked;
+      node.halfChecked = false;
       $$refreshCheckedState(node.children, checkedKeys, newState);
     }
   };
