@@ -175,7 +175,11 @@
                     </template>
                   </span>
                   <control-tag
-                    v-if="['variable', 'option', 'field', 'session'].includes(variableItem.type) && !isBetweenOperator && !isInSetOperator"
+                    v-if="
+                      ['variable', 'option', 'field', 'session'].includes(variableItem.type) &&
+                      !isBetweenOperator &&
+                      !isInSetOperator
+                    "
                     class="variable-item variable-tag"
                     :index="index"
                     :class="`variable-item-${index}`"
@@ -195,13 +199,13 @@
                       :closable="true"
                       @close="onCloseTagItem(index)"
                     />
-                    <span
-                      class="test1"
-                      :index="index"
-                      v-if="isBetweenOperator && index !== variableItemList.length - 1 && index !== 0"
-                      >~</span
-                    >
                   </div>
+                  <span
+                    class="test1"
+                    :index="index"
+                    v-if="isBetweenOperator && index !== variableItemList.length - 1 && index !== 0"
+                    >~</span
+                  >
                 </template>
               </div>
             </span>

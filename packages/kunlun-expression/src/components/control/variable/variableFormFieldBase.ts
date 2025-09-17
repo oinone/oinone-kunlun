@@ -673,6 +673,13 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     if (variableItem.value.length > props.variableMaxStringLength) {
       variableItemList.value[index].value = variableItem.value.substring(0, props.variableMaxStringLength);
     }
+    if (
+      [BooleanConditionComparisonOperator.IN_SET, BooleanConditionComparisonOperator.NOT_IN_SET].includes(
+        props.compareOperatorOption?.value
+      )
+    ) {
+      variableItem.value = variableItem.value.split(',');
+    }
     if (computedIsOnlyOneInput()) {
       return;
     }

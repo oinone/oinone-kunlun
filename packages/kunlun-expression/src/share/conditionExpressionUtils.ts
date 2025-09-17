@@ -387,7 +387,8 @@ function getCompareExp4ApiName(
     ? createApiNameVariableListStr(
         compareValueList!,
         { ...expressionOption, isBetweenInBrackets: true, quoteType: IExpressionQuoteType.SINGLE } as IExpressionOption,
-        leftVariableItem
+        leftVariableItem,
+        operator
       )
     : '';
   if (left.startsWith(ExpressionKeyword.activeRecord)) {

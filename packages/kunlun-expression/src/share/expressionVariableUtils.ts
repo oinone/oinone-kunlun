@@ -135,10 +135,11 @@ export function createDefaultSessionItem() {
 export function createValueVariableListStr(
   variableItemList: IVariableItem[],
   expressionOption: IExpressionOption,
-  leftVariableItem: IVariableItem | undefined = undefined
+  leftVariableItem: IVariableItem | undefined = undefined,
   // variableContextItems: IVariableContextItem[],
   // isBetweenInBrackets = true,
   // isAddQuote = true
+  operator: string = ''
 ) {
   return createVariableListStr(
     ExpressionSeniorMode.VALUE,
@@ -162,7 +163,8 @@ export function createValueVariableListStr(
         return expressionOption.variableCustomMethod(item.value);
       }
       return expressionOption.isRsqlLeft || item.type === VariableItemType.FIELD ? item.apiName : item.value;
-    }
+    },
+    operator
   );
 }
 
@@ -170,10 +172,11 @@ export function createValueVariableListStr(
 export function createApiNameVariableListStr(
   variableItemList: IVariableItem[],
   expressionOption: IExpressionOption,
-  leftVariableItem: IVariableItem | undefined = undefined
+  leftVariableItem: IVariableItem | undefined = undefined,
   // variableContextItems: IVariableContextItem[],
   // isBetweenInBrackets = true,
   // isAddQuote = true
+  operator: string = ''
 ) {
   return createVariableListStr(
     ExpressionSeniorMode.API_NAME,
@@ -187,7 +190,8 @@ export function createApiNameVariableListStr(
         apiName = apiName?.substring(ExpressionKeyword.activeRecord.length + 1);
       }
       return apiName;
-    }
+    },
+    operator
   );
 }
 
@@ -266,6 +270,9 @@ function createVariableListStr(
             (!leftVariableItem || isStringTtype(leftVariableItem.ttype) || isDateTtype(leftVariableItem.ttype)) &&
             expressionSeniorMode !== ExpressionSeniorMode.DISPLAY_NAME
           ) {
+            if (Array.isArray(a.value)) {
+              return '(' + a.value.join(',') + ')';
+            }
             let right = autoAddQuote(a.value, expressionOption.quoteType);
             if (
               [ExpressionDefinitionType.BOOLEAN_CONDITION, ExpressionDefinitionType.OPERATION].includes(

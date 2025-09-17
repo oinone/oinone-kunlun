@@ -271,7 +271,9 @@ export function createExpressionValue(expressionItemList: IExpressionItem[], exp
             (a.compareOperator
               ? translateCompareOperatorValue(a.compareOperator, a.compareOperatorOptions, expressionOption)
               : '') +
-            (a.compareValueList ? createValueVariableListStr(a.compareValueList!, expressionOption) : '') +
+            (a.compareValueList
+              ? createValueVariableListStr(a.compareValueList!, expressionOption, undefined, a.compareOperator)
+              : '') +
             operator
           );
         }
