@@ -16,12 +16,6 @@ export default defineComponent({
     ...DefaultSelectProps,
     domain: {
       type: String
-    },
-    userDept: {
-      type: Boolean
-    },
-    userDeptAndChildren: {
-      type: Boolean
     }
   },
   setup(props) {
@@ -76,9 +70,7 @@ export default defineComponent({
       onShowModal,
       onChange,
 
-      domain,
-      userDept,
-      userDeptAndChildren
+      domain
     } = this;
     const classNames = ['oio-department-select'];
     const modal = createVNode(DepartmentModal, {
@@ -87,9 +79,7 @@ export default defineComponent({
       visible,
       'onUpdate:visible': onUpdateVisible,
       onChange,
-      domain,
-      userDept,
-      userDeptAndChildren
+      domain
     });
     if (selected == null || (Array.isArray(selected) && !selected.length)) {
       return createVNode('div', PropRecordHelper.collectionBasicProps($attrs, classNames), [

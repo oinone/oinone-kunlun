@@ -1,7 +1,8 @@
 <script lang="ts">
-import { AuthRole, translateValueByKey } from '@oinone/kunlun-engine';
+import { AuthRole } from '@oinone/kunlun-engine';
 import {
   CastHelper,
+  OioEmptyData,
   OioInput,
   OioInputSearch,
   OioListItem,
@@ -11,16 +12,20 @@ import {
   OioTabs,
   PropRecordHelper,
   SelectItem,
-  SelectMode
+  SelectMode,
+  StringHelper
 } from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, nextTick, PropType, reactive, ref, Ref, watch } from 'vue';
+import { computed, createVNode, defineComponent, PropType, reactive, watch } from 'vue';
+import { ListState } from '../../quick-utils';
 import { BaseSelect } from '../base';
-import { RoleListInstance } from './init';
 import RoleList from './RoleList.vue';
 
 interface State {
+  init: boolean;
   storage: Record<string, OioListItem<AuthRole>>;
   loading: boolean;
+  searchValue: string;
+  checkedKeys: string[];
 }
 
 export default defineComponent({
@@ -39,28 +44,52 @@ export default defineComponent({
     },
     selected: {
       type: [Object, Array] as PropType<SelectItem<AuthRole> | SelectItem<AuthRole>[]>
+    },
+    domain: {
+      type: String
     }
   },
   emits: ['change'],
   setup(props, { emit }) {
-    const roleListRef: Ref<RoleListInstance | undefined> = ref();
-
     const state: State = reactive({
+      init: false,
       storage: {},
-      loading: false
+      loading: false,
+      searchValue: '',
+      checkedKeys: []
     });
 
-    const checkedKeys: Ref<string[]> = ref([]);
-
-    const onUpdateCheckedKeys = (keys: string[]) => {
-      checkedKeys.value = keys;
-    };
+    const initCheckedKeys = computed(() => {
+      let checkedKeys: string[] = [];
+      if (props.selected != null) {
+        if (Array.isArray(props.selected)) {
+          checkedKeys = props.selected.map((v) => v.key);
+        } else {
+          checkedKeys = [props.selected.key];
+        }
+      }
+      return checkedKeys;
+    });
 
     const selectedValues = computed(() => {
+      let checkedKeys: string[];
+      if (props.mode === SelectMode.single) {
+        const firstKey = state.checkedKeys[0];
+        if (firstKey) {
+          checkedKeys = [firstKey];
+        } else {
+          checkedKeys = [];
+        }
+      } else {
+        checkedKeys = state.checkedKeys;
+      }
       const selectedItems: SelectItem<AuthRole>[] = [];
-      for (const checkedKey of checkedKeys.value) {
-        const node = state.storage[checkedKey];
-        const { key, value, label, data } = node;
+      for (const checkedKey of checkedKeys) {
+        const item = state.storage[checkedKey];
+        if (!item) {
+          continue;
+        }
+        const { key, value, label, data } = item;
         selectedItems.push({
           key,
           value,
@@ -70,22 +99,6 @@ export default defineComponent({
       }
       return selectedItems;
     });
-
-    const searchValue = ref('');
-
-    const onUpdateSearchValue = (val: string) => {
-      searchValue.value = val;
-    };
-
-    const onSearch = (keyword: string) => {
-      searchValue.value = keyword;
-    };
-
-    const activeTabKey = ref('1');
-
-    const onUpdateActiveTabKey = (key: string) => {
-      activeTabKey.value = key;
-    };
 
     const enterCallback = () => {
       if (props.mode === SelectMode.single) {
@@ -99,153 +112,102 @@ export default defineComponent({
       return true;
     };
 
-    const init = async () => {
-      state.loading = true;
-      try {
-        await $$init();
-      } finally {
-        state.loading = false;
-      }
+    const onUpdateState = (key: string, value: unknown) => {
+      state[key] = value;
     };
 
-    const $$init = async () => {
-      const result = await roleListRef.value!.init({
-        checkedKeys: $$initCheckedKeys()
-      });
-      checkedKeys.value = result.checkedKeys;
-      state.storage = result.storage;
-    };
-
-    const $$initCheckedKeys = () => {
-      let checkedKeys: string[] = [];
-      if (props.selected != null) {
-        if (Array.isArray(props.selected)) {
-          checkedKeys = props.selected.map((v) => v.key);
-        } else {
-          checkedKeys = [props.selected.key];
-        }
-      }
-      return checkedKeys;
+    const onInit = (res: ListState<AuthRole>) => {
+      state.init = true;
+      state.storage = res.storage;
+      state.checkedKeys = res.checkedKeys;
     };
 
     watch(
       () => props.visible,
       (val) => {
         if (val) {
-          nextTick().then(() => {
-            init();
-          });
+          state.init = false;
         }
-      },
-      { immediate: true }
+      }
     );
 
     return {
-      roleListRef,
-
       state,
-      checkedKeys,
       selectedValues,
-
-      searchValue,
-      onUpdateSearchValue,
-      onSearch,
-
-      activeTabKey,
-      onUpdateActiveTabKey,
-
-      onUpdateCheckedKeys,
-      enterCallback
+      initCheckedKeys,
+      enterCallback,
+      onUpdateState,
+      onInit
     };
   },
   render() {
     const {
+      $translate,
       mode,
+      domain,
+
       state,
-      checkedKeys,
       selectedValues,
-      searchValue,
-      onUpdateSearchValue,
-      onSearch,
-      activeTabKey,
-      onUpdateActiveTabKey,
-      onUpdateCheckedKeys,
-      enterCallback
+      initCheckedKeys,
+      enterCallback,
+      onUpdateState,
+      onInit
     } = this;
     return createVNode(
       OioModal,
       {
-        title: translateValueByKey('选择角色'),
+        title: $translate('选择角色'),
         width: '720px',
+        height: '664px',
+        maskClosable: false,
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
+        wrapperClassName: StringHelper.append(['oio-role-modal'], this.wrapperClassName),
         destroyOnClose: true,
         loading: state.loading,
         enterCallback
       },
       {
         default: () => {
+          if (state.init && !Object.keys(state.storage).length) {
+            return createVNode(OioEmptyData);
+          }
           return [
             createVNode('div', { class: 'oio-role-modal-content' }, [
               createVNode(BaseSelect, {
                 mode: SelectMode.multiple,
                 value: selectedValues,
                 options: selectedValues,
-                placeholder: '选择角色',
+                allowClear: true,
+                placeholder: $translate('选择角色'),
+                allowArrow: false,
+                allowSearch: false,
                 notFoundContent: null,
-                allowArrow: false
+                change: (items: OioListItem[]) =>
+                  onUpdateState(
+                    'checkedKeys',
+                    items.map((v) => v.key)
+                  )
               }),
               createVNode(OioInputSearch, {
-                value: searchValue,
-                placeholder: '搜索',
+                value: state.searchValue,
+                placeholder: $translate('搜索'),
                 allowClear: true,
-                'onUpdate:value': onUpdateSearchValue,
-                onSearch
+                'onUpdate:value': (val: string) => onUpdateState('searchValue', val)
               }),
-              createVNode(
-                OioTabs,
-                {
-                  activeKey: activeTabKey,
-                  'onUpdate:active-key': onUpdateActiveTabKey
-                },
-                {
-                  default: () => {
-                    return [
-                      createVNode(
-                        OioTab,
-                        {
-                          key: '1',
-                          tab: '所有角色'
-                        },
-                        {
-                          default: () => {
-                            return createVNode('div', { class: 'oio-role-selected-panel' }, [
-                              createVNode(RoleList, {
-                                ref: 'roleListRef',
-                                searchValue,
-                                selectMode: mode,
-                                checkedKeys,
-                                'onUpdate:checkedKeys': onUpdateCheckedKeys
-                              })
-                            ]);
-                          }
-                        }
-                      ),
-                      createVNode(
-                        OioTab,
-                        {
-                          key: '2',
-                          tab: '当前用户所在部门'
-                        },
-                        {
-                          default: () => {
-                            return [createVNode('span', {}, 'ss')];
-                          }
-                        }
-                      )
-                    ];
-                  }
-                }
-              )
+              createVNode(RoleList, {
+                searchValue: state.searchValue,
+                selectMode: mode,
+                showCheckedAll: true,
+                loading: state.loading,
+                usingLoading: false,
+                autoInit: true,
+                domain,
+                initCheckedKeys,
+                checkedKeys: state.checkedKeys,
+                onInit,
+                'onUpdate:loading': (val: boolean) => onUpdateState('loading', val),
+                'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
+              })
             ])
           ];
         }
@@ -255,15 +217,26 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.oio-role-modal-content {
-  display: flex;
-  flex-direction: column;
-  row-gap: 16px;
+.oio-role-modal {
+  .ant-modal-body {
+    overflow-x: hidden;
 
-  .oio-role-selected-panel {
-    height: 400px;
+    & > .oio-spin-wrapper {
+      height: 100%;
 
-    .oio-role-list {
+      & > .ant-spin-container {
+        height: 100%;
+      }
+    }
+  }
+
+  .oio-role-modal-content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    height: 100%;
+
+    & > .oio-role-list {
       height: 100%;
       overflow: auto;
     }

@@ -14,7 +14,10 @@ export default defineComponent({
   },
   inheritAttrs: false,
   props: {
-    ...DefaultSelectProps
+    ...DefaultSelectProps,
+    domain: {
+      type: String
+    }
   },
   setup(props) {
     const visible = ref(false);
@@ -66,12 +69,15 @@ export default defineComponent({
       blur,
       onUpdateVisible,
       onShowModal,
-      onChange
+      onChange,
+
+      domain
     } = this;
     const classNames = ['oio-role-select'];
     const modal = createVNode(RoleModal, {
       mode,
       selected,
+      domain,
       visible,
       'onUpdate:visible': onUpdateVisible,
       onChange

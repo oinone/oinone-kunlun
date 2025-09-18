@@ -61,7 +61,7 @@ export default defineComponent({
     });
 
     const onUpdateCheckedAll = (checked: boolean) => {
-      onCheckedAll(state.data, checked);
+      onCheckedAll(filterData.value, checked);
       updateListData();
     };
 

@@ -47,12 +47,6 @@ export default defineComponent({
     },
     domain: {
       type: String
-    },
-    userDept: {
-      type: Boolean
-    },
-    userDeptAndChildren: {
-      type: Boolean
     }
   },
   emits: ['change'],
