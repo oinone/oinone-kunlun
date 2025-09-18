@@ -1,7 +1,7 @@
 <script lang="ts">
 import { AuthRole } from '@oinone/kunlun-engine';
 import { OioList, OioListItem, SelectMode } from '@oinone/kunlun-vue-ui-antd';
-import { createVNode, defineComponent, onMounted, PropType } from 'vue';
+import { computed, createVNode, defineComponent, onMounted, PropType } from 'vue';
 import { useRoleList } from './init';
 
 export default defineComponent({
@@ -14,21 +14,47 @@ export default defineComponent({
     selectMode: {
       type: String as PropType<SelectMode | keyof typeof SelectMode>
     },
+    showCheckedAll: {
+      type: Boolean
+    },
+    loading: {
+      type: Boolean
+    },
+    usingLoading: {
+      type: Boolean
+    },
     autoInit: {
       type: Boolean
     },
     domain: {
       type: String
     },
+    initCheckedKeys: {
+      type: Array as PropType<string[]>
+    },
     checkedKeys: {
       type: Array as PropType<string[]>
     }
   },
-  emits: ['update:checkedKeys'],
+  emits: ['update:loading', 'update:checkedKeys', 'init', 'change'],
   setup(props, { emit, expose }) {
-    const { state, filterData, checkedAll, halfCheckedAll, init, onChecked, onCheckedAll } = useRoleList({
+    const { state, filterData, checkedAll, halfCheckedAll, init, search, onChecked, onCheckedAll } = useRoleList({
       mode: props.selectMode,
+      getCheckedKeys: () => props.checkedKeys,
       getSearchValue: () => props.searchValue
+    });
+
+    const loading = computed({
+      get: () => {
+        if (props.loading == null) {
+          return state.loading;
+        }
+        return props.loading;
+      },
+      set: (value) => {
+        emit('update:loading', value);
+        state.loading = value;
+      }
     });
 
     const onUpdateCheckedAll = (checked: boolean) => {
@@ -43,15 +69,27 @@ export default defineComponent({
 
     const updateListData = () => {
       state.data = [...state.data];
-      emit('update:checkedKeys', state.checkedKeys);
+      const checkedKeys = state.submitCheckedKeys || state.checkedKeys;
+      const items = state.submitCheckedItems || state.checkedItems;
+      emit('update:checkedKeys', checkedKeys);
+      emit('change', {
+        items,
+        checkedKeys
+      });
     };
 
     if (props.autoInit) {
-      onMounted(() => {
-        init({
-          rsql: props.domain,
-          checkedKeys: props.checkedKeys
-        });
+      onMounted(async () => {
+        loading.value = true;
+        try {
+          const res = await init({
+            rsql: props.domain,
+            checkedKeys: props.initCheckedKeys || props.checkedKeys
+          });
+          emit('init', res);
+        } finally {
+          loading.value = false;
+        }
       });
     }
 
@@ -60,7 +98,8 @@ export default defineComponent({
       filterData,
       checkedAll,
       halfCheckedAll,
-      init
+      init,
+      search
     });
 
     return {
@@ -73,15 +112,25 @@ export default defineComponent({
     };
   },
   render() {
-    const { selectMode, checkedKeys, filterData, checkedAll, halfCheckedAll, onUpdateChecked, onUpdateCheckedAll } =
-      this;
+    const {
+      selectMode,
+      showCheckedAll,
+      loading,
+      usingLoading,
+      checkedKeys,
+      filterData,
+      checkedAll,
+      halfCheckedAll,
+      onUpdateChecked,
+      onUpdateCheckedAll
+    } = this;
     return createVNode(OioList, {
       class: 'oio-role-list oio-scrollbar',
       mode: selectMode,
       list: filterData,
       checkedKeys,
       showIcon: true,
-      showCheckedAll: true,
+      showCheckedAll,
       checkedAll,
       halfCheckedAll,
       onChecked: onUpdateChecked,

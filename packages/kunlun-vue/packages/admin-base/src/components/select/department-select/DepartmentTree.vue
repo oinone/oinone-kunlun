@@ -91,7 +91,7 @@ export default defineComponent({
       state.data = [...state.data];
       emit('update:checkedKeys', state.checkedKeys);
       emit('change', {
-        nodes: state.data,
+        nodes: state.checkedNodes,
         checkedKeys: state.checkedKeys
       });
     };

@@ -52,13 +52,13 @@ export class PropRecordHelper {
     if (isNil(data)) {
       data = {};
     }
-    Object.keys(propsDefine).forEach((key) => {
+    for (const key of Object.keys(propsDefine)) {
       const value = values[key];
       if (isNil(value)) {
-        return;
+        continue;
       }
-      data![key] = value;
-    });
+      data[key] = value;
+    }
     return data;
   }
 

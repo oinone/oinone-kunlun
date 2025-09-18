@@ -1,6 +1,6 @@
 import { DataStatusEnum } from '@oinone/kunlun-meta';
 import { ActiveRecord } from '../active-record';
-import { BizCodeModel } from './base';
+import { BizModel, NameCodeModel, TreeModel } from './base';
 
 export enum StaffSize {
   SS_1_9 = '1-9',
@@ -13,7 +13,7 @@ export enum StaffSize {
   SS_2000 = '>2000'
 }
 
-export interface PamirsCompany extends BizCodeModel, ActiveRecord {
+export interface PamirsCompany extends NameCodeModel, TreeModel, BizModel, ActiveRecord {
   name?: string;
   /**
    * {@link StaffSize}
@@ -24,7 +24,6 @@ export interface PamirsCompany extends BizCodeModel, ActiveRecord {
   responsiblePerson?: PamirsEmployee;
   responsiblePersonCode?: string;
 
-  parentCode?: string;
   parent?: PamirsCompany;
 
   departmentList?: PamirsDepartment[];
@@ -32,14 +31,11 @@ export interface PamirsCompany extends BizCodeModel, ActiveRecord {
   employeeList?: PamirsEmployee[];
 }
 
-export interface PamirsDepartment extends BizCodeModel, ActiveRecord {
-  name?: string;
+export interface PamirsDepartment extends NameCodeModel, TreeModel, BizModel, ActiveRecord {
   description?: string;
   dataStatus?: DataStatusEnum;
 
-  parentCode?: string;
   parent?: PamirsDepartment;
-  treeCode?: string;
 
   companyCode?: string;
   company?: PamirsCompany;
@@ -49,11 +45,9 @@ export interface PamirsDepartment extends BizCodeModel, ActiveRecord {
   employeeList?: PamirsEmployee[];
 }
 
-export interface PamirsPosition extends BizCodeModel, ActiveRecord {
-  name?: string;
+export interface PamirsPosition extends NameCodeModel, TreeModel, BizModel, ActiveRecord {
   dataStatus?: DataStatusEnum;
 
-  parentCode?: string;
   parent?: PamirsPosition;
 
   companyCode?: string;
@@ -65,6 +59,4 @@ export interface PamirsPosition extends BizCodeModel, ActiveRecord {
   employeeList?: PamirsEmployee[];
 }
 
-export interface PamirsEmployee extends BizCodeModel, ActiveRecord {
-  name?: string;
-}
+export interface PamirsEmployee extends NameCodeModel, BizModel, ActiveRecord {}

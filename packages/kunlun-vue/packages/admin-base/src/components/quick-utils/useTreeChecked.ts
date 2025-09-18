@@ -2,7 +2,7 @@ import { OioTreeNode } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 
 type Options = {
-  hasFilter?: () => boolean;
+  isDiff?: () => boolean | undefined;
 };
 
 export function useTreeChecked(
@@ -31,12 +31,16 @@ function useMultipleTreeChecked(state: State, options?: Options) {
   };
 
   const onCheckedStrictly = (node: OioTreeNode, checked: boolean) => {
+    $$checkedStrictly(node, checked);
+    state.checkedKeys = [...state.checkedKeys];
+  };
+
+  const $$checkedStrictly = (node: OioTreeNode, checked: boolean) => {
     $$updateChecked(node, checked);
     $$updateChildren(node.children, checked);
     if (node.parent) {
       $$updateParent(node.parent);
     }
-    state.checkedKeys = [...state.checkedKeys];
   };
 
   const $$updateChecked = (node: OioTreeNode, checked: boolean) => {
@@ -87,17 +91,16 @@ function useMultipleTreeChecked(state: State, options?: Options) {
   };
 
   const onCheckedAll = (nodes: OioTreeNode[], checked: boolean) => {
-    const hasFilter = options?.hasFilter?.();
-    if (hasFilter) {
+    const isDiff = options?.isDiff?.();
+    if (isDiff) {
       if (checked) {
-        const checkedKeys: string[] = [];
-        const checkedNodes: OioTreeNode[] = [];
-        $$updateCheckedAll(nodes, checkedKeys, checkedNodes);
-        for (let i = 0; i < checkedKeys.length; i++) {
-          const checkedKey = checkedKeys[i];
+        const nextState: State = { checkedKeys: [], checkedNodes: [] };
+        $$updateCheckedAll(nodes, nextState);
+        for (let i = 0; i < nextState.checkedKeys.length; i++) {
+          const checkedKey = nextState.checkedKeys[i];
           if (state.checkedKeys.indexOf(checkedKey) <= -1) {
             state.checkedKeys.push(checkedKey);
-            state.checkedNodes.push(checkedNodes[i]);
+            state.checkedNodes.push(nextState.checkedNodes[i]);
           }
         }
       } else {
@@ -111,6 +114,7 @@ function useMultipleTreeChecked(state: State, options?: Options) {
           }
         }
       }
+      state.checkedKeys = [...state.checkedKeys];
     } else {
       $$checkedAll(nodes, checked);
     }
@@ -118,11 +122,10 @@ function useMultipleTreeChecked(state: State, options?: Options) {
 
   const $$checkedAll = (nodes: OioTreeNode[], checked: boolean) => {
     if (checked) {
-      const nextCheckedKeys = [];
-      const nextCheckedNodes = [];
-      $$updateCheckedAll(nodes, nextCheckedKeys, nextCheckedNodes);
-      state.checkedKeys = nextCheckedKeys;
-      state.checkedNodes = nextCheckedNodes;
+      const nextState = { checkedKeys: [], checkedNodes: [] };
+      $$updateCheckedAll(nodes, nextState);
+      state.checkedKeys = nextState.checkedKeys;
+      state.checkedNodes = nextState.checkedNodes;
     } else {
       $$updateUncheckedAll(nodes);
       state.checkedKeys = [];
@@ -130,13 +133,13 @@ function useMultipleTreeChecked(state: State, options?: Options) {
     }
   };
 
-  const $$updateCheckedAll = (nodes: OioTreeNode[], checkedKeys: string[], checkedNodes: OioTreeNode[]) => {
+  const $$updateCheckedAll = (nodes: OioTreeNode[], nextState: State) => {
     for (const node of nodes) {
-      checkedKeys.push(node.key);
-      checkedNodes.push(node);
+      nextState.checkedKeys.push(node.key);
+      nextState.checkedNodes.push(node);
       node.checked = true;
       node.halfChecked = false;
-      $$updateCheckedAll(node.children, checkedKeys, checkedNodes);
+      $$updateCheckedAll(node.children, nextState);
     }
   };
 
@@ -177,6 +180,7 @@ function useMultipleTreeChecked(state: State, options?: Options) {
   return {
     onChecked,
     onCheckedStrictly,
+    $$checkedStrictly,
     onCheckedAll,
     onRefreshCheckedState
   };
@@ -191,6 +195,10 @@ function useSingleTreeChecked(state: State) {
     onChecked(node, checked);
   };
 
+  const $$checkedStrictly = (node: OioTreeNode, checked: boolean) => {
+    onChecked(node, checked);
+  };
+
   const $$updateChecked = (node: OioTreeNode, checked: boolean) => {
     if (node.key === state.checkedKeys[0]) {
       return;
@@ -199,10 +207,6 @@ function useSingleTreeChecked(state: State) {
       state.checkedKeys = [node.key];
       state.checkedNodes = [node];
     }
-  };
-
-  const $$updateParent = (node: OioTreeNode) => {
-    console.error('this method is unsupported. cause: mode is single.');
   };
 
   const onCheckedAll = (nodes: OioTreeNode[], checked: boolean) => {
@@ -232,6 +236,7 @@ function useSingleTreeChecked(state: State) {
   return {
     onChecked,
     onCheckedStrictly,
+    $$checkedStrictly,
     onCheckedAll,
     onRefreshCheckedState
   };

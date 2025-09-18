@@ -1,4 +1,4 @@
-import { IdModel, TreeModelApi } from '@oinone/kunlun-engine';
+import { IdModel, QueryWrapper, TreeModelApi } from '@oinone/kunlun-engine';
 import { Converter, OioTreeNode, Optional, TreeHelper } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { computed, reactive, watch } from 'vue';
@@ -27,10 +27,12 @@ export interface TreeState<T = unknown> {
   checkedKeys: string[];
   checkedNodes: OioTreeNode<T>[];
   expandedKeys: string[];
+  lastCheckedKeys: string[];
 }
 
 export interface TreeStateProps {
   mode?: SelectMode | keyof typeof SelectMode;
+  isDiff?: () => boolean | undefined;
   getCheckedKeys?: () => string[] | undefined;
   getSearchValue?: () => string | null | undefined;
 }
@@ -41,6 +43,7 @@ export function useTreeState<T extends IdModel>(initOptions: {
   initState?: Converter<TreeState<T>, TreeState<T>>;
   convertTreeData?: (list: T[]) => OioTreeNode<T>[];
   initTreeState?: (state: TreeState<T>, options: TreeInitOptions) => void;
+  searchTreeState?: (state: TreeState<T>, options: TreeInitOptions) => void;
 }) {
   const { service, props, initState, convertTreeData } = initOptions;
 
@@ -105,27 +108,37 @@ export function useTreeState<T extends IdModel>(initOptions: {
     return false;
   };
 
-  const { onChecked, onCheckedStrictly, onCheckedAll, onRefreshCheckedState } = useTreeChecked(state, {
-    hasFilter: () => hasFilter.value
-  });
+  const { onChecked, onCheckedStrictly, $$checkedStrictly, onCheckedAll, onRefreshCheckedState } = useTreeChecked(
+    state,
+    {
+      isDiff: () => hasFilter.value || props?.isDiff?.()
+    }
+  );
 
   const onUpdateExpandedKeys = (keys: string[]) => {
     state.expandedKeys = keys;
   };
 
-  const init = async (options?: Partial<TreeInitOptions>) => {
-    const list = await service.queryListByWrapper({});
-    if (convertTreeData) {
-      state.data = convertTreeData(list);
-    } else {
-      state.data = service.convertTreeData(list);
-    }
+  const init = async (options?: Partial<TreeInitOptions>): Promise<TreeState<T>> => {
+    state.data = await $$reload(options);
     if (initOptions.initTreeState) {
       initOptions.initTreeState(state, $$initOptions(options));
     } else {
       initTreeState($$initOptions(options));
     }
     return state;
+  };
+
+  const $$reload = async (options?: Partial<TreeInitOptions>): Promise<OioTreeNode<T>[]> => {
+    const queryWrapper: QueryWrapper = {};
+    if (options?.rsql) {
+      queryWrapper.rsql = options.rsql;
+    }
+    const list = await service.queryListByWrapper(queryWrapper);
+    if (convertTreeData) {
+      return convertTreeData(list);
+    }
+    return service.convertTreeData(list);
   };
 
   const $$initOptions = (options?: Partial<TreeInitOptions>): TreeInitOptions => {
@@ -135,7 +148,7 @@ export function useTreeState<T extends IdModel>(initOptions: {
     };
   };
 
-  const initTreeState = (options: TreeInitOptions) => {
+  const initTreeState = (options: TreeInitOptions, isSearch?: boolean) => {
     const context: TreeInitContext<T> = {
       storage: {},
       count: 0,
@@ -144,6 +157,11 @@ export function useTreeState<T extends IdModel>(initOptions: {
       expandedKeys: [],
       expandedAll: state.data.length <= 100
     };
+    if (isSearch) {
+      state.lastCheckedKeys = state.checkedKeys;
+    } else {
+      state.lastCheckedKeys = [];
+    }
     state.checkedKeys = [];
     state.checkedNodes = [];
     $$initTreeState(context, state.data);
@@ -156,7 +174,7 @@ export function useTreeState<T extends IdModel>(initOptions: {
     for (const node of nodes) {
       const { key, children } = node;
       if (context.checkedKeys.indexOf(key) > -1) {
-        onCheckedStrictly(node, true);
+        $$checkedStrictly(node, true);
       }
       context.count++;
       context.storage[key] = node;
@@ -167,6 +185,16 @@ export function useTreeState<T extends IdModel>(initOptions: {
         $$initTreeState(context, children);
       }
     }
+  };
+
+  const search = async (options?: Partial<TreeInitOptions>) => {
+    state.data = await $$reload(options);
+    if (initOptions.searchTreeState) {
+      initOptions.searchTreeState(state, $$initOptions(options));
+    } else {
+      initTreeState($$initOptions(options), true);
+    }
+    return state;
   };
 
   const getCheckedKeys = props?.getCheckedKeys;
@@ -186,6 +214,7 @@ export function useTreeState<T extends IdModel>(initOptions: {
     checkedAll,
     halfCheckedAll,
     init,
+    search,
     onUpdateExpandedKeys,
     onChecked,
     onCheckedStrictly,
@@ -202,6 +231,7 @@ function initDefaultState(props?: { mode?: SelectMode | keyof typeof SelectMode 
     loading: false,
     checkedKeys: [],
     checkedNodes: [],
-    expandedKeys: []
+    expandedKeys: [],
+    lastCheckedKeys: []
   };
 }

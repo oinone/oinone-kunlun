@@ -1,8 +1,9 @@
 import { IdModel, ListModelApi, QueryWrapper } from '@oinone/kunlun-engine';
 import { Converter, OioListItem, Optional } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
-import { computed, reactive } from 'vue';
+import { computed, reactive, watch } from 'vue';
 import { useListChecked } from './useListChecked';
+import { TreeInitOptions } from './useTreeState';
 
 interface ListInitContext<T> {
   storage: Record<string, OioListItem<T>>;
@@ -22,11 +23,20 @@ export interface ListState<T> {
   storage: Record<string, OioListItem<T>>;
   data: OioListItem<T>[];
   count: number;
+  loading: boolean;
   checkedKeys: string[];
+  checkedItems: OioListItem<T>[];
+
+  lastCheckedKeys?: string[];
+  lastCheckedItems?: OioListItem<T>[];
+  submitCheckedKeys?: string[];
+  submitCheckedItems?: OioListItem<T>[];
 }
 
 export interface ListStateProps {
   mode?: SelectMode | keyof typeof SelectMode;
+  isDiff?: () => boolean | undefined;
+  getCheckedKeys?: () => string[] | undefined;
   getSearchValue?: () => string | null | undefined;
 }
 
@@ -36,16 +46,9 @@ export function useListState<T extends IdModel>(initOptions: {
   initState?: Converter<ListState<T>, ListState<T>>;
   convertListData?: (list: T[]) => OioListItem<T>[];
   initListState?: (state: ListState<T>, options?: ListInitOptions) => void;
+  searchListState?: (state: ListState<T>, options?: ListInitOptions) => void;
 }) {
   const { service, props, initState, convertListData } = initOptions;
-
-  const queryListByWrapper = async (rsql?: string): Promise<T[]> => {
-    const queryWrapper: QueryWrapper = {};
-    if (rsql) {
-      queryWrapper.rsql = rsql;
-    }
-    return service.queryListByWrapper(queryWrapper);
-  };
 
   const state: ListState<T> = reactive(
     Optional.ofNullable(initState)
@@ -103,18 +106,26 @@ export function useListState<T extends IdModel>(initOptions: {
     return false;
   };
 
-  const listCheckedMethods = useListChecked(state, { hasFilter: () => hasFilter.value });
-  const { onChecked } = listCheckedMethods;
+  const { onChecked, $$updateChecked, onCheckedAll, onRefreshCheckedState } = useListChecked(state, {
+    isDiff: () => hasFilter.value || props?.isDiff?.()
+  });
 
   const init = async (options?: Partial<ListInitOptions>): Promise<ListState<T>> => {
-    const list = await queryListByWrapper(options?.rsql);
-    if (convertListData) {
-      state.data = convertListData(list);
-    } else {
-      state.data = service.convertListData(list);
-    }
+    state.data = await $$reload(options);
     initListState($$initOptions(options));
     return state;
+  };
+
+  const $$reload = async (options?: Partial<ListInitOptions>): Promise<OioListItem<T>[]> => {
+    const queryWrapper: QueryWrapper = {};
+    if (options?.rsql) {
+      queryWrapper.rsql = options.rsql;
+    }
+    const list = await service.queryListByWrapper(queryWrapper);
+    if (convertListData) {
+      return convertListData(list);
+    }
+    return service.convertListData(list);
   };
 
   const $$initOptions = (options?: Partial<ListInitOptions>): ListInitOptions => {
@@ -124,7 +135,7 @@ export function useListState<T extends IdModel>(initOptions: {
     };
   };
 
-  const initListState = (options: ListInitOptions) => {
+  const initListState = (options: ListInitOptions, isSearch?: boolean) => {
     const context: ListInitContext<T> = {
       storage: {},
       count: 0,
@@ -132,7 +143,19 @@ export function useListState<T extends IdModel>(initOptions: {
       expandedKeys: [],
       expandedAll: state.data.length <= 100
     };
+    if (isSearch) {
+      if (!state.lastCheckedKeys) {
+        state.lastCheckedKeys = state.checkedKeys;
+        state.lastCheckedItems = state.checkedItems;
+      }
+    } else {
+      state.lastCheckedKeys = undefined;
+      state.lastCheckedItems = undefined;
+    }
+    state.submitCheckedKeys = undefined;
+    state.submitCheckedItems = undefined;
     state.checkedKeys = [];
+    state.checkedItems = [];
     $$initListState(context, state.data);
     state.count = context.count;
     state.storage = context.storage;
@@ -142,12 +165,33 @@ export function useListState<T extends IdModel>(initOptions: {
     for (const item of items) {
       const { key } = item;
       if (context.checkedKeys.indexOf(key) > -1) {
-        onChecked(item, true);
+        $$updateChecked(state, item, true);
       }
       context.count++;
       context.storage[key] = item;
     }
   };
+
+  const search = async (options?: Partial<TreeInitOptions>) => {
+    state.data = await $$reload(options);
+    if (initOptions.searchListState) {
+      initOptions.searchListState(state, $$initOptions(options));
+    } else {
+      initListState($$initOptions(options), true);
+    }
+    return state;
+  };
+
+  const getCheckedKeys = props?.getCheckedKeys;
+  if (getCheckedKeys) {
+    watch(getCheckedKeys, (val: string[] | undefined) => {
+      if (state.checkedKeys === val) {
+        return;
+      }
+      onRefreshCheckedState(state.data, val || []);
+      state.data = [...state.data];
+    });
+  }
 
   return {
     state,
@@ -155,7 +199,9 @@ export function useListState<T extends IdModel>(initOptions: {
     checkedAll,
     halfCheckedAll,
     init,
-    ...listCheckedMethods
+    search,
+    onChecked,
+    onCheckedAll
   };
 }
 
@@ -165,6 +211,8 @@ function initDefaultState(options?: { mode?: SelectMode | keyof typeof SelectMod
     storage: {},
     data: [],
     count: 0,
-    checkedKeys: []
+    loading: false,
+    checkedKeys: [],
+    checkedItems: []
   };
 }

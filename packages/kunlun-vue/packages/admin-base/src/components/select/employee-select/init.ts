@@ -1,9 +1,8 @@
 import { PamirsEmployee, PamirsEmployeeServiceToken } from '@oinone/kunlun-engine';
 import { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { ComputedRef, Ref } from 'vue';
-import { ListInitOptions, ListState, TreeState, useListState } from '../../quick-utils';
+import { ListInitOptions, ListState, ListStateProps, TreeState, useListState } from '../../quick-utils';
 
 export interface EmployeeListInstance {
   state: Ref<TreeState<PamirsEmployee>>;
@@ -12,14 +11,13 @@ export interface EmployeeListInstance {
   halfCheckedAll: ComputedRef<boolean>;
 
   init(options?: Partial<ListInitOptions>): Promise<ListState<PamirsEmployee>>;
+
+  search(options?: Partial<ListInitOptions>): Promise<ListState<PamirsEmployee>>;
 }
 
-export function useEmployeeList(options?: {
-  mode?: SelectMode | keyof typeof SelectMode;
-  getSearchValue?: () => string | null | undefined;
-}) {
+export function useEmployeeList(props?: ListStateProps) {
   return useListState({
     service: SPI.RawInstantiate(PamirsEmployeeServiceToken)!,
-    props: options
+    props
   });
 }

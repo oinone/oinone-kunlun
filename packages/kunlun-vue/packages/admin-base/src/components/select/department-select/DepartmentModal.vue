@@ -1,5 +1,5 @@
 <script lang="ts">
-import { PamirsDepartment, translateValueByKey } from '@oinone/kunlun-engine';
+import { PamirsDepartment } from '@oinone/kunlun-engine';
 import {
   CastHelper,
   OioInput,
@@ -212,7 +212,7 @@ export default defineComponent({
     }
     let content: VNode;
     if (tabTitleList.length === 1) {
-      content = tabList[0];
+      [content] = tabList;
     } else {
       content = createVNode(
         OioTabs,
@@ -241,10 +241,11 @@ export default defineComponent({
     return createVNode(
       OioModal,
       {
-        title: translateValueByKey('选择部门'),
+        title: $translate('选择部门'),
         wrapperClassName: 'oio-department-modal',
         width: '720px',
         height: '664px',
+        maskClosable: false,
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
         destroyOnClose: true,
         loading: state.loading,
@@ -258,13 +259,13 @@ export default defineComponent({
                 mode: SelectMode.multiple,
                 value: selectedValues,
                 options: selectedValues,
-                placeholder: '选择部门',
+                placeholder: $translate('选择部门'),
                 notFoundContent: null,
                 allowArrow: false
               }),
               createVNode(OioInputSearch, {
                 value: state.searchValue,
-                placeholder: '搜索',
+                placeholder: $translate('搜索'),
                 allowClear: true,
                 'onUpdate:value': (val: string) => onUpdateState('searchValue', val)
               }),
@@ -297,7 +298,9 @@ export default defineComponent({
     row-gap: 16px;
     height: 100%;
 
-    .oio-tabs {
+    & > .oio-tabs,
+    & > .oio-department-tree-wrapper,
+    & > .oio-department-tree {
       flex: 1;
     }
   }

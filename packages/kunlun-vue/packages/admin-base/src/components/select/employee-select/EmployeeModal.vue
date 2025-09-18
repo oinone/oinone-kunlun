@@ -225,6 +225,8 @@ export default defineComponent({
       {
         title: translateValueByKey('选择员工'),
         width: '720px',
+        height: '664px',
+        maskClosable: false,
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
         destroyOnClose: true,
         loading: state.loading,

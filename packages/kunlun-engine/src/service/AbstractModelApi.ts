@@ -1,5 +1,5 @@
-import { OioListItem, OioTreeNode } from '@oinone/kunlun-shared';
-import { IdModel, Pagination } from '../typing';
+import { OioListItem, OioTreeNode, TreeHelper, TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { IdModel, NameCodeModel, Pagination, TreeModel } from '../typing';
 import { GenericFunctionService } from './GenericFunctionService';
 import { QueryPageResult, QueryWrapper } from './metadata';
 
@@ -10,14 +10,22 @@ export interface ModelApi<T extends IdModel> {
 }
 
 export interface ListModelApi<T extends IdModel> extends ModelApi<T> {
-  convertListData(list: T[], options?: { computeTitle?: (data?: T) => string }): OioListItem<T>[];
+  convertListData(
+    list: T[],
+    options?: {
+      computeKey?: (data: T) => string;
+      computeLabel?: (data: T) => string;
+    }
+  ): OioListItem<T>[];
 }
 
 export interface TreeModelApi<T extends IdModel> extends ListModelApi<T> {
   convertTreeData(
     list: T[],
     options?: {
-      computeTitle?: (data?: T) => string;
+      computeKey?: (data: T) => string;
+      computeParentKey?: () => string | undefined;
+      computeLabel?: (data: T) => string;
     }
   ): OioTreeNode<T>[];
 }
@@ -40,5 +48,81 @@ export abstract class AbstractModelApi<T extends IdModel> implements ModelApi<T>
         totalElements: 0
       }
     );
+  }
+}
+
+export abstract class AbstractListModelApi<T extends NameCodeModel>
+  extends AbstractModelApi<T>
+  implements ListModelApi<T>
+{
+  public convertListData(
+    list: T[],
+    options?: {
+      computeKey?: () => string;
+      computeLabel?: () => string;
+    }
+  ): OioListItem<T>[] {
+    const computeKey = options?.computeKey || this.defaultComputeKey.bind(this);
+    const computeLabel = options?.computeLabel || this.defaultComputeLabel.bind(this);
+    return list.map((v) => {
+      const key = computeKey(v);
+      const option: OioListItem<T> = {
+        key,
+        value: key,
+        label: computeLabel(v),
+        data: v
+      };
+      return option;
+    });
+  }
+
+  protected defaultComputeKey(data: T): string {
+    return data.code || uniqueKeyGenerator();
+  }
+
+  protected defaultComputeLabel(data: T): string {
+    return data.name || data.code || data.id || uniqueKeyGenerator();
+  }
+}
+
+export abstract class AbstractTreeModelApi<T extends NameCodeModel & TreeModel>
+  extends AbstractListModelApi<T>
+  implements TreeModelApi<T>
+{
+  public convertTreeData(
+    list: T[],
+    options?: {
+      computeKey?: () => string;
+      computeParentKey?: () => string | undefined;
+      computeLabel?: () => string;
+    }
+  ): OioTreeNode<T>[] {
+    const computeKey = options?.computeKey || this.defaultComputeKey.bind(this);
+    const computeParentKey = options?.computeParentKey || this.defaultComputeParentKey.bind(this);
+    const computeLabel = options?.computeLabel || this.defaultComputeLabel.bind(this);
+    return TreeHelper.convert<T, T, OioTreeNode<T>>(
+      list,
+      computeKey,
+      computeParentKey,
+      (v) => v,
+      (key, value, parent) => {
+        const node = TreeNode.newInstance(key, value, parent as TreeNode<T>) as OioTreeNode<T>;
+        if (value) {
+          node.title = computeLabel(value);
+        }
+        return node;
+      },
+      (node) => {
+        const { title, value } = node;
+        if (!title) {
+          node.title = computeLabel(value);
+        }
+        return node;
+      }
+    );
+  }
+
+  protected defaultComputeParentKey(data: T): string | undefined {
+    return data.parentCode;
   }
 }

@@ -6,12 +6,16 @@ export interface CodeModel extends IdModel {
   code?: string;
 }
 
-export interface BizIdModel extends IdModel {
-  createUserName?: string;
-  writeUserName?: string;
+export interface NameCodeModel extends CodeModel {
+  name?: string;
 }
 
-export interface BizCodeModel extends CodeModel {
+export interface TreeModel extends CodeModel {
+  parentCode?: string;
+  treeCode?: string;
+}
+
+export interface BizModel {
   createUserName?: string;
   writeUserName?: string;
 }
