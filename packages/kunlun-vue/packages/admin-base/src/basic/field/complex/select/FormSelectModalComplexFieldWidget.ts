@@ -17,8 +17,11 @@ export abstract class FormSelectModalComplexFieldWidget<
 
   protected isFirstFillOptions = true;
 
+  /**
+   * 弹窗表格分页信息
+   */
   @Widget.Reactive()
-  protected get pagination(): Pagination {
+  protected get tablePagination(): Pagination {
     return {
       pageSize: this.pageSize,
       total: this.total,
@@ -26,6 +29,9 @@ export abstract class FormSelectModalComplexFieldWidget<
     };
   }
 
+  /**
+   * 切换分页
+   */
   @Widget.Method()
   protected async onPaginationChange(page: number, pageSize: number) {
     this.currentPage = page;
@@ -41,6 +47,9 @@ export abstract class FormSelectModalComplexFieldWidget<
     }
   }
 
+  /**
+   * x2m字段数据填充
+   */
   protected async fillOptionsForMulti(dataList: Record<string, unknown>[]) {
     if (this.isFirstFillOptions) {
       this.isFirstFillOptions = false;
@@ -51,6 +60,9 @@ export abstract class FormSelectModalComplexFieldWidget<
     this.options = this.handleSelectOption(this.dataList, this.referencesModel);
   }
 
+  /**
+   * x2o字段数据填充
+   */
   protected async fillOptionsForSingle(dataList: Record<string, unknown>[], insetDefaultValue = true) {
     if (this.isFirstFillOptions) {
       this.isFirstFillOptions = false;

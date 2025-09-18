@@ -78,11 +78,7 @@ export default defineComponent({
       }
     ]);
     const children = isRealEmpty ? slots.empty() : slots.default({ realValue: this.realValue });
-    return createVNode(
-      'div',
-      PropRecordHelper.collectionBasicProps($attrs, ['detail-common-field detail-common-field-border']),
-      children
-    );
+    return createVNode('div', PropRecordHelper.collectionBasicProps($attrs, ['detail-common-field']), children);
   }
 });
 </script>

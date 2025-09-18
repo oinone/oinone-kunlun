@@ -55,6 +55,10 @@ export const darkModernVars = {
   'hover-background-color': `rgba(255, 255, 255, 0.1)`,
   'hover-text-color': `var(--oio-text-color)`,
 
+  // selected
+  'selected-background-color': 'rgba(255, 255, 255, 0.1)',
+  'selected-text-color': `var(--${DEFAULT_PREFIX}-text-color-secondary)`,
+
   // font
   'font-family':
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol','Noto Color Emoji';",
@@ -62,9 +66,6 @@ export const darkModernVars = {
   'text-color-rgb': '38, 38, 38',
   'text-color-secondary': 'rgba(255,255,255,0.45)',
   'text-color-three': 'rgba(255,255,255,0.25)',
-
-  // 下拉
-  'dropdown-primary-color-hover': 'rgba(255,255,255,0.1)',
 
   /**
    * @deprecated Please use --${DEFAULT_PREFIX}-font-weight-bold property.

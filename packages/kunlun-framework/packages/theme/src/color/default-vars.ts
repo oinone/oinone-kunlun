@@ -54,7 +54,11 @@ export const defaultVars = {
 
   // hover
   'hover-background-color': `rgba(3, 93, 255, 0.1)`,
-  'hover-text-color': `var(--oio-primary-color)`,
+  'hover-text-color': `var(--${DEFAULT_PREFIX}-primary-color)`,
+
+  // selected
+  'selected-background-color': '#EBF2FF',
+  'selected-text-color': `var(--${DEFAULT_PREFIX}-primary-color)`,
 
   // font
   'font-family':
@@ -63,9 +67,6 @@ export const defaultVars = {
   'text-color-rgb': '38, 38, 38',
   'text-color-secondary': 'rgba(0,0,0,0.65)',
   'text-color-three': 'rgba(0,0,0,0.45)',
-
-  // 下拉
-  'dropdown-primary-color-hover': `var(--${DEFAULT_PREFIX}-primary-color-hover)`,
 
   /**
    * @deprecated Please use --${DEFAULT_PREFIX}-font-weight-bold property.

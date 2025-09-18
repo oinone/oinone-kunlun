@@ -89,9 +89,14 @@ export class FormFieldWidget<
     return undefined;
   }
 
+  /**
+   * 表单、详情组件的风格
+   *
+   * @see {@link BaseElementObjectViewWidget}
+   */
   @Widget.Reactive()
-  @Widget.Inject()
-  protected bizStyle: DetailBizStyle | FormBizStyle | undefined;
+  @Widget.Inject('bizStyle')
+  protected elementBizStyle: DetailBizStyle | FormBizStyle | undefined;
 
   @Widget.Reactive()
   protected get allowClear() {

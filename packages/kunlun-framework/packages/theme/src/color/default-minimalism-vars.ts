@@ -53,11 +53,12 @@ export const defaultModernVars = {
   'placeholder-color': 'rgba(0,0,0,0.25)',
 
   // hover
-  'hover-background-color': `rgba(3, 93, 255, 0.1)`,
-  'hover-text-color': `var(--oio-primary-color)`,
+  'hover-background-color': '#F7F8FA',
+  'hover-text-color': `var(--${DEFAULT_PREFIX}-text-color-secondary)`,
 
-  // 下拉
-  'dropdown-primary-color-hover': '#F7F8FA',
+  // selected
+  'selected-background-color': '#EBF2FF',
+  'selected-text-color': `var(--${DEFAULT_PREFIX}-primary-color)`,
 
   // font
   'font-family':

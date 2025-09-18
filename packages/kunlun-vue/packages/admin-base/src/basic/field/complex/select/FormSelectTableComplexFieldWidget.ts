@@ -13,6 +13,9 @@ export abstract class FormSelectTableComplexFieldWidget<
     return this;
   }
 
+  /**
+   * 解析选项标题
+   */
   public parseOptionLabelStr(str) {
     const names: string[] = [];
     str.split('+').forEach((s) => {

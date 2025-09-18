@@ -1,4 +1,4 @@
-import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import SelectFieldAction from './SelectFieldAction.vue';
 import { SelectFieldActionWidget } from '../SelectFieldActionWidget';

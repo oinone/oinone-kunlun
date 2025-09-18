@@ -3,6 +3,17 @@
 .default-dialog .ant-modal {
   .ant-modal-body {
     padding-bottom: 24px;
+
+    .oio-form {
+      & > .oio-row > .oio-col > .oio-default-group {
+        & > .oio-group-title-wrapper {
+          padding: var(--oio-padding) 0 0 0;
+        }
+        & > .oio-group-content {
+          padding: var(--oio-padding) 0;
+        }
+      }
+    }
   }
 
   .ant-modal-footer {

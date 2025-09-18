@@ -8,5 +8,5 @@ export const cssVars = {
   'text-color-active': '#fff',
   'text-color-selected': '#fff',
   'cell-internal-text-color-hover': `var(--${DEFAULT_PREFIX}-text-color)`,
-  'background-hover': `var(--${DEFAULT_PREFIX}-dropdown-primary-color-hover)`
+  'background-hover': `var(--${DEFAULT_PREFIX}-hover-background-color)`
 };

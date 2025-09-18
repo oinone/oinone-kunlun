@@ -53,7 +53,11 @@ export const darkVars = {
 
   // hover
   'hover-background-color': `rgba(255, 255, 255, 0.1)`,
-  'hover-text-color': `var(--oio-text-color)`,
+  'hover-text-color': `var(--${DEFAULT_PREFIX}-text-color)`,
+
+  // selected
+  'selected-background-color': 'rgba(255, 255, 255, 0.1)',
+  'selected-text-color': `var(--${DEFAULT_PREFIX}-text-color-secondary)`,
 
   // font
   'font-family':
@@ -62,9 +66,6 @@ export const darkVars = {
   'text-color-rgb': '38, 38, 38',
   'text-color-secondary': 'rgba(255,255,255,0.45)',
   'text-color-three': 'rgba(255,255,255,0.25)',
-
-  // 下拉
-  'dropdown-primary-color-hover': `var(--${DEFAULT_PREFIX}-primary-color-hover)`,
 
   /**
    * @deprecated Please use --${DEFAULT_PREFIX}-font-weight-bold property.

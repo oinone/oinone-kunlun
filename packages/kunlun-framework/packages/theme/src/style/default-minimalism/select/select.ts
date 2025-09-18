@@ -45,7 +45,7 @@ export const cssVars = {
   'dropdown-color': 'var(--oio-text-color-secondary)',
   'dropdown-selected': 'rgba(var(--oio-primary-color-rgb), 0.1)',
   'dropdown-hover-color': 'var(--oio-select-dropdown-color)',
-  'dropdown-hover-background': `var(--${DEFAULT_PREFIX}-dropdown-primary-color-hover)`,
+  'dropdown-hover-background': `var(--${DEFAULT_PREFIX}-hover-background-color)`,
   'dropdown-box-shadow':
     '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),0 9px 28px 8px rgba(0, 0, 0, 0.05)'
 };

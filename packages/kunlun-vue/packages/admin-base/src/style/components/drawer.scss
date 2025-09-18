@@ -34,15 +34,8 @@
           height: inherit;
         }
 
-        .oio-group-title:before {
-          content: '';
-          border-left: 2px solid var(--oio-primary-color);
-          margin-right: 6px;
-        }
-
         .oio-group-content {
           padding: 0 0 24px 0;
-          border-bottom: 1px solid var(--oio-border-color);
 
           .oio-group-title-wrapper {
             padding-top: 0;

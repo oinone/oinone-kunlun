@@ -25,7 +25,7 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    bizStyle: {
+    elementBizStyle: {
       type: String as PropType<FormBizStyle>
     }
   },
@@ -38,8 +38,8 @@ export default defineComponent({
   },
   render() {
     const classList = ['form-field-widget', 'item'];
-    if (this.bizStyle) {
-      classList.push(`oio-form-field-${this.bizStyle.toLocaleLowerCase()}`);
+    if (this.elementBizStyle) {
+      classList.push(`oio-form-field-${this.elementBizStyle.toLocaleLowerCase()}`);
     }
 
     const defaultSlots = PropRecordHelper.collectionSlots(this.$slots, [

@@ -165,6 +165,7 @@ function createSearchBar(
           type: ButtonType.link,
           iconPlacement: IconPlacement.AFTER,
           icon: 'oinone-xiala',
+          iconColor: 'var(--oio-primary-color)',
           onClick: options.onExpand
         },
         { default: () => expandText }
@@ -241,7 +242,7 @@ export default defineComponent({
       let invisible = false;
       let hasExpandButton = false;
 
-      if (props.template && !props.disabledExpand) {
+      if (props.template) {
         const { widgets } = props.template;
         if (widgets && widgets.length) {
           let fields: DslDefinition[] = [];
@@ -253,62 +254,67 @@ export default defineComponent({
                 cateFields: props.cateFields,
                 dslNodeType: DslDefinitionType.ELEMENT,
                 widget: 'SearchTab',
-                widgets: cateWidgets
+                widgets: cateWidgets,
+                showTopCateAll: props.showTopCateAll,
+                showSecondCateAll: props.showSecondCateAll,
+                topCateJustify: props.topCateJustify
               })!
             );
           }
 
-          const finalExpandSize = props.invisibleSearch ? props.foldSize + 1 : props.foldSize;
-          appendFieldDslDefinition(fields, widgets, finalExpandSize, props.foldSize, props.cateFields);
-          hasExpandButton = fields.length > finalExpandSize;
-          if (hasExpandButton) {
-            fields = fields.slice(0, finalExpandSize);
-          }
+          if (!props.disabledExpand) {
+            const finalExpandSize = props.invisibleSearch ? props.foldSize + 1 : props.foldSize;
+            appendFieldDslDefinition(fields, widgets, finalExpandSize, props.foldSize, props.cateFields);
+            hasExpandButton = fields.length > finalExpandSize;
+            if (hasExpandButton) {
+              fields = fields.slice(0, finalExpandSize);
+            }
 
-          if (!props.invisibleSearch) {
-            const searchActionBar: VNode[] = createSearchBar(false, {
-              hasExpandButton,
-              showSearchPrefer: props.showSearchPrefer,
-              onSearch,
-              onReset,
-              onExpand,
-              translate: props.translate,
-              preferProps: {
-                selected: props.selectedPrefer,
-                options: props.searchPreferOptions,
-                onLoad: props.onLoadSearchPreferOptions,
-                onCreate: props.onCreateSearchPrefer,
-                onUpdate: props.onUpdateSearchPrefer,
-                onRemove: props.onRemoveSearchPrefer,
-                onSelect: props.onSelectSearchPrefer,
-                onUnselect: props.onUnselectSearchPrefer
-              }
-            });
-            invisible = !fields.length;
-
-            const searchBarCol = createSearchBarCol(
-              searchActionBar,
-              (props.foldSize - fields.length) * (DEFAULT_COLS / (props.foldSize + 1)),
-              invisible,
-              props.foldSize
-            );
-            fields.push(searchBarCol);
-          }
-          defaultChildren.push(
-            withDirectives(
-              DslRender.render({
-                internal: true,
-                dslNodeType: DslDefinitionType.PACK,
-                widgets: fields,
-                widget: InternalWidget.Row,
-                cols: DEFAULT_COLS,
-                resolveOptions: {
-                  mode: ResolveMode.NORMAL
+            if (!props.invisibleSearch) {
+              const searchActionBar: VNode[] = createSearchBar(false, {
+                hasExpandButton,
+                showSearchPrefer: props.showSearchPrefer,
+                onSearch,
+                onReset,
+                onExpand,
+                translate: props.translate,
+                preferProps: {
+                  selected: props.selectedPrefer,
+                  options: props.searchPreferOptions,
+                  onLoad: props.onLoadSearchPreferOptions,
+                  onCreate: props.onCreateSearchPrefer,
+                  onUpdate: props.onUpdateSearchPrefer,
+                  onRemove: props.onRemoveSearchPrefer,
+                  onSelect: props.onSelectSearchPrefer,
+                  onUnselect: props.onUnselectSearchPrefer
                 }
-              })!,
-              [[vShow, !props.isExpand]]
-            )
-          );
+              });
+              invisible = !fields.length;
+
+              const searchBarCol = createSearchBarCol(
+                searchActionBar,
+                (props.foldSize - fields.length) * (DEFAULT_COLS / (props.foldSize + 1)),
+                invisible,
+                props.foldSize
+              );
+              fields.push(searchBarCol);
+            }
+            defaultChildren.push(
+              withDirectives(
+                DslRender.render({
+                  internal: true,
+                  dslNodeType: DslDefinitionType.PACK,
+                  widgets: fields,
+                  widget: InternalWidget.Row,
+                  cols: DEFAULT_COLS,
+                  resolveOptions: {
+                    mode: ResolveMode.NORMAL
+                  }
+                })!,
+                [[vShow, !props.isExpand]]
+              )
+            );
+          }
         }
       }
 
