@@ -29,12 +29,12 @@ export class FormM2MDepartmentFieldWidget extends SelectFieldWidget<
   }
 
   @Widget.Reactive()
-  protected get userDept(): boolean {
+  protected get userDept(): boolean | undefined {
     return BooleanHelper.toBoolean(this.getDsl().userDept);
   }
 
   @Widget.Reactive()
-  protected get userDeptAndChildren(): boolean {
+  protected get userDeptAndChildren(): boolean | undefined {
     return BooleanHelper.toBoolean(this.getDsl().userDeptAndChildren);
   }
 
