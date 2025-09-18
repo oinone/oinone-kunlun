@@ -2,7 +2,7 @@
 import { OioListItem, StringHelper } from '@oinone/kunlun-shared';
 import { OioIcon, PropRecordHelper, SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Radio as ARadio } from 'ant-design-vue';
-import { createVNode, defineComponent, PropType, VNode } from 'vue';
+import { createVNode, defineComponent, PropType, Ref, ref, VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { OioCheckbox } from '../oio-checkbox';
 import { OioEmptyData } from '../oio-empty';
@@ -25,8 +25,7 @@ export default defineComponent({
       type: Boolean
     },
     mode: {
-      type: String as PropType<SelectMode | keyof typeof SelectMode>,
-      default: SelectMode.single
+      type: String as PropType<SelectMode | keyof typeof SelectMode>
     },
     showCheckedAll: {
       type: Boolean
@@ -39,9 +38,12 @@ export default defineComponent({
     },
     checkedKeys: {
       type: Array as PropType<string[]>
+    },
+    selectable: {
+      type: Boolean
     }
   },
-  emits: ['checked', 'update:checkedAll'],
+  emits: ['update:checkedAll', 'update:halfCheckedAll', 'checked', 'selected'],
   setup(props, { emit }) {
     const onChecked = (item: OioListItem, checked: boolean) => {
       emit('checked', item, checked);
@@ -49,11 +51,36 @@ export default defineComponent({
 
     const onCheckedAll = (checked: boolean) => {
       emit('update:checkedAll', checked);
+      emit('update:halfCheckedAll', false);
+    };
+
+    const lastSelectedItem: Ref<OioListItem | undefined> = ref();
+
+    const onSelected = (e: MouseEvent, item: OioListItem) => {
+      e.preventDefault?.();
+      e.stopPropagation?.();
+
+      let selected: boolean;
+      if (lastSelectedItem.value) {
+        if (item.key === lastSelectedItem.value.key) {
+          selected = false;
+          lastSelectedItem.value = undefined;
+        } else {
+          selected = true;
+          lastSelectedItem.value = item;
+        }
+      } else {
+        selected = true;
+        lastSelectedItem.value = item;
+      }
+      emit('selected', item, selected);
     };
 
     return {
+      lastSelectedItem,
       onChecked,
-      onCheckedAll
+      onCheckedAll,
+      onSelected
     };
   },
   render() {
@@ -69,8 +96,11 @@ export default defineComponent({
       showCheckedAll,
       checkedAll,
       halfCheckedAll,
+      selectable,
+      lastSelectedItem,
       onChecked,
-      onCheckedAll
+      onCheckedAll,
+      onSelected
     } = this;
     const { default: defaultSlot, icon: iconSlot } = PropRecordHelper.collectionSlots($slots, [
       {
@@ -100,6 +130,10 @@ export default defineComponent({
     ]);
     const children: VNode[] = [];
     const renderList = list || [];
+    const itemClassNames = [`${DEFAULT_PREFIX}-list-item`];
+    if (selectable) {
+      itemClassNames.push(`${DEFAULT_PREFIX}-list-item-selectable`);
+    }
     if (renderList.length) {
       if (mode === SelectMode.multiple && showCheckedAll) {
         children.push(
@@ -107,7 +141,7 @@ export default defineComponent({
             'div',
             {
               key: '__checked_all__',
-              class: `${DEFAULT_PREFIX}-list-item`
+              class: itemClassNames
             },
             [
               createVNode('div', { class: `${DEFAULT_PREFIX}-list-item-label` }, $translate('全选')),
@@ -144,16 +178,14 @@ export default defineComponent({
             })
           );
         }
-        children.push(
-          createVNode(
-            'div',
-            {
-              key: item.key,
-              class: `${DEFAULT_PREFIX}-list-item`
-            },
-            itemNodes
-          )
-        );
+        const itemProps: Record<string, unknown> = { key: item.key, class: itemClassNames };
+        if (selectable) {
+          if (lastSelectedItem?.key === item.key) {
+            itemProps.class = [...itemClassNames, `${DEFAULT_PREFIX}-list-item-activated`];
+          }
+          itemProps.onClick = (e: MouseEvent) => onSelected(e, item);
+        }
+        children.push(createVNode('div', itemProps, itemNodes));
       }
     } else {
       children.push(createVNode(OioEmptyData));

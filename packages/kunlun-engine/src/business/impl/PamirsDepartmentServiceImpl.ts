@@ -1,5 +1,5 @@
 import { SPI } from '@oinone/kunlun-spi';
-import { AbstractTreeModelApi } from '../../service';
+import { AbstractTreeModelApi, GenericFunctionService, QueryWrapper } from '../../service';
 import { PamirsDepartment } from '../../typing';
 import {
   PamirsDepartmentMetadata,
@@ -14,5 +14,15 @@ export class PamirsDepartmentServiceImpl
 {
   protected get modelModel() {
     return PamirsDepartmentMetadata.MODEL_MODEL;
+  }
+
+  public async queryDepartmentRootList(queryWrapper: QueryWrapper): Promise<PamirsDepartment[]> {
+    return (
+      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(
+        this.modelModel,
+        'queryDepartmentRootList',
+        queryWrapper
+      )) || []
+    );
   }
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { PamirsEmployee, translateValueByKey } from '@oinone/kunlun-engine';
+import { AuthRole, PamirsEmployee } from '@oinone/kunlun-engine';
 import {
   CastHelper,
   OioDivider,
@@ -12,19 +12,24 @@ import {
   OioTabs,
   PropRecordHelper,
   RSQLCondition,
+  RSQLHelper,
   SelectItem,
-  SelectMode
+  SelectMode,
+  StringHelper
 } from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, nextTick, PropType, reactive, ref, Ref, watch } from 'vue';
+import { computed, createVNode, defineComponent, PropType, reactive, ref, Ref, VNode } from 'vue';
+import { ListState } from '../../quick-utils';
 import { BaseSelect } from '../base';
 import { DepartmentTree } from '../department-select';
+import { RoleList } from '../role-select';
 import EmployeeList from './EmployeeList.vue';
 import { EmployeeListInstance } from './init';
 
 interface State {
   storage: Record<string, OioListItem<PamirsEmployee>>;
   loading: boolean;
-  filterStorage?: Record<string, OioListItem<PamirsEmployee>>;
+  searchValue: string;
+  checkedKeys: string[];
 }
 
 export default defineComponent({
@@ -43,44 +48,69 @@ export default defineComponent({
     },
     selected: {
       type: [Object, Array] as PropType<SelectItem<PamirsEmployee> | SelectItem<PamirsEmployee>[]>
+    },
+    domain: {
+      type: String
+    },
+    departmentCodes: {
+      type: Array as PropType<string[]>
+    },
+    roleCodes: {
+      type: Array as PropType<string[]>
+    },
+    userEmployee: {
+      type: Boolean
+    },
+    userDept: {
+      type: Boolean
+    },
+    userDeptAndChildren: {
+      type: Boolean
     }
   },
   emits: ['change'],
   setup(props, { emit }) {
-    const employeeListRef: Ref<EmployeeListInstance | undefined> = ref();
+    const employeeListRef1: Ref<EmployeeListInstance | undefined> = ref();
+    const employeeListRef2: Ref<EmployeeListInstance | undefined> = ref();
 
     const state: State = reactive({
       storage: {},
-      loading: false
+      loading: false,
+      searchValue: '',
+      checkedKeys: []
     });
 
-    const checkedKeys: Ref<string[]> = ref([]);
-
-    const onUpdateCheckedKeys = (keys: string[]) => {
-      if (state.filterStorage) {
-        const clone = { ...state.filterStorage };
-        for (const key of keys) {
-          if (checkedKeys.value.indexOf(key) <= -1) {
-            checkedKeys.value.push(key);
-          }
-          delete clone[key];
+    const initCheckedKeys = computed(() => {
+      let checkedKeys: string[] = [];
+      if (props.selected != null) {
+        if (Array.isArray(props.selected)) {
+          checkedKeys = props.selected.map((v) => v.key);
+        } else {
+          checkedKeys = [props.selected.key];
         }
-        for (const key of Object.keys(clone)) {
-          const index = checkedKeys.value.indexOf(key);
-          if (index > -1) {
-            checkedKeys.value.splice(index, 1);
-          }
-        }
-      } else {
-        checkedKeys.value = keys;
       }
-    };
+      return checkedKeys;
+    });
 
     const selectedValues = computed(() => {
       const selectedItems: SelectItem<PamirsEmployee>[] = [];
-      for (const checkedKey of checkedKeys.value) {
-        const node = state.storage[checkedKey];
-        const { key, value, label, data } = node;
+      let checkedKeys: string[];
+      if (props.mode === SelectMode.single) {
+        const firstKey = state.checkedKeys[0];
+        if (firstKey) {
+          checkedKeys = [firstKey];
+        } else {
+          checkedKeys = [];
+        }
+      } else {
+        checkedKeys = state.checkedKeys;
+      }
+      for (const checkedKey of checkedKeys) {
+        const item = state.storage[checkedKey];
+        if (!item) {
+          continue;
+        }
+        const { key, value, label, data } = item;
         selectedItems.push({
           key,
           value,
@@ -91,21 +121,39 @@ export default defineComponent({
       return selectedItems;
     });
 
-    const searchValue = ref('');
+    const showRolePanel = computed(() => {
+      if (!props.roleCodes) {
+        return true;
+      }
+      return !!props.roleCodes.length;
+    });
 
-    const onUpdateSearchValue = (val: string) => {
-      searchValue.value = val;
-    };
+    const employeeDomain = computed(() => {
+      const departmentCodes = props.departmentCodes || [];
+      if (departmentCodes.length) {
+        return RSQLHelper.concatByOr(
+          props.domain,
+          RSQLCondition.wrapper().in('departmentCode', departmentCodes).toString()
+        );
+      }
+      return undefined;
+    });
 
-    const onSearch = (keyword: string) => {
-      console.log(keyword);
-    };
+    const deptDomain = computed(() => {
+      const departmentCodes = props.departmentCodes || [];
+      if (departmentCodes.length) {
+        return RSQLCondition.wrapper().in('code', departmentCodes).toString();
+      }
+      return undefined;
+    });
 
-    const activeTabKey = ref('1');
-
-    const onUpdateActiveTabKey = (key: string) => {
-      activeTabKey.value = key;
-    };
+    const roleDomain = computed(() => {
+      const roleCodes = props.roleCodes || [];
+      if (roleCodes.length) {
+        return RSQLCondition.wrapper().in('code', roleCodes).toString();
+      }
+      return undefined;
+    });
 
     const enterCallback = () => {
       if (props.mode === SelectMode.single) {
@@ -119,115 +167,245 @@ export default defineComponent({
       return true;
     };
 
+    const onUpdateState = (key: string, value: unknown) => {
+      state[key] = value;
+    };
+
+    const onInit = (res: ListState<PamirsEmployee>) => {
+      state.storage = res.storage;
+      state.checkedKeys = res.checkedKeys;
+    };
+
     const onDepartmentSelected = async ({ selectedKeys }: { selectedKeys: string[] }) => {
       if (selectedKeys.length) {
         const rsql = RSQLCondition.wrapper().in('departmentCode', selectedKeys).toString();
-        const res = await reload(rsql);
-        state.filterStorage = res.storage;
+        await $$searchEmployeeList(employeeListRef1.value!, rsql);
       } else {
-        await reload();
-        state.filterStorage = undefined;
+        await $$initEmployeeList(employeeListRef1.value!);
       }
     };
 
-    const reload = async (rsql?: string) => {
+    const onRoleSelected = async (item: OioListItem<AuthRole>, selected: boolean) => {
+      if (selected) {
+        const rsql = RSQLCondition.wrapper().eq('departmentCode', item.key).toString();
+        await $$searchEmployeeList(employeeListRef2.value!, rsql);
+      } else {
+        await $$initEmployeeList(employeeListRef2.value!);
+      }
+    };
+
+    const $$initEmployeeList = async (instance: EmployeeListInstance, rsql?: string) => {
       state.loading = true;
       try {
-        return await employeeListRef.value!.init({
-          rsql,
-          checkedKeys: checkedKeys.value
+        return await instance.init({
+          rsql: RSQLHelper.concatByAnd(props.domain, rsql),
+          checkedKeys: state.checkedKeys
         });
       } finally {
         state.loading = false;
       }
     };
 
-    const init = async () => {
+    const $$searchEmployeeList = async (instance: EmployeeListInstance, rsql?: string) => {
       state.loading = true;
       try {
-        await $$init();
+        return await instance.search({
+          rsql: RSQLHelper.concatByAnd(props.domain, rsql),
+          checkedKeys: state.checkedKeys
+        });
       } finally {
         state.loading = false;
       }
     };
 
-    const $$init = async () => {
-      const result = await employeeListRef.value!.init({
-        checkedKeys: $$initCheckedKeys()
-      });
-      checkedKeys.value = result.checkedKeys;
-      state.storage = result.storage;
-    };
-
-    const $$initCheckedKeys = () => {
-      let checkedKeys: string[] = [];
-      if (props.selected != null) {
-        if (Array.isArray(props.selected)) {
-          checkedKeys = props.selected.map((v) => v.key);
-        } else {
-          checkedKeys = [props.selected.key];
-        }
-      }
-      return checkedKeys;
-    };
-
-    watch(
-      () => props.visible,
-      (val) => {
-        if (val) {
-          nextTick().then(() => {
-            init();
-          });
-        }
-      },
-      { immediate: true }
-    );
-
     return {
-      employeeListRef,
+      employeeListRef1,
+      employeeListRef2,
 
       state,
-      checkedKeys,
+      initCheckedKeys,
       selectedValues,
-
-      searchValue,
-      onUpdateSearchValue,
-      onSearch,
-
-      activeTabKey,
-      onUpdateActiveTabKey,
-
-      onUpdateCheckedKeys,
+      showRolePanel,
+      employeeDomain,
+      deptDomain,
+      roleDomain,
       enterCallback,
-
-      onDepartmentSelected
+      onUpdateState,
+      onInit,
+      onDepartmentSelected,
+      onRoleSelected
     };
   },
   render() {
     const {
+      $translate,
       mode,
+      userEmployee,
+      userDept,
+      userDeptAndChildren,
+
       state,
-      checkedKeys,
+      initCheckedKeys,
       selectedValues,
-
-      searchValue,
-      onUpdateSearchValue,
-      onSearch,
-      activeTabKey,
-      onUpdateActiveTabKey,
-      onUpdateCheckedKeys,
+      showRolePanel,
+      employeeDomain,
+      deptDomain,
+      roleDomain,
       enterCallback,
-
-      onDepartmentSelected
+      onUpdateState,
+      onInit,
+      onDepartmentSelected,
+      onRoleSelected
     } = this;
+    const tabTitleList = [
+      {
+        key: 'department',
+        label: '通过部门选择'
+      }
+    ];
+    const tabList: VNode[] = [];
+    tabList.push(
+      createVNode('div', { class: 'oio-department-employee-selected-panel' }, [
+        createVNode(DepartmentTree, {
+          autoInit: true,
+          domain: deptDomain,
+          selectable: true,
+          onSelected: onDepartmentSelected
+        }),
+        createVNode(OioDivider, { type: 'vertical' }),
+        createVNode(EmployeeList, {
+          ref: 'employeeListRef1',
+          searchValue: state.searchValue,
+          selectMode: mode,
+          showCheckedAll: true,
+          loading: state.loading,
+          usingLoading: false,
+          autoInit: true,
+          domain: employeeDomain,
+          initCheckedKeys,
+          checkedKeys: state.checkedKeys,
+          onInit,
+          'onUpdate:loading': (val: boolean) => onUpdateState('loading', val),
+          'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
+        })
+      ])
+    );
+    if (showRolePanel) {
+      tabTitleList.push({
+        key: 'role',
+        label: '通过角色选择'
+      });
+      tabList.push(
+        createVNode('div', { class: 'oio-role-employee-selected-panel' }, [
+          createVNode(RoleList, {
+            autoInit: true,
+            domain: roleDomain,
+            selectable: true,
+            onSelected: onRoleSelected
+          }),
+          createVNode(OioDivider, { type: 'vertical' }),
+          createVNode(EmployeeList, {
+            ref: 'employeeListRef2',
+            searchValue: state.searchValue,
+            selectMode: mode,
+            showCheckedAll: true,
+            loading: state.loading,
+            usingLoading: false,
+            autoInit: true,
+            domain: employeeDomain,
+            initCheckedKeys,
+            checkedKeys: state.checkedKeys,
+            onInit,
+            'onUpdate:loading': (val: boolean) => onUpdateState('loading', val),
+            'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
+          })
+        ])
+      );
+    }
+    if (userEmployee) {
+      tabTitleList.push({
+        key: 'userEmployee',
+        label: '当前用户所绑定员工'
+      });
+      tabList.push(
+        createVNode(EmployeeList, {
+          searchValue: state.searchValue,
+          selectMode: mode,
+          showCheckedAll: true,
+          autoInit: true,
+          checkedKeys: state.checkedKeys,
+          'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
+        })
+      );
+    }
+    if (userDept) {
+      tabTitleList.push({
+        key: 'userDept',
+        label: '当前用户所属部门中的员工'
+      });
+      tabList.push(
+        createVNode(EmployeeList, {
+          searchValue: state.searchValue,
+          selectMode: mode,
+          showCheckedAll: true,
+          autoInit: true,
+          checkedKeys: state.checkedKeys,
+          'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
+        })
+      );
+    }
+    if (userDeptAndChildren) {
+      tabTitleList.push({
+        key: 'userDeptAndChildren',
+        label: '当前用户所属部门及下属部门中的员工'
+      });
+      tabList.push(
+        createVNode(EmployeeList, {
+          searchValue: state.searchValue,
+          selectMode: mode,
+          showCheckedAll: true,
+          autoInit: true,
+          checkedKeys: state.checkedKeys,
+          'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
+        })
+      );
+    }
+    let content: VNode;
+    if (tabTitleList.length === 1) {
+      [content] = tabList;
+    } else {
+      content = createVNode(
+        OioTabs,
+        {},
+        {
+          default: () => {
+            const tabs: VNode[] = [];
+            for (let i = 0; i < tabTitleList.length; i++) {
+              const { key, label } = tabTitleList[i];
+              const tab = tabList[i];
+              tabs.push(
+                createVNode(
+                  OioTab,
+                  { key, tab: $translate(label) },
+                  {
+                    default: () => tab
+                  }
+                )
+              );
+            }
+            return tabs;
+          }
+        }
+      );
+    }
     return createVNode(
       OioModal,
       {
-        title: translateValueByKey('选择员工'),
+        title: $translate('选择员工'),
         width: '720px',
-        height: '664px',
         maskClosable: false,
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
+        wrapperClassName: StringHelper.append(['oio-employee-modal'], this.wrapperClassName),
         destroyOnClose: true,
         loading: state.loading,
         enterCallback
@@ -239,70 +417,18 @@ export default defineComponent({
               createVNode(BaseSelect, {
                 mode: SelectMode.multiple,
                 value: selectedValues,
-                placeholder: '选择员工',
+                options: selectedValues,
+                placeholder: $translate('选择员工'),
                 notFoundContent: null,
                 allowArrow: false
               }),
               createVNode(OioInputSearch, {
-                value: searchValue,
-                placeholder: '搜索',
+                value: state.searchValue,
+                placeholder: $translate('搜索'),
                 allowClear: true,
-                'onUpdate:value': onUpdateSearchValue,
-                onSearch
+                'onUpdate:value': (val: string) => onUpdateState('searchValue', val)
               }),
-              createVNode(
-                OioTabs,
-                {
-                  activeKey: activeTabKey,
-                  'onUpdate:active-key': onUpdateActiveTabKey
-                },
-                {
-                  default: () => {
-                    return [
-                      createVNode(
-                        OioTab,
-                        {
-                          key: '1',
-                          tab: '所有员工'
-                        },
-                        {
-                          default: () => {
-                            return [
-                              createVNode('div', { class: 'oio-employee-selected-panel' }, [
-                                createVNode(DepartmentTree, {
-                                  autoInit: true,
-                                  selectable: true,
-                                  onSelected: onDepartmentSelected
-                                }),
-                                createVNode(OioDivider, { type: 'vertical' }),
-                                createVNode(EmployeeList, {
-                                  ref: 'employeeListRef',
-                                  searchValue,
-                                  selectMode: mode,
-                                  checkedKeys,
-                                  'onUpdate:checkedKeys': onUpdateCheckedKeys
-                                })
-                              ])
-                            ];
-                          }
-                        }
-                      ),
-                      createVNode(
-                        OioTab,
-                        {
-                          key: '2',
-                          tab: '当前用户所在部门'
-                        },
-                        {
-                          default: () => {
-                            return [createVNode('span', {}, 'ss')];
-                          }
-                        }
-                      )
-                    ];
-                  }
-                }
-              )
+              content
             ])
           ];
         }
@@ -312,34 +438,70 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.oio-employee-modal-content {
-  display: flex;
-  flex-direction: column;
-  row-gap: 16px;
-
-  .oio-employee-selected-panel {
-    position: relative;
+.oio-employee-modal {
+  .oio-employee-modal-content {
     display: flex;
-    height: 400px;
+    flex-direction: column;
+    row-gap: 16px;
 
-    .oio-department-tree {
-      width: 50%;
-      flex-basis: 50%;
-      padding-right: 8px;
+    & > .oio-tabs,
+    & > .oio-employee-list {
+      flex: 1;
+    }
+
+    .oio-tab-content {
+      height: 400px;
       overflow: auto;
     }
 
-    .oio-divider {
-      position: absolute;
-      height: 100%;
-      left: 50%;
+    .oio-department-employee-selected-panel {
+      position: relative;
+      display: flex;
+
+      .oio-department-tree {
+        width: 50%;
+        flex-basis: 50%;
+        padding-right: 8px;
+        overflow: auto;
+      }
+
+      .oio-divider {
+        position: absolute;
+        height: 100%;
+        left: 50%;
+      }
+
+      .oio-employee-list {
+        width: 50%;
+        flex-basis: 50%;
+        padding-left: 8px;
+        overflow: auto;
+      }
     }
 
-    .oio-employee-list {
-      width: 50%;
-      flex-basis: 50%;
-      padding-left: 8px;
-      overflow: auto;
+    .oio-role-employee-selected-panel {
+      position: relative;
+      display: flex;
+
+      .oio-role-list {
+        width: 50%;
+        flex-basis: 50%;
+        padding-right: 8px;
+        overflow: auto;
+      }
+
+      .oio-divider {
+        position: absolute;
+        height: 100%;
+        left: 50%;
+      }
+
+      .oio-employee-list {
+        width: 50%;
+        flex-basis: 50%;
+        padding-left: 8px;
+        overflow: auto;
+      }
     }
   }
 }

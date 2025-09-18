@@ -4,6 +4,7 @@ import { OioTreeNode } from '@oinone/kunlun-shared';
 import { OioCheckbox, OioIcon, OioTree, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { Radio as ARadio } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, onMounted, PropType, VNode } from 'vue';
+import { TreeStateLoadFunction } from '../../quick-utils';
 import { useDepartmentTree } from './init';
 
 export default defineComponent({
@@ -37,6 +38,9 @@ export default defineComponent({
     autoInit: {
       type: Boolean
     },
+    load: {
+      type: Function as PropType<TreeStateLoadFunction<PamirsDepartment>>
+    },
     domain: {
       type: String
     },
@@ -45,6 +49,9 @@ export default defineComponent({
     },
     checkedKeys: {
       type: Array as PropType<string[]>
+    },
+    selectable: {
+      type: Boolean
     }
   },
   emits: ['update:loading', 'update:checkedKeys', 'init', 'change'],
@@ -61,7 +68,8 @@ export default defineComponent({
     } = useDepartmentTree({
       mode: props.selectMode,
       getCheckedKeys: () => props.checkedKeys,
-      getSearchValue: () => props.searchValue
+      getSearchValue: () => props.searchValue,
+      load: props.load
     });
 
     const loading = computed({
@@ -141,6 +149,7 @@ export default defineComponent({
       usingLoading,
       selectMode,
       showCheckedAll,
+      selectable,
       onUpdateExpandedKeys,
       onUpdateCheckedAll,
       onUpdateChecked
@@ -149,7 +158,7 @@ export default defineComponent({
       class: 'oio-department-tree oio-scrollbar',
       data: filterData,
       blockNode: true,
-      selectable: false,
+      selectable: selectable || false,
       expandedKeys: state.expandedKeys,
       'onUpdate:expandedKeys': onUpdateExpandedKeys
     };
@@ -192,6 +201,9 @@ export default defineComponent({
         return [createVNode('div', { class: 'oio-department-tree-node' }, nodes)];
       }
     });
+    if (selectable) {
+      return treeNode;
+    }
     if (!!filterData.length && selectMode === SelectMode.multiple && showCheckedAll) {
       return createVNode('div', { class: 'oio-department-tree-wrapper' }, [
         createVNode('div', { class: 'oio-department-tree-node oio-department-tree-node-checked-all' }, [

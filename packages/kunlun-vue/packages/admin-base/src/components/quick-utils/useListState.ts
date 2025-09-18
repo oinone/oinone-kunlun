@@ -1,5 +1,5 @@
 import { IdModel, ListModelApi, QueryWrapper } from '@oinone/kunlun-engine';
-import { Converter, OioListItem, Optional } from '@oinone/kunlun-shared';
+import { Converter, OioListItem, Optional, ReturnPromise } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { computed, reactive, watch } from 'vue';
 import { useListChecked } from './useListChecked';
@@ -44,6 +44,7 @@ export function useListState<T extends IdModel>(initOptions: {
   service: ListModelApi<T>;
   props?: ListStateProps;
   initState?: Converter<ListState<T>, ListState<T>>;
+  load?: (state: ListState<T>, queryWrapper: QueryWrapper) => ReturnPromise<T[]>;
   convertListData?: (list: T[]) => OioListItem<T>[];
   initListState?: (state: ListState<T>, options?: ListInitOptions) => void;
   searchListState?: (state: ListState<T>, options?: ListInitOptions) => void;
@@ -111,17 +112,22 @@ export function useListState<T extends IdModel>(initOptions: {
   });
 
   const init = async (options?: Partial<ListInitOptions>): Promise<ListState<T>> => {
-    state.data = await $$reload(options);
+    state.data = await $$load(options);
     initListState($$initOptions(options));
     return state;
   };
 
-  const $$reload = async (options?: Partial<ListInitOptions>): Promise<OioListItem<T>[]> => {
+  const $$load = async (options?: Partial<ListInitOptions>): Promise<OioListItem<T>[]> => {
     const queryWrapper: QueryWrapper = {};
     if (options?.rsql) {
       queryWrapper.rsql = options.rsql;
     }
-    const list = await service.queryListByWrapper(queryWrapper);
+    let list: T[];
+    if (initOptions.load) {
+      list = await initOptions.load(state, queryWrapper);
+    } else {
+      list = await service.queryListByWrapper(queryWrapper);
+    }
     if (convertListData) {
       return convertListData(list);
     }
@@ -173,7 +179,7 @@ export function useListState<T extends IdModel>(initOptions: {
   };
 
   const search = async (options?: Partial<TreeInitOptions>) => {
-    state.data = await $$reload(options);
+    state.data = await $$load(options);
     if (initOptions.searchListState) {
       initOptions.searchListState(state, $$initOptions(options));
     } else {

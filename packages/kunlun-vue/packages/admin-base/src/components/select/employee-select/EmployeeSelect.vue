@@ -2,7 +2,7 @@
 import { PamirsEmployee } from '@oinone/kunlun-engine';
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { computed, createVNode, defineComponent, ref } from 'vue';
+import { computed, createVNode, defineComponent, PropType, ref } from 'vue';
 import { DefaultSelect, DefaultSelectProps } from '../base';
 import EmployeeModal from './EmployeeModal.vue';
 
@@ -14,7 +14,25 @@ export default defineComponent({
   },
   inheritAttrs: false,
   props: {
-    ...DefaultSelectProps
+    ...DefaultSelectProps,
+    domain: {
+      type: String
+    },
+    departmentCodes: {
+      type: Array as PropType<string[]>
+    },
+    roleCodes: {
+      type: Array as PropType<string[]>
+    },
+    userEmployee: {
+      type: Boolean
+    },
+    userDept: {
+      type: Boolean
+    },
+    userDeptAndChildren: {
+      type: Boolean
+    }
   },
   setup(props) {
     const visible = ref(false);
@@ -58,6 +76,12 @@ export default defineComponent({
       mode,
       selected,
       options,
+      domain,
+      departmentCodes,
+      roleCodes,
+      userEmployee,
+      userDept,
+      userDeptAndChildren,
       placeholder,
       allowClear,
       visible,
@@ -72,6 +96,12 @@ export default defineComponent({
     const modal = createVNode(EmployeeModal, {
       mode,
       selected,
+      domain,
+      departmentCodes,
+      roleCodes,
+      userEmployee,
+      userDept,
+      userDeptAndChildren,
       visible,
       'onUpdate:visible': onUpdateVisible,
       onChange

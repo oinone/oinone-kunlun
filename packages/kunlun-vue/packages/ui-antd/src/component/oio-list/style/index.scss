@@ -12,6 +12,19 @@
     height: 24px;
     border-radius: 4px;
     padding: 0 8px;
+
+    &-selectable {
+      user-select: none;
+    }
+
+    &-selectable:hover {
+      background-color: var(--oio-menu-hover-background-color);
+      cursor: pointer;
+    }
+
+    &-activated {
+      background-color: var(--oio-menu-hover-background-color);
+    }
   }
 
   .#{$listClassPrefix}-item-content {

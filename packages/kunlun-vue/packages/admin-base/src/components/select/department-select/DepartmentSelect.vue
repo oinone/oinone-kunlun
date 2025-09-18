@@ -14,6 +14,9 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     ...DefaultSelectProps,
+    domain: {
+      type: String
+    },
     userDept: {
       type: Boolean
     },
@@ -73,6 +76,7 @@ export default defineComponent({
       onShowModal,
       onChange,
 
+      domain,
       userDept,
       userDeptAndChildren
     } = this;
@@ -83,6 +87,7 @@ export default defineComponent({
       visible,
       'onUpdate:visible': onUpdateVisible,
       onChange,
+      domain,
       userDept,
       userDeptAndChildren
     });

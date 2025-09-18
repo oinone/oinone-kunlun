@@ -1,8 +1,10 @@
 import { ServiceIdentifier } from '@oinone/kunlun-spi';
-import { TreeModelApi } from '../service';
+import { QueryWrapper, TreeModelApi } from '../service';
 import { PamirsDepartment } from '../typing';
 
-export type PamirsDepartmentService = TreeModelApi<PamirsDepartment>;
+export interface PamirsDepartmentService extends TreeModelApi<PamirsDepartment> {
+  queryDepartmentRootList(queryWrapper: QueryWrapper): Promise<PamirsDepartment[]>;
+}
 
 export const PamirsDepartmentMetadata = {
   MODEL_MODEL: 'business.PamirsDepartment',

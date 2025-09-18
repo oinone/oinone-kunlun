@@ -8,9 +8,7 @@ type Options = {
 export function useTreeChecked(
   state: {
     mode: SelectMode;
-    checkedKeys: string[];
-    checkedNodes: OioTreeNode[];
-  },
+  } & InitState,
   options?: Options
 ) {
   if (state.mode === SelectMode.single) {
@@ -19,56 +17,70 @@ export function useTreeChecked(
   return useMultipleTreeChecked(state, options);
 }
 
-interface State {
+type InitState = {
+  storage: Record<string, OioTreeNode>;
+} & State;
+
+type State = {
   checkedKeys: string[];
   checkedNodes: OioTreeNode[];
-}
+  lastCheckedKeys?: string[];
+  lastCheckedNodes?: OioTreeNode[];
+  submitCheckedKeys?: string[];
+  submitCheckedNodes?: OioTreeNode[];
+};
 
-function useMultipleTreeChecked(state: State, options?: Options) {
+function useMultipleTreeChecked(initState: InitState, options?: Options) {
   const onChecked = (node: OioTreeNode, checked: boolean) => {
-    $$updateChecked(node, checked);
-    state.checkedKeys = [...state.checkedKeys];
+    $$updateChecked(node, checked, options?.isDiff?.());
+    initState.checkedKeys = [...initState.checkedKeys];
   };
 
   const onCheckedStrictly = (node: OioTreeNode, checked: boolean) => {
-    $$checkedStrictly(node, checked);
-    state.checkedKeys = [...state.checkedKeys];
+    $$checkedStrictly(node, checked, options?.isDiff?.());
+    initState.checkedKeys = [...initState.checkedKeys];
   };
 
-  const $$checkedStrictly = (node: OioTreeNode, checked: boolean) => {
-    $$updateChecked(node, checked);
-    $$updateChildren(node.children, checked);
+  const $$checkedStrictly = (node: OioTreeNode, checked: boolean, usingOrigin?: boolean) => {
+    $$updateChecked(node, checked, usingOrigin);
+    $$updateChildren(node.children, checked, usingOrigin);
     if (node.parent) {
-      $$updateParent(node.parent);
+      $$updateParent(node.parent, usingOrigin);
     }
   };
 
-  const $$updateChecked = (node: OioTreeNode, checked: boolean) => {
+  const $$updateChecked = (node: OioTreeNode, checked: boolean, usingOrigin?: boolean) => {
     if (node.checked === checked) {
       return;
+    }
+    const { key } = node;
+    if (usingOrigin) {
+      const originNode = initState.storage[key];
+      originNode.checked = checked;
+      originNode.halfChecked = false;
     }
     node.checked = checked;
     node.halfChecked = false;
     if (checked) {
-      state.checkedKeys.push(node.key);
-      state.checkedNodes.push(node);
+      initState.checkedKeys.push(key);
+      initState.checkedNodes.push(node);
     } else {
-      const index = state.checkedKeys.indexOf(node.key);
+      const index = initState.checkedKeys.indexOf(key);
       if (index > -1) {
-        state.checkedKeys.splice(index, 1);
-        state.checkedNodes.splice(index, 1);
+        initState.checkedKeys.splice(index, 1);
+        initState.checkedNodes.splice(index, 1);
       }
     }
   };
 
-  const $$updateChildren = (nodes: OioTreeNode[], checked: boolean) => {
+  const $$updateChildren = (nodes: OioTreeNode[], checked: boolean, usingOrigin?: boolean) => {
     for (const node of nodes) {
-      $$updateChecked(node, checked);
-      $$updateChildren(node.children, checked);
+      $$updateChecked(node, checked, usingOrigin);
+      $$updateChildren(node.children, checked, usingOrigin);
     }
   };
 
-  const $$updateParent = (node: OioTreeNode) => {
+  const $$updateParent = (node: OioTreeNode, usingOrigin?: boolean) => {
     let checkedCount = node.children.length;
     let halfChecked = false;
     for (const child of node.children) {
@@ -80,9 +92,13 @@ function useMultipleTreeChecked(state: State, options?: Options) {
       }
     }
     if (checkedCount === 0) {
-      $$updateChecked(node, true);
+      $$updateChecked(node, true, usingOrigin);
     } else {
-      $$updateChecked(node, false);
+      $$updateChecked(node, false, usingOrigin);
+      if (usingOrigin) {
+        const originNode = initState.storage[node.key];
+        originNode.halfChecked = halfChecked;
+      }
       node.halfChecked = halfChecked;
     }
     if (node.parent) {
@@ -95,26 +111,26 @@ function useMultipleTreeChecked(state: State, options?: Options) {
     if (isDiff) {
       if (checked) {
         const nextState: State = { checkedKeys: [], checkedNodes: [] };
-        $$updateCheckedAll(nodes, nextState);
+        $$updateCheckedAll(nodes, nextState, true);
         for (let i = 0; i < nextState.checkedKeys.length; i++) {
           const checkedKey = nextState.checkedKeys[i];
-          if (state.checkedKeys.indexOf(checkedKey) <= -1) {
-            state.checkedKeys.push(checkedKey);
-            state.checkedNodes.push(nextState.checkedNodes[i]);
+          if (initState.checkedKeys.indexOf(checkedKey) <= -1) {
+            initState.checkedKeys.push(checkedKey);
+            initState.checkedNodes.push(nextState.checkedNodes[i]);
           }
         }
       } else {
         const uncheckedKeys: string[] = [];
-        $$updateUncheckedAll(nodes, uncheckedKeys);
+        $$updateUncheckedAll(nodes, uncheckedKeys, true);
         for (const checkedKey of uncheckedKeys) {
-          const index = state.checkedKeys.indexOf(checkedKey);
+          const index = initState.checkedKeys.indexOf(checkedKey);
           if (index !== -1) {
-            state.checkedKeys.splice(index, 1);
-            state.checkedNodes.splice(index, 1);
+            initState.checkedKeys.splice(index, 1);
+            initState.checkedNodes.splice(index, 1);
           }
         }
       }
-      state.checkedKeys = [...state.checkedKeys];
+      initState.checkedKeys = [...initState.checkedKeys];
     } else {
       $$checkedAll(nodes, checked);
     }
@@ -124,28 +140,40 @@ function useMultipleTreeChecked(state: State, options?: Options) {
     if (checked) {
       const nextState = { checkedKeys: [], checkedNodes: [] };
       $$updateCheckedAll(nodes, nextState);
-      state.checkedKeys = nextState.checkedKeys;
-      state.checkedNodes = nextState.checkedNodes;
+      initState.checkedKeys = nextState.checkedKeys;
+      initState.checkedNodes = nextState.checkedNodes;
     } else {
       $$updateUncheckedAll(nodes);
-      state.checkedKeys = [];
-      state.checkedNodes = [];
+      initState.checkedKeys = [];
+      initState.checkedNodes = [];
     }
   };
 
-  const $$updateCheckedAll = (nodes: OioTreeNode[], nextState: State) => {
+  const $$updateCheckedAll = (nodes: OioTreeNode[], nextState: State, usingOrigin?: boolean) => {
     for (const node of nodes) {
-      nextState.checkedKeys.push(node.key);
+      const { key } = node;
+      nextState.checkedKeys.push(key);
       nextState.checkedNodes.push(node);
+      if (usingOrigin) {
+        const originNode = initState.storage[key];
+        originNode.checked = true;
+        originNode.halfChecked = false;
+      }
       node.checked = true;
       node.halfChecked = false;
       $$updateCheckedAll(node.children, nextState);
     }
   };
 
-  const $$updateUncheckedAll = (nodes: OioTreeNode[], uncheckedKeys?: string[]) => {
+  const $$updateUncheckedAll = (nodes: OioTreeNode[], uncheckedKeys?: string[], usingOrigin?: boolean) => {
     for (const node of nodes) {
-      uncheckedKeys?.push(node.key);
+      const { key } = node;
+      uncheckedKeys?.push(key);
+      if (usingOrigin) {
+        const originNode = initState.storage[key];
+        originNode.checked = false;
+        originNode.halfChecked = false;
+      }
       node.checked = false;
       node.halfChecked = false;
       $$updateUncheckedAll(node.children, uncheckedKeys);
@@ -155,8 +183,8 @@ function useMultipleTreeChecked(state: State, options?: Options) {
   const onRefreshCheckedState = (nodes: OioTreeNode[], checkedKeys: string[]) => {
     const nextState: State = { checkedKeys: [], checkedNodes: [] };
     $$refreshCheckedState(nodes, checkedKeys, nextState);
-    state.checkedKeys = nextState.checkedKeys;
-    state.checkedNodes = nextState.checkedNodes;
+    initState.checkedKeys = nextState.checkedKeys;
+    initState.checkedNodes = nextState.checkedNodes;
   };
 
   const $$refreshCheckedState = (nodes: OioTreeNode[], checkedKeys: string[], newState: State) => {

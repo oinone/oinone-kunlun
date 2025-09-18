@@ -1,5 +1,5 @@
 import { IdModel, QueryWrapper, TreeModelApi } from '@oinone/kunlun-engine';
-import { Converter, OioTreeNode, Optional, TreeHelper } from '@oinone/kunlun-shared';
+import { Converter, OioTreeNode, Optional, ReturnPromise, TreeHelper } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { computed, reactive, watch } from 'vue';
 import { useTreeChecked } from './useTreeChecked';
@@ -37,10 +37,17 @@ export interface TreeStateProps {
   getSearchValue?: () => string | null | undefined;
 }
 
+export type TreeStateLoadFunction<T> = (
+  state: TreeState<T>,
+  service: TreeModelApi<T>,
+  queryWrapper: QueryWrapper
+) => ReturnPromise<T[]>;
+
 export function useTreeState<T extends IdModel>(initOptions: {
   service: TreeModelApi<T>;
   props?: TreeStateProps;
   initState?: Converter<TreeState<T>, TreeState<T>>;
+  load?: TreeStateLoadFunction<T>;
   convertTreeData?: (list: T[]) => OioTreeNode<T>[];
   initTreeState?: (state: TreeState<T>, options: TreeInitOptions) => void;
   searchTreeState?: (state: TreeState<T>, options: TreeInitOptions) => void;
@@ -120,7 +127,7 @@ export function useTreeState<T extends IdModel>(initOptions: {
   };
 
   const init = async (options?: Partial<TreeInitOptions>): Promise<TreeState<T>> => {
-    state.data = await $$reload(options);
+    state.data = await $$load(options);
     if (initOptions.initTreeState) {
       initOptions.initTreeState(state, $$initOptions(options));
     } else {
@@ -129,12 +136,17 @@ export function useTreeState<T extends IdModel>(initOptions: {
     return state;
   };
 
-  const $$reload = async (options?: Partial<TreeInitOptions>): Promise<OioTreeNode<T>[]> => {
+  const $$load = async (options?: Partial<TreeInitOptions>): Promise<OioTreeNode<T>[]> => {
     const queryWrapper: QueryWrapper = {};
     if (options?.rsql) {
       queryWrapper.rsql = options.rsql;
     }
-    const list = await service.queryListByWrapper(queryWrapper);
+    let list: T[];
+    if (initOptions.load) {
+      list = await initOptions.load(state, service, queryWrapper);
+    } else {
+      list = await service.queryListByWrapper(queryWrapper);
+    }
     if (convertTreeData) {
       return convertTreeData(list);
     }
@@ -188,7 +200,7 @@ export function useTreeState<T extends IdModel>(initOptions: {
   };
 
   const search = async (options?: Partial<TreeInitOptions>) => {
-    state.data = await $$reload(options);
+    state.data = await $$load(options);
     if (initOptions.searchTreeState) {
       initOptions.searchTreeState(state, $$initOptions(options));
     } else {

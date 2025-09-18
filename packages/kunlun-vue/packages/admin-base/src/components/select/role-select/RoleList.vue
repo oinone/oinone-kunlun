@@ -34,6 +34,9 @@ export default defineComponent({
     },
     checkedKeys: {
       type: Array as PropType<string[]>
+    },
+    selectable: {
+      type: Boolean
     }
   },
   emits: ['update:loading', 'update:checkedKeys', 'init', 'change'],
@@ -121,6 +124,7 @@ export default defineComponent({
       filterData,
       checkedAll,
       halfCheckedAll,
+      selectable,
       onUpdateChecked,
       onUpdateCheckedAll
     } = this;
@@ -133,6 +137,7 @@ export default defineComponent({
       showCheckedAll,
       checkedAll,
       halfCheckedAll,
+      selectable,
       onChecked: onUpdateChecked,
       'onUpdate:checkedAll': onUpdateCheckedAll
     });

@@ -288,21 +288,33 @@ export class TreeHelper {
     }
   }
 
-  public static filter<V, NODE extends StandardTreeNode<V, NODE>>(nodes: NODE[], filter: Predict<NODE>) {
+  public static filter<V, NODE extends StandardTreeNode<V, NODE>>(nodes: NODE[], filter: Predict<NODE>): NODE[] {
+    return TreeHelper.filter0(nodes, filter);
+  }
+
+  private static filter0<V, NODE extends StandardTreeNode<V, NODE>>(
+    nodes: NODE[],
+    filter: Predict<NODE>,
+    parentNode?: NODE
+  ): NODE[] {
     const filterNodes: NODE[] = [];
     for (const node of nodes) {
       if (filter(node)) {
-        filterNodes.push({
+        const filterNode = {
           ...node,
-          children: TreeHelper.filter(node.children, filter)
-        });
+          parent: parentNode
+        };
+        filterNode.children = TreeHelper.filter0(node.children, filter, filterNode);
+        filterNodes.push(filterNode);
       } else {
-        const children = TreeHelper.filter(node.children, filter);
+        const filterNode = {
+          ...node,
+          parent: parentNode
+        };
+        const children = TreeHelper.filter0(node.children, filter, filterNode);
         if (children.length) {
-          filterNodes.push({
-            ...node,
-            children
-          });
+          filterNode.children = children;
+          filterNodes.push(filterNode);
         }
       }
     }

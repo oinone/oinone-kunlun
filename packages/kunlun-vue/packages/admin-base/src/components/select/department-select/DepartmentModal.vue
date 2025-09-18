@@ -1,7 +1,8 @@
 <script lang="ts">
-import { PamirsDepartment } from '@oinone/kunlun-engine';
+import { PamirsDepartment, PamirsDepartmentService, QueryWrapper } from '@oinone/kunlun-engine';
 import {
   CastHelper,
+  OioEmptyData,
   OioInput,
   OioInputSearch,
   OioModal,
@@ -11,32 +12,20 @@ import {
   OioTreeNode,
   PropRecordHelper,
   SelectItem,
-  SelectMode
+  SelectMode,
+  StringHelper
 } from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType, reactive, VNode } from 'vue';
+import { computed, createVNode, defineComponent, PropType, reactive, watch } from 'vue';
 import { TreeState } from '../../quick-utils';
 import { BaseSelect } from '../base';
 import DepartmentTree from './DepartmentTree.vue';
 
 interface State {
+  init: boolean;
   storage: Record<string, OioTreeNode<PamirsDepartment>>;
   loading: boolean;
   searchValue: string;
   checkedKeys: string[];
-}
-
-interface TabOption {
-  key: string;
-  label: string;
-}
-
-function createTabTitleList(): TabOption[] {
-  return [
-    {
-      key: 'all',
-      label: '所有部门'
-    }
-  ];
 }
 
 export default defineComponent({
@@ -56,6 +45,9 @@ export default defineComponent({
     selected: {
       type: [Object, Array] as PropType<SelectItem<PamirsDepartment> | SelectItem<PamirsDepartment>[]>
     },
+    domain: {
+      type: String
+    },
     userDept: {
       type: Boolean
     },
@@ -66,6 +58,7 @@ export default defineComponent({
   emits: ['change'],
   setup(props, { emit }) {
     const state: State = reactive({
+      init: false,
       storage: {},
       loading: false,
       searchValue: '',
@@ -117,6 +110,20 @@ export default defineComponent({
       return selectedItems;
     });
 
+    const load = async (
+      res: TreeState<PamirsDepartment>,
+      service: PamirsDepartmentService,
+      queryWrapper: QueryWrapper
+    ) => {
+      try {
+        return await service.queryDepartmentRootList(queryWrapper);
+      } catch (e) {
+        state.init = true;
+        state.loading = false;
+        throw e;
+      }
+    };
+
     const enterCallback = () => {
       if (props.mode === SelectMode.single) {
         emit('change', selectedValues.value[0]?.data);
@@ -134,14 +141,25 @@ export default defineComponent({
     };
 
     const onInit = (res: TreeState<PamirsDepartment>) => {
+      state.init = true;
       state.storage = res.storage;
       state.checkedKeys = res.checkedKeys;
     };
+
+    watch(
+      () => props.visible,
+      (val) => {
+        if (val) {
+          state.init = false;
+        }
+      }
+    );
 
     return {
       state,
       selectedValues,
       initCheckedKeys,
+      load,
       enterCallback,
       onUpdateState,
       onInit
@@ -151,108 +169,34 @@ export default defineComponent({
     const {
       $translate,
       mode,
-      userDept,
-      userDeptAndChildren,
+      domain,
 
       state,
       selectedValues,
       initCheckedKeys,
+      load,
       enterCallback,
       onUpdateState,
       onInit
     } = this;
-    const tabTitleList: TabOption[] = createTabTitleList();
-    const tabList: VNode[] = [];
-    tabList.push(
-      createVNode(DepartmentTree, {
-        searchValue: state.searchValue,
-        selectMode: mode,
-        showCheckedAll: true,
-        loading: state.loading,
-        usingLoading: false,
-        autoInit: true,
-        initCheckedKeys,
-        checkedKeys: state.checkedKeys,
-        onInit,
-        'onUpdate:loading': (val: boolean) => onUpdateState('loading', val),
-        'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
-      })
-    );
-    if (userDept) {
-      tabTitleList.push({
-        key: 'userDept',
-        label: '当前用户所处部门'
-      });
-      tabList.push(
-        createVNode(DepartmentTree, {
-          searchValue: state.searchValue,
-          selectMode: mode,
-          showCheckedAll: true,
-          autoInit: true,
-          checkedKeys: state.checkedKeys,
-          'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
-        })
-      );
-    }
-    if (userDeptAndChildren) {
-      tabTitleList.push({
-        key: 'userDeptAndChildren',
-        label: '当前用户所处部门及下级部门'
-      });
-      tabList.push(
-        createVNode(DepartmentTree, {
-          searchValue: state.searchValue,
-          selectMode: mode,
-          showCheckedAll: true,
-          autoInit: true,
-          checkedKeys: state.checkedKeys,
-          'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
-        })
-      );
-    }
-    let content: VNode;
-    if (tabTitleList.length === 1) {
-      [content] = tabList;
-    } else {
-      content = createVNode(
-        OioTabs,
-        {},
-        {
-          default: () => {
-            const tabs: VNode[] = [];
-            for (let i = 0; i < tabTitleList.length; i++) {
-              const { key, label } = tabTitleList[i];
-              const tab = tabList[i];
-              tabs.push(
-                createVNode(
-                  OioTab,
-                  { key, tab: $translate(label) },
-                  {
-                    default: () => tab
-                  }
-                )
-              );
-            }
-            return tabs;
-          }
-        }
-      );
-    }
     return createVNode(
       OioModal,
       {
         title: $translate('选择部门'),
-        wrapperClassName: 'oio-department-modal',
         width: '720px',
         height: '664px',
         maskClosable: false,
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
+        wrapperClassName: StringHelper.append(['oio-department-modal'], this.wrapperClassName),
         destroyOnClose: true,
         loading: state.loading,
         enterCallback
       },
       {
         default: () => {
+          if (state.init && !Object.keys(state.storage).length) {
+            return createVNode(OioEmptyData);
+          }
           return [
             createVNode('div', { class: 'oio-department-modal-content' }, [
               createVNode(BaseSelect, {
@@ -269,7 +213,21 @@ export default defineComponent({
                 allowClear: true,
                 'onUpdate:value': (val: string) => onUpdateState('searchValue', val)
               }),
-              content
+              createVNode(DepartmentTree, {
+                searchValue: state.searchValue,
+                selectMode: mode,
+                showCheckedAll: true,
+                loading: state.loading,
+                usingLoading: false,
+                autoInit: true,
+                domain,
+                initCheckedKeys,
+                checkedKeys: state.checkedKeys,
+                load,
+                onInit,
+                'onUpdate:loading': (val: boolean) => onUpdateState('loading', val),
+                'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
+              })
             ])
           ];
         }
@@ -298,7 +256,6 @@ export default defineComponent({
     row-gap: 16px;
     height: 100%;
 
-    & > .oio-tabs,
     & > .oio-department-tree-wrapper,
     & > .oio-department-tree {
       flex: 1;

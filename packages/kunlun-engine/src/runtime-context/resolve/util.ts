@@ -3,16 +3,18 @@ import { isObject } from 'lodash-es';
 import { RuntimeContext } from '../runtime-context';
 
 export class ResolveUtil {
-  public static toArray<T = string>(val: string | string[] | undefined, split = ','): T[] | undefined {
+  public static toArray<T = string>(val: string | string[] | null | undefined, split = ','): T[] | undefined {
+    if (!val) {
+      return undefined;
+    }
     let array: string[] | undefined;
     if (Array.isArray(val)) {
-      array = val.map((v) => v?.trim?.()).filter((v) => !!v);
-    }
-    if (typeof val === 'string') {
+      array = val.map((v) => v?.trim?.()).filter((v) => v != null);
+    } else if (typeof val === 'string') {
       array = val
         .split(split)
         .map((v) => v.trim())
-        .filter((v) => !!v);
+        .filter((v) => v != null);
     }
     return array as unknown as T[];
   }

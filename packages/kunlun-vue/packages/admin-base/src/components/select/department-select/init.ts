@@ -2,7 +2,7 @@ import { PamirsDepartment, PamirsDepartmentServiceToken } from '@oinone/kunlun-e
 import { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { ComputedRef, Ref } from 'vue';
-import { TreeInitOptions, TreeState, TreeStateProps, useTreeState } from '../../quick-utils';
+import { TreeInitOptions, TreeState, TreeStateLoadFunction, TreeStateProps, useTreeState } from '../../quick-utils';
 
 export interface DepartmentTreeInstance {
   state: Ref<TreeState<PamirsDepartment>>;
@@ -13,9 +13,10 @@ export interface DepartmentTreeInstance {
   init(options?: Partial<TreeInitOptions>): Promise<TreeState<PamirsDepartment>>;
 }
 
-export function useDepartmentTree(props?: TreeStateProps) {
+export function useDepartmentTree(props?: TreeStateProps & { load?: TreeStateLoadFunction<PamirsDepartment> }) {
   return useTreeState({
     service: SPI.RawInstantiate(PamirsDepartmentServiceToken)!,
-    props
+    props,
+    load: props?.load
   });
 }

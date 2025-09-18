@@ -1,5 +1,12 @@
-import { PamirsEmployee, RuntimeM2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
+import {
+  PamirsEmployee,
+  ResolveUtil,
+  RuntimeM2MField,
+  SubmitRelationHandler,
+  SubmitValue
+} from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -21,6 +28,31 @@ export class FormM2MEmployeeFieldWidget extends SelectFieldWidget<PamirsEmployee
     super.initialize(props);
     this.setComponent(EmployeeSelect);
     return this;
+  }
+
+  @Widget.Reactive()
+  protected get departmentCodes(): string[] | undefined {
+    return ResolveUtil.toArray(this.getDsl().departmentCodes);
+  }
+
+  @Widget.Reactive()
+  protected get roleCodes(): string[] | undefined {
+    return ResolveUtil.toArray(this.getDsl().roleCodes);
+  }
+
+  @Widget.Reactive()
+  protected get userEmployee(): boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().userEmployee);
+  }
+
+  @Widget.Reactive()
+  protected get userDept(): boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().userDept);
+  }
+
+  @Widget.Reactive()
+  protected get userDeptAndChildren(): boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().userDeptAndChildren);
   }
 
   protected generatorSelectItemKey(value: PamirsEmployee): string {
