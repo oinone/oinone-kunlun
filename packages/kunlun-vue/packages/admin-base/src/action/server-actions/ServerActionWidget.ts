@@ -25,7 +25,7 @@ import { isBoolean, isFunction, isNil } from 'lodash-es';
 import { FormValidateResult } from '../../basic';
 import { REFRESH_FORM_DATA } from '../../basic/constant/state-stream';
 import { ClickResult, PopupSubmitFunction } from '../../typing';
-import { gotoPrevPage, useDraftDataOperator } from '../../util';
+import { gotoPrevPage } from '../../util';
 import { ActionWidget } from '../component';
 
 @SPI.ClassFactory(
@@ -38,27 +38,6 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
   protected createActionName = 'create';
 
   protected updateOneWithRelationName = 'updateOneWithRelations';
-
-  /**
-   * 当前视图是否存在草稿动作
-   */
-  @Widget.Reactive()
-  protected get existDraftAction() {
-    return this.metadataRuntimeContext.model.modelActions.some(
-      (a) => (a as RuntimeClientAction).fun === ModelDefaultActionName.$$internal_SaveDraft
-    );
-  }
-
-  /**
-   * 草稿动作的唯一标识
-   */
-  @Widget.Reactive()
-  protected get viewDraftDataIdentifier() {
-    const pk = this.model.pks?.[0] || 'id';
-    const value = this.initialValue?.[0]?.[pk] || this.initialContext?.[pk] || this.urlParameters?.id;
-
-    return `${this.viewAction?.name || ''}-${this.viewAction?.resViewName || ''}-${value || ''}`;
-  }
 
   @Widget.Method()
   @Widget.Inject()
@@ -173,22 +152,7 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
     }
   }
 
-  protected async deleteDraftWhenClickAfter() {
-    const { fun, name } = this.action;
-    const { updateOneWithRelationName, updateActionName, createActionName, existDraftAction } = this;
-
-    if (!existDraftAction) {
-      return;
-    }
-
-    if (updateOneWithRelationName === fun || [updateActionName, createActionName].includes(name)) {
-      await useDraftDataOperator(this.viewDraftDataIdentifier).deleteDraft();
-    }
-  }
-
   protected async clickActionAfter(result: ClickResult): Promise<ClickResult> {
-    this.deleteDraftWhenClickAfter();
-
     let refreshParent = false;
     if (this.isDialog) {
       if (this.closeDialog || this.closeAllDialog) {
