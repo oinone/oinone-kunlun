@@ -2,7 +2,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { IModelField, IModelFieldOption, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
-import { BooleanHelper, CallChaining } from '@oinone/kunlun-shared';
+import { BooleanHelper, CallChaining, Optional } from '@oinone/kunlun-shared';
 import DefaultSearchTab from './DefaultSearchTab.vue';
 import { BaseElementWidget } from '../../basic';
 import { CATE_ALL_OPTION } from './types';
@@ -43,7 +43,7 @@ export class SearchTabWidget extends BaseElementWidget {
 
   @Widget.Reactive()
   protected get showTopCateAll(): boolean {
-    return BooleanHelper.toBoolean(this.getDsl().showTopCateAll) || true;
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showTopCateAll)).orElse(true);
   }
 
   @Widget.Reactive()
@@ -65,8 +65,13 @@ export class SearchTabWidget extends BaseElementWidget {
   }
 
   @Widget.Reactive()
+  protected get topCateJustify(): string | undefined {
+    return this.getDsl().topCateJustify;
+  }
+
+  @Widget.Reactive()
   protected get showSecondCateAll(): boolean {
-    return BooleanHelper.toBoolean(this.getDsl().showSecondCateAll) || true;
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showSecondCateAll)).orElse(true);
   }
 
   @Widget.Reactive()

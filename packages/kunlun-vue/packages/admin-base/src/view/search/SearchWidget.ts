@@ -6,7 +6,7 @@ import {
 } from '@oinone/kunlun-engine';
 import { Entity, ViewType } from '@oinone/kunlun-meta';
 import { getRouterInstance } from '@oinone/kunlun-router';
-import { BooleanHelper, NumberHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
 import { isAllInvisible, Widget } from '@oinone/kunlun-vue-widget';
@@ -55,6 +55,21 @@ export class SearchWidget extends BaseSearchWidget {
       return [topCateField];
     }
     return [topCateField, secondCateField];
+  }
+
+  @Widget.Reactive()
+  protected get topCateJustify(): string | undefined {
+    return this.getDsl().topCateJustify;
+  }
+
+  @Widget.Reactive()
+  protected get showTopCateAll(): boolean {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showTopCateAll)).orElse(true);
+  }
+
+  @Widget.Reactive()
+  protected get showSecondCateAll(): boolean {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showSecondCateAll)).orElse(true);
   }
 
   public initialize(props) {
