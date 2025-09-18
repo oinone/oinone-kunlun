@@ -60,6 +60,8 @@
               @blur="stopEditing"
               @keydown.enter="handleEnter"
               @keydown="handleCellKeydown"
+              @compositionstart="isComposing = true"
+              @compositionend="isComposing = false"
               @focus="$event.target.select()"
               class="cell-input"
               type="text"
@@ -126,6 +128,7 @@ const inputRef = ref<(HTMLInputElement | null)[]>([]); // 输入框引用数组
 const selectedCell = ref<CellId>(''); // 当前活动/起始选中的单元格
 const editingCell = ref<CellId | null>(null); // 当前正在编辑的单元格
 const cells = ref<Record<CellId, string>>({}); // 存储单元格内容的对象
+const isComposing = ref(false); // 输入框是否正在输入汉字
 
 // ======== 多选状态 =========
 const isSelecting = ref(false); // 是否正在拖拽选择
@@ -372,6 +375,10 @@ const stopEditing = (): void => {
 
 // 处理 Enter 键 (编辑中)
 const handleEnter = (): void => {
+  if (isComposing.value) {
+    return;
+  }
+
   stopEditing();
   const parsed = parseCellId(selectedCell.value);
   if (parsed && parsed.row < props.rowCount) {
@@ -383,16 +390,15 @@ const handleEnter = (): void => {
 
 // 处理单元格内的键盘事件
 const handleCellKeydown = (event: KeyboardEvent): void => {
-  const { key } = event;
-  const parsed = parseCellId(selectedCell.value);
-  if (!parsed || !selectionStart.value) return;
-
+  // const { key } = event;
+  // const parsed = parseCellId(selectedCell.value);
+  // if (!parsed || !selectionStart.value) return;
   // 在编辑状态下，方向键和Tab也用于导航，但会先停止编辑
-  if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(key)) {
-    event.preventDefault();
-    stopEditing();
-    return;
-  }
+  // if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(key)) {
+  //   event.preventDefault();
+  //   stopEditing();
+  //   return;
+  // }
   // 其他键由输入框处理
 };
 
