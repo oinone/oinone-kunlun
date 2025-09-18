@@ -8,10 +8,10 @@ import {
   OioListItem,
   OioModal,
   OioModalProps,
+  OioSelectItem,
   OioTab,
   OioTabs,
   PropRecordHelper,
-  SelectItem,
   SelectMode,
   StringHelper
 } from '@oinone/kunlun-vue-ui-antd';
@@ -43,7 +43,10 @@ export default defineComponent({
       type: String as PropType<SelectMode | keyof typeof SelectMode>
     },
     selected: {
-      type: [Object, Array] as PropType<SelectItem<AuthRole> | SelectItem<AuthRole>[]>
+      type: [Object, Array] as PropType<OioSelectItem<AuthRole> | OioSelectItem<AuthRole>[]>
+    },
+    allowClear: {
+      type: String
     },
     domain: {
       type: String
@@ -83,7 +86,7 @@ export default defineComponent({
       } else {
         checkedKeys = state.checkedKeys;
       }
-      const selectedItems: SelectItem<AuthRole>[] = [];
+      const selectedItems: OioSelectItem<AuthRole>[] = [];
       for (const checkedKey of checkedKeys) {
         const item = state.storage[checkedKey];
         if (!item) {
@@ -144,6 +147,7 @@ export default defineComponent({
     const {
       $translate,
       mode,
+      allowClear,
       domain,
 
       state,
@@ -176,13 +180,12 @@ export default defineComponent({
               createVNode(BaseSelect, {
                 mode: SelectMode.multiple,
                 value: selectedValues,
-                options: selectedValues,
-                allowClear: true,
+                allowClear,
                 placeholder: $translate('选择角色'),
                 allowArrow: false,
                 allowSearch: false,
                 notFoundContent: null,
-                change: (items: OioListItem[]) =>
+                change: (items: OioSelectItem[]) =>
                   onUpdateState(
                     'checkedKeys',
                     items.map((v) => v.key)

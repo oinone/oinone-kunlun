@@ -1,6 +1,6 @@
 <script lang="ts">
-import { StringHelper } from '@oinone/kunlun-shared';
-import { PropRecordHelper, SelectItem } from '@oinone/kunlun-vue-ui-common';
+import { OioSelectItem, StringHelper } from '@oinone/kunlun-shared';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent } from 'vue';
 import { BaseSelect } from './index';
 import { DefaultSelectProps } from './props';
@@ -16,7 +16,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const onChange = (val: SelectItem | SelectItem[] | null | undefined) => {
+    const onChange = (val: OioSelectItem | OioSelectItem[] | null | undefined) => {
       if (!val) {
         props.change?.(null);
         return;
@@ -68,11 +68,15 @@ export default defineComponent({
       loadMore,
       notFoundContent
     } = this;
+    const classNames = ['oio-default-select'];
+    if (options == null) {
+      classNames.push('oio-default-select-none-options');
+    }
     return createVNode(
       BaseSelect,
       {
-        ...PropRecordHelper.collectionBasicProps($attrs, ['default-select']),
-        dropdownClassName: StringHelper.append(['default-select-dropdown'], dropdownClassName),
+        ...PropRecordHelper.collectionBasicProps($attrs, classNames),
+        dropdownClassName: StringHelper.append(['oio-default-select-dropdown'], dropdownClassName),
         mode,
         value: selected,
         options,
@@ -95,4 +99,12 @@ export default defineComponent({
   }
 });
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.oio-default-select {
+  &.oio-default-select-none-options {
+    .ant-select-single.ant-select-open .ant-select-selection-item {
+      color: var(--oio-select-text-color);
+    }
+  }
+}
+</style>

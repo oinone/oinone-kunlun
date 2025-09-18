@@ -1,10 +1,10 @@
 import { PamirsCompany, StaffSize } from '@oinone/kunlun-engine';
+import { OioSelectItem } from '@oinone/kunlun-shared';
 import { OioDivider, Optional } from '@oinone/kunlun-vue-ui-antd';
-import { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, VNode } from 'vue';
 import createLogo from './logo';
 
-export default function render(data: SelectItem<PamirsCompany>): string | VNode | VNode[] {
+export default function render(data: OioSelectItem<PamirsCompany>): string | VNode | VNode[] {
   const optionInfos: VNode[] = [];
   const pushOptionInfo = (optionInfo: VNode): void => {
     if (optionInfos.length) {

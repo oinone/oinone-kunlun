@@ -1,10 +1,10 @@
 import { PamirsCompany } from '@oinone/kunlun-engine';
-import { SelectItem } from '@oinone/kunlun-vue-ui-common';
+import { OioSelectItem } from '@oinone/kunlun-shared';
 import { createVNode, VNode } from 'vue';
 import styleRender1 from './style1';
 import styleRender2 from './style2';
 
-export type CompanySelectOptionRender = (data: SelectItem<PamirsCompany>) => string | VNode | VNode[];
+export type CompanySelectOptionRender = (data: OioSelectItem<PamirsCompany>) => string | VNode | VNode[];
 
 export interface CompanySelectOption {
   key: string;
@@ -30,7 +30,7 @@ export function getCompanySelectOptions(): CompanySelectOption[] {
   return Array.from(options.values());
 }
 
-function defaultRender(data: SelectItem<PamirsCompany>) {
+function defaultRender(data: OioSelectItem<PamirsCompany>) {
   return createVNode('div', { class: 'oio-company-select-option-label' }, data.label);
 }
 

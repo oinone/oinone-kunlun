@@ -1,4 +1,5 @@
-import { SelectItem, SelectMode } from '@oinone/kunlun-vue-ui-common';
+import { OioSelectItem } from '@oinone/kunlun-shared';
+import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { PropType } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic/props';
 
@@ -70,7 +71,7 @@ export const BaseSelectProps = {
 export const DefaultSelectProps = {
   ...BaseSelectProps,
   initSelectedOptions: {
-    type: Array as PropType<SelectItem[]>
+    type: Array as PropType<OioSelectItem[]>
   },
   selected: {
     type: [Object, Array]

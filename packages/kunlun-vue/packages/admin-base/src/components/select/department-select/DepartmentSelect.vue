@@ -106,7 +106,8 @@ export default defineComponent({
         {
           mode,
           selected,
-          options,
+          initSelectedOptions: options,
+          options: null,
           placeholder,
           allowClear,
           allowArrow: false,

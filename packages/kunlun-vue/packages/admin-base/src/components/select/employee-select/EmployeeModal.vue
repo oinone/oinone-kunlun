@@ -1,5 +1,6 @@
 <script lang="ts">
 import { AuthRole, PamirsEmployee } from '@oinone/kunlun-engine';
+import { OioSelectItem } from '@oinone/kunlun-shared';
 import {
   CastHelper,
   OioDivider,
@@ -13,7 +14,6 @@ import {
   PropRecordHelper,
   RSQLCondition,
   RSQLHelper,
-  SelectItem,
   SelectMode,
   StringHelper
 } from '@oinone/kunlun-vue-ui-antd';
@@ -47,7 +47,7 @@ export default defineComponent({
       type: String as PropType<SelectMode | keyof typeof SelectMode>
     },
     selected: {
-      type: [Object, Array] as PropType<SelectItem<PamirsEmployee> | SelectItem<PamirsEmployee>[]>
+      type: [Object, Array] as PropType<OioSelectItem<PamirsEmployee> | OioSelectItem<PamirsEmployee>[]>
     },
     domain: {
       type: String
@@ -93,7 +93,7 @@ export default defineComponent({
     });
 
     const selectedValues = computed(() => {
-      const selectedItems: SelectItem<PamirsEmployee>[] = [];
+      const selectedItems: OioSelectItem<PamirsEmployee>[] = [];
       let checkedKeys: string[];
       if (props.mode === SelectMode.single) {
         const firstKey = state.checkedKeys[0];
@@ -419,8 +419,14 @@ export default defineComponent({
                 value: selectedValues,
                 options: selectedValues,
                 placeholder: $translate('选择员工'),
+                allowArrow: false,
+                allowSearch: false,
                 notFoundContent: null,
-                allowArrow: false
+                change: (items: OioSelectItem[]) =>
+                  onUpdateState(
+                    'checkedKeys',
+                    items.map((v) => v.key)
+                  )
               }),
               createVNode(OioInputSearch, {
                 value: state.searchValue,

@@ -77,6 +77,7 @@ export default defineComponent({
     const modal = createVNode(RoleModal, {
       mode,
       selected,
+      allowClear,
       domain,
       visible,
       'onUpdate:visible': onUpdateVisible,
@@ -107,7 +108,8 @@ export default defineComponent({
         {
           mode,
           selected,
-          options,
+          initSelectedOptions: options,
+          options: null,
           placeholder,
           allowClear,
           allowArrow: false,

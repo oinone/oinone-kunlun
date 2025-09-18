@@ -1,9 +1,8 @@
 import { PamirsCompany } from '@oinone/kunlun-engine';
-import { StringHelper } from '@oinone/kunlun-shared';
-import { SelectItem } from '@oinone/kunlun-vue-ui-common';
+import { OioSelectItem, StringHelper } from '@oinone/kunlun-shared';
 import { createVNode, VNode } from 'vue';
 
-export default function render(data: SelectItem<PamirsCompany>): VNode {
+export default function render(data: OioSelectItem<PamirsCompany>): VNode {
   const { logoUrl } = data.data;
   const classNames = ['oio-company-select-option-logo'];
   if (logoUrl) {

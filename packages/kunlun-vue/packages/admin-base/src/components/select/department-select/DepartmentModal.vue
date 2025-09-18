@@ -7,11 +7,11 @@ import {
   OioInputSearch,
   OioModal,
   OioModalProps,
+  OioSelectItem,
   OioTab,
   OioTabs,
   OioTreeNode,
   PropRecordHelper,
-  SelectItem,
   SelectMode,
   StringHelper
 } from '@oinone/kunlun-vue-ui-antd';
@@ -43,7 +43,7 @@ export default defineComponent({
       type: String as PropType<SelectMode | keyof typeof SelectMode>
     },
     selected: {
-      type: [Object, Array] as PropType<SelectItem<PamirsDepartment> | SelectItem<PamirsDepartment>[]>
+      type: [Object, Array] as PropType<OioSelectItem<PamirsDepartment> | OioSelectItem<PamirsDepartment>[]>
     },
     domain: {
       type: String
@@ -72,7 +72,7 @@ export default defineComponent({
     });
 
     const selectedValues = computed(() => {
-      const selectedItems: SelectItem<PamirsDepartment>[] = [];
+      const selectedItems: OioSelectItem<PamirsDepartment>[] = [];
       if (props.mode === SelectMode.single) {
         const checkedKey = state.checkedKeys[0];
         const node = state.storage[checkedKey];
@@ -198,8 +198,14 @@ export default defineComponent({
                 value: selectedValues,
                 options: selectedValues,
                 placeholder: $translate('选择部门'),
+                allowArrow: false,
+                allowSearch: false,
                 notFoundContent: null,
-                allowArrow: false
+                change: (items: OioSelectItem[]) =>
+                  onUpdateState(
+                    'checkedKeys',
+                    items.map((v) => v.key)
+                  )
               }),
               createVNode(OioInputSearch, {
                 value: state.searchValue,

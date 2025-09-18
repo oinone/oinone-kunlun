@@ -1,9 +1,9 @@
 <script lang="ts">
 import { PamirsCompany } from '@oinone/kunlun-engine';
-import { CastHelper, OioButton, PropRecordHelper, SelectItem, StringHelper } from '@oinone/kunlun-vue-ui-antd';
+import { OioSelectItem } from '@oinone/kunlun-shared';
+import { CastHelper, OioButton, PropRecordHelper, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent } from 'vue';
-import { DefaultSelect } from '../base';
-import { DefaultSelectProps } from '../base/props';
+import { DefaultSelect, DefaultSelectProps } from '../base';
 import { selectorCompanySelectOptionRender } from './render';
 
 export default defineComponent({
@@ -48,7 +48,7 @@ export default defineComponent({
         dropdownClassName: StringHelper.append(dropdownClassNames, dropdownClassName)
       },
       {
-        option: (data: SelectItem<PamirsCompany>) => optionRender(data)
+        option: (data: OioSelectItem<PamirsCompany>) => optionRender(data)
       }
     );
   }
