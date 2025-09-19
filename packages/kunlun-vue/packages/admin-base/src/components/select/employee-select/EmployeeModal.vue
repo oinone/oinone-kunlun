@@ -386,6 +386,7 @@ export default defineComponent({
       {
         title: $translate('选择员工'),
         width: '720px',
+        height: '664px',
         maskClosable: false,
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
         wrapperClassName: StringHelper.append(['oio-employee-modal'], this.wrapperClassName),
@@ -428,22 +429,51 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .oio-employee-modal {
+  .ant-modal-body {
+    overflow-x: hidden;
+
+    & > .oio-spin-wrapper {
+      height: 100%;
+
+      & > .ant-spin-container {
+        height: 100%;
+      }
+    }
+  }
+
   .oio-employee-modal-content {
     display: flex;
     flex-direction: column;
     row-gap: 16px;
+    height: 100%;
 
-    & > .oio-tabs,
-    & > .oio-employee-list {
+    & > .oio-tabs {
+      position: relative;
       flex: 1;
+
+      & > .ant-tabs-content-holder {
+        position: absolute;
+        width: 100%;
+        height: calc(100% - 54px);
+        top: 54px;
+
+        .ant-tabs-content,
+        .oio-tab,
+        .oio-tab-content {
+          height: 100%;
+        }
+      }
     }
 
-    .oio-tab-content {
-      height: 400px;
+    .oio-department-tree,
+    .oio-employee-list,
+    .oio-role-list {
+      height: 100%;
       overflow: auto;
     }
 
     .oio-department-employee-selected-panel {
+      height: 100%;
       position: relative;
       display: flex;
 
@@ -451,7 +481,6 @@ export default defineComponent({
         width: 50%;
         flex-basis: 50%;
         padding-right: 8px;
-        overflow: auto;
       }
 
       .oio-divider {
@@ -464,11 +493,11 @@ export default defineComponent({
         width: 50%;
         flex-basis: 50%;
         padding-left: 8px;
-        overflow: auto;
       }
     }
 
     .oio-role-employee-selected-panel {
+      height: 100%;
       position: relative;
       display: flex;
 
@@ -476,7 +505,6 @@ export default defineComponent({
         width: 50%;
         flex-basis: 50%;
         padding-right: 8px;
-        overflow: auto;
       }
 
       .oio-divider {
@@ -489,7 +517,6 @@ export default defineComponent({
         width: 50%;
         flex-basis: 50%;
         padding-left: 8px;
-        overflow: auto;
       }
     }
   }
