@@ -36,7 +36,9 @@ interface State {
   storage: Record<string, OioListItem<PamirsEmployee>>;
   loading: boolean;
   searchValue: string;
+  activeKey?: string;
   checkedKeys: string[];
+  selectedRoleCode?: string;
 }
 
 export default defineComponent({
@@ -90,6 +92,7 @@ export default defineComponent({
       storage: {},
       loading: false,
       searchValue: '',
+      activeKey: 'department',
       checkedKeys: []
     });
 
@@ -134,17 +137,6 @@ export default defineComponent({
       return selectedItems;
     });
 
-    const employeeDomain = computed(() => {
-      const departmentCodes = props.departmentCodes || [];
-      if (departmentCodes.length) {
-        return RSQLHelper.concatByOr(
-          props.domain,
-          RSQLCondition.wrapper().in('departmentCode', departmentCodes).toString()
-        );
-      }
-      return undefined;
-    });
-
     const deptDomain = computed(() => {
       const departmentCodes = props.departmentCodes || [];
       if (departmentCodes.length) {
@@ -173,11 +165,38 @@ export default defineComponent({
       return true;
     };
 
-    const employeeLoad = (
+    const deptEmployeeLoad = (
       res: ListState<PamirsEmployee>,
       service: PamirsEmployeeService,
       queryWrapper: QueryWrapper
     ) => {
+      return service.queryListByDslFilter({
+        domain: queryWrapper.rsql,
+        employeeCodes: props.employeeCodes,
+        departmentCodes: props.departmentCodes,
+        roleCodes: props.roleCodes,
+        userEmployee: props.userEmployee,
+        userDept: props.userDept,
+        userDeptAndChildren: props.userDeptAndChildren
+      });
+    };
+
+    const roleEmployeeLoad = (
+      res: ListState<PamirsEmployee>,
+      service: PamirsEmployeeService,
+      queryWrapper: QueryWrapper
+    ) => {
+      if (state.selectedRoleCode != null) {
+        return service.queryListByDslFilter({
+          domain: queryWrapper.rsql,
+          employeeCodes: props.employeeCodes,
+          departmentCodes: props.departmentCodes,
+          roleCodes: [state.selectedRoleCode],
+          userEmployee: props.userEmployee,
+          userDept: props.userDept,
+          userDeptAndChildren: props.userDeptAndChildren
+        });
+      }
       return service.queryListByDslFilter({
         domain: queryWrapper.rsql,
         employeeCodes: props.employeeCodes,
@@ -217,9 +236,10 @@ export default defineComponent({
 
     const onRoleSelected = async (item: OioListItem<AuthRole>, selected: boolean) => {
       if (selected) {
-        const rsql = RSQLCondition.wrapper().eq('departmentCode', item.key).toString();
-        await $$searchEmployeeList(employeeListRef2.value!, rsql);
+        state.selectedRoleCode = item.key;
+        await $$searchEmployeeList(employeeListRef2.value!);
       } else {
+        state.selectedRoleCode = undefined;
         await $$initEmployeeList(employeeListRef2.value!);
       }
     };
@@ -255,11 +275,11 @@ export default defineComponent({
       state,
       initCheckedKeys,
       selectedValues,
-      employeeDomain,
       deptDomain,
       roleDomain,
       enterCallback,
-      employeeLoad,
+      deptEmployeeLoad,
+      roleEmployeeLoad,
       departmentLoad,
       onUpdateState,
       onInit,
@@ -272,15 +292,16 @@ export default defineComponent({
       $translate,
       mode,
       allowClear,
+      domain,
 
       state,
       initCheckedKeys,
       selectedValues,
-      employeeDomain,
       deptDomain,
       roleDomain,
       enterCallback,
-      employeeLoad,
+      deptEmployeeLoad,
+      roleEmployeeLoad,
       departmentLoad,
       onUpdateState,
       onInit,
@@ -316,8 +337,8 @@ export default defineComponent({
           loading: state.loading,
           usingLoading: false,
           autoInit: true,
-          load: employeeLoad,
-          domain: employeeDomain,
+          load: deptEmployeeLoad,
+          domain,
           initCheckedKeys,
           checkedKeys: state.checkedKeys,
           onInit,
@@ -343,8 +364,8 @@ export default defineComponent({
           loading: state.loading,
           usingLoading: false,
           autoInit: true,
-          load: employeeLoad,
-          domain: employeeDomain,
+          load: roleEmployeeLoad,
+          domain,
           initCheckedKeys,
           checkedKeys: state.checkedKeys,
           onInit,
@@ -392,7 +413,10 @@ export default defineComponent({
               }),
               createVNode(
                 OioTabs,
-                {},
+                {
+                  activeKey: state.activeKey,
+                  'onUpdate:activeKey': (val: string) => onUpdateState('activeKey', val)
+                },
                 {
                   default: () => {
                     const tabs: VNode[] = [];
