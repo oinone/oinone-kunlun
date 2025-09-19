@@ -35,7 +35,11 @@ export default defineComponent({
             }
           }
         }
-        props.change?.(finalOptions);
+        if (finalOptions.length) {
+          props.change?.(finalOptions);
+        } else {
+          props.change?.(null);
+        }
         return;
       }
       props.change?.(val.data);

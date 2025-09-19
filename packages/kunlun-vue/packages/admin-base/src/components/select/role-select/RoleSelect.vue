@@ -1,6 +1,6 @@
 <script lang="ts">
 import { AuthRole } from '@oinone/kunlun-engine';
-import { OioButton } from '@oinone/kunlun-vue-ui-antd';
+import { OioButton, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { computed, createVNode, defineComponent, ref } from 'vue';
 import { DefaultSelect, DefaultSelectProps } from '../base';
