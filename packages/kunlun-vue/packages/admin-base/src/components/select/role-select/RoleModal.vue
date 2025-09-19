@@ -46,7 +46,7 @@ export default defineComponent({
       type: [Object, Array] as PropType<OioSelectItem<AuthRole> | OioSelectItem<AuthRole>[]>
     },
     allowClear: {
-      type: String
+      type: Boolean
     },
     domain: {
       type: String

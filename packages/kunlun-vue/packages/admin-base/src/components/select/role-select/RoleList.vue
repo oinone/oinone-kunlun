@@ -1,7 +1,8 @@
 <script lang="ts">
-import { AuthRole } from '@oinone/kunlun-engine';
+import { AuthRole, PamirsEmployee } from '@oinone/kunlun-engine';
 import { OioList, OioListItem, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, onMounted, PropType } from 'vue';
+import { ListStateLoadFunction } from '../../quick-utils';
 import { useRoleList } from './init';
 
 export default defineComponent({
@@ -26,6 +27,9 @@ export default defineComponent({
     autoInit: {
       type: Boolean
     },
+    load: {
+      type: Function as PropType<ListStateLoadFunction<PamirsEmployee>>
+    },
     domain: {
       type: String
     },
@@ -44,7 +48,8 @@ export default defineComponent({
     const { state, filterData, checkedAll, halfCheckedAll, init, search, onChecked, onCheckedAll } = useRoleList({
       mode: props.selectMode,
       getCheckedKeys: () => props.checkedKeys,
-      getSearchValue: () => props.searchValue
+      getSearchValue: () => props.searchValue,
+      load: props.load
     });
 
     const loading = computed({

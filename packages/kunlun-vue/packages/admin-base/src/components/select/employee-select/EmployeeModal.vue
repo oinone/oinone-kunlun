@@ -1,5 +1,12 @@
 <script lang="ts">
-import { AuthRole, PamirsEmployee } from '@oinone/kunlun-engine';
+import {
+  AuthRole,
+  PamirsDepartment,
+  PamirsDepartmentService,
+  PamirsEmployee,
+  PamirsEmployeeService,
+  QueryWrapper
+} from '@oinone/kunlun-engine';
 import { OioSelectItem } from '@oinone/kunlun-shared';
 import {
   CastHelper,
@@ -18,7 +25,7 @@ import {
   StringHelper
 } from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, PropType, reactive, ref, Ref, VNode } from 'vue';
-import { ListState } from '../../quick-utils';
+import { ListState, TreeState } from '../../quick-utils';
 import { BaseSelect } from '../base';
 import { DepartmentTree } from '../department-select';
 import { RoleList } from '../role-select';
@@ -48,6 +55,9 @@ export default defineComponent({
     },
     selected: {
       type: [Object, Array] as PropType<OioSelectItem<PamirsEmployee> | OioSelectItem<PamirsEmployee>[]>
+    },
+    allowClear: {
+      type: Boolean
     },
     domain: {
       type: String
@@ -167,6 +177,22 @@ export default defineComponent({
       return true;
     };
 
+    const employeeLoad = (
+      res: ListState<PamirsEmployee>,
+      service: PamirsEmployeeService,
+      queryWrapper: QueryWrapper
+    ) => {
+      return service.queryListByWrapper(queryWrapper);
+    };
+
+    const departmentLoad = async (
+      res: TreeState<PamirsDepartment>,
+      service: PamirsDepartmentService,
+      queryWrapper: QueryWrapper
+    ) => {
+      return service.queryDepartmentRootList(queryWrapper);
+    };
+
     const onUpdateState = (key: string, value: unknown) => {
       state[key] = value;
     };
@@ -230,6 +256,8 @@ export default defineComponent({
       deptDomain,
       roleDomain,
       enterCallback,
+      employeeLoad,
+      departmentLoad,
       onUpdateState,
       onInit,
       onDepartmentSelected,
@@ -240,9 +268,7 @@ export default defineComponent({
     const {
       $translate,
       mode,
-      userEmployee,
-      userDept,
-      userDeptAndChildren,
+      allowClear,
 
       state,
       initCheckedKeys,
@@ -252,6 +278,8 @@ export default defineComponent({
       deptDomain,
       roleDomain,
       enterCallback,
+      employeeLoad,
+      departmentLoad,
       onUpdateState,
       onInit,
       onDepartmentSelected,
@@ -260,7 +288,7 @@ export default defineComponent({
     const tabTitleList = [
       {
         key: 'department',
-        label: '通过部门选择'
+        label: '通过部门选择员工'
       }
     ];
     const tabList: VNode[] = [];
@@ -269,6 +297,7 @@ export default defineComponent({
         createVNode(DepartmentTree, {
           autoInit: true,
           domain: deptDomain,
+          load: departmentLoad,
           selectable: true,
           onSelected: onDepartmentSelected
         }),
@@ -281,6 +310,7 @@ export default defineComponent({
           loading: state.loading,
           usingLoading: false,
           autoInit: true,
+          load: employeeLoad,
           domain: employeeDomain,
           initCheckedKeys,
           checkedKeys: state.checkedKeys,
@@ -293,7 +323,7 @@ export default defineComponent({
     if (showRolePanel) {
       tabTitleList.push({
         key: 'role',
-        label: '通过角色选择'
+        label: '通过角色选择员工'
       });
       tabList.push(
         createVNode('div', { class: 'oio-role-employee-selected-panel' }, [
@@ -312,6 +342,7 @@ export default defineComponent({
             loading: state.loading,
             usingLoading: false,
             autoInit: true,
+            load: employeeLoad,
             domain: employeeDomain,
             initCheckedKeys,
             checkedKeys: state.checkedKeys,
@@ -320,54 +351,6 @@ export default defineComponent({
             'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
           })
         ])
-      );
-    }
-    if (userEmployee) {
-      tabTitleList.push({
-        key: 'userEmployee',
-        label: '当前用户所绑定员工'
-      });
-      tabList.push(
-        createVNode(EmployeeList, {
-          searchValue: state.searchValue,
-          selectMode: mode,
-          showCheckedAll: true,
-          autoInit: true,
-          checkedKeys: state.checkedKeys,
-          'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
-        })
-      );
-    }
-    if (userDept) {
-      tabTitleList.push({
-        key: 'userDept',
-        label: '当前用户所属部门中的员工'
-      });
-      tabList.push(
-        createVNode(EmployeeList, {
-          searchValue: state.searchValue,
-          selectMode: mode,
-          showCheckedAll: true,
-          autoInit: true,
-          checkedKeys: state.checkedKeys,
-          'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
-        })
-      );
-    }
-    if (userDeptAndChildren) {
-      tabTitleList.push({
-        key: 'userDeptAndChildren',
-        label: '当前用户所属部门及下属部门中的员工'
-      });
-      tabList.push(
-        createVNode(EmployeeList, {
-          searchValue: state.searchValue,
-          selectMode: mode,
-          showCheckedAll: true,
-          autoInit: true,
-          checkedKeys: state.checkedKeys,
-          'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
-        })
       );
     }
     let content: VNode;
@@ -417,7 +400,7 @@ export default defineComponent({
               createVNode(BaseSelect, {
                 mode: SelectMode.multiple,
                 value: selectedValues,
-                options: selectedValues,
+                allowClear,
                 placeholder: $translate('选择员工'),
                 allowArrow: false,
                 allowSearch: false,

@@ -40,11 +40,17 @@ export interface ListStateProps {
   getSearchValue?: () => string | null | undefined;
 }
 
+export type ListStateLoadFunction<T> = (
+  state: ListState<T>,
+  service: ListModelApi<T>,
+  queryWrapper: QueryWrapper
+) => ReturnPromise<T[]>;
+
 export function useListState<T extends IdModel>(initOptions: {
   service: ListModelApi<T>;
   props?: ListStateProps;
   initState?: Converter<ListState<T>, ListState<T>>;
-  load?: (state: ListState<T>, queryWrapper: QueryWrapper) => ReturnPromise<T[]>;
+  load?: ListStateLoadFunction<T>;
   convertListData?: (list: T[]) => OioListItem<T>[];
   initListState?: (state: ListState<T>, options?: ListInitOptions) => void;
   searchListState?: (state: ListState<T>, options?: ListInitOptions) => void;
@@ -124,7 +130,7 @@ export function useListState<T extends IdModel>(initOptions: {
     }
     let list: T[];
     if (initOptions.load) {
-      list = await initOptions.load(state, queryWrapper);
+      list = await initOptions.load(state, service, queryWrapper);
     } else {
       list = await service.queryListByWrapper(queryWrapper);
     }

@@ -45,6 +45,9 @@ export default defineComponent({
     selected: {
       type: [Object, Array] as PropType<OioSelectItem<PamirsDepartment> | OioSelectItem<PamirsDepartment>[]>
     },
+    allowClear: {
+      type: Boolean
+    },
     domain: {
       type: String
     }
@@ -163,6 +166,7 @@ export default defineComponent({
     const {
       $translate,
       mode,
+      allowClear,
       domain,
 
       state,
@@ -196,7 +200,7 @@ export default defineComponent({
               createVNode(BaseSelect, {
                 mode: SelectMode.multiple,
                 value: selectedValues,
-                options: selectedValues,
+                allowClear,
                 placeholder: $translate('选择部门'),
                 allowArrow: false,
                 allowSearch: false,
