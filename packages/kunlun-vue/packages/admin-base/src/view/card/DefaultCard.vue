@@ -66,8 +66,8 @@ export default defineComponent({
     const cardFieldsVisible = computed(() => {
       const fieldPrefer = props.userPrefer.fieldPrefer || null;
       const { title, content } = DslSlotUtils.fetchSlotsBySlotNames(props.template, ['title', 'content']);
-      const titleFieldNames = title?.widgets.map((v) => v.name);
-      const contentFieldNames = content?.widgets.map((v) => v.name);
+      const titleFieldNames = title?.widgets?.map((v) => v.name);
+      const contentFieldNames = content?.widgets?.map((v) => v.name);
 
       if (!fieldPrefer) {
         return {
