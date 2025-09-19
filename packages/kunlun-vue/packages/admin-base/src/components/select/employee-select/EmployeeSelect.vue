@@ -145,7 +145,7 @@ export default defineComponent({
         {
           suffix: () => {
             return createVNode(OioButton, {
-              icon: 'oinone-apartment-outlined',
+              icon: 'oinone-user-outlined',
               onClick: onShowModal
             });
           }

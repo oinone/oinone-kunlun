@@ -130,6 +130,16 @@ $defaultParameterPrefix: $buttonParameterPrefix;
   @include oio-appearance($defaultParameterPrefix);
   @include event-style($defaultParameterPrefix);
   @include biz-type-style($defaultParameterPrefix + -default);
+
+  .#{$iconClassPrefix} {
+    color: var(--oio-button-text-color);
+  }
+
+  &:hover {
+    .#{$iconClassPrefix} {
+      color: var(--oio-button-text-color-hover);
+    }
+  }
 }
 
 $dashedParameterPrefix: $buttonParameterPrefix + -dashed;
@@ -147,7 +157,7 @@ $primaryParameterPrefix: $buttonParameterPrefix + -primary;
   @include event-style($primaryParameterPrefix);
   @include biz-type-style($primaryParameterPrefix);
 
-  .oio-icon {
+  .#{$iconClassPrefix} {
     color: #ffffff;
   }
 }
