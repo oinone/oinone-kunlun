@@ -153,7 +153,9 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      if (props.value && !props.onChangeSourceCode) {
+      const existListDisplayName = props.expressionItemList.some((item) => item.valueListDisplayName);
+
+      if (props.value && !props.onChangeSourceCode && !existListDisplayName) {
         internalHasChangeSourceCode.value = true;
         internalSourceCode.value = props.value;
       }
