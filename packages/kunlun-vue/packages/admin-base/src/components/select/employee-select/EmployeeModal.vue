@@ -62,6 +62,9 @@ export default defineComponent({
     domain: {
       type: String
     },
+    employeeCodes: {
+      type: Array as PropType<string[]>
+    },
     departmentCodes: {
       type: Array as PropType<string[]>
     },
@@ -131,13 +134,6 @@ export default defineComponent({
       return selectedItems;
     });
 
-    const showRolePanel = computed(() => {
-      if (!props.roleCodes) {
-        return true;
-      }
-      return !!props.roleCodes.length;
-    });
-
     const employeeDomain = computed(() => {
       const departmentCodes = props.departmentCodes || [];
       if (departmentCodes.length) {
@@ -182,7 +178,15 @@ export default defineComponent({
       service: PamirsEmployeeService,
       queryWrapper: QueryWrapper
     ) => {
-      return service.queryListByWrapper(queryWrapper);
+      return service.queryListByDslFilter({
+        domain: queryWrapper.rsql,
+        employeeCodes: props.employeeCodes,
+        departmentCodes: props.departmentCodes,
+        roleCodes: props.roleCodes,
+        userEmployee: props.userEmployee,
+        userDept: props.userDept,
+        userDeptAndChildren: props.userDeptAndChildren
+      });
     };
 
     const departmentLoad = async (
@@ -251,7 +255,6 @@ export default defineComponent({
       state,
       initCheckedKeys,
       selectedValues,
-      showRolePanel,
       employeeDomain,
       deptDomain,
       roleDomain,
@@ -273,7 +276,6 @@ export default defineComponent({
       state,
       initCheckedKeys,
       selectedValues,
-      showRolePanel,
       employeeDomain,
       deptDomain,
       roleDomain,
@@ -289,6 +291,10 @@ export default defineComponent({
       {
         key: 'department',
         label: '通过部门选择员工'
+      },
+      {
+        key: 'role',
+        label: '通过角色选择员工'
       }
     ];
     const tabList: VNode[] = [];
@@ -320,67 +326,33 @@ export default defineComponent({
         })
       ])
     );
-    if (showRolePanel) {
-      tabTitleList.push({
-        key: 'role',
-        label: '通过角色选择员工'
-      });
-      tabList.push(
-        createVNode('div', { class: 'oio-role-employee-selected-panel' }, [
-          createVNode(RoleList, {
-            autoInit: true,
-            domain: roleDomain,
-            selectable: true,
-            onSelected: onRoleSelected
-          }),
-          createVNode(OioDivider, { type: 'vertical' }),
-          createVNode(EmployeeList, {
-            ref: 'employeeListRef2',
-            searchValue: state.searchValue,
-            selectMode: mode,
-            showCheckedAll: true,
-            loading: state.loading,
-            usingLoading: false,
-            autoInit: true,
-            load: employeeLoad,
-            domain: employeeDomain,
-            initCheckedKeys,
-            checkedKeys: state.checkedKeys,
-            onInit,
-            'onUpdate:loading': (val: boolean) => onUpdateState('loading', val),
-            'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
-          })
-        ])
-      );
-    }
-    let content: VNode;
-    if (tabTitleList.length === 1) {
-      [content] = tabList;
-    } else {
-      content = createVNode(
-        OioTabs,
-        {},
-        {
-          default: () => {
-            const tabs: VNode[] = [];
-            for (let i = 0; i < tabTitleList.length; i++) {
-              const { key, label } = tabTitleList[i];
-              const tab = tabList[i];
-              tabs.push(
-                createVNode(
-                  OioTab,
-                  { key, tab: $translate(label) },
-                  {
-                    default: () => tab
-                  }
-                )
-              );
-            }
-            return tabs;
-          }
-        }
-      );
-    }
+    tabList.push(
+      createVNode('div', { class: 'oio-role-employee-selected-panel' }, [
+        createVNode(RoleList, {
+          autoInit: true,
+          domain: roleDomain,
+          selectable: true,
+          onSelected: onRoleSelected
+        }),
+        createVNode(OioDivider, { type: 'vertical' }),
+        createVNode(EmployeeList, {
+          ref: 'employeeListRef2',
+          searchValue: state.searchValue,
+          selectMode: mode,
+          showCheckedAll: true,
+          loading: state.loading,
+          usingLoading: false,
+          autoInit: true,
+          load: employeeLoad,
+          domain: employeeDomain,
+          initCheckedKeys,
+          checkedKeys: state.checkedKeys,
+          onInit,
+          'onUpdate:loading': (val: boolean) => onUpdateState('loading', val),
+          'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
+        })
+      ])
+    );
     return createVNode(
       OioModal,
       {
@@ -418,7 +390,29 @@ export default defineComponent({
                 allowClear: true,
                 'onUpdate:value': (val: string) => onUpdateState('searchValue', val)
               }),
-              content
+              createVNode(
+                OioTabs,
+                {},
+                {
+                  default: () => {
+                    const tabs: VNode[] = [];
+                    for (let i = 0; i < tabTitleList.length; i++) {
+                      const { key, label } = tabTitleList[i];
+                      const tab = tabList[i];
+                      tabs.push(
+                        createVNode(
+                          OioTab,
+                          { key, tab: $translate(label) },
+                          {
+                            default: () => tab
+                          }
+                        )
+                      );
+                    }
+                    return tabs;
+                  }
+                }
+              )
             ])
           ];
         }

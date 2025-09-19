@@ -2,7 +2,19 @@ import { ServiceIdentifier } from '@oinone/kunlun-spi';
 import { ListModelApi } from '../service';
 import { PamirsEmployee } from '../typing';
 
-export type PamirsEmployeeService = ListModelApi<PamirsEmployee>;
+export interface PamirsEmployeeQueryFilter {
+  domain?: string;
+  employeeCodes?: string[];
+  departmentCodes?: string[];
+  roleCodes?: string[];
+  userEmployee?: boolean;
+  userDept?: boolean;
+  userDeptAndChildren?: boolean;
+}
+
+export interface PamirsEmployeeService extends ListModelApi<PamirsEmployee> {
+  queryListByDslFilter(query: PamirsEmployeeQueryFilter): Promise<PamirsEmployee[]>;
+}
 
 export const PamirsEmployeeMetadata = {
   MODEL_MODEL: 'business.PamirsEmployee',

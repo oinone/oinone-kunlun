@@ -1,12 +1,6 @@
-import {
-  PamirsEmployee,
-  ResolveUtil,
-  RuntimeM2OField,
-  SubmitRelationHandler,
-  SubmitValue
-} from '@oinone/kunlun-engine';
+import { PamirsEmployee, RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { BooleanHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget, SelectFieldWidget } from '../../../../basic';
@@ -27,13 +21,18 @@ export class FormM2OEmployeeFieldWidget extends SelectFieldWidget<PamirsEmployee
   }
 
   @Widget.Reactive()
-  protected get departmentCodes(): string[] {
-    return ResolveUtil.toArray(this.getDsl().departmentCodes);
+  protected get employeeCodes(): string[] | undefined {
+    return StringHelper.convertArray(this.getDsl().employeeCodes);
   }
 
   @Widget.Reactive()
-  protected get roleCodes(): string[] {
-    return ResolveUtil.toArray(this.getDsl().roleCodes);
+  protected get departmentCodes(): string[] | undefined {
+    return StringHelper.convertArray(this.getDsl().departmentCodes);
+  }
+
+  @Widget.Reactive()
+  protected get roleCodes(): string[] | undefined {
+    return StringHelper.convertArray(this.getDsl().roleCodes);
   }
 
   @Widget.Reactive()

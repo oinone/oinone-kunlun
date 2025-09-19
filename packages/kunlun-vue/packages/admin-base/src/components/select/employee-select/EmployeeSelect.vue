@@ -18,6 +18,9 @@ export default defineComponent({
     domain: {
       type: String
     },
+    employeeCodes: {
+      type: Array as PropType<string[]>
+    },
     departmentCodes: {
       type: Array as PropType<string[]>
     },
@@ -77,6 +80,7 @@ export default defineComponent({
       selected,
       options,
       domain,
+      employeeCodes,
       departmentCodes,
       roleCodes,
       userEmployee,
@@ -97,6 +101,7 @@ export default defineComponent({
       mode,
       selected,
       domain,
+      employeeCodes,
       departmentCodes,
       roleCodes,
       userEmployee,
