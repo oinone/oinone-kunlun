@@ -34,18 +34,18 @@
         :field-options="fieldOptions"
         :is-simple-mode="isSimpleMode"
         :is-low-code="isLowCode"
-        :source-code="sourceCode"
+        :source-code="currentSourceCode"
         :has-change-source-code="hasChangeSourceCode"
         :change-variable-on-select="changeVariableOnSelect"
         @change-list="handleChangeList"
-        @change-source-code="onChangeSourceCode"
+        @change-source-code="onInternalChangeSourceCode"
         @clear="clearHandler"
       />
     </expression-dialog>
   </span>
 </template>
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue';
+import { defineComponent, ref, computed, watch, onMounted } from 'vue';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { CloseCircleFilled } from '@ant-design/icons-vue';
 import ExpressionDialog from '../../dialog/ExpressionDialog.vue';
@@ -61,6 +61,7 @@ import {
   useWatchExpressionItemList,
   useWatchIsShowExpressionDialog
 } from '../use/use-common';
+import { createExpressionValue } from '../../../share';
 
 export default defineComponent({
   inheritAttrs: false,
@@ -77,9 +78,26 @@ export default defineComponent({
     // 弹窗内用的，取消的时候需要恢复到打开弹窗前的值
     const dialogExpressionItemList = ref<IExpressionItem[]>([]);
     const isShowExpressionDialog = ref(false);
+    const internalHasChangeSourceCode = ref(false);
+    const internalSourceCode = ref<string>('');
 
     const { expressionOption } = useExpressionOptions(props, expressionItemList);
-    const { expressionLabel } = useExpressionLabel(props, expressionOption, expressionItemList);
+    const { expressionLabel } = useExpressionLabel(
+      props,
+      expressionOption,
+      expressionItemList,
+      internalHasChangeSourceCode,
+      internalSourceCode
+    );
+
+    const hasChangeSourceCode = computed(() => props.hasChangeSourceCode || internalHasChangeSourceCode.value);
+    const currentSourceCode = computed(() => {
+      if (internalHasChangeSourceCode.value) {
+        return internalSourceCode.value;
+      }
+      return props.sourceCode || internalSourceCode.value;
+    });
+
     useWatchExpressionItemList(props, expressionOption, expressionItemList);
     useWatchIsShowExpressionDialog(props, isShowExpressionDialog);
 
@@ -89,14 +107,18 @@ export default defineComponent({
       expressionItemList,
       dialogExpressionItemList
     );
+
     const { submitHandler } = useSubmitExpressionHandler(
       props,
       emit,
       isShowExpressionDialog,
       expressionOption,
       expressionItemList,
-      dialogExpressionItemList
+      dialogExpressionItemList,
+      hasChangeSourceCode,
+      internalSourceCode
     );
+
     const { isShowClear, clearHandler } = useClearExpressionHandler(
       props,
       expressionLabel,
@@ -104,6 +126,20 @@ export default defineComponent({
       dialogExpressionItemList,
       submitHandler
     );
+
+    const onInternalChangeSourceCode = (value) => {
+      if (props.onChangeSourceCode) {
+        props.onChangeSourceCode(value);
+      } else {
+        if (typeof value === 'string') {
+          internalHasChangeSourceCode.value = true;
+          internalSourceCode.value = value;
+        } else {
+          internalHasChangeSourceCode.value = false;
+          internalSourceCode.value = createExpressionValue(value, props.expressionOption!);
+        }
+      }
+    };
 
     const handleChangeList = (newList) => {
       dialogExpressionItemList.value = newList || [];
@@ -115,6 +151,13 @@ export default defineComponent({
       }, 200);
       dialogExpressionItemList.value = [];
     };
+
+    onMounted(() => {
+      if (props.value && !props.onChangeSourceCode) {
+        internalHasChangeSourceCode.value = true;
+        internalSourceCode.value = props.value;
+      }
+    });
 
     // 用来处理 clearField逻辑
     watch(
@@ -135,11 +178,14 @@ export default defineComponent({
       dialogExpressionItemList,
       expressionLabel,
       isShowClear,
+      currentSourceCode,
+      hasChangeSourceCode,
       onShowExpressionDialog,
       handleChangeList,
       cancelHandler,
       submitHandler,
-      clearHandler
+      clearHandler,
+      onInternalChangeSourceCode
     };
   }
 });

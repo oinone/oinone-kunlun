@@ -9,20 +9,29 @@ import {
 import { deepClone, isEmptyValue } from '@oinone/kunlun-meta';
 import { ExpressionExecutor } from '@oinone/kunlun-engine';
 
-export function useExpressionLabelMaybeSourceCode(props: { [key: string]: any }) {
+export function useExpressionLabelMaybeSourceCode(
+  props: { [key: string]: any },
+  internalHasChangeSourceCode?: Ref<boolean>,
+  internalSourceCode?: Ref<string>
+) {
   const existing = (props.expressionItemList || []).some((v) => !!v.valueList?.find((val) => val.value));
-  if (!existing && props.hasChangeSourceCode && props.sourceCode) {
-    return ExpressionExecutor.translate(props.sourceCode);
+  const hasChangeSourceCode = props.hasChangeSourceCode || internalHasChangeSourceCode?.value;
+  const sourceCode = props.sourceCode || props.value || internalSourceCode?.value;
+
+  if (!existing && hasChangeSourceCode && sourceCode) {
+    return ExpressionExecutor.translate(sourceCode);
   }
 }
 
 export function useExpressionLabel(
   props: { value?: string; [key: string]: any },
   expressionOption: Ref<IExpressionOption>,
-  expressionItemList: Ref<IExpressionItem[]>
+  expressionItemList: Ref<IExpressionItem[]>,
+  internalHasChangeSourceCode?: Ref<boolean>,
+  internalSourceCode?: Ref<string>
 ) {
   const expressionLabel = computed(() => {
-    const val = useExpressionLabelMaybeSourceCode(props);
+    const val = useExpressionLabelMaybeSourceCode(props, internalHasChangeSourceCode, internalSourceCode);
 
     if (val) {
       return val;
@@ -121,7 +130,7 @@ export function useClearExpressionHandler(
   });
   const clearHandler = (closeDialog = true) => {
     dialogExpressionItemList.value = [createDefaultExpressionItem(expressionOption.value.type!)];
-    props.onChangeSourceCode(dialogExpressionItemList.value);
+    props.onChangeSourceCode?.(dialogExpressionItemList.value);
 
     submitHandler?.(closeDialog);
     props.blur?.();
@@ -136,11 +145,13 @@ export function useSubmitExpressionHandler(
   isShowExpressionDialog: Ref<boolean>,
   expressionOption: Ref<IExpressionOption>,
   expressionItemList: Ref<IExpressionItem[]>,
-  dialogExpressionItemList: Ref<IExpressionItem[]>
+  dialogExpressionItemList: Ref<IExpressionItem[]>,
+  hasChangeSourceCode?: Ref<boolean>,
+  internalSourceCode?: Ref<string>
 ) {
   const defaultExpressionItem = [createDefaultExpressionItem(expressionOption.value.type!)];
   const submitHandler = (closeDialog = true) => {
-    if (props.hasChangeSourceCode) {
+    if (props.hasChangeSourceCode || hasChangeSourceCode?.value) {
       dialogExpressionItemList.value = defaultExpressionItem;
     }
 
@@ -150,7 +161,9 @@ export function useSubmitExpressionHandler(
     expressionItemList.value = JSON.parse(JSON.stringify(dialogExpressionItemList.value));
     props.onChangeList?.(expressionItemList.value);
     emit('change-expression-items', expressionItemList.value);
-    const expValue = createExpressionValue(expressionItemList.value as IExpressionItem[], expressionOption.value!);
+    const expValue = hasChangeSourceCode?.value
+      ? internalSourceCode?.value
+      : createExpressionValue(expressionItemList.value as IExpressionItem[], expressionOption.value!);
     emit('change', expValue);
     emit('update:value', expValue);
   };
