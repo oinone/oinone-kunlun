@@ -22,7 +22,10 @@ import { FormFieldWidget } from '../../../../basic';
 import { TreeNodeResponseBody, TreeService } from '../../../../service';
 import { AddressTypeEnum, ResourceAddress, ResourceRegion, TreeData, TreeNodeMetadata } from '../../../../typing';
 import { FetchUtil } from '../../../../util';
-import { generatorDefaultAddressTreeDefinition } from '../../../../util/default-tree-definition';
+import {
+  DefaultAddressTypeEnum,
+  generatorDefaultAddressTreeDefinition
+} from '../../../../util/default-tree-definition';
 import { FormM2OCascaderFieldWidget } from '../cascader/FormM2OCascaderFieldWidget';
 
 @SPI.ClassFactory(
@@ -46,8 +49,13 @@ export class FormM2OAddressFieldWidget extends FormM2OCascaderFieldWidget {
     return Optional.ofNullable(this.getDsl().changeOnSelect).map(BooleanHelper.toBoolean).orElse(true)!;
   }
 
+  @Widget.Reactive()
+  protected get addressType(): string | undefined {
+    return this.getDsl().addressType;
+  }
+
   protected generatorDefaultTreeDefinition(props) {
-    return generatorDefaultAddressTreeDefinition();
+    return generatorDefaultAddressTreeDefinition(this.addressType as DefaultAddressTypeEnum);
   }
 
   protected getSubmitField(metadata: TreeNodeMetadata): Record<string, string> | undefined {
@@ -362,6 +370,9 @@ export class FormM2OAddressFieldWidget extends FormM2OCascaderFieldWidget {
   }
 
   public async submit(submitValue: SubmitValue) {
+    if (this.value == null) {
+      return super.submit(submitValue);
+    }
     return SubmitHandler.DEFAULT(this.field, this.itemName, submitValue, this.value);
   }
 }
