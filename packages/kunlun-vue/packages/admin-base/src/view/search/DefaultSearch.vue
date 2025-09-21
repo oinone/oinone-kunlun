@@ -260,39 +260,43 @@ export default defineComponent({
 
           const finalExpandSize = props.invisibleSearch ? props.foldSize + 1 : props.foldSize;
           appendFieldDslDefinition(fields, widgets, finalExpandSize, props.foldSize, props.cateFields);
-          hasExpandButton = fields.length > finalExpandSize;
-          if (hasExpandButton) {
-            fields = fields.slice(0, finalExpandSize);
-          }
+          if (fields.length) {
+            hasExpandButton = fields.length > finalExpandSize;
+            if (hasExpandButton) {
+              fields = fields.slice(0, finalExpandSize);
+            }
+            if (!props.invisibleSearch) {
+              const searchActionBar: VNode[] = createSearchBar(false, {
+                hasExpandButton,
+                showSearchPrefer: props.showSearchPrefer,
+                onSearch,
+                onReset,
+                onExpand,
+                translate: props.translate,
+                preferProps: {
+                  selected: props.selectedPrefer,
+                  options: props.searchPreferOptions,
+                  onLoad: props.onLoadSearchPreferOptions,
+                  onCreate: props.onCreateSearchPrefer,
+                  onUpdate: props.onUpdateSearchPrefer,
+                  onRemove: props.onRemoveSearchPrefer,
+                  onSelect: props.onSelectSearchPrefer,
+                  onUnselect: props.onUnselectSearchPrefer
+                }
+              });
+              invisible = !fields.length;
 
-          if (!props.invisibleSearch) {
-            const searchActionBar: VNode[] = createSearchBar(false, {
-              hasExpandButton,
-              showSearchPrefer: props.showSearchPrefer,
-              onSearch,
-              onReset,
-              onExpand,
-              translate: props.translate,
-              preferProps: {
-                selected: props.selectedPrefer,
-                options: props.searchPreferOptions,
-                onLoad: props.onLoadSearchPreferOptions,
-                onCreate: props.onCreateSearchPrefer,
-                onUpdate: props.onUpdateSearchPrefer,
-                onRemove: props.onRemoveSearchPrefer,
-                onSelect: props.onSelectSearchPrefer,
-                onUnselect: props.onUnselectSearchPrefer
-              }
-            });
-            invisible = !fields.length;
-
-            const searchBarCol = createSearchBarCol(
-              searchActionBar,
-              (props.foldSize - fields.length) * (DEFAULT_COLS / (props.foldSize + 1)),
-              invisible,
-              props.foldSize
-            );
-            fields.push(searchBarCol);
+              const searchBarCol = createSearchBarCol(
+                searchActionBar,
+                (props.foldSize - fields.length) * (DEFAULT_COLS / (props.foldSize + 1)),
+                invisible,
+                props.foldSize
+              );
+              fields.push(searchBarCol);
+            }
+          } else {
+            hasExpandButton = false;
+            fields = widgets;
           }
           defaultChildren.push(
             withDirectives(
