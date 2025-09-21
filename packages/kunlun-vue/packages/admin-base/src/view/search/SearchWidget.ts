@@ -9,9 +9,10 @@ import { getRouterInstance } from '@oinone/kunlun-router';
 import { BooleanHelper, NumberHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { isAllInvisible, Widget } from '@oinone/kunlun-vue-widget';
 import { toString } from 'lodash-es';
 import { BaseElementWidget, BaseSearchWidget } from '../../basic';
+import { DefaultRowWidget } from '../../container';
 import { UserPreferService } from '../../service';
 import { SEARCH_WIDGET, UserSearchPrefer, UserSearchPreferField } from '../../typing';
 import DefaultSearch from './DefaultSearch.vue';
@@ -243,5 +244,17 @@ export class SearchWidget extends BaseSearchWidget {
   protected $$mounted() {
     super.$$mounted();
     this.isExpand = BooleanHelper.toBoolean(this.urlParameters.expand) || false;
+  }
+
+  protected childrenInvisibleProcess(): boolean {
+    if (this.disabledExpand && !this.invisibleSearch) {
+      const children = this.getChildren();
+      const lastChild = children[children.length - 1];
+      if (children.length === 2 && lastChild instanceof DefaultRowWidget) {
+        return isAllInvisible(children.slice(0, children.length - 1));
+      }
+      return isAllInvisible(children);
+    }
+    return super.childrenInvisibleProcess();
   }
 }
