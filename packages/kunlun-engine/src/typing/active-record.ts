@@ -1,6 +1,8 @@
 import { JSONUtils } from '@oinone/kunlun-shared';
 
 export interface ActiveRecord {
+  // 草稿数据标识
+  draftCode?: string;
   // 数据在前端的唯一标识
   __draftId?: string;
   __parentDraftId?: string;

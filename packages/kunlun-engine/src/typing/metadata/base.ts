@@ -1,4 +1,8 @@
-export interface IdModel {
+export interface BaseModel {
+  draftCode?: string;
+}
+
+export interface IdModel extends BaseModel {
   id?: string;
 }
 
