@@ -45,16 +45,6 @@ export class BaseElementWidget<
   public static Selector: SPISingleSelector<BaseElementOptions, Constructor<BaseElementWidget>>;
 
   @Widget.Reactive()
-  protected get modelFields() {
-    return this.metadataRuntimeContext?.model?.modelFields;
-  }
-
-  @Widget.Reactive()
-  protected get modelActions() {
-    return this.metadataRuntimeContext?.model?.modelActions;
-  }
-
-  @Widget.Reactive()
   @Widget.Inject('viewType')
   protected parentViewType: ViewType | undefined;
 

@@ -909,7 +909,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get treeConfig() {
-    if (this.enabledGroupView) {
+    if (this.groupable) {
       return {
         rowField: ActiveRecordExtendKeys.DRAFT_ID,
         parentField: ActiveRecordExtendKeys.PARENT_DRAFT_ID,
@@ -1090,7 +1090,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    * 初始化分组展开字段
    */
   protected initGroupTreeField() {
-    if (this.enabledGroupView) {
+    if (this.groupable) {
       this.expandTreeField = this.metadataRuntimeContext.model.modelFields.find((v) => !v.invisible);
     }
   }

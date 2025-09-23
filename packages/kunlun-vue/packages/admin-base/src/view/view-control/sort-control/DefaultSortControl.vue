@@ -10,7 +10,7 @@
     <template #content>
       <sortable-group
         :list="sortList"
-        :model-fields="modelFields"
+        :model-fields="fieldOptions"
         title="添加排序"
         sure-text="确定"
         @change="onEnter"
@@ -27,11 +27,10 @@
   </a-popover>
 </template>
 <script lang="ts">
-import { RuntimeModelField } from '@oinone/kunlun-engine';
 import { ISort } from '@oinone/kunlun-service';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, PropType, reactive } from 'vue';
-import { SortableGroup } from '../../../components';
+import { SortableGroup, SortableGroupOption } from '../../../components';
 
 export default defineComponent({
   name: 'DefaultSortControl',
@@ -41,8 +40,8 @@ export default defineComponent({
       type: Array as PropType<ISort[]>,
       default: () => []
     },
-    modelFields: {
-      type: Array as PropType<RuntimeModelField[]>,
+    fieldOptions: {
+      type: Array as PropType<SortableGroupOption[]>,
       default: () => []
     },
     onSortChange: {

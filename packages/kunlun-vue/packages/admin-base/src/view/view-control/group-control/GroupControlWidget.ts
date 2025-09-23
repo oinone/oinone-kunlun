@@ -1,7 +1,9 @@
+import { ModelCache, RuntimeRelationField } from '@oinone/kunlun-engine';
 import { IGroup } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
+import { SortableGroupOption } from '../../../components';
 import DefaultGroupControl from './DefaultGroupControl.vue';
 
 @SPI.ClassFactory(
@@ -27,6 +29,9 @@ export class GroupControlWidget extends BaseElementWidget {
   @Widget.Reactive()
   protected groupList: (IGroup & { title: string })[] = [];
 
+  @Widget.Reactive()
+  protected options: SortableGroupOption[] = [];
+
   /**
    * 修改分组
    * @see {@link BaseElementListViewWidget#onGroupChange}
@@ -41,9 +46,9 @@ export class GroupControlWidget extends BaseElementWidget {
   }
 
   protected getGroupList() {
-    const { modelFields } = this.model;
     return this.parentGroupList?.map((sort) => {
-      const field = modelFields.find((field) => field.name === sort.groupField);
+      const { sortField } = sort;
+      const field = this.fieldOptions.find((v) => v.data === sortField);
       return {
         ...sort,
         title: field?.label
@@ -52,7 +57,28 @@ export class GroupControlWidget extends BaseElementWidget {
   }
 
   @Widget.Reactive()
-  protected get allFields() {
-    return this.model.modelFields;
+  protected get fieldOptions(): SortableGroupOption[] {
+    return this.options;
+  }
+
+  protected async mounted() {
+    const modelDefinition = await ModelCache.get(this.model.model);
+    const options: SortableGroupOption[] = [];
+    const { modelFields: dslFields } = this.model;
+    for (const modelField of modelDefinition?.modelFields || []) {
+      const { data, store } = modelField;
+      if (store || (modelField as RuntimeRelationField).relationStore) {
+        let dslField = dslFields.find((d) => d.data === data);
+        if (!dslField) {
+          dslField = modelField;
+        }
+        options.push({
+          data: dslField.data,
+          name: dslField.name,
+          label: dslField.label || dslField.displayName || dslField.data
+        });
+      }
+    }
+    this.options = options;
   }
 }

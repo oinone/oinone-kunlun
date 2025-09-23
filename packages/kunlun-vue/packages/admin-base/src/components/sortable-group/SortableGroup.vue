@@ -69,11 +69,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref, watch } from 'vue';
-import { OioIcon, OioButton, OioInput } from '@oinone/kunlun-vue-ui-antd';
-import { EDirection } from '@oinone/kunlun-service';
-import Draggable from 'vuedraggable';
 import { RuntimeModelField } from '@oinone/kunlun-engine';
+import { EDirection } from '@oinone/kunlun-service';
+import { OioButton, OioIcon, OioInput } from '@oinone/kunlun-vue-ui-antd';
+import { computed, defineComponent, PropType, ref, watch } from 'vue';
+import Draggable from 'vuedraggable';
+import { SortableGroupOption } from './typing';
 
 export default defineComponent({
   props: {
@@ -97,7 +98,7 @@ export default defineComponent({
       default: '确定'
     },
     modelFields: {
-      type: Array as PropType<RuntimeModelField[]>,
+      type: Array as PropType<SortableGroupOption[]>,
       default: () => []
     }
   },
@@ -117,7 +118,7 @@ export default defineComponent({
       if (!searchKey.value) {
         return props.modelFields;
       }
-      return props.modelFields.filter((field) => (field.displayName || field.label)?.includes(searchKey.value));
+      return props.modelFields.filter((field) => field.label?.includes(searchKey.value));
     });
 
     const existingFields = computed(() => {
@@ -131,7 +132,7 @@ export default defineComponent({
 
       visiblePopover.value = false;
       draggableList.value.push({
-        displayName: field.displayName || field.label,
+        displayName: field.label,
         [props.fieldKey]: field.name,
         [props.directionKey]: EDirection.ASC
       });
@@ -153,7 +154,7 @@ export default defineComponent({
     watch(
       () => props.list,
       (val) => {
-        const fieldDisplayNameMap = new Map(props.modelFields.map((v) => [v.name, v.displayName || v.label]));
+        const fieldDisplayNameMap = new Map(props.modelFields.map((v) => [v.name, v.label]));
 
         draggableList.value = val.map((v) => ({
           ...v,
@@ -185,10 +186,12 @@ export default defineComponent({
 .sortable-group-component {
   .sortable-group-body {
     padding: var(--oio-padding-lg) var(--oio-padding-sm);
+
     .sortable-group-title {
       display: inline-block;
       padding: 0 0 0 var(--oio-padding-sm);
     }
+
     .sortable-group-title-content {
       cursor: pointer;
       display: flex;
@@ -199,21 +202,26 @@ export default defineComponent({
     .sortable-group-draggable-content {
       margin-top: var(--oio-margin);
     }
+
     .sortable-group-field {
       display: flex;
       align-items: center;
       padding: 5px var(--oio-padding-sm);
       cursor: pointer;
       border-radius: var(--oio-border-radius);
+
       &:hover {
         background-color: var(--oio-table-thead-bg);
+
         .oio-icon {
           color: var(--oio-primary-color);
         }
       }
+
       .sortable-group-field-label {
         flex: 1;
       }
+
       .sortable-group-field-remove {
         margin-left: var(--oio-margin-sm);
       }
@@ -240,6 +248,7 @@ export default defineComponent({
           height: 30px;
           padding: 0 var(--oio-padding-lg);
           font-size: var(--oio-font-size-sm);
+
           &:first-child {
             border-radius: var(--oio-border-radius) 0 0 var(--oio-border-radius);
           }
@@ -248,6 +257,7 @@ export default defineComponent({
             border-radius: 0 var(--oio-border-radius) var(--oio-border-radius);
           }
         }
+
         .ant-radio-button-wrapper-checked span {
           color: var(--oio-primary-color);
         }
@@ -264,6 +274,7 @@ export default defineComponent({
       padding: 2px var(--oio-padding-sm);
       height: auto;
       text-align: center;
+
       &.ant-btn > span {
         font-size: var(--oio-font-size-sm);
         line-height: unset;
@@ -282,17 +293,21 @@ export default defineComponent({
   box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.1);
   border-radius: var(--oio-border-radius);
   padding: 0;
+
   .ant-popover-inner-content {
     padding: 0;
   }
+
   .oio-input {
     border: 0;
+
     &:hover,
     &:focus {
       border: 0;
       box-shadow: none;
     }
   }
+
   .sortable-group-select {
     max-height: 200px;
     padding: 4px;
@@ -309,10 +324,13 @@ export default defineComponent({
       line-height: normal;
       padding: 5px;
       margin-bottom: 4px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       cursor: pointer;
+
       &.sortable-group-select-item-disabled {
         color: var(--oio-disabled-color);
         cursor: no-drop;

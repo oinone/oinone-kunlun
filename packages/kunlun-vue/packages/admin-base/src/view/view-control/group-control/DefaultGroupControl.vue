@@ -14,7 +14,7 @@
         field-key="groupField"
         direction-key="groupDirection"
         :list="groupList"
-        :model-fields="modelFields"
+        :model-fields="fieldOptions"
         @change="onEnter"
       ></sortable-group>
     </template>
@@ -30,12 +30,11 @@
 </template>
 
 <script lang="ts">
-import { RuntimeModelField } from '@oinone/kunlun-engine';
 import { IGroup } from '@oinone/kunlun-service';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { Tooltip as ATooltip } from 'ant-design-vue';
 import { defineComponent, PropType, reactive } from 'vue';
-import { SortableGroup } from '../../../components';
+import { SortableGroup, SortableGroupOption } from '../../../components';
 
 export default defineComponent({
   name: 'DefaultGroupControl',
@@ -45,8 +44,8 @@ export default defineComponent({
       type: Array as PropType<IGroup[]>,
       default: () => []
     },
-    modelFields: {
-      type: Array as PropType<RuntimeModelField[]>,
+    fieldOptions: {
+      type: Array as PropType<SortableGroupOption[]>,
       default: () => []
     },
     onGroupChange: {

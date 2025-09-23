@@ -258,7 +258,6 @@ export default defineComponent({
     onRowDblClick: {
       type: Function
     },
-
     expandAccordion: {
       type: Boolean,
       default: undefined
@@ -348,10 +347,6 @@ export default defineComponent({
     enableSequence: {
       type: Boolean,
       default: undefined
-    },
-    modelFields: {
-      type: Array as PropType<RuntimeModelField[]>,
-      default: () => []
     },
     viewControlWidget: {
       type: Object as PropType<DslDefinition>
