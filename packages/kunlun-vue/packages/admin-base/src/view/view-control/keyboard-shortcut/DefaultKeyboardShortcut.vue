@@ -3,6 +3,7 @@
     <a-popover
       trigger="click"
       placement="bottomRight"
+      destroy-tooltip-on-hide
       :visible="visible"
       overlay-class-name="table-key-board-shortcut-popover oio-popover"
       @update:visible="onUpdateVisible"

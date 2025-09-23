@@ -3,6 +3,7 @@
     overlay-class-name="oio-popover default-view-control-popover"
     trigger="click"
     placement="bottomLeft"
+    destroy-tooltip-on-hide
     :visible="state.visible"
     @visibleChange="onVisibleChange"
   >
