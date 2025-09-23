@@ -1,8 +1,8 @@
-export interface BaseModel {
+export interface DraftModel {
   draftCode?: string;
 }
 
-export interface IdModel extends BaseModel {
+export interface IdModel {
   id?: string;
 }
 
