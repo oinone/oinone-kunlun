@@ -1,4 +1,4 @@
-import { DEFAULT_SLOT_NAME, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { DEFAULT_SLOT_NAME, DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import {
   ActiveRecord,
   ActiveRecords,
@@ -8,20 +8,23 @@ import {
   FunctionService,
   isRelation2MField,
   parseConfigs,
+  RelationUpdateType,
   RuntimeAction,
   RuntimeFunctionDefinition,
   RuntimeM2MField,
   RuntimeO2MField,
   SubmitCacheManager,
   SubmitValue,
-  translateValueByKey,
-  RelationUpdateType
+  translateValueByKey
 } from '@oinone/kunlun-engine';
 import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { MessageHub } from '@oinone/kunlun-request';
+import { EDirection, IGroup, ISort } from '@oinone/kunlun-service';
 import { BooleanHelper, CallChaining, Optional, ReturnPromise } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
+  CheckedChangeEvent,
+  GROUP_TREE_KEY,
   OioTableInstance,
   RowContext,
   TableEditorCloseTrigger,
@@ -32,14 +35,13 @@ import {
 import { ListSelectMode, OioNotification, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy } from 'lodash-es';
-import { ISort } from '@oinone/kunlun-service';
 import { nextTick } from 'vue';
-import { TableLineHeightEnum } from '../../typing';
-import { ActionKeyboardConfig, TableRowEditMode } from '../../typing/action';
+import { VxeTablePropTypes } from 'vxe-table';
+import { ActionKeyboardConfig, TableLineHeightEnum, TableRowEditMode } from '../../typing';
 import { FetchUtil } from '../../util';
-import { BaseElementListViewWidget, BaseElementListViewWidgetProps } from '../element';
+import { BaseElementListViewWidget, BaseElementListViewWidgetProps, getSortFieldDirection } from '../element';
 import { BaseTableColumnWidget } from '../table-column';
-import { FieldWidgetComponentFunction, IFormSubviewListFieldWidget } from '../types';
+import { FieldWidgetComponentFunction, IFormSubviewListFieldWidget, UrlQueryParameters } from '../types';
 
 interface ColumnWidgetEntity {
   widget: BaseTableColumnWidget;
@@ -58,6 +60,11 @@ interface TableKeyboardConfig {
   cancel: ActionKeyboardConfig[]; // 取消操作
   submit: ActionKeyboardConfig[]; // 提交数据
 }
+
+const URL_SPLIT_SEPARATOR = ',';
+const ORDERING_SEPARATOR = ',';
+const ORDERING_FIELD_ORDER_SEPARATOR = ' ';
+const DEFAULT_ORDERING_ORDER = EDirection.ASC;
 
 export class BaseTableWidget<
   Props extends BaseElementListViewWidgetProps = BaseElementListViewWidgetProps
@@ -193,29 +200,90 @@ export class BaseTableWidget<
   }
 
   /**
+   * 启用分组
+   * @protected
+   */
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get groupable() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().groupable)).orElse(true);
+  }
+
+  /**
+   * 启用行高
+   * @protected
+   */
+  @Widget.Reactive()
+  protected get lineHeightAble() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().lineHeightAble)).orElse(true);
+  }
+
+  /**
    * 允许键盘快捷操作
    * @protected
    */
+  @Widget.Reactive()
   protected get keyBoardAble(): boolean {
     return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().keyBoardAble)).orElse(false);
   }
 
   /**
-   * 视图控制相关的子组件, 可能包含（排序、分组、行高切换、全屏、快捷点）
+   * 视图控制组，包含所有子组件
    */
   @Widget.Method()
-  public get viewControlChildren() {
-    const widgets = super.viewControlChildren;
-
-    if (this.keyBoardAble) {
-      widgets.push({
-        dslNodeType: DslDefinitionType.ELEMENT,
-        widget: 'KeyboardShortcut',
-        widgets: []
-      });
+  protected get viewControlWidget(): DslDefinition | undefined {
+    if (!this.viewControlChildren.length) {
+      return undefined;
     }
+    return {
+      dslNodeType: DslDefinitionType.ELEMENT,
+      widget: 'ViewControl',
+      widgets: this.viewControlChildren
+    };
+  }
 
-    return widgets;
+  /**
+   * 视图控制相关的子组件, 可能包含（排序、分组、行高切换、全屏）
+   */
+  @Widget.Method()
+  protected get viewControlChildren(): DslDefinition[] {
+    const controls: { enabled: boolean; widget: string; props?: Record<string, unknown> }[] = [
+      {
+        enabled: this.sortable,
+        widget: 'SortControl',
+        props: {
+          onSortChange: this.onSortChange.bind(this)
+        }
+      },
+      {
+        enabled: this.groupable,
+        widget: 'GroupControl',
+        props: {}
+      },
+      {
+        enabled: this.lineHeightAble,
+        widget: 'LineHeightControl',
+        props: {}
+      },
+      {
+        enabled: this.fullScreenAble,
+        widget: 'FullScreenControl',
+        props: {}
+      },
+      {
+        enabled: this.keyBoardAble,
+        widget: 'KeyboardShortcut',
+        props: {}
+      }
+    ];
+    return controls
+      .filter(({ enabled }) => enabled)
+      .map(({ widget, props }) => ({
+        dslNodeType: DslDefinitionType.ELEMENT,
+        ...props,
+        widget,
+        widgets: []
+      }));
   }
 
   /**
@@ -704,14 +772,181 @@ export class BaseTableWidget<
 
   // endregion
 
+  @Widget.Reactive()
+  protected internalSortConfig: VxeTablePropTypes.SortConfig = {};
+
+  @Widget.Reactive()
+  protected multipleFieldSort = false;
+
+  @Widget.Reactive()
+  protected get sortConfig(): VxeTablePropTypes.SortConfig {
+    const sortConfig = {
+      ...this.internalSortConfig,
+      ...(this.getDsl().sortConfig || {})
+    };
+    if (sortConfig.multiple == null) {
+      sortConfig.multiple = this.multipleFieldSort;
+    }
+    return sortConfig;
+  }
+
+  protected initSortConfig() {
+    this.multipleFieldSort = (this.sortList?.length || 0) >= 2;
+    const sortConfig = this.internalSortConfig;
+    if (sortConfig.remote == null) {
+      sortConfig.remote = true;
+    }
+    if (sortConfig.defaultSort == null) {
+      const defaultSort: { field: string; order: VxeTablePropTypes.SortOrder }[] = [];
+      for (const { sortField, direction } of this.sortList || []) {
+        defaultSort.push({
+          field: sortField,
+          order: direction.toLowerCase() as VxeTablePropTypes.SortOrder
+        });
+      }
+      sortConfig.defaultSort = defaultSort;
+    }
+  }
+
+  // region 分组
+
+  /**
+   * 分组视图数据源的总数量
+   */
+  @Widget.Reactive()
+  protected groupTotalDataCount = 0;
+
+  /**
+   * 当前视图使用分组结构展示
+   *  启动了分组并且有分组字段
+   */
+  @Widget.Provide()
+  @Widget.Reactive()
+  protected get enabledGroupView(): boolean {
+    return this.groupable && !!this.groupList?.length;
+  }
+
+  /**
+   * 分组视图底部展示「展开全部」操作
+   */
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get groupViewFooterExpandControl() {
+    return this.groupTotalDataCount <= 300 || this.showPagination;
+  }
+
+  /**
+   * 分组视图底部展示「收起全部」操作
+   */
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get groupViewFooterFoldControl() {
+    return true;
+  }
+
+  /**
+   * 分组参数
+   * @protected
+   */
+  @Widget.Provide()
+  @Widget.Reactive()
+  protected groupList: IGroup[] | undefined = undefined;
+
+  /**
+   * 默认分组字段
+   * @protected
+   * @example "field00003,field00004"
+   * @returns [field00003 desc,field00004 desc]
+   */
+  @Widget.Reactive()
+  protected get grouping(): IGroup[] | undefined {
+    const dsf: string = this.getDsl().grouping;
+    if (dsf) {
+      const dsfArr = dsf.split(ORDERING_SEPARATOR).filter((v) => !isEmpty(v));
+      return dsfArr.map((v: string) => {
+        const [groupField, groupDirection] = getSortFieldDirection(
+          v,
+          ORDERING_FIELD_ORDER_SEPARATOR,
+          DEFAULT_ORDERING_ORDER
+        );
+        return { groupField, groupDirection };
+      });
+    }
+    return undefined;
+  }
+
+  /**
+   * 修改分组配置
+   */
+  @Widget.Provide()
+  @Widget.Method()
+  public onGroupChange(groupList: IGroup[]): void {
+    const finalGroupList = groupList.length ? groupList : [];
+    const groupParameters: UrlQueryParameters = {};
+    if (finalGroupList?.length) {
+      groupParameters.groupField = finalGroupList.map((v) => v.groupField).join(URL_SPLIT_SEPARATOR);
+      groupParameters.groupDirection = finalGroupList.map((v) => v.groupDirection).join(URL_SPLIT_SEPARATOR);
+    } else {
+      groupParameters.groupField = null;
+      groupParameters.groupDirection = null;
+    }
+
+    this.groupList = finalGroupList;
+
+    this.$router.push({
+      segments: [
+        {
+          path: 'page',
+          parameters: groupParameters,
+          extra: {
+            preserveParameter: true
+          }
+        }
+      ]
+    });
+    this.refreshProcess();
+  }
+
+  /**
+   * 初始化分组字段列表，优选取url上面的配置，如果没有就取设计器配置
+   */
+  protected initGroupList() {
+    const { groupField, groupDirection } = this.urlParameters;
+    let { groupList } = this;
+
+    if (!groupList && groupField && groupDirection) {
+      groupList = [];
+      const groupFields = groupField.split(URL_SPLIT_SEPARATOR);
+      const directions = groupDirection.split(URL_SPLIT_SEPARATOR);
+      if (groupFields.length && directions.length && groupFields.length === directions.length) {
+        for (let i = 0; i < groupFields.length; i++) {
+          groupList.push({ groupField: groupFields[i], groupDirection: directions[i] as EDirection });
+        }
+      }
+      this.groupList = groupList;
+    } else if (!groupList && this.grouping?.length) {
+      this.groupList = this.grouping;
+    }
+  }
+
+  // endregion
+
   public executeExpression<T>(
-    activeRecord: ActiveRecord | undefined,
+    activeRecord: ActiveRecords | undefined,
     expression: string,
     errorValue?: T
   ): T | string | undefined {
+    let activeRecords: ActiveRecord[];
+    if (activeRecord == null) {
+      activeRecords = [{}];
+    } else if (Array.isArray(activeRecord)) {
+      activeRecords = activeRecord;
+    } else {
+      activeRecords = [activeRecord];
+    }
     return Expression.run(
       {
-        activeRecords: [activeRecord || {}],
+        activeRecords,
         rootRecord: this.rootData?.[0] || {},
         openerRecord: this.openerActiveRecords?.[0] || {},
         scene: this.scene
@@ -761,6 +996,47 @@ export class BaseTableWidget<
 
   // endregion
 
+  @Widget.Method()
+  public onCheckedChange(data: ActiveRecords, event?: CheckedChangeEvent) {
+    const records =
+      this.enabledGroupView && Array.isArray(data)
+        ? data.filter((record) => !record[GROUP_TREE_KEY.CHILDREN_KEY])
+        : data;
+    super.onCheckedChange(records, event);
+  }
+
+  @Widget.Method()
+  public onCheckedAllChange(selected: boolean, data: ActiveRecord[], event?: CheckedChangeEvent) {
+    if (selected) {
+      const records =
+        this.enabledGroupView && Array.isArray(data)
+          ? data.filter((record) => !record[GROUP_TREE_KEY.CHILDREN_KEY])
+          : data;
+      super.onCheckedAllChange(selected, records, event);
+    } else {
+      super.onCheckedAllChange(selected, data, event);
+    }
+  }
+
+  @Widget.Method()
+  @Widget.Provide()
+  public onSortChange(sortList: ISort[]) {
+    super.onSortChange(sortList);
+    this.multipleFieldSort = (this.sortList?.length || 0) >= 2;
+    nextTick(() => {
+      if (this.sortList?.length) {
+        this.tableInstance?.sort(
+          this.sortList.map((sort) => ({
+            field: sort.sortField,
+            order: sort.direction.toLowerCase() as 'asc' | 'desc'
+          }))
+        );
+      } else {
+        this.tableInstance?.sort([]);
+      }
+    });
+  }
+
   protected $$mounted() {
     super.$$mounted();
     this.submitCallChaining?.callBefore(
@@ -777,22 +1053,14 @@ export class BaseTableWidget<
     });
   }
 
+  protected $$beforeMount() {
+    super.$$beforeMount();
+    this.initGroupList();
+    this.initSortConfig();
+  }
+
   protected $$unmounted() {
     super.$$unmounted();
     this.editRowCallChaining?.unhook(this.path);
-  }
-
-  @Widget.Provide()
-  @Widget.Method()
-  public override onSortChange(sortList: ISort[]) {
-    super.onSortChange(sortList);
-    if (this.sortList && this.sortList.length) {
-      this.tableInstance?.sort(
-        this.sortList.map((sort) => ({
-          field: sort.sortField,
-          order: sort.direction.toLowerCase() as 'asc' | 'desc'
-        }))
-      );
-    }
   }
 }

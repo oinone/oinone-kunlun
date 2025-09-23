@@ -1,3 +1,4 @@
+import { IGroup } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
@@ -23,16 +24,23 @@ export class GroupControlWidget extends BaseElementWidget {
   @Widget.Inject('groupList')
   protected parentGroupList;
 
+  @Widget.Reactive()
+  protected groupList: (IGroup & { title: string })[] = [];
+
   /**
    * 修改分组
-   * @see {@link BaseElementListViewWidget}
+   * @see {@link BaseElementListViewWidget#onGroupChange}
    */
   @Widget.Method()
   @Widget.Inject()
-  protected onGroupChange!: (groupList) => void;
+  protected onGroupChange!: (groupList: IGroup[]) => void;
 
-  @Widget.Reactive()
-  protected get groupList() {
+  @Widget.Method()
+  protected onOpen() {
+    this.groupList = this.getGroupList();
+  }
+
+  protected getGroupList() {
     const { modelFields } = this.model;
     return this.parentGroupList?.map((sort) => {
       const field = modelFields.find((field) => field.name === sort.groupField);

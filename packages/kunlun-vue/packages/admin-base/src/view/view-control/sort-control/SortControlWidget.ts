@@ -1,3 +1,4 @@
+import { ISort } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
@@ -23,19 +24,26 @@ export class SortControlWidget extends BaseElementWidget {
   @Widget.Inject('sortList')
   protected parentSortList;
 
+  @Widget.Reactive()
+  protected sortList: (ISort & { title: string })[] = [];
+
   /**
    * 修改排序
    *  @see {@link BaseElementListViewWidget}
    */
   @Widget.Method()
   @Widget.Inject()
-  protected onSortChange!: (sortList) => void;
+  protected onSortChange!: (sortList: ISort[] | undefined) => void;
+
+  @Widget.Method()
+  protected onOpen() {
+    this.sortList = this.getSortList();
+  }
 
   /**
    * 排序字段列表
    */
-  @Widget.Reactive()
-  protected get sortList() {
+  protected getSortList() {
     const { modelFields } = this.model;
     return this.parentSortList?.map((sort) => {
       const field = modelFields.find((field) => field.name === sort.sortField);

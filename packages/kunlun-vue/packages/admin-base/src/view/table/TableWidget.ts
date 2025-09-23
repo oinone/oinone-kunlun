@@ -23,11 +23,11 @@ import { DEFAULT_TRUE_CONDITION, ISort } from '@oinone/kunlun-service';
 import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import {
-  VxeTableHelper,
-  TableEditorTrigger,
-  TableEditorMode,
   ActiveEditorContext,
-  GROUP_TREE_KEY
+  GROUP_TREE_KEY,
+  TableEditorMode,
+  TableEditorTrigger,
+  VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
 import { StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
@@ -37,22 +37,22 @@ import { VxeTableDefines } from 'vxe-table';
 import { ActionWidget } from '../../action/component/action';
 import { BaseElementListViewWidgetProps, BaseElementWidget, BaseTableColumnWidget, BaseTableWidget } from '../../basic';
 import { ExpandColumnWidgetNames } from '../../field';
+import { fetchGroupData, fetchGroupPage } from '../../service';
 import {
+  ActionKeyboardConfig,
   ActiveCountEnum,
   fetchPageSize,
   fetchPageSizeNullable,
   TABLE_WIDGET,
-  UserTablePrefer,
   TableLineHeightEnum,
   TableLineHeightMap,
-  ActionKeyboardConfig,
-  TableRowEditMode
+  TableRowEditMode,
+  UserTablePrefer
 } from '../../typing';
 import { TreeUtils } from '../../util';
 import { TableConfigManager } from './config';
 import DefaultTable from './DefaultTable.vue';
 import { TableRowClickMode } from './typing';
-import { ExpandGroupPath, fetchGroupData, fetchGroupPage } from '../../service';
 
 const CLICK_SLOT_NAME = 'click';
 
@@ -82,14 +82,14 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Reactive()
   @Widget.Inject()
-  protected gotoO2MCreateRow: boolean = false;
+  protected gotoO2MCreateRow = false;
 
   /**
    * 表格底部开启「快速填报」操作
    */
   @Widget.Reactive()
   @Widget.Inject()
-  protected gotoO2MQuickFilling: boolean = false;
+  protected gotoO2MQuickFilling = false;
 
   @Widget.Provide()
   protected get cellWidth() {
@@ -111,6 +111,23 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   protected get tableConfig() {
     return TableConfigManager.getConfig();
+  }
+
+  @Widget.Reactive()
+  protected get checkbox(): boolean {
+    const val = this.getDsl().checkbox;
+    if (val == null) {
+      return true;
+    }
+    const booleanCheckbox = BooleanHelper.toBoolean(val);
+    if (booleanCheckbox != null) {
+      return booleanCheckbox;
+    }
+    const enabled = BooleanHelper.toBoolean(this.executeExpression(this.dataSource, val, true));
+    if (enabled == null) {
+      return true;
+    }
+    return enabled;
   }
 
   @Widget.Reactive()
@@ -219,22 +236,21 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   }
 
   @Widget.Reactive()
-  protected get checkbox(): boolean {
-    return Optional.ofNullable(this.getDsl().checkbox).map(BooleanHelper.toBoolean).orElse(true)!;
+  protected get allowChecked(): string | boolean | undefined {
+    return this.getDsl().allowChecked;
   }
 
   @Widget.Method()
   protected checkMethod({ row }: { row: ActiveRecord }) {
-    const { checkbox } = this;
-
-    if (isNil(checkbox)) {
+    const { allowChecked } = this;
+    if (isNil(allowChecked)) {
       return true;
     }
-    if (isBoolean(checkbox)) {
-      return checkbox;
+    if (isBoolean(allowChecked)) {
+      return allowChecked;
     }
-    if (isString(checkbox)) {
-      return this.executeExpression<boolean>(row, checkbox, false);
+    if (isString(allowChecked)) {
+      return this.executeExpression<boolean>(row, allowChecked, false);
     }
     return true;
   }
@@ -264,6 +280,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   }
 
   @Widget.Method()
+  @Widget.Provide()
   public onSortChange(sortList: ISort[]): void {
     super.onSortChange(sortList);
     this.resetExpandRowAttr();
@@ -1218,6 +1235,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     super.$$beforeMount();
     this.initGroupTreeField();
   }
+
   // endregion
 
   // region 快捷键操作

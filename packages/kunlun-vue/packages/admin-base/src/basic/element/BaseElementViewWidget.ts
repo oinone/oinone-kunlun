@@ -134,10 +134,6 @@ export abstract class BaseElementViewWidget<
   @Widget.Reactive()
   protected currentMountedCallChaining: CallChaining | undefined;
 
-  protected get draftDataPath() {
-    return this.path + '_draft';
-  }
-
   /**
    * 挂载时
    * @protected
@@ -357,7 +353,6 @@ export abstract class BaseElementViewWidget<
     super.$$unmounted();
     this.mountedCallChaining?.unhook(this.path);
     this.refreshCallChaining?.unhook(this.path);
-    this.parentMountedCallChaining?.unhook(this.draftDataPath);
     this.notify(LifeCycleTypes.ON_VIEW_UNMOUNTED);
   }
 

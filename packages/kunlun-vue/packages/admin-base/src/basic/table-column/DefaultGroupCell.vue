@@ -30,20 +30,6 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue';
-import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
-import {
-  DateFormatMap,
-  DateTimeFormatMap,
-  DateUtil,
-  defaultDateFormatKey,
-  defaultFormat,
-  defaultTimeFormatKey,
-  ObjectUtils,
-  OioIcon,
-  TimeFormatMap
-} from '@oinone/kunlun-vue-ui-antd';
-import { GROUP_TREE_KEY, VxeTableRowContext } from '@oinone/kunlun-vue-ui';
 import {
   ActiveRecord,
   IResourceDateTimeFormat,
@@ -57,8 +43,22 @@ import {
   RuntimeModelField,
   translateValueByKey
 } from '@oinone/kunlun-engine';
+import { GROUP_TREE_KEY, VxeTableRowContext } from '@oinone/kunlun-vue-ui';
+import {
+  DateFormatMap,
+  DateTimeFormatMap,
+  DateUtil,
+  defaultDateFormatKey,
+  defaultFormat,
+  defaultTimeFormatKey,
+  ObjectUtils,
+  OioIcon,
+  TimeFormatMap
+} from '@oinone/kunlun-vue-ui-antd';
+import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import dayjs from 'dayjs';
-import { isNil, sum, mean, min, max, uniq, sortBy, round } from 'lodash-es';
+import { isNil, max, mean, min, round, sortBy, sum, uniq } from 'lodash-es';
+import { computed, defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue';
 import { GroupStatisticsEnum } from '../../service';
 
 export default defineComponent({
@@ -305,22 +305,27 @@ export default defineComponent({
         case GroupStatisticsEnum.UNIQUE: // 唯一值
           return `${translateValueByKey('唯一值')}${uniqueCount}`;
 
-        case GroupStatisticsEnum.NOT_NULL_PERCENT: // 已填写占比
+        case GroupStatisticsEnum.NOT_NULL_PERCENT: {
+          // 已填写占比
           const val = total > 0 ? formatRatio(filled / total) : 0;
-          return `${translateValueByKey('已填写占比')}${val * 100}%`;
-
-        case GroupStatisticsEnum.NULL_PERCENT: // 未填写占比
+          return `${translateValueByKey('已填写占比')}${val}%`;
+        }
+        case GroupStatisticsEnum.NULL_PERCENT: {
+          // 未填写占比
           const val1 = total > 0 ? formatRatio(notFilled / total) : 0;
-          return `${translateValueByKey('未填写占比')}${val1 * 100}%`;
-        case GroupStatisticsEnum.UNIQUE_PERCENT: // 唯一值占比
+          return `${translateValueByKey('未填写占比')}${val1}%`;
+        }
+        case GroupStatisticsEnum.UNIQUE_PERCENT: {
+          // 唯一值占比
           const value = total > 0 ? formatRatio(uniqueCount / total) : 0;
-          return `${translateValueByKey('唯一值占比')}${value * 100}%`;
+          return `${translateValueByKey('唯一值占比')}${value}%`;
+        }
         case GroupStatisticsEnum.EARLIEST_TIME: // 最早时间
           if (values.length) {
             const timestamps = values.map(normalizeDateTime);
             return `${translateValueByKey('最早时间')}${dayjs(min(timestamps)).format(dateFormat.value)}`;
           }
-
+          break;
         case GroupStatisticsEnum.LATEST_TIME:
           if (values.length) {
             const d = dayjs;
@@ -438,6 +443,7 @@ export default defineComponent({
     .vxe-tree-cell {
       height: 100%;
     }
+
     .vxe-cell,
     .oio-column-wrapper {
       height: 100%;
@@ -451,6 +457,7 @@ export default defineComponent({
   height: 100%;
   display: flex;
   align-items: center;
+
   .default-group-compose-cell-content {
     flex: 1;
     text-overflow: ellipsis;

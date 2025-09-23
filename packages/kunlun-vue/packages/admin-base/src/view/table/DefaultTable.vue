@@ -1,24 +1,9 @@
 <script lang="ts">
-import {
-  computed,
-  createVNode,
-  defineComponent,
-  Fragment,
-  nextTick,
-  onActivated,
-  onBeforeUnmount,
-  onMounted,
-  PropType,
-  ref,
-  Slot,
-  VNode,
-  watch
-} from 'vue';
-import { debounce } from 'lodash-es';
 import { DslDefinition } from '@oinone/kunlun-dsl';
 import { ActiveRecord, ActiveRecords, Pagination, RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
 import { EDirection, ISort } from '@oinone/kunlun-service';
 import { ReturnPromise } from '@oinone/kunlun-shared';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import {
   ActiveEditorContext,
   CheckedChangeEvent,
@@ -36,23 +21,31 @@ import {
   VxeTableActiveEditorEventContext,
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
-import {
-  ListPaginationStyle,
-  ListSelectMode,
-  OioIcon,
-  OioPagination,
-  OioSpin,
-  StyleHelper
-} from '@oinone/kunlun-vue-ui-antd';
+import { ListPaginationStyle, ListSelectMode, OioPagination, OioSpin, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { DslRender } from '@oinone/kunlun-vue-widget';
-import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
+import { debounce } from 'lodash-es';
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  Fragment,
+  nextTick,
+  onActivated,
+  onBeforeUnmount,
+  onMounted,
+  PropType,
+  ref,
+  Slot,
+  VNode,
+  watch
+} from 'vue';
 
 import { VxeTableDefines, VxeTablePropTypes } from 'vxe-table';
 import { getTableThemeConfig, ManualWidget } from '../../basic';
 import { TableLineHeightEnum, UserTablePrefer } from '../../typing';
-import { TableRowClickMode } from './typing';
 import DefaultTableFooterOperator from './DefaultTableFooterOperator.vue';
 import DefaultTableGroupCollapse from './DefaultTableGroupCollapse.vue';
+import { TableRowClickMode } from './typing';
 
 const SortDirections = {
   desc: EDirection.DESC,
@@ -224,10 +217,6 @@ export default defineComponent({
     onSortChange: {
       type: Function as PropType<(sorts: ISort[]) => void>
     },
-    sortList: {
-      type: Array as PropType<ISort[]>,
-      default: () => []
-    },
     editorTrigger: {
       type: String as PropType<TableEditorTrigger>
     },
@@ -365,8 +354,7 @@ export default defineComponent({
       default: () => []
     },
     viewControlWidget: {
-      type: Object as PropType<VNode>,
-      default: () => null
+      type: Object as PropType<DslDefinition>
     },
     gotoO2MCreateRow: {
       type: Boolean,
@@ -456,23 +444,15 @@ export default defineComponent({
     const onSortChange = (event: SortChangeEvent) => {
       const { field, direction } = event;
       if (direction === false) {
-        const sortList = props.sortList.filter((item) => item.sortField !== field);
-        props.onSortChange?.(sortList);
+        props.onSortChange?.([]);
       } else {
-        const index = props.sortList.findIndex((item) => item.sortField === field);
-        if (index > -1) {
-          props.sortList[index].direction = SortDirections[direction];
-        } else {
-          props.sortList.push({
+        props.onSortChange?.([
+          {
             sortField: field,
             direction: SortDirections[direction]
-          });
-        }
-        props.onSortChange?.(props.sortList);
+          }
+        ]);
       }
-      // nextTick(() => {
-      //   table.value?.refreshColumn();
-      // });
     };
 
     const onCheckedChange = (event: CheckedChangeEvent) => {
@@ -879,8 +859,8 @@ export default defineComponent({
             pageSize: pagination.pageSize,
             total: pagination.total,
             showTotal: true,
-            showJumper: paginationStyle != ListPaginationStyle.SIMPLE,
-            showLastPage: paginationStyle != ListPaginationStyle.SIMPLE,
+            showJumper: paginationStyle !== ListPaginationStyle.SIMPLE,
+            showLastPage: paginationStyle !== ListPaginationStyle.SIMPLE,
             onChange: onPaginationChange
           })
         ];
@@ -891,7 +871,7 @@ export default defineComponent({
             createVNode(DefaultTableGroupCollapse, {
               groupViewFooterExpandControl,
               groupViewFooterFoldControl,
-              setAllGroupExpand: setAllGroupExpand
+              setAllGroupExpand
             })
           );
         }
@@ -920,7 +900,7 @@ export default defineComponent({
             createVNode(DefaultTableGroupCollapse, {
               groupViewFooterExpandControl,
               groupViewFooterFoldControl,
-              setAllGroupExpand: setAllGroupExpand
+              setAllGroupExpand
             })
           ])
         );
@@ -1009,7 +989,14 @@ export default defineComponent({
       }
     }
 
-    const containerChildren: VNode[] = [viewControlWidget, createVNode(OioTable, tableProps, tableSlots)];
+    const containerChildren: VNode[] = [];
+    if (viewControlWidget) {
+      const viewControlVNode = DslRender.render(viewControlWidget);
+      if (viewControlVNode) {
+        containerChildren.push(viewControlVNode);
+      }
+    }
+    containerChildren.push(createVNode(OioTable, tableProps, tableSlots));
 
     if (allowRowClick) {
       const clickSlot = DslRender.fetchVNodeSlots(this.template, ['click'])?.click;

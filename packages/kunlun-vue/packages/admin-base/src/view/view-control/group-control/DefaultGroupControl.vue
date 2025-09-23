@@ -1,5 +1,11 @@
 <template>
-  <a-popover overlay-class-name="oio-popover default-view-control-popover" trigger="click" placement="bottomLeft">
+  <a-popover
+    overlay-class-name="oio-popover default-view-control-popover"
+    trigger="click"
+    placement="bottomLeft"
+    :visible="state.visible"
+    @visibleChange="onVisibleChange"
+  >
     <template #content>
       <sortable-group
         title="添加分组"
@@ -8,7 +14,7 @@
         direction-key="groupDirection"
         :list="groupList"
         :model-fields="modelFields"
-        @change="onGroupChange"
+        @change="onEnter"
       ></sortable-group>
     </template>
     <div class="default-view-control-item default-view-control-group">
@@ -16,18 +22,18 @@
         <template #title>
           <span>{{ $translate('分组') }}</span>
         </template>
-        <oio-icon size="16" icon="oinone-group-outlined"> </oio-icon>
+        <oio-icon size="16" icon="oinone-group-outlined"></oio-icon>
       </a-tooltip>
     </div>
   </a-popover>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { Tooltip as ATooltip } from 'ant-design-vue';
 import { RuntimeModelField } from '@oinone/kunlun-engine';
-import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { IGroup } from '@oinone/kunlun-service';
+import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
+import { Tooltip as ATooltip } from 'ant-design-vue';
+import { defineComponent, PropType, reactive } from 'vue';
 import { SortableGroup } from '../../../components';
 
 export default defineComponent({
@@ -44,7 +50,34 @@ export default defineComponent({
     },
     onGroupChange: {
       type: Function as PropType<(groupList: IGroup[]) => void>
+    },
+    onOpen: {
+      type: Function
     }
+  },
+  setup(props) {
+    const state = reactive({
+      visible: false
+    });
+
+    const onVisibleChange = (visible: boolean) => {
+      state.visible = visible;
+      if (visible) {
+        props.onOpen?.();
+      }
+    };
+
+    const onEnter = (groupList: IGroup[]) => {
+      props.onGroupChange?.(groupList);
+      state.visible = false;
+    };
+
+    return {
+      state,
+
+      onVisibleChange,
+      onEnter
+    };
   }
 });
 </script>
