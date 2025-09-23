@@ -8,7 +8,7 @@ export const VIEW_WIDGET_PRIORITY = 0;
 /**
  * 加载视图草稿数据 - 2
  */
-export const FETCH_DRAFT_DATA_WIDGET_PRIORITY = 99;
+export const FETCH_DRAFT_DATA_WIDGET_PRIORITY = 50;
 
 /**
  * 数据组件挂载 - 3
