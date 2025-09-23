@@ -41,9 +41,6 @@ export function useModal(props, context) {
 
   const widthClassSuffix = computed(() => {
     const _width = internalWidth.value || props.width;
-    if (_width == null) {
-      return ModalWidth.small;
-    }
     if (isString(_width)) {
       const realWidth = ModalWidth[_width.toLowerCase()];
       if (realWidth) {
