@@ -40,7 +40,7 @@
             ref="dropdownInputRef"
             :placeholder="placeholder"
             :value="searchValue"
-            @change="search"
+            @update:value="search"
           >
             <template #prefix>
               <oio-icon icon="oinone-sousuo2" size="16"></oio-icon>
