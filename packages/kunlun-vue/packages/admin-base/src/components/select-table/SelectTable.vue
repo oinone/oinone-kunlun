@@ -16,6 +16,7 @@
     :dropdownClassName="dropdownTableClassName"
     :show-search="showSearch && searchArea === SelectSearchArea.Default"
     :open="dropdownOpen"
+    @search="search"
     @change="innerChange"
     @blur="blur"
     @focus="focus"
@@ -32,7 +33,7 @@
           ref="dropdownInputRef"
           :placeholder="placeholder"
           :value="searchValue"
-          @change="search"
+          @update:value="search"
         >
           <template #prefix>
             <oio-icon icon="oinone-sousuo2" size="16"></oio-icon>

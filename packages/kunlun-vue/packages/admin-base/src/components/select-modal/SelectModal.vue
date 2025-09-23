@@ -30,7 +30,12 @@
     @cancel="onModalCancel"
   >
     <div class="oio-select-modal-dropdown">
-      <oio-input ref="dropdownInputRef" :placeholder="placeholder" :value="searchValue" @change="search">
+      <oio-input
+        ref="dropdownInputRef"
+        :placeholder="placeholder"
+        :value="searchValue"
+        @change="(e) => search(e.target.value)"
+      >
         <template #prefix>
           <oio-icon icon="oinone-sousuo2" size="16"></oio-icon>
         </template>

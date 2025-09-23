@@ -30,7 +30,6 @@ export default defineComponent({
       },
       set(value) {
         emit('update:value', value);
-        emit('change', value);
         internalValue.value = value;
       }
     });
