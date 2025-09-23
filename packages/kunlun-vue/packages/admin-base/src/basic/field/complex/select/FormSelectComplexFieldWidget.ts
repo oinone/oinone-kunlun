@@ -1,8 +1,11 @@
 import {
   ActiveRecord,
   ActiveRecords,
+  ConfigHelper,
   getRelationFieldKey,
+  isMinimalismTheme,
   isRelatedField,
+  ModelCache,
   QueryService,
   RequestHelper,
   RuntimeModel,
@@ -10,9 +13,17 @@ import {
   RuntimeRelationField,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { Entity, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
+import {
+  deepClone,
+  Entity,
+  IModel,
+  isEmptyValue,
+  ModelType,
+  RuntimeConfig,
+  RuntimeConfigOptions
+} from '@oinone/kunlun-meta';
 import { Condition, ObjectValue } from '@oinone/kunlun-request';
-import { DEFAULT_TRUE_CONDITION, IQueryPageOption, IQueryPageResult } from '@oinone/kunlun-service';
+import { DEFAULT_TRUE_CONDITION, IQueryPageOption, IQueryPageResult, queryOne } from '@oinone/kunlun-service';
 import { CastHelper, NumberHelper } from '@oinone/kunlun-shared';
 import {
   autoFillSelectedValueToOptions,
@@ -21,10 +32,15 @@ import {
 } from '@oinone/kunlun-vue-admin-layout';
 import { PageSizeEnum, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { isNil, isPlainObject } from 'lodash-es';
+import { isEmpty, isNil, isNumber, isPlainObject, isString, toInteger } from 'lodash-es';
 import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
 import { FormComplexFieldProps } from '../FormComplexFieldWidget';
 import { BaseSelectFieldWidget } from './BaseSelectFieldWidget';
+import { SelectSearchArea } from '../../../types';
+
+interface SelectRuntimeConfig extends RuntimeConfigOptions {
+  searchArea?: SelectSearchArea;
+}
 
 /**
  * 关系字段下拉选的抽象类
@@ -42,11 +58,23 @@ export abstract class FormSelectComplexFieldWidget<
 
   protected timeout;
 
+  protected selectRuntimeConfig(): SelectRuntimeConfig {
+    return ConfigHelper.getConfig(RuntimeConfig.getConfig('select'));
+  }
+
+  @Widget.Reactive()
   protected searchValue = '';
 
   protected queryFieldName = 'name';
 
-  protected abstract fillOptions(dataList: Record<string, unknown>[], insetDefaultValue?: boolean);
+  protected computeQueryOneDefaultKey() {
+    return 'id';
+  }
+
+  @Widget.Reactive()
+  public get computeQueryOneKey() {
+    return this.getDsl().computeQueryOneKey;
+  }
 
   @Widget.Reactive()
   protected showMoreButton = false;
@@ -56,8 +84,13 @@ export abstract class FormSelectComplexFieldWidget<
 
   protected totalPages = 10000;
 
+  @Widget.Reactive()
+  protected total = 0;
+
+  @Widget.Reactive()
   protected currentPage = 1;
 
+  @Widget.Reactive()
   protected pageSize = PageSizeEnum.OPTION_2;
 
   @Widget.Reactive()
@@ -91,6 +124,44 @@ export abstract class FormSelectComplexFieldWidget<
         this.oldDomain = '';
       }
     }
+  }
+
+  protected async fillOptions(dataList: Record<string, unknown>[], insetDefaultValue = true) {
+    this.field.multi ? this.fillOptionsForMulti(dataList) : this.fillOptionsForSingle(dataList, insetDefaultValue);
+  }
+
+  public x2oChange(value) {
+    if (value == null) {
+      super.change(null as any);
+      this.handleEmpty();
+      return;
+    }
+
+    const selectedValue = this.dataList.find((d) => d[this.relationFieldKey] === value.value)! || value;
+    super.change(selectedValue as any);
+  }
+
+  protected x2mChange(value) {
+    if (value == null) {
+      super.change(value);
+      this.handleEmpty();
+    } else {
+      if (!value.length) {
+        this.handleEmpty();
+      }
+      const submitData = this.filterX2mChangeValue(value);
+      super.change(submitData);
+    }
+  }
+
+  protected filterX2mChangeValue(value) {
+    // focus的时候才会查询数据，这时候dataList为空，如果开始有value，会导致剩下的已选数据匹配不到值
+    const list = isEmpty(this.dataList) ? this.value || [] : this.dataList;
+    return value
+      .map((item) => {
+        return (list as any[])?.find((d) => d[this.relationFieldKey] === item.value);
+      })
+      .filter((a) => !!a);
   }
 
   public async loadMetadata() {}
@@ -133,6 +204,7 @@ export abstract class FormSelectComplexFieldWidget<
   }
 
   protected async fillOptionsForMulti(dataList: Record<string, unknown>[]) {
+    const list = deepClone(dataList || []);
     const pk = this.referencesModel!.pks!;
     if (this.selectedValues) {
       for (let j = 0; j < this.selectedValues.length; j++) {
@@ -210,6 +282,19 @@ export abstract class FormSelectComplexFieldWidget<
   @Widget.Reactive()
   protected get relationFieldKey() {
     return getRelationFieldKey(this.field, this.referencesModel);
+  }
+
+  /**
+   * 搜索所在区域
+   * 值域：「搜索框内、下拉框内」
+   */
+  @Widget.Reactive()
+  protected get searchArea(): SelectSearchArea {
+    if (this.selectRuntimeConfig().searchArea) {
+      return this.selectRuntimeConfig().searchArea!;
+    }
+
+    return isMinimalismTheme() ? SelectSearchArea.Dropdown : SelectSearchArea.Default;
   }
 
   @Widget.Method()
@@ -381,6 +466,7 @@ export abstract class FormSelectComplexFieldWidget<
         const iQueryPageResult = await this.innerQueryPage(references, option, referencesModelFields!, undefined, {
           maxDepth: this.maxDepth
         });
+        this.total = toInteger(iQueryPageResult.totalElements);
         this.totalPages = FormSelectComplexFieldWidget.getRealPages(iQueryPageResult.totalPages);
         this.showMoreButton = this.currentPage < this.totalPages;
 
@@ -590,6 +676,55 @@ export abstract class FormSelectComplexFieldWidget<
 
   protected genQueryData() {
     return this.generatorQueryData();
+  }
+
+  public async updateM2oValue() {
+    const val = this.getValue();
+    const _compute = this.getCompute(this.formData);
+    if (_compute != null && _compute !== '') {
+      const computeResult = this.executeExpression<number | null | string | undefined>(_compute, null);
+      let queryOneKey = this.computeQueryOneKey;
+      const _computeList = _compute.split('.');
+      if (_computeList[0] === 'activeRecord' && _computeList[1] && _computeList[2] && !queryOneKey) {
+        const currentModel = (await ModelCache.get(this.field!.model)) as unknown as IModel;
+
+        const relatedField = currentModel?.modelFields?.find((_f) => _f.name === _computeList[1]);
+        if (relatedField && relatedField.references) {
+          const relatedFieldModel = (await ModelCache.get(relatedField.references)) as unknown as IModel;
+          if (relatedFieldModel && relatedFieldModel.modelFields) {
+            const finalField = relatedFieldModel.modelFields.find(
+              (_f) => _f.relationFields && _f.relationFields.includes(_computeList[2])
+            );
+            if (finalField) {
+              const keyIndex = finalField.relationFields?.findIndex((_r) => _r === _computeList[2]);
+              queryOneKey = finalField.referenceFields?.[keyIndex!] || 'id';
+            }
+          }
+        }
+      }
+      if (!queryOneKey) {
+        queryOneKey = this.computeQueryOneDefaultKey();
+      }
+      const param = {};
+      param[queryOneKey] = computeResult;
+      if (isString(computeResult) || isNumber(computeResult)) {
+        if (typeof val === 'object' && !isEmptyValue(val)) {
+          if (val[queryOneKey] !== computeResult) {
+            const data = await queryOne(this.field!.references!, param);
+            this.setValue(data);
+          }
+        } else {
+          const data = await queryOne(this.field!.references!, param);
+          this.setValue(data);
+        }
+      } else if (typeof computeResult === 'object') {
+        if (JSON.stringify(computeResult) !== JSON.stringify(this.value)) {
+          this.setValue(computeResult);
+        }
+      } else if (isNil(computeResult)) {
+        this.setValue(null);
+      }
+    }
   }
 
   protected async innerQueryPage<T = Record<string, unknown>>(

@@ -5,6 +5,7 @@ import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   FormLayout,
   OioGroup,
+  OioGroupBizStyle,
   PropRecordHelper,
   StyleHelper,
   useOioFormLayoutContext
@@ -48,6 +49,9 @@ export default defineComponent({
     border: {
       type: Boolean,
       default: true
+    },
+    bizStyle: {
+      type: String as PropType<OioGroupBizStyle>
     }
   },
   setup(props) {
@@ -56,7 +60,8 @@ export default defineComponent({
     return {};
   },
   render() {
-    const { $attrs, $slots, template, title, description, help, invisible, titleToolbarInvisible, border } = this;
+    const { $attrs, $slots, template, title, description, help, invisible, titleToolbarInvisible, border, bizStyle } =
+      this;
     const { default: defaultSlot, titleToolbar: titleToolbarSlot } = PropRecordHelper.collectionSlots($slots, [
       { origin: 'default', isNotNull: true },
       'titleToolbar'
@@ -78,6 +83,7 @@ export default defineComponent({
             CastHelper.cast(template?.style)
           ),
           title: !title && titleToolbarInvisible ? false : title,
+          bizStyle,
           description,
           border,
           wrapperClassName: StringHelper.append([], CastHelper.cast(template?.wrapperClassName)),

@@ -6,7 +6,7 @@ import { CheckCircleOutlined } from '@ant-design/icons-vue';
 import { initOioComponentTheme } from '@oinone/kunlun-theme';
 import { HttpClient } from '@oinone/kunlun-request';
 import { customMutation } from '@oinone/kunlun-service';
-import { OioProvider, translateValueByKey } from '@oinone/kunlun-engine';
+import { MajorConfig, OioProvider, translateValueByKey } from '@oinone/kunlun-engine';
 import { Matched, Router, useMatched } from '@oinone/kunlun-router';
 import { useRouter } from '@oinone/kunlun-vue-router';
 
@@ -59,7 +59,7 @@ export class SystemStyleWidget extends BaseElementWidget {
       }),
       onOk: async () => {
         const systemConfig = await OioProvider.refreshSystemMajorConfig();
-        initOioComponentTheme(systemConfig);
+        initOioComponentTheme(systemConfig as any);
         OioProvider.setTheme([`${mode}-${size}`]);
       },
       onCancel() {}
@@ -77,6 +77,7 @@ export class SystemStyleWidget extends BaseElementWidget {
             mode
             size
             extend 
+            style
             sideBarTheme {
               mode
               theme

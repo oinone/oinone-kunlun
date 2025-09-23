@@ -58,6 +58,15 @@ export interface UrlQueryParameters extends Record<string, string | null | undef
    */
   direction?: string | null;
 
+  /**
+   * 分组参数 - 分许字段 使用{@link URL_SPLIT_SEPARATOR}分割
+   */
+  groupField?: string | null;
+  /**
+   * 分许参数 - 分许方向 使用{@link URL_SPLIT_SEPARATOR}分割
+   */
+  groupDirection?: string | null;
+
   context?: string | null;
 
   /**
@@ -77,4 +86,9 @@ export interface FormValidateResult {
   level: ILevel;
   path: string;
   message?: string;
+}
+
+export enum SelectSearchArea {
+  Default = 'default',
+  Dropdown = 'Dropdown'
 }

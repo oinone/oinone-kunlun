@@ -752,6 +752,12 @@ export enum ModelDefaultActionName {
   // 校验表单
   $$internal_ValidateForm = '$$internal_ValidateForm',
   // 下载
+
+  /**
+   * 保存草稿动作
+   */
+  $$internal_SaveDraft = '$$internal_SaveDraft',
+
   $$internal_Download = '$$internal_Download',
 
   /**

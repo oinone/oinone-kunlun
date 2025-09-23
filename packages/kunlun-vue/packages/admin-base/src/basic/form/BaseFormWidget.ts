@@ -3,7 +3,6 @@ import { FormLayout, OioColModel, OioFormInstance } from '@oinone/kunlun-vue-ui-
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementObjectViewWidget, BaseElementObjectViewWidgetProps } from '../element';
 import DefaultForm from './DefaultForm.vue';
-
 /**
  * 基础Form组件，仅提供基本布局能力(Form, Detail, Search)视图通用
  */

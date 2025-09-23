@@ -1,9 +1,16 @@
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import { OioCloseIcon, OioDrawerProps, PropRecordHelper, StyleHelper, useDrawer } from '@oinone/kunlun-vue-ui-common';
+import {
+  OioCloseIcon,
+  OioDrawerProps,
+  OioIcon,
+  PropRecordHelper,
+  StyleHelper,
+  useDrawer
+} from '@oinone/kunlun-vue-ui-common';
 import { Drawer as ADrawer } from 'ant-design-vue';
 import { isBoolean } from 'lodash-es';
-import { createVNode, defineComponent } from 'vue';
+import { createVNode, defineComponent, withModifiers } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { OioButton } from '../oio-button';
 import { OioSpin } from '../oio-spin';
@@ -14,7 +21,8 @@ export default defineComponent({
   components: {
     ADrawer,
     OioButton,
-    OioSpin
+    OioSpin,
+    OioIcon
   },
   inheritAttrs: false,
   props: {
@@ -59,23 +67,64 @@ export default defineComponent({
     }
     const isOverrideTitle = !!slots.header;
     if (!isOverrideTitle) {
-      let titleSlot = slots.title;
-      if (!titleSlot) {
-        titleSlot = () => [createVNode('span', {}, this.title || OioDrawerProps.title.default)];
-      }
-      if (this.help) {
-        const titleChildren = titleSlot();
-        titleSlot = () => {
-          return [createVNode('span', {}, titleChildren), createVNode(OioTooltipHelp, { content: this.help })];
-        };
-      }
-      slots.title = titleSlot;
+      const originalTitleSlot = slots.title;
+
+      // 默认标题插槽
+      const createDefaultTitle = () => [
+        createVNode('span', {}, this.$translate(this.title || OioDrawerProps.title.default))
+      ];
+
+      slots.title = () => {
+        // 获取原始或默认的标题插槽
+        const originalSlot = [...(originalTitleSlot?.() || createDefaultTitle())];
+
+        if (this.help) {
+          originalSlot.push(
+            createVNode(OioTooltipHelp, {
+              content: this.help
+            })
+          );
+        }
+
+        // 控制图标
+        const controlIcons = [
+          this.showDisplayAs &&
+            createVNode(OioIcon, {
+              style: { cursor: 'pointer' },
+              icon: this.modalDrawerClassName ? 'oinone-chouti' : 'oinone-danchuang',
+              size: 16,
+              onClick: withModifiers(this.onDisplayAsSwitch, ['stop'])
+            }),
+          this.showFullscreen &&
+            createVNode(OioIcon, {
+              style: { cursor: 'pointer' },
+              icon: this.isFullScreen ? 'oinone-suoxiao1' : 'oinone-fangda2',
+              size: 16,
+              onClick: withModifiers(this.onFullSwitch, ['stop'])
+            })
+        ].filter(Boolean);
+
+        // 包装控制区域
+        if (controlIcons.length > 0) {
+          originalSlot.push(
+            createVNode(
+              'div',
+              {
+                class: `${mainClassName}-title-extend`
+              },
+              controlIcons
+            )
+          );
+        }
+
+        return originalSlot;
+      };
     }
     if (!slots.closeIcon) {
       slots.closeIcon = () => [createVNode(OioCloseIcon)];
     }
 
-    const classNames = [mainClassName, `${mainClassName}-wrapper`];
+    const classNames = [mainClassName, `${mainClassName}-wrapper`, this.modalDrawerClassName];
     if (this.widthClassSuffix) {
       classNames.push(`${mainClassName}-width-${this.widthClassSuffix}`);
     }

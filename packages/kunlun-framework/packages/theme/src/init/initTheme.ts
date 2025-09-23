@@ -1,4 +1,9 @@
-import { registerDarkThemeFn, registerDefaultThemeFn } from '../style';
+import {
+  registerDarkThemeFn,
+  registerDefaultThemeFn,
+  registerDefaultModernThemeFn,
+  registerDarkModernThemeFn
+} from '../style';
 import { DefaultSideBarTheme, ThemeType } from '../typing';
 import { setCurrentThemeType } from './currentTheme';
 
@@ -11,4 +16,6 @@ export function initOioComponentTheme(config: Partial<DefaultComponentTheme>) {
   setCurrentThemeType(mode.toLocaleLowerCase() as ThemeType);
   registerDefaultThemeFn();
   registerDarkThemeFn();
+  registerDefaultModernThemeFn();
+  registerDarkModernThemeFn();
 }

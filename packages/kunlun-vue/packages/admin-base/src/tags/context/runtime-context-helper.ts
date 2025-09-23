@@ -81,6 +81,7 @@ function seekViewLayout(
   if (!finalViewLayout) {
     finalViewLayout = createDefaultLayout(viewType, inline);
   }
+
   return finalViewLayout;
 }
 

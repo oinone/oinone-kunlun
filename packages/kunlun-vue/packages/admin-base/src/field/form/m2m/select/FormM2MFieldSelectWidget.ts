@@ -2,7 +2,6 @@ import { ActiveRecord, RuntimeM2MField, SubmitHandler, SubmitValue } from '@oino
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { isEmpty } from 'lodash-es';
 import { FormFieldWidget, FormSelectComplexFieldWidget } from '../../../../basic';
 import SelectWidget from './SelectWidget.vue';
 
@@ -21,26 +20,7 @@ export class FormM2MFieldSelectWidget extends FormSelectComplexFieldWidget<Activ
 
   @Widget.Method()
   public change(value) {
-    if (value == null) {
-      super.change(value);
-      this.handleEmpty();
-    } else {
-      if (!value.length) {
-        this.handleEmpty();
-      }
-      // focus的时候才会查询数据，这时候dataList为空，如果开始有value，会导致剩下的已选数据匹配不到值
-      const list = isEmpty(this.dataList) ? this.value || [] : this.dataList;
-      const submitData = value
-        .map((item) => {
-          return (list as any[])?.find((d) => d[this.relationFieldKey] === item.value);
-        })
-        .filter((a) => !!a);
-      super.change(submitData);
-    }
-  }
-
-  protected async fillOptions(dataList: Record<string, unknown>[], insetDefaultValue = true) {
-    await super.fillOptionsForMulti(dataList);
+    this.x2mChange(value);
   }
 
   public async submit(submitValue: SubmitValue) {

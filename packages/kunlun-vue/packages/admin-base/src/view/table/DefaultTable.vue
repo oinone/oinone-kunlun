@@ -1,6 +1,22 @@
 <script lang="ts">
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  Fragment,
+  nextTick,
+  onActivated,
+  onBeforeUnmount,
+  onMounted,
+  PropType,
+  ref,
+  Slot,
+  VNode,
+  watch
+} from 'vue';
+import { debounce } from 'lodash-es';
 import { DslDefinition } from '@oinone/kunlun-dsl';
-import { ActiveRecord, ActiveRecords, Pagination, translateValueByKey } from '@oinone/kunlun-engine';
+import { ActiveRecord, ActiveRecords, Pagination, RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
 import { EDirection, ISort } from '@oinone/kunlun-service';
 import { ReturnPromise } from '@oinone/kunlun-shared';
 import {
@@ -20,27 +36,23 @@ import {
   VxeTableActiveEditorEventContext,
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
-import { ListPaginationStyle, ListSelectMode, OioPagination, OioSpin, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
-import { DslRender } from '@oinone/kunlun-vue-widget';
-import { debounce } from 'lodash-es';
 import {
-  computed,
-  createVNode,
-  defineComponent,
-  nextTick,
-  onActivated,
-  onBeforeUnmount,
-  onMounted,
-  PropType,
-  ref,
-  Slot,
-  VNode,
-  watch
-} from 'vue';
+  ListPaginationStyle,
+  ListSelectMode,
+  OioIcon,
+  OioPagination,
+  OioSpin,
+  StyleHelper
+} from '@oinone/kunlun-vue-ui-antd';
+import { DslRender } from '@oinone/kunlun-vue-widget';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
+
 import { VxeTableDefines, VxeTablePropTypes } from 'vxe-table';
 import { getTableThemeConfig, ManualWidget } from '../../basic';
-import { UserTablePrefer } from '../../typing';
+import { TableLineHeightEnum, UserTablePrefer } from '../../typing';
 import { TableRowClickMode } from './typing';
+import DefaultTableFooterOperator from './DefaultTableFooterOperator.vue';
+import DefaultTableGroupCollapse from './DefaultTableGroupCollapse.vue';
 
 const SortDirections = {
   desc: EDirection.DESC,
@@ -212,6 +224,10 @@ export default defineComponent({
     onSortChange: {
       type: Function as PropType<(sorts: ISort[]) => void>
     },
+    sortList: {
+      type: Array as PropType<ISort[]>,
+      default: () => []
+    },
     editorTrigger: {
       type: String as PropType<TableEditorTrigger>
     },
@@ -247,9 +263,13 @@ export default defineComponent({
     onRowClick: {
       type: Function
     },
+    onCellClick: {
+      type: Function
+    },
     onRowDblClick: {
       type: Function
     },
+
     expandAccordion: {
       type: Boolean,
       default: undefined
@@ -279,6 +299,9 @@ export default defineComponent({
     },
     lineHeight: {
       type: Number
+    },
+    lineHeightType: {
+      type: String as PropType<TableLineHeightEnum>
     },
     minLineHeight: {
       type: Number
@@ -336,6 +359,45 @@ export default defineComponent({
     enableSequence: {
       type: Boolean,
       default: undefined
+    },
+    modelFields: {
+      type: Array as PropType<RuntimeModelField[]>,
+      default: () => []
+    },
+    viewControlWidget: {
+      type: Object as PropType<VNode>,
+      default: () => null
+    },
+    gotoO2MCreateRow: {
+      type: Boolean,
+      default: false
+    },
+    gotoO2MQuickFilling: {
+      type: Boolean,
+      default: false
+    },
+    onAddRow: {
+      type: Function,
+      required: true
+    },
+    enabledGroupView: {
+      type: Boolean,
+      default: false
+    },
+    setAllGroupExpand: {
+      type: Function
+    },
+    groupViewFooterExpandControl: {
+      type: Boolean,
+      default: false
+    },
+    groupViewFooterFoldControl: {
+      type: Boolean,
+      default: false
+    },
+    inline: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props) {
@@ -394,14 +456,19 @@ export default defineComponent({
     const onSortChange = (event: SortChangeEvent) => {
       const { field, direction } = event;
       if (direction === false) {
-        props.onSortChange?.([]);
+        const sortList = props.sortList.filter((item) => item.sortField !== field);
+        props.onSortChange?.(sortList);
       } else {
-        props.onSortChange?.([
-          {
+        const index = props.sortList.findIndex((item) => item.sortField === field);
+        if (index > -1) {
+          props.sortList[index].direction = SortDirections[direction];
+        } else {
+          props.sortList.push({
             sortField: field,
             direction: SortDirections[direction]
-          }
-        ]);
+          });
+        }
+        props.onSortChange?.(props.sortList);
       }
       // nextTick(() => {
       //   table.value?.refreshColumn();
@@ -468,8 +535,8 @@ export default defineComponent({
       );
       const operationColumn = tableEle.querySelector('.vxe-table--fixed-right-wrapper .operation-column');
       if (defaultColumn && operationColumn) {
-        const defaultHeight = defaultColumn?.getBoundingClientRect().height!;
-        const operationHeight = operationColumn?.getBoundingClientRect().height!;
+        const defaultHeight = defaultColumn?.getBoundingClientRect().height;
+        const operationHeight = operationColumn?.getBoundingClientRect().height;
 
         if (defaultHeight > 0 && operationHeight > 0) {
           if (operationHeight >= defaultHeight) {
@@ -485,8 +552,8 @@ export default defineComponent({
         '.vxe-table--fixed-wrapper > .vxe-table--fixed-right-wrapper .vxe-header--column'
       );
       if (headerTable && fixedRightColumn) {
-        const headerTableHeight = headerTable?.getBoundingClientRect().height!;
-        const fixedRightColumnHeight = fixedRightColumn?.getBoundingClientRect().height!;
+        const headerTableHeight = headerTable?.getBoundingClientRect().height;
+        const fixedRightColumnHeight = fixedRightColumn?.getBoundingClientRect().height;
         if (headerTableHeight > 0 && fixedRightColumnHeight > 0) {
           if (headerTableHeight >= fixedRightColumnHeight) {
             calcHeaderHeight.value = `${headerTableHeight}px`;
@@ -514,8 +581,8 @@ export default defineComponent({
         ) as HTMLElement[];
 
         rows.forEach((row, index) => {
-          const height = row.clientHeight;
           row.style.height = 'auto';
+          const height = row.clientHeight;
 
           const leftFixedRow = leftFixedRows[index];
           const rightFixedRow = rightFixedRows[index];
@@ -551,7 +618,15 @@ export default defineComponent({
 
       if (target) {
         const { height } = target.contentRect;
-        if (_height !== height) {
+        const inPopupContainer =
+          Array.from(document.querySelectorAll(`.${DEFAULT_PREFIX}-drawer`))?.some((el) =>
+            el?.contains?.(tableContentElement.value)
+          ) ||
+          Array.from(document.querySelectorAll(`.${DEFAULT_PREFIX}-modal`))?.some((el) =>
+            el?.contains?.(tableContentElement.value)
+          );
+
+        if (_height !== height || inPopupContainer) {
           _height = height;
 
           table.value?.refreshColumn();
@@ -586,6 +661,15 @@ export default defineComponent({
       window.removeEventListener('resize', calcTableColumnHeight);
       resizeObserver.unobserve(tableContentElement.value);
     });
+
+    watch(
+      () => props.lineHeightType,
+      () => {
+        nextTick(() => {
+          calcTableColumnHeight();
+        });
+      }
+    );
 
     const stop = watch(
       () => props.dataSource,
@@ -681,6 +765,7 @@ export default defineComponent({
 
       enableSequence,
 
+      viewControlWidget,
       selectMode,
       checkbox,
       checkMethod,
@@ -701,6 +786,7 @@ export default defineComponent({
       rowClickMode,
       onRowClick,
       onRowDblClick,
+      onCellClick,
 
       expandAccordion,
       expandAll,
@@ -715,6 +801,10 @@ export default defineComponent({
       activeEditorBefore,
       activeEditor,
       editorClosed,
+      setAllGroupExpand,
+      enabledGroupView,
+      groupViewFooterExpandControl,
+      groupViewFooterFoldControl,
 
       treeConfig,
       scrollX,
@@ -729,7 +819,10 @@ export default defineComponent({
 
       emptyText,
       emptyImage,
-      pageSizeOptions
+      pageSizeOptions,
+      gotoO2MCreateRow,
+      gotoO2MQuickFilling,
+      onAddRow
     } = this;
     let { border = false, stripe = false, isCurrent = true, isHover = false } = getTableThemeConfig() || {};
     const VEX_TABLE_BORDER_MODE = [true, false, 'default', 'outer', 'full', 'inner'];
@@ -738,6 +831,7 @@ export default defineComponent({
       tableCustomClass = border as string;
       border = 'inner';
     }
+
     const tableSlots: Record<string, Slot> = {
       default: () => {
         const children: VNode[] = [];
@@ -768,9 +862,17 @@ export default defineComponent({
         return [...children, ...columns];
       }
     };
+
+    const footerOperatorVNode = createVNode(DefaultTableFooterOperator, {
+      gotoO2MCreateRow,
+      gotoO2MQuickFilling,
+      onAddRow
+    });
+
+    // 有分页器
     if (showPagination) {
       tableSlots.footer = () => {
-        return [
+        const footerVNodeChildren = [
           createVNode(OioPagination, {
             pageSizeOptions,
             currentPage: pagination.current,
@@ -782,8 +884,53 @@ export default defineComponent({
             onChange: onPaginationChange
           })
         ];
+
+        // 分组展开折叠
+        if (enabledGroupView) {
+          footerVNodeChildren.unshift(
+            createVNode(DefaultTableGroupCollapse, {
+              groupViewFooterExpandControl,
+              groupViewFooterFoldControl,
+              setAllGroupExpand: setAllGroupExpand
+            })
+          );
+        }
+
+        const footerVNode = [createVNode('div', { class: 'default-table-footer-content' }, [footerVNodeChildren])];
+
+        // 添加行、快速填报
+        if (gotoO2MCreateRow || gotoO2MQuickFilling) {
+          footerVNode.unshift(footerOperatorVNode);
+        }
+
+        return footerVNode;
+      };
+    } else {
+      const footerSlots = [] as VNode[];
+
+      // 添加行、快速填报
+      if (gotoO2MCreateRow || gotoO2MQuickFilling) {
+        footerSlots.push(footerOperatorVNode);
+      }
+
+      // 分组展开折叠
+      if (enabledGroupView) {
+        footerSlots.push(
+          createVNode('div', { class: 'default-table-footer-content' }, [
+            createVNode(DefaultTableGroupCollapse, {
+              groupViewFooterExpandControl,
+              groupViewFooterFoldControl,
+              setAllGroupExpand: setAllGroupExpand
+            })
+          ])
+        );
+      }
+
+      tableSlots.footer = () => {
+        return [createVNode(Fragment, null, footerSlots)];
       };
     }
+
     const tableProps: Record<string, unknown> = {
       ref: 'table',
       loading: this.loading,
@@ -858,9 +1005,11 @@ export default defineComponent({
         }
       } else {
         tableProps.onCellDblclick = onRowDblClick;
+        tableProps.onCellClick = onCellClick;
       }
     }
-    const containerChildren: VNode[] = [createVNode(OioTable, tableProps, tableSlots)];
+
+    const containerChildren: VNode[] = [viewControlWidget, createVNode(OioTable, tableProps, tableSlots)];
 
     if (allowRowClick) {
       const clickSlot = DslRender.fetchVNodeSlots(this.template, ['click'])?.click;
@@ -868,18 +1017,26 @@ export default defineComponent({
         containerChildren.push(createVNode('div', { class: 'table-container-click' }, clickSlot()));
       }
     }
+
+    const classs = ['default-table'];
+    if (!this.inline) {
+      classs.push('default-main-table');
+    }
+
     return createVNode(
-      'div',
-      {
-        class: 'default-table',
-        style: {
-          height,
-          minHeight,
-          maxHeight
+      createVNode(
+        'div',
+        {
+          class: classs,
+          style: {
+            height,
+            minHeight,
+            maxHeight
+          },
+          ref: 'defaultTableRef'
         },
-        ref: 'defaultTableRef'
-      },
-      containerChildren
+        containerChildren
+      )
     );
   }
 });

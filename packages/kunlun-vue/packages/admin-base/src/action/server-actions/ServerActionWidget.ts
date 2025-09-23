@@ -8,6 +8,7 @@ import {
   RelationUpdateType,
   RequestModelField,
   ROOT_HANDLE,
+  RuntimeClientAction,
   RuntimeContext,
   RuntimeServerAction,
   RuntimeViewAction,
@@ -15,7 +16,7 @@ import {
   translateValueByKey,
   UpdateOneWithRelationsService
 } from '@oinone/kunlun-engine';
-import { ActionType, ViewType } from '@oinone/kunlun-meta';
+import { ActionType, ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
 import { HttpClientError, MessageHub, RequestErrorInterceptor, SystemErrorCode } from '@oinone/kunlun-request';
 import { SPI } from '@oinone/kunlun-spi';
 import { BooleanHelper, CallChaining, debugConsole, OioNotification } from '@oinone/kunlun-vue-ui-antd';
@@ -34,6 +35,7 @@ import { ActionWidget } from '../component';
 )
 export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
   protected updateActionName = 'update';
+  protected createActionName = 'create';
 
   protected updateOneWithRelationName = 'updateOneWithRelations';
 

@@ -5,9 +5,10 @@ import { RowContext } from '@oinone/kunlun-vue-ui';
 import { CSSStyle, DEFAULT_CARD_GUTTERS, FlexRowJustify, OioCheckbox, useClick } from '@oinone/kunlun-vue-ui-antd';
 import { FlexRowAlign, ListSelectMode, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { DslRender, DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, PropType, VNode } from 'vue';
+import { computed, createVNode, defineComponent, PropType, VNode, watch } from 'vue';
 import { ActionBar, InternalWidget, ResolveMode } from '../../tags';
 import DefaultCardTitleToolbar from './DefaultCardTitleToolbar.vue';
+import { UserTablePrefer } from '../../typing';
 
 export default defineComponent({
   name: 'DefaultCard',
@@ -40,6 +41,9 @@ export default defineComponent({
     selectMode: {
       type: String as PropType<keyof typeof ListSelectMode>
     },
+    defaultGutter: {
+      type: Array as PropType<number[]>
+    },
     allowClick: {
       type: Boolean,
       default: undefined
@@ -52,9 +56,32 @@ export default defineComponent({
     },
     onCheckboxChange: {
       type: Function
+    },
+    userPrefer: {
+      type: Object as PropType<UserTablePrefer>,
+      default: () => ({})
     }
   },
   setup(props) {
+    const cardFieldsVisible = computed(() => {
+      const fieldPrefer = props.userPrefer.fieldPrefer || null;
+      const { title, content } = DslSlotUtils.fetchSlotsBySlotNames(props.template, ['title', 'content']);
+      const titleFieldNames = title?.widgets?.map((v) => v.name);
+      const contentFieldNames = content?.widgets?.map((v) => v.name);
+
+      if (!fieldPrefer) {
+        return {
+          titleVisibleField: titleFieldNames,
+          contentVisibleField: contentFieldNames
+        };
+      }
+
+      return {
+        titleVisibleField: titleFieldNames?.filter((v) => !fieldPrefer.includes(v)),
+        contentVisibleField: contentFieldNames?.filter((v) => !fieldPrefer?.includes(v))
+      };
+    });
+
     const style = computed<CSSStyle>(() => {
       return {
         width: StyleHelper.px(props.width),
@@ -75,8 +102,10 @@ export default defineComponent({
     if (props.onClick) {
       ({ onMousedown, onMouseup } = useClick(props.onClick));
     }
+
     return {
       style,
+      cardFieldsVisible,
       allowSelected,
       onMousedown,
       onMouseup
@@ -88,6 +117,7 @@ export default defineComponent({
       $attrs,
       template,
       style,
+      cardFieldsVisible,
       allowSelected,
       isSelected,
       onCheckboxChange,
@@ -99,6 +129,7 @@ export default defineComponent({
     if (!slotContext) {
       return [];
     }
+
     const {
       default: defaultSlot,
       title: titleSlot,
@@ -121,8 +152,14 @@ export default defineComponent({
     const key = `${dataKey}#${activeRecords?.__updateTimestamp}` as string;
     const titleToolbar = titleToolbarSlot?.();
     let isAppendContentPaddingTop = false;
-    if (titleSlot) {
-      let title = titleSlot();
+
+    const { titleVisibleField, contentVisibleField } = cardFieldsVisible;
+
+    // 根据用户偏号，过滤标题
+    let title = (titleSlot?.() || []).filter((v) => titleVisibleField?.includes(v.props?.name));
+
+    // 渲染标题插槽
+    if (title.length) {
       if (titleToolbar) {
         const finalTitle = title;
         title = [
@@ -190,7 +227,7 @@ export default defineComponent({
         isAppendContentPaddingTop = true;
       }
       children.push(
-        createVNode('div', { key: 'default-card-title', class: 'default-card-title', style: titleStyle }, [
+        createVNode('div', { key: titleVisibleField?.length, class: 'default-card-title', style: titleStyle }, [
           DslRender.render(
             {
               dslNodeType: DslDefinitionType.PACK,
@@ -202,7 +239,7 @@ export default defineComponent({
               gutter: DEFAULT_CARD_GUTTERS,
               align: FlexRowAlign.MIDDLE,
               justify: FlexRowJustify.SPACE_BETWEEN,
-              wrap: false
+              wrap: true
             },
             undefined,
             {
@@ -225,43 +262,54 @@ export default defineComponent({
         );
       }
     }
-    const content = [...(contentSlot?.() || []), ...(defaultSlot?.() || [])];
-    const contentStyle = StyleHelper.convertStyleByDslDefinition(dslSlots?.content);
-    if (
-      !isAppendContentPaddingTop &&
-      (contentStyle?.border || contentStyle?.borderTop || contentStyle?.borderTopWidth)
-    ) {
-      isAppendContentPaddingTop = true;
-    }
-    children.push(
-      createVNode(
-        'div',
-        {
-          key: 'default-card-content',
-          class: ['default-card-content', isAppendContentPaddingTop && 'default-card-content-padding-top'],
-          style: contentStyle
-        },
-        [
-          DslRender.render(
-            {
-              dslNodeType: DslDefinitionType.PACK,
-              widgets: [],
-              widget: InternalWidget.Row,
-              resolveOptions: {
-                mode: ResolveMode.NORMAL
-              },
-              gutter: DEFAULT_CARD_GUTTERS,
-              align: FlexRowAlign.TOP
-            },
-            undefined,
-            {
-              default: () => content
-            }
-          )!
-        ]
-      )
+
+    // 卡片内容插槽, 用户偏号过滤
+    const content = [...(contentSlot?.() || []), ...(defaultSlot?.() || [])].filter((v) =>
+      contentVisibleField?.includes(v.props?.name)
     );
+
+    if (content.length) {
+      const contentStyle = StyleHelper.convertStyleByDslDefinition(dslSlots?.content);
+      if (
+        !isAppendContentPaddingTop &&
+        (contentStyle?.border || contentStyle?.borderTop || contentStyle?.borderTopWidth)
+      ) {
+        isAppendContentPaddingTop = true;
+      }
+
+      children.push(
+        createVNode(
+          'div',
+          {
+            key: contentVisibleField?.length,
+            class: ['default-card-content', isAppendContentPaddingTop && 'default-card-content-padding-top'],
+            style: contentStyle
+          },
+          [
+            DslRender.render(
+              {
+                dslNodeType: DslDefinitionType.PACK,
+                widgets: [],
+                widget: InternalWidget.Row,
+                resolveOptions: {
+                  mode: ResolveMode.NORMAL
+                },
+                gutter: this.defaultGutter,
+                align: FlexRowAlign.TOP
+              },
+              undefined,
+              {
+                default: () => content
+              }
+            )!
+          ]
+        )
+      );
+    }
+
     const finalChildren = children;
+
+    // 复选框
     children = [
       createVNode(
         'div',
@@ -285,6 +333,8 @@ export default defineComponent({
         ]
       )
     ];
+
+    // 卡片操作区
     if (rowActionsSlot) {
       const rowActions = rowActionsSlot();
       const rowActionsVNodes = [

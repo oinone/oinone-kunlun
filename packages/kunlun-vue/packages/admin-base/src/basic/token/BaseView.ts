@@ -16,6 +16,7 @@ import { getCurrentInstance } from 'vue';
 import DefaultView from '../../view/view/DefaultView.vue';
 import { BaseRuntimePropertiesWidget } from '../common';
 import { validatorCallChainingCallAfterFn, VIEW_WIDGET_PRIORITY } from '../constant';
+import { ViewBizStyle } from '../../typing';
 
 /**
  * View组件注册可选项
@@ -71,6 +72,11 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
   public static Selector: SPISingleSelector<BaseViewOptions, Constructor<BaseView>>;
 
   protected defaultAllInvisible = true;
+
+  @Widget.Reactive()
+  protected get bizStyle(): ViewBizStyle | undefined {
+    return this.getDsl().bizStyle;
+  }
 
   @Widget.Reactive()
   @Widget.Provide()

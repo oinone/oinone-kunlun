@@ -1,5 +1,6 @@
 import { CSSStyle } from '@oinone/kunlun-shared';
 import { PropType } from 'vue';
+import { OioGroupBizStyle } from './typing';
 
 export const OioGroupHelpProps = {
   help: {
@@ -35,6 +36,9 @@ export const OioGroupProps = {
   title: {
     type: [String, Boolean],
     default: undefined
+  },
+  bizStyle: {
+    type: String as PropType<OioGroupBizStyle>
   },
   description: {
     type: String

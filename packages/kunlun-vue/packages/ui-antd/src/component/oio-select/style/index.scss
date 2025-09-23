@@ -59,12 +59,27 @@ $tagRemoveLineHeight: $tagHeight - 4px;
   background: var(--oio-select-dropdown-background);
   box-shadow: var(--oio-select-dropdown-box-shadow);
 
+  .oio-input {
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--oio-border-color);
+    &:hover,
+    &:focus,
+    &.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):not(.oio-input-readonly):hover {
+      border: 0;
+      border-bottom: 1px solid var(--oio-border-color);
+      border-color: var(--oio-border-color);
+      box-shadow: none;
+    }
+  }
+
   .ant-select-item {
     color: var(--oio-select-dropdown-color);
 
     &:hover {
-      color: var(--oio-select-dropdown-selected-color);
-      background-color: var(--oio-select-dropdown-selected);
+      color: var(--oio-select-dropdown-hover-color);
+      background-color: var(--oio-select-dropdown-hover-background);
     }
 
     &.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {

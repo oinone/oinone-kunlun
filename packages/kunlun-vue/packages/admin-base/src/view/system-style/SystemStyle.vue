@@ -1,6 +1,17 @@
 <template>
   <div class="system-style system-setting-page-view">
     <div class="system-style-left">
+      <!-- 主题风格 -->
+      <div class="oio-group oio-default-group">
+        <div class="oio-group-title-wrapper">
+          <div class="oio-group-title">{{ translateValueByKey('主题风格') }}</div>
+        </div>
+        <a-radio-group v-model:value="style">
+          <a-radio style="color: var(--oio-text-color)" value="minimalism">{{ translateValueByKey('极简') }}</a-radio>
+          <a-radio style="color: var(--oio-text-color)" value="classic">{{ translateValueByKey('经典') }}</a-radio>
+        </a-radio-group>
+      </div>
+
       <!-- 主题模式 -->
       <div class="oio-group oio-default-group">
         <div class="oio-group-title-wrapper">
@@ -219,6 +230,7 @@
 </template>
 <script lang="ts" setup>
 import { ref, computed, defineProps, watchEffect, watch } from 'vue';
+import { kebabCase } from 'lodash-es';
 import { getTheme } from '@oinone/kunlun-theme';
 import { OioIcon, OioButton } from '@oinone/kunlun-vue-ui-antd';
 import {
@@ -245,6 +257,7 @@ const loginPageRef = ref<HTMLElement>('' as any);
 const hostRef = ref();
 const mode = ref('default');
 const size = ref('medium');
+const style = ref();
 const currentMenuColor = ref(SideBarThemeColor.default);
 const currentSidebar = ref(SideBarTheme.side1);
 
@@ -261,10 +274,14 @@ const inline = ref(false); // 多 tab 是否内联
  * 数据回填
  */
 watchEffect(() => {
-  const { mode: m, size: s, multiTabTheme, sideBarTheme, extend } = props.systemConfig;
+  const { mode: m, size: s, multiTabTheme, sideBarTheme, extend, style: sysStyle } = props.systemConfig;
 
   if (m) {
-    mode.value = m.toLocaleLowerCase();
+    mode.value = kebabCase(m);
+  }
+
+  if (sysStyle) {
+    style.value = sysStyle.toLocaleLowerCase();
   }
 
   if (s) {
@@ -362,11 +379,12 @@ const onHomepageAutoInvisibleChange = (value: any) => {
 };
 
 watch(
-  () => [mode.value, size.value, currentMenuColor.value, currentSidebar.value, theme.value, inline.value],
+  () => [mode.value, size.value, currentMenuColor.value, currentSidebar.value, theme.value, inline.value, style.value],
   (arr) => {
-    const [m, s, menuColor, menuTheme, theme, inline] = arr;
+    const [m, s, menuColor, menuTheme, theme, inline, style] = arr;
     props.systemConfig.mode = (m as string).toLocaleUpperCase();
     props.systemConfig.size = (s as string).toLocaleUpperCase();
+    props.systemConfig.style = (style as string).toLocaleUpperCase();
     props.systemConfig.sideBarTheme = {
       mode: (menuColor as string).toLocaleUpperCase() as SideBarThemeColor,
       theme: menuTheme as SideBarTheme

@@ -1,15 +1,21 @@
 import { ActionDslDefinition, DEFAULT_SLOT_NAME, DslDefinitionType, TemplateDslDefinition } from '@oinone/kunlun-dsl';
-import { ActiveRecord, ActiveRecordsOperator } from '@oinone/kunlun-engine';
+import { ActiveRecord, ActiveRecordsOperator, getCurrentThemeSize } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, NumberHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { RowContext } from '@oinone/kunlun-vue-ui';
-import { DEFAULT_COLS, ListSelectMode } from '@oinone/kunlun-vue-ui-common';
+import {
+  DEFAULT_CARD_GUTTERS,
+  DEFAULT_COLS,
+  DEFAULT_GUTTERS,
+  DEFAULT_VERTICAL_GUTTERS,
+  ListSelectMode
+} from '@oinone/kunlun-vue-ui-common';
 import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import type { ActionWidget } from '../../action';
 import { BaseActionWidget, BaseElementWidget, BasePackWidget } from '../../basic';
-import { ActiveCountEnum, CARD_WIDGET } from '../../typing';
+import { ActiveCountEnum, CARD_WIDGET, UserTablePrefer } from '../../typing';
 import DefaultCard from './DefaultCard.vue';
 
 const CLICK_SLOT_NAME = 'click';
@@ -31,6 +37,23 @@ export class CardWidget extends BaseElementWidget {
   @Widget.Provide()
   protected isCard = true;
 
+  /**
+   * 默认间距
+   */
+  @Widget.Reactive()
+  private get defaultGutter() {
+    const size = getCurrentThemeSize();
+
+    switch (size) {
+      case 'large':
+        return DEFAULT_GUTTERS;
+      case 'medium':
+        return DEFAULT_VERTICAL_GUTTERS;
+      default:
+        return DEFAULT_CARD_GUTTERS;
+    }
+  }
+
   @Widget.Reactive()
   @Widget.Provide()
   protected cols = DEFAULT_COLS;
@@ -42,6 +65,10 @@ export class CardWidget extends BaseElementWidget {
 
   @Widget.Reactive()
   protected rowIndex: number | undefined;
+
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected userPrefer?: UserTablePrefer;
 
   public initialize(props) {
     if (!props.slotNames) {

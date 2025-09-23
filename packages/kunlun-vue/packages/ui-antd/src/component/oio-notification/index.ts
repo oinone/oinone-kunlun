@@ -23,7 +23,12 @@ export enum NotificationType {
   /**
    * 错误
    */
-  error = 'error'
+  error = 'error',
+
+  /**
+   * 二次确认
+   */
+  confirm = 'confirm'
 }
 
 const getIconVNode = (icon: string, color: string, size = '21') =>
@@ -127,7 +132,7 @@ class Notification {
       message: title ? createVNode('div', { class: `${DEFAULT_PREFIX}-notification-message-title` }, title) : '',
       description: message,
       icon: genNotificationIcon(type),
-      closeIcon: createVNode(OioCloseIcon, { volume: '16', size: '6' }),
+      closeIcon: createVNode(OioCloseIcon, { volume: '18', size: '10' }),
       class: StringHelper.append(
         [`${DEFAULT_PREFIX}-notification ${DEFAULT_PREFIX}-notification-${type}`],
         options?.class
@@ -173,6 +178,16 @@ class Notification {
    */
   public error(title: string, message?: string, options?: OioNotificationOptions) {
     this.open(NotificationType.error, title, message, options);
+  }
+
+  /**
+   * 打开【二次确认】类型的消息通知框 {@link NotificationType.confirm}
+   * @param title 消息标题
+   * @param content 消息内容
+   * @param options 可选项
+   */
+  public confirm(title: string, content: string, options?: OioNotificationOptions) {
+    this.open(NotificationType.confirm, title, content, options);
   }
 }
 

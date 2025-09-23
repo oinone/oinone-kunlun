@@ -16,7 +16,7 @@ interface DataOption {
 
 @SPI.ClassFactory(
   BaseElementWidget.Token({
-    viewType: ViewType.Table,
+    viewType: [ViewType.Table, ViewType.Gallery],
     widget: ['userPrefer', 'user-prefer', 'UserPrefer']
   })
 )
@@ -25,6 +25,11 @@ export class TableUserPreferWidget extends BaseElementWidget {
 
   @Widget.Reactive()
   private userPrefer?: UserTablePrefer;
+
+  @Widget.Reactive()
+  private get modalTitle() {
+    return this.getDsl().modalTitle;
+  }
 
   @Widget.Reactive()
   private get internalVisibleFields(): VisibleField[] {

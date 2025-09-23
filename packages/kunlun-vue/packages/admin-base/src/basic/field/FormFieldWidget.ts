@@ -5,6 +5,7 @@ import { BooleanHelper, Optional } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNaN, isNumber, isString, set } from 'lodash-es';
 import { BaseFieldProps, BaseFieldWidget } from '../token';
+import { DetailBizStyle, FormBizStyle } from '../../typing';
 
 /**
  * 单字段通用组件
@@ -87,6 +88,15 @@ export class FormFieldWidget<
     }
     return undefined;
   }
+
+  /**
+   * 表单、详情组件的风格
+   *
+   * @see {@link BaseElementObjectViewWidget}
+   */
+  @Widget.Reactive()
+  @Widget.Inject('bizStyle')
+  protected elementBizStyle: DetailBizStyle | FormBizStyle | undefined;
 
   @Widget.Reactive()
   protected get allowClear(): boolean {

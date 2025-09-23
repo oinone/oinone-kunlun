@@ -6,6 +6,7 @@ import { isNil } from 'lodash-es';
 import { BaseActionGroupWidget, BaseElementWidget } from '../../../basic';
 import { ActiveCountEnum, MoreActionRender } from '../../../typing';
 import DefaultActionBar from './DefaultActionBar.vue';
+import { nextTick } from 'vue';
 
 export interface ActionBarWidgetProps extends ActiveRecordsWidgetProps {
   inline?: boolean;
@@ -59,6 +60,15 @@ export class ActionBarWidget<
   protected get buttonType() {
     return this.getDsl().buttonType?.toLowerCase?.();
   }
+
+  /**
+   * 存储 actionBar下面的所有动作
+   *
+   * @see {@link BaseListView}
+   */
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected storeActionBarChildren?: (children) => void;
 
   @Widget.Reactive()
   protected get justify(): string | undefined {
@@ -114,5 +124,20 @@ export class ActionBarWidget<
   @Widget.Method()
   protected onCheckboxAll(selected: boolean) {
     this.checkboxAllCallChaining?.call(selected);
+  }
+
+  protected async executeStoreChildren() {
+    if (this.inline) {
+      return;
+    }
+
+    await nextTick();
+    this.storeActionBarChildren?.(this.getChildrenInstance());
+  }
+
+  protected $$mounted(): void {
+    super.$$mounted();
+
+    this.executeStoreChildren();
   }
 }

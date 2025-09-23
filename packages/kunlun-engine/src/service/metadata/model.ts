@@ -29,6 +29,22 @@ export interface QueryPageResult<T> {
   totalElements: number;
 }
 
+export interface QueryGroupsValue {
+  isLeaf: boolean;
+  field: string;
+  dataCount: number;
+  dataStatisticStr?: string;
+  dataListStr?: string;
+  valueStr?: string;
+  groups?: QueryGroupsValue[];
+}
+export interface QueryGroupResult {
+  totalElements: string;
+  totalPages: string;
+  totalDataCount: string;
+  groups?: QueryGroupsValue[];
+}
+
 export interface RelationDataModel {
   data: ActiveRecord;
   relations?: Record<string, RelationData>;

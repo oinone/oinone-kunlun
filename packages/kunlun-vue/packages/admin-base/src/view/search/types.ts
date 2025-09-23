@@ -93,6 +93,15 @@ export const DefaultSearchProps = {
     type: Array as PropType<any[]>,
     default: () => []
   },
+  showTopCateAll: {
+    type: Boolean
+  },
+  showSecondCateAll: {
+    type: Boolean
+  },
+  topCateJustify: {
+    type: String
+  },
   cateFields: {
     type: Array as PropType<string[]>
   },

@@ -1,10 +1,12 @@
 <script lang="ts">
+import { createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
 import { ViewType } from '@oinone/kunlun-meta';
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { PropRecordHelper, StableSlotProp } from '@oinone/kunlun-vue-ui-common';
 import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
+import { isMinimalismTheme } from '@oinone/kunlun-engine';
+import { ViewBizStyle } from '../../typing';
 
 export default defineComponent({
   name: 'DefaultView',
@@ -26,10 +28,17 @@ export default defineComponent({
     invisible: {
       type: Boolean,
       default: false
+    },
+    fullScreen: {
+      type: Boolean,
+      default: false
+    },
+    bizStyle: {
+      type: String as PropType<ViewBizStyle>
     }
   },
   render() {
-    const { viewType, currentHandle } = this;
+    const { viewType, currentHandle, fullScreen, bizStyle } = this;
     const classList: string[] = [`${DEFAULT_PREFIX}-default-view`];
     if (viewType) {
       classList.push(`${DEFAULT_PREFIX}-default-${viewType.toLowerCase()}-view`);
@@ -37,6 +46,22 @@ export default defineComponent({
     if (this.inline) {
       classList.push(`${DEFAULT_PREFIX}-default-view-inline`);
     }
+
+    // 全屏
+    if (fullScreen) {
+      classList.push(`${DEFAULT_PREFIX}-full-screen-view`);
+    }
+
+    // 视图风格
+    if (bizStyle) {
+      if (bizStyle === ViewBizStyle.COMPACT) {
+        classList.push(`${DEFAULT_PREFIX}-default-minimalism-view`);
+      }
+      classList.push(`${DEFAULT_PREFIX}-default-${bizStyle.toLowerCase()}-view`);
+    } else if (isMinimalismTheme() && !this.inline && viewType !== ViewType.Search) {
+      classList.push(`${DEFAULT_PREFIX}-default-minimalism-view`);
+    }
+
     return withDirectives(
       createVNode(
         'div',

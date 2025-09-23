@@ -27,10 +27,12 @@ export function usePopup(props, context) {
 
   const enter = (event: PointerEvent) => {
     callback(event, props.enterCallback);
+    context.emit('enter', event);
   };
 
   const cancel = (event: PointerEvent) => {
     callback(event, props.cancelCallback);
+    context.emit('cancel', event);
   };
 
   const callback = (

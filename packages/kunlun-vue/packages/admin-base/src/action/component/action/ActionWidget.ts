@@ -12,6 +12,7 @@ import {
   resolveDynamicDomain,
   resolveDynamicExpression,
   RuntimeAction,
+  RuntimeClientAction,
   RuntimeContext,
   RuntimeContextManager,
   RuntimeFunctionDefinition,

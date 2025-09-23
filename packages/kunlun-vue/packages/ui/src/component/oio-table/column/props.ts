@@ -117,6 +117,9 @@ export const OioColumnControlProps = {
 };
 
 export const OioColumnRenderFunctionProps = {
+  renderGroupCellSlot: {
+    type: Function as PropType<CellRenderFunction>
+  },
   renderDefaultSlot: {
     type: Function as PropType<CellRenderFunction>
   },

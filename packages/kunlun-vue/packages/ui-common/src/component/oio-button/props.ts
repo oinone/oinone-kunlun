@@ -97,5 +97,8 @@ export const OioButtonProps = {
   iconPlacement: {
     type: String as PropType<IconPlacement | keyof Omit<typeof IconPlacement, 'BEFORE' | 'AFTER'>>,
     default: IconPlacement.BEFORE
+  },
+  iconColor: {
+    type: String
   }
 };

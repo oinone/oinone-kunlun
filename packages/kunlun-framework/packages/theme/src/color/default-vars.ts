@@ -77,12 +77,17 @@ export const defaultVars = {
   'main-background': '#ffffff',
   'footer-background': '#ffffff',
   'menu-background': '#ffffff',
+  'stripe-color': '#f7f8fa',
 
   'placeholder-color': 'rgba(0,0,0,0.25)',
 
   // hover
   'hover-background-color': `rgba(3, 93, 255, 0.1)`,
-  'hover-text-color': `var(--oio-primary-color)`,
+  'hover-text-color': `var(--${DEFAULT_PREFIX}-primary-color)`,
+
+  // selected
+  'selected-background-color': '#EBF2FF',
+  'selected-text-color': `var(--${DEFAULT_PREFIX}-primary-color)`,
 
   // font
   'font-family':
@@ -108,7 +113,7 @@ export const defaultVars = {
   'readonly-border-color': 'rgba(217,217,217,1)',
 
   // 禁用色调
-  'disabled-color': 'rgba(0, 0, 0, 0.25)',
+  'disabled-color': 'rgba(0, 0, 0, 0.45)',
   'disabled-bg': '#F7F7F7',
   'disabled-active-bg': '#F7F7F7',
   'disabled-border-color': 'rgba(217,217,217,1)',
@@ -120,8 +125,8 @@ export const defaultVars = {
   'border-style': 'solid',
 
   // common
-  'icon-color': 'rgba(0, 0, 0, 0.25)',
-  'default-icon-color': 'rgba(0, 0, 0, 0.25)',
+  'icon-color': 'rgba(0, 0, 0, 0.45)',
+  'default-icon-color': 'rgba(0, 0, 0, 0.45)',
   'normal-icon-filter': '',
   'icon-filter': 'invert(0.7) hue-rotate(180deg) brightness(0.5)',
   'icon-filter-opacity': '0.2',
@@ -135,7 +140,7 @@ export const defaultVars = {
   'addon-color-pick-icon-color': '#909399',
   'addon-color-pick-dropdown-background': '#ffffff',
   'addon-color-pick-dropdown-border-color': '#e4e7ed',
-  'user-dropdown-icon-color': `rgba(0, 0, 0, 0.25)`,
+  'user-dropdown-icon-color': `rgba(0, 0, 0, 0.45)`,
   'tag-select-background': '#f1f1f1',
   'spin-background': '',
   'gemini-mini-icon-color': '#cfe1ff'

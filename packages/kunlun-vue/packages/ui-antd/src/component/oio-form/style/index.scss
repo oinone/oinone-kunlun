@@ -49,8 +49,8 @@
 
       & > label {
         font-size: var($parameterPrefix + -font-size);
-        color: var($parameterPrefix + -text-color);
-        font-weight: var($parameterPrefix + -font-weight);
+        color: var($parameterPrefix + -form-item-label-color);
+        font-weight: var($parameterPrefix + -form-item-label-weight);
         height: var($parameterPrefix + -height);
         line-height: var($parameterPrefix + -height);
         vertical-align: top;
@@ -78,6 +78,7 @@
         line-height: 18px;
         flex-basis: var(--oio-label-height);
         padding: 0;
+        width: 100%;
         margin-bottom: var($parameterPrefix + -margin-xs);
         white-space: nowrap;
         text-overflow: ellipsis;

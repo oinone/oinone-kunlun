@@ -1,14 +1,13 @@
 <template>
-  <div v-if="currentValue.length > 0" class="detail-multi-select">
-    <div class="detail-multi-select-item" v-for="item in currentValue" :key="item.value">
-      <div class="detail-multi-select-item-font" :title="item.label">
-        {{ item.label }}
+  <detail-common-field :is-empty="!currentValue.length" :empty-style="emptyStyle">
+    <div class="detail-multi-select">
+      <div class="detail-multi-select-item" v-for="item in currentValue" :key="item.value">
+        <div class="detail-multi-select-item-font" :title="item.label">
+          {{ item.label }}
+        </div>
       </div>
     </div>
-  </div>
-  <div v-else>
-    <detail-common-field :empty-style="emptyStyle" />
-  </div>
+  </detail-common-field>
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';

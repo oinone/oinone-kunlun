@@ -6,6 +6,17 @@
     .ant-drawer-footer {
       padding: 0;
 
+      .default-drawer-pre-next-switch-footer {
+        display: flex;
+        align-items: center;
+        .oio-simple-pagination {
+          padding-left: var($parameterPrefix + -margin-md);
+        }
+        .action-bar {
+          flex: 1;
+        }
+      }
+
       .action-bar {
         height: unset;
         padding: var($parameterPrefix + -margin-md);
@@ -32,7 +43,12 @@
     }
   }
 
-  &-table .ant-drawer-content .ant-drawer-wrapper-body .ant-drawer-body > .ant-spin-nested-loading > .ant-spin-container {
+  &-table
+    .ant-drawer-content
+    .ant-drawer-wrapper-body
+    .ant-drawer-body
+    > .ant-spin-nested-loading
+    > .ant-spin-container {
     position: absolute;
     height: 100%;
     width: 100%;

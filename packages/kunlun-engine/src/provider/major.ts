@@ -37,6 +37,7 @@ const initBasicConfig = async () => {
             loginLayoutType
             mode
             size
+            style
             sideBarTheme {
               mode
               theme

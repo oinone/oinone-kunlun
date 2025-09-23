@@ -1,7 +1,13 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { ROOT_HANDLE, RuntimeContext } from '@oinone/kunlun-engine';
 import { BooleanHelper, Optional } from '@oinone/kunlun-shared';
-import { DrawerHeight, DrawerPlacement, InnerPopupSize, OioDrawerProps, StyleHelper } from '@oinone/kunlun-vue-ui-common';
+import {
+  DrawerHeight,
+  DrawerPlacement,
+  InnerPopupSize,
+  OioDrawerProps,
+  StyleHelper
+} from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../../typing';
 import { PopupWidget } from '../PopupWidget';
@@ -45,7 +51,7 @@ export class InnerPopupWidget extends PopupWidget {
   }
 
   @Widget.Reactive()
-  protected get class(): string | undefined {
+  public get class(): string | undefined {
     return this.getDsl()?.class;
   }
 

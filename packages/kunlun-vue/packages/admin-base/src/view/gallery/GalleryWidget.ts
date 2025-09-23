@@ -1,4 +1,4 @@
-import { DslDefinitionType } from '@oinone/kunlun-dsl';
+import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { getCurrentThemeSize } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { NumberHelper } from '@oinone/kunlun-shared';
@@ -45,8 +45,56 @@ export class GalleryWidget extends BaseElementListViewWidget {
     return this;
   }
 
+  @Widget.Method()
+  public get viewControlChildren(): DslDefinition[] {
+    const originalChildren = super.viewControlChildren;
+
+    const children = [
+      {
+        dslNodeType: DslDefinitionType.ELEMENT,
+        widget: 'UserPrefer',
+        subPath: 'user-prefer',
+        modalTitle: '字段设置',
+        widgets: []
+      }
+    ] as DslDefinition[];
+
+    if (this.switchCols) {
+      children.unshift({
+        dslNodeType: DslDefinitionType.ELEMENT,
+        widget: 'CardColControl',
+        subPath: 'card-col-control',
+        widgets: []
+      });
+    }
+
+    return [...originalChildren, ...children];
+  }
+
+  @Widget.Reactive()
+  public cardCols?: number;
+
+  @Widget.Provide()
+  @Widget.Method()
+  public setCardCols(cols: number) {
+    this.cardCols = cols;
+  }
+
+  /**
+   * 卡片数量切换
+   */
+  @Widget.Reactive()
+  public get switchCols() {
+    return !!this.getDsl().switchCols;
+  }
+
+  @Widget.Provide()
   @Widget.Reactive()
   public get cols() {
+    if (typeof this.cardCols === 'number' && this.cardCols > 0) {
+      return this.cardCols;
+    }
+
     let cols = NumberHelper.toNumber(this.getDsl().cols);
     if (isNil(cols)) {
       cols = 4;

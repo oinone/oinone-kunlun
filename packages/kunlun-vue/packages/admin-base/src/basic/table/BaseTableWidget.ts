@@ -1,4 +1,4 @@
-import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
+import { DEFAULT_SLOT_NAME, DslDefinitionType } from '@oinone/kunlun-dsl';
 import {
   ActiveRecord,
   ActiveRecords,
@@ -32,10 +32,10 @@ import {
 import { ListSelectMode, OioNotification, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy } from 'lodash-es';
+import { ISort } from '@oinone/kunlun-service';
 import { nextTick } from 'vue';
-import { UserPreferEventManager, UserPreferService } from '../../service';
-import { UserTablePrefer } from '../../typing';
-import { TableRowEditMode } from '../../typing/action';
+import { TableLineHeightEnum } from '../../typing';
+import { ActionKeyboardConfig, TableRowEditMode } from '../../typing/action';
 import { FetchUtil } from '../../util';
 import { BaseElementListViewWidget, BaseElementListViewWidgetProps } from '../element';
 import { BaseTableColumnWidget } from '../table-column';
@@ -48,6 +48,15 @@ interface ColumnWidgetEntity {
 
 function isActiveRecordArray(value: ActiveRecords): value is ActiveRecord[] {
   return Array.isArray(value);
+}
+
+interface TableKeyboardConfig {
+  down: ActionKeyboardConfig[]; // 向下移动单元格
+  up: ActionKeyboardConfig[]; // 向上移动单元格
+  left: ActionKeyboardConfig[]; // 向左移动单元格
+  right: ActionKeyboardConfig[]; // 向右移动单元格
+  cancel: ActionKeyboardConfig[]; // 取消操作
+  submit: ActionKeyboardConfig[]; // 提交数据
 }
 
 export class BaseTableWidget<
@@ -68,6 +77,18 @@ export class BaseTableWidget<
   public getTableInstance() {
     return this.tableInstance;
   }
+
+  /**
+   * 表格单元格快捷键编辑
+   */
+  protected keyboardShortcut: TableKeyboardConfig = {
+    down: [{ key: 'Enter', ctrl: true }], // 向下移动单元格
+    up: [{ key: 'Enter', ctrl: true, shift: true }], // 向上移动单元格
+    left: [{ key: 'Tab', shift: true }], // 向左移动单元格
+    right: [{ key: 'Tab' }], // 向右移动单元格
+    cancel: [{ key: 'Esc' }], // 取消操作
+    submit: [{ key: 'Enter' }] // 提交数据
+  };
 
   @Widget.Method()
   protected setTableInstance(tableInstance: OioTableInstance | undefined) {
@@ -123,6 +144,15 @@ export class BaseTableWidget<
     return height;
   }
 
+  @Widget.Provide()
+  @Widget.Reactive()
+  protected lineHeightType = TableLineHeightEnum.DEFAULT;
+
+  @Widget.Provide()
+  protected setLineHeightType(value: TableLineHeightEnum) {
+    this.lineHeightType = value;
+  }
+
   @Widget.Reactive()
   protected get minHeight(): string | undefined {
     return StyleHelper.px(this.getDsl().minHeight);
@@ -160,6 +190,32 @@ export class BaseTableWidget<
    */
   protected filterEditable(context: ActiveEditorContext, columnWidget: BaseTableColumnWidget, index: number): boolean {
     return true;
+  }
+
+  /**
+   * 允许键盘快捷操作
+   * @protected
+   */
+  protected get keyBoardAble(): boolean {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().keyBoardAble)).orElse(false);
+  }
+
+  /**
+   * 视图控制相关的子组件, 可能包含（排序、分组、行高切换、全屏、快捷点）
+   */
+  @Widget.Method()
+  public get viewControlChildren() {
+    const widgets = super.viewControlChildren;
+
+    if (this.keyBoardAble) {
+      widgets.push({
+        dslNodeType: DslDefinitionType.ELEMENT,
+        widget: 'KeyboardShortcut',
+        widgets: []
+      });
+    }
+
+    return widgets;
   }
 
   /**
@@ -341,7 +397,7 @@ export class BaseTableWidget<
       return false;
     }
     const data = await this.rowEditorClosedForSubmit(context);
-    const useDiffUpdate = [RelationUpdateType.diff, RelationUpdateType.batch].includes(this.relationUpdateType)
+    const useDiffUpdate = [RelationUpdateType.diff, RelationUpdateType.batch].includes(this.relationUpdateType);
     if (this.inline) {
       if (res && data) {
         if (this.createMode && useDiffUpdate) {
@@ -349,7 +405,6 @@ export class BaseTableWidget<
         } else {
           this.updateSubviewFieldWidget(context, data);
         }
-
       }
     } else if (data) {
       try {
@@ -421,7 +476,7 @@ export class BaseTableWidget<
     return undefined;
   }
 
-  protected updateSubviewFieldWidget(context: RowContext, data: ActiveRecord) {
+  public updateSubviewFieldWidget(context: RowContext, data: ActiveRecord) {
     Optional.ofNullable(this.metadataRuntimeContext.field)
       .filter<RuntimeO2MField | RuntimeM2MField>((v) => isRelation2MField(v!))
       .ifPresent((field) => {
@@ -446,7 +501,7 @@ export class BaseTableWidget<
       });
   }
 
-  protected createSubviewFieldWidget(context: RowContext, data: ActiveRecord) {
+  public createSubviewFieldWidget(context: RowContext, data: ActiveRecord) {
     Optional.ofNullable(this.metadataRuntimeContext.field)
       .filter<RuntimeO2MField | RuntimeM2MField>((v) => isRelation2MField(v!))
       .ifPresent((field) => {
@@ -706,61 +761,6 @@ export class BaseTableWidget<
 
   // endregion
 
-  // region user prefer
-
-  protected userPreferEventManager: UserPreferEventManager | undefined;
-
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected userPrefer?: UserTablePrefer;
-
-  protected initUserPrefer() {
-    this.userPreferEventManager = UserPreferEventManager.get(this.rootHandle || this.currentHandle);
-    if (this.inline) {
-      this.userPrefer = {} as UserTablePrefer;
-    } else {
-      this.userPrefer = (UserPreferService.parsePreferForTable(
-        this.metadataRuntimeContext.view?.extension?.userPreference as Record<string, unknown>
-      ) || {}) as UserTablePrefer;
-      this.userPreferEventManager.onSave(this.$saveUserPrefer.bind(this));
-    }
-    this.userPreferEventManager.setData(this.userPrefer);
-    this.userPreferEventManager.onReload(this.$reloadUserPrefer.bind(this), CallChaining.MAX_PRIORITY);
-  }
-
-  /**
-   *
-   * @param userPrefer
-   * @deprecated 兼容原有逻辑 使用UserPreferEventManager.INSTANCE.reload方法替换
-   */
-  @Widget.Provide()
-  @Widget.Method()
-  public reloadUserPrefer(userPrefer: UserTablePrefer) {
-    this.userPreferEventManager?.reload(userPrefer);
-  }
-
-  protected $reloadUserPrefer(userPrefer: Partial<UserTablePrefer>) {
-    this.userPrefer = { ...(this.userPrefer || {}), ...userPrefer } as UserTablePrefer;
-    this.userPreferEventManager?.setData(this.userPrefer);
-  }
-
-  protected async $saveUserPrefer(userPrefer: Partial<UserTablePrefer>) {
-    const viewName = userPrefer.viewName || this.metadataRuntimeContext.view.name;
-    if (viewName) {
-      const saveUserPrefer = {
-        ...userPrefer,
-        model: userPrefer.model || this.metadataRuntimeContext.model.model,
-        viewName
-      } as UserTablePrefer;
-      await UserPreferService.savePreferForTable(saveUserPrefer);
-    }
-  }
-
-  protected $$beforeMount() {
-    super.$$beforeMount();
-    this.initUserPrefer();
-  }
-
   protected $$mounted() {
     super.$$mounted();
     this.submitCallChaining?.callBefore(
@@ -779,7 +779,20 @@ export class BaseTableWidget<
 
   protected $$unmounted() {
     super.$$unmounted();
-    this.userPreferEventManager?.dispose();
     this.editRowCallChaining?.unhook(this.path);
+  }
+
+  @Widget.Provide()
+  @Widget.Method()
+  public override onSortChange(sortList: ISort[]) {
+    super.onSortChange(sortList);
+    if (this.sortList && this.sortList.length) {
+      this.tableInstance?.sort(
+        this.sortList.map((sort) => ({
+          field: sort.sortField,
+          order: sort.direction.toLowerCase() as 'asc' | 'desc'
+        }))
+      );
+    }
   }
 }

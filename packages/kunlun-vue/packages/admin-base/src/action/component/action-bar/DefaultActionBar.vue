@@ -229,11 +229,11 @@ export default defineComponent({
           },
           [
             createVNode('div', { class: 'gallery-action-bar-batch-selected' }, [
-              createVNode('span', {}, translateValueByKey('批量管理')),
               createVNode(OioSwitch, {
                 checked: this.allowSelected,
                 'onUpdate:checked': this.updateValueAllowSelected
-              })
+              }),
+              createVNode('span', {}, translateValueByKey('批量管理'))
             ]),
             withDirectives(
               createVNode(

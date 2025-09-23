@@ -27,6 +27,9 @@ export default defineComponent({
       type: Array as PropType<any[]>,
       default: () => []
     },
+    topCateJustify: {
+      type: String
+    },
     cateFields: {
       type: Array as PropType<string[]>
     },
@@ -104,11 +107,16 @@ export default defineComponent({
   render() {
     const cateSearchNodes = [] as VNode[];
     if (this.topCateFieldOptions?.length) {
+      const className = ['oio-cate-search'];
+      if (this.topCateJustify) {
+        className.push(`oio-cate-search-${this.topCateJustify.toLocaleLowerCase()}`);
+      }
+
       cateSearchNodes.push(
         createVNode(
           OioTabs,
           {
-            class: 'oio-cate-search',
+            class: className,
             activeKey: this.topCateActive,
             'onUpdate:activeKey': (val) => (this.topCateActive = val),
             onChange: this.onChangeTopCate

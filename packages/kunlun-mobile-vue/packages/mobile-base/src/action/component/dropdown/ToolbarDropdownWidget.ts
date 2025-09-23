@@ -40,5 +40,7 @@ export class ToolbarDropdownWidget extends DropdownWidget {
   protected inline = true;
 
   @Widget.Reactive()
-  protected class = `${DEFAULT_PREFIX}-action-bar-with-more-popover-container`;
+  public get class() {
+    return `${DEFAULT_PREFIX}-action-bar-with-more-popover-container`;
+  }
 }

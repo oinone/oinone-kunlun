@@ -44,3 +44,5 @@ export * from './typing';
 export * from './user-prefer';
 export * from './validator';
 export * from './widget-names';
+export * from './control-icon';
+export * from './view';

@@ -12,6 +12,7 @@
     <oio-select
       v-else
       dropdownClassName="oio-ant-select-dropdown-global"
+      show-search
       :value="realValue"
       :options="realOptions"
       :properties="properties"

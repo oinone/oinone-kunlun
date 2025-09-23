@@ -119,7 +119,7 @@
 
         &.ant-picker-cell-selected {
           .ant-picker-cell-inner {
-            color: #ffffff;
+            color: var(--oio-datetime-text-color-selected);
             background-color: var($parameterPrefix + -primary-color);
             border-radius: 2px;
           }
@@ -189,19 +189,19 @@
         font-size: var(--oio-font-size);
 
         &:active {
-          color: #ffffff;
+          color: var(--oio-datetime-text-color-active);
           background-color: var($parameterPrefix + -primary-color-active);
         }
 
         &:hover {
-          color: #ffffff;
+          color: var(--oio-datetime-cell-internal-text-color-hover);
           background-color: var($parameterPrefix + -primary-color-hover);
         }
       }
 
       &.ant-picker-time-panel-cell-selected {
         .ant-picker-time-panel-cell-inner {
-          color: #ffffff;
+          color: var(--oio-datetime-text-color-selected);
           background-color: var($parameterPrefix + -primary-color);
         }
       }
@@ -216,7 +216,7 @@
 
         &.ant-picker-cell-selected {
           .ant-picker-cell-inner {
-            color: #ffffff;
+            color: var(--oio-datetime-text-color-selected);
             background-color: var($parameterPrefix + -primary-color);
             border-radius: 2px;
           }

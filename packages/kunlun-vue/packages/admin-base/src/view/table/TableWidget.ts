@@ -10,6 +10,7 @@ import {
   isRelationField,
   Pagination,
   QueryContext,
+  QueryGroupsValue,
   QueryService,
   QueryVariables,
   RuntimeModelField,
@@ -21,20 +22,37 @@ import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, ISort } from '@oinone/kunlun-service';
 import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { VxeTableHelper } from '@oinone/kunlun-vue-ui';
+import {
+  VxeTableHelper,
+  TableEditorTrigger,
+  TableEditorMode,
+  ActiveEditorContext,
+  GROUP_TREE_KEY
+} from '@oinone/kunlun-vue-ui';
 import { StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
-import { find, isBoolean, isNaN, isNil, isNumber, isPlainObject, isString, toString } from 'lodash-es';
+import { delay, find, isBoolean, isNaN, isNil, isNumber, isPlainObject, isString, toNumber, toString } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTableDefines } from 'vxe-table';
 import { ActionWidget } from '../../action/component/action';
 import { BaseElementListViewWidgetProps, BaseElementWidget, BaseTableColumnWidget, BaseTableWidget } from '../../basic';
 import { ExpandColumnWidgetNames } from '../../field';
-import { ActiveCountEnum, fetchPageSize, fetchPageSizeNullable, TABLE_WIDGET, UserTablePrefer } from '../../typing';
+import {
+  ActiveCountEnum,
+  fetchPageSize,
+  fetchPageSizeNullable,
+  TABLE_WIDGET,
+  UserTablePrefer,
+  TableLineHeightEnum,
+  TableLineHeightMap,
+  ActionKeyboardConfig,
+  TableRowEditMode
+} from '../../typing';
 import { TreeUtils } from '../../util';
 import { TableConfigManager } from './config';
 import DefaultTable from './DefaultTable.vue';
 import { TableRowClickMode } from './typing';
+import { ExpandGroupPath, fetchGroupData, fetchGroupPage } from '../../service';
 
 const CLICK_SLOT_NAME = 'click';
 
@@ -59,6 +77,20 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return this;
   }
 
+  /**
+   * 表格底部开启「添加一行」操作
+   */
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected gotoO2MCreateRow: boolean = false;
+
+  /**
+   * 表格底部开启「快速填报」操作
+   */
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected gotoO2MQuickFilling: boolean = false;
+
   @Widget.Provide()
   protected get cellWidth() {
     // fixme @zbh 20250723 请使用语义明确的dsl属性名称
@@ -82,12 +114,11 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   }
 
   @Widget.Reactive()
-  protected get checkbox(): boolean {
-    return Optional.ofNullable(this.getDsl().checkbox).map(BooleanHelper.toBoolean).orElse(true)!;
-  }
-
-  @Widget.Reactive()
   protected get lineHeight(): number | undefined {
+    if (this.lineHeightType && this.lineHeightType !== TableLineHeightEnum.DEFAULT) {
+      return TableLineHeightMap[this.lineHeightType];
+    }
+
     const lineHeight = Optional.ofNullable(this.getDsl().lineHeight).map(NumberHelper.toNumber).orElse(undefined);
 
     if (lineHeight) {
@@ -121,6 +152,9 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Reactive()
   protected get autoLineHeight(): boolean {
+    if (this.lineHeightType === TableLineHeightEnum.AUTO) {
+      return true;
+    }
     const autoLineHeight = Optional.ofNullable(this.getDsl().autoLineHeight)
       .map(BooleanHelper.toBoolean)
       .orElse(undefined);
@@ -185,21 +219,22 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   }
 
   @Widget.Reactive()
-  protected get allowChecked(): string | boolean | undefined {
-    return this.getDsl().allowChecked;
+  protected get checkbox(): boolean {
+    return Optional.ofNullable(this.getDsl().checkbox).map(BooleanHelper.toBoolean).orElse(true)!;
   }
 
   @Widget.Method()
   protected checkMethod({ row }: { row: ActiveRecord }) {
-    const { allowChecked } = this;
-    if (isNil(allowChecked)) {
+    const { checkbox } = this;
+
+    if (isNil(checkbox)) {
       return true;
     }
-    if (isBoolean(allowChecked)) {
-      return allowChecked;
+    if (isBoolean(checkbox)) {
+      return checkbox;
     }
-    if (isString(allowChecked)) {
-      return this.executeExpression<boolean>(row, allowChecked, false);
+    if (isString(checkbox)) {
+      return this.executeExpression<boolean>(row, checkbox, false);
     }
     return true;
   }
@@ -365,11 +400,6 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
         this.getTableInstance()?.refreshColumn();
       });
     }
-  }
-
-  @Widget.Reactive()
-  protected get usingSimpleUserPrefer(): boolean | undefined {
-    return BooleanHelper.toBoolean(this.getDsl().usingSimpleUserPrefer);
   }
 
   @Widget.Method()
@@ -652,12 +682,37 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return StringHelper.convertArray(this.getDsl().rowClickMode)?.map((v) => v.toLowerCase()) as TableRowClickMode[];
   }
 
+  /**
+   * 添加一行
+   */
+  @Widget.Method()
+  protected onAddRow() {
+    const records = ActiveRecordsOperator.repairRecordsNullable({});
+    if (!records) {
+      return;
+    }
+    this.createDataSourceByEntity(records);
+
+    this.editRow(TableRowEditMode.CREATE, { record: records[0], action: null });
+  }
+
   @Widget.Method()
   protected onCurrentChange(e) {
     if (this.currentRow) {
       this.getTableInstance()?.setCurrentRow(this.currentRow);
     } else {
       this.getTableInstance()?.clearCurrentRow();
+    }
+  }
+
+  /**
+   * 整行、全表编辑开启时，点击单元格需要记录最新的行+单元格数据
+   */
+  @Widget.Method()
+  protected onCellClick(context: ActiveEditorContext) {
+    if (this.lastedCurrentEditorContext && [TableEditorMode.row, TableEditorMode.table].includes(this.editorMode)) {
+      this.lastedCurrentEditorContext.column = context.column;
+      this.lastedCurrentEditorContext.columnIndex = context.columnIndex;
     }
   }
 
@@ -672,6 +727,21 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       this.getTableInstance()?.setCurrentRow(row);
       await this.clickActionWidget(row, actionName);
     }
+  }
+
+  protected override mounted() {
+    super.mounted();
+    if (this.keyBoardAble) {
+      window.addEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
+    }
+  }
+
+  protected override beforeUnmount() {
+    if (this.keyBoardAble) {
+      window.removeEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
+    }
+
+    super.beforeUnmount();
   }
 
   @Widget.Method()
@@ -717,6 +787,24 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Provide()
   protected get expandTreeFieldColumn() {
     return this.expandTreeField?.data;
+  }
+
+  /**
+   * 展开、关闭所有的分组
+   *
+   */
+  @Widget.Method()
+  protected setAllGroupExpand(expand: boolean) {
+    if (!this.enabledGroupView) {
+      return;
+    }
+
+    // 如果全部展开，但是展开全部功能未启动，则不处理
+    if (expand && !this.groupViewFooterExpandControl) {
+      return;
+    }
+
+    this.tableInstance?.getOrigin().setAllTreeExpand(expand);
   }
 
   protected getEnabledTreeConfig(): boolean | undefined {
@@ -782,6 +870,20 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     this.expandTreeField = this.getExpandTreeField();
   }
 
+  protected findGroupTreePath = (list, targetRow, path = [] as any[]) => {
+    for (const item of list) {
+      const newPath = [...path, item];
+      if (item === targetRow) {
+        return newPath;
+      }
+      if (item?.[GROUP_TREE_KEY.CHILDREN_KEY]?.length) {
+        const result = this.findGroupTreePath(item[GROUP_TREE_KEY.CHILDREN_KEY], targetRow, newPath);
+        if (result) return result;
+      }
+    }
+    return null;
+  };
+
   @Widget.Reactive()
   protected get enabledTreeConfig(): boolean {
     const { internalEnabledTreeConfig, treeRelationField, expandTreeField } = this;
@@ -790,6 +892,20 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get treeConfig() {
+    if (this.enabledGroupView) {
+      return {
+        rowField: ActiveRecordExtendKeys.DRAFT_ID,
+        parentField: ActiveRecordExtendKeys.PARENT_DRAFT_ID,
+        hasChild: GROUP_TREE_KEY.IS_LEAF_KEY,
+        expandAll: this.groupViewFooterExpandControl,
+        children: GROUP_TREE_KEY.CHILDREN_KEY,
+        lazy: !this.groupViewFooterExpandControl,
+        loadMethod: async ({ row }) => {
+          return this.loadGroupData(row);
+        }
+      };
+    }
+
     if (this.enabledTreeConfig) {
       return {
         transform: true,
@@ -953,14 +1069,117 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return content;
   }
 
+  /**
+   * 初始化分组展开字段
+   */
+  protected initGroupTreeField() {
+    if (this.enabledGroupView) {
+      this.expandTreeField = this.metadataRuntimeContext.model.modelFields.find((v) => !v.invisible);
+    }
+  }
+
+  protected generatorGroupQueryCondition() {
+    const variables = this.generatorQueryVariables();
+    const context = this.generatorQueryContext();
+    const searchBody = this.generatorSearchBody();
+    const condition = this.generatorCondition(undefined, this.usingSearchCondition);
+
+    return {
+      model: this.model.model,
+      groupFields: this.groupList?.map((v) => ({ field: v.groupField, orderType: v.groupDirection })) || [],
+      sort: { orders: this.sortList?.map((item) => ({ field: item.sortField, direction: item.direction })) },
+      queryWrapper: {
+        queryData: searchBody,
+        rsql: condition.toString()
+      },
+      variables,
+      context
+    } as any;
+  }
+
+  /**
+   * 查询分组下对应的数据源（懒加载）
+   */
+  @Widget.Provide()
+  @Widget.Method()
+  protected async loadGroupData(row: ActiveRecord) {
+    const path = this.findGroupTreePath(this.dataSource, row);
+    if (path?.length) {
+      const result = await fetchGroupData({
+        expandGroupPaths: [{ nodeList: path.map((v) => v[GROUP_TREE_KEY.PROPS_KEY]) }],
+        ...this.generatorGroupQueryCondition()
+      });
+
+      return JSON.parse(result.expandGroupDataStr?.[0] || '[]');
+    }
+    return [];
+  }
+
+  /**
+   * 查询分组分页数据
+   */
+  protected async loadGroupPage(condition?: Condition) {
+    const pagination = this.generatorPagination();
+
+    const result = await fetchGroupPage({
+      deep: this.groupList?.length || 1,
+      currentPage: this.pagination?.current || 1,
+      size: this.showPagination ? pagination.pageSize : -1,
+      ...this.generatorGroupQueryCondition()
+    });
+
+    this.groupTotalDataCount = toNumber(result.totalDataCount);
+
+    pagination.total = toNumber(result?.totalElements);
+    pagination.totalPageSize = toNumber(result?.totalPages);
+
+    return this.generatorGroupTree(result?.groups);
+  }
+
+  public generatorGroupTree(groups?: QueryGroupsValue[]) {
+    return groups?.map((g) => {
+      if (g.groups?.length) {
+        return {
+          [this.expandTreeFieldColumn as string]: g.valueStr,
+          [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
+          [GROUP_TREE_KEY.PROPS_KEY]: g,
+          [GROUP_TREE_KEY.CHILDREN_KEY]: this.generatorGroupTree(g.groups)
+        };
+      }
+
+      const children = g.dataListStr ? JSON.parse(g.dataListStr || '[]') : [];
+      return {
+        [this.expandTreeFieldColumn as string]: g.valueStr,
+        [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
+        [GROUP_TREE_KEY.PROPS_KEY]: g,
+        [GROUP_TREE_KEY.CHILDREN_KEY]: children
+      };
+    });
+  }
+
   public async fetchData(condition?: Condition): Promise<ActiveRecord[]> {
     const searchBody = this.generatorSearchBody();
     this.internalEnabledTreeConfig =
       this.getEnabledTreeConfig() && (!(searchBody && Object.keys(searchBody).length) || !this.showPagination);
     const { enabledTreeConfig } = this;
+
+    /**
+     * 分组请求
+     */
+    if (this.enabledGroupView) {
+      return this.load(() => this.loadGroupPage(condition));
+    }
+
+    /**
+     * 树行表格
+     */
     if (enabledTreeConfig) {
       return this.load(() => this.loadTreeNodes(condition));
     }
+
+    /**
+     * 默认请求
+     */
     return super.fetchData(condition);
   }
 
@@ -974,6 +1193,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     this.resetExpandRowIndexes();
     this.refreshStatistics();
     this.refreshTree();
+    this.setAllGroupExpand(true);
   }
 
   protected refreshTree() {
@@ -992,6 +1212,206 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   protected $$beforeCreated() {
     this.initTreeConfig();
     super.$$beforeCreated();
+  }
+
+  protected $$beforeMount() {
+    super.$$beforeMount();
+    this.initGroupTreeField();
+  }
+  // endregion
+
+  // region 快捷键操作
+
+  /**
+   * 兼容不同系统的快捷键
+   * Esc / Escape
+   */
+  private normalizeKey(key: string): string {
+    return key === 'Esc' ? 'Escape' : key;
+  }
+
+  /**
+   * 检查按键是否匹配快捷键配置
+   * @param {KeyboardEvent} event 键盘事件
+   * @param {ActionKeyboardConfig[]} configs  快捷键配置数组
+   * @returns {boolean} 是否匹配
+   */
+  private isShortcutMatch(event: KeyboardEvent, configs: ActionKeyboardConfig[]) {
+    const eventKey = this.normalizeKey(event.key);
+
+    return configs.some((config) => {
+      const { key, ctrl = false, shift = false, alt = false } = config;
+
+      if (this.normalizeKey(key) !== eventKey) {
+        return false;
+      }
+
+      const isCtrlMatch = event.ctrlKey === ctrl || event.metaKey === ctrl;
+      const isShiftMatch = event.shiftKey === shift;
+      const isAltMatch = event.altKey === alt;
+
+      return isCtrlMatch && isShiftMatch && isAltMatch;
+    });
+  }
+
+  /**
+   * 单元格自动聚焦
+   * @param {number} rowIndex 行索引
+   * @param {number} columnIndex 行索引
+   */
+  protected columnAutoFocus(rowIndex = 0, columnIndex = 0) {
+    const tableEl = this.getTableInstance()?.getOrigin()?.$el as HTMLElement | undefined;
+    if (!tableEl) {
+      return;
+    }
+
+    const rowsEl = tableEl.querySelectorAll('.vxe-table--main-wrapper .vxe-table--body .vxe-body--row');
+    const currentRow = rowsEl[rowIndex] as HTMLElement | undefined;
+
+    if (!currentRow) {
+      return;
+    }
+
+    const columnsEl = currentRow.querySelectorAll('.vxe-body--column');
+
+    if (!columnsEl || !columnsEl[columnIndex]) {
+      return;
+    }
+
+    const input = columnsEl[columnIndex].querySelector('input');
+    input?.focus();
+  }
+
+  protected getCellEditable(field: string, row: ActiveRecord, rowIndex: number) {
+    let isEnabled = true;
+    const columnWidget = this.getColumnWidgets().find((v) => v.itemData === field);
+    if (
+      columnWidget &&
+      columnWidget.editable &&
+      columnWidget.editorTrigger !== TableEditorTrigger.manual &&
+      columnWidget.editorMode === TableEditorMode.cell
+    ) {
+      isEnabled = columnWidget.cellEditable({
+        key: VxeTableHelper.getKey(row),
+        data: row,
+        index: rowIndex,
+        origin: row
+      });
+    }
+    return isEnabled;
+  }
+
+  /**
+   * 单元格左右移动
+   */
+  protected async onMoveColumnActiveEditor(event: KeyboardEvent, offset: number) {
+    const { column, rowIndex } = this.lastedCurrentEditorContext!;
+    const allColumns = this.tableInstance?.getAllColumns() || [];
+    const currentColumnIndex = allColumns.findIndex((v) => v.field === column.field);
+    let nextColumnIndex = currentColumnIndex + offset;
+    let nextColumn = allColumns[nextColumnIndex];
+    let row = this.showDataSource?.[rowIndex];
+    let toNextRow = false;
+
+    while (!nextColumn.field || nextColumn.field === '$$internalOperator' || !nextColumn.visible) {
+      nextColumnIndex = nextColumnIndex + offset;
+      nextColumn = allColumns[nextColumnIndex % allColumns.length];
+    }
+
+    if (nextColumnIndex < 0 || nextColumnIndex >= allColumns.length) {
+      toNextRow = true;
+      row = this.showDataSource?.[rowIndex + Math.sign(offset)];
+    }
+    const isEnabled =
+      row &&
+      nextColumn &&
+      nextColumn.field &&
+      this.getCellEditable(nextColumn.field, row, rowIndex + (row ? offset : 0));
+    if (!isEnabled) {
+      return this.onMoveColumnActiveEditor(event, offset + offset);
+    }
+
+    if (this.lastedCurrentEditorContext) {
+      this.lastedCurrentEditorContext.column = nextColumn;
+      this.lastedCurrentEditorContext.columnIndex = nextColumnIndex;
+    }
+
+    // 如果是换行编辑，那么需要下一行可编辑项的第一个默认选中，并且修改激活行的数据
+    if (toNextRow) {
+      this.columnAutoFocus(rowIndex + 1, 0);
+
+      delay(() => {
+        const context = this.getTableInstance()?.getActiveEditorRecord()?.origin as ActiveEditorContext;
+
+        if (context) {
+          this.activeEditor({ ...context, editableMap: {} });
+        }
+      }, 200);
+    } else {
+      // 否则直接切换对应单元格的焦点
+      await this.tableInstance?.activeCellEditor(row, nextColumn.field);
+      this.columnAutoFocus(rowIndex, nextColumnIndex);
+    }
+  }
+
+  /**
+   * 上下移动
+   */
+  protected async onMoveRowActiveEditor(event: KeyboardEvent, offset: 1 | -1) {
+    const { column, rowIndex } = this.lastedCurrentEditorContext!;
+    const { field } = column;
+    if (field) {
+      const currentIndex = rowIndex + offset;
+      const currentRow = this.showDataSource![currentIndex];
+      const isEnabled = this.getCellEditable(field, currentRow, currentIndex);
+      if (!currentRow || !isEnabled) {
+        return;
+      }
+
+      await this.tableInstance?.activeCellEditor(currentRow, field);
+
+      this.columnAutoFocus(currentIndex, 0);
+
+      delay(() => {
+        const context = this.getTableInstance()?.getActiveEditorRecord()?.origin as ActiveEditorContext;
+
+        if (context) {
+          this.activeEditor({ ...context, editableMap: {} });
+        }
+      }, 200);
+    }
+  }
+
+  /**
+   * 键盘事件处理
+   */
+  protected bindKeyboardShortcut(event: KeyboardEvent) {
+    if (!this.lastedCurrentEditorContext) {
+      return;
+    }
+
+    // 右移动
+    if (this.isShortcutMatch(event, this.keyboardShortcut.right)) {
+      event.preventDefault();
+      this.onMoveColumnActiveEditor(event, 1);
+    } else if (this.isShortcutMatch(event, this.keyboardShortcut.left)) {
+      /// 左移动
+      event.preventDefault();
+      this.onMoveColumnActiveEditor(event, -1);
+    } else if (this.isShortcutMatch(event, this.keyboardShortcut.down)) {
+      console.log('xia ');
+      // 下移动
+      event.preventDefault();
+      this.onMoveRowActiveEditor(event, 1);
+    } else if (this.isShortcutMatch(event, this.keyboardShortcut.up)) {
+      // 上移动
+      event.preventDefault();
+      this.onMoveRowActiveEditor(event, -1);
+    } else if (this.isShortcutMatch(event, this.keyboardShortcut.cancel)) {
+      // 取消
+      event.preventDefault();
+      this.tableInstance?.clearEditor();
+    }
   }
 
   // endregion

@@ -6,6 +6,11 @@ export enum ModalWidth {
   full = '100%'
 }
 
+export enum PopupDisplayAs {
+  DRAWER = 'DRAWER',
+  MODAL = 'MODAL'
+}
+
 export type ModalWidthType = number | string | keyof typeof ModalWidth;
 
 export enum ModalHeight {

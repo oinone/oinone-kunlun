@@ -2,7 +2,6 @@
 import {
   BooleanHelper,
   ButtonType,
-  defaultTreeSelectProperties,
   OioButton,
   OioTreeNode,
   OioTreeSelect,

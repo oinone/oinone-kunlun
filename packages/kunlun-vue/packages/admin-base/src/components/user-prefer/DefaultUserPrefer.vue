@@ -34,6 +34,9 @@ export default defineComponent({
     },
     resetCallback: {
       type: Function
+    },
+    title: {
+      type: String
     }
   },
   setup(props) {
@@ -91,6 +94,7 @@ export default defineComponent({
       visibleFields,
       selected,
       visible,
+      title,
       onUpdateSelected,
 
       onClick,
@@ -134,6 +138,7 @@ export default defineComponent({
     } else {
       children.push(
         createVNode(StandardUserPreferSetting, {
+          title,
           visible,
           fields,
           invisibleFields,

@@ -4,6 +4,8 @@
   width: 100%;
   height: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
 
   .default-table-view-spin {
     .oio-spin-loading {
@@ -14,7 +16,7 @@
 
   .ant-spin-nested-loading {
     width: 100%;
-    height: 100%;
+    flex: 1;
 
     .ant-spin-container {
       width: 100%;
@@ -55,6 +57,34 @@
 
   .oio-table-footer {
     text-align: right;
+
+    .default-table-footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+
+  &.default-main-table {
+    .oio-table-footer {
+      text-align: right;
+
+      .default-table-footer-content {
+        position: relative;
+        padding-top: var(--oio-padding);
+        &::before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: calc(var(--oio-padding) * -1);
+          right: calc(var(--oio-padding) * -1);
+          height: 1px;
+          background-color: var(--oio-border-color);
+        }
+      }
+    }
   }
 
   .highlight {
@@ -91,6 +121,13 @@
         line-height: 19px;
       }
     }
+  }
+
+  .default-table-line-height-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    column-gap: var(--oio-row-gap);
   }
 }
 

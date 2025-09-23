@@ -6,3 +6,5 @@ export * from './tree-select/FormO2MTreeSelectFieldWidget';
 export * from './upload/FormO2MUploadDraggableFieldWidget';
 export * from './upload/FormO2MUploadImgFieldWidget';
 export * from './upload/FormO2MUploadFieldWidget';
+export * from './select/select-modal/FormO2MSelectModalFieldWidget';
+export * from './select/select-table/FormO2MSelectTableFieldWidget';
