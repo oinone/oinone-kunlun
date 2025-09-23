@@ -5,6 +5,7 @@ import {
   ActiveRecords,
   ActiveRecordsOperator,
   GenericFunctionService,
+  isEnumerationField,
   isM2MField,
   isRelation2OField,
   isRelationField,
@@ -1157,7 +1158,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return groups?.map((g) => {
       if (g.groups?.length) {
         return {
-          [this.expandTreeFieldColumn as string]: g.valueStr,
+          [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(g.field, g.valueStr),
           [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
           [GROUP_TREE_KEY.PROPS_KEY]: g,
           [GROUP_TREE_KEY.CHILDREN_KEY]: this.generatorGroupTree(g.groups)
@@ -1166,12 +1167,29 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
       const children = g.dataListStr ? JSON.parse(g.dataListStr || '[]') : [];
       return {
-        [this.expandTreeFieldColumn as string]: g.valueStr,
+        [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(g.field, g.valueStr),
         [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
         [GROUP_TREE_KEY.PROPS_KEY]: g,
         [GROUP_TREE_KEY.CHILDREN_KEY]: children
       };
     });
+  }
+
+  protected convertGroupDisplayValue(field: string, valueStr: string | undefined): string {
+    if (!valueStr) {
+      return field;
+    }
+    const modelField = this.model.modelFields.find((v) => v.data === field);
+    if (!modelField) {
+      return valueStr;
+    }
+    if (isEnumerationField(modelField)) {
+      const displayValue = modelField.options.find((v) => v.name === valueStr)?.displayName;
+      if (displayValue) {
+        return displayValue;
+      }
+    }
+    return valueStr;
   }
 
   public async fetchData(condition?: Condition): Promise<ActiveRecord[]> {
