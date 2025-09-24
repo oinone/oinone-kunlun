@@ -34,7 +34,7 @@ import {
 } from '@oinone/kunlun-vue-ui';
 import { ListSelectMode, OioNotification, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy } from 'lodash-es';
+import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy, toString } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTablePropTypes } from 'vxe-table';
 import { ActionKeyboardConfig, TableLineHeightEnum, TableRowEditMode } from '../../typing';
@@ -884,6 +884,14 @@ export class BaseTableWidget<
       groupParameters.groupField = null;
       groupParameters.groupDirection = null;
     }
+    let { pagination } = this;
+    if (pagination) {
+      pagination.current = 1;
+    } else {
+      pagination = this.generatorPagination();
+    }
+    groupParameters.currentPage = toString(pagination.current);
+    groupParameters.pageSize = toString(pagination.pageSize);
 
     this.groupList = finalGroupList;
 
