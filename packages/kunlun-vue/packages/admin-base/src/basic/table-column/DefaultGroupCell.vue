@@ -345,46 +345,46 @@ export default defineComponent({
       // 唯一值数量
       const uniqueCount = uniq(values).length;
 
+      let computedValue: string | number | undefined;
+
       switch (selectValue.value) {
         case GroupStatisticsEnum.COUNT:
           // 总数量
-          return `${total}${translateValueByKey('条记录')}`;
+          computedValue = total;
+          break;
         case GroupStatisticsEnum.NOT_NULL:
           // 已填写
-          return `${translateValueByKey('已填写')}${filled}`;
+          computedValue = filled;
+          break;
         case GroupStatisticsEnum.NULL:
           // 未填写
-          return `${translateValueByKey('未填写')}${notFilled}`;
+          computedValue = notFilled;
+          break;
         case GroupStatisticsEnum.UNIQUE:
           // 唯一值
-          return `${translateValueByKey('唯一值')}${uniqueCount}`;
-        case GroupStatisticsEnum.NOT_NULL_PERCENT: {
+          computedValue = uniqueCount;
+          break;
+        case GroupStatisticsEnum.NOT_NULL_PERCENT:
           // 已填写占比
-          const val = total > 0 ? formatRatio(notFilled / total) : 0;
-          return `${translateValueByKey('已填写占比')}${val}%`;
-        }
-        case GroupStatisticsEnum.NULL_PERCENT: {
+          computedValue = total > 0 ? formatRatio(notFilled / total) : 0;
+          break;
+        case GroupStatisticsEnum.NULL_PERCENT:
           // 未填写占比
-          const val = total > 0 ? formatRatio(notFilled / total) : 0;
-          return `${translateValueByKey('未填写占比')}${val}%`;
-        }
-        case GroupStatisticsEnum.UNIQUE_PERCENT: {
+          computedValue = total > 0 ? formatRatio(notFilled / total) : 0;
+          break;
+        case GroupStatisticsEnum.UNIQUE_PERCENT:
           // 唯一值占比
-          const val = total > 0 ? formatRatio(uniqueCount / total) : 0;
-          return `${translateValueByKey('唯一值占比')}${val}%`;
-        }
+          computedValue = total > 0 ? formatRatio(uniqueCount / total) : 0;
+          break;
         case GroupStatisticsEnum.EARLIEST_TIME:
           // 最早时间
           if (values.length) {
-            const timestamps = values.map(normalizeDateTime);
-            return `${translateValueByKey('最早时间')}${dayjs(min(timestamps)).format(dateFormat.value)}`;
+            computedValue = dayjs(min(values.map(normalizeDateTime))).format(dateFormat.value);
           }
           break;
         case GroupStatisticsEnum.LATEST_TIME:
           if (values.length) {
-            const d = dayjs;
-            const timestamps = values.map((v) => d(v).valueOf());
-            return `${translateValueByKey('最晚时间')}${dayjs(max(timestamps)).format(dateFormat.value)}`;
+            computedValue = dayjs(max(values.map((v) => dayjs(v).valueOf()))).format(dateFormat.value);
           }
           break;
         case GroupStatisticsEnum.TIME_RANGE_DAY:
@@ -392,7 +392,7 @@ export default defineComponent({
             const timestamps = values.map(normalizeDateTime);
             const minDate = dayjs(min(timestamps));
             const maxDate = dayjs(max(timestamps));
-            return `${translateValueByKey('时间范围')} ${maxDate.diff(minDate, 'day')} ${translateValueByKey('天')}`;
+            computedValue = maxDate.diff(minDate, 'day');
           }
           break;
         case GroupStatisticsEnum.TIME_RANGE_MONTH:
@@ -400,7 +400,7 @@ export default defineComponent({
             const timestamps = values.map(normalizeDateTime);
             const minDate = dayjs(min(timestamps));
             const maxDate = dayjs(max(timestamps));
-            return `${translateValueByKey('时间范围')} ${maxDate.diff(minDate, 'month')} ${translateValueByKey('月')}`;
+            computedValue = maxDate.diff(minDate, 'month');
           }
           break;
         case GroupStatisticsEnum.TIME_RANGE_YEAR:
@@ -408,30 +408,94 @@ export default defineComponent({
             const timestamps = values.map(normalizeDateTime);
             const minDate = dayjs(min(timestamps));
             const maxDate = dayjs(max(timestamps));
-            return `${translateValueByKey('时间范围')} ${maxDate.diff(minDate, 'year')}  ${translateValueByKey('年')}`;
+            computedValue = maxDate.diff(minDate, 'year');
           }
           break;
         case GroupStatisticsEnum.SUM:
           // 求和
-          return `${translateValueByKey('求和')} ${sum(formatNumber(values))}`;
+          computedValue = sum(formatNumber(values));
+          break;
         case GroupStatisticsEnum.AVERAGE:
           // 平均值
-          return `${translateValueByKey('平均值')} ${formatMean(mean(formatNumber(values)))}`;
+          computedValue = formatMean(mean(formatNumber(values)));
+          break;
         case GroupStatisticsEnum.MEDIAN:
           // 中位数
-          return `${translateValueByKey('中位数')} ${median(formatNumber(values))}`;
+          computedValue = median(formatNumber(values));
+          break;
         case GroupStatisticsEnum.MAX:
           // 最大值
-          return `${translateValueByKey('最大值')} ${max(formatNumber(values))}`;
+          computedValue = max(formatNumber(values));
+          break;
         case GroupStatisticsEnum.MIN:
           // 最小值
-          return `${translateValueByKey('最小值')} ${min(formatNumber(values))}`;
+          computedValue = min(formatNumber(values));
+          break;
         case GroupStatisticsEnum.NONE:
         default:
           return translateValueByKey('统计');
       }
 
+      if (computedValue != null) {
+        return convertStatisticsValue(`${computedValue}`);
+      }
+
       return '';
+    };
+
+    const convertStatisticsValue = (value: string): string => {
+      switch (selectValue.value) {
+        case GroupStatisticsEnum.COUNT:
+          // 总数量
+          return `${value}${translateValueByKey('条记录')}`;
+        case GroupStatisticsEnum.NOT_NULL:
+          // 已填写
+          return `${translateValueByKey('已填写')} ${value}`;
+        case GroupStatisticsEnum.NULL:
+          // 未填写
+          return `${translateValueByKey('未填写')} ${value}`;
+        case GroupStatisticsEnum.UNIQUE:
+          // 唯一值
+          return `${translateValueByKey('唯一值')} ${value}`;
+        case GroupStatisticsEnum.NOT_NULL_PERCENT:
+          // 已填写占比
+          return `${translateValueByKey('已填写占比')}${value}%`;
+        case GroupStatisticsEnum.NULL_PERCENT:
+          // 未填写占比
+          return `${translateValueByKey('未填写占比')}${value}%`;
+        case GroupStatisticsEnum.UNIQUE_PERCENT:
+          // 唯一值占比
+          return `${translateValueByKey('唯一值占比')}${value}%`;
+        case GroupStatisticsEnum.EARLIEST_TIME:
+          // 最早时间
+          return `${translateValueByKey('最早时间')}${dayjs(normalizeDateTime(value)).format(dateFormat.value)}`;
+        case GroupStatisticsEnum.LATEST_TIME:
+          return `${translateValueByKey('最晚时间')}${dayjs(normalizeDateTime(value)).format(dateFormat.value)}`;
+        case GroupStatisticsEnum.TIME_RANGE_DAY:
+          return `${translateValueByKey('时间范围')} ${value} ${translateValueByKey('天')}`;
+        case GroupStatisticsEnum.TIME_RANGE_MONTH:
+          return `${translateValueByKey('时间范围')} ${value} ${translateValueByKey('月')}`;
+        case GroupStatisticsEnum.TIME_RANGE_YEAR:
+          return `${translateValueByKey('时间范围')} ${value}  ${translateValueByKey('年')}`;
+        case GroupStatisticsEnum.SUM:
+          // 求和
+          return `${translateValueByKey('求和')} ${value}`;
+        case GroupStatisticsEnum.AVERAGE:
+          // 平均值
+          return `${translateValueByKey('平均值')} ${value}`;
+        case GroupStatisticsEnum.MEDIAN:
+          // 中位数
+          return `${translateValueByKey('中位数')} ${value}`;
+        case GroupStatisticsEnum.MAX:
+          // 最大值
+          return `${translateValueByKey('最大值')} ${value}`;
+        case GroupStatisticsEnum.MIN:
+          // 最小值
+          return `${translateValueByKey('最小值')} ${value}`;
+        case GroupStatisticsEnum.NONE:
+        default:
+          return translateValueByKey('统计');
+      }
     };
 
     const onVisibleChange = (val: boolean) => {
@@ -462,7 +526,7 @@ export default defineComponent({
             if (firstValue == null) {
               statisticsValue.value = '';
             } else {
-              statisticsValue.value = `${firstValue}`;
+              statisticsValue.value = convertStatisticsValue(firstValue);
             }
           }
         }
