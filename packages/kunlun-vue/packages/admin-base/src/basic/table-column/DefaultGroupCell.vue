@@ -193,8 +193,8 @@ export default defineComponent({
       return TimeFormatMap.get(format);
     };
 
-    const formatNumber = (value: any[]) => {
-      const val = value.filter((v) => !isNaN(v));
+    const formatNumber = (values: string[]): number[] => {
+      const val = values.map((v) => Number(v)).filter((v) => !Number.isNaN(v));
 
       if (!val.length) {
         return [0];
@@ -382,13 +382,13 @@ export default defineComponent({
         }
         case GroupStatisticsEnum.NULL_PERCENT: {
           // 未填写占比
-          const val1 = total > 0 ? formatRatio(notFilled / total) : 0;
-          return `${translateValueByKey('未填写占比')}${val1}%`;
+          const val = total > 0 ? formatRatio(notFilled / total) : 0;
+          return `${translateValueByKey('未填写占比')}${val}%`;
         }
         case GroupStatisticsEnum.UNIQUE_PERCENT: {
           // 唯一值占比
-          const value = total > 0 ? formatRatio(uniqueCount / total) : 0;
-          return `${translateValueByKey('唯一值占比')}${value}%`;
+          const val = total > 0 ? formatRatio(uniqueCount / total) : 0;
+          return `${translateValueByKey('唯一值占比')}${val}%`;
         }
         case GroupStatisticsEnum.EARLIEST_TIME:
           // 最早时间
@@ -409,8 +409,7 @@ export default defineComponent({
             const timestamps = values.map(normalizeDateTime);
             const minDate = dayjs(min(timestamps));
             const maxDate = dayjs(max(timestamps));
-
-            return `${translateValueByKey('时间范围')}${maxDate.diff(minDate, 'day')}`;
+            return `${translateValueByKey('时间范围')} ${maxDate.diff(minDate, 'day')} ${translateValueByKey('天')}`;
           }
           break;
         case GroupStatisticsEnum.TIME_RANGE_MONTH:
@@ -418,8 +417,7 @@ export default defineComponent({
             const timestamps = values.map(normalizeDateTime);
             const minDate = dayjs(min(timestamps));
             const maxDate = dayjs(max(timestamps));
-
-            return `${translateValueByKey('时间范围')}${maxDate.diff(minDate, 'month')}`;
+            return `${translateValueByKey('时间范围')} ${maxDate.diff(minDate, 'month')} ${translateValueByKey('月')}`;
           }
           break;
         case GroupStatisticsEnum.TIME_RANGE_YEAR:
@@ -427,25 +425,24 @@ export default defineComponent({
             const timestamps = values.map(normalizeDateTime);
             const minDate = dayjs(min(timestamps));
             const maxDate = dayjs(max(timestamps));
-
-            return `${translateValueByKey('时间范围')}${maxDate.diff(minDate, 'year')}`;
+            return `${translateValueByKey('时间范围')} ${maxDate.diff(minDate, 'year')}  ${translateValueByKey('年')}`;
           }
           break;
         case GroupStatisticsEnum.SUM:
           // 求和
-          return sum(formatNumber(values));
+          return `${translateValueByKey('求和')} ${sum(formatNumber(values))}`;
         case GroupStatisticsEnum.AVERAGE:
           // 平均值
-          return formatMean(mean(formatNumber(values)));
+          return `${translateValueByKey('平均值')} ${formatMean(mean(formatNumber(values)))}`;
         case GroupStatisticsEnum.MEDIAN:
           // 中位数
-          return median(formatNumber(values));
+          return `${translateValueByKey('中位数')} ${median(formatNumber(values))}`;
         case GroupStatisticsEnum.MAX:
           // 最大值
-          return max(formatNumber(values));
+          return `${translateValueByKey('最大值')} ${max(formatNumber(values))}`;
         case GroupStatisticsEnum.MIN:
           // 最小值
-          return min(formatNumber(values));
+          return `${translateValueByKey('最小值')} ${min(formatNumber(values))}`;
         case GroupStatisticsEnum.NONE:
         default:
           return translateValueByKey('统计');
