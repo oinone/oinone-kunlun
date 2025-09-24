@@ -1,7 +1,7 @@
 import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { getCurrentThemeSize } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { NumberHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import {
   DEFAULT_CARD_GUTTERS,
@@ -28,7 +28,6 @@ export class GalleryWidget extends BaseElementListViewWidget {
   @Widget.Reactive()
   private get defaultGutter() {
     const size = getCurrentThemeSize();
-
     switch (size) {
       case 'large':
         return DEFAULT_GUTTERS;
@@ -45,30 +44,15 @@ export class GalleryWidget extends BaseElementListViewWidget {
     return this;
   }
 
-  @Widget.Method()
-  public get viewControlChildren(): DslDefinition[] {
-    const originalChildren = super.viewControlChildren;
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get sortable() {
+    return super.sortable;
+  }
 
-    const children = [
-      {
-        dslNodeType: DslDefinitionType.ELEMENT,
-        widget: 'UserPrefer',
-        subPath: 'user-prefer',
-        modalTitle: '字段设置',
-        widgets: []
-      }
-    ] as DslDefinition[];
-
-    if (this.switchCols) {
-      children.unshift({
-        dslNodeType: DslDefinitionType.ELEMENT,
-        widget: 'CardColControl',
-        subPath: 'card-col-control',
-        widgets: []
-      });
-    }
-
-    return [...originalChildren, ...children];
+  @Widget.Reactive()
+  protected get lineHeightAble() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().lineHeightAble)).orElse(true);
   }
 
   @Widget.Reactive()
@@ -139,6 +123,67 @@ export class GalleryWidget extends BaseElementListViewWidget {
       cardDslDefinition = cardDslDefinition.widgets?.[0];
     }
     return NumberHelper.toNumber(cardDslDefinition?.maxWidth);
+  }
+
+  /**
+   * 视图控制组，包含所有子组件
+   */
+  @Widget.Reactive()
+  protected get viewControlWidget(): DslDefinition | undefined {
+    if (!this.viewControlChildren.length) {
+      return undefined;
+    }
+    return {
+      dslNodeType: DslDefinitionType.ELEMENT,
+      widget: 'ViewControl',
+      widgets: this.viewControlChildren
+    };
+  }
+
+  @Widget.Reactive()
+  protected get viewControlChildren(): DslDefinition[] {
+    const controls: { enabled: boolean; widget: string; props?: Record<string, unknown> }[] = [
+      {
+        enabled: this.sortable,
+        widget: 'SortControl',
+        props: {
+          onSortChange: this.onSortChange.bind(this)
+        }
+      },
+      {
+        enabled: this.lineHeightAble,
+        widget: 'LineHeightControl',
+        props: {}
+      },
+      {
+        enabled: this.fullScreenAble,
+        widget: 'FullScreenControl',
+        props: {}
+      },
+      {
+        enabled: this.switchCols,
+        widget: 'CardColControl',
+        props: {
+          subPath: 'card-col-control'
+        }
+      },
+      {
+        enabled: true,
+        widget: 'UserPrefer',
+        props: {
+          subPath: 'user-prefer',
+          modalTitle: '字段设置'
+        }
+      }
+    ];
+    return controls
+      .filter(({ enabled }) => enabled)
+      .map(({ widget, props }) => ({
+        dslNodeType: DslDefinitionType.ELEMENT,
+        ...props,
+        widget,
+        widgets: []
+      }));
   }
 
   protected childrenInvisibleProcess(): boolean {

@@ -230,7 +230,7 @@ export class BaseTableWidget<
   /**
    * 视图控制组，包含所有子组件
    */
-  @Widget.Method()
+  @Widget.Reactive()
   protected get viewControlWidget(): DslDefinition | undefined {
     if (!this.viewControlChildren.length) {
       return undefined;
@@ -245,35 +245,28 @@ export class BaseTableWidget<
   /**
    * 视图控制相关的子组件, 可能包含（排序、分组、行高切换、全屏）
    */
-  @Widget.Method()
+  @Widget.Reactive()
   protected get viewControlChildren(): DslDefinition[] {
     const controls: { enabled: boolean; widget: string; props?: Record<string, unknown> }[] = [
       {
         enabled: this.sortable,
-        widget: 'SortControl',
-        props: {
-          onSortChange: this.onSortChange.bind(this)
-        }
+        widget: 'SortControl'
       },
       {
         enabled: this.groupable,
-        widget: 'GroupControl',
-        props: {}
+        widget: 'GroupControl'
       },
       {
         enabled: this.lineHeightAble,
-        widget: 'LineHeightControl',
-        props: {}
+        widget: 'LineHeightControl'
       },
       {
         enabled: this.fullScreenAble,
-        widget: 'FullScreenControl',
-        props: {}
+        widget: 'FullScreenControl'
       },
       {
         enabled: this.keyBoardAble,
-        widget: 'KeyboardShortcut',
-        props: {}
+        widget: 'KeyboardShortcut'
       }
     ];
     return controls
