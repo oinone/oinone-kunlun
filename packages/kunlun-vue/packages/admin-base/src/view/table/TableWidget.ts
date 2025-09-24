@@ -238,11 +238,16 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get allowChecked(): string | boolean | undefined {
-    return this.getDsl().allowChecked;
+    return BooleanHelper.toBoolean(this.getDsl().allowChecked);
   }
 
   @Widget.Method()
   protected checkMethod({ row }: { row: ActiveRecord }) {
+    if (this.enabledGroupView) {
+      if (!!row[GROUP_TREE_KEY.CHILDREN_KEY]) {
+        return false;
+      }
+    }
     const { allowChecked } = this;
     if (isNil(allowChecked)) {
       return true;
@@ -418,6 +423,31 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
         this.getTableInstance()?.refreshColumn();
       });
     }
+  }
+
+  @Widget.Reactive()
+  protected get allowExpand(): string | boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().allowExpand);
+  }
+
+  @Widget.Method()
+  protected expandMethod({ row }: { row: ActiveRecord }) {
+    if (this.enabledGroupView) {
+      if (!!row[GROUP_TREE_KEY.CHILDREN_KEY]) {
+        return false;
+      }
+    }
+    const { allowExpand } = this;
+    if (isNil(allowExpand)) {
+      return true;
+    }
+    if (isBoolean(allowExpand)) {
+      return allowExpand;
+    }
+    if (isString(allowExpand)) {
+      return this.executeExpression<boolean>(row, allowExpand, false);
+    }
+    return true;
   }
 
   @Widget.Method()

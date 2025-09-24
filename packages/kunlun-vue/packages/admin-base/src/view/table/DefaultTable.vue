@@ -1,6 +1,6 @@
 <script lang="ts">
 import { DslDefinition } from '@oinone/kunlun-dsl';
-import { ActiveRecord, ActiveRecords, Pagination, RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
+import { ActiveRecord, ActiveRecords, Pagination, translateValueByKey } from '@oinone/kunlun-engine';
 import { EDirection, ISort } from '@oinone/kunlun-service';
 import { ReturnPromise } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
@@ -270,9 +270,11 @@ export default defineComponent({
       type: Boolean,
       default: undefined
     },
+    expandMethod: {
+      type: Function
+    },
     onToggleRowExpand: {
-      type: Function,
-      default: () => () => {}
+      type: Function
     },
     onResizableChange: {
       type: Function
@@ -766,6 +768,7 @@ export default defineComponent({
       expandAccordion,
       expandAll,
       existExpandRow,
+      expandMethod,
       onToggleRowExpand,
       onResizableChange,
 
@@ -933,7 +936,7 @@ export default defineComponent({
       headerRowStyle,
       cellStyle,
       headerCellStyle,
-      expandConfig: { accordion: expandAccordion, expandAll },
+      expandConfig: { visibleMethod: expandMethod, accordion: expandAccordion, expandAll },
       editConfig: {
         trigger: editorTrigger,
         mode: editorMode,
