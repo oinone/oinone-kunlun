@@ -447,7 +447,7 @@ export default defineComponent({
       switch (selectValue.value) {
         case GroupStatisticsEnum.COUNT:
           // 总数量
-          return `${value}${translateValueByKey('条记录')}`;
+          return `${value} ${translateValueByKey('条记录')}`;
         case GroupStatisticsEnum.NOT_NULL:
           // 已填写
           return `${translateValueByKey('已填写')} ${value}`;
@@ -459,18 +459,18 @@ export default defineComponent({
           return `${translateValueByKey('唯一值')} ${value}`;
         case GroupStatisticsEnum.NOT_NULL_PERCENT:
           // 已填写占比
-          return `${translateValueByKey('已填写占比')}${value}%`;
+          return `${translateValueByKey('已填写占比')} ${value}%`;
         case GroupStatisticsEnum.NULL_PERCENT:
           // 未填写占比
-          return `${translateValueByKey('未填写占比')}${value}%`;
+          return `${translateValueByKey('未填写占比')} ${value}%`;
         case GroupStatisticsEnum.UNIQUE_PERCENT:
           // 唯一值占比
-          return `${translateValueByKey('唯一值占比')}${value}%`;
+          return `${translateValueByKey('唯一值占比')} ${value}%`;
         case GroupStatisticsEnum.EARLIEST_TIME:
           // 最早时间
-          return `${translateValueByKey('最早时间')}${dayjs(normalizeDateTime(value)).format(dateFormat.value)}`;
+          return `${translateValueByKey('最早时间')} ${dayjs(normalizeDateTime(value)).format(dateFormat.value)}`;
         case GroupStatisticsEnum.LATEST_TIME:
-          return `${translateValueByKey('最晚时间')}${dayjs(normalizeDateTime(value)).format(dateFormat.value)}`;
+          return `${translateValueByKey('最晚时间')} ${dayjs(normalizeDateTime(value)).format(dateFormat.value)}`;
         case GroupStatisticsEnum.TIME_RANGE_DAY:
           return `${translateValueByKey('时间范围')} ${value} ${translateValueByKey('天')}`;
         case GroupStatisticsEnum.TIME_RANGE_MONTH:
