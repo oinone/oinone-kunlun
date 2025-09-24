@@ -32,6 +32,7 @@
 <script lang="ts">
 import {
   ActiveRecord,
+  getRealTtype,
   IResourceDateTimeFormat,
   isDateField,
   isDateTimeField,
@@ -41,8 +42,10 @@ import {
   queryResourceDateTimeFormat,
   RuntimeModel,
   RuntimeModelField,
+  RuntimeRelationField,
   translateValueByKey
 } from '@oinone/kunlun-engine';
+import { isRelationTtype, isStringTtype } from '@oinone/kunlun-meta';
 import { GROUP_TREE_KEY, VxeTableRowContext } from '@oinone/kunlun-vue-ui';
 import {
   DateFormatMap,
@@ -57,9 +60,11 @@ import {
 } from '@oinone/kunlun-vue-ui-antd';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import dayjs from 'dayjs';
-import { isNil, max, mean, min, round, sortBy, sum, uniq } from 'lodash-es';
+import { max, mean, min, round, sortBy, sum, uniq } from 'lodash-es';
 import { computed, defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue';
 import { GroupStatisticsEnum } from '../../service';
+
+const EMPTY_VALUE = '__empty__';
 
 export default defineComponent({
   inheritAttrs: false,
@@ -69,13 +74,16 @@ export default defineComponent({
       type: Object as PropType<VxeTableRowContext>,
       default: () => ({})
     },
+    model: {
+      type: Object as PropType<RuntimeModel>,
+      default: () => ({})
+    },
     field: {
       type: Object as PropType<RuntimeModelField>,
       default: () => ({})
     },
-    model: {
-      type: Object as PropType<RuntimeModel>,
-      default: () => ({})
+    references: {
+      type: Object as PropType<RuntimeModel>
     },
     groupViewFooterExpandControl: {
       type: Boolean,
@@ -284,30 +292,92 @@ export default defineComponent({
 
       // 总数量
       const total = list.length;
+      const ttype = getRealTtype(props.field);
       // 值
-      const values = list.map((item) => item[props.field.name]).filter((v) => !isNil(v)) as any[];
-      // 已填写数量
-      const filled = list.filter((item) => !isNil(item[props.field.name])).length;
+      const values: string[] = [];
       // 未填写数量
-      const notFilled = total - filled;
-      //唯一值数量
+      let notFilled = 0;
+      for (const item of list) {
+        const value = item[props.field.name];
+        if (value == null) {
+          notFilled++;
+          continue;
+        }
+        if (isRelationTtype(ttype)) {
+          const pks = props.references?.pks || [];
+          if (pks.length >= 1) {
+            if (Array.isArray(value)) {
+              if (!value.length) {
+                notFilled++;
+                continue;
+              }
+              values.push(pks.map((pk) => value.map((v) => v[pk] || EMPTY_VALUE).join('_')).join('#'));
+            } else {
+              values.push(pks.map((pk) => value[pk] || EMPTY_VALUE).join('#'));
+            }
+          } else {
+            const referenceFields = (props.field as RuntimeRelationField).referenceFields || [];
+            if (referenceFields.length >= 1) {
+              if (Array.isArray(value)) {
+                if (!value.length) {
+                  notFilled++;
+                  continue;
+                }
+                values.push(
+                  referenceFields
+                    .map((referenceField) => value.map((v) => v[referenceField] || EMPTY_VALUE).join('_'))
+                    .join('#')
+                );
+              } else {
+                values.push(referenceFields.map((referenceField) => value[referenceField] || EMPTY_VALUE).join('#'));
+              }
+            }
+          }
+        } else if (isStringTtype(ttype)) {
+          if (Array.isArray(value)) {
+            if (!value.length) {
+              notFilled++;
+              continue;
+            }
+            values.push(value.join('#'));
+          } else {
+            if (!value) {
+              notFilled++;
+              continue;
+            }
+            values.push(value);
+          }
+        } else if (Array.isArray(value)) {
+          if (!value.length) {
+            notFilled++;
+            continue;
+          }
+          values.push(value.map((v) => `${v}`).join('#'));
+        } else {
+          values.push(`${value}`);
+        }
+      }
+      // 已填写数量
+      const filled = total - notFilled;
+      // 唯一值数量
       const uniqueCount = uniq(values).length;
 
       switch (selectValue.value) {
-        case GroupStatisticsEnum.COUNT: // 总数量
+        case GroupStatisticsEnum.COUNT:
+          // 总数量
           return `${total}${translateValueByKey('条记录')}`;
-        case GroupStatisticsEnum.NOT_NULL: // 已填写
+        case GroupStatisticsEnum.NOT_NULL:
+          // 已填写
           return `${translateValueByKey('已填写')}${filled}`;
-
-        case GroupStatisticsEnum.NULL: // 未填写
+        case GroupStatisticsEnum.NULL:
+          // 未填写
           return `${translateValueByKey('未填写')}${notFilled}`;
-
-        case GroupStatisticsEnum.UNIQUE: // 唯一值
+        case GroupStatisticsEnum.UNIQUE:
+          // 唯一值
           return `${translateValueByKey('唯一值')}${uniqueCount}`;
-
         case GroupStatisticsEnum.NOT_NULL_PERCENT: {
           // 已填写占比
-          const val = total > 0 ? formatRatio(filled / total) : 0;
+          const val = total > 0 ? formatRatio(notFilled / total) : 0;
           return `${translateValueByKey('已填写占比')}${val}%`;
         }
         case GroupStatisticsEnum.NULL_PERCENT: {
@@ -320,7 +390,8 @@ export default defineComponent({
           const value = total > 0 ? formatRatio(uniqueCount / total) : 0;
           return `${translateValueByKey('唯一值占比')}${value}%`;
         }
-        case GroupStatisticsEnum.EARLIEST_TIME: // 最早时间
+        case GroupStatisticsEnum.EARLIEST_TIME:
+          // 最早时间
           if (values.length) {
             const timestamps = values.map(normalizeDateTime);
             return `${translateValueByKey('最早时间')}${dayjs(min(timestamps)).format(dateFormat.value)}`;
@@ -360,15 +431,20 @@ export default defineComponent({
             return `${translateValueByKey('时间范围')}${maxDate.diff(minDate, 'year')}`;
           }
           break;
-        case GroupStatisticsEnum.SUM: // 求和
+        case GroupStatisticsEnum.SUM:
+          // 求和
           return sum(formatNumber(values));
-        case GroupStatisticsEnum.AVERAGE: // 平均值
+        case GroupStatisticsEnum.AVERAGE:
+          // 平均值
           return formatMean(mean(formatNumber(values)));
-        case GroupStatisticsEnum.MEDIAN: // 中位数
+        case GroupStatisticsEnum.MEDIAN:
+          // 中位数
           return median(formatNumber(values));
-        case GroupStatisticsEnum.MAX: // 最大值
+        case GroupStatisticsEnum.MAX:
+          // 最大值
           return max(formatNumber(values));
-        case GroupStatisticsEnum.MIN: // 最小值
+        case GroupStatisticsEnum.MIN:
+          // 最小值
           return min(formatNumber(values));
         case GroupStatisticsEnum.NONE:
         default:
