@@ -294,7 +294,7 @@ export default defineComponent({
               }
               values.push(pks.map((pk) => value.map((v) => v[pk] || EMPTY_VALUE).join('_')).join('#'));
             } else {
-              values.push(pks.map((pk) => value[pk] || EMPTY_VALUE).join('#'));
+              values.push(pks.map((pk) => (value as object)[pk] || EMPTY_VALUE).join('#'));
             }
           } else {
             const referenceFields = (props.field as RuntimeRelationField).referenceFields || [];
@@ -310,7 +310,9 @@ export default defineComponent({
                     .join('#')
                 );
               } else {
-                values.push(referenceFields.map((referenceField) => value[referenceField] || EMPTY_VALUE).join('#'));
+                values.push(
+                  referenceFields.map((referenceField) => (value as object)[referenceField] || EMPTY_VALUE).join('#')
+                );
               }
             }
           }
@@ -326,7 +328,7 @@ export default defineComponent({
               notFilled++;
               continue;
             }
-            values.push(value);
+            values.push(value as string);
           }
         } else if (Array.isArray(value)) {
           if (!value.length) {
