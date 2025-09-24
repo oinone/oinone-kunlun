@@ -33,7 +33,6 @@ export interface QueryGroupsValue {
   isLeaf: boolean;
   field: string;
   dataCount: number;
-  dataStatisticStr?: string;
   dataListStr?: string;
   valueStr?: string;
   groups?: QueryGroupsValue[];

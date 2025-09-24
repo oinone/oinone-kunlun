@@ -155,7 +155,6 @@ function generateGroupsString(level: number) {
           isLeaf
           field
           dataCount
-          dataStatisticStr
           valueStr
           dataListStr`;
 
