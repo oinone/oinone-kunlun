@@ -1,6 +1,4 @@
-import { isNil } from 'lodash-es';
-import { SPI } from '@oinone/kunlun-spi';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { DslDefinition } from '@oinone/kunlun-dsl';
 import {
   isEnumerationField,
   isRelation2MField,
@@ -11,16 +9,18 @@ import {
   RuntimeRelationField
 } from '@oinone/kunlun-engine';
 import { deepClone, Entity, IModelField, isEmptyValue, ModelFieldType, SYSTEM_MODULE } from '@oinone/kunlun-meta';
+import { buildSingleItemParam, http } from '@oinone/kunlun-service';
+import { SPI } from '@oinone/kunlun-spi';
 import { autoFillByLabel, autoFillByLabelFields } from '@oinone/kunlun-vue-admin-layout';
 import { TableEditorMode } from '@oinone/kunlun-vue-ui';
 import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { isNil } from 'lodash-es';
 import { BaseElementWidget, FormFieldWidget } from '../../basic';
-import QuickFill from './QuickFill.vue';
 import { ValidatorStatus } from '../../typing';
 import { TableWidget } from '../table/TableWidget';
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { buildSingleItemParam, http } from '@oinone/kunlun-service';
 import { fullAddressField } from './fulladdress-field';
+import QuickFill from './QuickFill.vue';
 
 type MayBeEmptyString = string | null | undefined;
 
@@ -62,6 +62,10 @@ export class QuickFillWidget extends BaseElementWidget {
   @Widget.Reactive()
   protected get gotoO2MQuickFilling() {
     return false;
+  }
+
+  protected get modelFields() {
+    return this.metadataRuntimeContext.model.modelFields;
   }
 
   protected get addressFieldIndex() {
