@@ -38,7 +38,7 @@ import { VxeTableDefines } from 'vxe-table';
 import { ActionWidget } from '../../action/component/action';
 import { BaseElementListViewWidgetProps, BaseElementWidget, BaseTableColumnWidget, BaseTableWidget } from '../../basic';
 import { ExpandColumnWidgetNames } from '../../field';
-import { fetchGroupData, fetchGroupPage } from '../../service';
+import { fetchGroupData, fetchGroupPage, fetchGroupStatistic, GroupStatisticsEnum } from '../../service';
 import {
   ActionKeyboardConfig,
   ActiveCountEnum,
@@ -1125,6 +1125,30 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     if (path?.length) {
       const result = await fetchGroupData({
         expandGroupPaths: [{ nodeList: path.map((v) => v[GROUP_TREE_KEY.PROPS_KEY]) }],
+        ...this.generatorGroupQueryCondition()
+      });
+
+      return JSON.parse(result.expandGroupDataStr?.[0] || '[]');
+    }
+    return [];
+  }
+
+  @Widget.Provide()
+  @Widget.Method()
+  protected async loadGroupStatistics(
+    row: ActiveRecord,
+    field: RuntimeModelField,
+    groupStatistics: GroupStatisticsEnum
+  ) {
+    const path = this.findGroupTreePath(this.dataSource, row);
+    if (path?.length) {
+      const result = await fetchGroupStatistic({
+        expandGroupPaths: [
+          {
+            nodeList: path.map((v) => v[GROUP_TREE_KEY.PROPS_KEY]),
+            statisticFieldMap: { [field.data]: groupStatistics }
+          }
+        ],
         ...this.generatorGroupQueryCondition()
       });
 

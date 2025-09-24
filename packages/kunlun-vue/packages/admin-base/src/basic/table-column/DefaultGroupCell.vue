@@ -13,7 +13,7 @@
         :class="[selectValue === GroupStatisticsEnum.NONE && 'default-group-cell-content-hide']"
       >
         <div class="default-group-cell-stander">
-          {{ placeholder }}
+          {{ statisticsValue }}
           <oio-icon icon="oinone-caret-down-filled"></oio-icon>
         </div>
       </div>
@@ -61,7 +61,7 @@ import {
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import dayjs from 'dayjs';
 import { max, mean, min, round, sortBy, sum, uniq } from 'lodash-es';
-import { computed, defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, nextTick, onMounted, PropType, ref } from 'vue';
 import { GroupStatisticsEnum } from '../../service';
 
 const EMPTY_VALUE = '__empty__';
@@ -82,15 +82,10 @@ export default defineComponent({
       type: Object as PropType<RuntimeModelField>,
       default: () => ({})
     },
-    references: {
-      type: Object as PropType<RuntimeModel>
-    },
-    groupViewFooterExpandControl: {
-      type: Boolean,
-      default: true
-    },
-    loadGroupData: {
-      type: Function as PropType<(row: ActiveRecord) => Promise<ActiveRecord[]>>
+    loadGroupStatistics: {
+      type: Function as PropType<
+        (row: ActiveRecord, field: RuntimeModelField, groupStatistics: GroupStatisticsEnum) => Promise<string[]>
+      >
     }
   },
   components: {
@@ -100,9 +95,6 @@ export default defineComponent({
     AMenuItem
   },
   setup(props) {
-    // 后端返回的分组对应的数据源(懒加载的时候才会有)
-    const backendGroupSource = ref();
-
     const dropdownOptions = computed(() => {
       const defaultOptions = [
         { displayName: translateValueByKey('不展示'), value: GroupStatisticsEnum.NONE },
@@ -276,20 +268,9 @@ export default defineComponent({
       return _list;
     };
 
-    const placeholder = computed(() => {
-      // 如果是懒加载 & 接口还没返回数据 & 占位符不为空，则不展示
-      if (
-        !props.groupViewFooterExpandControl &&
-        !backendGroupSource.value &&
-        selectValue.value !== GroupStatisticsEnum.NONE
-      ) {
-        return;
-      }
+    const statisticsValue = ref('');
 
-      const list = backendGroupSource.value
-        ? backendGroupSource.value
-        : getDataList(props.context.data[GROUP_TREE_KEY.CHILDREN_KEY] as ActiveRecord[]);
-
+    const computeStatisticsValue = (list: ActiveRecord[]) => {
       // 总数量
       const total = list.length;
       const ttype = getRealTtype(props.field);
@@ -304,7 +285,7 @@ export default defineComponent({
           continue;
         }
         if (isRelationTtype(ttype)) {
-          const pks = props.references?.pks || [];
+          const pks = (props.field as RuntimeRelationField).referencesModel.pks || [];
           if (pks.length >= 1) {
             if (Array.isArray(value)) {
               if (!value.length) {
@@ -449,7 +430,7 @@ export default defineComponent({
       }
 
       return '';
-    });
+    };
 
     const onVisibleChange = (val: boolean) => {
       const rect = groupCellRef.value?.getBoundingClientRect() || { bottom: 0 };
@@ -466,27 +447,29 @@ export default defineComponent({
     };
 
     const onChangeValue = (val: GroupStatisticsEnum) => {
-      selectValue.value = val;
       visible.value = false;
+      nextTick(async () => {
+        selectValue.value = val;
+        const list = props.context.data[GROUP_TREE_KEY.CHILDREN_KEY] as ActiveRecord[];
+        if (list?.length && !list[0][GROUP_TREE_KEY.PROPS_KEY]) {
+          statisticsValue.value = computeStatisticsValue(list);
+        } else {
+          const result = await props.loadGroupStatistics?.(props.context.data, props.field, val);
+          if (result) {
+            const firstValue = result[0];
+            if (firstValue == null) {
+              statisticsValue.value = '';
+            } else {
+              statisticsValue.value = `${firstValue}`;
+            }
+          }
+        }
+      });
     };
 
     const getPopupContainer = (target: HTMLElement) => {
       return document.body;
     };
-
-    watch(
-      () => selectValue.value,
-      async (val) => {
-        // 分组一次性全部展开
-        if (props.groupViewFooterExpandControl) {
-          return;
-        }
-
-        const result = await props.loadGroupData?.(props.context.data);
-
-        backendGroupSource.value = result;
-      }
-    );
 
     onMounted(async () => {
       await nextTick();
@@ -496,7 +479,7 @@ export default defineComponent({
     return {
       dropdownOptions,
       placement,
-      placeholder,
+      statisticsValue,
       groupCellRef,
       visible,
       selectValue,

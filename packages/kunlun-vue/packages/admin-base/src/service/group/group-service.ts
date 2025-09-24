@@ -1,7 +1,7 @@
 import { QueryGroupResult } from '@oinone/kunlun-engine';
 import { IModelField, ModelFieldType, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { ObjectValue, RequestContext } from '@oinone/kunlun-request';
-import { buildSingleItemParam, EDirection, http, ISort } from '@oinone/kunlun-service';
+import { buildSingleItemParam, EDirection, http } from '@oinone/kunlun-service';
 
 export enum GroupStatisticsEnum {
   NONE = 'NONE', // 不展示
@@ -71,6 +71,10 @@ const groupModelFields = [
           { name: 'field', ttype: ModelFieldType.String },
           { name: 'valueStr', ttype: ModelFieldType.String }
         ]
+      },
+      {
+        name: 'statisticFieldMap',
+        ttype: ModelFieldType.Map
       }
     ]
   },
@@ -196,17 +200,34 @@ export const fetchGroupPage = async (options: GroupParams) => {
   return result.data.groupingQuery.fetchGroupPage;
 };
 
-const groupDataMap = new Map();
+/**
+ * 查询分组节点下所有的数据源(懒加载)
+ */
+export const fetchGroupStatistic = async (options: Partial<GroupParams>): Promise<{ expandGroupDataStr: string[] }> => {
+  const groupStr = await buildSingleItemParam(groupModelFields, options);
+  const gql = `{
+    groupingQuery {
+      fetchGroupStatistic(
+        group: ${groupStr}
+      ) {
+        expandGroupDataStr
+      }
+    }
+  }`;
+
+  const result = await http.query<{ expandGroupDataStr: string[] }>(
+    SYSTEM_MODULE_NAME.BASE,
+    gql,
+    options.variables,
+    options.context
+  );
+  return result.data.groupingQuery.fetchGroupStatistic;
+};
 
 /**
  * 查询分组节点下所有的数据源(懒加载)
  */
 export const fetchGroupData = async (options: Partial<GroupParams>): Promise<{ expandGroupDataStr: string[] }> => {
-  const optStr = JSON.stringify(options);
-  if (groupDataMap.has(optStr)) {
-    return groupDataMap.get(optStr);
-  }
-
   const groupStr = await buildSingleItemParam(groupModelFields, options);
   const gql = `{
     groupingQuery {
@@ -224,8 +245,5 @@ export const fetchGroupData = async (options: Partial<GroupParams>): Promise<{ e
     options.variables,
     options.context
   );
-
-  groupDataMap.set(optStr, result.data.groupingQuery.fetchGroupData);
-
-  return groupDataMap.get(optStr);
+  return result.data.groupingQuery.fetchGroupData;
 };

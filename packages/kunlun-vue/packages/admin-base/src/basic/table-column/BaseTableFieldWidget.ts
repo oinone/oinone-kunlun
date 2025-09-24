@@ -12,6 +12,7 @@ import { createVNode, VNode, withModifiers } from 'vue';
 import type { VxeTableDefines } from 'vxe-table';
 import type { RowActionBarWidget } from '../../action/component/action-bar/RowActionBarWidget';
 import { ActionWidget } from '../../action/component/action/ActionWidget';
+import { GroupStatisticsEnum } from '../../service';
 import { EditorField } from '../../tags/internal';
 import { UserTablePrefer } from '../../typing';
 import { getTableColumnFixed, getTableColumnWidth } from '../../util';
@@ -103,24 +104,6 @@ export class BaseTableFieldWidget<
   @Widget.Reactive()
   @Widget.Inject()
   protected expandOperationField: string | undefined;
-
-  /**
-   * 加载分组某个节点的数据源
-   *
-   * @see @link {TableWidget}
-   */
-  @Widget.Method()
-  @Widget.Inject()
-  protected loadGroupData!: (row: ActiveRecord) => ActiveRecord[];
-
-  /**
-   * 支持展开全部
-   *
-   * @see @link {BaseElementListViewWidget}
-   */
-  @Widget.Reactive()
-  @Widget.Inject()
-  protected groupViewFooterExpandControl!: boolean;
 
   @Widget.Reactive()
   public get isExpandOperationField(): boolean {
@@ -650,22 +633,6 @@ export class BaseTableFieldWidget<
     }
   }
 
-  /**
-   * 渲染分组展开行的单元格
-   */
-  @Widget.Method()
-  protected renderGroupCellSlot(context: RowContext) {
-    return [
-      createVNode(DefaultGroupCell, {
-        context,
-        field: this.field,
-        model: this.model,
-        groupViewFooterExpandControl: this.groupViewFooterExpandControl,
-        loadGroupData: this.loadGroupData
-      })
-    ];
-  }
-
   @Widget.Method()
   protected wrapperToFieldAction(node: VNode[] | string, context: RowContext) {
     return this.wrapperToFiledAction(node, context);
@@ -699,4 +666,35 @@ export class BaseTableFieldWidget<
   public renderDefaultSlot(context: RowContext): VNode[] | string {
     return toString(this.compute(context));
   }
+
+  // region 分组统计
+
+  /**
+   *
+   * @see {@link TableWidget#loadGroupStatistics}
+   */
+  @Widget.Method()
+  @Widget.Inject()
+  protected loadGroupStatistics!: (
+    row: ActiveRecord,
+    field: RuntimeModelField,
+    groupStatistics: GroupStatisticsEnum
+  ) => ActiveRecord[];
+
+  /**
+   * 渲染分组展开行的单元格
+   */
+  @Widget.Method()
+  protected renderGroupCellSlot(context: RowContext) {
+    return [
+      createVNode(DefaultGroupCell, {
+        context,
+        model: this.model,
+        field: this.field,
+        loadGroupStatistics: this.loadGroupStatistics
+      })
+    ];
+  }
+
+  // endregion
 }
