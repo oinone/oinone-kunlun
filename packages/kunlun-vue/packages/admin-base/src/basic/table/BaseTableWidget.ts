@@ -823,16 +823,17 @@ export class BaseTableWidget<
    * 分组视图底部展示「展开全部」操作
    */
   @Widget.Reactive()
-  @Widget.Provide()
   protected get groupViewFooterExpandControl() {
-    return this.groupTotalDataCount <= 300 || this.showPagination;
+    if (this.enabledGroupView) {
+      return this.groupTotalDataCount <= 300;
+    }
+    return false;
   }
 
   /**
    * 分组视图底部展示「收起全部」操作
    */
   @Widget.Reactive()
-  @Widget.Provide()
   protected get groupViewFooterFoldControl() {
     return true;
   }
