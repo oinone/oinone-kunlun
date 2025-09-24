@@ -20,7 +20,7 @@ export class GroupControlWidget extends BaseElementWidget {
 
   /**
    * 分组数据
-   * @see {@link BaseElementListViewWidget}
+   * @see {@link BaseTableWidget#groupList}
    */
   @Widget.Reactive()
   @Widget.Inject('groupList')
@@ -34,7 +34,7 @@ export class GroupControlWidget extends BaseElementWidget {
 
   /**
    * 修改分组
-   * @see {@link BaseElementListViewWidget#onGroupChange}
+   * @see {@link BaseTableWidget#onGroupChange}
    */
   @Widget.Method()
   @Widget.Inject()

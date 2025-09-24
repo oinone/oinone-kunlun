@@ -30,7 +30,7 @@ import {
   TableEditorTrigger,
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
-import { StyleHelper } from '@oinone/kunlun-vue-ui-antd';
+import { EmptyStyle, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { delay, find, isBoolean, isNaN, isNil, isNumber, isPlainObject, isString, toNumber, toString } from 'lodash-es';
 import { nextTick } from 'vue';
@@ -1177,7 +1177,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   protected convertGroupDisplayValue(field: string, valueStr: string | undefined): string {
     if (!valueStr) {
-      return field;
+      return this.groupTitleEmptyStyle;
     }
     const modelField = this.model.modelFields.find((v) => v.data === field);
     if (!modelField) {
@@ -1190,6 +1190,11 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       }
     }
     return valueStr;
+  }
+
+  @Widget.Reactive()
+  protected get groupTitleEmptyStyle() {
+    return this.getDsl().groupTitleEmptyStyle || EmptyStyle.empty;
   }
 
   public async fetchData(condition?: Condition): Promise<ActiveRecord[]> {
