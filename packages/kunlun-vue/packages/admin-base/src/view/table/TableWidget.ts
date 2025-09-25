@@ -173,7 +173,15 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get enableSequence(): boolean {
-    return Optional.ofNullable(this.getDsl().enableSequence).map(BooleanHelper.toBoolean).orElse(false)!;
+    return Optional.ofNullable(this.getDsl().enableSequence).map(BooleanHelper.toBoolean).orElse(this.defaultEnableSequence);
+  }
+
+  protected get defaultEnableSequence() {
+    const { enableSequence } = this.tableConfig;
+    if (enableSequence == null) {
+      return false;
+    }
+    return enableSequence;
   }
 
   @Widget.Reactive()

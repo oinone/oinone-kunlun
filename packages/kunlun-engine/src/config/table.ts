@@ -21,6 +21,10 @@ export interface TableConfig extends RuntimeConfigOptions {
   /**
    * 排序
    */
+  enableSequence?: boolean;
+  /**
+   * 排序
+   */
   sortable?: boolean;
   /**
    * 分组
