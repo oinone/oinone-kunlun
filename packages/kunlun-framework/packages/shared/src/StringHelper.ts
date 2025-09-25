@@ -114,9 +114,9 @@ export class StringHelper {
   public static convertArray<T extends string | string[] | null | undefined>(
     val: GenericType<T>,
     separator?: string | RegExp
-  ): GenericReturnType<T, string[]> {
+  ): GenericReturnType<string | string[] | undefined, string[]> {
     if (Array.isArray(val)) {
-      return val.filter((v) => !!v).map((v) => v.trim()) as GenericReturnType<T, string[]>;
+      return val.filter((v) => !!v).map((v) => v.trim()) as GenericReturnType<string | string[] | undefined, string[]>;
     }
     if (isString(val)) {
       if (!separator) {
@@ -125,9 +125,9 @@ export class StringHelper {
       return val
         .split(separator)
         .filter((v) => !!v)
-        .map((v) => v.trim()) as GenericReturnType<T, string[]>;
+        .map((v) => v.trim()) as GenericReturnType<string | string[] | undefined, string[]>;
     }
-    return undefined as GenericReturnType<T, string[]>;
+    return undefined as GenericReturnType<string | string[] | undefined, string[]>;
   }
 
   public static getOrDefault(s: string | null | undefined, defaultValue: string): string {
