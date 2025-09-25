@@ -1,6 +1,6 @@
 import { isString, sampleSize } from 'lodash-es';
 import { Consumer } from './LambdaFunction';
-import { GenericReturnType, GenericType } from './typing';
+import { GenericReturnTypeNotNull, GenericType } from './typing';
 
 export class StringHelper {
   public static ARRAY_DEFAULT_SEPARATOR = ',';
@@ -114,9 +114,9 @@ export class StringHelper {
   public static convertArray<T extends string | string[] | null | undefined>(
     val: GenericType<T>,
     separator?: string | RegExp
-  ): GenericReturnType<string | string[] | undefined, string[]> {
+  ): GenericReturnTypeNotNull<T, string[]> {
     if (Array.isArray(val)) {
-      return val.filter((v) => !!v).map((v) => v.trim()) as GenericReturnType<string | string[] | undefined, string[]>;
+      return val.filter((v) => !!v).map((v) => v.trim()) as GenericReturnTypeNotNull<T, string[]>;
     }
     if (isString(val)) {
       if (!separator) {
@@ -125,9 +125,9 @@ export class StringHelper {
       return val
         .split(separator)
         .filter((v) => !!v)
-        .map((v) => v.trim()) as GenericReturnType<string | string[] | undefined, string[]>;
+        .map((v) => v.trim()) as GenericReturnTypeNotNull<T, string[]>;
     }
-    return undefined as GenericReturnType<string | string[] | undefined, string[]>;
+    return undefined as GenericReturnTypeNotNull<T, string[]>;
   }
 
   public static getOrDefault(s: string | null | undefined, defaultValue: string): string {

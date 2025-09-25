@@ -32,6 +32,11 @@ export type GenericType<T> = T extends null ? null : T extends undefined ? undef
 export type GenericReturnType<T, R> = T extends null ? null : T extends undefined ? undefined : R;
 
 /**
+ * 泛化返回类型
+ */
+export type GenericReturnTypeNotNull<T, R> = T extends null | undefined ? undefined : R;
+
+/**
  * 标准字符串
  */
 export type StandardString = string | null | undefined;
