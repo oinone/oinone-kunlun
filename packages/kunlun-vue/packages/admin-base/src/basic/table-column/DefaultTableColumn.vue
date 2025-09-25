@@ -118,6 +118,10 @@ export default defineComponent({
       return props.wrapperToFieldAction?.(vNodes, context);
     };
 
+    const renderContentSlot = (context: VxeTableRowContext) => {
+      return props.renderContentSlot?.(context);
+    };
+
     onMounted(() => {
       props.setTableInstance?.(table);
     });
@@ -125,7 +129,8 @@ export default defineComponent({
     return {
       fixed,
       defaultRenderHeaderSlot,
-      renderDefaultSlot
+      renderDefaultSlot,
+      renderContentSlot
     };
   },
   render() {

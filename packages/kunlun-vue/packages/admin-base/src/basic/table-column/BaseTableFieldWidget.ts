@@ -224,9 +224,6 @@ export class BaseTableFieldWidget<
 
   @Widget.Reactive()
   public get enableGrouping(): boolean {
-    if (this.isExpandOperationField) {
-      return false;
-    }
     const enableGrouping = BooleanHelper.toBoolean(this.getDsl().enableGrouping);
     if (enableGrouping == null) {
       if (!this.tableEnableGrouping) {

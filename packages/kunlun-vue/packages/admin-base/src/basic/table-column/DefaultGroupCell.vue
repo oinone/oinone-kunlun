@@ -13,7 +13,9 @@
         :class="[selectValue === GroupStatisticsEnum.NONE && 'default-group-cell-content-hide']"
       >
         <div class="default-group-cell-stander">
-          {{ statisticsValue }}
+          <oio-spin :loading="state.loading" size="small">
+            {{ statisticsValue }}
+          </oio-spin>
           <oio-icon icon="oinone-caret-down-filled"></oio-icon>
         </div>
       </div>
@@ -46,7 +48,7 @@ import {
   RuntimeRelationField,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { isRelationTtype, isStringTtype } from '@oinone/kunlun-meta';
+import { isEnumTtype, isNumberTtype, isRelationTtype, isStringTtype } from '@oinone/kunlun-meta';
 import { GROUP_TREE_KEY, VxeTableRowContext } from '@oinone/kunlun-vue-ui';
 import {
   DateFormatMap,
@@ -57,12 +59,13 @@ import {
   defaultTimeFormatKey,
   ObjectUtils,
   OioIcon,
+  OioSpin,
   TimeFormatMap
 } from '@oinone/kunlun-vue-ui-antd';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import dayjs from 'dayjs';
 import { max, mean, min, round, sortBy, sum, uniq } from 'lodash-es';
-import { computed, defineComponent, nextTick, onMounted, PropType, ref } from 'vue';
+import { computed, defineComponent, nextTick, onMounted, PropType, reactive, ref } from 'vue';
 import { GroupStatisticsEnum } from '../../service';
 
 const EMPTY_VALUE = '__empty__';
@@ -91,11 +94,16 @@ export default defineComponent({
   },
   components: {
     OioIcon,
+    OioSpin,
     ADropdown,
     AMenu,
     AMenuItem
   },
   setup(props) {
+    const state = reactive({
+      loading: false
+    });
+
     const dropdownOptions = computed(() => {
       const defaultOptions = [
         { displayName: translateValueByKey('不展示'), value: GroupStatisticsEnum.NONE },
@@ -351,6 +359,20 @@ export default defineComponent({
             }
             values.push(value as string);
           }
+        } else if (isNumberTtype(ttype)) {
+          if (Array.isArray(value)) {
+            if (!value.length) {
+              notFilled++;
+              continue;
+            }
+            values.push(...value.map((v) => `${value}`));
+          } else {
+            if (!value) {
+              notFilled++;
+              continue;
+            }
+            values.push(`${value}`);
+          }
         } else if (Array.isArray(value)) {
           if (!value.length) {
             notFilled++;
@@ -432,11 +454,10 @@ export default defineComponent({
             computedValue = maxDate.diff(minDate, 'year');
           }
           break;
-        case GroupStatisticsEnum.SUM: {
+        case GroupStatisticsEnum.SUM:
           // 求和
           computedValue = numberRound(sum(formatNumber(values)));
           break;
-        }
         case GroupStatisticsEnum.AVERAGE:
           // 平均值
           computedValue = formatMean(mean(formatNumber(values)));
@@ -539,17 +560,28 @@ export default defineComponent({
       nextTick(async () => {
         selectValue.value = val;
         const list = props.context.data[GROUP_TREE_KEY.CHILDREN_KEY] as ActiveRecord[];
-        if (list?.length && !list[0][GROUP_TREE_KEY.PROPS_KEY]) {
+        let usingFrontStatistics: boolean;
+        if (isEnumTtype(getRealTtype(props.field))) {
+          usingFrontStatistics = false;
+        } else {
+          usingFrontStatistics = !!list?.length && !list[0][GROUP_TREE_KEY.PROPS_KEY];
+        }
+        if (usingFrontStatistics) {
           statisticsValue.value = computeStatisticsValue(list);
         } else {
-          const result = await props.loadGroupStatistics?.(props.context.data, props.field, val);
-          if (result) {
-            const firstValue = result[props.field.data];
-            if (firstValue == null) {
-              statisticsValue.value = '';
-            } else {
-              statisticsValue.value = convertStatisticsValue(`${firstValue}`);
+          try {
+            state.loading = true;
+            const result = await props.loadGroupStatistics?.(props.context.data, props.field, val);
+            if (result) {
+              const firstValue = result[props.field.data];
+              if (firstValue == null) {
+                statisticsValue.value = '';
+              } else {
+                statisticsValue.value = convertStatisticsValue(`${firstValue}`);
+              }
             }
+          } finally {
+            state.loading = false;
           }
         }
       });
@@ -565,6 +597,7 @@ export default defineComponent({
     });
 
     return {
+      state,
       dropdownOptions,
       placement,
       statisticsValue,
@@ -650,6 +683,12 @@ export default defineComponent({
     display: flex;
     align-items: center;
     column-gap: 5px;
+
+    .oio-spin,
+    .oio-spin-loading {
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 </style>
