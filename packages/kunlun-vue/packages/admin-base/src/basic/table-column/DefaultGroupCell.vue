@@ -42,6 +42,7 @@ import {
   queryResourceDateTimeFormat,
   RuntimeModel,
   RuntimeModelField,
+  RuntimeNumberField,
   RuntimeRelationField,
   translateValueByKey
 } from '@oinone/kunlun-engine';
@@ -153,14 +154,31 @@ export default defineComponent({
 
     // 中位数
     const median = (arr: number[]): number => {
-      if (!arr.length) return 0;
+      if (!arr.length) {
+        return 0;
+      }
       // 从小到大排序
       const sorted = sortBy(arr);
       // 中间的数
       const mid = Math.floor(sorted.length / 2);
       // 如果数量是 奇数，中位数就是正中间的那个数
       // 如果数量是 偶数，中位数就是中间两个数的平均值
-      return sorted.length % 2 !== 0 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+      if (sorted.length % 2 !== 0) {
+        return sorted[mid];
+      }
+      return formatMean((sorted[mid - 1] + sorted[mid]) / 2);
+    };
+
+    const numberRound = (computedValue: number) => {
+      let { decimal } = props.field as RuntimeNumberField;
+      if (decimal == null) {
+        decimal = 0;
+      }
+      decimal = Number(decimal);
+      if (Number.isNaN(decimal)) {
+        decimal = 0;
+      }
+      return round(computedValue, decimal);
     };
 
     // 比例（保留一位小数）
@@ -414,10 +432,11 @@ export default defineComponent({
             computedValue = maxDate.diff(minDate, 'year');
           }
           break;
-        case GroupStatisticsEnum.SUM:
+        case GroupStatisticsEnum.SUM: {
           // 求和
-          computedValue = sum(formatNumber(values));
+          computedValue = numberRound(sum(formatNumber(values)));
           break;
+        }
         case GroupStatisticsEnum.AVERAGE:
           // 平均值
           computedValue = formatMean(mean(formatNumber(values)));
