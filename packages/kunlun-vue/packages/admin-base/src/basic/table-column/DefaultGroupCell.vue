@@ -48,7 +48,7 @@ import {
   RuntimeRelationField,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { isEnumTtype, isNumberTtype, isRelationTtype, isStringTtype } from '@oinone/kunlun-meta';
+import { isEnumTtype, isRelationTtype, isStringTtype } from '@oinone/kunlun-meta';
 import { GROUP_TREE_KEY, VxeTableRowContext } from '@oinone/kunlun-vue-ui';
 import {
   DateFormatMap,
@@ -64,7 +64,7 @@ import {
 } from '@oinone/kunlun-vue-ui-antd';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import dayjs from 'dayjs';
-import { max, mean, min, round, sortBy, sum, uniq } from 'lodash-es';
+import { max, min, round, sortBy, sum, uniq } from 'lodash-es';
 import { computed, defineComponent, nextTick, onMounted, PropType, reactive, ref } from 'vue';
 import { GroupStatisticsEnum } from '../../service';
 
@@ -117,10 +117,11 @@ export default defineComponent({
       ];
 
       if (
-        isDateTimeField(props.field) ||
-        isDateField(props.field) ||
-        isTimeField(props.field) ||
-        isYearField(props.field)
+        (isDateTimeField(props.field) ||
+          isDateField(props.field) ||
+          isTimeField(props.field) ||
+          isYearField(props.field)) &&
+        !props.field.multi
       ) {
         const timeIOptions = [
           {
@@ -132,11 +133,10 @@ export default defineComponent({
           { displayName: translateValueByKey('时间范围(月)'), value: GroupStatisticsEnum.TIME_RANGE_MONTH },
           { displayName: translateValueByKey('时间范围(年)'), value: GroupStatisticsEnum.TIME_RANGE_YEAR }
         ];
-
         defaultOptions.push(...timeIOptions);
       }
 
-      if (isNumberField(props.field)) {
+      if (isNumberField(props.field) && !props.field.multi) {
         const timeIOptions = [
           {
             displayName: translateValueByKey('求和'),
@@ -321,7 +321,7 @@ export default defineComponent({
                 notFilled++;
                 continue;
               }
-              values.push(pks.map((pk) => value.map((v) => v[pk] || EMPTY_VALUE).join('_')).join('#'));
+              values.push(pks.map((pk) => (value as object[]).map((v) => v[pk] || EMPTY_VALUE).join('_')).join('#'));
             } else {
               values.push(pks.map((pk) => (value as object)[pk] || EMPTY_VALUE).join('#'));
             }
@@ -335,7 +335,7 @@ export default defineComponent({
                 }
                 values.push(
                   referenceFields
-                    .map((referenceField) => value.map((v) => v[referenceField] || EMPTY_VALUE).join('_'))
+                    .map((referenceField) => (value as object[]).map((v) => v[referenceField] || EMPTY_VALUE).join('_'))
                     .join('#')
                 );
               } else {
@@ -359,26 +359,17 @@ export default defineComponent({
             }
             values.push(value as string);
           }
-        } else if (isNumberTtype(ttype)) {
-          if (Array.isArray(value)) {
-            if (!value.length) {
-              notFilled++;
-              continue;
-            }
-            values.push(...value.map((v) => `${value}`));
-          } else {
-            if (!value) {
-              notFilled++;
-              continue;
-            }
-            values.push(`${value}`);
-          }
         } else if (Array.isArray(value)) {
           if (!value.length) {
             notFilled++;
             continue;
           }
-          values.push(value.map((v) => `${v}`).join('#'));
+          values.push(
+            value
+              .sort()
+              .map((v) => `${v}`)
+              .join('#')
+          );
         } else {
           values.push(`${value}`);
         }
@@ -460,7 +451,7 @@ export default defineComponent({
           break;
         case GroupStatisticsEnum.AVERAGE:
           // 平均值
-          computedValue = formatMean(mean(formatNumber(values)));
+          computedValue = formatMean(sum(formatNumber(values)) / total);
           break;
         case GroupStatisticsEnum.MEDIAN:
           // 中位数
