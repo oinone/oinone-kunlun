@@ -62,7 +62,14 @@ export class GroupControlWidget extends BaseElementWidget {
   }
 
   protected async mounted() {
-    const modelDefinition = await ModelCache.get(this.model.model);
+    const model = this.rootRuntimeContextNullable?.model.model;
+    if (!model) {
+      return;
+    }
+    const modelDefinition = await ModelCache.get(model);
+    if (!this.rootRuntimeContextNullable?.model.model) {
+      return;
+    }
     const options: SortableGroupOption[] = [];
     const { modelFields: dslFields } = this.model;
     for (const modelField of modelDefinition?.modelFields || []) {

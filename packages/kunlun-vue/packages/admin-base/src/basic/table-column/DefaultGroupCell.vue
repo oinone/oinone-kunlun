@@ -84,7 +84,7 @@ export default defineComponent({
     },
     loadGroupStatistics: {
       type: Function as PropType<
-        (row: ActiveRecord, field: RuntimeModelField, groupStatistics: GroupStatisticsEnum) => Promise<string[]>
+        (row: ActiveRecord, field: RuntimeModelField, groupStatistics: GroupStatisticsEnum) => Promise<ActiveRecord>
       >
     }
   },
@@ -195,7 +195,10 @@ export default defineComponent({
       return val;
     };
 
-    const normalizeDateTime = (v: string) => {
+    const normalizeDateTime = (v: string | number) => {
+      if (typeof v === 'number') {
+        return v;
+      }
       // 只有年份
       if (/^\d{4}$/.test(v)) {
         return dayjs(`${v}-01-01 00:00:00`).valueOf();
@@ -379,12 +382,12 @@ export default defineComponent({
         case GroupStatisticsEnum.EARLIEST_TIME:
           // 最早时间
           if (values.length) {
-            computedValue = dayjs(min(values.map(normalizeDateTime))).format(dateFormat.value);
+            computedValue = min(values.map(normalizeDateTime));
           }
           break;
         case GroupStatisticsEnum.LATEST_TIME:
           if (values.length) {
-            computedValue = dayjs(max(values.map((v) => dayjs(v).valueOf()))).format(dateFormat.value);
+            computedValue = max(values.map(normalizeDateTime));
           }
           break;
         case GroupStatisticsEnum.TIME_RANGE_DAY:
@@ -437,13 +440,13 @@ export default defineComponent({
       }
 
       if (computedValue != null) {
-        return convertStatisticsValue(`${computedValue}`);
+        return convertStatisticsValue(computedValue);
       }
 
       return '';
     };
 
-    const convertStatisticsValue = (value: string): string => {
+    const convertStatisticsValue = (value: string | number): string => {
       switch (selectValue.value) {
         case GroupStatisticsEnum.COUNT:
           // 总数量
@@ -522,11 +525,11 @@ export default defineComponent({
         } else {
           const result = await props.loadGroupStatistics?.(props.context.data, props.field, val);
           if (result) {
-            const firstValue = result[0];
+            const firstValue = result[props.field.data];
             if (firstValue == null) {
               statisticsValue.value = '';
             } else {
-              statisticsValue.value = convertStatisticsValue(firstValue);
+              statisticsValue.value = convertStatisticsValue(`${firstValue}`);
             }
           }
         }

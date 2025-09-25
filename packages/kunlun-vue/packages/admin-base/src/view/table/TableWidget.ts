@@ -20,7 +20,7 @@ import {
 } from '@oinone/kunlun-engine';
 import { Entity, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
-import { DEFAULT_TRUE_CONDITION, ISort } from '@oinone/kunlun-service';
+import { DEFAULT_TRUE_CONDITION, IGroup, ISort } from '@oinone/kunlun-service';
 import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import {
@@ -28,6 +28,7 @@ import {
   GROUP_TREE_KEY,
   TableEditorMode,
   TableEditorTrigger,
+  TableRowClickMode,
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
 import { EmptyStyle, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
@@ -51,9 +52,7 @@ import {
   UserTablePrefer
 } from '../../typing';
 import { TreeUtils } from '../../util';
-import { TableConfigManager } from './config';
 import DefaultTable from './DefaultTable.vue';
-import { TableRowClickMode } from './typing';
 
 const CLICK_SLOT_NAME = 'click';
 
@@ -110,25 +109,9 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
-  protected get tableConfig() {
-    return TableConfigManager.getConfig();
-  }
-
   @Widget.Reactive()
   protected get checkbox(): boolean {
-    const val = this.getDsl().checkbox;
-    if (val == null) {
-      return true;
-    }
-    const booleanCheckbox = BooleanHelper.toBoolean(val);
-    if (booleanCheckbox != null) {
-      return booleanCheckbox;
-    }
-    const enabled = BooleanHelper.toBoolean(this.executeExpression(this.dataSource, val, true));
-    if (enabled == null) {
-      return true;
-    }
-    return enabled;
+    return Optional.ofNullable(this.getDsl().checkbox).map(BooleanHelper.toBoolean).orElse(true)!;
   }
 
   @Widget.Reactive()
@@ -238,7 +221,19 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get allowChecked(): string | boolean | undefined {
-    return BooleanHelper.toBoolean(this.getDsl().allowChecked);
+    const val = this.getDsl().allowChecked;
+    if (val == null) {
+      return true;
+    }
+    const booleanCheckbox = BooleanHelper.toBoolean(val);
+    if (booleanCheckbox != null) {
+      return booleanCheckbox;
+    }
+    const enabled = BooleanHelper.toBoolean(this.executeExpression(this.dataSource, val, true));
+    if (enabled == null) {
+      return true;
+    }
+    return enabled;
   }
 
   @Widget.Method()
@@ -289,6 +284,13 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Provide()
   public onSortChange(sortList: ISort[]): void {
     super.onSortChange(sortList);
+    this.resetExpandRowAttr();
+  }
+
+  @Widget.Method()
+  @Widget.Provide()
+  public onGroupChange(groupList: IGroup[]): void {
+    super.onGroupChange(groupList);
     this.resetExpandRowAttr();
   }
 
@@ -452,6 +454,14 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Method()
   protected onToggleRowExpand({ expanded, rowIndex }) {
+    if (this.treeConfig) {
+      if (expanded) {
+        this.expandRowIndexes = [0];
+      } else {
+        this.expandRowIndexes = [...RESET_EXPAND_ROW_INDEXES];
+      }
+      return;
+    }
     const expandIndex = this.expandRowIndexes.findIndex((v) => v === rowIndex);
     if (expanded) {
       if (this.expandAccordion) {
@@ -1169,7 +1179,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     row: ActiveRecord,
     field: RuntimeModelField,
     groupStatistics: GroupStatisticsEnum
-  ) {
+  ): Promise<ActiveRecord> {
     const path = this.findGroupTreePath(this.dataSource, row);
     if (path?.length) {
       const result = await fetchGroupStatistic({
@@ -1184,7 +1194,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
       return JSON.parse(result.expandGroupDataStr?.[0] || '[]');
     }
-    return [];
+    return {};
   }
 
   /**

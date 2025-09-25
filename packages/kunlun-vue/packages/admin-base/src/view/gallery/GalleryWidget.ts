@@ -1,5 +1,5 @@
 import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
-import { getCurrentThemeSize } from '@oinone/kunlun-engine';
+import { GalleryConfigManager, getCurrentThemeSize } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
@@ -22,6 +22,10 @@ import DefaultGallery from './DefaultGallery.vue';
   })
 )
 export class GalleryWidget extends BaseElementListViewWidget {
+  protected get galleryConfig() {
+    return GalleryConfigManager.getConfig();
+  }
+
   /**
    * 默认间距
    */
@@ -50,9 +54,27 @@ export class GalleryWidget extends BaseElementListViewWidget {
     return super.sortable;
   }
 
+  protected get defaultSortable() {
+    const { sortable } = this.galleryConfig;
+    if (sortable == null) {
+      return true;
+    }
+    return sortable;
+  }
+
   @Widget.Reactive()
   protected get lineHeightAble() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().lineHeightAble)).orElse(true);
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().lineHeightAble)).orElse(
+      this.defaultSwitchLineHeight
+    );
+  }
+
+  protected get defaultSwitchLineHeight() {
+    const { switchLineHeight } = this.galleryConfig;
+    if (switchLineHeight == null) {
+      return true;
+    }
+    return switchLineHeight;
   }
 
   @Widget.Reactive()
@@ -69,7 +91,15 @@ export class GalleryWidget extends BaseElementListViewWidget {
    */
   @Widget.Reactive()
   public get switchCols() {
-    return !!this.getDsl().switchCols;
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().switchCols)).orElse(this.defaultSwitchCols);
+  }
+
+  protected get defaultSwitchCols() {
+    const { switchCols } = this.galleryConfig;
+    if (switchCols == null) {
+      return true;
+    }
+    return switchCols;
   }
 
   @Widget.Provide()
@@ -145,20 +175,15 @@ export class GalleryWidget extends BaseElementListViewWidget {
     const controls: { enabled: boolean; widget: string; props?: Record<string, unknown> }[] = [
       {
         enabled: this.sortable,
-        widget: 'SortControl',
-        props: {
-          onSortChange: this.onSortChange.bind(this)
-        }
+        widget: 'SortControl'
       },
       {
         enabled: this.lineHeightAble,
-        widget: 'LineHeightControl',
-        props: {}
+        widget: 'LineHeightControl'
       },
       {
         enabled: this.fullScreenAble,
-        widget: 'FullScreenControl',
-        props: {}
+        widget: 'FullScreenControl'
       },
       {
         enabled: this.switchCols,
@@ -184,6 +209,14 @@ export class GalleryWidget extends BaseElementListViewWidget {
         widget,
         widgets: []
       }));
+  }
+
+  protected get defaultEnabledFullScreen() {
+    const { enabledFullScreen } = this.galleryConfig;
+    if (enabledFullScreen == null) {
+      return true;
+    }
+    return enabledFullScreen;
   }
 
   protected childrenInvisibleProcess(): boolean {

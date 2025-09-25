@@ -16,6 +16,7 @@ import {
   TableEditorCloseTrigger,
   TableEditorMode,
   TableEditorTrigger,
+  TableRowClickMode,
   TableSelectTrigger,
   TableSize,
   VxeTableActiveEditorEventContext,
@@ -45,7 +46,6 @@ import { getTableThemeConfig, ManualWidget } from '../../basic';
 import { TableLineHeightEnum, UserTablePrefer } from '../../typing';
 import DefaultTableFooterOperator from './DefaultTableFooterOperator.vue';
 import DefaultTableGroupCollapse from './DefaultTableGroupCollapse.vue';
-import { TableRowClickMode } from './typing';
 
 const SortDirections = {
   desc: EDirection.DESC,
@@ -803,6 +803,10 @@ export default defineComponent({
       onAddRow
     } = this;
     let { border = false, stripe = false, isCurrent = true, isHover = false } = getTableThemeConfig() || {};
+    // fixme @zbh 20250925 警告提示树配置和斑马纹不能同时支持，但有斑马纹效果，暂不处理
+    // if (treeConfig) {
+    //   stripe = false;
+    // }
     const VEX_TABLE_BORDER_MODE = [true, false, 'default', 'outer', 'full', 'inner'];
     let tableCustomClass = '';
     if (!VEX_TABLE_BORDER_MODE.includes(border)) {

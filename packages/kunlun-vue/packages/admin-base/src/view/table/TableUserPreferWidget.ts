@@ -2,11 +2,11 @@ import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, CallChaining } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
+import { nextTick } from 'vue';
 import { BaseElementWidget } from '../../basic';
 import { UserPreferEventManager } from '../../service';
 import { UserTablePrefer, VisibleField } from '../../typing';
 import TableUserPrefer from './TableUserPrefer.vue';
-import { nextTick } from 'vue';
 
 interface DataOption {
   key: string;

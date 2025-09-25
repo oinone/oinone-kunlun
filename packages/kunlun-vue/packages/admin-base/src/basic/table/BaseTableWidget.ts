@@ -15,6 +15,7 @@ import {
   RuntimeO2MField,
   SubmitCacheManager,
   SubmitValue,
+  TableConfigManager,
   translateValueByKey
 } from '@oinone/kunlun-engine';
 import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
@@ -83,6 +84,10 @@ export class BaseTableWidget<
 
   public getTableInstance() {
     return this.tableInstance;
+  }
+
+  protected get tableConfig() {
+    return TableConfigManager.getConfig();
   }
 
   /**
@@ -176,6 +181,14 @@ export class BaseTableWidget<
     return super.sortable;
   }
 
+  protected get defaultSortable() {
+    const { sortable } = this.tableConfig;
+    if (sortable == null) {
+      return true;
+    }
+    return sortable;
+  }
+
   // region 行内编辑
 
   /**
@@ -206,7 +219,15 @@ export class BaseTableWidget<
   @Widget.Reactive()
   @Widget.Provide()
   protected get groupable() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().groupable)).orElse(true);
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().groupable)).orElse(this.defaultEnableGrouping);
+  }
+
+  protected get defaultEnableGrouping() {
+    const { enableGrouping } = this.tableConfig;
+    if (enableGrouping == null) {
+      return true;
+    }
+    return enableGrouping;
   }
 
   /**
@@ -215,7 +236,17 @@ export class BaseTableWidget<
    */
   @Widget.Reactive()
   protected get lineHeightAble() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().lineHeightAble)).orElse(true);
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().lineHeightAble)).orElse(
+      this.defaultSwitchLineHeight
+    );
+  }
+
+  protected get defaultSwitchLineHeight() {
+    const { switchLineHeight } = this.tableConfig;
+    if (switchLineHeight == null) {
+      return true;
+    }
+    return switchLineHeight;
   }
 
   /**
@@ -224,7 +255,15 @@ export class BaseTableWidget<
    */
   @Widget.Reactive()
   protected get keyBoardAble(): boolean {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().keyBoardAble)).orElse(false);
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().keyBoardAble)).orElse(this.defaultEnabledKeyboard);
+  }
+
+  protected get defaultEnabledKeyboard() {
+    const { enabledKeyboard } = this.tableConfig;
+    if (enabledKeyboard == null) {
+      return true;
+    }
+    return enabledKeyboard;
   }
 
   /**
@@ -277,6 +316,14 @@ export class BaseTableWidget<
         widget,
         widgets: []
       }));
+  }
+
+  protected get defaultEnabledFullScreen() {
+    const { enabledFullScreen } = this.tableConfig;
+    if (enabledFullScreen == null) {
+      return true;
+    }
+    return enabledFullScreen;
   }
 
   /**

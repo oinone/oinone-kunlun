@@ -175,7 +175,11 @@ export abstract class BaseElementListViewWidget<
    */
   @Widget.Reactive()
   protected get sortable() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().sortable)).orElse(false);
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().sortable)).orElse(this.defaultSortable);
+  }
+
+  protected get defaultSortable(): boolean {
+    return true;
   }
 
   /**
@@ -190,18 +194,6 @@ export abstract class BaseElementListViewWidget<
       const [sortField, direction] = getSortFieldDirection(v);
       return { sortField, direction };
     });
-  }
-
-  @Widget.Reactive()
-  protected get fullScreenAble(): boolean {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().fullScreenAble)).orElse(true);
-  }
-
-  @Widget.Reactive()
-  protected get defaultPageSizeOptions() {
-    return Object.keys(PageSizeEnum)
-      .filter((key) => typeof PageSizeEnum[key] === 'number')
-      .map((key) => PageSizeEnum[key]);
   }
 
   /**
@@ -247,6 +239,23 @@ export abstract class BaseElementListViewWidget<
   }
 
   /**
+   * 分页参数
+   * @protected
+   */
+  @Widget.Reactive()
+  protected pagination: Pagination | undefined;
+
+  public getPagination(): Pagination {
+    return (
+      this.pagination ||
+      ({
+        total: 0,
+        current: 1
+      } as Pagination)
+    );
+  }
+
+  /**
    * 分页选项
    */
   @Widget.Reactive()
@@ -263,22 +272,12 @@ export abstract class BaseElementListViewWidget<
     return options.length ? options.map((v) => NumberHelper.toNumber(v)) : this.defaultPageSizeOptions;
   }
 
-  public getPagination(): Pagination {
-    return (
-      this.pagination ||
-      ({
-        total: 0,
-        current: 1
-      } as Pagination)
-    );
-  }
-
-  /**
-   * 分页参数
-   * @protected
-   */
   @Widget.Reactive()
-  protected pagination: Pagination | undefined;
+  protected get defaultPageSizeOptions() {
+    return Object.keys(PageSizeEnum)
+      .filter((key) => typeof PageSizeEnum[key] === 'number')
+      .map((key) => PageSizeEnum[key]);
+  }
 
   /**
    * 默认分页数
@@ -287,6 +286,17 @@ export abstract class BaseElementListViewWidget<
   @Widget.Reactive()
   protected get defaultPageSize(): number {
     return fetchPageSize(this.getDsl().defaultPageSize);
+  }
+
+  @Widget.Reactive()
+  protected get fullScreenAble(): boolean {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().fullScreenAble)).orElse(
+      this.defaultEnabledFullScreen
+    );
+  }
+
+  protected get defaultEnabledFullScreen() {
+    return true;
   }
 
   /**

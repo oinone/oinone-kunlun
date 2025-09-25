@@ -1,4 +1,5 @@
 import { SubmitValue } from '@oinone/kunlun-engine';
+import { IGroup } from '@oinone/kunlun-service';
 import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
@@ -11,7 +12,6 @@ import {
 } from '@oinone/kunlun-vue-ui';
 import { ConfirmType, PopconfirmPlacement } from '@oinone/kunlun-vue-ui-antd';
 import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
-import { IGroup } from '@oinone/kunlun-service';
 import { isNil, isString, toString } from 'lodash-es';
 import { toRaw, VNode } from 'vue';
 import { fetchPopconfirmPlacement } from '../../typing';
@@ -75,7 +75,7 @@ export abstract class BaseTableColumnWidget<
   }
 
   @Widget.Reactive()
-  public get columnType(): string {
+  public get columnType(): string | undefined {
     return this.getDsl().columnType;
   }
 
