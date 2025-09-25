@@ -1,9 +1,9 @@
 import { RuntimeO2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
-import { ReturnPromise } from '@oinone/kunlun-shared';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { BooleanHelper, Optional, ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseFieldWidget, FormSubviewListFieldWidget, RelationQueryHelper } from '../../../../basic';
 import { TABLE_WIDGET } from '../../../../typing';
 
@@ -23,7 +23,7 @@ export class FormO2MTableFieldWidget extends FormSubviewListFieldWidget<RuntimeO
   @Widget.Provide()
   @Widget.Reactive()
   protected get gotoO2MCreateRow() {
-    return !!this.getDsl().gotoO2MCreateRow;
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().gotoO2MCreateRow)).orElse(true);
   }
 
   /**
@@ -32,7 +32,7 @@ export class FormO2MTableFieldWidget extends FormSubviewListFieldWidget<RuntimeO
   @Widget.Provide()
   @Widget.Reactive()
   protected get gotoO2MQuickFilling() {
-    return !!this.getDsl().gotoO2MQuickFilling;
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().gotoO2MQuickFilling)).orElse(true);
   }
 
   protected async refreshValueProcess() {

@@ -219,6 +219,10 @@ export class BaseTableWidget<
   @Widget.Reactive()
   @Widget.Provide()
   protected get enableGrouping() {
+    if (this.inline) {
+      // fixme @zbh 20250925 子表格暂不支持分组
+      return false;
+    }
     return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enableGrouping)).orElse(
       this.defaultEnableGrouping
     );

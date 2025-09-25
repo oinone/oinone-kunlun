@@ -23,7 +23,8 @@
         <template #title>
           <span>{{ $translate('分组') }}</span>
         </template>
-        <oio-icon size="16" icon="oinone-group-outlined"></oio-icon>
+        <oio-icon v-if="groupList.length" size="16" icon="oinone-ungroup-outlined"></oio-icon>
+        <oio-icon v-else size="16" icon="oinone-group-outlined"></oio-icon>
       </a-tooltip>
     </div>
   </a-popover>

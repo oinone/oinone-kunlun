@@ -1,4 +1,4 @@
-import { ModelCache, RuntimeRelationField } from '@oinone/kunlun-engine';
+import { isRelationField } from '@oinone/kunlun-engine';
 import { ISort } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -64,28 +64,31 @@ export class SortControlWidget extends BaseElementWidget {
     return this.options;
   }
 
-  protected async mounted() {
+  protected mounted() {
     const model = this.rootRuntimeContextNullable?.model.model;
     if (!model) {
       return;
     }
-    const modelDefinition = await ModelCache.get(model);
-    if (!this.rootRuntimeContextNullable?.model.model) {
-      return;
-    }
     const options: SortableGroupOption[] = [];
-    const { modelFields: dslFields } = this.model;
-    for (const modelField of modelDefinition?.modelFields || []) {
-      const { data, store } = modelField;
-      if (store || (modelField as RuntimeRelationField).relationStore) {
-        let dslField = dslFields.find((d) => d.data === data);
-        if (!dslField) {
-          dslField = modelField;
+    const { modelFields } = this.model;
+    for (const modelField of modelFields || []) {
+      const { store, invisible } = modelField;
+      if (invisible === true) {
+        continue;
+      }
+      let isSelected = false;
+      if (isRelationField(modelField)) {
+        if (!!modelField.relationFields.length && !!modelField.referenceFields.length) {
+          isSelected = true;
         }
+      } else if (store) {
+        isSelected = true;
+      }
+      if (isSelected) {
         options.push({
-          data: dslField.data,
-          name: dslField.name,
-          label: dslField.label || dslField.displayName || dslField.data
+          data: modelField.data,
+          name: modelField.name,
+          label: modelField.label || modelField.displayName || modelField.data
         });
       }
     }
