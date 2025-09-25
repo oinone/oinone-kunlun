@@ -223,13 +223,13 @@ export class BaseTableFieldWidget<
   }
 
   @Widget.Reactive()
-  public get groupable(): boolean {
+  public get enableGrouping(): boolean {
     if (this.isExpandOperationField) {
       return false;
     }
-    const groupable = BooleanHelper.toBoolean(this.getDsl().groupable);
-    if (groupable == null) {
-      if (!this.tableGroupable) {
+    const enableGrouping = BooleanHelper.toBoolean(this.getDsl().enableGrouping);
+    if (enableGrouping == null) {
+      if (!this.tableEnableGrouping) {
         return false;
       }
       const { field, relationSortFields } = this;
@@ -246,7 +246,7 @@ export class BaseTableFieldWidget<
       }
       return store;
     }
-    return groupable || false;
+    return enableGrouping || false;
   }
 
   @Widget.Reactive()

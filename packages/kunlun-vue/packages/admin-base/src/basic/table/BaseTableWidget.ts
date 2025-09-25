@@ -218,8 +218,10 @@ export class BaseTableWidget<
    */
   @Widget.Reactive()
   @Widget.Provide()
-  protected get groupable() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().groupable)).orElse(this.defaultEnableGrouping);
+  protected get enableGrouping() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enableGrouping)).orElse(
+      this.defaultEnableGrouping
+    );
   }
 
   protected get defaultEnableGrouping() {
@@ -235,8 +237,8 @@ export class BaseTableWidget<
    * @protected
    */
   @Widget.Reactive()
-  protected get lineHeightAble() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().lineHeightAble)).orElse(
+  protected get switchLineHeight() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().switchLineHeight)).orElse(
       this.defaultSwitchLineHeight
     );
   }
@@ -254,8 +256,10 @@ export class BaseTableWidget<
    * @protected
    */
   @Widget.Reactive()
-  protected get keyBoardAble(): boolean {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().keyBoardAble)).orElse(this.defaultEnabledKeyboard);
+  protected get enabledKeyboard(): boolean {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enabledKeyboard)).orElse(
+      this.defaultEnabledKeyboard
+    );
   }
 
   protected get defaultEnabledKeyboard() {
@@ -292,19 +296,19 @@ export class BaseTableWidget<
         widget: 'SortControl'
       },
       {
-        enabled: this.groupable,
+        enabled: this.enableGrouping,
         widget: 'GroupControl'
       },
       {
-        enabled: this.lineHeightAble,
+        enabled: this.switchLineHeight,
         widget: 'LineHeightControl'
       },
       {
-        enabled: this.fullScreenAble,
+        enabled: this.enabledFullScreen,
         widget: 'FullScreenControl'
       },
       {
-        enabled: this.keyBoardAble,
+        enabled: this.enabledKeyboard,
         widget: 'KeyboardShortcut'
       }
     ];
@@ -863,7 +867,7 @@ export class BaseTableWidget<
   @Widget.Provide()
   @Widget.Reactive()
   protected get enabledGroupView(): boolean {
-    return this.groupable && !!this.groupList?.length;
+    return this.enableGrouping && !!this.groupList?.length;
   }
 
   /**
@@ -941,6 +945,11 @@ export class BaseTableWidget<
     groupParameters.pageSize = toString(pagination.pageSize);
 
     this.groupList = finalGroupList;
+
+    if (this.inline) {
+      this.refreshProcess();
+      return;
+    }
 
     this.$router.push({
       segments: [

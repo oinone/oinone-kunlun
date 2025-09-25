@@ -39,7 +39,7 @@ export default defineComponent({
       type: Boolean,
       default: undefined
     },
-    groupable: {
+    enableGrouping: {
       type: Boolean,
       default: false
     },
@@ -146,7 +146,7 @@ export default defineComponent({
 
       column,
       sortable,
-      groupable,
+      enableGrouping,
       groupList,
 
       visible,
@@ -217,7 +217,7 @@ export default defineComponent({
           }
           options.push(createOperationItem('隐藏此列', 'oinone-yincangcilie', handleHide));
 
-          if (groupable) {
+          if (enableGrouping) {
             if (groupList?.length && groupList.some((item) => item.groupField === field)) {
               options.push(
                 createOperationItem('取消分组', 'oinone-ungroup-outlined', () => {

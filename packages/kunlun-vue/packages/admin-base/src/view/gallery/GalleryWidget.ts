@@ -63,8 +63,8 @@ export class GalleryWidget extends BaseElementListViewWidget {
   }
 
   @Widget.Reactive()
-  protected get lineHeightAble() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().lineHeightAble)).orElse(
+  protected get switchLineHeight() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().switchLineHeight)).orElse(
       this.defaultSwitchLineHeight
     );
   }
@@ -178,11 +178,11 @@ export class GalleryWidget extends BaseElementListViewWidget {
         widget: 'SortControl'
       },
       {
-        enabled: this.lineHeightAble,
+        enabled: this.switchLineHeight,
         widget: 'LineHeightControl'
       },
       {
-        enabled: this.fullScreenAble,
+        enabled: this.enabledFullScreen,
         widget: 'FullScreenControl'
       },
       {

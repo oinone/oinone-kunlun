@@ -289,8 +289,8 @@ export abstract class BaseElementListViewWidget<
   }
 
   @Widget.Reactive()
-  protected get fullScreenAble(): boolean {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().fullScreenAble)).orElse(
+  protected get enabledFullScreen(): boolean {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enabledFullScreen)).orElse(
       this.defaultEnabledFullScreen
     );
   }

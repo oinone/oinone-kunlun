@@ -40,7 +40,7 @@ export abstract class BaseTableQuickOperationColumnWidget<
       table: (context as VxeTableRowContext).origin?.$table,
       column: (context as VxeTableRowContext).origin?.column,
       sortable: this.sortable,
-      groupable: this.groupable,
+      enableGrouping: this.enableGrouping,
       groupList: this.groupList,
       onGroupChange: this.onGroupChange,
       handleOrderByASC: this.handleOrderByASC,

@@ -799,13 +799,13 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   protected override mounted() {
     super.mounted();
-    if (this.keyBoardAble) {
+    if (this.enabledKeyboard) {
       window.addEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
     }
   }
 
   protected override beforeUnmount() {
-    if (this.keyBoardAble) {
+    if (this.enabledKeyboard) {
       window.removeEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
     }
 
@@ -946,7 +946,9 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       }
       if (item?.[GROUP_TREE_KEY.CHILDREN_KEY]?.length) {
         const result = this.findGroupTreePath(item[GROUP_TREE_KEY.CHILDREN_KEY], targetRow, newPath);
-        if (result) return result;
+        if (result) {
+          return result;
+        }
       }
     }
     return null;
@@ -960,7 +962,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get treeConfig() {
-    if (this.groupable) {
+    if (this.enableGrouping) {
       return {
         rowField: ActiveRecordExtendKeys.DRAFT_ID,
         parentField: ActiveRecordExtendKeys.PARENT_DRAFT_ID,
@@ -1141,8 +1143,8 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    * 初始化分组展开字段
    */
   protected initGroupTreeField() {
-    if (this.groupable) {
-      this.expandTreeField = this.metadataRuntimeContext.model.modelFields.find((v) => !v.invisible);
+    if (this.enableGrouping) {
+      this.expandTreeField = this.rootRuntimeContext.model.modelFields.find((v) => !v.invisible);
     }
   }
 

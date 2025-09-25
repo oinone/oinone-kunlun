@@ -59,7 +59,7 @@ export default defineComponent({
     enabledGroupView: {
       type: Boolean
     },
-    groupable: {
+    enableGrouping: {
       type: Boolean
     },
     tableExpandTreeFieldColumn: {
@@ -92,7 +92,7 @@ export default defineComponent({
        * 当前视图启动了分组 & 当前字段允许分许 & 当前是展开行 & 当前单元格不是展开字段
        * 则渲染分组单元格
        */
-      if (props.enabledGroupView && props.groupable && context.data[GROUP_TREE_KEY.CHILDREN_KEY]) {
+      if (props.enabledGroupView && props.enableGrouping && context.data[GROUP_TREE_KEY.CHILDREN_KEY]) {
         // 非展开行字段
         if (context.origin?.column?.field !== props.tableExpandTreeFieldColumn) {
           return props.renderGroupCellSlot?.(context);

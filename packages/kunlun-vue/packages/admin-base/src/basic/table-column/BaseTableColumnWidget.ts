@@ -167,8 +167,8 @@ export abstract class BaseTableColumnWidget<
    * @see {@link BaseElementListViewWidget}
    */
   @Widget.Reactive()
-  @Widget.Inject('groupable')
-  protected tableGroupable!: boolean;
+  @Widget.Inject('enableGrouping')
+  protected tableEnableGrouping!: boolean;
 
   /**
    * 分组字段
@@ -182,12 +182,12 @@ export abstract class BaseTableColumnWidget<
    * 当前字段是否启动的分组
    */
   @Widget.Reactive()
-  public get groupable(): boolean {
-    const groupable = BooleanHelper.toBoolean(this.getDsl().groupable);
-    if (groupable == null) {
-      return this.tableGroupable || false;
+  public get enableGrouping(): boolean {
+    const enableGrouping = BooleanHelper.toBoolean(this.getDsl().enableGrouping);
+    if (enableGrouping == null) {
+      return this.tableEnableGrouping || false;
     }
-    return groupable;
+    return enableGrouping;
   }
 
   @Widget.Reactive()
