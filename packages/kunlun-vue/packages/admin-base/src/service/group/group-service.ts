@@ -159,19 +159,16 @@ const pageModelFields = [
   }
 ] as IModelField[];
 
-async function generateGroupsString(level: number) {
+function generateGroupsString(level: number) {
   if (level < 1) {
     return '';
   }
-
-  const hasValueField = !!(await ModelCache.get('base.GroupInfo'))?.modelFields.some((v) => v.data === 'value');
 
   const baseContent = `
           isLeaf
           field
           dataCount
-          ${hasValueField ? 'value' : ''}
-          valueStr
+          value
           dataListStr`;
 
   function buildNestedGroups(currentLevel, maxLevel) {
@@ -189,7 +186,7 @@ async function generateGroupsString(level: number) {
  * 查询分组视图数据
  */
 export const fetchGroupPage = async (options: GroupParams) => {
-  const groupsGql = await generateGroupsString(options.deep);
+  const groupsGql = generateGroupsString(options.deep);
 
   const groupStr = await buildSingleItemParam(groupModelFields, options as any);
   const pageStr = await buildSingleItemParam(pageModelFields, options as any);

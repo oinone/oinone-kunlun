@@ -440,13 +440,12 @@ export abstract class BaseTableColumnWidget<
 
   @Widget.Method()
   protected dynamicRenderDefaultSlot(context: RowContext): ((context: RowContext) => VNode[] | string) | undefined {
-    const groupProps = (context.data as Record<string, { field: string }>)[GROUP_TREE_KEY.PROPS_KEY];
+    const groupProps = (context.data as Record<string, { field: string; value: unknown }>)[GROUP_TREE_KEY.PROPS_KEY];
     const { tableExpandTreeFieldColumn } = this;
     if (!groupProps || !tableExpandTreeFieldColumn) {
       return undefined;
     }
-    const { field } = groupProps;
-    const value = context.data[tableExpandTreeFieldColumn];
+    const { field, value } = groupProps;
     if (!field || value == null || (typeof value === 'string' && !value)) {
       return this.renderGroupTitleEmptyStyle.bind(this);
     }

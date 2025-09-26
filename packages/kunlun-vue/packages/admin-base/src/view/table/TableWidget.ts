@@ -5,7 +5,6 @@ import {
   ActiveRecords,
   ActiveRecordsOperator,
   GenericFunctionService,
-  getRealTtype,
   isM2MField,
   isRelation2OField,
   isRelationField,
@@ -18,7 +17,7 @@ import {
   RuntimeRelationField,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { Entity, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { Entity, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, IGroup, ISort } from '@oinone/kunlun-service';
 import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
@@ -248,11 +247,6 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Method()
   protected checkMethod({ row }: { row: ActiveRecord }) {
-    if (this.enabledGroupView) {
-      if (!!row[GROUP_TREE_KEY.CHILDREN_KEY]) {
-        return false;
-      }
-    }
     const { allowChecked } = this;
     if (isNil(allowChecked)) {
       return true;
@@ -1222,11 +1216,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       groups?.map((g) => {
         if (g.groups?.length) {
           return {
-            [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(
-              modelFieldCache,
-              g.field,
-              Optional.ofNullable(g.value).orElse(g.valueStr)
-            ),
+            [this.expandTreeFieldColumn as string]: g.value,
             [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
             [GROUP_TREE_KEY.PROPS_KEY]: g,
             [GROUP_TREE_KEY.CHILDREN_KEY]: this.generatorGroupTree(modelFieldCache, g.groups)
@@ -1235,47 +1225,13 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
         const children = g.dataListStr ? JSON.parse(g.dataListStr || '[]') : [];
         return {
-          [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(
-            modelFieldCache,
-            g.field,
-            Optional.ofNullable(g.value).orElse(g.valueStr)
-          ),
+          [this.expandTreeFieldColumn as string]: g.value,
           [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
           [GROUP_TREE_KEY.PROPS_KEY]: g,
           [GROUP_TREE_KEY.CHILDREN_KEY]: children
         };
       }) || []
     );
-  }
-
-  protected convertGroupDisplayValue(
-    modelFieldCache: Record<string, RuntimeModelField | null>,
-    field: string,
-    value: unknown
-  ): unknown {
-    if (!(typeof value === 'string')) {
-      return value;
-    }
-    // fixme @zbh 20250926 此处前端不应该处理值序列化问题，后端返回结果类型需与原始字段保持一致
-    let modelField: RuntimeModelField | null | undefined = modelFieldCache[field];
-    if (modelField === undefined) {
-      modelField = this.model.modelFields.find((v) => v.data === field);
-      if (modelField == null) {
-        modelField = null;
-      }
-      modelFieldCache[field] = modelField;
-    }
-    if (!modelField) {
-      return value;
-    }
-    let serializeValue: unknown = value;
-    const ttype = getRealTtype(modelField);
-    if (ttype === ModelFieldType.Map) {
-      serializeValue = JSON.parse(value);
-    } else if (ttype === ModelFieldType.Boolean) {
-      serializeValue = BooleanHelper.toBoolean(value);
-    }
-    return serializeValue;
   }
 
   @Widget.Reactive()

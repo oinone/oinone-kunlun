@@ -35,7 +35,6 @@ import { ActionWidget } from '../component';
 )
 export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
   protected updateActionName = 'update';
-  protected createActionName = 'create';
 
   protected updateOneWithRelationName = 'updateOneWithRelations';
 
