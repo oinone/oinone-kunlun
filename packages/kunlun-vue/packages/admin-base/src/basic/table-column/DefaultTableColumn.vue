@@ -101,7 +101,9 @@ export default defineComponent({
         // 展开行字段
         return [
           createVNode('span', { class: 'default-group-compose-cell' }, [
-            createVNode('span', { class: 'default-group-compose-cell-content' }, [props.renderDefaultSlot?.(context)]),
+            createVNode('span', { class: 'default-group-compose-cell-content' }, [
+              (props.dynamicRenderDefaultSlot?.(context) || props.renderDefaultSlot)?.(context)
+            ]),
             props.renderGroupCellSlot?.(context)
           ])
         ];

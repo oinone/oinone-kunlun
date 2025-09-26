@@ -5,7 +5,6 @@ import {
   ActiveRecords,
   ActiveRecordsOperator,
   GenericFunctionService,
-  isEnumerationField,
   isM2MField,
   isRelation2OField,
   isRelationField,
@@ -797,21 +796,6 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
-  protected override mounted() {
-    super.mounted();
-    if (this.enabledKeyboard) {
-      window.addEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
-    }
-  }
-
-  protected override beforeUnmount() {
-    if (this.enabledKeyboard) {
-      window.removeEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
-    }
-
-    super.beforeUnmount();
-  }
-
   @Widget.Method()
   protected async onRowDblClick({ column, row }) {
     if (!column?.field || !this.allowRowClick) {
@@ -849,6 +833,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   protected treeRelationField: RuntimeRelationField | undefined;
 
+  @Widget.Reactive()
   protected expandTreeField: RuntimeModelField | undefined;
 
   @Widget.Reactive()
@@ -1222,7 +1207,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       ...this.generatorGroupQueryCondition()
     });
 
-    this.groupTotalDataCount = toNumber(result.totalDataCount);
+    this.groupTotalDataCount = toNumber(result?.totalDataCount || 0);
 
     pagination.total = toNumber(result?.totalElements);
     pagination.totalPageSize = toNumber(result?.totalPages);
@@ -1230,40 +1215,32 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return this.generatorGroupTree(result?.groups);
   }
 
-  public generatorGroupTree(groups?: QueryGroupsValue[]) {
-    return groups?.map((g) => {
-      if (g.groups?.length) {
+  protected generatorGroupTree(groups?: QueryGroupsValue[]) {
+    return (
+      groups?.map((g) => {
+        if (g.groups?.length) {
+          return {
+            [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(g.field, g.valueStr),
+            [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
+            [GROUP_TREE_KEY.PROPS_KEY]: g,
+            [GROUP_TREE_KEY.CHILDREN_KEY]: this.generatorGroupTree(g.groups)
+          };
+        }
+
+        const children = g.dataListStr ? JSON.parse(g.dataListStr || '[]') : [];
         return {
           [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(g.field, g.valueStr),
           [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
           [GROUP_TREE_KEY.PROPS_KEY]: g,
-          [GROUP_TREE_KEY.CHILDREN_KEY]: this.generatorGroupTree(g.groups)
+          [GROUP_TREE_KEY.CHILDREN_KEY]: children
         };
-      }
-
-      const children = g.dataListStr ? JSON.parse(g.dataListStr || '[]') : [];
-      return {
-        [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(g.field, g.valueStr),
-        [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
-        [GROUP_TREE_KEY.PROPS_KEY]: g,
-        [GROUP_TREE_KEY.CHILDREN_KEY]: children
-      };
-    });
+      }) || []
+    );
   }
 
   protected convertGroupDisplayValue(field: string, valueStr: string | undefined): string {
     if (!valueStr) {
       return this.groupTitleEmptyStyle;
-    }
-    const modelField = this.model.modelFields.find((v) => v.data === field);
-    if (!modelField) {
-      return valueStr;
-    }
-    if (isEnumerationField(modelField)) {
-      const displayValue = modelField.options.find((v) => v.name === valueStr)?.displayName;
-      if (displayValue) {
-        return displayValue;
-      }
     }
     return valueStr;
   }
@@ -1333,6 +1310,20 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   protected $$beforeMount() {
     super.$$beforeMount();
     this.initGroupTreeField();
+  }
+
+  protected override $$mounted() {
+    super.$$mounted();
+    if (this.enabledKeyboard) {
+      window.addEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
+    }
+  }
+
+  protected override $$beforeUnmount() {
+    super.$$beforeUnmount();
+    if (this.enabledKeyboard) {
+      window.removeEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
+    }
   }
 
   // endregion

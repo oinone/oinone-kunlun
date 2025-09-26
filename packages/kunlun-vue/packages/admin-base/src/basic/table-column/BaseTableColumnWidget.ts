@@ -3,6 +3,7 @@ import { IGroup } from '@oinone/kunlun-service';
 import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
+  GROUP_TREE_KEY,
   OioTableInstance,
   RenderCellContext,
   RowContext,
@@ -16,6 +17,7 @@ import { isNil, isString, toString } from 'lodash-es';
 import { toRaw, VNode } from 'vue';
 import { fetchPopconfirmPlacement } from '../../typing';
 import { executeConfirm } from '../../util';
+import type { TableWidget } from '../../view';
 import { BaseDataWidget } from '../common';
 import { FieldWidgetComponentFunction } from '../types';
 import DefaultTableColumn from './DefaultTableColumn.vue';
@@ -422,6 +424,38 @@ export abstract class BaseTableColumnWidget<
       treeNode = true;
     }
     return treeNode;
+  }
+
+  protected getColumnWidgets(): BaseTableColumnWidget[] {
+    return (this.getParentWidget() as TableWidget).getColumnWidgets();
+  }
+
+  @Widget.Method()
+  protected dynamicRenderDefaultSlot(context: RowContext): ((context: RowContext) => VNode[] | string) | undefined {
+    const groupProps = (context.data as Record<string, { field: string; valueStr: string }>)[GROUP_TREE_KEY.PROPS_KEY];
+    if (!groupProps) {
+      return undefined;
+    }
+    const { field, valueStr } = groupProps;
+    if (!field || !valueStr) {
+      return undefined;
+    }
+    const column = this.getColumnWidgets().find((v) => v.itemData === field);
+    if (!column) {
+      return undefined;
+    }
+    const internalRender = column.renderDefaultSlot?.bind(column);
+    if (internalRender) {
+      return (context: RowContext) => {
+        return internalRender({
+          ...context,
+          data: {
+            [field]: valueStr
+          }
+        });
+      };
+    }
+    return undefined;
   }
 
   public renderDefaultSlot?(context: RowContext): VNode[] | string;

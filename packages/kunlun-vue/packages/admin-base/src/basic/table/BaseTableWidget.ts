@@ -21,7 +21,7 @@ import {
 import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { MessageHub } from '@oinone/kunlun-request';
 import { EDirection, IGroup, ISort } from '@oinone/kunlun-service';
-import { BooleanHelper, CallChaining, Optional, ReturnPromise } from '@oinone/kunlun-shared';
+import { BooleanHelper, CallChaining, Optional, ReturnPromise, StringHelper } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
   CheckedChangeEvent,
@@ -219,7 +219,7 @@ export class BaseTableWidget<
   @Widget.Reactive()
   @Widget.Provide()
   protected get enableGrouping() {
-    if (this.inline) {
+    if (this.inline && !this.isDataSourceProvider) {
       // fixme @zbh 20250925 子表格暂不支持分组
       return false;
     }
@@ -978,8 +978,8 @@ export class BaseTableWidget<
 
     if (!groupList && groupField && groupDirection) {
       groupList = [];
-      const groupFields = groupField.split(URL_SPLIT_SEPARATOR);
-      const directions = groupDirection.split(URL_SPLIT_SEPARATOR);
+      const groupFields = StringHelper.convertArray(groupField);
+      const directions = StringHelper.convertArray(groupDirection);
       if (groupFields.length && directions.length && groupFields.length === directions.length) {
         for (let i = 0; i < groupFields.length; i++) {
           groupList.push({ groupField: groupFields[i], groupDirection: directions[i] as EDirection });
@@ -1099,6 +1099,12 @@ export class BaseTableWidget<
     });
   }
 
+  protected $$beforeMount() {
+    super.$$beforeMount();
+    this.initGroupList();
+    this.initSortConfig();
+  }
+
   protected $$mounted() {
     super.$$mounted();
     this.submitCallChaining?.callBefore(
@@ -1113,12 +1119,6 @@ export class BaseTableWidget<
     this.editRowCallChaining?.hook(this.path, (args) => {
       return this.editRow(args?.[0], args?.[1]);
     });
-  }
-
-  protected $$beforeMount() {
-    super.$$beforeMount();
-    this.initGroupList();
-    this.initSortConfig();
   }
 
   protected $$unmounted() {

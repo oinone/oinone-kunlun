@@ -131,6 +131,9 @@ export const OioColumnRenderFunctionProps = {
   },
   renderHeaderSlot: {
     type: Function as PropType<CellRenderFunction>
+  },
+  dynamicRenderDefaultSlot: {
+    type: Function as PropType<(context: RowContext) => CellRenderFunction>
   }
 };
 
