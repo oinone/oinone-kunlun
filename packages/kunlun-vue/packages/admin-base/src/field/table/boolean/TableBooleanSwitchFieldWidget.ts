@@ -1,4 +1,4 @@
-import { FunctionService, RuntimeServerAction } from '@oinone/kunlun-engine';
+import { FunctionService, RuntimeServerAction, translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { RowContext } from '@oinone/kunlun-vue-ui';
@@ -96,12 +96,20 @@ export class TableBooleanSwitchFieldWidget extends BaseTableFieldWidget<boolean>
               default: () =>
                 createVNode(OioSwitch, {
                   checked: value,
-                  disabled: disabled
+                  disabled
                 })
             }
           )
         ]
       )
     ];
+  }
+
+  public renderGroupTitleSlot(context: RowContext): VNode[] | string {
+    const value = this.compute(context) === true;
+    if (value) {
+      return translateValueByKey('是');
+    }
+    return translateValueByKey('否');
   }
 }

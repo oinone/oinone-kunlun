@@ -453,7 +453,7 @@ export abstract class BaseTableColumnWidget<
     if (!column) {
       return undefined;
     }
-    const internalRender = column.renderDefaultSlot?.bind(column);
+    const internalRender = (column.renderGroupTitleSlot || column.renderDefaultSlot)?.bind(column);
     if (!internalRender) {
       return undefined;
     }
@@ -474,4 +474,6 @@ export abstract class BaseTableColumnWidget<
   public renderContentSlot?(context: RowContext): VNode[] | string;
 
   public renderHeaderSlot?(context: RowContext): VNode[] | string;
+
+  public renderGroupTitleSlot?(context: RowContext): VNode[] | string;
 }
