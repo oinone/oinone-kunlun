@@ -1,4 +1,5 @@
-import { SubmitValue } from '@oinone/kunlun-engine';
+import { getRealTtype, SubmitValue } from '@oinone/kunlun-engine';
+import { ModelFieldType } from '@oinone/kunlun-meta';
 import { IGroup } from '@oinone/kunlun-service';
 import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
 import {
@@ -20,6 +21,7 @@ import { executeConfirm } from '../../util';
 import type { TableWidget } from '../../view';
 import { BaseDataWidget } from '../common';
 import { FieldWidgetComponentFunction } from '../types';
+import type { BaseTableFieldWidget } from './BaseTableFieldWidget';
 import DefaultTableColumn from './DefaultTableColumn.vue';
 
 export abstract class BaseTableColumnWidget<
@@ -445,17 +447,28 @@ export abstract class BaseTableColumnWidget<
       return undefined;
     }
     const internalRender = column.renderDefaultSlot?.bind(column);
-    if (internalRender) {
-      return (context: RowContext) => {
-        return internalRender({
-          ...context,
-          data: {
-            [field]: valueStr
-          }
-        });
-      };
+    if (!internalRender) {
+      return undefined;
     }
-    return undefined;
+    // fixme @zbh 20250926 此处前端不应该处理值序列化问题，后端返回结果类型需与原始字段保持一致
+    let serializeValue: unknown = valueStr;
+    const modelField = (column as BaseTableFieldWidget).field;
+    if (modelField) {
+      const ttype = getRealTtype(modelField);
+      if (ttype === ModelFieldType.Map) {
+        serializeValue = JSON.parse(valueStr);
+      } else if (ttype === ModelFieldType.Boolean) {
+        serializeValue = BooleanHelper.toBoolean(valueStr);
+      }
+    }
+    return (context: RowContext) => {
+      return internalRender({
+        ...context,
+        data: {
+          [field]: serializeValue
+        }
+      });
+    };
   }
 
   public renderDefaultSlot?(context: RowContext): VNode[] | string;
