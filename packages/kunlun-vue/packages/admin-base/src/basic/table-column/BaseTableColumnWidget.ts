@@ -453,7 +453,7 @@ export abstract class BaseTableColumnWidget<
     // fixme @zbh 20250926 此处前端不应该处理值序列化问题，后端返回结果类型需与原始字段保持一致
     let serializeValue: unknown = valueStr;
     const modelField = (column as BaseTableFieldWidget).field;
-    if (modelField) {
+    if (modelField && typeof valueStr === 'string') {
       const ttype = getRealTtype(modelField);
       if (ttype === ModelFieldType.Map) {
         serializeValue = JSON.parse(valueStr);
