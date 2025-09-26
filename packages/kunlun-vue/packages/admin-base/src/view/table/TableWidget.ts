@@ -1245,6 +1245,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     field: string,
     valueStr: unknown
   ): unknown {
+    // fixme @zbh 20250926 此处前端不应该处理值序列化问题，后端返回结果类型需与原始字段保持一致
     let modelField: RuntimeModelField | null | undefined = modelFieldCache[field];
     if (modelField === undefined) {
       modelField = this.model.modelFields.find((v) => v.data === field);
