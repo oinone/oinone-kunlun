@@ -1,4 +1,4 @@
-import { QueryGroupResult } from '@oinone/kunlun-engine';
+import { ModelCache, QueryGroupResult } from '@oinone/kunlun-engine';
 import { IModelField, ModelFieldType, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { ObjectValue, RequestContext } from '@oinone/kunlun-request';
 import { buildSingleItemParam, EDirection, http } from '@oinone/kunlun-service';
@@ -24,18 +24,27 @@ export enum GroupStatisticsEnum {
   MIN = 'MIN' // 最大值
 }
 
-export interface ExpandGroupPath {
-  nodeList: { field: string; valueStr: string }[];
-}
-
 interface GroupParams {
   deep: number;
   currentPage: number;
   size: number;
   model: string;
-  groupFields: { field: string; orderType: EDirection }[];
-  expandGroupPaths?: ExpandGroupPath[];
-  sort?: { orders?: { field: string; direction: EDirection }[] };
+  groupFields: {
+    field: string;
+    orderType: EDirection;
+  }[];
+  expandGroupPaths?: {
+    nodeList: {
+      field: string;
+      value: unknown;
+    }[];
+  }[];
+  sort?: {
+    orders?: {
+      field: string;
+      direction: EDirection;
+    }[];
+  };
   queryWrapper?: {
     queryData?: ObjectValue;
     rsql?: string;
@@ -69,7 +78,7 @@ const groupModelFields = [
         ttype: ModelFieldType.OneToMany,
         modelFields: [
           { name: 'field', ttype: ModelFieldType.String },
-          { name: 'valueStr', ttype: ModelFieldType.String }
+          { name: 'value', ttype: ModelFieldType.OBJ }
         ]
       },
       {
@@ -150,15 +159,18 @@ const pageModelFields = [
   }
 ] as IModelField[];
 
-function generateGroupsString(level: number) {
+async function generateGroupsString(level: number) {
   if (level < 1) {
     return '';
   }
+
+  const hasValueField = !!(await ModelCache.get('base.GroupInfo'))?.modelFields.some((v) => v.data === 'value');
 
   const baseContent = `
           isLeaf
           field
           dataCount
+          ${hasValueField ? 'value' : ''}
           valueStr
           dataListStr`;
 
@@ -177,7 +189,7 @@ function generateGroupsString(level: number) {
  * 查询分组视图数据
  */
 export const fetchGroupPage = async (options: GroupParams) => {
-  const groupsGql = generateGroupsString(options.deep);
+  const groupsGql = await generateGroupsString(options.deep);
 
   const groupStr = await buildSingleItemParam(groupModelFields, options as any);
   const pageStr = await buildSingleItemParam(pageModelFields, options as any);

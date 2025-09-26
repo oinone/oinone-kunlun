@@ -381,11 +381,24 @@ const formatFieldParam = async (field: IModelField, value?): Promise<string> => 
       const paramArr = await Promise.all(builders);
       return `${field.name}: [${paramArr.join(',')}]`;
     }
+    case ModelFieldType.OBJ: {
+      return `${field.name}: ${serializeObjectValue(value)}`;
+    }
     default: {
       console.warn(`暂未支持的ttype类型:${field.ttype}`);
       return '';
     }
   }
+};
+
+const serializeObjectValue = (value: unknown): string => {
+  if (Array.isArray(value)) {
+    return `[${value.map((v) => serializeObjectValue(v))}]`;
+  }
+  if (typeof value === 'object') {
+    return `{${Object.entries(value || {}).map(([k, v]) => `${k}: ${JSON.stringify(v)}`)}}`;
+  }
+  return JSON.stringify(value);
 };
 
 const queryModuleByName = async (name: string): Promise<IModule> => {

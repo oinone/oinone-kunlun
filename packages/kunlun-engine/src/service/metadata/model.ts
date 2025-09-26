@@ -35,6 +35,7 @@ export interface QueryGroupsValue {
   dataCount: number;
   dataListStr?: string;
   valueStr?: string;
+  value?: unknown;
   groups?: QueryGroupsValue[];
 }
 export interface QueryGroupResult {

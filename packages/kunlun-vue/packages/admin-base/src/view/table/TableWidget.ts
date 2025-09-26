@@ -1222,7 +1222,11 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       groups?.map((g) => {
         if (g.groups?.length) {
           return {
-            [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(modelFieldCache, g.field, g.valueStr),
+            [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(
+              modelFieldCache,
+              g.field,
+              Optional.ofNullable(g.value).orElse(g.valueStr)
+            ),
             [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
             [GROUP_TREE_KEY.PROPS_KEY]: g,
             [GROUP_TREE_KEY.CHILDREN_KEY]: this.generatorGroupTree(modelFieldCache, g.groups)
@@ -1231,7 +1235,11 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
         const children = g.dataListStr ? JSON.parse(g.dataListStr || '[]') : [];
         return {
-          [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(modelFieldCache, g.field, g.valueStr),
+          [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(
+            modelFieldCache,
+            g.field,
+            Optional.ofNullable(g.value).orElse(g.valueStr)
+          ),
           [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
           [GROUP_TREE_KEY.PROPS_KEY]: g,
           [GROUP_TREE_KEY.CHILDREN_KEY]: children
@@ -1243,8 +1251,11 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   protected convertGroupDisplayValue(
     modelFieldCache: Record<string, RuntimeModelField | null>,
     field: string,
-    valueStr: unknown
+    value: unknown
   ): unknown {
+    if (!(typeof value === 'string')) {
+      return value;
+    }
     // fixme @zbh 20250926 此处前端不应该处理值序列化问题，后端返回结果类型需与原始字段保持一致
     let modelField: RuntimeModelField | null | undefined = modelFieldCache[field];
     if (modelField === undefined) {
@@ -1255,16 +1266,14 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       modelFieldCache[field] = modelField;
     }
     if (!modelField) {
-      return valueStr;
+      return value;
     }
-    let serializeValue: unknown = valueStr;
-    if (typeof valueStr === 'string') {
-      const ttype = getRealTtype(modelField);
-      if (ttype === ModelFieldType.Map) {
-        serializeValue = JSON.parse(valueStr);
-      } else if (ttype === ModelFieldType.Boolean) {
-        serializeValue = BooleanHelper.toBoolean(valueStr);
-      }
+    let serializeValue: unknown = value;
+    const ttype = getRealTtype(modelField);
+    if (ttype === ModelFieldType.Map) {
+      serializeValue = JSON.parse(value);
+    } else if (ttype === ModelFieldType.Boolean) {
+      serializeValue = BooleanHelper.toBoolean(value);
     }
     return serializeValue;
   }
