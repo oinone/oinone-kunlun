@@ -1144,10 +1144,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     const parameters: Record<string, unknown> = {
       model: this.model.model,
       groupFields: this.groupList?.map((v) => ({ field: v.groupField, orderType: v.groupDirection })) || [],
-      queryWrapper: {
-        queryData: searchBody,
-        rsql: condition.toString()
-      },
+      queryWrapper,
       variables,
       context
     };
