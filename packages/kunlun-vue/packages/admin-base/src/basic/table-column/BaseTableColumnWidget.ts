@@ -1,5 +1,4 @@
-import { getRealTtype, SubmitValue } from '@oinone/kunlun-engine';
-import { ModelFieldType } from '@oinone/kunlun-meta';
+import { SubmitValue } from '@oinone/kunlun-engine';
 import { IGroup } from '@oinone/kunlun-service';
 import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
 import {
@@ -21,7 +20,6 @@ import { executeConfirm } from '../../util';
 import type { TableWidget } from '../../view';
 import { BaseDataWidget } from '../common';
 import { FieldWidgetComponentFunction } from '../types';
-import type { BaseTableFieldWidget } from './BaseTableFieldWidget';
 import DefaultTableColumn from './DefaultTableColumn.vue';
 
 export abstract class BaseTableColumnWidget<
@@ -420,6 +418,10 @@ export abstract class BaseTableColumnWidget<
   protected tableExpandTreeFieldColumn: string | undefined;
 
   @Widget.Reactive()
+  @Widget.Inject('groupTitleEmptyStyle')
+  protected tableGroupTitleEmptyStyle: string | undefined;
+
+  @Widget.Reactive()
   protected get treeNode(): boolean | undefined {
     let treeNode = BooleanHelper.toBoolean(this.getDsl().treeNode);
     if (treeNode == null && this.tableExpandTreeFieldColumn && this.tableExpandTreeFieldColumn === this.itemData) {
@@ -432,15 +434,21 @@ export abstract class BaseTableColumnWidget<
     return (this.getParentWidget() as TableWidget).getColumnWidgets();
   }
 
+  protected renderGroupTitleEmptyStyle(context: RowContext): VNode[] | string {
+    return this.tableGroupTitleEmptyStyle || '';
+  }
+
   @Widget.Method()
   protected dynamicRenderDefaultSlot(context: RowContext): ((context: RowContext) => VNode[] | string) | undefined {
-    const groupProps = (context.data as Record<string, { field: string; valueStr: string }>)[GROUP_TREE_KEY.PROPS_KEY];
-    if (!groupProps) {
+    const groupProps = (context.data as Record<string, { field: string }>)[GROUP_TREE_KEY.PROPS_KEY];
+    const { tableExpandTreeFieldColumn } = this;
+    if (!groupProps || !tableExpandTreeFieldColumn) {
       return undefined;
     }
-    const { field, valueStr } = groupProps;
-    if (!field || !valueStr) {
-      return undefined;
+    const { field } = groupProps;
+    const value = context.data[tableExpandTreeFieldColumn];
+    if (!field || value == null || (typeof value === 'string' && !value)) {
+      return this.renderGroupTitleEmptyStyle.bind(this);
     }
     const column = this.getColumnWidgets().find((v) => v.itemData === field);
     if (!column) {
@@ -450,22 +458,11 @@ export abstract class BaseTableColumnWidget<
     if (!internalRender) {
       return undefined;
     }
-    // fixme @zbh 20250926 此处前端不应该处理值序列化问题，后端返回结果类型需与原始字段保持一致
-    let serializeValue: unknown = valueStr;
-    const modelField = (column as BaseTableFieldWidget).field;
-    if (modelField && typeof valueStr === 'string') {
-      const ttype = getRealTtype(modelField);
-      if (ttype === ModelFieldType.Map) {
-        serializeValue = JSON.parse(valueStr);
-      } else if (ttype === ModelFieldType.Boolean) {
-        serializeValue = BooleanHelper.toBoolean(valueStr);
-      }
-    }
     return (context: RowContext) => {
       return internalRender({
         ...context,
         data: {
-          [field]: serializeValue
+          [field]: value
         }
       });
     };

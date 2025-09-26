@@ -5,6 +5,7 @@ import {
   ActiveRecords,
   ActiveRecordsOperator,
   GenericFunctionService,
+  getRealTtype,
   isM2MField,
   isRelation2OField,
   isRelationField,
@@ -17,7 +18,7 @@ import {
   RuntimeRelationField,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { Entity, ViewType } from '@oinone/kunlun-meta';
+import { Entity, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, IGroup, ISort } from '@oinone/kunlun-service';
 import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
@@ -1212,24 +1213,25 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     pagination.total = toNumber(result?.totalElements);
     pagination.totalPageSize = toNumber(result?.totalPages);
 
-    return this.generatorGroupTree(result?.groups);
+    const modelFieldCache: Record<string, RuntimeModelField | null> = {};
+    return this.generatorGroupTree(modelFieldCache, result?.groups);
   }
 
-  protected generatorGroupTree(groups?: QueryGroupsValue[]) {
+  protected generatorGroupTree(modelFieldCache: Record<string, RuntimeModelField | null>, groups?: QueryGroupsValue[]) {
     return (
       groups?.map((g) => {
         if (g.groups?.length) {
           return {
-            [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(g.field, g.valueStr),
+            [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(modelFieldCache, g.field, g.valueStr),
             [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
             [GROUP_TREE_KEY.PROPS_KEY]: g,
-            [GROUP_TREE_KEY.CHILDREN_KEY]: this.generatorGroupTree(g.groups)
+            [GROUP_TREE_KEY.CHILDREN_KEY]: this.generatorGroupTree(modelFieldCache, g.groups)
           };
         }
 
         const children = g.dataListStr ? JSON.parse(g.dataListStr || '[]') : [];
         return {
-          [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(g.field, g.valueStr),
+          [this.expandTreeFieldColumn as string]: this.convertGroupDisplayValue(modelFieldCache, g.field, g.valueStr),
           [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
           [GROUP_TREE_KEY.PROPS_KEY]: g,
           [GROUP_TREE_KEY.CHILDREN_KEY]: children
@@ -1238,14 +1240,36 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     );
   }
 
-  protected convertGroupDisplayValue(field: string, valueStr: string | undefined): string {
-    if (!valueStr) {
-      return this.groupTitleEmptyStyle;
+  protected convertGroupDisplayValue(
+    modelFieldCache: Record<string, RuntimeModelField | null>,
+    field: string,
+    valueStr: unknown
+  ): unknown {
+    let modelField: RuntimeModelField | null | undefined = modelFieldCache[field];
+    if (modelField === undefined) {
+      modelField = this.model.modelFields.find((v) => v.data === field);
+      if (modelField == null) {
+        modelField = null;
+      }
+      modelFieldCache[field] = modelField;
     }
-    return valueStr;
+    if (!modelField) {
+      return valueStr;
+    }
+    let serializeValue: unknown = valueStr;
+    if (typeof valueStr === 'string') {
+      const ttype = getRealTtype(modelField);
+      if (ttype === ModelFieldType.Map) {
+        serializeValue = JSON.parse(valueStr);
+      } else if (ttype === ModelFieldType.Boolean) {
+        serializeValue = BooleanHelper.toBoolean(valueStr);
+      }
+    }
+    return serializeValue;
   }
 
   @Widget.Reactive()
+  @Widget.Provide()
   protected get groupTitleEmptyStyle() {
     return this.getDsl().groupTitleEmptyStyle || EmptyStyle.empty;
   }
