@@ -13,7 +13,7 @@ export interface ActionKeyboardConfig extends Record<string, unknown> {
 }
 
 export enum TableRowEditMode {
-  CREATE ='CREATE',
+  CREATE = 'CREATE',
   COPY = 'COPY',
   EXIST = 'EXIST'
 }

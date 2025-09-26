@@ -1,5 +1,6 @@
 import { RuntimeConfigOptions } from '@oinone/kunlun-meta';
 import { ConfigHelper } from './config-helper';
+import { KeyboardConfig } from './keyboard';
 
 /**
  * Table配置
@@ -42,6 +43,37 @@ export interface TableConfig extends RuntimeConfigOptions {
    * 快捷键
    */
   enabledKeyboard?: boolean;
+  /**
+   * 快捷键配置
+   */
+  keyboardConfig?: TableKeyboardConfig;
+}
+
+export interface TableKeyboardConfig extends RuntimeConfigOptions {
+  /**
+   * 向左移动单元格
+   */
+  left?: KeyboardConfig;
+  /**
+   * 向右移动单元格
+   */
+  right?: KeyboardConfig;
+  /**
+   * 向上移动单元格
+   */
+  up?: KeyboardConfig;
+  /**
+   * 向下移动单元格
+   */
+  down?: KeyboardConfig;
+  /**
+   * 确定操作
+   */
+  enter?: KeyboardConfig;
+  /**
+   * 取消操作
+   */
+  cancel?: KeyboardConfig;
 }
 
 export class TableConfigManager {

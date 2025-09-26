@@ -319,7 +319,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Reactive()
   protected get mergeCells() {
-    return [];
+    return undefined;
   }
 
   /**
@@ -1128,23 +1128,37 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
-  protected generatorGroupQueryCondition() {
+  protected generatorGroupQueryCondition(paging?: boolean) {
     const variables = this.generatorQueryVariables();
     const context = this.generatorQueryContext();
     const searchBody = this.generatorSearchBody();
     const condition = this.generatorCondition(undefined, this.usingSearchCondition);
 
-    return {
+    const sort = { orders: this.sortList?.map((item) => ({ field: item.sortField, direction: item.direction })) };
+
+    const queryWrapper: Record<string, unknown> = {
+      queryData: searchBody,
+      rsql: condition.toString()
+    };
+
+    const parameters: Record<string, unknown> = {
       model: this.model.model,
       groupFields: this.groupList?.map((v) => ({ field: v.groupField, orderType: v.groupDirection })) || [],
-      sort: { orders: this.sortList?.map((item) => ({ field: item.sortField, direction: item.direction })) },
       queryWrapper: {
         queryData: searchBody,
         rsql: condition.toString()
       },
       variables,
       context
-    } as any;
+    };
+
+    if (paging) {
+      parameters.sort = sort;
+    } else {
+      queryWrapper.sort = sort;
+    }
+
+    return parameters as any;
   }
 
   /**
@@ -1199,7 +1213,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       deep: this.groupList?.length || 1,
       currentPage: this.pagination?.current || 1,
       size: this.showPagination ? pagination.pageSize : -1,
-      ...this.generatorGroupQueryCondition()
+      ...this.generatorGroupQueryCondition(true)
     });
 
     this.groupTotalDataCount = toNumber(result?.totalDataCount || 0);
@@ -1331,25 +1345,26 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   /**
    * 检查按键是否匹配快捷键配置
    * @param {KeyboardEvent} event 键盘事件
-   * @param {ActionKeyboardConfig[]} configs  快捷键配置数组
+   * @param {ActionKeyboardConfig} config  快捷键配置
    * @returns {boolean} 是否匹配
    */
-  private isShortcutMatch(event: KeyboardEvent, configs: ActionKeyboardConfig[]) {
+  protected isShortcutMatch(event: KeyboardEvent, config: ActionKeyboardConfig | undefined) {
+    if (!config) {
+      return false;
+    }
     const eventKey = this.normalizeKey(event.key);
 
-    return configs.some((config) => {
-      const { key, ctrl = false, shift = false, alt = false } = config;
+    const { key, ctrl = false, shift = false, alt = false } = config;
 
-      if (this.normalizeKey(key) !== eventKey) {
-        return false;
-      }
+    if (this.normalizeKey(key) !== eventKey) {
+      return false;
+    }
 
-      const isCtrlMatch = event.ctrlKey === ctrl || event.metaKey === ctrl;
-      const isShiftMatch = event.shiftKey === shift;
-      const isAltMatch = event.altKey === alt;
+    const isCtrlMatch = event.ctrlKey === ctrl || event.metaKey === ctrl;
+    const isShiftMatch = event.shiftKey === shift;
+    const isAltMatch = event.altKey === alt;
 
-      return isCtrlMatch && isShiftMatch && isAltMatch;
-    });
+    return isCtrlMatch && isShiftMatch && isAltMatch;
   }
 
   /**
@@ -1489,23 +1504,23 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
 
     // 右移动
-    if (this.isShortcutMatch(event, this.keyboardShortcut.right)) {
+    if (this.isShortcutMatch(event, this.keyboardConfig.right)) {
       event.preventDefault();
       this.onMoveColumnActiveEditor(event, 1);
-    } else if (this.isShortcutMatch(event, this.keyboardShortcut.left)) {
+    } else if (this.isShortcutMatch(event, this.keyboardConfig.left)) {
       /// 左移动
       event.preventDefault();
       this.onMoveColumnActiveEditor(event, -1);
-    } else if (this.isShortcutMatch(event, this.keyboardShortcut.down)) {
+    } else if (this.isShortcutMatch(event, this.keyboardConfig.down)) {
       console.log('xia ');
       // 下移动
       event.preventDefault();
       this.onMoveRowActiveEditor(event, 1);
-    } else if (this.isShortcutMatch(event, this.keyboardShortcut.up)) {
+    } else if (this.isShortcutMatch(event, this.keyboardConfig.up)) {
       // 上移动
       event.preventDefault();
       this.onMoveRowActiveEditor(event, -1);
-    } else if (this.isShortcutMatch(event, this.keyboardShortcut.cancel)) {
+    } else if (this.isShortcutMatch(event, this.keyboardConfig.cancel)) {
       // 取消
       event.preventDefault();
       this.tableInstance?.clearEditor();

@@ -1,4 +1,4 @@
-import { ModelCache, QueryGroupResult } from '@oinone/kunlun-engine';
+import { QueryGroupResult } from '@oinone/kunlun-engine';
 import { IModelField, ModelFieldType, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { ObjectValue, RequestContext } from '@oinone/kunlun-request';
 import { buildSingleItemParam, EDirection, http } from '@oinone/kunlun-service';
@@ -88,34 +88,6 @@ const groupModelFields = [
     ]
   },
   {
-    name: 'statisticFields',
-    ttype: ModelFieldType.OneToMany,
-    modelFields: [
-      {
-        name: 'field',
-        ttype: ModelFieldType.String
-      },
-      {
-        name: 'statisticType',
-        ttype: ModelFieldType.Enum
-      }
-    ]
-  },
-  {
-    name: 'sortFields',
-    ttype: ModelFieldType.OneToMany,
-    modelFields: [
-      {
-        name: 'field',
-        ttype: ModelFieldType.String
-      },
-      {
-        name: 'orderType',
-        ttype: ModelFieldType.Enum
-      }
-    ]
-  },
-  {
     name: 'queryWrapper',
     ttype: ModelFieldType.ManyToOne,
     modelFields: [
@@ -123,6 +95,26 @@ const groupModelFields = [
       {
         name: 'queryData',
         ttype: ModelFieldType.Map
+      },
+      {
+        name: 'sort',
+        ttype: ModelFieldType.ManyToOne,
+        modelFields: [
+          {
+            name: 'orders',
+            ttype: ModelFieldType.OneToMany,
+            modelFields: [
+              {
+                name: 'field',
+                ttype: ModelFieldType.String
+              },
+              {
+                name: 'direction',
+                ttype: ModelFieldType.Enum
+              }
+            ]
+          }
+        ]
       }
     ]
   }

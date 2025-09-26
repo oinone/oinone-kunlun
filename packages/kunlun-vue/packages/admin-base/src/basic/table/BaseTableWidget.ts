@@ -16,6 +16,7 @@ import {
   SubmitCacheManager,
   SubmitValue,
   TableConfigManager,
+  TableKeyboardConfig,
   translateValueByKey
 } from '@oinone/kunlun-engine';
 import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
@@ -38,7 +39,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy, toString } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTablePropTypes } from 'vxe-table';
-import { ActionKeyboardConfig, TableLineHeightEnum, TableRowEditMode } from '../../typing';
+import { TableLineHeightEnum, TableRowEditMode } from '../../typing';
 import { FetchUtil } from '../../util';
 import { BaseElementListViewWidget, BaseElementListViewWidgetProps, getSortFieldDirection } from '../element';
 import { BaseTableColumnWidget } from '../table-column';
@@ -51,15 +52,6 @@ interface ColumnWidgetEntity {
 
 function isActiveRecordArray(value: ActiveRecords): value is ActiveRecord[] {
   return Array.isArray(value);
-}
-
-interface TableKeyboardConfig {
-  down: ActionKeyboardConfig[]; // 向下移动单元格
-  up: ActionKeyboardConfig[]; // 向上移动单元格
-  left: ActionKeyboardConfig[]; // 向左移动单元格
-  right: ActionKeyboardConfig[]; // 向右移动单元格
-  cancel: ActionKeyboardConfig[]; // 取消操作
-  submit: ActionKeyboardConfig[]; // 提交数据
 }
 
 const URL_SPLIT_SEPARATOR = ',';
@@ -89,18 +81,6 @@ export class BaseTableWidget<
   protected get tableConfig() {
     return TableConfigManager.getConfig();
   }
-
-  /**
-   * 表格单元格快捷键编辑
-   */
-  protected keyboardShortcut: TableKeyboardConfig = {
-    down: [{ key: 'Enter', ctrl: true }], // 向下移动单元格
-    up: [{ key: 'Enter', ctrl: true, shift: true }], // 向上移动单元格
-    left: [{ key: 'Tab', shift: true }], // 向左移动单元格
-    right: [{ key: 'Tab' }], // 向右移动单元格
-    cancel: [{ key: 'Esc' }], // 取消操作
-    submit: [{ key: 'Enter' }] // 提交数据
-  };
 
   @Widget.Method()
   protected setTableInstance(tableInstance: OioTableInstance | undefined) {
@@ -332,6 +312,29 @@ export class BaseTableWidget<
       return true;
     }
     return enabledFullScreen;
+  }
+
+  /**
+   * 表格单元格快捷键编辑
+   */
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get keyboardConfig() {
+    return this.defaultKeyboardConfig;
+  }
+
+  protected get defaultKeyboardConfig(): TableKeyboardConfig {
+    let { keyboardConfig } = this.tableConfig;
+    if (!keyboardConfig) {
+      keyboardConfig = {};
+    }
+    keyboardConfig.left = keyboardConfig.left || { key: 'Tab', shift: true, desc: '向左移动单元格' };
+    keyboardConfig.right = keyboardConfig.right || { key: 'Tab', desc: '向右移动单元格' };
+    keyboardConfig.up = keyboardConfig.up || { key: 'Enter', ctrl: true, shift: true, desc: '向上移动单元格' };
+    keyboardConfig.down = keyboardConfig.down || { key: 'Enter', ctrl: true, desc: '向下移动单元格' };
+    keyboardConfig.enter = keyboardConfig.enter || { key: 'Enter', desc: '提交数据' };
+    keyboardConfig.cancel = keyboardConfig.cancel || { key: 'Esc', desc: '取消编辑' };
+    return keyboardConfig;
   }
 
   /**

@@ -29,9 +29,9 @@
               </oio-col>
             </oio-row>
 
-            <oio-row v-for="item in keyboardShortcutConfig" :key="item.label" class="shortcut-item">
+            <oio-row v-for="item in keyboardConfigs" :key="item.label" class="shortcut-item">
               <oio-col :span="12">
-                <span class="shortcut-item-title">{{ item.label }}</span>
+                <span class="shortcut-item-title">{{ $translate(item.label) }}</span>
               </oio-col>
               <oio-col :span="12">
                 <div class="shortcut-key">
@@ -60,14 +60,14 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue';
+import { ButtonType, OioButton, OioCol, OioIcon, OioRow } from '@oinone/kunlun-vue-ui-antd';
 import { Popover as APopover, Tooltip as ATooltip } from 'ant-design-vue';
-import { OioButton, ButtonType, OioRow, OioCol, OioIcon } from '@oinone/kunlun-vue-ui-antd';
+import { defineComponent, PropType, ref } from 'vue';
 
 export default defineComponent({
   inheritAttrs: false,
   props: {
-    keyboardShortcutConfig: {
+    keyboardConfigs: {
       type: Array as PropType<{ label: string; keyCodes: string[] }[]>,
       default: () => []
     }
@@ -101,6 +101,7 @@ export default defineComponent({
   .ant-popover-inner-content {
     padding: 0;
   }
+
   .table-keyboard-shortcut-inner {
     width: 480px;
     box-sizing: border-box;
@@ -117,6 +118,7 @@ export default defineComponent({
     .shortcut-content {
       padding: var(--oio-padding);
       box-sizing: border-box;
+
       .shortcut-header {
         margin-bottom: var(--oio-margin);
 
@@ -132,11 +134,13 @@ export default defineComponent({
         .shortcut-key {
           display: flex;
           align-items: center;
+
           .shortcut-key-item {
             display: flex;
             align-items: center;
             gap: 4px;
             margin-right: 4px;
+
             .shortcut-key-item-label {
               padding: 4px 3px;
               border-radius: 2px;
@@ -144,6 +148,7 @@ export default defineComponent({
             }
           }
         }
+
         &:last-child {
           margin-bottom: 0;
         }

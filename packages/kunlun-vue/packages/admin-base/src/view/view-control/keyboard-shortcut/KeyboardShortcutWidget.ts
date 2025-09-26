@@ -1,6 +1,6 @@
+import { KeyboardConfig, TableKeyboardConfig } from '@oinone/kunlun-engine';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { translateValueByKey } from '@oinone/kunlun-engine';
 import { BaseElementWidget } from '../../../basic';
 import DefaultKeyboardShortcut from './DefaultKeyboardShortcut.vue';
 
@@ -17,24 +17,50 @@ export class KeyboardShortcutWidget extends BaseElementWidget {
   }
 
   @Widget.Reactive()
-  public get keyboardShortcutConfig() {
-    return [
-      { label: translateValueByKey('向左移动单元格'), keyCodes: ['Shift', 'Tab'] },
-      { label: translateValueByKey('向右移动单元格'), keyCodes: ['Tab'] },
-      {
-        label: translateValueByKey('向上移动单元格'),
-        keyCodes: ['Ctrl', 'Shift', 'Enter']
-      },
-      {
-        label: translateValueByKey('向下移动单元格'),
-        keyCodes: ['Ctrl', 'Enter']
-      },
+  @Widget.Inject('keyboardConfig')
+  protected tableKeyboardConfig: TableKeyboardConfig | undefined;
 
-      { label: translateValueByKey('取消编辑'), keyCodes: ['Escape'] },
-      {
-        label: translateValueByKey('选中选项'),
-        keyCodes: ['Enter']
+  @Widget.Reactive()
+  public get keyboardConfigs() {
+    const configs: { label: string; keyCodes: string[] }[] = [];
+    const { tableKeyboardConfig } = this;
+    if (!tableKeyboardConfig) {
+      return configs;
+    }
+    const { left, right, up, down, enter, cancel } = tableKeyboardConfig;
+    const pushConfig = (config: KeyboardConfig) => {
+      const keyCodes: string[] = [];
+      const { desc, ctrl, shift, alt, key } = config;
+      if (ctrl) {
+        keyCodes.push('Ctrl');
       }
-    ];
+      if (shift) {
+        keyCodes.push('Shift');
+      }
+      if (alt) {
+        keyCodes.push('Alt');
+      }
+      keyCodes.push(key);
+      configs.push({ label: desc || '未命名快捷键', keyCodes });
+    };
+    if (left) {
+      pushConfig(left);
+    }
+    if (right) {
+      pushConfig(right);
+    }
+    if (up) {
+      pushConfig(up);
+    }
+    if (down) {
+      pushConfig(down);
+    }
+    if (enter) {
+      pushConfig(enter);
+    }
+    if (cancel) {
+      pushConfig(cancel);
+    }
+    return configs;
   }
 }
