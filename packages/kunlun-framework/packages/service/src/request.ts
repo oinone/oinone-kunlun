@@ -392,6 +392,9 @@ const formatFieldParam = async (field: IModelField, value?): Promise<string> => 
 };
 
 const serializeObjectValue = (value: unknown): string => {
+  if (value == null) {
+    return 'null';
+  }
   if (Array.isArray(value)) {
     return `[${value.map((v) => serializeObjectValue(v))}]`;
   }
