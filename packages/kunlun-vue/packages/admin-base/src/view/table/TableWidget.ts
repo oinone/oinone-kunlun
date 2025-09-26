@@ -1218,11 +1218,10 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     pagination.total = toNumber(result?.totalElements);
     pagination.totalPageSize = toNumber(result?.totalPages);
 
-    const modelFieldCache: Record<string, RuntimeModelField | null> = {};
-    return this.generatorGroupTree(modelFieldCache, result?.groups);
+    return this.generatorGroupTree(result?.groups);
   }
 
-  protected generatorGroupTree(modelFieldCache: Record<string, RuntimeModelField | null>, groups?: QueryGroupsValue[]) {
+  protected generatorGroupTree(groups?: QueryGroupsValue[]) {
     return (
       groups?.map((g) => {
         if (g.groups?.length) {
@@ -1230,7 +1229,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
             [this.expandTreeFieldColumn as string]: g.value,
             [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
             [GROUP_TREE_KEY.PROPS_KEY]: g,
-            [GROUP_TREE_KEY.CHILDREN_KEY]: this.generatorGroupTree(modelFieldCache, g.groups)
+            [GROUP_TREE_KEY.CHILDREN_KEY]: this.generatorGroupTree(g.groups)
           };
         }
 
