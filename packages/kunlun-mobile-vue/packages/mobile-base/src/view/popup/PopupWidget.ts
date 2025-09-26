@@ -56,12 +56,12 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
 
   @Widget.Reactive()
   protected get popupSubmitType(): PopupSubmitType {
-    return (this.getDsl()?.submitType?.toLowerCase?.() as PopupSubmitType) || PopupSubmitType.current;
+    return (this.getDsl().submitType?.toLowerCase?.() as PopupSubmitType) || PopupSubmitType.current;
   }
 
   @Widget.Reactive()
   protected get viewType(): ViewType {
-    return this.getDsl()?.type as unknown as ViewType;
+    return this.getDsl().type as unknown as ViewType;
   }
 
   @Widget.Reactive()
@@ -163,11 +163,6 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
 
   @Widget.Reactive()
   protected mountedVisible = false;
-
-  @Widget.Reactive()
-  protected get openHandle() {
-    return this.getDsl().openHandle;
-  }
 
   public initialize(props: Props) {
     super.initialize(props);

@@ -3,7 +3,6 @@ import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { ModalWidth } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { PopupScene } from '../../../typing';
 import { PopupWidget, PopupWidgetProps } from '../PopupWidget';
 import DefaultDialog from './DefaultDialog.vue';
@@ -61,7 +60,7 @@ export class DialogWidget<Props extends DialogWidgetProps = DialogWidgetProps> e
 
   @Widget.Reactive()
   protected get wrapperClassName(): string | undefined {
-    return this.getDsl()?.wrapperClassName;
+    return this.getDsl().wrapperClassName;
   }
 
   @Widget.Reactive()

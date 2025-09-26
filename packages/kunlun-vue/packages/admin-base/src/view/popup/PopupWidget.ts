@@ -49,6 +49,12 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
 
   private handlers: PopupEventHandle = { cancel: [], ok: [] };
 
+  public initialize(props: Props) {
+    super.initialize(props);
+    this.mountedVisible = Optional.ofNullable(props.mountedVisible).orElse(true)!;
+    return this;
+  }
+
   @Widget.Reactive()
   @Widget.Inject()
   protected openerDataSource: ActiveRecord[] | undefined;
@@ -59,91 +65,12 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
 
   @Widget.Reactive()
   protected get popupSubmitType(): PopupSubmitType {
-    return (this.getDsl()?.submitType?.toLowerCase?.() as PopupSubmitType) || PopupSubmitType.current;
-  }
-
-  @Widget.Reactive()
-  @Widget.Inject('viewType')
-  protected parentViewType: ViewType | undefined;
-
-  // 是否显示切换全屏按钮
-  @Widget.Reactive()
-  protected get showFullscreen() {
-    return !!this.getDsl()?.showFullscreen;
-  }
-
-  // 是否显示切换窗口类型按钮
-  @Widget.Reactive()
-  protected get showDisplayAs() {
-    return !!this.getDsl()?.showDisplayAs;
-  }
-
-  // 是否显示上一条、下一条数据切换
-  @Widget.Reactive()
-  protected get showPreNextToggle() {
-    if (
-      this.parentViewType === ViewType.Table &&
-      this.action?.contextType !== ActionContextType.ContextFree &&
-      this.openerDataSource?.length
-    ) {
-      return !!this.getDsl()?.showPreNextToggle;
-    }
-
-    return false;
-  }
-
-  @Widget.Reactive()
-  protected get listViewTotalPage() {
-    return this.openerDataSource?.length || 0;
-  }
-
-  @Widget.Reactive()
-  protected listViewRowNumber = 1;
-
-  /**
-   * 计算当前的数据是表格的第一行
-   */
-  protected computedRowNumber() {
-    if (!this.openerDataSource?.length || !this.showPreNextToggle) {
-      return;
-    }
-
-    const __draftId = this.action?.resView?.initialValue?.[0].__draftId;
-    if (!__draftId) {
-      return;
-    }
-
-    const index = this.openerDataSource.findIndex((item) => item.__draftId === __draftId);
-    if (index >= 0) {
-      this.listViewRowNumber = index + 1;
-    }
-  }
-
-  /**
-   * 上一行、下一行切换
-   */
-  @Widget.Method()
-  protected async onChangeRowNumber(currentPage: number) {
-    this.listViewRowNumber = currentPage;
-    const activeRecord = deepClone(this.openerDataSource?.[this.listViewRowNumber - 1]);
-
-    if (!activeRecord) {
-      return;
-    }
-
-    this.reloadActiveRecords(activeRecord);
-    this.reloadDataSource(activeRecord);
-
-    if (this.action?.resView) {
-      this.action.resView.initialValue = this.activeRecords;
-    }
-
-    this.mountedCallChaining?.syncCall();
+    return (this.getDsl().submitType?.toLowerCase?.() as PopupSubmitType) || PopupSubmitType.current;
   }
 
   @Widget.Reactive()
   protected get viewType(): ViewType {
-    return this.getDsl()?.type as unknown as ViewType;
+    return this.getDsl().type as unknown as ViewType;
   }
 
   @Widget.Reactive()
@@ -261,15 +188,31 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
   @Widget.Reactive()
   private mountedVisible = false;
 
+  /**
+   * 是否显示切换全屏按钮
+   */
   @Widget.Reactive()
-  private get openHandle() {
-    return this.getDsl().openHandle;
+  protected get enabledFullScreen() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enabledFullScreen)).orElse(true);
   }
 
-  public initialize(props: Props) {
-    super.initialize(props);
-    this.mountedVisible = Optional.ofNullable(props.mountedVisible).orElse(true)!;
-    return this;
+  /**
+   * 是否显示切换窗口类型按钮
+   */
+  @Widget.Reactive()
+  protected get showPopupToggle() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showPopupToggle)).orElse(true);
+  }
+
+  /**
+   * 是否显示上一条、下一条数据切换
+   */
+  @Widget.Reactive()
+  protected get showQuickToggle() {
+    if (this.action?.contextType === ActionContextType.Single) {
+      return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showQuickToggle)).orElse(true);
+    }
+    return false;
   }
 
   @Widget.Method()
@@ -374,6 +317,55 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
     }
     PopupManager.INSTANCE.dispose(this.getHandle());
     return false;
+  }
+
+  @Widget.Reactive()
+  protected get listViewTotalPage() {
+    return this.openerDataSource?.length || 0;
+  }
+
+  @Widget.Reactive()
+  protected listViewRowNumber = 1;
+
+  /**
+   * 计算当前的数据是表格的第一行
+   */
+  protected computedRowNumber() {
+    if (!this.openerDataSource?.length || !this.showQuickToggle) {
+      return;
+    }
+
+    const __draftId = this.action?.resView?.initialValue?.[0].__draftId;
+    if (!__draftId) {
+      return;
+    }
+
+    const index = this.openerDataSource.findIndex((item) => item.__draftId === __draftId);
+    if (index >= 0) {
+      this.listViewRowNumber = index + 1;
+    }
+  }
+
+  /**
+   * 上一行、下一行切换
+   */
+  @Widget.Method()
+  protected async onChangeRowNumber(currentPage: number) {
+    this.listViewRowNumber = currentPage;
+    const activeRecord = deepClone(this.openerDataSource?.[this.listViewRowNumber - 1]);
+
+    if (!activeRecord) {
+      return;
+    }
+
+    this.reloadActiveRecords(activeRecord);
+    this.reloadDataSource(activeRecord);
+
+    if (this.action?.resView) {
+      this.action.resView.initialValue = this.activeRecords;
+    }
+
+    this.mountedCallChaining?.syncCall();
   }
 
   protected isSameModel(): boolean {

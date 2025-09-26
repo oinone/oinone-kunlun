@@ -82,17 +82,17 @@ export default defineComponent({
       type: Function
     },
     // 是否显示切换全屏按钮
-    showFullscreen: {
+    enabledFullScreen: {
       type: Boolean,
       default: false
     },
     // 是否显示切换窗口类型按钮
-    showDisplayAs: {
+    showPopupToggle: {
       type: Boolean,
       default: false
     },
     // 是否显示上一条、下一条数据切换
-    showPreNextToggle: {
+    showQuickToggle: {
       type: Boolean,
       default: false
     },
@@ -139,9 +139,9 @@ export default defineComponent({
       onOk,
       onCancel,
       viewType,
-      showDisplayAs,
-      showFullscreen,
-      showPreNextToggle,
+      showPopupToggle,
+      enabledFullScreen,
+      showQuickToggle,
       listViewTotalPage,
       listViewRowNumber,
       onChangeRowNumber
@@ -157,7 +157,7 @@ export default defineComponent({
       ];
     }
 
-    if (showPreNextToggle) {
+    if (showQuickToggle) {
       /**
        * 上一条、下一条数据切换
        */
@@ -206,8 +206,8 @@ export default defineComponent({
         headerInvisible,
         footerInvisible,
         destroyOnClose,
-        showFullscreen,
-        showDisplayAs,
+        enabledFullScreen,
+        showPopupToggle,
         enterCallback: onOk,
         cancelCallback: onCancel,
         'onUpdate:visible': onVisibleChange

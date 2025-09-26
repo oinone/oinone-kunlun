@@ -81,14 +81,14 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Reactive()
   @Widget.Inject()
-  protected gotoO2MCreateRow = false;
+  protected showAddBtn = false;
 
   /**
    * 表格底部开启「快速填报」操作
    */
   @Widget.Reactive()
   @Widget.Inject()
-  protected gotoO2MQuickFilling = false;
+  protected showQuickFill = false;
 
   @Widget.Provide()
   protected get cellWidth() {

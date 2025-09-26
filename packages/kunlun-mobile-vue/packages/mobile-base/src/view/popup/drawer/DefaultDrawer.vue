@@ -65,7 +65,6 @@ export default defineComponent({
     'fixedHeight',
     'maskClosable',
     'allMounted',
-    'openHandle',
     'placement'
   ],
   setup(props) {

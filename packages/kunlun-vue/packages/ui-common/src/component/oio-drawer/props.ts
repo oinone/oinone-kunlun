@@ -32,12 +32,12 @@ const OioDrawerAppearanceProps = {
     default: undefined
   },
   // 是否显示切换全屏按钮
-  showFullscreen: {
+  enabledFullScreen: {
     type: Boolean,
     default: true
   },
   // 是否显示切换窗口类型按钮
-  showDisplayAs: {
+  showPopupToggle: {
     type: Boolean,
     default: true
   }

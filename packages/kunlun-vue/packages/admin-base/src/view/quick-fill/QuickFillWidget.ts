@@ -54,13 +54,13 @@ export class QuickFillWidget extends BaseElementWidget {
 
   @Widget.Provide()
   @Widget.Reactive()
-  protected get gotoO2MCreateRow() {
+  protected get showAddBtn() {
     return false;
   }
 
   @Widget.Provide()
   @Widget.Reactive()
-  protected get gotoO2MQuickFilling() {
+  protected get showQuickFill() {
     return false;
   }
 

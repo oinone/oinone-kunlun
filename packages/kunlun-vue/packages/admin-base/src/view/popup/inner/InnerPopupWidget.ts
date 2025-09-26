@@ -52,7 +52,7 @@ export class InnerPopupWidget extends PopupWidget {
 
   @Widget.Reactive()
   public get class(): string | undefined {
-    return this.getDsl()?.class;
+    return this.getDsl().class;
   }
 
   @Widget.Reactive()

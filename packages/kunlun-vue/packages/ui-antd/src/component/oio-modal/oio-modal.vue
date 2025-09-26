@@ -133,14 +133,14 @@ export default defineComponent({
 
         // 控制图标
         const controlIcons = [
-          this.showDisplayAs &&
+          this.showPopupToggle &&
             createVNode(OioIcon, {
               style: { cursor: 'pointer' },
               icon: this.drawerModalClassName ? 'oinone-danchuang' : 'oinone-chouti',
               size: 16,
               onClick: withModifiers(this.onDisplayAsSwitch, ['stop'])
             }),
-          this.showFullscreen &&
+          this.enabledFullScreen &&
             createVNode(OioIcon, {
               style: { cursor: 'pointer' },
               icon: this.isFullScreen ? 'oinone-suoxiao1' : 'oinone-fangda2',

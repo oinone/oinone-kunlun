@@ -353,11 +353,11 @@ export default defineComponent({
     viewControlWidget: {
       type: Object as PropType<DslDefinition>
     },
-    gotoO2MCreateRow: {
+    showAddBtn: {
       type: Boolean,
       default: false
     },
-    gotoO2MQuickFilling: {
+    showQuickFill: {
       type: Boolean,
       default: false
     },
@@ -798,8 +798,8 @@ export default defineComponent({
       emptyText,
       emptyImage,
       pageSizeOptions,
-      gotoO2MCreateRow,
-      gotoO2MQuickFilling,
+      showAddBtn,
+      showQuickFill,
       onAddRow
     } = this;
     let { border = false, stripe = false, isCurrent = true, isHover = false } = getTableThemeConfig() || {};
@@ -845,12 +845,6 @@ export default defineComponent({
       }
     };
 
-    const footerOperatorVNode = createVNode(DefaultTableFooterOperator, {
-      gotoO2MCreateRow,
-      gotoO2MQuickFilling,
-      onAddRow
-    });
-
     // 有分页器
     if (showPagination) {
       tableSlots.footer = () => {
@@ -881,7 +875,12 @@ export default defineComponent({
         const footerVNode = [createVNode('div', { class: 'default-table-footer-content' }, [footerVNodeChildren])];
 
         // 添加行、快速填报
-        if (gotoO2MCreateRow || gotoO2MQuickFilling) {
+        if (showAddBtn || showQuickFill) {
+          const footerOperatorVNode = createVNode(DefaultTableFooterOperator, {
+            showAddBtn,
+            showQuickFill,
+            onAddRow
+          });
           footerVNode.unshift(footerOperatorVNode);
         }
 
@@ -891,7 +890,12 @@ export default defineComponent({
       const footerSlots = [] as VNode[];
 
       // 添加行、快速填报
-      if (gotoO2MCreateRow || gotoO2MQuickFilling) {
+      if (showAddBtn || showQuickFill) {
+        const footerOperatorVNode = createVNode(DefaultTableFooterOperator, {
+          showAddBtn,
+          showQuickFill,
+          onAddRow
+        });
         footerSlots.push(footerOperatorVNode);
       }
 

@@ -22,8 +22,11 @@ export class FormO2MTableFieldWidget extends FormSubviewListFieldWidget<RuntimeO
    */
   @Widget.Provide()
   @Widget.Reactive()
-  protected get gotoO2MCreateRow() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().gotoO2MCreateRow)).orElse(true);
+  protected get showAddBtn() {
+    if (this.readonly) {
+      return false;
+    }
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showAddBtn)).orElse(true);
   }
 
   /**
@@ -31,8 +34,11 @@ export class FormO2MTableFieldWidget extends FormSubviewListFieldWidget<RuntimeO
    */
   @Widget.Provide()
   @Widget.Reactive()
-  protected get gotoO2MQuickFilling() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().gotoO2MQuickFilling)).orElse(true);
+  protected get showQuickFill() {
+    if (this.readonly) {
+      return false;
+    }
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showQuickFill)).orElse(true);
   }
 
   protected async refreshValueProcess() {

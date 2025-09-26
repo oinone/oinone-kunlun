@@ -1,11 +1,10 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
-import { BooleanHelper } from '@oinone/kunlun-shared';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { DrawerHeight, DrawerPlacement, DrawerWidth, OioDrawerProps } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../../typing';
 import { PopupWidget, PopupWidgetProps } from '../PopupWidget';
 import DefaultDrawer from './DefaultDrawer.vue';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 
 export type DrawerWidgetProps = PopupWidgetProps;
 
@@ -57,7 +56,7 @@ export class DrawerWidget<Props extends DrawerWidgetProps = DrawerWidgetProps> e
 
   @Widget.Reactive()
   protected get wrapperClassName(): string | undefined {
-    return this.getDsl()?.wrapperClassName;
+    return this.getDsl().wrapperClassName;
   }
 
   @Widget.Reactive()
