@@ -1,5 +1,6 @@
 import { DslDefinition } from '@oinone/kunlun-dsl';
 import {
+  ActiveRecord,
   isEnumerationField,
   isRelation2MField,
   isRelation2OField,
@@ -10,6 +11,7 @@ import {
 } from '@oinone/kunlun-engine';
 import { deepClone, Entity, IModelField, isEmptyValue, ModelFieldType, SYSTEM_MODULE } from '@oinone/kunlun-meta';
 import { buildSingleItemParam, http } from '@oinone/kunlun-service';
+import { StandardString } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { autoFillByLabel, autoFillByLabelFields } from '@oinone/kunlun-vue-admin-layout';
 import { TableEditorMode } from '@oinone/kunlun-vue-ui';
@@ -21,8 +23,7 @@ import { ValidatorStatus } from '../../typing';
 import { TableWidget } from '../table/TableWidget';
 import { fullAddressField } from './fulladdress-field';
 import QuickFill from './QuickFill.vue';
-
-type MayBeEmptyString = string | null | undefined;
+import { QuickFillType } from './type';
 
 interface Failure {
   rowNumber: number;
@@ -62,6 +63,14 @@ export class QuickFillWidget extends BaseElementWidget {
   @Widget.Reactive()
   protected get showQuickFill() {
     return false;
+  }
+
+  @Widget.Reactive()
+  protected type: QuickFillType = QuickFillType.create;
+
+  @Widget.Method()
+  public onTypeChange(type: QuickFillType) {
+    this.type = type;
   }
 
   protected get modelFields() {
@@ -111,21 +120,21 @@ export class QuickFillWidget extends BaseElementWidget {
    * 确认提交,校验excel数据
    */
   @Widget.Method()
-  public async onSure(cells: MayBeEmptyString[][]) {
-    const valueStr = [] as Record<string, MayBeEmptyString>[];
+  public async onSure(cells: StandardString[][]) {
+    const valueStr = [] as Record<string, StandardString>[];
 
     /**
      * 将excel数据转换成提交的数据格式
      * [['值1', '值2'], ['值1', '值2']] -> [{name: '值1', code: '值2'}, {name: '值1', code: '值2'}]
      *
      */
-    cells.forEach((row) => {
-      const rowValue = {} as Record<string, MayBeEmptyString>;
+    cells.forEach((row, rowIndex) => {
+      const rowValue = {} as Record<string, StandardString>;
       // 国家、省、市、区、街道需合并
-      const addressStr = [] as { [key: string]: MayBeEmptyString }[];
+      const addressStr = [] as { [key: string]: StandardString }[];
 
-      row.forEach((cell, index) => {
-        const { name } = this.editableModelFields[index]!;
+      row.forEach((cell, columnIndex) => {
+        const { name } = this.editableModelFields[columnIndex]!;
         if (fullAddressField.some((f) => f.name === name)) {
           addressStr.push({
             field: name,
@@ -190,10 +199,11 @@ export class QuickFillWidget extends BaseElementWidget {
     const cells: Record<string, any> = {};
 
     this.dataSource.forEach((rowData, rowIndex) => {
+      const rowNum = rowIndex + 1;
       this.editableModelFields.forEach((field, colIndex) => {
         const fieldValue = rowData[field.name];
         if (!isNil(fieldValue)) {
-          const cellKey = `${rowIndex + 1}-${colIndex + 1}`;
+          const cellKey = `${rowNum}-${colIndex + 1}`;
           cells[cellKey] = this.fillFieldValue(field, fieldValue);
         }
       });
@@ -259,17 +269,27 @@ export class QuickFillWidget extends BaseElementWidget {
   /**
    * 修改o2m表格的值
    */
-  public updateO2MTableValue(data) {
-    this.reloadDataSource(data);
-
-    const parent = this.getParentWidget() as TableWidget;
-
-    parent.updateSubviewFieldWidget(
-      {
-        data
-      } as any,
-      {}
-    );
+  public updateO2MTableValue(data: ActiveRecord[] | undefined) {
+    if (!data) {
+      return;
+    }
+    if (this.type === QuickFillType.update) {
+      const isUpdate = this.type === QuickFillType.update;
+      if (isUpdate) {
+        for (let i = 0; i < data.length; i++) {
+          const originRow = this.dataSource?.[i] || {};
+          const targetRow = data[i];
+          targetRow.__draftId = originRow.__draftId;
+          targetRow._X_ROW_KEY = originRow._X_ROW_KEY as string;
+        }
+      }
+      this.reloadDataSource(data);
+      const parent = this.getParentWidget() as TableWidget;
+      parent.updateSubviewFieldWidget({} as any, data);
+    } else {
+      const parent = this.getParentWidget() as TableWidget;
+      parent.createSubviewFieldWidget({} as any, data);
+    }
   }
 
   /**
@@ -380,7 +400,7 @@ export class QuickFillWidget extends BaseElementWidget {
       rootHandle: this.rootHandle,
       dataSource: data,
       activeRecords: data,
-      template: template,
+      template,
       inline: true
     });
   }

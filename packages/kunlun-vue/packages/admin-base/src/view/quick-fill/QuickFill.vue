@@ -11,9 +11,9 @@
     @cancel="onToggleModal(false)"
   >
     <div class="quick-fill-modal-content">
-      <a-radio-group :value="radioValue" name="radioGroup" @change="onChangeRadio">
-        <a-radio value="newValue">{{ $translate('新增数据') }}</a-radio>
-        <a-radio value="oldValue">{{ $translate('编辑已有数据') }}</a-radio>
+      <a-radio-group :value="type" name="radioGroup" @change="onChangeRadio">
+        <a-radio value="create">{{ $translate('新增数据') }}</a-radio>
+        <a-radio value="update">{{ $translate('编辑已有数据') }}</a-radio>
       </a-radio-group>
 
       <div class="quick-fill-modal-content-desc" v-if="step === 0">
@@ -28,7 +28,7 @@
 
       <div class="quick-fill-modal-content-error" v-else>
         <oio-icon icon="oinone-tixing" color="var(--oio-error-color)" size="14"></oio-icon>
-        <span>以下数据不符合规则，请修改后继续</span>
+        <span>{{ $translate('以下数据不符合规则，请修改后继续') }}</span>
       </div>
 
       <div class="quick-fill-excel" v-show="step === 0">
@@ -54,15 +54,22 @@
 </template>
 
 <script lang="ts">
-import { createVNode, defineComponent, PropType, ref, watch } from 'vue';
-import { OioIcon, OioModal, OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { ActiveRecord, RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
+import { OioButton, OioIcon, OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { ModalWidth, OioCloseIcon } from '@oinone/kunlun-vue-ui-common';
-import { Radio as ARadio, RadioGroup as ARadioGroup, Modal } from 'ant-design-vue';
+import { Modal, Radio as ARadio, RadioGroup as ARadioGroup } from 'ant-design-vue';
+import { computed, createVNode, defineComponent, PropType, ref, watch } from 'vue';
 import Excel from './Excel.vue';
+import { QuickFillType } from './type';
 
 export default defineComponent({
   props: {
+    type: {
+      type: String as PropType<QuickFillType>
+    },
+    onTypeChange: {
+      type: Function as PropType<(val: QuickFillType) => void>
+    },
     showModal: {
       type: Boolean,
       required: false
@@ -109,7 +116,17 @@ export default defineComponent({
     Excel
   },
   setup(props) {
-    const radioValue = ref<'newValue' | 'oldValue'>('newValue');
+    const internalType = ref<QuickFillType>(QuickFillType.create);
+    const type = computed({
+      get() {
+        return props.type || internalType.value;
+      },
+      set(val: QuickFillType) {
+        internalType.value = val;
+        props.onTypeChange?.(val);
+      }
+    });
+
     const rowCount = ref(9);
     const excelRef = ref();
 
@@ -126,10 +143,10 @@ export default defineComponent({
 
           cancelText: translateValueByKey('取消'),
           onOk: () => {
-            radioValue.value = val.target.value;
+            type.value = val.target.value;
             excelRef.value.resetExcel();
 
-            if (radioValue.value === 'oldValue') {
+            if (type.value === QuickFillType.create) {
               const excelValue = props.fillValueByDataSource();
               excelRef.value.setCells(excelValue);
             }
@@ -137,10 +154,10 @@ export default defineComponent({
           }
         });
       } else {
-        radioValue.value = val.target.value;
+        type.value = val.target.value;
         excelRef.value.resetExcel();
 
-        if (radioValue.value === 'oldValue') {
+        if (type.value === QuickFillType.create) {
           const excelValue = props.fillValueByDataSource();
           excelRef.value.setCells(excelValue);
         }
@@ -171,13 +188,13 @@ export default defineComponent({
       () => props.showModal,
       (visible) => {
         if (!visible) {
-          radioValue.value = 'oldValue';
-          excelRef.value.resetExcel();
+          type.value = QuickFillType.create;
+          excelRef.value?.resetExcel();
         }
       }
     );
 
-    return { excelRef, radioValue, ModalWidth, rowCount, onChangeRadio, onHandlerSure };
+    return { excelRef, type, ModalWidth, rowCount, onChangeRadio, onHandlerSure };
   }
 });
 </script>
@@ -196,6 +213,7 @@ export default defineComponent({
     vertical-align: middle;
     margin-left: var(--oio-margin-md);
   }
+
   .ant-modal-confirm-content {
     color: var(--oio-text-color-secondary);
     margin-left: 30px;
@@ -209,14 +227,17 @@ export default defineComponent({
     background: #f8f8fa;
     margin: var(--oio-margin) 0;
     color: var(--oio-text-color-secondary);
+
     & > div {
       position: relative;
       margin-bottom: 4px;
       display: flex;
       align-items: center;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       &::before {
         content: '';
         display: block;
@@ -245,6 +266,7 @@ export default defineComponent({
     border-radius: var(--oio-border-radius-sm);
     color: var(--oio-error-color);
     padding: var(--oio-padding-sm) var(--oio-padding);
+
     .oio-icon {
       margin-right: var(--oio-margin-sm);
     }

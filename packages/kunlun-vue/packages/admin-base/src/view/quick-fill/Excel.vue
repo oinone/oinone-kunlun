@@ -21,6 +21,7 @@
           >
             <a-select
               class="oio-select"
+              dropdown-class-name="oio-select-dropdown"
               :options="selectOptions"
               :value="getThSelectValue(index)"
               @change="onChangeTableHeader($event, index)"
@@ -76,9 +77,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick, onUnmounted, computed, watch } from 'vue';
-import { Select as ASelect } from 'ant-design-vue';
 import { RuntimeModelField } from '@oinone/kunlun-engine';
+import { Select as ASelect } from 'ant-design-vue';
+import { computed, defineExpose, defineProps, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
 const NON_CUT = 'NON_CUT';
 
