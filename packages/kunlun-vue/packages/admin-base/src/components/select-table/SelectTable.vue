@@ -14,7 +14,7 @@
     :placeholder="placeholder"
     :get-popup-container="getTriggerContainer"
     :dropdownClassName="dropdownTableClassName"
-    :show-search="showSearch && searchArea === SelectSearchArea.Default"
+    :show-search="showSearch && searchArea === SelectSearchArea.default"
     :open="dropdownOpen"
     @search="search"
     @change="innerChange"
@@ -29,7 +29,7 @@
       </div>
       <div class="select-table-dropdown">
         <oio-input
-          v-if="showSearch && searchArea === SelectSearchArea.Dropdown"
+          v-if="showSearch && searchArea === SelectSearchArea.dropdown"
           ref="dropdownInputRef"
           :placeholder="placeholder"
           :value="searchValue"

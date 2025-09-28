@@ -40,23 +40,50 @@ export class ActiveRecordsOperator {
     return !currentRecords.some((v) => this.isEquals(v, record));
   }
 
-  public push(records: ActiveRecords | undefined, predict?: PushActiveRecordsPredict): ActiveRecordsOperator {
+  public push(
+    records: ActiveRecords | undefined,
+    predict?: PushActiveRecordsPredict,
+    index?: number
+  ): ActiveRecordsOperator {
     records = ActiveRecordsOperator.repairRecords(records);
     const newActiveRecords: ActiveRecord[] = [];
-    this.activeRecords.forEach((record) => {
-      newActiveRecords.push(record);
-    });
-    records.forEach((record) => {
-      if (predict) {
-        if (predict(newActiveRecords, record)) {
+    if (index == null || index <= -1) {
+      this.activeRecords.forEach((record) => {
+        newActiveRecords.push(record);
+      });
+      records.forEach((record) => {
+        if (predict) {
+          if (predict(newActiveRecords, record)) {
+            newActiveRecords.push(record);
+            this.submitToCreateCache(record);
+          }
+        } else {
           newActiveRecords.push(record);
           this.submitToCreateCache(record);
         }
-      } else {
-        newActiveRecords.push(record);
-        this.submitToCreateCache(record);
+      });
+    } else {
+      for (let i = 0; i < this.activeRecords.length; i++) {
+        if (i === index) {
+          break;
+        }
+        newActiveRecords.push(this.activeRecords[i]);
       }
-    });
+      records.forEach((record) => {
+        if (predict) {
+          if (predict(newActiveRecords, record)) {
+            newActiveRecords.push(record);
+            this.submitToCreateCache(record);
+          }
+        } else {
+          newActiveRecords.push(record);
+          this.submitToCreateCache(record);
+        }
+      });
+      for (let i = index; i < this.activeRecords.length; i++) {
+        newActiveRecords.push(this.activeRecords[i]);
+      }
+    }
     this.activeRecords = newActiveRecords;
     return this;
   }

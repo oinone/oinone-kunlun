@@ -11,9 +11,3 @@ export interface ActionKeyboardConfig extends Record<string, unknown> {
   alt?: boolean;
   shift?: boolean;
 }
-
-export enum TableRowEditMode {
-  CREATE = 'CREATE',
-  COPY = 'COPY',
-  EXIST = 'EXIST'
-}

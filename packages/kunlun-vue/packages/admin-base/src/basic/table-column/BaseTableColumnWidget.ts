@@ -197,14 +197,6 @@ export abstract class BaseTableColumnWidget<
     return this.clientInvisible || BooleanHelper.toBoolean(this.getDsl().invisible) || false;
   }
 
-  /**
-   * @deprecated invalid prop in the table column
-   */
-  @Widget.Reactive()
-  public get readonly() {
-    return BooleanHelper.toBoolean(this.getDsl().readonly) || false;
-  }
-
   @Widget.Reactive()
   protected get clientInvisible(): boolean {
     return !this.isSupportCurrentClient;
@@ -228,11 +220,11 @@ export abstract class BaseTableColumnWidget<
    */
   @Widget.Reactive()
   public get editable(): boolean {
-    if (this.tableForceEditable) {
-      return this.tableForceEditable;
-    }
     if (this.readonly) {
       return false;
+    }
+    if (this.currentEditorContext?.forceEditable) {
+      return true;
     }
     const { editable, independentlyEditable } = this.getDsl();
     const finalEditable = Optional.ofNullable(editable).orElse(independentlyEditable) as boolean | string | undefined;
@@ -264,6 +256,19 @@ export abstract class BaseTableColumnWidget<
   @Widget.Method()
   public cellEditable(context: RowContext): boolean {
     return true;
+  }
+
+  @Widget.Reactive()
+  public get editorAutofocus() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().editorAutofocus)).orElse(true);
+  }
+
+  @Widget.Method()
+  protected get editRender(): Record<string, unknown> | undefined {
+    if (this.editorAutofocus) {
+      return { autofocus: this.onAutofocus.bind(this) };
+    }
+    return undefined;
   }
 
   @Widget.Reactive()
@@ -405,6 +410,18 @@ export abstract class BaseTableColumnWidget<
     return true;
   }
 
+  @Widget.Method()
+  public onAutofocus(params: { cell: HTMLElement }) {
+    const { cell } = params;
+    if (!cell) {
+      return;
+    }
+    const input = cell.querySelector('input') as HTMLInputElement;
+    if (input) {
+      input.focus();
+    }
+  }
+
   /**
    * 修改分组配置
    *  @see {@link BaseElementListViewWidget}
@@ -476,4 +493,12 @@ export abstract class BaseTableColumnWidget<
   public renderHeaderSlot?(context: RowContext): VNode[] | string;
 
   public renderGroupTitleSlot?(context: RowContext): VNode[] | string;
+
+  /**
+   * @deprecated invalid prop in the table column
+   */
+  @Widget.Reactive()
+  public get readonly() {
+    return BooleanHelper.toBoolean(this.getDsl().readonly) || false;
+  }
 }

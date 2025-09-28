@@ -93,7 +93,7 @@ export const RelationSelectProps = {
   },
   searchArea: {
     type: String as PropType<SelectSearchArea>,
-    default: SelectSearchArea.Default
+    default: SelectSearchArea.default
   }
 };
 

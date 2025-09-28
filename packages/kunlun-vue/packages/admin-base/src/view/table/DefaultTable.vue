@@ -383,6 +383,13 @@ export default defineComponent({
     inline: {
       type: Boolean,
       default: false
+    },
+    enabledKeyboard: {
+      type: Boolean,
+      default: undefined
+    },
+    onKeydown: {
+      type: Function
     }
   },
   setup(props) {
@@ -779,6 +786,10 @@ export default defineComponent({
       activeEditorBefore,
       activeEditor,
       editorClosed,
+
+      enabledKeyboard,
+      onKeydown,
+
       setAllGroupExpand,
       enabledGroupView,
       groupViewFooterExpandControl,
@@ -993,6 +1004,9 @@ export default defineComponent({
         tableProps.onCellDblclick = onRowDblClick;
         tableProps.onCellClick = onCellClick;
       }
+    }
+    if (onKeydown && enabledKeyboard !== false) {
+      tableProps.onKeydown = onKeydown;
     }
 
     const containerChildren: VNode[] = [];

@@ -175,10 +175,11 @@ export class ActiveRecordsWidget<
    *
    * @param records 数据
    * @param predict 推送判定
+   * @param index 推送到指定位置; 0 表示插入到数组头; 未传入或-1 表示插入到数组尾;
    */
   @Widget.Method()
   @Widget.Provide()
-  public pushDataSource(records: ActiveRecords, predict?: PushActiveRecordsPredict) {
+  public pushDataSource(records: ActiveRecords, predict?: PushActiveRecordsPredict, index?: number) {
     if (this.parentPushDataSource && this.getCurrentDataSource() === undefined) {
       this.parentPushDataSource(records, predict);
     } else {
@@ -188,7 +189,7 @@ export class ActiveRecordsWidget<
         pushPredict = ActiveRecordsOperator.defaultPushPredict.bind(submitCache);
       }
       const nextDataSource = ActiveRecordsOperator.operator(this.getCurrentDataSource() || undefined, this.submitCache)
-        .push(records, pushPredict)
+        .push(records, pushPredict, index)
         .get();
       if (!submitCache) {
         this.setCurrentDataSource(nextDataSource);
@@ -311,24 +312,6 @@ export class ActiveRecordsWidget<
       if (!this.submitCache) {
         this.setCurrentDataSource(nextDataSource);
       }
-    }
-  }
-
-
-  @Widget.Method()
-  @Widget.Inject('createDataSourceByEntity')
-  protected parentCreateDataSourceByEntity: PushActiveRecordsFunction | undefined;
-
-
-  @Widget.Method()
-  @Widget.Provide()
-  public createDataSourceByEntity(records:ActiveRecords,predict?:PushActiveRecordsPredict){
-    if (this.parentCreateDataSourceByEntity && this.getCurrentDataSource() === undefined) {
-      this.parentCreateDataSourceByEntity(records, predict);
-    } else {
-      const nextDataSource = Array.isArray(records) ? records : [records];
-      const oldDataSource = this.getCurrentDataSource() || [];
-      this.setCurrentDataSource([...nextDataSource, ...oldDataSource]);
     }
   }
 

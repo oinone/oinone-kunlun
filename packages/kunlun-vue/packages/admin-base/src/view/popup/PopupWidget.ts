@@ -230,6 +230,9 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
     return this.visible;
   }
 
+  /**
+   * @deprecated please extends widget override onVisibleChange
+   */
   public beforeClose;
 
   @Widget.Method()

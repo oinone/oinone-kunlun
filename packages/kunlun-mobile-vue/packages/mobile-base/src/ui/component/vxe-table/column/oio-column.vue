@@ -202,7 +202,7 @@ export default defineComponent({
         if (!wrapperChildren.length) {
           wrapperChildren = [createVNode('span', {}, context.origin?.seq)];
         }
-      } else if (!props.disableEditorRender && props.editable) {
+      } else if (props.editable) {
         if (
           props.editorTrigger === TableEditorTrigger.manual &&
           props.editorMode === TableEditorMode.cell &&
@@ -244,7 +244,7 @@ export default defineComponent({
         if (!wrapperChildren.length) {
           wrapperChildren = [createVNode('span', {}, context.origin?.seq)];
         }
-      } else if (!props.disableEditorRender && props.editable) {
+      } else if (props.editable) {
         if (props.editorMode === TableEditorMode.cell && props.editorCloseTrigger === TableEditorCloseTrigger.manual) {
           wrapperChildren = createManualEditCellForEditSlot(context, wrapperChildren);
           classList.push(`${DEFAULT_CLASS_NAME}-manual-editor`, `${DEFAULT_CLASS_NAME}-editing`);

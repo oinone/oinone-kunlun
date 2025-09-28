@@ -2,13 +2,14 @@ import { DEFAULT_SLOT_NAME, DslDefinition, DslDefinitionType } from '@oinone/kun
 import {
   ActiveRecord,
   ActiveRecords,
+  activeRecordsClone,
   ActiveRecordsOperator,
   FunctionCache,
   FunctionMetadata,
   FunctionService,
   isRelation2MField,
+  KeyboardConfig,
   parseConfigs,
-  RelationUpdateType,
   RuntimeAction,
   RuntimeFunctionDefinition,
   RuntimeM2MField,
@@ -22,7 +23,7 @@ import {
 import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { MessageHub } from '@oinone/kunlun-request';
 import { EDirection, IGroup, ISort } from '@oinone/kunlun-service';
-import { BooleanHelper, CallChaining, Optional, ReturnPromise, StringHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, Optional, ReturnPromise, StringHelper } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
   CheckedChangeEvent,
@@ -39,7 +40,14 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy, toString } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTablePropTypes } from 'vxe-table';
-import { TableLineHeightEnum, TableRowEditMode } from '../../typing';
+import {
+  BaseTableEvent,
+  TableAddEvent,
+  TableCopyEvent,
+  TableEditEvent,
+  TableEventCallChaining,
+  TableEventType
+} from '../../typing';
 import { FetchUtil } from '../../util';
 import { BaseElementListViewWidget, BaseElementListViewWidgetProps, getSortFieldDirection } from '../element';
 import { BaseTableColumnWidget } from '../table-column';
@@ -50,8 +58,12 @@ interface ColumnWidgetEntity {
   index: number;
 }
 
-function isActiveRecordArray(value: ActiveRecords): value is ActiveRecord[] {
-  return Array.isArray(value);
+export interface TableBindingKeyboardConfig {
+  key: string;
+  ctrl: boolean;
+  shift: boolean;
+  alt: boolean;
+  fn: (e: KeyboardEvent) => void;
 }
 
 const URL_SPLIT_SEPARATOR = ',';
@@ -64,27 +76,17 @@ export class BaseTableWidget<
 > extends BaseElementListViewWidget<Props> {
   protected tableInstance: OioTableInstance | undefined;
 
-  protected tableRowEditMode: TableRowEditMode | undefined;
-
-  @Widget.Reactive()
-  @Widget.Provide('tableForceEditable')
-  protected createMode: boolean | undefined;
-
-  protected cachedEditActiveRecords: ActiveRecord | undefined;
-
-  protected currentTriggerCreateAction: RuntimeAction | undefined;
-
   public getTableInstance() {
     return this.tableInstance;
-  }
-
-  protected get tableConfig() {
-    return TableConfigManager.getConfig();
   }
 
   @Widget.Method()
   protected setTableInstance(tableInstance: OioTableInstance | undefined) {
     this.tableInstance = tableInstance;
+  }
+
+  protected get tableConfig() {
+    return TableConfigManager.getConfig();
   }
 
   @Widget.Method()
@@ -131,18 +133,9 @@ export class BaseTableWidget<
   protected get height(): string | undefined {
     let height = StyleHelper.px(this.getDsl().height);
     if (this.inline && !height) {
-      height = '300px';
+      height = '400px';
     }
     return height;
-  }
-
-  @Widget.Provide()
-  @Widget.Reactive()
-  protected lineHeightType = TableLineHeightEnum.DEFAULT;
-
-  @Widget.Provide()
-  protected setLineHeightType(value: TableLineHeightEnum) {
-    this.lineHeightType = value;
   }
 
   @Widget.Reactive()
@@ -167,91 +160,6 @@ export class BaseTableWidget<
       return true;
     }
     return sortable;
-  }
-
-  // region 行内编辑
-
-  /**
-   * 启用行内编辑（对所有列均生效）
-   * @protected
-   */
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected get editable(): boolean | undefined {
-    return this.createMode || BooleanHelper.toBoolean(this.getDsl().editable);
-  }
-
-  /**
-   * 过滤列的行内编辑
-   * @param context 激活编辑模式上下文
-   * @param columnWidget 列组件
-   * @param index 索引
-   * @protected
-   */
-  protected filterEditable(context: ActiveEditorContext, columnWidget: BaseTableColumnWidget, index: number): boolean {
-    return true;
-  }
-
-  /**
-   * 启用分组
-   * @protected
-   */
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected get enableGrouping() {
-    if (this.inline && !this.isDataSourceProvider) {
-      // fixme @zbh 20250925 子表格暂不支持分组
-      return false;
-    }
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enableGrouping)).orElse(
-      this.defaultEnableGrouping
-    );
-  }
-
-  protected get defaultEnableGrouping() {
-    const { enableGrouping } = this.tableConfig;
-    if (enableGrouping == null) {
-      return true;
-    }
-    return enableGrouping;
-  }
-
-  /**
-   * 启用行高
-   * @protected
-   */
-  @Widget.Reactive()
-  protected get switchLineHeight() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().switchLineHeight)).orElse(
-      this.defaultSwitchLineHeight
-    );
-  }
-
-  protected get defaultSwitchLineHeight() {
-    const { switchLineHeight } = this.tableConfig;
-    if (switchLineHeight == null) {
-      return true;
-    }
-    return switchLineHeight;
-  }
-
-  /**
-   * 允许键盘快捷操作
-   * @protected
-   */
-  @Widget.Reactive()
-  protected get enabledKeyboard(): boolean {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enabledKeyboard)).orElse(
-      this.defaultEnabledKeyboard
-    );
-  }
-
-  protected get defaultEnabledKeyboard() {
-    const { enabledKeyboard } = this.tableConfig;
-    if (enabledKeyboard == null) {
-      return true;
-    }
-    return enabledKeyboard;
   }
 
   /**
@@ -306,6 +214,25 @@ export class BaseTableWidget<
       }));
   }
 
+  /**
+   * 启用行高
+   * @protected
+   */
+  @Widget.Reactive()
+  protected get switchLineHeight() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().switchLineHeight)).orElse(
+      this.defaultSwitchLineHeight
+    );
+  }
+
+  protected get defaultSwitchLineHeight() {
+    const { switchLineHeight } = this.tableConfig;
+    if (switchLineHeight == null) {
+      return true;
+    }
+    return switchLineHeight;
+  }
+
   protected get defaultEnabledFullScreen() {
     const { enabledFullScreen } = this.tableConfig;
     if (enabledFullScreen == null) {
@@ -314,27 +241,27 @@ export class BaseTableWidget<
     return enabledFullScreen;
   }
 
+  // region 行内编辑
+
   /**
-   * 表格单元格快捷键编辑
+   * 启用行内编辑（对所有列均生效）
+   * @protected
    */
   @Widget.Reactive()
   @Widget.Provide()
-  protected get keyboardConfig() {
-    return this.defaultKeyboardConfig;
+  protected get editable(): boolean | undefined {
+    return this.currentEditorContext?.forceEditable || BooleanHelper.toBoolean(this.getDsl().editable);
   }
 
-  protected get defaultKeyboardConfig(): TableKeyboardConfig {
-    let { keyboardConfig } = this.tableConfig;
-    if (!keyboardConfig) {
-      keyboardConfig = {};
-    }
-    keyboardConfig.left = keyboardConfig.left || { key: 'Tab', shift: true, desc: '向左移动单元格' };
-    keyboardConfig.right = keyboardConfig.right || { key: 'Tab', desc: '向右移动单元格' };
-    keyboardConfig.up = keyboardConfig.up || { key: 'Enter', ctrl: true, shift: true, desc: '向上移动单元格' };
-    keyboardConfig.down = keyboardConfig.down || { key: 'Enter', ctrl: true, desc: '向下移动单元格' };
-    keyboardConfig.enter = keyboardConfig.enter || { key: 'Enter', desc: '提交数据' };
-    keyboardConfig.cancel = keyboardConfig.cancel || { key: 'Esc', desc: '取消编辑' };
-    return keyboardConfig;
+  /**
+   * 过滤列的行内编辑
+   * @param context 激活编辑模式上下文
+   * @param columnWidget 列组件
+   * @param index 索引
+   * @protected
+   */
+  protected filterEditable(context: ActiveEditorContext, columnWidget: BaseTableColumnWidget, index: number): boolean {
+    return true;
   }
 
   /**
@@ -356,34 +283,22 @@ export class BaseTableWidget<
   @Widget.Reactive()
   @Widget.Provide()
   protected get editorMode(): TableEditorMode {
-    return this.createMode
-      ? TableEditorMode.row
-      : ((this.getDsl().editorMode as string)?.toLowerCase?.() as TableEditorMode) || TableEditorMode.cell;
-  }
-
-  @Widget.Reactive()
-  @Widget.Inject()
-  protected editRowCallChaining: CallChaining | undefined;
-
-  protected async editRow(type: unknown, data: unknown) {
-    this.createMode = type !== TableRowEditMode.EXIST;
-    this.tableRowEditMode = type as TableRowEditMode;
-    const { record, action } = data as { record: ActiveRecord | undefined; action: RuntimeAction };
-    nextTick(() => {
-      this.tableInstance?.setEditRow(record);
-      this.cachedEditActiveRecords = cloneDeep(record);
-      this.currentTriggerCreateAction = action;
-    });
+    return (
+      this.currentEditorContext?.editorMode ||
+      ((this.getDsl().editorMode as string)?.toLowerCase?.() as TableEditorMode) ||
+      TableEditorMode.cell
+    );
   }
 
   /**
-   * 行内触发关闭触发方式
+   * 行内编辑关闭触发方式
    * @protected
    */
   @Widget.Reactive()
   @Widget.Provide()
   protected get editorCloseTrigger(): TableEditorCloseTrigger {
     return (
+      this.currentEditorContext?.editorCloseTrigger ||
       ((this.getDsl().editorCloseTrigger as string)?.toLowerCase?.() as TableEditorCloseTrigger) ||
       TableEditorCloseTrigger.auto
     );
@@ -464,13 +379,21 @@ export class BaseTableWidget<
     this.getColumnWidgets(true).forEach((columnWidget, index) => {
       editableMap[columnWidget.path] = this.filterEditable(context, columnWidget, index);
     });
-    this.lastedCurrentEditorContext = context;
-  }
-
-  protected async removeRecordFormDataSource(context: RowContext) {
-    const { data } = context;
-    const newActiveRecords = this.dataSource?.filter((v) => v.__draftId !== data.__draftId);
-    return this.reloadDataSource(newActiveRecords);
+    const { lastedCurrentEditorContext } = this;
+    if (lastedCurrentEditorContext) {
+      if (lastedCurrentEditorContext.prepare) {
+        this.lastedCurrentEditorContext = {
+          ...context,
+          ...this.lastedCurrentEditorContext,
+          prepare: false
+        };
+      } else {
+        console.error('You must be clear lasted current editor context.');
+        this.lastedCurrentEditorContext = context;
+      }
+    } else {
+      this.lastedCurrentEditorContext = context;
+    }
   }
 
   /**
@@ -482,16 +405,13 @@ export class BaseTableWidget<
   @Widget.Provide()
   protected async rowEditorClosedBefore(context: RowContext): Promise<boolean> {
     // 新增时有可能会多出来一些空值key。 过滤后对比
-    const pureData = omitBy({ ...context.data }, isNil);
-    if (isEqual(pureData, this.cachedEditActiveRecords) && this.tableRowEditMode === TableRowEditMode.CREATE) {
-      if (context?.data) {
-        await this.removeRecordFormDataSource(context);
-      }
-      this.createMode = false;
-      this.cachedEditActiveRecords = undefined;
-      this.currentTriggerCreateAction = undefined;
-      return false;
-    }
+    // const pureData = omitBy({ ...context.data }, isNil);
+    // if (isEqual(pureData, this.currentEditorContext!.row) && this.tableRowEditMode === TableRowEditMode.CREATE) {
+    //   if (context?.data) {
+    //     await this.removeRecordFormDataSource(context);
+    //   }
+    //   return false;
+    // }
     const res = await this.rowEditorClosedForValidator(context);
     if (!res) {
       return false;
@@ -507,27 +427,30 @@ export class BaseTableWidget<
   @Widget.Method()
   @Widget.Provide()
   protected async rowEditorClosed(context: RowContext | undefined): Promise<boolean> {
-    if (!context) {
+    if (!context || this.currentEditorContext?.prepare) {
       return true;
     }
-
+    if (!this.currentEditorContext?.submit) {
+      await this.rowEditorClosedAfterProcess(context);
+      this.lastedCurrentEditorContext = undefined;
+      return true;
+    }
     let res = await this.rowEditorClosedBefore(context);
     if (!res) {
       return false;
     }
     const data = await this.rowEditorClosedForSubmit(context);
-    const useDiffUpdate = [RelationUpdateType.diff, RelationUpdateType.batch].includes(this.relationUpdateType);
     if (this.inline) {
       if (res && data) {
-        if (this.createMode && useDiffUpdate) {
-          this.createSubviewFieldWidget(context, data);
+        if (this.dataSource![this.currentEditorContext!.rowIndex].__draftId !== data.__draftId) {
+          this.createSubviewFieldWidget(context, omitBy({ ...data }, isNil));
         } else {
           this.updateSubviewFieldWidget(context, data);
         }
       }
     } else if (data) {
       try {
-        if (this.createMode) {
+        if (this.dataSource![this.currentEditorContext!.rowIndex].__draftId !== data.__draftId) {
           res = await this.rowEditorClosedForCreate(context, data);
         } else {
           res = await this.rowEditorClosedForUpdate(context, data);
@@ -539,17 +462,8 @@ export class BaseTableWidget<
     }
     if (res) {
       await this.rowEditorClosedAfterProcess(context);
-
-      if (this.editorMode !== TableEditorMode.cell) {
-        this.lastedCurrentEditorContext = undefined;
-      }
+      this.lastedCurrentEditorContext = undefined;
     }
-    if (!res && context?.data) {
-      await this.removeRecordFormDataSource(context);
-    }
-    this.createMode = false;
-    this.cachedEditActiveRecords = undefined;
-    this.currentTriggerCreateAction = undefined;
     return res;
   }
 
@@ -608,13 +522,12 @@ export class BaseTableWidget<
             const subviewSubmitCache = this.metadataRuntimeContext.extendData.subviewSubmitCache as SubmitCacheManager;
             if (showRecords) {
               if (submitCache) {
-                ActiveRecordsOperator.operator(showRecords, submitCache).updateByEntity(context.data);
+                ActiveRecordsOperator.operator(showRecords, submitCache).updateByEntity(data);
               }
               if (subviewSubmitCache) {
-                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).updateByEntity(context.data);
+                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).updateByEntity(data);
               }
             }
-
             subviewFieldWidget.flushDataSource(false);
           });
       });
@@ -633,13 +546,12 @@ export class BaseTableWidget<
             const subviewSubmitCache = this.metadataRuntimeContext.extendData.subviewSubmitCache as SubmitCacheManager;
             if (showRecords) {
               if (submitCache) {
-                ActiveRecordsOperator.operator(showRecords, submitCache).push(context.data);
+                ActiveRecordsOperator.operator(showRecords, submitCache).push(data);
               }
               if (subviewSubmitCache) {
-                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).push(context.data);
+                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).push(data);
               }
             }
-
             subviewFieldWidget.flushDataSource(false);
           });
       });
@@ -687,7 +599,7 @@ export class BaseTableWidget<
     if (!currentEditorContext) {
       return true;
     }
-    if (isActiveRecordArray(data)) {
+    if (Array.isArray(data)) {
       console.error('Invalid data format.', data);
       return true;
     }
@@ -724,7 +636,7 @@ export class BaseTableWidget<
     if (!currentEditorContext) {
       return true;
     }
-    if (isActiveRecordArray(data)) {
+    if (Array.isArray(data)) {
       console.error('Invalid data format.', data);
       return true;
     }
@@ -754,14 +666,15 @@ export class BaseTableWidget<
   protected async executeRowEditorUpdate(functionDefinition: RuntimeFunctionDefinition, data: ActiveRecord) {
     const { rootRuntimeContext, model } = this;
     const requestFields = rootRuntimeContext.getRequestModelFields();
-    if (this.currentTriggerCreateAction && this.currentTriggerCreateAction.sessionPath) {
+    const sessionPath = (this.currentEditorContext?.triggerAction as unknown as RuntimeAction)?.sessionPath;
+    if (sessionPath) {
       return FunctionService.INSTANCE.simpleExecute<Record<string, unknown>>(
         model,
         functionDefinition,
         {
           requestFields,
           variables: {
-            path: this.currentTriggerCreateAction?.sessionPath
+            path: sessionPath
           }
         },
         data
@@ -802,6 +715,10 @@ export class BaseTableWidget<
     if (currentEditorContext && !currentEditorContext.submit) {
       const $data = currentEditorContext.row;
       if (dataSource) {
+        if (this.dataSource![this.currentEditorContext!.rowIndex].__draftId !== $data.__draftId) {
+          this.tableInstance?.removeInsertRow();
+          return;
+        }
         dataSource[currentEditorContext.rowIndex] = $data;
         this.reloadDataSource([...dataSource]);
       }
@@ -822,6 +739,97 @@ export class BaseTableWidget<
   }
 
   // endregion
+
+  // region keyboard-config
+
+  /**
+   * 允许键盘快捷操作
+   * @protected
+   */
+  @Widget.Reactive()
+  protected get enabledKeyboard(): boolean {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enabledKeyboard)).orElse(
+      this.defaultEnabledKeyboard
+    );
+  }
+
+  protected get defaultEnabledKeyboard() {
+    const { enabledKeyboard } = this.tableConfig;
+    if (enabledKeyboard == null) {
+      return true;
+    }
+    return enabledKeyboard;
+  }
+
+  /**
+   * 表格单元格快捷键编辑
+   */
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get keyboardConfig(): TableKeyboardConfig {
+    return this.defaultKeyboardConfig;
+  }
+
+  protected get defaultKeyboardConfig(): TableKeyboardConfig {
+    let { keyboardConfig } = this.tableConfig;
+    if (!keyboardConfig) {
+      keyboardConfig = {};
+    }
+    keyboardConfig.left = keyboardConfig.left || { key: 'Tab', shift: true, desc: '向左移动单元格' };
+    keyboardConfig.right = keyboardConfig.right || { key: 'Tab', desc: '向右移动单元格' };
+    keyboardConfig.up = keyboardConfig.up || { key: 'Enter', ctrl: true, shift: true, desc: '向上移动单元格' };
+    keyboardConfig.down = keyboardConfig.down || { key: 'Enter', ctrl: true, desc: '向下移动单元格' };
+    keyboardConfig.enter = keyboardConfig.enter || { key: 'Enter', desc: '提交数据' };
+    keyboardConfig.cancel = keyboardConfig.cancel || { key: 'Esc', desc: '取消编辑' };
+    return keyboardConfig;
+  }
+
+  @Widget.Reactive()
+  protected get bindingKeyboardConfig(): Record<string, TableBindingKeyboardConfig[]> {
+    const configs: Record<string, TableBindingKeyboardConfig[]> = {};
+    const pushConfig = (config: KeyboardConfig | undefined, fn: TableBindingKeyboardConfig['fn']) => {
+      if (!config) {
+        return;
+      }
+      const { key, ctrl, shift, alt } = config;
+      let bindingConfigs = configs[key];
+      if (!bindingConfigs) {
+        bindingConfigs = [];
+        configs[key] = bindingConfigs;
+      }
+      bindingConfigs.push({
+        key,
+        ctrl: ctrl || false,
+        shift: shift || false,
+        alt: alt || false,
+        fn
+      });
+    };
+    const { keyboardConfig } = this;
+    pushConfig(keyboardConfig.left, this.onKeyboardMoveToLeftCell);
+    pushConfig(keyboardConfig.right, this.onKeyboardMoveToRightCell);
+    pushConfig(keyboardConfig.up, this.onKeyboardMoveToUpCell);
+    pushConfig(keyboardConfig.down, this.onKeyboardMoveToDownCell);
+    pushConfig(keyboardConfig.enter, this.onKeyboardEnter);
+    pushConfig(keyboardConfig.cancel, this.onKeyboardCancel);
+    return configs;
+  }
+
+  protected onKeyboardMoveToRightCell(event: KeyboardEvent) {}
+
+  protected onKeyboardMoveToLeftCell(event: KeyboardEvent) {}
+
+  protected onKeyboardMoveToDownCell(event: KeyboardEvent) {}
+
+  protected onKeyboardMoveToUpCell(event: KeyboardEvent) {}
+
+  protected onKeyboardEnter(event: KeyboardEvent) {}
+
+  protected onKeyboardCancel(event: KeyboardEvent) {}
+
+  // endregion
+
+  // region sort-config
 
   @Widget.Reactive()
   protected internalSortConfig: VxeTablePropTypes.SortConfig = {};
@@ -859,7 +867,33 @@ export class BaseTableWidget<
     }
   }
 
-  // region 分组
+  // endregion
+
+  // region 数据分组
+
+  /**
+   * 启用分组
+   * @protected
+   */
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get enableGrouping() {
+    if (this.inline && !this.isDataSourceProvider) {
+      // fixme @zbh 20250925 子表格暂不支持分组
+      return false;
+    }
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enableGrouping)).orElse(
+      this.defaultEnableGrouping
+    );
+  }
+
+  protected get defaultEnableGrouping() {
+    const { enableGrouping } = this.tableConfig;
+    if (enableGrouping == null) {
+      return true;
+    }
+    return enableGrouping;
+  }
 
   /**
    * 分组视图数据源的总数量
@@ -996,6 +1030,67 @@ export class BaseTableWidget<
 
   // endregion
 
+  // region 表格事件
+
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected tableEventCallChaining: TableEventCallChaining | undefined;
+
+  protected async onAddRowEvent(e?: Omit<TableAddEvent, 'type'>) {
+    if (this.lastedCurrentEditorContext == null) {
+      this.lastedCurrentEditorContext = {
+        prepare: true,
+        editorMode: TableEditorMode.row,
+        editorCloseTrigger: TableEditorCloseTrigger.auto,
+        forceEditable: true
+      } as ActiveEditorContext;
+    }
+    let target: ActiveRecord[] | undefined;
+    if (e?.activeRecords) {
+      target = e?.activeRecords;
+    } else if (e?.activeRecord) {
+      target = [e?.activeRecord];
+    } else {
+      target = [{}];
+    }
+    const records = ActiveRecordsOperator.repairRecords(target);
+    const { row: newRow } = await this.tableInstance?.insert(records, e?.insertTo);
+    nextTick(() => {
+      this.tableInstance?.setEditRow(newRow);
+    });
+  }
+
+  protected async onCopyRowEvent(e: Omit<TableCopyEvent, 'type'>) {
+    let target: ActiveRecord[] | undefined;
+    if (e.activeRecords) {
+      target = e.activeRecords;
+    } else if (e.activeRecord) {
+      target = [e.activeRecord];
+    } else if (e.index != null) {
+      const t = this.dataSource?.[e.index];
+      if (t) {
+        target = [t];
+      }
+    }
+    if (!target?.length) {
+      console.error('Invalid copy records.', e);
+      return;
+    }
+    if (e.clone) {
+      target = activeRecordsClone(target);
+    }
+    const { row: newRow } = await this.tableInstance?.insert(target, e.copyTo);
+    nextTick(() => {
+      this.tableInstance?.setEditRow(newRow[0]);
+    });
+  }
+
+  protected onEditRowEvent(e: Omit<TableEditEvent, 'type'>) {
+    console.warn('Unsupported operation', e);
+  }
+
+  // endregion
+
   public executeExpression<T>(
     activeRecord: ActiveRecords | undefined,
     expression: string,
@@ -1119,13 +1214,30 @@ export class BaseTableWidget<
       },
       { force: true, immutable: false }
     );
-    this.editRowCallChaining?.hook(this.path, (args) => {
-      return this.editRow(args?.[0], args?.[1]);
+    this.tableEventCallChaining?.hook(this.path, (args) => {
+      const e = args?.[0] as BaseTableEvent;
+      if (!e) {
+        return;
+      }
+      switch (e.type) {
+        case TableEventType.add:
+          this.onAddRowEvent(e);
+          break;
+        case TableEventType.copy:
+          this.onCopyRowEvent(e);
+          break;
+        case TableEventType.edit:
+          this.onEditRowEvent(e);
+          break;
+        default:
+          console.error(`Invalid event type: ${e.type}`, e);
+          break;
+      }
     });
   }
 
   protected $$unmounted() {
     super.$$unmounted();
-    this.editRowCallChaining?.unhook(this.path);
+    this.tableEventCallChaining?.unhook(this.path);
   }
 }

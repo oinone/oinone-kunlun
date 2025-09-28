@@ -18,7 +18,7 @@
         :show-search="showSearch"
         :allow-clear="allowClear"
         :disabled="innerDisabled"
-        :show-search="showSearch && searchArea === SelectSearchArea.Default"
+        :show-search="showSearch && searchArea === SelectSearchArea.default"
         :filter-option="false"
         :default-active-first-option="false"
         :options="optionList"
@@ -36,7 +36,7 @@
       >
         <template #dropdownRender="{ menuNode: menu }">
           <oio-input
-            v-if="showSearch && searchArea === SelectSearchArea.Dropdown"
+            v-if="showSearch && searchArea === SelectSearchArea.dropdown"
             ref="dropdownInputRef"
             :placeholder="placeholder"
             :value="searchValue"

@@ -294,7 +294,7 @@ export abstract class FormSelectComplexFieldWidget<
       return this.selectRuntimeConfig().searchArea!;
     }
 
-    return isMinimalismTheme() ? SelectSearchArea.Dropdown : SelectSearchArea.Default;
+    return isMinimalismTheme() ? SelectSearchArea.dropdown : SelectSearchArea.default;
   }
 
   @Widget.Method()

@@ -25,7 +25,8 @@ const events = {
   onEditDisabled: 'edit-disabled',
   onScroll: 'scroll',
   onCurrentChange: 'current-change',
-  onResizableChange: 'resizable-change'
+  onResizableChange: 'resizable-change',
+  onKeydown: 'keydown'
 };
 
 interface OriginSort {
@@ -212,6 +213,9 @@ export default defineComponent({
       reloadColumns(columns) {
         return vxeTable.value!.reloadColumn(columns);
       },
+      getTableData(index: number): Promise<any> {
+        return vxeTable.value!.getTableData().tableData[index];
+      },
       setEditRow(row) {
         return vxeTable.value!.setEditRow(row);
       },
@@ -248,6 +252,18 @@ export default defineComponent({
       },
       sort(sortConfs: VxeTableDefines.SortConfs[]): Promise<any> {
         return vxeTable.value!.sort(sortConfs);
+      },
+      insert(records: Record<string, unknown> | Record<string, unknown>[], index?: number): Promise<any> {
+        if (index == null) {
+          return vxeTable.value!.insert(records);
+        }
+        return vxeTable.value!.insertAt(records, index);
+      },
+      isInsertByRow(row): boolean {
+        return vxeTable.value!.isInsertByRow(row);
+      },
+      removeInsertRow(): Promise<any> {
+        return vxeTable.value!.removeInsertRow();
       }
     };
 

@@ -1,3 +1,4 @@
+import { deepClone } from '@oinone/kunlun-meta';
 import { JSONUtils } from '@oinone/kunlun-shared';
 
 export interface ActiveRecord {
@@ -32,6 +33,29 @@ export function activeRecordsToJSONString(activeRecords: ActiveRecords | undefin
   return JSONUtils.toJSONString(activeRecords, (key) => {
     return key.startsWith('__');
   });
+}
+
+const VXE_TABLE_X_ID = '_X_ROW_KEY';
+
+export function activeRecordsClone<T extends ActiveRecords | undefined = ActiveRecords | undefined>(
+  activeRecords: T
+): T {
+  if (activeRecords == null) {
+    return undefined as T;
+  }
+  if (Array.isArray(activeRecords)) {
+    return activeRecords.map($$activeRecordsClone) as T;
+  }
+  return $$activeRecordsClone(activeRecords) as T;
+}
+
+function $$activeRecordsClone(record: ActiveRecord): ActiveRecord {
+  const result = deepClone(record);
+  Object.values(ActiveRecordExtendKeys).forEach((val) => {
+    Reflect.deleteProperty(result, val);
+  });
+  Reflect.deleteProperty(result, VXE_TABLE_X_ID);
+  return result;
 }
 
 export interface UpdateEntity {

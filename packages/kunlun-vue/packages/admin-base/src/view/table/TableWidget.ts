@@ -40,14 +40,12 @@ import { BaseElementListViewWidgetProps, BaseElementWidget, BaseTableColumnWidge
 import { ExpandColumnWidgetNames } from '../../field';
 import { fetchGroupData, fetchGroupPage, fetchGroupStatistic, GroupStatisticsEnum } from '../../service';
 import {
-  ActionKeyboardConfig,
   ActiveCountEnum,
   fetchPageSize,
   fetchPageSizeNullable,
   TABLE_WIDGET,
   TableLineHeightEnum,
   TableLineHeightMap,
-  TableRowEditMode,
   UserTablePrefer
 } from '../../typing';
 import { TreeUtils } from '../../util';
@@ -168,6 +166,16 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
 
     return true;
+  }
+
+  @Widget.Provide()
+  @Widget.Reactive()
+  protected lineHeightType = TableLineHeightEnum.DEFAULT;
+
+  @Widget.Provide()
+  @Widget.Method()
+  protected setLineHeightType(value: TableLineHeightEnum) {
+    this.lineHeightType = value;
   }
 
   @Widget.Reactive()
@@ -749,13 +757,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Method()
   protected onAddRow() {
-    const records = ActiveRecordsOperator.repairRecordsNullable({});
-    if (!records) {
-      return;
-    }
-    this.createDataSourceByEntity(records);
-
-    this.editRow(TableRowEditMode.CREATE, { record: records[0], action: null });
+    this.onAddRowEvent({});
   }
 
   @Widget.Method()
@@ -837,24 +839,6 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return this.expandTreeField?.data;
   }
 
-  /**
-   * 展开、关闭所有的分组
-   *
-   */
-  @Widget.Method()
-  protected setAllGroupExpand(expand: boolean) {
-    if (!this.enabledGroupView) {
-      return;
-    }
-
-    // 如果全部展开，但是展开全部功能未启动，则不处理
-    if (expand && !this.groupViewFooterExpandControl) {
-      return;
-    }
-
-    this.tableInstance?.getOrigin().setAllTreeExpand(expand);
-  }
-
   protected getEnabledTreeConfig(): boolean | undefined {
     return BooleanHelper.toBoolean(this.getDsl().enabledTreeConfig);
   }
@@ -917,22 +901,6 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     this.treeRelationField = this.getTreeRelationField();
     this.expandTreeField = this.getExpandTreeField();
   }
-
-  protected findGroupTreePath = (list, targetRow, path = [] as any[]) => {
-    for (const item of list) {
-      const newPath = [...path, item];
-      if (item === targetRow) {
-        return newPath;
-      }
-      if (item?.[GROUP_TREE_KEY.CHILDREN_KEY]?.length) {
-        const result = this.findGroupTreePath(item[GROUP_TREE_KEY.CHILDREN_KEY], targetRow, newPath);
-        if (result) {
-          return result;
-        }
-      }
-    }
-    return null;
-  };
 
   @Widget.Reactive()
   protected get enabledTreeConfig(): boolean {
@@ -1119,6 +1087,44 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return content;
   }
 
+  // endregion
+
+  // region 数据分组
+
+  /**
+   * 展开、关闭所有的分组
+   *
+   */
+  @Widget.Method()
+  protected setAllGroupExpand(expand: boolean) {
+    if (!this.enabledGroupView) {
+      return;
+    }
+
+    // 如果全部展开，但是展开全部功能未启动，则不处理
+    if (expand && !this.groupViewFooterExpandControl) {
+      return;
+    }
+
+    this.tableInstance?.getOrigin().setAllTreeExpand(expand);
+  }
+
+  protected findGroupTreePath = (list, targetRow, path = [] as any[]) => {
+    for (const item of list) {
+      const newPath = [...path, item];
+      if (item === targetRow) {
+        return newPath;
+      }
+      if (item?.[GROUP_TREE_KEY.CHILDREN_KEY]?.length) {
+        const result = this.findGroupTreePath(item[GROUP_TREE_KEY.CHILDREN_KEY], targetRow, newPath);
+        if (result) {
+          return result;
+        }
+      }
+    }
+    return null;
+  };
+
   /**
    * 初始化分组展开字段
    */
@@ -1250,6 +1256,203 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return this.getDsl().groupTitleEmptyStyle || EmptyStyle.empty;
   }
 
+  // endregion
+
+  // region 合并单元格
+
+  @Widget.Method()
+  protected spanMethod({ row }: { row: ActiveRecord }): { rowspan: number; colspan: number } | undefined {
+    return undefined;
+  }
+
+  // endregion
+
+  // region 快捷键操作
+
+  /**
+   * 键盘事件处理
+   */
+  @Widget.Method()
+  protected onKeydown({ $event: event }: { $event: KeyboardEvent }) {
+    if (!this.currentEditorContext) {
+      return;
+    }
+    const fn = this.matchKeyboardFunction(event);
+    if (fn) {
+      fn.bind(this)(event);
+    }
+  }
+
+  protected matchKeyboardFunction(event: KeyboardEvent): ((e: KeyboardEvent) => void) | undefined {
+    const { bindingKeyboardConfig } = this;
+    const eventKey = event.key;
+    let bindingConfigs = bindingKeyboardConfig[eventKey];
+    if (bindingConfigs == null && eventKey === 'Escape') {
+      bindingConfigs = bindingKeyboardConfig.Esc;
+    }
+    if (!bindingConfigs) {
+      return undefined;
+    }
+    const { ctrlKey, metaKey, shiftKey, altKey } = event;
+    for (const bindingConfig of bindingConfigs) {
+      const { ctrl, shift, alt } = bindingConfig;
+      const isCtrlMatch = ctrlKey === ctrl || metaKey === ctrl;
+      const isShiftMatch = shiftKey === shift;
+      const isAltMatch = altKey === alt;
+      if (isCtrlMatch && isShiftMatch && isAltMatch) {
+        return bindingConfig.fn;
+      }
+    }
+    return undefined;
+  }
+
+  protected onKeyboardMoveToRightCell(event: KeyboardEvent) {
+    event.preventDefault();
+    this.onMoveColumnActiveEditor(event, 1);
+  }
+
+  protected onKeyboardMoveToLeftCell(event: KeyboardEvent) {
+    event.preventDefault();
+    this.onMoveColumnActiveEditor(event, -1);
+  }
+
+  protected onKeyboardMoveToDownCell(event: KeyboardEvent) {
+    event.preventDefault();
+    this.onMoveRowActiveEditor(event, 1);
+  }
+
+  protected onKeyboardMoveToUpCell(event: KeyboardEvent) {
+    event.preventDefault();
+    this.onMoveRowActiveEditor(event, -1);
+  }
+
+  protected onKeyboardEnter(event: KeyboardEvent) {
+    // const activeRow = this.getTableInstance()?.getActiveEditorRecord();
+    // if (activeRow) {
+    //   const input = (activeRow.origin as { cell?: HTMLElement }).cell?.querySelector('input');
+    //   if (input) {
+    //     if (input !== document.activeElement) {
+    //       return;
+    //     }
+    //   }
+    // }
+    event.preventDefault();
+    this.tableInstance?.clearEditor();
+  }
+
+  protected onKeyboardCancel(event: KeyboardEvent) {
+    event.preventDefault();
+    this.currentEditorContext!.submit = false;
+    this.tableInstance?.clearEditor();
+  }
+
+  protected getCellEditable(field: string, row: ActiveRecord, rowIndex: number) {
+    let isEnabled = true;
+    const columnWidget = this.getColumnWidgets().find((v) => v.itemData === field);
+    if (
+      columnWidget &&
+      columnWidget.editable &&
+      columnWidget.editorTrigger !== TableEditorTrigger.manual &&
+      columnWidget.editorMode === TableEditorMode.cell
+    ) {
+      isEnabled = columnWidget.cellEditable({
+        key: VxeTableHelper.getKey(row),
+        data: row,
+        index: rowIndex,
+        origin: row
+      });
+    }
+    return isEnabled;
+  }
+
+  /**
+   * 单元格左右移动
+   */
+  protected async onMoveColumnActiveEditor(event: KeyboardEvent, offset: number) {
+    const { rowIndex, columnIndex } = this.lastedCurrentEditorContext!;
+    const allColumns = this.tableInstance?.getAllColumns() || [];
+    let nextColumnIndex = columnIndex + offset;
+    let nextColumn = allColumns[nextColumnIndex];
+    if (!nextColumn) {
+      return;
+    }
+    let row = await this.tableInstance?.getTableData(rowIndex);
+    let toNextRow = false;
+
+    while (!nextColumn.field || nextColumn.field === '$$internalOperator' || !nextColumn.visible) {
+      nextColumnIndex += offset;
+      nextColumn = allColumns[nextColumnIndex % allColumns.length];
+    }
+
+    if (nextColumnIndex < 0 || nextColumnIndex >= allColumns.length) {
+      toNextRow = true;
+      row = await this.tableInstance?.getTableData(rowIndex + Math.sign(offset));
+    }
+    const isEnabled =
+      row &&
+      nextColumn &&
+      nextColumn.field &&
+      this.getCellEditable(nextColumn.field, row, rowIndex + (row ? offset : 0));
+    if (!isEnabled) {
+      return this.onMoveColumnActiveEditor(event, offset + offset);
+    }
+
+    if (this.lastedCurrentEditorContext) {
+      this.lastedCurrentEditorContext.column = nextColumn;
+      this.lastedCurrentEditorContext.columnIndex = nextColumnIndex;
+    }
+
+    // 如果是换行编辑，那么需要下一行可编辑项的第一个默认选中，并且修改激活行的数据
+    if (toNextRow) {
+      delay(() => {
+        const context = this.getTableInstance()?.getActiveEditorRecord()?.origin as ActiveEditorContext;
+
+        if (context) {
+          this.activeEditor({ ...context, editableMap: {} });
+        }
+      }, 200);
+    } else {
+      // 否则直接切换对应单元格的焦点
+      // this.lastedCurrentEditorContext = {
+      //   prepare: true,
+      //   editorMode: TableEditorMode.row,
+      //   editorCloseTrigger: TableEditorCloseTrigger.auto,
+      //   forceEditable: true
+      // } as ActiveEditorContext;
+      nextTick(async () => {
+        await this.tableInstance?.activeCellEditor(row, nextColumn.field);
+      });
+    }
+  }
+
+  /**
+   * 上下移动
+   */
+  protected async onMoveRowActiveEditor(event: KeyboardEvent, offset: 1 | -1) {
+    const { column, rowIndex } = this.lastedCurrentEditorContext!;
+    const { field } = column;
+    if (field) {
+      const currentIndex = rowIndex + offset;
+      const currentRow = this.showDataSource![currentIndex];
+      const isEnabled = this.getCellEditable(field, currentRow, currentIndex);
+      if (!currentRow || !isEnabled) {
+        return;
+      }
+
+      await this.tableInstance?.activeCellEditor(currentRow, field);
+
+      delay(() => {
+        const context = this.getTableInstance()?.getActiveEditorRecord()?.origin as ActiveEditorContext;
+
+        if (context) {
+          this.activeEditor({ ...context, editableMap: {} });
+        }
+      }, 200);
+    }
+  }
+
+  // endregion
+
   public async fetchData(condition?: Condition): Promise<ActiveRecord[]> {
     const searchBody = this.generatorSearchBody();
     this.internalEnabledTreeConfig =
@@ -1311,217 +1514,4 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     super.$$beforeMount();
     this.initGroupTreeField();
   }
-
-  protected override $$mounted() {
-    super.$$mounted();
-    if (this.enabledKeyboard) {
-      window.addEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
-    }
-  }
-
-  protected override $$beforeUnmount() {
-    super.$$beforeUnmount();
-    if (this.enabledKeyboard) {
-      window.removeEventListener('keydown', this.bindKeyboardShortcut.bind(this), true);
-    }
-  }
-
-  // endregion
-
-  // region 快捷键操作
-
-  /**
-   * 兼容不同系统的快捷键
-   * Esc / Escape
-   */
-  private normalizeKey(key: string): string {
-    return key === 'Esc' ? 'Escape' : key;
-  }
-
-  /**
-   * 检查按键是否匹配快捷键配置
-   * @param {KeyboardEvent} event 键盘事件
-   * @param {ActionKeyboardConfig} config  快捷键配置
-   * @returns {boolean} 是否匹配
-   */
-  protected isShortcutMatch(event: KeyboardEvent, config: ActionKeyboardConfig | undefined) {
-    if (!config) {
-      return false;
-    }
-    const eventKey = this.normalizeKey(event.key);
-
-    const { key, ctrl = false, shift = false, alt = false } = config;
-
-    if (this.normalizeKey(key) !== eventKey) {
-      return false;
-    }
-
-    const isCtrlMatch = event.ctrlKey === ctrl || event.metaKey === ctrl;
-    const isShiftMatch = event.shiftKey === shift;
-    const isAltMatch = event.altKey === alt;
-
-    return isCtrlMatch && isShiftMatch && isAltMatch;
-  }
-
-  /**
-   * 单元格自动聚焦
-   * @param {number} rowIndex 行索引
-   * @param {number} columnIndex 行索引
-   */
-  protected columnAutoFocus(rowIndex = 0, columnIndex = 0) {
-    const tableEl = this.getTableInstance()?.getOrigin()?.$el as HTMLElement | undefined;
-    if (!tableEl) {
-      return;
-    }
-
-    const rowsEl = tableEl.querySelectorAll('.vxe-table--main-wrapper .vxe-table--body .vxe-body--row');
-    const currentRow = rowsEl[rowIndex] as HTMLElement | undefined;
-
-    if (!currentRow) {
-      return;
-    }
-
-    const columnsEl = currentRow.querySelectorAll('.vxe-body--column');
-
-    if (!columnsEl || !columnsEl[columnIndex]) {
-      return;
-    }
-
-    const input = columnsEl[columnIndex].querySelector('input');
-    input?.focus();
-  }
-
-  protected getCellEditable(field: string, row: ActiveRecord, rowIndex: number) {
-    let isEnabled = true;
-    const columnWidget = this.getColumnWidgets().find((v) => v.itemData === field);
-    if (
-      columnWidget &&
-      columnWidget.editable &&
-      columnWidget.editorTrigger !== TableEditorTrigger.manual &&
-      columnWidget.editorMode === TableEditorMode.cell
-    ) {
-      isEnabled = columnWidget.cellEditable({
-        key: VxeTableHelper.getKey(row),
-        data: row,
-        index: rowIndex,
-        origin: row
-      });
-    }
-    return isEnabled;
-  }
-
-  /**
-   * 单元格左右移动
-   */
-  protected async onMoveColumnActiveEditor(event: KeyboardEvent, offset: number) {
-    const { column, rowIndex } = this.lastedCurrentEditorContext!;
-    const allColumns = this.tableInstance?.getAllColumns() || [];
-    const currentColumnIndex = allColumns.findIndex((v) => v.field === column.field);
-    let nextColumnIndex = currentColumnIndex + offset;
-    let nextColumn = allColumns[nextColumnIndex];
-    let row = this.showDataSource?.[rowIndex];
-    let toNextRow = false;
-
-    while (!nextColumn.field || nextColumn.field === '$$internalOperator' || !nextColumn.visible) {
-      nextColumnIndex = nextColumnIndex + offset;
-      nextColumn = allColumns[nextColumnIndex % allColumns.length];
-    }
-
-    if (nextColumnIndex < 0 || nextColumnIndex >= allColumns.length) {
-      toNextRow = true;
-      row = this.showDataSource?.[rowIndex + Math.sign(offset)];
-    }
-    const isEnabled =
-      row &&
-      nextColumn &&
-      nextColumn.field &&
-      this.getCellEditable(nextColumn.field, row, rowIndex + (row ? offset : 0));
-    if (!isEnabled) {
-      return this.onMoveColumnActiveEditor(event, offset + offset);
-    }
-
-    if (this.lastedCurrentEditorContext) {
-      this.lastedCurrentEditorContext.column = nextColumn;
-      this.lastedCurrentEditorContext.columnIndex = nextColumnIndex;
-    }
-
-    // 如果是换行编辑，那么需要下一行可编辑项的第一个默认选中，并且修改激活行的数据
-    if (toNextRow) {
-      this.columnAutoFocus(rowIndex + 1, 0);
-
-      delay(() => {
-        const context = this.getTableInstance()?.getActiveEditorRecord()?.origin as ActiveEditorContext;
-
-        if (context) {
-          this.activeEditor({ ...context, editableMap: {} });
-        }
-      }, 200);
-    } else {
-      // 否则直接切换对应单元格的焦点
-      await this.tableInstance?.activeCellEditor(row, nextColumn.field);
-      this.columnAutoFocus(rowIndex, nextColumnIndex);
-    }
-  }
-
-  /**
-   * 上下移动
-   */
-  protected async onMoveRowActiveEditor(event: KeyboardEvent, offset: 1 | -1) {
-    const { column, rowIndex } = this.lastedCurrentEditorContext!;
-    const { field } = column;
-    if (field) {
-      const currentIndex = rowIndex + offset;
-      const currentRow = this.showDataSource![currentIndex];
-      const isEnabled = this.getCellEditable(field, currentRow, currentIndex);
-      if (!currentRow || !isEnabled) {
-        return;
-      }
-
-      await this.tableInstance?.activeCellEditor(currentRow, field);
-
-      this.columnAutoFocus(currentIndex, 0);
-
-      delay(() => {
-        const context = this.getTableInstance()?.getActiveEditorRecord()?.origin as ActiveEditorContext;
-
-        if (context) {
-          this.activeEditor({ ...context, editableMap: {} });
-        }
-      }, 200);
-    }
-  }
-
-  /**
-   * 键盘事件处理
-   */
-  protected bindKeyboardShortcut(event: KeyboardEvent) {
-    if (!this.lastedCurrentEditorContext) {
-      return;
-    }
-
-    // 右移动
-    if (this.isShortcutMatch(event, this.keyboardConfig.right)) {
-      event.preventDefault();
-      this.onMoveColumnActiveEditor(event, 1);
-    } else if (this.isShortcutMatch(event, this.keyboardConfig.left)) {
-      /// 左移动
-      event.preventDefault();
-      this.onMoveColumnActiveEditor(event, -1);
-    } else if (this.isShortcutMatch(event, this.keyboardConfig.down)) {
-      console.log('xia ');
-      // 下移动
-      event.preventDefault();
-      this.onMoveRowActiveEditor(event, 1);
-    } else if (this.isShortcutMatch(event, this.keyboardConfig.up)) {
-      // 上移动
-      event.preventDefault();
-      this.onMoveRowActiveEditor(event, -1);
-    } else if (this.isShortcutMatch(event, this.keyboardConfig.cancel)) {
-      // 取消
-      event.preventDefault();
-      this.tableInstance?.clearEditor();
-    }
-  }
-
-  // endregion
 }

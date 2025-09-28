@@ -72,9 +72,8 @@ export const OioColumnEditorProps = {
     type: String as PropType<TableEditorCloseTrigger | keyof typeof TableEditorCloseTrigger>,
     default: TableEditorCloseTrigger.manual
   },
-  disableEditorRender: {
-    type: Boolean,
-    default: false
+  editRender: {
+    type: Object
   },
   rowEditorClosedByEnter: {
     type: Function as PropType<(context: RowContext) => ReturnPromise<boolean>>

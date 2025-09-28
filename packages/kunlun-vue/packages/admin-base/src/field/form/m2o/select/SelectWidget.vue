@@ -16,7 +16,7 @@
       <a-select
         class="oio-select"
         label-in-value
-        :show-search="showSearch && searchArea === SelectSearchArea.Default"
+        :show-search="showSearch && searchArea === SelectSearchArea.default"
         :allow-clear="allowClear"
         :disabled="innerDisabled"
         :value="currentValue"
@@ -37,7 +37,7 @@
       >
         <template #dropdownRender="{ menuNode: menu }">
           <oio-input
-            v-if="showSearch && searchArea === SelectSearchArea.Dropdown"
+            v-if="showSearch && searchArea === SelectSearchArea.dropdown"
             ref="dropdownInputRef"
             :placeholder="placeholder"
             :value="searchValue"

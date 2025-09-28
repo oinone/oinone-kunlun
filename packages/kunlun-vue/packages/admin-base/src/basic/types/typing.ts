@@ -89,6 +89,6 @@ export interface FormValidateResult {
 }
 
 export enum SelectSearchArea {
-  Default = 'default',
-  Dropdown = 'Dropdown'
+  default = 'default',
+  dropdown = 'dropdown'
 }

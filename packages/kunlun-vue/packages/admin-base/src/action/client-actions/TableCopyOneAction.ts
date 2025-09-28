@@ -1,39 +1,23 @@
-import { ActiveRecordExtendKeys, ActiveRecordsOperator } from '@oinone/kunlun-engine';
-import { deepClone, ModelDefaultActionName } from '@oinone/kunlun-meta';
-import { CallChaining } from '@oinone/kunlun-shared';
+import { ModelDefaultActionName } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { VXE_TABLE_X_ID } from '@oinone/kunlun-vue-ui';
-import { TableRowEditMode } from '../../typing';
+import { TableCopyEvent, TableEventCallChaining, TableEventType } from '../../typing';
 import { ActionWidget } from '../component';
 
 @SPI.ClassFactory(ActionWidget.Token({ name: ModelDefaultActionName.$$internal_CopyOne }))
 export class TableCopyOneAction extends ActionWidget {
-  protected async clickAction() {
-    const { activeRecords } = this;
-    const newActiveRecords = activeRecords?.map((item) => {
-      const result = deepClone(item);
-      Object.values(ActiveRecordExtendKeys).forEach((val) => {
-        Reflect.deleteProperty(result, val);
-      });
-
-      Reflect.deleteProperty(result, VXE_TABLE_X_ID);
-      return result;
-    });
-
-    const newRecord = ActiveRecordsOperator.repairRecordsNullable(newActiveRecords);
-    if (!newRecord) {
-      return;
-    }
-
-    this.createDataSourceByEntity(newRecord);
-    this.editRowCallChaining?.call(TableRowEditMode.COPY, {
-      record: newRecord[0],
-      action: this.action
-    });
-  }
-
   @Widget.Reactive()
   @Widget.Inject()
-  protected editRowCallChaining: CallChaining | undefined;
+  protected tableEventCallChaining: TableEventCallChaining | undefined;
+
+  protected async clickAction() {
+    const event: TableCopyEvent = {
+      type: TableEventType.copy,
+      clone: true,
+      activeRecords: this.activeRecords,
+      copyTo: 0,
+      action: this.action
+    };
+    this.tableEventCallChaining?.call(event);
+  }
 }
