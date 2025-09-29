@@ -250,6 +250,9 @@ export class BaseTableWidget<
   @Widget.Reactive()
   @Widget.Provide()
   protected get editable(): boolean | undefined {
+    if (this.inline) {
+      return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().editable)).orElse(true);
+    }
     return this.currentEditorContext?.forceEditable || BooleanHelper.toBoolean(this.getDsl().editable);
   }
 
