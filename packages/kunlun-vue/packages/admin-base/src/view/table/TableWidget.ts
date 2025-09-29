@@ -910,20 +910,6 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get treeConfig() {
-    if (this.enableGrouping) {
-      return {
-        rowField: ActiveRecordExtendKeys.DRAFT_ID,
-        parentField: ActiveRecordExtendKeys.PARENT_DRAFT_ID,
-        hasChild: GROUP_TREE_KEY.IS_LEAF_KEY,
-        expandAll: this.groupViewFooterExpandControl,
-        children: GROUP_TREE_KEY.CHILDREN_KEY,
-        lazy: !this.groupViewFooterExpandControl,
-        loadMethod: async ({ row }) => {
-          return this.loadGroupData(row);
-        }
-      };
-    }
-
     if (this.enabledTreeConfig) {
       return {
         transform: true,
@@ -934,6 +920,19 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
         lazy: this.getTreeLazy(),
         loadMethod: ({ row }) => {
           return this.loadTreeNodes(undefined, row);
+        }
+      };
+    }
+    if (this.enableGrouping) {
+      return {
+        rowField: ActiveRecordExtendKeys.DRAFT_ID,
+        parentField: ActiveRecordExtendKeys.PARENT_DRAFT_ID,
+        hasChild: GROUP_TREE_KEY.IS_LEAF_KEY,
+        expandAll: this.groupViewFooterExpandControl,
+        children: GROUP_TREE_KEY.CHILDREN_KEY,
+        lazy: !this.groupViewFooterExpandControl,
+        loadMethod: async ({ row }) => {
+          return this.loadGroupData(row);
         }
       };
     }
