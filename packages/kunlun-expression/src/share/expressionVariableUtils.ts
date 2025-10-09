@@ -271,7 +271,7 @@ function createVariableListStr(
             expressionSeniorMode !== ExpressionSeniorMode.DISPLAY_NAME
           ) {
             if (Array.isArray(a.value)) {
-              return '(' + a.value.join(',') + ')';
+              return a.value.join(',');
             }
             let right = autoAddQuote(a.value, expressionOption.quoteType);
             if (
