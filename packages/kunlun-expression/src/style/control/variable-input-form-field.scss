@@ -55,6 +55,10 @@ $select-width: 328px;
     .ant-input-group-addon + .ant-input-affix-wrapper {
       border-radius: 0 var(--oio-input-border-radius) var(--oio-input-border-radius) 0;
       flex: 1;
+
+      .only-one-input{
+        height: 38px;
+      }
     }
 
     .ant-input-affix-wrapper {
@@ -106,7 +110,6 @@ $select-width: 328px;
           }
 
           .scope-tag {
-            max-width: 40%;
             display: flex;
             justify-content: center;
             
@@ -268,7 +271,7 @@ $select-width: 328px;
         }
 
         .variable-tag {
-          max-width: 200px;
+          max-width: 100%;
         }
       }
     }
