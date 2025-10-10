@@ -2,6 +2,7 @@ import { ExpressionExecutor, SubmitValue } from '@oinone/kunlun-engine';
 import { IModelField, isEmptyValue, ModelFieldType } from '@oinone/kunlun-meta';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import {
+  createConditionExpressionApiName,
   createContextItems,
   createDefaultExpressionItem,
   createExpressionDefinition,
@@ -127,7 +128,7 @@ export class ExpressionAbstractWidget extends FormFieldWidget {
       this.sourceCode = value;
       this.hasChangeSourceCode = true;
     } else {
-      this.sourceCode = createExpressionValue(value, this.createExpressionOption());
+      this.sourceCode = createConditionExpressionApiName(value, this.createExpressionOption());
       this.hasChangeSourceCode = false;
     }
   }
