@@ -326,7 +326,7 @@ function createVariableListStr(
 
   if (operatorNameList.find((item) => item === operator) !== undefined) {
     return (expressionOption.isBetweenInBrackets && list.length > 1) || isBetweenType() || isInSetType()
-      ? `(${list.join(' , ')})`
+      ? `'${list.join(' , ')}'`
       : list.join(' , ');
   }
 

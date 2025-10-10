@@ -22,7 +22,8 @@ export const COLLECTION_FUNCTION = {
   MAP_CONTAINS_KEY,
   MAP_PUT,
   MAP_REMOVE,
-  MAP_COUNT
+  MAP_COUNT,
+  IN_SET
 };
 
 function LIST_GET(list: unknown[], index: number) {
@@ -238,4 +239,9 @@ function MAP_COUNT(obj: Record<string, unknown>) {
     return 0;
   }
   return Object.keys(obj).length;
+}
+
+function IN_SET(key: string, setString: string) {
+  const set = setString.split(',');
+  return set.includes(key);
 }

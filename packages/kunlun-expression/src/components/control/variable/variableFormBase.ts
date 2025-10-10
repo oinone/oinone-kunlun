@@ -140,7 +140,6 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
         list = filterListOption(list);
       }
     }
-    debugger;
     return list;
   });
 

@@ -25,7 +25,8 @@ export const MATH_FUNCTION = {
   COUNT,
   UPPER_MONEY,
   POW,
-  LOG
+  LOG,
+  BETWEEN_AND
 };
 
 function ABS(input: number | string) {
@@ -267,4 +268,15 @@ function LOG(a: number, b: number): number | null {
   }
 
   return Math.log(b) / Math.log(a);
+}
+
+function BETWEEN_AND(argInt: number, scopeStr: string) {
+  const scopeIntList = scopeStr.split(',');
+  if (scopeIntList.length !== 2) {
+    console.error(`${scopeStr}仅能有一个','分隔`);
+  }
+  if (argInt >= Number.parseInt(scopeIntList[0], 10) && argInt <= Number.parseInt(scopeIntList[1], 10)) {
+    return true;
+  }
+  return false;
 }

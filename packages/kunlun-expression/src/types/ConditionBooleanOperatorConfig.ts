@@ -111,7 +111,11 @@ export const TwoArgLeftRightFunBooleanOperatorList = [
   BooleanConditionComparisonOperator.LIST_IN,
   BooleanConditionComparisonOperator.LIST_NOT_IN,
   BooleanConditionComparisonOperator.LIST_IN_LIST,
-  BooleanConditionComparisonOperator.LIST_NOT_IN_LIST
+  BooleanConditionComparisonOperator.LIST_NOT_IN_LIST,
+  BooleanConditionComparisonOperator.IN_SET,
+  BooleanConditionComparisonOperator.NOT_IN_SET,
+  BooleanConditionComparisonOperator.BETWEEN_AND,
+  BooleanConditionComparisonOperator.NOT_BETWEEN_AND,
 ].map((a) => a.toString());
 
 // 后端解析函数需要给参数用单引号包裹起来
