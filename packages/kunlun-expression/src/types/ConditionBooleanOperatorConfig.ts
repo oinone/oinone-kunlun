@@ -48,10 +48,10 @@ export enum BooleanConditionComparisonOperator {
 
   // 范围
   BETWEEN_AND = 'BETWEEN_AND',
-  NOT_BETWEEN_AND = 'NOT_BETWEEN_AND',
+  NOT_BETWEEN_AND = '!BETWEEN_AND',
 
-  IN_SET = 'IN',
-  NOT_IN_SET = '!IN'
+  IN_SET = 'IN_SET',
+  NOT_IN_SET = '!IN_SET'
   //
   // // Binary Enumeration
   // HAS = '=has=',
