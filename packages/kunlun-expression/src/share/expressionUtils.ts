@@ -31,7 +31,8 @@ import {
   IVariableContextItem,
   IVariableItem,
   VARIABLE_MAX_STRING_LENGTH,
-  VariableItemType
+  VariableItemType,
+  TwoArgLeftRightFunBooleanOperatorList
 } from '../types';
 import {
   createApiNameVariableListStr,
@@ -266,16 +267,33 @@ export function createExpressionValue(expressionItemList: IExpressionItem[], exp
           operator = '';
         }
         if (a.type === ExpressionItemType.VARIABLE) {
-          return (
-            createValueVariableListStr(a.valueList!, expressionOption) +
-            (a.compareOperator
-              ? translateCompareOperatorValue(a.compareOperator, a.compareOperatorOptions, expressionOption)
-              : '') +
-            (a.compareValueList
-              ? createValueVariableListStr(a.compareValueList!, expressionOption, undefined, a.compareOperator)
-              : '') +
-            operator
-          );
+          console.log(TwoArgLeftRightFunBooleanOperatorList, a.compareOperator);
+          if (!TwoArgLeftRightFunBooleanOperatorList.includes(a.compareOperator.toString())) {
+            return (
+              createValueVariableListStr(a.valueList!, expressionOption) +
+              (a.compareOperator
+                ? translateCompareOperatorValue(a.compareOperator, a.compareOperatorOptions, expressionOption)
+                : '') +
+              (a.compareValueList
+                ? createValueVariableListStr(a.compareValueList!, expressionOption, undefined, a.compareOperator)
+                : '') +
+              operator
+            );
+          } else {
+            return (
+              (a.compareOperator
+                ? translateCompareOperatorValue(a.compareOperator, a.compareOperatorOptions, expressionOption)
+                : '') +
+              '(' +
+              createValueVariableListStr(a.valueList!, expressionOption) +
+              ',' +
+              (a.compareValueList
+                ? createValueVariableListStr(a.compareValueList!, expressionOption, undefined, a.compareOperator)
+                : '') +
+              ')' +
+              operator
+            );
+          }
         }
         if (a.type === ExpressionItemType.LEFT_BRACKET) {
           return '(';
