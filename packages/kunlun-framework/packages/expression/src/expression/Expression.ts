@@ -543,7 +543,12 @@ export class Expression {
               arrays.push(this.runtime.exec(left).value);
             }
           } else {
-            arrays.push(this.runtime.exec(itemNode).value);
+            if (operator?.type === 'string') {
+              arrays.push(this.runtime.exec(itemNode).value);
+            }
+            if (operator?.type === 'symbol' && operator.text === '.') {
+              arrays.push(this.runtime.exec(itemNode).value);
+            }
           }
           itemNode = right;
         }
@@ -890,7 +895,7 @@ export class Expression {
     );
     this.registerFunction('POW', ['number|string', 'number|string'], MATH_FUNCTION.POW);
     this.registerFunction('LOG', ['number|string', 'number|string'], MATH_FUNCTION.LOG);
-    this.registerFunction('BETWEEN_AND', ['number|string', 'string'], MATH_FUNCTION.BETWEEN_AND);
+    this.registerFunction('BETWEEN_AND', ['number|string', 'string|array'], MATH_FUNCTION.BETWEEN_AND);
 
     // 字符串函数
     this.registerFunction('TRIM', ['string'], STRING_FUNCTION.TRIM);
