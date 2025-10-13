@@ -920,7 +920,7 @@ export class BaseTableWidget<
   @Widget.Reactive()
   protected get groupViewFooterExpandControl() {
     if (this.enabledGroupView) {
-      return this.groupTotalDataCount <= 300;
+      return this.groupTotalDataCount <= 200;
     }
     return false;
   }
