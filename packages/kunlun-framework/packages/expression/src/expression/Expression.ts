@@ -543,7 +543,7 @@ export class Expression {
               arrays.push(this.runtime.exec(left).value);
             }
           } else {
-            if (operator?.type === 'string') {
+            if (operator?.type === 'string' || operator?.type === 'number') {
               arrays.push(this.runtime.exec(itemNode).value);
             }
             if (operator?.type === 'symbol' && operator.text === '.') {
@@ -995,7 +995,7 @@ export class Expression {
     this.registerFunction('MAP_PUT', ['object', 'string', 'any'], COLLECTION_FUNCTION.MAP_PUT);
     this.registerFunction('MAP_REMOVE', ['object', 'string'], COLLECTION_FUNCTION.MAP_REMOVE);
     this.registerFunction('MAP_COUNT', ['object'], COLLECTION_FUNCTION.MAP_COUNT);
-    this.registerFunction('IN_SET', ['string', 'string'], COLLECTION_FUNCTION.IN_SET);
+    this.registerFunction('IN_SET', ['string', 'array'], COLLECTION_FUNCTION.IN_SET);
     // 对象函数
     this.registerFunction('IS_NULL', ['any'], OBJECT_FUNCTION.IS_NULL);
     this.registerFunction('EQUALS', ['object', 'object'], OBJECT_FUNCTION.EQUALS);
