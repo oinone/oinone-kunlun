@@ -271,7 +271,7 @@ function createVariableListStr(
             expressionSeniorMode !== ExpressionSeniorMode.DISPLAY_NAME
           ) {
             if (Array.isArray(a.value)) {
-              return a.value.join(',');
+              return `[${a.value.join(',')}]`;
             }
             let right = autoAddQuote(a.value, expressionOption.quoteType);
             if (
@@ -287,6 +287,11 @@ function createVariableListStr(
             }
             return right;
           }
+
+          if (Array.isArray(a.value)) {
+            return `[${a.value.join(',')}]`;
+          }
+
           if (
             expressionSeniorMode === ExpressionSeniorMode.VALUE &&
             expressionOption.type === ExpressionDefinitionType.BOOLEAN_CONDITION &&
@@ -324,9 +329,13 @@ function createVariableListStr(
     return variableItemList.length === 1 && Array.isArray(variableItemList[0].value);
   };
 
+  if (operatorNameList.find((item) => item === operator) !== undefined && list.length > 1) {
+    return `[${list.join(',')}]`;
+  }
+
   if (operatorNameList.find((item) => item === operator) !== undefined) {
     return (expressionOption.isBetweenInBrackets && list.length > 1) || isBetweenType() || isInSetType()
-      ? `'${list.join(' , ')}'`
+      ? `${list.join(' , ')}`
       : list.join(' , ');
   }
 
@@ -498,7 +507,10 @@ export function variableItem2expressionCell(variableItem: IVariableItem): IExpre
     VariableItemType.FIELD,
     VariableItemType.SESSION
   ].includes(variableItem.type);
-  const value = toString(variableItem.value);
+  let value = toString(variableItem.value);
+  if (variableItem.multiParams) {
+    value = `[${value}]`;
+  }
   const transArr = [isVariable ? variableItem.displayName! : value] as string[];
   if (isVariable) {
     variableItem.subTitle && transArr.push(variableItem.subTitle);

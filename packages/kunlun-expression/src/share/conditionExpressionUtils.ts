@@ -263,7 +263,8 @@ function getCompareExp4Value(
           isBetweenInBrackets: true,
           quoteType: IExpressionQuoteType.NONE
         } as IExpressionOption,
-        valueList && valueList[0]
+        valueList && valueList[0],
+        operator
       )
     : '';
   if (left.startsWith(ExpressionKeyword.activeRecord)) {
@@ -339,7 +340,8 @@ function getBooleanCompareExp4Value(
     ? createValueVariableListStr(
         compareValueList!,
         { ...expressionOption, isBetweenInBrackets: true, quoteType: IExpressionQuoteType.SINGLE } as IExpressionOption,
-        leftVariableItem
+        leftVariableItem,
+        operator
       )
     : '';
   // if (left.startsWith(ExpressionKeyword.activeRecord)) {
