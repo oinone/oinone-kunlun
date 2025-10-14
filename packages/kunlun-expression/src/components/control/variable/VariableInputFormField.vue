@@ -100,6 +100,7 @@
                       </template>
                       <template v-if="!isDateTtype(leftJoinTtype)">
                         <input
+                          v-if="!isInsetOperator"
                           v-model="variableItem.value"
                           type="text"
                           :pattern="createInputPatternByTtype(leftJoinTtype)"
@@ -112,6 +113,13 @@
                           @click="(e) => onFocusVariableItemString(index, e)"
                           @focus="(e) => onFocusVariableItemString(index, e)"
                           @blur="onBlurVariableItemString(index)"
+                        />
+                        <input
+                          v-else
+                          type="text"
+                          v-model="inSetOperatorText"
+                          class="variable-item-input ant-input"
+                          @change="onChangeInsetOperatorText(index)"
                         />
                         <span
                           class="variable-item-input-mirror"
@@ -201,7 +209,6 @@
                     />
                   </div>
                   <span
-                    class="test1"
                     :index="index"
                     v-if="isBetweenOperator && index !== variableItemList.length - 1 && index !== 0"
                     >~</span

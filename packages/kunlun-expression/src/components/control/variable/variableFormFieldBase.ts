@@ -371,12 +371,12 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     );
   });
 
-  const isInSetOperator = computed(()=>{
+  const isInSetOperator = computed(() => {
     return (
       props.compareOperatorOption?.value === BooleanConditionComparisonOperator.IN_SET ||
       props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_IN_SET
     );
-  })
+  });
 
   const isInSetOperation = computed(() => {
     return (
@@ -691,11 +691,24 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
   const scopeIntValueChange = (index) => {
     const variableItem = variableItemList.value[index];
     variableItem.value = scoptNumber.value;
+    variableItem.apiName = `[${scoptNumber.value.toString()}]`;
+    variableItem.multiParams = true;
+    // variableItem.ttype = 'M2M';
+    // variableItem.type = 'M2M';
   };
 
   const scopeDateValueChange = (index) => {
     const variableItem = variableItemList.value[index];
-    variableItem.value = scopeDate.value;
+    variableItem.value =
+      variableType.value === 'string'
+        ? scopeDate.value.map((item) => {
+            return `'${item}'`;
+          })
+        : scopeDate.value;
+    variableItem.apiName = `[${scopeDate.value.toString()}]`;
+    variableItem.multiParams = true;
+    // variableItem.ttype = 'M2M';
+    // variableItem.type = 'M2M';
   };
 
   const computeInputWidth = (index: number) => {
@@ -749,6 +762,22 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     return [variableFieldRef.value, dropdownRef.value] as HTMLElement[];
   });
 
+  const inSetOperatorText = ref('');
+
+  const onChangeInsetOperatorText = (index) => {
+    const variableItem = variableItemList.value[index];
+    variableItem.value = inSetOperatorText.value.split(',').map((item) => {
+      return `'${item}'`;
+    });
+  };
+
+  const isInsetOperator = computed(() => {
+    return (
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.IN_SET ||
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_IN_SET
+    );
+  });
+
   onMounted(() => {
     document.body.addEventListener('click', onContains);
     // variableItemList.value = createDefaultVariableItemList();
@@ -762,7 +791,9 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     return [ModelFieldType.Float, ModelFieldType.Currency].includes(ttype);
   };
   return {
+    inSetOperatorText,
     isBetweenOperator,
+    isInsetOperator,
     isInSetOperator,
     datePickerType,
     datePickerTypeList,
@@ -814,7 +845,8 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     isDateTtype,
     translateExpValue,
     scopeIntValueChange,
-    scopeDateValueChange
+    scopeDateValueChange,
+    onChangeInsetOperatorText
   };
 }
 
