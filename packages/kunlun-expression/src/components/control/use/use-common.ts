@@ -147,7 +147,7 @@ export function useSubmitExpressionHandler(
     setTimeout(() => {
       closeDialog && (isShowExpressionDialog.value = false);
     }, 200);
-    expressionItemList.value = JSON.parse(JSON.stringify(dialogExpressionItemList.value));
+    expressionItemList.value = dialogExpressionItemList.value;
     props.onChangeList?.(expressionItemList.value);
     emit('change-expression-items', expressionItemList.value);
     const expValue = createExpressionValue(expressionItemList.value as IExpressionItem[], expressionOption.value!);

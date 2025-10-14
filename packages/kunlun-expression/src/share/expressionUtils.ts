@@ -267,7 +267,6 @@ export function createExpressionValue(expressionItemList: IExpressionItem[], exp
           operator = '';
         }
         if (a.type === ExpressionItemType.VARIABLE) {
-          console.log(TwoArgLeftRightFunBooleanOperatorList, a.compareOperator);
           if (!TwoArgLeftRightFunBooleanOperatorList.includes(a.compareOperator.toString())) {
             return (
               createValueVariableListStr(a.valueList!, expressionOption) +
