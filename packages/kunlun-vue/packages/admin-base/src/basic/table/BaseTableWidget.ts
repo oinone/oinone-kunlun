@@ -445,7 +445,7 @@ export class BaseTableWidget<
     const data = await this.rowEditorClosedForSubmit(context);
     if (this.inline) {
       if (res && data) {
-        if (this.dataSource![this.currentEditorContext!.rowIndex].__draftId !== data.__draftId) {
+        if (this.currentEditorContext!.rowIndex === -1) {
           this.createSubviewFieldWidget(context, omitBy({ ...data }, isNil));
         } else {
           this.updateSubviewFieldWidget(context, data);
@@ -525,10 +525,10 @@ export class BaseTableWidget<
             const subviewSubmitCache = this.metadataRuntimeContext.extendData.subviewSubmitCache as SubmitCacheManager;
             if (showRecords) {
               if (submitCache) {
-                ActiveRecordsOperator.operator(showRecords, submitCache).updateByEntity(data);
+                ActiveRecordsOperator.operator(showRecords, submitCache).updateByEntity(context.data);
               }
               if (subviewSubmitCache) {
-                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).updateByEntity(data);
+                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).updateByEntity(context.data);
               }
             }
             subviewFieldWidget.flushDataSource();
@@ -549,10 +549,10 @@ export class BaseTableWidget<
             const subviewSubmitCache = this.metadataRuntimeContext.extendData.subviewSubmitCache as SubmitCacheManager;
             if (showRecords) {
               if (submitCache) {
-                ActiveRecordsOperator.operator(showRecords, submitCache).push(data);
+                ActiveRecordsOperator.operator(showRecords, submitCache).push(context.data);
               }
               if (subviewSubmitCache) {
-                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).push(data);
+                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).push(context.data);
               }
             }
             subviewFieldWidget.flushDataSource();
@@ -720,7 +720,7 @@ export class BaseTableWidget<
     if (currentEditorContext && !currentEditorContext.submit) {
       const $data = currentEditorContext.row;
       if (dataSource) {
-        if (this.dataSource![this.currentEditorContext!.rowIndex].__draftId !== $data.__draftId) {
+        if (this.currentEditorContext!.rowIndex === -1) {
           this.tableInstance?.removeInsertRow();
           return;
         }

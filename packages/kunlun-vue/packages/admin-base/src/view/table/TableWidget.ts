@@ -1095,7 +1095,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Provide()
   protected async rowEditorClosed(context: RowContext | undefined): Promise<boolean> {
     const res = await super.rowEditorClosed(context);
-    if (!this.inline && res) {
+    if (this.treeConfig && !this.inline && res) {
       this.refreshProcess();
     }
     return res;
