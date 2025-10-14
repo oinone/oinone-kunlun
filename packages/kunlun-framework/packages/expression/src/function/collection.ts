@@ -241,7 +241,6 @@ function MAP_COUNT(obj: Record<string, unknown>) {
   return Object.keys(obj).length;
 }
 
-function IN_SET(key: string, setString: string) {
-  const set = setString.split(',');
-  return set.includes(key);
+function IN_SET(key: string, setString: array) {
+  return setString.map((item) => item.toString()).includes(key);
 }
