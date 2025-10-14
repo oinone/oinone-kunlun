@@ -218,7 +218,7 @@ export class FormTransferFieldWidget extends FormM2MFieldSelectWidget {
     return options;
   }
 
-  protected originOptions = [];
+  protected originOptions: ActiveRecord[] = [];
 
   protected insertOptions(options, back = false) {
     if (!options?.length) {
@@ -233,7 +233,7 @@ export class FormTransferFieldWidget extends FormM2MFieldSelectWidget {
     });
     this.options = this.generatorFullOptions(finalOptions);
     if (!back) {
-      this.originOptions = options;
+      this.originOptions = this.generatorFullOptions(options);
     }
   }
 
