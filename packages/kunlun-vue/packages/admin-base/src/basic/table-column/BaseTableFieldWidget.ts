@@ -229,17 +229,14 @@ export class BaseTableFieldWidget<
       if (!this.tableEnableGrouping) {
         return false;
       }
-      const { field, relationSortFields } = this;
+      const { field } = this;
       const { store } = field;
       if (isRelationField(field)) {
-        const { relationStore } = field;
+        const { relationFields, referenceFields } = field;
         if (store) {
           return false;
         }
-        if (!relationStore) {
-          return false;
-        }
-        return !!relationSortFields && !!relationSortFields.length;
+        return !!relationFields.length && !!referenceFields.length;
       }
       return store;
     }

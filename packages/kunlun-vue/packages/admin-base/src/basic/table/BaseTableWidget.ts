@@ -453,8 +453,8 @@ export class BaseTableWidget<
       }
     } else if (data) {
       try {
-        if (this.dataSource![this.currentEditorContext!.rowIndex].__draftId !== data.__draftId) {
-          res = await this.rowEditorClosedForCreate(context, data);
+        if (this.currentEditorContext!.rowIndex === -1) {
+          res = await this.rowEditorClosedForCreate(context, omitBy({ ...data }, isNil));
         } else {
           res = await this.rowEditorClosedForUpdate(context, data);
         }
@@ -630,7 +630,8 @@ export class BaseTableWidget<
       return false;
     }
     const res = await this.executeRowEditorUpdate(functionDefinition, data);
-    await this.refreshRowEditorUpdate(context, data, res);
+    this.refreshRowEditorUpdate(context, data, res);
+    MessageHub.success(translateValueByKey('更新成功'));
     return true;
   }
 
@@ -662,7 +663,8 @@ export class BaseTableWidget<
       return false;
     }
     const res = await this.executeRowEditorUpdate(functionDefinition, data);
-    await this.refreshRowEditorUpdate(context, data, res);
+    this.refreshRowEditorUpdate(context, data, res);
+    MessageHub.success(translateValueByKey('创建成功'));
     return true;
   }
 
@@ -1064,6 +1066,14 @@ export class BaseTableWidget<
   }
 
   protected async onCopyRowEvent(e: Omit<TableCopyEvent, 'type'>) {
+    if (this.lastedCurrentEditorContext == null) {
+      this.lastedCurrentEditorContext = {
+        prepare: true,
+        editorMode: TableEditorMode.row,
+        editorCloseTrigger: TableEditorCloseTrigger.auto,
+        forceEditable: true
+      } as ActiveEditorContext;
+    }
     let target: ActiveRecord[] | undefined;
     if (e.activeRecords) {
       target = e.activeRecords;
@@ -1082,9 +1092,14 @@ export class BaseTableWidget<
     if (e.clone) {
       target = activeRecordsClone(target);
     }
-    const { row: newRow } = await this.tableInstance?.insert(target, e.copyTo);
+    const records = ActiveRecordsOperator.repairRecords(target);
+    const { row: newRow } = await this.tableInstance?.insert(records, e.copyTo);
     nextTick(() => {
-      this.tableInstance?.setEditRow(newRow[0]);
+      if (Array.isArray(newRow)) {
+        this.tableInstance?.setEditRow(newRow[0]);
+      } else {
+        this.tableInstance?.setEditRow(newRow);
+      }
     });
   }
 
