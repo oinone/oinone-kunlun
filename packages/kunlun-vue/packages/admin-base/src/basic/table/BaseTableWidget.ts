@@ -1052,9 +1052,9 @@ export class BaseTableWidget<
     }
     let target: ActiveRecord[] | undefined;
     if (e?.activeRecords) {
-      target = e?.activeRecords;
+      target = e.activeRecords;
     } else if (e?.activeRecord) {
-      target = [e?.activeRecord];
+      target = [e.activeRecord];
     } else {
       target = [{}];
     }
