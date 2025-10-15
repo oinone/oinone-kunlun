@@ -312,9 +312,10 @@ export class FormResourcePermissionFieldWidget extends FormM2MTreeFieldWidget {
   }
 
   protected generatorResourcePermissionItem(node: PermissionNode): AuthResourcePermissionItem {
-    const { path, nodeType, resourceId, canAccess, canManagement, canDesign } = node;
+    const { path, nodeType, resourceId, resourceCode, canAccess, canManagement, canDesign } = node;
     return {
       resourceId,
+      resourceCode,
       subtype: nodeType,
       path,
       canAccess,

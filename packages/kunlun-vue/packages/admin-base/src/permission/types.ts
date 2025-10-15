@@ -32,6 +32,7 @@ export interface PermissionNode {
   canDesign: boolean;
   nodeType: ResourcePermissionSubtypeEnum;
   resourceId: string;
+  resourceCode: string;
   path: string;
   displayValue: string;
   nodes?: AnyPermissionNode[];
@@ -106,6 +107,7 @@ export interface AuthResourcePermission {
 
 export interface AuthResourcePermissionItem extends AuthResourcePermission {
   resourceId?: string;
+  resourceCode?: string;
   canAccess?: boolean;
   canManagement?: boolean;
   canDesign?: boolean;
