@@ -244,6 +244,11 @@ export class ActionWidget<
   }
 
   @Widget.Reactive()
+  protected get labelInvisible(): boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().labelInvisible);
+  }
+
+  @Widget.Reactive()
   @Widget.Provide('buttonType')
   protected nextButtonType: string | undefined;
 

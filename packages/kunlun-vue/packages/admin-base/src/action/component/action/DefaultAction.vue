@@ -4,8 +4,8 @@ import { ButtonType, OioButton, OioPopconfirm, PropRecordHelper } from '@oinone/
 import { MenuItem as AMenuItem } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, VNode, vShow, withDirectives, withModifiers } from 'vue';
 import { useInjectActionContext, useProviderActionContext } from '../context';
-import { ActionProps, useAction } from './typing';
 import MenuItem from './MenuItem.vue';
+import { ActionProps, useAction } from './typing';
 
 export default defineComponent({
   name: 'DefaultAction',
@@ -39,11 +39,11 @@ export default defineComponent({
 
     const ButtonVNode = computed(() => {
       let contentVNode: VNode | undefined;
-      if (props.label) {
+      if (!props.labelInvisible && props.label) {
         contentVNode = createVNode('span', { class: `${DEFAULT_PREFIX}-action-content` }, props.label);
       }
 
-      const attrs = {
+      const attrs: Record<string, unknown> = {
         ref: 'origin',
         type: actionContext.isSelectItem.value ? ButtonType.link : props.type,
         bizStyle: props.bizStyle,
@@ -55,7 +55,7 @@ export default defineComponent({
       };
 
       if (!props.enableConfirm) {
-        attrs['onClick'] = () => props.validateAndClick?.(props.action, true);
+        attrs.onClick = () => props.validateAndClick?.(props.action, true);
       }
 
       return createVNode(OioButton, attrs, () => {
