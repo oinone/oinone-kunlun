@@ -14,6 +14,10 @@ export const BaseActionProps = {
   label: {
     type: String
   },
+  labelInvisible: {
+    type: Boolean,
+    default: undefined
+  },
   help: {
     type: String
   },

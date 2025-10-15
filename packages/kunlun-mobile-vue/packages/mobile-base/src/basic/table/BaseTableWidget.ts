@@ -430,6 +430,7 @@ export class BaseTableWidget<
     }
     const res = await this.executeRowEditorUpdate(functionDefinition, data);
     await this.refreshRowEditorUpdate(context, data, res);
+    MessageHub.success(translateValueByKey('更新成功'));
     return true;
   }
 

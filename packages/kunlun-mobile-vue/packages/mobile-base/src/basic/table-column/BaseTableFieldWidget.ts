@@ -4,12 +4,12 @@ import { Expression, ExpressionKeyword, ExpressionRunParam } from '@oinone/kunlu
 import { isEmptyValue, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { ActiveEditorContext, RenderCellContext, RowContext } from '../../ui';
 import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isFunction, isNaN, isNil, isPlainObject, isString, toString } from 'lodash-es';
 import { createVNode, VNode } from 'vue';
 import { EditorField } from '../../tags/internal';
 import { UserTablePrefer } from '../../typing';
+import { ActiveEditorContext, RenderCellContext, RowContext } from '../../ui';
 import { BaseTableColumnWidget } from './BaseTableColumnWidget';
 
 export type HandlerEvent = (field: BaseTableFieldWidget) => void;
@@ -79,30 +79,18 @@ export class BaseTableFieldWidget<
       if (!this.tableSortable) {
         return false;
       }
-      const { field, relationSortFields } = this;
+      const { field } = this;
       const { store } = field;
       if (isRelationField(field)) {
-        const { relationStore } = field;
+        const { relationFields, referenceFields } = field;
         if (store) {
           return false;
         }
-        if (!relationStore) {
-          return false;
-        }
-        return !!relationSortFields && !!relationSortFields.length;
+        return !!relationFields.length && !!referenceFields.length;
       }
       return store;
     }
     return sortable || false;
-  }
-
-  @Widget.Reactive()
-  public get relationSortFields(): string[] | undefined {
-    // const { field } = this;
-    // if (isRelationField(field)) {
-    //   return field.sortFields || field.referencesModel?.labelFields;
-    // }
-    return undefined;
   }
 
   @Widget.Reactive()
@@ -413,5 +401,17 @@ export class BaseTableFieldWidget<
       // 全局生命周期监听
       LifeCycleHeart.publish<BaseTableFieldWidget>(type, `${view.name}:${field.name}`, this);
     }
+  }
+
+  /**
+   * @deprecated invalid property
+   */
+  @Widget.Reactive()
+  public get relationSortFields(): string[] | undefined {
+    // const { field } = this;
+    // if (isRelationField(field)) {
+    //   return field.sortFields || field.referencesModel?.labelFields;
+    // }
+    return undefined;
   }
 }

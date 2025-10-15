@@ -489,9 +489,6 @@ export abstract class BaseElementListViewWidget<
         direction: directions[i]
       });
     }
-    if (!finalSortList.length) {
-      finalSortList.push(...(this.ordering || []));
-    }
     this.sortList = finalSortList;
     if (this.inline) {
       this.refreshProcess();

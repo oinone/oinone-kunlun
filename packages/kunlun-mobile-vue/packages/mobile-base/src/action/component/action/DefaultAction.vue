@@ -20,15 +20,14 @@
         :icon="icon"
         :data-action-name="action.name"
       >
-        {{ label }}
+        {{ labelInvisible ? '' : label }}
       </oio-button>
     </oio-popconfirm>
     <slot />
   </div>
 </template>
-
 <script lang="ts">
-import { OioButton, OioPopconfirm, DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { DEFAULT_PREFIX, OioButton, OioPopconfirm } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { defineComponent } from 'vue';
 import { ActionProps, useAction } from './typing';
 
