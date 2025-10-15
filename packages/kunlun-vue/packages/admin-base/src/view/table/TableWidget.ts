@@ -251,19 +251,12 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   }
 
   @Widget.Method()
-  protected checkMethod({ row }: { row: ActiveRecord }): boolean | string | undefined {
+  protected checkMethod(params: { row: ActiveRecord }): boolean | string | undefined {
+    const { row } = params;
     if (this.enabledGroupView) {
-      const children = row[GROUP_TREE_KEY.CHILDREN_KEY] as object[];
-      if (children) {
-        if (!!children.length) {
-          if (row[GROUP_TREE_KEY.IS_LEAF_KEY]) {
-            return true;
-          }
-          if (this.hasExpandedGroupNode(children)) {
-            return true;
-          }
-        }
-        return '请展开子节点确认数据后再进行选中';
+      const res = this.checkMethodByGroup(params);
+      if (res != null) {
+        return res;
       }
     }
     const { allowChecked } = this;
@@ -277,6 +270,27 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       return this.executeExpression<boolean>(row, allowChecked, false);
     }
     return true;
+  }
+
+  protected checkMethodByGroup({ row }: { row: ActiveRecord }): boolean | string | undefined {
+    const children = row[GROUP_TREE_KEY.CHILDREN_KEY] as object[];
+    if (children) {
+      if (!!children.length) {
+        if (row[GROUP_TREE_KEY.IS_LEAF_KEY]) {
+          if (children.length > 200) {
+            return '表格最多支持勾选200条';
+          }
+          return true;
+        }
+        if (this.hasExpandedGroupNode(children)) {
+          if (this.readyToCheckedCount(children) > 200) {
+            return '表格最多支持勾选200条';
+          }
+          return true;
+        }
+      }
+      return '请展开分组后再批量勾选';
+    }
   }
 
   protected hasExpandedGroupNode(children: object[]): boolean {
@@ -295,6 +309,24 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       }
       return true;
     });
+  }
+
+  protected readyToCheckedCount(children: object[]): number {
+    let total = 0;
+    for (const child of children) {
+      const cc = child[GROUP_TREE_KEY.CHILDREN_KEY] as object[];
+      if (cc) {
+        const ccNext = cc[GROUP_TREE_KEY.CHILDREN_KEY] as object[];
+        if (ccNext) {
+          total += this.readyToCheckedCount(cc);
+        } else {
+          total += cc.length;
+        }
+        continue;
+      }
+      break;
+    }
+    return total;
   }
 
   @Widget.Reactive()
