@@ -1,4 +1,10 @@
-import { ActiveRecord, isRelatedField, isRelationField, RuntimeModelField } from '@oinone/kunlun-engine';
+import {
+  ActiveRecord,
+  isAllowGrouping,
+  isAllowSortable,
+  isRelatedField,
+  RuntimeModelField
+} from '@oinone/kunlun-engine';
 import { FieldEventName, FieldEventNames, LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
 import { Expression, ExpressionKeyword, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { isEmptyValue, ViewMode, ViewType } from '@oinone/kunlun-meta';
@@ -205,19 +211,7 @@ export class BaseTableFieldWidget<
       if (!this.tableSortable) {
         return false;
       }
-      const { field, relationSortFields } = this;
-      const { store } = field;
-      if (isRelationField(field)) {
-        const { relationStore } = field;
-        if (store) {
-          return false;
-        }
-        if (!relationStore) {
-          return false;
-        }
-        return !!relationSortFields && !!relationSortFields.length;
-      }
-      return store;
+      return isAllowSortable(this.field);
     }
     return sortable || false;
   }
@@ -229,27 +223,9 @@ export class BaseTableFieldWidget<
       if (!this.tableEnableGrouping) {
         return false;
       }
-      const { field } = this;
-      const { store } = field;
-      if (isRelationField(field)) {
-        const { relationFields, referenceFields } = field;
-        if (store) {
-          return false;
-        }
-        return !!relationFields.length && !!referenceFields.length;
-      }
-      return store;
+      return isAllowGrouping(this.field);
     }
     return enableGrouping || false;
-  }
-
-  @Widget.Reactive()
-  public get relationSortFields(): string[] | undefined {
-    // const { field } = this;
-    // if (isRelationField(field)) {
-    //   return field.sortFields || field.referencesModel?.labelFields;
-    // }
-    return undefined;
   }
 
   @Widget.Reactive()
@@ -691,4 +667,16 @@ export class BaseTableFieldWidget<
   }
 
   // endregion
+
+  /**
+   * @deprecated invalid property
+   */
+  @Widget.Reactive()
+  public get relationSortFields(): string[] | undefined {
+    // const { field } = this;
+    // if (isRelationField(field)) {
+    //   return field.sortFields || field.referencesModel?.labelFields;
+    // }
+    return undefined;
+  }
 }

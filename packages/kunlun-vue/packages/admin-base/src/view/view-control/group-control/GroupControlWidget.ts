@@ -1,4 +1,4 @@
-import { isRelationField, ModelCache } from '@oinone/kunlun-engine';
+import { isAllowGrouping } from '@oinone/kunlun-engine';
 import { IGroup } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -69,19 +69,11 @@ export class GroupControlWidget extends BaseElementWidget {
     const options: SortableGroupOption[] = [];
     const { modelFields } = this.model;
     for (const modelField of modelFields || []) {
-      const { store, invisible } = modelField;
+      const { invisible } = modelField;
       if (invisible === true) {
         continue;
       }
-      let isSelected = false;
-      if (isRelationField(modelField)) {
-        if (!!modelField.relationFields.length && !!modelField.referenceFields.length) {
-          isSelected = true;
-        }
-      } else if (store) {
-        isSelected = true;
-      }
-      if (isSelected) {
+      if (isAllowGrouping(modelField)) {
         options.push({
           data: modelField.data,
           name: modelField.name,

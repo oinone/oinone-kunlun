@@ -1,4 +1,4 @@
-import { isRelationField } from '@oinone/kunlun-engine';
+import { isAllowSortable } from '@oinone/kunlun-engine';
 import { ISort } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -72,19 +72,11 @@ export class SortControlWidget extends BaseElementWidget {
     const options: SortableGroupOption[] = [];
     const { modelFields } = this.model;
     for (const modelField of modelFields || []) {
-      const { store, invisible } = modelField;
+      const { invisible } = modelField;
       if (invisible === true) {
         continue;
       }
-      let isSelected = false;
-      if (isRelationField(modelField)) {
-        if (!!modelField.relationFields.length && !!modelField.referenceFields.length) {
-          isSelected = true;
-        }
-      } else if (store) {
-        isSelected = true;
-      }
-      if (isSelected) {
+      if (isAllowSortable(modelField)) {
         options.push({
           data: modelField.data,
           name: modelField.name,
