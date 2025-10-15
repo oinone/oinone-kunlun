@@ -253,10 +253,15 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Method()
   protected checkMethod({ row }: { row: ActiveRecord }): boolean | string | undefined {
     if (this.enabledGroupView) {
-      const children = row[GROUP_TREE_KEY.CHILDREN_KEY] as unknown[];
+      const children = row[GROUP_TREE_KEY.CHILDREN_KEY] as object[];
       if (children) {
         if (!!children.length) {
-          return true;
+          if (row[GROUP_TREE_KEY.IS_LEAF_KEY]) {
+            return true;
+          }
+          if (this.hasExpandedGroupNode(children)) {
+            return true;
+          }
         }
         return '请展开子节点确认数据后再进行选中';
       }
@@ -272,6 +277,24 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       return this.executeExpression<boolean>(row, allowChecked, false);
     }
     return true;
+  }
+
+  protected hasExpandedGroupNode(children: object[]): boolean {
+    return children.some((v) => {
+      const cc = v[GROUP_TREE_KEY.CHILDREN_KEY] as object[];
+      if (cc) {
+        if (!!cc.length) {
+          if (v[GROUP_TREE_KEY.IS_LEAF_KEY]) {
+            return true;
+          }
+          if (this.hasExpandedGroupNode(cc)) {
+            return true;
+          }
+        }
+        return false;
+      }
+      return true;
+    });
   }
 
   @Widget.Reactive()
