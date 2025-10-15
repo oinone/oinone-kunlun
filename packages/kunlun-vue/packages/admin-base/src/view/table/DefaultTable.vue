@@ -20,7 +20,9 @@ import {
   TableSelectTrigger,
   TableSize,
   useVxeCheckboxCell,
+  useVxeCheckboxHeader,
   VxeCheckboxCellRenderBodyParams,
+  VxeCheckboxHeaderRenderBodyParams,
   VxeTableActiveEditorEventContext,
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
@@ -211,6 +213,14 @@ export default defineComponent({
     },
     checkMethod: {
       type: Function as PropType<(params: { row: ActiveRecord }) => boolean | string | undefined>
+    },
+    allowAllChecked: {
+      type: [String, Boolean],
+      default: undefined
+    },
+    isAllCheckedIndeterminate: {
+      type: Boolean,
+      default: undefined
     },
     onCheckedChange: {
       type: Function as PropType<(data: ActiveRecords, event?: CheckedChangeEvent) => void>
@@ -786,6 +796,8 @@ export default defineComponent({
       checkbox,
       checkboxDisabledTitles,
       checkMethod,
+      allowAllChecked,
+      isAllCheckedIndeterminate,
       onCurrentChange,
       onCheckedChange,
       onCheckedAllChange,
@@ -874,6 +886,37 @@ export default defineComponent({
                 fixed: existExpandRow ? undefined : 'left'
               },
               {
+                header: ({ origin }: { origin: VxeCheckboxHeaderRenderBodyParams }) => {
+                  let { indeterminate } = origin;
+                  if (isAllCheckedIndeterminate != null) {
+                    indeterminate = isAllCheckedIndeterminate;
+                  }
+                  if (typeof allowAllChecked === 'boolean') {
+                    if (!allowAllChecked) {
+                      return useVxeCheckboxHeader({
+                        ...origin,
+                        indeterminate
+                      });
+                    }
+                    return useVxeCheckboxHeader({
+                      ...origin,
+                      indeterminate,
+                      disabled: true
+                    });
+                  }
+                  if (typeof allowAllChecked === 'string') {
+                    return useVxeCheckboxHeader({
+                      ...origin,
+                      indeterminate,
+                      disabled: true,
+                      disabledTitle: allowAllChecked
+                    });
+                  }
+                  return useVxeCheckboxHeader({
+                    ...origin,
+                    indeterminate
+                  });
+                },
                 checkbox: (params: VxeCheckboxCellRenderBodyParams) => {
                   const key = params.row._X_ROW_KEY as string | undefined;
                   let disabledTitle: string | undefined;

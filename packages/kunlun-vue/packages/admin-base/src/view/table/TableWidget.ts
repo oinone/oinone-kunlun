@@ -250,6 +250,26 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return val as string;
   }
 
+  @Widget.Reactive()
+  protected get allowAllChecked() {
+    if (this.readyToAllCheckedCount > 200) {
+      return '表格最多支持勾选200条';
+    }
+    return true;
+  }
+
+  @Widget.Reactive()
+  protected get isAllCheckedIndeterminate(): boolean | undefined {
+    if (this.readyToAllCheckedCount === -1) {
+      return undefined;
+    }
+    const checkedCount = this.activeRecords?.length || 0;
+    if (checkedCount > 0 && checkedCount < this.groupTotalDataCount) {
+      return true;
+    }
+    return undefined;
+  }
+
   @Widget.Method()
   protected checkMethod(params: { row: ActiveRecord }): boolean | string | undefined {
     const { row } = params;
@@ -283,7 +303,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
           return true;
         }
         if (this.hasExpandedGroupNode(children)) {
-          if (this.readyToCheckedCount(children) > 200) {
+          if (this.computeReadyToCheckedCount(children) > 200) {
             return '表格最多支持勾选200条';
           }
           return true;
@@ -311,14 +331,22 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     });
   }
 
-  protected readyToCheckedCount(children: object[]): number {
+  @Widget.Reactive()
+  protected get readyToAllCheckedCount(): number {
+    if (this.enabledGroupView) {
+      return this.computeReadyToCheckedCount(this.dataSource || []);
+    }
+    return -1;
+  }
+
+  protected computeReadyToCheckedCount(children: object[]): number {
     let total = 0;
     for (const child of children) {
       const cc = child[GROUP_TREE_KEY.CHILDREN_KEY] as object[];
       if (cc) {
         const ccNext = cc[GROUP_TREE_KEY.CHILDREN_KEY] as object[];
         if (ccNext) {
-          total += this.readyToCheckedCount(cc);
+          total += this.computeReadyToCheckedCount(cc);
         } else {
           total += cc.length;
         }
