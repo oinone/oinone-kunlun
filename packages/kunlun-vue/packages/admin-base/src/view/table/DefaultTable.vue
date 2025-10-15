@@ -445,7 +445,7 @@ export default defineComponent({
     const checkboxDisabledTitles = ref<Record<string, string>>({});
     const checkMethod = (params: { row: ActiveRecord }): boolean => {
       let res = props.checkMethod?.(params);
-      const key = params.row.__draftId;
+      const key = params.row._X_ROW_KEY as string | undefined;
       if (res == null) {
         res = true;
       }
@@ -875,7 +875,7 @@ export default defineComponent({
               },
               {
                 checkbox: (params: VxeCheckboxCellRenderBodyParams) => {
-                  const key = params.row.__draftId;
+                  const key = params.row._X_ROW_KEY as string | undefined;
                   let disabledTitle: string | undefined;
                   if (key) {
                     disabledTitle = checkboxDisabledTitles[key];
