@@ -19,10 +19,19 @@ import {
   TableRowClickMode,
   TableSelectTrigger,
   TableSize,
+  useVxeCheckboxCell,
+  VxeCheckboxCellRenderBodyParams,
   VxeTableActiveEditorEventContext,
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
-import { ListPaginationStyle, ListSelectMode, OioPagination, OioSpin, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
+import {
+  ListPaginationStyle,
+  ListSelectMode,
+  OioPagination,
+  OioSpin,
+  OioTooltip,
+  StyleHelper
+} from '@oinone/kunlun-vue-ui-antd';
 import { DslRender } from '@oinone/kunlun-vue-widget';
 import { debounce } from 'lodash-es';
 import {
@@ -112,7 +121,8 @@ export default defineComponent({
     OioTable,
     OioColumn,
     OioSpin,
-    OioPagination
+    OioPagination,
+    OioTooltip
   },
   inheritAttrs: false,
   props: {
@@ -200,7 +210,7 @@ export default defineComponent({
       type: String as PropType<ListSelectMode>
     },
     checkMethod: {
-      type: Function
+      type: Function as PropType<(params: { row: ActiveRecord }) => boolean | string | undefined>
     },
     onCheckedChange: {
       type: Function as PropType<(data: ActiveRecords, event?: CheckedChangeEvent) => void>
@@ -430,6 +440,25 @@ export default defineComponent({
           origin: event
         });
       }
+    };
+
+    const checkboxDisabledTitles = ref<Record<string, string>>({});
+    const checkMethod = (params: { row: ActiveRecord }): boolean => {
+      let res = props.checkMethod?.(params);
+      const key = params.row.__draftId;
+      if (res == null) {
+        res = true;
+      }
+      if (typeof res === 'boolean') {
+        if (key) {
+          delete checkboxDisabledTitles.value[key];
+        }
+        return res;
+      }
+      if (key) {
+        checkboxDisabledTitles.value[key] = translateValueByKey(res);
+      }
+      return false;
     };
 
     const onPaginationChange = (currentPage: number, pageSize: number) => {
@@ -720,6 +749,9 @@ export default defineComponent({
       pagination,
       editorMode,
       autoCloseEditor,
+      checkboxDisabledTitles,
+      checkMethod,
+
       onResizableChange,
       editorClosed,
       onPaginationChange,
@@ -752,6 +784,7 @@ export default defineComponent({
       viewControlWidget,
       selectMode,
       checkbox,
+      checkboxDisabledTitles,
       checkMethod,
       onCurrentChange,
       onCheckedChange,
@@ -830,14 +863,33 @@ export default defineComponent({
         const children: VNode[] = [];
         if (checkbox !== false) {
           children.push(
-            createVNode(OioColumn, {
-              type: 'checkbox',
-              className: 'table-column-checkbox',
-              headerClassName: 'table-header-column-checkbox',
-              width: 52,
-              align: 'center',
-              fixed: existExpandRow ? undefined : 'left'
-            })
+            createVNode(
+              OioColumn,
+              {
+                type: 'checkbox',
+                className: 'table-column-checkbox',
+                headerClassName: 'table-header-column-checkbox',
+                width: 52,
+                align: 'center',
+                fixed: existExpandRow ? undefined : 'left'
+              },
+              {
+                checkbox: (params: VxeCheckboxCellRenderBodyParams) => {
+                  const key = params.row.__draftId;
+                  let disabledTitle: string | undefined;
+                  if (key) {
+                    disabledTitle = checkboxDisabledTitles[key];
+                  }
+                  if (disabledTitle) {
+                    return useVxeCheckboxCell({
+                      ...params,
+                      disabledTitle: translateValueByKey(disabledTitle)
+                    });
+                  }
+                  return useVxeCheckboxCell(params);
+                }
+              }
+            )
           );
         }
         if (enableSequence) {

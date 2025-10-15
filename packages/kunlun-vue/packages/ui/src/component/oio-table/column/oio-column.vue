@@ -386,7 +386,7 @@ export default defineComponent({
 
       componentData
     } = this;
-    const children: Record<string, Slot> = {};
+    const children = { ...$slots } as Record<string, Slot>;
     Object.entries(renderMethods).forEach(([slotName, method]) => {
       const fn = (this[method] || $slots[slotName]) as CellRenderFunction;
       if (fn) {

@@ -73,6 +73,7 @@
       .default-table-footer-content {
         position: relative;
         padding-top: var(--oio-padding);
+
         &::before {
           content: '';
           display: block;

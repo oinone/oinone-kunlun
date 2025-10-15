@@ -247,15 +247,20 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     if (booleanCheckbox != null) {
       return booleanCheckbox;
     }
-    const enabled = BooleanHelper.toBoolean(this.executeExpression(this.dataSource, val, true));
-    if (enabled == null) {
-      return true;
-    }
-    return enabled;
+    return val as string;
   }
 
   @Widget.Method()
-  protected checkMethod({ row }: { row: ActiveRecord }) {
+  protected checkMethod({ row }: { row: ActiveRecord }): boolean | string | undefined {
+    if (this.enabledGroupView) {
+      const children = row[GROUP_TREE_KEY.CHILDREN_KEY] as unknown[];
+      if (children) {
+        if (!!children.length) {
+          return true;
+        }
+        return '请展开子节点确认数据后再进行选中';
+      }
+    }
     const { allowChecked } = this;
     if (isNil(allowChecked)) {
       return true;
@@ -1104,6 +1109,15 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   // endregion
 
   // region 数据分组
+
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get enableGrouping() {
+    if (this.enabledTreeConfig) {
+      return false;
+    }
+    return super.enableGrouping;
+  }
 
   /**
    * 展开、关闭所有的分组
