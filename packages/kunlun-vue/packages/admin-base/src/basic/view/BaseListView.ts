@@ -41,26 +41,6 @@ export class BaseListView<T extends BaseViewProps = BaseViewProps> extends BaseV
     this.searchConditions = searchConditions;
   }
 
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected actionBarChildren: Widget[] | undefined;
-
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected storeActionBarChildren(children) {
-    this.actionBarChildren = children;
-  }
-
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected fullScreen: boolean = false;
-
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected switchFullScreen() {
-    this.fullScreen = !this.fullScreen;
-  }
-
   protected $$beforeMount() {
     super.$$beforeMount();
     this.selectModeCallChaining = new CallChaining();

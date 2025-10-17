@@ -12,7 +12,6 @@ import {
   resolveDynamicDomain,
   resolveDynamicExpression,
   RuntimeAction,
-  RuntimeClientAction,
   RuntimeContext,
   RuntimeContextManager,
   RuntimeFunctionDefinition,
@@ -40,6 +39,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString, set as setData } from 'lodash-es';
 import { Component, createVNode, toRaw } from 'vue';
 import { BaseActionWidget, BaseActionWidgetProps, BaseView, QueryExpression } from '../../../basic';
+import { OioActionBarState, OioTableViewState, useOioState } from '../../../state';
 import { ActionKeyboardConfig, ClickResult, fetchPopconfirmPlacement } from '../../../typing';
 import { executeConfirm } from '../../../util';
 import DefaultAction from './DefaultAction.vue';
@@ -1213,6 +1213,26 @@ export class ActionWidget<
     this.keyboardEventConsumer?.stop();
   }
 
+  protected get actionBarState(): OioActionBarState | undefined {
+    const { inline } = this;
+    if (!inline) {
+      return (useOioState().viewState as OioTableViewState)?.actionBar;
+    }
+    return undefined;
+  }
+
+  protected $$created() {
+    super.$$created();
+    const actions = this.actionBarState?.actions;
+    if (actions) {
+      const { currentHandle } = this;
+      if (!actions.some((v) => v === currentHandle)) {
+        actions.push(currentHandle);
+        this.actionBarState!.actions = [...actions];
+      }
+    }
+  }
+
   protected $$mounted() {
     super.$$mounted();
     this.subscribeKeyboardEvent();
@@ -1221,6 +1241,15 @@ export class ActionWidget<
   protected $$unmounted() {
     super.$$unmounted();
     this.unsubscribeKeyboardEvent();
+    const actions = this.actionBarState?.actions;
+    if (actions) {
+      const { currentHandle } = this;
+      const index = actions.findIndex((v) => v === currentHandle);
+      if (index !== -1) {
+        actions.splice(index, 1);
+        this.actionBarState!.actions = [...actions];
+      }
+    }
   }
 
   protected $$activated() {

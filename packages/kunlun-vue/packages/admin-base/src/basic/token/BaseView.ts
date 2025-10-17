@@ -13,10 +13,11 @@ import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kun
 import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { getCurrentInstance } from 'vue';
+import { useOioState } from '../../state';
+import { ViewBizStyle } from '../../typing';
 import DefaultView from '../../view/view/DefaultView.vue';
 import { BaseRuntimePropertiesWidget } from '../common';
 import { validatorCallChainingCallAfterFn, VIEW_WIDGET_PRIORITY } from '../constant';
-import { ViewBizStyle } from '../../typing';
 
 /**
  * View组件注册可选项
@@ -274,6 +275,11 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
     env.visibleArea.delete(currentHandle);
   }
 
+  protected $$created() {
+    super.$$created();
+    useOioState(this.currentHandle).createViewState();
+  }
+
   protected $$beforeMount() {
     super.$$beforeMount();
     this.currentMountedCallChaining = new CallChaining();
@@ -357,6 +363,7 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
     this.parentSubmitCallChaining?.unhook(this.path);
     this.parentValidatorCallChaining?.unhook(this.path);
     this.clearVisibleArea();
+    useOioState(this.currentHandle).clearViewState();
   }
 
   protected $$unmountedAfterProperties() {

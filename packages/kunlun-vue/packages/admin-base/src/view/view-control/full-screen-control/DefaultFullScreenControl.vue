@@ -3,22 +3,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { OioFullScreen } from '../../../components';
+import { useOioState } from '../../../state';
 
 export default defineComponent({
   name: 'DefaultFullScreenControl',
-  components: { OioFullScreen },
-  props: {
-    fullScreen: {
-      type: Boolean,
-      default: false
-    },
-    switchFullScreen: {
-      type: Function as PropType<() => void>
-    }
+  components: {
+    OioFullScreen
+  },
+  setup() {
+    const { viewState } = useOioState();
+
+    return {
+      fullScreen: computed(() => !!viewState?.fullscreen),
+      switchFullScreen: (val: boolean) => {
+        if (viewState) {
+          viewState.fullscreen = val;
+        }
+      }
+    };
   }
 });
 </script>
-
-<style lang="scss"></style>

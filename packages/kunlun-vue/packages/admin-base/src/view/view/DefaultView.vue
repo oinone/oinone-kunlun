@@ -1,11 +1,12 @@
 <script lang="ts">
-import { createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
+import { isMinimalismTheme } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { PropRecordHelper, StableSlotProp } from '@oinone/kunlun-vue-ui-common';
 import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { isMinimalismTheme } from '@oinone/kunlun-engine';
+import { computed, createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
+import { useOioState } from '../../state';
 import { ViewBizStyle } from '../../typing';
 
 export default defineComponent({
@@ -29,13 +30,21 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    fullScreen: {
-      type: Boolean,
-      default: false
-    },
     bizStyle: {
       type: String as PropType<ViewBizStyle>
     }
+  },
+  setup(props) {
+    const { globalState, viewState } = useOioState(props.currentHandle!);
+
+    return {
+      fullScreen: computed(() => {
+        if (props.inline) {
+          return !!viewState?.fullscreen;
+        }
+        return viewState?.fullscreen || globalState.fullscreen;
+      })
+    };
   },
   render() {
     const { viewType, currentHandle, fullScreen, bizStyle } = this;

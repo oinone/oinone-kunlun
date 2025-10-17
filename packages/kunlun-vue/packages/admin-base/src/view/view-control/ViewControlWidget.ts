@@ -1,9 +1,10 @@
 import { SPI } from '@oinone/kunlun-spi';
-import { Widget } from '@oinone/kunlun-vue-widget';
 import { FlexRowJustify } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import type { ActionBarWidget, ActionWidget } from '../../action';
 import { BaseElementWidget } from '../../basic';
+import { OioTableViewState, useOioState } from '../../state';
 import DefaultViewControl from './DefaultViewControl.vue';
-import { ActionWidget } from '../../action';
 
 @SPI.ClassFactory(
   BaseElementWidget.Token({
@@ -17,26 +18,37 @@ export class ViewControlWidget extends BaseElementWidget {
     return this;
   }
 
-  /**
-   * @see {@link BaseListView}
-   */
   @Widget.Reactive()
-  @Widget.Inject()
-  protected actionBarChildren: ActionWidget[] | undefined;
+  protected get visibleActions(): string[] {
+    return (
+      (useOioState().viewState as OioTableViewState)?.actionBar?.actions.filter((v) => {
+        const widget = Widget.select<ActionWidget>(v);
+        if (widget) {
+          return !widget.invisible;
+        }
+        return false;
+      }) || []
+    );
+  }
 
   @Widget.Reactive()
   protected get hasActions() {
-    return !!this.actionBarChildren?.length && this.actionBarChildren.every((action) => !action.invisible);
+    return !!this.visibleActions.length;
   }
 
   @Widget.Reactive()
   protected get actionJustify() {
-    const { justify } = (this.actionBarChildren?.[0]?.getParentWidget() as any)?.getDsl() || {};
-
-    if (!justify) {
-      return;
+    let justify: string | undefined;
+    const actionBarHandle = (useOioState().viewState as OioTableViewState)?.actionBar?.handle;
+    if (actionBarHandle) {
+      justify = Widget.select<ActionBarWidget>(actionBarHandle)?.justify;
     }
-
-    return FlexRowJustify[justify.toUpperCase()];
+    if (justify === 'flex-start') {
+      return FlexRowJustify.START;
+    }
+    if (justify === 'flex-end') {
+      return FlexRowJustify.END;
+    }
+    return FlexRowJustify.START;
   }
 }

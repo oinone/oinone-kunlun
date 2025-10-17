@@ -1,12 +1,13 @@
+import { ViewType } from '@oinone/kunlun-meta';
 import { CallChaining, NumberHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { FlexRowJustify, ListSelectMode, OioDropdownTrigger } from '@oinone/kunlun-vue-ui-common';
 import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseActionGroupWidget, BaseElementWidget } from '../../../basic';
+import { OioTableViewState, useOioState } from '../../../state';
 import { ActiveCountEnum, MoreActionRender } from '../../../typing';
 import DefaultActionBar from './DefaultActionBar.vue';
-import { nextTick } from 'vue';
 
 export interface ActionBarWidgetProps extends ActiveRecordsWidgetProps {
   inline?: boolean;
@@ -61,17 +62,8 @@ export class ActionBarWidget<
     return this.getDsl().buttonType?.toLowerCase?.();
   }
 
-  /**
-   * 存储 actionBar下面的所有动作
-   *
-   * @see {@link BaseListView}
-   */
   @Widget.Reactive()
-  @Widget.Inject()
-  protected storeActionBarChildren?: (children) => void;
-
-  @Widget.Reactive()
-  protected get justify(): string | undefined {
+  public get justify(): string | undefined {
     if (this.popupScene != null) {
       return undefined;
     }
@@ -126,18 +118,22 @@ export class ActionBarWidget<
     this.checkboxAllCallChaining?.call(selected);
   }
 
-  protected async executeStoreChildren() {
-    if (this.inline) {
-      return;
+  protected initActionBarState() {
+    const { currentHandle, inline, viewType } = this;
+    if (!inline && viewType && [ViewType.Table, ViewType.Form, ViewType.Detail, ViewType.Gallery].includes(viewType)) {
+      const { viewState } = useOioState();
+      if (viewState) {
+        const tableViewState = viewState as OioTableViewState;
+        tableViewState.actionBar = {
+          handle: currentHandle,
+          actions: []
+        };
+      }
     }
-
-    await nextTick();
-    this.storeActionBarChildren?.(this.getChildrenInstance());
   }
 
-  protected $$mounted(): void {
-    super.$$mounted();
-
-    this.executeStoreChildren();
+  protected $$created() {
+    super.$$created();
+    this.initActionBarState();
   }
 }

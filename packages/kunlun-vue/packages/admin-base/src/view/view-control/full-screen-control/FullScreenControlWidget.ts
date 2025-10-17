@@ -14,20 +14,4 @@ export class FullScreenControlWidget extends BaseElementWidget {
     this.setComponent(DefaultFullScreenControl);
     return this;
   }
-
-  /**
-   * 当前是否全屏
-   * @see {@link BaseListView}
-   */
-  @Widget.Reactive()
-  @Widget.Inject()
-  protected fullScreen!: boolean;
-
-  /**
-   * 全屏切换
-   * @see {@link BaseListView}
-   */
-  @Widget.Method()
-  @Widget.Inject()
-  protected switchFullScreen!: () => void;
 }
