@@ -1,12 +1,12 @@
 import { ViewType } from '@oinone/kunlun-meta';
 
-export interface OioViewState {
+export interface OioViewState extends Record<string, unknown> {
   readonly handle: string;
   fullscreen: boolean;
   viewType?: ViewType;
 }
 
-export interface OioActionBarState {
+export interface OioActionBarState extends Record<string, unknown> {
   handle: string;
   actions: string[];
 }
