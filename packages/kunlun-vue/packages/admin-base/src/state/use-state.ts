@@ -7,7 +7,6 @@ export function useOioState(): {
 
   createViewState: (handle: string) => OioViewState;
   getViewState: (handle: string) => OioViewState | undefined;
-  setViewState: (state: OioViewState) => void;
   clearViewState: (handle: string) => OioViewState | undefined;
 };
 
@@ -17,7 +16,6 @@ export function useOioState(handle: string): {
 
   createViewState: () => OioViewState;
   getViewState: () => OioViewState | undefined;
-  setViewState: (state: OioViewState) => void;
   clearViewState: () => OioViewState | undefined;
 };
 
@@ -31,10 +29,6 @@ export function useOioState(handle?: string) {
         setViewState(state);
         return state;
       },
-      setViewState: (state: OioViewState) => {
-        state.handle = handle;
-        setViewState(state);
-      },
       getViewState: () => getViewState(handle),
       clearViewState: () => clearViewState(handle)
     };
@@ -44,7 +38,6 @@ export function useOioState(handle?: string) {
     viewState: getViewState(),
     createViewState,
     getViewState,
-    setViewState,
     clearViewState
   };
 }

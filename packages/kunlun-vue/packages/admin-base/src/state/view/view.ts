@@ -5,21 +5,12 @@ import { OioViewState } from './typing';
 const viewStateStorage: Record<string, OioViewState> = {};
 
 export function createViewState(handle: string): OioViewState {
-  const storage = reactive<OioViewState>({
-    handle,
+  return reactive<OioViewState>({
+    get handle() {
+      return handle;
+    },
     fullscreen: false
   });
-  return {
-    get handle() {
-      return storage.handle;
-    },
-    get fullscreen() {
-      return storage.fullscreen;
-    },
-    set fullscreen(value: boolean) {
-      storage.fullscreen = value;
-    }
-  };
 }
 
 export function getViewState(handle?: string): OioViewState | undefined {

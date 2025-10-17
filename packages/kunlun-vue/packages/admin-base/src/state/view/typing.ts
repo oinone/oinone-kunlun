@@ -1,7 +1,7 @@
 import { ViewType } from '@oinone/kunlun-meta';
 
 export interface OioViewState {
-  handle: string;
+  readonly handle: string;
   fullscreen: boolean;
   viewType?: ViewType;
 }
