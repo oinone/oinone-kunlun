@@ -130,6 +130,12 @@ export class SaveDraftAction extends ActionWidget {
    * 创建草稿
    */
   protected async createDraft() {
+    if (this.draftCode) {
+      return this.executeDraftOperator('createDraft', {
+        ...(this.activeRecords?.[0] || {}),
+        draftCode: this.draftCode
+      });
+    }
     return this.executeDraftOperator('createDraft', this.activeRecords?.[0] || {});
   }
 
@@ -137,7 +143,10 @@ export class SaveDraftAction extends ActionWidget {
    * 修改草稿
    */
   protected async updateDraft() {
-    return this.executeDraftOperator('updateDraft', this.activeRecords?.[0] || {});
+    return this.executeDraftOperator('updateDraft', {
+      ...(this.activeRecords?.[0] || {}),
+      draftCode: this.draftCode
+    });
   }
 
   /**
@@ -179,10 +188,14 @@ export class SaveDraftAction extends ActionWidget {
    * 点击动作保存草稿
    */
   protected async clickAction(...args: unknown[]) {
-    if (!!this.activeRecords?.[0]?.draftCode) {
+    const formData = this.activeRecords?.[0] || {};
+    if (!!formData.draftCode) {
       await this.updateDraft();
     } else {
-      await this.createDraft();
+      const res = (await this.createDraft()) || {};
+      if (res.draftCode) {
+        this.draftCode = res.draftCode as string;
+      }
     }
     OioNotification.success(translateValueByKey('提示'), translateValueByKey('保存成功'));
     return true;
