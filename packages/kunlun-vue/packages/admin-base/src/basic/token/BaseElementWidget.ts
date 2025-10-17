@@ -2,6 +2,7 @@ import { ViewType } from '@oinone/kunlun-meta';
 import { Constructor } from '@oinone/kunlun-shared';
 import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
 import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
+import { OioViewState, useOioState } from '../../state';
 import { BaseRuntimePropertiesWidget } from '../common';
 
 /**
@@ -44,6 +45,8 @@ export class BaseElementWidget<
 
   public static Selector: SPISingleSelector<BaseElementOptions, Constructor<BaseElementWidget>>;
 
+  protected viewState: OioViewState | undefined;
+
   @Widget.Reactive()
   @Widget.Inject('viewType')
   protected parentViewType: ViewType | undefined;
@@ -52,5 +55,10 @@ export class BaseElementWidget<
   @Widget.Provide()
   protected get viewType(): ViewType | undefined {
     return this.view?.type || this.parentViewType;
+  }
+
+  protected $$beforeMount() {
+    super.$$beforeMount();
+    this.viewState = useOioState().viewState;
   }
 }

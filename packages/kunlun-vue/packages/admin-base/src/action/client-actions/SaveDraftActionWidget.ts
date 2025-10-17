@@ -9,7 +9,7 @@ import {
   QueryVariables,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { ActionContextType, Entity, ModelDefaultActionName, ModelType } from '@oinone/kunlun-meta';
+import { ActionContextType, Entity, ModelDefaultActionName, ModelType, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { BooleanHelper, CallChaining, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
@@ -19,6 +19,7 @@ import { Modal } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
 import { createVNode } from 'vue';
 import { FETCH_DRAFT_DATA_WIDGET_PRIORITY, REFRESH_FORM_DATA } from '../../basic/constant';
+import { OioFormViewState } from '../../state';
 import { ActionWidget } from '../component';
 
 /**
@@ -38,11 +39,20 @@ export class SaveDraftAction extends ActionWidget {
   protected reloadFormData$!: WidgetSubjection<boolean>;
 
   @Widget.Reactive()
-  protected draftCode?: string | undefined;
+  protected isLoadDraft = false;
 
   @Widget.Reactive()
   public get loadFunctionFun(): string | undefined {
     return this.getDsl().load || 'queryDraft';
+  }
+
+  protected setDraftCode(draftCode: string): void {
+    const formViewState = this.viewState;
+    if (formViewState) {
+      if (formViewState.viewType === ViewType.Form) {
+        (formViewState as OioFormViewState).draftCode = draftCode;
+      }
+    }
   }
 
   /**
@@ -63,7 +73,7 @@ export class SaveDraftAction extends ActionWidget {
       resolve();
       return;
     }
-    this.draftCode = res.draftCode;
+    this.setDraftCode(res.draftCode);
     const modal = Modal.confirm({
       class: 'oio-modal oio-draft-data-modal-confirm',
       icon: createVNode(OioIcon, { icon: 'oinone-tixing1', size: '18' }),
@@ -85,13 +95,16 @@ export class SaveDraftAction extends ActionWidget {
               right: '28%'
             }
           },
-          translateValueByKey('清空草稿')
+          {
+            default: () => translateValueByKey('清空草稿')
+          }
         );
       },
       okText: translateValueByKey('是'),
       cancelText: translateValueByKey('否'),
       onOk: () => {
         this.useDraftValue([res]);
+        this.isLoadDraft = true;
         resolve();
       },
       onCancel: () => {
@@ -130,10 +143,11 @@ export class SaveDraftAction extends ActionWidget {
    * 创建草稿
    */
   protected async createDraft() {
-    if (this.draftCode) {
+    const draftCode = (this.viewState as OioFormViewState)?.draftCode;
+    if (draftCode) {
       return this.executeDraftOperator('createDraft', {
         ...(this.activeRecords?.[0] || {}),
-        draftCode: this.draftCode
+        draftCode
       });
     }
     return this.executeDraftOperator('createDraft', this.activeRecords?.[0] || {});
@@ -143,9 +157,10 @@ export class SaveDraftAction extends ActionWidget {
    * 修改草稿
    */
   protected async updateDraft() {
+    const draftCode = (this.viewState as OioFormViewState)?.draftCode;
     return this.executeDraftOperator('updateDraft', {
       ...(this.activeRecords?.[0] || {}),
-      draftCode: this.draftCode
+      draftCode
     });
   }
 
@@ -153,7 +168,11 @@ export class SaveDraftAction extends ActionWidget {
    * 删除草稿
    */
   protected async deleteDraft() {
-    return this.executeDraftOperator('deleteDraft', this.draftCode);
+    const draftCode = (this.viewState as OioFormViewState)?.draftCode;
+    if (!draftCode) {
+      return undefined;
+    }
+    return this.executeDraftOperator('deleteDraft', draftCode);
   }
 
   /**
@@ -188,13 +207,12 @@ export class SaveDraftAction extends ActionWidget {
    * 点击动作保存草稿
    */
   protected async clickAction(...args: unknown[]) {
-    const formData = this.activeRecords?.[0] || {};
-    if (!!formData.draftCode) {
+    if (this.isLoadDraft) {
       await this.updateDraft();
     } else {
       const res = (await this.createDraft()) || {};
       if (res.draftCode) {
-        this.draftCode = res.draftCode as string;
+        this.setDraftCode(res.draftCode as string);
       }
     }
     OioNotification.success(translateValueByKey('提示'), translateValueByKey('保存成功'));

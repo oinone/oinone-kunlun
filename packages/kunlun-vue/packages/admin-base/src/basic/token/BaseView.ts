@@ -277,7 +277,8 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
 
   protected $$created() {
     super.$$created();
-    useOioState(this.currentHandle).createViewState();
+    const state = useOioState(this.currentHandle).createViewState();
+    state.viewType = this.viewType;
   }
 
   protected $$beforeMount() {

@@ -24,7 +24,7 @@ export function createViewState(handle: string): OioViewState {
 
 export function getViewState(handle?: string): OioViewState | undefined {
   if (!handle) {
-    handle = useInjectMetaContext().rootHandle.value;
+    handle = useInjectMetaContext()?.rootHandle.value;
     if (!handle) {
       console.warn('Invalid root handle.');
       return undefined;
@@ -39,7 +39,7 @@ export function setViewState(state: OioViewState): void {
 
 export function clearViewState(handle?: string): OioViewState | undefined {
   if (!handle) {
-    handle = useInjectMetaContext().rootHandle.value;
+    handle = useInjectMetaContext()?.rootHandle.value;
     if (!handle) {
       console.warn('Invalid root handle.');
       return undefined;

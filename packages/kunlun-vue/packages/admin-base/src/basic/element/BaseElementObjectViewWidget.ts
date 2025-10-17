@@ -27,6 +27,7 @@ import {
 import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isFunction, isNil, isPlainObject, isString } from 'lodash-es';
+import type { OioFormViewState } from '../../state';
 import { DetailBizStyle, FormBizStyle, isValidatorError } from '../../typing';
 import { validatorCallChainingCallAfterFn } from '../constant';
 import { BaseFieldWidget, BaseView } from '../token';
@@ -48,6 +49,8 @@ interface FieldWidgetEntity {
 export class BaseElementObjectViewWidget<
   Props extends BaseElementObjectViewWidgetProps = BaseElementObjectViewWidgetProps
 > extends BaseElementViewWidget<Props> {
+  protected viewState: OioFormViewState | undefined;
+
   @Widget.Provide()
   @Widget.Reactive()
   public get bizStyle(): DetailBizStyle | FormBizStyle | undefined {
@@ -246,6 +249,7 @@ export class BaseElementObjectViewWidget<
         await this.queryOne(
           {
             id,
+            draftCode: this.viewState?.draftCode,
             ...(this.initialContext || {})
           },
           variables,
@@ -255,7 +259,7 @@ export class BaseElementObjectViewWidget<
     } else {
       let queryData: ActiveRecords | undefined;
       if (id) {
-        queryData = { id };
+        queryData = { id, draftCode: this.viewState?.draftCode };
       }
       if (ids) {
         queryData = ids.map((v) => ({ id: v } as ActiveRecord));
@@ -310,6 +314,7 @@ export class BaseElementObjectViewWidget<
         const initialValue = this.initialValue?.[0] || {};
         this.testInitialContext();
         finalQueryData = {
+          draftCode: this.viewState?.draftCode,
           ...viewInitialValue,
           ...initialValue,
           ...(queryData || {}),
@@ -318,7 +323,7 @@ export class BaseElementObjectViewWidget<
       }
     }
     const requestFields = this.rootRuntimeContext.getRequestModelFields();
-    return (
+    const res: ActiveRecord =
       (await QueryService.constructOne(this.model, finalQueryData, {
         requestFields,
         responseFields: requestFields,
@@ -326,8 +331,9 @@ export class BaseElementObjectViewWidget<
         isSameModel,
         variables,
         context
-      })) || {}
-    );
+      })) || {};
+    res.draftCode = this.viewState?.draftCode;
+    return res;
   }
 
   protected testInitialContext() {
@@ -360,15 +366,16 @@ export class BaseElementObjectViewWidget<
       return {};
     }
     const requestFields = this.rootRuntimeContext.getRequestModelFields();
-    return (
+    const res: ActiveRecord =
       (await QueryService.queryOne(this.model, queryData, {
         requestFields,
         responseFields: requestFields,
         fun: this.loadFunctionFun,
         variables,
         context
-      })) || {}
-    );
+      })) || {};
+    res.draftCode = this.viewState?.draftCode;
+    return res || {};
   }
 
   /**
@@ -385,7 +392,7 @@ export class BaseElementObjectViewWidget<
       return {};
     }
     const requestFields = this.rootRuntimeContext.getRequestModelFields();
-    return (
+    const res: ActiveRecord =
       (await QueryService.queryOneByWrapper(this.model, {
         requestFields,
         responseFields: requestFields,
@@ -393,8 +400,9 @@ export class BaseElementObjectViewWidget<
         condition,
         variables,
         context
-      })) || {}
-    );
+      })) || {};
+    res.draftCode = this.viewState?.draftCode;
+    return res;
   }
 
   public async submit(): Promise<SubmitValue | undefined> {

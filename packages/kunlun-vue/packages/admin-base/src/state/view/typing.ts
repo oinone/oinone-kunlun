@@ -1,6 +1,9 @@
+import { ViewType } from '@oinone/kunlun-meta';
+
 export interface OioViewState {
   handle: string;
   fullscreen: boolean;
+  viewType?: ViewType;
 }
 
 export interface OioActionBarState {
@@ -20,6 +23,7 @@ export interface OioSearchViewState extends OioViewState {
 }
 
 export interface OioFormViewState extends OioViewState {
+  draftCode?: string;
   actionBar?: OioActionBarState;
   form?: string;
   fields?: string[];
