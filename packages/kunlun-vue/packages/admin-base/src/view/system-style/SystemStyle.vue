@@ -384,7 +384,7 @@ watch(
     const [m, s, menuColor, menuTheme, theme, inline, style] = arr;
     props.systemConfig.mode = (m as string).toLocaleUpperCase();
     props.systemConfig.size = (s as string).toLocaleUpperCase();
-    props.systemConfig.style = (style as string).toLocaleUpperCase();
+    props.systemConfig.style = (style as string)?.toLocaleUpperCase();
     props.systemConfig.sideBarTheme = {
       mode: (menuColor as string).toLocaleUpperCase() as SideBarThemeColor,
       theme: menuTheme as SideBarTheme
@@ -492,7 +492,7 @@ const onDownloadTheme = () => {
 
       .multitab-config-container {
         padding: 12px;
-        background-color: #f5f6f8;
+        background-color: var(--oio-background);
         border-radius: var(--oio-border-radius);
 
         .checkbox-center {
