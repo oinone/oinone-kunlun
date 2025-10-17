@@ -111,7 +111,7 @@
           <div class="oio-group-title">{{ translateValueByKey('多tab栏样式') }}</div>
         </div>
         <a-form>
-          <a-row>
+          <a-row class="enable-multitab-config">
             <a-col :span="24">
               <a-form-item :label="$translate('标签页')">
                 <a-switch class="oio-switch" v-model:checked="enabled" @change="onEnabledChange" />
@@ -273,42 +273,53 @@ const inline = ref(false); // 多 tab 是否内联
 /**
  * 数据回填
  */
-watchEffect(() => {
-  const { mode: m, size: s, multiTabTheme, sideBarTheme, extend, style: sysStyle } = props.systemConfig;
+watchEffect(
+  () => {
+    const { mode: m, size: s, multiTabTheme, sideBarTheme, extend, style: sysStyle } = props.systemConfig;
 
-  if (m) {
-    mode.value = kebabCase(m);
-  }
+    if (m) {
+      mode.value = kebabCase(m);
+    }
 
-  if (sysStyle) {
-    style.value = sysStyle.toLocaleLowerCase();
-  }
+    if (sysStyle) {
+      style.value = sysStyle.toLocaleLowerCase();
+    }
 
-  if (s) {
-    size.value = s.toLocaleLowerCase();
-  }
+    if (s) {
+      size.value = s.toLocaleLowerCase();
+    }
 
-  const extendMultiTabTheme = extend?.systemStyleConfig?.multiTabConfig;
-  if (extendMultiTabTheme || multiTabTheme) {
-    inline.value = extendMultiTabTheme?.inline ?? multiTabTheme?.inline! ?? false;
-    theme.value = extendMultiTabTheme?.theme ?? multiTabTheme?.theme! ?? MultiTabTheme.tab1;
-    enabled.value = extendMultiTabTheme?.enabled ?? true;
-    draggable.value = extendMultiTabTheme?.draggable ?? true;
-    showModuleLogo.value = extendMultiTabTheme?.showModuleLogo ?? true;
-    homepageEnabled.value = (extendMultiTabTheme?.homepage as MultiTabsApplicationHomepageConfig)?.enabled ?? true;
-    homepageAutoInvisible.value =
-      (extendMultiTabTheme?.homepage as MultiTabsApplicationHomepageConfig)?.autoInvisible ?? !inline.value;
-  }
+    const extendMultiTabTheme = extend?.systemStyleConfig?.multiTabConfig;
+    if (extendMultiTabTheme || multiTabTheme) {
+      inline.value = extendMultiTabTheme?.inline ?? multiTabTheme?.inline! ?? false;
+      theme.value = extendMultiTabTheme?.theme ?? multiTabTheme?.theme! ?? MultiTabTheme.tab1;
+      enabled.value = extendMultiTabTheme?.enabled ?? true;
+      draggable.value = extendMultiTabTheme?.draggable ?? true;
+      showModuleLogo.value = extendMultiTabTheme?.showModuleLogo ?? true;
+      homepageEnabled.value = (extendMultiTabTheme?.homepage as MultiTabsApplicationHomepageConfig)?.enabled ?? true;
+      homepageAutoInvisible.value =
+        (extendMultiTabTheme?.homepage as MultiTabsApplicationHomepageConfig)?.autoInvisible ?? !inline.value;
+    }
 
-  const extendSideBarTheme = extend?.systemStyleConfig?.sideBarConfig;
-  if (extendSideBarTheme || sideBarTheme) {
-    currentMenuColor.value =
-      extendSideBarTheme?.mode?.toLocaleLowerCase() ??
-      (sideBarTheme?.mode?.toLocaleLowerCase() as any) ??
-      SideBarThemeColor.default;
-    currentSidebar.value = extendSideBarTheme?.theme ?? sideBarTheme?.theme! ?? SideBarTheme.side1;
+    const extendSideBarTheme = extend?.systemStyleConfig?.sideBarConfig;
+    if (extendSideBarTheme || sideBarTheme) {
+      currentMenuColor.value =
+        extendSideBarTheme?.mode?.toLocaleLowerCase() ??
+        (sideBarTheme?.mode?.toLocaleLowerCase() as any) ??
+        SideBarThemeColor.default;
+      currentSidebar.value = extendSideBarTheme?.theme ?? sideBarTheme?.theme! ?? SideBarTheme.side1;
+    }
+  },
+  {
+    /**
+     * 这个 watchEffect 依赖 inline.value，下面还有一个 watch 同样依赖 inline.value
+     * 响应式更新时，通常 watchEffect 会先于 watch 执行
+     * 这就导致 inline.value 先走了遍数据回填的逻辑，值被恢复了，内外部多 tab 切换失败
+     * 所以这里指定 flush:'post'，让 watchEffect 晚于 watch 执行，先改值，再回填
+     */
+    flush: 'post'
   }
-});
+);
 
 const currentThemeImage = computed(() => {
   const theme = `${mode.value}-${size.value}`;
@@ -487,12 +498,22 @@ const onDownloadTheme = () => {
       }
     }
 
+    .enable-multitab-config {
+      label {
+        color: var(--oio-text-color);
+      }
+    }
+
     .multitab-config {
       margin-bottom: 24px;
 
+      label {
+        color: var(--oio-text-color);
+      }
+
       .multitab-config-container {
         padding: 12px;
-        background-color: var(--oio-background);
+        background-color: var(--oio-body-background);
         border-radius: var(--oio-border-radius);
 
         .checkbox-center {
