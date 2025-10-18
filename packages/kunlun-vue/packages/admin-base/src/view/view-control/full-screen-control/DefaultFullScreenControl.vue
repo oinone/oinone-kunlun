@@ -3,9 +3,9 @@
 </template>
 
 <script lang="ts">
+import { useOioState } from '@oinone/kunlun-vue-widget';
 import { computed, defineComponent } from 'vue';
 import { OioFullScreen } from '../../../components';
-import { useOioState } from '../../../state';
 
 export default defineComponent({
   name: 'DefaultFullScreenControl',

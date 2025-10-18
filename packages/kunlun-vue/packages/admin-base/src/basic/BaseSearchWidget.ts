@@ -2,9 +2,8 @@ import { ActiveRecord, RefreshCallChainingParameters, RefreshCallChainingScope }
 import { getRouterInstance } from '@oinone/kunlun-router';
 import { CallChaining, CastHelper, NumberHelper } from '@oinone/kunlun-shared';
 import { parseActionDomain4search } from '@oinone/kunlun-vue-admin-layout';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { OioSearchViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isNil } from 'lodash-es';
-import { OioSearchViewState } from '../state';
 import { BaseElementWidget } from './token';
 import { QueryExpression } from './types';
 

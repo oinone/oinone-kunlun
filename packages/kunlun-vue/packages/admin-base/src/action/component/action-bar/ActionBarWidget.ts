@@ -2,10 +2,9 @@ import { ViewType } from '@oinone/kunlun-meta';
 import { CallChaining, NumberHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { FlexRowJustify, ListSelectMode, OioDropdownTrigger } from '@oinone/kunlun-vue-ui-common';
-import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
+import { ActiveRecordsWidgetProps, OioTableViewState, useOioState, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseActionGroupWidget, BaseElementWidget } from '../../../basic';
-import { OioTableViewState, useOioState } from '../../../state';
 import { ActiveCountEnum, MoreActionRender } from '../../../typing';
 import DefaultActionBar from './DefaultActionBar.vue';
 

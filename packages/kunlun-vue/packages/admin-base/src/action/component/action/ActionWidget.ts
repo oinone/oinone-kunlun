@@ -35,11 +35,10 @@ import {
   PopconfirmPlacement,
   StyleHelper
 } from '@oinone/kunlun-vue-ui-common';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { OioActionBarState, OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString, set as setData } from 'lodash-es';
 import { Component, createVNode, toRaw } from 'vue';
 import { BaseActionWidget, BaseActionWidgetProps, BaseView, QueryExpression } from '../../../basic';
-import { OioActionBarState, OioTableViewState, useOioState } from '../../../state';
 import { ActionKeyboardConfig, ClickResult, fetchPopconfirmPlacement } from '../../../typing';
 import { executeConfirm } from '../../../util';
 import DefaultAction from './DefaultAction.vue';
@@ -1216,7 +1215,7 @@ export class ActionWidget<
   protected get actionBarState(): OioActionBarState | undefined {
     const { inline } = this;
     if (!inline) {
-      return (useOioState().viewState as OioTableViewState)?.actionBar;
+      return (this.viewState as OioTableViewState)?.actionBar;
     }
     return undefined;
   }
