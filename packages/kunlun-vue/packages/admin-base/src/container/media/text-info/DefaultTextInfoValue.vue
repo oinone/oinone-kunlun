@@ -1,7 +1,6 @@
 <script lang="ts">
-import { computed, createVNode, defineComponent, PropType } from 'vue';
-import Field from '../../../tags/Field.vue';
-import { TextInfoJustifyContent } from './typing';
+import { createVNode, defineComponent, PropType } from 'vue';
+import { Field } from '../../../tags';
 
 export default defineComponent({
   name: 'DefaultTextInfoValue',
