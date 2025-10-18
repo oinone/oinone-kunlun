@@ -58,7 +58,6 @@ export class BaseTableFieldWidget<
   @Widget.Provide()
   protected viewMode = ViewMode.Editor;
 
-  @Widget.Reactive()
   protected runtimeField: Field | undefined;
 
   @Widget.Reactive()
@@ -449,6 +448,18 @@ export class BaseTableFieldWidget<
     );
   }
 
+  protected pushViewStateField() {
+    const fields = this.viewState?.fields;
+    if (!fields) {
+      return;
+    }
+    const { currentHandle } = this;
+    if (!fields.some((v) => v === currentHandle)) {
+      fields.push(currentHandle);
+      this.viewState!.fields = [...fields];
+    }
+  }
+
   protected $$beforeCreated() {
     super.$$beforeCreated();
     this.notify(LifeCycleTypes.ON_FIELD_BEFORE_CREATED);
@@ -461,6 +472,7 @@ export class BaseTableFieldWidget<
 
   protected $$beforeMount() {
     super.$$beforeMount();
+    this.pushViewStateField();
     this.notify(LifeCycleTypes.ON_FIELD_BEFORE_MOUNT);
   }
 

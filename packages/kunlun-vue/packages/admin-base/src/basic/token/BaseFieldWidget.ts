@@ -247,6 +247,18 @@ export class BaseFieldWidget<
     // );
   }
 
+  protected pushViewStateField() {
+    const fields = this.viewState?.fields;
+    if (!fields) {
+      return;
+    }
+    const { currentHandle } = this;
+    if (!fields.some((v) => v === currentHandle)) {
+      fields.push(currentHandle);
+      this.viewState!.fields = [...fields];
+    }
+  }
+
   protected $$beforeCreated() {
     super.$$beforeCreated();
     this.notify(LifeCycleTypes.ON_FIELD_BEFORE_CREATED);
@@ -259,6 +271,7 @@ export class BaseFieldWidget<
 
   protected $$beforeMount() {
     super.$$beforeMount();
+    this.pushViewStateField();
     this.notify(LifeCycleTypes.ON_FIELD_BEFORE_MOUNT);
   }
 

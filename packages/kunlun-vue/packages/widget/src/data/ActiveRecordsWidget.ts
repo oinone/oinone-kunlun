@@ -31,6 +31,10 @@ export interface ActiveRecordsWidgetProps extends PathWidgetProps {
 export class ActiveRecordsWidget<
   Props extends ActiveRecordsWidgetProps = ActiveRecordsWidgetProps
 > extends PathWidget<Props> {
+  /**
+   * 视图级别状态, 在 beforeMounted 后可获取到有效值
+   * @protected
+   */
   protected viewState: OioAnyViewState | undefined;
 
   public initialize(props: Props) {

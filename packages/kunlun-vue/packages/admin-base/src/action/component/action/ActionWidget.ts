@@ -35,7 +35,7 @@ import {
   PopconfirmPlacement,
   StyleHelper
 } from '@oinone/kunlun-vue-ui-common';
-import { OioActionBarState, OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString, set as setData } from 'lodash-es';
 import { Component, createVNode, toRaw } from 'vue';
 import { BaseActionWidget, BaseActionWidgetProps, BaseView, QueryExpression } from '../../../basic';
@@ -1210,26 +1210,6 @@ export class ActionWidget<
 
   protected stopKeyboardEvent() {
     this.keyboardEventConsumer?.stop();
-  }
-
-  protected get actionBarState(): OioActionBarState | undefined {
-    const { inline } = this;
-    if (!inline) {
-      return (this.viewState as OioTableViewState)?.actionBar;
-    }
-    return undefined;
-  }
-
-  protected $$created() {
-    super.$$created();
-    const actions = this.actionBarState?.actions;
-    if (actions) {
-      const { currentHandle } = this;
-      if (!actions.some((v) => v === currentHandle)) {
-        actions.push(currentHandle);
-        this.actionBarState!.actions = [...actions];
-      }
-    }
   }
 
   protected $$mounted() {

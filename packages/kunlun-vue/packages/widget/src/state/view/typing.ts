@@ -52,6 +52,7 @@ export interface OioTreeViewState extends OioViewState {
 
 export type OioAnyViewState =
   | OioTableViewState
+  | OioSearchViewState
   | OioFormViewState
   | OioDetailViewState
   | OioGalleryViewState
@@ -59,6 +60,10 @@ export type OioAnyViewState =
 
 export function isTableViewState(state: OioAnyViewState): state is OioTableViewState {
   return state.viewType === ViewType.Table;
+}
+
+export function isSearchViewState(state: OioAnyViewState): state is OioSearchViewState {
+  return state.viewType === ViewType.Search;
 }
 
 export function isFormViewState(state: OioAnyViewState): state is OioFormViewState {
@@ -83,4 +88,11 @@ export function isListViewState(state: OioAnyViewState): state is OioTableViewSt
 
 export function isObjectViewState(state: OioAnyViewState): state is OioFormViewState | OioDetailViewState {
   return state.viewType === ViewType.Form || state.viewType === ViewType.Detail;
+}
+
+export function hasActionBarViewState(
+  state: OioAnyViewState
+): state is OioTableViewState | OioFormViewState | OioDetailViewState | OioGalleryViewState | OioTreeViewState {
+  const { viewType } = state;
+  return !!viewType && viewType !== ViewType.Search;
 }

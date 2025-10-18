@@ -1,8 +1,7 @@
-import { ViewType } from '@oinone/kunlun-meta';
 import { CallChaining, NumberHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { FlexRowJustify, ListSelectMode, OioDropdownTrigger } from '@oinone/kunlun-vue-ui-common';
-import { ActiveRecordsWidgetProps, OioTableViewState, useOioState, Widget } from '@oinone/kunlun-vue-widget';
+import { ActiveRecordsWidgetProps, hasActionBarViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseActionGroupWidget, BaseElementWidget } from '../../../basic';
 import { ActiveCountEnum, MoreActionRender } from '../../../typing';
@@ -117,22 +116,13 @@ export class ActionBarWidget<
     this.checkboxAllCallChaining?.call(selected);
   }
 
-  protected initActionBarState() {
-    const { currentHandle, inline, viewType } = this;
-    if (!inline && viewType && [ViewType.Table, ViewType.Form, ViewType.Detail, ViewType.Gallery].includes(viewType)) {
-      const { viewState } = useOioState();
-      if (viewState) {
-        const tableViewState = viewState as OioTableViewState;
-        tableViewState.actionBar = {
-          handle: currentHandle,
-          actions: []
-        };
-      }
+  protected $$initViewState(state: OioAnyViewState): void {
+    const { currentHandle, viewType } = this;
+    if (viewType && hasActionBarViewState(state)) {
+      state.actionBar = {
+        handle: currentHandle,
+        actions: []
+      };
     }
-  }
-
-  protected $$created() {
-    super.$$created();
-    this.initActionBarState();
   }
 }

@@ -2,26 +2,27 @@ import { DslDefinition } from '@oinone/kunlun-dsl';
 import {
   ActiveRecord,
   isEnumerationField,
+  isM2OField,
   isRelation2MField,
   isRelation2OField,
   isRelationField,
   RuntimeM2OField,
   RuntimeModelField,
-  RuntimeRelationField
+  RuntimeRelationField,
+  StaticMetadata
 } from '@oinone/kunlun-engine';
 import { deepClone, Entity, IModelField, isEmptyValue, ModelFieldType, SYSTEM_MODULE } from '@oinone/kunlun-meta';
 import { buildSingleItemParam, http } from '@oinone/kunlun-service';
-import { StandardString } from '@oinone/kunlun-shared';
+import { Optional, StandardString } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { autoFillByLabel, autoFillByLabelFields } from '@oinone/kunlun-vue-admin-layout';
 import { TableEditorMode } from '@oinone/kunlun-vue-ui';
 import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-common';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { isTableViewState, OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
-import { BaseElementWidget, FormFieldWidget } from '../../basic';
+import { BaseElementWidget, BaseFieldWidget, FormFieldWidget } from '../../basic';
 import { ValidatorStatus } from '../../typing';
 import { TableWidget } from '../table/TableWidget';
-import { fullAddressField } from './fulladdress-field';
 import QuickFill from './QuickFill.vue';
 import { QuickFillType } from './type';
 
@@ -38,6 +39,30 @@ interface QuickFillResponse {
   valuesStr: string;
   failures: Failure[];
 }
+
+const fullAddressField = StaticMetadata.ResourceAddress.modelFields.filter((v) =>
+  ['originCountry', 'originProvince', 'originCity', 'originDistrict', 'originStreet'].includes(v.data)
+);
+
+const quickFillFields = [
+  { name: 'model', ttype: ModelFieldType.String },
+  { name: 'valuesStr', ttype: ModelFieldType.String },
+  {
+    name: 'fieldHeaders',
+    ttype: ModelFieldType.OneToMany,
+    modelFields: [
+      {
+        name: 'field',
+        ttype: ModelFieldType.String
+      },
+      {
+        name: 'relationSelectFields',
+        ttype: ModelFieldType.String,
+        multi: true
+      }
+    ]
+  }
+] as IModelField[];
 
 @SPI.ClassFactory(
   BaseElementWidget.Token({
@@ -83,14 +108,27 @@ export class QuickFillWidget extends BaseElementWidget {
 
   @Widget.Reactive()
   public get editableModelFields() {
-    const fields = this.modelFields.filter((f) => !!f.template?.independentlyEditable);
-
-    if (this.addressFieldIndex > -1) {
-      const newFields = [...fields];
-      newFields.splice(this.addressFieldIndex, 1, ...fullAddressField);
-      return newFields;
+    const fields: RuntimeModelField[] = [];
+    for (const field of this.viewState?.fields || []) {
+      const fieldWidget = Widget.select<BaseFieldWidget>(field);
+      if (fieldWidget && !fieldWidget.invisible) {
+        const f = fieldWidget.field;
+        if (isM2OField(f) && f.references === StaticMetadata.ResourceAddressModel) {
+          fields.push(
+            ...fullAddressField.map((v) => {
+              const dd = `${f.data}#${v.data}`;
+              return {
+                ...v,
+                data: dd,
+                name: dd
+              };
+            })
+          );
+        } else {
+          fields.push(fieldWidget.field);
+        }
+      }
     }
-
     return fields;
   }
 
@@ -273,22 +311,25 @@ export class QuickFillWidget extends BaseElementWidget {
     if (!data) {
       return;
     }
+    const tableWidget = Optional.ofNullable(this.viewState)
+      .filter<OioTableViewState>((v) => isTableViewState(v))
+      .map((v) => v.table)
+      .map((v) => Widget.select<TableWidget>(v))
+      .orElse(undefined);
+    if (!tableWidget) {
+      return;
+    }
     if (this.type === QuickFillType.update) {
-      const isUpdate = this.type === QuickFillType.update;
-      if (isUpdate) {
-        for (let i = 0; i < data.length; i++) {
-          const originRow = this.dataSource?.[i] || {};
-          const targetRow = data[i];
-          targetRow.__draftId = originRow.__draftId;
-          targetRow._X_ROW_KEY = originRow._X_ROW_KEY as string;
-        }
+      for (let i = 0; i < data.length; i++) {
+        const originRow = this.dataSource?.[i] || {};
+        const targetRow = data[i];
+        targetRow.__draftId = originRow.__draftId;
+        targetRow._X_ROW_KEY = originRow._X_ROW_KEY as string;
       }
       this.reloadDataSource(data);
-      const parent = this.getParentWidget() as TableWidget;
-      parent.updateSubviewFieldWidget({} as any, data);
+      tableWidget.updateSubviewFieldWidget({} as any, data);
     } else {
-      const parent = this.getParentWidget() as TableWidget;
-      parent.createSubviewFieldWidget({} as any, data);
+      tableWidget.createSubviewFieldWidget({} as any, data);
     }
   }
 
@@ -314,38 +355,15 @@ export class QuickFillWidget extends BaseElementWidget {
    * 调接口校验excel数据
    */
   public async validateExcelValue(valuesStr: string) {
-    const quickFillFields = [
-      { name: 'model', ttype: ModelFieldType.String },
-      { name: 'valuesStr', ttype: ModelFieldType.String },
-      {
-        name: 'fieldHeaders',
-        ttype: ModelFieldType.OneToMany,
-        modelFields: [
-          {
-            name: 'field',
-            ttype: ModelFieldType.String
-          },
-          {
-            name: 'relationSelectFields',
-            ttype: ModelFieldType.String,
-            multi: true
-          }
-        ]
+    const fieldHeaders = this.editableModelFields.map((field) => {
+      if (isRelationField(field)) {
+        return {
+          field: field.data,
+          relationSelectFields: field.referencesModel.labelFields || ['id']
+        };
       }
-    ] as IModelField[];
-
-    const fieldHeaders = this.modelFields
-      .filter((f) => !!f.template?.independentlyEditable)
-      .map((field) => {
-        if (isRelationField(field)) {
-          return {
-            field: field.name,
-            relationSelectFields: field.template?.searchFields?.split?.(',') || ['name']
-          };
-        }
-
-        return { field: field.name };
-      });
+      return { field: field.data };
+    });
 
     const gqlStr = await buildSingleItemParam(quickFillFields, {
       model: this.model.model,

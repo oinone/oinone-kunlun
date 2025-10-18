@@ -525,10 +525,10 @@ export class BaseTableWidget<
             const subviewSubmitCache = this.metadataRuntimeContext.extendData.subviewSubmitCache as SubmitCacheManager;
             if (showRecords) {
               if (submitCache) {
-                ActiveRecordsOperator.operator(showRecords, submitCache).updateByEntity(context.data);
+                ActiveRecordsOperator.operator(showRecords, submitCache).updateByEntity(context.data || data);
               }
               if (subviewSubmitCache) {
-                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).updateByEntity(context.data);
+                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).updateByEntity(context.data || data);
               }
             }
             subviewFieldWidget.flushDataSource();
@@ -549,10 +549,10 @@ export class BaseTableWidget<
             const subviewSubmitCache = this.metadataRuntimeContext.extendData.subviewSubmitCache as SubmitCacheManager;
             if (showRecords) {
               if (submitCache) {
-                ActiveRecordsOperator.operator(showRecords, submitCache).push(context.data);
+                ActiveRecordsOperator.operator(showRecords, submitCache).push(context.data || data);
               }
               if (subviewSubmitCache) {
-                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).push(context.data);
+                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).push(context.data || data);
               }
             }
             subviewFieldWidget.flushDataSource();

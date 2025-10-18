@@ -18,6 +18,11 @@ export class TableView extends BaseListView {
   @Widget.Provide()
   protected tableEventCallChaining: TableEventCallChaining | undefined;
 
+  protected $$created() {
+    super.$$created();
+    this.viewState!.fields = [];
+  }
+
   protected $$beforeMount() {
     super.$$beforeMount();
     this.tableEventCallChaining = new CallChaining();

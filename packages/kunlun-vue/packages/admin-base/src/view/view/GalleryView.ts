@@ -3,4 +3,9 @@ import { SPI } from '@oinone/kunlun-spi';
 import { BaseListView, BaseView } from '../../basic';
 
 @SPI.ClassFactory(BaseView.Token({ type: ViewType.Gallery }))
-export class GalleryView extends BaseListView {}
+export class GalleryView extends BaseListView {
+  protected $$created() {
+    super.$$created();
+    this.viewState!.fields = [];
+  }
+}

@@ -1,9 +1,8 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { FlexRowJustify } from '@oinone/kunlun-vue-ui-common';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { hasActionBarViewState, OioActionBarState, Widget } from '@oinone/kunlun-vue-widget';
 import type { ActionBarWidget, ActionWidget } from '../../action';
 import { BaseElementWidget } from '../../basic';
-import { OioTableViewState, useOioState } from '@oinone/kunlun-vue-widget';
 import DefaultViewControl from './DefaultViewControl.vue';
 
 @SPI.ClassFactory(
@@ -19,9 +18,18 @@ export class ViewControlWidget extends BaseElementWidget {
   }
 
   @Widget.Reactive()
+  protected get actionBarState(): OioActionBarState | undefined {
+    const { viewState } = this;
+    if (viewState && hasActionBarViewState(viewState)) {
+      return viewState.actionBar;
+    }
+  }
+
+  @Widget.Reactive()
   protected get visibleActions(): string[] {
+    const actions = this.actionBarState?.actions;
     return (
-      (useOioState().viewState as OioTableViewState)?.actionBar?.actions.filter((v) => {
+      actions?.filter((v) => {
         const widget = Widget.select<ActionWidget>(v);
         if (widget) {
           return !widget.invisible;
@@ -39,7 +47,7 @@ export class ViewControlWidget extends BaseElementWidget {
   @Widget.Reactive()
   protected get actionJustify() {
     let justify: string | undefined;
-    const actionBarHandle = (useOioState().viewState as OioTableViewState)?.actionBar?.handle;
+    const actionBarHandle = this.actionBarState?.handle;
     if (actionBarHandle) {
       justify = Widget.select<ActionBarWidget>(actionBarHandle)?.justify;
     }
