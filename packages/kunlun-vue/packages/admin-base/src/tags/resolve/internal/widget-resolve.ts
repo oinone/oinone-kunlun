@@ -23,7 +23,7 @@ import {
   BaseViewOptions,
   CustomWidget as CommonCustomWidget
 } from '../../../basic';
-import { DefaultColWidget, DefaultContainerColWidget, DefaultRowWidget } from '../../../container';
+import { DefaultColWidget, DefaultContainerColWidget, DefaultRowWidget } from '../../../container/block';
 import { FieldMixinComponentOptions, selectorFieldMixinComponent } from '../../../spi';
 import { ActiveLayoutEffectOpt } from '../../context/active';
 import { isCreateFlexElement } from '../helper';

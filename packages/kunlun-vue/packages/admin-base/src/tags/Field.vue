@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, Slots } from 'vue';
-import { InternalWidget } from './resolve';
 import { BaseWidgetTagMixin } from './mixin';
+import { InternalWidget } from './resolve';
 
 export default defineComponent({
   name: 'Field',

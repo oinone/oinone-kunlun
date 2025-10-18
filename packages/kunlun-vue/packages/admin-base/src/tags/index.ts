@@ -5,7 +5,7 @@ import Action from './Action.vue';
 import ActionBar from './ActionBar.vue';
 import ActionColumn from './ActionColumn.vue';
 import Col from './Col.vue';
-import { PackCombination, Tabs } from './combination';
+import { PackCombination } from './combination';
 import Container from './Container.vue';
 import Containers from './Containers.vue';
 import Custom from './Custom.vue';
@@ -93,8 +93,7 @@ export {
   Search,
   Table,
   TextInfo,
-  Tree,
-  Tabs
+  Tree
 };
 
 export * from './combination';
