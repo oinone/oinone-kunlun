@@ -1,8 +1,9 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { FormLayout, OioColModel, OioFormInstance } from '@oinone/kunlun-vue-ui-common';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { OioFormViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementObjectViewWidget, BaseElementObjectViewWidgetProps } from '../element';
 import DefaultForm from './DefaultForm.vue';
+
 /**
  * 基础Form组件，仅提供基本布局能力(Form, Detail, Search)视图通用
  */
@@ -47,5 +48,10 @@ export abstract class BaseFormWidget<
     super.initialize(props);
     this.setComponent(DefaultForm);
     return this;
+  }
+
+  protected $$initViewState(state: OioFormViewState): void {
+    super.$$initViewState(state);
+    state.form = this.currentHandle;
   }
 }

@@ -11,7 +11,6 @@ import { CallChaining, Constructor } from '@oinone/kunlun-shared';
 import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
 import { useRouter } from '@oinone/kunlun-vue-router';
 import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
-import { OioViewState, useOioState } from '../../state';
 import { PopupScene } from '../../typing';
 import { BaseRuntimePropertiesWidget } from '../common';
 
@@ -64,8 +63,6 @@ export class BaseActionWidget<
   public static Token: SPITokenFactory<BaseActionOptions>;
 
   public static Selector: SPISingleSelector<BaseActionOptions, Constructor<BaseActionWidget>>;
-
-  protected viewState: OioViewState | undefined;
 
   protected $matched: Matched | undefined;
 
@@ -167,7 +164,6 @@ export class BaseActionWidget<
 
   protected $$beforeMount() {
     super.$$beforeMount();
-    this.viewState = useOioState().viewState;
     if (!this.$matched) {
       const { matched } = useMatched();
       this.$matched = matched;

@@ -64,4 +64,3 @@ export {
 export * from './file';
 export * from './icon-manage';
 export * from './permission';
-export * from './state';

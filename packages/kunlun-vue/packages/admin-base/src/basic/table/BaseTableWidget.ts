@@ -36,7 +36,7 @@ import {
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
 import { ListSelectMode, OioNotification, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy, toString } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTablePropTypes } from 'vxe-table';
@@ -1213,6 +1213,11 @@ export class BaseTableWidget<
         this.tableInstance?.sort([]);
       }
     });
+  }
+
+  protected $$initViewState(state: OioTableViewState): void {
+    super.$$initViewState(state);
+    state.table = this.currentHandle;
   }
 
   protected $$beforeMount() {

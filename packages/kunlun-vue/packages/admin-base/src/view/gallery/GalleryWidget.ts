@@ -9,7 +9,7 @@ import {
   DEFAULT_VERTICAL_GUTTERS,
   LayoutHelper
 } from '@oinone/kunlun-vue-ui-common';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { OioGalleryViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNil, isString } from 'lodash-es';
 import { BaseElementListViewWidget, BaseElementWidget } from '../../basic';
 import { GALLERY_WIDGET } from '../../typing';
@@ -221,5 +221,10 @@ export class GalleryWidget extends BaseElementListViewWidget {
 
   protected childrenInvisibleProcess(): boolean {
     return false;
+  }
+
+  protected $$initViewState(state: OioGalleryViewState): void {
+    super.$$initViewState(state);
+    state.gallery = this.currentHandle;
   }
 }

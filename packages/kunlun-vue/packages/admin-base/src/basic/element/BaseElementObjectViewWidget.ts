@@ -25,9 +25,9 @@ import {
   StringHelper
 } from '@oinone/kunlun-shared';
 import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
+import type { OioFormViewState } from '@oinone/kunlun-vue-widget';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isFunction, isNil, isPlainObject, isString } from 'lodash-es';
-import type { OioFormViewState } from '../../state';
 import { DetailBizStyle, FormBizStyle, isValidatorError } from '../../typing';
 import { validatorCallChainingCallAfterFn } from '../constant';
 import { BaseFieldWidget, BaseView } from '../token';

@@ -17,6 +17,7 @@ import {
   UpdateEntity
 } from '@oinone/kunlun-engine';
 import { Widget } from '../basic';
+import { OioAnyViewState, useOioState } from '../state';
 import { PathWidget, PathWidgetProps } from './PathWidget';
 
 export interface ActiveRecordsWidgetProps extends PathWidgetProps {
@@ -30,6 +31,8 @@ export interface ActiveRecordsWidgetProps extends PathWidgetProps {
 export class ActiveRecordsWidget<
   Props extends ActiveRecordsWidgetProps = ActiveRecordsWidgetProps
 > extends PathWidget<Props> {
+  protected viewState: OioAnyViewState | undefined;
+
   public initialize(props: Props) {
     super.initialize(props);
     const { dataSource, activeRecords } = props;
@@ -550,6 +553,13 @@ export class ActiveRecordsWidget<
       this.parentFlushActiveRecords();
     } else {
       this.currentActiveRecords = [];
+    }
+  }
+
+  protected $$beforeMount() {
+    super.$$beforeMount();
+    if (!this.viewState) {
+      this.viewState = useOioState().viewState;
     }
   }
 }

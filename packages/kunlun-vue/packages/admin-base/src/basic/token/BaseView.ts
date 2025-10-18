@@ -10,10 +10,15 @@ import { createVisibleArea, useEnv } from '@oinone/kunlun-environment';
 import { ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { CallChaining, Constructor } from '@oinone/kunlun-shared';
 import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
-import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
+import {
+  ActiveRecordsWidgetProps,
+  InnerWidgetType,
+  OioAnyViewState,
+  useOioState,
+  Widget
+} from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { getCurrentInstance } from 'vue';
-import { useOioState } from '../../state';
 import { ViewBizStyle } from '../../typing';
 import DefaultView from '../../view/view/DefaultView.vue';
 import { BaseRuntimePropertiesWidget } from '../common';
@@ -71,6 +76,8 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
   public static Token: SPITokenFactory<BaseViewOptions>;
 
   public static Selector: SPISingleSelector<BaseViewOptions, Constructor<BaseView>>;
+
+  protected viewState: OioAnyViewState | undefined;
 
   protected defaultAllInvisible = true;
 
@@ -279,6 +286,7 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
     super.$$created();
     const state = useOioState(this.currentHandle).createViewState();
     state.viewType = this.viewType;
+    this.viewState = state;
   }
 
   protected $$beforeMount() {

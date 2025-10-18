@@ -1,18 +1,16 @@
 import {
   getReloadMainViewParameters,
-  MultiTabsRuntimeManifestMergedConfigManager,
   MultiTabsManager,
-  RuntimeContextManager,
-  systemMajorConfig
+  MultiTabsRuntimeManifestMergedConfigManager,
+  RuntimeContextManager
 } from '@oinone/kunlun-engine';
 import { useMatched } from '@oinone/kunlun-router';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { MaskWidget } from '@oinone/kunlun-vue-admin-layout';
-import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
+import { useInjectMetaContext, VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { MetadataViewWidget, UrlQueryParameters } from '../basic';
 import { TeleportWidget } from '../components/teleport';
-import { useInjectMetaContext } from '../tags';
 import DefaultMainView from './DefaultMainView.vue';
 import { MultiTabsContainerWidget } from './multi-tabs';
 import { MULTI_TABS_TELEPORT_HANDLE } from './multi-tabs/named';

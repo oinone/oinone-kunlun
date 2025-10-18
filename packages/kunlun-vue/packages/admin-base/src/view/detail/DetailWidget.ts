@@ -1,6 +1,7 @@
 import { ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { BaseElementWidget, BaseFormWidget } from '../../basic';
+import { OioDetailViewState } from '@oinone/kunlun-vue-widget';
 import { DETAIL_WIDGET } from '../../typing';
 import DefaultDetail from './DefaultDetail.vue';
 
@@ -11,9 +12,16 @@ import DefaultDetail from './DefaultDetail.vue';
   })
 )
 export class DetailWidget extends BaseFormWidget {
+  protected viewState: OioDetailViewState | undefined;
+
   public initialize(props) {
     super.initialize(props);
     this.setComponent(DefaultDetail);
     return this;
+  }
+
+  protected $$initViewState(state: OioDetailViewState): void {
+    super.$$initViewState(state);
+    state.detail = this.currentHandle;
   }
 }

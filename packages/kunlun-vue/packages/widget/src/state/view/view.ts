@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { useInjectMetaContext } from '../../tags/context';
+import { useInjectMetaContext } from '../context';
 import { OioViewState } from './typing';
 
 const viewStateStorage: Record<string, OioViewState> = {};
@@ -10,7 +10,7 @@ export function createViewState(handle: string): OioViewState {
       return handle;
     },
     fullscreen: false
-  });
+  } as OioViewState);
 }
 
 export function getViewState(handle?: string): OioViewState | undefined {
@@ -40,3 +40,7 @@ export function clearViewState(handle?: string): OioViewState | undefined {
   delete viewStateStorage[handle];
   return state;
 }
+
+setInterval(() => {
+  console.log(viewStateStorage);
+}, 3000);

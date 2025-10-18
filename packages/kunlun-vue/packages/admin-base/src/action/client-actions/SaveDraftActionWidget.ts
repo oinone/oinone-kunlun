@@ -19,7 +19,7 @@ import { Modal } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
 import { createVNode } from 'vue';
 import { FETCH_DRAFT_DATA_WIDGET_PRIORITY, REFRESH_FORM_DATA } from '../../basic/constant';
-import { OioFormViewState } from '../../state';
+import { OioFormViewState } from '@oinone/kunlun-vue-widget';
 import { ActionWidget } from '../component';
 
 /**
@@ -136,6 +136,7 @@ export class SaveDraftAction extends ActionWidget {
   protected async queryDraft() {
     const variables = this.generatorQueryVariables();
     const context = this.generatorQueryContext();
+    console.log(this.viewState);
     return this.queryData(variables, context);
   }
 

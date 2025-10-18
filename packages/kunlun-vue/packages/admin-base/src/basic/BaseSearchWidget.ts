@@ -4,10 +4,13 @@ import { CallChaining, CastHelper, NumberHelper } from '@oinone/kunlun-shared';
 import { parseActionDomain4search } from '@oinone/kunlun-vue-admin-layout';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isNil } from 'lodash-es';
+import { OioSearchViewState } from '../state';
 import { BaseElementWidget } from './token';
 import { QueryExpression } from './types';
 
 export class BaseSearchWidget extends BaseElementWidget {
+  protected viewState: OioSearchViewState | undefined;
+
   protected defaultAllInvisible = true;
 
   @Widget.Reactive()
@@ -163,5 +166,10 @@ export class BaseSearchWidget extends BaseElementWidget {
   protected $$unmounted() {
     super.$$unmounted();
     this.mountedCallChaining?.unhook(this.path);
+  }
+
+  protected $$initViewState(state: OioSearchViewState): void {
+    super.$$initViewState(state);
+    state.search = this.currentHandle;
   }
 }

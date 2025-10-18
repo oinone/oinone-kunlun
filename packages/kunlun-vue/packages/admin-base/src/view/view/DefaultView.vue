@@ -6,7 +6,7 @@ import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { PropRecordHelper, StableSlotProp } from '@oinone/kunlun-vue-ui-common';
 import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
-import { useOioState } from '../../state';
+import { useOioState } from '@oinone/kunlun-vue-widget';
 import { ViewBizStyle } from '../../typing';
 
 export default defineComponent({

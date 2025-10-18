@@ -3,7 +3,7 @@ import { FlexRowJustify } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import type { ActionBarWidget, ActionWidget } from '../../action';
 import { BaseElementWidget } from '../../basic';
-import { OioTableViewState, useOioState } from '../../state';
+import { OioTableViewState, useOioState } from '@oinone/kunlun-vue-widget';
 import DefaultViewControl from './DefaultViewControl.vue';
 
 @SPI.ClassFactory(

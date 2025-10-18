@@ -17,11 +17,17 @@ import {
 import { ExpressionRunParam } from '@oinone/kunlun-expression';
 import { ActionContextType, deepClone, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
-import { ActiveRecordsWidget, ActiveRecordsWidgetProps, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import {
+  ActiveRecordsWidget,
+  ActiveRecordsWidgetProps,
+  useInjectMetaContext,
+  useProviderMetaContext,
+  Widget,
+  WidgetSubjection
+} from '@oinone/kunlun-vue-widget';
 import { isArray, isFunction, isNil } from 'lodash-es';
 import { computed } from 'vue';
 import { REFRESH_FORM_DATA, validatorCallChainingCallAfterFn } from '../../basic/constant';
-import { useInjectMetaContext, useProviderMetaContext } from '../../tags';
 import {
   ClickResult,
   PopupEventHandle,

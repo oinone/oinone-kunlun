@@ -43,7 +43,6 @@ import { ListPaginationStyle, ListSelectMode, PageSizeEnum } from '@oinone/kunlu
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { ceil, isNil, isString, toInteger, toString } from 'lodash-es';
 import { UserPreferEventManager, UserPreferService } from '../../service';
-import type { OioTableViewState } from '../../state';
 import { fetchPageSize, UserTablePrefer } from '../../typing';
 import { FetchUtil } from '../../util';
 import { BaseRuntimePropertiesWidget } from '../common';
@@ -61,8 +60,6 @@ export type BaseElementListViewWidgetProps = BaseElementViewWidgetProps;
 export abstract class BaseElementListViewWidget<
   Props extends BaseElementListViewWidgetProps = BaseElementListViewWidgetProps
 > extends BaseElementViewWidget<Props> {
-  protected viewState: OioTableViewState | undefined;
-
   public getData(): ActiveRecord[] | undefined {
     return this.dataSource;
   }

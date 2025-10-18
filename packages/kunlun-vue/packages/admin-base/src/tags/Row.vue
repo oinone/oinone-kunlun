@@ -1,7 +1,6 @@
 <script lang="ts">
-import { WidgetTagProps } from '@oinone/kunlun-vue-widget';
+import { useInjectMetaContext, WidgetTagProps } from '@oinone/kunlun-vue-widget';
 import { defineComponent } from 'vue';
-import { useInjectMetaContext } from './context';
 import { useWidgetTag, UseWidgetTagMixin } from './mixin';
 import { InternalWidget } from './resolve';
 
