@@ -1,7 +1,7 @@
 <script lang="ts">
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { useInjectMetaContext, useProviderMetaContext } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, withModifiers } from 'vue';
-import { useInjectMetaContext, useProviderMetaContext } from '../../tags';
 import { DEFAULT_PREFIX } from '../../ui/theme';
 
 export default defineComponent({
