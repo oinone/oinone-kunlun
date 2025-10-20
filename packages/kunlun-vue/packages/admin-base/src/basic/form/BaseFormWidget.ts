@@ -52,6 +52,8 @@ export abstract class BaseFormWidget<
 
   protected $$initViewState(state: OioFormViewState): void {
     super.$$initViewState(state);
-    state.form = this.currentHandle;
+    if (!state.form) {
+      state.form = this.currentHandle;
+    }
   }
 }

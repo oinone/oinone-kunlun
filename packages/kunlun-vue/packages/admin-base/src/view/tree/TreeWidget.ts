@@ -57,6 +57,8 @@ export class TreeWidget extends AbstractTreeElementWidget {
 
   protected $$initViewState(state: OioTreeViewState): void {
     super.$$initViewState(state);
-    state.tree = this.currentHandle;
+    if (!state.tree) {
+      state.tree = this.currentHandle;
+    }
   }
 }

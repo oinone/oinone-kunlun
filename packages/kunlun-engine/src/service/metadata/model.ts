@@ -37,6 +37,7 @@ export interface QueryGroupsValue {
   value?: unknown;
   groups?: QueryGroupsValue[];
 }
+
 export interface QueryGroupResult {
   totalElements: string;
   totalPages: string;
@@ -356,13 +357,15 @@ export namespace StaticMetadata {
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'countryName',
-        ttype: ModelFieldType.String
+        ttype: ModelFieldType.String,
+        displayName: '国家'
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'originCountry',
         ttype: ModelFieldType.ManyToOne,
         references: ResourceCountryModel,
-        referencesModel: ResourceCountry
+        referencesModel: ResourceCountry,
+        displayName: '国家'
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'provinceCode',
@@ -370,13 +373,15 @@ export namespace StaticMetadata {
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'provinceName',
-        ttype: ModelFieldType.String
+        ttype: ModelFieldType.String,
+        displayName: '省/州'
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'originProvince',
         ttype: ModelFieldType.ManyToOne,
         references: ResourceProvinceModel,
-        referencesModel: ResourceProvince
+        referencesModel: ResourceProvince,
+        displayName: '省/州'
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'cityCode',
@@ -384,27 +389,31 @@ export namespace StaticMetadata {
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'cityName',
-        ttype: ModelFieldType.String
+        ttype: ModelFieldType.String,
+        displayName: '市'
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'originCity',
         ttype: ModelFieldType.ManyToOne,
         references: ResourceCityModel,
-        referencesModel: ResourceCity
-      }),
-      MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
-        data: 'districtName',
-        ttype: ModelFieldType.String
+        referencesModel: ResourceCity,
+        displayName: '市'
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'districtCode',
         ttype: ModelFieldType.String
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
+        data: 'districtName',
+        ttype: ModelFieldType.String,
+        displayName: '区/县'
+      }),
+      MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'originDistrict',
         ttype: ModelFieldType.ManyToOne,
         references: ResourceDistrictModel,
-        referencesModel: ResourceDistrict
+        referencesModel: ResourceDistrict,
+        displayName: '区/县'
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'streetCode',
@@ -412,13 +421,15 @@ export namespace StaticMetadata {
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'streetName',
-        ttype: ModelFieldType.String
+        ttype: ModelFieldType.String,
+        displayName: '街道'
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'originStreet',
         ttype: ModelFieldType.ManyToOne,
         references: ResourceStreetModel,
-        referencesModel: ResourceStreet
+        referencesModel: ResourceStreet,
+        displayName: '街道'
       })
     ]
   };

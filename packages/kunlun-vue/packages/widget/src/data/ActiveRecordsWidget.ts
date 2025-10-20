@@ -560,10 +560,17 @@ export class ActiveRecordsWidget<
     }
   }
 
+  protected $$initViewState(state: OioAnyViewState): void {
+    // do nothing.
+  }
+
   protected $$beforeMount() {
     super.$$beforeMount();
     if (!this.viewState) {
       this.viewState = useOioState().viewState;
+      if (this.viewState) {
+        this.$$initViewState(this.viewState);
+      }
     }
   }
 }

@@ -53,15 +53,4 @@ export class BaseElementWidget<
   protected get viewType(): ViewType | undefined {
     return this.view?.type || this.parentViewType;
   }
-
-  protected $$initViewState(state: OioAnyViewState): void {
-    // do nothing.
-  }
-
-  protected $$beforeMount() {
-    super.$$beforeMount();
-    if (this.viewState) {
-      this.$$initViewState(this.viewState);
-    }
-  }
 }

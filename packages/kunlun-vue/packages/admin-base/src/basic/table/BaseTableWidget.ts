@@ -1217,7 +1217,9 @@ export class BaseTableWidget<
 
   protected $$initViewState(state: OioTableViewState): void {
     super.$$initViewState(state);
-    state.table = this.currentHandle;
+    if (!state.table) {
+      state.table = this.currentHandle;
+    }
   }
 
   protected $$beforeMount() {

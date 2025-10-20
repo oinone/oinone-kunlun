@@ -169,6 +169,8 @@ export class BaseSearchWidget extends BaseElementWidget {
 
   protected $$initViewState(state: OioSearchViewState): void {
     super.$$initViewState(state);
-    state.search = this.currentHandle;
+    if (!state.search) {
+      state.search = this.currentHandle;
+    }
   }
 }

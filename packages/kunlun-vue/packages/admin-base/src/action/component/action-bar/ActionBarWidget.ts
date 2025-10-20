@@ -119,10 +119,12 @@ export class ActionBarWidget<
   protected $$initViewState(state: OioAnyViewState): void {
     const { currentHandle, viewType } = this;
     if (viewType && hasActionBarViewState(state)) {
-      state.actionBar = {
-        handle: currentHandle,
-        actions: []
-      };
+      if (!state.actionBar) {
+        state.actionBar = {
+          handle: currentHandle,
+          actions: []
+        };
+      }
     }
   }
 }

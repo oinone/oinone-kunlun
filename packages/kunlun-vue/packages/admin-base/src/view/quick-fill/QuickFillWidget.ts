@@ -9,7 +9,8 @@ import {
   RuntimeM2OField,
   RuntimeModelField,
   RuntimeRelationField,
-  StaticMetadata
+  StaticMetadata,
+  translateValueByKey
 } from '@oinone/kunlun-engine';
 import { deepClone, Entity, IModelField, isEmptyValue, ModelFieldType, SYSTEM_MODULE } from '@oinone/kunlun-meta';
 import { buildSingleItemParam, http } from '@oinone/kunlun-service';
@@ -21,7 +22,7 @@ import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-common';
 import { isTableViewState, OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseElementWidget, BaseFieldWidget, FormFieldWidget } from '../../basic';
-import { ValidatorStatus } from '../../typing';
+import { ResourceAddress, ValidatorStatus } from '../../typing';
 import { TableWidget } from '../table/TableWidget';
 import QuickFill from './QuickFill.vue';
 import { QuickFillType } from './type';
@@ -41,7 +42,7 @@ interface QuickFillResponse {
 }
 
 const fullAddressField = StaticMetadata.ResourceAddress.modelFields.filter((v) =>
-  ['originCountry', 'originProvince', 'originCity', 'originDistrict', 'originStreet'].includes(v.data)
+  ['countryName', 'provinceName', 'cityName', 'districtName', 'streetName'].includes(v.data)
 );
 
 const quickFillFields = [
@@ -98,14 +99,6 @@ export class QuickFillWidget extends BaseElementWidget {
     this.type = type;
   }
 
-  protected get modelFields() {
-    return this.metadataRuntimeContext.model.modelFields;
-  }
-
-  protected get addressFieldIndex() {
-    return this.modelFields.findIndex((f) => (f as RuntimeM2OField).references === 'resource.ResourceAddress');
-  }
-
   @Widget.Reactive()
   public get editableModelFields() {
     const fields: RuntimeModelField[] = [];
@@ -120,7 +113,8 @@ export class QuickFillWidget extends BaseElementWidget {
               return {
                 ...v,
                 data: dd,
-                name: dd
+                name: dd,
+                label: `${f.label || f.displayName} - ${translateValueByKey(v.label || v.displayName)}`
               };
             })
           );
@@ -169,23 +163,29 @@ export class QuickFillWidget extends BaseElementWidget {
     cells.forEach((row, rowIndex) => {
       const rowValue = {} as Record<string, StandardString>;
       // 国家、省、市、区、街道需合并
-      const addressStr = [] as { [key: string]: StandardString }[];
+      const address: Record<string, ResourceAddress> = {};
 
       row.forEach((cell, columnIndex) => {
+        if (!cell) {
+          return;
+        }
         const { name } = this.editableModelFields[columnIndex]!;
-        if (fullAddressField.some((f) => f.name === name)) {
-          addressStr.push({
-            field: name,
-            value: cell
-          });
+        if (fullAddressField.some((f) => name.endsWith(`#${f.name}`))) {
+          const [name1, name2] = name.split('#');
+          let target = address[name1];
+          if (!target) {
+            target = {};
+            address[name1] = target;
+          }
+          target[name2] = cell;
         } else {
           rowValue[name] = cell;
         }
       });
 
-      if (this.addressFieldIndex > -1) {
-        rowValue[this.modelFields[this.addressFieldIndex].name] = JSON.stringify(addressStr);
-      }
+      Object.keys(address).forEach((key) => {
+        rowValue[key] = JSON.stringify(address[key]);
+      });
 
       valueStr.push(rowValue);
     });
@@ -196,7 +196,7 @@ export class QuickFillWidget extends BaseElementWidget {
      */
     const { valuesStr, failures } = await this.validateExcelValue(JSON.stringify(valueStr));
 
-    let data = valuesStr ? JSON.parse(valuesStr) : [];
+    const data = valuesStr ? JSON.parse(valuesStr) : [];
 
     /**
      * 如果存在错误，则展示表格，将后端返回数据回填到表格
@@ -355,15 +355,31 @@ export class QuickFillWidget extends BaseElementWidget {
    * 调接口校验excel数据
    */
   public async validateExcelValue(valuesStr: string) {
-    const fieldHeaders = this.editableModelFields.map((field) => {
-      if (isRelationField(field)) {
-        return {
-          field: field.data,
-          relationSelectFields: field.referencesModel.labelFields || ['id']
-        };
+    const fieldHeaders: { field: string; relationSelectFields?: string[] }[] = [];
+    for (const editableModelField of this.editableModelFields) {
+      const { data } = editableModelField;
+      if (isRelationField(editableModelField)) {
+        fieldHeaders.push({
+          field: data,
+          relationSelectFields: editableModelField.referencesModel.labelFields || ['id']
+        });
+      } else if (fullAddressField.some((f) => data.endsWith(`#${f.data}`))) {
+        const [name] = data.split('#');
+        if (!fieldHeaders.some((v) => v.field === name)) {
+          for (const field of this.viewState?.fields || []) {
+            const addressField = Widget.select<BaseFieldWidget>(field)?.field as RuntimeM2OField;
+            if (addressField && addressField.data === name) {
+              fieldHeaders.push({
+                field: addressField.data,
+                relationSelectFields: addressField.referencesModel.labelFields || ['id']
+              });
+            }
+          }
+        }
+      } else {
+        fieldHeaders.push({ field: data });
       }
-      return { field: field.data };
-    });
+    }
 
     const gqlStr = await buildSingleItemParam(quickFillFields, {
       model: this.model.model,
@@ -409,8 +425,7 @@ export class QuickFillWidget extends BaseElementWidget {
     template.editorMode = TableEditorMode.table;
     template.paginationStyle = ListPaginationStyle.HIDDEN;
 
-    const fields = this.modelFields.filter((f) => !!f.template?.independentlyEditable);
-    const map = new Map(fields.map((v) => [v.name, true]));
+    const map = new Map(this.editableModelFields.map((v) => [v.name, true]));
     template.widgets = template.widgets.filter((w) => map.has(w.name));
 
     this.tableWidget = this.createWidget(TableWidget, 'table', {

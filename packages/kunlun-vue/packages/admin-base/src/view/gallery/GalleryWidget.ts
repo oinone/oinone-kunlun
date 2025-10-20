@@ -225,6 +225,8 @@ export class GalleryWidget extends BaseElementListViewWidget {
 
   protected $$initViewState(state: OioGalleryViewState): void {
     super.$$initViewState(state);
-    state.gallery = this.currentHandle;
+    if (!state.gallery) {
+      state.gallery = this.currentHandle;
+    }
   }
 }

@@ -111,7 +111,7 @@ const tableHeaderValues = ref<{ label: string; value: string }[]>([]);
 const selectOptions = computed(() => {
   const options = props.modelFields.map((field) => {
     return {
-      label: field.displayName || field.label,
+      label: field.label || field.displayName,
       value: field.name
     };
   });
