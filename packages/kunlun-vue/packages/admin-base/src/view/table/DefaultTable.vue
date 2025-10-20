@@ -892,7 +892,7 @@ export default defineComponent({
                     indeterminate = isAllCheckedIndeterminate;
                   }
                   if (typeof allowAllChecked === 'boolean') {
-                    if (!allowAllChecked) {
+                    if (allowAllChecked) {
                       return useVxeCheckboxHeader({
                         ...origin,
                         indeterminate
