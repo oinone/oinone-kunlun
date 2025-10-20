@@ -400,7 +400,7 @@ export default defineComponent({
           break;
         case GroupStatisticsEnum.NOT_NULL_PERCENT:
           // 已填写占比
-          computedValue = total > 0 ? formatRatio(notFilled / total) : 0;
+          computedValue = total > 0 ? formatRatio(filled / total) : 0;
           break;
         case GroupStatisticsEnum.NULL_PERCENT:
           // 未填写占比
