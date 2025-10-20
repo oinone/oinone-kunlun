@@ -152,7 +152,7 @@ export class QuickFillWidget extends BaseElementWidget {
    * 确认提交,校验excel数据
    */
   @Widget.Method()
-  public async onSure(cells: StandardString[][]) {
+  public async onSure(rows: StandardString[][]) {
     const valueStr = [] as Record<string, StandardString>[];
 
     /**
@@ -160,7 +160,7 @@ export class QuickFillWidget extends BaseElementWidget {
      * [['值1', '值2'], ['值1', '值2']] -> [{name: '值1', code: '值2'}, {name: '值1', code: '值2'}]
      *
      */
-    cells.forEach((row, rowIndex) => {
+    rows.forEach((row, rowIndex) => {
       const rowValue = {} as Record<string, StandardString>;
       // 国家、省、市、区、街道需合并
       const address: Record<string, ResourceAddress> = {};
@@ -187,7 +187,9 @@ export class QuickFillWidget extends BaseElementWidget {
         rowValue[key] = JSON.stringify(address[key]);
       });
 
-      valueStr.push(rowValue);
+      if (Object.keys(valueStr).length > 0) {
+        valueStr.push(rowValue);
+      }
     });
 
     /**
