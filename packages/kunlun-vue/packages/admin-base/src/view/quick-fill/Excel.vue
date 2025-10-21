@@ -567,10 +567,55 @@ const handlePaste = (event: ClipboardEvent): void => {
   const startColIdx = columns.indexOf(startCol);
   if (startColIdx === -1) return;
 
-  const rowsData = pastedData.split('\n').filter((row) => row.trim() !== '');
+  // 解析CSV格式的粘贴数据，正确处理双引号包裹的换行文本
+  const parseCSVData = (data: string): string[][] => {
+    const rows: string[][] = [];
+    let currentRow: string[] = [];
+    let currentCell = '';
+    let insideQuotes = false;
+    let i = 0;
+
+    while (i < data.length) {
+      const char = data[i];
+      const nextChar = data[i + 1];
+
+      if (char === '"') {
+        if (insideQuotes && nextChar === '"') {
+          currentCell += '"';
+          i += 2;
+          continue;
+        } else {
+          insideQuotes = !insideQuotes;
+        }
+      } else if (char === '\t' && !insideQuotes) {
+        currentRow.push(currentCell);
+        currentCell = '';
+      } else if (char === '\n' && !insideQuotes) {
+        currentRow.push(currentCell);
+        if (currentRow.some((cell) => cell.trim() !== '')) {
+          rows.push(currentRow);
+        }
+        currentRow = [];
+        currentCell = '';
+      } else {
+        currentCell += char;
+      }
+      i++;
+    }
+
+    if (currentCell || currentRow.length > 0) {
+      currentRow.push(currentCell);
+      if (currentRow.some((cell) => cell.trim() !== '')) {
+        rows.push(currentRow);
+      }
+    }
+
+    return rows;
+  };
+
+  const rowsData = parseCSVData(pastedData);
   let currentRowOffset = 0;
-  rowsData.forEach((rowData) => {
-    const cellsData = rowData.split('\t') as string[];
+  rowsData.forEach((cellsData) => {
     let currentColOffset = 0;
     cellsData.forEach((cellData) => {
       const targetRowIdx = startRow + currentRowOffset - 1;
