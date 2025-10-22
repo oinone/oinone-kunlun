@@ -1,22 +1,22 @@
 import { globalState, OioGlobalState } from './global';
-import { clearViewState, createViewState, getViewState, OioViewState, setViewState } from './view';
+import { clearViewState, createViewState, getViewState, OioAnyViewState, setViewState } from './view';
 
 export function useOioState(): {
   globalState: OioGlobalState;
-  viewState: OioViewState | undefined;
+  viewState: OioAnyViewState | undefined;
 
-  createViewState: (handle: string) => OioViewState;
-  getViewState: (handle: string) => OioViewState | undefined;
-  clearViewState: (handle: string) => OioViewState | undefined;
+  createViewState: (handle: string) => OioAnyViewState;
+  getViewState: (handle: string) => OioAnyViewState | undefined;
+  clearViewState: (handle: string) => OioAnyViewState | undefined;
 };
 
 export function useOioState(handle: string): {
   globalState: OioGlobalState;
-  viewState: OioViewState | undefined;
+  viewState: OioAnyViewState | undefined;
 
-  createViewState: () => OioViewState;
-  getViewState: () => OioViewState | undefined;
-  clearViewState: () => OioViewState | undefined;
+  createViewState: () => OioAnyViewState;
+  getViewState: () => OioAnyViewState | undefined;
+  clearViewState: () => OioAnyViewState | undefined;
 };
 
 export function useOioState(handle?: string) {

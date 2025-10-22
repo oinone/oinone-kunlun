@@ -106,6 +106,9 @@ export class QuickFillWidget extends BaseElementWidget {
       const fieldWidget = Widget.select<BaseFieldWidget>(field);
       if (fieldWidget && !fieldWidget.invisible) {
         const f = fieldWidget.field;
+        if (f.isVirtual) {
+          continue;
+        }
         if (isM2OField(f) && f.references === StaticMetadata.ResourceAddressModel) {
           fields.push(
             ...fullAddressField.map((v) => {
@@ -187,7 +190,7 @@ export class QuickFillWidget extends BaseElementWidget {
         rowValue[key] = JSON.stringify(address[key]);
       });
 
-      if (Object.keys(valueStr).length > 0) {
+      if (Object.keys(rowValue).length > 0) {
         valueStr.push(rowValue);
       }
     });

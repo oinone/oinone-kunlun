@@ -9,17 +9,16 @@ import {
   QueryVariables,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { ActionContextType, Entity, ModelDefaultActionName, ModelType, ViewType } from '@oinone/kunlun-meta';
+import { ActionContextType, Entity, ModelDefaultActionName, ModelType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { BooleanHelper, CallChaining, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioButton, OioCloseIcon, OioIcon, OioNotification } from '@oinone/kunlun-vue-ui-antd';
-import { Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { isFormViewState, OioFormViewState, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { Modal } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
 import { createVNode } from 'vue';
 import { FETCH_DRAFT_DATA_WIDGET_PRIORITY, REFRESH_FORM_DATA } from '../../basic/constant';
-import { OioFormViewState } from '@oinone/kunlun-vue-widget';
 import { ActionWidget } from '../component';
 
 /**
@@ -31,6 +30,8 @@ import { ActionWidget } from '../component';
   })
 )
 export class SaveDraftAction extends ActionWidget {
+  protected viewState: OioFormViewState | undefined;
+
   @Widget.Reactive()
   @Widget.Inject()
   protected mountedCallChaining: CallChaining | undefined;
@@ -48,10 +49,8 @@ export class SaveDraftAction extends ActionWidget {
 
   protected setDraftCode(draftCode: string): void {
     const formViewState = this.viewState;
-    if (formViewState) {
-      if (formViewState.viewType === ViewType.Form) {
-        (formViewState as OioFormViewState).draftCode = draftCode;
-      }
+    if (formViewState && isFormViewState(formViewState)) {
+      (formViewState as OioFormViewState).draftCode = draftCode;
     }
   }
 
@@ -136,7 +135,6 @@ export class SaveDraftAction extends ActionWidget {
   protected async queryDraft() {
     const variables = this.generatorQueryVariables();
     const context = this.generatorQueryContext();
-    console.log(this.viewState);
     return this.queryData(variables, context);
   }
 
@@ -144,7 +142,7 @@ export class SaveDraftAction extends ActionWidget {
    * 创建草稿
    */
   protected async createDraft() {
-    const draftCode = (this.viewState as OioFormViewState)?.draftCode;
+    const draftCode = this.viewState?.draftCode;
     if (draftCode) {
       return this.executeDraftOperator('createDraft', {
         ...(this.activeRecords?.[0] || {}),
@@ -158,7 +156,7 @@ export class SaveDraftAction extends ActionWidget {
    * 修改草稿
    */
   protected async updateDraft() {
-    const draftCode = (this.viewState as OioFormViewState)?.draftCode;
+    const draftCode = this.viewState?.draftCode;
     return this.executeDraftOperator('updateDraft', {
       ...(this.activeRecords?.[0] || {}),
       draftCode
@@ -169,7 +167,7 @@ export class SaveDraftAction extends ActionWidget {
    * 删除草稿
    */
   protected async deleteDraft() {
-    const draftCode = (this.viewState as OioFormViewState)?.draftCode;
+    const draftCode = this.viewState?.draftCode;
     if (!draftCode) {
       return undefined;
     }

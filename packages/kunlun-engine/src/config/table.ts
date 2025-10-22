@@ -1,4 +1,4 @@
-import { RuntimeConfigOptions } from '@oinone/kunlun-meta';
+import { RuntimeConfig, RuntimeConfigOptions } from '@oinone/kunlun-meta';
 import { ConfigHelper } from './config-helper';
 import { KeyboardConfig } from './keyboard';
 
@@ -82,6 +82,6 @@ export class TableConfigManager {
   }
 
   public static getConfig(): TableConfig {
-    return ConfigHelper.getConfig<TableConfig>('tableConfig');
+    return ConfigHelper.getConfig<TableConfig>(RuntimeConfig.getConfig('table'));
   }
 }

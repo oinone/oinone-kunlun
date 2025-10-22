@@ -325,6 +325,15 @@ export class BaseTableWidget<
     return this.lastedCurrentEditorContext;
   }
 
+  @Widget.Reactive()
+  protected get isNewRow(): boolean | undefined {
+    const { currentEditorContext } = this;
+    if (currentEditorContext) {
+      return currentEditorContext.rowIndex === -1 || currentEditorContext.new;
+    }
+    return undefined;
+  }
+
   /**
    * 激活编辑模式前的回调
    * @param context 激活编辑模式上下文
@@ -445,15 +454,22 @@ export class BaseTableWidget<
     const data = await this.rowEditorClosedForSubmit(context);
     if (this.inline) {
       if (res && data) {
-        if (this.currentEditorContext!.rowIndex === -1) {
-          this.createSubviewFieldWidget(context, omitBy({ ...data }, isNil));
+        if (this.isNewRow) {
+          const newRow = omitBy({ ...data }, isNil);
+          this.createSubviewFieldWidget(
+            {
+              ...context,
+              data: newRow
+            },
+            newRow
+          );
         } else {
           this.updateSubviewFieldWidget(context, data);
         }
       }
     } else if (data) {
       try {
-        if (this.currentEditorContext!.rowIndex === -1) {
+        if (this.isNewRow) {
           res = await this.rowEditorClosedForCreate(context, omitBy({ ...data }, isNil));
         } else {
           res = await this.rowEditorClosedForUpdate(context, data);
@@ -720,7 +736,7 @@ export class BaseTableWidget<
     if (currentEditorContext && !currentEditorContext.submit) {
       const $data = currentEditorContext.row;
       if (dataSource) {
-        if (this.currentEditorContext!.rowIndex === -1) {
+        if (this.isNewRow) {
           this.tableInstance?.removeInsertRow();
           return;
         }
@@ -882,7 +898,7 @@ export class BaseTableWidget<
    */
   @Widget.Reactive()
   @Widget.Provide()
-  protected get enableGrouping() {
+  protected get enableGrouping(): boolean {
     if (this.inline && !this.isDataSourceProvider) {
       // fixme @zbh 20250925 子表格暂不支持分组
       return false;
@@ -1044,6 +1060,7 @@ export class BaseTableWidget<
   protected async onAddRowEvent(e?: Omit<TableAddEvent, 'type'>) {
     if (this.lastedCurrentEditorContext == null) {
       this.lastedCurrentEditorContext = {
+        new: true,
         prepare: true,
         editorMode: TableEditorMode.row,
         editorCloseTrigger: TableEditorCloseTrigger.auto,
