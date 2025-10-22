@@ -79,6 +79,10 @@ export type OioAnyViewState =
   | OioTreeViewState
   | OioViewState;
 
+export type OioListViewState = OioTableViewState | OioGalleryViewState;
+
+export type OioObjectViewState = OioFormViewState | OioDetailViewState;
+
 export function isTableViewState(state: OioAnyViewState): state is OioTableViewState {
   return state.viewType === ViewType.Table;
 }
@@ -103,11 +107,11 @@ export function isTreeViewState(state: OioAnyViewState): state is OioTreeViewSta
   return state.viewType === ViewType.Tree;
 }
 
-export function isListViewState(state: OioAnyViewState): state is OioTableViewState | OioGalleryViewState {
+export function isListViewState(state: OioAnyViewState): state is OioListViewState {
   return state.viewType === ViewType.Table || state.viewType === ViewType.Gallery;
 }
 
-export function isObjectViewState(state: OioAnyViewState): state is OioFormViewState | OioDetailViewState {
+export function isObjectViewState(state: OioAnyViewState): state is OioObjectViewState {
   return state.viewType === ViewType.Form || state.viewType === ViewType.Detail;
 }
 

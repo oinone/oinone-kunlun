@@ -21,7 +21,6 @@ export class DetailWidget extends BaseFormWidget {
   }
 
   protected $$initViewState(state: OioDetailViewState): void {
-    super.$$initViewState(state);
     if (!state.detail) {
       state.detail = this.currentHandle;
     }
