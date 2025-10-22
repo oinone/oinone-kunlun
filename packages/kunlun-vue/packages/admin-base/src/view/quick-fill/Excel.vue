@@ -71,6 +71,10 @@
             <span v-else class="cell-content">{{ getCellContent(`${row}-${col}`) }}</span>
           </td>
         </tr>
+        <tr v-for="row in disabledRows" :key="row">
+          <td class="row-header cell-disabled">{{ row }}</td>
+          <td v-for="col in columns" :key="`${row}-${col}`" class="cell cell-disabled"></td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -163,7 +167,15 @@ const generateColumnName = (index: number) => {
 };
 
 const columns = Array.from({ length: colCount.value }, (_, i) => generateColumnName(i));
-const rows = Array.from({ length: props.rowCount }, (_, i) => i + 1);
+const rows = computed(() => Array.from({ length: props.rowCount }, (_, i) => i + 1));
+const disabledRows = computed(() => {
+  const basic = props.rowCount || 0;
+  const l = 9 - basic;
+  if (l >= 1) {
+    return Array.from({ length: l }, (_, i) => basic + i + 1);
+  }
+  return [];
+});
 
 // ======== 方法 =========
 
@@ -663,6 +675,7 @@ onUnmounted(() => {
 <style lang="scss">
 .quick-fill-excel-container {
   width: 100%;
+  min-height: 400px;
   overflow: auto;
 
   .excel-table {
@@ -716,6 +729,12 @@ onUnmounted(() => {
       color: var(--oio-text-color-secondary);
       z-index: 10;
       user-select: none;
+
+      &.cell-disabled {
+        cursor: not-allowed;
+        background-color: var(--oio-table-thead-bg);
+        color: var(--oio-disabled-color);
+      }
     }
 
     .cell {
@@ -736,6 +755,7 @@ onUnmounted(() => {
       }
 
       &.cell-disabled {
+        cursor: not-allowed;
         background-color: var(--oio-table-thead-bg);
         color: var(--oio-disabled-color);
       }

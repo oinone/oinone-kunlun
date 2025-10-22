@@ -73,6 +73,8 @@ import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from
 import Excel from './Excel.vue';
 import { QuickFillType } from './type';
 
+const DEFAULT_ROW_COUNT = 9;
+
 export default defineComponent({
   props: {
     type: {
@@ -140,10 +142,11 @@ export default defineComponent({
       }
     });
 
-    const rowCount = ref(9);
+    const rowCount = ref(DEFAULT_ROW_COUNT);
     const excelRef = ref();
 
     const onChangeRadio = (val) => {
+      const nextType = val.target.value;
       if (excelRef.value.getCellStatus()) {
         const _modal = Modal.confirm({
           class: 'oio-modal oio-quick-fill-witch-mode-modal',
@@ -156,23 +159,30 @@ export default defineComponent({
 
           cancelText: translateValueByKey('取消'),
           onOk: () => {
-            type.value = val.target.value;
+            type.value = nextType;
             excelRef.value.resetExcel();
-
-            if (type.value === QuickFillType.create) {
-              const excelValue = props.fillValueByDataSource();
-              excelRef.value.setCells(excelValue);
+            if (nextType === QuickFillType.create) {
+              excelRef.value.setCells({});
+              rowCount.value = DEFAULT_ROW_COUNT;
+            } else if (nextType === QuickFillType.update) {
+              const { cells, rowCount: currentRowCount } = props.fillValueByDataSource();
+              excelRef.value.setCells(cells || {});
+              rowCount.value = currentRowCount || DEFAULT_ROW_COUNT;
             }
             _modal.destroy();
           }
         });
       } else {
-        type.value = val.target.value;
+        type.value = nextType;
         excelRef.value.resetExcel();
 
-        if (type.value === QuickFillType.create) {
-          const excelValue = props.fillValueByDataSource();
-          excelRef.value.setCells(excelValue);
+        if (nextType === QuickFillType.create) {
+          excelRef.value.setCells({});
+          rowCount.value = DEFAULT_ROW_COUNT;
+        } else if (nextType === QuickFillType.update) {
+          const { cells, rowCount: currentRowCount } = props.fillValueByDataSource();
+          excelRef.value.setCells(cells || {});
+          rowCount.value = currentRowCount || DEFAULT_ROW_COUNT;
         }
       }
 
@@ -202,6 +212,7 @@ export default defineComponent({
       (visible) => {
         if (!visible) {
           type.value = QuickFillType.create;
+          rowCount.value = DEFAULT_ROW_COUNT;
           excelRef.value?.resetExcel();
         }
       }

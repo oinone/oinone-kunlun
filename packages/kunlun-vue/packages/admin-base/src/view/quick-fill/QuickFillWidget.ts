@@ -234,7 +234,7 @@ export class QuickFillWidget extends BaseElementWidget {
    * 将表格数据，填充到excel中
    */
   @Widget.Method()
-  public fillValueByDataSource() {
+  public fillValueByDataSource(): { cells?: Record<string, unknown>; rowCount?: number } {
     // 处理空数据情况
     if (!this.dataSource?.length) {
       return {};
@@ -254,7 +254,7 @@ export class QuickFillWidget extends BaseElementWidget {
       });
     });
 
-    return cells;
+    return { cells, rowCount: this.dataSource.length };
   }
 
   public fillFieldValue(field: RuntimeModelField, value) {
