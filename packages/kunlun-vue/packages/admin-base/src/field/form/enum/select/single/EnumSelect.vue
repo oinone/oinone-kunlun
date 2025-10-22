@@ -18,7 +18,7 @@
       :properties="properties"
       :get-trigger-container="getTriggerContainer"
       :allowClear="allowClear"
-      :filter-option="false"
+      :filter-option="filterOption"
       :not-found-content="null"
       :default-active-first-option="false"
       :disabled="disabled"
@@ -87,6 +87,11 @@ export default defineComponent({
       }
       props.blur && props.blur();
     };
+
+    const filterOption = (val: string, option: SelectItem) => {
+      return option.label.includes(val);
+    };
+
     return {
       placeholder,
       properties: defaultSelectProperties,
@@ -95,6 +100,7 @@ export default defineComponent({
       disabled,
       realOptions,
       selectChange,
+      filterOption,
       getTriggerContainer: props.getPopupContainer || formContext.getTriggerContainer
     };
   }
