@@ -198,9 +198,21 @@ export class BaseActionWidget<
     }
   }
 
+  protected popViewStateAction() {
+    const actions = this.actionBarState?.actions;
+    if (!actions) {
+      return;
+    }
+    const { currentHandle } = this;
+    const index = actions.findIndex((v) => v === currentHandle);
+    if (index !== -1) {
+      actions.splice(index, 1);
+      this.actionBarState!.actions = [...actions];
+    }
+  }
+
   protected $$beforeMount() {
     super.$$beforeMount();
-    this.pushViewStateAction();
     if (!this.$matched) {
       const { matched } = useMatched();
       this.$matched = matched;
@@ -208,5 +220,15 @@ export class BaseActionWidget<
     if (!this.$router) {
       this.$router = useRouter().router as Router;
     }
+  }
+
+  protected $$mounted() {
+    super.$$mounted();
+    this.pushViewStateAction();
+  }
+
+  protected $$unmounted() {
+    super.$$unmounted();
+    this.popViewStateAction();
   }
 }

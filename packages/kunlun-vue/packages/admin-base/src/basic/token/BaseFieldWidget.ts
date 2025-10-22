@@ -259,6 +259,19 @@ export class BaseFieldWidget<
     }
   }
 
+  protected popViewStateField() {
+    const fields = this.viewState?.fields;
+    if (!fields) {
+      return;
+    }
+    const { currentHandle } = this;
+    const index = fields.findIndex((v) => v === currentHandle);
+    if (index !== -1) {
+      fields.splice(index, 1);
+      this.viewState!.fields = [...fields];
+    }
+  }
+
   protected $$beforeCreated() {
     super.$$beforeCreated();
     this.notify(LifeCycleTypes.ON_FIELD_BEFORE_CREATED);
@@ -271,12 +284,12 @@ export class BaseFieldWidget<
 
   protected $$beforeMount() {
     super.$$beforeMount();
-    this.pushViewStateField();
     this.notify(LifeCycleTypes.ON_FIELD_BEFORE_MOUNT);
   }
 
   protected $$mounted() {
     super.$$mounted();
+    this.pushViewStateField();
     this.fieldWidgetMounted?.(this);
     this.notify(LifeCycleTypes.ON_FIELD_MOUNTED);
   }
@@ -298,6 +311,7 @@ export class BaseFieldWidget<
 
   protected $$unmounted() {
     super.$$unmounted();
+    this.popViewStateField();
     this.fieldWidgetUnmounted?.(this);
     this.notify(LifeCycleTypes.ON_FIELD_UNMOUNTED);
   }
