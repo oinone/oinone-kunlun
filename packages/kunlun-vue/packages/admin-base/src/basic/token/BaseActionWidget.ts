@@ -10,14 +10,7 @@ import { Matched, Router, useMatched } from '@oinone/kunlun-router';
 import { CallChaining, Constructor } from '@oinone/kunlun-shared';
 import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
 import { useRouter } from '@oinone/kunlun-vue-router';
-import {
-  ActiveRecordsWidgetProps,
-  hasActionBarViewState,
-  hasRowActionBarViewState,
-  InnerWidgetType,
-  OioActionBarState,
-  Widget
-} from '@oinone/kunlun-vue-widget';
+import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../typing';
 import { BaseRuntimePropertiesWidget } from '../common';
 
@@ -173,44 +166,6 @@ export class BaseActionWidget<
     return fn(...args);
   }
 
-  protected get actionBarState(): OioActionBarState | undefined {
-    const { viewState, rowIndex } = this;
-    if (viewState) {
-      if (rowIndex == null) {
-        if (hasActionBarViewState(viewState)) {
-          return viewState.actionBar;
-        }
-      } else if (hasRowActionBarViewState(viewState)) {
-        return viewState.rowActions?.[rowIndex];
-      }
-    }
-  }
-
-  protected pushViewStateAction() {
-    const actions = this.actionBarState?.actions;
-    if (!actions) {
-      return;
-    }
-    const { currentHandle } = this;
-    if (!actions.some((v) => v === currentHandle)) {
-      actions.push(currentHandle);
-      this.actionBarState!.actions = [...actions];
-    }
-  }
-
-  protected popViewStateAction() {
-    const actions = this.actionBarState?.actions;
-    if (!actions) {
-      return;
-    }
-    const { currentHandle } = this;
-    const index = actions.findIndex((v) => v === currentHandle);
-    if (index !== -1) {
-      actions.splice(index, 1);
-      this.actionBarState!.actions = [...actions];
-    }
-  }
-
   protected $$beforeMount() {
     super.$$beforeMount();
     if (!this.$matched) {
@@ -224,11 +179,15 @@ export class BaseActionWidget<
 
   protected $$mounted() {
     super.$$mounted();
-    this.pushViewStateAction();
+    if (this.automatic) {
+      this.viewState?.pushAction(this.currentHandle);
+    }
   }
 
   protected $$unmounted() {
     super.$$unmounted();
-    this.popViewStateAction();
+    if (this.automatic) {
+      this.viewState?.popAction(this.currentHandle);
+    }
   }
 }

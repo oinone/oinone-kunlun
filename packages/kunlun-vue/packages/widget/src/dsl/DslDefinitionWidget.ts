@@ -29,7 +29,7 @@ export interface DslDefinitionWidgetProps extends DslRenderWidgetProps {
    */
   inline?: boolean;
   /**
-   * 自动组件
+   * 自动渲染组件
    */
   automatic?: boolean;
 }

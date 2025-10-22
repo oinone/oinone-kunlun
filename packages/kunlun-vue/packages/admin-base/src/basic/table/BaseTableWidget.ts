@@ -1153,8 +1153,14 @@ export class BaseTableWidget<
 
   // region 列组件收集
 
+  /**
+   * @deprecated
+   */
   protected columnWidgetMap: Map<string, ColumnWidgetEntity> = new Map();
 
+  /**
+   * @deprecated
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetMounted(widget: BaseTableColumnWidget) {
@@ -1164,12 +1170,18 @@ export class BaseTableWidget<
     });
   }
 
+  /**
+   * @deprecated
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetUnmounted(widget: BaseTableColumnWidget) {
     this.columnWidgetMap.delete(widget.path);
   }
 
+  /**
+   * @deprecated
+   */
   public getColumnWidgets(sort = false): BaseTableColumnWidget[] {
     const iterator = this.columnWidgetMap.values();
     let next = iterator.next();

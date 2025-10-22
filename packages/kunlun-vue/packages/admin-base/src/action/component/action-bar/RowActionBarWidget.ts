@@ -1,6 +1,6 @@
 import { Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { isTableViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { hasRowActionBarViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseElementWidget } from '../../../basic';
 import { ActionBarWidget, ActionBarWidgetProps } from './ActionBarWidget';
@@ -79,27 +79,28 @@ export class RowActionBarWidget<
 
   protected $$initViewState(state: OioAnyViewState): void {
     super.$$initViewState(state);
-    const { currentHandle } = this;
-    if (isTableViewState(state)) {
+    const { currentHandle, rowIndex } = this;
+    if (hasRowActionBarViewState(state)) {
       if (!state.rowActions) {
         state.rowActions = [];
       }
-      state.rowActions[this.rowIndex] = {
+      state.rowActions[rowIndex] = {
         handle: currentHandle,
         actions: []
       };
+      state.defineActionBarStateProperty(rowIndex);
     }
   }
 
   protected $$unmounted() {
     super.$$unmounted();
     const { viewState, rowIndex } = this;
-    if (viewState && isTableViewState(viewState)) {
-      if (!viewState.rowActions) {
-        viewState.rowActions = [];
+    if (viewState && hasRowActionBarViewState(viewState)) {
+      const { rowActions } = viewState;
+      if (rowActions) {
+        rowActions.splice(rowIndex, 1);
+        viewState.rowActions = [...rowActions];
       }
-      viewState.rowActions.splice(rowIndex, 1);
-      viewState.rowActions = [...viewState.rowActions];
     }
   }
 }

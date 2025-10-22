@@ -1,16 +1,29 @@
 import { reactive } from 'vue';
-import { useInjectMetaContext } from '../context';
+import { useInjectMetaContext } from './context';
+import { defineActionBarStateProperty, popAction, popField, pushAction, pushField } from './method';
 import { OioAnyViewState } from './typing';
 
 const viewStateStorage: Record<string, OioAnyViewState> = {};
 
+const viewStateMethods: Record<string, Function> = {
+  pushField,
+  popField,
+  defineActionBarStateProperty,
+  pushAction,
+  popAction
+};
+
 export function createViewState(handle: string): OioAnyViewState {
-  return reactive<OioAnyViewState>({
+  const state = {
     get handle() {
       return handle;
     },
     fullscreen: false
-  } as OioAnyViewState);
+  } as OioAnyViewState;
+  for (const [method, fn] of Object.entries(viewStateMethods)) {
+    state[method] = fn.bind(state);
+  }
+  return reactive<OioAnyViewState>(state);
 }
 
 export function getViewState(handle?: string): OioAnyViewState | undefined {

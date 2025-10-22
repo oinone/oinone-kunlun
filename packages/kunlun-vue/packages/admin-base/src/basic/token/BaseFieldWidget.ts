@@ -247,31 +247,6 @@ export class BaseFieldWidget<
     // );
   }
 
-  protected pushViewStateField() {
-    const fields = this.viewState?.fields;
-    if (!fields) {
-      return;
-    }
-    const { currentHandle } = this;
-    if (!fields.some((v) => v === currentHandle)) {
-      fields.push(currentHandle);
-      this.viewState!.fields = [...fields];
-    }
-  }
-
-  protected popViewStateField() {
-    const fields = this.viewState?.fields;
-    if (!fields) {
-      return;
-    }
-    const { currentHandle } = this;
-    const index = fields.findIndex((v) => v === currentHandle);
-    if (index !== -1) {
-      fields.splice(index, 1);
-      this.viewState!.fields = [...fields];
-    }
-  }
-
   protected $$beforeCreated() {
     super.$$beforeCreated();
     this.notify(LifeCycleTypes.ON_FIELD_BEFORE_CREATED);
@@ -289,7 +264,9 @@ export class BaseFieldWidget<
 
   protected $$mounted() {
     super.$$mounted();
-    this.pushViewStateField();
+    if (this.automatic) {
+      this.viewState?.pushField(this.currentHandle);
+    }
     this.fieldWidgetMounted?.(this);
     this.notify(LifeCycleTypes.ON_FIELD_MOUNTED);
   }
@@ -311,15 +288,23 @@ export class BaseFieldWidget<
 
   protected $$unmounted() {
     super.$$unmounted();
-    this.popViewStateField();
+    if (this.automatic) {
+      this.viewState?.popField(this.currentHandle);
+    }
     this.fieldWidgetUnmounted?.(this);
     this.notify(LifeCycleTypes.ON_FIELD_UNMOUNTED);
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Inject()
   protected fieldWidgetMounted: ((widget: PathWidget) => void) | undefined;
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Inject()
   protected fieldWidgetUnmounted: ((widget: PathWidget) => void) | undefined;

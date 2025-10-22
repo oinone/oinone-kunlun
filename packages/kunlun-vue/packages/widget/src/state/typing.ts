@@ -4,6 +4,18 @@ export interface OioViewState extends Record<string, unknown> {
   readonly handle: string;
   fullscreen: boolean;
   viewType?: ViewType;
+
+  actionBarState?: OioActionBarState;
+
+  defineActionBarStateProperty(rowIndex?: number): void;
+
+  pushField(handle: string): void;
+
+  popField(handle: string): void;
+
+  pushAction(handle: string): void;
+
+  popAction(handle: string): void;
 }
 
 export interface OioActionBarState extends Record<string, unknown> {
@@ -64,7 +76,8 @@ export type OioAnyViewState =
   | OioFormViewState
   | OioDetailViewState
   | OioGalleryViewState
-  | OioTreeViewState;
+  | OioTreeViewState
+  | OioViewState;
 
 export function isTableViewState(state: OioAnyViewState): state is OioTableViewState {
   return state.viewType === ViewType.Table;
