@@ -1,4 +1,4 @@
-import { RuntimeConfigOptions } from '@oinone/kunlun-meta';
+import { RuntimeConfig, RuntimeConfigOptions } from '@oinone/kunlun-meta';
 import { ConfigHelper } from './config-helper';
 
 export interface GalleryConfig extends RuntimeConfigOptions {
@@ -26,6 +26,6 @@ export class GalleryConfigManager {
   }
 
   public static getConfig(): GalleryConfig {
-    return ConfigHelper.getConfig<GalleryConfig>('galleryConfig');
+    return ConfigHelper.getConfig<GalleryConfig>(RuntimeConfig.getConfig('gallery'));
   }
 }

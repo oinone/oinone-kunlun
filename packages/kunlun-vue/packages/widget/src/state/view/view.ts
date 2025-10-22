@@ -1,19 +1,19 @@
 import { reactive } from 'vue';
 import { useInjectMetaContext } from '../context';
-import { OioViewState } from './typing';
+import { OioAnyViewState } from './typing';
 
-const viewStateStorage: Record<string, OioViewState> = {};
+const viewStateStorage: Record<string, OioAnyViewState> = {};
 
-export function createViewState(handle: string): OioViewState {
-  return reactive<OioViewState>({
+export function createViewState(handle: string): OioAnyViewState {
+  return reactive<OioAnyViewState>({
     get handle() {
       return handle;
     },
     fullscreen: false
-  } as OioViewState);
+  } as OioAnyViewState);
 }
 
-export function getViewState(handle?: string): OioViewState | undefined {
+export function getViewState(handle?: string): OioAnyViewState | undefined {
   if (!handle) {
     handle = useInjectMetaContext()?.rootHandle.value;
     if (!handle) {
@@ -24,11 +24,11 @@ export function getViewState(handle?: string): OioViewState | undefined {
   return viewStateStorage[handle];
 }
 
-export function setViewState(state: OioViewState): void {
+export function setViewState(state: OioAnyViewState): void {
   viewStateStorage[state.handle] = state;
 }
 
-export function clearViewState(handle?: string): OioViewState | undefined {
+export function clearViewState(handle?: string): OioAnyViewState | undefined {
   if (!handle) {
     handle = useInjectMetaContext()?.rootHandle.value;
     if (!handle) {

@@ -364,7 +364,7 @@ export async function OioProvider(
 
   OioProvider.setLoginTheme(loginTheme);
 
-  let _mode = kebabCase(mode || 'default');
+  let _mode = kebabCase(mode || 'default-minimalism');
 
   if (style && style !== 'CLASSIC') {
     _mode = `${_mode}-${style.toLocaleLowerCase()}`;

@@ -52,6 +52,10 @@ export interface ActiveEditorContext<T = unknown> extends BaseContext<T> {
    */
   prepare?: boolean;
   /**
+   * 新行
+   */
+  new?: boolean;
+  /**
    * 当前列
    */
   column: {

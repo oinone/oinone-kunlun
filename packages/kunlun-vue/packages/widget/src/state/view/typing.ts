@@ -12,6 +12,7 @@ export interface OioActionBarState extends Record<string, unknown> {
 }
 
 export interface OioTableViewState extends OioViewState {
+  viewType: ViewType.Table;
   searchView?: string;
   actionBar?: OioActionBarState;
   table?: string;
@@ -19,11 +20,13 @@ export interface OioTableViewState extends OioViewState {
 }
 
 export interface OioSearchViewState extends OioViewState {
+  viewType: ViewType.Search;
   search?: string;
   fields?: string[];
 }
 
 export interface OioFormViewState extends OioViewState {
+  viewType: ViewType.Form;
   draftCode?: string;
   actionBar?: OioActionBarState;
   form?: string;
@@ -31,12 +34,14 @@ export interface OioFormViewState extends OioViewState {
 }
 
 export interface OioDetailViewState extends OioViewState {
+  viewType: ViewType.Detail;
   actionBar?: OioActionBarState;
   detail?: string;
   fields?: string[];
 }
 
 export interface OioGalleryViewState extends OioViewState {
+  viewType: ViewType.Gallery;
   searchView?: string;
   actionBar?: OioActionBarState;
   gallery?: string;
@@ -44,6 +49,7 @@ export interface OioGalleryViewState extends OioViewState {
 }
 
 export interface OioTreeViewState extends OioViewState {
+  viewType: ViewType.Tree;
   searchView?: string;
   actionBar?: OioActionBarState;
   tree?: string;

@@ -37,6 +37,14 @@ export class ActiveRecordsWidget<
    */
   protected viewState: OioAnyViewState | undefined;
 
+  public getViewState(): OioAnyViewState | undefined {
+    return this.viewState;
+  }
+
+  public setViewState(state: OioAnyViewState) {
+    this.viewState = state;
+  }
+
   public initialize(props: Props) {
     super.initialize(props);
     const { dataSource, activeRecords } = props;
