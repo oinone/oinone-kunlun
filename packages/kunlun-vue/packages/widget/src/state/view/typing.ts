@@ -15,6 +15,7 @@ export interface OioTableViewState extends OioViewState {
   viewType: ViewType.Table;
   searchView?: string;
   actionBar?: OioActionBarState;
+  rowActions?: OioActionBarState[];
   table?: string;
   fields?: string[];
 }
@@ -44,6 +45,7 @@ export interface OioGalleryViewState extends OioViewState {
   viewType: ViewType.Gallery;
   searchView?: string;
   actionBar?: OioActionBarState;
+  rowActions?: OioActionBarState[];
   gallery?: string;
   fields?: string[];
 }
@@ -101,4 +103,9 @@ export function hasActionBarViewState(
 ): state is OioTableViewState | OioFormViewState | OioDetailViewState | OioGalleryViewState | OioTreeViewState {
   const { viewType } = state;
   return !!viewType && viewType !== ViewType.Search;
+}
+
+export function hasRowActionBarViewState(state: OioAnyViewState): state is OioTableViewState | OioGalleryViewState {
+  const { viewType } = state;
+  return !!viewType && (viewType === ViewType.Table || viewType === ViewType.Gallery);
 }

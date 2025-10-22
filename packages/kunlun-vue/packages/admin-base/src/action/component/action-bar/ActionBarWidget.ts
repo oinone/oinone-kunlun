@@ -117,8 +117,8 @@ export class ActionBarWidget<
   }
 
   protected $$initViewState(state: OioAnyViewState): void {
-    const { currentHandle, viewType } = this;
-    if (viewType && hasActionBarViewState(state)) {
+    const { currentHandle } = this;
+    if (hasActionBarViewState(state)) {
       if (!state.actionBar) {
         state.actionBar = {
           handle: currentHandle,

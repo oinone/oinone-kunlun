@@ -1,6 +1,6 @@
 import { Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { isTableViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseElementWidget } from '../../../basic';
 import { ActionBarWidget, ActionBarWidgetProps } from './ActionBarWidget';
@@ -75,5 +75,31 @@ export class RowActionBarWidget<
   @Widget.Provide()
   protected get buttonType(): string | undefined {
     return Optional.ofNullable(super.buttonType).orElse(this.operatorColumnButtonType?.toLowerCase?.());
+  }
+
+  protected $$initViewState(state: OioAnyViewState): void {
+    super.$$initViewState(state);
+    const { currentHandle } = this;
+    if (isTableViewState(state)) {
+      if (!state.rowActions) {
+        state.rowActions = [];
+      }
+      state.rowActions[this.rowIndex] = {
+        handle: currentHandle,
+        actions: []
+      };
+    }
+  }
+
+  protected $$unmounted() {
+    super.$$unmounted();
+    const { viewState, rowIndex } = this;
+    if (viewState && isTableViewState(viewState)) {
+      if (!viewState.rowActions) {
+        viewState.rowActions = [];
+      }
+      viewState.rowActions.splice(rowIndex, 1);
+      viewState.rowActions = [...viewState.rowActions];
+    }
   }
 }

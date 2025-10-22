@@ -13,6 +13,7 @@ import { useRouter } from '@oinone/kunlun-vue-router';
 import {
   ActiveRecordsWidgetProps,
   hasActionBarViewState,
+  hasRowActionBarViewState,
   InnerWidgetType,
   OioActionBarState,
   Widget
@@ -131,6 +132,10 @@ export class BaseActionWidget<
     return this.popupScene === PopupScene.inner;
   }
 
+  @Widget.Inject()
+  @Widget.Reactive()
+  public rowIndex: number | undefined;
+
   /**
    * 数据提交
    * @protected
@@ -169,9 +174,15 @@ export class BaseActionWidget<
   }
 
   protected get actionBarState(): OioActionBarState | undefined {
-    const { viewState } = this;
-    if (viewState && hasActionBarViewState(viewState)) {
-      return viewState.actionBar;
+    const { viewState, rowIndex } = this;
+    if (viewState) {
+      if (rowIndex == null) {
+        if (hasActionBarViewState(viewState)) {
+          return viewState.actionBar;
+        }
+      } else if (hasRowActionBarViewState(viewState)) {
+        return viewState.rowActions?.[rowIndex];
+      }
     }
   }
 
