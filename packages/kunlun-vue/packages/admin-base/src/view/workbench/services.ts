@@ -1,33 +1,32 @@
-import { ModelCache } from '@oinone/kunlun-engine';
 import { http } from '@oinone/kunlun-service';
 
 const getApps = async () => {
-  const model = await ModelCache.get('base.AppSwitcherModuleProxy');
-  const bindUrlFieldExist = (model?.modelFields ?? []).filter((it) => it.data === 'urlHomePage').length > 0;
-
   const body = `{
-      appSwitcherModuleProxyQuery {
-        queryPage(page: { currentPage: 1, size: -1 }, queryWrapper: {}) {
-          content {
-            module
-            like
-            logo
-            name
-            displayName
-            homePage {
-              module
-              model
-              name
-              resModuleName
-              moduleName
-              viewType
-            }
-            ${bindUrlFieldExist ? 'urlHomePage {\ntarget\nurl\n}' : ''}
-          }
+  appSwitcherModuleProxyQuery {
+    queryPage(page: { currentPage: 1, size: -1 }, queryWrapper: {}) {
+      content {
+        module
+        like
+        logo
+        name
+        displayName
+        homePage {
+          module
+          model
+          name
+          resModuleName
+          moduleName
+          viewType
+        }
+        urlHomePage {
+          target
+          url
         }
       }
     }
-    `;
+  }
+}
+`;
   const result = (await http.query('base', body)).data['appSwitcherModuleProxyQuery']['queryPage']['content'];
 
   return (result as Record<string, unknown>[]).filter((res) => res.like);
