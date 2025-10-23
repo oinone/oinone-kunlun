@@ -6,7 +6,7 @@ import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from
 export default defineComponent({
   name: 'InlineTable',
   inheritAttrs: false,
-  setup(props, { emit }) {
+  setup() {
     const formContext = useInjectOioDefaultFormContext();
 
     useProviderOioDefaultFormContext({

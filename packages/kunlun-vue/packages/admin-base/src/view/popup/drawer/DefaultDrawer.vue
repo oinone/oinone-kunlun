@@ -1,10 +1,11 @@
 <script lang="ts">
-import { createVNode, defineComponent, PropType } from 'vue';
+import { ViewType } from '@oinone/kunlun-meta';
 import { CastHelper, OioButton, OioDrawer, PropRecordHelper, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
-import { ViewType } from '@oinone/kunlun-meta';
-import { FooterProps, useFooter } from '../useFooter';
+import { createVNode, defineComponent, PropType } from 'vue';
+import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../../basic';
 import { OioSimplePagination } from '../../../components';
+import { FooterProps, useFooter } from '../useFooter';
 
 export default defineComponent({
   components: {
@@ -106,8 +107,17 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const formContext = useInjectOioDefaultFormContext();
+
     onAllMounted(() => {
       props.allMounted?.();
+    });
+
+    useProviderOioDefaultFormContext({
+      ...formContext,
+      getTriggerContainer() {
+        return document.body;
+      }
     });
 
     return {};
