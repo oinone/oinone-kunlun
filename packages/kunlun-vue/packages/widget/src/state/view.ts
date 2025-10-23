@@ -20,10 +20,11 @@ export function createViewState(handle: string): OioAnyViewState {
     },
     fullscreen: false
   } as OioAnyViewState;
+  const proxy = reactive<OioAnyViewState>(state);
   for (const [method, fn] of Object.entries(viewStateMethods)) {
-    state[method] = fn.bind(state);
+    state[method] = fn.bind(proxy);
   }
-  return reactive<OioAnyViewState>(state);
+  return proxy;
 }
 
 export function getViewState(handle?: string): OioAnyViewState | undefined {
