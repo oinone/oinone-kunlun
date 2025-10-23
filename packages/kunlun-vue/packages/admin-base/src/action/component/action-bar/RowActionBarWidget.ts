@@ -81,10 +81,10 @@ export class RowActionBarWidget<
     super.$$initViewState(state);
     const { currentHandle, rowIndex } = this;
     if (hasRowActionBarViewState(state)) {
-      if (!state.rowActions) {
-        state.rowActions = [];
+      if (!state.inlineActionBars) {
+        state.inlineActionBars = [];
       }
-      state.rowActions[rowIndex] = {
+      state.inlineActionBars[rowIndex] = {
         handle: currentHandle,
         actions: []
       };
@@ -96,10 +96,10 @@ export class RowActionBarWidget<
     super.$$unmounted();
     const { viewState, rowIndex } = this;
     if (viewState && hasRowActionBarViewState(viewState)) {
-      const { rowActions } = viewState;
-      if (rowActions) {
-        rowActions.splice(rowIndex, 1);
-        viewState.rowActions = [...rowActions];
+      const { inlineActionBars } = viewState;
+      if (inlineActionBars) {
+        inlineActionBars.splice(rowIndex, 1);
+        viewState.inlineActionBars = [...inlineActionBars];
       }
     }
   }

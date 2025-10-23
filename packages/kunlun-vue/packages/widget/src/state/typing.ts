@@ -26,7 +26,7 @@ export interface OioActionBarState extends Record<string, unknown> {
 export interface OioTableViewState extends OioViewState {
   searchView?: string;
   actionBar?: OioActionBarState;
-  rowActions?: OioActionBarState[];
+  inlineActionBars?: OioActionBarState[];
   table?: string;
   fields?: string[];
 }
@@ -52,7 +52,7 @@ export interface OioDetailViewState extends OioViewState {
 export interface OioGalleryViewState extends OioViewState {
   searchView?: string;
   actionBar?: OioActionBarState;
-  rowActions?: OioActionBarState[];
+  inlineActionBars?: OioActionBarState[];
   gallery?: string;
   fields?: string[];
 }

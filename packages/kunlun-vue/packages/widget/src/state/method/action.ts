@@ -16,7 +16,7 @@ function getActionBarState(viewState: OioAnyViewState, rowIndex?: number): OioAc
       return viewState.actionBar;
     }
   } else if (hasRowActionBarViewState(viewState)) {
-    return viewState.rowActions?.[rowIndex];
+    return viewState.inlineActionBars?.[rowIndex];
   }
 }
 
