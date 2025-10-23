@@ -190,21 +190,7 @@ export default defineComponent({
     };
 
     const onHandlerSure = () => {
-      const cells = excelRef.value.getCells();
-      const tableHeaderValues = excelRef.value.getTableHeaderValues();
-
-      /**
-       * 处理不粘贴的列，将列对应的值设置为空
-       */
-      cells.forEach((row) => {
-        row.forEach((col, index) => {
-          if (tableHeaderValues[index].value === 'NON_CUT') {
-            row[index] = null;
-          }
-        });
-      });
-
-      props.onSure(cells);
+      props.onSure(excelRef.value.getCells());
     };
 
     watch(
