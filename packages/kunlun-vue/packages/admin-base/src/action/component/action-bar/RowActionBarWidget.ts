@@ -88,7 +88,7 @@ export class RowActionBarWidget<
         handle: currentHandle,
         actions: []
       };
-      state.defineActionBarStateProperty(rowIndex);
+      // state.defineActionBarStateProperty(rowIndex);
     }
   }
 
