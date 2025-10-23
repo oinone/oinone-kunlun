@@ -1,7 +1,10 @@
 <template>
   <div class="quick-fill-excel-container">
     <table
-      class="excel-table"
+      :class="{
+        'excel-table': true,
+        'excel-table-selecting': isSelecting
+      }"
       ref="tableRef"
       @keydown="handleKeydown"
       @copy="handleCopy"
@@ -579,7 +582,7 @@ const handlePaste = (event: ClipboardEvent): void => {
   const startColIdx = columns.indexOf(startCol);
   if (startColIdx === -1) return;
 
-  const rowsData = pastedData.split('\n').filter((row) => row.trim() !== '');
+  const rowsData = pastedData.split('\n');
   let currentRowOffset = 0;
   rowsData.forEach((rowData) => {
     const cellsData = rowData.split('\t') as string[];
@@ -742,12 +745,12 @@ onUnmounted(() => {
       cursor: default;
 
       &.selected {
-        box-shadow: inset 0 0 0 2px var(--oio-primary-color);
+        border: 1px solid var(--oio-primary-color);
         z-index: 5;
       }
 
       &.range-selected {
-        box-shadow: inset 0 0 0 2px var(--oio-primary-color);
+        border: 1px solid var(--oio-primary-color);
       }
 
       &.editing {
@@ -792,6 +795,10 @@ onUnmounted(() => {
       box-sizing: border-box;
       outline: none;
       z-index: 10;
+    }
+
+    &.excel-table-selecting {
+      user-select: none;
     }
   }
 }
