@@ -12,7 +12,7 @@ import { DEFAULT_PREFIX } from './constant';
 const THEME_CONFIG: Record<string, any> = {};
 
 ConfigProviderSPI.register(
-  { priority: 100 },
+  { name: 'theme', priority: 100 },
   {
     getConfig(key) {
       return THEME_CONFIG[key];

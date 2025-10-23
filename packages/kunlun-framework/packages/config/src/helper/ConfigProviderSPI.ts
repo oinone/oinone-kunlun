@@ -1,19 +1,26 @@
-import { SPIFactory, SPIOptions, SPIMultiSelector, SPIOperator, SPITokenFactory } from '@oinone/kunlun-spi';
+import {
+  SPIFactory,
+  SPIOptions,
+  SPIMultiSelector,
+  SPIOperator,
+  SPITokenFactory,
+  SPIMatchAnyValue
+} from '@oinone/kunlun-spi';
 
 export interface ConfigProviderService {
-  getConfig?(key: string): Record<string, any>;
+  getConfig?(key: string): Record<string, string | number | boolean> | null;
 }
 
 export interface ConfigProviderOptions extends SPIOptions {
-  type?: string;
+  name?: string;
 }
 
 export type ConfigProviderType = ConfigProviderService | { new (): ConfigProviderService };
 
-@SPIFactory.Storage(['config'], {
+@SPIFactory.Storage(['name'], {
   selector: (storageKey): SPIMultiSelector<ConfigProviderOptions, ConfigProviderType> => {
     return (options) => {
-      return SPIOperator.selectors<ConfigProviderType>(storageKey, options);
+      return SPIOperator.selectors<ConfigProviderType>(storageKey, { name: SPIMatchAnyValue });
     };
   }
 })

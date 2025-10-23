@@ -1,4 +1,4 @@
-import { blockingSerialExecutor, instantiate } from '@oinone/kunlun-shared';
+import { instantiate } from '@oinone/kunlun-shared';
 import { ConfigProviderSPI, ConfigProviderOptions, ConfigProviderService } from './helper/ConfigProviderSPI';
 
 /**
@@ -15,7 +15,7 @@ export const tryGetValueByKeys = (service: ConfigProviderService, keys: string[]
   for (const key of keys) {
     let current = service.getConfig?.(key);
 
-    if (current !== undefined && current !== null) {
+    if (current != null) {
       return current;
     }
   }
@@ -23,7 +23,7 @@ export const tryGetValueByKeys = (service: ConfigProviderService, keys: string[]
   return null;
 };
 
-export interface IGetThemeConfig extends ConfigProviderOptions {
+export interface IGetMergeConfig extends ConfigProviderOptions {
   defaultValue: any;
   otherConfigs?: any[];
 }
@@ -32,15 +32,15 @@ export interface IGetThemeConfig extends ConfigProviderOptions {
  * @param key 配置键别名，支持多个别名按优先级尝试
  * @param options 配置选项
  */
-export const getThemeConfig = (key: string | string[], options: IGetThemeConfig) => {
+export const getMergeConfig = (key: string | string[], options: IGetMergeConfig) => {
   const { defaultValue, otherConfigs = [], ...restOption } = options;
   const keys = Array.isArray(key) ? key : [key];
 
-  const initializeServices = ConfigProviderSPI.Selector(restOption).map(instantiate);
+  const configProviderServices = ConfigProviderSPI.Selector(restOption).map(instantiate);
 
   const values: any[] = [];
 
-  blockingSerialExecutor(initializeServices, (service) => {
+  configProviderServices.forEach((service) => {
     const configValue = tryGetValueByKeys(service, keys);
     if (configValue !== null) {
       values.push(configValue);
