@@ -7,15 +7,15 @@ export interface OioViewState extends Record<string, unknown> {
 
   actionBarState?: OioActionBarState;
 
-  defineActionBarStateProperty(rowIndex?: number): void;
+  defineActionBarStateProperty(): void;
 
   pushField(handle: string): void;
 
   popField(handle: string): void;
 
-  pushAction(handle: string): void;
+  pushAction(handle: string, rowIndex?: number): void;
 
-  popAction(handle: string): void;
+  popAction(handle: string, rowIndex?: number): void;
 }
 
 export interface OioActionBarState extends Record<string, unknown> {

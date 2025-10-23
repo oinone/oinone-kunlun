@@ -180,14 +180,14 @@ export class BaseActionWidget<
   protected $$mounted() {
     super.$$mounted();
     if (this.automatic) {
-      this.viewState?.pushAction(this.currentHandle);
+      this.viewState?.pushAction(this.currentHandle, this.rowIndex);
     }
   }
 
   protected $$unmounted() {
     super.$$unmounted();
     if (this.automatic) {
-      this.viewState?.popAction(this.currentHandle);
+      this.viewState?.popAction(this.currentHandle, this.rowIndex);
     }
   }
 }
