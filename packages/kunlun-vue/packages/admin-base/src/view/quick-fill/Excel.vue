@@ -205,7 +205,11 @@ const parseCellId = (cellId: CellId): ParsedCellId | null => {
 
 // 获取单元格内容
 const getCellContent = (cellId: CellId): string => {
-  return cells.value[cellId] || '';
+  const val = cells.value[cellId];
+  if (val == null) {
+    return '';
+  }
+  return `${val}`;
 };
 
 // 更新单元格内容

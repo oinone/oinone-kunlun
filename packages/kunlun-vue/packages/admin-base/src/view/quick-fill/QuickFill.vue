@@ -190,7 +190,7 @@ export default defineComponent({
     };
 
     const onHandlerSure = () => {
-      props.onSure(excelRef.value.getCells());
+      props.onSure(excelRef.value.getTableHeaderValues(), excelRef.value.getCells());
     };
 
     watch(

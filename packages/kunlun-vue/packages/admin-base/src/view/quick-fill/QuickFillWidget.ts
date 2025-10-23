@@ -157,7 +157,7 @@ export class QuickFillWidget extends BaseElementWidget {
    * 确认提交,校验excel数据
    */
   @Widget.Method()
-  public async onSure(rows: StandardString[][]) {
+  public async onSure(headers: { label: string; value: string }[], rows: StandardString[][]) {
     const valueStr = [] as Record<string, StandardString>[];
 
     /**
@@ -174,7 +174,7 @@ export class QuickFillWidget extends BaseElementWidget {
         if (!cell) {
           return;
         }
-        const { name } = this.editableModelFields[columnIndex]!;
+        const { value: name } = headers[columnIndex]!;
         if (fullAddressField.some((f) => name.endsWith(`#${f.name}`))) {
           const [name1, name2] = name.split('#');
           let target = address[name1];
