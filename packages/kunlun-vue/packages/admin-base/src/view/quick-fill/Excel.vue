@@ -48,7 +48,7 @@
               'cell-disabled': tableHeaderValues[index].value === NON_CUT
             }"
             :data-cell="`${row}-${col}`"
-            @click="handleCellClick($event, `${row}-${col}`)"
+            @click="handleCellClick($event, `${row}-${col}`, index)"
             @mousedown="handleCellMouseDown(`${row}-${col}`)"
             @dblclick="startEditing(`${row}-${col}`)"
             @focus="focusCell(`${row}-${col}`)"
@@ -286,10 +286,11 @@ const initializeSingleSelection = (cellId: CellId): void => {
 };
 
 // 处理单元格点击
-const handleCellClick = (event: MouseEvent, cellId: CellId): void => {
-  // 如果是右键或编辑状态下的点击，不处理多选
-  if (event.button !== 0 || editingCell.value) return;
-
+const handleCellClick = (event: MouseEvent, cellId: CellId, index: number): void => {
+  // 如果是 不粘贴列/右键/编辑状态 下的点击，不处理多选
+  if (getThSelectValue(index) === NON_CUT || event.button !== 0 || editingCell.value) {
+    return;
+  }
   if (event.shiftKey) {
     // Shift + 点击：扩展选区到点击的单元格
     if (selectionStart.value) {
@@ -583,20 +584,19 @@ const handlePaste = (event: ClipboardEvent): void => {
   if (startColIdx === -1) return;
 
   const rowsData = pastedData.split('\n');
-  let currentRowOffset = 0;
-  rowsData.forEach((rowData) => {
+  rowsData.forEach((rowData, rowIndex) => {
     const cellsData = rowData.split('\t') as string[];
-    let currentColOffset = 0;
-    cellsData.forEach((cellData) => {
-      const targetRowIdx = startRow + currentRowOffset - 1;
-      const targetColIdx = startColIdx + currentColOffset;
+    cellsData.forEach((cellData, colIndex) => {
+      const targetColIdx = startColIdx + colIndex;
+      if (getThSelectValue(targetColIdx) === NON_CUT) {
+        return;
+      }
+      const targetRowIdx = startRow + rowIndex - 1;
       if (targetRowIdx < props.rowCount && targetColIdx < columns.length) {
         const targetCellId = `${targetRowIdx + 1}-${columns[targetColIdx]}`;
         updateCellContent(targetCellId, cellData.trim());
       }
-      currentColOffset++;
     });
-    currentRowOffset++;
   });
 
   initializeSingleSelection(selectedCell.value);
