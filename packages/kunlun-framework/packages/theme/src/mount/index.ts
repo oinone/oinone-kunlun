@@ -1,3 +1,4 @@
+import { ConfigProviderSPI } from '../../../config';
 import { getTheme } from '../register';
 import { DefaultThemeName, ThemeName } from '../typing';
 import { DEFAULT_PREFIX } from './constant';
@@ -9,6 +10,15 @@ import { DEFAULT_PREFIX } from './constant';
  * 页面加载时页面父类class
  */
 const THEME_CONFIG: Record<string, any> = {};
+
+ConfigProviderSPI.register(
+  { priority: 100 },
+  {
+    getConfig(key) {
+      return THEME_CONFIG[key];
+    }
+  }
+);
 
 export function genCSSVars(themes: ThemeName[], el?: string, prefix?: string) {
   const headNode = document.querySelector('head')!;

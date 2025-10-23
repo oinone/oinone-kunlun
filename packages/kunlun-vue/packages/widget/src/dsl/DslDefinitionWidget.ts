@@ -1,3 +1,4 @@
+import { getThemeConfig } from '../../../../../kunlun-framework/packages/config';
 import {
   ComputeContext,
   ComputeContextManager,

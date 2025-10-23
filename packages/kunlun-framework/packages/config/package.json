@@ -1,5 +1,5 @@
 {
-  "name": "@oinone/kunlun-theme",
+  "name": "@oinone/kunlun-config",
   "version": "6.3.0",
   "main": "index.ts",
   "scripts": {
@@ -11,7 +11,8 @@
     "x-postpublish": "node ../../scripts/postpublish.js"
   },
   "devDependencies": {
-    "@oinone/kunlun-meta": "~6.3.0"
+    "@oinone/kunlun-spi": "~6.3.0",
+    "@oinone/kunlun-shared": "~6.3.0"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }
