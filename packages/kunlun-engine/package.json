@@ -26,6 +26,7 @@
   "license": "ISC",
   "dependencies": {
     "@oinone/kunlun-cache": "~6.3.0",
+    "@oinone/kunlun-config": "~6.3.0",
     "@oinone/kunlun-dsl": "~6.3.0",
     "@oinone/kunlun-environment": "~6.3.0",
     "@oinone/kunlun-event": "~6.3.0",
