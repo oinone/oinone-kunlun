@@ -14,6 +14,18 @@ import { TableStringFieldWidget } from '../string';
 )
 export class TableTextFieldWidget extends TableStringFieldWidget {
   @Widget.Method()
+  public onAutofocus(params: { cell: HTMLElement }) {
+    const { cell } = params;
+    if (!cell) {
+      return;
+    }
+    const input = cell.querySelector('textarea') as HTMLElement;
+    if (input) {
+      input.focus();
+    }
+  }
+
+  @Widget.Method()
   public renderDefaultSlot(context: RowContext): VNode[] | string {
     const value = this.compute(context);
 

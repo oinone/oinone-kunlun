@@ -7,7 +7,7 @@ import { DefaultSelect, DefaultSelectProps } from '../base';
 import RoleModal from './RoleModal.vue';
 
 export default defineComponent({
-  name: 'EmployeeSelect',
+  name: 'RoleSelect',
   components: {
     DefaultSelect,
     RoleModal

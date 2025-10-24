@@ -6,7 +6,7 @@ import { BaseFieldOptions, BaseFieldWidget } from '../BaseFieldWidget';
 /**
  * 编辑字段组件注册Token
  */
-@SPI.Base('EditorField', ['viewType', 'widget', 'ttype', 'multi', 'model', 'name'])
+@SPI.Base('EditorField', ['viewType', 'ttype', 'multi', { key: 'widget', weight: 999 }, 'model', 'viewName', 'name'])
 export class EditorFieldWidget extends VueWidget {
   public static Token: SPITokenFactory<BaseFieldOptions>;
 

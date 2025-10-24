@@ -5,8 +5,8 @@ import {
   fillSelectItemProperties,
   OioSelectProps,
   PropRecordHelper,
-  SelectProperties,
-  SelectItem
+  SelectItem,
+  SelectProperties
 } from '@oinone/kunlun-vue-ui-common';
 import { Select as ASelect } from 'ant-design-vue';
 import { isString } from 'lodash-es';
@@ -23,8 +23,8 @@ export default defineComponent({
     ...OioSelectProps
   },
   slots: ['dropdownRender', 'removeIcon', 'clearIcon', 'suffixIcon', 'menuItemSelectedIcon'],
-  emits: ['update:value'],
-  setup(props) {
+  emits: ['update:value', 'update:dropdown-visible'],
+  setup(props, { emit }) {
     const internalProperties = computed<SelectProperties>(() => {
       return {
         ...defaultSelectProperties,
@@ -57,18 +57,29 @@ export default defineComponent({
       return value;
     });
 
+    const onUpdateValue = (val: boolean) => {
+      emit('update:value', val);
+    };
+
+    const onUpdateDropdownVisible = (val: boolean) => {
+      emit('update:dropdown-visible', val);
+    };
+
     return {
       internalProperties,
       internalOptions,
-      internalValue
+      internalValue,
+      onUpdateValue,
+      onUpdateDropdownVisible
     };
   },
   render() {
+    const { internalOptions, internalValue, onUpdateValue, onUpdateDropdownVisible } = this;
     return createVNode(
       ASelect,
       {
-        value: this.internalValue,
-        options: this.internalOptions,
+        value: internalValue,
+        options: internalOptions,
         filterOption: this.filterOption,
         autofocus: this.autofocus,
         placeholder: this.placeholder,
@@ -80,15 +91,17 @@ export default defineComponent({
         showSearch: this.showSearch,
         mode: this.mode,
         ...this.$attrs,
+        open: this.dropdownVisible,
         optionFilterProp: defaultSelectProperties.filterProp,
         optionLabelProp: defaultSelectProperties.labelProp,
-        'onUpdate:value': (val) => this.$emit('update:value', val),
-        class: StringHelper.append([`${DEFAULT_PREFIX}-select`], CastHelper.cast(this.$attrs.class)),
+        ...PropRecordHelper.collectionBasicProps(this.$attrs, [`${DEFAULT_PREFIX}-select`]),
         dropdownClassName: StringHelper.append(
           [`${DEFAULT_PREFIX}-select-dropdown`],
           CastHelper.cast(this.dropdownClassName)
         ).join(' '),
-        getPopupContainer: this.getTriggerContainer
+        getPopupContainer: this.getTriggerContainer,
+        'onUpdate:value': onUpdateValue,
+        onDropdownVisibleChange: onUpdateDropdownVisible
       },
       PropRecordHelper.collectionSlots(this.$slots, [
         'default',

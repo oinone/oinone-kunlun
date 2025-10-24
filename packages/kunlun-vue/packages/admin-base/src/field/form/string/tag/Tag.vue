@@ -1,6 +1,15 @@
 <template>
   <div class="form-multi-string-tag" :class="[readonly && 'readonly', disabled && 'disabled']">
-    <a-tag :title="item" :visible="true" :closable="!readonly" v-for="(item, index) in tags" :key="index">
+    <a-tag
+      :class="{
+        'ready-delete-tag': readyDeleteTag && index === tags.length - 1
+      }"
+      :title="item"
+      :visible="true"
+      :closable="!readonly"
+      v-for="(item, index) in tags"
+      :key="index"
+    >
       {{ item }}
       <template #closeIcon>
         <CloseOutlined @click="delTag(index)" />
@@ -13,8 +22,9 @@
       :maxlength="unitValueLength"
       :value="current"
       @change.stop="currentChange"
-      @keyup.enter="addTag"
-      @blur="addTag"
+      @keydown="onKeydown"
+      @mouseup="onMouseup"
+      @blur="onBlur"
     />
     <div v-if="clearStatus" class="clear">
       <CloseCircleFilled class="anticon anticon-close-circle ant-input-clear-icon" @click="clearTag" />
@@ -23,15 +33,20 @@
 </template>
 <script lang="ts">
 import { CloseCircleFilled, CloseOutlined } from '@ant-design/icons-vue';
-import { BooleanHelper } from '@oinone/kunlun-shared';
-import { translateValueByKey } from '@oinone/kunlun-engine';
-import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { TableKeyboardConfig, translateValueByKey } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { Tag as ATag } from 'ant-design-vue';
-import { computed, defineComponent, ref, watch } from 'vue';
+import { computed, defineComponent, PropType, ref, watch } from 'vue';
 import { OioCommonProps, OioMetadataProps, usePlaceholderProps } from '../../../../basic';
 
 export default defineComponent({
+  components: {
+    CloseCircleFilled,
+    CloseOutlined,
+    ATag
+  },
   props: {
     ...OioCommonProps,
     ...OioMetadataProps,
@@ -62,22 +77,23 @@ export default defineComponent({
     },
     rootViewType: {
       type: String
+    },
+    tableKeyboardConfig: {
+      type: Object as PropType<TableKeyboardConfig>
     }
-  },
-  components: {
-    CloseCircleFilled,
-    CloseOutlined,
-    ATag
   },
   setup(props) {
     const current = ref('');
+
     const tags = ref<any>(props.defaultValue || []);
+
     const readonly = computed(() => {
       if (props.rootViewType === ViewType.Detail) {
         return true;
       }
       return BooleanHelper.toBoolean(props.readonly);
     });
+
     const disabled = computed(() => {
       if (props.rootViewType === ViewType.Detail) {
         return true;
@@ -85,33 +101,38 @@ export default defineComponent({
       return BooleanHelper.toBoolean(props.disabled);
     });
 
+    const readyDeleteTag = ref(false);
+
     const clearStatus = computed(() => {
       return !readonly.value && !disabled.value && tags.value.length > 0 && props.allowClear;
     });
 
-    const currentChange = (val) => {
-      current.value = val.target.value;
+    const currentChange = (e: KeyboardEvent) => {
+      current.value = (e.target as HTMLInputElement).value;
     };
 
-    const addTag = (e) => {
-      let val = e.target.value;
+    const addTag = (e: KeyboardEvent) => {
+      let val = (e.target as HTMLInputElement).value;
+      if (val && props.inputRegular) {
+        val = val.replace(props.inputRegular, '');
+      }
+      addTag0(val);
+      if (val && e.key === props.tableKeyboardConfig?.enter?.key) {
+        e.stopPropagation();
+      }
+    };
+
+    const addTag0 = (val: string) => {
       if (!val) {
         props.blur?.();
+        current.value = '';
         return;
-      }
-      if (props.inputRegular) {
-        val = val.replace(props.inputRegular, '');
       }
       if (tags.value.includes(val)) {
         if (!props.allowRepeat) {
           OioNotification.error(translateValueByKey('错误'), translateValueByKey('标签已经存在，不可重复'));
           return;
         }
-      }
-      if (!val) {
-        props.blur?.();
-        current.value = '';
-        return;
       }
       tags.value.push(val);
       current.value = '';
@@ -129,6 +150,53 @@ export default defineComponent({
       current.value = '';
     };
 
+    const onKeydown = (e: KeyboardEvent) => {
+      const { key } = e;
+      if (key !== 'Backspace') {
+        readyDeleteTag.value = false;
+      }
+      switch (key) {
+        case 'Enter':
+          addTag(e);
+          break;
+        case 'Backspace':
+          delTagByBackspace(e);
+          break;
+        case 'Escape':
+        case 'Esc':
+          current.value = '';
+          break;
+      }
+    };
+
+    const delTagByBackspace = (e: KeyboardEvent) => {
+      const val = (e.target as HTMLInputElement).value;
+      if (val) {
+        return;
+      }
+      if (tags.value.length >= 1) {
+        if (readyDeleteTag.value) {
+          delTag(tags.value.length - 1);
+          readyDeleteTag.value = false;
+        } else {
+          readyDeleteTag.value = true;
+        }
+      }
+    };
+
+    const onMouseup = () => {
+      readyDeleteTag.value = false;
+    };
+
+    const onBlur = (e: Event) => {
+      readyDeleteTag.value = false;
+      let val = (e.target as HTMLInputElement).value;
+      if (val && props.inputRegular) {
+        val = val.replace(props.inputRegular, '');
+      }
+      addTag0(val);
+    };
+
     watch(
       () => props.value,
       (newVal) => {
@@ -140,18 +208,24 @@ export default defineComponent({
       },
       { immediate: true }
     );
+
     const { placeholder } = usePlaceholderProps(props);
+
     return {
       placeholder,
       current,
       tags,
       readonly,
       disabled,
+      readyDeleteTag,
       clearStatus,
       currentChange,
       addTag,
       delTag,
-      clearTag
+      clearTag,
+      onKeydown,
+      onMouseup,
+      onBlur
     };
   }
 });

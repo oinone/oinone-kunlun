@@ -1,6 +1,5 @@
-import { computed, PropType, ref, onBeforeUnmount, onBeforeMount } from 'vue';
-import { delay } from 'lodash-es';
 import { BooleanHelper } from '@oinone/kunlun-shared';
+import { computed, nextTick, onBeforeMount, onBeforeUnmount, PropType, ref } from 'vue';
 import { SelectSearchArea, usePlaceholderProps } from '../../basic';
 
 export const RelationSelectProps = {
@@ -131,24 +130,12 @@ export function relationSelectSetup(props) {
     selectRef.value.focus();
   };
 
-  const dropdownVisibleChange = (val) => {
-    // 如果点击的是下拉框的输入框，则不关闭下拉框
-    if (mouseDownEventTarget === dropdownInputRef.value?.originInput?.input) {
-      return;
-    }
-
-    dropdownOpen.value = val;
-    props.dropdownVisibleChange(val);
-
-    /**
-     * 下拉展开自动获取焦点
-     */
-    if (val) {
-      delay(() => {
-        mouseDownEventTarget = dropdownInputRef.value?.originInput?.input;
-        dropdownInputRef.value?.focus();
-      }, 200);
-    }
+  const dropdownVisibleChange = (val: boolean) => {
+    // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
+    nextTick(() => {
+      dropdownOpen.value = val;
+      props.dropdownVisibleChange(val);
+    });
   };
 
   // 后于change执行
@@ -163,12 +150,22 @@ export function relationSelectSetup(props) {
       props.loadMore();
     }
   };
+
   const { placeholder } = usePlaceholderProps(props);
 
-  onBeforeMount(function () {
+  const onKeydown = (e: KeyboardEvent) => {
+    // 当键盘数据提交快捷键与下拉框内置选中快捷键冲突时，保证行内编辑态不丢失
+    if (e.key === 'Enter' && e.key === props.tableKeyboardConfig?.enter?.key && dropdownOpen.value) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
+
+  onBeforeMount(() => {
     window.addEventListener('mousedown', onGlobalMouseDown);
   });
-  onBeforeUnmount(function () {
+
+  onBeforeUnmount(() => {
     window.removeEventListener('mousedown', onGlobalMouseDown);
   });
 
@@ -184,6 +181,7 @@ export function relationSelectSetup(props) {
     innerChange,
     innerSelect,
     slipSelect,
-    dropdownVisibleChange
+    dropdownVisibleChange,
+    onKeydown
   };
 }

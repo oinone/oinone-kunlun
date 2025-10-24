@@ -3,9 +3,8 @@ import { SPI } from '@oinone/kunlun-spi';
 import { RowContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { VNode } from 'vue';
-import { BaseFieldWidget } from '../../../../basic';
+import { BaseFieldWidget, TableObjectFieldWidget } from '../../../../basic';
 import { ResourceAddress } from '../../../../typing';
-import { TableM2OFieldWidget } from '../../relation';
 
 @SPI.ClassFactory(
   BaseFieldWidget.Token({
@@ -14,7 +13,7 @@ import { TableM2OFieldWidget } from '../../relation';
     widget: 'Address'
   })
 )
-export class TableM2OAddressFieldWidget extends TableM2OFieldWidget {
+export class TableM2OAddressFieldWidget extends TableObjectFieldWidget {
   @Widget.Method()
   public renderDefaultSlot(context: RowContext): VNode[] | string {
     const value = this.compute(context) as ResourceAddress | undefined;

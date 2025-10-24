@@ -4,7 +4,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { debounce } from 'lodash-es';
 import { FormFieldWidget, FormSelectComplexFieldWidget } from '../../../../basic';
-import VueComponent from './SelectWidget.vue';
+import DefaultSingleSelect from '../../abstract/select/DefaultSingleSelect.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
@@ -15,7 +15,7 @@ import VueComponent from './SelectWidget.vue';
 export class FormM2OSelectFieldWidget extends FormSelectComplexFieldWidget<ActiveRecord, RuntimeM2OField> {
   public initialize(props) {
     super.initialize(props);
-    this.setComponent(VueComponent);
+    this.setComponent(DefaultSingleSelect);
     return this;
   }
 

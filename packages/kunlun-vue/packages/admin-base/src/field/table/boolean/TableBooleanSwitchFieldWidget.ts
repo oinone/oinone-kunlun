@@ -36,6 +36,18 @@ export class TableBooleanSwitchFieldWidget extends BaseTableFieldWidget<boolean>
   private visiblePopconfirm = false;
 
   @Widget.Method()
+  public onAutofocus(params: { cell: HTMLElement }) {
+    const { cell } = params;
+    if (!cell) {
+      return;
+    }
+    const input = cell.querySelector('.oio-switch') as HTMLElement;
+    if (input) {
+      input.focus();
+    }
+  }
+
+  @Widget.Method()
   public renderDefaultSlot(context: RowContext): VNode[] {
     const value = this.compute(context) === true;
     const tips = this.getDsl().tips;

@@ -41,6 +41,8 @@ export const cssVars = {
   'addon-background': '#F7F7F7',
   'addon-color': ' rgba(0,0,0,0.65)',
   'tag-background': 'rgba(3,93,255, 0.1)',
+  'ready-delete-tag-background': 'rgba(224, 32, 32, 0.1)',
+  'ready-delete-tag-color': '#ff4d4f',
   'clear-background': '#fff',
   'clear-color': 'rgba(0,0,0,.25)'
 };

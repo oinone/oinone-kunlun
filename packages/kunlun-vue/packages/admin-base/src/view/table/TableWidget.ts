@@ -1394,29 +1394,6 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
-  protected matchKeyboardFunction(event: KeyboardEvent): ((e: KeyboardEvent) => void) | undefined {
-    const { bindingKeyboardConfig } = this;
-    const eventKey = event.key;
-    let bindingConfigs = bindingKeyboardConfig[eventKey];
-    if (bindingConfigs == null && eventKey === 'Escape') {
-      bindingConfigs = bindingKeyboardConfig.Esc;
-    }
-    if (!bindingConfigs) {
-      return undefined;
-    }
-    const { ctrlKey, metaKey, shiftKey, altKey } = event;
-    for (const bindingConfig of bindingConfigs) {
-      const { ctrl, shift, alt } = bindingConfig;
-      const isCtrlMatch = ctrlKey === ctrl || metaKey === ctrl;
-      const isShiftMatch = shiftKey === shift;
-      const isAltMatch = altKey === alt;
-      if (isCtrlMatch && isShiftMatch && isAltMatch) {
-        return bindingConfig.fn;
-      }
-    }
-    return undefined;
-  }
-
   protected onKeyboardMoveToRightCell(event: KeyboardEvent) {
     event.preventDefault();
     this.onMoveColumnActiveEditor(event, 1);

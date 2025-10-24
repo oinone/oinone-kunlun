@@ -14,6 +14,7 @@
       dropdownClassName="oio-ant-select-dropdown-global"
       show-search
       :value="realValue"
+      :dropdown-visible="dropdownVisible"
       :options="realOptions"
       :properties="properties"
       :get-trigger-container="getTriggerContainer"
@@ -23,16 +24,18 @@
       :default-active-first-option="false"
       :disabled="disabled"
       :placeholder="placeholder"
+      @update:dropdown-visible="onUpdateDropdownVisible"
       @change="selectChange"
       @blur="blur"
       @focus="focus"
+      @keydown="onKeydown"
     />
   </div>
 </template>
 <script lang="ts">
-import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import { RuntimeEnumerationOption, TableKeyboardConfig } from '@oinone/kunlun-engine';
 import { defaultSelectProperties, OioSelect, SelectItem } from '@oinone/kunlun-vue-ui-antd';
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, nextTick, PropType, ref } from 'vue';
 import {
   OioCommonProps,
   OioMetadataProps,
@@ -65,10 +68,15 @@ export default defineComponent({
     },
     placeholder: {
       type: String
+    },
+    tableKeyboardConfig: {
+      type: Object as PropType<TableKeyboardConfig>
     }
   },
   setup(props) {
     const { realValue, readonly, disabled, placeholder } = useMetadataProps(props);
+
+    const dropdownVisible = ref(false);
 
     const realOptions = computed<SelectItem<RuntimeEnumerationOption>[]>(() =>
       optionsConvertSelectItem(props.options).map((opt) => {
@@ -92,16 +100,34 @@ export default defineComponent({
       return option.label.includes(val);
     };
 
+    const onUpdateDropdownVisible = (val: boolean) => {
+      // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
+      nextTick(() => {
+        dropdownVisible.value = val;
+      });
+    };
+
+    const onKeydown = (e: KeyboardEvent) => {
+      // 当键盘数据提交快捷键与下拉框内置选中快捷键冲突时，保证行内编辑态不丢失
+      if (e.key === 'Enter' && e.key === props.tableKeyboardConfig?.enter?.key && dropdownVisible.value) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
     return {
       placeholder,
       properties: defaultSelectProperties,
       realValue,
       readonly,
       disabled,
+      dropdownVisible,
       realOptions,
       selectChange,
       filterOption,
-      getTriggerContainer: props.getPopupContainer || formContext.getTriggerContainer
+      getTriggerContainer: props.getPopupContainer || formContext.getTriggerContainer,
+      onUpdateDropdownVisible,
+      onKeydown
     };
   }
 });
