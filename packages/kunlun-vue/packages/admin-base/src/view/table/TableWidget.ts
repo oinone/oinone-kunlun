@@ -88,32 +88,32 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get lineHeight(): number | undefined {
-    return this.getMergeConfig('table-config').lineHeight;
+    return this.getMergeConfig('table').lineHeight as number | undefined;
   }
 
   @Widget.Reactive()
   protected get minLineHeight(): number | undefined {
-    return this.getMergeConfig('table-config')?.minLineHeight;
+    return this.getMergeConfig('table')?.minLineHeight as number | undefined;
   }
 
   @Widget.Reactive()
   protected get border() {
-    return this.getMergeConfig('table-config').border || false;
+    return this.getMergeConfig('table').border || false;
   }
 
   @Widget.Reactive()
   protected get stripe() {
-    return this.getMergeConfig('table-config').stripe || false;
+    return this.getMergeConfig('table').stripe || false;
   }
 
   @Widget.Reactive()
   protected get isCurrent() {
-    return this.getMergeConfig('table-config').isCurrent || true;
+    return this.getMergeConfig('table').isCurrent || true;
   }
 
   @Widget.Reactive()
   protected get isHover() {
-    return this.getMergeConfig('table-config').isHover || false;
+    return this.getMergeConfig('table').isHover || false;
   }
 
   /**
@@ -121,7 +121,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Reactive()
   protected get autoLineHeight(): boolean {
-    const { autoLineHeight } = this.getMergeConfig('table-config');
+    const { autoLineHeight } = this.getMergeConfig('table');
     if (typeof autoLineHeight === 'boolean') {
       return autoLineHeight;
     }
@@ -145,11 +145,11 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Reactive()
   @Widget.Provide()
   protected get activeCount(): number | undefined {
-    const { activeCount } = this.getMergeConfig('table-config');
+    const { activeCount } = this.getMergeConfig('table');
     if (isNil(activeCount)) {
       return undefined;
     }
-    const activeCountNumber = NumberHelper.toNumber(activeCount);
+    const activeCountNumber = NumberHelper.toNumber(activeCount as number | undefined | string);
     if (isNil(activeCountNumber)) {
       return ActiveCountEnum[activeCount as string];
     }
@@ -162,14 +162,14 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Reactive()
   @Widget.Provide()
   protected get inlineActiveCount(): number | undefined {
-    let { inlineActiveCount } = this.getMergeConfig('table-config');
+    let { inlineActiveCount } = this.getMergeConfig('table');
     if (isNil(inlineActiveCount)) {
       inlineActiveCount = this.metadataRuntimeContext.viewTemplate?.inlineActiveCount;
       if (isNil(inlineActiveCount)) {
         return undefined;
       }
     }
-    const inlineActiveCountNumber = NumberHelper.toNumber(inlineActiveCount);
+    const inlineActiveCountNumber = NumberHelper.toNumber(inlineActiveCount as number | string);
     if (isNil(inlineActiveCountNumber)) {
       return ActiveCountEnum[inlineActiveCount as string];
     }
