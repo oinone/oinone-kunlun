@@ -1,9 +1,10 @@
 <script lang="ts">
+import { ViewType } from '@oinone/kunlun-meta';
 import { ButtonType, OioButton, OioInnerPopup, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import { DrawerPlacement, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, PropType, Slot, VNode } from 'vue';
-import { ViewType } from '@oinone/kunlun-meta';
+import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../../basic';
 
 export default defineComponent({
   name: 'DefaultInnerPopup',
@@ -79,9 +80,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    onAllMounted(() => {
-      props.allMounted?.();
-    });
+    const formContext = useInjectOioDefaultFormContext();
 
     const teleportTarget = computed<HTMLElement>(() => {
       const handle = props.teleportHandle;
@@ -89,6 +88,17 @@ export default defineComponent({
         throw new Error('Invalid teleport handle.');
       }
       return document.getElementById(handle) || document.body;
+    });
+
+    onAllMounted(() => {
+      props.allMounted?.();
+    });
+
+    useProviderOioDefaultFormContext({
+      ...formContext,
+      getTriggerContainer() {
+        return document.body;
+      }
     });
 
     return {
@@ -151,10 +161,7 @@ export default defineComponent({
     ]);
 
     const componentProps: Record<string, unknown> = {
-      class: StringHelper.append(
-        [`default-inner-popup default-inner-popup-${viewType?.toLowerCase()}`],
-        this.class
-      ),
+      class: StringHelper.append([`default-inner-popup default-inner-popup-${viewType?.toLowerCase()}`], this.class),
       style: {
         height
       },

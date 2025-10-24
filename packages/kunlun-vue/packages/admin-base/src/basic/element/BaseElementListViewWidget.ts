@@ -76,10 +76,16 @@ export abstract class BaseElementListViewWidget<
     }
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetMounted(widget) {}
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetUnmounted(widget) {}

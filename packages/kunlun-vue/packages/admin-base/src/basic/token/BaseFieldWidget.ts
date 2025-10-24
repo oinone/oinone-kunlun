@@ -247,18 +247,6 @@ export class BaseFieldWidget<
     // );
   }
 
-  protected pushViewStateField() {
-    const fields = this.viewState?.fields;
-    if (!fields) {
-      return;
-    }
-    const { currentHandle } = this;
-    if (!fields.some((v) => v === currentHandle)) {
-      fields.push(currentHandle);
-      this.viewState!.fields = [...fields];
-    }
-  }
-
   protected $$beforeCreated() {
     super.$$beforeCreated();
     this.notify(LifeCycleTypes.ON_FIELD_BEFORE_CREATED);
@@ -271,12 +259,14 @@ export class BaseFieldWidget<
 
   protected $$beforeMount() {
     super.$$beforeMount();
-    this.pushViewStateField();
     this.notify(LifeCycleTypes.ON_FIELD_BEFORE_MOUNT);
   }
 
   protected $$mounted() {
     super.$$mounted();
+    if (this.automatic) {
+      this.viewState?.pushField(this.currentHandle);
+    }
     this.fieldWidgetMounted?.(this);
     this.notify(LifeCycleTypes.ON_FIELD_MOUNTED);
   }
@@ -298,14 +288,23 @@ export class BaseFieldWidget<
 
   protected $$unmounted() {
     super.$$unmounted();
+    if (this.automatic) {
+      this.viewState?.popField(this.currentHandle);
+    }
     this.fieldWidgetUnmounted?.(this);
     this.notify(LifeCycleTypes.ON_FIELD_UNMOUNTED);
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Inject()
   protected fieldWidgetMounted: ((widget: PathWidget) => void) | undefined;
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Inject()
   protected fieldWidgetUnmounted: ((widget: PathWidget) => void) | undefined;

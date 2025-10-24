@@ -1,7 +1,10 @@
 <template>
   <div class="quick-fill-excel-container">
     <table
-      class="excel-table"
+      :class="{
+        'excel-table': true,
+        'excel-table-selecting': isSelecting
+      }"
       ref="tableRef"
       @keydown="handleKeydown"
       @copy="handleCopy"
@@ -45,7 +48,7 @@
               'cell-disabled': tableHeaderValues[index].value === NON_CUT
             }"
             :data-cell="`${row}-${col}`"
-            @click="handleCellClick($event, `${row}-${col}`)"
+            @click="handleCellClick($event, `${row}-${col}`, index)"
             @mousedown="handleCellMouseDown(`${row}-${col}`)"
             @dblclick="startEditing(`${row}-${col}`)"
             @focus="focusCell(`${row}-${col}`)"
@@ -70,6 +73,10 @@
             <!-- 非编辑状态显示内容 -->
             <span v-else class="cell-content">{{ getCellContent(`${row}-${col}`) }}</span>
           </td>
+        </tr>
+        <tr v-for="row in disabledRows" :key="row">
+          <td class="row-header cell-disabled">{{ row }}</td>
+          <td v-for="col in columns" :key="`${row}-${col}`" class="cell cell-disabled"></td>
         </tr>
       </tbody>
     </table>
@@ -163,7 +170,15 @@ const generateColumnName = (index: number) => {
 };
 
 const columns = Array.from({ length: colCount.value }, (_, i) => generateColumnName(i));
-const rows = Array.from({ length: props.rowCount }, (_, i) => i + 1);
+const rows = computed(() => Array.from({ length: props.rowCount }, (_, i) => i + 1));
+const disabledRows = computed(() => {
+  const basic = props.rowCount || 0;
+  const l = 9 - basic;
+  if (l >= 1) {
+    return Array.from({ length: l }, (_, i) => basic + i + 1);
+  }
+  return [];
+});
 
 // ======== 方法 =========
 
@@ -190,7 +205,11 @@ const parseCellId = (cellId: CellId): ParsedCellId | null => {
 
 // 获取单元格内容
 const getCellContent = (cellId: CellId): string => {
-  return cells.value[cellId] || '';
+  const val = cells.value[cellId];
+  if (val == null) {
+    return '';
+  }
+  return `${val}`;
 };
 
 // 更新单元格内容
@@ -271,10 +290,11 @@ const initializeSingleSelection = (cellId: CellId): void => {
 };
 
 // 处理单元格点击
-const handleCellClick = (event: MouseEvent, cellId: CellId): void => {
-  // 如果是右键或编辑状态下的点击，不处理多选
-  if (event.button !== 0 || editingCell.value) return;
-
+const handleCellClick = (event: MouseEvent, cellId: CellId, index: number): void => {
+  // 如果是 不粘贴列/右键/编辑状态 下的点击，不处理多选
+  if (getThSelectValue(index) === NON_CUT || event.button !== 0 || editingCell.value) {
+    return;
+  }
   if (event.shiftKey) {
     // Shift + 点击：扩展选区到点击的单元格
     if (selectionStart.value) {
@@ -581,16 +601,20 @@ const handlePaste = (event: ClipboardEvent): void => {
 
       if (char === '"') {
         if (insideQuotes && nextChar === '"') {
+          // 转义的双引号 ("")，添加一个双引号到单元格内容
           currentCell += '"';
-          i += 2;
+          i += 2; // 跳过两个字符
           continue;
         } else {
+          // 开始或结束引号
           insideQuotes = !insideQuotes;
         }
       } else if (char === '\t' && !insideQuotes) {
+        // 制表符分隔符，且不在引号内
         currentRow.push(currentCell);
         currentCell = '';
       } else if (char === '\n' && !insideQuotes) {
+        // 换行符，且不在引号内
         currentRow.push(currentCell);
         if (currentRow.some((cell) => cell.trim() !== '')) {
           rows.push(currentRow);
@@ -598,11 +622,13 @@ const handlePaste = (event: ClipboardEvent): void => {
         currentRow = [];
         currentCell = '';
       } else {
+        // 普通字符或引号内的换行
         currentCell += char;
       }
       i++;
     }
 
+    // 处理最后一个单元格和行
     if (currentCell || currentRow.length > 0) {
       currentRow.push(currentCell);
       if (currentRow.some((cell) => cell.trim() !== '')) {
@@ -620,6 +646,12 @@ const handlePaste = (event: ClipboardEvent): void => {
     cellsData.forEach((cellData) => {
       const targetRowIdx = startRow + currentRowOffset - 1;
       const targetColIdx = startColIdx + currentColOffset;
+      
+      // 检查当前列是否被标记为"不粘贴"
+      if (getThSelectValue(targetColIdx) === NON_CUT) {
+        currentColOffset++;
+        return;
+      }
       if (targetRowIdx < props.rowCount && targetColIdx < columns.length) {
         const targetCellId = `${targetRowIdx + 1}-${columns[targetColIdx]}`;
         updateCellContent(targetCellId, cellData.trim());
@@ -708,6 +740,7 @@ onUnmounted(() => {
 <style lang="scss">
 .quick-fill-excel-container {
   width: 100%;
+  min-height: 400px;
   overflow: auto;
 
   .excel-table {
@@ -761,6 +794,12 @@ onUnmounted(() => {
       color: var(--oio-text-color-secondary);
       z-index: 10;
       user-select: none;
+
+      &.cell-disabled {
+        cursor: not-allowed;
+        background-color: var(--oio-table-thead-bg);
+        color: var(--oio-disabled-color);
+      }
     }
 
     .cell {
@@ -768,12 +807,12 @@ onUnmounted(() => {
       cursor: default;
 
       &.selected {
-        box-shadow: inset 0 0 0 2px var(--oio-primary-color);
+        border: 1px solid var(--oio-primary-color);
         z-index: 5;
       }
 
       &.range-selected {
-        box-shadow: inset 0 0 0 2px var(--oio-primary-color);
+        border: 1px solid var(--oio-primary-color);
       }
 
       &.editing {
@@ -781,6 +820,7 @@ onUnmounted(() => {
       }
 
       &.cell-disabled {
+        cursor: not-allowed;
         background-color: var(--oio-table-thead-bg);
         color: var(--oio-disabled-color);
       }
@@ -817,6 +857,10 @@ onUnmounted(() => {
       box-sizing: border-box;
       outline: none;
       z-index: 10;
+    }
+
+    &.excel-table-selecting {
+      user-select: none;
     }
   }
 }

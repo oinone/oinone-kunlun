@@ -3,8 +3,9 @@ import { ViewType } from '@oinone/kunlun-meta';
 import { CastHelper, OioButton, OioModal, PropRecordHelper, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { createVNode, defineComponent, PropType } from 'vue';
-import { FooterProps, useFooter } from '../useFooter';
+import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../../basic';
 import { OioSimplePagination } from '../../../components';
+import { FooterProps, useFooter } from '../useFooter';
 
 export default defineComponent({
   name: 'DefaultDialog',
@@ -111,8 +112,17 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const formContext = useInjectOioDefaultFormContext();
+
     onAllMounted(() => {
       props.allMounted?.();
+    });
+
+    useProviderOioDefaultFormContext({
+      ...formContext,
+      getTriggerContainer() {
+        return document.body;
+      }
     });
 
     return {};

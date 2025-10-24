@@ -1,4 +1,4 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import { DslDefinition, DslDefinitionHelper, FieldDslDefinition } from '@oinone/kunlun-dsl';
 import {
   ActiveRecord,
   isEnumerationField,
@@ -19,7 +19,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { autoFillByLabel, autoFillByLabelFields } from '@oinone/kunlun-vue-admin-layout';
 import { TableEditorMode } from '@oinone/kunlun-vue-ui';
 import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-common';
-import { isTableViewState, OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { DslDefinitionWidget, isTableViewState, OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseElementWidget, BaseFieldWidget, FormFieldWidget } from '../../basic';
 import { ResourceAddress, ValidatorStatus } from '../../typing';
@@ -71,13 +71,15 @@ const quickFillFields = [
   })
 )
 export class QuickFillWidget extends BaseElementWidget {
+  protected viewState: OioTableViewState | undefined;
+
+  protected tableWidget: TableWidget | undefined;
+
   public initialize(props) {
     super.initialize(props);
     this.setComponent(QuickFill);
     return this;
   }
-
-  public tableWidget: TableWidget | undefined;
 
   @Widget.Provide()
   @Widget.Reactive()
@@ -155,7 +157,7 @@ export class QuickFillWidget extends BaseElementWidget {
    * 确认提交,校验excel数据
    */
   @Widget.Method()
-  public async onSure(rows: StandardString[][]) {
+  public async onSure(headers: { label: string; value: string }[], rows: StandardString[][]) {
     const valueStr = [] as Record<string, StandardString>[];
 
     /**
@@ -172,7 +174,7 @@ export class QuickFillWidget extends BaseElementWidget {
         if (!cell) {
           return;
         }
-        const { name } = this.editableModelFields[columnIndex]!;
+        const { value: name } = headers[columnIndex]!;
         if (fullAddressField.some((f) => name.endsWith(`#${f.name}`))) {
           const [name1, name2] = name.split('#');
           let target = address[name1];
@@ -232,7 +234,7 @@ export class QuickFillWidget extends BaseElementWidget {
    * 将表格数据，填充到excel中
    */
   @Widget.Method()
-  public fillValueByDataSource() {
+  public fillValueByDataSource(): { cells?: Record<string, unknown>; rowCount?: number } {
     // 处理空数据情况
     if (!this.dataSource?.length) {
       return {};
@@ -252,7 +254,7 @@ export class QuickFillWidget extends BaseElementWidget {
       });
     });
 
-    return cells;
+    return { cells, rowCount: this.dataSource.length };
   }
 
   public fillFieldValue(field: RuntimeModelField, value) {
@@ -418,20 +420,31 @@ export class QuickFillWidget extends BaseElementWidget {
   /**
    * 创建表格
    */
-  public createTableWidget(data) {
+  protected createTableWidget(data) {
     if (this.tableWidget) {
       this.tableWidget.dispose();
       this.tableWidget = undefined;
     }
 
-    const parentWidget = this.getParentWidget() as TableWidget;
+    const template = Optional.ofNullable(this.viewState)
+      .filter<OioTableViewState>((v) => isTableViewState(v))
+      .map((v) => v.table)
+      .map((v) => Widget.select<DslDefinitionWidget>(v))
+      .map((v) => v.getDsl())
+      .map((v) => deepClone(v))
+      .orElse(undefined);
 
-    const template = deepClone((parentWidget as any).template) as DslDefinition;
+    if (!template) {
+      console.error('Invalid table template.', this.viewState);
+      return;
+    }
+
     template.editorMode = TableEditorMode.table;
     template.paginationStyle = ListPaginationStyle.HIDDEN;
 
-    const map = new Map(this.editableModelFields.map((v) => [v.name, true]));
-    template.widgets = template.widgets.filter((w) => map.has(w.name));
+    const map = new Map(this.editableModelFields.map((v) => [v.data, true]));
+    const fieldDslList = this.collectionFieldDsl(template);
+    template.widgets = fieldDslList.filter((w) => map.has(w.data));
 
     this.tableWidget = this.createWidget(TableWidget, 'table', {
       metadataHandle: this.metadataHandle,
@@ -441,5 +454,21 @@ export class QuickFillWidget extends BaseElementWidget {
       template,
       inline: true
     });
+  }
+
+  protected collectionFieldDsl(dsl: DslDefinition, deep = 2): FieldDslDefinition[] {
+    if (deep <= 0) {
+      return [];
+    }
+    const { widgets } = dsl;
+    const fields: FieldDslDefinition[] = [];
+    for (const widget of widgets) {
+      if (DslDefinitionHelper.isField(widget)) {
+        fields.push(widget);
+      } else if (DslDefinitionHelper.isSlot(widget)) {
+        fields.push(...this.collectionFieldDsl(widget, deep - 1));
+      }
+    }
+    return fields;
   }
 }

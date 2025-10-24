@@ -17,13 +17,23 @@
       </a-radio-group>
 
       <div class="quick-fill-modal-content-desc" v-if="step === 0">
-        <div class="quick-fill-modal-content-desc-item">
-          {{ $translate('支持将Excel内容粘贴至本表格，粘贴后内容将自动追加至表格末尾') }}
-        </div>
-        <div class="quick-fill-modal-content-desc-item">{{ $translate('系统已自动隐藏不支持粘贴的字段列') }}</div>
-        <div class="quick-fill-modal-content-desc-item">
-          {{ $translate('可在当前页面调整字段与数据的对应关系，确认后数据将追加至对应列中') }}
-        </div>
+        <template v-if="type === 'create'">
+          <div class="quick-fill-modal-content-desc-item">
+            {{ $translate('支持将Excel内容粘贴至本表格，粘贴后内容将自动追加至表格末尾') }}
+          </div>
+          <div class="quick-fill-modal-content-desc-item">{{ $translate('系统已自动隐藏不支持粘贴的字段列') }}</div>
+          <div class="quick-fill-modal-content-desc-item">
+            {{ $translate('可在当前页面调整字段与数据的对应关系，确认后数据将追加至对应列中') }}
+          </div>
+        </template>
+        <template v-else>
+          <div class="quick-fill-modal-content-desc-item">
+            {{ $translate('支持将 Excel 内容粘贴至本表格') }}
+          </div>
+          <div class="quick-fill-modal-content-desc-item">
+            {{ $translate('执行粘贴操作时，系统将自动跳过不可编辑的字段列，请注意核对字段的排列顺序') }}
+          </div>
+        </template>
       </div>
 
       <div class="quick-fill-modal-content-error" v-else>
@@ -59,8 +69,11 @@ import { OioButton, OioIcon, OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { ModalWidth, OioCloseIcon } from '@oinone/kunlun-vue-ui-common';
 import { Modal, Radio as ARadio, RadioGroup as ARadioGroup } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, PropType, ref, watch } from 'vue';
+import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../basic';
 import Excel from './Excel.vue';
 import { QuickFillType } from './type';
+
+const DEFAULT_ROW_COUNT = 9;
 
 export default defineComponent({
   props: {
@@ -116,6 +129,8 @@ export default defineComponent({
     Excel
   },
   setup(props) {
+    const formContext = useInjectOioDefaultFormContext();
+
     const internalType = ref<QuickFillType>(QuickFillType.create);
     const type = computed({
       get() {
@@ -127,10 +142,11 @@ export default defineComponent({
       }
     });
 
-    const rowCount = ref(9);
+    const rowCount = ref(DEFAULT_ROW_COUNT);
     const excelRef = ref();
 
     const onChangeRadio = (val) => {
+      const nextType = val.target.value;
       if (excelRef.value.getCellStatus()) {
         const _modal = Modal.confirm({
           class: 'oio-modal oio-quick-fill-witch-mode-modal',
@@ -143,23 +159,30 @@ export default defineComponent({
 
           cancelText: translateValueByKey('取消'),
           onOk: () => {
-            type.value = val.target.value;
+            type.value = nextType;
             excelRef.value.resetExcel();
-
-            if (type.value === QuickFillType.create) {
-              const excelValue = props.fillValueByDataSource();
-              excelRef.value.setCells(excelValue);
+            if (nextType === QuickFillType.create) {
+              excelRef.value.setCells({});
+              rowCount.value = DEFAULT_ROW_COUNT;
+            } else if (nextType === QuickFillType.update) {
+              const { cells, rowCount: currentRowCount } = props.fillValueByDataSource();
+              excelRef.value.setCells(cells || {});
+              rowCount.value = currentRowCount || DEFAULT_ROW_COUNT;
             }
             _modal.destroy();
           }
         });
       } else {
-        type.value = val.target.value;
+        type.value = nextType;
         excelRef.value.resetExcel();
 
-        if (type.value === QuickFillType.create) {
-          const excelValue = props.fillValueByDataSource();
-          excelRef.value.setCells(excelValue);
+        if (nextType === QuickFillType.create) {
+          excelRef.value.setCells({});
+          rowCount.value = DEFAULT_ROW_COUNT;
+        } else if (nextType === QuickFillType.update) {
+          const { cells, rowCount: currentRowCount } = props.fillValueByDataSource();
+          excelRef.value.setCells(cells || {});
+          rowCount.value = currentRowCount || DEFAULT_ROW_COUNT;
         }
       }
 
@@ -167,21 +190,7 @@ export default defineComponent({
     };
 
     const onHandlerSure = () => {
-      const cells = excelRef.value.getCells();
-      const tableHeaderValues = excelRef.value.getTableHeaderValues();
-
-      /**
-       * 处理不粘贴的列，将列对应的值设置为空
-       */
-      cells.forEach((row) => {
-        row.forEach((col, index) => {
-          if (tableHeaderValues[index].value === 'NON_CUT') {
-            row[index] = null;
-          }
-        });
-      });
-
-      props.onSure(cells);
+      props.onSure(excelRef.value.getTableHeaderValues(), excelRef.value.getCells());
     };
 
     watch(
@@ -189,10 +198,18 @@ export default defineComponent({
       (visible) => {
         if (!visible) {
           type.value = QuickFillType.create;
+          rowCount.value = DEFAULT_ROW_COUNT;
           excelRef.value?.resetExcel();
         }
       }
     );
+
+    useProviderOioDefaultFormContext({
+      ...formContext,
+      getTriggerContainer() {
+        return document.body;
+      }
+    });
 
     return { excelRef, type, ModalWidth, rowCount, onChangeRadio, onHandlerSure };
   }

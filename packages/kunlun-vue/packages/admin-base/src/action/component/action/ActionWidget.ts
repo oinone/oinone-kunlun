@@ -1220,15 +1220,6 @@ export class ActionWidget<
   protected $$unmounted() {
     super.$$unmounted();
     this.unsubscribeKeyboardEvent();
-    const actions = this.actionBarState?.actions;
-    if (actions) {
-      const { currentHandle } = this;
-      const index = actions.findIndex((v) => v === currentHandle);
-      if (index !== -1) {
-        actions.splice(index, 1);
-        this.actionBarState!.actions = [...actions];
-      }
-    }
   }
 
   protected $$activated() {

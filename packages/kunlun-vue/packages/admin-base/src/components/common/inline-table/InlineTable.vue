@@ -1,10 +1,22 @@
 <script lang="ts">
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent } from 'vue';
+import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../../basic';
 
 export default defineComponent({
   name: 'InlineTable',
   inheritAttrs: false,
+  setup() {
+    const formContext = useInjectOioDefaultFormContext();
+
+    useProviderOioDefaultFormContext({
+      ...formContext,
+      getTriggerContainer() {
+        return document.body;
+      }
+    });
+    return {};
+  },
   render() {
     return createVNode(
       'div',

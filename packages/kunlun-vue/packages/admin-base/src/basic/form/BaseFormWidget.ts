@@ -1,6 +1,6 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { FormLayout, OioColModel, OioFormInstance } from '@oinone/kunlun-vue-ui-common';
-import { OioFormViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { OioObjectViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementObjectViewWidget, BaseElementObjectViewWidgetProps } from '../element';
 import DefaultForm from './DefaultForm.vue';
 
@@ -50,8 +50,7 @@ export abstract class BaseFormWidget<
     return this;
   }
 
-  protected $$initViewState(state: OioFormViewState): void {
-    super.$$initViewState(state);
+  protected $$initViewState(state: OioObjectViewState): void {
     if (!state.form) {
       state.form = this.currentHandle;
     }

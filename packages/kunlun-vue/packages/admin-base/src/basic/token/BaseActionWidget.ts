@@ -10,13 +10,7 @@ import { Matched, Router, useMatched } from '@oinone/kunlun-router';
 import { CallChaining, Constructor } from '@oinone/kunlun-shared';
 import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
 import { useRouter } from '@oinone/kunlun-vue-router';
-import {
-  ActiveRecordsWidgetProps,
-  hasActionBarViewState,
-  InnerWidgetType,
-  OioActionBarState,
-  Widget
-} from '@oinone/kunlun-vue-widget';
+import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../typing';
 import { BaseRuntimePropertiesWidget } from '../common';
 
@@ -131,6 +125,10 @@ export class BaseActionWidget<
     return this.popupScene === PopupScene.inner;
   }
 
+  @Widget.Inject()
+  @Widget.Reactive()
+  public rowIndex: number | undefined;
+
   /**
    * 数据提交
    * @protected
@@ -168,34 +166,28 @@ export class BaseActionWidget<
     return fn(...args);
   }
 
-  protected get actionBarState(): OioActionBarState | undefined {
-    const { viewState } = this;
-    if (viewState && hasActionBarViewState(viewState)) {
-      return viewState.actionBar;
-    }
-  }
-
-  protected pushViewStateAction() {
-    const actions = this.actionBarState?.actions;
-    if (!actions) {
-      return;
-    }
-    const { currentHandle } = this;
-    if (!actions.some((v) => v === currentHandle)) {
-      actions.push(currentHandle);
-      this.actionBarState!.actions = [...actions];
-    }
-  }
-
   protected $$beforeMount() {
     super.$$beforeMount();
-    this.pushViewStateAction();
     if (!this.$matched) {
       const { matched } = useMatched();
       this.$matched = matched;
     }
     if (!this.$router) {
       this.$router = useRouter().router as Router;
+    }
+  }
+
+  protected $$mounted() {
+    super.$$mounted();
+    if (this.automatic) {
+      this.viewState?.pushAction(this.currentHandle, this.rowIndex);
+    }
+  }
+
+  protected $$unmounted() {
+    super.$$unmounted();
+    if (this.automatic) {
+      this.viewState?.popAction(this.currentHandle, this.rowIndex);
     }
   }
 }
