@@ -42,7 +42,12 @@
       </div>
 
       <div class="quick-fill-excel" v-show="step === 0">
-        <excel ref="excelRef" :model-fields="editableModelFields" :row-count="rowCount"></excel>
+        <excel
+          ref="excelRef"
+          :model-fields="editableModelFields"
+          :row-count="rowCount"
+          :add-row-count="addRowCount"
+        ></excel>
       </div>
 
       <div v-show="step !== 0">
@@ -204,6 +209,13 @@ export default defineComponent({
       }
     );
 
+    const addRowCount = (addNumber = 1) => {
+      if (type.value === QuickFillType.update) {
+        return;
+      }
+      rowCount.value += addNumber;
+    };
+
     useProviderOioDefaultFormContext({
       ...formContext,
       getTriggerContainer() {
@@ -211,7 +223,7 @@ export default defineComponent({
       }
     });
 
-    return { excelRef, type, ModalWidth, rowCount, onChangeRadio, onHandlerSure };
+    return { excelRef, type, ModalWidth, rowCount, onChangeRadio, onHandlerSure, addRowCount };
   }
 });
 </script>

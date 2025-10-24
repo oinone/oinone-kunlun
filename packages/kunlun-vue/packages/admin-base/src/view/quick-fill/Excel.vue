@@ -105,6 +105,7 @@ type CellId = string;
 const props = defineProps<{
   modelFields: RuntimeModelField[];
   rowCount: number; // 行数
+  addRowCount: (addNumber: number) => void;
 }>();
 
 const cellWidth = 110; // 单元格宽度
@@ -641,30 +642,34 @@ const handlePaste = (event: ClipboardEvent): void => {
 
   const rowsData = parseCSVData(pastedData);
   let currentRowOffset = 0;
-  rowsData.forEach((cellsData) => {
-    let currentColOffset = 0;
-    cellsData.forEach((cellData) => {
-      const targetRowIdx = startRow + currentRowOffset - 1;
-      const targetColIdx = startColIdx + currentColOffset;
-      
-      // 检查当前列是否被标记为"不粘贴"
-      if (getThSelectValue(targetColIdx) === NON_CUT) {
-        currentColOffset++;
-        return;
-      }
-      if (targetRowIdx < props.rowCount && targetColIdx < columns.length) {
-        const targetCellId = `${targetRowIdx + 1}-${columns[targetColIdx]}`;
-        updateCellContent(targetCellId, cellData.trim());
-      }
-      currentColOffset++;
-    });
-    currentRowOffset++;
-  });
-
-  initializeSingleSelection(selectedCell.value);
-  if (editingCell.value) {
-    stopEditing();
+  const canUseRow = props.rowCount - startRow + 1; // 粘贴的那一行也可以使用
+  if (canUseRow < rowsData.length) {
+    props.addRowCount(rowsData.length - canUseRow);
   }
+  nextTick(() => {
+    rowsData.forEach((cellsData) => {
+      let currentColOffset = 0;
+      cellsData.forEach((cellData) => {
+        const targetRowIdx = startRow + currentRowOffset - 1;
+        const targetColIdx = startColIdx + currentColOffset;
+        if (getThSelectValue(targetColIdx) === NON_CUT) {
+          currentColOffset++;
+          return;
+        }
+        if (targetRowIdx < props.rowCount && targetColIdx < columns.length) {
+          const targetCellId = `${targetRowIdx + 1}-${columns[targetColIdx]}`;
+          updateCellContent(targetCellId, cellData.trim());
+        }
+        currentColOffset++;
+      });
+      currentRowOffset++;
+    });
+
+    initializeSingleSelection(selectedCell.value);
+    if (editingCell.value) {
+      stopEditing();
+    }
+  });
 };
 
 const convertCellsToArray = (obj: Record<CellId, string>) => {
@@ -741,6 +746,7 @@ onUnmounted(() => {
 .quick-fill-excel-container {
   width: 100%;
   min-height: 400px;
+  height: 400px;
   overflow: auto;
 
   .excel-table {
