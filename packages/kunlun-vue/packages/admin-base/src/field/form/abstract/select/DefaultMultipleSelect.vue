@@ -20,7 +20,7 @@
         :max-tag-count="maxTagCount"
         :allow-clear="allowClear"
         :disabled="innerDisabled"
-        :value="currentValue"
+        :value="currentValue === null ? undefined : currentValue"
         :filter-option="false"
         :default-active-first-option="false"
         :options="optionList"

@@ -847,7 +847,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Method()
   protected onAddRow() {
-    this.onAddRowEvent({});
+    this.onAddRowEvent({ insertTo: 0 });
   }
 
   @Widget.Method()
@@ -1469,17 +1469,23 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     if (!nextColumn) {
       return;
     }
-    let row = await this.tableInstance?.getTableData(rowIndex);
-    let toNextRow = false;
 
     while (!nextColumn.field || nextColumn.field === '$$internalOperator' || !nextColumn.visible) {
       nextColumnIndex += offset;
       nextColumn = allColumns[nextColumnIndex % allColumns.length];
     }
 
+    let row = await this.tableInstance?.getTableData(rowIndex);
     if (nextColumnIndex < 0 || nextColumnIndex >= allColumns.length) {
-      toNextRow = true;
-      row = await this.tableInstance?.getTableData(rowIndex + Math.sign(offset));
+      let nextRow = await this.tableInstance?.getTableData(rowIndex + Math.sign(offset));
+      if (!nextRow) {
+        // fixme @zbh 20251024 创建新行并激活编辑态
+        // const records = ActiveRecordsOperator.repairRecords([{}]);
+        // await this.tableInstance?.clearEditor();
+        // const { row: newRow } = await this.tableInstance?.insert(records);
+        // nextRow = newRow;
+      }
+      row = nextRow;
     }
     const isEnabled =
       row &&
@@ -1502,26 +1508,9 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     lastedCurrentEditorContext.columnIndex = nextColumnIndex;
 
     // 如果是换行编辑，那么需要下一行可编辑项的第一个默认选中，并且修改激活行的数据
-    if (toNextRow) {
-      delay(() => {
-        const context = this.getTableInstance()?.getActiveEditorRecord()?.origin as ActiveEditorContext;
-
-        if (context) {
-          this.activeEditor({ ...context, editableMap: {} });
-        }
-      }, 200);
-    } else {
-      // 否则直接切换对应单元格的焦点
-      // this.lastedCurrentEditorContext = {
-      //   prepare: true,
-      //   editorMode: TableEditorMode.row,
-      //   editorCloseTrigger: TableEditorCloseTrigger.auto,
-      //   forceEditable: true
-      // } as ActiveEditorContext;
-      nextTick(async () => {
-        await this.tableInstance?.activeCellEditor(row, nextColumn.field);
-      });
-    }
+    nextTick(async () => {
+      await this.tableInstance?.activeCellEditor(row, nextColumn.field);
+    });
   }
 
   /**

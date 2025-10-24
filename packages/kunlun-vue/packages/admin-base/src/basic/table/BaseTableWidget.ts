@@ -571,11 +571,20 @@ export class BaseTableWidget<
             const { submitCache } = field;
             const subviewSubmitCache = this.metadataRuntimeContext.extendData.subviewSubmitCache as SubmitCacheManager;
             if (showRecords) {
+              const insertTo = this.lastedCurrentEditorContext?.insertTo;
               if (submitCache) {
-                ActiveRecordsOperator.operator(showRecords, submitCache).push(context.data || data);
+                ActiveRecordsOperator.operator(showRecords, submitCache).push(
+                  context.data || data,
+                  undefined,
+                  insertTo
+                );
               }
               if (subviewSubmitCache) {
-                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).push(context.data || data);
+                ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).push(
+                  context.data || data,
+                  undefined,
+                  insertTo
+                );
               }
             }
             subviewFieldWidget.flushDataSource();
@@ -1090,8 +1099,9 @@ export class BaseTableWidget<
   protected async onAddRowEvent(e?: Omit<TableAddEvent, 'type'>) {
     if (this.lastedCurrentEditorContext == null) {
       this.lastedCurrentEditorContext = {
-        new: true,
         prepare: true,
+        new: true,
+        insertTo: e?.insertTo,
         editorMode: TableEditorMode.row,
         editorCloseTrigger: TableEditorCloseTrigger.auto,
         forceEditable: true

@@ -12,7 +12,7 @@
         :filter-option="false"
         :not-found-content="null"
         :default-active-first-option="false"
-        :value="realValue"
+        :value="realValue === null ? undefined : realValue"
         :disabled="readonly && !disabled ? false : disabled"
         :get-popup-container="getPopupContainer"
         @change="multiSelectChange"

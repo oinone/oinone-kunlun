@@ -69,15 +69,15 @@ export class ActiveRecordsOperator {
         }
         newActiveRecords.push(this.activeRecords[i]);
       }
-      records.forEach((record) => {
+      records.forEach((record, offset) => {
         if (predict) {
           if (predict(newActiveRecords, record)) {
             newActiveRecords.push(record);
-            this.submitToCreateCache(record);
+            this.submitToCreateCache(record, index + offset);
           }
         } else {
           newActiveRecords.push(record);
-          this.submitToCreateCache(record);
+          this.submitToCreateCache(record, index + offset);
         }
       });
       for (let i = index; i < this.activeRecords.length; i++) {
@@ -216,9 +216,9 @@ export class ActiveRecordsOperator {
     }
   }
 
-  private submitToCreateCache(record: ActiveRecord) {
+  private submitToCreateCache(record: ActiveRecord, index?: number) {
     this.submitToCache((submitCache) => {
-      submitCache.pushRecord(record);
+      submitCache.pushRecord(record, index);
     });
   }
 

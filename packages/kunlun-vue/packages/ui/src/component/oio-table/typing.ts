@@ -56,6 +56,10 @@ export interface ActiveEditorContext<T = unknown> extends BaseContext<T> {
    */
   new?: boolean;
   /**
+   * 新行编辑完成后插入位置索引
+   */
+  insertTo?: number;
+  /**
    * 当前列
    */
   column: {
