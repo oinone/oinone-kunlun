@@ -105,6 +105,7 @@ type CellId = string;
 const props = defineProps<{
   modelFields: RuntimeModelField[];
   rowCount: number; // 行数
+  addRowCount: (addNumber: number) => void;
 }>();
 
 const cellWidth = 110; // 单元格宽度
@@ -587,26 +588,88 @@ const handlePaste = (event: ClipboardEvent): void => {
   const startColIdx = columns.indexOf(startCol);
   if (startColIdx === -1) return;
 
-  const rowsData = pastedData.split('\n');
-  rowsData.forEach((rowData, rowIndex) => {
-    const cellsData = rowData.split('\t') as string[];
-    cellsData.forEach((cellData, colIndex) => {
-      const targetColIdx = startColIdx + colIndex;
-      if (getThSelectValue(targetColIdx) === NON_CUT) {
-        return;
-      }
-      const targetRowIdx = startRow + rowIndex - 1;
-      if (targetRowIdx < props.rowCount && targetColIdx < columns.length) {
-        const targetCellId = `${targetRowIdx + 1}-${columns[targetColIdx]}`;
-        updateCellContent(targetCellId, cellData.trim());
-      }
-    });
-  });
+  // 解析CSV格式的粘贴数据，正确处理双引号包裹的换行文本
+  const parseCSVData = (data: string): string[][] => {
+    const rows: string[][] = [];
+    let currentRow: string[] = [];
+    let currentCell = '';
+    let insideQuotes = false;
+    let i = 0;
 
-  initializeSingleSelection(selectedCell.value);
-  if (editingCell.value) {
-    stopEditing();
+    while (i < data.length) {
+      const char = data[i];
+      const nextChar = data[i + 1];
+
+      if (char === '"') {
+        if (insideQuotes && nextChar === '"') {
+          // 转义的双引号 ("")，添加一个双引号到单元格内容
+          currentCell += '"';
+          i += 2; // 跳过两个字符
+          continue;
+        } else {
+          // 开始或结束引号
+          insideQuotes = !insideQuotes;
+        }
+      } else if (char === '\t' && !insideQuotes) {
+        // 制表符分隔符，且不在引号内
+        currentRow.push(currentCell);
+        currentCell = '';
+      } else if (char === '\n' && !insideQuotes) {
+        // 换行符，且不在引号内
+        currentRow.push(currentCell);
+        if (currentRow.some((cell) => cell.trim() !== '')) {
+          rows.push(currentRow);
+        }
+        currentRow = [];
+        currentCell = '';
+      } else {
+        // 普通字符或引号内的换行
+        currentCell += char;
+      }
+      i++;
+    }
+
+    // 处理最后一个单元格和行
+    if (currentCell || currentRow.length > 0) {
+      currentRow.push(currentCell);
+      if (currentRow.some((cell) => cell.trim() !== '')) {
+        rows.push(currentRow);
+      }
+    }
+
+    return rows;
+  };
+
+  const rowsData = parseCSVData(pastedData);
+  let currentRowOffset = 0;
+  const canUseRow = props.rowCount - startRow + 1; // 粘贴的那一行也可以使用
+  if (canUseRow < rowsData.length) {
+    props.addRowCount(rowsData.length - canUseRow);
   }
+  nextTick(() => {
+    rowsData.forEach((cellsData) => {
+      let currentColOffset = 0;
+      cellsData.forEach((cellData) => {
+        const targetRowIdx = startRow + currentRowOffset - 1;
+        const targetColIdx = startColIdx + currentColOffset;
+        if (getThSelectValue(targetColIdx) === NON_CUT) {
+          currentColOffset++;
+          return;
+        }
+        if (targetRowIdx < props.rowCount && targetColIdx < columns.length) {
+          const targetCellId = `${targetRowIdx + 1}-${columns[targetColIdx]}`;
+          updateCellContent(targetCellId, cellData.trim());
+        }
+        currentColOffset++;
+      });
+      currentRowOffset++;
+    });
+
+    initializeSingleSelection(selectedCell.value);
+    if (editingCell.value) {
+      stopEditing();
+    }
+  });
 };
 
 const convertCellsToArray = (obj: Record<CellId, string>) => {
@@ -683,6 +746,7 @@ onUnmounted(() => {
 .quick-fill-excel-container {
   width: 100%;
   min-height: 400px;
+  height: 400px;
   overflow: auto;
 
   .excel-table {
