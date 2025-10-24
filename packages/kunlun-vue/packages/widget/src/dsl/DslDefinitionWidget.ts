@@ -1,4 +1,4 @@
-import { getMergeConfig } from '../../../../../kunlun-framework/packages/config';
+import { getMergeConfig } from '@oinone/kunlun-config';
 import {
   ComputeContext,
   ComputeContextManager,

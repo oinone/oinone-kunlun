@@ -1,4 +1,4 @@
-import { ConfigProviderSPI } from '../../../config';
+import { ConfigProviderSPI } from '@oinone/kunlun-config';
 import { getTheme } from '../register';
 import { DefaultThemeName, ThemeName } from '../typing';
 import { DEFAULT_PREFIX } from './constant';
@@ -15,7 +15,7 @@ ConfigProviderSPI.register(
   { name: 'theme', priority: 100 },
   {
     getConfig(key) {
-      return THEME_CONFIG[key];
+      return THEME_CONFIG[key] || THEME_CONFIG[`${key}-config`];
     }
   }
 );
