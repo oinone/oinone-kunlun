@@ -8,6 +8,7 @@
         dropdownClassName="oio-select-dropdown"
         :placeholder="placeholder"
         :allowClear="allowClear"
+        :open="dropdownOpen"
         :filter-option="false"
         :not-found-content="null"
         :default-active-first-option="false"
@@ -16,6 +17,8 @@
         :get-popup-container="getPopupContainer"
         @change="multiSelectChange"
         @blur="blur"
+        @dropdownVisibleChange="dropdownVisibleChange"
+        @keydown="onKeydown"
       >
         <a-select-option
           v-for="item in realOptions"
@@ -30,10 +33,10 @@
   </div>
 </template>
 <script lang="ts">
-import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import { RuntimeEnumerationOption, TableKeyboardConfig } from '@oinone/kunlun-engine';
 import { SelectItem } from '@oinone/kunlun-vue-ui-common';
-import { computed, defineComponent, PropType, ref } from 'vue';
 import { Select as ASelect } from 'ant-design-vue';
+import { computed, defineComponent, nextTick, PropType, ref } from 'vue';
 import {
   OioCommonProps,
   OioMetadataProps,
@@ -43,6 +46,11 @@ import {
 import { optionsConvertSelectItem } from '../../../../util';
 
 export default defineComponent({
+  inheritAttrs: false,
+  components: {
+    ASelect,
+    ASelectOption: ASelect.Option
+  },
   props: {
     ...OioCommonProps,
     ...OioMetadataProps,
@@ -60,11 +68,10 @@ export default defineComponent({
     },
     allowClear: {
       type: Boolean
+    },
+    tableKeyboardConfig: {
+      type: Object as PropType<TableKeyboardConfig>
     }
-  },
-  components: {
-    ASelect,
-    ASelectOption: ASelect.Option
   },
   setup(props) {
     const { realValue, readonly, disabled, placeholder } = useMetadataProps(props);
@@ -75,6 +82,8 @@ export default defineComponent({
 
     const selectRef = ref();
 
+    const dropdownOpen = ref(false);
+
     const multiSelectChange = (val) => {
       realValue.value = val;
       if (props.change) {
@@ -82,15 +91,34 @@ export default defineComponent({
       }
       selectRef.value.focus();
     };
+
+    const dropdownVisibleChange = (val: boolean) => {
+      // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
+      nextTick(() => {
+        dropdownOpen.value = val;
+      });
+    };
+
+    const onKeydown = (e: KeyboardEvent) => {
+      // 当键盘数据提交快捷键与下拉框内置选中快捷键冲突时，保证行内编辑态不丢失
+      if (e.key === 'Enter' && e.key === props.tableKeyboardConfig?.enter?.key && dropdownOpen.value) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
     return {
       placeholder,
       realValue,
       readonly,
       disabled,
+      dropdownOpen,
       realOptions,
       selectRef,
       multiSelectChange,
-      getPopupContainer: props.getPopupContainer || formContext.getTriggerContainer
+      getPopupContainer: props.getPopupContainer || formContext.getTriggerContainer,
+      dropdownVisibleChange,
+      onKeydown
     };
   }
 });

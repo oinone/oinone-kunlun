@@ -26,6 +26,7 @@ import {
   ActiveEditorContext,
   GROUP_TREE_KEY,
   RowContext,
+  TableEditorCloseTrigger,
   TableEditorMode,
   TableEditorTrigger,
   TableRowClickMode,
@@ -1457,7 +1458,11 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    * 单元格左右移动
    */
   protected async onMoveColumnActiveEditor(event: KeyboardEvent, offset: number) {
-    const { rowIndex, columnIndex } = this.lastedCurrentEditorContext!;
+    const { lastedCurrentEditorContext } = this;
+    if (!lastedCurrentEditorContext) {
+      return;
+    }
+    const { rowIndex, columnIndex } = lastedCurrentEditorContext;
     const allColumns = this.tableInstance?.getAllColumns() || [];
     let nextColumnIndex = columnIndex + offset;
     let nextColumn = allColumns[nextColumnIndex];
@@ -1485,10 +1490,16 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       return this.onMoveColumnActiveEditor(event, offset + offset);
     }
 
-    if (this.lastedCurrentEditorContext) {
-      this.lastedCurrentEditorContext.column = nextColumn;
-      this.lastedCurrentEditorContext.columnIndex = nextColumnIndex;
+    if (
+      !lastedCurrentEditorContext.editorMode &&
+      this.editorMode === TableEditorMode.cell &&
+      this.editorCloseTrigger === TableEditorCloseTrigger.auto
+    ) {
+      lastedCurrentEditorContext.editorMode = TableEditorMode.row;
     }
+
+    lastedCurrentEditorContext.column = nextColumn;
+    lastedCurrentEditorContext.columnIndex = nextColumnIndex;
 
     // 如果是换行编辑，那么需要下一行可编辑项的第一个默认选中，并且修改激活行的数据
     if (toNextRow) {

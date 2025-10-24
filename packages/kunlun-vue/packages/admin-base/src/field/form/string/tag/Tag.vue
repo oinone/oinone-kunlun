@@ -21,7 +21,7 @@
       :placeholder="tags.length > 0 ? '' : placeholder"
       :maxlength="unitValueLength"
       :value="current"
-      @change.stop="currentChange"
+      :oninput="onInputValue"
       @keydown="onKeydown"
       @mouseup="onMouseup"
       @blur="onBlur"
@@ -107,15 +107,8 @@ export default defineComponent({
       return !readonly.value && !disabled.value && tags.value.length > 0 && props.allowClear;
     });
 
-    const currentChange = (e: KeyboardEvent) => {
-      current.value = (e.target as HTMLInputElement).value;
-    };
-
     const addTag = (e: KeyboardEvent) => {
-      let val = (e.target as HTMLInputElement).value;
-      if (val && props.inputRegular) {
-        val = val.replace(props.inputRegular, '');
-      }
+      const val = (e.target as HTMLInputElement).value;
       addTag0(val);
       if (val && e.key === props.tableKeyboardConfig?.enter?.key) {
         e.stopPropagation();
@@ -125,7 +118,6 @@ export default defineComponent({
     const addTag0 = (val: string) => {
       if (!val) {
         props.blur?.();
-        current.value = '';
         return;
       }
       if (tags.value.includes(val)) {
@@ -135,7 +127,6 @@ export default defineComponent({
         }
       }
       tags.value.push(val);
-      current.value = '';
       props.tagChange?.(tags.value);
     };
 
@@ -147,7 +138,15 @@ export default defineComponent({
     const clearTag = () => {
       tags.value = [];
       props.tagChange?.(tags.value);
-      current.value = '';
+    };
+
+    const onInputValue = (e: InputEvent) => {
+      const input = e.target as HTMLInputElement;
+      let val = input.value;
+      if (val && props.inputRegular) {
+        val = val.replace(props.inputRegular, '');
+      }
+      input.value = val;
     };
 
     const onKeydown = (e: KeyboardEvent) => {
@@ -161,10 +160,6 @@ export default defineComponent({
           break;
         case 'Backspace':
           delTagByBackspace(e);
-          break;
-        case 'Escape':
-        case 'Esc':
-          current.value = '';
           break;
       }
     };
@@ -190,10 +185,7 @@ export default defineComponent({
 
     const onBlur = (e: Event) => {
       readyDeleteTag.value = false;
-      let val = (e.target as HTMLInputElement).value;
-      if (val && props.inputRegular) {
-        val = val.replace(props.inputRegular, '');
-      }
+      const val = (e.target as HTMLInputElement).value;
       addTag0(val);
     };
 
@@ -219,10 +211,11 @@ export default defineComponent({
       disabled,
       readyDeleteTag,
       clearStatus,
-      currentChange,
       addTag,
       delTag,
       clearTag,
+
+      onInputValue,
       onKeydown,
       onMouseup,
       onBlur

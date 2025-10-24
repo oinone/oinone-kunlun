@@ -22,6 +22,11 @@ export class FormStringMultiTagFieldWidget extends FormFieldWidget<string, Runti
   }
 
   @Widget.Reactive()
+  protected get inputType(): string {
+    return 'text';
+  }
+
+  @Widget.Reactive()
   private get limit() {
     return this.field.limit;
   }

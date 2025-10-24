@@ -73,6 +73,17 @@ import { RelationSelectProps, relationSelectSetup } from '../../../prop';
 
 export default defineComponent({
   inheritAttrs: false,
+  components: {
+    VNodes: (_, { attrs }) => {
+      return attrs.vnodes;
+    },
+    CheckOutlined,
+    OioEmptyData,
+    OioSpin,
+    ASelect,
+    OioInput,
+    OioIcon
+  },
   props: {
     ...RelationSelectProps,
     value: Object,
@@ -84,17 +95,6 @@ export default defineComponent({
     tableKeyboardConfig: {
       type: Object as PropType<TableKeyboardConfig>
     }
-  },
-  components: {
-    VNodes: (_, { attrs }) => {
-      return attrs.vnodes;
-    },
-    CheckOutlined,
-    OioEmptyData,
-    OioSpin,
-    ASelect,
-    OioInput,
-    OioIcon
   },
   setup(props) {
     const optionList = ref<Record<string, unknown>[]>([]);
