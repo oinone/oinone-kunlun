@@ -152,12 +152,13 @@ export default defineComponent({
 
     const onChangeRadio = (val) => {
       const nextType = val.target.value;
+      const str = `确认要切换为${nextType === QuickFillType.update ? '编辑已有' : '新增'}数据吗？`;
       if (excelRef.value.getCellStatus()) {
         const _modal = Modal.confirm({
           class: 'oio-modal oio-quick-fill-witch-mode-modal',
           icon: createVNode(OioIcon, { icon: 'oinone-tixing1', size: '18' }),
           closeIcon: createVNode(OioCloseIcon),
-          title: translateValueByKey('确认要切换为编辑已有数据吗？'),
+          title: translateValueByKey(str),
           closable: true,
           content: translateValueByKey('切换后，本页数据将丢失，请确认后再继续'),
           okText: translateValueByKey('确定'),
