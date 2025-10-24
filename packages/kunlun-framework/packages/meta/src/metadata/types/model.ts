@@ -52,7 +52,11 @@ export enum ModelFieldType {
   // region string
   String = 'STRING',
   Text = 'TEXT',
+  /**
+   * @deprecated please using {@link ModelFieldType#Html}
+   */
   HTML = 'HTML',
+  Html = 'HTML',
   Phone = 'PHONE',
   Email = 'EMAIL',
   // endregion
