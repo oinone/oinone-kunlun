@@ -7,8 +7,10 @@ import {
   SPIMatchAnyValue
 } from '@oinone/kunlun-spi';
 
+export type IConfigProviderResult = Record<string, string | string[] | boolean | number | number[] | undefined>;
+
 export interface ConfigProviderService {
-  getConfig?(key: string): Record<string, string | number | boolean> | null;
+  getConfig<T extends IConfigProviderResult = IConfigProviderResult>(key: string): T | null | undefined;
 }
 
 export interface ConfigProviderOptions extends SPIOptions {
