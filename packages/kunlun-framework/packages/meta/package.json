@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@oinone/kunlun-request": "6.3.0",
-    "@oinone/kunlun-config": "~6.3.0"
+    "@oinone/kunlun-config": "6.3.0"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }
