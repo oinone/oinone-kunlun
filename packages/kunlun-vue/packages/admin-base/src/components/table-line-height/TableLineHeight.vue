@@ -1,7 +1,7 @@
 <template>
   <a-dropdown overlay-class-name="default-table-line-height-dropdown" trigger="click" placement="bottom">
     <div class="default-view-control-item default-table-line-height">
-      <a-tooltip placement="bottom" class="oio-tooltip">
+      <a-tooltip placement="top" class="oio-tooltip">
         <template #title>
           <span>{{ $translate('行高切换') }}</span>
         </template>
@@ -26,7 +26,6 @@
 
 <script lang="ts">
 import { translateValueByKey } from '@oinone/kunlun-engine';
-
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem, Tooltip as ATooltip } from 'ant-design-vue';
 import { computed, defineComponent, PropType, ref } from 'vue';

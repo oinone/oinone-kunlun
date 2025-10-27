@@ -17,7 +17,7 @@
       ></sortable-group>
     </template>
     <div class="default-view-control-item default-view-control-sort">
-      <a-tooltip placement="bottom" class="oio-tooltip">
+      <a-tooltip placement="top" class="oio-tooltip">
         <template #title>
           <span>{{ $translate('排序') }}</span>
         </template>

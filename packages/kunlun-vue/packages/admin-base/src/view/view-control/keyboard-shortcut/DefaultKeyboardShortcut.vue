@@ -9,7 +9,7 @@
       @update:visible="onUpdateVisible"
     >
       <template #default>
-        <a-tooltip placement="bottom" class="oio-tooltip">
+        <a-tooltip placement="top" class="oio-tooltip">
           <template #title>
             <span>{{ $translate('快捷键') }}</span>
           </template>
