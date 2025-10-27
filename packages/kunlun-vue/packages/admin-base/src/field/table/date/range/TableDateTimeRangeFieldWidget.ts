@@ -193,18 +193,14 @@ export class TableDateTimeRangeFieldWidget extends BaseTableQuickOperationColumn
 
   protected $$mounted() {
     super.$$mounted();
-    if (this.automatic) {
-      this.viewState?.pushField(this.currentHandle);
-    }
+    this.viewState?.pushField(this.currentHandle);
     this.fieldWidgetMounted?.(this);
     // this.notify(LifeCycleTypes.ON_FIELD_BEFORE_UNMOUNT);
   }
 
   protected $$unmounted() {
     super.$$unmounted();
-    if (this.automatic) {
-      this.viewState?.popField(this.currentHandle);
-    }
+    this.viewState?.popField(this.currentHandle);
     this.fieldWidgetUnmounted?.(this);
     // this.notify(LifeCycleTypes.ON_FIELD_UNMOUNTED);
   }
