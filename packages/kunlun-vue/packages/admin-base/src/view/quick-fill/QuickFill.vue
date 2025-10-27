@@ -4,12 +4,7 @@
     {{ $translate('快速填报 ') }}
   </div>
 
-  <oio-modal
-    :width="ModalWidth.medium"
-    :visible="showModal"
-    :title="$translate('快速填报')"
-    @cancel="onToggleModal(false)"
-  >
+  <oio-modal :width="ModalWidth.medium" :visible="showModal" :title="$translate('快速填报')" @cancel="handleCancel">
     <div class="quick-fill-modal-content">
       <a-radio-group :value="type" v-if="step === 0" name="radioGroup" @change="onChangeRadio">
         <a-radio value="create">{{ $translate('新增数据') }}</a-radio>
@@ -150,6 +145,27 @@ export default defineComponent({
     const rowCount = ref(DEFAULT_ROW_COUNT);
     const excelRef = ref();
 
+    const handleCancel = () => {
+      if (!excelRef.value?.getCellStatus()) {
+        return props.onToggleModal(false);
+      }
+      const _modal = Modal.confirm({
+        class: 'oio-modal oio-quick-fill-witch-mode-modal',
+        icon: createVNode(OioIcon, { icon: 'oinone-tixing1', size: '18' }),
+        closeIcon: createVNode(OioCloseIcon),
+        title: translateValueByKey(`确认关闭?`),
+        closable: true,
+        content: translateValueByKey('本页数据将丢失，请确认后再继续'),
+        okText: translateValueByKey('确定'),
+
+        cancelText: translateValueByKey('取消'),
+        onOk: () => {
+          props.onToggleModal(false);
+          _modal.destroy();
+        }
+      });
+    };
+
     const onChangeRadio = (val) => {
       const nextType = val.target.value;
       const str = `确认要切换为${nextType === QuickFillType.update ? '编辑已有' : '新增'}数据吗？`;
@@ -224,7 +240,7 @@ export default defineComponent({
       }
     });
 
-    return { excelRef, type, ModalWidth, rowCount, onChangeRadio, onHandlerSure, addRowCount };
+    return { excelRef, type, ModalWidth, rowCount, onChangeRadio, onHandlerSure, addRowCount, handleCancel };
   }
 });
 </script>
