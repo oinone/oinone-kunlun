@@ -22,10 +22,10 @@ import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-common';
 import { DslDefinitionWidget, isTableViewState, OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseElementWidget, BaseFieldWidget, FormFieldWidget } from '../../basic';
-import { ResourceAddress, ValidatorStatus } from '../../typing';
+import { ResourceAddress, ValidatorStatus, UserTablePrefer } from '../../typing';
 import { TableWidget } from '../table/TableWidget';
 import QuickFill from './QuickFill.vue';
-import { QuickFillType } from './type';
+import { QuickFillType, NON_CUT } from './type';
 
 interface Failure {
   rowNumber: number;
@@ -102,29 +102,41 @@ export class QuickFillWidget extends BaseElementWidget {
   }
 
   @Widget.Reactive()
+  @Widget.Inject()
+  protected userPrefer?: UserTablePrefer;
+
+  @Widget.Reactive()
   public get editableModelFields() {
     const fields: RuntimeModelField[] = [];
-    for (const field of this.viewState?.fields || []) {
-      const fieldWidget = Widget.select<BaseFieldWidget>(field);
-      if (fieldWidget && !fieldWidget.invisible) {
-        const f = fieldWidget.field;
-        if (f.isVirtual) {
+    const allFields = this.metadataRuntimeContext.model.modelFields;
+    for (const originField of allFields || []) {
+      const field = { ...originField };
+      if (field && !field.invisible) {
+        if (field.isVirtual) {
           continue;
         }
-        if (isM2OField(f) && f.references === StaticMetadata.ResourceAddressModel) {
+        const isNotCut = true;
+        if (this.userPrefer?.fieldPrefer?.includes(field.data)) {
+          if (this.type === QuickFillType.create) {
+            continue;
+          }
+          field.disabled = true;
+          field.name = NON_CUT;
+        }
+        if (isM2OField(field) && field.references === StaticMetadata.ResourceAddressModel) {
           fields.push(
             ...fullAddressField.map((v) => {
-              const dd = `${f.data}#${v.data}`;
+              const dd = `${field.data}#${v.data}`;
               return {
                 ...v,
                 data: dd,
-                name: dd,
-                label: `${f.label || f.displayName} - ${translateValueByKey(v.label || v.displayName)}`
+                name: isNotCut ? NON_CUT : dd,
+                label: `${field.label || field.displayName} - ${translateValueByKey(v.label || v.displayName)}`
               };
             })
           );
         } else {
-          fields.push(fieldWidget.field);
+          fields.push(field);
         }
       }
     }
