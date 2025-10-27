@@ -212,6 +212,10 @@ export class SaveDraftAction extends ActionWidget {
       const res = (await this.createDraft()) || {};
       if (res.draftCode) {
         this.setDraftCode(res.draftCode as string);
+        const formData = this.activeRecords?.[0];
+        if (formData) {
+          formData.draftCode = res.draftCode as string;
+        }
       }
     }
     OioNotification.success(translateValueByKey('提示'), translateValueByKey('保存成功'));

@@ -1,15 +1,5 @@
 import { hasActionBarViewState, hasRowActionBarViewState, OioActionBarState, OioAnyViewState } from '../typing';
 
-export function defineActionBarStateProperty(this: OioActionBarState) {
-  Object.defineProperty(this, 'actionBarState', {
-    get() {
-      if (hasActionBarViewState(this)) {
-        return this.actionBar;
-      }
-    }
-  });
-}
-
 function getActionBarState(viewState: OioAnyViewState, rowIndex?: number): OioActionBarState | undefined {
   if (rowIndex == null) {
     if (hasActionBarViewState(viewState)) {

@@ -5,10 +5,6 @@ export interface OioViewState extends Record<string, unknown> {
   fullscreen: boolean;
   viewType?: ViewType;
 
-  actionBarState?: OioActionBarState;
-
-  defineActionBarStateProperty(): void;
-
   pushField(handle: string): void;
 
   popField(handle: string): void;

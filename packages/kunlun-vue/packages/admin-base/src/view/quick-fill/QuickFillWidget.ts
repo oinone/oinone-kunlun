@@ -12,7 +12,15 @@ import {
   StaticMetadata,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { deepClone, Entity, IModelField, isEmptyValue, ModelFieldType, SYSTEM_MODULE } from '@oinone/kunlun-meta';
+import {
+  deepClone,
+  Entity,
+  IModelField,
+  isEmptyValue,
+  ModelFieldType,
+  SYSTEM_MODULE,
+  ViewType
+} from '@oinone/kunlun-meta';
 import { buildSingleItemParam, http } from '@oinone/kunlun-service';
 import { Optional, StandardString } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
@@ -22,6 +30,7 @@ import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-common';
 import { DslDefinitionWidget, isTableViewState, OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseElementWidget, BaseFieldWidget, FormFieldWidget } from '../../basic';
+import { createRuntimeContextForWidget } from '../../tags';
 import { ResourceAddress, ValidatorStatus, UserTablePrefer } from '../../typing';
 import { TableWidget } from '../table/TableWidget';
 import QuickFill from './QuickFill.vue';
@@ -416,7 +425,6 @@ export class QuickFillWidget extends BaseElementWidget {
             rowNumber
             detailList {
               field
-              code
               msg
             }
           }
@@ -458,12 +466,21 @@ export class QuickFillWidget extends BaseElementWidget {
     const fieldDslList = this.collectionFieldDsl(template);
     template.widgets = fieldDslList.filter((w) => map.has(w.data));
 
+    const runtimeContext = createRuntimeContextForWidget({
+      type: ViewType.Table,
+      model: this.model.model,
+      modelName: this.model.name,
+      name: 'quick-fill-error-table',
+      dsl: template
+    });
+    const runtimeContextHandle = runtimeContext.handle;
+
     this.tableWidget = this.createWidget(TableWidget, 'table', {
-      metadataHandle: this.metadataHandle,
-      rootHandle: this.rootHandle,
+      metadataHandle: runtimeContextHandle,
+      rootHandle: runtimeContextHandle,
       dataSource: data,
       activeRecords: data,
-      template,
+      template: runtimeContext.viewTemplate,
       inline: true
     });
   }

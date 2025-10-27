@@ -1,5 +1,6 @@
 import { BooleanHelper } from '@oinone/kunlun-shared';
-import { computed, nextTick, onBeforeMount, onBeforeUnmount, PropType, ref } from 'vue';
+import { delay } from 'lodash-es';
+import { computed, nextTick, onBeforeUnmount, onMounted, PropType, ref } from 'vue';
 import { SelectSearchArea, usePlaceholderProps } from '../../basic';
 
 export const RelationSelectProps = {
@@ -96,16 +97,17 @@ export const RelationSelectProps = {
   }
 };
 
-export function relationSelectSetup(props) {
-  // 记录鼠标按下的元素
-  let mouseDownEventTarget: EventTarget | null = null;
-
+export function relationSelectSetup(props, multi?: boolean) {
   const selectRef = ref();
   const dropdownInputRef = ref();
   const dropdownOpen = ref(false);
   const innerReadonly = computed(() => BooleanHelper.toBoolean(props.readonly));
 
   const innerDisabled = computed(() => BooleanHelper.toBoolean(props.disabled));
+
+  const selectShowSearch = computed(() => props.showSearch && props.searchArea === SelectSearchArea.default);
+
+  const inputShowSearch = computed(() => props.showSearch && props.searchArea === SelectSearchArea.dropdown);
 
   const currentValue = computed(() => {
     const values: any[] = [];
@@ -118,10 +120,6 @@ export function relationSelectSetup(props) {
     return values;
   });
 
-  const onGlobalMouseDown = (event: MouseEvent) => {
-    mouseDownEventTarget = event.target;
-  };
-
   const innerChange = (e) => {
     if (props.change) {
       props.change(e);
@@ -130,12 +128,33 @@ export function relationSelectSetup(props) {
     selectRef.value.focus();
   };
 
+  let focusSearchInput = false;
+
   const dropdownVisibleChange = (val: boolean) => {
-    // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
-    nextTick(() => {
-      dropdownOpen.value = val;
-      props.dropdownVisibleChange(val);
-    });
+    if (focusSearchInput) {
+      return;
+    }
+    if (props.showSearch && props.searchArea === SelectSearchArea.dropdown) {
+      // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
+      nextTick(() => {
+        dropdownOpen.value = val;
+        props.dropdownVisibleChange(val);
+        if (val) {
+          delay(() => {
+            dropdownInputRef.value?.focus();
+            focusSearchInput = true;
+          }, 200);
+        } else if (!multi) {
+          props.blur?.();
+        }
+      });
+    } else {
+      // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
+      nextTick(() => {
+        dropdownOpen.value = val;
+        props.dropdownVisibleChange(val);
+      });
+    }
   };
 
   // 后于change执行
@@ -161,8 +180,19 @@ export function relationSelectSetup(props) {
     }
   };
 
-  onBeforeMount(() => {
-    window.addEventListener('mousedown', onGlobalMouseDown);
+  const onBlur = (e) => {
+    if (focusSearchInput) {
+      return;
+    }
+    props.blur?.(e);
+  };
+
+  const onGlobalMouseDown = (e: MouseEvent) => {
+    focusSearchInput = e.target === dropdownInputRef.value?.originInput?.input;
+  };
+
+  onMounted(() => {
+    window.addEventListener('mousedown', onGlobalMouseDown, true);
   });
 
   onBeforeUnmount(() => {
@@ -170,10 +200,11 @@ export function relationSelectSetup(props) {
   });
 
   return {
-    SelectSearchArea,
     placeholder,
     innerReadonly,
     innerDisabled,
+    selectShowSearch,
+    inputShowSearch,
     selectRef,
     currentValue,
     dropdownOpen,
@@ -182,6 +213,7 @@ export function relationSelectSetup(props) {
     innerSelect,
     slipSelect,
     dropdownVisibleChange,
-    onKeydown
+    onKeydown,
+    onBlur
   };
 }

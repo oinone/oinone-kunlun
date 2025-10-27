@@ -14,7 +14,7 @@
       <a-select
         class="oio-select"
         label-in-value
-        :show-search="showSearch && searchArea === SelectSearchArea.default"
+        :show-search="selectShowSearch"
         :allow-clear="allowClear"
         :disabled="innerDisabled"
         :value="currentValue"
@@ -28,23 +28,22 @@
         @change="change"
         @search="search"
         @select="innerSelect"
-        @blur="blur"
         @focus="focus"
+        @blur="onBlur"
         @dropdownVisibleChange="dropdownVisibleChange"
         @popup-scroll="slipSelect"
         @keydown="onKeydown"
       >
         <template #dropdownRender="{ menuNode: menu }">
           <oio-input
-            v-if="showSearch && searchArea === SelectSearchArea.dropdown"
+            v-if="inputShowSearch"
             ref="dropdownInputRef"
             :placeholder="placeholder"
             :value="searchValue"
-            autofocus
             @update:value="search"
           >
             <template #prefix>
-              <oio-icon icon="oinone-sousuo2" size="16"></oio-icon>
+              <oio-icon icon="oinone-sousuo2" size="16" />
             </template>
           </oio-input>
           <v-nodes :vnodes="menu" />
