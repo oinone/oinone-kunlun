@@ -27,6 +27,7 @@
               dropdown-class-name="oio-select-dropdown"
               :options="selectOptions"
               :value="getThSelectValue(index)"
+              :field-names="{ label: 'label', value: 'uniqueValue', options: 'children' }"
               @change="onChangeTableHeader($event, index)"
             ></a-select>
           </th>
@@ -87,8 +88,7 @@
 import { RuntimeModelField } from '@oinone/kunlun-engine';
 import { Select as ASelect } from 'ant-design-vue';
 import { computed, defineExpose, defineProps, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
-
-const NON_CUT = 'NON_CUT';
+import { NON_CUT } from './type';
 
 interface CellIndices {
   row: number;
@@ -113,19 +113,21 @@ const cellHeight = 30; // 单元格高度
 const colCount = computed(() => props.modelFields.length || 0); // 列数
 const hasChangeCellValue = ref(false);
 // 表头下拉选中的值
-const tableHeaderValues = ref<{ label: string; value: string }[]>([]);
+const tableHeaderValues = ref<{ label: string; value: string; uniqueValue: string }[]>([]);
 
 // 表头下拉选项
 const selectOptions = computed(() => {
-  const options = props.modelFields.map((field) => {
+  const options = props.modelFields.map((field, i) => {
     return {
       label: field.label || field.displayName,
-      value: field.name
+      value: field.name,
+      uniqueValue: field.name === NON_CUT ? `${field.name}-${i}` : field.name
     };
   });
   options.unshift({
     label: '不粘贴',
-    value: NON_CUT
+    value: NON_CUT,
+    uniqueValue: NON_CUT
   });
 
   return options;
@@ -146,9 +148,10 @@ const selectionEnd = ref<CellId | null>(null); // 框选的结束单元格 (即�
 const selectionRange = ref<Set<CellId>>(new Set()); // 存储当前选区内的所有单元格 ID
 
 const initTableHeaderValues = () => {
-  tableHeaderValues.value = props.modelFields.map((v) => ({
+  tableHeaderValues.value = props.modelFields.map((v, i) => ({
     value: v.name,
-    label: v.displayName || v.label || ''
+    label: v.displayName || v.label || '',
+    uniqueValue: v.name === NON_CUT ? `${v.name}-${i}` : v.name
   }));
 };
 
@@ -186,16 +189,12 @@ const disabledRows = computed(() => {
 // 修改表头
 const onChangeTableHeader = (value, index) => {
   tableHeaderValues.value[index].value = value;
-
-  tableHeaderValues.value.forEach((v, idx) => {
-    if (v.value === value && index !== idx) {
-      v.value = NON_CUT;
-    }
-  });
+  tableHeaderValues.value[index].uniqueValue = value === NON_CUT ? `${NON_CUT}-${index}` : value;
 };
 
 const getThSelectValue = (index) => {
-  return tableHeaderValues.value[index].value;
+  const current = tableHeaderValues.value[index];
+  return current.uniqueValue || current.value;
 };
 
 // 获取单元格 ID 的行和列
@@ -237,7 +236,9 @@ const isEditing = (cellId: CellId): boolean => {
 // 获取单元格的行列索引
 const getCellIndices = (cellId: CellId): CellIndices | null => {
   const parsed = parseCellId(cellId);
-  if (!parsed) return null;
+  if (!parsed) {
+    return null;
+  }
   const rowIdx = parsed.row - 1; // 转换为 0-based 索引
   const colIdx = columns.indexOf(parsed.col);
   return colIdx >= 0 ? { row: rowIdx, col: colIdx } : null;
@@ -255,7 +256,9 @@ const getCellId = (rowIdx: number, colIdx: number): CellId | null => {
 const updateSelectionRange = (startId: CellId, endId: CellId): void => {
   const startIndices = getCellIndices(startId);
   const endIndices = getCellIndices(endId);
-  if (!startIndices || !endIndices) return;
+  if (!startIndices || !endIndices) {
+    return;
+  }
 
   const { row: startRow, col: startCol } = startIndices;
   const { row: endRow, col: endCol } = endIndices;
@@ -316,7 +319,9 @@ const handleCellClick = (event: MouseEvent, cellId: CellId, index: number): void
 
 // 处理单元格 mousedown (用于拖拽选择)
 const handleCellMouseDown = (cellId: CellId): void => {
-  if (editingCell.value) return; // 编辑状态下不响应
+  if (editingCell.value) {
+    return;
+  } // 编辑状态下不响应
   isSelecting.value = true;
   selectionStart.value = cellId;
   selectionEnd.value = cellId;
@@ -328,7 +333,9 @@ const handleCellMouseDown = (cellId: CellId): void => {
 
 // 全局 mousemove 处理 (拖拽选择)
 const handleGlobalMouseMove = (event: MouseEvent): void => {
-  if (!isSelecting.value) return;
+  if (!isSelecting.value) {
+    return;
+  }
   const targetCell = event.target as HTMLElement;
   const tdElement = targetCell.closest('td[data-cell]') as HTMLElement;
   if (tdElement) {
@@ -428,7 +435,9 @@ const handleCellKeydown = (event: KeyboardEvent): void => {
 const handleKeydown = (event: KeyboardEvent): void => {
   const { key, shiftKey, ctrlKey, metaKey, altKey } = event;
   const parsed = parseCellId(selectedCell.value);
-  if (!parsed || !selectionStart.value) return;
+  if (!parsed || !selectionStart.value) {
+    return;
+  }
 
   // 如果正在编辑，让单元格内的输入框处理事件
   if (editingCell.value) {
@@ -516,7 +525,6 @@ const handleKeydown = (event: KeyboardEvent): void => {
           updateCellContent(cellId, '');
         });
       }
-      return;
   }
 };
 
@@ -527,12 +535,14 @@ const handleCopy = (event: ClipboardEvent): void => {
   }
 
   event.preventDefault();
-  if (selectionRange.value.size === 0) return;
+  if (selectionRange.value.size === 0) {
+    return;
+  }
 
-  let minRow = props.rowCount,
-    maxRow = 1;
-  let minCol = colCount.value,
-    maxCol = 1;
+  let minRow = props.rowCount;
+  let maxRow = 1;
+  let minCol = colCount.value;
+  let maxCol = 1;
   selectionRange.value.forEach((cellId) => {
     const indices = getCellIndices(cellId);
     if (indices) {
@@ -550,7 +560,7 @@ const handleCopy = (event: ClipboardEvent): void => {
       const cellId = getCellId(r, c);
       rowCells.push(cellId ? getCellContent(cellId) : '');
     }
-    clipboardText += rowCells.join('\t') + '\n';
+    clipboardText += `${rowCells.join('\t')}\n`;
   }
   clipboardText = clipboardText.slice(0, -1);
 
@@ -579,14 +589,20 @@ const handlePaste = (event: ClipboardEvent): void => {
   event.preventDefault();
   const clipboardData = event.clipboardData || (window as any).clipboardData;
   const pastedData = clipboardData.getData('text/plain');
-  if (!pastedData || selectionRange.value.size === 0) return;
+  if (!pastedData || selectionRange.value.size === 0) {
+    return;
+  }
 
   const pasteStartParsed = parseCellId(selectedCell.value);
-  if (!pasteStartParsed) return;
+  if (!pasteStartParsed) {
+    return;
+  }
 
   const { row: startRow, col: startCol } = pasteStartParsed;
   const startColIdx = columns.indexOf(startCol);
-  if (startColIdx === -1) return;
+  if (startColIdx === -1) {
+    return;
+  }
 
   // 解析CSV格式的粘贴数据，正确处理双引号包裹的换行文本
   const parseCSVData = (data: string): string[][] => {
@@ -652,7 +668,7 @@ const handlePaste = (event: ClipboardEvent): void => {
       cellsData.forEach((cellData) => {
         const targetRowIdx = startRow + currentRowOffset - 1;
         const targetColIdx = startColIdx + currentColOffset;
-        if (getThSelectValue(targetColIdx) === NON_CUT) {
+        if (getThSelectValue(targetColIdx).startsWith(NON_CUT)) {
           currentColOffset++;
           return;
         }
@@ -682,8 +698,12 @@ const convertCellsToArray = (obj: Record<CellId, string>) => {
   Object.keys(obj).forEach((key) => {
     const [row, col] = key.split('-').map(Number);
     rows.add(row);
-    if (row > maxRow) maxRow = row;
-    if (col > maxCol) maxCol = col;
+    if (row > maxRow) {
+      maxRow = row;
+    }
+    if (col > maxCol) {
+      maxCol = col;
+    }
   });
 
   // 从第1行到最大行，依次处理
