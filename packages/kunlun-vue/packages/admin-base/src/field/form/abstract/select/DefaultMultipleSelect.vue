@@ -16,7 +16,7 @@
         mode="multiple"
         class="oio-select"
         label-in-value
-        :show-search="showSearch && searchArea === SelectSearchArea.default"
+        :show-search="selectShowSearch"
         :max-tag-count="maxTagCount"
         :allow-clear="allowClear"
         :disabled="innerDisabled"
@@ -38,11 +38,10 @@
       >
         <template #dropdownRender="{ menuNode: menu }">
           <oio-input
-            v-if="showSearch && searchArea === SelectSearchArea.dropdown"
+            v-if="inputShowSearch"
             ref="dropdownInputRef"
             :placeholder="placeholder"
             :value="searchValue"
-            autofocus
             @update:value="search"
           >
             <template #prefix>
