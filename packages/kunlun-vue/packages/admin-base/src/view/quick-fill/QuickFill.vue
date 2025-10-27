@@ -11,7 +11,7 @@
     @cancel="onToggleModal(false)"
   >
     <div class="quick-fill-modal-content">
-      <a-radio-group :value="type" name="radioGroup" @change="onChangeRadio">
+      <a-radio-group :value="type" v-if="step === 0" name="radioGroup" @change="onChangeRadio">
         <a-radio value="create">{{ $translate('新增数据') }}</a-radio>
         <a-radio value="update">{{ $translate('编辑已有数据') }}</a-radio>
       </a-radio-group>
