@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 import { useInjectMetaContext } from './context';
-import { defineActionBarStateProperty, popAction, popField, pushAction, pushField } from './method';
+import { popAction, popField, pushAction, pushField } from './method';
 import { OioAnyViewState } from './typing';
 
 const viewStateStorage: Record<string, OioAnyViewState> = {};
@@ -8,7 +8,6 @@ const viewStateStorage: Record<string, OioAnyViewState> = {};
 const viewStateMethods: Record<string, Function> = {
   pushField,
   popField,
-  defineActionBarStateProperty,
   pushAction,
   popAction
 };

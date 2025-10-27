@@ -124,7 +124,6 @@ export class ActionBarWidget<
           handle: currentHandle,
           actions: []
         };
-        state.defineActionBarStateProperty();
       }
     }
   }
