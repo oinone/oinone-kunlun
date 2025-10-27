@@ -28,8 +28,8 @@
         @change="change"
         @search="search"
         @select="innerSelect"
-        @blur="blur"
         @focus="focus"
+        @blur="onBlur"
         @dropdownVisibleChange="dropdownVisibleChange"
         @popup-scroll="slipSelect"
         @keydown="onKeydown"
@@ -43,7 +43,7 @@
             @update:value="search"
           >
             <template #prefix>
-              <oio-icon icon="oinone-sousuo2" size="16"></oio-icon>
+              <oio-icon icon="oinone-sousuo2" size="16" />
             </template>
           </oio-input>
           <v-nodes :vnodes="menu" />

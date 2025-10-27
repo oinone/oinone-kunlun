@@ -30,8 +30,8 @@
         :dropdownClassName="dropdownClassName"
         @change="innerChange"
         @search="search"
-        @blur="blur"
         @focus="focus"
+        @blur="onBlur"
         @popupScroll="slipSelect"
         @dropdownVisibleChange="dropdownVisibleChange"
         @keydown="onKeydown"
@@ -45,7 +45,7 @@
             @update:value="search"
           >
             <template #prefix>
-              <oio-icon icon="oinone-sousuo2" size="16"></oio-icon>
+              <oio-icon icon="oinone-sousuo2" size="16" />
             </template>
           </oio-input>
           <v-nodes :vnodes="menu" />
@@ -122,7 +122,7 @@ export default defineComponent({
     const formContext = useInjectOioDefaultFormContext();
 
     return {
-      ...relationSelectSetup(props),
+      ...relationSelectSetup(props, true),
       optionList,
       getTriggerContainer: props.getPopupContainer || formContext.getTriggerContainer
     };

@@ -64,9 +64,10 @@ $tagRemoveLineHeight: $tagHeight - 4px;
     box-shadow: none;
     border-radius: 0;
     border-bottom: 1px solid var(--oio-border-color);
+
     &:hover,
     &:focus,
-    &.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):not(.oio-input-readonly):hover {
+    &.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):not(.oio-input-readonly) {
       border: 0;
       border-bottom: 1px solid var(--oio-border-color);
       border-color: var(--oio-border-color);

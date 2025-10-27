@@ -97,7 +97,7 @@ export const RelationSelectProps = {
   }
 };
 
-export function relationSelectSetup(props) {
+export function relationSelectSetup(props, multi?: boolean) {
   const selectRef = ref();
   const dropdownInputRef = ref();
   const dropdownOpen = ref(false);
@@ -134,15 +134,19 @@ export function relationSelectSetup(props) {
     if (focusSearchInput) {
       return;
     }
-    if (val && props.showSearch && props.searchArea === SelectSearchArea.dropdown) {
+    if (props.showSearch && props.searchArea === SelectSearchArea.dropdown) {
       // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
       nextTick(() => {
         dropdownOpen.value = val;
         props.dropdownVisibleChange(val);
-        delay(() => {
-          dropdownInputRef.value?.focus();
-          focusSearchInput = true;
-        }, 200);
+        if (val) {
+          delay(() => {
+            dropdownInputRef.value?.focus();
+            focusSearchInput = true;
+          }, 200);
+        } else if (!multi) {
+          props.blur?.();
+        }
       });
     } else {
       // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
@@ -176,6 +180,13 @@ export function relationSelectSetup(props) {
     }
   };
 
+  const onBlur = (e) => {
+    if (focusSearchInput) {
+      return;
+    }
+    props.blur?.(e);
+  };
+
   const onGlobalMouseDown = (e: MouseEvent) => {
     focusSearchInput = e.target === dropdownInputRef.value?.originInput?.input;
   };
@@ -202,6 +213,7 @@ export function relationSelectSetup(props) {
     innerSelect,
     slipSelect,
     dropdownVisibleChange,
-    onKeydown
+    onKeydown,
+    onBlur
   };
 }
