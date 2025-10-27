@@ -13,7 +13,7 @@
         <a-menu-item
           v-for="option in options"
           :class="[active === option.value && 'ant-dropdown-menu-item-active ']"
-          :key="option.icon"
+          :key="option.value"
           @click="onChange(option.value)"
         >
           <oio-icon size="16" :icon="option.icon"></oio-icon>
@@ -49,9 +49,9 @@ export default defineComponent({
   setup(props, { emit }) {
     const options = [
       { label: translateValueByKey('默认'), icon: 'oinone-a-defaultrowheight', value: TableLineHeightEnum.DEFAULT },
-      { label: translateValueByKey('高'), icon: 'oinone-high-height-outlined', value: TableLineHeightEnum.LARGE },
+      { label: translateValueByKey('高'), icon: 'oinone-height-outlined', value: TableLineHeightEnum.LARGE },
       { label: translateValueByKey('中'), icon: 'oinone-medium-height-outlined', value: TableLineHeightEnum.MIDDLE },
-      { label: translateValueByKey('低'), icon: 'oinone-medium-height-outlined', value: TableLineHeightEnum.SMALL },
+      { label: translateValueByKey('低'), icon: 'oinone-low-height-outlined', value: TableLineHeightEnum.SMALL },
       { label: translateValueByKey('自适应'), icon: 'oinone-adaptive-outlined', value: TableLineHeightEnum.AUTO }
     ];
 
