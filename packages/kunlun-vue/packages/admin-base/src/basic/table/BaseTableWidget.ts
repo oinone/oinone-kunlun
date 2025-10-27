@@ -215,7 +215,7 @@ export class BaseTableWidget<
   }
 
   /**
-   * 启用行高
+   * 启用切换行高
    * @protected
    */
   @Widget.Reactive()

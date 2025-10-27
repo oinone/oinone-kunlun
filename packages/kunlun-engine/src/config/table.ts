@@ -9,7 +9,7 @@ export interface TableConfig extends RuntimeConfigOptions {
   /**
    * 行高
    */
-  lineHeight?: number;
+  lineHeight?: number | string;
   /**
    * 最小行高
    */

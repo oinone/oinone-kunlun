@@ -25,19 +25,18 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from 'vue';
-import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem, Tooltip as ATooltip } from 'ant-design-vue';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
-import { translateValueByKey } from '@oinone/kunlun-engine';
+import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem, Tooltip as ATooltip } from 'ant-design-vue';
+import { computed, defineComponent, PropType, ref } from 'vue';
 import { TableLineHeightEnum } from '../../typing';
 
 export default defineComponent({
   name: 'DefaultTableLineHeight',
   props: {
     value: {
-      type: String as PropType<TableLineHeightEnum>,
-      default: TableLineHeightEnum.AUTO
+      type: String as PropType<TableLineHeightEnum>
     }
   },
   emits: ['change', 'update:value'],
@@ -57,7 +56,7 @@ export default defineComponent({
       { label: translateValueByKey('自适应'), icon: 'oinone-adaptive-outlined', value: TableLineHeightEnum.AUTO }
     ];
 
-    const active = ref(props.value);
+    const active = ref(props.value == null ? TableLineHeightEnum.DEFAULT : props.value);
     const icon = computed(() => options.find((item) => item.value === active.value)?.icon);
 
     const onChange = (value: TableLineHeightEnum) => {
@@ -80,12 +79,14 @@ export default defineComponent({
 .default-table-line-height-dropdown {
   .ant-dropdown-menu-item {
     margin: 4px;
+
     &.ant-dropdown-menu-item-active,
     &:not(.ant-dropdown-menu-item-disabled):hover {
       background: #f4f4f4;
       border-radius: var(--oio-border-radius);
     }
   }
+
   .ant-dropdown-menu-title-content {
     display: flex;
     align-items: center;

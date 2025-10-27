@@ -9,11 +9,12 @@ import { TableLineHeightEnum } from '../../../typing';
 
 export default defineComponent({
   name: 'DefaultLineHeightControl',
-  components: { TableLineHeight },
+  components: {
+    TableLineHeight
+  },
   props: {
     lineHeightType: {
-      type: String as PropType<TableLineHeightEnum>,
-      default: TableLineHeightEnum.DEFAULT
+      type: String as PropType<TableLineHeightEnum>
     },
     setLineHeightType: {
       type: Function as PropType<(lineHeightType: TableLineHeightEnum) => void>
