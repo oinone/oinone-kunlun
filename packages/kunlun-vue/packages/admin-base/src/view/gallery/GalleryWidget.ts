@@ -178,19 +178,15 @@ export class GalleryWidget extends BaseElementListViewWidget {
         widget: 'SortControl'
       },
       {
-        enabled: this.switchLineHeight,
-        widget: 'LineHeightControl'
-      },
-      {
-        enabled: this.enabledFullScreen,
-        widget: 'FullScreenControl'
-      },
-      {
         enabled: this.switchCols,
         widget: 'CardColControl',
         props: {
           subPath: 'card-col-control'
         }
+      },
+      {
+        enabled: this.enabledFullScreen,
+        widget: 'FullScreenControl'
       },
       {
         enabled: true,
