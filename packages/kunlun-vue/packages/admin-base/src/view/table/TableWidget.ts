@@ -47,7 +47,6 @@ import {
   fetchPageSizeNullable,
   TABLE_WIDGET,
   TableLineHeightEnum,
-  TableLineHeightMap,
   UserTablePrefer
 } from '../../typing';
 import { TreeUtils } from '../../util';
@@ -114,22 +113,60 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   }
 
   @Widget.Reactive()
-  protected get lineHeight(): number | undefined {
-    if (this.lineHeightType && this.lineHeightType !== TableLineHeightEnum.DEFAULT) {
-      return TableLineHeightMap[this.lineHeightType];
+  protected get lineHeight(): string | number | undefined {
+    let { lineHeight } = this.getDsl();
+    if (lineHeight != null) {
+      return this.computeLineHeight(lineHeight);
     }
-
-    const lineHeight = Optional.ofNullable(this.getDsl().lineHeight).map(NumberHelper.toNumber).orElse(undefined);
-
-    if (lineHeight) {
-      return lineHeight;
+    lineHeight = this.tableConfig.lineHeight;
+    if (lineHeight != null) {
+      return this.computeLineHeight(lineHeight);
     }
+    return this.computeLineHeight(this.defaultBasicLineHeight);
+  }
 
-    if (typeof this.tableConfig.lineHeight === 'number') {
-      return this.tableConfig.lineHeight;
+  /**
+   * 默认基准行高，切换行高时以该值作为计算基准
+   * @protected
+   */
+  @Widget.Reactive()
+  protected get defaultBasicLineHeight(): number {
+    return 48;
+  }
+
+  /**
+   * 根据行高类型计算行高
+   * @param lineHeight 行高
+   * @protected
+   */
+  protected computeLineHeight(lineHeight: number | string): string | number | undefined {
+    const basicLineHeight = NumberHelper.toNumber(lineHeight);
+    if (basicLineHeight == null) {
+      return StyleHelper.px(lineHeight) as string;
     }
+    const { lineHeightType } = this;
+    if (lineHeightType == null) {
+      return basicLineHeight;
+    }
+    switch (lineHeightType) {
+      case TableLineHeightEnum.SMALL:
+        return basicLineHeight - this.computeLineHeightOffset(TableLineHeightEnum.SMALL);
+      case TableLineHeightEnum.MIDDLE:
+        return basicLineHeight;
+      case TableLineHeightEnum.LARGE:
+        return basicLineHeight + this.computeLineHeightOffset(TableLineHeightEnum.LARGE);
+      case TableLineHeightEnum.AUTO:
+        return undefined;
+    }
+    return basicLineHeight;
+  }
 
-    return undefined;
+  /**
+   * 计算行高偏移量，切换行高时通过类型获取偏移量
+   * @protected
+   */
+  protected computeLineHeightOffset(lineHeightType: TableLineHeightEnum.SMALL | TableLineHeightEnum.LARGE): number {
+    return 8;
   }
 
   @Widget.Reactive()
@@ -152,32 +189,31 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Reactive()
   protected get autoLineHeight(): boolean {
-    if (this.lineHeightType === TableLineHeightEnum.AUTO) {
+    const { lineHeightType } = this;
+    if (lineHeightType === TableLineHeightEnum.AUTO) {
       return true;
     }
-    const autoLineHeight = Optional.ofNullable(this.getDsl().autoLineHeight)
-      .map(BooleanHelper.toBoolean)
-      .orElse(undefined);
+    if (!lineHeightType || lineHeightType === TableLineHeightEnum.DEFAULT) {
+      const autoLineHeight = Optional.ofNullable(this.getDsl().autoLineHeight)
+        .map(BooleanHelper.toBoolean)
+        .orElse(undefined);
 
-    if (typeof autoLineHeight === 'boolean') {
-      return autoLineHeight;
+      if (typeof autoLineHeight === 'boolean') {
+        return autoLineHeight;
+      }
+
+      if (typeof this.tableConfig.autoLineHeight === 'boolean') {
+        return this.tableConfig.autoLineHeight;
+      }
+
+      return true;
     }
-
-    if (typeof this.tableConfig.autoLineHeight === 'boolean') {
-      return this.tableConfig.autoLineHeight;
-    }
-
-    return true;
+    return false;
   }
 
-  @Widget.Provide()
   @Widget.Reactive()
-  protected lineHeightType = TableLineHeightEnum.DEFAULT;
-
-  @Widget.Provide()
-  @Widget.Method()
-  protected setLineHeightType(value: TableLineHeightEnum) {
-    this.lineHeightType = value;
+  protected get lineHeightType(): TableLineHeightEnum | undefined {
+    return this.viewState?.lineHeightType as TableLineHeightEnum | undefined;
   }
 
   @Widget.Reactive()

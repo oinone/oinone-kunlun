@@ -19,7 +19,7 @@
       ></sortable-group>
     </template>
     <div class="default-view-control-item default-view-control-group">
-      <a-tooltip placement="bottom" class="oio-tooltip">
+      <a-tooltip placement="top" class="oio-tooltip">
         <template #title>
           <span>{{ $translate('分组') }}</span>
         </template>

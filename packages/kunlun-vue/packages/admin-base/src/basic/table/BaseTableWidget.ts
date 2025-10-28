@@ -192,12 +192,12 @@ export class BaseTableWidget<
         widget: 'GroupControl'
       },
       {
-        enabled: this.switchLineHeight,
-        widget: 'LineHeightControl'
-      },
-      {
         enabled: this.enabledFullScreen,
         widget: 'FullScreenControl'
+      },
+      {
+        enabled: this.switchLineHeight,
+        widget: 'LineHeightControl'
       },
       {
         enabled: this.enabledKeyboard,
@@ -215,7 +215,7 @@ export class BaseTableWidget<
   }
 
   /**
-   * 启用行高
+   * 启用切换行高
    * @protected
    */
   @Widget.Reactive()

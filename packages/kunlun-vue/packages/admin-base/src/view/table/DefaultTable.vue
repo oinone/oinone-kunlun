@@ -308,7 +308,7 @@ export default defineComponent({
       default: undefined
     },
     lineHeight: {
-      type: Number
+      type: [String, Number]
     },
     lineHeightType: {
       type: String as PropType<TableLineHeightEnum>
@@ -520,8 +520,12 @@ export default defineComponent({
     const calcHeight = ref('');
 
     const tableLineHeight = computed(() => {
-      if (props.lineHeight && props.lineHeight > 0) {
-        return `${props.lineHeight}px`;
+      if (typeof props.lineHeight === 'number') {
+        if (props.lineHeight > 0) {
+          return `${props.lineHeight}px`;
+        }
+      } else if (typeof props.lineHeight === 'string') {
+        return props.lineHeight;
       }
 
       if (calcHeight.value) {
@@ -778,6 +782,7 @@ export default defineComponent({
       height,
       minHeight,
       maxHeight,
+      lineHeightType,
       rowClassName,
       headerRowClassName,
       footerRowClassName,
@@ -864,10 +869,13 @@ export default defineComponent({
     //   stripe = false;
     // }
     const VEX_TABLE_BORDER_MODE = [true, false, 'default', 'outer', 'full', 'inner'];
-    let tableCustomClass = '';
+    const tableCustomClass: string[] = [];
     if (!VEX_TABLE_BORDER_MODE.includes(border)) {
-      tableCustomClass = border as string;
+      tableCustomClass.push(border as string);
       border = 'inner';
+    }
+    if (lineHeightType === TableLineHeightEnum.AUTO) {
+      tableCustomClass.push(`default-table-line-height-auto`);
     }
 
     const tableSlots: Record<string, Slot> = {
@@ -1144,14 +1152,24 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.default-table .oio-table .oio-table-content {
-  > .vxe-table--render-default.size--mini .vxe-body--row .vxe-body--column.col--ellipsis,
-  .vxe-table--render-default.vxe-editable.size--mini .vxe-body--column {
-    height: v-bind(tableLineHeight);
+.default-table .oio-table {
+  .oio-table-content {
+    > .vxe-table--render-default.size--mini .vxe-body--row .vxe-body--column.col--ellipsis,
+    .vxe-table--render-default.vxe-editable.size--mini .vxe-body--column {
+      height: v-bind(tableLineHeight);
+    }
+
+    > .vxe-table--render-default.size--mini .vxe-header--column.col--ellipsis {
+      height: v-bind(tableHeaderHeight);
+    }
   }
 
-  > .vxe-table--render-default.size--mini .vxe-header--column.col--ellipsis {
-    height: v-bind(tableHeaderHeight);
+  &.default-table-line-height-auto {
+    .oio-column-wrapper:not(.oio-column-manual-editor) {
+      overflow: unset;
+      text-overflow: unset;
+      text-wrap: auto;
+    }
   }
 }
 </style>
