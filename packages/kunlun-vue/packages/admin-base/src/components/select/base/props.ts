@@ -1,3 +1,4 @@
+import { SelectSearchArea } from '@oinone/kunlun-engine';
 import { OioSelectItem } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { PropType } from 'vue';
@@ -54,6 +55,9 @@ const SearchProps = {
   allowSearch: {
     type: Boolean,
     default: undefined
+  },
+  searchArea: {
+    type: String as PropType<SelectSearchArea | keyof typeof SelectSearchArea>
   },
   search: {
     type: Function
