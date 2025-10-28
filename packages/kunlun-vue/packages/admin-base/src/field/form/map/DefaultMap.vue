@@ -1,6 +1,6 @@
 <script lang="ts">
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { BooleanHelper, ButtonType, OioButton, OioInput, OioTextarea } from '@oinone/kunlun-vue-ui-antd';
+import { BooleanHelper, ButtonType, OioButton, OioInput, OioTextarea, OioEmpty } from '@oinone/kunlun-vue-ui-antd';
 import { debounce, isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType, VNode } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic';
@@ -40,7 +40,7 @@ export default defineComponent({
     const disabled = computed<boolean>(() => BooleanHelper.toBoolean(props.disabled) || false);
 
     const disabledAdd = computed(() => {
-      const value = disabled.value;
+      const { value } = disabled;
       if (!value) {
         if (isNil(props.limit)) {
           return false;
@@ -173,7 +173,10 @@ export default defineComponent({
         );
       });
     }
-    return createVNode('div', { class: 'default-map' }, children);
+    if (!children.length) {
+      children.push(createVNode(OioEmpty));
+    }
+    return createVNode('div', { class: 'default-map detail-common-field' }, children);
   }
 });
 </script>
