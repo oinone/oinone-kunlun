@@ -28,7 +28,6 @@ import {
   RowContext,
   TableEditorCloseTrigger,
   TableEditorMode,
-  TableEditorTrigger,
   TableRowClickMode,
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
@@ -131,7 +130,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Reactive()
   protected get defaultBasicLineHeight(): number {
-    return 48;
+    return Optional.ofNullable(this.getDsl().defaultBasicLineHeight).map(NumberHelper.toNumber).orElse(48);
   }
 
   /**
@@ -140,6 +139,9 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    * @protected
    */
   protected computeLineHeight(lineHeight: number | string): string | number | undefined {
+    if (typeof lineHeight === 'string' && lineHeight.endsWith('px')) {
+      lineHeight = lineHeight.substring(0, lineHeight.length - 2);
+    }
     const basicLineHeight = NumberHelper.toNumber(lineHeight);
     if (basicLineHeight == null) {
       return StyleHelper.px(lineHeight) as string;
@@ -1472,14 +1474,9 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   }
 
   protected getCellEditable(field: string, row: ActiveRecord, rowIndex: number) {
-    let isEnabled = true;
+    let isEnabled = false;
     const columnWidget = this.getColumnWidgets().find((v) => v.itemData === field);
-    if (
-      columnWidget &&
-      columnWidget.editable &&
-      columnWidget.editorTrigger !== TableEditorTrigger.manual &&
-      columnWidget.editorMode === TableEditorMode.cell
-    ) {
+    if (columnWidget && columnWidget.editable) {
       isEnabled = columnWidget.cellEditable({
         key: VxeTableHelper.getKey(row),
         data: row,

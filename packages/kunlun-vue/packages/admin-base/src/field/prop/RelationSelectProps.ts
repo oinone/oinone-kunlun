@@ -1,7 +1,8 @@
+import { SelectSearchArea } from '@oinone/kunlun-engine';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { delay } from 'lodash-es';
 import { computed, nextTick, onBeforeUnmount, onMounted, PropType, ref } from 'vue';
-import { SelectSearchArea, usePlaceholderProps } from '../../basic';
+import { usePlaceholderProps } from '../../basic';
 
 export const RelationSelectProps = {
   dropdownClassName: {
@@ -187,6 +188,19 @@ export function relationSelectSetup(props, multi?: boolean) {
     props.blur?.(e);
   };
 
+  const onFocusInputSearch = (e) => {
+    focusSearchInput = true;
+  };
+
+  const onBlurInputSearch = (e) => {
+    if (focusSearchInput) {
+      focusSearchInput = false;
+      if (!multi) {
+        dropdownVisibleChange(false);
+      }
+    }
+  };
+
   const onGlobalMouseDown = (e: MouseEvent) => {
     focusSearchInput = e.target === dropdownInputRef.value?.originInput?.input;
   };
@@ -214,6 +228,8 @@ export function relationSelectSetup(props, multi?: boolean) {
     slipSelect,
     dropdownVisibleChange,
     onKeydown,
-    onBlur
+    onBlur,
+    onFocusInputSearch,
+    onBlurInputSearch
   };
 }

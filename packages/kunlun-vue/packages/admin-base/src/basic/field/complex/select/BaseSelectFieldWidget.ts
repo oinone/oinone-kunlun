@@ -2,13 +2,17 @@ import {
   ActiveRecordExtendKeys,
   ActiveRecords,
   ActiveRecordsOperator,
+  isMinimalismTheme,
   Pagination,
   parseConfigs,
   QueryContext,
   QueryVariables,
   RequestHelper,
   RequestModelField,
-  RuntimeRelationField
+  RuntimeRelationField,
+  SelectConfigManager,
+  SelectRuntimeConfig,
+  SelectSearchArea
 } from '@oinone/kunlun-engine';
 import {
   BooleanHelper,
@@ -28,6 +32,10 @@ export abstract class BaseSelectFieldWidget<
   Field extends RuntimeRelationField = RuntimeRelationField,
   Props extends FormComplexFieldProps<Field> = FormComplexFieldProps<Field>
 > extends FormComplexFieldWidget<Value, Field, Props> {
+  protected get selectConfig(): SelectRuntimeConfig {
+    return SelectConfigManager.getConfig();
+  }
+
   @Widget.Reactive()
   protected pagination: Pagination | undefined;
 
@@ -47,6 +55,19 @@ export abstract class BaseSelectFieldWidget<
   @Widget.Reactive()
   public get allowSearch(): boolean {
     return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().allowSearch)).orElse(true);
+  }
+
+  /**
+   * 搜索所在区域
+   * 值域：「搜索框内、下拉框内」
+   */
+  @Widget.Reactive()
+  protected get searchArea(): SelectSearchArea | undefined {
+    const { searchArea } = this.selectConfig;
+    if (searchArea) {
+      return searchArea;
+    }
+    return isMinimalismTheme() ? SelectSearchArea.dropdown : SelectSearchArea.default;
   }
 
   @Widget.Reactive()

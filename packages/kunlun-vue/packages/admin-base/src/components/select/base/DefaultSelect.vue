@@ -1,8 +1,9 @@
 <script lang="ts">
+import { TableKeyboardConfig } from '@oinone/kunlun-engine';
 import { OioSelectItem, StringHelper } from '@oinone/kunlun-shared';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { createVNode, defineComponent } from 'vue';
-import { BaseSelect } from './index';
+import { computed, createVNode, defineComponent, PropType } from 'vue';
+import BaseSelect from './BaseSelect.vue';
 import { DefaultSelectProps } from './props';
 
 export default defineComponent({
@@ -13,9 +14,14 @@ export default defineComponent({
     ...DefaultSelectProps,
     notFoundContent: {
       type: [Object, Function]
+    },
+    tableKeyboardConfig: {
+      type: Object as PropType<TableKeyboardConfig>
     }
   },
   setup(props) {
+    const isEnterSubmit = computed(() => props.tableKeyboardConfig?.enter?.key === 'Enter');
+
     const onChange = (val: OioSelectItem | OioSelectItem[] | null | undefined) => {
       if (!val) {
         props.change?.(null);
@@ -46,6 +52,7 @@ export default defineComponent({
     };
 
     return {
+      isEnterSubmit,
       onChange
     };
   },
@@ -63,6 +70,7 @@ export default defineComponent({
       loadCompleted,
       allowArrow,
       allowSearch,
+      searchArea,
       allowClear,
       onChange,
       focus,
@@ -70,7 +78,8 @@ export default defineComponent({
       search,
       initLoad,
       loadMore,
-      notFoundContent
+      notFoundContent,
+      isEnterSubmit
     } = this;
     const classNames = ['oio-default-select'];
     if (options == null) {
@@ -89,6 +98,7 @@ export default defineComponent({
         loadCompleted,
         allowArrow,
         allowSearch,
+        searchArea,
         allowClear,
         change: onChange,
         focus,
@@ -96,7 +106,8 @@ export default defineComponent({
         search,
         initLoad,
         loadMore,
-        notFoundContent
+        notFoundContent,
+        isEnterSubmit
       },
       $slots
     );

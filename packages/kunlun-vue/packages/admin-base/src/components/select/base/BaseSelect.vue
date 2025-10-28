@@ -1,7 +1,9 @@
 <script lang="ts">
-import { translateValueByKey } from '@oinone/kunlun-engine';
+import { SelectSearchArea, translateValueByKey } from '@oinone/kunlun-engine';
 import {
   OioEmptyData,
+  OioIcon,
+  OioInput,
   OioInputGroup,
   OioSpin,
   PropRecordHelper,
@@ -10,8 +12,8 @@ import {
   useMaxTagPlaceholder
 } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
-import { debounce } from 'lodash-es';
-import { createVNode, defineComponent, nextTick, ref, VNode } from 'vue';
+import { debounce, delay } from 'lodash-es';
+import { createVNode, defineComponent, nextTick, onBeforeUnmount, onMounted, ref, VNode } from 'vue';
 import { useInjectOioDefaultFormContext, useMetadataProps } from '../../../basic';
 import { BaseSelectProps } from './props';
 
@@ -31,13 +33,19 @@ export default defineComponent({
     ...BaseSelectProps,
     notFoundContent: {
       type: [Object, Function]
+    },
+    isEnterSubmit: {
+      type: Boolean,
+      default: undefined
     }
   },
   setup(props) {
     const origin = ref();
+    const dropdownInputRef = ref();
     const formContext = useInjectOioDefaultFormContext();
 
     const { readonly, disabled, placeholder } = useMetadataProps(props, true);
+    const dropdownVisible = ref(false);
     const showLoadCompleted = ref(false);
 
     const onChange = (selected: SelectedOption | SelectedOption[], options: object | object[]) => {
@@ -75,9 +83,32 @@ export default defineComponent({
       await props.search?.(keyword);
     }, 300);
 
+    let focusSearchInput = false;
+
     const onDropdownVisibleChange = (val: boolean) => {
-      if (val) {
-        props.initLoad?.();
+      if (focusSearchInput) {
+        return;
+      }
+      if (props.allowSearch && props.searchArea === SelectSearchArea.dropdown) {
+        nextTick(() => {
+          dropdownVisible.value = val;
+          if (val) {
+            props.initLoad?.();
+            delay(() => {
+              dropdownInputRef.value?.focus();
+              focusSearchInput = true;
+            }, 200);
+          } else if (!props.mode || props.mode === SelectMode.single) {
+            props.blur?.();
+          }
+        });
+      } else {
+        nextTick(() => {
+          dropdownVisible.value = val;
+          if (val) {
+            props.initLoad?.();
+          }
+        });
       }
     };
 
@@ -96,18 +127,64 @@ export default defineComponent({
       }
     };
 
+    const onKeydown = (e: KeyboardEvent) => {
+      // 当键盘数据提交快捷键与下拉框内置选中快捷键冲突时，保证行内编辑态不丢失
+      if (e.key === 'Enter' && props.isEnterSubmit && dropdownVisible.value) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
+    const onBlur = (e) => {
+      if (focusSearchInput) {
+        return;
+      }
+      props.blur?.(e);
+    };
+
+    const onFocusInputSearch = (e) => {
+      focusSearchInput = true;
+    };
+
+    const onBlurInputSearch = (e) => {
+      if (focusSearchInput) {
+        focusSearchInput = false;
+        if (props.mode !== SelectMode.multiple) {
+          onDropdownVisibleChange(false);
+        }
+      }
+    };
+
+    const onGlobalMouseDown = (e: MouseEvent) => {
+      focusSearchInput = e.target === dropdownInputRef.value?.originInput?.input;
+    };
+
+    onMounted(() => {
+      window.addEventListener('mousedown', onGlobalMouseDown, true);
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('mousedown', onGlobalMouseDown);
+    });
+
     return {
       ...useMaxTagPlaceholder(),
       origin,
+      dropdownInputRef,
       readonly,
       disabled,
       placeholder,
+      dropdownVisible,
       showLoadCompleted,
       getTriggerContainer: props.getTriggerContainer || formContext.getTriggerContainer,
       onChange,
       onSearch,
       onDropdownVisibleChange,
-      onPopupScroll
+      onPopupScroll,
+      onKeydown,
+      onBlur,
+      onFocusInputSearch,
+      onBlurInputSearch
     };
   },
   render() {
@@ -122,20 +199,25 @@ export default defineComponent({
       disabled,
       dropdownClassName,
       placeholder,
-      getTriggerContainer,
+      dropdownVisible,
       loadMoreLoading,
       showLoadCompleted,
+      getTriggerContainer,
       onChange,
-      blur,
+      onBlur,
       focus,
       defaultMaxTagPlaceholder,
       allowArrow,
       allowClear,
       allowSearch,
+      searchArea,
       onSearch,
       notFoundContent,
       onDropdownVisibleChange,
-      onPopupScroll
+      onPopupScroll,
+      onKeydown,
+      onFocusInputSearch,
+      onBlurInputSearch
     } = this;
     const { prefix, suffix } = $slots;
     const props: Record<string, unknown> = {
@@ -155,14 +237,16 @@ export default defineComponent({
       placeholder,
       allowClear,
       disabled,
+      open: dropdownVisible,
       showArrow: allowArrow,
       getPopupContainer: getTriggerContainer,
       onChange,
       onFocus: focus,
-      onBlur: blur,
+      onBlur,
 
       onDropdownVisibleChange,
-      onPopupScroll
+      onPopupScroll,
+      onKeydown
     };
     if (mode === SelectMode.multiple) {
       if (value == null) {
@@ -185,7 +269,32 @@ export default defineComponent({
       {
         origin: 'dropdownRender',
         default: ({ menuNode: menu }) => {
-          const vNodes = [menu];
+          const vNodes: VNode[] = [];
+          if (allowSearch && searchArea === SelectSearchArea.dropdown) {
+            vNodes.push(
+              createVNode(
+                OioInput,
+                {
+                  ref: 'dropdownInputRef',
+                  placeholder,
+                  'onUpdate:value': onSearch,
+                  onFocus: onFocusInputSearch,
+                  onBlur: onBlurInputSearch
+                },
+                {
+                  prefix: () => {
+                    return [
+                      createVNode(OioIcon, {
+                        icon: 'oinone-sousuo2',
+                        size: 16
+                      })
+                    ];
+                  }
+                }
+              )
+            );
+          }
+          vNodes.push(menu);
           if (loadMoreLoading) {
             vNodes.push(
               createVNode('div', { class: 'oio-select-dropdown-spin' }, [
@@ -212,7 +321,7 @@ export default defineComponent({
       'suffixIcon',
       'option'
     ];
-    if (allowSearch) {
+    if (allowSearch && (!searchArea || searchArea === SelectSearchArea.default)) {
       props.showSearch = true;
       props.onSearch = onSearch;
     } else {

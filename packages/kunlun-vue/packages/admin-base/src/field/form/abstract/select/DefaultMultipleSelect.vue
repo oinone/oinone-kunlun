@@ -43,6 +43,8 @@
             :placeholder="placeholder"
             :value="searchValue"
             @update:value="search"
+            @focus="onFocusInputSearch"
+            @blur="onBlurInputSearch"
           >
             <template #prefix>
               <oio-icon icon="oinone-sousuo2" size="16" />
