@@ -29,12 +29,12 @@ import { TableEditorMode } from '@oinone/kunlun-vue-ui';
 import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-common';
 import { DslDefinitionWidget, isTableViewState, OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
-import { BaseElementWidget, BaseFieldWidget, FormFieldWidget } from '../../basic';
+import { BaseElementWidget, BaseFieldWidget, FormFieldWidget, BaseTableFieldWidget } from '../../basic';
 import { createRuntimeContextForWidget } from '../../tags';
 import { ResourceAddress, ValidatorStatus } from '../../typing';
 import { TableWidget } from '../table/TableWidget';
 import QuickFill from './QuickFill.vue';
-import { QuickFillType } from './type';
+import { QuickFillType, NON_CUT } from './type';
 
 interface Failure {
   rowNumber: number;
@@ -114,11 +114,16 @@ export class QuickFillWidget extends BaseElementWidget {
   public get editableModelFields() {
     const fields: RuntimeModelField[] = [];
     for (const field of this.viewState?.fields || []) {
-      const fieldWidget = Widget.select<BaseFieldWidget>(field);
+      const fieldWidget = Widget.select<BaseTableFieldWidget>(field);
       if (fieldWidget && !fieldWidget.invisible) {
-        const f = fieldWidget.field;
+        const f = { ...fieldWidget.field };
         if (f.isVirtual) {
           continue;
+        }
+        let isNotCut = false;
+        if (!fieldWidget.editable) {
+          f.name = NON_CUT;
+          isNotCut = true;
         }
         if (isM2OField(f) && f.references === StaticMetadata.ResourceAddressModel) {
           fields.push(
@@ -127,13 +132,13 @@ export class QuickFillWidget extends BaseElementWidget {
               return {
                 ...v,
                 data: dd,
-                name: dd,
+                name: !isNotCut ? dd : NON_CUT,
                 label: `${f.label || f.displayName} - ${translateValueByKey(v.label || v.displayName)}`
               };
             })
           );
         } else {
-          fields.push(fieldWidget.field);
+          fields.push(f);
         }
       }
     }
@@ -246,7 +251,9 @@ export class QuickFillWidget extends BaseElementWidget {
   public fillValueByDataSource(): { cells?: Record<string, unknown>; rowCount?: number } {
     // 处理空数据情况
     if (!this.dataSource?.length) {
-      return {};
+      return {
+        rowCount: 0
+      };
     }
 
     // 将表格数据转换为 Excel 单元格格式 {'行-列': '值'}

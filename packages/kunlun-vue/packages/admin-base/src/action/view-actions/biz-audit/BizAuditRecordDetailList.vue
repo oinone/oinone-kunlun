@@ -1,5 +1,5 @@
 <template>
-  <div class="biz-audit-record-refresh"></div>
+  <div class="biz-audit-record-refresh" @click="handleReFetch"><oio-icon icon="oinone-shuaxin" size="16px" /></div>
   <div class="biz-audit-record-detail-list">
     <div class="oio-scrollbar content" v-if="dataSource && dataSource.length">
       <div v-for="(item, index) in dataSource" :key="item.id" class="single-record">
@@ -47,12 +47,19 @@ export default defineComponent({
     dataSource: {
       type: Array as PropType<Record<string, any>>,
       default: () => []
+    },
+    reFetchData: {
+      type: Function
     }
   },
 
   setup(props) {
     const defaultAvatar = genStaticPath('default_avatar.png');
-    return { defaultAvatar, translateValueByKey };
+
+    const handleReFetch = () => {
+      props.reFetchData?.();
+    };
+    return { defaultAvatar, translateValueByKey, handleReFetch };
   }
 });
 </script>
@@ -132,6 +139,12 @@ export default defineComponent({
 .biz-audit-record-refresh {
   width: 20px;
   height: 20px;
-  background-color: red;
+  position: absolute;
+  top: 17px;
+  right: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 </style>

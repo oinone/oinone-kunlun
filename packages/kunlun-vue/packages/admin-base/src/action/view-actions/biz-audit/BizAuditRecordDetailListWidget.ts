@@ -1,6 +1,7 @@
 import { RuntimeContextManager, ViewCache } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
 import { createRuntimeContextForWidget } from '../../../tags';
 import { DetailWidget } from '../../../view';
@@ -51,4 +52,8 @@ export class BizAuditRecordDetailListWidget extends DetailWidget {
       RuntimeContextManager.delete(nodeWidget.metadataRuntimeContext?.handle);
     });
   }
+
+  @Widget.Inject()
+  @Widget.Reactive()
+  protected reFetchData;
 }
