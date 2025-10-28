@@ -1,6 +1,6 @@
 <template>
-  <div class="biz-audit-record-refresh" @click="handleReFetch"><oio-icon icon="oinone-shuaxin" size="16px" /></div>
   <div class="biz-audit-record-detail-list">
+    <div class="biz-audit-record-refresh" @click="handleReFetch"><oio-icon icon="oinone-shuaxin" size="16px" /></div>
     <div class="oio-scrollbar content" v-if="dataSource && dataSource.length">
       <div v-for="(item, index) in dataSource" :key="item.id" class="single-record">
         <div class="left-area">
