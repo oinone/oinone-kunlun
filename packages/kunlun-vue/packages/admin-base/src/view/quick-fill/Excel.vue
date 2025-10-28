@@ -189,7 +189,7 @@ const disabledRows = computed(() => {
 // 修改表头
 const onChangeTableHeader = (value, index) => {
   tableHeaderValues.value[index].value = value;
-  tableHeaderValues.value[index].uniqueValue = value === NON_CUT ? `${NON_CUT}-${index}` : value;
+  tableHeaderValues.value[index].uniqueValue = value;
 };
 
 const getThSelectValue = (index) => {
