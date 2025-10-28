@@ -2,8 +2,8 @@
   font-family: 'selectIconfont';
   /* Project id 2657071 */
   src: url('//at.alicdn.com/t/font_2657071_fdxlnx3uyl.woff2?t=1649766092203') format('woff2'),
-    url('//at.alicdn.com/t/font_2657071_fdxlnx3uyl.woff?t=1649766092203') format('woff'),
-    url('//at.alicdn.com/t/font_2657071_fdxlnx3uyl.ttf?t=1649766092203') format('truetype');
+  url('//at.alicdn.com/t/font_2657071_fdxlnx3uyl.woff?t=1649766092203') format('woff'),
+  url('//at.alicdn.com/t/font_2657071_fdxlnx3uyl.ttf?t=1649766092203') format('truetype');
 }
 
 @mixin readonly($sbc) {
@@ -58,14 +58,9 @@
     &:hover {
       border-color: var(--oio-primary-color);
     }
-
-    border-color: var(--oio-border-color);
-    box-shadow: none;
   }
 
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-    border-radius: 4px;
-
     &:hover {
       border-color: var(--oio-primary-color);
     }
@@ -86,10 +81,6 @@
 
   .ant-select {
     color: var(--oio-text-color-secondary);
-  }
-
-  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-    border-color: var(--oio-border-color);
   }
 
   .ant-select-item-option {
