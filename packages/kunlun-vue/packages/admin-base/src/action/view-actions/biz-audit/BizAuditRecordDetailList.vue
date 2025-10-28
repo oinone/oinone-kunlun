@@ -141,7 +141,7 @@ export default defineComponent({
   height: 20px;
   position: absolute;
   top: 17px;
-  right: 50px;
+  right: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
