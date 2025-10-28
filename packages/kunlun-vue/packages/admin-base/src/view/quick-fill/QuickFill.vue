@@ -166,6 +166,12 @@ export default defineComponent({
       });
     };
 
+    const fillValueByDataSource = () => {
+      const { cells, rowCount: currentRowCount } = props.fillValueByDataSource();
+      excelRef.value.setCells(cells || {});
+      rowCount.value = currentRowCount ?? DEFAULT_ROW_COUNT;
+    };
+
     const onChangeRadio = (val) => {
       const nextType = val.target.value;
       const str = `确认要切换为${nextType === QuickFillType.update ? '编辑已有' : '新增'}数据吗？`;
@@ -187,9 +193,7 @@ export default defineComponent({
               excelRef.value.setCells({});
               rowCount.value = DEFAULT_ROW_COUNT;
             } else if (nextType === QuickFillType.update) {
-              const { cells, rowCount: currentRowCount } = props.fillValueByDataSource();
-              excelRef.value.setCells(cells || {});
-              rowCount.value = currentRowCount || DEFAULT_ROW_COUNT;
+              fillValueByDataSource();
             }
             _modal.destroy();
           }
@@ -202,9 +206,7 @@ export default defineComponent({
           excelRef.value.setCells({});
           rowCount.value = DEFAULT_ROW_COUNT;
         } else if (nextType === QuickFillType.update) {
-          const { cells, rowCount: currentRowCount } = props.fillValueByDataSource();
-          excelRef.value.setCells(cells || {});
-          rowCount.value = currentRowCount || DEFAULT_ROW_COUNT;
+          fillValueByDataSource();
         }
       }
 
