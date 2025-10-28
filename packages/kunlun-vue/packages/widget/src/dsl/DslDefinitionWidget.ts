@@ -191,7 +191,7 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
 
   protected cacheConfigProxy;
 
-  protected getMergeConfig(...keys: string[]): Record<string, string | number | boolean> {
+  protected getMergeConfig(...keys: string[]): Record<string, any> {
     // dsl
     // appConfig
     // themeConfig

@@ -32,7 +32,6 @@ import { BaseElementListViewWidgetProps, BaseElementWidget, BaseTableColumnWidge
 import { ExpandColumnWidgetNames } from '../../field';
 import { ActiveCountEnum, fetchPageSize, fetchPageSizeNullable, TABLE_WIDGET, UserTablePrefer } from '../../typing';
 import { TreeUtils } from '../../util';
-import { TableConfigManager } from './config';
 import DefaultTable from './DefaultTable.vue';
 import { TableRowClickMode } from './typing';
 
@@ -78,7 +77,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   }
 
   protected get tableConfig() {
-    return TableConfigManager.getConfig();
+    return this.getMergeConfig('table');
   }
 
   @Widget.Reactive()
@@ -88,32 +87,32 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get lineHeight(): number | undefined {
-    return this.getMergeConfig('table').lineHeight as number | undefined;
+    return NumberHelper.toNumber(this.tableConfig.lineHeight) as number | undefined;
   }
 
   @Widget.Reactive()
   protected get minLineHeight(): number | undefined {
-    return this.getMergeConfig('table')?.minLineHeight as number | undefined;
+    return NumberHelper.toNumber(this.tableConfig.minLineHeight) as number | undefined;
   }
 
   @Widget.Reactive()
   protected get border() {
-    return this.getMergeConfig('table').border || false;
+    return this.tableConfig.border || false;
   }
 
   @Widget.Reactive()
   protected get stripe() {
-    return this.getMergeConfig('table').stripe || false;
+    return this.tableConfig.stripe || false;
   }
 
   @Widget.Reactive()
   protected get isCurrent() {
-    return this.getMergeConfig('table').isCurrent || true;
+    return this.tableConfig.isCurrent || true;
   }
 
   @Widget.Reactive()
   protected get isHover() {
-    return this.getMergeConfig('table').isHover || false;
+    return this.tableConfig.isHover || false;
   }
 
   /**
@@ -121,11 +120,8 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Reactive()
   protected get autoLineHeight(): boolean {
-    const { autoLineHeight } = this.getMergeConfig('table');
-    if (typeof autoLineHeight === 'boolean') {
-      return autoLineHeight;
-    }
-    return true;
+    const { autoLineHeight } = this.tableConfig;
+    return Optional.ofNullable(autoLineHeight).map(BooleanHelper.toBoolean).orElse(true)!;
   }
 
   @Widget.Reactive()
@@ -145,7 +141,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Reactive()
   @Widget.Provide()
   protected get activeCount(): number | undefined {
-    const { activeCount } = this.getMergeConfig('table');
+    const { activeCount } = this.tableConfig;
     if (isNil(activeCount)) {
       return undefined;
     }
@@ -162,7 +158,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Reactive()
   @Widget.Provide()
   protected get inlineActiveCount(): number | undefined {
-    let { inlineActiveCount } = this.getMergeConfig('table');
+    let { inlineActiveCount } = this.tableConfig;
     if (isNil(inlineActiveCount)) {
       inlineActiveCount = this.metadataRuntimeContext.viewTemplate?.inlineActiveCount;
       if (isNil(inlineActiveCount)) {

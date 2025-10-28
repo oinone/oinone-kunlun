@@ -38,7 +38,7 @@ import {
   watch
 } from 'vue';
 import { VxeTableDefines, VxeTablePropTypes } from 'vxe-table';
-import { getTableThemeConfig, ManualWidget } from '../../basic';
+import { ManualWidget } from '../../basic';
 import { UserTablePrefer } from '../../typing';
 import { TableRowClickMode } from './typing';
 
@@ -336,6 +336,21 @@ export default defineComponent({
     enableSequence: {
       type: Boolean,
       default: undefined
+    },
+    border: {
+      type: String
+    },
+    stripe: {
+      type: Boolean,
+      default: false
+    },
+    isCurrent: {
+      type: Boolean,
+      default: true
+    },
+    isHover: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props) {
@@ -729,9 +744,12 @@ export default defineComponent({
 
       emptyText,
       emptyImage,
-      pageSizeOptions
+      pageSizeOptions,
+      stripe,
+      isCurrent,
+      isHover
     } = this;
-    let { border = false, stripe = false, isCurrent = true, isHover = false } = getTableThemeConfig() || {};
+    let { border = false } = this;
     const VEX_TABLE_BORDER_MODE = [true, false, 'default', 'outer', 'full', 'inner'];
     let tableCustomClass = '';
     if (!VEX_TABLE_BORDER_MODE.includes(border)) {
