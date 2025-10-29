@@ -120,10 +120,10 @@ export class QuickFillWidget extends BaseElementWidget {
         if (f.isVirtual) {
           continue;
         }
-        let isNotCut = false;
+        let readonly = false;
         if (!fieldWidget.editable) {
-          f.name = NON_CUT;
-          isNotCut = true;
+          f.readonly = true;
+          readonly = true;
         }
         if (isM2OField(f) && f.references === StaticMetadata.ResourceAddressModel) {
           fields.push(
@@ -132,8 +132,9 @@ export class QuickFillWidget extends BaseElementWidget {
               return {
                 ...v,
                 data: dd,
-                name: !isNotCut ? dd : NON_CUT,
-                label: `${f.label || f.displayName} - ${translateValueByKey(v.label || v.displayName)}`
+                name: dd,
+                label: `${f.label || f.displayName} - ${translateValueByKey(v.label || v.displayName)}`,
+                readonly
               };
             })
           );

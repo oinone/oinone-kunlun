@@ -27,8 +27,7 @@
               dropdown-class-name="oio-select-dropdown"
               :options="selectOptions"
               :value="getThSelectValue(index)"
-              :field-names="{ label: 'label', value: 'uniqueValue', options: 'children' }"
-              @change="onChangeTableHeader($event, index)"
+              @change="(value, option) => onChangeTableHeader(value, option, index)"
             ></a-select>
           </th>
         </tr>
@@ -46,7 +45,7 @@
               selected: isSelected(`${row}-${col}`),
               editing: isEditing(`${row}-${col}`),
               'range-selected': isRangeSelected(`${row}-${col}`),
-              'cell-disabled': tableHeaderValues[index].value === NON_CUT
+              'cell-disabled': tableHeaderValues[index].readonly
             }"
             :data-cell="`${row}-${col}`"
             @click="handleCellClick($event, `${row}-${col}`, index)"
@@ -86,7 +85,7 @@
 
 <script setup lang="ts">
 import { RuntimeModelField } from '@oinone/kunlun-engine';
-import { Select as ASelect } from 'ant-design-vue';
+import { Select as ASelect, SelectOption } from 'ant-design-vue';
 import { computed, defineExpose, defineProps, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import { NON_CUT } from './type';
 
@@ -113,7 +112,7 @@ const cellHeight = 30; // 单元格高度
 const colCount = computed(() => props.modelFields.length || 0); // 列数
 const hasChangeCellValue = ref(false);
 // 表头下拉选中的值
-const tableHeaderValues = ref<{ label: string; value: string; uniqueValue: string }[]>([]);
+const tableHeaderValues = ref<{ label: string; value: string; readonly: boolean }[]>([]);
 
 // 表头下拉选项
 const selectOptions = computed(() => {
@@ -121,13 +120,13 @@ const selectOptions = computed(() => {
     return {
       label: field.label || field.displayName,
       value: field.name,
-      uniqueValue: field.name === NON_CUT ? `${field.name}-${i}` : field.name
+      readonly: field.readonly
     };
   });
   options.unshift({
     label: '不粘贴',
     value: NON_CUT,
-    uniqueValue: NON_CUT
+    readonly: true
   });
 
   return options;
@@ -151,7 +150,7 @@ const initTableHeaderValues = () => {
   tableHeaderValues.value = props.modelFields.map((v, i) => ({
     value: v.name,
     label: v.displayName || v.label || '',
-    uniqueValue: v.name === NON_CUT ? `${v.name}-${i}` : v.name
+    readonly: v.readonly as boolean
   }));
 };
 
@@ -187,14 +186,21 @@ const disabledRows = computed(() => {
 // ======== 方法 =========
 
 // 修改表头
-const onChangeTableHeader = (value, index) => {
+const onChangeTableHeader = (
+  value,
+  option: {
+    label?: string;
+    value?: string | number | null | undefined;
+    [name: string]: any;
+  },
+  index: number
+) => {
   tableHeaderValues.value[index].value = value;
-  tableHeaderValues.value[index].uniqueValue = value;
+  tableHeaderValues.value[index].readonly = option.readonly;
 };
 
 const getThSelectValue = (index) => {
-  const current = tableHeaderValues.value[index];
-  return current.uniqueValue || current.value;
+  return tableHeaderValues.value[index].value;
 };
 
 // 获取单元格 ID 的行和列
@@ -668,7 +674,7 @@ const handlePaste = (event: ClipboardEvent): void => {
       cellsData.forEach((cellData) => {
         const targetRowIdx = startRow + currentRowOffset - 1;
         const targetColIdx = startColIdx + currentColOffset;
-        if (getThSelectValue(targetColIdx).startsWith(NON_CUT)) {
+        if (tableHeaderValues.value[targetColIdx].readonly) {
           currentColOffset++;
           return;
         }
