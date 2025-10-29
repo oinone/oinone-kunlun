@@ -29,12 +29,12 @@ import { TableEditorMode } from '@oinone/kunlun-vue-ui';
 import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-common';
 import { DslDefinitionWidget, isTableViewState, OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
-import { BaseElementWidget, BaseFieldWidget, FormFieldWidget, BaseTableFieldWidget } from '../../basic';
+import { BaseElementWidget, BaseFieldWidget, BaseTableFieldWidget, FormFieldWidget } from '../../basic';
 import { createRuntimeContextForWidget } from '../../tags';
 import { ResourceAddress, ValidatorStatus } from '../../typing';
 import { TableWidget } from '../table/TableWidget';
 import QuickFill from './QuickFill.vue';
-import { QuickFillType, NON_CUT } from './type';
+import { NON_CUT, QuickFillType } from './type';
 
 interface Failure {
   rowNumber: number;
@@ -293,6 +293,8 @@ export class QuickFillWidget extends BaseElementWidget {
       if (isRelation2MField(field) && Array.isArray(value)) {
         return value.map((v) => this.handleRelationFieldLabel(field, v)).join(',');
       }
+    } else if (field.multi && Array.isArray(value)) {
+      return value.map((v) => `${v}`).join(',');
     }
 
     return value;
