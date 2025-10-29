@@ -666,7 +666,7 @@ const handlePaste = (event: ClipboardEvent): void => {
       cellsData.forEach((cellData) => {
         const targetRowIdx = startRow + currentRowOffset - 1;
         const targetColIdx = startColIdx + currentColOffset;
-        if (tableHeaderValues.value[targetColIdx].readonly) {
+        if (targetColIdx < columns.length && tableHeaderValues.value[targetColIdx].readonly) {
           currentColOffset++;
           return;
         }
