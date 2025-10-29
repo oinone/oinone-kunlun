@@ -186,15 +186,7 @@ const disabledRows = computed(() => {
 // ======== 方法 =========
 
 // 修改表头
-const onChangeTableHeader = (
-  value,
-  option: {
-    label?: string;
-    value?: string | number | null | undefined;
-    [name: string]: any;
-  },
-  index: number
-) => {
+const onChangeTableHeader = (value, option, index) => {
   tableHeaderValues.value[index].value = value;
   tableHeaderValues.value[index].readonly = option.readonly;
 };
@@ -674,7 +666,7 @@ const handlePaste = (event: ClipboardEvent): void => {
       cellsData.forEach((cellData) => {
         const targetRowIdx = startRow + currentRowOffset - 1;
         const targetColIdx = startColIdx + currentColOffset;
-        if (tableHeaderValues.value[targetColIdx].readonly) {
+        if (targetColIdx < columns.length && tableHeaderValues.value[targetColIdx].readonly) {
           currentColOffset++;
           return;
         }
