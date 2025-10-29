@@ -1,6 +1,7 @@
 import { DslDefinition, DslDefinitionHelper, FieldDslDefinition } from '@oinone/kunlun-dsl';
 import {
   ActiveRecord,
+  getRealTtype,
   isEnumerationField,
   isM2OField,
   isRelation2MField,
@@ -34,7 +35,7 @@ import { createRuntimeContextForWidget } from '../../tags';
 import { ResourceAddress, ValidatorStatus } from '../../typing';
 import { TableWidget } from '../table/TableWidget';
 import QuickFill from './QuickFill.vue';
-import { NON_CUT, QuickFillType } from './type';
+import { QuickFillType } from './type';
 
 interface Failure {
   rowNumber: number;
@@ -118,14 +119,12 @@ export class QuickFillWidget extends BaseElementWidget {
       const fieldWidget = Widget.select<BaseTableFieldWidget>(field);
       if (fieldWidget && !fieldWidget.invisible) {
         const f = { ...fieldWidget.field };
-        if (f.isVirtual) {
+        const ttype = getRealTtype(f);
+        if (f.isVirtual || ttype === ModelFieldType.Map) {
           continue;
         }
-        let readonly = false;
-        if (!fieldWidget.editable) {
-          f.readonly = true;
-          readonly = true;
-        }
+        const readonly = !fieldWidget.editable;
+        f.readonly = readonly;
         if (isM2OField(f) && f.references === StaticMetadata.ResourceAddressModel) {
           fields.push(
             ...fullAddressField.map((v) => {
