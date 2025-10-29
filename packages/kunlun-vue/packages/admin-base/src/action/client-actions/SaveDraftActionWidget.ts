@@ -4,12 +4,15 @@ import {
   ActiveRecordsOperator,
   FunctionCache,
   FunctionService,
+  MetadataHelper,
   QueryContext,
   QueryService,
   QueryVariables,
+  RuntimeStringField,
+  StaticMetadata,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { ActionContextType, Entity, ModelDefaultActionName, ModelType } from '@oinone/kunlun-meta';
+import { ActionContextType, Entity, ModelDefaultActionName, ModelFieldType, ModelType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { BooleanHelper, CallChaining, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
@@ -116,6 +119,22 @@ export class SaveDraftAction extends ActionWidget {
     return new Promise((resolve, reject) => {
       this.draftProcess(resolve, reject);
     });
+  }
+
+  protected generatorDraftCodeField(): RuntimeStringField {
+    const { model, name } = this.model;
+    return MetadataHelper.buildSimpleModelField(model, name, {
+      data: StaticMetadata.DRAFT_CODE_FIELD,
+      ttype: ModelFieldType.String
+    });
+  }
+
+  protected $$created() {
+    super.$$created();
+    const { modelFields } = this.model;
+    if (!modelFields.some((v) => v.data === StaticMetadata.DRAFT_CODE_FIELD)) {
+      modelFields.push(this.generatorDraftCodeField());
+    }
   }
 
   protected async $$beforeMount() {

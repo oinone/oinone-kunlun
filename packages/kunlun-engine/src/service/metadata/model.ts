@@ -58,6 +58,8 @@ export interface RelationData {
 }
 
 export namespace StaticMetadata {
+  export const DRAFT_CODE_FIELD = 'draftCode';
+
   export const QueryOrderModel = '$$query_order_model';
 
   export const QueryOrderModelName = '$$query_order_model';
