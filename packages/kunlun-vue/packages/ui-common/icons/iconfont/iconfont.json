@@ -6,15 +6,22 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "45503446",
+      "name": "card-outlined",
+      "font_class": "card-outlined",
+      "unicode": "e81e",
+      "unicode_decimal": 59422
+    },
+    {
       "icon_id": "45472501",
-      "name": "DoubleUpOutlined",
+      "name": "doubleupoutlined",
       "font_class": "double-up-outlined",
       "unicode": "e81a",
       "unicode_decimal": 59418
     },
     {
       "icon_id": "45472500",
-      "name": "DoubleLeftOutlined",
+      "name": "doubleleftoutlined",
       "font_class": "double-left-outlined",
       "unicode": "e81b",
       "unicode_decimal": 59419
