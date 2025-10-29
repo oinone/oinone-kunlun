@@ -53,7 +53,6 @@ interface QuickFillResponse {
 const fullAddressField = StaticMetadata.ResourceAddress.modelFields.filter((v) =>
   ['countryName', 'provinceName', 'cityName', 'districtName', 'streetName'].includes(v.data)
 );
-console.log('🚀 ~ fullAddressField:', fullAddressField);
 
 const quickFillFields = [
   { name: 'model', ttype: ModelFieldType.String },
@@ -460,7 +459,6 @@ export class QuickFillWidget extends BaseElementWidget {
     template.paginationStyle = ListPaginationStyle.HIDDEN;
 
     const map = new Map(this.editableModelFields.map((v) => [v.data, true]));
-    console.log('🚀 ~ QuickFillWidget ~ createTableWidget ~ map:', map);
     const fieldDslList = this.collectionFieldDsl(template);
     template.widgets = fieldDslList.filter((w) => map.has(w.data));
 
