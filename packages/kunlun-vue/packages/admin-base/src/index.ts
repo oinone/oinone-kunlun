@@ -15,6 +15,7 @@ export {
   Action,
   Element,
   Pack,
+  PackCombination,
   Custom,
   ActionBar,
   ActionColumn,

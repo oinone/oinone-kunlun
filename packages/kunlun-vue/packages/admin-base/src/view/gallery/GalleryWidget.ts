@@ -63,21 +63,6 @@ export class GalleryWidget extends BaseElementListViewWidget {
   }
 
   @Widget.Reactive()
-  protected get switchLineHeight() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().switchLineHeight)).orElse(
-      this.defaultSwitchLineHeight
-    );
-  }
-
-  protected get defaultSwitchLineHeight() {
-    const { switchLineHeight } = this.galleryConfig;
-    if (switchLineHeight == null) {
-      return true;
-    }
-    return switchLineHeight;
-  }
-
-  @Widget.Reactive()
   public cardCols?: number;
 
   @Widget.Provide()
