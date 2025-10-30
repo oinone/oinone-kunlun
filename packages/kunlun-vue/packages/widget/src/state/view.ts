@@ -53,3 +53,7 @@ export function clearViewState(handle?: string): OioAnyViewState | undefined {
   delete viewStateStorage[handle];
   return state;
 }
+
+setInterval(() => {
+  console.log(viewStateStorage);
+}, 3000);

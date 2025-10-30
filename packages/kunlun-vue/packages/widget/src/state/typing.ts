@@ -5,9 +5,9 @@ export interface OioViewState extends Record<string, unknown> {
   fullscreen: boolean;
   viewType?: ViewType;
 
-  pushField(handle: string): void;
+  pushField(handle: string, rowIndex?: number): void;
 
-  popField(handle: string): void;
+  popField(handle: string, rowIndex?: number): void;
 
   pushAction(handle: string, rowIndex?: number): void;
 
@@ -45,12 +45,19 @@ export interface OioDetailViewState extends OioViewState {
   fields?: string[];
 }
 
+export interface OioCardState extends Record<string, unknown> {
+  handle: string;
+  fields: string[];
+  titleProps?: Record<string, unknown>;
+  contentProps?: Record<string, unknown>;
+}
+
 export interface OioGalleryViewState extends OioViewState {
   searchView?: string;
   actionBar?: OioActionBarState;
   inlineActionBars?: OioActionBarState[];
   gallery?: string;
-  fields?: string[];
+  cards?: OioCardState[];
 }
 
 export interface OioTreeViewState extends OioViewState {
@@ -102,6 +109,13 @@ export function isListViewState(state: OioAnyViewState): state is OioListViewSta
 
 export function isObjectViewState(state: OioAnyViewState): state is OioObjectViewState {
   return state.viewType === ViewType.Form || state.viewType === ViewType.Detail;
+}
+
+export function hasFieldsViewState(
+  state: OioAnyViewState
+): state is OioTableViewState | OioFormViewState | OioDetailViewState {
+  const { viewType } = state;
+  return !!viewType && (viewType === ViewType.Table || viewType === ViewType.Form || viewType === ViewType.Detail);
 }
 
 export function hasActionBarViewState(

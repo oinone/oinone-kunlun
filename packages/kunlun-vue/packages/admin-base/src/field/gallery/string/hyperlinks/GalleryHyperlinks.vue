@@ -41,4 +41,11 @@ export default defineComponent({
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.default-card-content-wrap {
+  .gallery-string-hyperlinks {
+    text-wrap: wrap;
+    word-wrap: break-word;
+  }
+}
 </style>

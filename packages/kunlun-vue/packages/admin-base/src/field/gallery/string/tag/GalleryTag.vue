@@ -1,39 +1,58 @@
 <template>
   <gallery-common-field
+    class="gallery-tag-common-item"
     :value="!optionColor ? displayNameListStr : displayNameList.length ? displayNameList : undefined"
     :justify-content="justifyContent"
     :empty-style="emptyStyle"
   >
     <template #default>
       <div v-if="optionColor" class="gallery-tag">
-        <div
-          class="tag"
-          v-for="(item, index) in showTags"
-          :key="item"
-          :style="{
-            width: displayNameList.length > 1 ? '25%' : 'unset',
-            color: item.color,
-            'background-color': item.backgroundColor
-          }"
-        >
-          <div class="content" v-if="index < 3" :title="item.label">
-            {{ item.label }}
+        <template v-for="item in showTags" :key="item">
+          <div
+            v-if="item.label"
+            class="tag"
+            :style="{
+              color: item.color,
+              'background-color': item.backgroundColor
+            }"
+          >
+            <div class="content" :title="item.label">
+              {{ item.label }}
+            </div>
           </div>
-          <div class="content hideTags" v-if="index === 3" :title="hideTags">
-            <oio-icon icon="oinone-gengduo1" color="var(--oio-primary-color)" />
+          <div v-else class="tag-blank"></div>
+        </template>
+        <oio-tooltip v-if="hideTags" placement="tm" :title="hideTags">
+          <div
+            class="tag"
+            :style="{
+              width: displayNameList.length > 1 ? '25%' : 'unset'
+            }"
+          >
+            <div class="content hideTags">
+              <oio-icon icon="oinone-gengduo1" color="var(--oio-primary-color)" />
+            </div>
           </div>
-        </div>
+        </oio-tooltip>
       </div>
       <span v-else>{{ displayNameListStr }}</span>
     </template>
   </gallery-common-field>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
+import { OioTooltip } from '@oinone/kunlun-vue-ui-antd';
 import { OioIcon } from '@oinone/kunlun-vue-ui-common';
+import { computed, defineComponent, PropType } from 'vue';
 import GalleryCommonField from '../../common/GalleryCommonField.vue';
 
 export default defineComponent({
+  name: 'GalleryTag',
+  inheritAttrs: false,
+  components: {
+    GalleryCommonField,
+    OioTooltip,
+    OioIcon
+  },
   props: {
     displayNameList: {
       type: Array as PropType<Record<string, string>[]>,
@@ -50,29 +69,43 @@ export default defineComponent({
     },
     optionColor: {
       type: Boolean
+    },
+    wrap: {
+      type: Boolean
     }
   },
-  components: { GalleryCommonField, OioIcon },
-  inheritAttrs: false,
   setup(props) {
     const tagsLength = computed(() => {
       return props.displayNameList.length;
     });
+
     const showTags = computed(() => {
-      const tags = [] as Record<string, string>[];
-      if (tagsLength.value > 3) {
-        tags.push(...props.displayNameList.slice(0, 3));
-        tags.push({ label: '...', color: 'unset', 'background-color': 'unset' });
-        return tags;
+      if (props.wrap) {
+        return props.displayNameList;
       }
-      return props.displayNameList;
+      if (tagsLength.value > 4) {
+        return props.displayNameList.slice(0, 3);
+      }
+      const tags = [...props.displayNameList];
+      for (let i = tags.length; i < 4; i++) {
+        tags.push({ label: '' });
+      }
+      return tags;
     });
+
     const hideTags = computed(() => {
-      if (tagsLength.value > 3) {
-        return props.displayNameList.slice(3, tagsLength.value).map((i) => i.label);
+      if (props.wrap) {
+        return '';
       }
-      return [];
+      if (tagsLength.value > 4) {
+        return props.displayNameList
+          .slice(3, tagsLength.value)
+          .map((i) => i.label)
+          .join(',');
+      }
+      return '';
     });
+
     return {
       tagsLength,
       showTags,
@@ -82,35 +115,50 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.gallery-tag {
-  display: flex;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  justify-content: inherit;
-
-  .tag {
-    height: 28px;
-    background: var(--oio-input-tag-background);
-    border-radius: 4px;
-    width: 25%;
+.gallery-tag-common-item {
+  .gallery-tag {
     display: flex;
-    justify-content: center;
-    color: var(--oio-primary-color);
-    margin-right: 4%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0 -4px;
+    position: relative;
+    justify-content: inherit;
 
-    .content {
-      font-size: var(--oio-font-size-sm);
-      font-weight: var(--oio-font-weight);
-      padding: 4px 4px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    .tag {
+      height: 28px;
+      background: var(--oio-input-tag-background);
+      border-radius: 4px;
+      flex-basis: calc(25% - 8px);
+      display: flex;
+      justify-content: center;
+      color: var(--oio-primary-color);
+      margin: 0 4px;
 
-      &.hideTags {
-        text-align: center;
+      .content {
+        font-size: var(--oio-font-size-sm);
+        font-weight: var(--oio-font-weight);
+        padding: 4px 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &.hideTags {
+          text-align: center;
+        }
       }
     }
+
+    .tag-blank {
+      flex-basis: calc(25% - 8px);
+    }
+  }
+}
+
+.default-card-title-wrap,
+.default-card-content-wrap {
+  .gallery-tag-common-item .gallery-tag {
+    row-gap: 8px;
+    flex-wrap: wrap;
   }
 }
 </style>

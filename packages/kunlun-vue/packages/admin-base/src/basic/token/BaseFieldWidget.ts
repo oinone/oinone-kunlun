@@ -85,6 +85,10 @@ export class BaseFieldWidget<
   }
 
   @Widget.Reactive()
+  @Widget.Inject()
+  protected rowIndex: number | undefined;
+
+  @Widget.Reactive()
   public get label(): string | undefined {
     const label = super.label;
     if (
@@ -264,7 +268,7 @@ export class BaseFieldWidget<
 
   protected $$mounted() {
     super.$$mounted();
-    this.viewState?.pushField(this.currentHandle);
+    this.viewState?.pushField(this.currentHandle, this.rowIndex);
     this.fieldWidgetMounted?.(this);
     this.notify(LifeCycleTypes.ON_FIELD_MOUNTED);
   }
@@ -286,7 +290,7 @@ export class BaseFieldWidget<
 
   protected $$unmounted() {
     super.$$unmounted();
-    this.viewState?.popField(this.currentHandle);
+    this.viewState?.popField(this.currentHandle, this.rowIndex);
     this.fieldWidgetUnmounted?.(this);
     this.notify(LifeCycleTypes.ON_FIELD_UNMOUNTED);
   }

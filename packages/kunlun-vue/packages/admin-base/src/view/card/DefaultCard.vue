@@ -5,15 +5,19 @@ import { RowContext } from '@oinone/kunlun-vue-ui';
 import { CSSStyle, DEFAULT_CARD_GUTTERS, FlexRowJustify, OioCheckbox, useClick } from '@oinone/kunlun-vue-ui-antd';
 import { FlexRowAlign, ListSelectMode, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { DslRender, DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, PropType, VNode, watch } from 'vue';
+import { computed, createVNode, defineComponent, PropType, VNode } from 'vue';
 import { ActionBar, InternalWidget, ResolveMode } from '../../tags';
-import DefaultCardTitleToolbar from './DefaultCardTitleToolbar.vue';
 import { UserTablePrefer } from '../../typing';
+import DefaultCardContent from './DefaultCardContent.vue';
+import DefaultCardTitle from './DefaultCardTitle.vue';
+import DefaultCardTitleToolbar from './DefaultCardTitleToolbar.vue';
 
 export default defineComponent({
   name: 'DefaultCard',
   components: {
-    ActionBar
+    ActionBar,
+    DefaultCardTitle,
+    DefaultCardContent
   },
   inheritAttrs: false,
   props: {
@@ -56,6 +60,12 @@ export default defineComponent({
     },
     onCheckboxChange: {
       type: Function
+    },
+    titleProps: {
+      type: Object
+    },
+    contentProps: {
+      type: Object
     },
     userPrefer: {
       type: Object as PropType<UserTablePrefer>,
@@ -122,6 +132,8 @@ export default defineComponent({
       isSelected,
       onCheckboxChange,
       allowClick,
+      titleProps,
+      contentProps,
       onMousedown,
       onMouseup
     } = this;
@@ -189,7 +201,9 @@ export default defineComponent({
                   },
                   undefined,
                   {
-                    default: () => finalTitle
+                    default: () => {
+                      return [createVNode(DefaultCardTitle, {}, { default: () => finalTitle })];
+                    }
                   },
                   { dynamicKey: true }
                 )!
@@ -226,8 +240,13 @@ export default defineComponent({
       if (titleStyle?.border || titleStyle?.borderBottom || titleStyle?.borderBottomWidth) {
         isAppendContentPaddingTop = true;
       }
+      const titleClass = ['default-card-title'];
+      const textWrap = titleProps?.textWrap;
+      if (textWrap) {
+        titleClass.push(`default-card-title-${textWrap}`);
+      }
       children.push(
-        createVNode('div', { key: titleVisibleField?.length, class: 'default-card-title', style: titleStyle }, [
+        createVNode('div', { key: titleVisibleField?.length, class: titleClass, style: titleStyle }, [
           DslRender.render(
             {
               dslNodeType: DslDefinitionType.PACK,
@@ -243,7 +262,9 @@ export default defineComponent({
             },
             undefined,
             {
-              default: () => title
+              default: () => {
+                return [createVNode(DefaultCardTitle, {}, { default: () => title })];
+              }
             }
           )!
         ])
@@ -277,12 +298,21 @@ export default defineComponent({
         isAppendContentPaddingTop = true;
       }
 
+      const contentClass = ['default-card-content'];
+      if (isAppendContentPaddingTop) {
+        contentClass.push('default-card-content-padding-top');
+      }
+      const textWrap = contentProps?.textWrap;
+      if (textWrap) {
+        contentClass.push(`default-card-content-${textWrap}`);
+      }
+
       children.push(
         createVNode(
           'div',
           {
             key: contentVisibleField?.length,
-            class: ['default-card-content', isAppendContentPaddingTop && 'default-card-content-padding-top'],
+            class: contentClass,
             style: contentStyle
           },
           [
@@ -299,7 +329,9 @@ export default defineComponent({
               },
               undefined,
               {
-                default: () => content
+                default: () => {
+                  return [createVNode(DefaultCardContent, {}, { default: () => content })];
+                }
               }
             )!
           ]

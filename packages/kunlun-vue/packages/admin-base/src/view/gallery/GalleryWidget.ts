@@ -208,6 +208,7 @@ export class GalleryWidget extends BaseElementListViewWidget {
     super.$$initViewState(state);
     if (!state.gallery) {
       state.gallery = this.currentHandle;
+      state.cards = [];
     }
   }
 }
