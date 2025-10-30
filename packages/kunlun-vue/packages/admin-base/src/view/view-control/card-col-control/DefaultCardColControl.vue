@@ -10,7 +10,7 @@
       <div class="default-card-col-control">
         <div class="default-card-col-control-input">
           <div class="default-card-col-control-title">{{ $translate('一行展示卡片数量') }}</div>
-          <oio-input-number :value="internalCols" @change="onChangeInternalCols"></oio-input-number>
+          <oio-input-number :value="internalCols" @update:value="onChangeInternalCols"></oio-input-number>
         </div>
 
         <div class="default-card-col-control-footer">
