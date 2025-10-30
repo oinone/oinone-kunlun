@@ -1042,43 +1042,6 @@ export class ActionWidget<
     return result;
   }
 
-  protected getRequestModel() {
-    if (this.popupScene) {
-      return this.seekPopupMainRuntimeContext().model;
-    }
-    return this.rootRuntimeContext.model;
-  }
-
-  protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
-    const { viewType } = this;
-    if (viewType === ViewType.Tree) {
-      const runtimeModel = await ModelCache.get(this.model.model);
-      if (runtimeModel) {
-        return runtimeModel.modelFields.map((field) => ({ field }));
-      }
-      return [];
-    }
-    if (this.popupScene) {
-      return this.seekPopupMainRuntimeContext().getRequestModelFields(options);
-    }
-    return this.rootRuntimeContext.getRequestModelFields(options);
-  }
-
-  protected seekPopupMainRuntimeContext(): RuntimeContext {
-    if (this.metadataHandle === this.rootHandle) {
-      const modelModel = this.model.model;
-      if (modelModel) {
-        const popupMainRuntimeContext = RuntimeContextManager.getOthers(this.rootHandle)?.find(
-          (v) => v.model.model === modelModel
-        );
-        if (popupMainRuntimeContext) {
-          return popupMainRuntimeContext;
-        }
-      }
-    }
-    return this.rootRuntimeContext;
-  }
-
   protected async submit(action: RuntimeServerAction): Promise<SubmitValue> {
     let records: ActiveRecords | undefined;
     let relationRecords: SubmitRelationValue[] | undefined;

@@ -17,7 +17,7 @@ import { Condition } from '@oinone/kunlun-request';
 import { BooleanHelper, CallChaining, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioButton, OioCloseIcon, OioIcon, OioNotification } from '@oinone/kunlun-vue-ui-antd';
-import { isFormViewState, OioFormViewState, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { isFormViewState, OioFormViewState, useOioState, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { Modal } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
 import { createVNode } from 'vue';

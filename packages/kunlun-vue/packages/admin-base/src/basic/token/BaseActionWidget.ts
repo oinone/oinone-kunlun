@@ -1,7 +1,12 @@
 import {
   baseActionTokenSymbol,
+  GetRequestModelFieldsOptions,
+  ModelCache,
   RelationUpdateType,
+  RequestModelField,
   RuntimeAction,
+  RuntimeContext,
+  RuntimeContextManager,
   SubmitType,
   SubmitValue
 } from '@oinone/kunlun-engine';
@@ -10,7 +15,7 @@ import { Matched, Router, useMatched } from '@oinone/kunlun-router';
 import { CallChaining, Constructor } from '@oinone/kunlun-shared';
 import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
 import { useRouter } from '@oinone/kunlun-vue-router';
-import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
+import { ActiveRecordsWidgetProps, InnerWidgetType, useOioState, Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../typing';
 import { BaseRuntimePropertiesWidget } from '../common';
 
@@ -166,8 +171,44 @@ export class BaseActionWidget<
     return fn(...args);
   }
 
+  protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
+    const { viewType } = this;
+    if (viewType === ViewType.Tree) {
+      const runtimeModel = await ModelCache.get(this.model.model);
+      if (runtimeModel) {
+        return runtimeModel.modelFields.map((field) => ({ field }));
+      }
+      return [];
+    }
+    if (this.popupScene) {
+      return this.seekPopupMainRuntimeContext().getRequestModelFields(options);
+    }
+    return this.rootRuntimeContext.getRequestModelFields(options);
+  }
+
+  protected seekPopupMainRuntimeContext(): RuntimeContext {
+    if (this.metadataHandle === this.rootHandle) {
+      const modelModel = this.model.model;
+      if (modelModel) {
+        const popupMainRuntimeContext = RuntimeContextManager.getOthers(this.rootHandle)?.find(
+          (v) => v.model.model === modelModel
+        );
+        if (popupMainRuntimeContext) {
+          return popupMainRuntimeContext;
+        }
+      }
+    }
+    return this.rootRuntimeContext;
+  }
+
   protected $$beforeMount() {
     super.$$beforeMount();
+    if (!this.viewState && this.popupScene) {
+      this.viewState = useOioState(this.seekPopupMainRuntimeContext().handle).viewState;
+      if (this.viewState) {
+        this.$$initViewState(this.viewState);
+      }
+    }
     if (!this.$matched) {
       const { matched } = useMatched();
       this.$matched = matched;

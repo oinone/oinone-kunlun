@@ -61,12 +61,12 @@ export class DrawerWidget<Props extends DrawerWidgetProps = DrawerWidgetProps> e
 
   @Widget.Reactive()
   public get width() {
-    return this.getDsl().width || DrawerWidth.small;
+    return this.getDsl().width || DrawerWidth.medium;
   }
 
   @Widget.Reactive()
   public get height() {
-    return this.getDsl().height || DrawerHeight.small;
+    return this.getDsl().height || DrawerHeight.medium;
   }
 
   @Widget.Reactive()

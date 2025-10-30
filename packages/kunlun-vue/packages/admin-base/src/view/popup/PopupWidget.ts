@@ -189,7 +189,7 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
   public cols: number | undefined;
 
   /**
-   * 置空cols属性
+   * 置空rowIndex属性
    */
   @Widget.Reactive()
   @Widget.Provide()
