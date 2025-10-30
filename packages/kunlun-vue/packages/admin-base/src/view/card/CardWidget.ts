@@ -11,7 +11,13 @@ import {
   DEFAULT_VERTICAL_GUTTERS,
   ListSelectMode
 } from '@oinone/kunlun-vue-ui-common';
-import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
+import {
+  DslDefinitionWidget,
+  isGalleryViewState,
+  OioAnyViewState,
+  OioGalleryViewState,
+  Widget
+} from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import type { ActionWidget } from '../../action';
 import { BaseActionWidget, BaseElementWidget, BasePackWidget } from '../../basic';
@@ -33,6 +39,8 @@ const CLICK_SLOT_NAME = 'click';
   })
 )
 export class CardWidget extends BaseElementWidget {
+  protected viewState: OioGalleryViewState | undefined;
+
   @Widget.Reactive()
   @Widget.Provide()
   protected isCard = true;
@@ -64,6 +72,7 @@ export class CardWidget extends BaseElementWidget {
   }
 
   @Widget.Reactive()
+  @Widget.Provide()
   protected rowIndex: number | undefined;
 
   @Widget.Reactive()
@@ -117,6 +126,26 @@ export class CardWidget extends BaseElementWidget {
   @Widget.Reactive()
   @Widget.Inject()
   protected selectMode: ListSelectMode | undefined;
+
+  @Widget.Reactive()
+  protected get titleProps(): Record<string, unknown> | undefined {
+    const titleDsl = this.template?.widgets?.find((v) => (v as TemplateDslDefinition).slot === 'title');
+    if (titleDsl) {
+      return {
+        textWrap: titleDsl.textWrap?.toLowerCase?.()
+      };
+    }
+  }
+
+  @Widget.Reactive()
+  protected get contentProps(): Record<string, unknown> | undefined {
+    const contentDsl = this.template?.widgets?.find((v) => (v as TemplateDslDefinition).slot === 'content');
+    if (contentDsl) {
+      return {
+        textWrap: contentDsl.textWrap?.toLowerCase?.()
+      };
+    }
+  }
 
   @Widget.Reactive()
   protected get clickActionDslDefinition(): ActionDslDefinition | undefined {
@@ -207,5 +236,32 @@ export class CardWidget extends BaseElementWidget {
       return ActiveCountEnum[inlineActiveCount as string];
     }
     return inlineActiveCountNumber;
+  }
+
+  protected $$initViewState(state: OioAnyViewState): void {
+    const { currentHandle, rowIndex } = this;
+    if (isGalleryViewState(state) && rowIndex != null) {
+      if (!state.cards) {
+        state.cards = [];
+      }
+      state.cards[rowIndex] = {
+        handle: currentHandle,
+        fields: [],
+        titleProps: this.titleProps,
+        contentProps: this.contentProps
+      };
+    }
+  }
+
+  protected $$unmounted() {
+    super.$$unmounted();
+    const { viewState, rowIndex } = this;
+    if (viewState && rowIndex != null && isGalleryViewState(viewState)) {
+      const { cards } = viewState;
+      if (cards) {
+        cards.splice(rowIndex, 1);
+        viewState.cards = [...cards];
+      }
+    }
   }
 }

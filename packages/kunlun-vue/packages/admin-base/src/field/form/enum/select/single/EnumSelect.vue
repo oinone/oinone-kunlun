@@ -35,6 +35,7 @@
 <script lang="ts">
 import { RuntimeEnumerationOption, TableKeyboardConfig } from '@oinone/kunlun-engine';
 import { defaultSelectProperties, OioSelect, SelectItem } from '@oinone/kunlun-vue-ui-antd';
+import { delay } from 'lodash-es';
 import { computed, defineComponent, nextTick, PropType, ref } from 'vue';
 import {
   OioCommonProps,
@@ -100,10 +101,22 @@ export default defineComponent({
       return option.label.includes(val);
     };
 
+    let focusSearchInput = false;
+
     const onUpdateDropdownVisible = (val: boolean) => {
+      if (!focusSearchInput && !val && dropdownVisible.value) {
+        // 按下 Enter 时，下拉单选框无法正常展开，此时进行数据提交
+        dropdownVisible.value = false;
+        return;
+      }
       // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
       nextTick(() => {
         dropdownVisible.value = val;
+        if (val) {
+          delay(() => {
+            focusSearchInput = true;
+          }, 200);
+        }
       });
     };
 

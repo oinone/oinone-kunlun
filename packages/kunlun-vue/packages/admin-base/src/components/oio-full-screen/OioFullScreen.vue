@@ -1,9 +1,6 @@
 <template>
   <div class="default-view-control-item default-view-control-full-screen">
-    <oio-tooltip v-model:visible="visible" placement="bm">
-      <template #title>
-        <span>{{ $translate('全屏') }}</span>
-      </template>
+    <oio-tooltip v-model:visible="visible" placement="bm" :title="$translate('全屏')">
       <oio-icon size="16" :icon="icon" @click="onChange" />
     </oio-tooltip>
   </div>

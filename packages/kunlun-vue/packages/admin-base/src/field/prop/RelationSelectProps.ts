@@ -135,6 +135,11 @@ export function relationSelectSetup(props, multi?: boolean) {
     if (focusSearchInput) {
       return;
     }
+    if (!focusSearchInput && !val && !multi && dropdownOpen.value) {
+      // 按下 Enter 时，下拉单选框无法正常展开，此时进行数据提交
+      dropdownOpen.value = false;
+      return;
+    }
     if (props.showSearch && props.searchArea === SelectSearchArea.dropdown) {
       // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
       nextTick(() => {
@@ -179,6 +184,10 @@ export function relationSelectSetup(props, multi?: boolean) {
       e.preventDefault();
       e.stopPropagation();
     }
+  };
+
+  const onFocus = (e) => {
+    props.focus?.(e);
   };
 
   const onBlur = (e) => {
@@ -228,6 +237,7 @@ export function relationSelectSetup(props, multi?: boolean) {
     slipSelect,
     dropdownVisibleChange,
     onKeydown,
+    onFocus,
     onBlur,
     onFocusInputSearch,
     onBlurInputSearch
