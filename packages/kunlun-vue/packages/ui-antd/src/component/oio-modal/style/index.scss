@@ -9,12 +9,15 @@
 
 .#{$modalClassPrefix} {
   padding: 0;
+
   &.#{$modalClassPrefix}-width-small {
     width: var($modalParameterPrefix + -width-small) !important;
   }
+
   &.#{$modalClassPrefix}-width-medium {
     width: var($modalParameterPrefix + -width-medium) !important;
   }
+
   &.#{$modalClassPrefix}-width-large {
     width: var($modalParameterPrefix + -width-large) !important;
   }
@@ -22,6 +25,7 @@
   &.#{$modalClassPrefix}-width-full {
     width: 100% !important;
     max-width: 100%;
+
     &.ant-modal {
       margin: 0;
     }
@@ -35,6 +39,7 @@
       height: var($modalParameterPrefix + -height-small) !important;
     }
   }
+
   &.#{$modalClassPrefix}-height-medium {
     .ant-modal-content {
       display: flex;
@@ -43,6 +48,7 @@
       height: var($modalParameterPrefix + -height-medium) !important;
     }
   }
+
   &.#{$modalClassPrefix}-height-large {
     .ant-modal-content {
       display: flex;
@@ -104,20 +110,19 @@
     border: 1px solid var($parameterPrefix + -border-color);
     box-shadow: var(--oio-box-shadow);
     border-radius: var($parameterPrefix + -border-radius);
+  }
 
-    .ant-modal-close {
-      top: 2px;
-    }
+  .ant-modal-close {
+    margin: 16px;
   }
 
   .ant-modal-close-x {
+    width: 24px;
+    height: 24px;
     color: var($parameterPrefix + -text-color);
-    height: 49px;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    top: 1px;
   }
 
   .ant-modal-header {
@@ -131,15 +136,25 @@
       color: var($parameterPrefix + -text-color);
       line-height: 24px;
       font-weight: var($parameterPrefix + -font-weight-bold);
-      display: flex;
+      position: relative;
 
       .#{$modalClassPrefix}-title-extend {
+        height: 24px;
         flex: 1;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
-        padding-right: calc(var(--oio-row-gap) + 20px);
-        gap: var(--oio-row-gap);
+        column-gap: 16px;
+        position: absolute;
+        top: 0;
+        right: 40px;
+
+        .oio-icon {
+          width: 24px;
+          height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
       }
     }
   }
@@ -173,8 +188,7 @@
 
       &.ant-btn {
         height: var($parameterPrefix + -height);
-        margin: var($parameterPrefix + -margin-xxs) 0 var($parameterPrefix + -margin-xxs)
-          var($parameterPrefix + -margin-md);
+        margin: var($parameterPrefix + -margin-xxs) 0 var($parameterPrefix + -margin-xxs) var($parameterPrefix + -margin-md);
 
         & + .ant-btn {
           margin-left: var($parameterPrefix + -margin-md);
@@ -182,6 +196,7 @@
       }
     }
   }
+
   .ant-modal-confirm-btns .ant-btn + .ant-btn {
     margin-left: 12px;
   }

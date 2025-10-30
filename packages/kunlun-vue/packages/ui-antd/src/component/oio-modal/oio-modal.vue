@@ -115,9 +115,7 @@ export default defineComponent({
       const originalTitleSlot = slots.title;
 
       // 默认标题插槽
-      const createDefaultTitle = () => [
-        createVNode('span', {}, this.$translate(this.title || OioModalProps.title.default))
-      ];
+      const createDefaultTitle = () => [createVNode('span', {}, this.$translate(this.title))];
 
       slots.title = () => {
         // 获取原始或默认的标题插槽
