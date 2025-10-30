@@ -1,7 +1,12 @@
 <template>
-  <a-dropdown overlay-class-name="default-table-line-height-dropdown" trigger="click" placement="bottom">
+  <a-dropdown
+    overlay-class-name="default-table-line-height-dropdown"
+    trigger="click"
+    placement="bottomRight"
+    @visible-change="handleVisibleChange"
+  >
     <div class="default-view-control-item default-table-line-height">
-      <a-tooltip placement="top" class="oio-tooltip">
+      <a-tooltip placement="bottom" class="oio-tooltip" v-model:visible="tooltipStatus">
         <template #title>
           <span>{{ $translate('行高切换') }}</span>
         </template>
@@ -55,6 +60,14 @@ export default defineComponent({
       { label: translateValueByKey('自适应'), icon: 'oinone-adaptive-outlined', value: TableLineHeightEnum.AUTO }
     ];
 
+    const tooltipStatus = ref(false);
+
+    const handleVisibleChange = (visible: boolean) => {
+      if (visible) {
+        tooltipStatus.value = false;
+      }
+    };
+
     const active = ref(props.value == null ? TableLineHeightEnum.DEFAULT : props.value);
     const icon = computed(() => options.find((item) => item.value === active.value)?.icon);
 
@@ -68,7 +81,9 @@ export default defineComponent({
       options,
       icon,
       active,
-      onChange
+      tooltipStatus,
+      onChange,
+      handleVisibleChange
     };
   }
 });
