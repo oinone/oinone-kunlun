@@ -2,7 +2,7 @@
   <a-popover
     overlay-class-name="oio-popover default-view-control-popover"
     trigger="click"
-    placement="bottomLeft"
+    placement="bottomRight"
     :visible="visible"
     @visible-change="onVisibleChange"
   >
@@ -20,7 +20,7 @@
       </div>
     </template>
     <div class="default-view-control-item default-card-col-control">
-      <a-tooltip placement="top" class="oio-tooltip">
+      <a-tooltip placement="bottom" class="oio-tooltip" v-model:visible="tooltipStatus">
         <template #title>
           <span>{{ $translate('行数量切换') }}</span>
         </template>
@@ -55,8 +55,12 @@ export default defineComponent({
       internalCols.value = isNaN(val) ? props.cols : toNumber(val);
     };
 
+    const tooltipStatus = ref(false);
     const onVisibleChange = (val) => {
       visible.value = val;
+      if (val) {
+        tooltipStatus.value = false;
+      }
     };
 
     const onCancel = () => {
@@ -80,7 +84,7 @@ export default defineComponent({
       { immediate: true, deep: true }
     );
 
-    return { internalCols, visible, onChangeInternalCols, onCancel, onVisibleChange, onSure };
+    return { internalCols, visible, tooltipStatus, onChangeInternalCols, onCancel, onVisibleChange, onSure };
   }
 });
 </script>

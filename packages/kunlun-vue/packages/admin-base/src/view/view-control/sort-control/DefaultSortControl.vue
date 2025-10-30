@@ -2,7 +2,7 @@
   <a-popover
     overlay-class-name="oio-popover default-view-control-popover"
     trigger="click"
-    placement="bottomLeft"
+    placement="bottomRight"
     destroy-tooltip-on-hide
     :visible="state.visible"
     @visibleChange="onVisibleChange"
@@ -17,7 +17,7 @@
       ></sortable-group>
     </template>
     <div class="default-view-control-item default-view-control-sort">
-      <a-tooltip placement="top" class="oio-tooltip">
+      <a-tooltip placement="bottom" class="oio-tooltip" v-model:visible="tooltipStatus">
         <template #title>
           <span>{{ $translate('排序') }}</span>
         </template>
@@ -29,7 +29,7 @@
 <script lang="ts">
 import { ISort } from '@oinone/kunlun-service';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, PropType, reactive } from 'vue';
+import { defineComponent, PropType, reactive, ref } from 'vue';
 import { SortableGroup, SortableGroupOption } from '../../../components';
 
 export default defineComponent({
@@ -56,9 +56,12 @@ export default defineComponent({
       visible: false
     });
 
+    const tooltipStatus = ref(false);
+
     const onVisibleChange = (visible: boolean) => {
       state.visible = visible;
       if (visible) {
+        tooltipStatus.value = false;
         props.onOpen?.();
       }
     };
@@ -70,6 +73,7 @@ export default defineComponent({
 
     return {
       state,
+      tooltipStatus,
 
       onVisibleChange,
       onEnter

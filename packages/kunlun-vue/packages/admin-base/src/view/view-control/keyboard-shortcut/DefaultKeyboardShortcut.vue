@@ -9,7 +9,7 @@
       @update:visible="onUpdateVisible"
     >
       <template #default>
-        <a-tooltip placement="top" class="oio-tooltip">
+        <a-tooltip placement="bottom" class="oio-tooltip" v-model:visible="tooltipVisible">
           <template #title>
             <span>{{ $translate('快捷键') }}</span>
           </template>
@@ -83,13 +83,19 @@ export default defineComponent({
   setup() {
     const visible = ref(false);
 
+    const tooltipVisible = ref(false);
+
     const onUpdateVisible = (val: boolean) => {
       visible.value = val;
+      if (val) {
+        tooltipVisible.value = false;
+      }
     };
 
     return {
       visible,
       onUpdateVisible,
+      tooltipVisible,
       ButtonType
     };
   }

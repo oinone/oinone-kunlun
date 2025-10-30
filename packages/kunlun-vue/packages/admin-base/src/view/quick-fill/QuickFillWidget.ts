@@ -307,7 +307,33 @@ export class QuickFillWidget extends BaseElementWidget {
     // 获取表格字段
     const widgets = this.tableWidget?.getColumnWidgets(true).filter((v) => v.getChildrenInstance().length) || [];
     failures.forEach(({ rowNumber, detailList }) => {
-      detailList.forEach((detail) => {
+      const stack = [...detailList];
+      while (stack.length) {
+        const detail = stack.shift()!;
+
+        let fieldInfo;
+        this.viewState?.fields?.some((f) => {
+          const fieldWidget = Widget.select<BaseFieldWidget>(f);
+          if (fieldWidget?.field.data === detail.field) {
+            fieldInfo = fieldWidget.field;
+            return true;
+          }
+          return false;
+        });
+
+        if (fieldInfo && isM2OField(fieldInfo) && fieldInfo.references === StaticMetadata.ResourceAddressModel) {
+          stack.push(
+            ...fullAddressField.map((v) => {
+              const dd = `${fieldInfo.data}#${v.data}`;
+              return {
+                ...detail,
+                field: dd
+              };
+            })
+          );
+          continue;
+        }
+
         let formFieldWidget: FormFieldWidget | undefined;
 
         // 找到表格字段
@@ -325,7 +351,26 @@ export class QuickFillWidget extends BaseElementWidget {
             path: formFieldWidget.dataPath
           };
         }
-      });
+      }
+      // detailList.forEach((detail) => {
+      //   let formFieldWidget: FormFieldWidget | undefined;
+
+      //   // 找到表格字段
+      //   const index = widgets.findIndex((w) => w.itemData === detail.field);
+
+      //   if (index > -1) {
+      //     // 获取对应的表单字段
+      //     formFieldWidget = widgets[index].getChildrenInstance()[rowNumber] as FormFieldWidget;
+      //   }
+
+      //   if (formFieldWidget) {
+      //     formFieldWidget.validation = {
+      //       message: detail.msg,
+      //       status: ValidatorStatus.Error,
+      //       path: formFieldWidget.dataPath
+      //     };
+      //   }
+      // });
     });
   }
 
