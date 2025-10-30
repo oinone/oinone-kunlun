@@ -30,7 +30,7 @@
         :dropdownClassName="dropdownClassName"
         @change="innerChange"
         @search="search"
-        @focus="focus"
+        @focus="onFocus"
         @blur="onBlur"
         @popupScroll="slipSelect"
         @dropdownVisibleChange="dropdownVisibleChange"

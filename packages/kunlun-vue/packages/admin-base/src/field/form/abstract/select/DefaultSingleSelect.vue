@@ -28,7 +28,7 @@
         @change="change"
         @search="search"
         @select="innerSelect"
-        @focus="focus"
+        @focus="onFocus"
         @blur="onBlur"
         @dropdownVisibleChange="dropdownVisibleChange"
         @popup-scroll="slipSelect"
