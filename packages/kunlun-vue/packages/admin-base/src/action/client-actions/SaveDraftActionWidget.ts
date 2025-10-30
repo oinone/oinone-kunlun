@@ -21,7 +21,11 @@ import { isFormViewState, OioFormViewState, Widget, WidgetSubjection } from '@oi
 import { Modal } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
 import { createVNode } from 'vue';
-import { FETCH_DRAFT_DATA_WIDGET_PRIORITY, REFRESH_FORM_DATA } from '../../basic/constant';
+import {
+  FETCH_DRAFT_DATA_WIDGET_PRIORITY,
+  POPUP_FETCH_DRAFT_DATA_WIDGET_PRIORITY,
+  REFRESH_FORM_DATA
+} from '../../basic/constant';
 import { ActionWidget } from '../component';
 
 /**
@@ -139,12 +143,16 @@ export class SaveDraftAction extends ActionWidget {
 
   protected async $$beforeMount() {
     super.$$beforeMount();
+    let mountedPriority = FETCH_DRAFT_DATA_WIDGET_PRIORITY;
+    if (this.popupScene) {
+      mountedPriority = POPUP_FETCH_DRAFT_DATA_WIDGET_PRIORITY;
+    }
     this.mountedCallChaining?.hook(
       this.path,
       () => {
         return this.$$draftProcess();
       },
-      FETCH_DRAFT_DATA_WIDGET_PRIORITY
+      mountedPriority
     );
   }
 
@@ -275,13 +283,21 @@ export class SaveDraftAction extends ActionWidget {
     return true;
   }
 
+  @Widget.Reactive()
+  protected get isInlineScene(): boolean | undefined {
+    if (this.popupScene) {
+      return true;
+    }
+    return this.inline;
+  }
+
   public async queryData(variables: QueryVariables, context: QueryContext): Promise<ActiveRecord> {
     const { useConstruct, initialValue, loadFunctionFun } = this;
     let result: ActiveRecord | undefined;
     let id: string | null | undefined;
     let ids: string[] | undefined;
     const contextType = this.viewAction?.contextType || ActionContextType.Single;
-    if (this.inline) {
+    if (this.isInlineScene) {
       switch (contextType) {
         case ActionContextType.Single:
           if (BooleanHelper.isFalse(loadFunctionFun)) {
@@ -392,7 +408,7 @@ export class SaveDraftAction extends ActionWidget {
     variables: QueryVariables,
     context: QueryContext
   ): Promise<ActiveRecord> {
-    const requestFields = this.rootRuntimeContext.getRequestModelFields();
+    const requestFields = await this.getRequestModelFields();
     return (
       (await QueryService.queryOne(this.model, queryData, {
         requestFields,
@@ -411,7 +427,7 @@ export class SaveDraftAction extends ActionWidget {
    * @param context
    */
   public async queryOneByWrapper(condition: Condition, variables: QueryVariables, context: QueryContext) {
-    const requestFields = this.rootRuntimeContext.getRequestModelFields();
+    const requestFields = await this.getRequestModelFields();
     return (
       (await QueryService.queryOneByWrapper(this.model, {
         requestFields,

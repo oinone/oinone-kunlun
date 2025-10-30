@@ -32,7 +32,7 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-$bottom: calc(100% + var(--oio-row-gap) / 2);
+$bottom: calc(100% + var(--oio-row-gap));
 
 .oio-group-toolbar-flex-end {
   .default-view-control-icon {

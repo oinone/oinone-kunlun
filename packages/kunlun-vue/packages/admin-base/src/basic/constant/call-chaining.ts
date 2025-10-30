@@ -11,6 +11,11 @@ export const VIEW_WIDGET_PRIORITY = 0;
 export const FETCH_DRAFT_DATA_WIDGET_PRIORITY = 50;
 
 /**
+ * 弹出层加载视图草稿数据 - 0
+ */
+export const POPUP_FETCH_DRAFT_DATA_WIDGET_PRIORITY = -10;
+
+/**
  * 数据组件挂载 - 3
  */
 export const FETCH_DATA_WIDGET_PRIORITY = 100;

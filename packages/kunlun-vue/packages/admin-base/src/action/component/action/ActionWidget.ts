@@ -1042,6 +1042,13 @@ export class ActionWidget<
     return result;
   }
 
+  protected getRequestModel() {
+    if (this.popupScene) {
+      return this.seekPopupMainRuntimeContext().model;
+    }
+    return this.rootRuntimeContext.model;
+  }
+
   protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
     const { viewType } = this;
     if (viewType === ViewType.Tree) {
