@@ -1,5 +1,6 @@
 <template>
   <gallery-common-field
+    class="gallery-tag-common-item-mobile"
     :value="!optionColor ? displayNameListStr : displayNameList.length ? displayNameList : undefined"
     :justify-content="justifyContent"
     :empty-style="emptyStyle"
@@ -29,8 +30,8 @@
   </gallery-common-field>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
 import { OioIcon } from '@oinone/kunlun-vue-ui-common';
+import { computed, defineComponent, PropType } from 'vue';
 import GalleryCommonField from '../../common/GalleryCommonField.vue';
 
 export default defineComponent({
@@ -82,33 +83,35 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.gallery-tag {
-  display: flex;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  justify-content: inherit;
-
-  .tag {
-    height: 100%;
-    background: #e5eeff;
-    border-radius: 4px;
-    width: 25%;
+.gallery-tag-common-item-mobile {
+  .gallery-tag {
     display: flex;
-    justify-content: center;
-    color: var(--oio-primary-color);
-    margin-right: 4%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    justify-content: inherit;
 
-    .content {
-      font-size: var(--oio-font-size-sm);
-      font-weight: var(--oio-font-weight);
-      padding: 4px 4px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    .tag {
+      height: 100%;
+      background: #e5eeff;
+      border-radius: 4px;
+      width: 25%;
+      display: flex;
+      justify-content: center;
+      color: var(--oio-primary-color);
+      margin-right: 4%;
 
-      &.hideTags {
-        text-align: center;
+      .content {
+        font-size: var(--oio-font-size-sm);
+        font-weight: var(--oio-font-weight);
+        padding: 4px 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &.hideTags {
+          text-align: center;
+        }
       }
     }
   }
