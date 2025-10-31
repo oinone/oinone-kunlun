@@ -10,77 +10,6 @@
 .#{$modalClassPrefix} {
   padding: 0;
 
-  &.#{$modalClassPrefix}-width-small {
-    width: var($modalParameterPrefix + -width-small) !important;
-  }
-
-  &.#{$modalClassPrefix}-width-medium {
-    width: var($modalParameterPrefix + -width-medium) !important;
-  }
-
-  &.#{$modalClassPrefix}-width-large {
-    width: var($modalParameterPrefix + -width-large) !important;
-  }
-
-  &.#{$modalClassPrefix}-width-full {
-    width: 100% !important;
-    max-width: 100%;
-
-    &.ant-modal {
-      margin: 0;
-    }
-  }
-
-  &.#{$modalClassPrefix}-height-small {
-    .ant-modal-content {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      height: var($modalParameterPrefix + -height-small) !important;
-    }
-  }
-
-  &.#{$modalClassPrefix}-height-medium {
-    .ant-modal-content {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      height: var($modalParameterPrefix + -height-medium) !important;
-    }
-  }
-
-  &.#{$modalClassPrefix}-height-large {
-    .ant-modal-content {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      height: var($modalParameterPrefix + -height-large) !important;
-    }
-  }
-
-  &.#{$modalClassPrefix}-height-custom {
-    .ant-modal-content {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      height: var(--oio-modal-custom-height) !important;
-    }
-  }
-
-  &.#{$modalClassPrefix}-height-full {
-    &.ant-modal {
-      top: 0;
-      padding-bottom: 0;
-      margin: 0;
-    }
-
-    .ant-modal-content {
-      display: flex;
-      flex-direction: column;
-      height: calc(100vh);
-    }
-  }
-
   .ant-modal-body {
     flex: 1;
     overflow: auto;
@@ -106,7 +35,7 @@
   }
 
   .ant-modal-content {
-    background: var($parameterPrefix + -background);
+    background-color: var($parameterPrefix + -background);
     border: 1px solid var($parameterPrefix + -border-color);
     box-shadow: var(--oio-box-shadow);
     border-radius: var($parameterPrefix + -border-radius);
@@ -199,5 +128,76 @@
 
   .ant-modal-confirm-btns .ant-btn + .ant-btn {
     margin-left: 12px;
+  }
+
+  &.#{$modalClassPrefix}-width-small {
+    width: var($modalParameterPrefix + -width-small);
+  }
+
+  &.#{$modalClassPrefix}-width-medium {
+    width: var($modalParameterPrefix + -width-medium);
+  }
+
+  &.#{$modalClassPrefix}-width-large {
+    width: var($modalParameterPrefix + -width-large);
+  }
+
+  &.#{$modalClassPrefix}-width-full {
+    width: 100%;
+    max-width: 100%;
+
+    &.ant-modal {
+      margin: 0;
+    }
+  }
+
+  &.#{$modalClassPrefix}-height-small {
+    .ant-modal-content {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: var($modalParameterPrefix + -height-small);
+    }
+  }
+
+  &.#{$modalClassPrefix}-height-medium {
+    .ant-modal-content {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: var($modalParameterPrefix + -height-medium);
+    }
+  }
+
+  &.#{$modalClassPrefix}-height-large {
+    .ant-modal-content {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: var($modalParameterPrefix + -height-large);
+    }
+  }
+
+  &.#{$modalClassPrefix}-height-custom {
+    .ant-modal-content {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: var(--oio-modal-custom-height);
+    }
+  }
+
+  &.#{$modalClassPrefix}-height-full {
+    &.ant-modal {
+      top: 0;
+      padding-bottom: 0;
+      margin: 0;
+    }
+
+    .ant-modal-content {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
   }
 }

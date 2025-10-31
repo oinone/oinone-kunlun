@@ -13,9 +13,16 @@ export function useModal(props, context) {
   const internalHeight = ref<keyof typeof ModalWidth>();
 
   // 抽屉形式的模态框
-  const drawerModalClassName = computed(() =>
-    displayAs.value === PopupDisplayAs.DRAWER ? `${DEFAULT_PREFIX}-modal-drawer-mode` : ''
-  );
+  const drawerModalClassName = computed(() => {
+    const classNames: string[] = [];
+    if (displayAs.value === PopupDisplayAs.DRAWER) {
+      classNames.push(`${DEFAULT_PREFIX}-modal-drawer-mode`);
+    }
+    if (internalWidth.value === 'full') {
+      classNames.push(`${DEFAULT_PREFIX}-modal-fullscreen`);
+    }
+    return classNames;
+  });
 
   const title = computed(() => {
     const val = props.title;
@@ -26,6 +33,9 @@ export function useModal(props, context) {
   });
 
   const width = computed(() => {
+    if (internalWidth.value != null) {
+      return ModalWidth[internalWidth.value];
+    }
     const _width = props.width;
     if (_width == null) {
       return ModalWidth.small;
