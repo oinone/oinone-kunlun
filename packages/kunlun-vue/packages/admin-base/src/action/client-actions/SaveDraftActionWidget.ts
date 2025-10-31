@@ -114,6 +114,7 @@ export class SaveDraftAction extends ActionWidget {
         resolve();
       },
       onCancel: () => {
+        this.isLoadDraft = true;
         resolve();
       }
     });
@@ -243,6 +244,7 @@ export class SaveDraftAction extends ActionWidget {
         if (formData) {
           formData.draftCode = res.draftCode as string;
         }
+        this.isLoadDraft = true;
       }
     }
     OioNotification.success(translateValueByKey('提示'), translateValueByKey('保存成功'));
