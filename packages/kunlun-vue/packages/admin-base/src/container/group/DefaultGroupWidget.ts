@@ -36,6 +36,12 @@ export class DefaultGroupWidget extends BasePackWidget {
   }
 
   @Widget.Reactive()
+  public get bizStyle() {
+    console.log(this.getDsl());
+    return this.getDsl().bizStyle || 'style1';
+  }
+
+  @Widget.Reactive()
   public get description(): string {
     return this.getDsl().desc || '';
   }
