@@ -76,7 +76,7 @@ export class StaticDrawerWidget extends StaticPopupWidget<DrawerWidgetProps> imp
     this.destroyOnClose = destroyOnClose;
   }
 
-  public setTitle(title: string | null) {
+  public setTitle(title: string | undefined) {
     this.title = title;
   }
 
