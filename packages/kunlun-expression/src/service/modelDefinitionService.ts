@@ -104,7 +104,7 @@ export const queryExpModelFields = async (modelModel: string) => {
           name
           displayName
           ttype
-          model
+          #model
           multi
           references
           size
