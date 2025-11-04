@@ -58,6 +58,11 @@ export class DefaultTabsWidget extends BasePackWidget {
   }
 
   @Widget.Reactive()
+  public get bizStyle() {
+    return this.getDsl().bizStyle || '';
+  }
+
+  @Widget.Reactive()
   protected get defaultActiveIndex(): number | undefined {
     const { defaultActiveIndex } = this.getDsl();
     if (isNil(defaultActiveIndex)) {

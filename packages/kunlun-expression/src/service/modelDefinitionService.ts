@@ -75,6 +75,11 @@ export async function queryExpModelPage(
 }
 
 /**
+ * @desc 请求缓存
+ */
+const optionsCatch = new Map();
+
+/**
  * 查询模型字段
  *
  * @param {string} modelModel 模型编码
@@ -83,6 +88,12 @@ export const queryExpModelFields = async (modelModel: string) => {
   if (!modelModel) {
     return [];
   }
+
+  //查询缓存
+  if (optionsCatch.has(modelModel)) {
+    return optionsCatch.get(modelModel);
+  }
+
   const queryName = 'fieldQuery';
   const queryMethod = 'queryPage';
   const condition = new Condition('model').equal(modelModel);
@@ -130,6 +141,9 @@ export const queryExpModelFields = async (modelModel: string) => {
   `;
 
   const result = (await http.query(SYSTEM_MODULE_NAME.BASE, body)) as any;
+
+  // 设置缓存
+  optionsCatch.set(modelModel, result.data[queryName][queryMethod].content);
   return result.data[queryName][queryMethod].content;
 };
 

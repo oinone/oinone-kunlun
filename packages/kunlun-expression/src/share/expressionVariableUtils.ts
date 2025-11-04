@@ -15,6 +15,7 @@ import { OioNotification, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import { toString } from 'lodash-es';
 import { queryExpModelFields, queryExpModelPage } from '../service';
 import {
+  BooleanConditionComparisonOperator,
   ExpressionDefinitionType,
   ExpressionItemType,
   ExpressionKeywordDisplayName,
@@ -134,10 +135,11 @@ export function createDefaultSessionItem() {
 export function createValueVariableListStr(
   variableItemList: IVariableItem[],
   expressionOption: IExpressionOption,
-  leftVariableItem: IVariableItem | undefined = undefined
+  leftVariableItem: IVariableItem | undefined = undefined,
   // variableContextItems: IVariableContextItem[],
   // isBetweenInBrackets = true,
   // isAddQuote = true
+  operator: string = ''
 ) {
   return createVariableListStr(
     ExpressionSeniorMode.VALUE,
@@ -161,7 +163,8 @@ export function createValueVariableListStr(
         return expressionOption.variableCustomMethod(item.value);
       }
       return expressionOption.isRsqlLeft || item.type === VariableItemType.FIELD ? item.apiName : item.value;
-    }
+    },
+    operator
   );
 }
 
@@ -169,10 +172,11 @@ export function createValueVariableListStr(
 export function createApiNameVariableListStr(
   variableItemList: IVariableItem[],
   expressionOption: IExpressionOption,
-  leftVariableItem: IVariableItem | undefined = undefined
+  leftVariableItem: IVariableItem | undefined = undefined,
   // variableContextItems: IVariableContextItem[],
   // isBetweenInBrackets = true,
   // isAddQuote = true
+  operator: string = ''
 ) {
   return createVariableListStr(
     ExpressionSeniorMode.API_NAME,
@@ -186,7 +190,8 @@ export function createApiNameVariableListStr(
         apiName = apiName?.substring(ExpressionKeyword.activeRecord.length + 1);
       }
       return apiName;
-    }
+    },
+    operator
   );
 }
 
@@ -194,7 +199,8 @@ export function createApiNameVariableListStr(
 export function createDisplayNameVariableListStr(
   variableItemList: IVariableItem[],
   expressionOption: IExpressionOption,
-  leftVariableItem: IVariableItem | undefined = undefined
+  leftVariableItem: IVariableItem | undefined = undefined,
+  operator = ''
   // variableContextItems: IVariableContextItem[],
   // isBetweenInBrackets = true,
   // isAddQuote = true
@@ -214,7 +220,8 @@ export function createDisplayNameVariableListStr(
       }
       item.subTitle && list.push(item.subTitle);
       return list.join(VARIABLE_SEPARATE);
-    }
+    },
+    operator
   );
 }
 
@@ -225,13 +232,15 @@ export function createDisplayNameVariableListStr(
  * @param variableItemList
  * @param expressionOption
  * @param processFunc
+ * @param operator
  */
 function createVariableListStr(
   expressionSeniorMode: ExpressionSeniorMode,
   leftVariableItem: IVariableItem | undefined = undefined,
   variableItemList: IVariableItem[],
   expressionOption: IExpressionOption,
-  processFunc: Function
+  processFunc: Function,
+  operator: string = ''
 ) {
   if (!variableItemList) {
     return '';
@@ -246,7 +255,7 @@ function createVariableListStr(
               return a.value;
             }
             if (
-              expressionSeniorMode == ExpressionSeniorMode.VALUE &&
+              expressionSeniorMode === ExpressionSeniorMode.VALUE &&
               expressionOption.type === ExpressionDefinitionType.OPERATION &&
               expressionOption.leftJoinTtype === ModelFieldType.Boolean
             ) {
@@ -259,8 +268,11 @@ function createVariableListStr(
           }
           if (
             (!leftVariableItem || isStringTtype(leftVariableItem.ttype) || isDateTtype(leftVariableItem.ttype)) &&
-            expressionSeniorMode != ExpressionSeniorMode.DISPLAY_NAME
+            expressionSeniorMode !== ExpressionSeniorMode.DISPLAY_NAME
           ) {
+            if (Array.isArray(a.value)) {
+              return `[${a.value.join(',')}]`;
+            }
             let right = autoAddQuote(a.value, expressionOption.quoteType);
             if (
               [ExpressionDefinitionType.BOOLEAN_CONDITION, ExpressionDefinitionType.OPERATION].includes(
@@ -275,8 +287,13 @@ function createVariableListStr(
             }
             return right;
           }
+
+          if (Array.isArray(a.value)) {
+            return `[${a.value.join(',')}]`;
+          }
+
           if (
-            expressionSeniorMode == ExpressionSeniorMode.VALUE &&
+            expressionSeniorMode === ExpressionSeniorMode.VALUE &&
             expressionOption.type === ExpressionDefinitionType.BOOLEAN_CONDITION &&
             leftVariableItem &&
             isNumberTtype(leftVariableItem.ttype) &&
@@ -293,6 +310,35 @@ function createVariableListStr(
         return processFunc(a);
       }
     });
+
+  const operatorNameList: string[] = [
+    BooleanConditionComparisonOperator.IN_SET,
+    BooleanConditionComparisonOperator.NOT_IN_SET,
+    BooleanConditionComparisonOperator.BETWEEN_AND,
+    BooleanConditionComparisonOperator.NOT_BETWEEN_AND
+  ];
+
+  const isInSetType = () => {
+    if (variableItemList.length === 1 && typeof variableItemList[0].value === 'string') {
+      return true;
+    }
+    return false;
+  };
+
+  const isBetweenType = () => {
+    return variableItemList.length === 1 && Array.isArray(variableItemList[0].value);
+  };
+
+  if (operatorNameList.find((item) => item === operator) !== undefined && list.length > 1) {
+    return `[${list.join(',')}]`;
+  }
+
+  if (operatorNameList.find((item) => item === operator) !== undefined) {
+    return (expressionOption.isBetweenInBrackets && list.length > 1) || isBetweenType() || isInSetType()
+      ? `${list.join(' , ')}`
+      : list.join(' , ');
+  }
+
   // 单个变量下多余2个值就需要用 "+" 连接,且用括号包裹
   return expressionOption.isBetweenInBrackets && list.length > 1 ? `(${list.join(' + ')})` : list.join(' + ');
 }
@@ -461,7 +507,10 @@ export function variableItem2expressionCell(variableItem: IVariableItem): IExpre
     VariableItemType.FIELD,
     VariableItemType.SESSION
   ].includes(variableItem.type);
-  const value = toString(variableItem.value);
+  let value = toString(variableItem.value);
+  if (variableItem.multiParams) {
+    value = `[${value}]`;
+  }
   const transArr = [isVariable ? variableItem.displayName! : value] as string[];
   if (isVariable) {
     variableItem.subTitle && transArr.push(variableItem.subTitle);

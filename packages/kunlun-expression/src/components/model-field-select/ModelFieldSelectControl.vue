@@ -42,6 +42,7 @@
           :options="availableOptions"
           :load-data="fetchChildrenInner"
           :change-on-select="changeOnSelect"
+          :search-key-words="searchKeywords"
           @change="onChange"
         >
           <template #header>
@@ -51,8 +52,13 @@
                 size="small"
                 v-model:value="searchKeywords"
                 allow-clear
+                border="false"
                 :placeholder="translateExpValue('输入名称搜索')"
-              />
+              >
+                <template #prefix>
+                  <oio-icon icon="oinone-sousuo1" color="#9E9E9E" size="16"></oio-icon>
+                </template>
+              </oio-input>
             </div>
           </template>
         </expression-designer-cascader>
@@ -62,7 +68,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, PropType, ref, watch } from 'vue';
-import { OioInput } from '@oinone/kunlun-vue-ui-antd';
+import { OioInput, OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { CloseCircleFilled, DownOutlined } from '@ant-design/icons-vue';
 import { ModelFieldType } from '@oinone/kunlun-meta';
 import { CastHelper } from '@oinone/kunlun-shared';
@@ -102,6 +108,7 @@ enum SizeEnum {
 export default defineComponent({
   components: {
     OioInput,
+    OioIcon,
     ExpressionDesignerCascader,
     ControlTag,
     CloseCircleFilled,
@@ -343,9 +350,7 @@ export default defineComponent({
     }
 
     const availableOptions = computed(() => {
-      const opts = searchKeywords.value
-        ? options.value.filter((a) => a.displayName!.includes(searchKeywords.value))
-        : options.value;
+      const opts = options.value;
       if (props.isRsqlField) {
         opts.sort((a, b) => {
           if (a.store && !b.store) {

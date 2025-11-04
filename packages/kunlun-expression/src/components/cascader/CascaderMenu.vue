@@ -1,13 +1,13 @@
 <template>
-  <div class="ant-cascader-menu expression-designer-cascader-menu">
+  <div class="ant-cascader-menu expression-designer-cascader-menu expression-cascader-menu-container">
     <div class="expression-designer-cascader-menu-inner">
       <div class="expression-designer-cascader-menu-inner-header" v-if="$slots.header">
         <slot name="header" />
       </div>
       <div class="expression-designer-cascader-menu-inner-content">
         <div
-          v-for="option in realOptions"
-          :key="option.value"
+          v-for="(option,index) in realOptions"
+          :key="index"
           class="ant-cascader-menu-item ant-cascader-menu-item-expand"
           :class="{
             'ant-cascader-menu-item-group': option.optType === 'group',
@@ -33,7 +33,8 @@
               :class="getTtypeIcon(option)"
               class="iconfont menu-icon"
             />
-            {{ option.label }}
+            <span>{{ option.label }}</span>
+            <span class="source-code">{{ option.field }}</span>
           </div>
           <div class="ant-cascader-menu-item-expand-icon" v-if="showArrowRight(option)" @click.stop="loadData(option)">
             <span role="img" aria-label="right" class="anticon anticon-right">
