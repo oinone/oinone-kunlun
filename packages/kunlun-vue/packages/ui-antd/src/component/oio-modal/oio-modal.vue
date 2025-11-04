@@ -1,5 +1,5 @@
 <script lang="ts">
-import { CastHelper, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { CastHelper, CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import {
   OioCloseIcon,
   OioIcon,
@@ -31,7 +31,7 @@ export default defineComponent({
     ...OioModalProps
   },
   slots: ['default', 'title', 'header', 'footer', 'closeIcon'],
-  emits: ['update:visible', 'enter', 'cancel'],
+  emits: ['update:visible', 'update:displayAs', 'enter', 'cancel'],
   setup(props, context) {
     const internalId = `${DEFAULT_PREFIX}-modal-${uniqueKeyGenerator()}`;
 
@@ -115,7 +115,7 @@ export default defineComponent({
       const originalTitleSlot = slots.title;
 
       // 默认标题插槽
-      const createDefaultTitle = () => [createVNode('span', {}, this.$translate(this.title))];
+      const createDefaultTitle = () => [createVNode('span', {}, this.$translate(this.title || '弹窗'))];
 
       slots.title = () => {
         // 获取原始或默认的标题插槽
@@ -175,32 +175,31 @@ export default defineComponent({
     if (this.heightClassSuffix) {
       classNames.push(`${mainClassName}-height-${this.heightClassSuffix}`);
     }
-
-    if (this.customHeightClassSuffix) {
-      classNames.push(`${mainClassName}-height-${this.customHeightClassSuffix}`);
-    }
-
     if (this.headerInvisible) {
       classNames.push(`${mainClassName}-header-invisible`);
     }
     if (this.footerInvisible) {
       classNames.push(`${mainClassName}-footer-invisible`);
     }
+
+    const style = {} as CSSStyle;
+    if (!this.heightClassSuffix && this.height) {
+      classNames.push(`${mainClassName}-height-custom`);
+      style[`--${mainClassName}-custom-height`] = StyleHelper.px(this.height)!;
+    }
+
     return createVNode(
       AModal,
       {
-        ...PropRecordHelper.collectionBasicProps(this.$attrs, classNames),
+        ...PropRecordHelper.collectionBasicProps(this.$attrs, classNames, style),
         mask: this.mask,
         maskClosable: this.headerInvisible ? true : this.maskClosable,
-        width: StyleHelper.px(this.width),
+        width: this.width,
         wrapClassName: StringHelper.append(
           [`${mainClassName}-wrapper`],
           CastHelper.cast(this.wrapperClassName),
           this.drawerModalClassName
         ).join(' '),
-        style: {
-          [`--${mainClassName}-custom-height`]: this.heightPx
-        },
         wrapProps: {
           ...(this.wrapperProps || {}),
           id: this.id

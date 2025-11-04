@@ -1,8 +1,17 @@
 <script lang="ts">
 import { ViewType } from '@oinone/kunlun-meta';
-import { CastHelper, OioButton, OioModal, PropRecordHelper, StringHelper } from '@oinone/kunlun-vue-ui-antd';
+import {
+  CastHelper,
+  DrawerWidth,
+  ModalWidth,
+  OioButton,
+  OioModal,
+  PopupDisplayAs,
+  PropRecordHelper,
+  StringHelper
+} from '@oinone/kunlun-vue-ui-antd';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
-import { createVNode, defineComponent, PropType } from 'vue';
+import { computed, createVNode, defineComponent, PropType, ref } from 'vue';
 import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../../basic';
 import { OioSimplePagination } from '../../../components';
 import { FooterProps, useFooter } from '../useFooter';
@@ -52,6 +61,9 @@ export default defineComponent({
     },
     height: {
       type: [Number, String]
+    },
+    defaultSize: {
+      type: String as PropType<keyof typeof ModalWidth>
     },
     zIndex: {
       type: Number
@@ -114,6 +126,42 @@ export default defineComponent({
   setup(props) {
     const formContext = useInjectOioDefaultFormContext();
 
+    const displayAs = ref(PopupDisplayAs.modal);
+
+    const width = computed(() => {
+      if (props.width == null) {
+        switch (displayAs.value) {
+          case PopupDisplayAs.drawer:
+            return DrawerWidth[props.defaultSize || 'medium'];
+          case PopupDisplayAs.modal:
+            return ModalWidth[props.defaultSize || 'medium'];
+        }
+      }
+      return props.width;
+    });
+
+    const isFullscreen = computed(() => {
+      return props.width === 'FULL' && props.height === 'FULL';
+    });
+
+    const enabledFullScreen = computed(() => {
+      if (isFullscreen.value) {
+        return false;
+      }
+      return props.enabledFullScreen;
+    });
+
+    const showPopupToggle = computed(() => {
+      if (isFullscreen.value) {
+        return false;
+      }
+      return props.showPopupToggle;
+    });
+
+    const onDisplayAsChange = (val: PopupDisplayAs) => {
+      displayAs.value = val;
+    };
+
     onAllMounted(() => {
       props.allMounted?.();
     });
@@ -125,7 +173,13 @@ export default defineComponent({
       }
     });
 
-    return {};
+    return {
+      displayAs,
+      width,
+      enabledFullScreen,
+      showPopupToggle,
+      onDisplayAsChange
+    };
   },
   render() {
     const {
@@ -133,6 +187,8 @@ export default defineComponent({
       currentHandle,
       visible,
       onVisibleChange,
+      displayAs,
+      onDisplayAsChange,
       destroyOnClose,
       teleport,
       title,
@@ -215,12 +271,14 @@ export default defineComponent({
         maskClosable,
         headerInvisible,
         footerInvisible,
+        displayAs,
         destroyOnClose,
         enabledFullScreen,
         showPopupToggle,
         enterCallback: onOk,
         cancelCallback: onCancel,
-        'onUpdate:visible': onVisibleChange
+        'onUpdate:visible': onVisibleChange,
+        'onUpdate:displayAs': onDisplayAsChange
       },
       children
     );

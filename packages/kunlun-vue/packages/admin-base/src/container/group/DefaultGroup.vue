@@ -5,7 +5,6 @@ import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   FormLayout,
   OioGroup,
-  OioGroupBizStyle,
   PropRecordHelper,
   StyleHelper,
   useOioFormLayoutContext
@@ -51,7 +50,7 @@ export default defineComponent({
       default: true
     },
     bizStyle: {
-      type: String as PropType<OioGroupBizStyle>
+      type: String
     }
   },
   setup(props) {

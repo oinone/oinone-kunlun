@@ -1,17 +1,36 @@
 @import '../../../../style/global-parameters.scss';
 
-.default-drawer,
-.default-drawer.oio.drawer {
+.default-drawer {
+  .ant-drawer-body {
+    .oio-form {
+      & > .oio-row > .oio-col > .oio-default-group {
+        & > .oio-group-title-wrapper {
+          padding: var(--oio-padding) 0 0 0;
+        }
+
+        & > .oio-group-content {
+          padding: var(--oio-padding) 0;
+        }
+      }
+    }
+  }
+
   .ant-drawer-content .ant-drawer-wrapper-body {
+    .ant-drawer-body {
+      padding-bottom: 24px;
+    }
+
     .ant-drawer-footer {
       padding: 0;
 
       .default-drawer-pre-next-switch-footer {
         display: flex;
         align-items: center;
+
         .oio-simple-pagination {
           padding-left: var($parameterPrefix + -margin-md);
         }
+
         .action-bar {
           flex: 1;
         }
@@ -43,12 +62,7 @@
     }
   }
 
-  &-table
-    .ant-drawer-content
-    .ant-drawer-wrapper-body
-    .ant-drawer-body
-    > .ant-spin-nested-loading
-    > .ant-spin-container {
+  &-table .ant-drawer-content .ant-drawer-wrapper-body .ant-drawer-body > .ant-spin-nested-loading > .ant-spin-container {
     position: absolute;
     height: 100%;
     width: 100%;

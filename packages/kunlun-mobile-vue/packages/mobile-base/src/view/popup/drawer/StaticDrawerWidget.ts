@@ -1,5 +1,5 @@
 import { IStaticDrawerWidget, translateValueByKey } from '@oinone/kunlun-engine';
-import { DrawerHeight, DrawerPlacement, DrawerWidth, OioDrawerProps } from '@oinone/kunlun-vue-ui-common';
+import { DrawerHeight, DrawerPlacement, DrawerWidth } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../../typing';
 import { StaticPopupWidget } from '../StaticPopupWidget';
@@ -24,7 +24,7 @@ export class StaticDrawerWidget extends StaticPopupWidget<DrawerWidgetProps> imp
   protected destroyOnClose = true;
 
   @Widget.Reactive()
-  protected title: string | null = OioDrawerProps.title.default;
+  protected title: string | undefined;
 
   @Widget.Reactive()
   protected help: string | undefined;
@@ -76,7 +76,7 @@ export class StaticDrawerWidget extends StaticPopupWidget<DrawerWidgetProps> imp
     this.destroyOnClose = destroyOnClose;
   }
 
-  public setTitle(title: string | null) {
+  public setTitle(title: string | undefined) {
     this.title = title;
   }
 

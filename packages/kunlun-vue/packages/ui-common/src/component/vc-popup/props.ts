@@ -1,5 +1,6 @@
 import { ReturnPromise, ReturnVoid } from '@oinone/kunlun-shared';
 import { PropType } from 'vue';
+import { PopupDisplayAs } from '../oio-modal';
 
 export const VcPopupAppearanceProps = {
   zIndex: {
@@ -46,7 +47,7 @@ export const VcPopupControlProps = {
     default: undefined
   },
   'onUpdate:visible': {
-    type: Function as PropType<(visible: boolean) => void>
+    type: Function as PropType<(val: boolean) => void>
   },
   closable: {
     type: Boolean,
@@ -55,6 +56,12 @@ export const VcPopupControlProps = {
   keyboard: {
     type: Boolean,
     default: undefined
+  },
+  displayAs: {
+    type: String as PropType<keyof typeof PopupDisplayAs>
+  },
+  'onUpdate:displayAs': {
+    type: Function as PropType<(val: keyof typeof PopupDisplayAs) => void>
   },
   destroyOnClose: {
     type: Boolean,

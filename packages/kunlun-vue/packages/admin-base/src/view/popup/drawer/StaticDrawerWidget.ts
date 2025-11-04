@@ -24,7 +24,7 @@ export class StaticDrawerWidget extends StaticPopupWidget<DrawerWidgetProps> imp
   private destroyOnClose = true;
 
   @Widget.Reactive()
-  private title: string | null = OioDrawerProps.title.default;
+  private title: string | undefined;
 
   @Widget.Reactive()
   private help: string | undefined;

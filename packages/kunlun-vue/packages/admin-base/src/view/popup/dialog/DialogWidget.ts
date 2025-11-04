@@ -29,10 +29,10 @@ export class DialogWidget<Props extends DialogWidgetProps = DialogWidgetProps> e
   }
 
   @Widget.Reactive()
-  public get title(): string | null | undefined {
+  public get title(): string | undefined {
     const title = this.getDsl().title;
     if (!title) {
-      return null;
+      return undefined;
     }
 
     return Expression.run(
@@ -65,12 +65,17 @@ export class DialogWidget<Props extends DialogWidgetProps = DialogWidgetProps> e
 
   @Widget.Reactive()
   public get width() {
-    return this.getDsl().width || ModalWidth.medium;
+    return this.getDsl().width;
   }
 
   @Widget.Reactive()
   public get height() {
     return this.getDsl().height;
+  }
+
+  @Widget.Reactive()
+  protected get defaultSize(): keyof typeof ModalWidth {
+    return 'medium';
   }
 
   @Widget.Reactive()
