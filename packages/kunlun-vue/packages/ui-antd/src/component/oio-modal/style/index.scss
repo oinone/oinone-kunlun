@@ -2,11 +2,6 @@
 @import '../../../style/global-parameters';
 @import './parameters.scss';
 
-.#{$modalClassPrefix}-drawer-mode {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .#{$modalClassPrefix} {
   padding: 0;
 
@@ -94,8 +89,9 @@
   }
 
   .ant-modal-body {
-    padding: var($parameterPrefix + -margin-md);
     @include oio-scrollbar();
+
+    padding: var($parameterPrefix + -margin-md);
 
     .ant-modal-confirm-body-wrapper {
       .ant-modal-confirm-btns {
@@ -107,10 +103,11 @@
   }
 
   .ant-modal-footer {
+    @include oio-scrollbar();
+
     padding: var($parameterPrefix + -margin-md);
     border-top: 1px solid var($parameterPrefix + -border-color);
     overflow: auto hidden;
-    @include oio-scrollbar();
 
     button {
       @import '../../oio-button/style/a-button.scss';
@@ -155,7 +152,6 @@
     .ant-modal-content {
       display: flex;
       flex-direction: column;
-      overflow: hidden;
       height: var($modalParameterPrefix + -height-small);
     }
   }
@@ -164,7 +160,6 @@
     .ant-modal-content {
       display: flex;
       flex-direction: column;
-      overflow: hidden;
       height: var($modalParameterPrefix + -height-medium);
     }
   }
@@ -173,8 +168,22 @@
     .ant-modal-content {
       display: flex;
       flex-direction: column;
-      overflow: hidden;
       height: var($modalParameterPrefix + -height-large);
+    }
+  }
+
+  &.#{$modalClassPrefix}-height-full {
+    &.ant-modal {
+      top: 0;
+    }
+
+    .ant-modal-content {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
     }
   }
 
@@ -182,22 +191,33 @@
     .ant-modal-content {
       display: flex;
       flex-direction: column;
-      overflow: hidden;
       height: var(--oio-modal-custom-height);
     }
   }
+}
 
-  &.#{$modalClassPrefix}-height-full {
-    &.ant-modal {
-      top: 0;
-      padding-bottom: 0;
-      margin: 0;
+.#{$modalClassPrefix}-wrapper.#{$modalClassPrefix}-drawer-mode {
+  display: flex;
+  justify-content: flex-end;
+
+  .#{$modalClassPrefix} {
+    &.#{$modalClassPrefix}-width-small {
+      width: var($drawerParameterPrefix + -width-small);
     }
 
-    .ant-modal-content {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
+    &.#{$modalClassPrefix}-width-medium {
+      width: var($drawerParameterPrefix + -width-medium);
+    }
+
+    &.#{$modalClassPrefix}-width-large {
+      width: var($drawerParameterPrefix + -width-large);
+    }
+
+    &.#{$modalClassPrefix}-height-full {
+      &.ant-modal {
+        right: 0;
+        margin: 0;
+      }
     }
   }
 }

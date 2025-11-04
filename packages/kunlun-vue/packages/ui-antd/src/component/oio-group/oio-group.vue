@@ -1,6 +1,6 @@
 <script lang="ts">
 import { StringHelper } from '@oinone/kunlun-shared';
-import { OioGroupBizStyle, OioGroupProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { OioGroupProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent, VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import OioGroupHelp from './oio-group-help.vue';
@@ -42,13 +42,7 @@ export default defineComponent({
       classList.push(`${DEFAULT_PREFIX}-group-border`);
     }
 
-    if (bizStyle) {
-      if (bizStyle === OioGroupBizStyle.AccentLine) {
-        classList.push(`${DEFAULT_PREFIX}-group-accent-line`);
-      } else if (bizStyle === OioGroupBizStyle.Underline) {
-        classList.push(`${DEFAULT_PREFIX}-group-underline`);
-      }
-    }
+    classList.push(`${DEFAULT_PREFIX}-group-${bizStyle || 'style1'}`);
 
     let hiddenTitle = title === false;
     let titleVNodes: VNode[] | undefined;

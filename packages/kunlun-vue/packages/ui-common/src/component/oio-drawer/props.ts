@@ -6,8 +6,7 @@ const OioDrawerAppearanceProps = {
   ...VcPopupAppearanceProps,
   ...VcMaskPopupAppearanceProps,
   title: {
-    type: String,
-    default: '抽屉'
+    type: String
   },
   help: {
     type: String
@@ -16,12 +15,10 @@ const OioDrawerAppearanceProps = {
     type: String as PropType<DrawerPlacement | keyof typeof DrawerPlacement>
   },
   width: {
-    type: [Number, String] as PropType<DrawerWidth | string | number>,
-    default: DrawerWidth.small
+    type: [Number, String] as PropType<DrawerWidth | string | number>
   },
   height: {
-    type: [Number, String] as PropType<DrawerHeight | string | number>,
-    default: DrawerHeight.small
+    type: [Number, String] as PropType<DrawerHeight | string | number>
   },
   headerInvisible: {
     type: Boolean,

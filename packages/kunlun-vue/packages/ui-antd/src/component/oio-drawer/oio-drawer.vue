@@ -1,13 +1,6 @@
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import {
-  OioCloseIcon,
-  OioDrawerProps,
-  OioIcon,
-  PropRecordHelper,
-  StyleHelper,
-  useDrawer
-} from '@oinone/kunlun-vue-ui-common';
+import { OioCloseIcon, OioDrawerProps, OioIcon, PropRecordHelper, useDrawer } from '@oinone/kunlun-vue-ui-common';
 import { Drawer as ADrawer } from 'ant-design-vue';
 import { isBoolean } from 'lodash-es';
 import { createVNode, defineComponent, withModifiers } from 'vue';
@@ -29,7 +22,7 @@ export default defineComponent({
     ...OioDrawerProps
   },
   slots: ['default', 'title', 'header', 'footer', 'closeIcon'],
-  emits: ['update:visible'],
+  emits: ['update:visible', 'update:displayAs'],
   setup(props, context) {
     return {
       ...useDrawer(props, context)
@@ -70,9 +63,7 @@ export default defineComponent({
       const originalTitleSlot = slots.title;
 
       // 默认标题插槽
-      const createDefaultTitle = () => [
-        createVNode('span', {}, this.$translate(this.title || OioDrawerProps.title.default))
-      ];
+      const createDefaultTitle = () => [createVNode('span', {}, this.$translate(this.title || '抽屉'))];
 
       slots.title = () => {
         // 获取原始或默认的标题插槽
@@ -124,7 +115,7 @@ export default defineComponent({
       slots.closeIcon = () => [createVNode(OioCloseIcon)];
     }
 
-    const classNames = [mainClassName, `${mainClassName}-wrapper`, this.modalDrawerClassName];
+    const classNames = [mainClassName, `${mainClassName}-wrapper`, ...this.modalDrawerClassName];
     if (this.widthClassSuffix) {
       classNames.push(`${mainClassName}-width-${this.widthClassSuffix}`);
     }
@@ -146,8 +137,8 @@ export default defineComponent({
           this.wrapperProps?.style
         ),
         placement: this.placement,
-        width: StyleHelper.px(this.width),
-        height: StyleHelper.px(this.height),
+        width: this.width,
+        height: this.height,
         mask: this.mask,
         maskClosable: this.maskClosable,
         zIndex: this.zIndex,

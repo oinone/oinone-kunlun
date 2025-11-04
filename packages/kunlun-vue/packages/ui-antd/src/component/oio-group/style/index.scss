@@ -2,7 +2,7 @@
 
 .#{$groupClassPrefix} {
   width: 100%;
-  background: var(--oio-background);
+  background-color: var(--oio-background);
 
   &-border {
     border: var($parameterPrefix + -border-width) var(--oio-group-border-width) var($parameterPrefix + -border-color);
@@ -58,7 +58,7 @@
     text-overflow: ellipsis;
 
     & + .#{$groupClassPrefix}-description {
-      margin-left: var(--oio-margin-sm);
+      margin-left: 8px;
     }
   }
 
@@ -81,25 +81,16 @@
     text-overflow: ellipsis;
   }
 
-  &-accent-line {
+  &-style1 {
     .#{$groupClassPrefix}-title-wrapper {
       &::before {
         content: '';
         width: 3px;
         height: var(--oio-font-size-lg);
         display: block;
-        background: var(--oio-primary-color);
-        margin-right: var(--oio-margin-sm);
+        background-color: var(--oio-primary-color);
+        margin-right: 8px;
       }
-    }
-  }
-
-  &-underline {
-    .#{$groupClassPrefix}-title-wrapper {
-      padding: 0;
-      padding-bottom: var(--oio-padding);
-      margin: var(--oio-margin) var(--oio-margin) 0 var(--oio-margin);
-      border-bottom: 1px solid var(--oio-border-color);
     }
   }
 
