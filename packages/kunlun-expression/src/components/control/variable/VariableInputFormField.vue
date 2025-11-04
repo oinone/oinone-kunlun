@@ -37,7 +37,10 @@
             <a-select
               v-if="
                 variableType === 'string' &&
-                (leftJoinTtype === ModelFieldType.Date || leftJoinTtype === ModelFieldType.DateTime)
+                (leftJoinTtype === ModelFieldType.Date ||
+                  leftJoinTtype === ModelFieldType.DateTime ||
+                  leftJoinTtype === ModelFieldType.Time ||
+                  leftJoinTtype === ModelFieldType.Year)
               "
               class="expression-date-type-selector"
               dropdown-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
@@ -208,9 +211,7 @@
                       @close="onCloseTagItem(index)"
                     />
                   </div>
-                  <span
-                    :index="index"
-                    v-if="isBetweenOperator && index !== variableItemList.length - 1 && index !== 0"
+                  <span :index="index" v-if="isBetweenOperator && index !== variableItemList.length - 1 && index !== 0"
                     >~</span
                   >
                 </template>
