@@ -56,19 +56,19 @@ export const CommonPatternList: FieldPattern[] = [
     help: '手机号码',
     errorMsg: '手机号码格式有误',
     patternType: FieldStringPatternType.PHONE,
-    pattern: '^(1[3-9])\\\\d{9}$'
+    pattern: '^(1[3-9])\\d{9}$'
   },
   {
     help: '电话号码',
     errorMsg: '电话号码格式有误',
     patternType: FieldStringPatternType.TELEPHONE,
-    pattern: '^(\\\\d{3,4}-)?\\\\d{7,8}$'
+    pattern: '^(\\d{3,4}-)?\\d{7,8}$'
   },
   {
     help: '邮政编码',
     errorMsg: '邮政编码格式有误',
     patternType: FieldStringPatternType.POST_CODE,
-    pattern: '^\\\\d{6}$'
+    pattern: '^\\d{6}$'
   },
   {
     help: '邮箱',
@@ -110,13 +110,13 @@ export const CommonPatternList: FieldPattern[] = [
     help: '数字',
     errorMsg: '数字格式有误',
     patternType: FieldStringPatternType.NUMBER,
-    pattern: '^\\\\d*$'
+    pattern: '^\\d*$'
   },
   {
     help: '6位数字',
     errorMsg: '6位数字格式有误',
     patternType: FieldStringPatternType.SIX_NUMBER,
-    pattern: '^\\\\d{6}$'
+    pattern: '^\\d{6}$'
   },
   {
     help: 'IP地址',
@@ -134,7 +134,7 @@ export const CommonPatternList: FieldPattern[] = [
     help: '中国护照',
     errorMsg: '中国护照格式有误',
     patternType: FieldStringPatternType.CHINESE_PASSPORT,
-    pattern: '^[GE]\\\\d{8}$'
+    pattern: '^[GE]\\d{8}$'
   },
   {
     help: '密码',
