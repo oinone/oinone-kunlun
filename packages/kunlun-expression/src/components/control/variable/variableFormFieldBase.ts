@@ -33,6 +33,7 @@ import {
   translateExpValue
 } from '../../../share';
 import {
+  BooleanConditionComparisonOperator,
   ElementSize,
   ExpressionDefinitionType,
   ExpressionSeniorMode,
@@ -137,6 +138,10 @@ export const IVariableFormFieldProps = {
   changeOnSelect: {
     type: Boolean,
     default: false
+  },
+  // 操作符类型
+  compareOperatorOption: {
+    type: Object
   }
 };
 
@@ -145,6 +150,33 @@ export function createEmits() {
 }
 
 export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFormFieldProps>>, context: SetupContext) {
+  const datePickerType = ref('DATETIME');
+
+  const datePickerTypeList = [
+    {
+      label: '年份',
+      value: 'YEAR'
+    },
+    {
+      label: '日期',
+      value: 'DATE'
+    },
+    {
+      label: '日期时间',
+      value: 'DATETIME'
+    },
+    {
+      label: '时间',
+      value: 'TIME'
+    }
+  ];
+
+  watch(datePickerType, () => {
+    scopeDate.value = [];
+  });
+
+  const scoptNumber = ref([0, 0]);
+
   const readonly = computed<boolean>(() => BooleanHelper.toBoolean(props.readonly) || false);
   const disabled = computed<boolean>(() => BooleanHelper.toBoolean(props.disabled) || false);
 
@@ -154,6 +186,8 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
   const leftJoinTtype = computed((): ModelFieldType | undefined => {
     return props.leftJoinField?.ttype || props.leftJoinTtype;
   });
+
+  const scopeDate = ref([]);
 
   watch(
     () => props.showVariableType,
@@ -192,6 +226,9 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
   // });
 
   const innerPlaceholder = computed(() => {
+    if (variableItemList.value[0].value || variableItemList.value.length !== 1) {
+      return '';
+    }
     if (variableType.value) {
       const variableItemTypeDisplayName = VariableItemTypeDisplayName[variableType.value.toString().toUpperCase()];
       if (variableItemTypeDisplayName) {
@@ -231,7 +268,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     if (!props.showVariableType) {
       list = list.filter((a) => a.value !== VariableItemType.VARIABLE);
     }
-    const vt = list.find((_a) => _a.value == variableType.value);
+    const vt = list.find((_a) => _a.value === variableType.value);
     if (!vt && list.length) {
       variableType.value = list[0].value as VariableItemType;
       context.emit('changeVariableType', variableType.value);
@@ -327,7 +364,48 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
 
   const inputSelectionInfo = { index: null, selectionStart: null };
 
+  const isBetweenOperator = computed(() => {
+    return (
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.BETWEEN_AND ||
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_BETWEEN_AND
+    );
+  });
+
+  const isInSetOperator = computed(() => {
+    return (
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.IN_SET ||
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_IN_SET
+    );
+  });
+
+  const isInSetOperation = computed(() => {
+    return (
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.IN_SET ||
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_IN_SET
+    );
+  });
+
+  const insetSetOperationValue = (selectedValues: string[]) => {
+    const variableItem = createVariableItemBySelectedOptions(
+      props.options!,
+      selectedValues,
+      createVariableContextItem(selectedValues, props.contextItems!),
+      variableType.value,
+      props.ttypes,
+      props.useContextName
+    ) as IVariableItem;
+    variableItemList.value.push(variableItem);
+
+    isShowDropdown.value = false;
+
+    props.blur && props.blur();
+  };
+
   const onSelectVariableInner = (selectedValues: string[]) => {
+    if (isInSetOperation.value) {
+      insetSetOperationValue(selectedValues);
+      return;
+    }
     if (!isVariableMode.value && variableItemNum.value >= props.maxVariableNum) {
       OioNotification.error(
         translateExpValue('错误'),
@@ -348,7 +426,9 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
       return;
     }
     if (isVariableMode.value) {
-      variableItemList.value = [variableItem];
+      variableItemNum.value < props.maxVariableNum || (isBetweenOperator.value && variableItemNum.value <= 3)
+        ? variableItemList.value.push(variableItem)
+        : (variableItemList.value = [variableItemList.value[0], variableItem]);
     } else {
       if (variableItemList.value.length > 0) {
         const lastValue = variableItemList.value[variableItemList.value.length - 1];
@@ -593,6 +673,13 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     if (variableItem.value.length > props.variableMaxStringLength) {
       variableItemList.value[index].value = variableItem.value.substring(0, props.variableMaxStringLength);
     }
+    if (
+      [BooleanConditionComparisonOperator.IN_SET, BooleanConditionComparisonOperator.NOT_IN_SET].includes(
+        props.compareOperatorOption?.value
+      )
+    ) {
+      variableItem.value = variableItem.value.split(',');
+    }
     if (computedIsOnlyOneInput()) {
       return;
     }
@@ -600,6 +687,30 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
       computeInputWidth(index);
     });
   };
+
+  const scopeIntValueChange = (index) => {
+    const variableItem = variableItemList.value[index];
+    variableItem.value = scoptNumber.value;
+    variableItem.apiName = `[${scoptNumber.value.toString()}]`;
+    variableItem.multiParams = true;
+    // variableItem.ttype = 'M2M';
+    // variableItem.type = 'M2M';
+  };
+
+  const scopeDateValueChange = (index) => {
+    const variableItem = variableItemList.value[index];
+    variableItem.value =
+      variableType.value === 'string'
+        ? scopeDate.value.map((item) => {
+            return `'${item}'`;
+          })
+        : scopeDate.value;
+    variableItem.apiName = `[${scopeDate.value.toString()}]`;
+    variableItem.multiParams = true;
+    // variableItem.ttype = 'M2M';
+    // variableItem.type = 'M2M';
+  };
+
   const computeInputWidth = (index: number) => {
     const isLast = index === variableItemList.value.length - 1;
     const variableItemInputRef = variableItemInputRefs[index];
@@ -651,6 +762,22 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     return [variableFieldRef.value, dropdownRef.value] as HTMLElement[];
   });
 
+  const inSetOperatorText = ref('');
+
+  const onChangeInsetOperatorText = (index) => {
+    const variableItem = variableItemList.value[index];
+    variableItem.value = inSetOperatorText.value.split(',').map((item) => {
+      return `'${item}'`;
+    });
+  };
+
+  const isInsetOperator = computed(() => {
+    return (
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.IN_SET ||
+      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_IN_SET
+    );
+  });
+
   onMounted(() => {
     document.body.addEventListener('click', onContains);
     // variableItemList.value = createDefaultVariableItemList();
@@ -664,6 +791,14 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     return [ModelFieldType.Float, ModelFieldType.Currency].includes(ttype);
   };
   return {
+    inSetOperatorText,
+    isBetweenOperator,
+    isInsetOperator,
+    isInSetOperator,
+    datePickerType,
+    datePickerTypeList,
+    scoptNumber,
+    scopeDate,
     disabled,
     readonly,
     focusNodes,
@@ -708,7 +843,10 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     isRealNumberTtype,
     createInputPatternByTtype,
     isDateTtype,
-    translateExpValue
+    translateExpValue,
+    scopeIntValueChange,
+    scopeDateValueChange,
+    onChangeInsetOperatorText
   };
 }
 

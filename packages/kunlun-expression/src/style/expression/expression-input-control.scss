@@ -240,7 +240,7 @@ $seniorRowContentHeight: 22px;
     &-row {
       display: flex;
       margin-bottom: 10px;
-      align-items: center;
+      align-items: start;
 
       .expression-item-content {
         flex: 1;
@@ -269,7 +269,7 @@ $seniorRowContentHeight: 22px;
       .expression-input-operator {
         min-width: 91px;
         width: auto;
-        margin-right: var(--oio-margin-sm);
+        margin-right: var(--oio-margin-xs);
 
         &.logic-operator-select {
           //margin-left: var(--oio-margin-sm) !important;
@@ -311,8 +311,8 @@ $seniorRowContentHeight: 22px;
       &.expression-quick-item {
         .expression-input-param {
           flex: 1;
-          max-width: 200px;
-          margin-right: var(--oio-margin-sm);
+          max-width: 250px;
+          margin-right: var(--oio-margin-xs);
         }
 
         .expression-input-param,

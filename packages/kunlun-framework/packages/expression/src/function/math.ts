@@ -25,7 +25,8 @@ export const MATH_FUNCTION = {
   COUNT,
   UPPER_MONEY,
   POW,
-  LOG
+  LOG,
+  BETWEEN_AND
 };
 
 function ABS(input: number | string) {
@@ -267,4 +268,39 @@ function LOG(a: number, b: number): number | null {
   }
 
   return Math.log(b) / Math.log(a);
+}
+
+function BETWEEN_AND(recordData, dataList) {
+  const strictTimeFormatRegex =
+    /^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])(?: (?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/;
+  if (
+    strictTimeFormatRegex.test(recordData) &&
+    strictTimeFormatRegex.test(dataList[0]) &&
+    strictTimeFormatRegex.test(dataList[1])
+  ) {
+    const startDate = new Date(dataList[0]);
+    const endDate = new Date(dataList[1]);
+    const testRecordDate = new Date(recordData);
+    if (testRecordDate >= startDate && testRecordDate <= endDate) {
+      return true;
+    }
+    return false;
+  }
+
+  const numberFormatRegex = /^[-+]?(\d+(\.\d*)?|\.\d+)$/;
+  if (
+    numberFormatRegex.test(recordData) &&
+    numberFormatRegex.test(dataList[0]) &&
+    numberFormatRegex.test(dataList[1])
+  ) {
+    const testRecordNumber = Number.parseInt(recordData, 10);
+    const startNumber = Number.parseInt(dataList[0], 10);
+    const endNumber = Number.parseInt(dataList[1], 10);
+    if (testRecordNumber >= startNumber && testRecordNumber <= endNumber) {
+      return true;
+    }
+    return false;
+  }
+
+  return false;
 }
