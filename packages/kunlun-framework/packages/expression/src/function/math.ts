@@ -272,12 +272,21 @@ function LOG(a: number, b: number): number | null {
 
 function BETWEEN_AND(recordData, dataList) {
   const strictTimeFormatRegex =
-    /^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])(?: (?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/;
+    /^(?:\d{4})(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\d|3[01]))?)?(?: (?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d))?$|^(?:(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d))$/;
   if (
     strictTimeFormatRegex.test(recordData) &&
     strictTimeFormatRegex.test(dataList[0]) &&
     strictTimeFormatRegex.test(dataList[1])
   ) {
+    const onlyTimeRegex = /^(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)$/;
+    if (onlyTimeRegex.test(dataList[0]) && onlyTimeRegex.test(dataList[1]) && onlyTimeRegex.test(recordData)) {
+      if (recordData >= dataList[0] && recordData <= dataList[1]) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     const startDate = new Date(dataList[0]);
     const endDate = new Date(dataList[1]);
     const testRecordDate = new Date(recordData);
