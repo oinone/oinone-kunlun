@@ -155,19 +155,19 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
   const datePickerTypeList = [
     {
       label: '年份',
-      value: 'YEAR'
+      value: ModelFieldType.Year
     },
     {
       label: '日期',
-      value: 'DATE'
+      value: ModelFieldType.Date
     },
     {
       label: '日期时间',
-      value: 'DATETIME'
+      value: ModelFieldType.DateTime
     },
     {
       label: '时间',
-      value: 'TIME'
+      value: ModelFieldType.Time
     }
   ];
 
@@ -175,7 +175,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     scopeDate.value = [];
   });
 
-  const scoptNumber = ref([0, 0]);
+  const scopeNumber = ref([0, 0]);
 
   const readonly = computed<boolean>(() => BooleanHelper.toBoolean(props.readonly) || false);
   const disabled = computed<boolean>(() => BooleanHelper.toBoolean(props.disabled) || false);
@@ -690,8 +690,8 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
 
   const scopeIntValueChange = (index) => {
     const variableItem = variableItemList.value[index];
-    variableItem.value = scoptNumber.value;
-    variableItem.apiName = `[${scoptNumber.value.toString()}]`;
+    variableItem.value = scopeNumber.value;
+    variableItem.apiName = `[${scopeNumber.value.toString()}]`;
     variableItem.multiParams = true;
     // variableItem.ttype = 'M2M';
     // variableItem.type = 'M2M';
@@ -780,6 +780,28 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
 
   onMounted(() => {
     document.body.addEventListener('click', onContains);
+
+    // 范围值回填;
+    if (
+      props.leftJoinField &&
+      props.leftJoinField.ttype === ModelFieldType.Integer &&
+      props.valueList &&
+      props.valueList.length === 1
+    ) {
+      scopeNumber.value = JSON.parse(props.valueList[0].value);
+    }
+
+    if (
+      props.leftJoinField &&
+      [ModelFieldType.Year, ModelFieldType.Date, ModelFieldType.DateTime, ModelFieldType.Time].includes(
+        props.leftJoinField.ttype
+      ) &&
+      props.valueList &&
+      props.valueList.length === 1
+    ) {
+      scopeDate.value = JSON.parse(props.valueList[0].value);
+    }
+
     // variableItemList.value = createDefaultVariableItemList();
   });
   onBeforeUnmount(() => {
@@ -797,7 +819,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     isInSetOperator,
     datePickerType,
     datePickerTypeList,
-    scoptNumber,
+    scopeNumber,
     scopeDate,
     disabled,
     readonly,

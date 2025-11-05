@@ -171,6 +171,7 @@ $select-width: 328px;
             &.variable-string {
               &-empty {
                 margin-left: 0;
+                width: 100%;
 
                 .ant-input {
                   text-align: left;
