@@ -512,8 +512,14 @@ export class BaseTableWidget<
 
   // region 列组件收集
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   protected columnWidgetMap: Map<string, ColumnWidgetEntity> = new Map();
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetMounted(widget: BaseTableColumnWidget) {
@@ -523,12 +529,18 @@ export class BaseTableWidget<
     });
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetUnmounted(widget: BaseTableColumnWidget) {
     this.columnWidgetMap.delete(widget.path);
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   public getColumnWidgets(sort = false): BaseTableColumnWidget[] {
     const iterator = this.columnWidgetMap.values();
     let next = iterator.next();

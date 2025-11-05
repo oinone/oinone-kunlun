@@ -325,10 +325,16 @@ export class BaseTableFieldWidget<
     this.notify(LifeCycleTypes.ON_FIELD_UNMOUNTED);
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Inject()
   protected fieldWidgetMounted: ((widget: BaseTableFieldWidget) => void) | undefined;
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Inject()
   protected fieldWidgetUnmounted: ((widget: BaseTableFieldWidget) => void) | undefined;

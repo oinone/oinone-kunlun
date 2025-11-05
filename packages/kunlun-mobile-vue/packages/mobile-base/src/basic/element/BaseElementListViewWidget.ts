@@ -90,10 +90,16 @@ export abstract class BaseElementListViewWidget<
     return ConfigHelper.getConfig(RuntimeConfig.getConfig('listViewConfig')) as ListViewConfig | undefined;
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetMounted(widget) {}
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetUnmounted(widget) {}
