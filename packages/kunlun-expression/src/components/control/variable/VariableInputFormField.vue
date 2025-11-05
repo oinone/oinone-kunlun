@@ -75,7 +75,7 @@
                 }"
                 @click="(e) => isVariableMode && onAddVariableItem('input')"
               >
-                <div class="scope-variable-input" v-if="isVariableMode && valueList?.length !== 3 && isBetweenOperator">
+                <div class="scope-variable-input" v-if="isVariableMode  && isBetweenOperator">
                   <div class="scope-variable-input-item"></div>
                   <span>~</span>
                   <div class="scope-variable-input-item"></div>
@@ -96,9 +96,9 @@
                     <template v-else>
                       <template v-if="leftJoinTtype === ModelFieldType.Integer && isBetweenOperator">
                         <div class="scope-number-input">
-                          <oio-input-number v-model:value="scoptNumber[0]" @blur="scopeIntValueChange(index)" />
+                          <oio-input-number v-model:value="scopeNumber[0]" @blur="scopeIntValueChange(index)" />
                           <span>~</span>
-                          <oio-input-number v-model:value="scoptNumber[1]" @blur="scopeIntValueChange(index)" />
+                          <oio-input-number v-model:value="scopeNumber[1]" @blur="scopeIntValueChange(index)" />
                         </div>
                       </template>
                       <template v-if="!isDateTtype(leftJoinTtype)">
@@ -199,7 +199,7 @@
                     :closable="!readonly && !showTypeSelect"
                     @close="onCloseTagItem(index)"
                   />
-                  <div class="scope-tag" v-else-if="index !== 0">
+                  <div class="scope-tag" v-else-if="index !== 0 && variableItem.value !== ''">
                     <control-tag
                       v-if="['variable', 'option', 'field', 'session'].includes(variableItem.type)"
                       class="variable-item variable-tag"
@@ -211,9 +211,6 @@
                       @close="onCloseTagItem(index)"
                     />
                   </div>
-                  <span :index="index" v-if="isBetweenOperator && index !== variableItemList.length - 1 && index !== 0"
-                    >~</span
-                  >
                 </template>
               </div>
             </span>
