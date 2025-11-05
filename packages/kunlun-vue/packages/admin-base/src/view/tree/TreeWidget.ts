@@ -2,7 +2,7 @@ import { ActiveRecord, ExperimentalConfigManager } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { OioTreeViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { isTreeViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../basic';
 import { TreeData } from '../../typing';
 import { AbstractTreeElementWidget } from './AbstractTreeElementWidget';
@@ -55,9 +55,8 @@ export class TreeWidget extends AbstractTreeElementWidget {
     return [];
   }
 
-  protected $$initViewState(state: OioTreeViewState): void {
-    super.$$initViewState(state);
-    if (!state.tree) {
+  protected $$initViewState(state: OioAnyViewState): void {
+    if (isTreeViewState(state) && !state.tree) {
       state.tree = this.currentHandle;
     }
   }

@@ -1,10 +1,13 @@
 import { ViewType } from '@oinone/kunlun-meta';
 import { ButtonBizStyle, ButtonType } from '@oinone/kunlun-vue-ui-common';
 
-type StateEntity = Record<string, any>;
+type StateEntity = {
+  readonly handle: string;
+
+  [key: string]: any;
+};
 
 export interface OioViewState extends StateEntity {
-  readonly handle: string;
   fullscreen: boolean;
   viewType?: ViewType;
 
@@ -22,7 +25,6 @@ export interface OioViewState extends StateEntity {
 }
 
 export interface OioActionBarState extends StateEntity {
-  handle: string;
   actions: string[];
   visibleActions: string[];
   bizStyle?: string;
@@ -57,7 +59,6 @@ export interface OioDetailViewState extends OioViewState {
 }
 
 export interface OioCardState extends StateEntity {
-  handle: string;
   fields: string[];
   titleProps?: StateEntity;
   contentProps?: StateEntity;
@@ -88,7 +89,7 @@ export type OioAnyViewState =
 
 export type OioListViewState = OioTableViewState | OioGalleryViewState;
 
-export type OioObjectViewState = OioFormViewState | OioDetailViewState;
+export type OioObjectViewState = OioFormViewState | OioDetailViewState | OioSearchViewState;
 
 export function isTableViewState(state: OioAnyViewState): state is OioTableViewState {
   return state.viewType === ViewType.Table;
@@ -119,7 +120,7 @@ export function isListViewState(state: OioAnyViewState): state is OioListViewSta
 }
 
 export function isObjectViewState(state: OioAnyViewState): state is OioObjectViewState {
-  return state.viewType === ViewType.Form || state.viewType === ViewType.Detail;
+  return state.viewType === ViewType.Form || state.viewType === ViewType.Detail || state.viewType === ViewType.Search;
 }
 
 export function hasFieldsViewState(

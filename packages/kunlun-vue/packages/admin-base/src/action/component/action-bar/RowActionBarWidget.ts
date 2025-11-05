@@ -78,7 +78,6 @@ export class RowActionBarWidget<
   }
 
   protected $$initViewState(state: OioAnyViewState): void {
-    super.$$initViewState(state);
     const { currentHandle, rowIndex } = this;
     if (hasRowActionBarViewState(state)) {
       if (!state.inlineActionBars) {

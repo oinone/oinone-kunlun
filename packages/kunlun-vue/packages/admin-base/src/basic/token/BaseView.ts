@@ -77,8 +77,6 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
 
   public static Selector: SPISingleSelector<BaseViewOptions, Constructor<BaseView>>;
 
-  protected viewState: OioAnyViewState | undefined;
-
   protected defaultAllInvisible = true;
 
   @Widget.Reactive()
