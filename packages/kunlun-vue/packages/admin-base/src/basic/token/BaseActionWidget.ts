@@ -231,13 +231,11 @@ export class BaseActionWidget<
 
   protected $$mounted() {
     super.$$mounted();
-    console.log('pushAction', this.currentHandle, this.rowIndex);
     this.viewState?.pushAction(this.currentHandle, this.rowIndex);
   }
 
   protected $$unmounted() {
     super.$$unmounted();
-    console.log('popAction', this.currentHandle, this.rowIndex);
     this.viewState?.popAction(this.currentHandle, this.rowIndex);
   }
 }
