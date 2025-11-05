@@ -24,7 +24,7 @@ export class StaticDialogWidget extends StaticPopupWidget<DialogWidgetProps> imp
   protected destroyOnClose = true;
 
   @Widget.Reactive()
-  protected title: string | null = null;
+  protected title: string | undefined;
 
   @Widget.Reactive()
   protected help: string | undefined;
@@ -76,7 +76,7 @@ export class StaticDialogWidget extends StaticPopupWidget<DialogWidgetProps> imp
     this.destroyOnClose = destroyOnClose;
   }
 
-  public setTitle(title: string | null) {
+  public setTitle(title: string | undefined) {
     this.title = title;
   }
 
