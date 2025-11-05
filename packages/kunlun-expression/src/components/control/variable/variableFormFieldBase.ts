@@ -155,19 +155,19 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
   const datePickerTypeList = [
     {
       label: '年份',
-      value: 'YEAR'
+      value: ModelFieldType.Year
     },
     {
       label: '日期',
-      value: 'DATE'
+      value: ModelFieldType.Date
     },
     {
       label: '日期时间',
-      value: 'DATETIME'
+      value: ModelFieldType.DateTime
     },
     {
       label: '时间',
-      value: 'TIME'
+      value: ModelFieldType.Time
     }
   ];
 

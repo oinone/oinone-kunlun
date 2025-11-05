@@ -37,10 +37,9 @@
             <a-select
               v-if="
                 variableType === 'string' &&
-                (leftJoinTtype === ModelFieldType.Date ||
-                  leftJoinTtype === ModelFieldType.DateTime ||
-                  leftJoinTtype === ModelFieldType.Time ||
-                  leftJoinTtype === ModelFieldType.Year)
+                [ModelFieldType.Date, ModelFieldType.DateTime, ModelFieldType.Year].includes(
+                  leftJoinTtype
+                )
               "
               class="expression-date-type-selector"
               dropdown-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
@@ -75,7 +74,7 @@
                 }"
                 @click="(e) => isVariableMode && onAddVariableItem('input')"
               >
-                <div class="scope-variable-input" v-if="isVariableMode  && isBetweenOperator">
+                <div class="scope-variable-input" v-if="isVariableMode && isBetweenOperator">
                   <div class="scope-variable-input-item"></div>
                   <span>~</span>
                   <div class="scope-variable-input-item"></div>
@@ -135,22 +134,22 @@
                       <template v-else-if="isBetweenOperator">
                         <div class="scope-date-selector">
                           <oio-date-range-picker
-                            v-if="datePickerType === 'DATE'"
+                            v-if="leftJoinTtype !== ModelFieldType.Time && datePickerType === ModelFieldType.Date"
                             v-model:value="scopeDate"
                             @change="scopeDateValueChange(index)"
                           />
                           <oio-date-time-range-picker
-                            v-if="datePickerType === 'DATETIME'"
+                            v-if="leftJoinTtype !== ModelFieldType.Time && datePickerType === ModelFieldType.DateTime"
                             v-model:value="scopeDate"
                             @change="scopeDateValueChange(index)"
                           />
                           <oio-year-range-picker
-                            v-if="datePickerType === 'YEAR'"
+                            v-if="leftJoinTtype !== ModelFieldType.Time && datePickerType === ModelFieldType.Year"
                             v-model:value="scopeDate"
                             @change="scopeDateValueChange(index)"
                           />
                           <oio-time-range-picker
-                            v-if="datePickerType === 'TIME'"
+                            v-if="leftJoinTtype === ModelFieldType.Time"
                             v-model:value="scopeDate"
                             @change="scopeDateValueChange(index)"
                           />
