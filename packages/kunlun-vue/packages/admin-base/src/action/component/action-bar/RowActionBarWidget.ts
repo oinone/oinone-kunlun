@@ -84,11 +84,9 @@ export class RowActionBarWidget<
       if (!state.inlineActionBars) {
         state.inlineActionBars = [];
       }
-      state.inlineActionBars[rowIndex] = {
-        handle: currentHandle,
-        actions: []
-      };
-      // state.defineActionBarStateProperty(rowIndex);
+      state.inlineActionBars[rowIndex] = state.createActionBarState({
+        handle: currentHandle
+      });
     }
   }
 

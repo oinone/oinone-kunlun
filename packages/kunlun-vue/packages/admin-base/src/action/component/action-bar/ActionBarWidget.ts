@@ -1,10 +1,24 @@
+import { isMinimalismTheme } from '@oinone/kunlun-engine';
 import { CallChaining, NumberHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { FlexRowJustify, ListSelectMode, OioDropdownTrigger } from '@oinone/kunlun-vue-ui-common';
-import { ActiveRecordsWidgetProps, hasActionBarViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
+import {
+  ButtonBizStyle,
+  ButtonType,
+  FlexRowJustify,
+  ListSelectMode,
+  OioDropdownTrigger
+} from '@oinone/kunlun-vue-ui-common';
+import {
+  ActiveRecordsWidgetProps,
+  hasActionBarViewState,
+  isListViewState,
+  OioAnyViewState,
+  Widget
+} from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseActionGroupWidget, BaseElementWidget } from '../../../basic';
 import { ActiveCountEnum, MoreActionRender } from '../../../typing';
+import { ActionBarBizStyle } from '../typing';
 import DefaultActionBar from './DefaultActionBar.vue';
 
 export interface ActionBarWidgetProps extends ActiveRecordsWidgetProps {
@@ -58,6 +72,18 @@ export class ActionBarWidget<
   @Widget.Provide()
   protected get buttonType() {
     return this.getDsl().buttonType?.toLowerCase?.();
+  }
+
+  @Widget.Reactive()
+  protected get bizStyle(): string | undefined {
+    const { viewState, inline } = this;
+    if (inline) {
+      // 行内动作不支持配置样式
+      return undefined;
+    }
+    if (viewState && hasActionBarViewState(viewState)) {
+      return viewState.actionBar?.bizStyle;
+    }
   }
 
   @Widget.Reactive()
@@ -116,14 +142,46 @@ export class ActionBarWidget<
     this.checkboxAllCallChaining?.call(selected);
   }
 
+  protected initBizStyle(): string | undefined {
+    const { viewState } = this;
+    let { bizStyle } = this.getDsl();
+    if (viewState && isListViewState(viewState) && isMinimalismTheme()) {
+      bizStyle = ActionBarBizStyle.style2;
+    }
+    return bizStyle;
+  }
+
+  protected getActionBarBizStyle(actionHandle: string): { type: ButtonType; bizStyle: ButtonBizStyle } | undefined {
+    if (this.inline) {
+      // 行内动作不支持配置样式
+      return undefined;
+    }
+    const actionBarState = this.viewState?.getActionBarState();
+    if (!actionBarState) {
+      return undefined;
+    }
+    const { bizStyle, visibleActions } = actionBarState;
+    if (!bizStyle) {
+      return undefined;
+    }
+    if (bizStyle === ActionBarBizStyle.style2) {
+      const index = visibleActions.findIndex((v) => v === actionHandle);
+      if (index === 0) {
+        return { type: ButtonType.primary, bizStyle: ButtonBizStyle.default };
+      }
+      return { type: ButtonType.link, bizStyle: ButtonBizStyle.info };
+    }
+  }
+
   protected $$initViewState(state: OioAnyViewState): void {
     const { currentHandle } = this;
     if (hasActionBarViewState(state)) {
       if (!state.actionBar) {
-        state.actionBar = {
+        state.actionBar = state.createActionBarState({
           handle: currentHandle,
-          actions: []
-        };
+          bizStyle: this.initBizStyle(),
+          getActionBarBizStyle: this.getActionBarBizStyle.bind(this)
+        });
       }
     }
   }

@@ -3,7 +3,14 @@ import { DownOutlined } from '@ant-design/icons-vue';
 import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { CastHelper, CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { ButtonType, IconPlacement, OioButton, OioCheckbox, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
+import {
+  ButtonBizStyle,
+  ButtonType,
+  IconPlacement,
+  OioButton,
+  OioCheckbox,
+  OioSwitch
+} from '@oinone/kunlun-vue-ui-antd';
 import { ListSelectMode, OioDropdownTrigger, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { DslRenderDefinition, onAllMounted } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
@@ -20,6 +27,7 @@ function createMoreAction(
   vnodes: VNode[],
   inline: boolean,
   options: {
+    bizStyle?: string;
     buttonType?: string;
     operatorColumnDirection?: OperationColumnDirection;
     allMounted: Function | undefined;
@@ -28,9 +36,13 @@ function createMoreAction(
 ): VNode {
   const classList = [moreActionSelectorClassName];
   let defaultButtonType = ButtonType.primary;
+  let defaultBizStyle: ButtonBizStyle | undefined;
   if (inline) {
     classList.push(`${moreActionSelectorClassName}-inline`);
     defaultButtonType = ButtonType.link;
+  } else if (options.bizStyle === 'style2') {
+    defaultButtonType = ButtonType.link;
+    defaultBizStyle = ButtonBizStyle.info;
   }
   const { buttonType, allMounted } = options;
   const triggerVNode = createVNode(
@@ -38,6 +50,7 @@ function createMoreAction(
     {
       class: classList,
       type: buttonType || defaultButtonType,
+      bizStyle: defaultBizStyle,
       icon: 'oinone-menu-caidanxiala',
       iconPlacement: IconPlacement.AFTER,
       onClick: withModifiers(() => {}, ['prevent'])
@@ -88,6 +101,9 @@ export default defineComponent({
     inline: {
       type: Boolean,
       default: false
+    },
+    bizStyle: {
+      type: String
     },
     justify: {
       type: String
@@ -185,6 +201,9 @@ export default defineComponent({
     const buttonType = this.buttonType?.toLowerCase?.() || ButtonType.link;
     classList.push(`${actionBarClassName}-${operatorColumnDirection}`);
     classList.push(`${actionBarClassName}-${buttonType}`);
+    if (this.bizStyle) {
+      classList.push(`${actionBarClassName}-${this.bizStyle}`);
+    }
     const collectionActions = new CollectionActions(this.showActionNames, this.activeCount);
     collectionActions.do(
       PropRecordHelper.collectionSlots(this.$slots, [{ origin: 'default', isNotNull: true }]).default()
@@ -208,6 +227,7 @@ export default defineComponent({
           [
             ...otherVNodes,
             (this.moreActionRender || createMoreAction)(moreActions, this.inline, {
+              bizStyle: this.bizStyle,
               buttonType: this.buttonType,
               operatorColumnDirection: operatorColumnDirection as OperationColumnDirection,
               allMounted: this.allMounted,

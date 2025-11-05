@@ -18,49 +18,6 @@
 
   .more-action-selector {
     vertical-align: 0;
-
-    &.oio-button.ant-btn {
-      &.oio-button-default {
-        .oio-icon {
-          color: var(--oio-button-text-color);
-        }
-
-        &:hover {
-          .oio-icon {
-            color: var(--oio-button-text-color-hover);
-          }
-        }
-      }
-
-      &.oio-button-primary {
-        .oio-icon {
-          color: var(--oio-button-primary-text-color);
-        }
-
-        &:hover {
-          .oio-icon {
-            color: var(--oio-button-primary-text-color-hover);
-          }
-        }
-      }
-
-      &.oio-button-link {
-        .oio-icon {
-          color: var(--oio-button-link-text-color);
-        }
-
-        &:hover {
-          .oio-icon {
-            color: var(--oio-button-link-text-color-hover);
-          }
-        }
-      }
-
-      &.oio-button-icon-after .oio-icon {
-        font-size: calc(var(--oio-font-size) - 2px);
-        margin-left: 2px;
-      }
-    }
   }
 
   .gallery-action-bar-operators {

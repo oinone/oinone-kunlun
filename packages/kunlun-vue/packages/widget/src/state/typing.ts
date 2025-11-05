@@ -1,9 +1,16 @@
 import { ViewType } from '@oinone/kunlun-meta';
+import { ButtonBizStyle, ButtonType } from '@oinone/kunlun-vue-ui-common';
 
-export interface OioViewState extends Record<string, unknown> {
+type StateEntity = Record<string, any>;
+
+export interface OioViewState extends StateEntity {
   readonly handle: string;
   fullscreen: boolean;
   viewType?: ViewType;
+
+  createActionBarState(options: { handle: string } & Partial<Omit<OioActionBarState, 'handle'>>): OioActionBarState;
+
+  getActionBarState(rowIndex?: number): OioActionBarState | undefined;
 
   pushField(handle: string, rowIndex?: number): void;
 
@@ -14,9 +21,13 @@ export interface OioViewState extends Record<string, unknown> {
   popAction(handle: string, rowIndex?: number): void;
 }
 
-export interface OioActionBarState extends Record<string, unknown> {
+export interface OioActionBarState extends StateEntity {
   handle: string;
   actions: string[];
+  visibleActions: string[];
+  bizStyle?: string;
+
+  getActionBarBizStyle?(actionHandle: string): { type: ButtonType; bizStyle: ButtonBizStyle } | undefined;
 }
 
 export interface OioTableViewState extends OioViewState {
@@ -45,11 +56,11 @@ export interface OioDetailViewState extends OioViewState {
   fields?: string[];
 }
 
-export interface OioCardState extends Record<string, unknown> {
+export interface OioCardState extends StateEntity {
   handle: string;
   fields: string[];
-  titleProps?: Record<string, unknown>;
-  contentProps?: Record<string, unknown>;
+  titleProps?: StateEntity;
+  contentProps?: StateEntity;
 }
 
 export interface OioGalleryViewState extends OioViewState {

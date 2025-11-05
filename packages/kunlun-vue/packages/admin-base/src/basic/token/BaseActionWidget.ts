@@ -15,7 +15,13 @@ import { Matched, Router, useMatched } from '@oinone/kunlun-router';
 import { CallChaining, Constructor } from '@oinone/kunlun-shared';
 import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
 import { useRouter } from '@oinone/kunlun-vue-router';
-import { ActiveRecordsWidgetProps, InnerWidgetType, useOioState, Widget } from '@oinone/kunlun-vue-widget';
+import {
+  ActiveRecordsWidgetProps,
+  InnerWidgetType,
+  OioActionBarState,
+  useOioState,
+  Widget
+} from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../typing';
 import { BaseRuntimePropertiesWidget } from '../common';
 
@@ -169,6 +175,11 @@ export class BaseActionWidget<
       return super.load(fn, ...args);
     }
     return fn(...args);
+  }
+
+  @Widget.Reactive()
+  protected get actionBarState(): OioActionBarState | undefined {
+    return this.viewState?.getActionBarState(this.rowIndex);
   }
 
   protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
