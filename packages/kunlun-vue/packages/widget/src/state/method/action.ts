@@ -2,12 +2,6 @@ import { Widget } from '../../basic';
 import { executeInvisible, InvisibleSupported } from '../../feature';
 import { hasActionBarViewState, hasRowActionBarViewState, OioActionBarState, OioAnyViewState } from '../typing';
 
-const defaultActionBarState: OioActionBarState = {
-  handle: 'default-action-bar-state',
-  actions: [],
-  visibleActions: []
-};
-
 export function createActionBarState(
   this: OioAnyViewState,
   options: {
@@ -15,7 +9,8 @@ export function createActionBarState(
   } & Partial<Omit<OioActionBarState, 'handle'>>
 ) {
   const state: OioActionBarState = {
-    ...defaultActionBarState,
+    actions: [],
+    visibleActions: [],
     ...options
   };
   Object.defineProperty(state, 'visibleActions', {
