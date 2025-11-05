@@ -782,14 +782,21 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     document.body.addEventListener('click', onContains);
 
     // 范围值回填;
-    if (props.leftJoinField.ttype === ModelFieldType.Integer && props.valueList.length === 1) {
+    if (
+      props.leftJoinField &&
+      props.leftJoinField.ttype === ModelFieldType.Integer &&
+      props.valueList &&
+      props.valueList.length === 1
+    ) {
       scopeNumber.value = JSON.parse(props.valueList[0].value);
     }
 
     if (
+      props.leftJoinField &&
       [ModelFieldType.Year, ModelFieldType.Date, ModelFieldType.DateTime, ModelFieldType.Time].includes(
         props.leftJoinField.ttype
       ) &&
+      props.valueList &&
       props.valueList.length === 1
     ) {
       scopeDate.value = JSON.parse(props.valueList[0].value);
