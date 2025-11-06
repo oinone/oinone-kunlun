@@ -20,6 +20,7 @@
             :pagination="pagination"
             :on-pagination-change="onPaginationChange"
             :group-by-store="groupByStore"
+            :search-key-words="searchKeyWords"
             @click-option="(option, isMouse) => onClickOption(option, index, isMouse)"
             @load-data="(option) => onLoadData(option, index)"
           />
@@ -29,6 +30,7 @@
             :options="searchFilterOptions"
             :pagination="pagination"
             :on-pagination-change="onPaginationChange"
+            :search-key-words="searchKeyWords"
             @click-option="searchOptionClick"
           />
         </div>
@@ -202,13 +204,13 @@ export default defineComponent({
       () => props.searchKeyWords,
       (newValue) => {
         if (newValue !== '') {
-          searchFilterOptions.value = optionsSearchWalk(newValue, props.options);
+          searchFilterOptions.value = optionsSearchWalk(newValue.split(' '), props.options);
         }
       }
     );
 
     /**
-     * @param keyword 搜索关键字
+     * @param keywordList 搜索关键字的列表
      * @param optionsList option列表
      * @param walkList 祖先列表-保存根节点到当前节点的所有节点
      * @param res 返回值数组
@@ -216,7 +218,7 @@ export default defineComponent({
      * @returns Record<string,any>[]
      */
     function optionsSearchWalk(
-      keyword,
+      keywordList,
       optionsList,
       parent = null,
       walkList: string[] = [],
@@ -226,11 +228,19 @@ export default defineComponent({
         return [];
       }
       optionsList.forEach((ch) => {
-        if (!ch.children) {
+        // 查找option是否包含关键字
+        let isTargetOption = false;
+        keywordList.forEach((keyword) => {
           if (
             ch.label.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 ||
             ch.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
           ) {
+            isTargetOption = true;
+          }
+        });
+
+        if (!ch.children) {
+          if (isTargetOption) {
             res.push(ch);
           }
           return;
@@ -240,11 +250,7 @@ export default defineComponent({
           parent
         };
         walkList.push(ch.label);
-        if (
-          ch?.children?.length === 0 &&
-          (ch.label.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 ||
-            ch.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1)
-        ) {
+        if (ch?.children?.length === 0 && isTargetOption) {
           const displayLabel = walkList.join(' / ');
           res.push({
             ...ch,
@@ -252,7 +258,7 @@ export default defineComponent({
             parent
           });
         } else {
-          optionsSearchWalk(keyword, tempObj.children, tempObj, walkList, res);
+          optionsSearchWalk(keywordList, tempObj.children, tempObj, walkList, res);
         }
         walkList.pop();
       });
