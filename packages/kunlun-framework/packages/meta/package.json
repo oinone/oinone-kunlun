@@ -10,6 +10,9 @@
     "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
     "x-postpublish": "node ../../scripts/postpublish.js"
   },
+  "dependencies": {
+    "@oinone/kunlun-config": "6.3.0"
+  },
   "devDependencies": {
     "@oinone/kunlun-request": "6.3.0"
   },

@@ -32,7 +32,6 @@ import { BaseElementListViewWidgetProps, BaseElementWidget, BaseTableColumnWidge
 import { ExpandColumnWidgetNames } from '../../field';
 import { ActiveCountEnum, fetchPageSize, fetchPageSizeNullable, TABLE_WIDGET, UserTablePrefer } from '../../typing';
 import { TreeUtils } from '../../util';
-import { TableConfigManager } from './config';
 import DefaultTable from './DefaultTable.vue';
 import { TableRowClickMode } from './typing';
 
@@ -78,7 +77,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   }
 
   protected get tableConfig() {
-    return TableConfigManager.getConfig();
+    return this.getMergeConfig('table');
   }
 
   @Widget.Reactive()
@@ -88,32 +87,32 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get lineHeight(): number | undefined {
-    const lineHeight = Optional.ofNullable(this.getDsl().lineHeight).map(NumberHelper.toNumber).orElse(undefined);
-
-    if (lineHeight) {
-      return lineHeight;
-    }
-
-    if (typeof this.tableConfig.lineHeight === 'number') {
-      return this.tableConfig.lineHeight;
-    }
-
-    return undefined;
+    return NumberHelper.toNumber(this.tableConfig.lineHeight) as number | undefined;
   }
 
   @Widget.Reactive()
   protected get minLineHeight(): number | undefined {
-    const minLineHeight = Optional.ofNullable(this.getDsl().minLineHeight).map(NumberHelper.toNumber).orElse(undefined);
+    return NumberHelper.toNumber(this.tableConfig.minLineHeight) as number | undefined;
+  }
 
-    if (minLineHeight) {
-      return minLineHeight;
-    }
+  @Widget.Reactive()
+  protected get border() {
+    return this.tableConfig.border || false;
+  }
 
-    if (typeof this.tableConfig.minLineHeight === 'number') {
-      return this.tableConfig.minLineHeight;
-    }
+  @Widget.Reactive()
+  protected get stripe() {
+    return this.tableConfig.stripe || false;
+  }
 
-    return undefined;
+  @Widget.Reactive()
+  protected get isCurrent() {
+    return this.tableConfig.isCurrent || true;
+  }
+
+  @Widget.Reactive()
+  protected get isHover() {
+    return this.tableConfig.isHover || false;
   }
 
   /**
@@ -121,19 +120,8 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Reactive()
   protected get autoLineHeight(): boolean {
-    const autoLineHeight = Optional.ofNullable(this.getDsl().autoLineHeight)
-      .map(BooleanHelper.toBoolean)
-      .orElse(undefined);
-
-    if (typeof autoLineHeight === 'boolean') {
-      return autoLineHeight;
-    }
-
-    if (typeof this.tableConfig.autoLineHeight === 'boolean') {
-      return this.tableConfig.autoLineHeight;
-    }
-
-    return true;
+    const { autoLineHeight } = this.tableConfig;
+    return Optional.ofNullable(autoLineHeight).map(BooleanHelper.toBoolean).orElse(true)!;
   }
 
   @Widget.Reactive()
@@ -153,11 +141,11 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Reactive()
   @Widget.Provide()
   protected get activeCount(): number | undefined {
-    const { activeCount } = this.getDsl();
+    const { activeCount } = this.tableConfig;
     if (isNil(activeCount)) {
       return undefined;
     }
-    const activeCountNumber = NumberHelper.toNumber(activeCount);
+    const activeCountNumber = NumberHelper.toNumber(activeCount as number | undefined | string);
     if (isNil(activeCountNumber)) {
       return ActiveCountEnum[activeCount as string];
     }
@@ -170,14 +158,14 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Reactive()
   @Widget.Provide()
   protected get inlineActiveCount(): number | undefined {
-    let { inlineActiveCount } = this.getDsl();
+    let { inlineActiveCount } = this.tableConfig;
     if (isNil(inlineActiveCount)) {
       inlineActiveCount = this.metadataRuntimeContext.viewTemplate?.inlineActiveCount;
       if (isNil(inlineActiveCount)) {
         return undefined;
       }
     }
-    const inlineActiveCountNumber = NumberHelper.toNumber(inlineActiveCount);
+    const inlineActiveCountNumber = NumberHelper.toNumber(inlineActiveCount as number | string);
     if (isNil(inlineActiveCountNumber)) {
       return ActiveCountEnum[inlineActiveCount as string];
     }

@@ -13,6 +13,7 @@ export default rollupConfig(
     '@oinone/kunlun-spi',
     '@oinone/kunlun-state',
     '@oinone/kunlun-vue-ui-common',
+    '@oinone/kunlun-config',
     'lodash',
     'lodash-es',
     'vue'
