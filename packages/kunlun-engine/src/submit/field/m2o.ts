@@ -1,3 +1,4 @@
+import { ExperimentalConfigManager } from '../../config';
 import { getStaticRelationField, isStaticRelationField } from '../../runtime-context';
 import { RuntimeM2OField } from '../../runtime-metadata';
 import { ActiveRecord } from '../../typing';
@@ -25,8 +26,10 @@ export const M2OSubmit: SubmitFn<RuntimeM2OField, ActiveRecord> = (
     return undefined;
   }
   const { result, isSetNull } = res;
-  if (field.store && !isSetNull) {
-    result[itemName] = value;
+  if (ExperimentalConfigManager.submitM2OStoreFieldNext()) {
+    if (field.store && !isSetNull) {
+      result[itemName] = value;
+    }
   }
   return result;
 };
