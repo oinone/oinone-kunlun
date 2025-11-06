@@ -242,5 +242,8 @@ function MAP_COUNT(obj: Record<string, unknown>) {
 }
 
 function IN_SET(key: string, setString: Array<Object>) {
+  if (!setString || !key) {
+    return false;
+  }
   return setString.map((item) => item.toString()).includes(key);
 }
