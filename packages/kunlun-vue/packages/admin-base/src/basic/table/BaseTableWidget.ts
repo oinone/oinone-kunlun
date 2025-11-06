@@ -36,7 +36,7 @@ import {
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
 import { ListSelectMode, OioNotification, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
-import { OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { isTableViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy, toString } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTablePropTypes } from 'vxe-table';
@@ -1284,9 +1284,8 @@ export class BaseTableWidget<
     });
   }
 
-  protected $$initViewState(state: OioTableViewState): void {
-    super.$$initViewState(state);
-    if (!state.table) {
+  protected $$initViewState(state: OioAnyViewState): void {
+    if (isTableViewState(state) && !state.table) {
       state.table = this.currentHandle;
     }
   }

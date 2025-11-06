@@ -1,9 +1,19 @@
 import { ViewType } from '@oinone/kunlun-meta';
+import { ButtonBizStyle, ButtonType } from '@oinone/kunlun-vue-ui-common';
 
-export interface OioViewState extends Record<string, unknown> {
+type StateEntity = {
   readonly handle: string;
+
+  [key: string]: any;
+};
+
+export interface OioViewState extends StateEntity {
   fullscreen: boolean;
   viewType?: ViewType;
+
+  createActionBarState(options: { handle: string } & Partial<Omit<OioActionBarState, 'handle'>>): OioActionBarState;
+
+  getActionBarState(rowIndex?: number): OioActionBarState | undefined;
 
   pushField(handle: string, rowIndex?: number): void;
 
@@ -14,9 +24,12 @@ export interface OioViewState extends Record<string, unknown> {
   popAction(handle: string, rowIndex?: number): void;
 }
 
-export interface OioActionBarState extends Record<string, unknown> {
-  handle: string;
+export interface OioActionBarState extends StateEntity {
   actions: string[];
+  visibleActions: string[];
+  bizStyle?: string;
+
+  getActionBarBizStyle?(actionHandle: string): { type: ButtonType; bizStyle: ButtonBizStyle } | undefined;
 }
 
 export interface OioTableViewState extends OioViewState {
@@ -45,11 +58,10 @@ export interface OioDetailViewState extends OioViewState {
   fields?: string[];
 }
 
-export interface OioCardState extends Record<string, unknown> {
-  handle: string;
+export interface OioCardState extends StateEntity {
   fields: string[];
-  titleProps?: Record<string, unknown>;
-  contentProps?: Record<string, unknown>;
+  titleProps?: StateEntity;
+  contentProps?: StateEntity;
 }
 
 export interface OioGalleryViewState extends OioViewState {
@@ -77,7 +89,7 @@ export type OioAnyViewState =
 
 export type OioListViewState = OioTableViewState | OioGalleryViewState;
 
-export type OioObjectViewState = OioFormViewState | OioDetailViewState;
+export type OioObjectViewState = OioFormViewState | OioDetailViewState | OioSearchViewState;
 
 export function isTableViewState(state: OioAnyViewState): state is OioTableViewState {
   return state.viewType === ViewType.Table;
@@ -108,7 +120,7 @@ export function isListViewState(state: OioAnyViewState): state is OioListViewSta
 }
 
 export function isObjectViewState(state: OioAnyViewState): state is OioObjectViewState {
-  return state.viewType === ViewType.Form || state.viewType === ViewType.Detail;
+  return state.viewType === ViewType.Form || state.viewType === ViewType.Detail || state.viewType === ViewType.Search;
 }
 
 export function hasFieldsViewState(

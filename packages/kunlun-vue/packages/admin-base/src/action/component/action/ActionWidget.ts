@@ -5,8 +5,6 @@ import {
   ConfirmModal,
   FunctionCache,
   FunctionService,
-  GetRequestModelFieldsOptions,
-  ModelCache,
   parseConfigs,
   RequestModelField,
   resolveDynamicDomain,
@@ -263,6 +261,11 @@ export class ActionWidget<
   @Widget.Inject()
   protected operatorColumnButtonType: string | undefined;
 
+  @Widget.Reactive()
+  protected get actionBarBizStyle(): { type: ButtonType; bizStyle: ButtonBizStyle } | undefined {
+    return this.actionBarState?.getActionBarBizStyle?.(this.currentHandle);
+  }
+
   protected defaultType = ButtonType.primary;
 
   @Widget.Reactive()
@@ -270,12 +273,28 @@ export class ActionWidget<
     if (this.inline) {
       return this.buttonType?.toLowerCase?.() || ButtonType.link;
     }
-    return this.getDsl().type?.toLowerCase?.() || this.buttonType?.toLowerCase?.() || this.defaultType;
+    const type = this.getDsl().type?.toLowerCase?.() || this.buttonType?.toLowerCase?.();
+    if (type) {
+      return type;
+    }
+    const { actionBarBizStyle } = this;
+    if (actionBarBizStyle) {
+      return actionBarBizStyle.type;
+    }
+    return this.defaultType;
   }
 
   @Widget.Reactive()
   protected get bizStyle(): string {
-    return this.getDsl().bizStyle?.toLowerCase?.() || ButtonBizStyle.default;
+    const bizStyle = this.getDsl().bizStyle?.toLowerCase?.();
+    if (bizStyle) {
+      return bizStyle;
+    }
+    const { actionBarBizStyle } = this;
+    if (actionBarBizStyle) {
+      return actionBarBizStyle.bizStyle;
+    }
+    return ButtonBizStyle.default;
   }
 
   @Widget.Reactive()
