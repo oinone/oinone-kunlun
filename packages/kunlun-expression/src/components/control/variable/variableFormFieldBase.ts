@@ -268,6 +268,12 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     if (!props.showVariableType) {
       list = list.filter((a) => a.value !== VariableItemType.VARIABLE);
     }
+
+    // 多对多、一对多，不需要选项
+    if ([ModelFieldType.OneToMany, ModelFieldType.ManyToOne].includes(leftJoinTtype.value!)) {
+      list = list.filter((a) => a.value !== VariableItemType.OPTION);
+    }
+
     const vt = list.find((_a) => _a.value === variableType.value);
     if (!vt && list.length) {
       variableType.value = list[0].value as VariableItemType;
