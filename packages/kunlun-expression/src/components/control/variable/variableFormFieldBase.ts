@@ -270,7 +270,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     }
 
     // 多对多、一对多，不需要选项
-    if ([ModelFieldType.OneToMany, ModelFieldType.ManyToOne].includes(leftJoinTtype.value!)) {
+    if ([ModelFieldType.OneToMany, ModelFieldType.ManyToMany].includes(leftJoinTtype.value!)) {
       list = list.filter((a) => a.value !== VariableItemType.OPTION);
     }
 
