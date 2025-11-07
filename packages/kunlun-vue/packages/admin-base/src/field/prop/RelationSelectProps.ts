@@ -196,8 +196,14 @@ export function relationSelectSetup(props, multi?: boolean) {
   const onKeydown = (e: KeyboardEvent) => {
     // 当键盘数据提交快捷键与下拉框内置选中快捷键冲突时，保证行内编辑态不丢失
     if (e.key === 'Enter' && e.key === props.tableKeyboardConfig?.enter?.key && dropdownOpen.value) {
-      if (!multi && count === 2) {
-        return;
+      if (!multi) {
+        if (count === 2) {
+          return;
+        }
+        focusSearchInput = false;
+        dropdownOpen.value = false;
+        props.dropdownVisibleChange(false);
+        selectRef.value.focus();
       }
       e.preventDefault();
       e.stopPropagation();
