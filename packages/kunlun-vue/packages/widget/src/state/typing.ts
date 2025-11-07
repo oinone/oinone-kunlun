@@ -60,8 +60,8 @@ export interface OioDetailViewState extends OioViewState {
 
 export interface OioCardState extends StateEntity {
   fields: string[];
-  titleProps?: StateEntity;
-  contentProps?: StateEntity;
+  titleProps?: Record<string, unknown>;
+  contentProps?: Record<string, unknown>;
 }
 
 export interface OioGalleryViewState extends OioViewState {
