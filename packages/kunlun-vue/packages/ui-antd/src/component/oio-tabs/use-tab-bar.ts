@@ -1,18 +1,12 @@
+import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 import { DEFAULT_TAB_TITLE, TabHTMLNode } from '@oinone/kunlun-vue-ui-common';
+import { Tooltip as ATooltip } from 'ant-design-vue';
 import { createVNode, Ref, unref, VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
-import { Tooltip as ATooltip } from 'ant-design-vue';
-import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 
 export function useTabBar(title: string | Ref<string>, help?: string | Ref<string>): VNode {
   const titleValue = unref(title) || DEFAULT_TAB_TITLE;
-  const vnodes = [
-    createVNode(
-      'span',
-      { class: 'oio-tab-title', title: titleValue },
-      titleValue
-    )
-  ]
+  const vnodes = [createVNode('span', { class: 'oio-tab-title', title: titleValue }, titleValue)];
   const helpValue = unref(help) || '';
   if (helpValue && helpValue !== '') {
     vnodes.push(
@@ -24,7 +18,12 @@ export function useTabBar(title: string | Ref<string>, help?: string | Ref<strin
             return [createVNode('span', {}, helpValue)];
           },
           default: () => {
-            return [createVNode(QuestionCircleOutlined, { class: 'oio-question-icon', style: { marginLeft: '5px' } as CSSStyleDeclaration })];
+            return [
+              createVNode(QuestionCircleOutlined, {
+                class: 'oio-question-icon',
+                style: { marginLeft: '5px' } as CSSStyleDeclaration
+              })
+            ];
           }
         }
       )

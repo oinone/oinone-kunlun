@@ -1,5 +1,7 @@
 <template>
   <default-form-item
+    :class="$attrs.class"
+    :style="$attrs.style"
     :name="itemName"
     :invisible="invisible"
     :colon="colon"
