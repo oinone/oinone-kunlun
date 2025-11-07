@@ -20,6 +20,7 @@
             :pagination="pagination"
             :on-pagination-change="onPaginationChange"
             :group-by-store="groupByStore"
+            :search-key-words="searchKeyWords"
             @click-option="(option, isMouse) => onClickOption(option, index, isMouse)"
             @load-data="(option) => onLoadData(option, index)"
           />
@@ -29,6 +30,7 @@
             :options="searchFilterOptions"
             :pagination="pagination"
             :on-pagination-change="onPaginationChange"
+            :search-key-words="searchKeyWords"
             @click-option="searchOptionClick"
           />
         </div>
@@ -202,13 +204,13 @@ export default defineComponent({
       () => props.searchKeyWords,
       (newValue) => {
         if (newValue !== '') {
-          searchFilterOptions.value = optionsSearchWalk(newValue, props.options);
+          searchFilterOptions.value = optionsSearchWalk(newValue.split(' '), props.options);
         }
       }
     );
 
     /**
-     * @param keyword 搜索关键字
+     * @param keywordList 搜索关键字的列表
      * @param optionsList option列表
      * @param walkList 祖先列表-保存根节点到当前节点的所有节点
      * @param res 返回值数组
@@ -216,51 +218,64 @@ export default defineComponent({
      * @returns Record<string,any>[]
      */
     function optionsSearchWalk(
-      keyword,
+      keywordList,
       optionsList,
-      parent = null,
+      parent: Record<string, any> | null = null,
       walkList: string[] = [],
       res: Record<string, any>[] = []
-    ) {
+    ): Record<string, any>[] {
       if (optionsList === []) {
         return [];
       }
-      optionsList.forEach((ch) => {
-        if (!ch.children) {
-          if (
-            ch.label.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 ||
-            ch.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
-          ) {
-            res.push(ch);
+      if (parent) {
+        for (let i = 0; i < optionsList.length; i++) {
+          if (optionsList[i].references === parent.references && optionsList[i].field === parent.field) {
+            return [];
           }
-          return;
+        }
+      }
+
+      for (let i = 0; i < optionsList.length; i++) {
+        // 查找option是否包含关键字
+        let isTargetOption = false;
+        for (let j = 0; j < keywordList.length; j++) {
+          if (
+            keywordList[j] !== '' &&
+            (optionsList[i].label.toLowerCase().indexOf(keywordList[j].toLowerCase()) !== -1 ||
+              optionsList[i].name.toLowerCase().indexOf(keywordList[j].toLowerCase()) !== -1)
+          ) {
+            isTargetOption = true;
+          }
+        }
+
+        if (!optionsList[i].children) {
+          if (isTargetOption) {
+            res.push(optionsList[i]);
+          }
+          return [];
         }
         const tempObj = {
-          ...ch,
+          ...optionsList[i],
           parent
         };
-        walkList.push(ch.label);
-        if (
-          ch?.children?.length === 0 &&
-          (ch.label.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 ||
-            ch.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1)
-        ) {
+        walkList.push(optionsList[i].label);
+        if (optionsList[i]?.children?.length === 0 && isTargetOption) {
           const displayLabel = walkList.join(' / ');
           res.push({
-            ...ch,
+            ...optionsList[i],
             label: displayLabel,
             parent
           });
         } else {
-          optionsSearchWalk(keyword, tempObj.children, tempObj, walkList, res);
+          optionsSearchWalk(keywordList, tempObj.children, tempObj, walkList, res);
         }
         walkList.pop();
-      });
+      }
       return res;
     }
 
     async function buildStartOptions(options, deep = 0, loadOptionsList: Record<string, any>[] = []) {
-      if (deep >= 3) {
+      if (deep >= 2) {
         return;
       }
       for (let i = 0; i < options.length; i++) {

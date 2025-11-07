@@ -42,7 +42,7 @@
           :options="availableOptions"
           :load-data="fetchChildrenInner"
           :change-on-select="changeOnSelect"
-          :search-key-words="searchKeywords"
+          :search-key-words="searchKeywordsDebounce"
           @change="onChange"
         >
           <template #header>
@@ -72,6 +72,7 @@ import { OioInput, OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { CloseCircleFilled, DownOutlined } from '@ant-design/icons-vue';
 import { ModelFieldType } from '@oinone/kunlun-meta';
 import { CastHelper } from '@oinone/kunlun-shared';
+import { debounce } from 'lodash-es';
 import ControlTag from '../control/control-tag/ControlTag.vue';
 import ExpressionDesignerCascader from '../cascader/Cascader.vue';
 import {
@@ -102,6 +103,7 @@ enum SizeEnum {
   SMALL = 'small',
   LARGE = 'large'
 }
+
 /**
  * 适用于表单类变量控件
  */
@@ -184,7 +186,10 @@ export default defineComponent({
       return props.allowClear && !isValueEmpty.value;
     });
     const selectValue = ref<IExpSelectOption>({} as IExpSelectOption);
+
     const searchKeywords = ref('');
+    const searchKeywordsDebounce = ref('');
+
     const searchInputMirrorRef = ref(null);
     const searchInputRef = ref(null);
     const selectionSearchLeft = ref(10);
@@ -430,6 +435,14 @@ export default defineComponent({
       }
     });
 
+    const changeSearchKey = debounce((newValue) => {
+      searchKeywordsDebounce.value = newValue;
+    }, 300);
+
+    watch(searchKeywords, (newValue) => {
+      changeSearchKey(newValue);
+    });
+
     let isFocus = false;
     const onContains = (e) => {
       checkBlurFocus(
@@ -463,6 +476,7 @@ export default defineComponent({
       isAllowClear,
       selectValue,
       searchKeywords,
+      searchKeywordsDebounce,
       selectionSearchLeft,
       searchInputMirrorRef,
       searchInputRef,
@@ -487,6 +501,7 @@ export default defineComponent({
     &:not(.ant-select-customize-input) .ant-select-selector {
       border-radius: 4px;
     }
+
     &:not(.ant-select-disabled):hover .ant-select-selector {
       border-color: var(--oio-primary-color);
     }

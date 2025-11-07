@@ -17,12 +17,12 @@
       padding: 0;
       border-bottom: 1px solid #F3F3F3;
       margin-bottom: 5px;
-      
-      .oio-input{
+
+      .oio-input {
         border: none;
         box-shadow: none;
-        
-        .ant-input-prefix{
+
+        .ant-input-prefix {
           margin-right: var(--oio-margin-xs);
         }
       }
@@ -37,12 +37,12 @@
       color: var(--oio-text-color-three);
       text-align: center;
     }
-    
+
     .ant-cascader-menu {
       display: inline-block;
       max-width: 400px;
       width: fit-content;
-      
+
       scrollbar-width: none;
     }
 
@@ -67,12 +67,16 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        
-        .selected-option-label{
+
+        .searched-key {
+          color: var(--oio-primary-color);
+        }
+
+        .selected-option-label {
           color: #035DFF;
         }
-        
-        .source-code{
+
+        .source-code {
           margin-left: var(--oio-padding-xxs);
         }
       }

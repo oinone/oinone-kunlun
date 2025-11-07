@@ -287,9 +287,24 @@ function BETWEEN_AND(recordData, dataList) {
       }
     }
 
+    const dateTimeRegex =
+      /^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01]) (?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)$/;
+
     const startDate = new Date(dataList[0]);
     const endDate = new Date(dataList[1]);
     const testRecordDate = new Date(recordData);
+
+    // 将所有的非DateTime时间设置时分秒为 0 0 0;
+    if (!dateTimeRegex.test(dataList[0])) {
+      startDate.setHours(0, 0, 0, 0);
+    }
+    if (!dateTimeRegex.test(dataList[1])) {
+      endDate.setHours(0, 0, 0, 0);
+    }
+    if (!dateTimeRegex.test(recordData)) {
+      testRecordDate.setHours(0, 0, 0, 0);
+    }
+
     if (testRecordDate >= startDate && testRecordDate <= endDate) {
       return true;
     }
