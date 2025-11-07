@@ -12,6 +12,7 @@
     </div>
     <div v-else>
       <a-select
+        ref="selectRef"
         class="oio-select"
         label-in-value
         :show-search="selectShowSearch"
