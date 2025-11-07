@@ -220,10 +220,10 @@ export default defineComponent({
     function optionsSearchWalk(
       keywordList,
       optionsList,
-      parent = null,
+      parent: Record<string, any> | null = null,
       walkList: string[] = [],
       res: Record<string, any>[] = []
-    ) {
+    ): Record<string, any>[] {
       if (optionsList === []) {
         return [];
       }
@@ -252,7 +252,7 @@ export default defineComponent({
           if (isTargetOption) {
             res.push(optionsList[i]);
           }
-          return;
+          return [];
         }
         const tempObj = {
           ...optionsList[i],
