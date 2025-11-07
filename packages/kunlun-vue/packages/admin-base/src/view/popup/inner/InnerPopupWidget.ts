@@ -45,11 +45,6 @@ export class InnerPopupWidget extends PopupWidget {
   }
 
   @Widget.Reactive()
-  public get class(): string | undefined {
-    return this.getDsl().class;
-  }
-
-  @Widget.Reactive()
   protected get size() {
     return this.getDsl().size?.toLowerCase?.() || InnerPopupSize.small;
   }

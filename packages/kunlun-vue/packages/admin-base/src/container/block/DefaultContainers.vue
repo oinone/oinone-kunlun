@@ -1,13 +1,11 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { CastHelper, CSSStyle, StringHelper } from '@oinone/kunlun-shared';
+import { CastHelper, CSSStyle } from '@oinone/kunlun-shared';
 import {
   FlexDirection,
   FormLayout,
   OioRow,
   OioRowProps,
   PropRecordHelper,
-  StyleHelper,
   useOioFormLayoutContext
 } from '@oinone/kunlun-vue-ui-antd';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
@@ -22,9 +20,6 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     ...OioRowProps,
-    template: {
-      type: Object as PropType<DslDefinition>
-    },
     invisible: {
       type: Boolean,
       default: false
@@ -121,7 +116,6 @@ export default defineComponent({
       const borderStyle = `${props.borderSize} ${props.borderStyle} ${props.borderColor}`;
 
       const style: CSSStyle = {
-        ...CastHelper.cast(StyleHelper.parse(props.template?.style) || {}),
         flexDirection: props.flexDirection || '',
         padding: props.padding,
         margin: props.margin,
@@ -156,17 +150,13 @@ export default defineComponent({
     };
   },
   render() {
-    const { $attrs, $slots, template, invisible, style } = this;
+    const { $attrs, $slots, invisible, style } = this;
     return withDirectives(
       createVNode(
         OioRow,
         {
           ...PropRecordHelper.convert(OioRowProps, CastHelper.cast(this)),
-          ...PropRecordHelper.collectionBasicProps(
-            $attrs,
-            StringHelper.append([], CastHelper.cast(template?.class)),
-            style
-          ),
+          ...PropRecordHelper.collectionBasicProps($attrs, ['default-containers'], style),
           gutter: []
         },
         PropRecordHelper.collectionSlots($slots, [{ origin: 'default', isNotNull: true }])

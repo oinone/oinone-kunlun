@@ -1,6 +1,5 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
+import { CastHelper } from '@oinone/kunlun-shared';
 import {
   FormLayout,
   OioBlock,
@@ -18,9 +17,6 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     ...OioBlockProps,
-    template: {
-      type: Object as PropType<DslDefinition>
-    },
     layout: {
       type: [String, Object] as PropType<FormLayout>
     },
@@ -40,11 +36,7 @@ export default defineComponent({
         OioBlock,
         {
           ...PropRecordHelper.convert(OioBlockProps, CastHelper.cast(this)),
-          ...PropRecordHelper.collectionBasicProps(
-            this.$attrs,
-            StringHelper.append([], CastHelper.cast(this.template?.class)),
-            CastHelper.cast(this.template?.style)
-          )
+          ...PropRecordHelper.collectionBasicProps(this.$attrs)
         },
         PropRecordHelper.collectionSlots(this.$slots, [{ origin: 'default', isNotNull: true }])
       ),

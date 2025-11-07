@@ -75,10 +75,17 @@ export function createFlexContainerItem(
     ) => { widget?: VueWidget; slotName?: string };
   }
 ) {
+  let cloneProps = props;
+  if (props.template) {
+    const cloneTemplate = { ...props.template };
+    delete cloneTemplate.class;
+    delete cloneTemplate.style;
+    cloneProps = { ...props, template: cloneTemplate };
+  }
   const { widget: realParentWidget, slotName } = (options?.fetchRealParentWidget || fetchRealParentWidget)(
     widgets,
     parentHandle,
-    props
+    cloneProps
   );
   let parentWidget: VueWidget;
   if (realParentWidget) {

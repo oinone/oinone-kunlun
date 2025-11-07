@@ -6,7 +6,7 @@ import {
   RuntimeContextManager,
   RuntimeModelField
 } from '@oinone/kunlun-engine';
-import { BooleanHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, CSSClass, CSSStyle } from '@oinone/kunlun-shared';
 import { isNil } from 'lodash-es';
 import { Widget } from '../basic';
 import { InvisibleSupported, isAllInvisible } from '../feature';
@@ -52,8 +52,13 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
   }
 
   @Widget.Reactive()
-  public get class(): string | string[] | undefined {
+  protected get class(): CSSClass | undefined {
     return this.getDsl().class;
+  }
+
+  @Widget.Reactive()
+  protected get style(): string | Partial<CSSStyle> | undefined {
+    return this.getDsl().style;
   }
 
   @Widget.Reactive()

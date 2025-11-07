@@ -414,8 +414,7 @@ export default defineComponent({
       createVNode(
         'div',
         {
-          class: StringHelper.append(classList, CastHelper.cast(this.$attrs.class)),
-          style: this.$attrs.style,
+          ...PropRecordHelper.collectionBasicProps(this.$attrs, classList),
           ref: 'origin'
         },
         [

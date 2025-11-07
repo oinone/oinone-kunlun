@@ -1,15 +1,12 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
 import {
-  CastHelper,
   OioBaseContainerProps,
   OioCollapse,
   OioCollapseExpandIconPosition,
   OioCollapseInstance,
   OioCollapseMethod,
   OioCollapseType,
-  PropRecordHelper,
-  StringHelper
+  PropRecordHelper
 } from '@oinone/kunlun-vue-ui-antd';
 import { createVNode, defineComponent, onMounted, PropType, ref } from 'vue';
 
@@ -20,9 +17,6 @@ export default defineComponent({
   },
   props: {
     ...OioBaseContainerProps,
-    template: {
-      type: Object as PropType<DslDefinition>
-    },
     activeKey: {
       type: [String, Array] as PropType<string | string[]>
     },
@@ -80,11 +74,7 @@ export default defineComponent({
       OioCollapse,
       {
         ref: 'origin',
-        ...PropRecordHelper.collectionBasicProps(
-          this.$attrs,
-          StringHelper.append(['oio-default-collapse'], CastHelper.cast(this.template?.class)),
-          CastHelper.cast(this.template?.style)
-        ),
+        ...PropRecordHelper.collectionBasicProps(this.$attrs, ['oio-default-collapse']),
         activeKey: this.activeKey,
         onActiveKeyChange: this.onActiveKeyChange,
         type: this.type,

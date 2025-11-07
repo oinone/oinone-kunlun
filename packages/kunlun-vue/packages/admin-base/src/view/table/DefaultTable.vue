@@ -32,6 +32,7 @@ import {
   OioPagination,
   OioSpin,
   OioTooltip,
+  PropRecordHelper,
   StyleHelper
 } from '@oinone/kunlun-vue-ui-antd';
 import { DslRender } from '@oinone/kunlun-vue-widget';
@@ -1137,12 +1138,11 @@ export default defineComponent({
       createVNode(
         'div',
         {
-          class: classs,
-          style: {
+          ...PropRecordHelper.collectionBasicProps(this.$attrs, classs, {
             height,
             minHeight,
             maxHeight
-          },
+          }),
           ref: 'defaultTableRef'
         },
         containerChildren
