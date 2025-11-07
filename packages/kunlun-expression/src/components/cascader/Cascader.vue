@@ -227,33 +227,42 @@ export default defineComponent({
       if (optionsList === []) {
         return [];
       }
-      optionsList.forEach((ch) => {
+      if (parent) {
+        for (let i = 0; i < optionsList.length; i++) {
+          if (optionsList[i].references === parent.references && optionsList[i].field === parent.field) {
+            return [];
+          }
+        }
+      }
+
+      for (let i = 0; i < optionsList.length; i++) {
         // 查找option是否包含关键字
         let isTargetOption = false;
-        keywordList.forEach((keyword) => {
+        for (let j = 0; j < keywordList.length; j++) {
           if (
-            ch.label.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 ||
-            ch.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
+            keywordList[j] !== '' &&
+            (optionsList[i].label.toLowerCase().indexOf(keywordList[j].toLowerCase()) !== -1 ||
+              optionsList[i].name.toLowerCase().indexOf(keywordList[j].toLowerCase()) !== -1)
           ) {
             isTargetOption = true;
           }
-        });
+        }
 
-        if (!ch.children) {
+        if (!optionsList[i].children) {
           if (isTargetOption) {
-            res.push(ch);
+            res.push(optionsList[i]);
           }
           return;
         }
         const tempObj = {
-          ...ch,
+          ...optionsList[i],
           parent
         };
-        walkList.push(ch.label);
-        if (ch?.children?.length === 0 && isTargetOption) {
+        walkList.push(optionsList[i].label);
+        if (optionsList[i]?.children?.length === 0 && isTargetOption) {
           const displayLabel = walkList.join(' / ');
           res.push({
-            ...ch,
+            ...optionsList[i],
             label: displayLabel,
             parent
           });
@@ -261,12 +270,12 @@ export default defineComponent({
           optionsSearchWalk(keywordList, tempObj.children, tempObj, walkList, res);
         }
         walkList.pop();
-      });
+      }
       return res;
     }
 
     async function buildStartOptions(options, deep = 0, loadOptionsList: Record<string, any>[] = []) {
-      if (deep >= 3) {
+      if (deep >= 2) {
         return;
       }
       for (let i = 0; i < options.length; i++) {
