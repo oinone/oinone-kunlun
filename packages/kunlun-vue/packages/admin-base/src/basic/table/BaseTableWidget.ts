@@ -16,7 +16,6 @@ import {
   RuntimeO2MField,
   SubmitCacheManager,
   SubmitValue,
-  TableConfigManager,
   TableKeyboardConfig,
   translateValueByKey
 } from '@oinone/kunlun-engine';
@@ -86,7 +85,7 @@ export class BaseTableWidget<
   }
 
   protected get tableConfig() {
-    return TableConfigManager.getConfig();
+    return this.getMergeConfig('table');
   }
 
   @Widget.Method()
@@ -151,15 +150,7 @@ export class BaseTableWidget<
   @Widget.Reactive()
   @Widget.Provide()
   protected get sortable() {
-    return super.sortable;
-  }
-
-  protected get defaultSortable() {
-    const { sortable } = this.tableConfig;
-    if (sortable == null) {
-      return true;
-    }
-    return sortable;
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.sortable)).orElse(true);
   }
 
   /**
@@ -220,25 +211,12 @@ export class BaseTableWidget<
    */
   @Widget.Reactive()
   protected get switchLineHeight() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().switchLineHeight)).orElse(
-      this.defaultSwitchLineHeight
-    );
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.switchLineHeight)).orElse(true);
   }
 
-  protected get defaultSwitchLineHeight() {
-    const { switchLineHeight } = this.tableConfig;
-    if (switchLineHeight == null) {
-      return true;
-    }
-    return switchLineHeight;
-  }
-
-  protected get defaultEnabledFullScreen() {
-    const { enabledFullScreen } = this.tableConfig;
-    if (enabledFullScreen == null) {
-      return true;
-    }
-    return enabledFullScreen;
+  @Widget.Reactive()
+  protected get enabledFullScreen(): boolean {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.enabledFullScreen)).orElse(true);
   }
 
   // region 行内编辑
@@ -785,17 +763,7 @@ export class BaseTableWidget<
    */
   @Widget.Reactive()
   protected get enabledKeyboard(): boolean {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enabledKeyboard)).orElse(
-      this.defaultEnabledKeyboard
-    );
-  }
-
-  protected get defaultEnabledKeyboard() {
-    const { enabledKeyboard } = this.tableConfig;
-    if (enabledKeyboard == null) {
-      return true;
-    }
-    return enabledKeyboard;
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.enabledKeyboard)).orElse(true);
   }
 
   /**
@@ -942,17 +910,7 @@ export class BaseTableWidget<
       // fixme @zbh 20250925 子表格暂不支持分组
       return false;
     }
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enableGrouping)).orElse(
-      this.defaultEnableGrouping
-    );
-  }
-
-  protected get defaultEnableGrouping() {
-    const { enableGrouping } = this.tableConfig;
-    if (enableGrouping == null) {
-      return true;
-    }
-    return enableGrouping;
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.enableGrouping)).orElse(true);
   }
 
   /**

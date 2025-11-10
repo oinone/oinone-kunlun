@@ -181,11 +181,7 @@ export abstract class BaseElementListViewWidget<
    */
   @Widget.Reactive()
   protected get sortable() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().sortable)).orElse(this.defaultSortable);
-  }
-
-  protected get defaultSortable(): boolean {
-    return true;
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().sortable)).orElse(true);
   }
 
   /**

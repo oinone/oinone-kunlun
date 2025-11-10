@@ -106,10 +106,6 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
-  protected get tableConfig() {
-    return this.getMergeConfig('table');
-  }
-
   @Widget.Reactive()
   protected get checkbox(): boolean {
     return Optional.ofNullable(this.getDsl().checkbox).map(BooleanHelper.toBoolean).orElse(true)!;
@@ -117,11 +113,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get lineHeight(): string | number | undefined {
-    let { lineHeight } = this.getDsl();
-    if (lineHeight != null) {
-      return this.computeLineHeight(lineHeight);
-    }
-    lineHeight = this.tableConfig.lineHeight;
+    const { lineHeight } = this.tableConfig;
     if (lineHeight != null) {
       return this.computeLineHeight(lineHeight);
     }
@@ -177,13 +169,14 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get minLineHeight(): number | undefined {
-    return NumberHelper.toNumber(this.tableConfig.minLineHeight) as number | undefined;
+    return Optional.ofNullable(this.tableConfig.minLineHeight).map(NumberHelper.toNumber).orElse(undefined);
   }
 
   @Widget.Reactive()
   protected get border() {
     return this.tableConfig.border || false;
   }
+
   @Widget.Reactive()
   protected get stripe() {
     return this.tableConfig.stripe || false;
