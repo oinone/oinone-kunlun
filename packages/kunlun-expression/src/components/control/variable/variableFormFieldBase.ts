@@ -696,7 +696,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
 
   const scopeIntValueChange = (index) => {
     const variableItem = variableItemList.value[index];
-    variableItem.value = scopeNumber.value;
+    variableItem.value = scopeNumber.value.map((item) => Number.parseInt(item));
     variableItem.apiName = `[${scopeNumber.value.toString()}]`;
     variableItem.multiParams = true;
     // variableItem.ttype = 'M2M';
@@ -708,7 +708,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     variableItem.value =
       variableType.value === 'string'
         ? scopeDate.value.map((item) => {
-            return `'${item}'`;
+            return `"${item}"`;
           })
         : scopeDate.value;
     variableItem.apiName = `[${scopeDate.value.toString()}]`;
@@ -794,7 +794,9 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
       props.valueList &&
       props.valueList.length === 1
     ) {
-      scopeNumber.value = JSON.parse(props.valueList[0].value);
+      scopeNumber.value = Array.isArray(props.valueList[0].value)
+        ? props.valueList[0].value
+        : JSON.parse(props.valueList[0].value);
     }
 
     if (
@@ -805,7 +807,22 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
       props.valueList &&
       props.valueList.length === 1
     ) {
-      scopeDate.value = JSON.parse(props.valueList[0].value);
+      scopeDate.value = Array.isArray(props.valueList[0].value)
+        ? props.valueList[0].value
+        : JSON.parse(props.valueList[0].value);
+    }
+
+    if (
+      props.compareOperatorOption &&
+      props.valueList &&
+      variableType.value === 'string' &&
+      [BooleanConditionComparisonOperator.IN_SET, BooleanConditionComparisonOperator.NOT_IN_SET].includes(
+        props.compareOperatorOption.value
+      )
+    ) {
+      inSetOperatorText.value = Array.isArray(props.valueList[0].value)
+        ? props.valueList[0].value.join(',').replaceAll("'", '')
+        : props.valueList[0].value.replaceAll("'", '');
     }
 
     // variableItemList.value = createDefaultVariableItemList();
