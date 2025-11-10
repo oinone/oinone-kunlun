@@ -221,16 +221,22 @@ export function relationSelectSetup(props, multi?: boolean) {
     props.blur?.(e);
   };
 
-  const onFocusInputSearch = (e) => {
+  const onSearchInputFocus = (e) => {
     focusSearchInput = true;
   };
 
-  const onBlurInputSearch = (e) => {
+  const onSearchInputBlur = (e) => {
     if (focusSearchInput) {
       focusSearchInput = false;
       if (!multi) {
         dropdownVisibleChange(false);
       }
+    }
+  };
+
+  const onSearchInputKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Backspace') {
+      e.stopPropagation();
     }
   };
 
@@ -263,7 +269,8 @@ export function relationSelectSetup(props, multi?: boolean) {
     onKeydown,
     onFocus,
     onBlur,
-    onFocusInputSearch,
-    onBlurInputSearch
+    onSearchInputFocus,
+    onSearchInputBlur,
+    onSearchInputKeydown
   };
 }

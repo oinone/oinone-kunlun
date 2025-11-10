@@ -164,16 +164,22 @@ export default defineComponent({
       props.blur?.(e);
     };
 
-    const onFocusInputSearch = (e) => {
+    const onSearchInputFocus = (e) => {
       focusSearchInput = true;
     };
 
-    const onBlurInputSearch = (e) => {
+    const onSearchInputBlur = (e) => {
       if (focusSearchInput) {
         focusSearchInput = false;
         if (props.mode !== SelectMode.multiple) {
           onDropdownVisibleChange(false);
         }
+      }
+    };
+
+    const onSearchInputKeydown = (e: KeyboardEvent) => {
+      if (e.key === 'Backspace') {
+        e.stopPropagation();
       }
     };
 
@@ -205,8 +211,9 @@ export default defineComponent({
       onPopupScroll,
       onKeydown,
       onBlur,
-      onFocusInputSearch,
-      onBlurInputSearch
+      onSearchInputFocus,
+      onSearchInputBlur,
+      onSearchInputKeydown
     };
   },
   render() {
@@ -238,8 +245,9 @@ export default defineComponent({
       onDropdownVisibleChange,
       onPopupScroll,
       onKeydown,
-      onFocusInputSearch,
-      onBlurInputSearch
+      onSearchInputFocus,
+      onSearchInputBlur,
+      onSearchInputKeydown
     } = this;
     const { prefix, suffix } = $slots;
     const props: Record<string, unknown> = {
@@ -300,8 +308,9 @@ export default defineComponent({
                   ref: 'dropdownInputRef',
                   placeholder,
                   'onUpdate:value': onSearch,
-                  onFocus: onFocusInputSearch,
-                  onBlur: onBlurInputSearch
+                  onFocus: onSearchInputFocus,
+                  onBlur: onSearchInputBlur,
+                  onKeydown: onSearchInputKeydown
                 },
                 {
                   prefix: () => {
