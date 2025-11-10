@@ -295,65 +295,65 @@ export default defineComponent({
             );
           }
         }
-      }
 
-      let fields: DslDefinition[] = [];
-      if (!disabledExpand) {
-        const finalExpandSize = invisibleSearch ? foldSize + 1 : foldSize;
-        appendFieldDslDefinition(fields, widgets, finalExpandSize, foldSize, cateFields);
-        if (fields.length) {
-          hasExpandButton = fields.length > finalExpandSize;
-          if (hasExpandButton) {
-            fields = fields.slice(0, finalExpandSize);
-          }
-          if (!invisibleSearch) {
-            const searchActionBar: VNode[] = createSearchBar(false, {
-              hasExpandButton,
-              showSearchPrefer,
-              onSearch,
-              onReset,
-              onExpand,
-              translate,
-              preferProps: {
-                selected: selectedPrefer,
-                options: searchPreferOptions,
-                onLoad: onLoadSearchPreferOptions,
-                onCreate: onCreateSearchPrefer,
-                onUpdate: onUpdateSearchPrefer,
-                onRemove: onRemoveSearchPrefer,
-                onSelect: onSelectSearchPrefer,
-                onUnselect: onUnselectSearchPrefer
-              }
-            });
-            invisible = !fields.length;
+        let fields: DslDefinition[] = [];
+        if (!disabledExpand) {
+          const finalExpandSize = invisibleSearch ? foldSize + 1 : foldSize;
+          appendFieldDslDefinition(fields, widgets, finalExpandSize, foldSize, cateFields);
+          if (fields.length) {
+            hasExpandButton = fields.length > finalExpandSize;
+            if (hasExpandButton) {
+              fields = fields.slice(0, finalExpandSize);
+            }
+            if (!invisibleSearch) {
+              const searchActionBar: VNode[] = createSearchBar(false, {
+                hasExpandButton,
+                showSearchPrefer,
+                onSearch,
+                onReset,
+                onExpand,
+                translate,
+                preferProps: {
+                  selected: selectedPrefer,
+                  options: searchPreferOptions,
+                  onLoad: onLoadSearchPreferOptions,
+                  onCreate: onCreateSearchPrefer,
+                  onUpdate: onUpdateSearchPrefer,
+                  onRemove: onRemoveSearchPrefer,
+                  onSelect: onSelectSearchPrefer,
+                  onUnselect: onUnselectSearchPrefer
+                }
+              });
+              invisible = !fields.length;
 
-            const searchBarCol = createSearchBarCol(
-              searchActionBar,
-              (foldSize - fields.length) * (DEFAULT_COLS / (foldSize + 1)),
-              invisible,
-              foldSize
-            );
-            fields.push(searchBarCol);
+              const searchBarCol = createSearchBarCol(
+                searchActionBar,
+                (foldSize - fields.length) * (DEFAULT_COLS / (foldSize + 1)),
+                invisible,
+                foldSize
+              );
+              fields.push(searchBarCol);
+            }
+          } else {
+            hasExpandButton = false;
+            fields = widgets;
           }
-        } else {
-          hasExpandButton = false;
-          fields = widgets;
+          defaultChildren.push(
+            withDirectives(
+              DslRender.render({
+                internal: true,
+                dslNodeType: DslDefinitionType.PACK,
+                widgets: fields,
+                widget: InternalWidget.Row,
+                cols: DEFAULT_COLS,
+                resolveOptions: {
+                  mode: ResolveMode.NORMAL
+                }
+              })!,
+              [[vShow, !isExpand]]
+            )
+          );
         }
-        defaultChildren.push(
-          withDirectives(
-            DslRender.render({
-              internal: true,
-              dslNodeType: DslDefinitionType.PACK,
-              widgets: fields,
-              widget: InternalWidget.Row,
-              cols: DEFAULT_COLS,
-              resolveOptions: {
-                mode: ResolveMode.NORMAL
-              }
-            })!,
-            [[vShow, !isExpand]]
-          )
-        );
       }
     }
 
