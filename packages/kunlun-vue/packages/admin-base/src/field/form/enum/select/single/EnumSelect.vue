@@ -35,7 +35,6 @@
 <script lang="ts">
 import { RuntimeEnumerationOption, TableKeyboardConfig } from '@oinone/kunlun-engine';
 import { defaultSelectProperties, OioSelect, SelectItem } from '@oinone/kunlun-vue-ui-antd';
-import { delay } from 'lodash-es';
 import { computed, defineComponent, nextTick, PropType, ref } from 'vue';
 import {
   OioCommonProps,
@@ -101,30 +100,39 @@ export default defineComponent({
       return option.label.includes(val);
     };
 
-    let focusSearchInput = false;
+    /**
+     * 在单选状态，下拉框聚焦时，点击回车会出现调用两次 onDropdownVisibleChange 方法的现象
+     * 该计数器用于判定此时是否正处于回车事件，且需要进行数据提交的情况
+     */
+    let count = 0;
 
     const onUpdateDropdownVisible = (val: boolean) => {
-      if (!focusSearchInput && !val && dropdownVisible.value) {
-        // 按下 Enter 时，下拉单选框无法正常展开，此时进行数据提交
-        dropdownVisible.value = false;
-        return;
-      }
-      // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
-      nextTick(() => {
-        dropdownVisible.value = val;
-        if (val) {
-          delay(() => {
-            focusSearchInput = true;
-          }, 200);
+      if (val) {
+        if (count === 0) {
+          count++;
+          setTimeout(() => (count = 0));
         }
-      });
+        dropdownVisible.value = true;
+      } else {
+        if (count === 1) {
+          count++;
+        }
+        nextTick(() => {
+          dropdownVisible.value = false;
+        });
+      }
     };
 
     const onKeydown = (e: KeyboardEvent) => {
       // 当键盘数据提交快捷键与下拉框内置选中快捷键冲突时，保证行内编辑态不丢失
-      if (e.key === 'Enter' && e.key === props.tableKeyboardConfig?.enter?.key && dropdownVisible.value) {
-        e.preventDefault();
-        e.stopPropagation();
+      if (e.key === 'Enter' && e.key === props.tableKeyboardConfig?.enter?.key) {
+        if (dropdownVisible.value) {
+          if (count === 2) {
+            return;
+          }
+          e.preventDefault();
+          e.stopPropagation();
+        }
       }
     };
 

@@ -1,14 +1,8 @@
 <script lang="ts">
 import { DslDefinition } from '@oinone/kunlun-dsl';
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import {
-  FormLayout,
-  OioGroup,
-  PropRecordHelper,
-  StyleHelper,
-  useOioFormLayoutContext
-} from '@oinone/kunlun-vue-ui-antd';
+import { CSSStyle } from '@oinone/kunlun-shared';
+import { FormLayout, OioGroup, PropRecordHelper, useOioFormLayoutContext } from '@oinone/kunlun-vue-ui-antd';
 import { createVNode, defineComponent, PropType, Slot, vShow, withDirectives } from 'vue';
 import { defaultFlexResolve } from '../../tags/resolve/helper';
 import DefaultGroupTitleToolbar from './DefaultGroupTitleToolbar.vue';
@@ -51,6 +45,18 @@ export default defineComponent({
     },
     bizStyle: {
       type: String
+    },
+    wrapperClassName: {
+      type: [String, Array] as PropType<string | string[]>
+    },
+    wrapperStyle: {
+      type: [String, Object] as PropType<string | CSSStyle>
+    },
+    toolbarClassName: {
+      type: [String, Array] as PropType<string | string[]>
+    },
+    toolbarStyle: {
+      type: [String, Object] as PropType<string | CSSStyle>
     }
   },
   setup(props) {
@@ -59,8 +65,22 @@ export default defineComponent({
     return {};
   },
   render() {
-    const { $attrs, $slots, template, title, description, help, invisible, titleToolbarInvisible, border, bizStyle } =
-      this;
+    const {
+      $attrs,
+      $slots,
+      template,
+      title,
+      description,
+      help,
+      invisible,
+      titleToolbarInvisible,
+      border,
+      bizStyle,
+      wrapperClassName,
+      wrapperStyle,
+      toolbarClassName,
+      toolbarStyle
+    } = this;
     const { default: defaultSlot, titleToolbar: titleToolbarSlot } = PropRecordHelper.collectionSlots($slots, [
       { origin: 'default', isNotNull: true },
       'titleToolbar'
@@ -76,19 +96,15 @@ export default defineComponent({
       createVNode(
         OioGroup,
         {
-          ...PropRecordHelper.collectionBasicProps(
-            $attrs,
-            StringHelper.append(['oio-default-group'], CastHelper.cast(template?.class)),
-            CastHelper.cast(template?.style)
-          ),
+          ...PropRecordHelper.collectionBasicProps($attrs, ['oio-default-group']),
           title: !title && titleToolbarInvisible ? false : title,
           bizStyle,
           description,
           border,
-          wrapperClassName: StringHelper.append([], CastHelper.cast(template?.wrapperClassName)),
-          wrapperStyle: StyleHelper.parse(template?.wrapperStyle),
-          toolbarClassName: StringHelper.append([], CastHelper.cast(template?.toolbarClassName)),
-          toolbarStyle: StyleHelper.parse(template?.toolbarStyle),
+          wrapperClassName,
+          wrapperStyle,
+          toolbarClassName,
+          toolbarStyle,
           help
         },
         children

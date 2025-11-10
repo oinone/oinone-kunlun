@@ -123,17 +123,17 @@ export abstract class BaseTableColumnWidget<
 
   @Widget.Method()
   public className(context: RenderCellContext): string | string[] | undefined {
-    return this.getDsl().className;
+    return this.getDsl().className || this.getDsl().class;
   }
 
   @Widget.Method()
   public headerClassName(context: RenderCellContext): string | string[] | undefined {
-    return this.getDsl().headerClassName;
+    return this.getDsl().headerClassName || this.getDsl().class;
   }
 
   @Widget.Method()
   public footerClassName(context: RenderCellContext): string | string[] | undefined {
-    return this.getDsl().footerClassName;
+    return this.getDsl().footerClassName || this.getDsl().class;
   }
 
   @Widget.Reactive()

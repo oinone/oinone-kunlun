@@ -56,10 +56,11 @@ export default defineComponent({
     };
   },
   render() {
+    const { $attrs } = this;
     return createVNode(
       OioTabs,
       {
-        class: ['oio-default-tabs', this.tabAlignClass],
+        ...PropRecordHelper.collectionBasicProps($attrs, ['oio-default-tabs', this.tabAlignClass]),
         id: this.currentHandle,
         activeKey: this.activeKey,
         tabPosition: this.tabPosition,

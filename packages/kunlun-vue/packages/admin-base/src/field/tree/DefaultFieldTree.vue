@@ -339,6 +339,9 @@ export default defineComponent({
               ])
             ];
           }
+          if (typeof nodeChildren === 'string') {
+            nodeChildren = translateValueByKey(nodeChildren);
+          }
           return nodeChildren;
         },
         icon: ({ value }) => {

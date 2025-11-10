@@ -63,6 +63,8 @@ export class DefaultCollapsePanelWidget extends BasePackWidget {
       widgetComponent,
       {
         key: this.currentTabKey,
+        class: this.class,
+        style: this.style,
         header: translateValueByKey(this.title),
         invisible: this.invisible,
         disabled: this.disabled,

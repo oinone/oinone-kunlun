@@ -32,6 +32,7 @@ import {
   OioPagination,
   OioSpin,
   OioTooltip,
+  PropRecordHelper,
   StyleHelper
 } from '@oinone/kunlun-vue-ui-antd';
 import { DslRender } from '@oinone/kunlun-vue-widget';
@@ -53,7 +54,7 @@ import {
 } from 'vue';
 
 import { VxeTableDefines, VxeTablePropTypes } from 'vxe-table';
-import { getTableThemeConfig, ManualWidget } from '../../basic';
+import { ManualWidget } from '../../basic';
 import { TableLineHeightEnum, UserTablePrefer } from '../../typing';
 import DefaultTableFooterOperator from './DefaultTableFooterOperator.vue';
 import DefaultTableGroupCollapse from './DefaultTableGroupCollapse.vue';
@@ -369,6 +370,21 @@ export default defineComponent({
     enableSequence: {
       type: Boolean,
       default: undefined
+    },
+    border: {
+      type: String
+    },
+    stripe: {
+      type: Boolean,
+      default: false
+    },
+    isCurrent: {
+      type: Boolean,
+      default: true
+    },
+    isHover: {
+      type: Boolean,
+      default: false
     },
     viewControlWidget: {
       type: Object as PropType<DslDefinition>
@@ -859,15 +875,14 @@ export default defineComponent({
       emptyText,
       emptyImage,
       pageSizeOptions,
+      stripe,
+      isCurrent,
+      isHover,
       showAddBtn,
       showQuickFill,
       onAddRow
     } = this;
-    let { border = false, stripe = false, isCurrent = true, isHover = false } = getTableThemeConfig() || {};
-    // fixme @zbh 20250925 警告提示树配置和斑马纹不能同时支持，但有斑马纹效果，暂不处理
-    // if (treeConfig) {
-    //   stripe = false;
-    // }
+    let { border = false } = this;
     const VEX_TABLE_BORDER_MODE = [true, false, 'default', 'outer', 'full', 'inner'];
     const tableCustomClass: string[] = [];
     if (!VEX_TABLE_BORDER_MODE.includes(border)) {
@@ -1137,12 +1152,11 @@ export default defineComponent({
       createVNode(
         'div',
         {
-          class: classs,
-          style: {
+          ...PropRecordHelper.collectionBasicProps(this.$attrs, classs, {
             height,
             minHeight,
             maxHeight
-          },
+          }),
           ref: 'defaultTableRef'
         },
         containerChildren

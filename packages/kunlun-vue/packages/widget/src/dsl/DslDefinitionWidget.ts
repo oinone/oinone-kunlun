@@ -1,3 +1,4 @@
+import { getMergeConfig } from '@oinone/kunlun-config';
 import {
   ComputeContext,
   ComputeContextManager,
@@ -6,7 +7,7 @@ import {
   RuntimeContextManager,
   RuntimeModelField
 } from '@oinone/kunlun-engine';
-import { BooleanHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, CSSClass, CSSStyle } from '@oinone/kunlun-shared';
 import { isNil } from 'lodash-es';
 import { Widget } from '../basic';
 import { InvisibleSupported, isAllInvisible } from '../feature';
@@ -52,8 +53,13 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
   }
 
   @Widget.Reactive()
-  public get class(): string | string[] | undefined {
+  protected get class(): CSSClass | undefined {
     return this.getDsl().class;
+  }
+
+  @Widget.Reactive()
+  protected get style(): string | Partial<CSSStyle> | undefined {
+    return this.getDsl().style;
   }
 
   @Widget.Reactive()
@@ -201,6 +207,31 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
       runtimeContext: targetRuntimeContext,
       fields
     };
+  }
+
+  protected cacheConfigProxy;
+
+  protected getMergeConfig(...keys: string[]): Record<string, any> {
+    // dsl
+    // appConfig
+    // themeConfig
+    // runtime config ConfigHelper
+    if (this.cacheConfigProxy) {
+      return this.cacheConfigProxy;
+    }
+    const result = getMergeConfig(keys, {
+      defaultValue: undefined
+    });
+    this.cacheConfigProxy = new Proxy(this.getDsl(), {
+      get(target, prop) {
+        if (prop in target) {
+          return target[prop as keyof typeof target];
+        }
+        return result[prop as keyof typeof result];
+      }
+    });
+
+    return this.cacheConfigProxy;
   }
 
   protected invisibleProcess(invisible: boolean | string) {

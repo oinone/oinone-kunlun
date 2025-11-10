@@ -14,6 +14,7 @@ import {
 import { GraphqlHelper, RSQLCondition } from '@oinone/kunlun-shared';
 import { SelectItem, SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
+import { DefaultSelect } from '../../../../components';
 import { FormComplexFieldProps } from '../FormComplexFieldWidget';
 import { BaseSelectFieldWidget } from './BaseSelectFieldWidget';
 
@@ -25,6 +26,12 @@ export class SelectFieldWidget<
 > extends BaseSelectFieldWidget<Value, Field, Props> {
   @Widget.Reactive()
   protected mode: SelectMode = SelectMode.single;
+
+  public initialize(props) {
+    super.initialize(props);
+    this.setComponent(DefaultSelect);
+    return this;
+  }
 
   @Widget.Reactive()
   protected get bizStyle(): string | undefined {

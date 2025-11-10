@@ -1,12 +1,10 @@
 <script lang="ts">
 import { isMinimalismTheme } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { PropRecordHelper, StableSlotProp } from '@oinone/kunlun-vue-ui-common';
-import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
 import { useOioState } from '@oinone/kunlun-vue-widget';
+import { computed, createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
 import { ViewBizStyle } from '../../typing';
 
 export default defineComponent({
@@ -15,9 +13,6 @@ export default defineComponent({
   props: {
     currentHandle: {
       type: String
-    },
-    template: {
-      type: Object as PropType<DslRenderDefinition>
     },
     viewType: {
       type: String as PropType<ViewType>
@@ -75,12 +70,8 @@ export default defineComponent({
       createVNode(
         'div',
         {
-          id: currentHandle,
-          ...PropRecordHelper.collectionBasicProps(
-            this.$attrs,
-            StringHelper.append(classList, CastHelper.cast(this.template?.class)),
-            CastHelper.cast(this.template?.style)
-          )
+          ...PropRecordHelper.collectionBasicProps(this.$attrs, classList),
+          id: currentHandle
         },
         {
           ...StableSlotProp,

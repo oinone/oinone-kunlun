@@ -58,8 +58,8 @@ export class DefaultTabsWidget extends BasePackWidget {
   }
 
   @Widget.Reactive()
-  public get bizStyle() {
-    return this.getDsl().bizStyle || '';
+  public get bizStyle(): string | undefined {
+    return this.getDsl().bizStyle;
   }
 
   @Widget.Reactive()

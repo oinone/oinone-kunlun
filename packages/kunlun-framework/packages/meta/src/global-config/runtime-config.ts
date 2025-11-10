@@ -1,3 +1,4 @@
+import { ConfigProviderSPI, ConfigProviderService } from '@oinone/kunlun-config';
 import { PluginLoadDependencies } from '../plugin-loader';
 
 const RUNTIME_CONFIG_RESOLVE = 'runtimeConfigResolve';
@@ -42,6 +43,10 @@ export class RuntimeConfig {
     return RuntimeConfig.get()[key] as T;
   }
 }
+
+ConfigProviderSPI.register({ name: 'runtimeConfig', priority: 90 }, {
+  getConfig: RuntimeConfig.getConfig
+} as ConfigProviderService);
 
 function errorProcess(resolve) {
   return () => {

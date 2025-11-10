@@ -48,6 +48,8 @@ export default defineComponent({
     const dropdownVisible = ref(false);
     const showLoadCompleted = ref(false);
 
+    let focusSearchInput = false;
+
     const onChange = (selected: SelectedOption | SelectedOption[], options: object | object[]) => {
       if (props.mode === SelectMode.multiple) {
         const finalOptions: object[] = [];
@@ -83,13 +85,22 @@ export default defineComponent({
       await props.search?.(keyword);
     }, 300);
 
-    let focusSearchInput = false;
+    /**
+     * 在单选状态，下拉框聚焦时，点击回车会出现调用两次 onDropdownVisibleChange 方法的现象
+     * 该计数器用于判定此时是否正处于回车事件，且需要进行数据提交的情况
+     */
+    let count = 0;
 
     const onDropdownVisibleChange = (val: boolean) => {
-      if (focusSearchInput) {
-        return;
-      }
       if (props.allowSearch && props.searchArea === SelectSearchArea.dropdown) {
+        if (focusSearchInput) {
+          return;
+        }
+        if (!focusSearchInput && !val && props.mode !== SelectMode.multiple && dropdownVisible.value) {
+          // 按下 Enter 时，下拉单选框无法正常展开，此时进行数据提交
+          dropdownVisible.value = false;
+          return;
+        }
         nextTick(() => {
           dropdownVisible.value = val;
           if (val) {
@@ -102,12 +113,19 @@ export default defineComponent({
             props.blur?.();
           }
         });
+      } else if (val) {
+        if (count === 0) {
+          count++;
+          setTimeout(() => (count = 0));
+        }
+        dropdownVisible.value = true;
+        props.initLoad?.();
       } else {
+        if (count === 1) {
+          count++;
+        }
         nextTick(() => {
-          dropdownVisible.value = val;
-          if (val) {
-            props.initLoad?.();
-          }
+          dropdownVisible.value = false;
         });
       }
     };
@@ -130,6 +148,9 @@ export default defineComponent({
     const onKeydown = (e: KeyboardEvent) => {
       // 当键盘数据提交快捷键与下拉框内置选中快捷键冲突时，保证行内编辑态不丢失
       if (e.key === 'Enter' && props.isEnterSubmit && dropdownVisible.value) {
+        if (props.mode !== SelectMode.multiple && count === 2) {
+          return;
+        }
         e.preventDefault();
         e.stopPropagation();
       }
@@ -139,6 +160,7 @@ export default defineComponent({
       if (focusSearchInput) {
         return;
       }
+      focusSearchInput = false;
       props.blur?.(e);
     };
 
@@ -204,8 +226,8 @@ export default defineComponent({
       showLoadCompleted,
       getTriggerContainer,
       onChange,
-      onBlur,
       focus,
+      onBlur,
       defaultMaxTagPlaceholder,
       allowArrow,
       allowClear,

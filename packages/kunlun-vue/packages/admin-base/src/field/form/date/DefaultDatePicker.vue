@@ -1,5 +1,7 @@
 <template>
   <oio-date-picker
+    :class="$attrs.class"
+    :style="$attrs.style"
     :value="realValue"
     :format="format"
     :date-format="dateFormat"

@@ -6,9 +6,9 @@ import { OioFormProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
 import { createVNode, defineComponent, onMounted, PropType, ref } from 'vue';
 import { defaultFlexResolve } from '../../tags/resolve/helper';
+import { FormBizStyle } from '../../typing';
 import { ManualWidget } from '../mixin';
 import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from './context';
-import { FormBizStyle } from '../../typing';
 
 export default defineComponent({
   name: 'DefaultForm',
@@ -79,11 +79,7 @@ export default defineComponent({
     return createVNode(
       'div',
       {
-        ...PropRecordHelper.collectionBasicProps(
-          this.$attrs,
-          StringHelper.append(classNames, CastHelper.cast(this.template?.class)),
-          CastHelper.cast(this.template?.style)
-        ),
+        ...PropRecordHelper.collectionBasicProps(this.$attrs, classNames),
         ref: 'origin'
       },
       [

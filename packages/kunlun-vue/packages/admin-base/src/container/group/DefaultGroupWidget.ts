@@ -1,5 +1,6 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
-import { BooleanHelper } from '@oinone/kunlun-shared';
+import { isMinimalismTheme } from '@oinone/kunlun-engine';
+import { BooleanHelper, CSSClass, CSSStyle } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, isString } from 'lodash-es';
@@ -10,16 +11,6 @@ const TITLE_TOOLBAR_SLOT_NAME = 'titleToolbar';
 
 @SPI.ClassFactory(BasePackWidget.Token({}))
 export class DefaultGroupWidget extends BasePackWidget {
-  /**
-   * @deprecated 不允许通过api设置title
-   */
-  public setTitle(title: string) {
-    const dsl = this.getDsl();
-    if (dsl) {
-      dsl.title = title;
-    }
-  }
-
   public initialize(props) {
     if (!props.slotNames) {
       props.slotNames = [DEFAULT_SLOT_NAME, TITLE_TOOLBAR_SLOT_NAME];
@@ -36,8 +27,15 @@ export class DefaultGroupWidget extends BasePackWidget {
   }
 
   @Widget.Reactive()
-  public get bizStyle() {
-    return this.getDsl().bizStyle || 'style1';
+  public get bizStyle(): string | undefined {
+    const { bizStyle } = this.getDsl();
+    if (bizStyle) {
+      return bizStyle;
+    }
+    if (isMinimalismTheme()) {
+      return 'style1';
+    }
+    return undefined;
   }
 
   @Widget.Reactive()
@@ -55,6 +53,26 @@ export class DefaultGroupWidget extends BasePackWidget {
   }
 
   @Widget.Reactive()
+  public get wrapperClassName(): CSSClass | undefined {
+    return this.getDsl().wrapperClassName;
+  }
+
+  @Widget.Reactive()
+  public get wrapperStyle(): string | Partial<CSSStyle> | undefined {
+    return this.getDsl().wrapperStyle;
+  }
+
+  @Widget.Reactive()
+  public get toolbarClassName(): CSSClass | undefined {
+    return this.getDsl().toolbarClassName;
+  }
+
+  @Widget.Reactive()
+  public get toolbarStyle(): string | Partial<CSSStyle> | undefined {
+    return this.getDsl().toolbarStyle;
+  }
+
+  @Widget.Reactive()
   public get help() {
     return this.executeExpression(this.getDsl().help as string, this.getDsl().help);
   }
@@ -66,5 +84,15 @@ export class DefaultGroupWidget extends BasePackWidget {
       return layout.toLowerCase();
     }
     return undefined;
+  }
+
+  /**
+   * @deprecated 不允许通过api设置title
+   */
+  public setTitle(title: string) {
+    const dsl = this.getDsl();
+    if (dsl) {
+      dsl.title = title;
+    }
   }
 }

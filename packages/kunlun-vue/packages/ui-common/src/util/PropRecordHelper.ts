@@ -164,16 +164,18 @@ export class PropRecordHelper {
   public static collectionBasicProps(
     attrs: Record<string, unknown>,
     classNames?: string[],
-    style?: string | CSSStyle
+    style?: string | Partial<CSSStyle>
   ): Record<string, unknown> {
     let basicProps: Record<string, unknown> = {};
     classNames = StringHelper.append(classNames || [], CastHelper.cast(attrs.class));
     const attrStyle = attrs.style as CSSStyle;
     if (style) {
       if (isObject(attrStyle)) {
+        // 组件内置 style 优先级高于外部传入的 style，否则会影响组件动态计算值；
+        // 如果组件需要外部修改样式的，使用 css class 设置可被替换的样式；
         style = {
-          ...(StyleHelper.parse(style) || {}),
-          ...attrStyle
+          ...attrStyle,
+          ...(StyleHelper.parse(style as CSSStyle) || {})
         };
       }
     } else {

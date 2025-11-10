@@ -70,14 +70,6 @@ export class BasePackWidget<
     return this.popupScene === PopupScene.drawer;
   }
 
-  /**
-   * 样式风格
-   */
-  @Widget.Reactive()
-  public get bizStyle(): string {
-    return this.getDsl().bizStyle;
-  }
-
   @Widget.Reactive()
   @Widget.Inject('cols')
   private parentCols: number | undefined;
