@@ -279,7 +279,7 @@
   </div>
 </template>
 <script lang="ts">
-import { deepClone, IModelField, isComplexTtype } from '@oinone/kunlun-meta';
+import { deepClone, IModelField } from '@oinone/kunlun-meta';
 import { OioTextarea } from '@oinone/kunlun-vue-ui-antd';
 import {
   Checkbox as ACheckbox,
@@ -738,6 +738,7 @@ export default defineComponent({
     function createExpressionItemLeftJoinField(expressionItem: IExpressionItem): IModelField {
       if (expressionItem.valueList && expressionItem.valueList.length) {
         const field = expressionItem.valueList[0];
+        console.log('🚀 ~ createExpressionItemLeftJoinField ~ field:', field);
         if (!field.value) {
           return undefined as any as IModelField;
         }
@@ -752,7 +753,7 @@ export default defineComponent({
           }
         }
 
-        const model = (isComplexTtype(field.ttype!) ? field.references : field.model) || modelModel;
+        const model = field.references || field.model || modelModel;
 
         return {
           name: fieldName,
