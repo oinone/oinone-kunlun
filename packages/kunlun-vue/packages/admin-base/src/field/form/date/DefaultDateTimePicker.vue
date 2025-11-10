@@ -1,7 +1,5 @@
 <template>
   <oio-date-time-picker
-    :class="$attrs.class"
-    :style="$attrs.style"
     :value="realValue"
     :format="format"
     :date-format="dateFormat"
@@ -44,8 +42,8 @@ import { OioDateTimePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { Moment } from 'moment';
 import { defineComponent, PropType } from 'vue';
 import { OioCommonProps, OioMetadataProps, useInjectOioDefaultFormContext } from '../../../basic';
-import { useDateTimePickerProps } from './use-date-time-picker-props';
 import { DateQuickOption } from './date-common';
+import { useDateTimePickerProps } from './use-date-time-picker-props';
 
 export default defineComponent({
   name: 'DefaultDateTimePicker',

@@ -1,7 +1,5 @@
 <template>
   <oio-time-picker
-    :class="$attrs.class"
-    :style="$attrs.style"
     :value="realValue"
     :format="format"
     :time-format="timeFormat"

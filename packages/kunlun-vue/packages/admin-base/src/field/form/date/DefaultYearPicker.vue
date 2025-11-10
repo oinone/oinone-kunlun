@@ -1,7 +1,5 @@
 <template>
   <oio-year-picker
-    :class="$attrs.class"
-    :style="$attrs.style"
     :value="realValue"
     :format="format"
     :value-format="valueFormat"
