@@ -9,7 +9,6 @@ export * from './select';
 export * from './oio-simple-pagination';
 export * from './table-line-height';
 export * from './oio-full-screen';
-export * from './select-table/SelectTable.vue';
 export * from './sortable-group';
 export * from './select-table';
 export * from './select-modal';

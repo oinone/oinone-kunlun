@@ -59,7 +59,12 @@
         >
           <oio-column type="checkbox" width="50" v-if="field?.multi"></oio-column>
           <oio-column type="radio" width="50" v-else></oio-column>
-          <oio-column v-for="field in optionFieldList" :field="field.name" :label="field.label"></oio-column>
+          <oio-column
+            v-for="field in optionFieldList"
+            :key="field.name"
+            :field="field.name"
+            :label="field.label"
+          ></oio-column>
         </oio-table>
 
         <oio-pagination
@@ -73,22 +78,22 @@
   </oio-modal>
 </template>
 <script lang="ts">
-import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue';
-import { Select as ASelect } from 'ant-design-vue';
-import {
-  OioSpin,
-  OioInput,
-  OioIcon,
-  OioModal,
-  ModalWidth,
-  OioPagination,
-  SelectMode
-} from '@oinone/kunlun-vue-ui-antd';
-import { OioTable, OioColumn, OioTableInstance, CheckedChangeEvent } from '@oinone/kunlun-vue-ui';
 import { Pagination, RuntimeModelField } from '@oinone/kunlun-engine';
 import { deepClone, Entity } from '@oinone/kunlun-meta';
-import { RelationSelectProps, relationSelectSetup } from '../../field/prop';
+import { CheckedChangeEvent, OioColumn, OioTable, OioTableInstance } from '@oinone/kunlun-vue-ui';
+import {
+  ModalWidth,
+  OioIcon,
+  OioInput,
+  OioModal,
+  OioPagination,
+  OioSpin,
+  SelectMode
+} from '@oinone/kunlun-vue-ui-antd';
+import { Select as ASelect } from 'ant-design-vue';
 import { uniqBy } from 'lodash-es';
+import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue';
+import { RelationSelectProps, relationSelectSetup } from '../../field/prop';
 
 export default defineComponent({
   inheritAttrs: false,
@@ -323,6 +328,7 @@ export default defineComponent({
   .oio-pagination {
     margin-top: var(--oio-margin-md);
   }
+
   .vxe-header--column.col--checkbox {
     .vxe-cell {
       text-align: center;

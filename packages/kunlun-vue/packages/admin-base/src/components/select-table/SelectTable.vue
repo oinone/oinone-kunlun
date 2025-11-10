@@ -72,15 +72,15 @@
   </a-select>
 </template>
 <script lang="ts">
-import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue';
+import { RuntimeModelField, SelectSearchArea } from '@oinone/kunlun-engine';
+import { Entity } from '@oinone/kunlun-meta';
+import { CheckedChangeEvent, OioColumn, OioTable, OioTableInstance } from '@oinone/kunlun-vue-ui';
+import { OioEmptyData, OioIcon, OioInput, OioSpin, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { delay } from 'lodash-es';
-import { OioSpin, OioEmptyData, OioInput, OioIcon, SelectMode } from '@oinone/kunlun-vue-ui-antd';
-import { OioTable, OioColumn, OioTableInstance, CheckedChangeEvent } from '@oinone/kunlun-vue-ui';
-import { RuntimeModelField } from '@oinone/kunlun-engine';
-import { Entity } from '@oinone/kunlun-meta';
+import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue';
+import { useInjectOioDefaultFormContext } from '../../basic/form/context';
 import { RelationSelectProps, relationSelectSetup } from '../../field/prop';
-import { useInjectOioDefaultFormContext } from '../../basic';
 
 export default defineComponent({
   inheritAttrs: false,
@@ -258,6 +258,8 @@ export default defineComponent({
     const formContext = useInjectOioDefaultFormContext();
 
     return {
+      SelectSearchArea,
+
       ...selectSetup,
       dropdownTableClassName,
       currentValue,
@@ -283,10 +285,12 @@ export default defineComponent({
   .select-table-dropdown-body {
     padding: var(--oio-padding-sm);
   }
+
   .oio-table .vxe-table--render-default.size--mini .vxe-body--column.col--ellipsis,
   .oio-table .vxe-table--render-default.vxe-editable.size--mini .vxe-body--column {
     height: var(--oio-height);
   }
+
   .vxe-table--render-default.size--mini .vxe-header--column:not(.col--ellipsis) {
     padding: 5px 0;
   }
