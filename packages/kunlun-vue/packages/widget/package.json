@@ -11,10 +11,10 @@
     "x-postpublish": "node ../../scripts/postpublish.js"
   },
   "dependencies": {
-    "@oinone/kunlun-config": "~6.3.0",
     "@oinone/kunlun-vue-ui-common": "6.3.4"
   },
   "devDependencies": {
+    "@oinone/kunlun-config": "~6.3.0",
     "@oinone/kunlun-dsl": "~6.3.0",
     "@oinone/kunlun-engine": "~6.3.0",
     "@oinone/kunlun-event": "~6.3.0",
