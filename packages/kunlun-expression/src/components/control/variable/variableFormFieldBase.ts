@@ -5,7 +5,7 @@
 import { Pagination } from '@oinone/kunlun-engine';
 import { IModelField, isDateTtype, isNumberTtype, ModelFieldType } from '@oinone/kunlun-meta';
 import { BooleanHelper, OioNotification } from '@oinone/kunlun-vue-ui-antd';
-import { isNil } from 'lodash-es';
+import { isNil, isNumber } from 'lodash-es';
 import {
   computed,
   ExtractPropTypes,
@@ -696,7 +696,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
 
   const scopeIntValueChange = (index) => {
     const variableItem = variableItemList.value[index];
-    variableItem.value = scopeNumber.value.map((item) => Number.parseInt(item));
+    variableItem.value = scopeNumber.value.map((item) => (isNumber(item) ? item : Number.parseInt(item as string, 10)));
     variableItem.apiName = `[${scopeNumber.value.toString()}]`;
     variableItem.multiParams = true;
     // variableItem.ttype = 'M2M';
