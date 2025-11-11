@@ -4,7 +4,13 @@
     {{ $translate('快速填报 ') }}
   </div>
 
-  <oio-modal :width="ModalWidth.medium" :visible="showModal" :title="$translate('快速填报')" @cancel="handleCancel">
+  <oio-modal
+    :width="ModalWidth.medium"
+    :visible="showModal"
+    :title="$translate('快速填报')"
+    :loading="loading"
+    @cancel="handleCancel"
+  >
     <div class="quick-fill-modal-content">
       <a-radio-group :value="type" v-if="step === 0" name="radioGroup" @change="onChangeRadio">
         <a-radio value="create">{{ $translate('新增数据') }}</a-radio>
@@ -144,6 +150,7 @@ export default defineComponent({
 
     const rowCount = ref(DEFAULT_ROW_COUNT);
     const excelRef = ref();
+    const loading = ref(false);
 
     const handleCancel = () => {
       if (!excelRef.value?.getCellStatus()) {
@@ -213,8 +220,13 @@ export default defineComponent({
       props.onStepChange(0);
     };
 
-    const onHandlerSure = () => {
-      props.onSure(excelRef.value.getTableHeaderValues(), excelRef.value.getCells());
+    const onHandlerSure = async () => {
+      loading.value = true;
+      try {
+        await props.onSure(excelRef.value.getTableHeaderValues(), excelRef.value.getCells());
+      } finally {
+        loading.value = false;
+      }
     };
 
     watch(
@@ -223,6 +235,7 @@ export default defineComponent({
         if (!visible) {
           type.value = QuickFillType.create;
           rowCount.value = DEFAULT_ROW_COUNT;
+          loading.value = false;
           excelRef.value?.resetExcel();
         }
       }
@@ -242,7 +255,18 @@ export default defineComponent({
       }
     });
 
-    return { excelRef, type, ModalWidth, rowCount, onChangeRadio, onHandlerSure, addRowCount, handleCancel };
+    return {
+      ModalWidth,
+
+      excelRef,
+      type,
+      rowCount,
+      loading,
+      onChangeRadio,
+      onHandlerSure,
+      addRowCount,
+      handleCancel
+    };
   }
 });
 </script>

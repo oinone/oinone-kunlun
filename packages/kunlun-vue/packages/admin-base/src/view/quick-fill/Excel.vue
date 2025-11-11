@@ -1,91 +1,94 @@
 <template>
   <div class="quick-fill-excel-container">
-    <table
-      :class="{
-        'excel-table': true,
-        'excel-table-selecting': isSelecting
-      }"
-      ref="tableRef"
-      @keydown="handleKeydown"
-      @copy="handleCopy"
-      @cut="handleCut"
-      @paste="handlePaste"
-      tabindex="0"
-    >
-      <thead>
-        <tr>
-          <th class="corner-cell"></th>
-          <!-- 生成列标题  -->
-          <th
-            v-for="(field, index) in modelFields"
-            :key="field.name"
-            class="column-header"
-            :style="{ width: cellWidth + 'px' }"
-          >
-            <a-select
-              class="oio-select"
-              dropdown-class-name="oio-select-dropdown"
-              :options="selectOptions"
-              :value="getThSelectValue(index)"
-              @change="(value, option) => onChangeTableHeader(value, option, index)"
-            ></a-select>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="row in rows" :key="row">
-          <!-- 行号 -->
-          <td class="row-header">{{ row }}</td>
-          <!-- 单元格 -->
-          <td
-            v-for="(col, index) in columns"
-            :key="`${row}-${col}`"
-            :class="{
-              cell: true,
-              selected: isSelected(`${row}-${col}`),
-              editing: isEditing(`${row}-${col}`),
-              'range-selected': isRangeSelected(`${row}-${col}`),
-              'cell-disabled': tableHeaderValues[index].readonly
-            }"
-            :data-cell="`${row}-${col}`"
-            @click="handleCellClick($event, `${row}-${col}`, index)"
-            @mousedown="handleCellMouseDown(`${row}-${col}`)"
-            @dblclick="startEditing(`${row}-${col}`)"
-            @focus="focusCell(`${row}-${col}`)"
-            tabindex="0"
-            :style="{ width: cellWidth + 'px', height: cellHeight + 'px' }"
-          >
-            <!-- 编辑状态显示输入框 -->
-            <input
-              ref="inputRef"
-              v-if="isEditing(`${row}-${col}`)"
-              :value="getCellContent(`${row}-${col}`)"
-              @input="updateCellContent(`${row}-${col}`, $event.target.value)"
-              @blur="stopEditing"
-              @keydown.enter="handleEnter"
-              @keydown="handleCellKeydown"
-              @compositionstart="isComposing = true"
-              @compositionend="isComposing = false"
-              @focus="$event.target.select()"
-              class="cell-input"
-              type="text"
-            />
-            <!-- 非编辑状态显示内容 -->
-            <span v-else class="cell-content">{{ getCellContent(`${row}-${col}`) }}</span>
-          </td>
-        </tr>
-        <tr v-for="row in disabledRows" :key="row">
-          <td class="row-header cell-disabled">{{ row }}</td>
-          <td v-for="col in columns" :key="`${row}-${col}`" class="cell cell-disabled"></td>
-        </tr>
-      </tbody>
-    </table>
+    <oio-spin :loading="loading" :delay="50">
+      <table
+        :class="{
+          'excel-table': true,
+          'excel-table-selecting': isSelecting
+        }"
+        ref="tableRef"
+        @keydown="handleKeydown"
+        @copy="handleCopy"
+        @cut="handleCut"
+        @paste="handlePaste"
+        tabindex="0"
+      >
+        <thead>
+          <tr>
+            <th class="corner-cell"></th>
+            <!-- 生成列标题  -->
+            <th
+              v-for="(field, index) in modelFields"
+              :key="field.name"
+              class="column-header"
+              :style="{ width: cellWidth + 'px' }"
+            >
+              <a-select
+                class="oio-select"
+                dropdown-class-name="oio-select-dropdown"
+                :options="selectOptions"
+                :value="getThSelectValue(index)"
+                @change="(value, option) => onChangeTableHeader(value, option, index)"
+              ></a-select>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="row in rows" :key="row">
+            <!-- 行号 -->
+            <td class="row-header">{{ row }}</td>
+            <!-- 单元格 -->
+            <td
+              v-for="(col, index) in columns"
+              :key="`${row}-${col}`"
+              :class="{
+                cell: true,
+                selected: isSelected(`${row}-${col}`),
+                editing: isEditing(`${row}-${col}`),
+                'range-selected': isRangeSelected(`${row}-${col}`),
+                'cell-disabled': tableHeaderValues[index].readonly
+              }"
+              :data-cell="`${row}-${col}`"
+              @click="handleCellClick($event, `${row}-${col}`, index)"
+              @mousedown="handleCellMouseDown(`${row}-${col}`)"
+              @dblclick="startEditing(`${row}-${col}`)"
+              @focus="focusCell(`${row}-${col}`)"
+              tabindex="0"
+              :style="{ width: cellWidth + 'px', height: cellHeight + 'px' }"
+            >
+              <!-- 编辑状态显示输入框 -->
+              <input
+                ref="inputRef"
+                v-if="isEditing(`${row}-${col}`)"
+                :value="getCellContent(`${row}-${col}`)"
+                @input="updateCellContent(`${row}-${col}`, $event.target.value)"
+                @blur="stopEditing"
+                @keydown.enter="handleEnter"
+                @keydown="handleCellKeydown"
+                @compositionstart="isComposing = true"
+                @compositionend="isComposing = false"
+                @focus="$event.target.select()"
+                class="cell-input"
+                type="text"
+              />
+              <!-- 非编辑状态显示内容 -->
+              <span v-else class="cell-content">{{ getCellContent(`${row}-${col}`) }}</span>
+            </td>
+          </tr>
+          <tr v-for="row in disabledRows" :key="row">
+            <td class="row-header cell-disabled">{{ row }}</td>
+            <td v-for="col in columns" :key="`${row}-${col}`" class="cell cell-disabled"></td>
+          </tr>
+        </tbody>
+      </table>
+    </oio-spin>
   </div>
 </template>
 
 <script setup lang="ts">
 import { RuntimeModelField } from '@oinone/kunlun-engine';
-import { Select as ASelect, SelectOption } from 'ant-design-vue';
+import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
+import { Select as ASelect } from 'ant-design-vue';
 import { computed, defineExpose, defineProps, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import { NON_CUT } from './type';
 
@@ -139,6 +142,7 @@ const selectedCell = ref<CellId>(''); // 当前活动/起始选中的单元格
 const editingCell = ref<CellId | null>(null); // 当前正在编辑的单元格
 const cells = ref<Record<CellId, string>>({}); // 存储单元格内容的对象
 const isComposing = ref(false); // 输入框是否正在输入汉字
+const loading = ref(false);
 
 // ======== 多选状态 =========
 const isSelecting = ref(false); // 是否正在拖拽选择
@@ -654,6 +658,7 @@ const handlePaste = (event: ClipboardEvent): void => {
     return rows;
   };
 
+  loading.value = true;
   const rowsData = parseCSVData(pastedData);
   let currentRowOffset = 0;
   const canUseRow = props.rowCount - startRow + 1; // 粘贴的那一行也可以使用
@@ -683,6 +688,8 @@ const handlePaste = (event: ClipboardEvent): void => {
     if (editingCell.value) {
       stopEditing();
     }
+  }).finally(() => {
+    loading.value = false;
   });
 };
 
