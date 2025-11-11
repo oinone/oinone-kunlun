@@ -117,7 +117,7 @@ export class Expression {
   private tokenPatten = {
     name: 'token',
     test: (text: string) => {
-      const res = /^\w+/.exec(text);
+      const res = /^\w[\w#]*/.exec(text);
       if (res) {
         const t = res[0];
         if (!/^(-?\d+)(\.\d+)?/.test(t)) {
