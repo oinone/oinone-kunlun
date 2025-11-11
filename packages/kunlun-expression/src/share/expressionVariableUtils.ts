@@ -312,8 +312,6 @@ function createVariableListStr(
     });
 
   const operatorNameList: string[] = [
-    BooleanConditionComparisonOperator.IN_SET,
-    BooleanConditionComparisonOperator.NOT_IN_SET,
     BooleanConditionComparisonOperator.BETWEEN_AND,
     BooleanConditionComparisonOperator.NOT_BETWEEN_AND
   ];
@@ -337,6 +335,10 @@ function createVariableListStr(
     return (expressionOption.isBetweenInBrackets && list.length > 1) || isBetweenType() || isInSetType()
       ? `${list.join(' , ')}`
       : list.join(' , ');
+  }
+
+  if ([BooleanConditionComparisonOperator.IN_SET, BooleanConditionComparisonOperator.NOT_IN_SET].includes(operator)) {
+    return `[${list.join(',')}]`;
   }
 
   // 单个变量下多余2个值就需要用 "+" 连接,且用括号包裹
