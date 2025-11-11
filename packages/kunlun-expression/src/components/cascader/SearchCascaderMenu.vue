@@ -196,7 +196,6 @@ export default defineComponent({
       const list = searchKey.split(' ');
       let res = false;
       list.forEach((key) => {
-        console.log(str, key);
         if (str?.toLocaleLowerCase() === key?.toLocaleLowerCase()) {
           res = true;
         }
