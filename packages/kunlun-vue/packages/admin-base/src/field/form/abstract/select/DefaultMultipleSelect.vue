@@ -72,6 +72,17 @@ import { useInjectOioDefaultFormContext } from '../../../../basic';
 import { RelationSelectProps, relationSelectSetup } from '../../../prop';
 
 export default defineComponent({
+  name: 'DefaultMultipleSelect',
+  components: {
+    VNodes: (_, { attrs }) => {
+      return attrs.vnodes;
+    },
+    OioSpin,
+    OioEmptyData,
+    ASelect,
+    OioInput,
+    OioIcon
+  },
   props: {
     ...RelationSelectProps,
     value: {
@@ -83,16 +94,6 @@ export default defineComponent({
     tableKeyboardConfig: {
       type: Object as PropType<TableKeyboardConfig>
     }
-  },
-  components: {
-    VNodes: (_, { attrs }) => {
-      return attrs.vnodes;
-    },
-    OioSpin,
-    OioEmptyData,
-    ASelect,
-    OioInput,
-    OioIcon
   },
   setup(props) {
     const optionList = ref<Record<string, unknown>[]>([]);

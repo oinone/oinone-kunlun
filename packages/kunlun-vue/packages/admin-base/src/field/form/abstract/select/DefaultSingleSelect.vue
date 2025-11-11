@@ -75,6 +75,7 @@ import { useInjectOioDefaultFormContext } from '../../../../basic';
 import { RelationSelectProps, relationSelectSetup } from '../../../prop';
 
 export default defineComponent({
+  name: 'DefaultSingleSelect',
   inheritAttrs: false,
   components: {
     VNodes: (_, { attrs }) => {
