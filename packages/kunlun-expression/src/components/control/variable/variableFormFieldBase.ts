@@ -784,6 +784,29 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     );
   });
 
+  const getTimeType = (timeStr: string) => {
+    // 先处理空值和非字符串情况
+    if (!timeStr || typeof timeStr !== 'string') {
+      return null;
+    }
+
+    // 定义四种类型的正则表达式（精准匹配，避免部分匹配）
+    const timePatterns = [
+      { type: ModelFieldType.Year, regex: /^(\d{4})$/ }, // 纯4位数字（yyyy）
+      { type: ModelFieldType.Date, regex: /^(\d{4})-(\d{2})-(\d{2})$/ }, // yyyy-mm-dd（月份/日期需2位）
+      { type: ModelFieldType.DateTime, regex: /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/ }, // yyyy-mm-dd hh:mm:ss
+      { type: ModelFieldType.Time, regex: /^(\d{2}):(\d{2}):(\d{2})$/ } // hh:mm:ss（时/分/秒需2位）
+    ];
+
+    for (const { type, regex } of timePatterns) {
+      if (regex.test(timeStr.trim().replaceAll('\"',''))) {
+        return type;
+      }
+    }
+
+    return null;
+  };
+
   onMounted(() => {
     document.body.addEventListener('click', onContains);
 
@@ -807,9 +830,14 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
       props.valueList &&
       props.valueList.length === 1
     ) {
-      scopeDate.value = Array.isArray(props.valueList[0].value)
+      const tempDateList = Array.isArray(props.valueList[0].value)
         ? props.valueList[0].value
         : JSON.parse(props.valueList[0].value);
+
+      datePickerType.value = getTimeType(tempDateList[0]) || ModelFieldType.DateTime;
+      setTimeout(() => {
+        scopeDate.value = tempDateList;
+      }, 200);
     }
 
     if (
