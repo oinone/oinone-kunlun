@@ -311,9 +311,14 @@ function createVariableListStr(
       }
     });
 
-  const operatorNameList: string[] = [
+  const BetweenAndOperatorNameList: string[] = [
     BooleanConditionComparisonOperator.BETWEEN_AND,
     BooleanConditionComparisonOperator.NOT_BETWEEN_AND
+  ];
+
+  const InSetOperatorNameList: string[] = [
+    BooleanConditionComparisonOperator.IN_SET,
+    BooleanConditionComparisonOperator.NOT_IN_SET
   ];
 
   const isInSetType = () => {
@@ -327,17 +332,17 @@ function createVariableListStr(
     return variableItemList.length === 1 && Array.isArray(variableItemList[0].value);
   };
 
-  if (operatorNameList.find((item) => item === operator) !== undefined && list.length > 1) {
+  if (BetweenAndOperatorNameList.find((item) => item === operator) !== undefined && list.length > 1) {
     return `[${list.join(',')}]`;
   }
 
-  if (operatorNameList.find((item) => item === operator) !== undefined) {
+  if (BetweenAndOperatorNameList.find((item) => item === operator) !== undefined) {
     return (expressionOption.isBetweenInBrackets && list.length > 1) || isBetweenType() || isInSetType()
       ? `${list.join(' , ')}`
       : list.join(' , ');
   }
 
-  if ([BooleanConditionComparisonOperator.IN_SET, BooleanConditionComparisonOperator.NOT_IN_SET].includes(operator)) {
+  if (InSetOperatorNameList.includes(operator)) {
     return `[${list.join(',')}]`;
   }
 
