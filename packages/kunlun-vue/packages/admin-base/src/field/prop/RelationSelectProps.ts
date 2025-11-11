@@ -145,7 +145,7 @@ export function relationSelectSetup(props, multi?: boolean) {
       if (!focusSearchInput && !val && !multi && dropdownOpen.value) {
         // 按下 Enter 时，下拉单选框无法正常展开，此时进行数据提交
         dropdownOpen.value = false;
-        props.blur?.();
+        selectRef.value.focus();
         return;
       }
       // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
@@ -158,7 +158,7 @@ export function relationSelectSetup(props, multi?: boolean) {
             dropdownInputRef.value?.focus();
           }, 200);
         } else if (!multi) {
-          props.blur?.();
+          selectRef.value.focus();
         }
       });
     } else if (val) {
