@@ -33,25 +33,8 @@
               :class="getTtypeIcon(option)"
               class="iconfont menu-icon"
             />
-            <template v-if="searchKeyWords == ''">
-              <span>{{ option.label }}</span>
-              <span class="source-code">{{ option.field }}</span>
-            </template>
-            <template v-else>
-              <span
-                v-for="str in splitWithKeyPreserved(option.label)"
-                :class="{ 'searched-key': customEqual(str, searchKeyWords) }"
-                >{{ str }}</span
-              >
-
-              <span class="source-code">
-                <span
-                  v-for="str in splitWithKeyPreserved(option.field)"
-                  :class="{ 'searched-key': customEqual(str, searchKeyWords) }"
-                  >{{ str }}</span
-                >
-              </span>
-            </template>
+            <span>{{ option.label }}</span>
+            <span class="source-code">{{ option.field }}</span>
           </div>
           <div class="ant-cascader-menu-item-expand-icon" v-if="showArrowRight(option)" @click.stop="loadData(option)">
             <span role="img" aria-label="right" class="anticon anticon-right">
@@ -90,12 +73,12 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
-import { ExpActiveType, ExpTtypeInfoMap, IExpSelectOption } from '../../types';
+import { groupBy } from 'lodash-es';
 import { Pagination } from '@oinone/kunlun-engine';
 import { OioPagination } from '@oinone/kunlun-vue-ui-antd';
 import { isComplexTtype } from '@oinone/kunlun-meta';
+import { ExpActiveType, ExpTtypeInfoMap, IExpSelectOption } from '../../types';
 import { translateExpValue } from '../../share';
-import { groupBy } from 'lodash-es';
 
 export default defineComponent({
   components: {
@@ -198,53 +181,6 @@ export default defineComponent({
       return props.options;
     });
 
-    /**
-     * 将字符串按指定key分割，并将key作为独立元素保留在数组中
-     * @param str 待分割的原始字符串
-     * @param key 用于分割的关键字（非空）
-     * @returns 包含原字符串片段和key的数组
-     */
-    function splitWithKeyPreserved(str: string): string[] {
-      const keys = props.searchKeyWords.split(' ');
-      // 边界处理：
-      // 1. 分隔符数组为空 → 直接返回原字符串数组
-      // 2. 原始字符串为空 → 返回空字符串数组
-      if (keys.length === 0 || !str) {
-        return [str];
-      }
-
-      // 步骤1：转义所有分隔符中的正则特殊字符（如 . * + ? 等）
-      const escapedKeys = keys.map(
-        (key) => key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // 转义正则元字符
-      );
-
-      // 步骤2：构建正则表达式（多个分隔符用 | 连接，支持不区分大小写）
-      // 用 () 包裹每个分隔符，确保 split 时能捕获到原始分隔符
-      const regexPattern = `(${escapedKeys.join('|')})`;
-      const regex = new RegExp(regexPattern, 'gi'); // g: 全局匹配，i: 不区分大小写
-
-      // 步骤3：分割字符串（含捕获组，保留原始分隔符）
-      const result = str.split(regex);
-
-      // 步骤4：过滤空字符串（避免开头/结尾是分隔符时产生空元素）
-      return result.filter((item) => item !== '');
-    }
-
-    const toLower = (str: string) => {
-      return str.toLowerCase();
-    };
-
-    const customEqual = (str: string, searchKey: string) => {
-      const list = searchKey.split(' ');
-      let res = false;
-      list.forEach((key) => {
-        if (str.toLocaleLowerCase() === key.toLocaleLowerCase()) {
-          res = true;
-        }
-      });
-      return res;
-    };
-
     return {
       realOptions,
       onClickOption,
@@ -252,10 +188,7 @@ export default defineComponent({
       getTtypeIcon,
       getTtypeDisplayName,
       showArrowRight,
-      translateExpValue,
-      splitWithKeyPreserved,
-      toLower,
-      customEqual
+      translateExpValue
     };
   }
 });

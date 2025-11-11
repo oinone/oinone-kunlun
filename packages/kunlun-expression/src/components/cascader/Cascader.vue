@@ -20,18 +20,19 @@
             :pagination="pagination"
             :on-pagination-change="onPaginationChange"
             :group-by-store="groupByStore"
-            :search-key-words="searchKeyWords"
             @click-option="(option, isMouse) => onClickOption(option, index, isMouse)"
             @load-data="(option) => onLoadData(option, index)"
           />
         </div>
         <div v-if="searchKeyWords !== '' && !isEmpty">
-          <expression-cascader-menu
-            :options="searchFilterOptions"
+          <search-cascader-menu
+            :options="searchShowOptions"
             :pagination="pagination"
             :on-pagination-change="onPaginationChange"
             :search-key-words="searchKeyWords"
+            :loading="searchLoading"
             @click-option="searchOptionClick"
+            @load-more-search-data="loadMoreSearchData"
           />
         </div>
       </div>
@@ -50,6 +51,7 @@ import { ExpressionKeyword } from '@oinone/kunlun-expression';
 import { isComplexTtype } from '@oinone/kunlun-meta';
 import { translateExpValue } from '../../share';
 import ExpressionCascaderMenu from './CascaderMenu.vue';
+import SearchCascaderMenu from './SearchCascaderMenu.vue';
 import { IExpSelectOption } from '../../types';
 
 function appendOptions(options: IExpSelectOption[], optionsList: IExpSelectOption[][], maxDepth = 5) {
@@ -96,7 +98,7 @@ function isViewDataKeywords(field: string) {
 
 export default defineComponent({
   name: 'expression-designer-cascader',
-  components: { ExpressionCascaderMenu },
+  components: { ExpressionCascaderMenu, SearchCascaderMenu },
   props: {
     value: {
       type: Array as PropType<string[]>,
@@ -144,6 +146,18 @@ export default defineComponent({
 
     // 搜索过滤-仅前端
     const searchFilterOptions: Ref<Record<string, any>[]> = ref([]);
+
+    const searchFilterPage = ref(1);
+    const searchOptionCountPerPage = 20;
+
+    const searchShowOptions = computed(() => {
+      if (searchFilterPage.value * searchOptionCountPerPage > searchFilterOptions.value.length) {
+        return searchFilterOptions.value;
+      }
+      return searchFilterOptions.value.slice(0, searchFilterPage.value * searchOptionCountPerPage);
+    });
+
+    const searchLoading = ref(false);
 
     const optionsList = computed(() => {
       const list = [] as IExpSelectOption[][];
@@ -206,6 +220,7 @@ export default defineComponent({
         if (newValue !== '') {
           searchFilterOptions.value = optionsSearchWalk(newValue.split(' '), props.options);
         }
+        searchFilterPage.value = 1;
       }
     );
 
@@ -310,6 +325,20 @@ export default defineComponent({
       emit('change', selectedValues.value, selectedOptions);
     }
 
+    function loadMoreSearchData() {
+      if (searchFilterPage.value * searchOptionCountPerPage >= searchFilterOptions.value.length) {
+        return;
+      }
+
+      searchLoading.value = true;
+      searchFilterPage.value++;
+
+      // 假loading
+      setTimeout(() => {
+        searchLoading.value = false;
+      }, 200);
+    }
+
     onUpdated(() => {
       buildStartOptions(optionsList.value[0], 0, []);
     });
@@ -317,11 +346,14 @@ export default defineComponent({
       optionsList,
       selectedValues,
       searchFilterOptions,
+      searchShowOptions,
+      searchLoading,
       isEmpty,
       onClickOption,
       onLoadData,
       translateExpValue,
-      searchOptionClick
+      searchOptionClick,
+      loadMoreSearchData
     };
   }
 });
