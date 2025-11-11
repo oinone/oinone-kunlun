@@ -145,6 +145,7 @@ export function relationSelectSetup(props, multi?: boolean) {
       if (!focusSearchInput && !val && !multi && dropdownOpen.value) {
         // 按下 Enter 时，下拉单选框无法正常展开，此时进行数据提交
         dropdownOpen.value = false;
+        props.blur?.();
         return;
       }
       // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
@@ -152,9 +153,9 @@ export function relationSelectSetup(props, multi?: boolean) {
         dropdownOpen.value = val;
         props.dropdownVisibleChange(val);
         if (val) {
+          focusSearchInput = true;
           delay(() => {
             dropdownInputRef.value?.focus();
-            focusSearchInput = true;
           }, 200);
         } else if (!multi) {
           props.blur?.();
@@ -194,6 +195,7 @@ export function relationSelectSetup(props, multi?: boolean) {
   const { placeholder } = usePlaceholderProps(props);
 
   const onKeydown = (e: KeyboardEvent) => {
+    console.log('onKeydown', e.key, dropdownOpen.value);
     // 当键盘数据提交快捷键与下拉框内置选中快捷键冲突时，保证行内编辑态不丢失
     if (e.key === 'Enter' && e.key === props.tableKeyboardConfig?.enter?.key && dropdownOpen.value) {
       if (!multi) {

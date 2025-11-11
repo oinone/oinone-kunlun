@@ -99,15 +99,16 @@ export default defineComponent({
         if (!focusSearchInput && !val && props.mode !== SelectMode.multiple && dropdownVisible.value) {
           // 按下 Enter 时，下拉单选框无法正常展开，此时进行数据提交
           dropdownVisible.value = false;
+          props.blur?.();
           return;
         }
         nextTick(() => {
           dropdownVisible.value = val;
           if (val) {
             props.initLoad?.();
+            focusSearchInput = true;
             delay(() => {
               dropdownInputRef.value?.focus();
-              focusSearchInput = true;
             }, 200);
           } else if (!props.mode || props.mode === SelectMode.single) {
             props.blur?.();
