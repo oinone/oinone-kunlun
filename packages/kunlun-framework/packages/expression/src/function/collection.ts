@@ -241,9 +241,18 @@ function MAP_COUNT(obj: Record<string, unknown>) {
   return Object.keys(obj).length;
 }
 
-function IN_SET(key: string, setString: Array<Object>) {
-  if (!setString || !key) {
-    return false;
+function IN_SET(key: object | Array<object>, argLists: Array<Object>) {
+  if (Array.isArray(key)) {
+    if (key.length === 0) {
+      return false;
+    }
+    let res = true;
+    key.forEach((k) => {
+      if (!argLists.some((item) => item?.toString() === k?.toString())) {
+        res = false;
+      }
+    });
+    return res;
   }
-  return setString.map((item) => item.toString()).includes(key);
+  return argLists.map((item) => item?.toString()).includes(key?.toString());
 }
