@@ -329,11 +329,16 @@ export class SubmitCacheManager {
 
   private analysisEqualKeys(): string[][] {
     const equalKeys: string[][] = [];
-    const pks = this.model.pks;
     if (this.excludes && this.excludes.length) {
       equalKeys.push(this.excludes);
-    } else if (pks) {
-      equalKeys.push(pks);
+    } else {
+      const { pks, uniques } = this.model;
+      if (pks) {
+        equalKeys.push(pks);
+      }
+      if (uniques) {
+        equalKeys.push(...uniques);
+      }
     }
     equalKeys.push([ActiveRecordExtendKeys.DRAFT_ID]);
     return equalKeys;
