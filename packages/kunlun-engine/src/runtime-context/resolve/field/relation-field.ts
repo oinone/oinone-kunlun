@@ -62,38 +62,44 @@ export function convertRelationField(
     field.sortFields = sortFields;
   }
 
-  const dslReferences: DslReferenceModel = dsl.options?.[0];
-  const references = dsl.references as string;
-  if (!references) {
-    throw new Error('Invalid relation field. references is required.');
-  }
-
-  if (dslReferences) {
-    const referencesModel: RuntimeModel = {
-      model: references,
-      type: dslReferences.referencesType,
-      name: dslReferences.referencesModelName,
-      moduleName: dslReferences.referencesModuleName,
-      pks: ResolveUtil.toArray(dslReferences.referencesPks),
-      uniques: ResolveUtil.toArray(dslReferences.referencesUniques, ';')
-        ?.map((v) => ResolveUtil.toArray(v)!)
-        .filter((v) => !!v),
-      label: dslReferences.optionLabel || dslReferences.referencesLabel,
-      labelFields: ResolveUtil.toArray(dslReferences.optionFields || dslReferences.referencesLabelFields),
-      modelFields: [],
-      modelActions: []
-    };
+  if (dsl.referencesModel) {
+    const referencesModel = dsl.referencesModel as RuntimeModel;
+    field.references = referencesModel.model;
     field.referencesModel = referencesModel;
+  } else {
+    const dslReferences: DslReferenceModel = dsl.options?.[0];
+    const references = dsl.references as string;
+    if (!references) {
+      throw new Error('Invalid relation field. references is required.');
+    }
 
-    const resolveContext = RuntimeContextManager.createOrReplace(uniqueKeyGenerator());
-    resolveContext.model = referencesModel;
+    if (dslReferences) {
+      const referencesModel: RuntimeModel = {
+        model: references,
+        type: dslReferences.referencesType,
+        name: dslReferences.referencesModelName,
+        moduleName: dslReferences.referencesModuleName,
+        pks: ResolveUtil.toArray(dslReferences.referencesPks),
+        uniques: ResolveUtil.toArray(dslReferences.referencesUniques, ';')
+          ?.map((v) => ResolveUtil.toArray(v)!)
+          .filter((v) => !!v),
+        label: dslReferences.optionLabel || dslReferences.referencesLabel,
+        labelFields: ResolveUtil.toArray(dslReferences.optionFields || dslReferences.referencesLabelFields),
+        modelFields: [],
+        modelActions: []
+      };
+      field.referencesModel = referencesModel;
 
-    resolveExtendFieldAndAction(resolveContext, dsl);
-    resolveReferenceModelField(referencesModel, dslReferences.widgets);
+      const resolveContext = RuntimeContextManager.createOrReplace(uniqueKeyGenerator());
+      resolveContext.model = referencesModel;
 
-    RuntimeContextManager.delete(resolveContext.handle);
+      resolveExtendFieldAndAction(resolveContext, dsl);
+      resolveReferenceModelField(referencesModel, dslReferences.widgets);
+
+      RuntimeContextManager.delete(resolveContext.handle);
+    }
+    field.references = references;
   }
-  field.references = references;
   field.relationFields = ResolveUtil.toArray(dsl.relationFields) || [];
   field.referenceFields = ResolveUtil.toArray(dsl.referenceFields) || [];
 }

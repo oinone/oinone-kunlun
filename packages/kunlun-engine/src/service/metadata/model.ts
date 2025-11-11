@@ -1,4 +1,4 @@
-import { ModelFieldType, SYSTEM_MODULE, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
+import { ModelFieldType, ModelType, SYSTEM_MODULE, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { FunctionSelfFlag, RuntimeModel, RuntimeRelationField } from '../../runtime-metadata';
 import { ActiveRecord } from '../../typing';
 import { MetadataHelper } from '../util';
@@ -56,6 +56,8 @@ export interface RelationData {
   update: RelationDataModel[];
   delete: RelationDataModel[];
 }
+
+const ID = 'id';
 
 export namespace StaticMetadata {
   export const DRAFT_CODE_FIELD = 'draftCode';
@@ -191,10 +193,11 @@ export namespace StaticMetadata {
     name: IdModelName,
     module: SYSTEM_MODULE.BASE,
     moduleName: SYSTEM_MODULE_NAME.BASE,
+    pks: [ID],
     modelActions: [],
     modelFields: [
       MetadataHelper.buildSimpleModelField(IdModelModel, IdModelName, {
-        data: 'id',
+        data: ID,
         ttype: ModelFieldType.Integer
       })
     ]
@@ -205,14 +208,16 @@ export namespace StaticMetadata {
   export const ResourceCountryModelName = 'resourceCountry';
 
   export const ResourceCountry: RuntimeModel = {
+    type: ModelType.STORE,
     model: ResourceCountryModel,
     name: ResourceCountryModelName,
     module: SYSTEM_MODULE.RESOURCE,
     moduleName: SYSTEM_MODULE_NAME.RESOURCE,
+    pks: [ID],
     modelActions: [],
     modelFields: [
       MetadataHelper.buildSimpleModelField(ResourceCountryModel, ResourceCountryModelName, {
-        data: 'id',
+        data: ID,
         ttype: ModelFieldType.Integer
       }),
       MetadataHelper.buildSimpleModelField(ResourceCountryModel, ResourceCountryModelName, {
@@ -231,14 +236,16 @@ export namespace StaticMetadata {
   export const ResourceProvinceModelName = 'resourceProvince';
 
   export const ResourceProvince: RuntimeModel = {
+    type: ModelType.STORE,
     model: ResourceProvinceModel,
     name: ResourceProvinceModelName,
     module: SYSTEM_MODULE.RESOURCE,
     moduleName: SYSTEM_MODULE_NAME.RESOURCE,
+    pks: [ID],
     modelActions: [],
     modelFields: [
       MetadataHelper.buildSimpleModelField(ResourceProvinceModel, ResourceProvinceModelName, {
-        data: 'id',
+        data: ID,
         ttype: ModelFieldType.Integer
       }),
       MetadataHelper.buildSimpleModelField(ResourceProvinceModel, ResourceProvinceModelName, {
@@ -257,14 +264,16 @@ export namespace StaticMetadata {
   export const ResourceCityModelName = 'resourceCity';
 
   export const ResourceCity: RuntimeModel = {
+    type: ModelType.STORE,
     model: ResourceCityModel,
     name: ResourceCityModelName,
     module: SYSTEM_MODULE.RESOURCE,
     moduleName: SYSTEM_MODULE_NAME.RESOURCE,
+    pks: [ID],
     modelActions: [],
     modelFields: [
       MetadataHelper.buildSimpleModelField(ResourceCityModel, ResourceCityModelName, {
-        data: 'id',
+        data: ID,
         ttype: ModelFieldType.Integer
       }),
       MetadataHelper.buildSimpleModelField(ResourceCityModel, ResourceCityModelName, {
@@ -283,14 +292,16 @@ export namespace StaticMetadata {
   export const ResourceDistrictModelName = 'resourceDistrict';
 
   export const ResourceDistrict: RuntimeModel = {
+    type: ModelType.STORE,
     model: ResourceDistrictModel,
     name: ResourceDistrictModelName,
     module: SYSTEM_MODULE.RESOURCE,
     moduleName: SYSTEM_MODULE_NAME.RESOURCE,
+    pks: [ID],
     modelActions: [],
     modelFields: [
       MetadataHelper.buildSimpleModelField(ResourceDistrictModel, ResourceDistrictModelName, {
-        data: 'id',
+        data: ID,
         ttype: ModelFieldType.Integer
       }),
       MetadataHelper.buildSimpleModelField(ResourceDistrictModel, ResourceDistrictModelName, {
@@ -309,14 +320,16 @@ export namespace StaticMetadata {
   export const ResourceStreetModelName = 'resourceStreet';
 
   export const ResourceStreet: RuntimeModel = {
+    type: ModelType.STORE,
     model: ResourceStreetModel,
     name: ResourceStreetModelName,
     module: SYSTEM_MODULE.RESOURCE,
     moduleName: SYSTEM_MODULE_NAME.RESOURCE,
+    pks: [ID],
     modelActions: [],
     modelFields: [
       MetadataHelper.buildSimpleModelField(ResourceStreetModel, ResourceStreetModelName, {
-        data: 'id',
+        data: ID,
         ttype: ModelFieldType.Integer
       }),
       MetadataHelper.buildSimpleModelField(ResourceStreetModel, ResourceStreetModelName, {
@@ -335,14 +348,16 @@ export namespace StaticMetadata {
   export const ResourceAddressModelName = 'resourceAddress';
 
   export const ResourceAddress: RuntimeModel = {
+    type: ModelType.STORE,
     model: ResourceAddressModel,
     name: ResourceAddressModelName,
     module: SYSTEM_MODULE.RESOURCE,
     moduleName: SYSTEM_MODULE_NAME.RESOURCE,
+    pks: [ID],
     modelActions: [],
     modelFields: [
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
-        data: 'id',
+        data: ID,
         ttype: ModelFieldType.Integer
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
@@ -367,7 +382,11 @@ export namespace StaticMetadata {
         ttype: ModelFieldType.ManyToOne,
         references: ResourceCountryModel,
         referencesModel: ResourceCountry,
-        displayName: '国家'
+        displayName: '国家',
+        relationStore: true,
+        store: false,
+        relationFields: ['countryCode'],
+        referenceFields: ['code']
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'provinceCode',
@@ -383,7 +402,11 @@ export namespace StaticMetadata {
         ttype: ModelFieldType.ManyToOne,
         references: ResourceProvinceModel,
         referencesModel: ResourceProvince,
-        displayName: '省/州'
+        displayName: '省/州',
+        relationStore: true,
+        store: false,
+        relationFields: ['provinceCode'],
+        referenceFields: ['code']
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'cityCode',
@@ -399,7 +422,11 @@ export namespace StaticMetadata {
         ttype: ModelFieldType.ManyToOne,
         references: ResourceCityModel,
         referencesModel: ResourceCity,
-        displayName: '市'
+        displayName: '市',
+        relationStore: true,
+        store: false,
+        relationFields: ['cityCode'],
+        referenceFields: ['code']
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'districtCode',
@@ -415,7 +442,11 @@ export namespace StaticMetadata {
         ttype: ModelFieldType.ManyToOne,
         references: ResourceDistrictModel,
         referencesModel: ResourceDistrict,
-        displayName: '区/县'
+        displayName: '区/县',
+        relationStore: true,
+        store: false,
+        relationFields: ['districtCode'],
+        referenceFields: ['code']
       }),
       MetadataHelper.buildSimpleModelField(ResourceAddressModel, ResourceAddressModelName, {
         data: 'streetCode',
@@ -431,7 +462,11 @@ export namespace StaticMetadata {
         ttype: ModelFieldType.ManyToOne,
         references: ResourceStreetModel,
         referencesModel: ResourceStreet,
-        displayName: '街道'
+        displayName: '街道',
+        relationStore: true,
+        store: false,
+        relationFields: ['streetCode'],
+        referenceFields: ['code']
       })
     ]
   };

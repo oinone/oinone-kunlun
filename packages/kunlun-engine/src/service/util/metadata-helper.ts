@@ -16,9 +16,9 @@ export class MetadataHelper {
       store?: boolean;
       relationStore?: boolean;
       displayName?: string;
-    }
+    } & Record<string, unknown>
   ): RuntimeModelField {
-    const { data, name, ttype, references, referencesModel, store, relationStore, displayName } = options;
+    const { data, name, ttype, references, referencesModel, store, relationStore, displayName, ...others } = options;
     let defaultStore = true;
     let defaultRelationStore = false;
     if (RELATION_FIELD_TTYPES.includes(options.ttype)) {
@@ -33,7 +33,8 @@ export class MetadataHelper {
       ttype,
       store: Optional.ofNullable(store).orElse(defaultStore),
       relationStore: Optional.ofNullable(relationStore).orElse(defaultRelationStore),
-      displayName
+      displayName,
+      ...others
     };
     if (references && isRelationField(modelField)) {
       modelField.references = references;

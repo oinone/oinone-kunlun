@@ -1,4 +1,4 @@
-import { DslDefinition, DslDefinitionHelper, FieldDslDefinition } from '@oinone/kunlun-dsl';
+import { DslDefinition, DslDefinitionHelper, DslDefinitionType, FieldDslDefinition } from '@oinone/kunlun-dsl';
 import {
   ActiveRecord,
   getRealTtype,
@@ -32,7 +32,15 @@ import { DslDefinitionWidget, isTableViewState, OioTableViewState, Widget } from
 import { isNil } from 'lodash-es';
 import { BaseElementWidget, BaseFieldWidget, BaseTableFieldWidget, FormFieldWidget } from '../../basic';
 import { createRuntimeContextForWidget } from '../../tags';
-import { ResourceAddress, ValidatorStatus } from '../../typing';
+import {
+  ResourceAddress,
+  ResourceCity,
+  ResourceCountry,
+  ResourceDistrict,
+  ResourceProvince,
+  ResourceStreet,
+  ValidatorStatus
+} from '../../typing';
 import { TableWidget } from '../table/TableWidget';
 import QuickFill from './QuickFill.vue';
 import { QuickFillType } from './type';
@@ -47,19 +55,41 @@ interface Failure {
 }
 
 interface QuickFillResponse {
-  valuesStr: string;
+  values: string;
   failures: Failure[];
 }
 
 const fullAddressField = StaticMetadata.ResourceAddress.modelFields.filter((v) =>
-  ['countryName', 'provinceName', 'cityName', 'districtName', 'streetName'].includes(v.data)
+  ['originCountry', 'originProvince', 'originCity', 'originDistrict', 'originStreet'].includes(v.data)
 );
+
+const fullAddressFieldMapping: [string, string][] = [
+  ['originCountry', 'countryName'],
+  ['originProvince', 'provinceName'],
+  ['originCity', 'cityName'],
+  ['originDistrict', 'districtName'],
+  ['originStreet', 'streetName']
+];
+
+// ['originCountry', 'originProvince', 'originCity', 'originDistrict', 'originStreet'].includes(v.data)
+
+// const errorAddressField = StaticMetadata.ResourceAddress.modelFields
+//   .filter((v) => ['originCountry', 'originProvince', 'originCity', 'originDistrict', 'originStreet'].includes(v.data))
+//   .map((v) => {
+//     const originData = v.data.substring(6);
+//     const data = `${originData.charAt(0).toLowerCase()}Name`;
+//     return {
+//       ...v,
+//       data,
+//       name: data
+//     };
+//   });
 
 const quickFillFields = [
   { name: 'model', ttype: ModelFieldType.String },
-  { name: 'valuesStr', ttype: ModelFieldType.String },
+  { name: 'values', ttype: ModelFieldType.String },
   {
-    name: 'fieldHeaders',
+    name: 'fields',
     ttype: ModelFieldType.OneToMany,
     modelFields: [
       {
@@ -67,7 +97,7 @@ const quickFillFields = [
         ttype: ModelFieldType.String
       },
       {
-        name: 'relationSelectFields',
+        name: 'labelFields',
         ttype: ModelFieldType.String,
         multi: true
       }
@@ -172,7 +202,7 @@ export class QuickFillWidget extends BaseElementWidget {
    */
   @Widget.Method()
   public async onSure(headers: { label: string; value: string }[], rows: StandardString[][]) {
-    const valueStr = [] as Record<string, StandardString>[];
+    const values = [] as Record<string, StandardString>[];
 
     /**
      * 将excel数据转换成提交的数据格式
@@ -207,17 +237,17 @@ export class QuickFillWidget extends BaseElementWidget {
       });
 
       if (Object.keys(rowValue).length > 0) {
-        valueStr.push(rowValue);
+        values.push(rowValue);
       }
     });
 
     /**
-     *  valuesStr -> 可回填的数据
+     *  values -> 可回填的数据
      *  failures -> 错误信息
      */
-    const { valuesStr, failures } = await this.validateExcelValue(JSON.stringify(valueStr));
+    const { values: resultValues, failures } = await this.validateExcelValue(JSON.stringify(values));
 
-    const data = valuesStr ? JSON.parse(valuesStr) : [];
+    const data = resultValues ? JSON.parse(resultValues) : [];
 
     /**
      * 如果存在错误，则展示表格，将后端返回数据回填到表格
@@ -240,8 +270,43 @@ export class QuickFillWidget extends BaseElementWidget {
    */
   @Widget.Method()
   public onSubmit() {
-    this.updateO2MTableValue(this.tableWidget?.getData());
+    const rows = this.tableWidget?.getData() || [];
+    for (const row of rows) {
+      for (const key of Object.keys(row)) {
+        const [name1, name2] = key.split('#');
+        if (name2) {
+          let value = row[name1] as object;
+          if (!value) {
+            value = {};
+            row[name1] = value;
+          }
+          value[name2] = row[key];
+          if (name2 === 'originCountry') {
+            (value as ResourceAddress).countryCode = (row[key] as ResourceCountry).code;
+            (value as ResourceAddress).countryName = (row[key] as ResourceCountry).name;
+          } else if (name2 === 'originProvince') {
+            (value as ResourceAddress).provinceCode = (row[key] as ResourceProvince).code;
+            (value as ResourceAddress).provinceName = (row[key] as ResourceProvince).name;
+          } else if (name2 === 'originCity') {
+            (value as ResourceAddress).cityCode = (row[key] as ResourceCity).code;
+            (value as ResourceAddress).cityName = (row[key] as ResourceCity).name;
+          } else if (name2 === 'originDistrict') {
+            (value as ResourceAddress).districtCode = (row[key] as ResourceDistrict).code;
+            (value as ResourceAddress).districtName = (row[key] as ResourceDistrict).name;
+          } else if (name2 === 'originStreet') {
+            (value as ResourceAddress).streetCode = (row[key] as ResourceStreet).code;
+            (value as ResourceAddress).streetName = (row[key] as ResourceStreet).name;
+          }
+          delete row[key];
+        }
+      }
+    }
+    this.updateO2MTableValue(rows);
     this.onToggleModal(false);
+  }
+
+  protected get fillValueFieldMapping(): [string, string][] {
+    return fullAddressFieldMapping;
   }
 
   /**
@@ -262,13 +327,33 @@ export class QuickFillWidget extends BaseElementWidget {
     this.dataSource.forEach((rowData, rowIndex) => {
       const rowNum = rowIndex + 1;
       this.editableModelFields.forEach((field, colIndex) => {
-        const fieldValue = rowData[field.name];
-        if (!isNil(fieldValue)) {
+        const { name } = field;
+        let fieldValue;
+        const [name1, name2] = name.split('#');
+        if (name2) {
+          const mappingField = this.fillValueFieldMapping.find((v) => v[0] === name2)?.[1];
+          if (mappingField) {
+            fieldValue = (rowData[name1] as ActiveRecord)?.[mappingField];
+          } else {
+            fieldValue = (rowData[name1] as ActiveRecord)?.[name2];
+          }
+          if (isNil(fieldValue)) {
+            return;
+          }
           const cellKey = `${rowNum}-${colIndex + 1}`;
-          cells[cellKey] = this.fillFieldValue(field, fieldValue);
+          cells[cellKey] = fieldValue;
+          return;
         }
+        fieldValue = rowData[name];
+        if (isNil(fieldValue)) {
+          return;
+        }
+        const cellKey = `${rowNum}-${colIndex + 1}`;
+        cells[cellKey] = this.fillFieldValue(field, fieldValue);
       });
     });
+
+    console.log(cells);
 
     return { cells, rowCount: this.dataSource.length };
   }
@@ -377,10 +462,7 @@ export class QuickFillWidget extends BaseElementWidget {
   /**
    * 修改o2m表格的值
    */
-  public updateO2MTableValue(data: ActiveRecord[] | undefined) {
-    if (!data) {
-      return;
-    }
+  public updateO2MTableValue(data: ActiveRecord[]) {
     const tableWidget = Optional.ofNullable(this.viewState)
       .filter<OioTableViewState>((v) => isTableViewState(v))
       .map((v) => v.table)
@@ -411,7 +493,6 @@ export class QuickFillWidget extends BaseElementWidget {
     const relationFieldKey = field.referencesModel?.pks?.[0] || 'id';
     const realLabel = (optionLabel || field.referencesModel?.label) as string;
     const labelFields = field.referencesModel?.labelFields || [];
-
     let showValue;
     if (isEmptyValue(realLabel)) {
       showValue = autoFillByLabelFields(relationFieldKey, value, labelFields, separator as string);
@@ -424,37 +505,39 @@ export class QuickFillWidget extends BaseElementWidget {
   /**
    * 调接口校验excel数据
    */
-  public async validateExcelValue(valuesStr: string) {
-    const fieldHeaders: { field: string; relationSelectFields?: string[] }[] = [];
+  public async validateExcelValue(values: string) {
+    const fields: { field: string; labelFields?: string[] }[] = [];
     for (const editableModelField of this.editableModelFields) {
       const { data } = editableModelField;
       if (isRelationField(editableModelField)) {
-        fieldHeaders.push({
-          field: data,
-          relationSelectFields: editableModelField.referencesModel.labelFields || ['id']
-        });
-      } else if (fullAddressField.some((f) => data.endsWith(`#${f.data}`))) {
-        const [name] = data.split('#');
-        if (!fieldHeaders.some((v) => v.field === name)) {
-          for (const field of this.viewState?.fields || []) {
-            const addressField = Widget.select<BaseFieldWidget>(field)?.field as RuntimeM2OField;
-            if (addressField && addressField.data === name) {
-              fieldHeaders.push({
-                field: addressField.data,
-                relationSelectFields: addressField.referencesModel.labelFields || ['id']
-              });
+        if (fullAddressField.some((f) => data.endsWith(`#${f.data}`))) {
+          const [name] = data.split('#');
+          if (!fields.some((v) => v.field === name)) {
+            for (const field of this.viewState?.fields || []) {
+              const addressField = Widget.select<BaseFieldWidget>(field)?.field as RuntimeM2OField;
+              if (addressField && addressField.data === name) {
+                fields.push({
+                  field: addressField.data,
+                  labelFields: addressField.referencesModel.labelFields
+                });
+              }
             }
           }
+        } else {
+          fields.push({
+            field: data,
+            labelFields: editableModelField.referencesModel.labelFields
+          });
         }
       } else {
-        fieldHeaders.push({ field: data });
+        fields.push({ field: data });
       }
     }
 
     const gqlStr = await buildSingleItemParam(quickFillFields, {
       model: this.model.model,
-      fieldHeaders,
-      valuesStr
+      fields,
+      values
     });
 
     const body = `{
@@ -462,7 +545,7 @@ export class QuickFillWidget extends BaseElementWidget {
         loadData(
           quickFilling: ${gqlStr}
         ) {
-          valuesStr
+          values
           failures {
             rowNumber
             detailList {
@@ -536,17 +619,36 @@ export class QuickFillWidget extends BaseElementWidget {
     for (const widget of widgets) {
       if (DslDefinitionHelper.isField(widget)) {
         if (widget.references === StaticMetadata.ResourceAddressModel) {
-          fields.push(
-            ...fullAddressField.map((v) => {
-              const dd = `${widget.data}#${v.data}`;
-              return {
-                ...widget,
-                data: dd,
-                name: dd,
-                label: `${widget.label} - ${translateValueByKey(v.label || v.displayName)}`
-              };
-            })
-          );
+          let lastField: RuntimeModelField | undefined;
+          for (const field of fullAddressField) {
+            const dd = `${widget.data}#${field.data}`;
+            const extraDsl: FieldDslDefinition = {
+              ...field,
+              dslNodeType: DslDefinitionType.FIELD,
+              ttype: ModelFieldType.ManyToOne,
+              data: dd,
+              name: dd,
+              label: `${widget.label} - ${translateValueByKey(field.label || field.displayName)}`,
+              widget: 'Select',
+              model: widget.model,
+              modelName: widget.modelName,
+              field,
+              widgets: []
+            };
+            if (lastField) {
+              if (field.data === 'originProvince') {
+                extraDsl.domain = `countryCode == '\${activeRecord.${widget.data}#${lastField.data}.code}'`;
+              } else if (field.data === 'originCity') {
+                extraDsl.domain = `provinceCode == '\${activeRecord.${widget.data}#${lastField.data}.code}'`;
+              } else if (field.data === 'originDistrict') {
+                extraDsl.domain = `cityCode == '\${activeRecord.${widget.data}#${lastField.data}.code}'`;
+              } else if (field.data === 'originStreet') {
+                extraDsl.domain = `districtCode == '\${activeRecord.${widget.data}#${lastField.data}.code}'`;
+              }
+            }
+            lastField = field;
+            fields.push(extraDsl);
+          }
         } else {
           fields.push(widget);
         }

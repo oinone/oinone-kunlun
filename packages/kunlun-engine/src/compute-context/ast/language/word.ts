@@ -43,7 +43,10 @@ export class WordReader extends BaseReader implements TokenReader {
     do {
       cc = inputStream.peek(length);
       if (length >= 1) {
-        nonEof = NumberReader.INSTANCE.isSupported(context, cc) || this.isSupported(context, cc);
+        nonEof =
+          NumberReader.INSTANCE.isSupported(context, cc) ||
+          this.isSupported(context, cc) ||
+          cc === charCodes.numberSign;
       } else {
         nonEof = this.isSupported(context, cc);
       }
