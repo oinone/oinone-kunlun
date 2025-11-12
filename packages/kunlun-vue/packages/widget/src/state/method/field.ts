@@ -1,6 +1,11 @@
 import { hasFieldsViewState, isGalleryViewState, OioAnyViewState } from '../typing';
 
-function getFieldsState(viewState: OioAnyViewState, rowIndex?: number): { fields?: string[] } | undefined {
+interface FieldState {
+  fields?: string[];
+  fieldWidgets?: Record<string, string>;
+}
+
+function getFieldsState(viewState: OioAnyViewState, rowIndex?: number): FieldState | undefined {
   if (rowIndex == null) {
     if (hasFieldsViewState(viewState)) {
       return viewState;
@@ -15,13 +20,12 @@ export function pushField(this: OioAnyViewState, handle: string, rowIndex?: numb
   if (!fieldsState) {
     return;
   }
-  const { fields } = fieldsState;
-  if (!fields) {
-    return;
-  }
-  if (!fields.some((v) => v === handle)) {
-    fields.push(handle);
-    fieldsState.fields = [...fields];
+  const { fields, fieldWidgets } = fieldsState;
+  if (fields) {
+    if (!fields.some((v) => v === handle)) {
+      fields.push(handle);
+      fieldsState.fields = [...fields];
+    }
   }
 }
 

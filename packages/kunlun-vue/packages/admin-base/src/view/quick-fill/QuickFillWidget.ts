@@ -7,7 +7,6 @@ import {
   isRelation2MField,
   isRelation2OField,
   isRelationField,
-  RuntimeM2OField,
   RuntimeModelField,
   RuntimeRelationField,
   StaticMetadata,
@@ -95,6 +94,10 @@ const quickFillFields = [
       {
         name: 'field',
         ttype: ModelFieldType.String
+      },
+      {
+        name: 'required',
+        ttype: ModelFieldType.Boolean
       },
       {
         name: 'labelFields',
@@ -506,31 +509,32 @@ export class QuickFillWidget extends BaseElementWidget {
    * 调接口校验excel数据
    */
   public async validateExcelValue(values: string) {
-    const fields: { field: string; labelFields?: string[] }[] = [];
+    const fields: { field: string; required: boolean; labelFields?: string[] }[] = [];
     for (const editableModelField of this.editableModelFields) {
       const { data } = editableModelField;
-      if (isRelationField(editableModelField)) {
-        if (fullAddressField.some((f) => data.endsWith(`#${f.data}`))) {
-          const [name] = data.split('#');
-          if (!fields.some((v) => v.field === name)) {
-            for (const field of this.viewState?.fields || []) {
-              const addressField = Widget.select<BaseFieldWidget>(field)?.field as RuntimeM2OField;
-              if (addressField && addressField.data === name) {
-                fields.push({
-                  field: addressField.data,
-                  labelFields: addressField.referencesModel.labelFields
-                });
-              }
-            }
-          }
-        } else {
-          fields.push({
-            field: data,
-            labelFields: editableModelField.referencesModel.labelFields
-          });
+      let fieldWidget: BaseFieldWidget | undefined;
+      const [name1, name2] = data.split('#');
+      if (name2) {
+        if (fields.some((v) => v.field === name1)) {
+          continue;
         }
+        fieldWidget = this.findFieldWidget(name1);
       } else {
-        fields.push({ field: data });
+        fieldWidget = this.findFieldWidget(data);
+      }
+      const modelField = fieldWidget?.field;
+      if (!modelField) {
+        continue;
+      }
+      const required = fieldWidget!.required === true;
+      if (isRelationField(modelField)) {
+        fields.push({
+          field: modelField.data,
+          required,
+          labelFields: modelField.referencesModel.labelFields
+        });
+      } else {
+        fields.push({ field: data, required });
       }
     }
 
@@ -560,6 +564,15 @@ export class QuickFillWidget extends BaseElementWidget {
     const rst = await http.query(SYSTEM_MODULE.BASE, body);
 
     return rst.data.quickFillingQuery.loadData as unknown as QuickFillResponse;
+  }
+
+  protected findFieldWidget<W extends BaseFieldWidget>(data: string): W | undefined {
+    for (const field of this.viewState?.fields || []) {
+      const fieldWidget = Widget.select<BaseFieldWidget>(field);
+      if (fieldWidget?.field?.data === data) {
+        return fieldWidget as W;
+      }
+    }
   }
 
   /**

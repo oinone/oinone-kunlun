@@ -38,11 +38,13 @@ export interface OioTableViewState extends OioViewState {
   inlineActionBars?: OioActionBarState[];
   table?: string;
   fields?: string[];
+  fieldWidgets?: Record<string, string>;
 }
 
 export interface OioSearchViewState extends OioViewState {
   search?: string;
   fields?: string[];
+  fieldWidgets?: Record<string, string>;
 }
 
 export interface OioFormViewState extends OioViewState {
@@ -50,18 +52,22 @@ export interface OioFormViewState extends OioViewState {
   actionBar?: OioActionBarState;
   form?: string;
   fields?: string[];
+  fieldWidgets?: Record<string, string>;
 }
 
 export interface OioDetailViewState extends OioViewState {
   actionBar?: OioActionBarState;
   detail?: string;
   fields?: string[];
+  fieldWidgets?: Record<string, string>;
 }
 
 export interface OioCardState extends StateEntity {
-  fields: string[];
   titleProps?: Record<string, unknown>;
   contentProps?: Record<string, unknown>;
+
+  fields?: string[];
+  fieldWidgets?: Record<string, string>;
 }
 
 export interface OioGalleryViewState extends OioViewState {
@@ -77,6 +83,7 @@ export interface OioTreeViewState extends OioViewState {
   actionBar?: OioActionBarState;
   tree?: string;
   fields?: string[];
+  fieldWidgets?: Record<string, string>;
 }
 
 export type OioAnyViewState =
