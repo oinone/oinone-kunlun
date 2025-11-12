@@ -43,12 +43,7 @@
       </div>
 
       <div class="quick-fill-excel" v-show="step === 0">
-        <excel
-          ref="excelRef"
-          :model-fields="editableModelFields"
-          :row-count="rowCount"
-          :add-row-count="addRowCount"
-        ></excel>
+        <excel ref="excelRef" :fields="tableFields" :row-count="rowCount" :add-row-count="addRowCount"></excel>
       </div>
 
       <div v-show="step !== 0">
@@ -77,7 +72,7 @@ import { Modal, Radio as ARadio, RadioGroup as ARadioGroup } from 'ant-design-vu
 import { computed, createVNode, defineComponent, PropType, ref, watch } from 'vue';
 import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../basic';
 import Excel from './Excel.vue';
-import { QuickFillType } from './type';
+import { QuickFillType, TableFieldOption } from './type';
 
 const DEFAULT_ROW_COUNT = 9;
 
@@ -148,9 +143,22 @@ export default defineComponent({
       }
     });
 
-    const rowCount = ref(DEFAULT_ROW_COUNT);
     const excelRef = ref();
     const loading = ref(false);
+    const rowCount = ref(DEFAULT_ROW_COUNT);
+
+    const tableFields = computed<TableFieldOption[]>(() => {
+      return props.editableModelFields.map((field) => {
+        const fieldName = field.name;
+        return {
+          label: field.label || field.displayName || fieldName,
+          key: fieldName,
+          value: fieldName,
+          readonly: field.readonly === true,
+          field: fieldName
+        };
+      });
+    });
 
     const handleCancel = () => {
       if (!excelRef.value?.getCellStatus()) {
@@ -259,9 +267,10 @@ export default defineComponent({
       ModalWidth,
 
       excelRef,
-      type,
-      rowCount,
       loading,
+      type,
+      tableFields,
+      rowCount,
       onChangeRadio,
       onHandlerSure,
       addRowCount,

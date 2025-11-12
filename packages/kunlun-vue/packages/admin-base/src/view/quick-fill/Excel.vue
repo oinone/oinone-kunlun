@@ -18,8 +18,8 @@
             <th class="corner-cell"></th>
             <!-- 生成列标题  -->
             <th
-              v-for="(field, index) in modelFields"
-              :key="field.name"
+              v-for="(field, index) in fields"
+              :key="field.key"
               class="column-header"
               :style="{ width: cellWidth + 'px' }"
             >
@@ -86,11 +86,10 @@
 </template>
 
 <script setup lang="ts">
-import { RuntimeModelField } from '@oinone/kunlun-engine';
 import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { computed, defineExpose, defineProps, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
-import { NON_CUT } from './type';
+import { NON_CUT, TableFieldOption } from './type';
 
 interface CellIndices {
   row: number;
@@ -105,33 +104,27 @@ interface ParsedCellId {
 type CellId = string;
 
 const props = defineProps<{
-  modelFields: RuntimeModelField[];
+  fields: TableFieldOption[];
   rowCount: number; // 行数
   addRowCount: (addNumber: number) => void;
 }>();
 
 const cellWidth = 110; // 单元格宽度
 const cellHeight = 30; // 单元格高度
-const colCount = computed(() => props.modelFields.length || 0); // 列数
+const colCount = computed(() => props.fields.length || 0); // 列数
 const hasChangeCellValue = ref(false);
 // 表头下拉选中的值
-const tableHeaderValues = ref<{ label: string; value: string; readonly: boolean }[]>([]);
+const tableHeaderValues = ref<TableFieldOption[]>([]);
 
 // 表头下拉选项
 const selectOptions = computed(() => {
-  const options = props.modelFields.map((field, i) => {
-    return {
-      label: field.label || field.displayName,
-      value: field.name,
-      readonly: field.readonly
-    };
-  });
+  const options: TableFieldOption[] = [...props.fields];
   options.unshift({
     label: '不粘贴',
+    key: NON_CUT,
     value: NON_CUT,
     readonly: true
   });
-
   return options;
 });
 
@@ -151,19 +144,15 @@ const selectionEnd = ref<CellId | null>(null); // 框选的结束单元格 (即�
 const selectionRange = ref<Set<CellId>>(new Set()); // 存储当前选区内的所有单元格 ID
 
 const initTableHeaderValues = () => {
-  tableHeaderValues.value = props.modelFields.map((v, i) => ({
-    value: v.name,
-    label: v.displayName || v.label || '',
-    readonly: v.readonly as boolean
-  }));
+  tableHeaderValues.value = props.fields.map((v) => ({ ...v }));
 };
 
 watch(
-  () => props.modelFields,
+  () => props.fields,
   () => {
     initTableHeaderValues();
   },
-  { immediate: true, deep: true }
+  { immediate: true }
 );
 
 const generateColumnName = (index: number) => {

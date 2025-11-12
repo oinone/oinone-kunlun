@@ -43,7 +43,7 @@ import {
 } from '../../typing';
 import { TableWidget } from '../table/TableWidget';
 import QuickFill from './QuickFill.vue';
-import { QuickFillType } from './type';
+import { QuickFillType, TableFieldOption } from './type';
 
 interface Failure {
   rowNumber: number;
@@ -201,7 +201,7 @@ export class QuickFillWidget extends BaseElementWidget {
    * 确认提交,校验excel数据
    */
   @Widget.Method()
-  public async onSure(headers: { label: string; value: string }[], rows: StandardString[][]) {
+  public async onSure(headers: TableFieldOption[], rows: StandardString[][]) {
     const values = [] as Record<string, StandardString>[];
 
     /**
@@ -211,29 +211,31 @@ export class QuickFillWidget extends BaseElementWidget {
      */
     rows.forEach((row, rowIndex) => {
       const rowValue = {} as Record<string, StandardString>;
-      // 国家、省、市、区、街道需合并
-      const address: Record<string, ResourceAddress> = {};
+      const relationObjects: Record<string, ActiveRecord> = {};
 
       row.forEach((cell, columnIndex) => {
         if (!cell) {
           return;
         }
-        const { value: name } = headers[columnIndex]!;
-        if (fullAddressField.some((f) => name.endsWith(`#${f.name}`))) {
-          const [name1, name2] = name.split('#');
-          let target = address[name1];
+        const fieldName = headers[columnIndex]?.field;
+        if (!fieldName) {
+          return;
+        }
+        const [name1, name2] = fieldName.split('#');
+        if (name2) {
+          let target = relationObjects[name1];
           if (!target) {
             target = {};
-            address[name1] = target;
+            relationObjects[name1] = target;
           }
           target[name2] = cell;
         } else {
-          rowValue[name] = cell;
+          rowValue[fieldName] = cell;
         }
       });
 
-      Object.keys(address).forEach((key) => {
-        rowValue[key] = JSON.stringify(address[key]);
+      Object.entries(relationObjects).forEach(([key, value]) => {
+        rowValue[key] = JSON.stringify(value);
       });
 
       if (Object.keys(rowValue).length > 0) {
@@ -254,7 +256,7 @@ export class QuickFillWidget extends BaseElementWidget {
      */
     if (failures.length) {
       this.step = 1;
-      this.createTableWidget(data);
+      this.createTableWidget(headers, data);
 
       setTimeout(() => {
         this.validateTableField(failures);
@@ -352,8 +354,6 @@ export class QuickFillWidget extends BaseElementWidget {
         cells[cellKey] = this.fillFieldValue(field, fieldValue);
       });
     });
-
-    console.log(cells);
 
     return { cells, rowCount: this.dataSource.length };
   }
@@ -565,7 +565,7 @@ export class QuickFillWidget extends BaseElementWidget {
   /**
    * 创建表格
    */
-  protected createTableWidget(data) {
+  protected createTableWidget(fields: TableFieldOption[], data: ActiveRecord[]) {
     if (this.tableWidget) {
       this.tableWidget.dispose();
       this.tableWidget = undefined;
@@ -587,9 +587,20 @@ export class QuickFillWidget extends BaseElementWidget {
     template.editorMode = TableEditorMode.table;
     template.paginationStyle = ListPaginationStyle.HIDDEN;
 
-    const map = new Map(this.editableModelFields.map((v) => [v.data, true]));
+    const map = new Map(fields.filter((v) => !!v.field).map((v) => [v.field, v]));
     const fieldDslList = this.collectionFieldDsl(template);
-    template.widgets = fieldDslList.filter((w) => map.has(w.data));
+    const widgets: DslDefinition[] = [];
+    for (const fieldDsl of fieldDslList) {
+      const field = map.get(fieldDsl.data);
+      if (!field) {
+        continue;
+      }
+      widgets.push({
+        ...fieldDsl,
+        editable: !field.readonly
+      });
+    }
+    template.widgets = widgets;
 
     const runtimeContext = createRuntimeContextForWidget({
       type: ViewType.Table,
@@ -650,7 +661,7 @@ export class QuickFillWidget extends BaseElementWidget {
             fields.push(extraDsl);
           }
         } else {
-          fields.push(widget);
+          fields.push({ ...widget });
         }
       } else if (DslDefinitionHelper.isSlot(widget)) {
         fields.push(...this.collectionFieldDsl(widget, deep - 1));
