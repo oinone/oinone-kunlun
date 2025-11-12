@@ -17,7 +17,7 @@ import { Condition } from '@oinone/kunlun-request';
 import { BooleanHelper, CallChaining, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioButton, OioCloseIcon, OioIcon, OioNotification } from '@oinone/kunlun-vue-ui-antd';
-import { isFormViewState, OioFormViewState, useOioState, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { isFormViewState, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { Modal } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
 import { createVNode } from 'vue';
@@ -37,8 +37,6 @@ import { ActionWidget } from '../component';
   })
 )
 export class SaveDraftAction extends ActionWidget {
-  protected viewState: OioFormViewState | undefined;
-
   @Widget.Reactive()
   @Widget.Inject()
   protected mountedCallChaining: CallChaining | undefined;
@@ -57,7 +55,14 @@ export class SaveDraftAction extends ActionWidget {
   protected setDraftCode(draftCode: string): void {
     const formViewState = this.viewState;
     if (formViewState && isFormViewState(formViewState)) {
-      (formViewState as OioFormViewState).draftCode = draftCode;
+      formViewState.draftCode = draftCode;
+    }
+  }
+
+  protected getDraftCode(): string | undefined {
+    const formViewState = this.viewState;
+    if (formViewState && isFormViewState(formViewState)) {
+      return formViewState.draftCode;
     }
   }
 
@@ -157,6 +162,23 @@ export class SaveDraftAction extends ActionWidget {
     );
   }
 
+  protected $$mounted() {
+    super.$$mounted();
+    this.submitCallChaining?.hook(this.path, async (args, result) => {
+      if (!result) {
+        return;
+      }
+      const submitResult = result.records as ActiveRecord | undefined;
+      if (!submitResult) {
+        return;
+      }
+      const draftCode = this.getDraftCode();
+      if (draftCode) {
+        submitResult[StaticMetadata.DRAFT_CODE_FIELD] = draftCode;
+      }
+    });
+  }
+
   /**
    * 查询草稿
    */
@@ -170,7 +192,7 @@ export class SaveDraftAction extends ActionWidget {
    * 创建草稿
    */
   protected async createDraft() {
-    const draftCode = this.viewState?.draftCode;
+    const draftCode = this.getDraftCode();
     if (draftCode) {
       return this.executeDraftOperator('createDraft', {
         ...(this.activeRecords?.[0] || {}),
@@ -184,7 +206,7 @@ export class SaveDraftAction extends ActionWidget {
    * 修改草稿
    */
   protected async updateDraft() {
-    const draftCode = this.viewState?.draftCode;
+    const draftCode = this.getDraftCode();
     return this.executeDraftOperator('updateDraft', {
       ...(this.activeRecords?.[0] || {}),
       draftCode
@@ -195,7 +217,7 @@ export class SaveDraftAction extends ActionWidget {
    * 删除草稿
    */
   protected async deleteDraft() {
-    const draftCode = this.viewState?.draftCode;
+    const draftCode = this.getDraftCode();
     if (!draftCode) {
       return undefined;
     }

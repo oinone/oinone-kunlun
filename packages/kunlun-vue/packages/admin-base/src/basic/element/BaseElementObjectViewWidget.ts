@@ -25,7 +25,7 @@ import {
   StringHelper
 } from '@oinone/kunlun-shared';
 import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
-import { OioFormViewState, OioObjectViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { OioObjectViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isFunction, isNil, isPlainObject, isString } from 'lodash-es';
 import { DetailBizStyle, FormBizStyle, isValidatorError } from '../../typing';
 import { validatorCallChainingCallAfterFn } from '../constant';
@@ -58,10 +58,6 @@ export class BaseElementObjectViewWidget<
 
   @Widget.Reactive()
   protected currentSubmitCallChaining: CallChaining<SubmitValue> | undefined;
-
-  @Widget.Reactive()
-  @Widget.Inject()
-  protected draftDataCallChaining: CallChaining | undefined;
 
   /**
    * 数据提交
@@ -248,7 +244,6 @@ export class BaseElementObjectViewWidget<
         await this.queryOne(
           {
             id,
-            draftCode: (this.viewState as OioFormViewState)?.draftCode,
             ...(this.initialContext || {})
           },
           variables,
@@ -258,7 +253,7 @@ export class BaseElementObjectViewWidget<
     } else {
       let queryData: ActiveRecords | undefined;
       if (id) {
-        queryData = { id, draftCode: (this.viewState as OioFormViewState)?.draftCode };
+        queryData = { id };
       }
       if (ids) {
         queryData = ids.map((v) => ({ id: v } as ActiveRecord));
@@ -313,7 +308,6 @@ export class BaseElementObjectViewWidget<
         const initialValue = this.initialValue?.[0] || {};
         this.testInitialContext();
         finalQueryData = {
-          draftCode: (this.viewState as OioFormViewState)?.draftCode,
           ...viewInitialValue,
           ...initialValue,
           ...(queryData || {}),
@@ -331,7 +325,6 @@ export class BaseElementObjectViewWidget<
         variables,
         context
       })) || {};
-    res.draftCode = (this.viewState as OioFormViewState)?.draftCode;
     return res;
   }
 
@@ -373,7 +366,6 @@ export class BaseElementObjectViewWidget<
         variables,
         context
       })) || {};
-    res.draftCode = (this.viewState as OioFormViewState)?.draftCode;
     return res || {};
   }
 
@@ -400,7 +392,6 @@ export class BaseElementObjectViewWidget<
         variables,
         context
       })) || {};
-    res.draftCode = (this.viewState as OioFormViewState)?.draftCode;
     return res;
   }
 

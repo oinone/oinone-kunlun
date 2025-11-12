@@ -648,37 +648,39 @@ const handlePaste = (event: ClipboardEvent): void => {
   };
 
   loading.value = true;
-  const rowsData = parseCSVData(pastedData);
-  let currentRowOffset = 0;
-  const canUseRow = props.rowCount - startRow + 1; // 粘贴的那一行也可以使用
-  if (canUseRow < rowsData.length) {
-    props.addRowCount(rowsData.length - canUseRow);
-  }
   nextTick(() => {
-    rowsData.forEach((cellsData) => {
-      let currentColOffset = 0;
-      cellsData.forEach((cellData) => {
-        const targetRowIdx = startRow + currentRowOffset - 1;
-        const targetColIdx = startColIdx + currentColOffset;
-        if (targetColIdx < columns.length && tableHeaderValues.value[targetColIdx].readonly) {
-          currentColOffset++;
-          return;
-        }
-        if (targetRowIdx < props.rowCount && targetColIdx < columns.length) {
-          const targetCellId = `${targetRowIdx + 1}-${columns[targetColIdx]}`;
-          updateCellContent(targetCellId, cellData.trim());
-        }
-        currentColOffset++;
-      });
-      currentRowOffset++;
-    });
-
-    initializeSingleSelection(selectedCell.value);
-    if (editingCell.value) {
-      stopEditing();
+    const rowsData = parseCSVData(pastedData);
+    let currentRowOffset = 0;
+    const canUseRow = props.rowCount - startRow + 1; // 粘贴的那一行也可以使用
+    if (canUseRow < rowsData.length) {
+      props.addRowCount(rowsData.length - canUseRow);
     }
-  }).finally(() => {
-    loading.value = false;
+    nextTick(() => {
+      rowsData.forEach((cellsData) => {
+        let currentColOffset = 0;
+        cellsData.forEach((cellData) => {
+          const targetRowIdx = startRow + currentRowOffset - 1;
+          const targetColIdx = startColIdx + currentColOffset;
+          if (targetColIdx < columns.length && tableHeaderValues.value[targetColIdx].readonly) {
+            currentColOffset++;
+            return;
+          }
+          if (targetRowIdx < props.rowCount && targetColIdx < columns.length) {
+            const targetCellId = `${targetRowIdx + 1}-${columns[targetColIdx]}`;
+            updateCellContent(targetCellId, cellData.trim());
+          }
+          currentColOffset++;
+        });
+        currentRowOffset++;
+      });
+
+      initializeSingleSelection(selectedCell.value);
+      if (editingCell.value) {
+        stopEditing();
+      }
+    }).finally(() => {
+      loading.value = false;
+    });
   });
 };
 
