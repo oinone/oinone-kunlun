@@ -333,7 +333,6 @@ export default defineComponent({
 
   .quick-fill-excel {
     width: 100%;
-    overflow-x: scroll;
     scrollbar-width: 0;
     border: 1px solid var(--oio-border-color);
     border-radius: var(--oio-border-radius);

@@ -761,8 +761,7 @@ onUnmounted(() => {
 <style lang="scss">
 .quick-fill-excel-container {
   width: 100%;
-  min-height: 400px;
-  height: 400px;
+  height: 415px;
   overflow: auto;
 
   .excel-table {
