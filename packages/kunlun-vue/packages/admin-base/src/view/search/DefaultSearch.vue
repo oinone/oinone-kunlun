@@ -165,6 +165,7 @@ function createSearchBar(
           type: ButtonType.link,
           iconPlacement: IconPlacement.AFTER,
           icon: 'oinone-xiala',
+          iconColor: 'var(--oio-primary-color)',
           onClick: options.onExpand
         },
         { default: () => expandText }
@@ -241,7 +242,7 @@ export default defineComponent({
       let invisible = false;
       let hasExpandButton = false;
 
-      if (props.template && !props.disabledExpand) {
+      if (props.template) {
         const { widgets } = props.template;
         if (widgets && widgets.length) {
           let fields: DslDefinition[] = [];
@@ -253,18 +254,22 @@ export default defineComponent({
                 cateFields: props.cateFields,
                 dslNodeType: DslDefinitionType.ELEMENT,
                 widget: 'SearchTab',
-                widgets: cateWidgets
+                widgets: cateWidgets,
+                showTopCateAll: props.showTopCateAll,
+                showSecondCateAll: props.showSecondCateAll,
+                topCateJustify: props.topCateJustify
               })!
             );
           }
 
-          const finalExpandSize = props.invisibleSearch ? props.foldSize + 1 : props.foldSize;
-          appendFieldDslDefinition(fields, widgets, finalExpandSize, props.foldSize, props.cateFields);
-          if (fields.length) {
+          if (!props.disabledExpand) {
+            const finalExpandSize = props.invisibleSearch ? props.foldSize + 1 : props.foldSize;
+            appendFieldDslDefinition(fields, widgets, finalExpandSize, props.foldSize, props.cateFields);
             hasExpandButton = fields.length > finalExpandSize;
             if (hasExpandButton) {
               fields = fields.slice(0, finalExpandSize);
             }
+
             if (!props.invisibleSearch) {
               const searchActionBar: VNode[] = createSearchBar(false, {
                 hasExpandButton,
@@ -294,25 +299,22 @@ export default defineComponent({
               );
               fields.push(searchBarCol);
             }
-          } else {
-            hasExpandButton = false;
-            fields = widgets;
+            defaultChildren.push(
+              withDirectives(
+                DslRender.render({
+                  internal: true,
+                  dslNodeType: DslDefinitionType.PACK,
+                  widgets: fields,
+                  widget: InternalWidget.Row,
+                  cols: DEFAULT_COLS,
+                  resolveOptions: {
+                    mode: ResolveMode.NORMAL
+                  }
+                })!,
+                [[vShow, !props.isExpand]]
+              )
+            );
           }
-          defaultChildren.push(
-            withDirectives(
-              DslRender.render({
-                internal: true,
-                dslNodeType: DslDefinitionType.PACK,
-                widgets: fields,
-                widget: InternalWidget.Row,
-                cols: DEFAULT_COLS,
-                resolveOptions: {
-                  mode: ResolveMode.NORMAL
-                }
-              })!,
-              [[vShow, !props.isExpand]]
-            )
-          );
         }
       }
 
