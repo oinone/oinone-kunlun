@@ -268,7 +268,7 @@ function createVariableListStr(
           }
 
           if (Array.isArray(a.value)) {
-            return `[${a.value.join(',')}]`;
+            return a.value;
           }
 
           if (
