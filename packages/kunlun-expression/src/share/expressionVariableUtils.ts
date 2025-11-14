@@ -266,13 +266,15 @@ function createVariableListStr(
               return a.value;
             }
           }
+
+          if (Array.isArray(a.value)) {
+            return a.value;
+          }
+
           if (
             (!leftVariableItem || isStringTtype(leftVariableItem.ttype) || isDateTtype(leftVariableItem.ttype)) &&
             expressionSeniorMode !== ExpressionSeniorMode.DISPLAY_NAME
           ) {
-            if (Array.isArray(a.value)) {
-              return `[${a.value.join(',')}]`;
-            }
             let right = autoAddQuote(a.value, expressionOption.quoteType);
             if (
               [ExpressionDefinitionType.BOOLEAN_CONDITION, ExpressionDefinitionType.OPERATION].includes(
@@ -286,10 +288,6 @@ function createVariableListStr(
               right = `${STR_TO_DATE_FUN}(${right}, '${dateFormat}')`;
             }
             return right;
-          }
-
-          if (Array.isArray(a.value)) {
-            return `[${a.value.join(',')}]`;
           }
 
           if (
@@ -321,28 +319,15 @@ function createVariableListStr(
     BooleanConditionComparisonOperator.NOT_IN_SET
   ];
 
-  const isInSetType = () => {
-    if (variableItemList.length === 1 && typeof variableItemList[0].value === 'string') {
-      return true;
-    }
-    return false;
-  };
 
-  const isBetweenType = () => {
-    return variableItemList.length === 1 && Array.isArray(variableItemList[0].value);
-  };
-
-  if (BetweenAndOperatorNameList.find((item) => item === operator) !== undefined && list.length > 1) {
+  if (BetweenAndOperatorNameList.find((item) => item === operator) !== undefined) {
     return `[${list.join(',')}]`;
   }
 
-  if (BetweenAndOperatorNameList.find((item) => item === operator) !== undefined) {
-    return (expressionOption.isBetweenInBrackets && list.length > 1) || isBetweenType() || isInSetType()
-      ? `${list.join(' , ')}`
-      : list.join(' , ');
-  }
+  // 变量如果只有一个值不能用[]包裹，可能为多值
+  const isVariable = variableItemList.some((item) => item.type === VariableItemType.VARIABLE);
 
-  if (InSetOperatorNameList.includes(operator)) {
+  if ((InSetOperatorNameList.includes(operator) && list.length > 1) || !isVariable) {
     return `[${list.join(',')}]`;
   }
 
