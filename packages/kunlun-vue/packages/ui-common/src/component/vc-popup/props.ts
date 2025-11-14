@@ -1,6 +1,10 @@
 import { ReturnPromise, ReturnVoid } from '@oinone/kunlun-shared';
 import { PropType } from 'vue';
-import { PopupDisplayAs } from '../oio-modal';
+
+export enum PopupDisplayAs {
+  drawer = 'drawer',
+  modal = 'modal'
+}
 
 export const VcPopupAppearanceProps = {
   zIndex: {

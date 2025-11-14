@@ -17,6 +17,10 @@ $footerHeight: 73px;
     }
   }
 
+  .ant-drawer-content {
+    background: var(--oio-background);
+  }
+
   &.no-mask {
     width: 100%;
   }
