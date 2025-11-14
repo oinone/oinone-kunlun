@@ -9,6 +9,7 @@
     :visible="showModal"
     :title="$translate('快速填报')"
     :loading="loading"
+    :mask-closable="false"
     @cancel="handleCancel"
   >
     <div class="quick-fill-modal-content">
