@@ -101,7 +101,11 @@ export class ForgetPasswordWidget extends BaseI18nRouterWidget {
     if (!phone) {
       return false;
     }
-    const { broken, errorMsg } = await UserService.fetchVerificationCodeByForget(phone);
+    const { broken, errorMsg } = await UserService.fetchVerificationCodeByForget(
+      phone,
+      undefined,
+      this.selectedCountry?.data?.phoneCode
+    );
     if (broken) {
       if (errorMsg) {
         OioMessage.error(errorMsg);

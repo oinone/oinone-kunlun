@@ -1,5 +1,5 @@
-import { GQL } from '@oinone/kunlun-request';
 import { SYSTEM_MODULE_NAME, UserBehaviorEventEnum, ViewActionTarget } from '@oinone/kunlun-meta';
+import { GQL } from '@oinone/kunlun-request';
 import { encrypt } from '../../util';
 
 export interface UserServiceResponse {
@@ -32,12 +32,14 @@ export class UserService {
   public static sendSmsVerificationCodeByPhone(
     eventType: UserBehaviorEventEnum,
     phone: string,
-    picCode?: string
+    picCode?: string,
+    phoneCode?: string
   ): Promise<UserServiceResponse> {
     return GQL.mutation('pamirsUserTransient', 'sendSmsVerificationCode')
       .buildRequest((builder) =>
         builder.buildObjectParameter('user', (dataBuilder) => {
           dataBuilder.stringParameter('phone', phone);
+          dataBuilder.stringParameter('inviteCode', phoneCode);
           dataBuilder.stringParameter('picCode', picCode);
           dataBuilder.enumerationParameter('userBehaviorEvent', eventType);
         })
@@ -48,11 +50,16 @@ export class UserService {
       .request(SYSTEM_MODULE_NAME.USER);
   }
 
-  public static fetchVerificationCodeByForget(phone: string, picCode?: string): Promise<UserServiceResponse> {
+  public static fetchVerificationCodeByForget(
+    phone: string,
+    picCode?: string,
+    phoneCode?: string
+  ): Promise<UserServiceResponse> {
     return UserService.sendSmsVerificationCodeByPhone(
       UserBehaviorEventEnum.PHONE_MODIFY_PASSWORD_BY_PHONE_SEND_CODE,
       phone,
-      picCode
+      picCode,
+      phoneCode
     );
   }
 
