@@ -242,6 +242,10 @@ function MAP_COUNT(obj: Record<string, unknown>) {
 }
 
 function IN_SET(key: object | Array<object>, argLists: Array<Object>) {
+  if (key === undefined || argLists === undefined || !Array.isArray(argLists)) {
+    return false;
+  }
+
   if (Array.isArray(key)) {
     if (key.length === 0) {
       return false;
