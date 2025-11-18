@@ -1,13 +1,13 @@
 import { RouterPath, RuntimeContextManager } from '@oinone/kunlun-engine';
 import { GlobalConfig } from '@oinone/kunlun-meta';
+import { setGlobalEnv } from '@oinone/kunlun-router';
 import { UrlHelper } from '@oinone/kunlun-shared';
 import { SPIFactory } from '@oinone/kunlun-spi';
 import { VueWidget } from '@oinone/kunlun-vue-widget';
 import { DefaultMetadataMainViewWidget } from '../main-view';
 import { RootComponentSPI } from '../spi';
-import { FirstResetPasswordWidget, ForgetPasswordWidget, HomePageWidget, LoginPageWidget } from '../view';
+import { FirstResetPasswordWidget, ForgetPasswordWidget, HomePageWidget, LoginWidget } from '../view';
 import RootView from './Root.vue';
-import { setGlobalEnv } from '@oinone/kunlun-router';
 
 interface Page extends RouterPath {
   slotName?: string;
@@ -18,6 +18,11 @@ const DEFAULT_PAGES: Page[] = [
     path: '/login',
     widget: 'Login',
     slotName: 'login'
+  },
+  {
+    path: '/sso-login',
+    widget: 'sso-login',
+    slotName: 'ssoLogin'
   },
   {
     path: '/forget',
@@ -42,7 +47,8 @@ export class RootWidget extends VueWidget {
 
   @VueWidget.Reactive()
   public widgets = {
-    login: LoginPageWidget,
+    login: LoginWidget,
+    ssoLogin: LoginWidget,
     page: DefaultMetadataMainViewWidget,
     forget: ForgetPasswordWidget,
     first: FirstResetPasswordWidget
