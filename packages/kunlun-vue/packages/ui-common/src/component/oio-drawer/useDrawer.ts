@@ -2,8 +2,8 @@ import { isString } from 'lodash-es';
 import { computed, ref } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { StyleHelper } from '../../util';
-import { ModalHeight, ModalWidth, PopupDisplayAs } from '../oio-modal';
-import { usePopup } from '../vc-popup/usePopup';
+import { ModalHeight, ModalWidth } from '../oio-modal';
+import { PopupDisplayAs, usePopup } from '../vc-popup';
 import { DrawerHeight, DrawerPlacement, DrawerWidth } from './typing';
 
 export function useDrawer(props, context) {

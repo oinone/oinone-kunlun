@@ -2,8 +2,8 @@ import { isString } from 'lodash-es';
 import { computed, ref } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { StyleHelper } from '../../util';
-import { usePopup } from '../vc-popup/usePopup';
-import { ModalHeight, ModalWidth, PopupDisplayAs } from './typing';
+import { PopupDisplayAs, usePopup } from '../vc-popup';
+import { ModalHeight, ModalWidth } from './typing';
 
 export function useModal(props, context) {
   const internalDisplayAs = ref<PopupDisplayAs | undefined>();
