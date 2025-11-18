@@ -82,7 +82,7 @@
   }
 
   &-style1 {
-    .#{$groupClassPrefix}-title-wrapper {
+    .#{$groupClassPrefix}-title-content {
       &::before {
         content: '';
         width: 3px;
