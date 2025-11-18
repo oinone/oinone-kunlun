@@ -1,7 +1,7 @@
 import { ModelFieldType, ModelType, SYSTEM_MODULE, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
-import { FunctionSelfFlag, RuntimeModel, RuntimeRelationField } from '../../runtime-metadata';
-import { ActiveRecord } from '../../typing';
-import { MetadataHelper } from '../util';
+import { FunctionSelfFlag, RuntimeModel, RuntimeRelationField } from '../../../runtime-metadata';
+import { ActiveRecord } from '../../../typing';
+import { MetadataHelper } from '../../util';
 
 export interface QueryPagination {
   currentPage: number;
@@ -29,22 +29,6 @@ export interface QueryPageResult<T> {
   totalElements: number;
 }
 
-export interface QueryGroupsValue {
-  isLeaf: boolean;
-  field: string;
-  dataCount: number;
-  dataListStr?: string;
-  value?: unknown;
-  groups?: QueryGroupsValue[];
-}
-
-export interface QueryGroupResult {
-  totalElements: string;
-  totalPages: string;
-  totalDataCount: string;
-  groups?: QueryGroupsValue[];
-}
-
 export interface RelationDataModel {
   data: ActiveRecord;
   relations?: Record<string, RelationData>;
@@ -55,6 +39,13 @@ export interface RelationData {
   create: RelationDataModel[];
   update: RelationDataModel[];
   delete: RelationDataModel[];
+}
+
+export interface ConditionWrapper {
+  model?: string;
+  rsql?: string;
+  sort?: { orders: QuerySort[] };
+  queryData?: ActiveRecord;
 }
 
 const ID = 'id';
@@ -99,7 +90,7 @@ export namespace StaticMetadata {
         data: 'orders',
         ttype: ModelFieldType.OneToMany,
         references: QueryOrderModel,
-        referencesModel: StaticMetadata.QueryOrder
+        referencesModel: QueryOrder
       })
     ]
   };
@@ -127,7 +118,7 @@ export namespace StaticMetadata {
         data: 'sort',
         ttype: ModelFieldType.OneToOne,
         references: QuerySortModel,
-        referencesModel: StaticMetadata.QuerySort
+        referencesModel: QuerySort
       }),
       MetadataHelper.buildSimpleModelField(PaginationModel, PaginationModelName, {
         data: 'groupBy',
@@ -180,6 +171,38 @@ export namespace StaticMetadata {
       MetadataHelper.buildSimpleModelField(QueryPageResultModel, QueryPageResultModelName, {
         data: 'totalElements',
         ttype: ModelFieldType.Integer
+      })
+    ]
+  };
+
+  export const ConditionWrapperModel = 'core.common.ConditionWrapper';
+
+  export const ConditionWrapperModelName = 'conditionWrapper';
+
+  export const ConditionWrapper: RuntimeModel = {
+    model: ConditionWrapperModel,
+    name: ConditionWrapperModelName,
+    module: SYSTEM_MODULE.BASE,
+    moduleName: SYSTEM_MODULE_NAME.BASE,
+    modelActions: [],
+    modelFields: [
+      MetadataHelper.buildSimpleModelField(ConditionWrapperModel, ConditionWrapperModelName, {
+        data: 'model',
+        ttype: ModelFieldType.String
+      }),
+      MetadataHelper.buildSimpleModelField(ConditionWrapperModel, ConditionWrapperModelName, {
+        data: 'rsql',
+        ttype: ModelFieldType.String
+      }),
+      MetadataHelper.buildSimpleModelField(ConditionWrapperModel, ConditionWrapperModelName, {
+        data: 'sort',
+        ttype: ModelFieldType.OneToOne,
+        references: QuerySortModel,
+        referencesModel: QuerySort
+      }),
+      MetadataHelper.buildSimpleModelField(ConditionWrapperModel, ConditionWrapperModelName, {
+        data: 'queryData',
+        ttype: ModelFieldType.Map
       })
     ]
   };

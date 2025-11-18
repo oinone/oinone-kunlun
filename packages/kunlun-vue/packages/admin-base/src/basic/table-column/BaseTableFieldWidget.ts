@@ -1,5 +1,6 @@
 import {
   ActiveRecord,
+  GroupStatisticsEnum,
   isAllowGrouping,
   isAllowSortable,
   isRelatedField,
@@ -18,7 +19,6 @@ import { createVNode, VNode, withModifiers } from 'vue';
 import type { VxeTableDefines } from 'vxe-table';
 import type { RowActionBarWidget } from '../../action/component/action-bar/RowActionBarWidget';
 import { ActionWidget } from '../../action/component/action/ActionWidget';
-import { GroupStatisticsEnum } from '../../service';
 import { EditorField } from '../../tags/internal';
 import { UserTablePrefer } from '../../typing';
 import { getTableColumnFixed, getTableColumnWidth } from '../../util';
@@ -656,7 +656,7 @@ export class BaseTableFieldWidget<
     row: ActiveRecord,
     field: RuntimeModelField,
     groupStatistics: GroupStatisticsEnum
-  ) => ActiveRecord[];
+  ) => Promise<string | undefined>;
 
   /**
    * 渲染分组展开行的单元格

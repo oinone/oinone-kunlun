@@ -1,5 +1,5 @@
 import { ModelFieldType } from '@oinone/kunlun-meta';
-import { FunctionSelfFlag, FunctionType, RuntimeFunctionDefinition } from '../../runtime-metadata';
+import { FunctionSelfFlag, FunctionType, RuntimeFunctionDefinition } from '../../../runtime-metadata';
 import { StaticMetadata } from './model';
 
 export namespace FunctionMetadata {

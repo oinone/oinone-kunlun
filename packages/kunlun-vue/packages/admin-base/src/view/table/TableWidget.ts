@@ -4,22 +4,29 @@ import {
   ActiveRecordExtendKeys,
   ActiveRecords,
   ActiveRecordsOperator,
+  ConditionWrapper,
   GenericFunctionService,
+  GroupingData,
+  GroupingField,
+  GroupStatisticsEnum,
   isM2MField,
   isRelation2OField,
   isRelationField,
   Pagination,
   QueryContext,
-  QueryGroupsValue,
   QueryService,
+  QuerySort,
   QueryVariables,
   RuntimeModelField,
   RuntimeRelationField,
+  TableGroupingPageOptions,
+  TableGroupingQueryService,
+  TableGroupingWrapperOptions,
   translateValueByKey
 } from '@oinone/kunlun-engine';
 import { Entity, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
-import { DEFAULT_TRUE_CONDITION, IGroup, ISort } from '@oinone/kunlun-service';
+import { DEFAULT_TRUE_CONDITION, ISort } from '@oinone/kunlun-service';
 import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import {
@@ -39,7 +46,6 @@ import { VxeTableDefines } from 'vxe-table';
 import { ActionWidget } from '../../action/component/action';
 import { BaseElementListViewWidgetProps, BaseElementWidget, BaseTableColumnWidget, BaseTableWidget } from '../../basic';
 import { ExpandColumnWidgetNames } from '../../field';
-import { fetchGroupData, fetchGroupPage, fetchGroupStatistic, GroupStatisticsEnum } from '../../service';
 import {
   ActiveCountEnum,
   fetchPageSize,
@@ -424,7 +430,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Method()
   @Widget.Provide()
-  public onGroupChange(groupList: IGroup[]): void {
+  public onGroupChange(groupList: GroupingField[]): void {
     super.onGroupChange(groupList);
     this.resetExpandRowAttr();
   }
@@ -1254,21 +1260,32 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     this.tableInstance?.getOrigin().setAllTreeExpand(expand);
   }
 
-  protected findGroupTreePath = (list, targetRow, path = [] as any[]) => {
+  protected getGroupFieldValues(list: ActiveRecord[], targetRow: ActiveRecord, index = 0): GroupingField[] {
     for (const item of list) {
-      const newPath = [...path, item];
       if (item === targetRow) {
-        return newPath;
+        return [this.getGroupFieldValue(item, index)];
       }
-      if (item?.[GROUP_TREE_KEY.CHILDREN_KEY]?.length) {
-        const result = this.findGroupTreePath(item[GROUP_TREE_KEY.CHILDREN_KEY], targetRow, newPath);
-        if (result) {
-          return result;
+      const children = item[GROUP_TREE_KEY.CHILDREN_KEY] as ActiveRecord[];
+      if (children?.length) {
+        const nextFields = this.getGroupFieldValues(children, targetRow, index + 1);
+        if (nextFields.length) {
+          return [this.getGroupFieldValue(item, index), ...nextFields];
         }
       }
     }
-    return null;
-  };
+    return [];
+  }
+
+  protected getGroupFieldValue(row: ActiveRecord, index: number): GroupingField {
+    const field = this.groupList?.[index];
+    if (!field || !this.expandTreeFieldColumn) {
+      throw new Error('Invalid group field.');
+    }
+    return {
+      ...field,
+      value: row[this.expandTreeFieldColumn]
+    };
+  }
 
   /**
    * 初始化分组展开字段
@@ -1279,34 +1296,34 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
-  protected generatorGroupQueryCondition(paging?: boolean) {
+  protected generatorGroupQueryCondition(condition?: Condition): Record<string, unknown> {
     const variables = this.generatorQueryVariables();
     const context = this.generatorQueryContext();
     const searchBody = this.generatorSearchBody();
-    const condition = this.generatorCondition(undefined, this.usingSearchCondition);
+    const finalCondition = this.generatorCondition(condition, this.usingSearchCondition);
+    const orders: QuerySort[] | undefined = this.sortList?.map((item) => ({
+      field: item.sortField,
+      direction: item.direction
+    }));
+    let sort: { orders: QuerySort[] } | undefined;
+    if (orders) {
+      sort = { orders };
+    }
 
-    const sort = { orders: this.sortList?.map((item) => ({ field: item.sortField, direction: item.direction })) };
-
-    const queryWrapper: Record<string, unknown> = {
-      queryData: searchBody,
-      rsql: condition.toString()
+    const queryWrapper: ConditionWrapper = {
+      model: this.model.model,
+      rsql: finalCondition.toString(),
+      sort,
+      queryData: searchBody
     };
 
-    const parameters: Record<string, unknown> = {
-      model: this.model.model,
-      groupFields: this.groupList?.map((v) => ({ field: v.groupField, orderType: v.groupDirection })) || [],
+    return {
+      fields: this.groupList || [],
       queryWrapper,
+      sort: this.sortList,
       variables,
       context
     };
-
-    if (paging) {
-      parameters.sort = sort;
-    } else {
-      queryWrapper.sort = sort;
-    }
-
-    return parameters as any;
   }
 
   /**
@@ -1315,14 +1332,15 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Provide()
   @Widget.Method()
   protected async loadGroupData(row: ActiveRecord) {
-    const path = this.findGroupTreePath(this.dataSource, row);
-    if (path?.length) {
-      const result = await fetchGroupData({
-        expandGroupPaths: [{ nodeList: path.map((v) => v[GROUP_TREE_KEY.PROPS_KEY]) }],
-        ...this.generatorGroupQueryCondition()
-      });
-
-      return JSON.parse(result.expandGroupDataStr?.[0] || '[]');
+    const fields = this.getGroupFieldValues(this.dataSource || [], row);
+    if (fields.length) {
+      const requestFields = this.generatorRequestFields();
+      return TableGroupingQueryService.queryGroupingDataByWrapper(this.model, {
+        requestFields,
+        responseFields: requestFields,
+        ...this.generatorGroupQueryCondition(),
+        fields
+      } as TableGroupingWrapperOptions);
     }
     return [];
   }
@@ -1333,22 +1351,21 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     row: ActiveRecord,
     field: RuntimeModelField,
     groupStatistics: GroupStatisticsEnum
-  ): Promise<ActiveRecord> {
-    const path = this.findGroupTreePath(this.dataSource, row);
-    if (path?.length) {
-      const result = await fetchGroupStatistic({
-        expandGroupPaths: [
-          {
-            nodeList: path.map((v) => v[GROUP_TREE_KEY.PROPS_KEY]),
-            statisticFieldMap: { [field.data]: groupStatistics }
-          }
-        ],
-        ...this.generatorGroupQueryCondition()
+  ): Promise<string | undefined> {
+    const fields = this.getGroupFieldValues(this.dataSource || [], row);
+    if (fields.length) {
+      const requestFields = this.generatorRequestFields();
+      return TableGroupingQueryService.queryGroupingStatistic(this.model, {
+        requestFields,
+        responseFields: [],
+        ...this.generatorGroupQueryCondition(),
+        fields,
+        statisticField: {
+          field: field.data,
+          statisticMethod: groupStatistics
+        }
       });
-
-      return JSON.parse(result.expandGroupDataStr?.[0] || '[]');
     }
-    return {};
   }
 
   /**
@@ -1357,12 +1374,11 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   protected async loadGroupPage(condition?: Condition) {
     const pagination = this.generatorPagination();
 
-    const result = await fetchGroupPage({
-      deep: this.groupList?.length || 1,
+    const result = await TableGroupingQueryService.queryGroupingPage(this.model, {
       currentPage: this.pagination?.current || 1,
-      size: this.showPagination ? pagination.pageSize : -1,
-      ...this.generatorGroupQueryCondition(true)
-    });
+      pageSize: this.showPagination ? pagination.pageSize : -1,
+      ...this.generatorGroupQueryCondition(condition)
+    } as TableGroupingPageOptions);
 
     this.groupTotalDataCount = toNumber(result?.totalDataCount || 0);
 
@@ -1372,7 +1388,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     return this.generatorGroupTree(result?.groups);
   }
 
-  protected generatorGroupTree(groups?: QueryGroupsValue[]) {
+  protected generatorGroupTree(groups?: GroupingData[]) {
     return (
       groups?.map((g) => {
         if (g.groups?.length) {
@@ -1384,7 +1400,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
           };
         }
 
-        const children = g.dataListStr ? JSON.parse(g.dataListStr || '[]') : [];
+        const children = g.data ? JSON.parse(g.data || '[]') : [];
         return {
           [this.expandTreeFieldColumn as string]: g.value,
           [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,

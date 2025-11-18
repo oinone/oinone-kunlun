@@ -11,8 +11,8 @@
       <sortable-group
         title="添加分组"
         sure-text="确定"
-        field-key="groupField"
-        direction-key="groupDirection"
+        field-key="field"
+        direction-key="direction"
         :list="groupList"
         :model-fields="fieldOptions"
         @change="onEnter"
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { IGroup } from '@oinone/kunlun-service';
+import { GroupingField } from '@oinone/kunlun-engine';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { Tooltip as ATooltip } from 'ant-design-vue';
 import { defineComponent, PropType, reactive, ref } from 'vue';
@@ -42,7 +42,7 @@ export default defineComponent({
   components: { SortableGroup, OioIcon, ATooltip },
   props: {
     groupList: {
-      type: Array as PropType<IGroup[]>,
+      type: Array as PropType<GroupingField[]>,
       default: () => []
     },
     fieldOptions: {
@@ -50,7 +50,7 @@ export default defineComponent({
       default: () => []
     },
     onGroupChange: {
-      type: Function as PropType<(groupList: IGroup[]) => void>
+      type: Function as PropType<(groupList: GroupingField[]) => void>
     },
     onOpen: {
       type: Function
@@ -71,7 +71,7 @@ export default defineComponent({
       }
     };
 
-    const onEnter = (groupList: IGroup[]) => {
+    const onEnter = (groupList: GroupingField[]) => {
       props.onGroupChange?.(groupList);
       state.visible = false;
     };

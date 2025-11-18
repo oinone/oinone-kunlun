@@ -258,6 +258,8 @@ export class FunctionService {
       builder.enumerationParameter(name, value);
     } else if (ttype === ModelFieldType.Map) {
       this.buildMapRequestParameter(builder, multi, name, value as object | object[]);
+    } else if (ttype === ModelFieldType.OBJ) {
+      this.buildObjectRequestParameter(builder, multi, name, value as object | object[]);
     } else {
       let requestFields: RequestModelField[] | undefined = modelDefinition?.modelFields.map((field) => ({ field }));
       if (!requestFields?.length && model) {
@@ -328,6 +330,8 @@ export class FunctionService {
       builder.enumerationParameter(name, value[name]);
     } else if (realTtype === ModelFieldType.Map) {
       this.buildMapRequestParameter(builder, multi, name, value[name]);
+    } else if (realTtype === ModelFieldType.OBJ) {
+      this.buildObjectRequestParameter(builder, multi, name, value[name]);
     } else {
       const referencesValues: object | object[] | null | undefined = value[name];
       if (referencesValues === undefined) {
@@ -440,6 +444,31 @@ export class FunctionService {
       mapStringValue = value;
     }
     builder.stringParameter(name, mapStringValue);
+  }
+
+  protected buildObjectRequestParameter(
+    builder: GQLRequestParameterBuilder,
+    multi: boolean | undefined,
+    name: string,
+    value: object | object[] | null | undefined
+  ): void {
+    builder.objectParameter(name, FunctionService.serializeObjectValue(value));
+  }
+
+  /**
+   * @see request#serializeObjectValue
+   */
+  private static serializeObjectValue(value: unknown): string {
+    if (value == null) {
+      return 'null';
+    }
+    if (Array.isArray(value)) {
+      return `[${value.map((v) => FunctionService.serializeObjectValue(v))}]`;
+    }
+    if (typeof value === 'object') {
+      return `{${Object.entries(value || {}).map(([k, v]) => `${k}: ${JSON.stringify(v)}`)}}`;
+    }
+    return JSON.stringify(value);
   }
 
   protected buildResponseParameterByReturnType(

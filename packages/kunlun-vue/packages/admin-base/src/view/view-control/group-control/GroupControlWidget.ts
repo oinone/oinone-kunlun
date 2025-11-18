@@ -1,10 +1,11 @@
-import { isAllowGrouping } from '@oinone/kunlun-engine';
-import { IGroup } from '@oinone/kunlun-service';
+import { GroupingField, isAllowGrouping } from '@oinone/kunlun-engine';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
 import { SortableGroupOption } from '../../../components';
 import DefaultGroupControl from './DefaultGroupControl.vue';
+
+type GroupingFieldOption = GroupingField & { title?: string };
 
 @SPI.ClassFactory(
   BaseElementWidget.Token({
@@ -24,10 +25,10 @@ export class GroupControlWidget extends BaseElementWidget {
    */
   @Widget.Reactive()
   @Widget.Inject('groupList')
-  protected parentGroupList;
+  protected parentGroupList: GroupingField[] | undefined;
 
   @Widget.Reactive()
-  protected groupList: (IGroup & { title: string })[] = [];
+  protected groupList: GroupingFieldOption[] | undefined;
 
   @Widget.Reactive()
   protected options: SortableGroupOption[] = [];
@@ -38,16 +39,16 @@ export class GroupControlWidget extends BaseElementWidget {
    */
   @Widget.Method()
   @Widget.Inject()
-  protected onGroupChange!: (groupList: IGroup[]) => void;
+  protected onGroupChange!: (groupList: GroupingField[]) => void;
 
   @Widget.Method()
   protected onOpen() {
     this.groupList = this.getGroupList();
   }
 
-  protected getGroupList() {
+  protected getGroupList(): GroupingFieldOption[] | undefined {
     return this.parentGroupList?.map((sort) => {
-      const { sortField } = sort;
+      const { field: sortField } = sort;
       const field = this.fieldOptions.find((v) => v.data === sortField);
       return {
         ...sort,

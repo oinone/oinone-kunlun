@@ -259,7 +259,15 @@ export class QueryService {
   }
 
   public static generatorInternalRequestModels(): RuntimeModel[] {
-    return [StaticMetadata.QueryPagination, StaticMetadata.QueryWrapper, StaticMetadata.ResourceAddress];
+    return [
+      StaticMetadata.QueryPagination,
+      StaticMetadata.QueryWrapper,
+      StaticMetadata.ResourceAddress,
+      StaticMetadata.ConditionWrapper,
+      StaticMetadata.GroupingField,
+      StaticMetadata.GroupingStatisticField,
+      StaticMetadata.TableGroupingWrapper
+    ];
   }
 
   public static generatorInternalResponseModels(): RuntimeModel[] {

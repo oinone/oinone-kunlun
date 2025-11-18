@@ -7,6 +7,7 @@ import {
   FunctionCache,
   FunctionMetadata,
   FunctionService,
+  GroupingField,
   isRelation2MField,
   KeyboardConfig,
   parseConfigs,
@@ -21,7 +22,7 @@ import {
 } from '@oinone/kunlun-engine';
 import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { MessageHub } from '@oinone/kunlun-request';
-import { EDirection, IGroup, ISort } from '@oinone/kunlun-service';
+import { EDirection, ISort } from '@oinone/kunlun-service';
 import { BooleanHelper, Optional, ReturnPromise, StringHelper } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
@@ -954,7 +955,7 @@ export class BaseTableWidget<
    */
   @Widget.Provide()
   @Widget.Reactive()
-  protected groupList: IGroup[] | undefined = undefined;
+  protected groupList: GroupingField[] | undefined = undefined;
 
   /**
    * 默认分组字段
@@ -963,17 +964,13 @@ export class BaseTableWidget<
    * @returns [field00003 desc,field00004 desc]
    */
   @Widget.Reactive()
-  protected get grouping(): IGroup[] | undefined {
+  protected get grouping(): GroupingField[] | undefined {
     const dsf: string = this.getDsl().grouping;
     if (dsf) {
       const dsfArr = dsf.split(ORDERING_SEPARATOR).filter((v) => !isEmpty(v));
       return dsfArr.map((v: string) => {
-        const [groupField, groupDirection] = getSortFieldDirection(
-          v,
-          ORDERING_FIELD_ORDER_SEPARATOR,
-          DEFAULT_ORDERING_ORDER
-        );
-        return { groupField, groupDirection };
+        const [field, direction] = getSortFieldDirection(v);
+        return { field, direction };
       });
     }
     return undefined;
@@ -984,12 +981,12 @@ export class BaseTableWidget<
    */
   @Widget.Provide()
   @Widget.Method()
-  public onGroupChange(groupList: IGroup[]): void {
+  public onGroupChange(groupList: GroupingField[]): void {
     const finalGroupList = groupList.length ? groupList : [];
     const groupParameters: UrlQueryParameters = {};
     if (finalGroupList?.length) {
-      groupParameters.groupField = finalGroupList.map((v) => v.groupField).join(URL_SPLIT_SEPARATOR);
-      groupParameters.groupDirection = finalGroupList.map((v) => v.groupDirection).join(URL_SPLIT_SEPARATOR);
+      groupParameters.groupField = finalGroupList.map((v) => v.field).join(URL_SPLIT_SEPARATOR);
+      groupParameters.groupDirection = finalGroupList.map((v) => v.direction).join(URL_SPLIT_SEPARATOR);
     } else {
       groupParameters.groupField = null;
       groupParameters.groupDirection = null;
@@ -1037,7 +1034,7 @@ export class BaseTableWidget<
       const directions = StringHelper.convertArray(groupDirection);
       if (groupFields.length && directions.length && groupFields.length === directions.length) {
         for (let i = 0; i < groupFields.length; i++) {
-          groupList.push({ groupField: groupFields[i], groupDirection: directions[i] as EDirection });
+          groupList.push({ field: groupFields[i], direction: directions[i] as EDirection });
         }
       }
       this.groupList = groupList;

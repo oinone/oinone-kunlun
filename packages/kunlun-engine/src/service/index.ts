@@ -6,4 +6,5 @@ export * from './AbstractModelApi';
 export * from './FunctionService';
 export * from './GenericFunctionService';
 export * from './QueryService';
+export * from './TableGroupingQueryService';
 export * from './UpdateOneWithRelationsService';

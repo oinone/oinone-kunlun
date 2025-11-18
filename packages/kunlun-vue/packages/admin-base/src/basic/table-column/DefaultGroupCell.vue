@@ -35,6 +35,7 @@
 import {
   ActiveRecord,
   getRealTtype,
+  GroupStatisticsEnum,
   IResourceDateTimeFormat,
   isDateField,
   isDateTimeField,
@@ -66,7 +67,6 @@ import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant
 import dayjs from 'dayjs';
 import { max, min, round, sortBy, sum, uniq } from 'lodash-es';
 import { computed, defineComponent, nextTick, onMounted, PropType, reactive, ref } from 'vue';
-import { GroupStatisticsEnum } from '../../service';
 
 const EMPTY_VALUE = '__empty__';
 
@@ -88,7 +88,11 @@ export default defineComponent({
     },
     loadGroupStatistics: {
       type: Function as PropType<
-        (row: ActiveRecord, field: RuntimeModelField, groupStatistics: GroupStatisticsEnum) => Promise<ActiveRecord>
+        (
+          row: ActiveRecord,
+          field: RuntimeModelField,
+          groupStatistics: GroupStatisticsEnum
+        ) => Promise<string | undefined>
       >
     }
   },
@@ -564,12 +568,9 @@ export default defineComponent({
             state.loading = true;
             const result = await props.loadGroupStatistics?.(props.context.data, props.field, val);
             if (result) {
-              const firstValue = result[props.field.data];
-              if (firstValue == null) {
-                statisticsValue.value = '';
-              } else {
-                statisticsValue.value = convertStatisticsValue(`${firstValue}`);
-              }
+              statisticsValue.value = convertStatisticsValue(`${result}`);
+            } else {
+              statisticsValue.value = '';
             }
           } finally {
             state.loading = false;

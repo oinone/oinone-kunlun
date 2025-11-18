@@ -1,0 +1,134 @@
+import { GQL, GQLResponseParameterBuilder } from '@oinone/kunlun-request';
+import { GraphqlHelper } from '@oinone/kunlun-shared';
+import { RuntimeModel } from '../runtime-metadata';
+import { ActiveRecord } from '../typing';
+import { FunctionService } from './FunctionService';
+import { FunctionMetadata, GroupingData, GroupingField, GroupingStatisticField } from './metadata';
+import { QueryPageOptions, QueryService, QueryWrapperOptions } from './QueryService';
+
+export interface TableGroupingWrapperOptions extends QueryWrapperOptions {
+  fields: GroupingField[];
+  queryRelationFields?: string[];
+  statisticField?: GroupingStatisticField;
+}
+
+export interface TableGroupingPageOptions extends QueryPageOptions {
+  fields: GroupingField[];
+}
+
+export interface TableGroupingResult {
+  totalElements: number;
+  totalPages: number;
+  totalDataCount: number;
+  groups: GroupingData[];
+}
+
+export class TableGroupingQueryService {
+  public static async queryGroupingPage(
+    model: RuntimeModel,
+    options: TableGroupingPageOptions
+  ): Promise<TableGroupingResult> {
+    const deep = options.fields.length;
+    const { queryWrapper, pagination } = QueryService.buildQueryPageParameters(options);
+    return GQL.query(model.name, 'queryGroupingPage')
+      .buildRequest((builder) => {
+        builder
+          .buildObjectParameter('page', (builder) =>
+            builder.numberParameter('currentPage', pagination.currentPage).numberParameter('size', pagination.size)
+          )
+          .buildObjectParameter('wrapper', (builder) =>
+            builder
+              .buildObjectParameter('queryWrapper', (builder) => {
+                builder.stringParameter('model', model.model);
+                const { rsql, queryData } = queryWrapper;
+                if (rsql) {
+                  builder.stringParameter('rsql', rsql);
+                }
+                if (queryData) {
+                  builder.objectParameter('queryData', GraphqlHelper.serializableObject(queryData));
+                }
+                const { sort } = pagination;
+                if (sort) {
+                  builder.buildObjectParameter('sort', (builder) =>
+                    builder.buildArrayParameter('orders', sort.orders, (builder, order) =>
+                      builder.stringParameter('field', order.field).enumerationParameter('direction', order.direction)
+                    )
+                  );
+                }
+              })
+              .buildArrayParameter('fields', options.fields, (builder, field) => {
+                builder.stringParameter('field', field.field);
+                builder.enumerationParameter('direction', field.direction);
+              })
+          );
+      })
+      .buildResponse((builder) => {
+        builder.parameter('totalElements', 'totalPages', 'totalDataCount');
+        builder.buildParameters('groups', (builder) => {
+          TableGroupingQueryService.buildResponseGroups(builder, deep);
+        });
+      })
+      .request(model.moduleName);
+  }
+
+  private static buildResponseGroups(builder: GQLResponseParameterBuilder, deep: number) {
+    if (deep >= 1) {
+      builder.parameter('field', 'value', 'data', 'isLeaf');
+      if (deep >= 2) {
+        builder.buildParameters('groups', (builder) => {
+          TableGroupingQueryService.buildResponseGroups(builder, deep - 1);
+        });
+      }
+    }
+  }
+
+  public static async queryGroupingDataByWrapper<T = ActiveRecord>(
+    model: RuntimeModel,
+    options: TableGroupingWrapperOptions
+  ): Promise<T[]> {
+    const { queryWrapper } = QueryService.buildQueryWrapperParameters(options);
+    const { requestFields, responseFields, fun, variables, context } = options;
+    return FunctionService.INSTANCE.simpleExecute<T[]>(
+      model,
+      await FunctionService.fetchFunctionDefinition(model, fun, FunctionMetadata.queryGroupingDataByWrapper),
+      {
+        requestModels: QueryService.generatorInternalRequestModels(),
+        responseModels: QueryService.generatorInternalResponseModels(),
+        requestFields,
+        responseFields,
+        variables,
+        context
+      },
+      {
+        queryWrapper,
+        fields: options.fields,
+        queryRelationFields: options.queryRelationFields
+      }
+    );
+  }
+
+  public static async queryGroupingStatistic(
+    model: RuntimeModel,
+    options: TableGroupingWrapperOptions
+  ): Promise<string> {
+    const { queryWrapper } = options;
+    const { requestFields, responseFields, fun, variables, context } = options;
+    return FunctionService.INSTANCE.simpleExecute<string>(
+      model,
+      await FunctionService.fetchFunctionDefinition(model, fun, FunctionMetadata.queryGroupingStatistic),
+      {
+        requestModels: QueryService.generatorInternalRequestModels(),
+        responseModels: QueryService.generatorInternalResponseModels(),
+        requestFields,
+        responseFields,
+        variables,
+        context
+      },
+      {
+        queryWrapper,
+        fields: options.fields,
+        statisticField: options.statisticField
+      }
+    );
+  }
+}

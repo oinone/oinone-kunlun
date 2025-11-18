@@ -1,6 +1,6 @@
 <script lang="ts">
-import { translateValueByKey } from '@oinone/kunlun-engine';
-import { EDirection, IGroup } from '@oinone/kunlun-service';
+import { GroupingField, translateValueByKey } from '@oinone/kunlun-engine';
+import { EDirection } from '@oinone/kunlun-service';
 import { TableFixed } from '@oinone/kunlun-vue-ui';
 import { OioIcon, ReturnPromise, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
@@ -44,7 +44,7 @@ export default defineComponent({
       default: false
     },
     groupList: {
-      type: Array as PropType<IGroup[]>,
+      type: Array as PropType<GroupingField[]>,
       default: () => []
     },
     onGroupChange: {
@@ -218,11 +218,11 @@ export default defineComponent({
           options.push(createOperationItem('隐藏此列', 'oinone-yincangcilie', handleHide));
 
           if (enableGrouping) {
-            if (groupList?.length && groupList.some((item) => item.groupField === field)) {
+            if (groupList?.length && groupList.some((item) => item.field === field)) {
               options.push(
                 createOperationItem('取消分组', 'oinone-ungroup-outlined', () => {
                   const list = groupList || [];
-                  const index = list?.findIndex((item) => item.groupField === field);
+                  const index = list?.findIndex((item) => item.field === field);
                   list.splice(index, 1);
                   onGroupChange?.(list);
                 })
@@ -231,7 +231,7 @@ export default defineComponent({
               options.push(
                 createOperationItem('以此字段分组', 'oinone-group-outlined', () => {
                   const list = groupList || [];
-                  list.push({ groupField: field, groupDirection: EDirection.ASC });
+                  list.push({ field, direction: EDirection.ASC });
                   onGroupChange?.(list);
                 })
               );

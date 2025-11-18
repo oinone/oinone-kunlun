@@ -1,5 +1,4 @@
-import { SubmitValue } from '@oinone/kunlun-engine';
-import { IGroup } from '@oinone/kunlun-service';
+import { GroupingField, SubmitValue } from '@oinone/kunlun-engine';
 import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
@@ -178,7 +177,7 @@ export abstract class BaseTableColumnWidget<
    */
   @Widget.Reactive()
   @Widget.Inject()
-  protected groupList!: IGroup[];
+  protected groupList: GroupingField[] | undefined;
 
   /**
    * 当前字段是否启动的分组
@@ -428,7 +427,7 @@ export abstract class BaseTableColumnWidget<
    */
   @Widget.Method()
   @Widget.Inject()
-  public onGroupChange!: (list: IGroup[]) => void;
+  public onGroupChange!: (list: GroupingField[]) => void;
 
   @Widget.Reactive()
   @Widget.Inject('expandTreeFieldColumn')
