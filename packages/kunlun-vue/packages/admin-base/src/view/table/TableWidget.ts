@@ -1319,7 +1319,6 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
     return {
       fields: this.groupList || [],
-      queryRelationFields: this.model.modelFields.filter((v) => isRelationField(v)).map((v) => v.data),
       queryWrapper,
       sort: this.sortList,
       variables,

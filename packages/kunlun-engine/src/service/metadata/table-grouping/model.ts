@@ -133,11 +133,6 @@ export namespace StaticMetadata {
         referencesModel: GroupingField
       }),
       MetadataHelper.buildSimpleModelField(TableGroupingWrapperModel, TableGroupingWrapperName, {
-        data: 'queryRelationFields',
-        ttype: ModelFieldType.String,
-        multi: true
-      }),
-      MetadataHelper.buildSimpleModelField(TableGroupingWrapperModel, TableGroupingWrapperName, {
         data: 'statisticField',
         ttype: ModelFieldType.ManyToOne,
         references: GroupingStatisticFieldModel,

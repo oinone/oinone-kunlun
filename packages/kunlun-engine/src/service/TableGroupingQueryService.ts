@@ -16,7 +16,6 @@ export interface TableGroupingWrapperOptions extends QueryWrapperOptions {
 export interface TableGroupingPageOptions extends QueryPageOptions {
   fields: GroupingField[];
   responseFields: RequestModelField[];
-  queryRelationFields?: string[];
 }
 
 export interface TableGroupingResult {
@@ -31,7 +30,7 @@ export class TableGroupingQueryService {
     model: RuntimeModel,
     options: TableGroupingPageOptions
   ): Promise<TableGroupingResult> {
-    const { fields, responseFields, queryRelationFields } = options;
+    const { fields, responseFields } = options;
     const deep = fields.length;
     const { queryWrapper, pagination } = QueryService.buildQueryPageParameters(options);
     return GQL.query(model.name, 'queryGroupingPage')
@@ -40,7 +39,7 @@ export class TableGroupingQueryService {
           .buildObjectParameter('page', (builder) =>
             builder.numberParameter('currentPage', pagination.currentPage).numberParameter('size', pagination.size)
           )
-          .buildObjectParameter('wrapper', (builder) => {
+          .buildObjectParameter('wrapper', (builder) =>
             builder
               .buildObjectParameter('queryWrapper', (builder) => {
                 builder.stringParameter('model', model.model);
@@ -66,11 +65,8 @@ export class TableGroupingQueryService {
               })
               .buildObjectParameter('gqlFields', (builder) => {
                 RequestHelper.buildGQLRequestParameterFields(builder, responseFields);
-              });
-            if (queryRelationFields?.length) {
-              builder.stringParameter('queryRelationFields', queryRelationFields);
-            }
-          });
+              })
+          );
       })
       .buildResponse((builder) => {
         builder.parameter('totalElements', 'totalPages', 'totalDataCount');
