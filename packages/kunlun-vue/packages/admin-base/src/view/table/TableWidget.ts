@@ -1292,7 +1292,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   protected initGroupTreeField() {
     if (this.enableGrouping) {
-      this.expandTreeField = this.rootRuntimeContext.model.modelFields.find((v) => !v.invisible);
+      this.expandTreeField = this.model.modelFields.find((v) => !v.invisible);
     }
   }
 
@@ -1319,6 +1319,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
     return {
       fields: this.groupList || [],
+      queryRelationFields: this.model.modelFields.filter((v) => isRelationField(v)).map((v) => v.data),
       queryWrapper,
       sort: this.sortList,
       variables,
@@ -1373,10 +1374,11 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   protected async loadGroupPage(condition?: Condition) {
     const pagination = this.generatorPagination();
-
+    const responseFields = this.generatorRequestFields();
     const result = await TableGroupingQueryService.queryGroupingPage(this.model, {
       currentPage: this.pagination?.current || 1,
       pageSize: this.showPagination ? pagination.pageSize : -1,
+      responseFields,
       ...this.generatorGroupQueryCondition(condition)
     } as TableGroupingPageOptions);
 

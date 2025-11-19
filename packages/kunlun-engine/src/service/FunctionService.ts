@@ -37,7 +37,7 @@ import {
   RuntimeRelatedField,
   RuntimeRelationField
 } from '../runtime-metadata';
-import { StaticMetadata } from './metadata';
+import { StaticMetadata } from './metadata/basic';
 import { QueryContext, QueryVariables } from './typing';
 
 const STRING_PARAMETER_TYPES = [...STRING_FIELD_TTYPES, ...DATETIME_FIELD_TTYPES];
@@ -654,12 +654,12 @@ export class FunctionService {
     if (field.isVirtual) {
       return;
     }
-    let parameters: GQLResponseParameter | GQLResponseParameterMap = builder.getParameters();
     const relatedFields = field.related;
-    if (!relatedFields) {
+    if (!relatedFields?.length) {
       console.error('Invalid related field', field);
       return;
     }
+    let parameters: GQLResponseParameter | GQLResponseParameterMap = builder.getParameters();
     const lastedIndex = relatedFields.length - 1;
     for (let i = 0; i < relatedFields.length; i++) {
       const relatedField = relatedFields[i];
@@ -789,7 +789,7 @@ export class FunctionService {
   }
 }
 
-class StaticRequestModelFieldsCache extends MemoryCache<string, RequestModelField[]> {
+export class StaticRequestModelFieldsCache extends MemoryCache<string, RequestModelField[]> {
   public static INSTANCE = new StaticRequestModelFieldsCache();
 
   private static StaticModels: RuntimeModel[] = FunctionService.usingStaticModels();
@@ -802,13 +802,18 @@ class StaticRequestModelFieldsCache extends MemoryCache<string, RequestModelFiel
     return this.runtimeModelConvertRequestModelFields(staticModel);
   }
 
-  public runtimeModelConvertRequestModelFields(model: RuntimeModel): RequestModelField[] {
+  private runtimeModelConvertRequestModelFields(model: RuntimeModel): RequestModelField[] {
     const requestModelFields: RequestModelField[] = [];
     model.modelFields.forEach((field) => {
       const target: RequestModelField = { field };
-      const referenceModel = field.modelDefinition;
-      if (referenceModel) {
-        target.referencesFields = this.runtimeModelConvertRequestModelFields(referenceModel);
+      if (isRelationField(field)) {
+        // 静态模型定义暂不支持关联关系字段
+        // const { referencesModel } = field;
+        // if (!referencesModel) {
+        //   return;
+        // }
+        // target.referencesFields = this.runtimeModelConvertRequestModelFields(referencesModel);
+        return;
       }
       requestModelFields.push(target);
     });

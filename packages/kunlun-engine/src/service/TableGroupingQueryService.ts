@@ -1,19 +1,22 @@
 import { GQL, GQLResponseParameterBuilder } from '@oinone/kunlun-request';
 import { GraphqlHelper } from '@oinone/kunlun-shared';
+import { RequestModelField } from '../runtime-context';
 import { RuntimeModel } from '../runtime-metadata';
 import { ActiveRecord } from '../typing';
 import { FunctionService } from './FunctionService';
 import { FunctionMetadata, GroupingData, GroupingField, GroupingStatisticField } from './metadata';
 import { QueryPageOptions, QueryService, QueryWrapperOptions } from './QueryService';
+import { RequestHelper } from './util/request-helper';
 
 export interface TableGroupingWrapperOptions extends QueryWrapperOptions {
   fields: GroupingField[];
-  queryRelationFields?: string[];
   statisticField?: GroupingStatisticField;
 }
 
 export interface TableGroupingPageOptions extends QueryPageOptions {
   fields: GroupingField[];
+  responseFields: RequestModelField[];
+  queryRelationFields?: string[];
 }
 
 export interface TableGroupingResult {
@@ -28,7 +31,8 @@ export class TableGroupingQueryService {
     model: RuntimeModel,
     options: TableGroupingPageOptions
   ): Promise<TableGroupingResult> {
-    const deep = options.fields.length;
+    const { fields, responseFields, queryRelationFields } = options;
+    const deep = fields.length;
     const { queryWrapper, pagination } = QueryService.buildQueryPageParameters(options);
     return GQL.query(model.name, 'queryGroupingPage')
       .buildRequest((builder) => {
@@ -36,7 +40,7 @@ export class TableGroupingQueryService {
           .buildObjectParameter('page', (builder) =>
             builder.numberParameter('currentPage', pagination.currentPage).numberParameter('size', pagination.size)
           )
-          .buildObjectParameter('wrapper', (builder) =>
+          .buildObjectParameter('wrapper', (builder) => {
             builder
               .buildObjectParameter('queryWrapper', (builder) => {
                 builder.stringParameter('model', model.model);
@@ -56,11 +60,17 @@ export class TableGroupingQueryService {
                   );
                 }
               })
-              .buildArrayParameter('fields', options.fields, (builder, field) => {
+              .buildArrayParameter('fields', fields, (builder, field) => {
                 builder.stringParameter('field', field.field);
                 builder.enumerationParameter('direction', field.direction);
               })
-          );
+              .buildObjectParameter('gqlFields', (builder) => {
+                RequestHelper.buildGQLRequestParameterFields(builder, responseFields);
+              });
+            if (queryRelationFields?.length) {
+              builder.stringParameter('queryRelationFields', queryRelationFields);
+            }
+          });
       })
       .buildResponse((builder) => {
         builder.parameter('totalElements', 'totalPages', 'totalDataCount');
@@ -68,7 +78,7 @@ export class TableGroupingQueryService {
           TableGroupingQueryService.buildResponseGroups(builder, deep);
         });
       })
-      .request(model.moduleName);
+      .request(model.moduleName, options.variables, options.context);
   }
 
   private static buildResponseGroups(builder: GQLResponseParameterBuilder, deep: number) {
@@ -101,8 +111,7 @@ export class TableGroupingQueryService {
       },
       {
         queryWrapper,
-        fields: options.fields,
-        queryRelationFields: options.queryRelationFields
+        fields: options.fields
       }
     );
   }

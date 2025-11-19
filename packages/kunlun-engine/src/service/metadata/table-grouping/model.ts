@@ -1,7 +1,7 @@
 import { ModelFieldType, SYSTEM_MODULE, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { EDirection } from '@oinone/kunlun-service';
 import { RuntimeModel } from '../../../runtime-metadata';
-import { MetadataHelper } from '../../util';
+import { MetadataHelper } from '../../util/metadata-helper';
 import { StaticMetadata as BasicStaticMetadata } from '../basic';
 
 export interface GroupingData {
