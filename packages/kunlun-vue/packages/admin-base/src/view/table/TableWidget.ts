@@ -1394,7 +1394,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       groups?.map((g) => {
         if (g.groups?.length) {
           return {
-            [this.expandTreeFieldColumn as string]: g.value,
+            [this.expandTreeFieldColumn as string]: this.parseGroupValue(g),
             [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
             [GROUP_TREE_KEY.PROPS_KEY]: g,
             [GROUP_TREE_KEY.CHILDREN_KEY]: this.generatorGroupTree(g.groups)
@@ -1403,13 +1403,23 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
         const children = g.data ? JSON.parse(g.data || '[]') : [];
         return {
-          [this.expandTreeFieldColumn as string]: g.value,
+          [this.expandTreeFieldColumn as string]: this.parseGroupValue(g),
           [GROUP_TREE_KEY.IS_LEAF_KEY]: g.isLeaf,
           [GROUP_TREE_KEY.PROPS_KEY]: g,
           [GROUP_TREE_KEY.CHILDREN_KEY]: children
         };
       }) || []
     );
+  }
+
+  protected parseGroupValue(groupingData: GroupingData): unknown {
+    const { isJsonValue, value } = groupingData;
+    if (isJsonValue && typeof value === 'string') {
+      const objectValue = JSON.parse(value);
+      groupingData.value = objectValue;
+      return objectValue;
+    }
+    return value;
   }
 
   @Widget.Reactive()

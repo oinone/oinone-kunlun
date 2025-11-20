@@ -48,7 +48,7 @@ export class TableGroupingQueryService {
                   builder.stringParameter('rsql', rsql);
                 }
                 if (queryData) {
-                  builder.objectParameter('queryData', GraphqlHelper.serializableObject(queryData));
+                  builder.stringParameter('queryData', GraphqlHelper.serializableObject(queryData));
                 }
                 const { sort } = pagination;
                 if (sort) {
@@ -79,7 +79,11 @@ export class TableGroupingQueryService {
 
   private static buildResponseGroups(builder: GQLResponseParameterBuilder, deep: number) {
     if (deep >= 1) {
-      builder.parameter('field', 'value', 'data', 'isLeaf');
+      const fields = ['field', 'value', 'isJsonValue', 'isLeaf'];
+      if (deep === 1) {
+        fields.push('data');
+      }
+      builder.parameter(...fields);
       if (deep >= 2) {
         builder.buildParameters('groups', (builder) => {
           TableGroupingQueryService.buildResponseGroups(builder, deep - 1);

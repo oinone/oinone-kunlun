@@ -466,7 +466,7 @@ export class FunctionService {
       return `[${value.map((v) => FunctionService.serializeObjectValue(v))}]`;
     }
     if (typeof value === 'object') {
-      return `{${Object.entries(value || {}).map(([k, v]) => `${k}: ${JSON.stringify(v)}`)}}`;
+      return `{${Object.entries(value || {}).map(([k, v]) => `${k}: ${FunctionService.serializeObjectValue(v)}`)}}`;
     }
     return JSON.stringify(value);
   }

@@ -399,7 +399,7 @@ const serializeObjectValue = (value: unknown): string => {
     return `[${value.map((v) => serializeObjectValue(v))}]`;
   }
   if (typeof value === 'object') {
-    return `{${Object.entries(value || {}).map(([k, v]) => `${k}: ${JSON.stringify(v)}`)}}`;
+    return `{${Object.entries(value || {}).map(([k, v]) => `${k}: ${serializeObjectValue(v)}`)}}`;
   }
   return JSON.stringify(value);
 };

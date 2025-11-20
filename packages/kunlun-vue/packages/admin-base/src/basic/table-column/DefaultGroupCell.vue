@@ -34,7 +34,6 @@
 <script lang="ts">
 import {
   ActiveRecord,
-  getRealTtype,
   GroupStatisticsEnum,
   IResourceDateTimeFormat,
   isDateField,
@@ -45,12 +44,9 @@ import {
   queryResourceDateTimeFormat,
   RuntimeModel,
   RuntimeModelField,
-  RuntimeNumberField,
-  RuntimeRelationField,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { isEnumTtype, isRelationTtype, isStringTtype } from '@oinone/kunlun-meta';
-import { GROUP_TREE_KEY, VxeTableRowContext } from '@oinone/kunlun-vue-ui';
+import { VxeTableRowContext } from '@oinone/kunlun-vue-ui';
 import {
   DateFormatMap,
   DateTimeFormatMap,
@@ -65,7 +61,6 @@ import {
 } from '@oinone/kunlun-vue-ui-antd';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import dayjs from 'dayjs';
-import { max, min, round, sortBy, sum, uniq } from 'lodash-es';
 import { computed, defineComponent, nextTick, onMounted, PropType, reactive, ref } from 'vue';
 
 const EMPTY_VALUE = '__empty__';
@@ -164,41 +159,6 @@ export default defineComponent({
     const visible = ref(false);
     const selectValue = ref(GroupStatisticsEnum.NONE);
 
-    // 中位数
-    const median = (arr: number[]): number => {
-      if (!arr.length) {
-        return 0;
-      }
-      // 从小到大排序
-      const sorted = sortBy(arr);
-      // 中间的数
-      const mid = Math.floor(sorted.length / 2);
-      // 如果数量是 奇数，中位数就是正中间的那个数
-      // 如果数量是 偶数，中位数就是中间两个数的平均值
-      if (sorted.length % 2 !== 0) {
-        return sorted[mid];
-      }
-      return formatMean((sorted[mid - 1] + sorted[mid]) / 2);
-    };
-
-    const numberRound = (computedValue: number) => {
-      let { decimal } = props.field as RuntimeNumberField;
-      if (decimal == null) {
-        decimal = 0;
-      }
-      decimal = Number(decimal);
-      if (Number.isNaN(decimal)) {
-        decimal = 0;
-      }
-      return round(computedValue, decimal);
-    };
-
-    // 比例（保留一位小数）
-    const formatRatio = (value: number) => round(value * 100, 1);
-
-    // 平均值（保留两位小数）
-    const formatMean = (value: number) => round(value, 2);
-
     const convertFormat = (format) => {
       if (isDateField(props.field)) {
         return DateFormatMap.get(format);
@@ -213,16 +173,6 @@ export default defineComponent({
 
     const convertTimeFormat = (format) => {
       return TimeFormatMap.get(format);
-    };
-
-    const formatNumber = (values: string[]): number[] => {
-      const val = values.map((v) => Number(v)).filter((v) => !Number.isNaN(v));
-
-      if (!val.length) {
-        return [0];
-      }
-
-      return val;
     };
 
     const normalizeDateTime = (v: string | number) => {
@@ -287,199 +237,7 @@ export default defineComponent({
       return format;
     });
 
-    const getDataList = (list: ActiveRecord[]) => {
-      const _list = [] as ActiveRecord[];
-
-      list.forEach((item) => {
-        if (!item[GROUP_TREE_KEY.CHILDREN_KEY]) {
-          _list.push(item);
-        } else {
-          _list.push(...getDataList(item[GROUP_TREE_KEY.CHILDREN_KEY] as any));
-        }
-      });
-
-      return _list;
-    };
-
     const statisticsValue = ref('');
-
-    const computeStatisticsValue = (list: ActiveRecord[]) => {
-      // 总数量
-      const total = list.length;
-      const ttype = getRealTtype(props.field);
-      // 值
-      const values: string[] = [];
-      // 未填写数量
-      let notFilled = 0;
-      for (const item of list) {
-        const value = item[props.field.name];
-        if (value == null) {
-          notFilled++;
-          continue;
-        }
-        if (isRelationTtype(ttype)) {
-          const pks = (props.field as RuntimeRelationField).referencesModel.pks || [];
-          if (pks.length >= 1) {
-            if (Array.isArray(value)) {
-              if (!value.length) {
-                notFilled++;
-                continue;
-              }
-              values.push(pks.map((pk) => (value as object[]).map((v) => v[pk] || EMPTY_VALUE).join('_')).join('#'));
-            } else {
-              values.push(pks.map((pk) => (value as object)[pk] || EMPTY_VALUE).join('#'));
-            }
-          } else {
-            const referenceFields = (props.field as RuntimeRelationField).referenceFields || [];
-            if (referenceFields.length >= 1) {
-              if (Array.isArray(value)) {
-                if (!value.length) {
-                  notFilled++;
-                  continue;
-                }
-                values.push(
-                  referenceFields
-                    .map((referenceField) => (value as object[]).map((v) => v[referenceField] || EMPTY_VALUE).join('_'))
-                    .join('#')
-                );
-              } else {
-                values.push(
-                  referenceFields.map((referenceField) => (value as object)[referenceField] || EMPTY_VALUE).join('#')
-                );
-              }
-            }
-          }
-        } else if (isStringTtype(ttype)) {
-          if (Array.isArray(value)) {
-            if (!value.length) {
-              notFilled++;
-              continue;
-            }
-            values.push(value.join('#'));
-          } else {
-            if (!value) {
-              notFilled++;
-              continue;
-            }
-            values.push(value as string);
-          }
-        } else if (Array.isArray(value)) {
-          if (!value.length) {
-            notFilled++;
-            continue;
-          }
-          values.push(
-            value
-              .sort()
-              .map((v) => `${v}`)
-              .join('#')
-          );
-        } else {
-          values.push(`${value}`);
-        }
-      }
-      // 已填写数量
-      const filled = total - notFilled;
-      // 唯一值数量
-      const uniqueCount = uniq(values).length;
-
-      let computedValue: string | number | undefined;
-
-      switch (selectValue.value) {
-        case GroupStatisticsEnum.COUNT:
-          // 总数量
-          computedValue = total;
-          break;
-        case GroupStatisticsEnum.NOT_NULL:
-          // 已填写
-          computedValue = filled;
-          break;
-        case GroupStatisticsEnum.NULL:
-          // 未填写
-          computedValue = notFilled;
-          break;
-        case GroupStatisticsEnum.UNIQUE:
-          // 唯一值
-          computedValue = uniqueCount;
-          break;
-        case GroupStatisticsEnum.NOT_NULL_PERCENT:
-          // 已填写占比
-          computedValue = total > 0 ? formatRatio(filled / total) : 0;
-          break;
-        case GroupStatisticsEnum.NULL_PERCENT:
-          // 未填写占比
-          computedValue = total > 0 ? formatRatio(notFilled / total) : 0;
-          break;
-        case GroupStatisticsEnum.UNIQUE_PERCENT:
-          // 唯一值占比
-          computedValue = total > 0 ? formatRatio(uniqueCount / total) : 0;
-          break;
-        case GroupStatisticsEnum.EARLIEST_TIME:
-          // 最早时间
-          if (values.length) {
-            computedValue = min(values.map(normalizeDateTime));
-          }
-          break;
-        case GroupStatisticsEnum.LATEST_TIME:
-          if (values.length) {
-            computedValue = max(values.map(normalizeDateTime));
-          }
-          break;
-        case GroupStatisticsEnum.TIME_RANGE_DAY:
-          if (values.length) {
-            const timestamps = values.map(normalizeDateTime);
-            const minDate = dayjs(min(timestamps));
-            const maxDate = dayjs(max(timestamps));
-            computedValue = maxDate.diff(minDate, 'day');
-          }
-          break;
-        case GroupStatisticsEnum.TIME_RANGE_MONTH:
-          if (values.length) {
-            const timestamps = values.map(normalizeDateTime);
-            const minDate = dayjs(min(timestamps));
-            const maxDate = dayjs(max(timestamps));
-            computedValue = maxDate.diff(minDate, 'month');
-          }
-          break;
-        case GroupStatisticsEnum.TIME_RANGE_YEAR:
-          if (values.length) {
-            const timestamps = values.map(normalizeDateTime);
-            const minDate = dayjs(min(timestamps));
-            const maxDate = dayjs(max(timestamps));
-            computedValue = maxDate.diff(minDate, 'year');
-          }
-          break;
-        case GroupStatisticsEnum.SUM:
-          // 求和
-          computedValue = numberRound(sum(formatNumber(values)));
-          break;
-        case GroupStatisticsEnum.AVERAGE:
-          // 平均值
-          computedValue = formatMean(sum(formatNumber(values)) / total);
-          break;
-        case GroupStatisticsEnum.MEDIAN:
-          // 中位数
-          computedValue = median(formatNumber(values));
-          break;
-        case GroupStatisticsEnum.MAX:
-          // 最大值
-          computedValue = max(formatNumber(values));
-          break;
-        case GroupStatisticsEnum.MIN:
-          // 最小值
-          computedValue = min(formatNumber(values));
-          break;
-        case GroupStatisticsEnum.NONE:
-        default:
-          return translateValueByKey('统计');
-      }
-
-      if (computedValue != null) {
-        return convertStatisticsValue(computedValue);
-      }
-
-      return '';
-    };
 
     const convertStatisticsValue = (value: string | number): string => {
       switch (selectValue.value) {
@@ -530,7 +288,6 @@ export default defineComponent({
         case GroupStatisticsEnum.MIN:
           // 最小值
           return `${translateValueByKey('最小值')} ${value}`;
-        case GroupStatisticsEnum.NONE:
         default:
           return translateValueByKey('统计');
       }
@@ -554,27 +311,20 @@ export default defineComponent({
       visible.value = false;
       nextTick(async () => {
         selectValue.value = val;
-        const list = props.context.data[GROUP_TREE_KEY.CHILDREN_KEY] as ActiveRecord[];
-        let usingFrontStatistics: boolean;
-        if (isEnumTtype(getRealTtype(props.field))) {
-          usingFrontStatistics = false;
-        } else {
-          usingFrontStatistics = !!list?.length && !list[0][GROUP_TREE_KEY.PROPS_KEY];
+        if (val === GroupStatisticsEnum.NONE) {
+          statisticsValue.value = '';
+          return;
         }
-        if (usingFrontStatistics) {
-          statisticsValue.value = computeStatisticsValue(list);
-        } else {
-          try {
-            state.loading = true;
-            const result = await props.loadGroupStatistics?.(props.context.data, props.field, val);
-            if (result) {
-              statisticsValue.value = convertStatisticsValue(`${result}`);
-            } else {
-              statisticsValue.value = '';
-            }
-          } finally {
-            state.loading = false;
+        try {
+          state.loading = true;
+          const result = await props.loadGroupStatistics?.(props.context.data, props.field, val);
+          if (result) {
+            statisticsValue.value = convertStatisticsValue(`${result}`);
+          } else {
+            statisticsValue.value = '';
           }
+        } finally {
+          state.loading = false;
         }
       });
     };

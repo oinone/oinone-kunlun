@@ -7,6 +7,7 @@ import { StaticMetadata as BasicStaticMetadata } from '../basic';
 export interface GroupingData {
   field: string;
   value: unknown;
+  isJsonValue: boolean;
   data: string;
   isLeaf: boolean;
   groups?: GroupingData[];
