@@ -37,7 +37,7 @@ export class SSOLoginWidget extends BaseLoginWidget {
 
   @Widget.Reactive()
   protected get loginUrl() {
-    return UrlHelper.appendBasePath('/pamirs/sso/login');
+    return UrlHelper.appendBasePath('/pamirs/sso/oauth2/login');
   }
 
   @Widget.Method()
