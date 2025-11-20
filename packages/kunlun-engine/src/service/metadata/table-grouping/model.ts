@@ -105,7 +105,7 @@ export namespace StaticMetadata {
       }),
       MetadataHelper.buildSimpleModelField(GroupingStatisticFieldModel, GroupingStatisticFieldName, {
         data: 'statisticMethod',
-        ttype: ModelFieldType.Enum
+        ttype: ModelFieldType.String
       })
     ]
   };
