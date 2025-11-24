@@ -227,7 +227,7 @@ export default defineComponent({
 
     const onDepartmentSelected = async ({ selectedKeys }: { selectedKeys: string[] }) => {
       if (selectedKeys.length) {
-        const rsql = RSQLCondition.wrapper().in('departmentCode', selectedKeys).toString();
+        const rsql = RSQLCondition.wrapper().eq('departmentList.code', selectedKeys[0]).toString();
         await $$searchEmployeeList(employeeListRef1.value!, rsql);
       } else {
         await $$initEmployeeList(employeeListRef1.value!);
