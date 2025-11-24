@@ -145,8 +145,10 @@ export class ActionBarWidget<
   protected initBizStyle(): string | undefined {
     const { viewState } = this;
     let { bizStyle } = this.getDsl();
-    if (viewState && isListViewState(viewState) && isMinimalismTheme()) {
-      bizStyle = ActionBarBizStyle.style2;
+    if (bizStyle == null) {
+      if (viewState && isListViewState(viewState) && isMinimalismTheme()) {
+        bizStyle = ActionBarBizStyle.style2;
+      }
     }
     return bizStyle;
   }
