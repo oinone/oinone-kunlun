@@ -182,6 +182,13 @@ const disabledRows = computed(() => {
 const onChangeTableHeader = (value, option, index) => {
   tableHeaderValues.value[index].value = value;
   tableHeaderValues.value[index].readonly = option.readonly;
+  if (value !== NON_CUT) {
+    const other = tableHeaderValues.value.find((v, i) => v.value === value && i !== index);
+    if (other) {
+      other.value = NON_CUT;
+      other.readonly = true;
+    }
+  }
 };
 
 const getThSelectValue = (index) => {
