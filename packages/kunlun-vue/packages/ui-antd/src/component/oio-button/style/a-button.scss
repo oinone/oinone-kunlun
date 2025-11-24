@@ -216,3 +216,26 @@ $linkParameterPrefix: $buttonParameterPrefix + -link;
     }
   }
 }
+
+&.ant-btn-text {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  &[disabled] {
+    background-color: transparent;
+    border-color: transparent;
+
+    &:hover,
+    &:focus {
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+}
