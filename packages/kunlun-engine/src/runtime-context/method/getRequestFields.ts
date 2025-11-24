@@ -111,6 +111,9 @@ function isSkip(
   relationUpdateType: RelationUpdateType,
   filter: boolean | RequestModelFieldFilterFunction
 ): boolean {
+  if (!field.ttype) {
+    return true;
+  }
   if (isBoolean(filter) && filter) {
     if (viewType === ViewType.Form && isRelation2MField(field)) {
       if (
