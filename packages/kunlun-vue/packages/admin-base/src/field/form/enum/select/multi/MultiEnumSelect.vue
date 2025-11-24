@@ -9,6 +9,8 @@
         :placeholder="placeholder"
         :allowClear="allowClear"
         :open="dropdownOpen"
+        max-tag-count="responsive"
+        :max-tag-placeholder="defaultMaxTagPlaceholder"
         :filter-option="false"
         :not-found-content="null"
         :default-active-first-option="false"
@@ -34,6 +36,7 @@
 </template>
 <script lang="ts">
 import { RuntimeEnumerationOption, TableKeyboardConfig } from '@oinone/kunlun-engine';
+import { useMaxTagPlaceholder } from '@oinone/kunlun-vue-ui-antd';
 import { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { Select as ASelect } from 'ant-design-vue';
 import { computed, defineComponent, nextTick, PropType, ref } from 'vue';
@@ -108,6 +111,7 @@ export default defineComponent({
     };
 
     return {
+      ...useMaxTagPlaceholder(),
       placeholder,
       realValue,
       readonly,
