@@ -171,7 +171,7 @@ export class ActionBarWidget<
       if (index === 0) {
         return { type: ButtonType.primary, bizStyle: ButtonBizStyle.default };
       }
-      return { type: ButtonType.link, bizStyle: ButtonBizStyle.info };
+      return { type: ButtonType.text, bizStyle: ButtonBizStyle.default };
     }
   }
 

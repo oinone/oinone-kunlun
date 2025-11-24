@@ -18,6 +18,7 @@ import { computed, createVNode, defineComponent, PropType, VNode, vShow, withDir
 import { ActiveCountEnum, MoreActionRender, OperationColumnDirection } from '../../../typing';
 import { CollectionActions } from '../../../util/collection-actions';
 import DefaultDropdown from '../dropdown/DefaultDropdown.vue';
+import { ActionBarBizStyle } from '../typing';
 
 const actionBarClassName = 'action-bar';
 
@@ -40,9 +41,9 @@ function createMoreAction(
   if (inline) {
     classList.push(`${moreActionSelectorClassName}-inline`);
     defaultButtonType = ButtonType.link;
-  } else if (options.bizStyle === 'style2') {
-    defaultButtonType = ButtonType.link;
-    defaultBizStyle = ButtonBizStyle.info;
+  } else if (options.bizStyle === ActionBarBizStyle.style2) {
+    defaultButtonType = ButtonType.text;
+    defaultBizStyle = ButtonBizStyle.default;
   }
   const { buttonType, allMounted } = options;
   const triggerVNode = createVNode(
