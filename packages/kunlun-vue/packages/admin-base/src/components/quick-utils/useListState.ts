@@ -132,7 +132,7 @@ export function useListState<T extends IdModel>(initOptions: {
     if (initOptions.load) {
       list = await initOptions.load(state, service, queryWrapper);
     } else {
-      list = await service.queryListByWrapper(queryWrapper);
+      list = (await service.queryPage({ currentPage: 1, size: -1 }, queryWrapper)).content;
     }
     if (convertListData) {
       return convertListData(list);
