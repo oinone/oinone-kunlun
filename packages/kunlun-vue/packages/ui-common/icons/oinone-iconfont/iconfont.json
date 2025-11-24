@@ -6,6 +6,76 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "46163329",
+      "name": "工具箱",
+      "font_class": "gongjuxiang",
+      "unicode": "e984",
+      "unicode_decimal": 59780
+    },
+    {
+      "icon_id": "46162636",
+      "name": "配置",
+      "font_class": "peizhi",
+      "unicode": "e97d",
+      "unicode_decimal": 59773
+    },
+    {
+      "icon_id": "46162632",
+      "name": "发送",
+      "font_class": "fasong1",
+      "unicode": "e97e",
+      "unicode_decimal": 59774
+    },
+    {
+      "icon_id": "46162635",
+      "name": "箭头向右",
+      "font_class": "jiantouxiangyou",
+      "unicode": "e97f",
+      "unicode_decimal": 59775
+    },
+    {
+      "icon_id": "46162634",
+      "name": "剪切",
+      "font_class": "jianqie2",
+      "unicode": "e980",
+      "unicode_decimal": 59776
+    },
+    {
+      "icon_id": "46162633",
+      "name": "附件",
+      "font_class": "fujian",
+      "unicode": "e981",
+      "unicode_decimal": 59777
+    },
+    {
+      "icon_id": "46162631",
+      "name": "语音",
+      "font_class": "yuyin",
+      "unicode": "e982",
+      "unicode_decimal": 59778
+    },
+    {
+      "icon_id": "46162630",
+      "name": "发货",
+      "font_class": "fahuo",
+      "unicode": "e983",
+      "unicode_decimal": 59779
+    },
+    {
+      "icon_id": "45415537",
+      "name": "right-outlined",
+      "font_class": "right-outlined",
+      "unicode": "e97c",
+      "unicode_decimal": 59772
+    },
+    {
+      "icon_id": "10905244",
+      "name": "平移",
+      "font_class": "move",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
       "icon_id": "45858618",
       "name": "add",
       "font_class": "add",

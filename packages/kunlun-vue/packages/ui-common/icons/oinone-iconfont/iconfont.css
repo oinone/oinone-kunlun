@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2657071 */
-  src: url('iconfont.woff2?t=1761713484590') format('woff2'),
-       url('iconfont.woff?t=1761713484590') format('woff'),
-       url('iconfont.ttf?t=1761713484590') format('truetype');
+  src: url('iconfont.woff2?t=1763975915909') format('woff2'),
+       url('iconfont.woff?t=1763975915909') format('woff'),
+       url('iconfont.ttf?t=1763975915909') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,46 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.oinone-gongjuxiang:before {
+  content: "\e984";
+}
+
+.oinone-peizhi:before {
+  content: "\e97d";
+}
+
+.oinone-fasong1:before {
+  content: "\e97e";
+}
+
+.oinone-jiantouxiangyou:before {
+  content: "\e97f";
+}
+
+.oinone-jianqie2:before {
+  content: "\e980";
+}
+
+.oinone-fujian:before {
+  content: "\e981";
+}
+
+.oinone-yuyin:before {
+  content: "\e982";
+}
+
+.oinone-fahuo:before {
+  content: "\e983";
+}
+
+.oinone-right-outlined:before {
+  content: "\e97c";
+}
+
+.oinone-move:before {
+  content: "\e647";
 }
 
 .oinone-add:before {
