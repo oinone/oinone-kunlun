@@ -1492,7 +1492,7 @@
     {
       "icon_id": "44201472",
       "name": "弹窗",
-      "font_class": "danchuang",
+      "font_class": "dialog",
       "unicode": "e8b0",
       "unicode_decimal": 59568
     },
@@ -1555,7 +1555,7 @@
     {
       "icon_id": "44199712",
       "name": "抽屉",
-      "font_class": "chouti",
+      "font_class": "drawer",
       "unicode": "e8b6",
       "unicode_decimal": 59574
     },

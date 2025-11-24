@@ -4,6 +4,7 @@ import {
   OioCloseIcon,
   OioIcon,
   OioModalProps,
+  PopupDisplayAs,
   PropRecordHelper,
   StyleHelper,
   useDraggable,
@@ -134,7 +135,7 @@ export default defineComponent({
           this.showPopupToggle &&
             createVNode(OioIcon, {
               style: { cursor: 'pointer' },
-              icon: this.drawerModalClassName ? 'oinone-danchuang' : 'oinone-chouti',
+              icon: this.displayAs === PopupDisplayAs.modal ? 'oinone-drawer' : 'oinone-dialog',
               size: 16,
               onClick: withModifiers(this.onDisplayAsSwitch, ['stop'])
             }),

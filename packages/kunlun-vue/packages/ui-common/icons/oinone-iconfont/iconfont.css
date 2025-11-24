@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2657071 */
-  src: url('iconfont.woff2?t=1763979954563') format('woff2'),
-       url('iconfont.woff?t=1763979954563') format('woff'),
-       url('iconfont.ttf?t=1763979954563') format('truetype');
+  src: url('iconfont.woff2?t=1763989307153') format('woff2'),
+       url('iconfont.woff?t=1763989307153') format('woff'),
+       url('iconfont.ttf?t=1763989307153') format('truetype');
 }
 
 .iconfont {
@@ -861,7 +861,7 @@
   content: "\e8ba";
 }
 
-.oinone-danchuang:before {
+.oinone-dialog:before {
   content: "\e8b0";
 }
 
@@ -897,7 +897,7 @@
   content: "\e8b5";
 }
 
-.oinone-chouti:before {
+.oinone-drawer:before {
   content: "\e8b6";
 }
 

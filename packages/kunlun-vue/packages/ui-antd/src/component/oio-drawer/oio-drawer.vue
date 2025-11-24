@@ -1,6 +1,13 @@
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import { OioCloseIcon, OioDrawerProps, OioIcon, PropRecordHelper, useDrawer } from '@oinone/kunlun-vue-ui-common';
+import {
+  OioCloseIcon,
+  OioDrawerProps,
+  OioIcon,
+  PopupDisplayAs,
+  PropRecordHelper,
+  useDrawer
+} from '@oinone/kunlun-vue-ui-common';
 import { Drawer as ADrawer } from 'ant-design-vue';
 import { isBoolean } from 'lodash-es';
 import { createVNode, defineComponent, withModifiers } from 'vue';
@@ -82,7 +89,7 @@ export default defineComponent({
           this.showPopupToggle &&
             createVNode(OioIcon, {
               style: { cursor: 'pointer' },
-              icon: this.modalDrawerClassName ? 'oinone-chouti' : 'oinone-danchuang',
+              icon: this.displayAs === PopupDisplayAs.drawer ? 'oinone-dialog' : 'oinone-drawer',
               size: 16,
               onClick: withModifiers(this.onDisplayAsSwitch, ['stop'])
             }),
