@@ -37,7 +37,7 @@ import {
 } from '@oinone/kunlun-vue-ui';
 import { ListSelectMode, OioNotification, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { isTableViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
-import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy, toString } from 'lodash-es';
+import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTablePropTypes } from 'vxe-table';
 import {
@@ -918,7 +918,7 @@ export class BaseTableWidget<
    * 分组视图数据源的总数量
    */
   @Widget.Reactive()
-  protected groupTotalDataCount = 0;
+  protected groupingExpandedAll: boolean | undefined;
 
   /**
    * 当前视图使用分组结构展示
@@ -936,7 +936,7 @@ export class BaseTableWidget<
   @Widget.Reactive()
   protected get groupViewFooterExpandControl() {
     if (this.enabledGroupView) {
-      return this.groupTotalDataCount <= 200;
+      return !!this.groupingExpandedAll;
     }
     return false;
   }

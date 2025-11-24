@@ -21,7 +21,7 @@ export interface TableGroupingPageOptions extends QueryPageOptions {
 export interface TableGroupingResult {
   totalElements: number;
   totalPages: number;
-  totalDataCount: number;
+  expandedAll: boolean;
   groups: GroupingData[];
 }
 
@@ -69,7 +69,7 @@ export class TableGroupingQueryService {
           );
       })
       .buildResponse((builder) => {
-        builder.parameter('totalElements', 'totalPages', 'totalDataCount');
+        builder.parameter('totalElements', 'totalPages', 'expandedAll');
         builder.buildParameters('groups', (builder) => {
           TableGroupingQueryService.buildResponseGroups(builder, deep);
         });

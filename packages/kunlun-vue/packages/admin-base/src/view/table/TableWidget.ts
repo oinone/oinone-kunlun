@@ -300,11 +300,12 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get isAllCheckedIndeterminate(): boolean | undefined {
-    if (this.readyToAllCheckedCount === -1) {
+    const total = this.readyToAllCheckedCount;
+    if (total === -1) {
       return undefined;
     }
     const checkedCount = this.activeRecords?.length || 0;
-    if (checkedCount > 0 && checkedCount < this.groupTotalDataCount) {
+    if (checkedCount > 0 && checkedCount < total) {
       return true;
     }
     return undefined;
@@ -1380,12 +1381,9 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       responseFields,
       ...this.generatorGroupQueryCondition(condition)
     } as TableGroupingPageOptions);
-
-    this.groupTotalDataCount = toNumber(result?.totalDataCount || 0);
-
+    this.groupingExpandedAll = result.expandedAll;
     pagination.total = toNumber(result?.totalElements);
     pagination.totalPageSize = toNumber(result?.totalPages);
-
     return this.generatorGroupTree(result?.groups);
   }
 
