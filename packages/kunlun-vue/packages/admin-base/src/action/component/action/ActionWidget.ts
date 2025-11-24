@@ -49,6 +49,10 @@ export class ActionWidget<
   Action extends RuntimeAction = RuntimeAction,
   Props extends ActionWidgetProps<Action> = ActionWidgetProps<Action>
 > extends BaseActionWidget<Action, Props> {
+  protected get actionConfig() {
+    return this.getMergeConfig('action');
+  }
+
   /**
    * 搜索数据
    * @protected
@@ -299,7 +303,28 @@ export class ActionWidget<
 
   @Widget.Reactive()
   protected get icon(): string | undefined {
-    return this.getDsl().icon;
+    return this.getDsl().icon || this.defaultIcon;
+  }
+
+  @Widget.Reactive()
+  protected get defaultIcon(): string | undefined {
+    if (this.inline) {
+      return undefined;
+    }
+    const showDefaultIcon = BooleanHelper.toBoolean(this.actionConfig.showDefaultIcon);
+    if (showDefaultIcon !== false) {
+      const { name } = this.action;
+      switch (name) {
+        case 'redirectCreatePage':
+          return 'oinone-plus-outlined';
+        case 'delete':
+          return 'oinone-delete-outlined';
+        case 'internalGotoListImportDialog':
+          return 'oinone-import-outlined';
+        case 'internalGotoListExportDialog':
+          return 'oinone-export-outlined';
+      }
+    }
   }
 
   protected seekSearchRuntimeContext(): RuntimeContext | undefined {

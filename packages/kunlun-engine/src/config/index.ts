@@ -1,3 +1,4 @@
+export * from './action';
 export * from './config-helper';
 export * from './experimental';
 export * from './gallery';
