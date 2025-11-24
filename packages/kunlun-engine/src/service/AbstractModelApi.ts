@@ -1,12 +1,12 @@
 import { OioListItem, OioTreeNode, TreeHelper, TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { IdModel, NameCodeModel, Pagination, TreeModel } from '../typing';
+import { IdModel, NameCodeModel, TreeModel } from '../typing';
 import { GenericFunctionService } from './GenericFunctionService';
-import { QueryPageResult, QueryWrapper } from './metadata';
+import { QueryPageResult, QueryPagination, QueryWrapper } from './metadata';
 
 export interface ModelApi<T extends IdModel> {
   queryListByWrapper(queryWrapper: QueryWrapper): Promise<T[]>;
 
-  queryPage(page: Pagination, queryWrapper: QueryWrapper): Promise<QueryPageResult<T>>;
+  queryPage(page: QueryPagination, queryWrapper: QueryWrapper): Promise<QueryPageResult<T>>;
 }
 
 export interface ListModelApi<T extends IdModel> extends ModelApi<T> {
@@ -40,7 +40,7 @@ export abstract class AbstractModelApi<T extends IdModel> implements ModelApi<T>
     );
   }
 
-  public async queryPage(page: Pagination, queryWrapper: QueryWrapper): Promise<QueryPageResult<T>> {
+  public async queryPage(page: QueryPagination, queryWrapper: QueryWrapper): Promise<QueryPageResult<T>> {
     return (
       (await GenericFunctionService.INSTANCE.simpleExecuteByFun(this.modelModel, 'queryPage', page, queryWrapper)) || {
         content: [],
