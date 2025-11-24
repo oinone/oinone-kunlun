@@ -280,10 +280,6 @@ export default defineComponent({
           color: var(--oio-dropdown-color-disabled);
         }
       }
-
-      &.ant-dropdown-menu-item-disabled:hover {
-        background: var(--oio-disabled-color);
-      }
     }
   }
 }

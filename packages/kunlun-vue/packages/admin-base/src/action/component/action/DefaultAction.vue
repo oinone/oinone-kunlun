@@ -105,6 +105,7 @@ export default defineComponent({
         // 解决AMenuItem会导致dropdown内无法打开抽屉的问题
         MenuItem,
         {
+          ...PropRecordHelper.collectionBasicProps(this.$attrs, [`${DEFAULT_PREFIX}-more-action-item`]),
           disabled: this.disabled,
           title: this.disabled ? this.disabledTitle : this.label
         },
