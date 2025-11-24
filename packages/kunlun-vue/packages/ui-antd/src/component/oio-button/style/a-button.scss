@@ -224,6 +224,8 @@ $linkParameterPrefix: $buttonParameterPrefix + -link;
 
   &:hover,
   &:focus {
+    --oio-icon-color: var(#{$buttonParameterPrefix + -text-color-hover});
+
     background-color: transparent;
     border-color: transparent;
   }
