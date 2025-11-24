@@ -37,7 +37,7 @@ import {
 } from '@oinone/kunlun-vue-ui';
 import { ListSelectMode, OioNotification, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { isTableViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
-import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy } from 'lodash-es';
+import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy, toString } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTablePropTypes } from 'vxe-table';
 import {
