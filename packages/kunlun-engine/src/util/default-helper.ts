@@ -8,7 +8,7 @@ export function isAllowSortable(field: RuntimeModelField) {
     if (store) {
       return false;
     }
-    return !!relationFields.length && !!referenceFields.length;
+    return !!relationFields?.length && !!referenceFields?.length;
   }
   return store;
 }
