@@ -63,13 +63,9 @@ export default defineComponent({
       style.maxWidth = defaultWidth;
       if (isObject(props.itemStyle)) {
         const hasWidth = !isNil(props.itemStyle?.width);
-        const hasMinWidth = !isNil(props.itemStyle?.minWidth);
-        const hasMaxWidth = !isNil(props.itemStyle?.maxWidth);
         if (hasWidth) {
           style.minWidth = CastHelper.cast(null);
           style.maxWidth = CastHelper.cast(null);
-        } else if (hasMaxWidth && !hasMinWidth) {
-          style.minWidth = CastHelper.cast(null);
         }
         style = {
           ...style,
