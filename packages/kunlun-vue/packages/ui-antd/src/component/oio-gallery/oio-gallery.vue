@@ -76,7 +76,9 @@ export default defineComponent({
     });
 
     return {
+      cols,
       gutter,
+      flexBasic,
       flex,
       rowStyle,
       colStyle

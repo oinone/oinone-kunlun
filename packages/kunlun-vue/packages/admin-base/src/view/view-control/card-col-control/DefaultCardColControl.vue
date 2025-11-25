@@ -10,7 +10,7 @@
       <div class="default-card-col-control">
         <div class="default-card-col-control-input">
           <div class="default-card-col-control-title">{{ $translate('一行展示卡片数量') }}</div>
-          <oio-input-number :value="internalCols" @update:value="onChangeInternalCols"></oio-input-number>
+          <oio-input-number v-model:value="internalCols"></oio-input-number>
         </div>
 
         <div class="default-card-col-control-footer">
@@ -24,17 +24,17 @@
         <template #title>
           <span>{{ $translate('行数量切换') }}</span>
         </template>
-        <oio-icon size="16" icon="oinone-card-outlined" @click="visible = true"> </oio-icon>
+        <oio-icon size="16" icon="oinone-card-outlined" @click="visible = true"></oio-icon>
       </a-tooltip>
     </div>
   </a-popover>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch } from 'vue';
+import { OioButton, OioIcon, OioInputNumber } from '@oinone/kunlun-vue-ui-antd';
 import { Popover as APopover } from 'ant-design-vue';
 import { toNumber } from 'lodash-es';
-import { OioIcon, OioInputNumber, OioButton } from '@oinone/kunlun-vue-ui-antd';
+import { defineComponent, PropType, ref } from 'vue';
 
 export default defineComponent({
   name: 'DefaultCardColControl',
@@ -51,15 +51,13 @@ export default defineComponent({
   setup(props) {
     const internalCols = ref<number>();
     const visible = ref(false);
-    const onChangeInternalCols = (val: number) => {
-      internalCols.value = isNaN(val) ? props.cols : toNumber(val);
-    };
 
     const tooltipStatus = ref(false);
     const onVisibleChange = (val) => {
       visible.value = val;
       if (val) {
         tooltipStatus.value = false;
+        internalCols.value = props.cols;
       }
     };
 
@@ -69,22 +67,25 @@ export default defineComponent({
 
     const onSure = () => {
       if (!internalCols.value) {
-        internalCols.value = props.cols;
+        return;
       }
-
-      props.setCardCols?.(internalCols.value);
+      const val = toNumber(internalCols.value);
+      if (Number.isNaN(val)) {
+        console.error('Invalid cols value.', internalCols.value);
+        return;
+      }
+      props.setCardCols?.(val);
       onCancel();
     };
 
-    watch(
-      () => props.cols,
-      (val) => {
-        internalCols.value = val;
-      },
-      { immediate: true, deep: true }
-    );
-
-    return { internalCols, visible, tooltipStatus, onChangeInternalCols, onCancel, onVisibleChange, onSure };
+    return {
+      internalCols,
+      visible,
+      tooltipStatus,
+      onCancel,
+      onVisibleChange,
+      onSure
+    };
   }
 });
 </script>
@@ -102,15 +103,18 @@ export default defineComponent({
   .default-card-col-control-footer {
     padding: var(--oio-padding-md);
     border-top: 1px solid var(--oio-border-color);
+
     .oio-button {
       margin-right: var(--oio-margin-md);
       line-height: var(--oio-line-height-sm);
       padding: 2px var(--oio-padding-sm);
       height: auto;
       text-align: center;
+
       &:last-child {
         margin-right: 0;
       }
+
       &.ant-btn > span {
         font-size: var(--oio-font-size-sm);
         line-height: unset;

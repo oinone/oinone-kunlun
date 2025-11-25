@@ -1,5 +1,5 @@
 import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
-import { GalleryConfigManager, getCurrentThemeSize } from '@oinone/kunlun-engine';
+import { getCurrentThemeSize } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
@@ -23,7 +23,7 @@ import DefaultGallery from './DefaultGallery.vue';
 )
 export class GalleryWidget extends BaseElementListViewWidget {
   protected get galleryConfig() {
-    return GalleryConfigManager.getConfig();
+    return this.getMergeConfig('gallery');
   }
 
   /**
@@ -51,15 +51,7 @@ export class GalleryWidget extends BaseElementListViewWidget {
   @Widget.Reactive()
   @Widget.Provide()
   protected get sortable() {
-    return super.sortable;
-  }
-
-  protected get defaultSortable() {
-    const { sortable } = this.galleryConfig;
-    if (sortable == null) {
-      return true;
-    }
-    return sortable;
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.galleryConfig.sortable)).orElse(true);
   }
 
   @Widget.Reactive()
