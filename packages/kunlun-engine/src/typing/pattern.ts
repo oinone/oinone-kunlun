@@ -43,7 +43,7 @@ export const CommonPatternList: FieldPattern[] = [
     errorMsg: '网址格式有误',
     patternType: FieldStringPatternType.WEB_SITE,
     pattern:
-      '((([A-Za-z]{3,9}:(?:\\/\\/)?)(?:[\\-;:&=\\+\\$,\\w]+@)?[A-Za-z0-9\\.\\-]+|(?:www\\.|[\\-;:&=\\+\\$,\\w]+@)[A-Za-z0-9\\.\\-]+)((?:\\/[\\+~%\\/\\.\\w\\-_]*)?\\??(?:[\\-\\+=&;%@\\.\\w_]*)#?(?:[\\.\\!\\/\\\\\\w]*))?)'
+      '^(https?:\\/\\/|ftp:\\/\\/)?((\\d{1,3}\\.){3}\\d{1,3}|([\\da-z-]+(?:\\.[\\da-z-]+)*)\\.([a-z]{2,6}))(:[0-9]{1,5})?(\\/[^\\s]*)?$'
   },
   {
     help: '身份证',
@@ -74,7 +74,7 @@ export const CommonPatternList: FieldPattern[] = [
     help: '邮箱',
     errorMsg: '邮箱格式有误',
     patternType: FieldStringPatternType.EMAIL,
-    pattern: '^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$'
+    pattern: '^[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)*@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)*(\\.[a-zA-Z]{2,})$'
   },
   {
     help: '字母数字',
@@ -122,19 +122,21 @@ export const CommonPatternList: FieldPattern[] = [
     help: 'IP地址',
     errorMsg: 'IP地址格式有误',
     patternType: FieldStringPatternType.IP_ADDRESS,
-    pattern: '^((25[0-5]'
+    pattern:
+      '^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$|^(?:(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,7}:|(?:[0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,5}(?::[0-9a-fA-F]{1,4}){1,2}|(?:[0-9a-fA-F]{1,4}:){1,4}(?::[0-9a-fA-F]{1,4}){1,3}|(?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}|(?:[0-9a-fA-F]{1,4}:){1,2}(?::[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:(?::[0-9a-fA-F]{1,4}){1,6}|:(?::[0-9a-fA-F]{1,4}){1,7}|::)$|^::ffff:(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$'
   },
   {
     help: '车牌号',
     errorMsg: '车牌号格式有误',
     patternType: FieldStringPatternType.CAR_NUMBER,
-    pattern: '^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4,5}$'
+    pattern:
+      '^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-HJ-NP-Z](?:[0-9]{5}|[DF][0-9A-HJ-NP-Z]{5}|警[0-9]{4}|Z[港澳][0-9A-HJ-NP-Z]{4}|军[A-HJ-NP-Z][0-9]{5})|WJ[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼][0-9A-HJ-NP-Z]{5}|[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼][A-HJ-NP-Z][0-9]{4}[学练警领使挂]$'
   },
   {
     help: '中国护照',
     errorMsg: '中国护照格式有误',
     patternType: FieldStringPatternType.CHINESE_PASSPORT,
-    pattern: '^[GE]\\d{8}$'
+    pattern: '^[PEGSCD](?:\\d{8})$'
   },
   {
     help: '密码',
