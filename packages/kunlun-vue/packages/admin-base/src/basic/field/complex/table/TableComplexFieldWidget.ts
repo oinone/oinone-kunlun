@@ -40,6 +40,11 @@ export class TableComplexFieldWidget<
     return this.referencesModel?.pks?.[0] || 'id';
   }
 
+  @Widget.Reactive()
+  protected get defaultSortable() {
+    return false;
+  }
+
   protected handleTableLabel(dataEntity) {
     const realLabel = this.optionLabel || this.referencesModel?.label;
     let showValue;

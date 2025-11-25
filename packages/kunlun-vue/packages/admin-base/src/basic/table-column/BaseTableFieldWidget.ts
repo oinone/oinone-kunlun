@@ -210,9 +210,14 @@ export class BaseTableFieldWidget<
       if (!this.tableSortable) {
         return false;
       }
-      return isAllowSortable(this.field);
+      return this.defaultSortable;
     }
-    return sortable || false;
+    return sortable;
+  }
+
+  @Widget.Reactive()
+  protected get defaultSortable() {
+    return isAllowSortable(this.field);
   }
 
   @Widget.Reactive()
@@ -222,9 +227,14 @@ export class BaseTableFieldWidget<
       if (!this.tableEnableGrouping) {
         return false;
       }
-      return isAllowGrouping(this.field);
+      return this.defaultEnableGrouping;
     }
     return enableGrouping || false;
+  }
+
+  @Widget.Reactive()
+  protected get defaultEnableGrouping() {
+    return isAllowGrouping(this.field);
   }
 
   @Widget.Reactive()
