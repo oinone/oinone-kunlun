@@ -112,8 +112,8 @@ function* gen<T>(list: T[], fn: (item: T, index: number) => void) {
   let current = 0;
   while (current < list.length) {
     fn(list[current], current);
-    current++;
     yield;
+    current++;
   }
 }
 
