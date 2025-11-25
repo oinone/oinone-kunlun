@@ -323,6 +323,8 @@ export class ActionWidget<
           return 'oinone-import-outlined';
         case 'internalGotoListExportDialog':
           return 'oinone-export-outlined';
+        case 'internalGotoPrintDialog':
+          return 'oinone-dayin';
       }
     }
   }

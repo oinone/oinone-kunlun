@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "46178735",
+      "name": "打印",
+      "font_class": "dayin",
+      "unicode": "e98a",
+      "unicode_decimal": 59786
+    },
+    {
+      "icon_id": "46178044",
+      "name": "智能",
+      "font_class": "zhineng",
+      "unicode": "e988",
+      "unicode_decimal": 59784
+    },
+    {
+      "icon_id": "46178043",
+      "name": "头像",
+      "font_class": "touxiang",
+      "unicode": "e989",
+      "unicode_decimal": 59785
+    },
+    {
+      "icon_id": "46176855",
+      "name": "Blue-Oinone logo",
+      "font_class": "a-Blue-Oinonelogo",
+      "unicode": "e986",
+      "unicode_decimal": 59782
+    },
+    {
+      "icon_id": "46176806",
+      "name": "White-Oinone logo",
+      "font_class": "a-White-Oinonelogo",
+      "unicode": "e987",
+      "unicode_decimal": 59783
+    },
+    {
       "icon_id": "46173633",
       "name": "角色",
       "font_class": "jiaose",
