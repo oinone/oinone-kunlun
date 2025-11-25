@@ -133,6 +133,7 @@ export default defineComponent({
         // 控制图标
         const controlIcons = [
           this.showPopupToggle &&
+            !this.isFullScreen &&
             createVNode(OioIcon, {
               style: { cursor: 'pointer' },
               icon: this.displayAs === PopupDisplayAs.modal ? 'oinone-drawer' : 'oinone-dialog',

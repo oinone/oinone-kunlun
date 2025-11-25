@@ -118,7 +118,6 @@ export function useDrawer(props, context) {
    */
   const onFullSwitch = () => {
     displayAs.value = PopupDisplayAs.drawer;
-
     if (isFullScreen.value) {
       internalHeight.value = undefined;
       internalWidth.value = undefined;
