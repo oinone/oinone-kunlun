@@ -94,13 +94,13 @@ import { NON_CUT, TableFieldOption } from './type';
 const runFun = window.requestIdleCallback || ((fn) => setTimeout(fn));
 
 const timeSlice = (gen: Generator | (() => Generator), done?: () => void) => {
-  if (typeof gen === 'function') gen = gen();
-  if (!gen || typeof gen.next !== 'function') return;
+  let generator: Generator = typeof gen === 'function' ? gen() : gen;
+  if (!generator || typeof generator.next !== 'function') return;
   return function next() {
     const start: number = performance.now();
     let res: IteratorResult<unknown> | null = null;
     do {
-      res = gen.next();
+      res = generator.next();
     } while (!res.done && performance.now() - start < 100);
 
     if (res.done) return done?.();
