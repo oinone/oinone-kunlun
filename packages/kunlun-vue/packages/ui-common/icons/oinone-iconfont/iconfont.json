@@ -6,6 +6,146 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "46198923",
+      "name": "待审核",
+      "font_class": "daishenhe",
+      "unicode": "e98b",
+      "unicode_decimal": 59787
+    },
+    {
+      "icon_id": "46198922",
+      "name": "待办",
+      "font_class": "daiban",
+      "unicode": "e98c",
+      "unicode_decimal": 59788
+    },
+    {
+      "icon_id": "46178735",
+      "name": "打印",
+      "font_class": "dayin",
+      "unicode": "e98a",
+      "unicode_decimal": 59786
+    },
+    {
+      "icon_id": "46178044",
+      "name": "智能",
+      "font_class": "zhineng",
+      "unicode": "e988",
+      "unicode_decimal": 59784
+    },
+    {
+      "icon_id": "46178043",
+      "name": "头像",
+      "font_class": "touxiang",
+      "unicode": "e989",
+      "unicode_decimal": 59785
+    },
+    {
+      "icon_id": "46176855",
+      "name": "Blue-Oinone logo",
+      "font_class": "a-Blue-Oinonelogo",
+      "unicode": "e986",
+      "unicode_decimal": 59782
+    },
+    {
+      "icon_id": "46176806",
+      "name": "White-Oinone logo",
+      "font_class": "a-White-Oinonelogo",
+      "unicode": "e987",
+      "unicode_decimal": 59783
+    },
+    {
+      "icon_id": "46173633",
+      "name": "角色",
+      "font_class": "jiaose",
+      "unicode": "e985",
+      "unicode_decimal": 59781
+    },
+    {
+      "icon_id": "46163329",
+      "name": "工具箱",
+      "font_class": "gongjuxiang",
+      "unicode": "e984",
+      "unicode_decimal": 59780
+    },
+    {
+      "icon_id": "46162636",
+      "name": "配置",
+      "font_class": "peizhi",
+      "unicode": "e97d",
+      "unicode_decimal": 59773
+    },
+    {
+      "icon_id": "46162632",
+      "name": "发送",
+      "font_class": "fasong1",
+      "unicode": "e97e",
+      "unicode_decimal": 59774
+    },
+    {
+      "icon_id": "46162635",
+      "name": "箭头向右",
+      "font_class": "jiantouxiangyou",
+      "unicode": "e97f",
+      "unicode_decimal": 59775
+    },
+    {
+      "icon_id": "46162634",
+      "name": "剪切",
+      "font_class": "jianqie2",
+      "unicode": "e980",
+      "unicode_decimal": 59776
+    },
+    {
+      "icon_id": "46162633",
+      "name": "附件",
+      "font_class": "fujian",
+      "unicode": "e981",
+      "unicode_decimal": 59777
+    },
+    {
+      "icon_id": "46162631",
+      "name": "语音",
+      "font_class": "yuyin",
+      "unicode": "e982",
+      "unicode_decimal": 59778
+    },
+    {
+      "icon_id": "46162630",
+      "name": "发货",
+      "font_class": "fahuo",
+      "unicode": "e983",
+      "unicode_decimal": 59779
+    },
+    {
+      "icon_id": "45415537",
+      "name": "right-outlined",
+      "font_class": "right-outlined",
+      "unicode": "e97c",
+      "unicode_decimal": 59772
+    },
+    {
+      "icon_id": "10905244",
+      "name": "平移",
+      "font_class": "move",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "45858618",
+      "name": "add",
+      "font_class": "add",
+      "unicode": "e97a",
+      "unicode_decimal": 59770
+    },
+    {
+      "icon_id": "45858619",
+      "name": "Reduce",
+      "font_class": "Reduce",
+      "unicode": "e97b",
+      "unicode_decimal": 59771
+    },
+    {
       "icon_id": "45632023",
       "name": "超时",
       "font_class": "chaoshi",
@@ -1401,7 +1541,7 @@
     {
       "icon_id": "44201472",
       "name": "弹窗",
-      "font_class": "danchuang",
+      "font_class": "dialog",
       "unicode": "e8b0",
       "unicode_decimal": 59568
     },
@@ -1464,7 +1604,7 @@
     {
       "icon_id": "44199712",
       "name": "抽屉",
-      "font_class": "chouti",
+      "font_class": "drawer",
       "unicode": "e8b6",
       "unicode_decimal": 59574
     },

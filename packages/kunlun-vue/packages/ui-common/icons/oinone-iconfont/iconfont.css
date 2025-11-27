@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2657071 */
-  src: url('iconfont.woff2?t=1759128898609') format('woff2'),
-       url('iconfont.woff?t=1759128898609') format('woff'),
-       url('iconfont.ttf?t=1759128898609') format('truetype');
+  src: url('iconfont.woff2?t=1764215503458') format('woff2'),
+       url('iconfont.woff?t=1764215503458') format('woff'),
+       url('iconfont.ttf?t=1764215503458') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,86 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.oinone-daishenhe:before {
+  content: "\e98b";
+}
+
+.oinone-daiban:before {
+  content: "\e98c";
+}
+
+.oinone-dayin:before {
+  content: "\e98a";
+}
+
+.oinone-zhineng:before {
+  content: "\e988";
+}
+
+.oinone-touxiang:before {
+  content: "\e989";
+}
+
+.oinone-a-Blue-Oinonelogo:before {
+  content: "\e986";
+}
+
+.oinone-a-White-Oinonelogo:before {
+  content: "\e987";
+}
+
+.oinone-jiaose:before {
+  content: "\e985";
+}
+
+.oinone-gongjuxiang:before {
+  content: "\e984";
+}
+
+.oinone-peizhi:before {
+  content: "\e97d";
+}
+
+.oinone-fasong1:before {
+  content: "\e97e";
+}
+
+.oinone-jiantouxiangyou:before {
+  content: "\e97f";
+}
+
+.oinone-jianqie2:before {
+  content: "\e980";
+}
+
+.oinone-fujian:before {
+  content: "\e981";
+}
+
+.oinone-yuyin:before {
+  content: "\e982";
+}
+
+.oinone-fahuo:before {
+  content: "\e983";
+}
+
+.oinone-right-outlined:before {
+  content: "\e97c";
+}
+
+.oinone-move:before {
+  content: "\e647";
+}
+
+.oinone-add:before {
+  content: "\e97a";
+}
+
+.oinone-Reduce:before {
+  content: "\e97b";
 }
 
 .oinone-chaoshi:before {
@@ -809,7 +889,7 @@
   content: "\e8ba";
 }
 
-.oinone-danchuang:before {
+.oinone-dialog:before {
   content: "\e8b0";
 }
 
@@ -845,7 +925,7 @@
   content: "\e8b5";
 }
 
-.oinone-chouti:before {
+.oinone-drawer:before {
   content: "\e8b6";
 }
 
