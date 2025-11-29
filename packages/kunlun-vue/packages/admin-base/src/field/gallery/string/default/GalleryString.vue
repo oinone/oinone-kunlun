@@ -103,6 +103,7 @@ export default defineComponent({
   }
 }
 
+.default-card-title-wrap,
 .default-card-content-wrap {
   .gallery-string-value {
     text-wrap: wrap;

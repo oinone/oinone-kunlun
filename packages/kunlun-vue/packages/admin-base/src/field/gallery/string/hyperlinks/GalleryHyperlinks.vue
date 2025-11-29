@@ -42,6 +42,7 @@ export default defineComponent({
   white-space: nowrap;
 }
 
+.default-card-title-wrap,
 .default-card-content-wrap {
   .gallery-string-hyperlinks {
     text-wrap: wrap;
