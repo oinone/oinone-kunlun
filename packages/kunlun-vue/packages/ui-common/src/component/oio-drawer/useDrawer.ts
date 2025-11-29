@@ -22,8 +22,8 @@ export function useDrawer(props, context) {
   });
 
   const isFullScreen = ref(false);
-  const internalWidth = ref<keyof typeof DrawerWidth>();
-  const internalHeight = ref<keyof typeof DrawerHeight>();
+  const internalWidth = ref<string | undefined>();
+  const internalHeight = ref<string | undefined>();
 
   // 弹窗形式的抽屉
   const modalDrawerClassName = computed(() => {
@@ -53,10 +53,20 @@ export function useDrawer(props, context) {
     }
     if (internalWidth.value != null) {
       switch (displayAs.value) {
-        case PopupDisplayAs.drawer:
-          return DrawerWidth[internalWidth.value];
-        case PopupDisplayAs.modal:
-          return ModalWidth[internalWidth.value];
+        case PopupDisplayAs.drawer: {
+          const val = DrawerWidth[internalWidth.value];
+          if (val != null) {
+            return val;
+          }
+          return internalWidth.value;
+        }
+        case PopupDisplayAs.modal: {
+          const val = ModalWidth[internalWidth.value];
+          if (val != null) {
+            return val;
+          }
+          return internalWidth.value;
+        }
       }
     }
     const _width = props.width;
@@ -149,8 +159,12 @@ export function useDrawer(props, context) {
             key = Object.keys(DrawerWidth).find(
               (key) => key === props.width.toLowerCase() || DrawerWidth[key] === props.width
             ) as keyof typeof DrawerHeight | undefined;
+            if (key == null) {
+              internalHeight.value = StyleHelper.px(props.width);
+            } else {
+              internalHeight.value = key;
+            }
           }
-          internalHeight.value = key;
           break;
         case DrawerPlacement.top:
         case DrawerPlacement.bottom:
@@ -158,8 +172,12 @@ export function useDrawer(props, context) {
             key = Object.keys(DrawerHeight).find(
               (key) => key === props.height.toLowerCase() || DrawerHeight[key] === props.height
             ) as keyof typeof DrawerHeight | undefined;
+            if (key == null) {
+              internalWidth.value = StyleHelper.px(props.height);
+            } else {
+              internalWidth.value = key;
+            }
           }
-          internalWidth.value = key;
           break;
       }
     } else {
