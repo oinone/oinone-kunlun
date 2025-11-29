@@ -78,7 +78,6 @@ export default defineComponent({
       } else {
         props.change?.(options);
       }
-      origin.value.focus();
     };
 
     const onSearch = debounce(async (keyword: string) => {
@@ -87,9 +86,10 @@ export default defineComponent({
 
     /**
      * 在单选状态，下拉框聚焦时，点击回车会出现调用两次 onDropdownVisibleChange 方法的现象
-     * 该计数器用于判定此时是否正处于回车事件，且需要进行数据提交的情况
+     * 该计时器用于判定此时是否正处于回车事件，且需要进行数据提交的情况
+     * 如果在计时器创建后立即关闭，则认为此时正处于回车事件，需要进行数据提交
      */
-    let count = 0;
+    let t;
 
     const onDropdownVisibleChange = (val: boolean) => {
       if (props.allowSearch && props.searchArea === SelectSearchArea.dropdown) {
@@ -102,29 +102,37 @@ export default defineComponent({
           origin.value.focus();
           return;
         }
-        nextTick(() => {
-          dropdownVisible.value = val;
-          if (val) {
+        if (val) {
+          t = setTimeout(() => {
+            dropdownVisible.value = true;
             props.initLoad?.();
             focusSearchInput = true;
             delay(() => {
               dropdownInputRef.value?.focus();
             }, 200);
-          } else if (!props.mode || props.mode === SelectMode.single) {
+            clearTimeout(t);
+            t = null;
+          });
+        } else if (t != null) {
+          clearTimeout(t);
+          t = null;
+        } else {
+          dropdownVisible.value = false;
+          if (props.mode !== SelectMode.multiple) {
             origin.value.focus();
           }
-        });
+        }
       } else if (val) {
-        if (count === 0) {
-          count++;
-          setTimeout(() => (count = 0));
-        }
-        dropdownVisible.value = true;
-        props.initLoad?.();
+        t = setTimeout(() => {
+          dropdownVisible.value = true;
+          props.initLoad?.();
+          clearTimeout(t);
+          t = null;
+        });
+      } else if (t != null) {
+        clearTimeout(t);
+        t = null;
       } else {
-        if (count === 1) {
-          count++;
-        }
         nextTick(() => {
           dropdownVisible.value = false;
         });
@@ -149,19 +157,24 @@ export default defineComponent({
     const onKeydown = (e: KeyboardEvent) => {
       // 当键盘数据提交快捷键与下拉框内置选中快捷键冲突时，保证行内编辑态不丢失
       if (e.key === 'Enter' && props.isEnterSubmit && dropdownVisible.value) {
-        if (props.mode !== SelectMode.multiple && count === 2) {
-          return;
+        if (props.mode !== SelectMode.multiple) {
+          focusSearchInput = false;
+          dropdownVisible.value = false;
+          origin.value.focus();
         }
         e.preventDefault();
         e.stopPropagation();
       }
     };
 
+    const onFocus = (e) => {
+      props.focus?.(e);
+    };
+
     const onBlur = (e) => {
       if (focusSearchInput) {
         return;
       }
-      focusSearchInput = false;
       props.blur?.(e);
     };
 
@@ -211,6 +224,7 @@ export default defineComponent({
       onDropdownVisibleChange,
       onPopupScroll,
       onKeydown,
+      onFocus,
       onBlur,
       onSearchInputFocus,
       onSearchInputBlur,
@@ -234,7 +248,7 @@ export default defineComponent({
       showLoadCompleted,
       getTriggerContainer,
       onChange,
-      focus,
+      onFocus,
       onBlur,
       defaultMaxTagPlaceholder,
       allowArrow,
@@ -272,7 +286,7 @@ export default defineComponent({
       showArrow: allowArrow,
       getPopupContainer: getTriggerContainer,
       onChange,
-      onFocus: focus,
+      onFocus,
       onBlur,
 
       onDropdownVisibleChange,

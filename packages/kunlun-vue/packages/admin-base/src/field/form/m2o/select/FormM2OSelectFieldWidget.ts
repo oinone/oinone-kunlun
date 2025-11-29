@@ -75,3 +75,25 @@ export class FormM2OSelectFieldWidget extends FormSelectComplexFieldWidget<Activ
     this.updateM2oValue();
   });
 }
+
+// @SPI.ClassFactory(
+//   FormFieldWidget.Token({
+//     viewType: ViewType.Form,
+//     ttype: ModelFieldType.ManyToOne
+//   })
+// )
+// export class FormM2OSelectFieldWidget extends SelectFieldWidget<ActiveRecord, ActiveRecord, RuntimeM2OField> {
+//   public async submit(submitValue: SubmitValue) {
+//     const { field, itemName, value, viewMode, submitCache, submitType, relationUpdateType } = this;
+//     return SubmitRelationHandler.M2O(
+//       field,
+//       itemName,
+//       submitValue,
+//       value,
+//       viewMode,
+//       submitCache,
+//       submitType,
+//       relationUpdateType
+//     );
+//   }
+// }

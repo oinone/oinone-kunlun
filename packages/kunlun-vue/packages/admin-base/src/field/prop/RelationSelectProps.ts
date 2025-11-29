@@ -133,9 +133,10 @@ export function relationSelectSetup(props, multi?: boolean) {
 
   /**
    * 在单选状态，下拉框聚焦时，点击回车会出现调用两次 onDropdownVisibleChange 方法的现象
-   * 该计数器用于判定此时是否正处于回车事件，且需要进行数据提交的情况
+   * 该计时器用于判定此时是否正处于回车事件，且需要进行数据提交的情况
+   * 如果在计时器创建后立即关闭，则认为此时正处于回车事件，需要进行数据提交
    */
-  let count = 0;
+  let t;
 
   const dropdownVisibleChange = (val: boolean) => {
     if (props.showSearch && props.searchArea === SelectSearchArea.dropdown) {
@@ -148,30 +149,39 @@ export function relationSelectSetup(props, multi?: boolean) {
         selectRef.value.focus();
         return;
       }
-      // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
-      nextTick(() => {
-        dropdownOpen.value = val;
-        props.dropdownVisibleChange(val);
-        if (val) {
+      if (val) {
+        // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
+        t = setTimeout(() => {
+          dropdownOpen.value = true;
+          props.dropdownVisibleChange(true);
           focusSearchInput = true;
           delay(() => {
             dropdownInputRef.value?.focus();
           }, 200);
-        } else if (!multi) {
+          clearTimeout(t);
+          t = null;
+        });
+      } else if (t != null) {
+        clearTimeout(t);
+        t = null;
+      } else {
+        dropdownOpen.value = false;
+        props.dropdownVisibleChange(false);
+        if (!multi) {
           selectRef.value.focus();
         }
-      });
+      }
     } else if (val) {
-      if (count === 0) {
-        count++;
-        setTimeout(() => (count = 0));
-      }
-      dropdownOpen.value = true;
-      props.dropdownVisibleChange(true);
+      t = setTimeout(() => {
+        dropdownOpen.value = true;
+        props.dropdownVisibleChange(true);
+        clearTimeout(t);
+        t = null;
+      });
+    } else if (t != null) {
+      clearTimeout(t);
+      t = null;
     } else {
-      if (count === 1) {
-        count++;
-      }
       nextTick(() => {
         dropdownOpen.value = false;
         props.dropdownVisibleChange(false);
@@ -195,13 +205,9 @@ export function relationSelectSetup(props, multi?: boolean) {
   const { placeholder } = usePlaceholderProps(props);
 
   const onKeydown = (e: KeyboardEvent) => {
-    console.log('onKeydown', e.key, dropdownOpen.value);
     // 当键盘数据提交快捷键与下拉框内置选中快捷键冲突时，保证行内编辑态不丢失
     if (e.key === 'Enter' && e.key === props.tableKeyboardConfig?.enter?.key && dropdownOpen.value) {
       if (!multi) {
-        if (count === 2) {
-          return;
-        }
         focusSearchInput = false;
         dropdownOpen.value = false;
         props.dropdownVisibleChange(false);
