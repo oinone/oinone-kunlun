@@ -205,7 +205,7 @@ export default defineComponent({
       return treeNode;
     }
     if (!!filterData.length && selectMode === SelectMode.multiple && showCheckedAll) {
-      return createVNode('div', { class: 'oio-department-tree-wrapper' }, [
+      return createVNode('div', { class: 'oio-department-tree-wrapper oio-scrollbar' }, [
         createVNode('div', { class: 'oio-department-tree-node oio-department-tree-node-checked-all' }, [
           createVNode('div', { class: 'oio-department-tree-node-title' }, '全选'),
           createVNode(OioCheckbox, {
