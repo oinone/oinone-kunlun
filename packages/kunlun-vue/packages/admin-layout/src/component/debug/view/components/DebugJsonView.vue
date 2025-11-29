@@ -8,7 +8,7 @@
       @click="onShowJSONDialog"
       >JSON视图
     </oio-button>
-    <oio-textarea :class="textClass" :value="text" />
+    <oio-textarea :class="textClass" :value="text" @update:value="onUpdateText" />
     <a-modal
       v-if="showJSONDialog"
       v-model:visible="showJSONDialog"
@@ -44,7 +44,8 @@ export default defineComponent({
       type: String
     }
   },
-  setup(props) {
+  emits: ['update:text'],
+  setup(props, { emit }) {
     const showJSONDialog = ref(false);
     const debugJSONObject = ref({});
     const buildDebugJSONObject = () => {
@@ -69,7 +70,11 @@ export default defineComponent({
       showJSONDialog.value = false;
     }
 
-    return { showJSONDialog, vueJsonPrettyConfig, debugJSONObject, onShowJSONDialog, onCancel };
+    const onUpdateText = (text: string) => {
+      emit('update:text', text);
+    };
+
+    return { showJSONDialog, vueJsonPrettyConfig, debugJSONObject, onShowJSONDialog, onCancel, onUpdateText };
   }
 });
 </script>
