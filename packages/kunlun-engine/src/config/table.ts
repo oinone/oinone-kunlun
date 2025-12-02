@@ -47,6 +47,11 @@ export interface TableConfig extends RuntimeConfigOptions {
    * 快捷键配置
    */
   keyboardConfig?: TableKeyboardConfig;
+
+  /**
+   * 行内编辑提交整行数据
+   */
+  rowEditorSubmitAll?: boolean;
 }
 
 export interface TableKeyboardConfig extends RuntimeConfigOptions {

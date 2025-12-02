@@ -486,13 +486,25 @@ export class BaseTableWidget<
     return res;
   }
 
+  @Widget.Reactive()
+  protected get rowEditorSubmitAll() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.rowEditorSubmitAll)).orElse(true);
+  }
+
   /**
    * 行内编辑关闭时的数据提交
    * @param context 行上下文
    * @protected
    */
   protected async rowEditorClosedForSubmit(context: RowContext): Promise<ActiveRecord | undefined> {
-    const { editorMode, editorCloseTrigger } = this;
+    const { rowEditorSubmitAll, editorMode, editorCloseTrigger } = this;
+    if (rowEditorSubmitAll) {
+      if (editorMode === TableEditorMode.row || editorMode === TableEditorMode.cell) {
+        return context.data;
+      }
+      console.error('Invalid editor mode.', editorMode);
+      return undefined;
+    }
     switch (editorMode) {
       case TableEditorMode.row: {
         switch (editorCloseTrigger) {
