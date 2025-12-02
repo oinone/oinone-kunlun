@@ -1,8 +1,8 @@
 <script lang="ts">
-import { PamirsCompany } from '@oinone/kunlun-engine';
+import { PamirsCompany, TableKeyboardConfig } from '@oinone/kunlun-engine';
 import { OioSelectItem } from '@oinone/kunlun-shared';
 import { CastHelper, OioButton, PropRecordHelper, StringHelper } from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent } from 'vue';
+import { computed, createVNode, defineComponent, PropType } from 'vue';
 import { DefaultSelect, DefaultSelectProps } from '../base';
 import { selectorCompanySelectOptionRender } from './render';
 
@@ -17,6 +17,9 @@ export default defineComponent({
     ...DefaultSelectProps,
     bizStyle: {
       type: String
+    },
+    tableKeyboardConfig: {
+      type: Object as PropType<TableKeyboardConfig>
     }
   },
   setup(props) {
@@ -32,6 +35,7 @@ export default defineComponent({
 
       dropdownClassName,
       bizStyle,
+      tableKeyboardConfig,
       optionRender
     } = this;
     const classNames = ['oio-company-select'];
@@ -45,7 +49,8 @@ export default defineComponent({
       {
         ...PropRecordHelper.convert(DefaultSelectProps, CastHelper.cast(this)),
         ...PropRecordHelper.collectionBasicProps($attrs, classNames),
-        dropdownClassName: StringHelper.append(dropdownClassNames, dropdownClassName)
+        dropdownClassName: StringHelper.append(dropdownClassNames, dropdownClassName),
+        tableKeyboardConfig
       },
       {
         option: (data: OioSelectItem<PamirsCompany>) => optionRender(data)

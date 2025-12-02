@@ -1,6 +1,6 @@
 import { PamirsEmployee, RuntimeM2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { BooleanHelper, StringHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -22,6 +22,16 @@ export class FormM2MEmployeeFieldWidget extends SelectFieldWidget<PamirsEmployee
     super.initialize(props);
     this.setComponent(EmployeeSelect);
     return this;
+  }
+
+  @Widget.Reactive()
+  protected get departmentFilter(): boolean {
+    return Optional.ofNullable(this.getDsl().departmentFilter).map(BooleanHelper.toBoolean).orElse(true);
+  }
+
+  @Widget.Reactive()
+  protected get roleFilter(): boolean {
+    return Optional.ofNullable(this.getDsl().roleFilter).map(BooleanHelper.toBoolean).orElse(true);
   }
 
   @Widget.Reactive()
