@@ -4,6 +4,7 @@ import {
   ActiveRecords,
   activeRecordsClone,
   ActiveRecordsOperator,
+  formValidateErrorProcess,
   FunctionCache,
   FunctionMetadata,
   FunctionService,
@@ -21,7 +22,7 @@ import {
   translateValueByKey
 } from '@oinone/kunlun-engine';
 import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
-import { MessageHub } from '@oinone/kunlun-request';
+import { HttpClientError, MessageHub } from '@oinone/kunlun-request';
 import { EDirection, ISort } from '@oinone/kunlun-service';
 import { BooleanHelper, Optional, ReturnPromise, StringHelper } from '@oinone/kunlun-shared';
 import {
@@ -268,7 +269,7 @@ export class BaseTableWidget<
     return (
       this.currentEditorContext?.editorMode ||
       ((this.getDsl().editorMode as string)?.toLowerCase?.() as TableEditorMode) ||
-      TableEditorMode.cell
+      TableEditorMode.row
     );
   }
 
@@ -461,7 +462,6 @@ export class BaseTableWidget<
           res = await this.rowEditorClosedForUpdate(context, data);
         }
       } catch (e) {
-        console.error(e);
         res = false;
       }
     }
@@ -683,27 +683,32 @@ export class BaseTableWidget<
     const { rootRuntimeContext, model } = this;
     const requestFields = rootRuntimeContext.getRequestModelFields();
     const sessionPath = (this.currentEditorContext?.triggerAction as unknown as RuntimeAction)?.sessionPath;
-    if (sessionPath) {
-      return FunctionService.INSTANCE.simpleExecute<Record<string, unknown>>(
+    try {
+      if (sessionPath) {
+        return await FunctionService.INSTANCE.simpleExecute<Record<string, unknown>>(
+          model,
+          functionDefinition,
+          {
+            requestFields,
+            variables: {
+              path: sessionPath
+            }
+          },
+          data
+        );
+      }
+      return await FunctionService.INSTANCE.simpleExecute<Record<string, unknown>>(
         model,
         functionDefinition,
         {
-          requestFields,
-          variables: {
-            path: sessionPath
-          }
+          requestFields
         },
         data
       );
+    } catch (e) {
+      formValidateErrorProcess(e as HttpClientError);
+      throw e;
     }
-    return FunctionService.INSTANCE.simpleExecute<Record<string, unknown>>(
-      model,
-      functionDefinition,
-      {
-        requestFields
-      },
-      data
-    );
   }
 
   protected refreshRowEditorUpdate(context: RowContext, data: ActiveRecord, res: unknown) {
