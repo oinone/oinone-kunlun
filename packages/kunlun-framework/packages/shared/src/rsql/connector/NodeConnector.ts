@@ -33,10 +33,10 @@ export class RSQLConditionConnector<T extends RSQLConditionNodeInfo> implements 
     }
     let arg: string;
     const finalQuote = this.quote(nodeInfo, args[0]);
-    if (len === 1) {
-      arg = `${finalQuote}${args[0]}${finalQuote}`;
-    } else {
+    if (operator!.isMulti) {
       arg = `(${finalQuote}${args!.join(`${finalQuote}, ${finalQuote}`)}${finalQuote})`;
+    } else {
+      arg = `${finalQuote}${args[0]}${finalQuote}`;
     }
     return `${selector} ${operator!.symbol} ${arg}`;
   }
