@@ -1,5 +1,10 @@
 <script lang="ts">
-import { PamirsDepartment, PamirsDepartmentService, QueryWrapper } from '@oinone/kunlun-engine';
+import {
+  OrganizationalStructureType,
+  PamirsDepartment,
+  PamirsDepartmentService,
+  QueryWrapper
+} from '@oinone/kunlun-engine';
 import {
   CastHelper,
   OioEmptyData,
@@ -15,9 +20,10 @@ import {
   SelectMode,
   StringHelper
 } from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType, reactive, watch } from 'vue';
+import { computed, createVNode, defineComponent, PropType, reactive, VNode, watch } from 'vue';
 import { TreeState } from '../../quick-utils';
 import { BaseSelect } from '../base';
+import { OrganizationalStructureTree } from '../organizational-structure-tree';
 import DepartmentTree from './DepartmentTree.vue';
 
 interface State {
@@ -35,7 +41,8 @@ export default defineComponent({
     OioModal,
     OioTab,
     OioTabs,
-    DepartmentTree
+    DepartmentTree,
+    OrganizationalStructureTree
   },
   props: {
     ...OioModalProps,
@@ -50,6 +57,21 @@ export default defineComponent({
     },
     domain: {
       type: String
+    },
+    departmentCodes: {
+      type: Array as PropType<string[]>
+    },
+    userCompanyDept: {
+      type: Boolean,
+      default: undefined
+    },
+    userDept: {
+      type: Boolean,
+      default: undefined
+    },
+    userDeptAndChildren: {
+      type: Boolean,
+      default: undefined
     }
   },
   emits: ['change'],
@@ -113,7 +135,13 @@ export default defineComponent({
       queryWrapper: QueryWrapper
     ) => {
       try {
-        return await service.queryDepartmentRootList(queryWrapper);
+        return await service.queryListByFilter({
+          rsql: queryWrapper.rsql,
+          departmentCodes: props.departmentCodes,
+          userCompanyDept: props.userCompanyDept,
+          userDept: props.userDept,
+          userDeptAndChildren: props.userDeptAndChildren
+        });
       } catch (e) {
         state.init = true;
         state.loading = false;
@@ -143,6 +171,42 @@ export default defineComponent({
       state.checkedKeys = res.checkedKeys;
     };
 
+    const userDepartmentTreeState: State = reactive({
+      init: false,
+      storage: {},
+      loading: false,
+      searchValue: '',
+      checkedKeys: []
+    });
+
+    const userDepartmentCheckedKeys = computed(() => {
+      return state.checkedKeys.map((v) => v.substring(OrganizationalStructureType.department.length + 1));
+    });
+
+    const userDepartmentTreeLoad = async (
+      res: TreeState<PamirsDepartment>,
+      service: PamirsDepartmentService,
+      queryWrapper: QueryWrapper
+    ) => {
+      try {
+        return await service.queryListByFilter({
+          rsql: queryWrapper.rsql,
+          userCompanyDept: props.userCompanyDept,
+          userDept: props.userDept,
+          userDeptAndChildren: props.userDeptAndChildren
+        });
+      } catch (e) {
+        state.init = true;
+        state.loading = false;
+        throw e;
+      }
+    };
+
+    const onInitUserDepartmentTree = (res: TreeState<PamirsDepartment>) => {
+      userDepartmentTreeState.init = true;
+      userDepartmentTreeState.storage = res.storage;
+    };
+
     watch(
       () => props.visible,
       (val) => {
@@ -159,7 +223,12 @@ export default defineComponent({
       load,
       enterCallback,
       onUpdateState,
-      onInit
+      onInit,
+
+      userDepartmentTreeState,
+      userDepartmentCheckedKeys,
+      userDepartmentTreeLoad,
+      onInitUserDepartmentTree
     };
   },
   render() {
@@ -168,6 +237,10 @@ export default defineComponent({
       mode,
       allowClear,
       domain,
+      departmentCodes,
+      userCompanyDept,
+      userDept,
+      userDeptAndChildren,
 
       state,
       selectedValues,
@@ -175,7 +248,11 @@ export default defineComponent({
       load,
       enterCallback,
       onUpdateState,
-      onInit
+      onInit,
+
+      userDepartmentCheckedKeys,
+      userDepartmentTreeLoad,
+      onInitUserDepartmentTree
     } = this;
     return createVNode(
       OioModal,
@@ -194,6 +271,91 @@ export default defineComponent({
         default: () => {
           if (state.init && !Object.keys(state.storage).length) {
             return createVNode(OioEmptyData);
+          }
+          const treeProps = {
+            searchValue: state.searchValue,
+            selectMode: mode,
+            showCheckedAll: true,
+            loading: state.loading,
+            usingLoading: false,
+            autoInit: true,
+            domain,
+            userCompanyDept,
+            userDept,
+            userDeptAndChildren,
+            initCheckedKeys,
+            checkedKeys: state.checkedKeys,
+            load,
+            onInit,
+            'onUpdate:loading': (val: boolean) => onUpdateState('loading', val),
+            'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
+          };
+          const tabs: { key: string; label: string }[] = [];
+          const vNodes: VNode[] = [];
+          const pushMainTree = () => {
+            tabs.push({
+              key: 'organizational-structure-tree',
+              label: '组织架构'
+            });
+            vNodes.push(createVNode(OrganizationalStructureTree, treeProps));
+          };
+          if (userDept || userDeptAndChildren) {
+            if (departmentCodes?.length) {
+              pushMainTree();
+              vNodes.push(
+                createVNode(OrganizationalStructureTree, {
+                  searchValue: state.searchValue,
+                  selectMode: mode,
+                  showCheckedAll: true,
+                  loading: state.loading,
+                  usingLoading: false,
+                  autoInit: true,
+                  domain,
+                  userCompanyDept,
+                  userDept,
+                  userDeptAndChildren,
+                  checkedKeys: userDepartmentCheckedKeys,
+                  load: userDepartmentTreeLoad,
+                  onInit: onInitUserDepartmentTree,
+                  'onUpdate:loading': (val: boolean) => onUpdateState('loading', val),
+                  'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
+                })
+              );
+            } else {
+              vNodes.push(createVNode(OrganizationalStructureTree, treeProps));
+            }
+            tabs.push({
+              key: 'user-department-tree',
+              label: '当前用户所在部门'
+            });
+          } else {
+            pushMainTree();
+          }
+          const children: VNode[] = [];
+          if (vNodes.length === 1) {
+            children.push(vNodes[0]);
+          } else {
+            children.push(
+              createVNode(
+                OioTabs,
+                {},
+                {
+                  default: () =>
+                    tabs.map((v, i) => {
+                      return createVNode(
+                        OioTab,
+                        {
+                          key: v.key,
+                          tab: v.label
+                        },
+                        {
+                          default: () => [vNodes[i]]
+                        }
+                      );
+                    })
+                }
+              )
+            );
           }
           return [
             createVNode('div', { class: 'oio-department-modal-content' }, [
@@ -217,21 +379,7 @@ export default defineComponent({
                 allowClear: true,
                 'onUpdate:value': (val: string) => onUpdateState('searchValue', val)
               }),
-              createVNode(DepartmentTree, {
-                searchValue: state.searchValue,
-                selectMode: mode,
-                showCheckedAll: true,
-                loading: state.loading,
-                usingLoading: false,
-                autoInit: true,
-                domain,
-                initCheckedKeys,
-                checkedKeys: state.checkedKeys,
-                load,
-                onInit,
-                'onUpdate:loading': (val: boolean) => onUpdateState('loading', val),
-                'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
-              })
+              ...children
             ])
           ];
         }

@@ -2,7 +2,7 @@
 import { PamirsDepartment } from '@oinone/kunlun-engine';
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { computed, createVNode, defineComponent, ref } from 'vue';
+import { computed, createVNode, defineComponent, PropType, ref } from 'vue';
 import { DefaultSelect, DefaultSelectProps } from '../base';
 import DepartmentModal from './DepartmentModal.vue';
 
@@ -16,6 +16,21 @@ export default defineComponent({
     ...DefaultSelectProps,
     domain: {
       type: String
+    },
+    departmentCodes: {
+      type: Array as PropType<string[]>
+    },
+    userCompanyDept: {
+      type: Boolean,
+      default: undefined
+    },
+    userDept: {
+      type: Boolean,
+      default: undefined
+    },
+    userDeptAndChildren: {
+      type: Boolean,
+      default: undefined
     }
   },
   setup(props) {
@@ -70,7 +85,11 @@ export default defineComponent({
       onShowModal,
       onChange,
 
-      domain
+      domain,
+      departmentCodes,
+      userCompanyDept,
+      userDept,
+      userDeptAndChildren
     } = this;
     const classNames = ['oio-department-select'];
     const modal = createVNode(DepartmentModal, {
@@ -79,7 +98,11 @@ export default defineComponent({
       visible,
       'onUpdate:visible': onUpdateVisible,
       onChange,
-      domain
+      domain,
+      departmentCodes,
+      userCompanyDept,
+      userDept,
+      userDeptAndChildren
     });
     if (selected == null || (Array.isArray(selected) && !selected.length)) {
       return createVNode('div', PropRecordHelper.collectionBasicProps($attrs, classNames), [

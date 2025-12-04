@@ -170,7 +170,7 @@ export default defineComponent({
       service: PamirsEmployeeService,
       queryWrapper: QueryWrapper
     ) => {
-      return service.queryListByDslFilter({
+      return service.queryListByFilter({
         domain: queryWrapper.rsql,
         employeeCodes: props.employeeCodes,
         departmentCodes: props.departmentCodes,
@@ -187,7 +187,7 @@ export default defineComponent({
       queryWrapper: QueryWrapper
     ) => {
       if (state.selectedRoleCode != null) {
-        return service.queryListByDslFilter({
+        return service.queryListByFilter({
           domain: queryWrapper.rsql,
           employeeCodes: props.employeeCodes,
           departmentCodes: props.departmentCodes,
@@ -197,7 +197,7 @@ export default defineComponent({
           userDeptAndChildren: props.userDeptAndChildren
         });
       }
-      return service.queryListByDslFilter({
+      return service.queryListByFilter({
         domain: queryWrapper.rsql,
         employeeCodes: props.employeeCodes,
         departmentCodes: props.departmentCodes,

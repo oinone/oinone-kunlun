@@ -16,7 +16,6 @@ export class DialogViewActionWidget extends PopupActionWidget {
 
   protected createPopupWidget(data: ActiveRecord[]): void {
     const { popupDslDefinition } = this;
-    this.invisible
     if (!popupDslDefinition) {
       return;
     }

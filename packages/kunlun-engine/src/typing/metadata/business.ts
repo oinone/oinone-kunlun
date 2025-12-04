@@ -60,3 +60,13 @@ export interface PamirsPosition extends NameCodeModel, TreeModel, BizModel, Acti
 }
 
 export interface PamirsEmployee extends NameCodeModel, BizModel, ActiveRecord {}
+
+export enum OrganizationalStructureType {
+  company = 'company',
+  department = 'department'
+}
+
+export interface PamirsOrganizationalStructure extends NameCodeModel, TreeModel, BizModel, ActiveRecord {
+  type: OrganizationalStructureType;
+  parentType?: OrganizationalStructureType;
+}

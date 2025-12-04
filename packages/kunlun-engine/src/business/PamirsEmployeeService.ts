@@ -13,7 +13,7 @@ export interface PamirsEmployeeQueryFilter {
 }
 
 export interface PamirsEmployeeService extends ListModelApi<PamirsEmployee> {
-  queryListByDslFilter(query: PamirsEmployeeQueryFilter): Promise<PamirsEmployee[]>;
+  queryListByFilter(query: PamirsEmployeeQueryFilter): Promise<PamirsEmployee[]>;
 }
 
 export const PamirsEmployeeMetadata = {

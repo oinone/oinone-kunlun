@@ -14,9 +14,9 @@ export class PamirsEmployeeServiceImpl extends AbstractListModelApi<PamirsEmploy
     return PamirsEmployeeMetadata.MODEL_MODEL;
   }
 
-  public async queryListByDslFilter(query: PamirsEmployeeQueryFilter): Promise<PamirsEmployee[]> {
+  public async queryListByFilter(query: PamirsEmployeeQueryFilter): Promise<PamirsEmployee[]> {
     return (
-      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(this.modelModel, 'queryListByDslFilter', query)) || []
+      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(this.modelModel, 'queryListByFilter', query)) || []
     );
   }
 }

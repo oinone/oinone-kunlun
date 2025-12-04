@@ -25,16 +25,6 @@ export class FormM2MEmployeeFieldWidget extends SelectFieldWidget<PamirsEmployee
   }
 
   @Widget.Reactive()
-  protected get departmentFilter(): boolean {
-    return Optional.ofNullable(this.getDsl().departmentFilter).map(BooleanHelper.toBoolean).orElse(true);
-  }
-
-  @Widget.Reactive()
-  protected get roleFilter(): boolean {
-    return Optional.ofNullable(this.getDsl().roleFilter).map(BooleanHelper.toBoolean).orElse(true);
-  }
-
-  @Widget.Reactive()
   protected get employeeCodes(): string[] | undefined {
     return StringHelper.convertArray(this.getDsl().employeeCodes);
   }

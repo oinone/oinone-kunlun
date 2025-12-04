@@ -1,9 +1,17 @@
 import { ServiceIdentifier } from '@oinone/kunlun-spi';
-import { QueryWrapper, TreeModelApi } from '../service';
+import { TreeModelApi } from '../service';
 import { PamirsDepartment } from '../typing';
 
+export interface DepartmentQueryFilter {
+  rsql?: string;
+  departmentCodes?: string[];
+  userCompanyDept?: boolean;
+  userDept?: boolean;
+  userDeptAndChildren?: boolean;
+}
+
 export interface PamirsDepartmentService extends TreeModelApi<PamirsDepartment> {
-  queryDepartmentRootList(queryWrapper: QueryWrapper): Promise<PamirsDepartment[]>;
+  queryListByFilter(query: DepartmentQueryFilter): Promise<PamirsDepartment[]>;
 }
 
 export const PamirsDepartmentMetadata = {

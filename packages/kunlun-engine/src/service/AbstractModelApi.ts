@@ -24,8 +24,9 @@ export interface TreeModelApi<T extends IdModel> extends ListModelApi<T> {
     list: T[],
     options?: {
       computeKey?: (data: T) => string;
-      computeParentKey?: () => string | undefined;
+      computeParentKey?: (data: T) => string | undefined;
       computeLabel?: (data: T) => string;
+      convertNode?: (node: OioTreeNode<T>) => void;
     }
   ): OioTreeNode<T>[];
 }
@@ -92,9 +93,10 @@ export abstract class AbstractTreeModelApi<T extends NameCodeModel & TreeModel>
   public convertTreeData(
     list: T[],
     options?: {
-      computeKey?: () => string;
-      computeParentKey?: () => string | undefined;
-      computeLabel?: () => string;
+      computeKey?: (data: T) => string;
+      computeParentKey?: (data: T) => string | undefined;
+      computeLabel?: (data: T) => string;
+      convertNode?: (node: OioTreeNode<T>) => void;
     }
   ): OioTreeNode<T>[] {
     const computeKey = options?.computeKey || this.defaultComputeKey.bind(this);
@@ -109,6 +111,7 @@ export abstract class AbstractTreeModelApi<T extends NameCodeModel & TreeModel>
         const node = TreeNode.newInstance(key, value, parent as TreeNode<T>) as OioTreeNode<T>;
         if (value) {
           node.title = computeLabel(value);
+          options?.convertNode?.(node);
         }
         return node;
       },
@@ -116,6 +119,7 @@ export abstract class AbstractTreeModelApi<T extends NameCodeModel & TreeModel>
         const { title, value } = node;
         if (!title) {
           node.title = computeLabel(value);
+          options?.convertNode?.(node);
         }
         return node;
       }

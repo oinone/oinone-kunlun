@@ -1,14 +1,14 @@
 <script lang="ts">
-import { PamirsDepartment } from '@oinone/kunlun-engine';
+import { PamirsDepartment, PamirsOrganizationalStructure } from '@oinone/kunlun-engine';
 import { OioTreeNode } from '@oinone/kunlun-shared';
 import { OioCheckbox, OioIcon, OioTree, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { Radio as ARadio } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, onMounted, PropType, VNode } from 'vue';
 import { TreeStateLoadFunction } from '../../quick-utils';
-import { useDepartmentTree } from './init';
+import { useOrganizationalStructureTree } from './init';
 
 export default defineComponent({
-  name: 'DepartmentTree',
+  name: 'OrganizationalStructureTree',
   components: {
     OioTree,
     OioIcon,
@@ -39,7 +39,7 @@ export default defineComponent({
       type: Boolean
     },
     load: {
-      type: Function as PropType<TreeStateLoadFunction<PamirsDepartment>>
+      type: Function as PropType<TreeStateLoadFunction<PamirsOrganizationalStructure>>
     },
     domain: {
       type: String
@@ -65,7 +65,7 @@ export default defineComponent({
       onUpdateExpandedKeys,
       onCheckedAll,
       onCheckedStrictly
-    } = useDepartmentTree({
+    } = useOrganizationalStructureTree({
       mode: props.selectMode,
       getCheckedKeys: () => props.checkedKeys,
       getSearchValue: () => props.searchValue,
@@ -154,7 +154,7 @@ export default defineComponent({
       onUpdateCheckedAll,
       onUpdateChecked
     } = this;
-    const mainClassName = 'oio-department-tree';
+    const mainClassName = 'oio-organizational-structure-tree';
     const treeProps: Record<string, unknown> = {
       class: `${mainClassName} oio-scrollbar`,
       data: filterData,
@@ -187,19 +187,19 @@ export default defineComponent({
             createVNode(OioCheckbox, {
               checked: dataRef.checked,
               indeterminate: dataRef.halfChecked,
-              'onUpdate:checked': (val: boolean) => onUpdateChecked(dataRef, val)
+              onClick: () => onUpdateChecked(dataRef, dataRef.checked !== true)
             })
           );
-        } else if (selectMode === SelectMode.single) {
+        } else if (dataRef.selectable !== false && selectMode === SelectMode.single) {
           nodes.push(
             createVNode(ARadio, {
               class: 'oio-radio',
               checked: key === state.checkedKeys[0],
-              'onUpdate:checked': (val: boolean) => onUpdateChecked(dataRef, key !== state.checkedKeys[0])
+              onClick: () => onUpdateChecked(dataRef, key !== state.checkedKeys[0])
             })
           );
         }
-        return [createVNode('div', { class: `${mainClassName}-node` }, nodes)];
+        return [createVNode('div', { class: `${mainClassName}-node ${mainClassName}-${dataRef.type}-node` }, nodes)];
       }
     });
     if (selectable) {
@@ -223,19 +223,19 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.oio-department-tree,
-.oio-department-tree-wrapper {
-  .oio-department-tree-node {
+.oio-organizational-structure-tree,
+.oio-organizational-structure-tree-wrapper {
+  .oio-organizational-structure-tree-node {
     display: flex;
     justify-content: space-between;
 
-    .oio-department-tree-node-title {
+    .oio-organizational-structure-tree-node-title {
       display: flex;
       align-items: center;
       column-gap: 8px;
     }
 
-    &.oio-department-tree-node-checked-all {
+    &.oio-organizational-structure-tree-node-checked-all {
       height: 28px;
       padding: 0 4px 4px;
     }
