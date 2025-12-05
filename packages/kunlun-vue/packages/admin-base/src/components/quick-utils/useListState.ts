@@ -35,7 +35,6 @@ export interface ListState<T> {
 
 export interface ListStateProps {
   mode?: SelectMode | keyof typeof SelectMode;
-  isDiff?: () => boolean | undefined;
   getCheckedKeys?: () => string[] | undefined;
   getSearchValue?: () => string | null | undefined;
 }
@@ -114,7 +113,7 @@ export function useListState<T extends IdModel>(initOptions: {
   };
 
   const { onChecked, $$updateChecked, onCheckedAll, onRefreshCheckedState } = useListChecked(state, {
-    isDiff: () => hasFilter.value || props?.isDiff?.()
+    isDiff: () => hasFilter.value
   });
 
   const init = async (options?: Partial<ListInitOptions>): Promise<ListState<T>> => {

@@ -32,7 +32,6 @@ export interface TreeState<T = unknown> {
 
 export interface TreeStateProps {
   mode?: SelectMode | keyof typeof SelectMode;
-  isDiff?: () => boolean | undefined;
   getCheckedKeys?: () => string[] | undefined;
   getSearchValue?: () => string | null | undefined;
 }
@@ -118,7 +117,7 @@ export function useTreeState<T extends IdModel>(initOptions: {
   const { onChecked, onCheckedStrictly, $$checkedStrictly, onCheckedAll, onRefreshCheckedState } = useTreeChecked(
     state,
     {
-      isDiff: () => hasFilter.value || props?.isDiff?.()
+      isDiff: () => hasFilter.value
     }
   );
 

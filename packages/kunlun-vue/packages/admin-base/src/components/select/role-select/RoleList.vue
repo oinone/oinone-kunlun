@@ -41,9 +41,12 @@ export default defineComponent({
     },
     selectable: {
       type: Boolean
+    },
+    selectedKeys: {
+      type: Array as PropType<string[]>
     }
   },
-  emits: ['update:loading', 'update:checkedKeys', 'init', 'change'],
+  emits: ['update:loading', 'update:checkedKeys', 'update:selectedKeys', 'init', 'change'],
   setup(props, { emit, expose }) {
     const { state, filterData, checkedAll, halfCheckedAll, init, search, onChecked, onCheckedAll } = useRoleList({
       mode: props.selectMode,
@@ -130,6 +133,7 @@ export default defineComponent({
       checkedAll,
       halfCheckedAll,
       selectable,
+      selectedKeys,
       onUpdateChecked,
       onUpdateCheckedAll
     } = this;
@@ -137,14 +141,18 @@ export default defineComponent({
       class: 'oio-role-list oio-scrollbar',
       mode: selectMode,
       list: filterData,
-      checkedKeys,
       showIcon: true,
+
+      checkedKeys,
       showCheckedAll,
       checkedAll,
       halfCheckedAll,
-      selectable,
       onChecked: onUpdateChecked,
-      'onUpdate:checkedAll': onUpdateCheckedAll
+      'onUpdate:checkedAll': onUpdateCheckedAll,
+
+      selectable,
+      selectedKeys,
+      'onUpdate:selectedKeys': (val) => this.$emit('update:selectedKeys', val)
     });
   }
 });

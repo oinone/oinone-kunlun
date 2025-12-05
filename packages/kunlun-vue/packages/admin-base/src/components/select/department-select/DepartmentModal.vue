@@ -3,6 +3,7 @@ import {
   OrganizationalStructureType,
   PamirsDepartment,
   PamirsDepartmentService,
+  PamirsOrganizationalStructure,
   QueryWrapper
 } from '@oinone/kunlun-engine';
 import {
@@ -21,14 +22,17 @@ import {
   StringHelper
 } from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, PropType, reactive, VNode, watch } from 'vue';
-import { TreeState } from '../../quick-utils';
+import { CheckedHelper, TreeState } from '../../quick-utils';
 import { BaseSelect } from '../base';
 import { OrganizationalStructureTree } from '../organizational-structure-tree';
 import DepartmentTree from './DepartmentTree.vue';
 
-interface State {
+interface BaseState {
   init: boolean;
   storage: Record<string, OioTreeNode<PamirsDepartment>>;
+}
+
+interface State extends BaseState {
   loading: boolean;
   searchValue: string;
   checkedKeys: string[];
@@ -50,7 +54,9 @@ export default defineComponent({
       type: String as PropType<SelectMode | keyof typeof SelectMode>
     },
     selected: {
-      type: [Object, Array] as PropType<OioSelectItem<PamirsDepartment> | OioSelectItem<PamirsDepartment>[]>
+      type: [Object, Array] as PropType<
+        OioSelectItem<PamirsOrganizationalStructure> | OioSelectItem<PamirsOrganizationalStructure>[]
+      >
     },
     allowClear: {
       type: Boolean
@@ -88,9 +94,9 @@ export default defineComponent({
       let checkedKeys: string[] = [];
       if (props.selected != null) {
         if (Array.isArray(props.selected)) {
-          checkedKeys = props.selected.map((v) => v.key);
+          checkedKeys = props.selected.map((v) => `${OrganizationalStructureType.department}-${v.key}`);
         } else {
-          checkedKeys = [props.selected.key];
+          checkedKeys = [`${OrganizationalStructureType.department}-${props.selected.key}`];
         }
       }
       return checkedKeys;
@@ -171,16 +177,9 @@ export default defineComponent({
       state.checkedKeys = res.checkedKeys;
     };
 
-    const userDepartmentTreeState: State = reactive({
+    const userDepartmentTreeState: BaseState = reactive({
       init: false,
-      storage: {},
-      loading: false,
-      searchValue: '',
-      checkedKeys: []
-    });
-
-    const userDepartmentCheckedKeys = computed(() => {
-      return state.checkedKeys.map((v) => v.substring(OrganizationalStructureType.department.length + 1));
+      storage: {}
     });
 
     const userDepartmentTreeLoad = async (
@@ -207,11 +206,21 @@ export default defineComponent({
       userDepartmentTreeState.storage = res.storage;
     };
 
+    const onUpdateCheckedKeysByUserDepartmentTree = (checkedKeys: string[]) => {
+      state.checkedKeys = CheckedHelper.diffTreeCheckedKeys(
+        state.storage,
+        userDepartmentTreeState.storage,
+        state.checkedKeys,
+        checkedKeys
+      );
+    };
+
     watch(
       () => props.visible,
       (val) => {
         if (val) {
           state.init = false;
+          userDepartmentTreeState.init = false;
         }
       }
     );
@@ -226,9 +235,9 @@ export default defineComponent({
       onInit,
 
       userDepartmentTreeState,
-      userDepartmentCheckedKeys,
       userDepartmentTreeLoad,
-      onInitUserDepartmentTree
+      onInitUserDepartmentTree,
+      onUpdateCheckedKeysByUserDepartmentTree
     };
   },
   render() {
@@ -250,9 +259,9 @@ export default defineComponent({
       onUpdateState,
       onInit,
 
-      userDepartmentCheckedKeys,
       userDepartmentTreeLoad,
-      onInitUserDepartmentTree
+      onInitUserDepartmentTree,
+      onUpdateCheckedKeysByUserDepartmentTree
     } = this;
     return createVNode(
       OioModal,
@@ -314,11 +323,11 @@ export default defineComponent({
                   userCompanyDept,
                   userDept,
                   userDeptAndChildren,
-                  checkedKeys: userDepartmentCheckedKeys,
+                  checkedKeys: state.checkedKeys,
                   load: userDepartmentTreeLoad,
                   onInit: onInitUserDepartmentTree,
                   'onUpdate:loading': (val: boolean) => onUpdateState('loading', val),
-                  'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
+                  'onUpdate:checkedKeys': onUpdateCheckedKeysByUserDepartmentTree
                 })
               );
             } else {
@@ -346,7 +355,7 @@ export default defineComponent({
                         OioTab,
                         {
                           key: v.key,
-                          tab: v.label
+                          tab: $translate(v.label)
                         },
                         {
                           default: () => [vNodes[i]]

@@ -78,6 +78,6 @@ export const DefaultSelectProps = {
     type: Array as PropType<OioSelectItem[]>
   },
   selected: {
-    type: [Object, Array]
+    type: [Object, Array] as PropType<OioSelectItem | OioSelectItem[]>
   }
 };

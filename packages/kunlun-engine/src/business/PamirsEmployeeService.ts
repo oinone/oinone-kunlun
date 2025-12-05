@@ -3,7 +3,7 @@ import { ListModelApi } from '../service';
 import { PamirsEmployee } from '../typing';
 
 export interface PamirsEmployeeQueryFilter {
-  domain?: string;
+  rsql?: string;
   employeeCodes?: string[];
   departmentCodes?: string[];
   roleCodes?: string[];

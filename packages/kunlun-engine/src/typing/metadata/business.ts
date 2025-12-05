@@ -69,4 +69,5 @@ export enum OrganizationalStructureType {
 export interface PamirsOrganizationalStructure extends NameCodeModel, TreeModel, BizModel, ActiveRecord {
   type: OrganizationalStructureType;
   parentType?: OrganizationalStructureType;
+  value?: PamirsCompany | PamirsDepartment;
 }

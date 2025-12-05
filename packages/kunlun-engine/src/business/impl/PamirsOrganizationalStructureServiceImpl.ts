@@ -62,7 +62,8 @@ export class PamirsOrganizationalStructureServiceImpl
         code: department.code,
         name: department.name,
         parentCode: department.parentCode,
-        parentType: OrganizationalStructureType.department
+        parentType: OrganizationalStructureType.department,
+        value: department
       };
       if (!target.parentCode) {
         target.parentCode = companyCode;
@@ -86,7 +87,8 @@ export class PamirsOrganizationalStructureServiceImpl
         type: OrganizationalStructureType.company,
         id: company.id,
         code: company.code,
-        name: company.name
+        name: company.name,
+        value: company
       });
     }
     return results;

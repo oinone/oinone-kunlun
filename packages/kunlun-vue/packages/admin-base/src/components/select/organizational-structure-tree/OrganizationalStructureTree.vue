@@ -1,5 +1,5 @@
 <script lang="ts">
-import { PamirsDepartment, PamirsOrganizationalStructure } from '@oinone/kunlun-engine';
+import { OrganizationalStructureType, PamirsDepartment, PamirsOrganizationalStructure } from '@oinone/kunlun-engine';
 import { OioTreeNode } from '@oinone/kunlun-shared';
 import { OioCheckbox, OioIcon, OioTree, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { Radio as ARadio } from 'ant-design-vue';
@@ -18,6 +18,10 @@ export default defineComponent({
   props: {
     searchValue: {
       type: String
+    },
+    companyIcon: {
+      type: String,
+      default: 'oinone-company-outlined'
     },
     icon: {
       type: String,
@@ -52,9 +56,12 @@ export default defineComponent({
     },
     selectable: {
       type: Boolean
+    },
+    selectedKeys: {
+      type: Array as PropType<string[]>
     }
   },
-  emits: ['update:loading', 'update:checkedKeys', 'init', 'change'],
+  emits: ['update:loading', 'update:checkedKeys', 'update:selectedKeys', 'init', 'change'],
   setup(props, { emit, expose }) {
     const {
       state,
@@ -143,6 +150,7 @@ export default defineComponent({
       filterData,
       checkedAll,
       halfCheckedAll,
+      companyIcon,
       icon,
 
       loading,
@@ -150,6 +158,7 @@ export default defineComponent({
       selectMode,
       showCheckedAll,
       selectable,
+      selectedKeys,
       onUpdateExpandedKeys,
       onUpdateCheckedAll,
       onUpdateChecked
@@ -160,6 +169,8 @@ export default defineComponent({
       data: filterData,
       blockNode: true,
       selectable: selectable || false,
+      selectedKeys,
+      'onUpdate:selectedKeys': (val) => this.$emit('update:selectedKeys', val),
       expandedKeys: state.expandedKeys,
       'onUpdate:expandedKeys': onUpdateExpandedKeys
     };
@@ -169,19 +180,24 @@ export default defineComponent({
     const treeNode = createVNode(OioTree, treeProps, {
       title: ({ title, key, dataRef }) => {
         const nodes: VNode[] = [];
-        if (icon) {
-          nodes.push(
-            createVNode('div', { class: `${mainClassName}-node-title` }, [
-              createVNode(OioIcon, {
-                icon,
-                color: 'var(--oio-primary-color)'
-              }),
-              createVNode('span', {}, title)
-            ])
+        const titleNodes: VNode[] = [];
+        if (dataRef.value.type === OrganizationalStructureType.company && companyIcon) {
+          titleNodes.push(
+            createVNode(OioIcon, {
+              icon: companyIcon,
+              color: 'var(--oio-primary-color)'
+            })
           );
-        } else {
-          nodes.push(createVNode('div', { class: `${mainClassName}-node-title` }, [createVNode('span', {}, title)]));
+        } else if (icon) {
+          titleNodes.push(
+            createVNode(OioIcon, {
+              icon,
+              color: 'var(--oio-primary-color)'
+            })
+          );
         }
+        titleNodes.push(createVNode('span', {}, title));
+        nodes.push(createVNode('div', { class: `${mainClassName}-node-title` }, titleNodes));
         if (selectMode === SelectMode.multiple) {
           nodes.push(
             createVNode(OioCheckbox, {
@@ -199,7 +215,9 @@ export default defineComponent({
             })
           );
         }
-        return [createVNode('div', { class: `${mainClassName}-node ${mainClassName}-${dataRef.type}-node` }, nodes)];
+        return [
+          createVNode('div', { class: `${mainClassName}-node ${mainClassName}-${dataRef.value.type}-node` }, nodes)
+        ];
       }
     });
     if (selectable) {

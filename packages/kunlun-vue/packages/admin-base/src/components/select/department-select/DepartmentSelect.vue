@@ -1,5 +1,5 @@
 <script lang="ts">
-import { PamirsDepartment } from '@oinone/kunlun-engine';
+import { OrganizationalStructureType, PamirsDepartment, PamirsOrganizationalStructure } from '@oinone/kunlun-engine';
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { computed, createVNode, defineComponent, PropType, ref } from 'vue';
@@ -54,8 +54,20 @@ export default defineComponent({
       visible.value = true;
     };
 
-    const onChange = (values: PamirsDepartment | PamirsDepartment[] | null | undefined) => {
-      props.change?.(values);
+    const onChange = (values: PamirsOrganizationalStructure | PamirsOrganizationalStructure[] | null | undefined) => {
+      let submitValues: PamirsDepartment | PamirsDepartment[] | null | undefined;
+      if (values == null) {
+        submitValues = values;
+      } else if (Array.isArray(values)) {
+        submitValues = values
+          .filter((v) => v.type === OrganizationalStructureType.department)
+          .map((v) => v.value as PamirsDepartment);
+      } else if (values.type === OrganizationalStructureType.department) {
+        submitValues = values.value as PamirsDepartment;
+      } else {
+        submitValues = null;
+      }
+      props.change?.(submitValues);
       props.blur?.();
     };
 
