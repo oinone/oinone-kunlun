@@ -1,5 +1,6 @@
 import { AuthRole, RuntimeM2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -21,6 +22,16 @@ export class FormM2MRoleFieldWidget extends SelectFieldWidget<AuthRole, AuthRole
     super.initialize(props);
     this.setComponent(RoleSelect);
     return this;
+  }
+
+  @Widget.Reactive()
+  protected get roleCodes(): string[] | undefined {
+    return StringHelper.convertArray(this.getDsl().roleCodes);
+  }
+
+  @Widget.Reactive()
+  protected get userRole(): boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().userRole);
   }
 
   protected generatorSelectItemKey(value: AuthRole): string {

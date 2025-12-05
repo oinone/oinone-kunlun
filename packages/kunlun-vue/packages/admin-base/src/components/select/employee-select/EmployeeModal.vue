@@ -375,7 +375,6 @@ export default defineComponent({
                   loading: state.loading,
                   usingLoading: false,
                   autoInit: true,
-                  diff: true,
                   load: currentEmployeeLoad,
                   domain,
                   initCheckedKeys: state.checkedKeys,

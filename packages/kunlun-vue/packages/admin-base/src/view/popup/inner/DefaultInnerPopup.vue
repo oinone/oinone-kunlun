@@ -157,7 +157,9 @@ export default defineComponent({
           }
           return footerChildren;
         }
-      }
+      },
+      'header',
+      'extraToolbar'
     ]);
 
     const componentProps: Record<string, unknown> = {

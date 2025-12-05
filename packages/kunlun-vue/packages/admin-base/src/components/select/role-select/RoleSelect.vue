@@ -2,7 +2,7 @@
 import { AuthRole } from '@oinone/kunlun-engine';
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { computed, createVNode, defineComponent, ref } from 'vue';
+import { computed, createVNode, defineComponent, PropType, ref } from 'vue';
 import { DefaultSelect, DefaultSelectProps } from '../base';
 import RoleModal from './RoleModal.vue';
 
@@ -17,6 +17,13 @@ export default defineComponent({
     ...DefaultSelectProps,
     domain: {
       type: String
+    },
+    roleCodes: {
+      type: Array as PropType<string[]>
+    },
+    userRole: {
+      type: Boolean,
+      default: undefined
     }
   },
   setup(props) {
@@ -71,7 +78,9 @@ export default defineComponent({
       onShowModal,
       onChange,
 
-      domain
+      domain,
+      roleCodes,
+      userRole
     } = this;
     const classNames = ['oio-role-select'];
     const modal = createVNode(RoleModal, {
@@ -79,6 +88,8 @@ export default defineComponent({
       selected,
       allowClear,
       domain,
+      roleCodes,
+      userRole,
       visible,
       'onUpdate:visible': onUpdateVisible,
       onChange
