@@ -800,12 +800,21 @@ export class ActionWidget<
       labelInvisible: this.labelInvisible,
       bizStyle: this.bizStyle,
       loading: this.loading,
+      invisible: this.invisible,
       disabled: this.disabled,
       help: this.help,
       disabledTitle: this.disabledTitle,
       icon: this.icon,
       action: this.action,
       enableConfirm: this.enableConfirm,
+      confirm: this.confirm,
+      confirmTitle: this.confirmTitle,
+      confirmPosition: this.confirmPosition,
+      enterText: this.enterText,
+      cancelText: this.cancelText,
+      visibleConfirm: this.visibleConfirm,
+      changeVisibleConfirm: this.changeVisibleConfirm,
+      validatorForm: this.validatorForm.bind(this),
       validateAndClick: this.validateAndClick.bind(this)
     };
   }

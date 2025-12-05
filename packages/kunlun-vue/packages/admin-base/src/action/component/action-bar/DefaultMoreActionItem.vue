@@ -1,9 +1,9 @@
 <script lang="ts">
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-import { OioButton } from '@oinone/kunlun-vue-ui-antd';
+import { ObjectUtils, OioButton, OioPopconfirm } from '@oinone/kunlun-vue-ui-antd';
 import { ButtonType } from '@oinone/kunlun-vue-ui-common';
 import { useOioState, Widget } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, VNode } from 'vue';
+import { computed, createVNode, defineComponent, ref, VNode } from 'vue';
 import type { ActionWidget } from '../action';
 import MenuItem from '../action/MenuItem.vue';
 
@@ -22,6 +22,8 @@ export default defineComponent({
     }
   },
   setup(props) {
+    // 二次确认的显示和隐藏不同步 ActionWidget，否则页面会出现多个二次确认弹出层
+    const visibleConfirm = ref(false);
     const actionBarState = useOioState().viewState?.getActionBarState();
 
     const actionWidget = computed<ActionWidget | undefined>(() => {
@@ -45,10 +47,10 @@ export default defineComponent({
       return undefined;
     });
 
-    const actionProps = computed<typeof ActionWidget['actionProps']>(() => {
+    const actionProps = computed<ActionWidget['actionProps']>(() => {
       const widget = actionWidget.value;
       if (!widget) {
-        return {};
+        return {} as ActionWidget['actionProps'];
       }
       return widget.actionProps;
     });
@@ -72,17 +74,40 @@ export default defineComponent({
       return widget.disabled;
     });
 
+    const condition = async () => {
+      if (ObjectUtils.isNotEmpty(actionProps.value.confirm)) {
+        if (actionProps.value.validatorForm) {
+          if (!(await actionProps.value.validatorForm?.())) {
+            return undefined;
+          }
+        }
+        return true;
+      }
+      return false;
+    };
+
+    const onUpdateVisibleConfirm = (val: boolean) => {
+      visibleConfirm.value = val;
+    };
+
     return {
+      visibleConfirm,
       title,
       disabled,
-      actionProps
+      actionProps,
+      condition,
+      onUpdateVisibleConfirm
     };
   },
   render() {
-    const { title, disabled, actionProps } = this;
+    const { visibleConfirm, title, disabled, actionProps, condition, onUpdateVisibleConfirm } = this;
+    if (actionProps.invisible) {
+      return [];
+    }
     return createVNode(
       MenuItem,
       {
+        class: `${DEFAULT_PREFIX}-more-action-item`,
         disabled,
         title
       },
@@ -107,14 +132,34 @@ export default defineComponent({
           if (!actionProps.enableConfirm) {
             attrs.onClick = () => actionProps.validateAndClick?.(actionProps.action, true);
           }
-          return [
-            createVNode(OioButton, attrs, () => {
-              if (contentVNode) {
-                return [contentVNode];
-              }
-              return [];
-            })
-          ];
+          const btn = createVNode(OioButton, attrs, () => {
+            if (contentVNode) {
+              return [contentVNode];
+            }
+            return [];
+          });
+          if (actionProps.enableConfirm) {
+            return [
+              createVNode(
+                OioPopconfirm,
+                {
+                  title: actionProps.confirmTitle,
+                  placement: actionProps.confirmPosition,
+                  text: actionProps.confirm,
+                  enterText: actionProps.enterText,
+                  cancelText: actionProps.cancelText,
+                  visible: visibleConfirm,
+                  'onUpdate:visible': onUpdateVisibleConfirm,
+                  condition,
+                  confirmCallback: () => actionProps.validateAndClick?.(actionProps.action, true)
+                },
+                {
+                  default: () => [btn]
+                }
+              )
+            ];
+          }
+          return [btn];
         }
       }
     );
