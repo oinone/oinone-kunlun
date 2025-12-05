@@ -70,20 +70,6 @@ const fullAddressFieldMapping: [string, string][] = [
   ['originStreet', 'streetName']
 ];
 
-// ['originCountry', 'originProvince', 'originCity', 'originDistrict', 'originStreet'].includes(v.data)
-
-// const errorAddressField = StaticMetadata.ResourceAddress.modelFields
-//   .filter((v) => ['originCountry', 'originProvince', 'originCity', 'originDistrict', 'originStreet'].includes(v.data))
-//   .map((v) => {
-//     const originData = v.data.substring(6);
-//     const data = `${originData.charAt(0).toLowerCase()}Name`;
-//     return {
-//       ...v,
-//       data,
-//       name: data
-//     };
-//   });
-
 const quickFillFields = [
   { name: 'model', ttype: ModelFieldType.String },
   { name: 'values', ttype: ModelFieldType.String },
@@ -145,7 +131,7 @@ export class QuickFillWidget extends BaseElementWidget {
   }
 
   @Widget.Reactive()
-  public get editableModelFields() {
+  public get editableModelFields(): RuntimeModelField[] {
     const fields: RuntimeModelField[] = [];
     for (const field of this.viewState?.fields || []) {
       const fieldWidget = Widget.select<BaseTableFieldWidget>(field);
@@ -433,32 +419,14 @@ export class QuickFillWidget extends BaseElementWidget {
         }
 
         if (formFieldWidget) {
-          formFieldWidget.validation = {
+          formFieldWidget.setValue(null);
+          formFieldWidget.setValidatorInfo({
             message: detail.msg,
             status: ValidatorStatus.Error,
             path: formFieldWidget.dataPath
-          };
+          });
         }
       }
-      // detailList.forEach((detail) => {
-      //   let formFieldWidget: FormFieldWidget | undefined;
-
-      //   // 找到表格字段
-      //   const index = widgets.findIndex((w) => w.itemData === detail.field);
-
-      //   if (index > -1) {
-      //     // 获取对应的表单字段
-      //     formFieldWidget = widgets[index].getChildrenInstance()[rowNumber] as FormFieldWidget;
-      //   }
-
-      //   if (formFieldWidget) {
-      //     formFieldWidget.validation = {
-      //       message: detail.msg,
-      //       status: ValidatorStatus.Error,
-      //       path: formFieldWidget.dataPath
-      //     };
-      //   }
-      // });
     });
   }
 

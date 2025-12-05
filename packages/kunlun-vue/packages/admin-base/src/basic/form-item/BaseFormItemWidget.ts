@@ -248,11 +248,15 @@ export class BaseFormItemWidget<
   }
 
   @Widget.Reactive()
-  public validation: ValidatorInfo | undefined;
+  protected validation: ValidatorInfo | undefined;
 
   @Widget.Reactive()
   public get validatorInfo(): ValidatorInfo | undefined {
     return this.validation;
+  }
+
+  public setValidatorInfo(validatorInfo: ValidatorInfo): void {
+    this.validation = validatorInfo;
   }
 
   @Widget.Reactive()
