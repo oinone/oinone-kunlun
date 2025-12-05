@@ -4,10 +4,12 @@ import {
   ActiveRecordsOperator,
   FunctionCache,
   FunctionService,
+  GetRequestModelFieldsOptions,
   MetadataHelper,
   QueryContext,
   QueryService,
   QueryVariables,
+  RequestModelField,
   RuntimeStringField,
   StaticMetadata,
   translateValueByKey
@@ -17,7 +19,7 @@ import { Condition } from '@oinone/kunlun-request';
 import { BooleanHelper, CallChaining, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioButton, OioCloseIcon, OioIcon, OioNotification } from '@oinone/kunlun-vue-ui-antd';
-import { isFormViewState, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { ActiveRecordsWidget, isFormViewState, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { Modal } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
 import { createVNode } from 'vue';
@@ -70,9 +72,18 @@ export class SaveDraftAction extends ActionWidget {
    * 草稿数据回填
    */
   protected useDraftValue(activeRecords: ActiveRecord[]) {
-    this.reloadActiveRecords(activeRecords);
-    this.reloadDataSource(activeRecords);
-    this.reloadFormData$?.subject.next(true);
+    if (this.popupScene) {
+      const widget = Widget.select<ActiveRecordsWidget>(this.seekPopupMainRuntimeContext().handle);
+      if (widget) {
+        widget.reloadActiveRecords(activeRecords);
+        widget.reloadDataSource(activeRecords);
+        this.reloadFormData$?.subject.next(true);
+      }
+    } else {
+      this.reloadActiveRecords(activeRecords);
+      this.reloadDataSource(activeRecords);
+      this.reloadFormData$?.subject.next(true);
+    }
   }
 
   /**
@@ -129,22 +140,6 @@ export class SaveDraftAction extends ActionWidget {
     return new Promise((resolve, reject) => {
       this.draftProcess(resolve, reject);
     });
-  }
-
-  protected generatorDraftCodeField(): RuntimeStringField {
-    const { model, name } = this.model;
-    return MetadataHelper.buildSimpleModelField(model, name, {
-      data: StaticMetadata.DRAFT_CODE_FIELD,
-      ttype: ModelFieldType.String
-    });
-  }
-
-  protected $$created() {
-    super.$$created();
-    const { modelFields } = this.model;
-    if (!modelFields.some((v) => v.data === StaticMetadata.DRAFT_CODE_FIELD)) {
-      modelFields.push(this.generatorDraftCodeField());
-    }
   }
 
   protected async $$beforeMount() {
@@ -281,7 +276,7 @@ export class SaveDraftAction extends ActionWidget {
     if (!variables.path) {
       variables.path = this.action.sessionPath;
     }
-    return this.rootRuntimeContext.generatorVariables(variables);
+    return this.seekPopupMainRuntimeContext().generatorVariables(variables);
   }
 
   public generatorQueryContext(context?: QueryContext) {
@@ -398,7 +393,7 @@ export class SaveDraftAction extends ActionWidget {
       if (isArray(queryData)) {
         finalQueryData = queryData;
       } else {
-        const viewInitialValue = await this.rootRuntimeContext.getInitialValue();
+        const viewInitialValue = await this.seekPopupMainRuntimeContext().getInitialValue();
         const initialValue = this.initialValue?.[0] || {};
         finalQueryData = {
           ...viewInitialValue,
@@ -408,7 +403,7 @@ export class SaveDraftAction extends ActionWidget {
         };
       }
     }
-    const requestFields = this.rootRuntimeContext.getRequestModelFields();
+    const requestFields = await this.getRequestModelFields();
     return (
       (await QueryService.constructOne(this.model, finalQueryData, {
         requestFields,
@@ -462,5 +457,19 @@ export class SaveDraftAction extends ActionWidget {
         context
       })) || {}
     );
+  }
+
+  protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
+    const requestFields = await super.getRequestModelFields(options);
+    requestFields.push({ field: this.generatorDraftCodeField() });
+    return requestFields;
+  }
+
+  protected generatorDraftCodeField(): RuntimeStringField {
+    const { model, name } = this.model;
+    return MetadataHelper.buildSimpleModelField(model, name, {
+      data: StaticMetadata.DRAFT_CODE_FIELD,
+      ttype: ModelFieldType.String
+    });
   }
 }
