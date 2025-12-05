@@ -280,6 +280,17 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
     env.visibleArea.delete(currentHandle);
   }
 
+  protected $$initViewStatePosition(state: OioAnyViewState): void {
+    state.__position.push({ handle: this.currentHandle, slotName: this.getSlotName() });
+  }
+
+  protected $$clearViewStatePosition(state: OioAnyViewState) {
+    const index = state.__position.findIndex((v) => v.handle === this.currentHandle);
+    if (index !== -1) {
+      state.__position.splice(index, 1);
+    }
+  }
+
   protected $$created() {
     super.$$created();
     const state = useOioState(this.currentHandle).createViewState();

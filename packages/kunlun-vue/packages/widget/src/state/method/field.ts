@@ -6,6 +6,16 @@ interface FieldState {
 }
 
 function getFieldsState(viewState: OioAnyViewState, rowIndex?: number): FieldState | undefined {
+  // fixme @zbh 20251205 rowIndex 无法准确设置，暂不可用
+  // const position = viewState.__position[viewState.__position.length - 1];
+  // if (position == null) {
+  //   console.warn('Please call getFieldsState method in the vue lifecycle.');
+  //   if (hasFieldsViewState(viewState)) {
+  //     return viewState;
+  //   }
+  //   return undefined;
+  // }
+  // const { rowIndex } = position;
   if (rowIndex == null) {
     if (hasFieldsViewState(viewState)) {
       return viewState;

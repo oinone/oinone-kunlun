@@ -77,6 +77,10 @@ export class RowActionBarWidget<
     return Optional.ofNullable(super.buttonType).orElse(this.operatorColumnButtonType?.toLowerCase?.());
   }
 
+  protected $$initViewStatePosition(state: OioAnyViewState): void {
+    state.__position.push({ handle: this.currentHandle, slotName: this.getSlotName(), rowIndex: this.rowIndex });
+  }
+
   protected $$initViewState(state: OioAnyViewState): void {
     const { currentHandle, rowIndex } = this;
     if (hasRowActionBarViewState(state)) {
@@ -84,7 +88,8 @@ export class RowActionBarWidget<
         state.inlineActionBars = [];
       }
       state.inlineActionBars[rowIndex] = state.createActionBarState({
-        handle: currentHandle
+        handle: currentHandle,
+        inline: true
       });
     }
   }

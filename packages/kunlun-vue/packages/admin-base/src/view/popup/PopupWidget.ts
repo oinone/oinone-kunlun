@@ -20,6 +20,7 @@ import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunl
 import {
   ActiveRecordsWidget,
   ActiveRecordsWidgetProps,
+  OioAnyViewState,
   useInjectMetaContext,
   useProviderMetaContext,
   Widget,
@@ -455,6 +456,12 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
   protected findPopupInstance(): IPopupInstance | undefined {
     const key = this.getHandle();
     return PopupManager.INSTANCE.getInstances(this.getPopupScene()).find((v) => v.key === key);
+  }
+
+  protected $$initViewState(state: OioAnyViewState): void {
+    if (!state.popupScene) {
+      state.popupScene = this.popupScene;
+    }
   }
 
   protected $$beforeCreated() {

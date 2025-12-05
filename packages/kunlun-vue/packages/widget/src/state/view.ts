@@ -21,6 +21,7 @@ export function createViewState(handle: string): OioAnyViewState {
     },
     fullscreen: false
   } as OioAnyViewState;
+  state.__position = [];
   const proxy = reactive<OioAnyViewState>(state);
   for (const [method, fn] of Object.entries(viewStateMethods)) {
     state[method] = fn.bind(proxy);

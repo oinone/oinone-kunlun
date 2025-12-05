@@ -5,8 +5,6 @@ import {
   RelationUpdateType,
   RequestModelField,
   RuntimeAction,
-  RuntimeContext,
-  RuntimeContextManager,
   SubmitType,
   SubmitValue
 } from '@oinone/kunlun-engine';
@@ -140,6 +138,9 @@ export class BaseActionWidget<
   @Widget.Reactive()
   public rowIndex: number | undefined;
 
+  @Widget.Reactive()
+  protected actionBarState: OioActionBarState | undefined;
+
   /**
    * 数据提交
    * @protected
@@ -177,11 +178,6 @@ export class BaseActionWidget<
     return fn(...args);
   }
 
-  @Widget.Reactive()
-  protected get actionBarState(): OioActionBarState | undefined {
-    return this.viewState?.getActionBarState(this.rowIndex);
-  }
-
   protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
     const { viewType } = this;
     if (viewType === ViewType.Tree) {
@@ -197,21 +193,6 @@ export class BaseActionWidget<
     return this.rootRuntimeContext.getRequestModelFields(options);
   }
 
-  protected seekPopupMainRuntimeContext(): RuntimeContext {
-    if (this.metadataHandle === this.rootHandle) {
-      const modelModel = this.model.model;
-      if (modelModel) {
-        const popupMainRuntimeContext = RuntimeContextManager.getOthers(this.rootHandle)?.find(
-          (v) => v.model.model === modelModel
-        );
-        if (popupMainRuntimeContext) {
-          return popupMainRuntimeContext;
-        }
-      }
-    }
-    return this.rootRuntimeContext;
-  }
-
   protected $$beforeMount() {
     super.$$beforeMount();
     if (!this.viewState && this.popupScene) {
@@ -219,6 +200,9 @@ export class BaseActionWidget<
       if (this.viewState) {
         this.$$initViewState(this.viewState);
       }
+    }
+    if (!this.actionBarState) {
+      this.actionBarState = this.viewState?.getActionBarState(this.rowIndex);
     }
     if (!this.$matched) {
       const { matched } = useMatched();

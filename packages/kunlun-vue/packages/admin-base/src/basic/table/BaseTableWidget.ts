@@ -488,7 +488,7 @@ export class BaseTableWidget<
 
   @Widget.Reactive()
   protected get rowEditorSubmitAll() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.rowEditorSubmitAll)).orElse(true);
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.rowEditorSubmitAll)).orElse(false);
   }
 
   /**
@@ -781,7 +781,7 @@ export class BaseTableWidget<
    */
   @Widget.Reactive()
   protected get enabledKeyboard(): boolean {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.enabledKeyboard)).orElse(true);
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.enabledKeyboard)).orElse(!!this.inline);
   }
 
   /**

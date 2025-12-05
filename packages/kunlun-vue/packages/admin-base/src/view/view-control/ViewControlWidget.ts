@@ -1,6 +1,6 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { FlexRowJustify } from '@oinone/kunlun-vue-ui-common';
-import { OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { OioActionBarState, OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
 import type { ActionBarWidget, ActionWidget } from '../../action';
 import { BaseElementWidget } from '../../basic';
 import DefaultViewControl from './DefaultViewControl.vue';
@@ -18,8 +18,11 @@ export class ViewControlWidget extends BaseElementWidget {
   }
 
   @Widget.Reactive()
+  protected actionBarState: OioActionBarState | undefined;
+
+  @Widget.Reactive()
   protected get visibleActions(): string[] {
-    const actions = (this.viewState as OioTableViewState)?.actionBar?.actions;
+    const actions = this.actionBarState?.actions;
     return (
       actions?.filter((v) => {
         const widget = Widget.select<ActionWidget>(v);
@@ -50,5 +53,12 @@ export class ViewControlWidget extends BaseElementWidget {
       return FlexRowJustify.END;
     }
     return FlexRowJustify.START;
+  }
+
+  protected $$beforeMount() {
+    super.$$beforeMount();
+    if (!this.actionBarState) {
+      this.actionBarState = this.viewState?.getActionBarState();
+    }
   }
 }

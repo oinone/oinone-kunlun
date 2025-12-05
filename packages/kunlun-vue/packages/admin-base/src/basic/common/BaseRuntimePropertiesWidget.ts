@@ -1,4 +1,11 @@
-import { ActiveRecord, RuntimeModel, RuntimeView, RuntimeViewAction } from '@oinone/kunlun-engine';
+import {
+  ActiveRecord,
+  RuntimeContext,
+  RuntimeContextManager,
+  RuntimeModel,
+  RuntimeView,
+  RuntimeViewAction
+} from '@oinone/kunlun-engine';
 import { ViewClientType } from '@oinone/kunlun-meta';
 import { useMatched } from '@oinone/kunlun-router';
 import { BooleanHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
@@ -198,5 +205,20 @@ export class BaseRuntimePropertiesWidget<
     } finally {
       this.loading = false;
     }
+  }
+
+  protected seekPopupMainRuntimeContext(): RuntimeContext {
+    if (this.metadataHandle === this.rootHandle) {
+      const modelModel = this.model.model;
+      if (modelModel) {
+        const popupMainRuntimeContext = RuntimeContextManager.getOthers(this.rootHandle)?.find(
+          (v) => v.model.model === modelModel
+        );
+        if (popupMainRuntimeContext) {
+          return popupMainRuntimeContext;
+        }
+      }
+    }
+    return this.rootRuntimeContext;
   }
 }

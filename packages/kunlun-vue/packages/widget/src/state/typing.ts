@@ -7,12 +7,27 @@ type StateEntity = {
   [key: string]: any;
 };
 
+export interface RenderPosition {
+  handle: string;
+  slotName?: string;
+  rowIndex?: number; // fixme @zbh 20251205 rowIndex 无法准确设置，暂不可用
+}
+
 export interface OioViewState extends StateEntity {
+  /**
+   * Vue生命周期时可能有值，用于获取渲染参数处理属性多态的问题
+   */
+  __position: RenderPosition[];
+
   fullscreen: boolean;
   viewType?: ViewType;
+  popupScene?: string;
 
   createActionBarState(options: { handle: string } & Partial<Omit<OioActionBarState, 'handle'>>): OioActionBarState;
 
+  /**
+   * 此获取方法仅能用在Vue生命周期，否则无法准确获取真实的ActionBar状态变量
+   */
   getActionBarState(rowIndex?: number): OioActionBarState | undefined;
 
   pushField(handle: string, rowIndex?: number): void;
@@ -25,6 +40,7 @@ export interface OioViewState extends StateEntity {
 }
 
 export interface OioActionBarState extends StateEntity {
+  inline?: boolean;
   actions: string[];
   visibleActions: string[];
   bizStyle?: string;
@@ -35,6 +51,7 @@ export interface OioActionBarState extends StateEntity {
 export interface OioTableViewState extends OioViewState {
   searchView?: string;
   actionBar?: OioActionBarState;
+  actionBars?: Record<string, OioActionBarState>;
   inlineActionBars?: OioActionBarState[];
   table?: string;
   fields?: string[];
@@ -50,6 +67,7 @@ export interface OioSearchViewState extends OioViewState {
 export interface OioFormViewState extends OioViewState {
   draftCode?: string;
   actionBar?: OioActionBarState;
+  actionBars?: Record<string, OioActionBarState>;
   form?: string;
   fields?: string[];
   fieldWidgets?: Record<string, string>;
@@ -57,6 +75,7 @@ export interface OioFormViewState extends OioViewState {
 
 export interface OioDetailViewState extends OioViewState {
   actionBar?: OioActionBarState;
+  actionBars?: Record<string, OioActionBarState>;
   detail?: string;
   fields?: string[];
   fieldWidgets?: Record<string, string>;

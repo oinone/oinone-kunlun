@@ -1,3 +1,4 @@
+import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { isMinimalismTheme } from '@oinone/kunlun-engine';
 import { CallChaining, NumberHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
@@ -12,7 +13,9 @@ import {
   ActiveRecordsWidgetProps,
   hasActionBarViewState,
   isListViewState,
+  OioActionBarState,
   OioAnyViewState,
+  useOioState,
   Widget
 } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
@@ -45,6 +48,9 @@ export class ActionBarWidget<
   @Widget.Reactive()
   @Widget.Provide()
   protected inline: boolean | undefined;
+
+  @Widget.Reactive()
+  protected actionBarState: OioActionBarState | undefined;
 
   @Widget.Reactive()
   protected get isFloat(): boolean | undefined {
@@ -153,38 +159,87 @@ export class ActionBarWidget<
     return bizStyle;
   }
 
-  protected getActionBarBizStyle(actionHandle: string): { type: ButtonType; bizStyle: ButtonBizStyle } | undefined {
-    if (this.inline) {
-      // 行内动作不支持配置样式
-      return undefined;
-    }
-    const actionBarState = this.viewState?.getActionBarState();
-    if (!actionBarState) {
-      return undefined;
-    }
-    const { bizStyle, visibleActions } = actionBarState;
-    if (!bizStyle) {
-      return undefined;
-    }
-    if (bizStyle === ActionBarBizStyle.style2) {
-      const index = visibleActions.findIndex((v) => v === actionHandle);
-      if (index === 0) {
-        return { type: ButtonType.primary, bizStyle: ButtonBizStyle.default };
-      }
-      return { type: ButtonType.text, bizStyle: ButtonBizStyle.default };
+  protected $$initViewStatePosition(state: OioAnyViewState): void {
+    state.__position.push({ handle: this.currentHandle, slotName: this.getSlotName() });
+  }
+
+  protected $$clearViewStatePosition(state: OioAnyViewState): void {
+    const index = state.__position.findIndex((v) => v.handle === this.currentHandle);
+    if (index !== -1) {
+      state.__position.splice(index, 1);
     }
   }
 
   protected $$initViewState(state: OioAnyViewState): void {
-    const { currentHandle } = this;
     if (hasActionBarViewState(state)) {
-      if (!state.actionBar) {
-        state.actionBar = state.createActionBarState({
-          handle: currentHandle,
-          bizStyle: this.initBizStyle(),
-          getActionBarBizStyle: this.getActionBarBizStyle.bind(this)
-        });
+      const slotName = this.getSlotName();
+      if (!slotName || slotName === DEFAULT_SLOT_NAME) {
+        if (!state.actionBar) {
+          state.actionBar = this.createActionBarState(state);
+        }
+      } else {
+        let { actionBars } = state;
+        if (!actionBars) {
+          actionBars = {};
+          state.actionBars = actionBars;
+        }
+        if (!actionBars[slotName]) {
+          actionBars[slotName] = this.createActionBarState(state);
+        }
       }
     }
+  }
+
+  protected $$beforeMount() {
+    super.$$beforeMount();
+    let isInitStatePosition = !!this.viewState;
+    if (!this.viewState && this.popupScene) {
+      this.viewState = useOioState(this.seekPopupMainRuntimeContext().handle).viewState;
+      if (this.viewState) {
+        isInitStatePosition = true;
+        this.$$initViewStatePosition(this.viewState);
+        this.$$initViewState(this.viewState);
+      }
+    }
+    if (!this.actionBarState) {
+      this.actionBarState = this.viewState?.getActionBarState();
+    }
+    if (this.viewState && !isInitStatePosition) {
+      this.$$initViewStatePosition(this.viewState);
+    }
+  }
+
+  protected createActionBarState(state: OioAnyViewState): OioActionBarState {
+    const actionBarState = state.createActionBarState({
+      handle: this.currentHandle,
+      bizStyle: this.initBizStyle()
+    });
+    actionBarState.getActionBarBizStyle = this.createGetActionBarBizStyleMethod(this).bind(actionBarState);
+    return actionBarState;
+  }
+
+  protected createGetActionBarBizStyleMethod(self: ActionBarWidget): (
+    this: OioActionBarState,
+    actionHandle: string
+  ) =>
+    | {
+        type: ButtonType;
+        bizStyle: ButtonBizStyle;
+      }
+    | undefined {
+    return function getActionBarBizStyle(this: OioActionBarState, actionHandle: string) {
+      if (this.inline || self.popupScene) {
+        // 行内动作不支持配置样式
+        return undefined;
+      }
+      const { bizStyle, visibleActions } = this;
+      if (bizStyle === ActionBarBizStyle.style2) {
+        const index = visibleActions.findIndex((v) => v === actionHandle);
+        if (index === 0) {
+          return { type: ButtonType.primary, bizStyle: ButtonBizStyle.default };
+        }
+        return { type: ButtonType.text, bizStyle: ButtonBizStyle.default };
+      }
+    };
   }
 }

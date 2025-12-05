@@ -1,3 +1,5 @@
+import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
+import { reactive } from 'vue';
 import { Widget } from '../../basic';
 import { executeInvisible, InvisibleSupported } from '../../feature';
 import { hasActionBarViewState, hasRowActionBarViewState, OioActionBarState, OioAnyViewState } from '../typing';
@@ -24,13 +26,25 @@ export function createActionBarState(
       });
     }
   });
-  return state;
+  return reactive(state);
 }
 
 export function getActionBarState(this: OioAnyViewState, rowIndex?: number): OioActionBarState | undefined {
+  const position = this.__position[this.__position.length - 1];
+  if (position == null) {
+    console.warn('Please call getActionBarState method in the vue lifecycle.');
+    return this.actionBar;
+  }
+  // fixme @zbh 20251205 rowIndex 无法准确设置，暂不可用
+  // const { slotName, rowIndex } = position;
+  const { slotName } = position;
   if (rowIndex == null) {
-    if (hasActionBarViewState(this)) {
-      return this.actionBar;
+    if (!slotName || slotName === DEFAULT_SLOT_NAME) {
+      if (hasActionBarViewState(this)) {
+        return this.actionBar;
+      }
+    } else if (hasActionBarViewState(this)) {
+      return this.actionBars[slotName];
     }
   } else if (hasRowActionBarViewState(this)) {
     return this.inlineActionBars?.[rowIndex];

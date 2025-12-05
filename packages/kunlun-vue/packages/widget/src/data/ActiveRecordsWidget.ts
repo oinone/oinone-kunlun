@@ -568,17 +568,57 @@ export class ActiveRecordsWidget<
     }
   }
 
+  protected $$initViewStatePosition(state: OioAnyViewState): void {
+    // do nothing.
+  }
+
+  protected $$clearViewStatePosition(state: OioAnyViewState): void {
+    // do nothing.
+  }
+
   protected $$initViewState(state: OioAnyViewState): void {
+    // do nothing.
+  }
+
+  protected $$clearViewState(state: OioAnyViewState): void {
     // do nothing.
   }
 
   protected $$beforeMount() {
     super.$$beforeMount();
+    let isInitStatePosition = false;
     if (!this.viewState) {
       this.viewState = useOioState().viewState;
       if (this.viewState) {
+        isInitStatePosition = true;
+        this.$$initViewStatePosition(this.viewState);
         this.$$initViewState(this.viewState);
       }
+    }
+    if (this.viewState && !isInitStatePosition) {
+      this.$$initViewStatePosition(this.viewState);
+    }
+  }
+
+  protected $$mounted() {
+    super.$$mounted();
+    if (this.viewState) {
+      this.$$clearViewStatePosition(this.viewState);
+      this.$$clearViewState(this.viewState);
+    }
+  }
+
+  protected $$beforeUnmount() {
+    super.$$beforeUnmount();
+    if (this.viewState) {
+      this.$$initViewStatePosition(this.viewState);
+    }
+  }
+
+  protected $$unmounted() {
+    super.$$unmounted();
+    if (this.viewState) {
+      this.$$clearViewStatePosition(this.viewState);
     }
   }
 }
