@@ -4,14 +4,14 @@ import {
   ActiveRecordsOperator,
   FunctionCache,
   FunctionService,
-  GetRequestModelFieldsOptions,
   MetadataHelper,
   QueryContext,
   QueryService,
   QueryVariables,
-  RequestModelField,
+  RuntimeModelField,
   RuntimeStringField,
   StaticMetadata,
+  SubmitValue,
   translateValueByKey
 } from '@oinone/kunlun-engine';
 import { ActionContextType, Entity, ModelDefaultActionName, ModelFieldType, ModelType } from '@oinone/kunlun-meta';
@@ -23,6 +23,7 @@ import { ActiveRecordsWidget, isFormViewState, Widget, WidgetSubjection } from '
 import { Modal } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
 import { createVNode } from 'vue';
+import type { BaseView } from '../../basic';
 import {
   FETCH_DRAFT_DATA_WIDGET_PRIORITY,
   POPUP_FETCH_DRAFT_DATA_WIDGET_PRIORITY,
@@ -142,11 +143,37 @@ export class SaveDraftAction extends ActionWidget {
     });
   }
 
+  protected generatorDraftCodeField(): RuntimeStringField {
+    const { model, name } = this.model;
+    return MetadataHelper.buildSimpleModelField(model, name, {
+      data: StaticMetadata.DRAFT_CODE_FIELD,
+      ttype: ModelFieldType.String
+    });
+  }
+
+  protected submitDraftCode(result: SubmitValue) {
+    const submitResult = result.records as ActiveRecord | undefined;
+    if (!submitResult) {
+      return;
+    }
+    const draftCode = this.getDraftCode();
+    if (draftCode) {
+      submitResult[StaticMetadata.DRAFT_CODE_FIELD] = draftCode;
+    }
+  }
+
   protected async $$beforeMount() {
     super.$$beforeMount();
     let mountedPriority = FETCH_DRAFT_DATA_WIDGET_PRIORITY;
+    let modelFields: RuntimeModelField[];
     if (this.popupScene) {
       mountedPriority = POPUP_FETCH_DRAFT_DATA_WIDGET_PRIORITY;
+      modelFields = this.seekPopupMainRuntimeContext().model.modelFields;
+    } else {
+      modelFields = this.model.modelFields;
+    }
+    if (!modelFields.some((v) => v.data === StaticMetadata.DRAFT_CODE_FIELD)) {
+      modelFields.push(this.generatorDraftCodeField());
     }
     this.mountedCallChaining?.hook(
       this.path,
@@ -159,19 +186,24 @@ export class SaveDraftAction extends ActionWidget {
 
   protected $$mounted() {
     super.$$mounted();
-    this.submitCallChaining?.hook(this.path, async (args, result) => {
-      if (!result) {
-        return;
+    if (this.popupScene) {
+      const widget = Widget.select<BaseView>(this.seekPopupMainRuntimeContext().handle)?.getOperator<BaseView>();
+      if (widget) {
+        widget.submitCallChaining?.hook(this.path, async (args, result) => {
+          if (!result) {
+            return;
+          }
+          this.submitDraftCode(result);
+        });
       }
-      const submitResult = result.records as ActiveRecord | undefined;
-      if (!submitResult) {
-        return;
-      }
-      const draftCode = this.getDraftCode();
-      if (draftCode) {
-        submitResult[StaticMetadata.DRAFT_CODE_FIELD] = draftCode;
-      }
-    });
+    } else {
+      this.submitCallChaining?.hook(this.path, async (args, result) => {
+        if (!result) {
+          return;
+        }
+        this.submitDraftCode(result);
+      });
+    }
   }
 
   /**
@@ -457,19 +489,5 @@ export class SaveDraftAction extends ActionWidget {
         context
       })) || {}
     );
-  }
-
-  protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
-    const requestFields = await super.getRequestModelFields(options);
-    requestFields.push({ field: this.generatorDraftCodeField() });
-    return requestFields;
-  }
-
-  protected generatorDraftCodeField(): RuntimeStringField {
-    const { model, name } = this.model;
-    return MetadataHelper.buildSimpleModelField(model, name, {
-      data: StaticMetadata.DRAFT_CODE_FIELD,
-      ttype: ModelFieldType.String
-    });
   }
 }
