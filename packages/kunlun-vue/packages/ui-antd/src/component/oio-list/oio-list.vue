@@ -2,7 +2,7 @@
 import { OioListItem, StringHelper } from '@oinone/kunlun-shared';
 import { OioIcon, PropRecordHelper, SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Radio as ARadio } from 'ant-design-vue';
-import { createVNode, defineComponent, PropType, Ref, ref, VNode } from 'vue';
+import { computed, createVNode, defineComponent, PropType, ref, VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { OioCheckbox } from '../oio-checkbox';
 import { OioEmptyData } from '../oio-empty';
@@ -41,10 +41,24 @@ export default defineComponent({
     },
     selectable: {
       type: Boolean
+    },
+    selectedKeys: {
+      type: Array as PropType<string[]>
     }
   },
-  emits: ['update:checkedAll', 'update:halfCheckedAll', 'checked', 'selected'],
+  emits: ['update:checkedAll', 'update:halfCheckedAll', 'update:selectedKeys', 'checked', 'selected'],
   setup(props, { emit }) {
+    const internalSelectedKeys = ref<string[]>([]);
+    const selectedKeys = computed({
+      get() {
+        return props.selectedKeys || internalSelectedKeys.value;
+      },
+      set(val: string[]) {
+        internalSelectedKeys.value = val;
+        emit('update:selectedKeys', val);
+      }
+    });
+
     const onChecked = (item: OioListItem, checked: boolean) => {
       emit('checked', item, checked);
     };
@@ -54,30 +68,20 @@ export default defineComponent({
       emit('update:halfCheckedAll', false);
     };
 
-    const lastSelectedItem: Ref<OioListItem | undefined> = ref();
-
     const onSelected = (e: MouseEvent, item: OioListItem) => {
       e.preventDefault?.();
       e.stopPropagation?.();
-
-      let selected: boolean;
-      if (lastSelectedItem.value) {
-        if (item.key === lastSelectedItem.value.key) {
-          selected = false;
-          lastSelectedItem.value = undefined;
-        } else {
-          selected = true;
-          lastSelectedItem.value = item;
-        }
+      const val = !!selectedKeys.value.find((v) => v === item.key);
+      if (val) {
+        selectedKeys.value = [];
       } else {
-        selected = true;
-        lastSelectedItem.value = item;
+        selectedKeys.value = [item.key];
       }
-      emit('selected', item, selected);
+      emit('selected', item, !val);
     };
 
     return {
-      lastSelectedItem,
+      selectedKeys,
       onChecked,
       onCheckedAll,
       onSelected
@@ -97,7 +101,7 @@ export default defineComponent({
       checkedAll,
       halfCheckedAll,
       selectable,
-      lastSelectedItem,
+      selectedKeys,
       onChecked,
       onCheckedAll,
       onSelected
@@ -180,7 +184,7 @@ export default defineComponent({
         }
         const itemProps: Record<string, unknown> = { key: item.key, class: itemClassNames };
         if (selectable) {
-          if (lastSelectedItem?.key === item.key) {
+          if (selectedKeys.includes(item.key)) {
             itemProps.class = [...itemClassNames, `${DEFAULT_PREFIX}-list-item-activated`];
           }
           itemProps.onClick = (e: MouseEvent) => onSelected(e, item);
