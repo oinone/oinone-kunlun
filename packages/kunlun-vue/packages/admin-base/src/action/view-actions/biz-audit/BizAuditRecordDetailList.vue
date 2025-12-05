@@ -1,48 +1,56 @@
 <template>
   <div class="biz-audit-record-detail-list">
-    <div class="biz-audit-record-refresh" @click="handleReFetch"><oio-icon icon="oinone-shuaxin" size="16px" /></div>
-    <div class="oio-scrollbar content" v-if="dataSource && dataSource.length">
-      <div v-for="(item, index) in dataSource" :key="item.id" class="single-record">
-        <div class="left-area">
-          <div class="avatar">
-            <a-image :src="item.operator.avatarUrl || defaultAvatar" />
+    <div class="biz-audit-record-refresh" @click="handleReFetch">
+      <oio-icon icon="oinone-shuaxin" size="16px" />
+    </div>
+    <oio-spin :loading="loading">
+      <div class="oio-scrollbar content" v-if="dataSource && dataSource.length">
+        <div v-for="(item, index) in dataSource" :key="item.id" class="single-record">
+          <div class="left-area">
+            <div class="avatar">
+              <a-image :src="item.operator.avatarUrl || defaultAvatar" />
+            </div>
+            <div v-if="index < dataSource.length - 1" class="link-line"></div>
           </div>
-          <div v-if="index < dataSource.length - 1" class="link-line"></div>
-        </div>
-        <div class="right-area">
-          <div class="action-area">
-            <div class="action-name">{{ item.operationName }}</div>
-            <div class="action-time">{{ item.createDate }}</div>
-          </div>
-          <div class="user-area">
-            <div class="user-name">{{ item.operatorName }}</div>
-            <div class="user-location">{{ item.requestPosition }}</div>
-          </div>
-          <div class="single-record-detail">
-            <!--  通过xml创建DetailWidget -->
-            <!--            <slot :name="item.id" />-->
-            <biz-audit-record-detail :data="item" />
+          <div class="right-area">
+            <div class="action-area">
+              <div class="action-name">{{ item.operationName }}</div>
+              <div class="action-time">{{ item.createDate }}</div>
+            </div>
+            <div class="user-area">
+              <div class="user-name">{{ item.operatorName }}</div>
+              <div class="user-location">{{ item.requestPosition }}</div>
+            </div>
+            <div class="single-record-detail">
+              <!--  通过xml创建DetailWidget -->
+              <!--            <slot :name="item.id" />-->
+              <biz-audit-record-detail :data="item" />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div v-else>
-      <a-empty>
-        <template #description> {{ translateValueByKey('暂无数据') }}</template>
-      </a-empty>
-    </div>
+      <div v-else>
+        <oio-empty-data />
+      </div>
+    </oio-spin>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { genStaticPath } from '@oinone/kunlun-engine';
+import { OioEmptyData, OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { OioIcon } from '@oinone/kunlun-vue-ui-common';
-import { genStaticPath, translateValueByKey } from '@oinone/kunlun-engine';
+import { defineComponent, PropType, ref } from 'vue';
 import BizAuditRecordDetail from './BizAuditRecordDetail.vue';
 
 export default defineComponent({
   name: 'BizAuditRecordDetailList',
-  components: { OioIcon, BizAuditRecordDetail },
+  components: {
+    OioIcon,
+    OioSpin,
+    OioEmptyData,
+    BizAuditRecordDetail
+  },
   props: {
     dataSource: {
       type: Array as PropType<Record<string, any>>,
@@ -54,12 +62,23 @@ export default defineComponent({
   },
 
   setup(props) {
+    const loading = ref(false);
     const defaultAvatar = genStaticPath('default_avatar.png');
 
-    const handleReFetch = () => {
-      props.reFetchData?.();
+    const handleReFetch = async () => {
+      loading.value = true;
+      try {
+        await props.reFetchData?.();
+      } finally {
+        loading.value = false;
+      }
     };
-    return { defaultAvatar, translateValueByKey, handleReFetch };
+
+    return {
+      loading,
+      defaultAvatar,
+      handleReFetch
+    };
   }
 });
 </script>
@@ -136,6 +155,7 @@ export default defineComponent({
 .biz-data-record-detail-inner-popup {
   min-width: 400px;
 }
+
 .biz-audit-record-refresh {
   width: 20px;
   height: 20px;
