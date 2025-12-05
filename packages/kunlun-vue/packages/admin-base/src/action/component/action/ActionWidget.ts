@@ -793,6 +793,23 @@ export class ActionWidget<
     return result;
   }
 
+  @Widget.Reactive()
+  public get actionProps() {
+    return {
+      label: this.label,
+      labelInvisible: this.labelInvisible,
+      bizStyle: this.bizStyle,
+      loading: this.loading,
+      disabled: this.disabled,
+      help: this.help,
+      disabledTitle: this.disabledTitle,
+      icon: this.icon,
+      action: this.action,
+      enableConfirm: this.enableConfirm,
+      validateAndClick: this.validateAndClick.bind(this)
+    };
+  }
+
   /**
    * 手动触发按钮点击方法
    * @param args 参数

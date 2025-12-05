@@ -169,8 +169,23 @@ export class SaveDraftAction extends ActionWidget {
     if (this.popupScene) {
       mountedPriority = POPUP_FETCH_DRAFT_DATA_WIDGET_PRIORITY;
       modelFields = this.seekPopupMainRuntimeContext().model.modelFields;
+      const widget = Widget.select<BaseView>(this.seekPopupMainRuntimeContext().handle)?.getOperator<BaseView>();
+      if (widget) {
+        widget.submitCallChaining?.hook(this.path, async (args, result) => {
+          if (!result) {
+            return;
+          }
+          this.submitDraftCode(result);
+        });
+      }
     } else {
       modelFields = this.model.modelFields;
+      this.submitCallChaining?.hook(this.path, async (args, result) => {
+        if (!result) {
+          return;
+        }
+        this.submitDraftCode(result);
+      });
     }
     if (!modelFields.some((v) => v.data === StaticMetadata.DRAFT_CODE_FIELD)) {
       modelFields.push(this.generatorDraftCodeField());
@@ -182,28 +197,6 @@ export class SaveDraftAction extends ActionWidget {
       },
       mountedPriority
     );
-  }
-
-  protected $$mounted() {
-    super.$$mounted();
-    if (this.popupScene) {
-      const widget = Widget.select<BaseView>(this.seekPopupMainRuntimeContext().handle)?.getOperator<BaseView>();
-      if (widget) {
-        widget.submitCallChaining?.hook(this.path, async (args, result) => {
-          if (!result) {
-            return;
-          }
-          this.submitDraftCode(result);
-        });
-      }
-    } else {
-      this.submitCallChaining?.hook(this.path, async (args, result) => {
-        if (!result) {
-          return;
-        }
-        this.submitDraftCode(result);
-      });
-    }
   }
 
   /**

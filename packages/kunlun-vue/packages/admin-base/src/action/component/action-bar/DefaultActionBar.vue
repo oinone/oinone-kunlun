@@ -9,16 +9,18 @@ import {
   IconPlacement,
   OioButton,
   OioCheckbox,
+  OioDropdown,
   OioSwitch
 } from '@oinone/kunlun-vue-ui-antd';
 import { ListSelectMode, OioDropdownTrigger, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { DslRenderDefinition, onAllMounted } from '@oinone/kunlun-vue-widget';
+import { Menu as AMenu } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType, VNode, vShow, withDirectives, withModifiers } from 'vue';
 import { ActiveCountEnum, MoreActionRender, OperationColumnDirection } from '../../../typing';
 import { CollectionActions } from '../../../util/collection-actions';
-import DefaultDropdown from '../dropdown/DefaultDropdown.vue';
 import { ActionBarBizStyle } from '../typing';
+import DefaultMoreActionItem from './DefaultMoreActionItem.vue';
 
 const actionBarClassName = 'action-bar';
 
@@ -34,7 +36,7 @@ function createMoreAction(
     allMounted: Function | undefined;
     moreActionTriggers: OioDropdownTrigger[];
   }
-): VNode {
+): VNode | VNode[] {
   const classList = [moreActionSelectorClassName];
   let defaultButtonType = ButtonType.primary;
   let defaultBizStyle: ButtonBizStyle | undefined;
@@ -60,17 +62,33 @@ function createMoreAction(
       default: () => translateValueByKey('更多')
     }
   );
-  return createVNode(
-    DefaultDropdown,
-    {
-      trigger: [OioDropdownTrigger.click, OioDropdownTrigger.hover],
-      allMounted
-    },
-    {
-      default: () => vnodes,
-      trigger: () => [triggerVNode]
-    }
+  const moreActionItems = vnodes.map((v) =>
+    createVNode(DefaultMoreActionItem, {
+      model: v.props?.model,
+      name: v.props?.name
+    })
   );
+  return [
+    createVNode('div', { class: 'more-action-invisible-render-wrapper' }, vnodes),
+    createVNode(
+      OioDropdown,
+      {
+        overlayClassName: 'default-dropdown-overlay',
+        trigger: [OioDropdownTrigger.click, OioDropdownTrigger.hover]
+      },
+      {
+        default: () => [triggerVNode],
+        overlay: () =>
+          createVNode(
+            AMenu,
+            { class: 'default-dropdown-menu' },
+            {
+              default: () => moreActionItems
+            }
+          )
+      }
+    )
+  ];
 }
 
 export default defineComponent({
@@ -218,6 +236,19 @@ export default defineComponent({
       moreActionFlags.some((v) => v)
     ) {
       const originMoreAction = showActions[showActions.length - 1];
+      let moreActionVNodes: VNode[] = [];
+      const renderResult = (this.moreActionRender || createMoreAction)(moreActions, this.inline, {
+        bizStyle: this.bizStyle,
+        buttonType: this.buttonType,
+        operatorColumnDirection: operatorColumnDirection as OperationColumnDirection,
+        allMounted: this.allMounted,
+        moreActionTriggers: this.moreActionTriggers!
+      });
+      if (Array.isArray(renderResult)) {
+        moreActionVNodes = renderResult;
+      } else {
+        moreActionVNodes = [renderResult];
+      }
       showActions.push(
         createVNode(
           'div',
@@ -225,20 +256,11 @@ export default defineComponent({
             key: originMoreAction.props?.dslDefinition?.name || uniqueKeyGenerator(),
             class: 'more-action-item'
           },
-          [
-            ...otherVNodes,
-            (this.moreActionRender || createMoreAction)(moreActions, this.inline, {
-              bizStyle: this.bizStyle,
-              buttonType: this.buttonType,
-              operatorColumnDirection: operatorColumnDirection as OperationColumnDirection,
-              allMounted: this.allMounted,
-              moreActionTriggers: this.moreActionTriggers!
-            })
-          ]
+          [...otherVNodes, ...moreActionVNodes]
         )
       );
     } else {
-      showActions = [...showActions, ...moreActions, ...otherVNodes];
+      showActions = [...showActions, ...otherVNodes, ...moreActions];
     }
     // fixme @zbh 20221102 使用SPI注册
     if (this.viewType === ViewType.Gallery && !this.inline) {
