@@ -57,7 +57,7 @@ export default defineComponent({
     const onChange = (values: PamirsOrganizationalStructure | PamirsOrganizationalStructure[] | null | undefined) => {
       let submitValues: PamirsDepartment | PamirsDepartment[] | null | undefined;
       if (values == null) {
-        submitValues = values;
+        submitValues = null;
       } else if (Array.isArray(values)) {
         submitValues = values
           .filter((v) => v.type === OrganizationalStructureType.department)
