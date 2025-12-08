@@ -149,7 +149,7 @@ export default defineComponent({
     const rowCount = ref(DEFAULT_ROW_COUNT);
 
     const tableFields = computed<TableFieldOption[]>(() => {
-      return props.editableModelFields.map((field) => {
+      let options = props.editableModelFields.map((field) => {
         const fieldName = field.name;
         return {
           label: field.label || field.displayName || fieldName,
@@ -159,6 +159,10 @@ export default defineComponent({
           field: fieldName
         };
       });
+      if (type.value === QuickFillType.create) {
+        options = options.filter((v) => !v.readonly);
+      }
+      return options;
     });
 
     const handleCancel = () => {

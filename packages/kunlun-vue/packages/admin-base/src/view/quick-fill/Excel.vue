@@ -196,7 +196,7 @@ const generateColumnName = (index: number) => {
   return index + 1;
 };
 
-const columns = Array.from({ length: colCount.value }, (_, i) => generateColumnName(i));
+const columns = computed(() => Array.from({ length: colCount.value }, (_, i) => generateColumnName(i)));
 const rows = computed(() => Array.from({ length: props.rowCount }, (_, i) => i + 1));
 const disabledRows = computed(() => {
   const basic = props.rowCount || 0;
@@ -269,14 +269,14 @@ const getCellIndices = (cellId: CellId): CellIndices | null => {
     return null;
   }
   const rowIdx = parsed.row - 1; // 转换为 0-based 索引
-  const colIdx = columns.indexOf(parsed.col);
+  const colIdx = columns.value.indexOf(parsed.col);
   return colIdx >= 0 ? { row: rowIdx, col: colIdx } : null;
 };
 
 // 根据行列索引获取单元格 ID
 const getCellId = (rowIdx: number, colIdx: number): CellId | null => {
   if (rowIdx >= 0 && rowIdx < props.rowCount && colIdx >= 0 && colIdx < colCount.value) {
-    return `${rowIdx + 1}-${columns[colIdx]}`;
+    return `${rowIdx + 1}-${columns.value[colIdx]}`;
   }
   return null;
 };
@@ -501,7 +501,7 @@ const handleKeydown = (event: KeyboardEvent): void => {
 
   const currentRow = parsed.row;
   const currentCol = parsed.col;
-  const currentColIdx = columns.indexOf(currentCol);
+  const currentColIdx = columns.value.indexOf(currentCol);
 
   switch (key) {
     case 'ArrowUp':
@@ -519,25 +519,25 @@ const handleKeydown = (event: KeyboardEvent): void => {
     case 'ArrowLeft':
       event.preventDefault();
       if (currentColIdx > 0) {
-        moveAndSelect(currentRow, columns[currentColIdx - 1]);
+        moveAndSelect(currentRow, columns.value[currentColIdx - 1]);
       }
       break;
     case 'ArrowRight':
       event.preventDefault();
-      if (currentColIdx < columns.length - 1) {
-        moveAndSelect(currentRow, columns[currentColIdx + 1]);
+      if (currentColIdx < columns.value.length - 1) {
+        moveAndSelect(currentRow, columns.value[currentColIdx + 1]);
       }
       break;
     case 'Tab':
       event.preventDefault();
-      if (!event.shiftKey && currentColIdx < columns.length - 1) {
-        moveAndSelect(currentRow, columns[currentColIdx + 1]);
+      if (!event.shiftKey && currentColIdx < columns.value.length - 1) {
+        moveAndSelect(currentRow, columns.value[currentColIdx + 1]);
       } else if (event.shiftKey && currentColIdx > 0) {
-        moveAndSelect(currentRow, columns[currentColIdx - 1]);
+        moveAndSelect(currentRow, columns.value[currentColIdx - 1]);
       } else if (!event.shiftKey && currentRow < props.rowCount) {
-        moveAndSelect(currentRow + 1, columns[0]);
+        moveAndSelect(currentRow + 1, columns.value[0]);
       } else if (event.shiftKey && currentRow > 1) {
-        moveAndSelect(currentRow - 1, columns[columns.length - 1]);
+        moveAndSelect(currentRow - 1, columns.value[columns.value.length - 1]);
       }
       break;
     case 'Enter':
@@ -628,7 +628,7 @@ const handlePaste = (event: ClipboardEvent): void => {
   }
 
   const { row: startRow, col: startCol } = pasteStartParsed;
-  const startColIdx = columns.indexOf(startCol);
+  const startColIdx = columns.value.indexOf(startCol);
   if (startColIdx === -1) {
     return;
   }
@@ -709,13 +709,13 @@ const handlePaste = (event: ClipboardEvent): void => {
             const targetRowIdx = startRow + rowOffset - 1;
             const targetColIdx = startColIdx + currentColOffset;
 
-            if (targetColIdx < columns.length && tableHeaderValues.value[targetColIdx].readonly) {
+            if (targetColIdx < columns.value.length && tableHeaderValues.value[targetColIdx].readonly) {
               currentColOffset++;
               return;
             }
 
-            if (targetRowIdx < props.rowCount && targetColIdx < columns.length) {
-              const targetCellId = `${targetRowIdx + 1}-${columns[targetColIdx]}`;
+            if (targetRowIdx < props.rowCount && targetColIdx < columns.value.length) {
+              const targetCellId = `${targetRowIdx + 1}-${columns.value[targetColIdx]}`;
               newCells[targetCellId] = cellData.trim();
             }
             currentColOffset++;
