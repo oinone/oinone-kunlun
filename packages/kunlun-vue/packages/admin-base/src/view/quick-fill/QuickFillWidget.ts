@@ -55,7 +55,7 @@ interface Failure {
 
 interface QuickFillResponse {
   values: string;
-  failures: Failure[];
+  failures?: Failure[];
 }
 
 const fullAddressField = StaticMetadata.ResourceAddress.modelFields.filter((v) =>
@@ -243,7 +243,7 @@ export class QuickFillWidget extends BaseElementWidget {
     /**
      * 如果存在错误，则展示表格，将后端返回数据回填到表格
      */
-    if (failures.length) {
+    if (failures?.length) {
       this.step = 1;
       this.createTableWidget(headers, data);
 

@@ -774,7 +774,19 @@ defineExpose({
     return convertCellsToArray(cells.value);
   },
   getTableHeaderValues() {
-    return tableHeaderValues.value;
+    const fields: TableFieldOption[] = [];
+    for (const tableHeaderValue of tableHeaderValues.value) {
+      const { value } = tableHeaderValue;
+      if (value === NON_CUT) {
+        fields.push(tableHeaderValue);
+      } else {
+        const target = props.fields.find((v) => v.field === value);
+        if (target) {
+          fields.push(target);
+        }
+      }
+    }
+    return fields;
   },
   setCells(value) {
     cells.value = value;
