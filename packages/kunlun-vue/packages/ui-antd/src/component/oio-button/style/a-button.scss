@@ -241,9 +241,48 @@ $linkParameterPrefix: $buttonParameterPrefix + -link;
     }
   }
 
-  &.#{$buttonClassPrefix}-biz-type-info,
-  &.#{$buttonClassPrefix}-biz-type-warning,
-  &.#{$buttonClassPrefix}-biz-type-success,
+  &.#{$buttonClassPrefix}-biz-type-info {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+      --oio-icon-color: var(#{$buttonParameterPrefix + -default-info-text-color});
+
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+
+  &.#{$buttonClassPrefix}-biz-type-warning {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+      --oio-icon-color: var(#{$buttonParameterPrefix + -default-warning-text-color});
+
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+
+  &.#{$buttonClassPrefix}-biz-type-success {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+      --oio-icon-color: var(#{$buttonParameterPrefix + -default-success-text-color});
+
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+
   &.#{$buttonClassPrefix}-biz-type-danger {
     background-color: transparent;
     border-color: transparent;
@@ -251,7 +290,7 @@ $linkParameterPrefix: $buttonParameterPrefix + -link;
 
     &:hover,
     &:focus {
-      --oio-icon-color: var(#{$buttonParameterPrefix + -text-color-hover});
+      --oio-icon-color: var(#{$buttonParameterPrefix + -default-danger-text-color});
 
       background-color: transparent;
       border-color: transparent;
