@@ -240,4 +240,21 @@ $linkParameterPrefix: $buttonParameterPrefix + -link;
       border-color: transparent;
     }
   }
+
+  &.#{$buttonClassPrefix}-biz-type-info,
+  &.#{$buttonClassPrefix}-biz-type-warning,
+  &.#{$buttonClassPrefix}-biz-type-success,
+  &.#{$buttonClassPrefix}-biz-type-danger {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+      --oio-icon-color: var(#{$buttonParameterPrefix + -text-color-hover});
+
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
 }
