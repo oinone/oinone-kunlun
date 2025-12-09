@@ -230,10 +230,13 @@ export class BaseTableWidget<
   @Widget.Reactive()
   @Widget.Provide()
   protected get editable(): boolean | undefined {
+    if (this.currentEditorContext?.forceEditable) {
+      return true;
+    }
     if (this.inline) {
       return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().editable)).orElse(true);
     }
-    return this.currentEditorContext?.forceEditable || BooleanHelper.toBoolean(this.getDsl().editable);
+    return BooleanHelper.toBoolean(this.getDsl().editable);
   }
 
   /**
@@ -781,7 +784,7 @@ export class BaseTableWidget<
    */
   @Widget.Reactive()
   protected get enabledKeyboard(): boolean {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.enabledKeyboard)).orElse(!!this.inline);
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.enabledKeyboard)).orElse(!!this.editable);
   }
 
   /**
