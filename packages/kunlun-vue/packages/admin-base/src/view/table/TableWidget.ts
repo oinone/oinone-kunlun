@@ -32,7 +32,6 @@ import { SPI } from '@oinone/kunlun-spi';
 import {
   ActiveEditorContext,
   GROUP_TREE_KEY,
-  RowContext,
   TableEditorCloseTrigger,
   TableEditorMode,
   TableRowClickMode,
@@ -1214,20 +1213,6 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     const res = await Promise.all(results);
     res.forEach((v) => content.push(...v));
     return content;
-  }
-
-  // endregion
-
-  // region 行内编辑
-
-  @Widget.Method()
-  @Widget.Provide()
-  protected async rowEditorClosed(context: RowContext | undefined): Promise<boolean> {
-    const res = await super.rowEditorClosed(context);
-    if (this.treeConfig && !this.inline && res) {
-      this.refreshProcess();
-    }
-    return res;
   }
 
   // endregion

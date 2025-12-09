@@ -363,6 +363,14 @@ export class BaseTableWidget<
   }
 
   /**
+   * Vxe-Table 事件不支持异步，使用关闭后置执行队列保证异步执行有序。
+   * <br>在使用单元格级别的行内编辑时，切换单元格将快速执行 close -> active 事件
+   * <br>async/await 将打乱执行顺序，导致 currentEditorContext 变量异常，上下文出现混乱
+   * @protected
+   */
+  protected activeClosedAfterQueue: Function[] | undefined;
+
+  /**
    * 激活编辑模式回调
    * @param context 激活编辑模式上下文
    * @protected
@@ -374,6 +382,16 @@ export class BaseTableWidget<
     this.getColumnWidgets(true).forEach((columnWidget, index) => {
       editableMap[columnWidget.path] = this.filterEditable(context, columnWidget, index);
     });
+    if (this.activeClosedAfterQueue) {
+      this.activeClosedAfterQueue.push(() => {
+        this.updateLastedCurrentEditorContext(context);
+      });
+    } else {
+      this.updateLastedCurrentEditorContext(context);
+    }
+  }
+
+  protected updateLastedCurrentEditorContext(context: ActiveEditorContext): void {
     const { lastedCurrentEditorContext } = this;
     if (lastedCurrentEditorContext) {
       if (lastedCurrentEditorContext.prepare) {
@@ -383,7 +401,9 @@ export class BaseTableWidget<
           prepare: false
         };
       } else {
-        console.error('You must be clear lasted current editor context.');
+        if (this.editorMode !== TableEditorMode.cell) {
+          console.error('You must be clear lasted current editor context.');
+        }
         this.lastedCurrentEditorContext = context;
       }
     } else {
@@ -421,7 +441,19 @@ export class BaseTableWidget<
    */
   @Widget.Method()
   @Widget.Provide()
-  protected async rowEditorClosed(context: RowContext | undefined): Promise<boolean> {
+  protected rowEditorClosed(context: RowContext | undefined): Promise<boolean> {
+    this.activeClosedAfterQueue = [];
+    return this.$rowEditorClosed(context)
+      .then((res) => {
+        this.activeClosedAfterQueue?.forEach((fn) => fn());
+        return res;
+      })
+      .finally(() => {
+        this.activeClosedAfterQueue = undefined;
+      });
+  }
+
+  protected async $rowEditorClosed(context: RowContext | undefined) {
     if (!context || this.currentEditorContext?.prepare) {
       return true;
     }
@@ -470,7 +502,9 @@ export class BaseTableWidget<
     }
     if (res) {
       await this.rowEditorClosedAfterProcess(context);
-      this.lastedCurrentEditorContext = undefined;
+      if (this.editorMode !== TableEditorMode.cell) {
+        this.lastedCurrentEditorContext = undefined;
+      }
     }
     return res;
   }
@@ -657,7 +691,10 @@ export class BaseTableWidget<
     }
     const res = await this.executeRowEditorUpdate(functionDefinition, data);
     this.refreshRowEditorUpdate(context, data, res);
-    MessageHub.success(translateValueByKey('更新成功'));
+    if (this.editorMode !== TableEditorMode.cell) {
+      // 单元格编辑时，切换单元格就会触发更新操作，消息提示过于密集
+      MessageHub.success(translateValueByKey('更新成功'));
+    }
     return true;
   }
 
