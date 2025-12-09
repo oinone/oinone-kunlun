@@ -214,7 +214,6 @@ export default defineComponent({
       {
         title: $translate('选择角色'),
         width: '720px',
-        height: '664px',
         maskClosable: false,
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
         wrapperClassName: StringHelper.append(['oio-role-modal'], this.wrapperClassName),
@@ -322,28 +321,16 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .oio-role-modal {
-  .ant-modal-body {
-    overflow-x: hidden;
-
-    & > .oio-spin-wrapper {
-      height: 100%;
-
-      & > .ant-spin-container {
-        height: 100%;
-      }
-    }
-  }
-
   .oio-role-modal-content {
     display: flex;
     flex-direction: column;
     row-gap: 16px;
     height: 100%;
+  }
 
-    & > .oio-role-list {
-      height: 100%;
-      overflow: auto;
-    }
+  .oio-tab-content {
+    height: 400px;
+    overflow: auto;
   }
 }
 </style>
