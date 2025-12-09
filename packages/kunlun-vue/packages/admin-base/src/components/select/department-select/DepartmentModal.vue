@@ -268,7 +268,6 @@ export default defineComponent({
       {
         title: $translate('选择部门'),
         width: '720px',
-        height: '664px',
         maskClosable: false,
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
         wrapperClassName: StringHelper.append(['oio-department-modal'], this.wrapperClassName),
@@ -399,28 +398,15 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .oio-department-modal {
-  .ant-modal-body {
-    overflow-x: hidden;
-
-    & > .oio-spin-wrapper {
-      height: 100%;
-
-      & > .ant-spin-container {
-        height: 100%;
-      }
-    }
-  }
-
   .oio-department-modal-content {
     display: flex;
     flex-direction: column;
     row-gap: 16px;
-    height: 100%;
+  }
 
-    & > .oio-department-tree-wrapper,
-    & > .oio-department-tree {
-      flex: 1;
-    }
+  .oio-tab-content {
+    height: 400px;
+    overflow: auto;
   }
 }
 </style>
