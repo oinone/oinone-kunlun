@@ -3,6 +3,7 @@
     ref="selectRef"
     class="oio-select"
     option-label-prop="label"
+    label-in-value
     :mode="selectMode"
     :value="currentValue"
     :max-tag-count="maxTagCount"
