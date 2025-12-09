@@ -25,8 +25,8 @@ export const MATH_FUNCTION = {
   COUNT,
   UPPER_MONEY,
   POW,
-  LOG,
-  BETWEEN_AND
+  LOG
+  // BETWEEN_AND
 };
 
 function ABS(input: number | string) {
@@ -270,61 +270,61 @@ function LOG(a: number, b: number): number | null {
   return Math.log(b) / Math.log(a);
 }
 
-function BETWEEN_AND(recordData, dataList) {
-  const strictTimeFormatRegex =
-    /^(?:\d{4})(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\d|3[01]))?)?(?: (?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d))?$|^(?:(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d))$/;
-  if (
-    strictTimeFormatRegex.test(recordData) &&
-    strictTimeFormatRegex.test(dataList[0]) &&
-    strictTimeFormatRegex.test(dataList[1])
-  ) {
-    const onlyTimeRegex = /^(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)$/;
-    if (onlyTimeRegex.test(dataList[0]) && onlyTimeRegex.test(dataList[1]) && onlyTimeRegex.test(recordData)) {
-      if (recordData >= dataList[0] && recordData <= dataList[1]) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-
-    const dateTimeRegex =
-      /^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01]) (?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)$/;
-
-    const startDate = new Date(dataList[0]);
-    const endDate = new Date(dataList[1]);
-    const testRecordDate = new Date(recordData);
-
-    // 将所有的非DateTime时间设置时分秒为 0 0 0;
-    if (!dateTimeRegex.test(dataList[0])) {
-      startDate.setHours(0, 0, 0, 0);
-    }
-    if (!dateTimeRegex.test(dataList[1])) {
-      endDate.setHours(0, 0, 0, 0);
-    }
-    if (!dateTimeRegex.test(recordData)) {
-      testRecordDate.setHours(0, 0, 0, 0);
-    }
-
-    if (testRecordDate >= startDate && testRecordDate <= endDate) {
-      return true;
-    }
-    return false;
-  }
-
-  const numberFormatRegex = /^[-+]?(\d+(\.\d*)?|\.\d+)$/;
-  if (
-    numberFormatRegex.test(recordData) &&
-    numberFormatRegex.test(dataList[0]) &&
-    numberFormatRegex.test(dataList[1])
-  ) {
-    const testRecordNumber = Number.parseInt(recordData, 10);
-    const startNumber = Number.parseInt(dataList[0], 10);
-    const endNumber = Number.parseInt(dataList[1], 10);
-    if (testRecordNumber >= startNumber && testRecordNumber <= endNumber) {
-      return true;
-    }
-    return false;
-  }
-
-  return false;
-}
+// function BETWEEN_AND(recordData, dataList) {
+//   const strictTimeFormatRegex =
+//     /^(?:\d{4})(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\d|3[01]))?)?(?: (?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d))?$|^(?:(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d))$/;
+//   if (
+//     strictTimeFormatRegex.test(recordData) &&
+//     strictTimeFormatRegex.test(dataList[0]) &&
+//     strictTimeFormatRegex.test(dataList[1])
+//   ) {
+//     const onlyTimeRegex = /^(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)$/;
+//     if (onlyTimeRegex.test(dataList[0]) && onlyTimeRegex.test(dataList[1]) && onlyTimeRegex.test(recordData)) {
+//       if (recordData >= dataList[0] && recordData <= dataList[1]) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     }
+//
+//     const dateTimeRegex =
+//       /^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01]) (?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)$/;
+//
+//     const startDate = new Date(dataList[0]);
+//     const endDate = new Date(dataList[1]);
+//     const testRecordDate = new Date(recordData);
+//
+//     // 将所有的非DateTime时间设置时分秒为 0 0 0;
+//     if (!dateTimeRegex.test(dataList[0])) {
+//       startDate.setHours(0, 0, 0, 0);
+//     }
+//     if (!dateTimeRegex.test(dataList[1])) {
+//       endDate.setHours(0, 0, 0, 0);
+//     }
+//     if (!dateTimeRegex.test(recordData)) {
+//       testRecordDate.setHours(0, 0, 0, 0);
+//     }
+//
+//     if (testRecordDate >= startDate && testRecordDate <= endDate) {
+//       return true;
+//     }
+//     return false;
+//   }
+//
+//   const numberFormatRegex = /^[-+]?(\d+(\.\d*)?|\.\d+)$/;
+//   if (
+//     numberFormatRegex.test(recordData) &&
+//     numberFormatRegex.test(dataList[0]) &&
+//     numberFormatRegex.test(dataList[1])
+//   ) {
+//     const testRecordNumber = Number.parseInt(recordData, 10);
+//     const startNumber = Number.parseInt(dataList[0], 10);
+//     const endNumber = Number.parseInt(dataList[1], 10);
+//     if (testRecordNumber >= startNumber && testRecordNumber <= endNumber) {
+//       return true;
+//     }
+//     return false;
+//   }
+//
+//   return false;
+// }

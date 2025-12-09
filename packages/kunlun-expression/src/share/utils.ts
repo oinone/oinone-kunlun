@@ -1,7 +1,7 @@
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldType } from '@oinone/kunlun-meta';
 import scrollIntoViewUtil from 'dom-scroll-into-view/dist-src/util';
-import { ExpModelConfig } from '../types';
-import { translateValueByKey } from '@oinone/kunlun-engine';
+import { ExpModelConfig } from '../types/Common';
 
 /**
  * 根据父元素在页面的位置给子元素设置基于body节点的绝对定位css，使用场景：选择器(父)和下拉菜单(子)
@@ -94,6 +94,7 @@ function isDropdownFocus(targetElement: HTMLElement, dropdownElements: HTMLEleme
 function isModelModel(model: string) {
   return [ExpModelConfig.BaseModel.toString(), ExpModelConfig.DesignerModelDefinition.toString()].includes(model!);
 }
+
 function isModelField(field: string) {
   return [ExpModelConfig.BaseField.toString(), ExpModelConfig.DesignerModelField.toString()].includes(field);
 }

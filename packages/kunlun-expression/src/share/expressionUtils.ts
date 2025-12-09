@@ -1,6 +1,7 @@
 import { deepClone, isEmptyKeObject as isEmptyObject } from '@oinone/kunlun-meta';
-import { nextTick } from 'vue';
 import { isNil } from 'lodash-es';
+import { nextTick } from 'vue';
+import { queryExpBuildInFunction } from '../service/modelFunctionService';
 import {
   BooleanExpressionCompareOperatorList,
   DEFAULT_BOOLEAN_CONDITION_OPT,
@@ -31,9 +32,13 @@ import {
   IVariableContextItem,
   IVariableItem,
   VARIABLE_MAX_STRING_LENGTH,
-  VariableItemType,
-  TwoArgLeftRightFunBooleanOperatorList
+  VariableItemType
 } from '../types';
+import {
+  createConditionExpressionApiName,
+  createConditionExpressionDisplayName,
+  isNoCompareExpOperator
+} from './conditionExpressionUtils';
 import {
   createApiNameVariableListStr,
   createDefaultVariableItemList,
@@ -45,12 +50,6 @@ import {
   variableItemList2expressionCellList
 } from './expressionVariableUtils';
 import { randomNum, translateExpValue } from './utils';
-import {
-  createConditionExpressionApiName,
-  createConditionExpressionDisplayName,
-  isNoCompareExpOperator
-} from './conditionExpressionUtils';
-import { queryExpBuildInFunction } from '../service/modelFunctionService';
 
 export function createDefaultExpressionItem(type: ExpressionDefinitionType): IExpressionItem {
   const isCondition = type !== ExpressionDefinitionType.OPERATION;
@@ -267,32 +266,14 @@ export function createExpressionValue(expressionItemList: IExpressionItem[], exp
           operator = '';
         }
         if (a.type === ExpressionItemType.VARIABLE) {
-          if (!TwoArgLeftRightFunBooleanOperatorList.includes(a.compareOperator.toString())) {
-            return (
-              createValueVariableListStr(a.valueList!, expressionOption) +
-              (a.compareOperator
-                ? translateCompareOperatorValue(a.compareOperator, a.compareOperatorOptions, expressionOption)
-                : '') +
-              (a.compareValueList
-                ? createValueVariableListStr(a.compareValueList!, expressionOption, undefined, a.compareOperator)
-                : '') +
-              operator
-            );
-          } else {
-            return (
-              (a.compareOperator
-                ? translateCompareOperatorValue(a.compareOperator, a.compareOperatorOptions, expressionOption)
-                : '') +
-              '(' +
-              createValueVariableListStr(a.valueList!, expressionOption) +
-              ',' +
-              (a.compareValueList
-                ? createValueVariableListStr(a.compareValueList!, expressionOption, undefined, a.compareOperator)
-                : '') +
-              ')' +
-              operator
-            );
-          }
+          return (
+            createValueVariableListStr(a.valueList!, expressionOption) +
+            (a.compareOperator
+              ? translateCompareOperatorValue(a.compareOperator, a.compareOperatorOptions, expressionOption)
+              : '') +
+            (a.compareValueList ? createValueVariableListStr(a.compareValueList!, expressionOption) : '') +
+            operator
+          );
         }
         if (a.type === ExpressionItemType.LEFT_BRACKET) {
           return '(';
@@ -545,7 +526,7 @@ export function createExpressionItemByExpressionDefinition(
               item.compareValueList = expressionCellList2variableItemList(block.cellList, false, expressionOption);
               if (item.valueList && item.valueList.length) {
                 const isRsqlCondition = expressionOptionType === ExpressionDefinitionType.RSQL_CONDITION;
-                let variableItemType = isRsqlCondition
+                const variableItemType = isRsqlCondition
                   ? item.compareValueList && item.compareValueList?.[0]?.type
                   : undefined;
                 if (isRsqlCondition && variableItemType === VariableItemType.OPTION) {
@@ -568,7 +549,7 @@ export function createExpressionItemByExpressionDefinition(
           const validList = item.valueList?.filter((a) => !isEmptyObject(a.value));
           if (validList && validList.length === 1) {
             item.operatorOptions = getExpressionOperatorOptions({
-              ttype: validList?.[0]?.ttype!
+              ttype: validList[0]?.ttype
             } as unknown as IVariableItem);
           }
         }
@@ -582,7 +563,7 @@ export function createExpressionItemByExpressionDefinition(
         item.valueDisplayName = row.translation;
         if (!isCondition) {
           item.operatorOptions = getExpressionOperatorOptions({
-            ttype: item?.function?.returnType?.ttype!
+            ttype: item.function.returnType?.ttype
           } as unknown as IVariableItem);
         }
         itemList.push(item);
@@ -675,8 +656,7 @@ export function createExpressionDefinitionByExpressionItem(
             translation: translateOperator(item.operator!, expressionOption)
           } as IExpressionCell;
         }
-        if (item.type === ExpressionItemType.LEFT_BRACKET || item.type === ExpressionItemType.RIGHT_BRACKET) {
-        } else if (item.type === ExpressionItemType.VARIABLE) {
+        if (item.type === ExpressionItemType.VARIABLE) {
           blockList.push({
             blockType: ExpressionItemType.VARIABLE,
             cellList: variableItemList2expressionCellList(item.valueList!)
@@ -860,7 +840,7 @@ function autoSetBracketDeepInner(expressionItems: IExpressionItem[], currentBrac
 export function seniorMode2quickMode(expressionItemList: IExpressionItem[]) {
   expressionItemList = deepClone(expressionItemList);
   expressionItemList = expressionItemList.filter(
-    (a) => a.checked && a.type != ExpressionItemType.LEFT_BRACKET && a.type != ExpressionItemType.RIGHT_BRACKET
+    (a) => a.checked && a.type !== ExpressionItemType.LEFT_BRACKET && a.type !== ExpressionItemType.RIGHT_BRACKET
   );
   expressionItemList.forEach((a, index) => {
     const isLast = index === expressionItemList.length - 1;

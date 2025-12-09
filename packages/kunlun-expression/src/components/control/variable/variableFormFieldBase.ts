@@ -5,7 +5,7 @@
 import { Pagination } from '@oinone/kunlun-engine';
 import { IModelField, isDateTtype, isNumberTtype, ModelFieldType } from '@oinone/kunlun-meta';
 import { BooleanHelper, OioNotification } from '@oinone/kunlun-vue-ui-antd';
-import { isNil, isNumber } from 'lodash-es';
+import { isNil } from 'lodash-es';
 import {
   computed,
   ExtractPropTypes,
@@ -33,7 +33,6 @@ import {
   translateExpValue
 } from '../../../share';
 import {
-  BooleanConditionComparisonOperator,
   ElementSize,
   ExpressionDefinitionType,
   ExpressionSeniorMode,
@@ -138,10 +137,6 @@ export const IVariableFormFieldProps = {
   changeOnSelect: {
     type: Boolean,
     default: false
-  },
-  // 操作符类型
-  compareOperatorOption: {
-    type: Object
   }
 };
 
@@ -150,33 +145,6 @@ export function createEmits() {
 }
 
 export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFormFieldProps>>, context: SetupContext) {
-  const datePickerType = ref('DATETIME');
-
-  const datePickerTypeList = [
-    {
-      label: '年份',
-      value: ModelFieldType.Year
-    },
-    {
-      label: '日期',
-      value: ModelFieldType.Date
-    },
-    {
-      label: '日期时间',
-      value: ModelFieldType.DateTime
-    },
-    {
-      label: '时间',
-      value: ModelFieldType.Time
-    }
-  ];
-
-  watch(datePickerType, () => {
-    scopeDate.value = [];
-  });
-
-  const scopeNumber = ref([0, 0]);
-
   const readonly = computed<boolean>(() => BooleanHelper.toBoolean(props.readonly) || false);
   const disabled = computed<boolean>(() => BooleanHelper.toBoolean(props.disabled) || false);
 
@@ -186,8 +154,6 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
   const leftJoinTtype = computed((): ModelFieldType | undefined => {
     return props.leftJoinField?.ttype || props.leftJoinTtype;
   });
-
-  const scopeDate = ref([]);
 
   watch(
     () => props.showVariableType,
@@ -226,9 +192,6 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
   // });
 
   const innerPlaceholder = computed(() => {
-    if (variableItemList.value[0].value || variableItemList.value.length !== 1) {
-      return '';
-    }
     if (variableType.value) {
       const variableItemTypeDisplayName = VariableItemTypeDisplayName[variableType.value.toString().toUpperCase()];
       if (variableItemTypeDisplayName) {
@@ -268,12 +231,6 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     if (!props.showVariableType) {
       list = list.filter((a) => a.value !== VariableItemType.VARIABLE);
     }
-
-    // 多对多、一对多，不需要选项
-    if ([ModelFieldType.OneToMany, ModelFieldType.ManyToMany].includes(leftJoinTtype.value!)) {
-      list = list.filter((a) => a.value !== VariableItemType.OPTION);
-    }
-
     const vt = list.find((_a) => _a.value === variableType.value);
     if (!vt && list.length) {
       variableType.value = list[0].value as VariableItemType;
@@ -370,48 +327,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
 
   const inputSelectionInfo = { index: null, selectionStart: null };
 
-  const isBetweenOperator = computed(() => {
-    return (
-      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.BETWEEN_AND ||
-      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_BETWEEN_AND
-    );
-  });
-
-  const isInSetOperator = computed(() => {
-    return (
-      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.IN_SET ||
-      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_IN_SET
-    );
-  });
-
-  const isInSetOperation = computed(() => {
-    return (
-      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.IN_SET ||
-      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_IN_SET
-    );
-  });
-
-  const insetSetOperationValue = (selectedValues: string[]) => {
-    const variableItem = createVariableItemBySelectedOptions(
-      props.options!,
-      selectedValues,
-      createVariableContextItem(selectedValues, props.contextItems!),
-      variableType.value,
-      props.ttypes,
-      props.useContextName
-    ) as IVariableItem;
-    variableItemList.value.push(variableItem);
-
-    isShowDropdown.value = false;
-
-    props.blur && props.blur();
-  };
-
   const onSelectVariableInner = (selectedValues: string[]) => {
-    if (isInSetOperation.value) {
-      insetSetOperationValue(selectedValues);
-      return;
-    }
     if (!isVariableMode.value && variableItemNum.value >= props.maxVariableNum) {
       OioNotification.error(
         translateExpValue('错误'),
@@ -432,9 +348,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
       return;
     }
     if (isVariableMode.value) {
-      variableItemNum.value < props.maxVariableNum || (isBetweenOperator.value && variableItemNum.value <= 3)
-        ? variableItemList.value.push(variableItem)
-        : (variableItemList.value = [variableItemList.value[0], variableItem]);
+      variableItemList.value = [variableItem];
     } else {
       if (variableItemList.value.length > 0) {
         const lastValue = variableItemList.value[variableItemList.value.length - 1];
@@ -679,13 +593,6 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     if (variableItem.value.length > props.variableMaxStringLength) {
       variableItemList.value[index].value = variableItem.value.substring(0, props.variableMaxStringLength);
     }
-    if (
-      [BooleanConditionComparisonOperator.IN_SET, BooleanConditionComparisonOperator.NOT_IN_SET].includes(
-        props.compareOperatorOption?.value
-      )
-    ) {
-      variableItem.value = variableItem.value.split(',');
-    }
     if (computedIsOnlyOneInput()) {
       return;
     }
@@ -693,30 +600,6 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
       computeInputWidth(index);
     });
   };
-
-  const scopeIntValueChange = (index) => {
-    const variableItem = variableItemList.value[index];
-    variableItem.value = scopeNumber.value.map((item) => (isNumber(item) ? item : Number.parseInt(item as string, 10)));
-    variableItem.apiName = `[${scopeNumber.value.toString()}]`;
-    variableItem.multiParams = true;
-    // variableItem.ttype = 'M2M';
-    // variableItem.type = 'M2M';
-  };
-
-  const scopeDateValueChange = (index) => {
-    const variableItem = variableItemList.value[index];
-    variableItem.value =
-      variableType.value === 'string'
-        ? scopeDate.value.map((item) => {
-            return `"${item}"`;
-          })
-        : scopeDate.value;
-    variableItem.apiName = `[${scopeDate.value.toString()}]`;
-    variableItem.multiParams = true;
-    // variableItem.ttype = 'M2M';
-    // variableItem.type = 'M2M';
-  };
-
   const computeInputWidth = (index: number) => {
     const isLast = index === variableItemList.value.length - 1;
     const variableItemInputRef = variableItemInputRefs[index];
@@ -768,91 +651,8 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     return [variableFieldRef.value, dropdownRef.value] as HTMLElement[];
   });
 
-  const inSetOperatorText = ref('');
-
-  const onChangeInsetOperatorText = (index) => {
-    const variableItem = variableItemList.value[index];
-    variableItem.value = inSetOperatorText.value.split(',').map((item) => {
-      return `'${item}'`;
-    });
-  };
-
-  const isInsetOperator = computed(() => {
-    return (
-      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.IN_SET ||
-      props.compareOperatorOption?.value === BooleanConditionComparisonOperator.NOT_IN_SET
-    );
-  });
-
-  const getTimeType = (timeStr: string) => {
-    // 先处理空值和非字符串情况
-    if (!timeStr || typeof timeStr !== 'string') {
-      return null;
-    }
-
-    // 定义四种类型的正则表达式（精准匹配，避免部分匹配）
-    const timePatterns = [
-      { type: ModelFieldType.Year, regex: /^(\d{4})$/ }, // 纯4位数字（yyyy）
-      { type: ModelFieldType.Date, regex: /^(\d{4})-(\d{2})-(\d{2})$/ }, // yyyy-mm-dd（月份/日期需2位）
-      { type: ModelFieldType.DateTime, regex: /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/ }, // yyyy-mm-dd hh:mm:ss
-      { type: ModelFieldType.Time, regex: /^(\d{2}):(\d{2}):(\d{2})$/ } // hh:mm:ss（时/分/秒需2位）
-    ];
-
-    for (const { type, regex } of timePatterns) {
-      if (regex.test(timeStr.trim().replaceAll('\"',''))) {
-        return type;
-      }
-    }
-
-    return null;
-  };
-
   onMounted(() => {
     document.body.addEventListener('click', onContains);
-
-    // 范围值回填;
-    if (
-      props.leftJoinField &&
-      props.leftJoinField.ttype === ModelFieldType.Integer &&
-      props.valueList &&
-      props.valueList.length === 1
-    ) {
-      scopeNumber.value = Array.isArray(props.valueList[0].value)
-        ? props.valueList[0].value
-        : JSON.parse(props.valueList[0].value);
-    }
-
-    if (
-      props.leftJoinField &&
-      [ModelFieldType.Year, ModelFieldType.Date, ModelFieldType.DateTime, ModelFieldType.Time].includes(
-        props.leftJoinField.ttype
-      ) &&
-      props.valueList &&
-      props.valueList.length === 1
-    ) {
-      const tempDateList = Array.isArray(props.valueList[0].value)
-        ? props.valueList[0].value
-        : JSON.parse(props.valueList[0].value);
-
-      datePickerType.value = getTimeType(tempDateList[0]) || ModelFieldType.DateTime;
-      setTimeout(() => {
-        scopeDate.value = tempDateList;
-      }, 200);
-    }
-
-    if (
-      props.compareOperatorOption &&
-      props.valueList &&
-      variableType.value === 'string' &&
-      [BooleanConditionComparisonOperator.IN_SET, BooleanConditionComparisonOperator.NOT_IN_SET].includes(
-        props.compareOperatorOption.value
-      )
-    ) {
-      inSetOperatorText.value = Array.isArray(props.valueList[0].value)
-        ? props.valueList[0].value.join(',').replaceAll("'", '')
-        : props.valueList[0].value.replaceAll("'", '');
-    }
-
     // variableItemList.value = createDefaultVariableItemList();
   });
   onBeforeUnmount(() => {
@@ -864,14 +664,6 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     return [ModelFieldType.Float, ModelFieldType.Currency].includes(ttype);
   };
   return {
-    inSetOperatorText,
-    isBetweenOperator,
-    isInsetOperator,
-    isInSetOperator,
-    datePickerType,
-    datePickerTypeList,
-    scopeNumber,
-    scopeDate,
     disabled,
     readonly,
     focusNodes,
@@ -916,10 +708,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     isRealNumberTtype,
     createInputPatternByTtype,
     isDateTtype,
-    translateExpValue,
-    scopeIntValueChange,
-    scopeDateValueChange,
-    onChangeInsetOperatorText
+    translateExpValue
   };
 }
 

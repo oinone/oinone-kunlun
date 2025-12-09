@@ -895,7 +895,7 @@ export class Expression {
     );
     this.registerFunction('POW', ['number|string', 'number|string'], MATH_FUNCTION.POW);
     this.registerFunction('LOG', ['number|string', 'number|string'], MATH_FUNCTION.LOG);
-    this.registerFunction('BETWEEN_AND', ['number|string', 'string|array'], MATH_FUNCTION.BETWEEN_AND);
+    // this.registerFunction('BETWEEN_AND', ['number|string', 'string|array'], MATH_FUNCTION.BETWEEN_AND);
 
     // 字符串函数
     this.registerFunction('TRIM', ['string'], STRING_FUNCTION.TRIM);
@@ -995,7 +995,8 @@ export class Expression {
     this.registerFunction('MAP_PUT', ['object', 'string', 'any'], COLLECTION_FUNCTION.MAP_PUT);
     this.registerFunction('MAP_REMOVE', ['object', 'string'], COLLECTION_FUNCTION.MAP_REMOVE);
     this.registerFunction('MAP_COUNT', ['object'], COLLECTION_FUNCTION.MAP_COUNT);
-    this.registerFunction('IN_SET', ['object|array|string', 'array'], COLLECTION_FUNCTION.IN_SET);
+    // this.registerFunction('IN_SET', ['object|array|string', 'array'], COLLECTION_FUNCTION.IN_SET);
+
     // 对象函数
     this.registerFunction('IS_NULL', ['any'], OBJECT_FUNCTION.IS_NULL);
     this.registerFunction('EQUALS', ['object', 'object'], OBJECT_FUNCTION.EQUALS);

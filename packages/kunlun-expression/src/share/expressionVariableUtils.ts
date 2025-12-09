@@ -15,7 +15,6 @@ import { OioNotification, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import { toString } from 'lodash-es';
 import { queryExpModelFields, queryExpModelPage } from '../service';
 import {
-  BooleanConditionComparisonOperator,
   ExpressionDefinitionType,
   ExpressionItemType,
   ExpressionKeywordDisplayName,
@@ -135,11 +134,10 @@ export function createDefaultSessionItem() {
 export function createValueVariableListStr(
   variableItemList: IVariableItem[],
   expressionOption: IExpressionOption,
-  leftVariableItem: IVariableItem | undefined = undefined,
+  leftVariableItem: IVariableItem | undefined = undefined
   // variableContextItems: IVariableContextItem[],
   // isBetweenInBrackets = true,
   // isAddQuote = true
-  operator: string = ''
 ) {
   return createVariableListStr(
     ExpressionSeniorMode.VALUE,
@@ -163,8 +161,7 @@ export function createValueVariableListStr(
         return expressionOption.variableCustomMethod(item.value);
       }
       return expressionOption.isRsqlLeft || item.type === VariableItemType.FIELD ? item.apiName : item.value;
-    },
-    operator
+    }
   );
 }
 
@@ -172,11 +169,10 @@ export function createValueVariableListStr(
 export function createApiNameVariableListStr(
   variableItemList: IVariableItem[],
   expressionOption: IExpressionOption,
-  leftVariableItem: IVariableItem | undefined = undefined,
+  leftVariableItem: IVariableItem | undefined = undefined
   // variableContextItems: IVariableContextItem[],
   // isBetweenInBrackets = true,
   // isAddQuote = true
-  operator: string = ''
 ) {
   return createVariableListStr(
     ExpressionSeniorMode.API_NAME,
@@ -190,8 +186,7 @@ export function createApiNameVariableListStr(
         apiName = apiName?.substring(ExpressionKeyword.activeRecord.length + 1);
       }
       return apiName;
-    },
-    operator
+    }
   );
 }
 
@@ -199,8 +194,7 @@ export function createApiNameVariableListStr(
 export function createDisplayNameVariableListStr(
   variableItemList: IVariableItem[],
   expressionOption: IExpressionOption,
-  leftVariableItem: IVariableItem | undefined = undefined,
-  operator = ''
+  leftVariableItem: IVariableItem | undefined = undefined
   // variableContextItems: IVariableContextItem[],
   // isBetweenInBrackets = true,
   // isAddQuote = true
@@ -220,8 +214,7 @@ export function createDisplayNameVariableListStr(
       }
       item.subTitle && list.push(item.subTitle);
       return list.join(VARIABLE_SEPARATE);
-    },
-    operator
+    }
   );
 }
 
@@ -232,15 +225,13 @@ export function createDisplayNameVariableListStr(
  * @param variableItemList
  * @param expressionOption
  * @param processFunc
- * @param operator
  */
 function createVariableListStr(
   expressionSeniorMode: ExpressionSeniorMode,
   leftVariableItem: IVariableItem | undefined = undefined,
   variableItemList: IVariableItem[],
   expressionOption: IExpressionOption,
-  processFunc: Function,
-  operator: string = ''
+  processFunc: Function
 ) {
   if (!variableItemList) {
     return '';
@@ -265,10 +256,6 @@ function createVariableListStr(
             if (expressionOption.leftJoinTtype === ModelFieldType.OBJ && isKeywordValue(a.value)) {
               return a.value;
             }
-          }
-
-          if (Array.isArray(a.value)) {
-            return a.value;
           }
 
           if (
@@ -308,28 +295,6 @@ function createVariableListStr(
         return processFunc(a);
       }
     });
-
-  const BetweenAndOperatorNameList: string[] = [
-    BooleanConditionComparisonOperator.BETWEEN_AND,
-    BooleanConditionComparisonOperator.NOT_BETWEEN_AND
-  ];
-
-  const InSetOperatorNameList: string[] = [
-    BooleanConditionComparisonOperator.IN_SET,
-    BooleanConditionComparisonOperator.NOT_IN_SET
-  ];
-
-
-  if (BetweenAndOperatorNameList.find((item) => item === operator) !== undefined) {
-    return `[${list.join(',')}]`;
-  }
-
-  // 变量如果只有一个值不能用[]包裹，可能为多值
-  const isVariable = variableItemList.some((item) => item.type === VariableItemType.VARIABLE);
-
-  if ((InSetOperatorNameList.includes(operator) && list.length > 1) || !isVariable) {
-    return `[${list.join(',')}]`;
-  }
 
   // 单个变量下多余2个值就需要用 "+" 连接,且用括号包裹
   return expressionOption.isBetweenInBrackets && list.length > 1 ? `(${list.join(' + ')})` : list.join(' + ');
@@ -499,10 +464,7 @@ export function variableItem2expressionCell(variableItem: IVariableItem): IExpre
     VariableItemType.FIELD,
     VariableItemType.SESSION
   ].includes(variableItem.type);
-  let value = toString(variableItem.value);
-  if (variableItem.multiParams) {
-    value = `[${value}]`;
-  }
+  const value = toString(variableItem.value);
   const transArr = [isVariable ? variableItem.displayName! : value] as string[];
   if (isVariable) {
     variableItem.subTitle && transArr.push(variableItem.subTitle);

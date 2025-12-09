@@ -22,8 +22,8 @@ export const COLLECTION_FUNCTION = {
   MAP_CONTAINS_KEY,
   MAP_PUT,
   MAP_REMOVE,
-  MAP_COUNT,
-  IN_SET
+  MAP_COUNT
+  // IN_SET
 };
 
 function LIST_GET(list: unknown[], index: number) {
@@ -241,22 +241,22 @@ function MAP_COUNT(obj: Record<string, unknown>) {
   return Object.keys(obj).length;
 }
 
-function IN_SET(key: object | Array<object>, argLists: Array<Object>) {
-  if (key === undefined || argLists === undefined || !Array.isArray(argLists)) {
-    return false;
-  }
-
-  if (Array.isArray(key)) {
-    if (key.length === 0) {
-      return false;
-    }
-    let res = true;
-    key.forEach((k) => {
-      if (!argLists.some((item) => item?.toString() === k?.toString())) {
-        res = false;
-      }
-    });
-    return res;
-  }
-  return argLists.map((item) => item?.toString()).includes(key?.toString());
-}
+// function IN_SET(key: object | Array<object>, argLists: Array<Object>) {
+//   if (key === undefined || argLists === undefined || !Array.isArray(argLists)) {
+//     return false;
+//   }
+//
+//   if (Array.isArray(key)) {
+//     if (key.length === 0) {
+//       return false;
+//     }
+//     let res = true;
+//     key.forEach((k) => {
+//       if (!argLists.some((item) => item?.toString() === k?.toString())) {
+//         res = false;
+//       }
+//     });
+//     return res;
+//   }
+//   return argLists.map((item) => item?.toString()).includes(key?.toString());
+// }
