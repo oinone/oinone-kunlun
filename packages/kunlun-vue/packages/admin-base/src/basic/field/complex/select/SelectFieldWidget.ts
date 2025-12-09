@@ -74,7 +74,7 @@ export class SelectFieldWidget<
   @Widget.Method()
   protected async search(keyword: string): Promise<void> {
     if (!keyword) {
-      this.options = undefined;
+      await this.$$initLoad();
       return;
     }
     keyword = GraphqlHelper.serializableSearchString(keyword);
