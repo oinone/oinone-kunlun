@@ -402,6 +402,11 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     row-gap: 16px;
+
+    & > .oio-organizational-structure-tree-wrapper {
+      height: 400px;
+      overflow: auto;
+    }
   }
 
   .oio-tab-content {
