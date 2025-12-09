@@ -59,12 +59,7 @@
         >
           <oio-column type="checkbox" width="50" v-if="field?.multi"></oio-column>
           <oio-column type="radio" width="50" v-else></oio-column>
-          <oio-column
-            v-for="field in optionFieldList"
-            :key="field.name"
-            :field="field.name"
-            :label="field.label"
-          ></oio-column>
+          <oio-column v-for="column in optionColumns" :key="column.key" v-bind="column"></oio-column>
         </oio-table>
 
         <oio-pagination
@@ -93,6 +88,7 @@ import {
 import { Select as ASelect } from 'ant-design-vue';
 import { uniqBy } from 'lodash-es';
 import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue';
+import { SelectTableColumn } from '../../basic';
 import { RelationSelectProps, relationSelectSetup } from '../../field/prop';
 
 export default defineComponent({
@@ -103,8 +99,8 @@ export default defineComponent({
       type: [Array, Object]
     },
     generatorSelectOption: Function,
-    optionFieldList: {
-      type: Array as PropType<RuntimeModelField[]>,
+    optionColumns: {
+      type: Array as PropType<SelectTableColumn[]>,
       default: () => []
     },
     field: {

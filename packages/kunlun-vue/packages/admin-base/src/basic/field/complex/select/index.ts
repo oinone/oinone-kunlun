@@ -1,5 +1,5 @@
 export * from './BaseSelectFieldWidget';
 export * from './FormSelectComplexFieldWidget';
 export * from './SelectFieldWidget';
-export * from './FormSelectTableComplexFieldWidget';
-export * from './FormSelectModalComplexFieldWidget';
+export * from './SelectTableFieldWidget';
+export * from './SelectModalFieldWidget';

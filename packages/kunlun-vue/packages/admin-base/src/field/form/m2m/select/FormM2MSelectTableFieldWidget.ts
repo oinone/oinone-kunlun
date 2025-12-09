@@ -3,7 +3,7 @@ import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { FormFieldWidget, FormSelectTableComplexFieldWidget } from '../../../../basic';
+import { FormFieldWidget, SelectTableFieldWidget } from '../../../../basic';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
@@ -12,7 +12,7 @@ import { FormFieldWidget, FormSelectTableComplexFieldWidget } from '../../../../
     widget: 'SelectTable'
   })
 )
-export class FormM2MSelectTableFieldWidget extends FormSelectTableComplexFieldWidget<ActiveRecord[], RuntimeM2MField> {
+export class FormM2MSelectTableFieldWidget extends SelectTableFieldWidget<ActiveRecord[], RuntimeM2MField> {
   @Widget.Reactive()
   protected get selectMode() {
     return SelectMode.multiple;

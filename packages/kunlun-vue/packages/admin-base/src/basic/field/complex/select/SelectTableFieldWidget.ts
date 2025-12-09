@@ -1,10 +1,20 @@
-import { ActiveRecords, RuntimeModelField, RuntimeRelationField } from '@oinone/kunlun-engine';
+import { ActiveRecords, isEnumerationField, RuntimeModelField, RuntimeRelationField } from '@oinone/kunlun-engine';
 import { StringHelper } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { SelectTable } from '../../../../components';
 import { FormSelectComplexFieldWidget } from './FormSelectComplexFieldWidget';
 
-export abstract class FormSelectTableComplexFieldWidget<
+/**
+ * 同 oio-column 组件的 props
+ */
+export interface SelectTableColumn extends Record<string, any> {
+  key: string;
+  label: string;
+  field: string;
+  filters?: { value: string; label: string }[];
+}
+
+export abstract class SelectTableFieldWidget<
   Value extends ActiveRecords = ActiveRecords,
   Field extends RuntimeRelationField = RuntimeRelationField
 > extends FormSelectComplexFieldWidget<Value, Field> {
@@ -28,31 +38,42 @@ export abstract class FormSelectTableComplexFieldWidget<
     }
   }
 
-  /**
-   * 选项字段列表，每一项都是对应的字段元数据
-   */
   @Widget.Reactive()
-  protected get optionFieldList(): RuntimeModelField[] {
+  protected get optionColumns(): SelectTableColumn[] {
     if (!this.referencesModel) {
       return [];
     }
     let columnFields: string[] | undefined = StringHelper.convertArray(this.getDsl().columnFields as string);
     if (!columnFields?.length) {
-      columnFields = this.referencesModel.labelFields;
+      columnFields = this.labelFields;
     }
-    if (!columnFields?.length) {
+    if (!columnFields.length) {
       console.error('Invalid column fields.');
       return [];
     }
     const modelFields = this.referencesModel.modelFields || [];
-    const fieldMap = new Map<string, RuntimeModelField>(modelFields.map((f) => [f.name, f]));
-    const fields: RuntimeModelField[] = [];
+    const fieldMap = new Map<string, RuntimeModelField>(modelFields.map((f) => [f.data, f]));
+    const columns: SelectTableColumn[] = [];
+    let index = 0;
     for (const columnField of columnFields) {
       const field = fieldMap.get(columnField);
       if (field) {
-        fields.push(field);
+        const { data, name, label } = field;
+        const column: SelectTableColumn = {
+          key: `${data}-${index}`,
+          label: label || data,
+          field: name
+        };
+        if (isEnumerationField(field)) {
+          column.filters = field.options.map((v) => ({
+            value: `${v.value}`,
+            label: v.name
+          }));
+        }
+        columns.push(column);
       }
+      index++;
     }
-    return fields;
+    return columns;
   }
 }

@@ -3,12 +3,12 @@ import { buildSelectSearchCondition } from '@oinone/kunlun-vue-admin-layout';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { toInteger } from 'lodash-es';
 import { SelectModal } from '../../../../components';
-import { FormSelectTableComplexFieldWidget } from './FormSelectTableComplexFieldWidget';
+import { SelectTableFieldWidget } from './SelectTableFieldWidget';
 
-export abstract class FormSelectModalComplexFieldWidget<
+export abstract class SelectModalFieldWidget<
   Value extends ActiveRecords = ActiveRecords,
   Field extends RuntimeRelationField = RuntimeRelationField
-> extends FormSelectTableComplexFieldWidget<Value, Field> {
+> extends SelectTableFieldWidget<Value, Field> {
   public initialize(props: any) {
     super.initialize(props);
     this.setComponent(SelectModal);

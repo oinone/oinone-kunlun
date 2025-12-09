@@ -1,7 +1,7 @@
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { FormFieldWidget, FormSelectModalComplexFieldWidget } from '../../../../basic';
+import { FormFieldWidget, SelectModalFieldWidget } from '../../../../basic';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
@@ -10,7 +10,7 @@ import { FormFieldWidget, FormSelectModalComplexFieldWidget } from '../../../../
     widget: 'SelectModal'
   })
 )
-export class FormO2OSelectModalFieldWidget extends FormSelectModalComplexFieldWidget {
+export class FormO2OSelectModalFieldWidget extends SelectModalFieldWidget {
   @Widget.Reactive()
   @Widget.Provide()
   protected get domainO2o() {

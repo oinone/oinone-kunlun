@@ -3,7 +3,7 @@ import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { debounce } from 'lodash-es';
-import { FormFieldWidget, FormSelectModalComplexFieldWidget } from '../../../../basic';
+import { FormFieldWidget, SelectModalFieldWidget } from '../../../../basic';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
@@ -12,7 +12,7 @@ import { FormFieldWidget, FormSelectModalComplexFieldWidget } from '../../../../
     widget: 'SelectModal'
   })
 )
-export class FormM2OSelectModalFieldWidget extends FormSelectModalComplexFieldWidget<ActiveRecord> {
+export class FormM2OSelectModalFieldWidget extends SelectModalFieldWidget<ActiveRecord> {
   public async submit(submitValue: SubmitValue) {
     const { field, itemName, value, viewMode, submitCache, submitType, relationUpdateType } = this;
     return SubmitRelationHandler.M2O(
