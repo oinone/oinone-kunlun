@@ -129,6 +129,7 @@ export default defineComponent({
     };
 
     return {
+      employeeListRef,
       state,
       currentState,
       roleDomain,
