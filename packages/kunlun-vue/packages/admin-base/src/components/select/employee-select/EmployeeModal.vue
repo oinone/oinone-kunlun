@@ -301,10 +301,7 @@ export default defineComponent({
             key: 'employee',
             label: '员工'
           });
-          let usingDepartmentSelect = userDept || userDeptAndChildren || departmentCodes?.length;
-          if (!usingDepartmentSelect && !employeeCodes?.length && !userEmployee) {
-            usingDepartmentSelect = true;
-          }
+          const usingDepartmentSelect = userDept || userDeptAndChildren || departmentCodes?.length;
           if (usingDepartmentSelect) {
             vNodes.push(
               createVNode(DepartmentEmployeeSelectPanel, {
