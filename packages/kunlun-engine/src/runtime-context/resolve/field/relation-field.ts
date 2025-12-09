@@ -2,6 +2,7 @@ import { ActionDslDefinition, DslDefinition, DslDefinitionHelper, FieldDslDefini
 import { ModelFieldType, ModelType } from '@oinone/kunlun-meta';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import {
+  RuntimeEnumerationOption,
   RuntimeM2MField,
   RuntimeM2OField,
   RuntimeModel,
@@ -10,7 +11,7 @@ import {
   RuntimeO2OField,
   RuntimeRelationField
 } from '../../../runtime-metadata';
-import { isRelationField } from '../../helper';
+import { isEnumerationField, isRelationField } from '../../helper';
 import { RuntimeContext } from '../../runtime-context';
 import { RuntimeContextManager } from '../../runtime-context-manager';
 import { convert as convertAction, getAndRepairName as getAndRepairActionName } from '../action/resolve';
@@ -94,7 +95,13 @@ export function convertRelationField(
       resolveContext.model = referencesModel;
 
       resolveExtendFieldAndAction(resolveContext, dsl);
-      resolveReferenceModelField(referencesModel, dslReferences.widgets);
+      resolveReferenceModelField(
+        {
+          dataDictionaryMap: runtimeContext.dataDictionaryMap || {}
+        },
+        referencesModel,
+        dslReferences.widgets
+      );
 
       RuntimeContextManager.delete(resolveContext.handle);
     }
@@ -135,12 +142,19 @@ export function convertM2MField(runtimeContext: RuntimeContext, dsl: FieldDslDef
   }
 }
 
-function resolveReferenceModelField(model: RuntimeModel, fields: DslReferenceModelField[] | undefined): void {
+function resolveReferenceModelField(
+  context: {
+    dataDictionaryMap: Record<string, RuntimeEnumerationOption[]>;
+  },
+  model: RuntimeModel,
+  fields: DslReferenceModelField[] | undefined
+): void {
   const { modelFields } = model;
   fields?.forEach((field) => {
     if (modelFields.some((v) => v.data === field.data)) {
       return;
     }
+    let finalField = field;
     if (isDslReferenceRelationModelField(field)) {
       const relationField = { ...field };
       const dslReferences: DslReferenceModel | undefined = field.options?.[0];
@@ -157,13 +171,18 @@ function resolveReferenceModelField(model: RuntimeModel, fields: DslReferenceMod
           modelActions: []
         };
         (relationField as unknown as RuntimeRelationField).referencesModel = referencesModel;
-        resolveReferenceModelField(referencesModel, dslReferences.widgets);
+        resolveReferenceModelField(context, referencesModel, dslReferences.widgets);
       }
       delete relationField.options;
-      modelFields.push(relationField as unknown as RuntimeModelField);
-      return;
+      finalField = relationField;
     }
-    modelFields.push(field as RuntimeModelField);
+    const runtimeField = finalField as RuntimeModelField;
+    if (isEnumerationField(runtimeField)) {
+      if (!runtimeField.options && runtimeField.dictionary) {
+        runtimeField.options = context.dataDictionaryMap[runtimeField.dictionary] || [];
+      }
+    }
+    modelFields.push(runtimeField);
   });
 }
 
