@@ -30,20 +30,25 @@ export function getCompanySelectOptions(): CompanySelectOption[] {
   return Array.from(options.values());
 }
 
+export enum CompanySelectBizStyle {
+  style1 = 'style1',
+  style2 = 'style2'
+}
+
 function defaultRender(data: OioSelectItem<PamirsCompany>) {
   return createVNode('div', { class: 'oio-company-select-option-label' }, data.label);
 }
 
 registerCompanySelectOptionRender(
   {
-    key: 'style1',
+    key: CompanySelectBizStyle.style1,
     label: '精简样式'
   },
   styleRender1
 );
 registerCompanySelectOptionRender(
   {
-    key: 'style2',
+    key: CompanySelectBizStyle.style2,
     label: '详细样式'
   },
   styleRender2

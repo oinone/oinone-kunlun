@@ -1,8 +1,10 @@
 import { PamirsCompany, RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget, SelectFieldWidget } from '../../../../basic';
-import { CompanySelect } from '../../../../components';
+import { CompanySelect, CompanySelectBizStyle } from '../../../../components';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
@@ -16,6 +18,11 @@ export class FormM2OCompanyFieldWidget extends SelectFieldWidget<PamirsCompany, 
     super.initialize(props);
     this.setComponent(CompanySelect);
     return this;
+  }
+
+  @Widget.Reactive()
+  protected get bizStyle(): string | undefined {
+    return Optional.ofNullable(super.bizStyle).orElse(CompanySelectBizStyle.style2);
   }
 
   public async submit(submitValue: SubmitValue) {
