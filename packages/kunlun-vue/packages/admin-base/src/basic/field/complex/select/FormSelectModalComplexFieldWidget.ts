@@ -1,8 +1,8 @@
-import { toInteger } from 'lodash-es';
-import { Widget } from '@oinone/kunlun-vue-widget';
 import { ActiveRecords, Pagination, RuntimeRelationField } from '@oinone/kunlun-engine';
 import { buildSelectSearchCondition } from '@oinone/kunlun-vue-admin-layout';
-import { SelectModal } from '../../../../components/';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { toInteger } from 'lodash-es';
+import { SelectModal } from '../../../../components';
 import { FormSelectTableComplexFieldWidget } from './FormSelectTableComplexFieldWidget';
 
 export abstract class FormSelectModalComplexFieldWidget<

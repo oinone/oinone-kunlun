@@ -1,7 +1,8 @@
-import { Widget } from '@oinone/kunlun-vue-widget';
 import { ActiveRecords, RuntimeModelField, RuntimeRelationField } from '@oinone/kunlun-engine';
-import { FormSelectComplexFieldWidget } from './FormSelectComplexFieldWidget';
+import { StringHelper } from '@oinone/kunlun-shared';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { SelectTable } from '../../../../components';
+import { FormSelectComplexFieldWidget } from './FormSelectComplexFieldWidget';
 
 export abstract class FormSelectTableComplexFieldWidget<
   Value extends ActiveRecords = ActiveRecords,
@@ -11,20 +12,6 @@ export abstract class FormSelectTableComplexFieldWidget<
     super.initialize(props);
     this.setComponent(SelectTable);
     return this;
-  }
-
-  /**
-   * 解析选项标题
-   */
-  public parseOptionLabelStr(str) {
-    const names: string[] = [];
-    str.split('+').forEach((s) => {
-      const match = s.match(/\.(\w+)/) as string[];
-      if (match) {
-        names.push(match[1]);
-      }
-    });
-    return names;
   }
 
   @Widget.Method()
@@ -49,16 +36,23 @@ export abstract class FormSelectTableComplexFieldWidget<
     if (!this.referencesModel) {
       return [];
     }
-
-    const { labelFields = [], modelFields = [] } = this.referencesModel;
-    const fieldMap = new Map<string, RuntimeModelField>(modelFields.map((f) => [f.name, f]));
-
-    if (this.optionLabel) {
-      const names = this.parseOptionLabelStr(this.optionLabel);
-
-      return names.map((v) => fieldMap.get(v)!);
+    let columnFields: string[] | undefined = StringHelper.convertArray(this.getDsl().columnFields as string);
+    if (!columnFields?.length) {
+      columnFields = this.referencesModel.labelFields;
     }
-
-    return labelFields.map((v) => fieldMap.get(v)!);
+    if (!columnFields?.length) {
+      console.error('Invalid column fields.');
+      return [];
+    }
+    const modelFields = this.referencesModel.modelFields || [];
+    const fieldMap = new Map<string, RuntimeModelField>(modelFields.map((f) => [f.name, f]));
+    const fields: RuntimeModelField[] = [];
+    for (const columnField of columnFields) {
+      const field = fieldMap.get(columnField);
+      if (field) {
+        fields.push(field);
+      }
+    }
+    return fields;
   }
 }
