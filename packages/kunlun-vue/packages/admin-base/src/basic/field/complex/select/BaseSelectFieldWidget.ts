@@ -1,4 +1,5 @@
 import {
+  ActiveRecord,
   ActiveRecordExtendKeys,
   ActiveRecords,
   ActiveRecordsOperator,
@@ -44,6 +45,8 @@ export abstract class BaseSelectFieldWidget<
 
   @Widget.Reactive()
   protected loadCompleted = false;
+
+  protected lastDataSource: ActiveRecord[] | undefined;
 
   protected lastDomain: string | undefined;
 
@@ -163,7 +166,7 @@ export abstract class BaseSelectFieldWidget<
     if (!condition) {
       condition = RSQLCondition.wrapper();
     }
-    const { domain, dataSource, referencesModel } = this;
+    const { domain, lastDataSource, dataSource, referencesModel } = this;
     if (domain) {
       this.lastDomain = domain;
       condition = condition.apply(domain);
@@ -171,10 +174,11 @@ export abstract class BaseSelectFieldWidget<
       this.lastDomain = undefined;
     }
     const pks = referencesModel?.pks || [];
-    if (pks.length > 0 && dataSource && dataSource.length > 0) {
-      if (dataSource.length === 1) {
+    const finalDataSource = lastDataSource || dataSource;
+    if (pks.length > 0 && finalDataSource && finalDataSource.length > 0) {
+      if (finalDataSource.length === 1) {
         condition = condition.and((c) => {
-          for (const item of dataSource) {
+          for (const item of finalDataSource) {
             // fixme @zbh 20250910 由于RSQL暂不支持元组，此处不能使用唯一键
             for (const pk of pks) {
               const value = item[pk];
@@ -187,7 +191,7 @@ export abstract class BaseSelectFieldWidget<
         });
       } else {
         const pkValues: Record<string, string[]> = {};
-        for (const item of dataSource) {
+        for (const item of finalDataSource) {
           // fixme @zbh 20250910 由于RSQL暂不支持元组，此处不能使用唯一键
           for (const pk of pks) {
             const value = item[pk];
