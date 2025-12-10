@@ -197,6 +197,8 @@ export default defineComponent({
       mode,
       allowClear,
       domain,
+      roleCodes,
+      userRole,
 
       state,
       selectedValues,
@@ -249,27 +251,59 @@ export default defineComponent({
               'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
             })
           );
-          tabs.push({
-            key: 'user-role',
-            label: '当前角色'
-          });
-          vNodes.push(
-            createVNode(RoleList, {
-              searchValue: state.searchValue,
-              selectMode: mode,
-              showCheckedAll: true,
-              loading: state.loading,
-              usingLoading: false,
-              autoInit: true,
-              load: userRoleLoad,
-              domain,
-              initCheckedKeys: state.checkedKeys,
-              checkedKeys: state.checkedKeys,
-              onInit: onInitUserRoleList,
-              'onUpdate:loading': (val: boolean) => onUpdateState('loading', val),
-              'onUpdate:checkedKeys': onUpdateCheckedKeysByUserRoleList
-            })
-          );
+          let showUserRole = userRole;
+          if (!showUserRole && !roleCodes?.length) {
+            showUserRole = true;
+          }
+          if (showUserRole) {
+            tabs.push({
+              key: 'user-role',
+              label: '当前角色'
+            });
+            vNodes.push(
+              createVNode(RoleList, {
+                searchValue: state.searchValue,
+                selectMode: mode,
+                showCheckedAll: true,
+                loading: state.loading,
+                usingLoading: false,
+                autoInit: true,
+                load: userRoleLoad,
+                domain,
+                initCheckedKeys: state.checkedKeys,
+                checkedKeys: state.checkedKeys,
+                onInit: onInitUserRoleList,
+                'onUpdate:loading': (val: boolean) => onUpdateState('loading', val),
+                'onUpdate:checkedKeys': onUpdateCheckedKeysByUserRoleList
+              })
+            );
+          }
+          const children: VNode[] = [];
+          if (vNodes.length === 1) {
+            children.push(vNodes[0]);
+          } else {
+            children.push(
+              createVNode(
+                OioTabs,
+                {},
+                {
+                  default: () =>
+                    tabs.map((v, i) => {
+                      return createVNode(
+                        OioTab,
+                        {
+                          key: v.key,
+                          tab: $translate(v.label)
+                        },
+                        {
+                          default: () => [vNodes[i]]
+                        }
+                      );
+                    })
+                }
+              )
+            );
+          }
           return [
             createVNode('div', { class: 'oio-role-modal-content' }, [
               createVNode(BaseSelect, {
@@ -292,25 +326,7 @@ export default defineComponent({
                 allowClear: true,
                 'onUpdate:value': (val: string) => onUpdateState('searchValue', val)
               }),
-              createVNode(
-                OioTabs,
-                {},
-                {
-                  default: () =>
-                    tabs.map((v, i) => {
-                      return createVNode(
-                        OioTab,
-                        {
-                          key: v.key,
-                          tab: $translate(v.label)
-                        },
-                        {
-                          default: () => [vNodes[i]]
-                        }
-                      );
-                    })
-                }
-              )
+              ...children
             ])
           ];
         }
@@ -326,6 +342,11 @@ export default defineComponent({
     flex-direction: column;
     row-gap: 16px;
     height: 100%;
+
+    & > .oio-role-list {
+      height: 400px;
+      overflow: auto;
+    }
   }
 
   .oio-tab-content {
