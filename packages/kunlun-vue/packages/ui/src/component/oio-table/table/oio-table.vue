@@ -250,6 +250,12 @@ export default defineComponent({
       setRowExpand(row, isExpand: boolean): Promise<any> {
         return vxeTable.value!.setRowExpand(row, isExpand);
       },
+      getSortColumns(): VxeTableDefines.SortCheckedParams[] {
+        return vxeTable.value!.getSortColumns() as VxeTableDefines.SortCheckedParams[];
+      },
+      clearSort(fieldOrColumn: string | VxeTableDefines.ColumnInfo): Promise<any> {
+        return vxeTable.value!.clearSort(fieldOrColumn);
+      },
       sort(sortConfs: VxeTableDefines.SortConfs[]): Promise<any> {
         return vxeTable.value!.sort(sortConfs);
       },

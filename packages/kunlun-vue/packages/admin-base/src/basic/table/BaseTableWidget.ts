@@ -1284,6 +1284,9 @@ export class BaseTableWidget<
     this.multipleFieldSort = (this.sortList?.length || 0) >= 2;
     nextTick(() => {
       if (this.sortList?.length) {
+        (this.tableInstance?.getSortColumns() || [])
+          .filter((v) => !this.sortList?.find((vv) => vv.sortField === v.field))
+          .forEach((v) => this.tableInstance?.clearSort(v.field));
         this.tableInstance?.sort(
           this.sortList.map((sort) => ({
             field: sort.sortField,

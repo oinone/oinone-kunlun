@@ -140,6 +140,10 @@ export interface OioTableInstance {
 
   setRowExpand(row: unknown, isExpand: boolean): Promise<any>;
 
+  getSortColumns(): VxeTableDefines.SortCheckedParams[];
+
+  clearSort(fieldOrColumn: string | VxeTableDefines.ColumnInfo): Promise<any>;
+
   sort(sortConfs: VxeTableDefines.SortConfs[]): Promise<any>;
 
   insert(records: Record<string, unknown> | Record<string, unknown>[], index?: number): Promise<any>;
