@@ -271,22 +271,25 @@ export class QuickFillWidget extends BaseElementWidget {
             value = {};
             row[name1] = value;
           }
-          value[name2] = row[key];
-          if (name2 === 'originCountry') {
-            (value as ResourceAddress).countryCode = (row[key] as ResourceCountry).code;
-            (value as ResourceAddress).countryName = (row[key] as ResourceCountry).name;
-          } else if (name2 === 'originProvince') {
-            (value as ResourceAddress).provinceCode = (row[key] as ResourceProvince).code;
-            (value as ResourceAddress).provinceName = (row[key] as ResourceProvince).name;
-          } else if (name2 === 'originCity') {
-            (value as ResourceAddress).cityCode = (row[key] as ResourceCity).code;
-            (value as ResourceAddress).cityName = (row[key] as ResourceCity).name;
-          } else if (name2 === 'originDistrict') {
-            (value as ResourceAddress).districtCode = (row[key] as ResourceDistrict).code;
-            (value as ResourceAddress).districtName = (row[key] as ResourceDistrict).name;
-          } else if (name2 === 'originStreet') {
-            (value as ResourceAddress).streetCode = (row[key] as ResourceStreet).code;
-            (value as ResourceAddress).streetName = (row[key] as ResourceStreet).name;
+          const value2 = row[key];
+          value[name2] = value2;
+          if (value2) {
+            if (name2 === 'originCountry') {
+              (value as ResourceAddress).countryCode = (value2 as ResourceCountry).code;
+              (value as ResourceAddress).countryName = (value2 as ResourceCountry).name;
+            } else if (name2 === 'originProvince') {
+              (value as ResourceAddress).provinceCode = (value2 as ResourceProvince).code;
+              (value as ResourceAddress).provinceName = (value2 as ResourceProvince).name;
+            } else if (name2 === 'originCity') {
+              (value as ResourceAddress).cityCode = (value2 as ResourceCity).code;
+              (value as ResourceAddress).cityName = (value2 as ResourceCity).name;
+            } else if (name2 === 'originDistrict') {
+              (value as ResourceAddress).districtCode = (value2 as ResourceDistrict).code;
+              (value as ResourceAddress).districtName = (value2 as ResourceDistrict).name;
+            } else if (name2 === 'originStreet') {
+              (value as ResourceAddress).streetCode = (value2 as ResourceStreet).code;
+              (value as ResourceAddress).streetName = (value2 as ResourceStreet).name;
+            }
           }
           delete row[key];
         }
