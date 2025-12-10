@@ -188,11 +188,17 @@ export default defineComponent({
       queryWrapper: QueryWrapper
     ) => {
       try {
+        const userCompanyDept = props.userCompanyDept || false;
+        let userDept = props.userDept || false;
+        const userDeptAndChildren = props.userDeptAndChildren || false;
+        if (!userCompanyDept && !userDept && !userDeptAndChildren) {
+          userDept = true;
+        }
         return await service.queryListByFilter({
           rsql: queryWrapper.rsql,
-          userCompanyDept: props.userCompanyDept,
-          userDept: props.userDept,
-          userDeptAndChildren: props.userDeptAndChildren
+          userCompanyDept,
+          userDept,
+          userDeptAndChildren
         });
       } catch (e) {
         state.init = true;

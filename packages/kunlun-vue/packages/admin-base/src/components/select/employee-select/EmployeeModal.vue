@@ -166,11 +166,17 @@ export default defineComponent({
       service: PamirsEmployeeService,
       queryWrapper: QueryWrapper
     ) => {
+      let userEmployee = props.userEmployee;
+      const userDept = props.userDept;
+      const userDeptAndChildren = props.userDeptAndChildren;
+      if (!userEmployee && !userDept && !userDeptAndChildren) {
+        userEmployee = true;
+      }
       return service.queryListByFilter({
         rsql: queryWrapper.rsql,
-        userEmployee: props.userEmployee,
-        userDept: props.userDept,
-        userDeptAndChildren: props.userDeptAndChildren
+        userEmployee,
+        userDept,
+        userDeptAndChildren
       });
     };
 
