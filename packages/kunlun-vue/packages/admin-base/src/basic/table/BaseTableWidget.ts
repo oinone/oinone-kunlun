@@ -525,7 +525,7 @@ export class BaseTableWidget<
 
   @Widget.Reactive()
   protected get rowEditorSubmitAll() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.rowEditorSubmitAll)).orElse(true);
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.rowEditorSubmitAll)).orElse(false);
   }
 
   /**
