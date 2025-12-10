@@ -301,7 +301,12 @@ export default defineComponent({
             key: 'employee',
             label: '员工'
           });
-          const usingDepartmentSelect = userDept || userDeptAndChildren || departmentCodes?.length;
+          let showFullPanel = false;
+          let usingDepartmentSelect = userDept || userDeptAndChildren || departmentCodes?.length;
+          if (!usingDepartmentSelect && !employeeCodes?.length && !roleCodes?.length && !userEmployee) {
+            usingDepartmentSelect = true;
+            showFullPanel = true;
+          }
           if (usingDepartmentSelect) {
             vNodes.push(
               createVNode(DepartmentEmployeeSelectPanel, {
@@ -340,7 +345,7 @@ export default defineComponent({
               ])
             );
           }
-          if (roleCodes?.length) {
+          if (showFullPanel || roleCodes?.length) {
             tabs.push({
               key: 'role',
               label: '角色'
@@ -358,7 +363,7 @@ export default defineComponent({
               })
             );
           }
-          if (userEmployee || userDept || userDeptAndChildren) {
+          if (showFullPanel || userEmployee || userDept || userDeptAndChildren) {
             tabs.push({
               key: 'user-employee',
               label: '当前用户'
