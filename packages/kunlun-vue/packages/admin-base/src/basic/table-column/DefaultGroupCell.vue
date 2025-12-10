@@ -16,7 +16,7 @@
           <oio-spin :loading="state.loading" size="small">
             {{ statisticsValue }}
           </oio-spin>
-          <oio-icon icon="oinone-caret-down-filled"></oio-icon>
+          <oio-icon icon="oinone-caret-down-filled" />
         </div>
       </div>
 
@@ -62,8 +62,6 @@ import {
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import dayjs from 'dayjs';
 import { computed, defineComponent, nextTick, onMounted, PropType, reactive, ref } from 'vue';
-
-const EMPTY_VALUE = '__empty__';
 
 export default defineComponent({
   inheritAttrs: false,
@@ -237,7 +235,7 @@ export default defineComponent({
       return format;
     });
 
-    const statisticsValue = ref('');
+    const statisticsValue = ref(translateValueByKey('统计'));
 
     const convertStatisticsValue = (value: string | number): string => {
       switch (selectValue.value) {
@@ -312,7 +310,7 @@ export default defineComponent({
       nextTick(async () => {
         selectValue.value = val;
         if (val === GroupStatisticsEnum.NONE) {
-          statisticsValue.value = '';
+          statisticsValue.value = translateValueByKey('统计');
           return;
         }
         try {
@@ -321,7 +319,7 @@ export default defineComponent({
           if (result) {
             statisticsValue.value = convertStatisticsValue(`${result}`);
           } else {
-            statisticsValue.value = '';
+            statisticsValue.value = translateValueByKey('统计');
           }
         } finally {
           state.loading = false;
