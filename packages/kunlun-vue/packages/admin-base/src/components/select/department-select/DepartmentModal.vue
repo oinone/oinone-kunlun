@@ -307,8 +307,14 @@ export default defineComponent({
             });
             vNodes.push(createVNode(OrganizationalStructureTree, treeProps));
           };
-          if (userDept || userDeptAndChildren) {
-            if (departmentCodes?.length) {
+          let showFullPanel = false;
+          let usingUserDepartmentTree = userCompanyDept || userDept || userDeptAndChildren;
+          if (!usingUserDepartmentTree && !departmentCodes?.length) {
+            showFullPanel = true;
+            usingUserDepartmentTree = true;
+          }
+          if (usingUserDepartmentTree) {
+            if (showFullPanel || departmentCodes?.length) {
               pushMainTree();
               vNodes.push(
                 createVNode(OrganizationalStructureTree, {
