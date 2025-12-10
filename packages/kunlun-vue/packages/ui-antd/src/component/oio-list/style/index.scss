@@ -25,6 +25,10 @@
     &-activated {
       background-color: var(--oio-menu-hover-background-color);
     }
+
+    .ant-radio-wrapper.oio-radio {
+      margin-right: 0;
+    }
   }
 
   .#{$listClassPrefix}-item-content {
