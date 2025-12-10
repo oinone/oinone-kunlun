@@ -46,7 +46,7 @@ export abstract class BaseSelectFieldWidget<
   @Widget.Reactive()
   protected loadCompleted = false;
 
-  protected lastDataSource: ActiveRecord[] | undefined;
+  protected lastOptionValues: ActiveRecord[] | undefined;
 
   protected lastDomain: string | undefined;
 
@@ -58,6 +58,18 @@ export abstract class BaseSelectFieldWidget<
   @Widget.Reactive()
   public get allowSearch(): boolean {
     return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().allowSearch)).orElse(true);
+  }
+
+  @Widget.Reactive()
+  protected get optionValues(): ActiveRecord[] | undefined {
+    const value = this.value as unknown as ActiveRecord | ActiveRecord[] | null | undefined;
+    if (value == null) {
+      return undefined;
+    }
+    if (Array.isArray(value)) {
+      return value;
+    }
+    return [value];
   }
 
   /**
@@ -166,7 +178,7 @@ export abstract class BaseSelectFieldWidget<
     if (!condition) {
       condition = RSQLCondition.wrapper();
     }
-    const { domain, lastDataSource, dataSource, referencesModel } = this;
+    const { domain, lastOptionValues, optionValues, referencesModel } = this;
     if (domain) {
       this.lastDomain = domain;
       condition = condition.apply(domain);
@@ -174,11 +186,12 @@ export abstract class BaseSelectFieldWidget<
       this.lastDomain = undefined;
     }
     const pks = referencesModel?.pks || [];
-    const finalDataSource = lastDataSource || dataSource;
-    if (pks.length > 0 && finalDataSource && finalDataSource.length > 0) {
-      if (finalDataSource.length === 1) {
+    const finalOptionValues = lastOptionValues || optionValues;
+    console.log(finalOptionValues);
+    if (pks.length > 0 && finalOptionValues && finalOptionValues.length > 0) {
+      if (finalOptionValues.length === 1) {
         condition = condition.and((c) => {
-          for (const item of finalDataSource) {
+          for (const item of finalOptionValues) {
             // fixme @zbh 20250910 由于RSQL暂不支持元组，此处不能使用唯一键
             for (const pk of pks) {
               const value = item[pk];
@@ -191,7 +204,7 @@ export abstract class BaseSelectFieldWidget<
         });
       } else {
         const pkValues: Record<string, string[]> = {};
-        for (const item of finalDataSource) {
+        for (const item of finalOptionValues) {
           // fixme @zbh 20250910 由于RSQL暂不支持元组，此处不能使用唯一键
           for (const pk of pks) {
             const value = item[pk];

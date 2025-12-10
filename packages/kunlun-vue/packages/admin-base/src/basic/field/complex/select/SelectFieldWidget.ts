@@ -42,6 +42,7 @@ export class SelectFieldWidget<
   protected async initLoad() {
     if (!this.options || this.lastDomain !== this.domain || !!this.searchValue) {
       this.searchValue = undefined;
+      this.lastOptionValues = undefined;
       await this.$$initLoad();
     }
   }
@@ -50,7 +51,7 @@ export class SelectFieldWidget<
     this.pagination = undefined;
     const data = await this.fetchData(condition);
     const options: SelectItem<Option>[] =
-      (this.lastDataSource || this.dataSource)?.map((v) => this.mapping(v as Option)) || [];
+      (this.lastOptionValues || this.optionValues)?.map((v) => this.mapping(v as Option)) || [];
     for (const item of data) {
       options.push(this.mapping(item));
     }
@@ -79,20 +80,13 @@ export class SelectFieldWidget<
   @Widget.Method()
   protected async search(keyword: string): Promise<void> {
     if (!keyword) {
-      this.lastDataSource = undefined;
+      this.lastOptionValues = undefined;
       this.searchValue = undefined;
       await this.$$initLoad();
       return;
     }
     this.searchValue = keyword;
-    const value = this.value as unknown as Option | Option[] | null | undefined;
-    if (value == null) {
-      this.lastDataSource = undefined;
-    } else if (Array.isArray(value)) {
-      this.lastDataSource = value;
-    } else {
-      this.lastDataSource = [value];
-    }
+    this.lastOptionValues = this.optionValues;
     keyword = GraphqlHelper.serializableSearchString(keyword);
     let { searchFields } = this;
     if (!searchFields.length) {
