@@ -40,7 +40,8 @@ export class SelectFieldWidget<
 
   @Widget.Method()
   protected async initLoad() {
-    if (!this.options || this.lastDomain !== this.domain) {
+    if (!this.options || this.lastDomain !== this.domain || !!this.searchValue) {
+      this.searchValue = undefined;
       await this.$$initLoad();
     }
   }
@@ -72,13 +73,18 @@ export class SelectFieldWidget<
     }
   }
 
+  @Widget.Reactive()
+  protected searchValue: string | undefined;
+
   @Widget.Method()
   protected async search(keyword: string): Promise<void> {
     if (!keyword) {
       this.lastDataSource = undefined;
+      this.searchValue = undefined;
       await this.$$initLoad();
       return;
     }
+    this.searchValue = keyword;
     const value = this.value as unknown as Option | Option[] | null | undefined;
     if (value == null) {
       this.lastDataSource = undefined;

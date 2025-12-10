@@ -59,6 +59,9 @@ const SearchProps = {
   searchArea: {
     type: String as PropType<SelectSearchArea | keyof typeof SelectSearchArea>
   },
+  searchValue: {
+    type: String
+  },
   search: {
     type: Function
   }

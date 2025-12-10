@@ -13,7 +13,7 @@ import {
 } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { debounce, delay } from 'lodash-es';
-import { createVNode, defineComponent, nextTick, onBeforeUnmount, onMounted, ref, VNode } from 'vue';
+import { computed, createVNode, defineComponent, nextTick, onBeforeUnmount, onMounted, ref, VNode } from 'vue';
 import { useInjectOioDefaultFormContext, useMetadataProps } from '../../../basic';
 import { BaseSelectProps } from './props';
 
@@ -39,7 +39,7 @@ export default defineComponent({
       default: undefined
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
     const origin = ref();
     const dropdownInputRef = ref();
     const formContext = useInjectOioDefaultFormContext();
@@ -80,6 +80,25 @@ export default defineComponent({
       }
     };
 
+    const $$searchValue = ref();
+    const searchValue = computed({
+      get() {
+        if (props.searchValue === undefined) {
+          return $$searchValue.value;
+        }
+        return props.searchValue;
+      },
+      set(val: string) {
+        $$searchValue.value = val;
+        emit('update:search-value', val);
+      }
+    });
+
+    const onUpdateSearchValue = (keyword: string) => {
+      searchValue.value = keyword;
+      onSearch(keyword);
+    };
+
     const onSearch = debounce(async (keyword: string) => {
       await props.search?.(keyword);
     }, 300);
@@ -99,6 +118,7 @@ export default defineComponent({
         if (!focusSearchInput && !val && props.mode !== SelectMode.multiple && dropdownVisible.value) {
           // 按下 Enter 时，下拉单选框无法正常展开，此时进行数据提交
           dropdownVisible.value = false;
+          searchValue.value = '';
           origin.value.focus();
           return;
         }
@@ -118,6 +138,7 @@ export default defineComponent({
           t = null;
         } else {
           dropdownVisible.value = false;
+          searchValue.value = '';
           if (props.mode !== SelectMode.multiple) {
             origin.value.focus();
           }
@@ -218,6 +239,8 @@ export default defineComponent({
       placeholder,
       dropdownVisible,
       showLoadCompleted,
+      searchValue,
+      onUpdateSearchValue,
       getTriggerContainer: props.getTriggerContainer || formContext.getTriggerContainer,
       onChange,
       onSearch,
@@ -246,6 +269,8 @@ export default defineComponent({
       dropdownVisible,
       loadMoreLoading,
       showLoadCompleted,
+      searchValue,
+      onUpdateSearchValue,
       getTriggerContainer,
       onChange,
       onFocus,
@@ -322,7 +347,8 @@ export default defineComponent({
                 {
                   ref: 'dropdownInputRef',
                   placeholder,
-                  'onUpdate:value': onSearch,
+                  value: searchValue,
+                  'onUpdate:value': onUpdateSearchValue,
                   onFocus: onSearchInputFocus,
                   onBlur: onSearchInputBlur,
                   onKeydown: onSearchInputKeydown

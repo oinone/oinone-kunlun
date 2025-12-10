@@ -63,6 +63,7 @@ export default defineComponent({
 
       mode,
       selected,
+      searchValue,
       options,
       dropdownClassName,
       placeholder,
@@ -92,6 +93,7 @@ export default defineComponent({
         dropdownClassName: StringHelper.append(['oio-default-select-dropdown'], dropdownClassName),
         mode,
         value: selected,
+        searchValue,
         options,
         placeholder,
         loadMoreLoading,
