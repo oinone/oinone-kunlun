@@ -80,11 +80,14 @@ export class SelectFieldWidget<
 
   @Widget.Method()
   protected onUpdateSearchValue(val: string | undefined) {
-    this.searchValue = val;
-    if (!val) {
+    if (val) {
+      this.searchValue = val;
+    } else {
+      if (this.searchValue) {
+        this.isNeedReloadOptions = true;
+      }
       this.searchValue = undefined;
       this.lastOptionValues = undefined;
-      this.isNeedReloadOptions = true;
     }
   }
 
