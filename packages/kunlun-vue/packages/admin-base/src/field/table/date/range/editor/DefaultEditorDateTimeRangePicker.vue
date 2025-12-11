@@ -18,16 +18,13 @@
   />
 </template>
 <script lang="ts">
-import { OioDateTimeRangePicker } from '@oinone/kunlun-vue-ui-antd';
-import { OioDateTimeRangePickerProps } from '@oinone/kunlun-vue-ui-common';
-import { defineComponent } from 'vue';
 import {
-  DefaultFormItem,
-  BaseFormItemProps,
-  OioCommonProps,
-  OioMetadataProps,
+  OioDateTimeRangePicker,
+  OioDateTimeRangePickerProps,
   useInjectOioDefaultFormContext
-} from '../../../../../basic';
+} from '@oinone/kunlun-vue-ui-antd';
+import { defineComponent } from 'vue';
+import { BaseFormItemProps, DefaultFormItem, OioCommonProps, OioMetadataProps } from '../../../../../basic';
 import { DefaultDateTimeRangePickerProps, useDateTimeRangePickerProps } from '../../../../form/date/range/props';
 
 export default defineComponent({

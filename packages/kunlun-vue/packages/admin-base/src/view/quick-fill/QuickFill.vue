@@ -71,7 +71,6 @@ import { OioButton, OioIcon, OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { ModalWidth, OioCloseIcon } from '@oinone/kunlun-vue-ui-common';
 import { Modal, Radio as ARadio, RadioGroup as ARadioGroup } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, PropType, ref, watch } from 'vue';
-import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../basic';
 import Excel from './Excel.vue';
 import { QuickFillType, TableFieldOption } from './type';
 
@@ -131,8 +130,6 @@ export default defineComponent({
     Excel
   },
   setup(props) {
-    const formContext = useInjectOioDefaultFormContext();
-
     const internalType = ref<QuickFillType>(QuickFillType.create);
     const type = computed({
       get() {
@@ -260,13 +257,6 @@ export default defineComponent({
       }
       rowCount.value += addNumber;
     };
-
-    useProviderOioDefaultFormContext({
-      ...formContext,
-      getTriggerContainer() {
-        return document.body;
-      }
-    });
 
     return {
       ModalWidth,

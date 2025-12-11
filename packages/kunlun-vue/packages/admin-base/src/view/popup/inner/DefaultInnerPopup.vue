@@ -1,10 +1,15 @@
 <script lang="ts">
 import { ViewType } from '@oinone/kunlun-meta';
-import { ButtonType, OioButton, OioInnerPopup, StringHelper } from '@oinone/kunlun-vue-ui-antd';
-import { DrawerPlacement, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import {
+  ButtonType,
+  DrawerPlacement,
+  OioButton,
+  OioInnerPopup,
+  PropRecordHelper,
+  StringHelper
+} from '@oinone/kunlun-vue-ui-antd';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, PropType, Slot, VNode } from 'vue';
-import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../../basic';
 
 export default defineComponent({
   name: 'DefaultInnerPopup',
@@ -80,8 +85,6 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const formContext = useInjectOioDefaultFormContext();
-
     const teleportTarget = computed<HTMLElement>(() => {
       const handle = props.teleportHandle;
       if (!handle) {
@@ -92,13 +95,6 @@ export default defineComponent({
 
     onAllMounted(() => {
       props.allMounted?.();
-    });
-
-    useProviderOioDefaultFormContext({
-      ...formContext,
-      getTriggerContainer() {
-        return document.body;
-      }
     });
 
     return {

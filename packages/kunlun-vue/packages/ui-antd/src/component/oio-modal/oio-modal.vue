@@ -8,7 +8,9 @@ import {
   PropRecordHelper,
   StyleHelper,
   useDraggable,
-  useModal
+  useInjectOioDefaultFormContext,
+  useModal,
+  useProviderOioDefaultFormContext
 } from '@oinone/kunlun-vue-ui-common';
 import { Modal as AModal } from 'ant-design-vue';
 import { isBoolean } from 'lodash-es';
@@ -34,6 +36,8 @@ export default defineComponent({
   slots: ['default', 'title', 'header', 'footer', 'closeIcon'],
   emits: ['update:visible', 'update:displayAs', 'enter', 'cancel'],
   setup(props, context) {
+    const formContext = useInjectOioDefaultFormContext();
+
     const internalId = `${DEFAULT_PREFIX}-modal-${uniqueKeyGenerator()}`;
 
     const modalRef = ref<HTMLElement | undefined>();
@@ -74,6 +78,13 @@ export default defineComponent({
       },
       { immediate: true }
     );
+
+    useProviderOioDefaultFormContext({
+      ...formContext,
+      getTriggerContainer() {
+        return document.body;
+      }
+    });
 
     return {
       ...useModal(props, context),

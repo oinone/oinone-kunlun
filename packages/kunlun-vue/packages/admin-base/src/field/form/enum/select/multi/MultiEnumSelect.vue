@@ -36,16 +36,10 @@
 </template>
 <script lang="ts">
 import { RuntimeEnumerationOption, TableKeyboardConfig } from '@oinone/kunlun-engine';
-import { useMaxTagPlaceholder } from '@oinone/kunlun-vue-ui-antd';
-import { SelectItem } from '@oinone/kunlun-vue-ui-common';
+import { SelectItem, useInjectOioDefaultFormContext, useMaxTagPlaceholder } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { computed, defineComponent, nextTick, PropType, ref } from 'vue';
-import {
-  OioCommonProps,
-  OioMetadataProps,
-  useInjectOioDefaultFormContext,
-  useMetadataProps
-} from '../../../../../basic';
+import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../../basic';
 import { optionsConvertSelectItem } from '../../../../util';
 
 export default defineComponent({

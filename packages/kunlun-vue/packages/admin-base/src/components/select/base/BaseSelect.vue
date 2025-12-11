@@ -9,12 +9,13 @@ import {
   PropRecordHelper,
   SelectMode,
   StringHelper,
+  useInjectOioDefaultFormContext,
   useMaxTagPlaceholder
 } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { debounce, delay } from 'lodash-es';
 import { computed, createVNode, defineComponent, nextTick, onBeforeUnmount, onMounted, ref, VNode } from 'vue';
-import { useInjectOioDefaultFormContext, useMetadataProps } from '../../../basic';
+import { useMetadataProps } from '../../../basic';
 import { BaseSelectProps } from './props';
 
 interface SelectedOption {

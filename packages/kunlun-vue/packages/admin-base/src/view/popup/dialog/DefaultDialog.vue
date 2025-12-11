@@ -12,7 +12,6 @@ import {
 } from '@oinone/kunlun-vue-ui-antd';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, PropType, ref } from 'vue';
-import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../../basic';
 import { OioSimplePagination } from '../../../components';
 import { FooterProps, useFooter } from '../useFooter';
 
@@ -124,8 +123,6 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const formContext = useInjectOioDefaultFormContext();
-
     const displayAs = ref(PopupDisplayAs.modal);
 
     const width = computed(() => {
@@ -164,13 +161,6 @@ export default defineComponent({
 
     onAllMounted(() => {
       props.allMounted?.();
-    });
-
-    useProviderOioDefaultFormContext({
-      ...formContext,
-      getTriggerContainer() {
-        return document.body;
-      }
     });
 
     return {

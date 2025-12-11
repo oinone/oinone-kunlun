@@ -6,7 +6,9 @@ import {
   OioIcon,
   PopupDisplayAs,
   PropRecordHelper,
-  useDrawer
+  useDrawer,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext
 } from '@oinone/kunlun-vue-ui-common';
 import { Drawer as ADrawer } from 'ant-design-vue';
 import { isBoolean } from 'lodash-es';
@@ -31,6 +33,15 @@ export default defineComponent({
   slots: ['default', 'title', 'header', 'footer', 'closeIcon'],
   emits: ['update:visible', 'update:displayAs'],
   setup(props, context) {
+    const formContext = useInjectOioDefaultFormContext();
+
+    useProviderOioDefaultFormContext({
+      ...formContext,
+      getTriggerContainer() {
+        return document.body;
+      }
+    });
+
     return {
       ...useDrawer(props, context)
     };

@@ -6,6 +6,8 @@ import {
   OioIcon,
   OioInnerPopupProps,
   PropRecordHelper,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext,
   useResizableHandle
 } from '@oinone/kunlun-vue-ui-common';
 import { isFunction, isString } from 'lodash-es';
@@ -69,6 +71,8 @@ export default defineComponent({
     ...OioInnerPopupProps
   },
   setup(props) {
+    const formContext = useInjectOioDefaultFormContext();
+
     const popupRef = ref<HTMLElement>();
 
     const resizable = computed(() => {
@@ -132,6 +136,13 @@ export default defineComponent({
       },
       { immediate: true }
     );
+
+    useProviderOioDefaultFormContext({
+      ...formContext,
+      getTriggerContainer() {
+        return document.body;
+      }
+    });
 
     return {
       popupRef,

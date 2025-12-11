@@ -16,14 +16,15 @@ import {
   OioFormProps,
   OioIcon,
   PropRecordHelper,
+  StableSlotProp,
   StringHelper,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext,
   ValidateTrigger
 } from '@oinone/kunlun-vue-ui-antd';
-import { StableSlotProp } from '@oinone/kunlun-vue-ui-common';
 import { DslRender, DslRenderDefinition } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { computed, createVNode, defineComponent, ref, VNode, vShow, withDirectives, withKeys } from 'vue';
-import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../basic';
 import { InternalWidget, ResolveMode } from '../../tags';
 import { UserSearchPrefer } from '../../typing';
 import { useProviderSearchPreferContext } from './context';
