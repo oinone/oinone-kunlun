@@ -352,7 +352,7 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
       return;
     }
 
-    const __draftId = this.action?.resView?.initialValue?.[0].__draftId;
+    const __draftId = this.action?.resView?.initialValue?.[0]?.__draftId;
     if (!__draftId) {
       return;
     }

@@ -19,12 +19,15 @@ export default defineComponent({
     name: {
       type: String,
       required: true
+    },
+    rowIndex: {
+      type: Number
     }
   },
   setup(props) {
     // 二次确认的显示和隐藏不同步 ActionWidget，否则页面会出现多个二次确认弹出层
     const visibleConfirm = ref(false);
-    const actionBarState = useOioState().viewState?.getActionBarState();
+    const actionBarState = useOioState().viewState?.getActionBarState(props.rowIndex);
 
     const actionWidget = computed<ActionWidget | undefined>(() => {
       const actionHandles = actionBarState?.actions;
@@ -127,7 +130,7 @@ export default defineComponent({
               ? actionProps.disabledTitle || actionProps.help || actionProps.label
               : actionProps.help || actionProps.label,
             icon: actionProps.icon,
-            'data-action-name': actionProps.action.name
+            'data-action-name': actionProps.action?.name
           };
           if (!actionProps.enableConfirm) {
             attrs.onClick = () => actionProps.validateAndClick?.(actionProps.action, true);

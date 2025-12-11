@@ -9,6 +9,7 @@ import {
   RequestModelField,
   resolveDynamicDomain,
   resolveDynamicExpression,
+  ROOT_HANDLE,
   RuntimeAction,
   RuntimeContext,
   RuntimeContextManager,
@@ -303,14 +304,15 @@ export class ActionWidget<
 
   @Widget.Reactive()
   protected get icon(): string | undefined {
-    return this.getDsl().icon || this.defaultIcon;
+    let { icon } = this.getDsl();
+    if (!icon && this.rootRuntimeContext.parentContext?.handle !== ROOT_HANDLE) {
+      icon = this.defaultIcon;
+    }
+    return icon;
   }
 
   @Widget.Reactive()
   protected get defaultIcon(): string | undefined {
-    if (this.inline) {
-      return undefined;
-    }
     const showDefaultIcon = BooleanHelper.toBoolean(this.actionConfig.showDefaultIcon);
     if (showDefaultIcon !== false) {
       const { name } = this.action;

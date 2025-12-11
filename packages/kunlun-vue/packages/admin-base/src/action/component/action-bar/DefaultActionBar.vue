@@ -30,6 +30,7 @@ function createMoreAction(
   vnodes: VNode[],
   inline: boolean,
   options: {
+    rowIndex?: number;
     bizStyle?: string;
     buttonType?: string;
     operatorColumnDirection?: OperationColumnDirection;
@@ -65,7 +66,8 @@ function createMoreAction(
   const moreActionItems = vnodes.map((v) =>
     createVNode(DefaultMoreActionItem, {
       model: v.props?.model,
-      name: v.props?.name
+      name: v.props?.name,
+      rowIndex: options.rowIndex
     })
   );
   return [
@@ -109,6 +111,9 @@ export default defineComponent({
     },
     activeRecords: {
       type: Array as PropType<ActiveRecord[]>
+    },
+    rowIndex: {
+      type: Number
     },
     viewType: {
       type: String as PropType<ViewType>
@@ -238,6 +243,7 @@ export default defineComponent({
       const originMoreAction = showActions[showActions.length - 1];
       let moreActionVNodes: VNode[] = [];
       const renderResult = (this.moreActionRender || createMoreAction)(moreActions, this.inline, {
+        rowIndex: this.rowIndex,
         bizStyle: this.bizStyle,
         buttonType: this.buttonType,
         operatorColumnDirection: operatorColumnDirection as OperationColumnDirection,
