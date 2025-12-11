@@ -379,7 +379,7 @@ export class BaseFieldWidget<
         LifeCycleHeart.publish<BaseFieldWidget>(type, `${view.name}:${field.name}`, this);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 }

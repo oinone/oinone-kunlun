@@ -586,7 +586,7 @@ export class BaseTableFieldWidget<
         LifeCycleHeart.publish<BaseTableFieldWidget>(type, `${view.name}:${field.name}`, this);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
