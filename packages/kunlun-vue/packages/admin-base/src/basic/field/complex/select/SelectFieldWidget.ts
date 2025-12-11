@@ -38,16 +38,17 @@ export class SelectFieldWidget<
     return this.getDsl().bizStyle;
   }
 
+  protected isNeedReloadOptions = false;
+
   @Widget.Method()
   protected async initLoad() {
-    if (!this.options || this.lastDomain !== this.domain || !!this.searchValue) {
-      this.searchValue = undefined;
-      this.lastOptionValues = undefined;
+    if (!this.options || (this.lastDomain || '') !== (this.domain || '') || this.isNeedReloadOptions) {
+      this.isNeedReloadOptions = false;
       await this.$$initLoad();
     }
   }
 
-  protected async $$initLoad(condition?: RSQLCondition) {
+  protected async $$initLoad(condition?: RSQLCondition): Promise<void> {
     this.pagination = undefined;
     const data = await this.fetchData(condition);
     const options: SelectItem<Option>[] =
@@ -78,12 +79,22 @@ export class SelectFieldWidget<
   protected searchValue: string | undefined;
 
   @Widget.Method()
-  protected async search(keyword: string): Promise<void> {
+  protected onUpdateSearchValue(val: string | undefined) {
+    this.searchValue = val;
+    if (!val) {
+      this.searchValue = undefined;
+      this.lastOptionValues = undefined;
+      this.isNeedReloadOptions = true;
+    }
+  }
+
+  @Widget.Method()
+  protected search(keyword: string): Promise<void> {
     if (!keyword) {
       this.lastOptionValues = undefined;
       this.searchValue = undefined;
-      await this.$$initLoad();
-      return;
+      this.isNeedReloadOptions = false;
+      return this.$$initLoad();
     }
     this.searchValue = keyword;
     this.lastOptionValues = this.optionValues;
@@ -96,7 +107,8 @@ export class SelectFieldWidget<
     for (const searchField of searchFields) {
       condition.or().like(searchField, keyword, "'");
     }
-    await this.$$initLoad(condition);
+    this.isNeedReloadOptions = false;
+    return this.$$initLoad(condition);
   }
 
   @Widget.Reactive()

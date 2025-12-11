@@ -72,11 +72,21 @@ export const BaseSelectProps = {
   ...OioMetadataProps,
   ...AppearanceProps,
   ...ControlProps,
-  ...SearchProps
+  ...SearchProps,
+  'onUpdate:search-value': {
+    type: Function
+  }
 };
 
 export const DefaultSelectProps = {
-  ...BaseSelectProps,
+  ...OioCommonProps,
+  ...OioMetadataProps,
+  ...AppearanceProps,
+  ...ControlProps,
+  ...SearchProps,
+  onUpdateSearchValue: {
+    type: Function
+  },
   initSelectedOptions: {
     type: Array as PropType<OioSelectItem[]>
   },

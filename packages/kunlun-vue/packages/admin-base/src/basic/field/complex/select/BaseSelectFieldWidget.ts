@@ -187,7 +187,6 @@ export abstract class BaseSelectFieldWidget<
     }
     const pks = referencesModel?.pks || [];
     const finalOptionValues = lastOptionValues || optionValues;
-    console.log(finalOptionValues);
     if (pks.length > 0 && finalOptionValues && finalOptionValues.length > 0) {
       if (finalOptionValues.length === 1) {
         condition = condition.and((c) => {
