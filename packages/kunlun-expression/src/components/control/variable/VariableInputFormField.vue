@@ -34,27 +34,6 @@
                 translateExpValue(opt.label)
               }}</a-select-option>
             </a-select>
-            <a-select
-              v-if="
-                variableType === 'string' &&
-                [ModelFieldType.Date, ModelFieldType.DateTime, ModelFieldType.Year].includes(
-                  leftJoinTtype
-                )
-              "
-              class="expression-date-type-selector"
-              dropdown-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
-              v-model:value="datePickerType"
-              :get-popup-container="null"
-              @change="changeHandler"
-            >
-              <a-select-option
-                v-for="item in datePickerTypeList"
-                :value="item.value"
-                :key="item.value"
-                :title="translateExpValue(item.label)"
-                >{{ translateExpValue(item.label) }}
-              </a-select-option>
-            </a-select>
           </span>
 
           <div
@@ -67,21 +46,10 @@
           </div>
           <div v-else class="ant-input-affix-wrapper">
             <span class="ant-input" ref="variableItemListRef" :class="{ 'only-one-input': isOnlyOneInput }">
-              <div
-                class="ant-input-inner"
-                :class="{
-                  'scope-input': isVariableMode && isBetweenOperator
-                }"
-                @click="(e) => isVariableMode && onAddVariableItem('input')"
-              >
-                <div class="scope-variable-input" v-if="isVariableMode && isBetweenOperator">
-                  <div class="scope-variable-input-item"></div>
-                  <span>~</span>
-                  <div class="scope-variable-input-item"></div>
-                </div>
+              <div class="ant-input-inner" @click="(e) => isVariableMode && onAddVariableItem('input')">
                 <span
                   class="variable-item variable-string placeholder"
-                  v-else-if="isVariableMode && !variableItemNum && !valueList[0].value && innerPlaceholder !== ''"
+                  v-if="isVariableMode && !variableItemNum && !valueList[0].value"
                 >
                   {{ innerPlaceholder }}
                 </span>
@@ -93,16 +61,8 @@
                   >
                     <template v-if="readonly">{{ variableItem.value }}</template>
                     <template v-else>
-                      <template v-if="leftJoinTtype === ModelFieldType.Integer && isBetweenOperator">
-                        <div class="scope-number-input">
-                          <oio-input-number v-model:value="scopeNumber[0]" @blur="scopeIntValueChange(index)" />
-                          <span>~</span>
-                          <oio-input-number v-model:value="scopeNumber[1]" @blur="scopeIntValueChange(index)" />
-                        </div>
-                      </template>
                       <template v-if="!isDateTtype(leftJoinTtype)">
                         <input
-                          v-if="!isInsetOperator"
                           v-model="variableItem.value"
                           type="text"
                           :pattern="createInputPatternByTtype(leftJoinTtype)"
@@ -116,13 +76,6 @@
                           @focus="(e) => onFocusVariableItemString(index, e)"
                           @blur="onBlurVariableItemString(index)"
                         />
-                        <input
-                          v-else
-                          type="text"
-                          v-model="inSetOperatorText"
-                          class="variable-item-input ant-input"
-                          @change="onChangeInsetOperatorText(index)"
-                        />
                         <span
                           class="variable-item-input-mirror"
                           :ref="(el) => setVariableItemInputMirrorRef(el, index)"
@@ -130,30 +83,6 @@
                           <template v-if="!variableItem.value">&nbsp;</template>
                           <template v-else>{{ variableItem.value }}</template>
                         </span>
-                      </template>
-                      <template v-else-if="isBetweenOperator">
-                        <div class="scope-date-selector">
-                          <oio-date-range-picker
-                            v-if="leftJoinTtype !== ModelFieldType.Time && datePickerType === ModelFieldType.Date"
-                            v-model:value="scopeDate"
-                            @change="scopeDateValueChange(index)"
-                          />
-                          <oio-date-time-range-picker
-                            v-if="leftJoinTtype !== ModelFieldType.Time && datePickerType === ModelFieldType.DateTime"
-                            v-model:value="scopeDate"
-                            @change="scopeDateValueChange(index)"
-                          />
-                          <oio-year-range-picker
-                            v-if="leftJoinTtype !== ModelFieldType.Time && datePickerType === ModelFieldType.Year"
-                            v-model:value="scopeDate"
-                            @change="scopeDateValueChange(index)"
-                          />
-                          <oio-time-range-picker
-                            v-if="leftJoinTtype === ModelFieldType.Time"
-                            v-model:value="scopeDate"
-                            @change="scopeDateValueChange(index)"
-                          />
-                        </div>
                       </template>
                       <!-- TODO 日期类型 -->
                       <template v-else>
@@ -185,31 +114,14 @@
                     </template>
                   </span>
                   <control-tag
-                    v-if="
-                      ['variable', 'option', 'field', 'session'].includes(variableItem.type) &&
-                      !isBetweenOperator &&
-                      !isInSetOperator
-                    "
+                    v-if="['variable', 'option', 'field', 'session'].includes(variableItem.type)"
                     class="variable-item variable-tag"
-                    :index="index"
                     :class="`variable-item-${index}`"
                     :title="variableItem.displayName"
                     :desc="variableItem.subTitle"
                     :closable="!readonly && !showTypeSelect"
                     @close="onCloseTagItem(index)"
                   />
-                  <div class="scope-tag" v-else-if="index !== 0 && variableItem.value !== ''">
-                    <control-tag
-                      v-if="['variable', 'option', 'field', 'session'].includes(variableItem.type)"
-                      class="variable-item variable-tag"
-                      :index="index"
-                      :class="`variable-item-${index}`"
-                      :title="variableItem.displayName"
-                      :desc="variableItem.subTitle"
-                      :closable="true"
-                      @close="onCloseTagItem(index)"
-                    />
-                  </div>
                 </template>
               </div>
             </span>
@@ -285,45 +197,25 @@
   </a-popover>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { CloseCircleFilled } from '@ant-design/icons-vue';
 import {
-  Popover as APopover,
-  Select as ASelect,
-  SelectOption as ASelectOption,
-  Tooltip as ATooltip
-} from 'ant-design-vue';
-import {
   OioDatePicker,
-  OioDateRangePicker,
   OioDateTimePicker,
-  OioDateTimeRangePicker,
   OioIcon,
   OioInput,
-  OioInputNumber,
   OioTimePicker,
-  OioTimeRangePicker,
-  OioYearPicker,
-  OioYearRangePicker
+  OioYearPicker
 } from '@oinone/kunlun-vue-ui-antd';
-import ControlTag from '../control-tag/ControlTag.vue';
+import { Popover as APopover, Select as ASelect, Tooltip as ATooltip } from 'ant-design-vue';
+import { defineComponent } from 'vue';
 import ExpressionDesignerCascader from '../../cascader/Cascader.vue';
+import ControlTag from '../control-tag/ControlTag.vue';
 import { createComponent, IVariableFormFieldProps } from './variableFormFieldBase';
-import { BooleanConditionComparisonOperator } from '../../../types';
-import { ModelFieldType } from '@oinone/kunlun-meta';
 
 /**
  * 适用于表单类变量控件
  */
 export default defineComponent({
-  computed: {
-    ModelFieldType() {
-      return ModelFieldType;
-    },
-    BooleanConditionComparisonOperator() {
-      return BooleanConditionComparisonOperator;
-    }
-  },
   components: {
     OioIcon,
     CloseCircleFilled,
@@ -331,16 +223,10 @@ export default defineComponent({
     ASelect,
     ATooltip,
     APopover,
-    ASelectOption,
-    OioDateRangePicker,
-    OioDateTimeRangePicker,
-    OioYearRangePicker,
-    OioTimeRangePicker,
     OioDatePicker,
     OioDateTimePicker,
     OioYearPicker,
     OioTimePicker,
-    OioInputNumber,
     ExpressionDesignerCascader,
     ControlTag
   },
