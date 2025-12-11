@@ -166,17 +166,9 @@ export default defineComponent({
       service: PamirsEmployeeService,
       queryWrapper: QueryWrapper
     ) => {
-      let userEmployee = props.userEmployee;
-      const userDept = props.userDept;
-      const userDeptAndChildren = props.userDeptAndChildren;
-      if (!userEmployee && !userDept && !userDeptAndChildren) {
-        userEmployee = true;
-      }
       return service.queryListByFilter({
         rsql: queryWrapper.rsql,
-        userEmployee,
-        userDept,
-        userDeptAndChildren
+        userEmployee: true
       });
     };
 
@@ -313,6 +305,7 @@ export default defineComponent({
             usingDepartmentSelect = true;
             showFullPanel = true;
           }
+          let isOnlyEmployeeList = false;
           if (usingDepartmentSelect) {
             vNodes.push(
               createVNode(DepartmentEmployeeSelectPanel, {
@@ -331,6 +324,7 @@ export default defineComponent({
               })
             );
           } else {
+            isOnlyEmployeeList = !employeeCodes?.length;
             vNodes.push(
               createVNode('div', { class: 'oio-employee-selected-panel' }, [
                 createVNode(EmployeeList, {
@@ -352,6 +346,7 @@ export default defineComponent({
             );
           }
           if (showFullPanel || roleCodes?.length) {
+            isOnlyEmployeeList = false;
             tabs.push({
               key: 'role',
               label: '角色'
@@ -369,11 +364,14 @@ export default defineComponent({
               })
             );
           }
-          if (showFullPanel || userEmployee || userDept || userDeptAndChildren) {
+          if (isOnlyEmployeeList && userEmployee && !userDept && !userDeptAndChildren) {
+            // do nothing.
+          } else if (showFullPanel || userEmployee || userDept || userDeptAndChildren) {
             tabs.push({
               key: 'user-employee',
               label: '当前用户'
             });
+            // fixme @zbh 20251210 此处需改为公司员工树进行选择
             vNodes.push(
               createVNode('div', { class: 'oio-employee-selected-panel' }, [
                 createVNode(EmployeeList, {
