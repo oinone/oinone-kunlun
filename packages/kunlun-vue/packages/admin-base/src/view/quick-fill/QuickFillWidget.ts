@@ -42,7 +42,7 @@ import {
 } from '../../typing';
 import { TableWidget } from '../table/TableWidget';
 import QuickFill from './QuickFill.vue';
-import { QuickFillType, TableFieldOption } from './type';
+import { NON_CUT, QuickFillType, TableFieldOption } from './type';
 
 interface Failure {
   rowNumber: number;
@@ -86,6 +86,10 @@ const quickFillFields = [
         ttype: ModelFieldType.Boolean
       },
       {
+        name: 'validate',
+        ttype: ModelFieldType.Boolean
+      },
+      {
         name: 'labelFields',
         ttype: ModelFieldType.String,
         multi: true
@@ -93,6 +97,13 @@ const quickFillFields = [
     ]
   }
 ] as IModelField[];
+
+interface QuickFillField {
+  field: string;
+  required?: boolean;
+  validate?: boolean;
+  labelFields?: string[];
+}
 
 @SPI.ClassFactory(
   BaseElementWidget.Token({
@@ -236,7 +247,7 @@ export class QuickFillWidget extends BaseElementWidget {
      *  values -> 可回填的数据
      *  failures -> 错误信息
      */
-    const { values: resultValues, failures } = await this.validateExcelValue(JSON.stringify(values));
+    const { values: resultValues, failures } = await this.validateExcelValue(headers, JSON.stringify(values));
 
     const data = resultValues ? JSON.parse(resultValues) : [];
 
@@ -479,25 +490,18 @@ export class QuickFillWidget extends BaseElementWidget {
   /**
    * 调接口校验excel数据
    */
-  public async validateExcelValue(values: string) {
-    const fields: { field: string; required: boolean; labelFields?: string[] }[] = [];
-    for (const editableModelField of this.editableModelFields) {
-      const { data } = editableModelField;
-      let fieldWidget: BaseFieldWidget | undefined;
-      const [name1, name2] = data.split('#');
-      if (name2) {
-        if (fields.some((v) => v.field === name1)) {
-          continue;
-        }
-        fieldWidget = this.findFieldWidget(name1);
-      } else {
-        fieldWidget = this.findFieldWidget(data);
-      }
-      const modelField = fieldWidget?.field;
+  public async validateExcelValue(headers: TableFieldOption[], values: string) {
+    const fields: QuickFillField[] = [];
+    const validHeaders: TableFieldOption[] = headers.filter((v) => v.value !== NON_CUT);
+    const keepHeaders: TableFieldOption[] = headers.filter(
+      (v) => v.value === NON_CUT && v.field && !validHeaders.find((vv) => vv.value === v.field)
+    );
+    for (const header of validHeaders) {
+      const { fieldWidget, field: modelField } = this.findModelField(fields, header);
       if (!modelField) {
         continue;
       }
-      const required = fieldWidget!.required === true;
+      const required = fieldWidget?.required === true;
       if (isRelationField(modelField)) {
         fields.push({
           field: modelField.data,
@@ -505,10 +509,24 @@ export class QuickFillWidget extends BaseElementWidget {
           labelFields: modelField.referencesModel.labelFields
         });
       } else {
-        fields.push({ field: data, required });
+        fields.push({ field: modelField.data, required });
       }
     }
-
+    for (const header of keepHeaders) {
+      const { field: modelField } = this.findModelField(fields, header);
+      if (!modelField) {
+        continue;
+      }
+      if (isRelationField(modelField)) {
+        fields.push({
+          field: modelField.data,
+          validate: false,
+          labelFields: modelField.referencesModel.labelFields
+        });
+      } else {
+        fields.push({ field: modelField.data, validate: false });
+      }
+    }
     const gqlStr = await buildSingleItemParam(quickFillFields, {
       model: this.model.model,
       fields,
@@ -535,6 +553,30 @@ export class QuickFillWidget extends BaseElementWidget {
     const rst = await http.query(SYSTEM_MODULE.BASE, body);
 
     return rst.data.quickFillingQuery.loadData as unknown as QuickFillResponse;
+  }
+
+  protected findModelField(fields: QuickFillField[], header: TableFieldOption) {
+    const { value, field } = header;
+    let data: string;
+    if (value === NON_CUT) {
+      data = field;
+    } else {
+      data = value;
+    }
+    let fieldWidget: BaseFieldWidget | undefined;
+    const [name1, name2] = data.split('#');
+    if (name2) {
+      if (fields.some((v) => v.field === name1)) {
+        return {};
+      }
+      fieldWidget = this.findFieldWidget(name1);
+    } else {
+      fieldWidget = this.findFieldWidget(data);
+    }
+    return {
+      fieldWidget,
+      field: fieldWidget?.field
+    };
   }
 
   protected findFieldWidget<W extends BaseFieldWidget>(data: string): W | undefined {
@@ -571,12 +613,12 @@ export class QuickFillWidget extends BaseElementWidget {
     template.editorMode = TableEditorMode.table;
     template.paginationStyle = ListPaginationStyle.HIDDEN;
 
-    const map = new Map(fields.filter((v) => !!v.field).map((v) => [v.field, v]));
-    const fieldDslList = this.collectionFieldDsl(template);
+    const fieldDslMap = this.collectionFieldDsl(template);
     const widgets: DslDefinition[] = [];
-    for (const fieldDsl of fieldDslList) {
-      const field = map.get(fieldDsl.data);
-      if (!field) {
+    for (const field of fields.filter((v) => v.value !== NON_CUT)) {
+      const { value } = field;
+      const fieldDsl = fieldDslMap[value];
+      if (!fieldDsl) {
         continue;
       }
       widgets.push({
@@ -605,12 +647,12 @@ export class QuickFillWidget extends BaseElementWidget {
     });
   }
 
-  protected collectionFieldDsl(dsl: DslDefinition, deep = 2): FieldDslDefinition[] {
+  protected collectionFieldDsl(dsl: DslDefinition, deep = 2): Record<string, FieldDslDefinition> {
     if (deep <= 0) {
-      return [];
+      return {};
     }
     const { widgets } = dsl;
-    const fields: FieldDslDefinition[] = [];
+    let fields: Record<string, FieldDslDefinition> = {};
     for (const widget of widgets) {
       if (DslDefinitionHelper.isField(widget)) {
         if (widget.references === StaticMetadata.ResourceAddressModel) {
@@ -642,13 +684,16 @@ export class QuickFillWidget extends BaseElementWidget {
               }
             }
             lastField = field;
-            fields.push(extraDsl);
+            fields[extraDsl.data] = extraDsl;
           }
         } else {
-          fields.push({ ...widget });
+          fields[widget.data] = widget;
         }
       } else if (DslDefinitionHelper.isSlot(widget)) {
-        fields.push(...this.collectionFieldDsl(widget, deep - 1));
+        fields = {
+          ...fields,
+          ...this.collectionFieldDsl(widget, deep - 1)
+        };
       }
     }
     return fields;

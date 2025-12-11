@@ -10,6 +10,8 @@ import { ResolveUtil } from './util';
 export function resolveTemplate(runtimeContext: RuntimeContext, dsl: DslDefinition) {
   if (DslDefinitionHelper.isView(dsl)) {
     resolveMetadata(runtimeContext, dsl);
+  } else {
+    initDataDictionaryMap(runtimeContext);
   }
   traversal(runtimeContext, dsl);
 }
@@ -70,14 +72,25 @@ function resolveModelMetadata(runtimeContext: RuntimeContext, dsl: ViewDslDefini
   }
 }
 
+const globalDataDictionaryMap: Record<string, RuntimeEnumerationOption[]> = {};
+
+function initDataDictionaryMap(runtimeContext: RuntimeContext): Record<string, RuntimeEnumerationOption[]> {
+  let { dataDictionaryMap } = runtimeContext;
+  if (!dataDictionaryMap) {
+    dataDictionaryMap = {};
+  }
+  dataDictionaryMap = {
+    ...globalDataDictionaryMap,
+    ...dataDictionaryMap
+  };
+  runtimeContext.dataDictionaryMap = dataDictionaryMap;
+  return dataDictionaryMap;
+}
+
 function resolveDataDictionaryMetadata(runtimeContext: RuntimeContext, dsl: ViewDslDefinition) {
+  const dataDictionaryMap = initDataDictionaryMap(runtimeContext);
   for (const dataDictionary of dsl.metadata?.dictionary || []) {
     const { dictionary, options } = dataDictionary;
-    let { dataDictionaryMap } = runtimeContext;
-    if (!dataDictionaryMap) {
-      dataDictionaryMap = {};
-      runtimeContext.dataDictionaryMap = dataDictionaryMap;
-    }
     const finalOptions: RuntimeEnumerationOption[] = [];
     for (const option of options) {
       const target = dslOptionToEnumerationOption(option);
@@ -86,6 +99,7 @@ function resolveDataDictionaryMetadata(runtimeContext: RuntimeContext, dsl: View
       }
       finalOptions.push(target);
     }
+    globalDataDictionaryMap[dictionary] = finalOptions;
     dataDictionaryMap[dictionary] = finalOptions;
   }
 }

@@ -154,7 +154,8 @@ const selectOptions = computed(() => {
     label: '不粘贴',
     key: NON_CUT,
     value: NON_CUT,
-    readonly: true
+    readonly: true,
+    field: NON_CUT
   });
   return options;
 });
