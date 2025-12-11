@@ -155,13 +155,11 @@ export function useListState<T extends IdModel>(initOptions: {
       expandedAll: state.data.length <= 100
     };
     if (isSearch) {
-      if (!state.lastCheckedKeys) {
-        state.lastCheckedKeys = state.checkedKeys;
-        state.lastCheckedItems = state.checkedItems;
-      }
+      state.lastCheckedKeys = state.checkedKeys;
+      state.lastCheckedItems = state.checkedItems;
     } else {
-      state.lastCheckedKeys = undefined;
-      state.lastCheckedItems = undefined;
+      state.lastCheckedKeys = [];
+      state.lastCheckedItems = [];
     }
     state.submitCheckedKeys = undefined;
     state.submitCheckedItems = undefined;
