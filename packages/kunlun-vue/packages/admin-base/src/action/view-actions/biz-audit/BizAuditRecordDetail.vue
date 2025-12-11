@@ -212,12 +212,6 @@ export default defineComponent({
     font-size: 14px;
     color: var(--oio-text-color);
     font-weight: 400;
-
-    &:before {
-      content: '';
-      border-left: 2px solid var(--oio-primary-color);
-      margin-right: 6px;
-    }
   }
 
   .oio-group {
