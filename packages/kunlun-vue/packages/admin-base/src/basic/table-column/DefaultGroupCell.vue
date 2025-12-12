@@ -34,6 +34,7 @@
 <script lang="ts">
 import {
   ActiveRecord,
+  getRealTtype,
   GroupStatisticsEnum,
   IResourceDateTimeFormat,
   isDateField,
@@ -48,16 +49,13 @@ import {
 } from '@oinone/kunlun-engine';
 import { VxeTableRowContext } from '@oinone/kunlun-vue-ui';
 import {
-  DateFormatMap,
   DateTimeFormatMap,
   DateUtil,
   defaultDateFormatKey,
-  defaultFormat,
   defaultTimeFormatKey,
   ObjectUtils,
   OioIcon,
-  OioSpin,
-  TimeFormatMap
+  OioSpin
 } from '@oinone/kunlun-vue-ui-antd';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import dayjs from 'dayjs';
@@ -121,16 +119,26 @@ export default defineComponent({
         !props.field.multi
       ) {
         const timeIOptions = [
-          {
-            displayName: translateValueByKey('最早时间'),
-            value: GroupStatisticsEnum.EARLIEST_TIME
-          },
-          { displayName: translateValueByKey('最晚时间'), value: GroupStatisticsEnum.LATEST_TIME },
-          { displayName: translateValueByKey('时间范围(日)'), value: GroupStatisticsEnum.TIME_RANGE_DAY },
-          { displayName: translateValueByKey('时间范围(月)'), value: GroupStatisticsEnum.TIME_RANGE_MONTH },
-          { displayName: translateValueByKey('时间范围(年)'), value: GroupStatisticsEnum.TIME_RANGE_YEAR }
+          { displayName: translateValueByKey('最早时间'), value: GroupStatisticsEnum.EARLIEST_TIME },
+          { displayName: translateValueByKey('最晚时间'), value: GroupStatisticsEnum.LATEST_TIME }
         ];
         defaultOptions.push(...timeIOptions);
+
+        if ((isDateTimeField(props.field) || isDateField(props.field)) && !props.field.multi) {
+          const timeIOptions = [
+            { displayName: translateValueByKey('时间范围(日)'), value: GroupStatisticsEnum.TIME_RANGE_DAY },
+            { displayName: translateValueByKey('时间范围(月)'), value: GroupStatisticsEnum.TIME_RANGE_MONTH },
+            { displayName: translateValueByKey('时间范围(年)'), value: GroupStatisticsEnum.TIME_RANGE_YEAR }
+          ];
+          defaultOptions.push(...timeIOptions);
+        }
+
+        if (isYearField(props.field) && !props.field.multi) {
+          const timeIOptions = [
+            { displayName: translateValueByKey('时间范围(年)'), value: GroupStatisticsEnum.TIME_RANGE_YEAR }
+          ];
+          defaultOptions.push(...timeIOptions);
+        }
       }
 
       if (isNumberField(props.field) && !props.field.multi) {
@@ -157,22 +165,6 @@ export default defineComponent({
     const visible = ref(false);
     const selectValue = ref(GroupStatisticsEnum.NONE);
 
-    const convertFormat = (format) => {
-      if (isDateField(props.field)) {
-        return DateFormatMap.get(format);
-      }
-
-      return DateTimeFormatMap.get(format);
-    };
-
-    const convertDateFormat = (format) => {
-      return DateFormatMap.get(format);
-    };
-
-    const convertTimeFormat = (format) => {
-      return TimeFormatMap.get(format);
-    };
-
     const normalizeDateTime = (v: string | number) => {
       if (typeof v === 'number') {
         return v;
@@ -198,40 +190,43 @@ export default defineComponent({
     };
 
     const dateFormat = computed(() => {
-      const dateFormat =
-        props.field.template?.dateFormat || isTimeField(props.field) ? undefined : defaultDateFormatKey;
+      const hasDateFormat = isDateTimeField(props.field) || isDateField(props.field);
+      const hasTimeFormat = isDateTimeField(props.field) || isTimeField(props.field);
 
-      const timeFormat =
-        props.field.template?.timeFormat || isDateField(props.field) ? undefined : defaultTimeFormatKey;
+      let dateFormat: string | undefined;
+      if (hasDateFormat) {
+        const dateFormatKey = props.field.template?.dateFormat || defaultDateFormatKey;
+        dateFormat =
+          ObjectUtils.toUpperSnakeCase(
+            resourceDateTimeFormat.value.resourceDateFormat as unknown as Record<string, string>
+          )[dateFormatKey] ||
+          props.field.template?.dateFormat ||
+          defaultDateFormatKey;
+      }
 
-      const resourceDateFormat = ObjectUtils.toUpperSnakeCase(
-        resourceDateTimeFormat.value.resourceDateFormat as unknown as Record<string, string>
-      );
-
-      const resourceTimeFormat = ObjectUtils.toUpperSnakeCase(
-        resourceDateTimeFormat.value.resourceTimeFormat as unknown as Record<string, string>
-      );
-
-      const formatStr =
-        props.field.template?.format ||
-        [resourceDateFormat[dateFormat!], resourceTimeFormat[timeFormat!]].filter(Boolean).join(' ');
-
-      const hasDateFormat = !isTimeField(props.field) && !isYearField(props.field);
-      const hasTimeFormat = !isDateField(props.field) && !isYearField(props.field);
+      let timeFormat: string | undefined;
+      if (hasTimeFormat) {
+        const timeFormatKey = props.field.template?.timeFormat || defaultTimeFormatKey;
+        timeFormat =
+          ObjectUtils.toUpperSnakeCase(
+            resourceDateTimeFormat.value.resourceTimeFormat as unknown as Record<string, string>
+          )[timeFormatKey] ||
+          props.field.template?.timeFormat ||
+          defaultTimeFormatKey;
+      }
 
       let format = DateUtil.fetchDatetimeFormat(
         { hasDateFormat, hasTimeFormat },
-        formatStr,
+        props.field.template?.format,
         dateFormat,
         timeFormat,
-        convertFormat,
-        convertDateFormat,
-        convertTimeFormat
+        undefined,
+        undefined,
+        undefined
       );
       if (!format) {
-        format = defaultFormat;
+        format = DateTimeFormatMap.get(getRealTtype(props.field));
       }
-
       return format;
     });
 
@@ -260,9 +255,11 @@ export default defineComponent({
         case GroupStatisticsEnum.UNIQUE_PERCENT:
           // 唯一值占比
           return `${translateValueByKey('唯一值占比')} ${value}%`;
-        case GroupStatisticsEnum.EARLIEST_TIME:
-          // 最早时间
+        case GroupStatisticsEnum.EARLIEST_TIME: {
+          const v = dayjs(normalizeDateTime(value));
+          console.log(v, dateFormat.value);
           return `${translateValueByKey('最早时间')} ${dayjs(normalizeDateTime(value)).format(dateFormat.value)}`;
+        }
         case GroupStatisticsEnum.LATEST_TIME:
           return `${translateValueByKey('最晚时间')} ${dayjs(normalizeDateTime(value)).format(dateFormat.value)}`;
         case GroupStatisticsEnum.TIME_RANGE_DAY:
