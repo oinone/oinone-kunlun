@@ -33,7 +33,9 @@ import {
   OioSpin,
   OioTooltip,
   PropRecordHelper,
-  StyleHelper
+  StyleHelper,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext
 } from '@oinone/kunlun-vue-ui-antd';
 import { DslRender } from '@oinone/kunlun-vue-widget';
 import { debounce } from 'lodash-es';
@@ -432,6 +434,8 @@ export default defineComponent({
     const defaultTableRef = ref<HTMLElement>(null as any);
     const table = ref<OioTableInstance | undefined>();
 
+    const formContext = useInjectOioDefaultFormContext();
+
     const tableContentElement = computed(
       () => defaultTableRef.value && defaultTableRef.value.querySelector('.oio-table-content-wrapper')!
     );
@@ -768,6 +772,13 @@ export default defineComponent({
       },
       { immediate: true }
     );
+
+    useProviderOioDefaultFormContext({
+      ...formContext,
+      getTriggerContainer: (triggerNode) => {
+        return document.body;
+      }
+    });
 
     return {
       defaultTableRef,
