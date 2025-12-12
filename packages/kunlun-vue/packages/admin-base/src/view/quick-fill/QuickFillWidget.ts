@@ -263,7 +263,7 @@ export class QuickFillWidget extends BaseElementWidget {
       });
     } else {
       this.showModal = false;
-      this.updateO2MTableValue(data);
+      this.updateO2MTableValue(this.submitData(data));
     }
   }
 
@@ -272,41 +272,7 @@ export class QuickFillWidget extends BaseElementWidget {
    */
   @Widget.Method()
   public onSubmit() {
-    const rows = this.tableWidget?.getData() || [];
-    for (const row of rows) {
-      for (const key of Object.keys(row)) {
-        const [name1, name2] = key.split('#');
-        if (name2) {
-          let value = row[name1] as object;
-          if (!value) {
-            value = {};
-            row[name1] = value;
-          }
-          const value2 = row[key];
-          value[name2] = value2;
-          if (value2) {
-            if (name2 === 'originCountry') {
-              (value as ResourceAddress).countryCode = (value2 as ResourceCountry).code;
-              (value as ResourceAddress).countryName = (value2 as ResourceCountry).name;
-            } else if (name2 === 'originProvince') {
-              (value as ResourceAddress).provinceCode = (value2 as ResourceProvince).code;
-              (value as ResourceAddress).provinceName = (value2 as ResourceProvince).name;
-            } else if (name2 === 'originCity') {
-              (value as ResourceAddress).cityCode = (value2 as ResourceCity).code;
-              (value as ResourceAddress).cityName = (value2 as ResourceCity).name;
-            } else if (name2 === 'originDistrict') {
-              (value as ResourceAddress).districtCode = (value2 as ResourceDistrict).code;
-              (value as ResourceAddress).districtName = (value2 as ResourceDistrict).name;
-            } else if (name2 === 'originStreet') {
-              (value as ResourceAddress).streetCode = (value2 as ResourceStreet).code;
-              (value as ResourceAddress).streetName = (value2 as ResourceStreet).name;
-            }
-          }
-          delete row[key];
-        }
-      }
-    }
-    this.updateO2MTableValue(rows);
+    this.updateO2MTableValue(this.submitData(this.tableWidget?.getData() || []));
     this.onToggleModal(false);
   }
 
@@ -442,6 +408,43 @@ export class QuickFillWidget extends BaseElementWidget {
         }
       }
     });
+  }
+
+  protected submitData(rows: ActiveRecord[]): ActiveRecord[] {
+    for (const row of rows) {
+      for (const key of Object.keys(row)) {
+        const [name1, name2] = key.split('#');
+        if (name2) {
+          let value = row[name1] as object;
+          if (!value) {
+            value = {};
+            row[name1] = value;
+          }
+          const value2 = row[key];
+          value[name2] = value2;
+          if (value2) {
+            if (name2 === 'originCountry') {
+              (value as ResourceAddress).countryCode = (value2 as ResourceCountry).code;
+              (value as ResourceAddress).countryName = (value2 as ResourceCountry).name;
+            } else if (name2 === 'originProvince') {
+              (value as ResourceAddress).provinceCode = (value2 as ResourceProvince).code;
+              (value as ResourceAddress).provinceName = (value2 as ResourceProvince).name;
+            } else if (name2 === 'originCity') {
+              (value as ResourceAddress).cityCode = (value2 as ResourceCity).code;
+              (value as ResourceAddress).cityName = (value2 as ResourceCity).name;
+            } else if (name2 === 'originDistrict') {
+              (value as ResourceAddress).districtCode = (value2 as ResourceDistrict).code;
+              (value as ResourceAddress).districtName = (value2 as ResourceDistrict).name;
+            } else if (name2 === 'originStreet') {
+              (value as ResourceAddress).streetCode = (value2 as ResourceStreet).code;
+              (value as ResourceAddress).streetName = (value2 as ResourceStreet).name;
+            }
+          }
+          delete row[key];
+        }
+      }
+    }
+    return rows;
   }
 
   /**
