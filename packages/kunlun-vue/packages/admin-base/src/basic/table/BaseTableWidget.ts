@@ -308,11 +308,16 @@ export class BaseTableWidget<
     return this.lastedCurrentEditorContext;
   }
 
-  @Widget.Reactive()
-  protected get isNewRow(): boolean | undefined {
+  protected isNewRow(row?: ActiveRecord): boolean | undefined {
     const { currentEditorContext } = this;
     if (currentEditorContext) {
-      return currentEditorContext.rowIndex === -1 || currentEditorContext.new;
+      if (currentEditorContext.new) {
+        return true;
+      }
+      if (currentEditorContext.rowIndex === -1) {
+        return !FetchUtil.generatorPksObject(this.model, row || currentEditorContext.row);
+      }
+      return false;
     }
     return undefined;
   }
@@ -469,7 +474,7 @@ export class BaseTableWidget<
     const data = await this.rowEditorClosedForSubmit(context);
     if (this.inline) {
       if (res && data) {
-        if (this.isNewRow) {
+        if (this.isNewRow(data)) {
           const newRow = omitBy({ ...data }, isNil);
           if (Object.keys(newRow).length > 0) {
             context = { ...context, data: newRow };
@@ -484,7 +489,7 @@ export class BaseTableWidget<
       }
     } else if (data) {
       try {
-        if (this.isNewRow) {
+        if (this.isNewRow(data)) {
           const newRow = omitBy({ ...data }, isNil);
           if (Object.keys(newRow).length > 0) {
             context = { ...context, data: newRow };
@@ -795,7 +800,7 @@ export class BaseTableWidget<
     if (currentEditorContext && !currentEditorContext.submit) {
       const $data = currentEditorContext.row;
       if (dataSource) {
-        if (this.isNewRow) {
+        if (this.isNewRow()) {
           this.tableInstance?.removeInsertRow();
           return;
         }
