@@ -2,6 +2,7 @@ import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { isMinimalismTheme } from '@oinone/kunlun-engine';
 import { BooleanHelper, CSSClass, CSSStyle } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
+import { GroupStyle } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, isString } from 'lodash-es';
 import { BasePackWidget } from '../../basic';
@@ -33,9 +34,9 @@ export class DefaultGroupWidget extends BasePackWidget {
       return bizStyle;
     }
     if (isMinimalismTheme()) {
-      return 'style1';
+      return GroupStyle.style1;
     }
-    return undefined;
+    return GroupStyle.style2;
   }
 
   @Widget.Reactive()

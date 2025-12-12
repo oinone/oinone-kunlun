@@ -4,6 +4,7 @@ import { OioGroupProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent, VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import OioGroupHelp from './oio-group-help.vue';
+import { GroupStyle } from './typing';
 
 export default defineComponent({
   name: 'OioGroup',
@@ -42,7 +43,7 @@ export default defineComponent({
       classList.push(`${DEFAULT_PREFIX}-group-border`);
     }
 
-    classList.push(`${DEFAULT_PREFIX}-group-${bizStyle || 'style1'}`);
+    classList.push(`${DEFAULT_PREFIX}-group-${bizStyle || GroupStyle.style1}`);
 
     let hiddenTitle = title === false;
     let titleVNodes: VNode[] | undefined;
