@@ -854,16 +854,16 @@ onUnmounted(() => {
       position: sticky;
       top: 0;
       left: 0;
-      z-index: 10;
+      z-index: 11;
     }
 
     .column-header {
       background-color: var(--oio-table-thead-bg);
       text-align: center;
       height: 40px;
-      z-index: 3;
       position: sticky;
       top: 0;
+      z-index: 11;
       user-select: none;
       padding: 4px;
     }
