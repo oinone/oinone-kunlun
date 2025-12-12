@@ -37,7 +37,7 @@ import {
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
 import { ListSelectMode, OioNotification, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
-import { isTableViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { isTableViewState, OioAnyViewState, OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isEmpty, isEqual, isNil, isPlainObject, omitBy, toString } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTablePropTypes } from 'vxe-table';
@@ -471,14 +471,14 @@ export class BaseTableWidget<
       if (res && data) {
         if (this.isNewRow) {
           const newRow = omitBy({ ...data }, isNil);
-          this.createSubviewFieldWidget(
-            {
-              ...context,
-              data: newRow
-            },
-            newRow
-          );
+          if (Object.keys(newRow).length > 0) {
+            context = { ...context, data: newRow };
+            this.$rowEditorComputeInvisibleColumns(context);
+            this.createSubviewFieldWidget(context, newRow);
+          }
         } else {
+          context = { ...context, data };
+          this.$rowEditorComputeInvisibleColumns(context);
           this.updateSubviewFieldWidget(context, data);
         }
       }
@@ -486,14 +486,14 @@ export class BaseTableWidget<
       try {
         if (this.isNewRow) {
           const newRow = omitBy({ ...data }, isNil);
-          res = await this.rowEditorClosedForCreate(
-            {
-              ...context,
-              data: newRow
-            },
-            newRow
-          );
+          if (Object.keys(newRow).length > 0) {
+            context = { ...context, data: newRow };
+            this.$rowEditorComputeInvisibleColumns(context);
+            res = await this.rowEditorClosedForCreate(context, newRow);
+          }
         } else {
+          context = { ...context, data };
+          this.$rowEditorComputeInvisibleColumns(context);
           res = await this.rowEditorClosedForUpdate(context, data);
         }
       } catch (e) {
@@ -507,6 +507,13 @@ export class BaseTableWidget<
       }
     }
     return res;
+  }
+
+  protected $rowEditorComputeInvisibleColumns(context: RowContext) {
+    (this.viewState as OioTableViewState)?.fields
+      ?.map((v) => Widget.select<BaseTableColumnWidget>(v))
+      .filter((v) => v != null && v.invisible)
+      .forEach((v) => v?.compute(context));
   }
 
   /**
