@@ -218,7 +218,7 @@ export default defineComponent({
         width: '720px',
         maskClosable: false,
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
-        wrapperClassName: StringHelper.append(['oio-role-modal'], this.wrapperClassName),
+        wrapperClassName: StringHelper.append(['oio-role-modal', 'vxe-table--ignore-clear'], this.wrapperClassName),
         destroyOnClose: true,
         loading: state.loading,
         enterCallback

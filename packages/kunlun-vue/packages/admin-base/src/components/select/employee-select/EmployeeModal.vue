@@ -283,7 +283,7 @@ export default defineComponent({
         height: '664px',
         maskClosable: false,
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
-        wrapperClassName: StringHelper.append(['oio-employee-modal'], this.wrapperClassName),
+        wrapperClassName: StringHelper.append(['oio-employee-modal', 'vxe-table--ignore-clear'], this.wrapperClassName),
         destroyOnClose: true,
         loading: state.loading,
         enterCallback
