@@ -1039,7 +1039,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
   @Widget.Reactive()
   protected get treeConfig() {
-    if (this.enabledTreeConfig) {
+    if (this.enabledTreeConfig && !this.enabledGroupView) {
       return {
         transform: true,
         rowField: ActiveRecordExtendKeys.DRAFT_ID,
@@ -1222,9 +1222,6 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Reactive()
   @Widget.Provide()
   protected get enableGrouping() {
-    if (this.enabledTreeConfig) {
-      return false;
-    }
     return super.enableGrouping;
   }
 
