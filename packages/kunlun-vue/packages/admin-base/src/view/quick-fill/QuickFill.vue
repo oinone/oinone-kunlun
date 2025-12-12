@@ -284,6 +284,8 @@ export default defineComponent({
 }
 
 .oio-quick-fill-witch-mode-modal {
+  top: 400px;
+
   .ant-modal-confirm-title {
     display: inline-block;
     vertical-align: middle;
