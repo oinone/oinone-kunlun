@@ -475,11 +475,13 @@ export class BaseTableWidget<
     if (this.inline) {
       if (res && data) {
         if (this.isNewRow(data)) {
-          const newRow = omitBy({ ...data }, isNil);
+          const newRow = omitBy(activeRecordsClone(data), isNil);
           if (Object.keys(newRow).length > 0) {
             context = { ...context, data: newRow };
             this.$rowEditorComputeInvisibleColumns(context);
             this.createSubviewFieldWidget(context, newRow);
+          } else {
+            this.currentEditorContext.submit = false;
           }
         } else {
           context = { ...context, data };
@@ -490,11 +492,13 @@ export class BaseTableWidget<
     } else if (data) {
       try {
         if (this.isNewRow(data)) {
-          const newRow = omitBy({ ...data }, isNil);
+          const newRow = omitBy(activeRecordsClone(data), isNil);
           if (Object.keys(newRow).length > 0) {
             context = { ...context, data: newRow };
             this.$rowEditorComputeInvisibleColumns(context);
             res = await this.rowEditorClosedForCreate(context, newRow);
+          } else {
+            this.currentEditorContext.submit = false;
           }
         } else {
           context = { ...context, data };
