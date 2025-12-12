@@ -80,17 +80,19 @@ export function useDrawer(props, context) {
   });
 
   const widthClassSuffix = computed(() => {
-    const _width = internalWidth.value || props.width;
-    if (isString(_width)) {
-      const realWidth = DrawerWidth[_width.toLowerCase()];
-      if (realWidth) {
-        return _width.toLowerCase();
+    if (placement.value === 'left' || placement.value === 'right') {
+      const _width = internalWidth.value || props.width;
+      if (isString(_width)) {
+        const realWidth = DrawerWidth[_width.toLowerCase()];
+        if (realWidth) {
+          return _width.toLowerCase();
+        }
       }
     }
     return undefined;
   });
 
-  const height = computed(() => {
+  const height = computed<string | undefined>(() => {
     if (!props.visible) {
       return '0';
     }
@@ -102,14 +104,17 @@ export function useDrawer(props, context) {
           return ModalHeight[internalHeight.value];
       }
     }
-    const _height = props.height;
-    if (isString(_height)) {
-      const realHeight = DrawerHeight[_height.toLowerCase()];
-      if (realHeight) {
-        return '';
+    if (placement.value === 'top' || placement.value === 'bottom') {
+      const _height = props.height;
+      if (isString(_height)) {
+        const realHeight = DrawerHeight[_height.toLowerCase()];
+        if (realHeight) {
+          return '';
+        }
       }
+      return StyleHelper.px(_height);
     }
-    return StyleHelper.px(_height);
+    return undefined;
   });
 
   const heightClassSuffix = computed(() => {
