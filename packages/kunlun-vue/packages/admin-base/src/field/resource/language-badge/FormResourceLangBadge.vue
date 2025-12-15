@@ -3,7 +3,7 @@
     <div class="readonly" v-if="innerReadonly && !innerDisabled">
       <a-select
         class="oio-select"
-        dropdown-class-name="oio-select-dropdown"
+        popup-class-name="oio-select-dropdown"
         label-in-value
         :placeholder="placeholder"
         :getPopupContainer="getTriggerContainer"
@@ -23,7 +23,7 @@
         :default-active-first-option="false"
         :placeholder="placeholder"
         :getPopupContainer="getTriggerContainer"
-        :dropdownClassName="dropdownClassName"
+        :popupClassName="dropdownClassName"
         @change="onChange"
         @search="search"
         @select="innerSelect"

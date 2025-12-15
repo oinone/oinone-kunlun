@@ -4,7 +4,7 @@
       <a-select
         ref="menuSelectSearch"
         class="oio-select"
-        dropdownClassName="default-menu-select-dropdown"
+        popupClassName="default-menu-select-dropdown"
         option-filter-prop="label"
         allowClear
         :placeholder="translateValueByKey('搜索菜单')"

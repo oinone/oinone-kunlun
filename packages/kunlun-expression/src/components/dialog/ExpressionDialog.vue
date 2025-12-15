@@ -6,7 +6,7 @@
     :class="dialogClass"
     :closable="!!title"
     :width="width"
-    :visible="visible"
+    :open="visible"
     :title="$translate(title)"
     :footer="footer"
     :z-index="zIndex"

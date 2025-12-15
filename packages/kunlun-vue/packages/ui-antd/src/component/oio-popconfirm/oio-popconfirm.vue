@@ -168,7 +168,7 @@ export default defineComponent({
       return createVNode(
         APopconfirm,
         {
-          visible: this.visible,
+          open: this.visible,
           placement: this.placement,
           destroyTooltipOnHide: this.destroyOnClose,
           arrowPointAtCenter: true,
@@ -176,7 +176,7 @@ export default defineComponent({
           cancelText: this.$translate(this.cancelText),
           getPopupContainer: this.getTriggerContainer,
           ...PropRecordHelper.collectionBasicProps(this.$attrs),
-          onVisibleChange: this.visibleChange,
+          onOpenChange: this.visibleChange,
           onConfirm: this.confirm,
           onCancel: this.cancel,
           overlayClassName: StringHelper.append([`${DEFAULT_PREFIX}-popconfirm-overlay`], this.overlayClassName).join(

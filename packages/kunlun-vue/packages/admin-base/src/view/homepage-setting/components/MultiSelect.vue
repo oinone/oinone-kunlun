@@ -26,7 +26,7 @@
         :options="optionList"
         :placeholder="innerReadonly || innerDisabled ? '' : placeholder"
         :get-popup-container="getTriggerContainer"
-        :dropdownClassName="dropdownClassName"
+        :popupClassName="dropdownClassName"
         @change="innerChange"
         @search="search"
         @blur="blur"

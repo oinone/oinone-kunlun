@@ -5,7 +5,6 @@
         'ready-delete-tag': readyDeleteTag && index === tags.length - 1
       }"
       :title="item"
-      :visible="true"
       :closable="!readonly"
       v-for="(item, index) in tags"
       :key="index"

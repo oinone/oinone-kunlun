@@ -1,12 +1,7 @@
 <template>
   <oio-form :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
     <oio-form-item :label="translateValueByKey('权限条件')" required>
-      <a-select
-        class="oio-select"
-        dropdown-class-name="oio-select-dropdown"
-        :value="exps.connect"
-        @change="changeConnect"
-      >
+      <a-select class="oio-select" popup-class-name="oio-select-dropdown" :value="exps.connect" @change="changeConnect">
         <a-select-option value="and" key="and">{{ translateValueByKey('满足全部') }}</a-select-option>
         <a-select-option value="or" key="or">{{ translateValueByKey('满足任一') }}</a-select-option>
       </a-select>

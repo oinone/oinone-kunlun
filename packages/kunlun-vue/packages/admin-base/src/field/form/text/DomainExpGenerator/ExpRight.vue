@@ -4,7 +4,7 @@
   >
     <a-select
       class="oio-select"
-      dropdown-class-name="oio-select-dropdown"
+      popup-class-name="oio-select-dropdown"
       :mode="field.ttype === 'O2M' || field.ttype === 'M2M' ? 'multiple' : 'default'"
       show-arrow
       :value="exp.right.val"
@@ -27,7 +27,7 @@
     <a-select
       v-if="showContextItem"
       class="oio-select"
-      dropdown-class-name="oio-select-dropdown"
+      popup-class-name="oio-select-dropdown"
       :value="exp.right.val"
       @change="changeContextItemValue"
       style="width: 20%"
@@ -46,7 +46,7 @@
   <template v-if="field && field.ttype === 'ENUM'">
     <a-select
       class="oio-select"
-      dropdown-class-name="oio-select-dropdown"
+      popup-class-name="oio-select-dropdown"
       :value="exp.right.val"
       @change="changeValue({ val: $event })"
       style="width: 20%"
@@ -59,7 +59,7 @@
   <template v-if="field && field.ttype === 'BOOLEAN'">
     <a-select
       class="oio-select"
-      dropdown-class-name="oio-select-dropdown"
+      popup-class-name="oio-select-dropdown"
       :value="exp.right.val"
       @change="changeValue({ val: $event })"
       style="width: 20%"

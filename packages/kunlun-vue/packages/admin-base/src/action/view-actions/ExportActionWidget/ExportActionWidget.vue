@@ -22,7 +22,7 @@
         >
           <a-select
             class="oio-select"
-            dropdown-class-name="oio-select-dropdown"
+            popup-class-name="oio-select-dropdown"
             :value="selectValue"
             @change="handleSelectChange"
           >

@@ -106,7 +106,7 @@
           <a-input-group compact>
             <a-select
               class="oio-select"
-              dropdown-class-name="oio-select-dropdown login-oio-select-dropdown"
+              popup-class-name="oio-select-dropdown login-oio-select-dropdown"
               :value="selectCountry"
               show-search
               :filter-option="searchMethod"

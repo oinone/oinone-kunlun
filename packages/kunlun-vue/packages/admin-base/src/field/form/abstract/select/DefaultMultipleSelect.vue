@@ -28,7 +28,7 @@
         :placeholder="placeholder"
         :open="dropdownOpen"
         :get-popup-container="getTriggerContainer"
-        :dropdownClassName="dropdownClassName"
+        :popupClassName="dropdownClassName"
         @change="innerChange"
         @search="search"
         @focus="onFocus"

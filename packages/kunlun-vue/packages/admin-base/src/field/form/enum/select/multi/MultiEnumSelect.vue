@@ -5,7 +5,7 @@
         ref="selectRef"
         class="oio-select"
         mode="multiple"
-        dropdownClassName="oio-select-dropdown"
+        popupClassName="oio-select-dropdown"
         :placeholder="placeholder"
         :allowClear="allowClear"
         show-arrow

@@ -10,7 +10,7 @@
       <div class="readonly" v-if="readonly && !disabled">
         <a-select
           class="oio-select"
-          dropdown-class-name="oio-select-dropdown"
+          popup-class-name="oio-select-dropdown"
           label-in-value
           :value="currentValue"
           :options="options"
@@ -20,7 +20,7 @@
       <div v-else>
         <a-select
           class="oio-select"
-          dropdown-class-name="oio-select-dropdown"
+          popup-class-name="oio-select-dropdown"
           show-search
           :allowClear="showClear"
           :disabled="disabled"

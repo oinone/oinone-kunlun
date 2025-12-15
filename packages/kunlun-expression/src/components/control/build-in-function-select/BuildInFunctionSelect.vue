@@ -3,7 +3,7 @@
     overlay-class-name="expression-common-popover"
     :get-popup-container="getPopupContainer"
     placement="bottomLeft"
-    :visible="isShowDropdown"
+    :open="isShowDropdown"
   >
     <template #default>
       <span

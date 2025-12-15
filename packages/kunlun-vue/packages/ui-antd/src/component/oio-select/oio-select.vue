@@ -95,7 +95,7 @@ export default defineComponent({
         optionFilterProp: defaultSelectProperties.filterProp,
         optionLabelProp: defaultSelectProperties.labelProp,
         ...PropRecordHelper.collectionBasicProps(this.$attrs, [`${DEFAULT_PREFIX}-select`]),
-        dropdownClassName: StringHelper.append(
+        popupClassName: StringHelper.append(
           [`${DEFAULT_PREFIX}-select-dropdown`],
           CastHelper.cast(this.dropdownClassName)
         ).join(' '),

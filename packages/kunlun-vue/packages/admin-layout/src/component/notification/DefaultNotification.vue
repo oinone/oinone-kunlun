@@ -1,10 +1,10 @@
 <template>
   <div class="k-layout-extra-btn">
     <a-popover
-      v-model:visible="visible"
+      v-model:open="visible"
       trigger="click"
       overlayClassName="message-popover-wrapper"
-      @visibleChange="onShowPopover"
+      @update:open="onShowPopover"
     >
       <template #content>
         <div class="message-tabs">
@@ -110,7 +110,7 @@
       :title="$translate(confirmModalTitle)"
       class="custom-modal"
       :width="420"
-      :visible="isShowConfirmModal"
+      :open="isShowConfirmModal"
       @cancel="onHideConfirmModal"
     >
       <template #closeIcon>

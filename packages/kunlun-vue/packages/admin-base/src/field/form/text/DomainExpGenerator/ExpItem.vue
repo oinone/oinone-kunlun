@@ -2,7 +2,7 @@
   <oio-form-item label=" ">
     <a-select
       class="oio-select"
-      dropdown-class-name="oio-select-dropdown"
+      popup-class-name="oio-select-dropdown"
       :value="exp.left.val"
       style="width: 20%; margin-right: var(--oio-margin)"
       @change="fieldChange"
@@ -13,7 +13,7 @@
     </a-select>
     <a-select
       class="oio-select"
-      dropdown-class-name="oio-select-dropdown"
+      popup-class-name="oio-select-dropdown"
       style="width: 20%; margin-right: var(--oio-margin)"
       :value="exp.operator.val"
       @change="optChange"

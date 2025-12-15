@@ -23,6 +23,7 @@ export default defineComponent({
         'onUpdate:value': (val) => {
           this.$emit('update:value', val);
         },
+        popupClassName: this.dropdownClassName,
         mode: DateTimePickerMode.date,
         hasDateFormat: true,
         hasTimeFormat: false

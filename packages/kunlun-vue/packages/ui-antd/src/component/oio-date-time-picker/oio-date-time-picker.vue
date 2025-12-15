@@ -68,7 +68,7 @@ export default defineComponent({
       component = ATimePicker;
       componentProps.popupClassName = dropdownClassName;
     } else {
-      componentProps.dropdownClassName = dropdownClassName;
+      componentProps.popupClassName = dropdownClassName;
     }
     if ([DateTimePickerMode.year, DateTimePickerMode.month, DateTimePickerMode.week].includes(this.mode)) {
       componentProps.picker = this.mode;

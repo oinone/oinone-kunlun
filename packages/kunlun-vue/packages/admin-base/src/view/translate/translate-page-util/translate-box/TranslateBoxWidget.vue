@@ -14,7 +14,7 @@
       </div>
     </div>
     <a-modal
-      v-model:visible="modalVisible"
+      v-model:open="modalVisible"
       :title="translateValueByKey(currentModeText.modalTitle)"
       :width="960"
       style="top: 7.5vh"

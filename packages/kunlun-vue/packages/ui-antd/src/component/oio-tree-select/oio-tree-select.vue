@@ -143,7 +143,7 @@ export default defineComponent({
         placeholder,
         allowClear,
         disabled: readonly || disabled,
-        dropdownClassName: StringHelper.append(
+        popupClassName: StringHelper.append(
           [`${DEFAULT_PREFIX}-select-dropdown`, `${DEFAULT_PREFIX}-tree-select-dropdown`],
           dropdownClassName
         ).join(' '),

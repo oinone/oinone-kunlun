@@ -3,7 +3,7 @@
     <div class="role-user-config-item" v-for="(expressionItem, index) in expressionItemList" :key="expressionItem.key">
       <a-select
         class="oio-select expression-select"
-        dropdown-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
+        popup-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
         :placeholder="$translate('当前用户/当前角色')"
         v-model:value="expressionItem.values.roleUserEnum"
         @change="onRoleUserEnumChange(expressionItem)"
@@ -18,7 +18,7 @@
       </a-select>
       <a-select
         class="oio-select expression-select"
-        dropdown-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
+        popup-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
         :placeholder="$translate('包含（后面的值可多选）/等于')"
         v-model:value="expressionItem.values.relation"
         @change="onRoleUserValueReset(expressionItem)"

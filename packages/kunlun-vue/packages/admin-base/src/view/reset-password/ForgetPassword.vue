@@ -16,7 +16,7 @@
               <a-select
                 class="oio-select"
                 style="flex: 110px 0 0"
-                dropdown-class-name="oio-select-dropdown forget-pwd-oio-select-dropdown"
+                popup-class-name="oio-select-dropdown forget-pwd-oio-select-dropdown"
                 :value="selectedCountry"
                 :options="countryList"
                 label-in-value

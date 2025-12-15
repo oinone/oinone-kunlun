@@ -4,7 +4,7 @@
       placement="bottom"
       overlayClassName="search-preference-dropdown oio-popover"
       :getPopupContainer="(triggerNode) => triggerNode.parentNode || document.body"
-      @visible-change="onPopoverVisibleChange"
+      @update:open="onPopoverVisibleChange"
     >
       <template #content>
         <div class="search-preference-content">
@@ -70,7 +70,7 @@
       heigth="60%"
       :title="translateValueByKey('搜索方案管理')"
       width="560px"
-      v-model:visible="managerVisible"
+      v-model:open="managerVisible"
       :footer-invisible="true"
     >
       <oio-empty-data v-if="isEmptyManagerOptions" />

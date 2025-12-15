@@ -3,7 +3,7 @@
     overlay-class-name="expression-common-popover"
     :get-popup-container="getPopupContainer"
     placement="bottomLeft"
-    :visible="isShowDropdown"
+    :open="isShowDropdown"
   >
     <template #default>
       <span
@@ -18,7 +18,7 @@
         <span class="ant-input-wrapper ant-input-group">
           <span class="ant-input-group-addon variable-type-addon" v-if="showTypeSelect">
             <a-select
-              dropdown-class-name="oio-expression-select-dropdown-global"
+              popup-class-name="oio-expression-select-dropdown-global"
               v-model:value="variableType"
               size="small"
               :dropdown-match-select-width="false"

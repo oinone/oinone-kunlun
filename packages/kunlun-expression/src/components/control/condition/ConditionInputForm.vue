@@ -16,7 +16,7 @@
           overlay-class-name="expression-switch-popconfirm"
           :ok-text="translateExpValue('确认')"
           :cancel-text="translateExpValue('取消')"
-          @visible-change="handleVisibleConfirmChange"
+          @open-change="handleVisibleConfirmChange"
           @confirm="changeMode('QUICK')"
         >
           <span :class="{ active: mode === 'QUICK' }">{{ translateExpValue('快捷') }}</span>
@@ -68,7 +68,7 @@
           />
           <a-select
             class="expression-input-operator"
-            dropdown-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
+            popup-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
             v-model:value="expressionItem.compareOperator"
             :get-popup-container="null"
             @change="changeHandler"
@@ -174,7 +174,7 @@
             />
             <a-select
               class="expression-input-compare-operator expression-input-operator"
-              dropdown-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
+              popup-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
               v-model:value="expressionItem.compareOperator"
               :dropdown-match-select-width="false"
               :bordered="false"

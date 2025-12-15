@@ -12,11 +12,11 @@
       <div class="expression-input-form-header-switch">
         <a-popconfirm
           :title="translateExpValue('由高级模式切换为快捷模式，将去掉表达式中的决定运算优先级的括号，是否切换?')"
-          :visible="visibleConfirm"
+          :open="visibleConfirm"
           overlay-class-name="expression-switch-popconfirm"
           :ok-text="translateExpValue('确认')"
           :cancel-text="translateExpValue('取消')"
-          @visible-change="handleVisibleConfirmChange"
+          @open-change="handleVisibleConfirmChange"
           @confirm="changeMode('QUICK')"
         >
           <span :class="{ active: mode === 'QUICK' }">{{ translateExpValue('快捷') }}</span>
@@ -100,7 +100,7 @@
         <a-select
           :allowClear="true"
           class="expression-input-operator"
-          dropdown-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
+          popup-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
           v-if="expressionItem.showOperator"
           v-model:value="expressionItem.operator"
           :dropdown-match-select-width="false"
@@ -248,7 +248,7 @@
         <!-- START 运算符 -->
         <a-select
           class="expression-input-operator"
-          dropdown-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
+          popup-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
           v-if="expressionItem.showOperator"
           v-model:value="expressionItem.operator"
           :dropdown-match-select-width="false"
@@ -295,6 +295,7 @@ import { OioTextarea } from '@oinone/kunlun-vue-ui-antd';
 import {
   Popconfirm as APopconfirm,
   Select as ASelect,
+  SelectOption as ASelectOption,
   Tooltip as ATooltip,
   Checkbox as ACheckbox
 } from 'ant-design-vue';
@@ -341,7 +342,7 @@ export default defineComponent({
   components: {
     ACheckbox,
     ASelect,
-    ASelectOption: ASelect.Option,
+    ASelectOption,
     ATooltip,
     APopconfirm,
     VariableFormInput,

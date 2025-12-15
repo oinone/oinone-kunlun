@@ -11,7 +11,7 @@
     <oio-textarea :class="textClass" :value="text" @update:value="onUpdateText" />
     <a-modal
       v-if="showJSONDialog"
-      v-model:visible="showJSONDialog"
+      v-model:open="showJSONDialog"
       width="100%"
       wrap-class-name="full-modal"
       :title="null"

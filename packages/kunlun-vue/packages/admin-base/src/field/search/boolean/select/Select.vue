@@ -1,7 +1,7 @@
 <template>
   <a-select
     class="oio-select"
-    dropdown-class-name="oio-select-dropdown"
+    popup-class-name="oio-select-dropdown"
     :placeholder="placeholder"
     :allow-clear="allowClear"
     :value="value"
@@ -13,14 +13,14 @@
   </a-select>
 </template>
 <script lang="ts">
-import { Select as ASelect } from 'ant-design-vue';
+import { Select as ASelect, SelectOption as ASelectOption } from 'ant-design-vue';
 import { defineComponent } from 'vue';
 import { OioCommonProps } from '../../../../basic';
 
 export default defineComponent({
   components: {
     ASelect,
-    ASelectOption: ASelect.Option
+    ASelectOption
   },
   props: {
     ...OioCommonProps,

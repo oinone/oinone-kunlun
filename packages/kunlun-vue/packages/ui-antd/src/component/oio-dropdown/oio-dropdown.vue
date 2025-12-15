@@ -65,15 +65,15 @@ export default defineComponent({
       forceRender: this.forceRender,
       destroyPopupOnHide: this.destroyOnHide,
       getPopupContainer: this.getTriggerContainer,
-      'onUpdate:visible': () => {},
-      onVisibleChange: this.onUpdateValue,
+      'onUpdate:open': () => {},
+      onOpenChange: this.onUpdateValue,
       overlayClassName: StringHelper.append(
         [`${DEFAULT_PREFIX}-dropdown-overlay`],
         CastHelper.cast(this.overlayClassName)
       ).join(' ')
     };
     if (this.value != null) {
-      componentData.visible = this.value;
+      componentData.open = this.value;
     }
     return createVNode(ADropdown, componentData, PropRecordHelper.collectionSlots(this.$slots, ['default', 'overlay']));
   }

@@ -30,7 +30,7 @@
           />
           <a-select
             class="oio-select hompage-setting-enableStatus-select"
-            dropdown-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
+            popup-class-name="oio-expression-select-dropdown-global expression-input-operator-dropdown"
             :placeholder="$translate('全部/可用/不可用')"
             v-model:value="vueSearchEnableStatus"
             @change="onSearchEnabledStatusChange"

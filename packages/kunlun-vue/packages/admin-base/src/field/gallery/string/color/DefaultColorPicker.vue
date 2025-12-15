@@ -1,5 +1,5 @@
 <template>
-  <a-tooltip v-model:visible="visibility">
+  <a-tooltip v-model:open="visibility">
     <template #title>
       <span>{{ value }}</span>
     </template>

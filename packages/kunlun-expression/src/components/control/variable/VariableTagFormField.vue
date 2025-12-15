@@ -3,7 +3,7 @@
     overlay-class-name="expression-common-popover"
     :get-popup-container="getPopupContainer"
     placement="bottomLeft"
-    :visible="isShowDropdown"
+    :open="isShowDropdown"
   >
     <template #default>
       <span
@@ -22,7 +22,7 @@
               <a-select
                 v-model:value="variableType"
                 :options="variableItemTypeList"
-                dropdown-class-name="variable-type-addon-dropdown oio-expression-select-dropdown-global"
+                popup-class-name="variable-type-addon-dropdown oio-expression-select-dropdown-global"
                 size="small"
                 :dropdown-match-select-width="false"
                 :get-popup-container="(triggerNode) => triggerNode.parentNode"
@@ -181,7 +181,12 @@ import { defineComponent } from 'vue';
 import ControlTag from '../control-tag/ControlTag.vue';
 import ExpressionDesignerCascader from '../../cascader/Cascader.vue';
 import { createComponent, IVariableFormFieldProps } from './variableFormFieldBase';
-import { Select as ASelect, Tooltip as ATooltip, Popover as APopover, SelectOption as ASelectOption } from 'ant-design-vue';
+import {
+  Select as ASelect,
+  Tooltip as ATooltip,
+  Popover as APopover,
+  SelectOption as ASelectOption
+} from 'ant-design-vue';
 import { OioInput, OioDatePicker, OioDateTimePicker, OioYearPicker, OioTimePicker } from '@oinone/kunlun-vue-ui-antd';
 
 /**

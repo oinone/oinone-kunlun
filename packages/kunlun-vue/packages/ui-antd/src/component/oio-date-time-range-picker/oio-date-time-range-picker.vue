@@ -75,7 +75,7 @@ export default defineComponent({
       this.popperClass || this.dropdownClassName
     ).join(' ');
     const component: Component = ARangePicker;
-    componentProps.dropdownClassName = dropdownClassName;
+    componentProps.popupClassName = dropdownClassName;
     return createVNode(component, componentProps);
   }
 });

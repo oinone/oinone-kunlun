@@ -143,7 +143,7 @@ export default defineComponent({
         placeholder,
         allowClear,
         disabled: readonly || disabled,
-        dropdownClassName: StringHelper.append(dropdownClassNames, dropdownClassName).join(' '),
+        popupClassName: StringHelper.append(dropdownClassNames, dropdownClassName).join(' '),
         getPopupContainer: getTriggerContainer,
         changeOnSelect,
         value,

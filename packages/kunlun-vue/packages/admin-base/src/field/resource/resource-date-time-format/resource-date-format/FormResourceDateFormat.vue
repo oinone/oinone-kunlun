@@ -3,7 +3,7 @@
     overlay-class-name="expression-common-popover"
     placement="bottomLeft"
     :trigger="readonly ? 'null' : 'click'"
-    v-model:visible="visiblePopover"
+    v-model:open="visiblePopover"
   >
     <template #default>
       <span
@@ -16,7 +16,7 @@
               <control-tag class="variable-item variable-tag" :closable="!readonly" @close="onRemoveOption(index)">
                 <a-select
                   class="oio-select"
-                  dropdown-class-name="form-resource-date-format-child-select"
+                  popup-class-name="form-resource-date-format-child-select"
                   :disabled="readonly"
                   :style="{
                     width: opt.width
