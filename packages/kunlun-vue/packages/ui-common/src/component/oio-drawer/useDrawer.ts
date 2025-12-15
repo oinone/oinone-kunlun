@@ -47,6 +47,14 @@ export function useDrawer(props, context) {
     return props.placement?.toLowerCase?.();
   });
 
+  const usingWidth = computed(() => {
+    return placement.value === 'left' || placement.value === 'right';
+  });
+
+  const usingHeight = computed(() => {
+    return placement.value === 'top' || placement.value === 'bottom';
+  });
+
   const width = computed(() => {
     if (!props.visible) {
       return '0';
@@ -69,18 +77,21 @@ export function useDrawer(props, context) {
         }
       }
     }
-    const _width = props.width;
-    if (isString(_width)) {
-      const realWidth = DrawerWidth[_width.toLowerCase()];
-      if (realWidth) {
-        return '';
+    if (usingWidth.value) {
+      const _width = props.width;
+      if (isString(_width)) {
+        const realWidth = DrawerWidth[_width.toLowerCase()];
+        if (realWidth) {
+          return '';
+        }
       }
+      return StyleHelper.px(_width);
     }
-    return StyleHelper.px(_width);
+    return undefined;
   });
 
   const widthClassSuffix = computed(() => {
-    if (placement.value === 'left' || placement.value === 'right') {
+    if (usingWidth.value) {
       const _width = internalWidth.value || props.width;
       if (isString(_width)) {
         const realWidth = DrawerWidth[_width.toLowerCase()];
@@ -104,7 +115,7 @@ export function useDrawer(props, context) {
           return ModalHeight[internalHeight.value];
       }
     }
-    if (placement.value === 'top' || placement.value === 'bottom') {
+    if (usingHeight.value) {
       const _height = props.height;
       if (isString(_height)) {
         const realHeight = DrawerHeight[_height.toLowerCase()];
@@ -118,11 +129,13 @@ export function useDrawer(props, context) {
   });
 
   const heightClassSuffix = computed(() => {
-    const _height = internalHeight.value || props.height;
-    if (isString(_height)) {
-      const realHeight = DrawerHeight[_height.toLowerCase()];
-      if (realHeight) {
-        return _height.toLowerCase();
+    if (usingHeight.value) {
+      const _height = internalHeight.value || props.height;
+      if (isString(_height)) {
+        const realHeight = DrawerHeight[_height.toLowerCase()];
+        if (realHeight) {
+          return _height.toLowerCase();
+        }
       }
     }
     return undefined;
