@@ -3,7 +3,6 @@ import {
   SPIMatchAnyValue,
   SPIMultiSelectorNoOptions,
   SPIOperator,
-  SPIOptions,
   SPITokenFactory
 } from '@oinone/kunlun-spi';
 import { VueWidget } from '@oinone/kunlun-vue-widget';

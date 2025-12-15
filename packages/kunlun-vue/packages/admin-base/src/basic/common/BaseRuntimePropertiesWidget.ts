@@ -1,4 +1,11 @@
-import { ActiveRecord, RuntimeModel, RuntimeView, RuntimeViewAction } from '@oinone/kunlun-engine';
+import {
+  ActiveRecord,
+  RuntimeContext,
+  RuntimeContextManager,
+  RuntimeModel,
+  RuntimeView,
+  RuntimeViewAction
+} from '@oinone/kunlun-engine';
 import { ViewClientType } from '@oinone/kunlun-meta';
 import { useMatched } from '@oinone/kunlun-router';
 import { BooleanHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
@@ -172,6 +179,13 @@ export class BaseRuntimePropertiesWidget<
       .orElse(true);
   }
 
+  @Widget.Reactive()
+  protected get usingParentLoading(): boolean {
+    return Optional.ofNullable(this.getDsl().usingParentLoading)
+      .map((v) => BooleanHelper.toBoolean(v))
+      .orElse(true);
+  }
+
   /**
    * 加载状态调用函数
    * @param fn
@@ -182,7 +196,7 @@ export class BaseRuntimePropertiesWidget<
     if (!this.usingLoading) {
       return await fn(...args);
     }
-    if (this.parentLoad) {
+    if (this.parentLoad && this.usingParentLoading) {
       return await this.parentLoad(fn, ...args);
     }
     this.loading = true;
@@ -191,5 +205,20 @@ export class BaseRuntimePropertiesWidget<
     } finally {
       this.loading = false;
     }
+  }
+
+  protected seekPopupMainRuntimeContext(): RuntimeContext {
+    if (this.metadataHandle === this.rootHandle) {
+      const modelModel = this.model.model;
+      if (modelModel) {
+        const popupMainRuntimeContext = RuntimeContextManager.getOthers(this.rootHandle)?.find(
+          (v) => v.model.model === modelModel
+        );
+        if (popupMainRuntimeContext) {
+          return popupMainRuntimeContext;
+        }
+      }
+    }
+    return this.rootRuntimeContext;
   }
 }

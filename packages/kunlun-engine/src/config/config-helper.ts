@@ -22,14 +22,14 @@ export class ConfigHelper {
   }
 
   public static getBoolean(value: boolean | string | undefined, defaultValue = false): boolean {
-    return Optional.ofNullable(value).map(BooleanHelper.toBoolean).orElse(defaultValue)!;
+    return Optional.ofNullable(value).map(BooleanHelper.toBoolean).orElse(defaultValue);
   }
 
   public static getNumberNullable(value: string | number | undefined): number | undefined {
-    return Optional.ofNullable(value).map(NumberHelper.toNumber).orElse(undefined)!;
+    return Optional.ofNullable(value).map(NumberHelper.toNumber).orElse(undefined);
   }
 
   public static getNumber(value: string | number | undefined, defaultValue: number): number {
-    return Optional.ofNullable(value).map(NumberHelper.toNumber).orElse(defaultValue)!;
+    return Optional.ofNullable(value).map(NumberHelper.toNumber).orElse(defaultValue);
   }
 }

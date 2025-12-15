@@ -1,8 +1,9 @@
 import { RuntimeO2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import { BooleanHelper, Optional, ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseFieldWidget, FormSubviewListFieldWidget, RelationQueryHelper } from '../../../../basic';
 import { TABLE_WIDGET } from '../../../../typing';
 
@@ -16,6 +17,30 @@ import { TABLE_WIDGET } from '../../../../typing';
   })
 )
 export class FormO2MTableFieldWidget extends FormSubviewListFieldWidget<RuntimeO2MField> {
+  /**
+   * 一对多的表格底部显示添加一行
+   */
+  @Widget.Provide()
+  @Widget.Reactive()
+  protected get showAddBtn() {
+    if (this.readonly) {
+      return false;
+    }
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showAddBtn)).orElse(true);
+  }
+
+  /**
+   * 一对多的表格底部显示快速填报
+   */
+  @Widget.Provide()
+  @Widget.Reactive()
+  protected get showQuickFill() {
+    if (this.readonly) {
+      return false;
+    }
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showQuickFill)).orElse(true);
+  }
+
   protected async refreshValueProcess() {
     if (this.isDataSourceProvider) {
       await super.refreshValueProcess();

@@ -3,14 +3,24 @@ import { DownOutlined } from '@ant-design/icons-vue';
 import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { CastHelper, CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { ButtonType, IconPlacement, OioButton, OioCheckbox, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
+import {
+  ButtonBizStyle,
+  ButtonType,
+  IconPlacement,
+  OioButton,
+  OioCheckbox,
+  OioDropdown,
+  OioSwitch
+} from '@oinone/kunlun-vue-ui-antd';
 import { ListSelectMode, OioDropdownTrigger, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { DslRenderDefinition, onAllMounted } from '@oinone/kunlun-vue-widget';
+import { Menu as AMenu } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, PropType, VNode, vShow, withDirectives, withModifiers } from 'vue';
 import { ActiveCountEnum, MoreActionRender, OperationColumnDirection } from '../../../typing';
 import { CollectionActions } from '../../../util/collection-actions';
-import DefaultDropdown from '../dropdown/DefaultDropdown.vue';
+import { ActionBarBizStyle } from '../typing';
+import DefaultMoreActionItem from './DefaultMoreActionItem.vue';
 
 const actionBarClassName = 'action-bar';
 
@@ -20,17 +30,23 @@ function createMoreAction(
   vnodes: VNode[],
   inline: boolean,
   options: {
+    rowIndex?: number;
+    bizStyle?: string;
     buttonType?: string;
     operatorColumnDirection?: OperationColumnDirection;
     allMounted: Function | undefined;
     moreActionTriggers: OioDropdownTrigger[];
   }
-): VNode {
+): VNode | VNode[] {
   const classList = [moreActionSelectorClassName];
   let defaultButtonType = ButtonType.primary;
+  let defaultBizStyle: ButtonBizStyle | undefined;
   if (inline) {
     classList.push(`${moreActionSelectorClassName}-inline`);
     defaultButtonType = ButtonType.link;
+  } else if (options.bizStyle === ActionBarBizStyle.style2) {
+    defaultButtonType = ButtonType.text;
+    defaultBizStyle = ButtonBizStyle.default;
   }
   const { buttonType, allMounted } = options;
   const triggerVNode = createVNode(
@@ -38,6 +54,7 @@ function createMoreAction(
     {
       class: classList,
       type: buttonType || defaultButtonType,
+      bizStyle: defaultBizStyle,
       icon: 'oinone-menu-caidanxiala',
       iconPlacement: IconPlacement.AFTER,
       onClick: withModifiers(() => {}, ['prevent'])
@@ -46,17 +63,34 @@ function createMoreAction(
       default: () => translateValueByKey('更多')
     }
   );
-  return createVNode(
-    DefaultDropdown,
-    {
-      trigger: [OioDropdownTrigger.click, OioDropdownTrigger.hover],
-      allMounted
-    },
-    {
-      default: () => vnodes,
-      trigger: () => [triggerVNode]
-    }
+  const moreActionItems = vnodes.map((v) =>
+    createVNode(DefaultMoreActionItem, {
+      model: v.props?.model,
+      name: v.props?.name,
+      rowIndex: options.rowIndex
+    })
   );
+  return [
+    createVNode('div', { class: 'more-action-invisible-render-wrapper' }, vnodes),
+    createVNode(
+      OioDropdown,
+      {
+        overlayClassName: 'default-dropdown-overlay',
+        trigger: [OioDropdownTrigger.click, OioDropdownTrigger.hover]
+      },
+      {
+        default: () => [triggerVNode],
+        overlay: () =>
+          createVNode(
+            AMenu,
+            { class: 'default-dropdown-menu' },
+            {
+              default: () => moreActionItems
+            }
+          )
+      }
+    )
+  ];
 }
 
 export default defineComponent({
@@ -78,6 +112,9 @@ export default defineComponent({
     activeRecords: {
       type: Array as PropType<ActiveRecord[]>
     },
+    rowIndex: {
+      type: Number
+    },
     viewType: {
       type: String as PropType<ViewType>
     },
@@ -88,6 +125,9 @@ export default defineComponent({
     inline: {
       type: Boolean,
       default: false
+    },
+    bizStyle: {
+      type: String
     },
     justify: {
       type: String
@@ -185,6 +225,9 @@ export default defineComponent({
     const buttonType = this.buttonType?.toLowerCase?.() || ButtonType.link;
     classList.push(`${actionBarClassName}-${operatorColumnDirection}`);
     classList.push(`${actionBarClassName}-${buttonType}`);
+    if (this.bizStyle) {
+      classList.push(`${actionBarClassName}-${this.bizStyle}`);
+    }
     const collectionActions = new CollectionActions(this.showActionNames, this.activeCount);
     collectionActions.do(
       PropRecordHelper.collectionSlots(this.$slots, [{ origin: 'default', isNotNull: true }]).default()
@@ -198,6 +241,20 @@ export default defineComponent({
       moreActionFlags.some((v) => v)
     ) {
       const originMoreAction = showActions[showActions.length - 1];
+      let moreActionVNodes: VNode[] = [];
+      const renderResult = (this.moreActionRender || createMoreAction)(moreActions, this.inline, {
+        rowIndex: this.rowIndex,
+        bizStyle: this.bizStyle,
+        buttonType: this.buttonType,
+        operatorColumnDirection: operatorColumnDirection as OperationColumnDirection,
+        allMounted: this.allMounted,
+        moreActionTriggers: this.moreActionTriggers!
+      });
+      if (Array.isArray(renderResult)) {
+        moreActionVNodes = renderResult;
+      } else {
+        moreActionVNodes = [renderResult];
+      }
       showActions.push(
         createVNode(
           'div',
@@ -205,19 +262,11 @@ export default defineComponent({
             key: originMoreAction.props?.dslDefinition?.name || uniqueKeyGenerator(),
             class: 'more-action-item'
           },
-          [
-            ...otherVNodes,
-            (this.moreActionRender || createMoreAction)(moreActions, this.inline, {
-              buttonType: this.buttonType,
-              operatorColumnDirection: operatorColumnDirection as OperationColumnDirection,
-              allMounted: this.allMounted,
-              moreActionTriggers: this.moreActionTriggers!
-            })
-          ]
+          [...otherVNodes, ...moreActionVNodes]
         )
       );
     } else {
-      showActions = [...showActions, ...moreActions, ...otherVNodes];
+      showActions = [...showActions, ...otherVNodes, ...moreActions];
     }
     // fixme @zbh 20221102 使用SPI注册
     if (this.viewType === ViewType.Gallery && !this.inline) {
@@ -229,11 +278,11 @@ export default defineComponent({
           },
           [
             createVNode('div', { class: 'gallery-action-bar-batch-selected' }, [
-              createVNode('span', {}, translateValueByKey('批量管理')),
               createVNode(OioSwitch, {
                 checked: this.allowSelected,
                 'onUpdate:checked': this.updateValueAllowSelected
-              })
+              }),
+              createVNode('span', {}, translateValueByKey('批量管理'))
             ]),
             withDirectives(
               createVNode(

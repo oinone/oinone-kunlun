@@ -6,20 +6,6 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "46198923",
-      "name": "待审核",
-      "font_class": "daishenhe",
-      "unicode": "e98b",
-      "unicode_decimal": 59787
-    },
-    {
-      "icon_id": "46198922",
-      "name": "待办",
-      "font_class": "daiban",
-      "unicode": "e98c",
-      "unicode_decimal": 59788
-    },
-    {
       "icon_id": "46178735",
       "name": "打印",
       "font_class": "dayin",

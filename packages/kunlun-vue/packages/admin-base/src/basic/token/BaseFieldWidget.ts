@@ -85,6 +85,10 @@ export class BaseFieldWidget<
   }
 
   @Widget.Reactive()
+  @Widget.Inject()
+  protected rowIndex: number | undefined;
+
+  @Widget.Reactive()
   public get label(): string | undefined {
     const label = super.label;
     if (
@@ -264,6 +268,7 @@ export class BaseFieldWidget<
 
   protected $$mounted() {
     super.$$mounted();
+    this.viewState?.pushField(this.currentHandle, this.rowIndex);
     this.fieldWidgetMounted?.(this);
     this.notify(LifeCycleTypes.ON_FIELD_MOUNTED);
   }
@@ -285,14 +290,21 @@ export class BaseFieldWidget<
 
   protected $$unmounted() {
     super.$$unmounted();
+    this.viewState?.popField(this.currentHandle, this.rowIndex);
     this.fieldWidgetUnmounted?.(this);
     this.notify(LifeCycleTypes.ON_FIELD_UNMOUNTED);
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Inject()
   protected fieldWidgetMounted: ((widget: PathWidget) => void) | undefined;
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Inject()
   protected fieldWidgetUnmounted: ((widget: PathWidget) => void) | undefined;
@@ -367,7 +379,7 @@ export class BaseFieldWidget<
         LifeCycleHeart.publish<BaseFieldWidget>(type, `${view.name}:${field.name}`, this);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 }

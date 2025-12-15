@@ -1,4 +1,4 @@
-import { ExperimentalConfigManager } from '../../experimental';
+import { ExperimentalConfigManager } from '../../config';
 import { getStaticRelationField, isStaticRelationField } from '../../runtime-context';
 import { RuntimeM2OField } from '../../runtime-metadata';
 import { ActiveRecord } from '../../typing';

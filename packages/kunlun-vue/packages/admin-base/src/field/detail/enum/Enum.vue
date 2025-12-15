@@ -1,14 +1,17 @@
 <template>
-  <div v-if="realOptions.length > 0 && optionColor" class="detail-multi-select">
-    <div class="detail-multi-select-item" v-for="item in realOptions" :key="item.key" :style="computeStyle(item)">
-      <div class="detail-multi-select-item-font" :title="item.label">
-        {{ item.label }}
+  <detail-common-field
+    :is-empty="!realOptions.length || !optionColor"
+    :empty-style="emptyStyle"
+    :value="displayNameListStr"
+  >
+    <div class="detail-multi-select">
+      <div class="detail-multi-select-item" v-for="item in realOptions" :key="item.key" :style="computeStyle(item)">
+        <div class="detail-multi-select-item-font" :title="item.label">
+          {{ item.label }}
+        </div>
       </div>
     </div>
-  </div>
-  <div v-else>
-    <detail-common-field :empty-style="emptyStyle" :value="displayNameListStr" />
-  </div>
+  </detail-common-field>
 </template>
 <script lang="ts">
 import { EnumOptionState } from '@oinone/kunlun-meta';

@@ -1,6 +1,17 @@
 <template>
   <div class="system-style system-setting-page-view">
     <div class="system-style-left">
+      <!-- 主题风格 -->
+      <div class="oio-group oio-default-group">
+        <div class="oio-group-title-wrapper">
+          <div class="oio-group-title">{{ translateValueByKey('主题风格') }}</div>
+        </div>
+        <a-radio-group v-model:value="style">
+          <a-radio style="color: var(--oio-text-color)" value="minimalism">{{ translateValueByKey('极简') }}</a-radio>
+          <a-radio style="color: var(--oio-text-color)" value="classic">{{ translateValueByKey('经典') }}</a-radio>
+        </a-radio-group>
+      </div>
+
       <!-- 主题模式 -->
       <div class="oio-group oio-default-group">
         <div class="oio-group-title-wrapper">
@@ -100,7 +111,7 @@
           <div class="oio-group-title">{{ translateValueByKey('多tab栏样式') }}</div>
         </div>
         <a-form>
-          <a-row>
+          <a-row class="enable-multitab-config">
             <a-col :span="24">
               <a-form-item :label="$translate('标签页')">
                 <a-switch class="oio-switch" v-model:checked="enabled" @change="onEnabledChange" />
@@ -219,6 +230,7 @@
 </template>
 <script lang="ts" setup>
 import { ref, computed, defineProps, watchEffect, watch } from 'vue';
+import { kebabCase } from 'lodash-es';
 import { getTheme } from '@oinone/kunlun-theme';
 import { OioIcon, OioButton } from '@oinone/kunlun-vue-ui-antd';
 import {
@@ -245,6 +257,7 @@ const loginPageRef = ref<HTMLElement>('' as any);
 const hostRef = ref();
 const mode = ref('default');
 const size = ref('medium');
+const style = ref();
 const currentMenuColor = ref(SideBarThemeColor.default);
 const currentSidebar = ref(SideBarTheme.side1);
 
@@ -260,38 +273,53 @@ const inline = ref(false); // 多 tab 是否内联
 /**
  * 数据回填
  */
-watchEffect(() => {
-  const { mode: m, size: s, multiTabTheme, sideBarTheme, extend } = props.systemConfig;
+watchEffect(
+  () => {
+    const { mode: m, size: s, multiTabTheme, sideBarTheme, extend, style: sysStyle } = props.systemConfig;
 
-  if (m) {
-    mode.value = m.toLocaleLowerCase();
-  }
+    if (m) {
+      mode.value = kebabCase(m);
+    }
 
-  if (s) {
-    size.value = s.toLocaleLowerCase();
-  }
+    if (sysStyle) {
+      style.value = sysStyle.toLocaleLowerCase();
+    }
 
-  const extendMultiTabTheme = extend?.systemStyleConfig?.multiTabConfig;
-  if (extendMultiTabTheme || multiTabTheme) {
-    inline.value = extendMultiTabTheme?.inline ?? multiTabTheme?.inline! ?? false;
-    theme.value = extendMultiTabTheme?.theme ?? multiTabTheme?.theme! ?? MultiTabTheme.tab1;
-    enabled.value = extendMultiTabTheme?.enabled ?? true;
-    draggable.value = extendMultiTabTheme?.draggable ?? true;
-    showModuleLogo.value = extendMultiTabTheme?.showModuleLogo ?? true;
-    homepageEnabled.value = (extendMultiTabTheme?.homepage as MultiTabsApplicationHomepageConfig)?.enabled ?? true;
-    homepageAutoInvisible.value =
-      (extendMultiTabTheme?.homepage as MultiTabsApplicationHomepageConfig)?.autoInvisible ?? !inline.value;
-  }
+    if (s) {
+      size.value = s.toLocaleLowerCase();
+    }
 
-  const extendSideBarTheme = extend?.systemStyleConfig?.sideBarConfig;
-  if (extendSideBarTheme || sideBarTheme) {
-    currentMenuColor.value =
-      extendSideBarTheme?.mode?.toLocaleLowerCase() ??
-      (sideBarTheme?.mode?.toLocaleLowerCase() as any) ??
-      SideBarThemeColor.default;
-    currentSidebar.value = extendSideBarTheme?.theme ?? sideBarTheme?.theme! ?? SideBarTheme.side1;
+    const extendMultiTabTheme = extend?.systemStyleConfig?.multiTabConfig;
+    if (extendMultiTabTheme || multiTabTheme) {
+      inline.value = extendMultiTabTheme?.inline ?? multiTabTheme?.inline! ?? false;
+      theme.value = extendMultiTabTheme?.theme ?? multiTabTheme?.theme! ?? MultiTabTheme.tab1;
+      enabled.value = extendMultiTabTheme?.enabled ?? true;
+      draggable.value = extendMultiTabTheme?.draggable ?? true;
+      showModuleLogo.value = extendMultiTabTheme?.showModuleLogo ?? true;
+      homepageEnabled.value = (extendMultiTabTheme?.homepage as MultiTabsApplicationHomepageConfig)?.enabled ?? true;
+      homepageAutoInvisible.value =
+        (extendMultiTabTheme?.homepage as MultiTabsApplicationHomepageConfig)?.autoInvisible ?? !inline.value;
+    }
+
+    const extendSideBarTheme = extend?.systemStyleConfig?.sideBarConfig;
+    if (extendSideBarTheme || sideBarTheme) {
+      currentMenuColor.value =
+        extendSideBarTheme?.mode?.toLocaleLowerCase() ??
+        (sideBarTheme?.mode?.toLocaleLowerCase() as any) ??
+        SideBarThemeColor.default;
+      currentSidebar.value = extendSideBarTheme?.theme ?? sideBarTheme?.theme! ?? SideBarTheme.side1;
+    }
+  },
+  {
+    /**
+     * 这个 watchEffect 依赖 inline.value，下面还有一个 watch 同样依赖 inline.value
+     * 响应式更新时，通常 watchEffect 会先于 watch 执行
+     * 这就导致 inline.value 先走了遍数据回填的逻辑，值被恢复了，内外部多 tab 切换失败
+     * 所以这里指定 flush:'post'，让 watchEffect 晚于 watch 执行，先改值，再回填
+     */
+    flush: 'post'
   }
-});
+);
 
 const currentThemeImage = computed(() => {
   const theme = `${mode.value}-${size.value}`;
@@ -362,11 +390,12 @@ const onHomepageAutoInvisibleChange = (value: any) => {
 };
 
 watch(
-  () => [mode.value, size.value, currentMenuColor.value, currentSidebar.value, theme.value, inline.value],
+  () => [mode.value, size.value, currentMenuColor.value, currentSidebar.value, theme.value, inline.value, style.value],
   (arr) => {
-    const [m, s, menuColor, menuTheme, theme, inline] = arr;
+    const [m, s, menuColor, menuTheme, theme, inline, style] = arr;
     props.systemConfig.mode = (m as string).toLocaleUpperCase();
     props.systemConfig.size = (s as string).toLocaleUpperCase();
+    props.systemConfig.style = (style as string)?.toLocaleUpperCase();
     props.systemConfig.sideBarTheme = {
       mode: (menuColor as string).toLocaleUpperCase() as SideBarThemeColor,
       theme: menuTheme as SideBarTheme
@@ -469,12 +498,22 @@ const onDownloadTheme = () => {
       }
     }
 
+    .enable-multitab-config {
+      label {
+        color: var(--oio-text-color);
+      }
+    }
+
     .multitab-config {
       margin-bottom: 24px;
 
+      label {
+        color: var(--oio-text-color);
+      }
+
       .multitab-config-container {
         padding: 12px;
-        background-color: #f5f6f8;
+        background-color: var(--oio-body-background);
         border-radius: var(--oio-border-radius);
 
         .checkbox-center {

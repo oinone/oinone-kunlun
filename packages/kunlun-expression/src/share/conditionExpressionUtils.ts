@@ -23,6 +23,13 @@ import {
   WrapperCompareRsqlOperatorList
 } from '../types';
 import {
+  createDefaultExpressionItem,
+  createExpressionCommon,
+  isConditionExpression,
+  translateCompareOperatorDisplayName,
+  translateOperator
+} from './expressionUtils';
+import {
   autoAddQuote,
   createApiNameVariableListStr,
   createDefaultVariableItem,
@@ -30,13 +37,6 @@ import {
   createValueVariableListStr,
   getValidVariableItemList
 } from './expressionVariableUtils';
-import {
-  createDefaultExpressionItem,
-  createExpressionCommon,
-  isConditionExpression,
-  translateCompareOperatorDisplayName,
-  translateOperator
-} from './expressionUtils';
 
 /**
  * 字段变量
@@ -62,7 +62,7 @@ function createDefaultFieldVariableItems(fieldOptions: IExpSelectOption[], index
         value: field.name,
         ttype: field.ttype!,
         multi: field.multi,
-        bitEnum: field.storeSerialize == ModelFieldSerializeType.BIT
+        bitEnum: field.storeSerialize === ModelFieldSerializeType.BIT
       }
     ];
   }
@@ -272,17 +272,12 @@ function getCompareExp4Value(
   const leftFieldItem = valueList[0]!;
   let isPreprocess = true;
   // 右边是否为字段
-  let isRightColumn = false;
-  const isLeftBitEnum = leftFieldItem.bitEnum || false;
   if (compareValueList && compareValueList.length === 1) {
     if (
       [VariableItemType.VARIABLE, VariableItemType.FIELD].includes(compareValueList[0].type) ||
       (valueList && isNumberTtype(leftFieldItem.ttype))
     ) {
       isPreprocess = false;
-    }
-    if ([VariableItemType.FIELD].includes(compareValueList[0].type)) {
-      isRightColumn = true;
     }
     if ([VariableItemType.VARIABLE].includes(compareValueList[0].type) && expressionOption.variableCustomMethod) {
       right = expressionOption.variableCustomMethod(right, IVariableValueType.RIGHT, {

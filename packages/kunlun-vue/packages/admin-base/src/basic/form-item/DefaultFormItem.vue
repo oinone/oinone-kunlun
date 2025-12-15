@@ -2,10 +2,10 @@
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { BooleanHelper } from '@oinone/kunlun-shared';
-import { OioFormItem, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
+import { DEFAULT_PREDEFINE, OioFormItem, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Tooltip as ATooltip } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, PropType, Slot, VNode, vShow, withDirectives } from 'vue';
-import { ValidatorStatus } from '../../typing';
+import { FormBizStyle, ValidatorStatus } from '../../typing';
 import { BaseFormItemProps } from './props';
 
 export default defineComponent({
@@ -24,6 +24,9 @@ export default defineComponent({
     labelInvisible: {
       type: Boolean,
       default: false
+    },
+    elementBizStyle: {
+      type: String as PropType<FormBizStyle>
     }
   },
   setup(props) {
@@ -35,6 +38,10 @@ export default defineComponent({
   },
   render() {
     const classList = ['form-field-widget', 'item'];
+    if (this.elementBizStyle) {
+      classList.push(`oio-form-field-${this.elementBizStyle.toLocaleLowerCase()}`);
+    }
+
     const defaultSlots = PropRecordHelper.collectionSlots(this.$slots, [
       { origin: 'default', isNotNull: true }
     ]).default();

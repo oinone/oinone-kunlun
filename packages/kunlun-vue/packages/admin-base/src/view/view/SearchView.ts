@@ -7,7 +7,7 @@ import {
   UpdateEntity
 } from '@oinone/kunlun-engine';
 import { ViewMode, ViewType } from '@oinone/kunlun-meta';
-import { CSSStyle, CallChaining } from '@oinone/kunlun-shared';
+import { CallChaining } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseObjectView, BaseView } from '../../basic';
@@ -81,6 +81,11 @@ export class SearchView extends BaseObjectView {
     }
     super.initialize(props);
     return this;
+  }
+
+  protected $$created() {
+    super.$$created();
+    this.viewState!.fields = [];
   }
 
   protected $$mounted() {

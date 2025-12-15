@@ -1,14 +1,10 @@
 <template>
-  <div
-    class="plat_map_container"
-    ref="mapContainerRef"
-    :class="[disabled && 'location_map_container-disabled']"
-    :style="styles"
-  ></div>
+  <div v-bind="basicProps"></div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref, onBeforeUnmount, computed, onMounted, watch, nextTick } from 'vue';
 import { ViewType } from '@oinone/kunlun-meta';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { computed, defineComponent, onBeforeUnmount, PropType, ref, watch } from 'vue';
 import { BaseFormItemProps, OioCommonProps, OioMetadataProps } from '../../../basic';
 
 const loadBaiDuMap = (cb) => {
@@ -78,7 +74,7 @@ export default defineComponent({
       default: () => ({})
     }
   },
-  setup(props) {
+  setup(props, { attrs }) {
     const defaultCoords = {
       longitude: 116.404,
       latitude: 39.915
@@ -99,6 +95,17 @@ export default defineComponent({
       return {
         height: '420px',
         ...(props.colStyle || {})
+      };
+    });
+
+    const basicProps = computed(() => {
+      const classList = ['plat_map_container'];
+      if (props.disabled) {
+        classList.push('location_map_container-disabled');
+      }
+      return {
+        ...PropRecordHelper.collectionBasicProps(attrs, classList, styles.value),
+        ref: 'mapContainerRef'
       };
     });
 
@@ -256,7 +263,10 @@ export default defineComponent({
       }
     });
 
-    return { mapContainerRef, styles };
+    return {
+      mapContainerRef,
+      basicProps
+    };
   }
 });
 </script>
@@ -264,6 +274,7 @@ export default defineComponent({
 #plat_map_container {
   border: 1px solid #e8eaec;
   border-radius: 10px;
+
   .anchorBL {
     display: none;
   }
@@ -277,6 +288,7 @@ export default defineComponent({
 
 .location_map_container-disabled {
   position: relative;
+
   &::after {
     position: absolute;
     display: block;

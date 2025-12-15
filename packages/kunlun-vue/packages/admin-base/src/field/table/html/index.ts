@@ -1,1 +1,2 @@
-export * from './richtext';
+export * from './TableHtmlFieldWidget';
+export * from './TableEditorHtmlFieldWidget';

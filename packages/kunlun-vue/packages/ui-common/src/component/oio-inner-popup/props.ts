@@ -9,8 +9,7 @@ type InnerPopupTeleportType = string | HTMLElement;
 export const OioInnerPopupAppearanceProps = {
   ...VcPopupAppearanceProps,
   title: {
-    type: String,
-    default: '标题'
+    type: String
   },
   help: {
     type: String

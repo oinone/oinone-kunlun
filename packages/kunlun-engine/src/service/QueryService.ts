@@ -26,6 +26,7 @@ export interface QueryConstructOptions extends QueryOptions {
 }
 
 export interface QueryWrapperOptions extends QueryOptions {
+  queryWrapper?: QueryWrapper;
   condition?: Condition | string;
 }
 
@@ -258,7 +259,15 @@ export class QueryService {
   }
 
   public static generatorInternalRequestModels(): RuntimeModel[] {
-    return [StaticMetadata.QueryPagination, StaticMetadata.QueryWrapper, StaticMetadata.ResourceAddress];
+    return [
+      StaticMetadata.QueryPagination,
+      StaticMetadata.QueryWrapper,
+      StaticMetadata.ResourceAddress,
+      StaticMetadata.ConditionWrapper,
+      StaticMetadata.GroupingField,
+      StaticMetadata.GroupingStatisticField,
+      StaticMetadata.TableGroupingWrapper
+    ];
   }
 
   public static generatorInternalResponseModels(): RuntimeModel[] {
@@ -270,14 +279,19 @@ export class QueryService {
   public static readonly INTERNAL_RESPONSE_MODELS = QueryService.generatorInternalResponseModels().map((v) => v.model);
 
   public static buildQueryWrapperParameters(options: QueryWrapperOptions) {
-    let { condition } = options;
+    let { queryWrapper, condition } = options;
+    if (queryWrapper) {
+      return {
+        queryWrapper
+      };
+    }
     let queryData: ActiveRecord | undefined;
     if (condition instanceof Condition) {
       queryData = condition.getConditionBodyData();
       condition = condition.toString();
     }
 
-    const queryWrapper: QueryWrapper = {
+    queryWrapper = {
       rsql: condition,
       queryData
     };

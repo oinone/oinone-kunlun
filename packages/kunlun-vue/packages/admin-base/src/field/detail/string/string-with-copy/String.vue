@@ -18,8 +18,8 @@
   </div>
 </template>
 <script lang="ts">
+import { OioIcon, useCopy } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent } from 'vue';
-import { OioIcon, OioNotification } from '@oinone/kunlun-vue-ui-antd';
 
 export default defineComponent({
   props: {
@@ -31,28 +31,10 @@ export default defineComponent({
   components: { OioIcon },
   inheritAttrs: false,
   setup(props) {
+    const { browserCopyAndNotify } = useCopy();
+
     const onCopy = () => {
-      // 创建一个临时的textarea元素
-      let textarea = document.createElement('textarea');
-      textarea.value = props.value!;
-      textarea.setAttribute('readonly', '');
-      textarea.style.position = 'absolute';
-      textarea.style.left = '-9999px';
-      document.body.appendChild(textarea);
-
-      // 选中textarea的文本
-      textarea.select();
-      textarea.setSelectionRange(0, textarea.value.length);
-
-      // 复制文本
-      document.execCommand('copy');
-
-      // 移除临时的textarea元素
-      document.body.removeChild(textarea);
-
-      OioNotification.success('复制', '复制成功');
-
-      textarea = null as any;
+      browserCopyAndNotify(props.value || '');
     };
 
     return { onCopy };

@@ -146,7 +146,7 @@ export class AppSwitcherWidget extends MaskWidget {
      * 应用中心新建应用的时候，需要重新加载应用
      */
     this.reloadAppFinder$.subscribe(async () => {
-      this.apps = await ModuleService.queryApplications();
+      this.apps = await ModuleService.queryApplications(true);
     });
   }
 }

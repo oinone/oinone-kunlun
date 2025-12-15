@@ -1,10 +1,12 @@
 <script lang="ts">
+import { StringHelper } from '@oinone/kunlun-shared';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent, PropType, VNode } from 'vue';
-import { TextInfoJustifyContent, TextInfoMediaType, TextInfoTemplateType } from './typing';
-import DefaultTextInfoValue from './DefaultTextInfoValue.vue';
-import DefaultTextInfoLabel from './DefaultTextInfoLabel.vue';
 import Icon from '../../../tags/Icon.vue';
 import Picture from '../../../tags/Picture.vue';
+import DefaultTextInfoLabel from './DefaultTextInfoLabel.vue';
+import DefaultTextInfoValue from './DefaultTextInfoValue.vue';
+import { TextInfoJustifyContent, TextInfoMediaType, TextInfoTemplateType } from './typing';
 
 export default defineComponent({
   name: 'DefaultTextInfo',
@@ -40,6 +42,7 @@ export default defineComponent({
     }
   },
   render() {
+    const { $attrs } = this;
     const picIconProperties = this.picIconWidget;
     const childrenVNode = [] as VNode[];
     let picIconVNode;
@@ -92,7 +95,12 @@ export default defineComponent({
         childrenVNode.push(createVNode('div', { class: 'runtime-val-highlight-label' }, [labelVNode]));
       } else if (this.templateType === TextInfoTemplateType.PIC_HIGHLIGHT) {
         childrenVNode.push(picIconVNode);
-        childrenVNode.push(createVNode('div', { class: 'runtime-picture-highlight' }, [labelVNode, valueVNode]));
+        childrenVNode.push(
+          createVNode('div', { class: StringHelper.append(['runtime-picture-highlight'], this.fieldWidget?.class) }, [
+            labelVNode,
+            valueVNode
+          ])
+        );
       } else if (this.templateType === TextInfoTemplateType.PIC_VAL_HIGHLIGHT) {
         childrenVNode.push(
           createVNode('div', { class: 'runtime-pic-val-highlight' }, [
@@ -108,8 +116,7 @@ export default defineComponent({
         ])
       );
     }
-
-    return createVNode('div', {}, childrenVNode);
+    return createVNode('div', PropRecordHelper.collectionBasicProps($attrs, ['default-text-info']), childrenVNode);
   }
 });
 </script>
@@ -120,6 +127,7 @@ export default defineComponent({
   align-items: center;
   width: $width;
 }
+
 .runtime-picture-highlight {
   display: flex;
 

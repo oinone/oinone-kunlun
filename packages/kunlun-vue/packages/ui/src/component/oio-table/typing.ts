@@ -1,5 +1,6 @@
 import { VNode } from 'vue';
 import { VxeTableDefines, VxeTableInstance } from 'vxe-table';
+import { TableEditorCloseTrigger, TableEditorMode } from './table';
 
 /**
  * 行上下文
@@ -47,6 +48,18 @@ interface BaseContext<T = unknown> {
  */
 export interface ActiveEditorContext<T = unknown> extends BaseContext<T> {
   /**
+   * 预处理的行内编辑上下文
+   */
+  prepare?: boolean;
+  /**
+   * 新行
+   */
+  new?: boolean;
+  /**
+   * 新行编辑完成后插入位置索引
+   */
+  insertTo?: number;
+  /**
    * 当前列
    */
   column: {
@@ -60,6 +73,22 @@ export interface ActiveEditorContext<T = unknown> extends BaseContext<T> {
    * 数据提交
    */
   submit: boolean;
+  /**
+   * 行内编辑模式; 一般用于开启行内编辑时手动指定编辑模式，强制覆盖当前配置的编辑模式;
+   */
+  editorMode?: TableEditorMode;
+  /**
+   * 行内编辑关闭触发方式; 一般用于开启行内编辑时手动指定关闭触发方式，强制覆盖当前配置的关闭触发方式;
+   */
+  editorCloseTrigger?: TableEditorCloseTrigger;
+  /**
+   * 强制编辑
+   */
+  forceEditable?: boolean;
+  /**
+   * @see RuntimeAction
+   */
+  triggerAction?: Record<string, unknown>;
 }
 
 export type RenderCellContext<T = unknown> = BaseContext<T>;
@@ -93,6 +122,8 @@ export interface OioTableInstance {
 
   updateFooter();
 
+  getTableData(index: number): Promise<any>;
+
   setEditRow(row: unknown): Promise<any>;
 
   getActiveEditorRecord(): RowContext | undefined;
@@ -109,7 +140,17 @@ export interface OioTableInstance {
 
   setRowExpand(row: unknown, isExpand: boolean): Promise<any>;
 
+  getSortColumns(): VxeTableDefines.SortCheckedParams[];
+
+  clearSort(fieldOrColumn: string | VxeTableDefines.ColumnInfo): Promise<any>;
+
   sort(sortConfs: VxeTableDefines.SortConfs[]): Promise<any>;
+
+  insert(records: Record<string, unknown> | Record<string, unknown>[], index?: number): Promise<any>;
+
+  isInsertByRow(row: unknown): boolean;
+
+  removeInsertRow(): Promise<any>;
 }
 
 export type VxeTableRowContext = RowContext<VxeTableDefines.CellRenderBodyParams>;

@@ -30,7 +30,7 @@ import {
   RSQLLogicalOperator,
   RSQLOperators
 } from '@oinone/kunlun-shared';
-import { ExperimentalConfigManager } from '../experimental';
+import { ExperimentalConfigManager } from '../config';
 import {
   getRealTtype,
   getStaticRelationField,

@@ -1,5 +1,9 @@
 <template>
-  <div :class="['gallery-common-item', showLabel ? '' : 'gallery-common-item-hide-label']" v-show="!invisible">
+  <div
+    class="gallery-common-item"
+    :class="[!showLabel && 'gallery-common-item-hide-label', layout && `gallery-common-item-${layout}`]"
+    v-show="!invisible"
+  >
     <div class="gallery-common-item-label" v-if="showLabel" :title="label">{{ label }}</div>
     <div class="gallery-common-item-content">
       <slot />

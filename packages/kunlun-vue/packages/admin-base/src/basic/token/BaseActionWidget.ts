@@ -1,10 +1,25 @@
-import { baseActionTokenSymbol, RelationUpdateType, RuntimeAction, SubmitType, SubmitValue } from '@oinone/kunlun-engine';
+import {
+  baseActionTokenSymbol,
+  GetRequestModelFieldsOptions,
+  ModelCache,
+  RelationUpdateType,
+  RequestModelField,
+  RuntimeAction,
+  SubmitType,
+  SubmitValue
+} from '@oinone/kunlun-engine';
 import { ActionType, ViewActionTarget, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { Matched, Router, useMatched } from '@oinone/kunlun-router';
 import { CallChaining, Constructor } from '@oinone/kunlun-shared';
 import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
 import { useRouter } from '@oinone/kunlun-vue-router';
-import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
+import {
+  ActiveRecordsWidgetProps,
+  InnerWidgetType,
+  OioActionBarState,
+  useOioState,
+  Widget
+} from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../typing';
 import { BaseRuntimePropertiesWidget } from '../common';
 
@@ -119,6 +134,13 @@ export class BaseActionWidget<
     return this.popupScene === PopupScene.inner;
   }
 
+  @Widget.Inject()
+  @Widget.Reactive()
+  public rowIndex: number | undefined;
+
+  @Widget.Reactive()
+  protected actionBarState: OioActionBarState | undefined;
+
   /**
    * 数据提交
    * @protected
@@ -156,8 +178,32 @@ export class BaseActionWidget<
     return fn(...args);
   }
 
+  protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
+    const { viewType } = this;
+    if (viewType === ViewType.Tree) {
+      const runtimeModel = await ModelCache.get(this.model.model);
+      if (runtimeModel) {
+        return runtimeModel.modelFields.map((field) => ({ field }));
+      }
+      return [];
+    }
+    if (this.popupScene) {
+      return this.seekPopupMainRuntimeContext().getRequestModelFields(options);
+    }
+    return this.rootRuntimeContext.getRequestModelFields(options);
+  }
+
   protected $$beforeMount() {
     super.$$beforeMount();
+    if (!this.viewState && this.popupScene) {
+      this.viewState = useOioState(this.seekPopupMainRuntimeContext().handle).viewState;
+      if (this.viewState) {
+        this.$$initViewState(this.viewState);
+      }
+    }
+    if (!this.actionBarState) {
+      this.actionBarState = this.viewState?.getActionBarState(this.rowIndex);
+    }
     if (!this.$matched) {
       const { matched } = useMatched();
       this.$matched = matched;
@@ -165,5 +211,15 @@ export class BaseActionWidget<
     if (!this.$router) {
       this.$router = useRouter().router as Router;
     }
+  }
+
+  protected $$mounted() {
+    super.$$mounted();
+    this.viewState?.pushAction(this.currentHandle, this.rowIndex);
+  }
+
+  protected $$unmounted() {
+    super.$$unmounted();
+    this.viewState?.popAction(this.currentHandle, this.rowIndex);
   }
 }

@@ -40,7 +40,7 @@ export default defineComponent({
     const disabled = computed<boolean>(() => BooleanHelper.toBoolean(props.disabled) || false);
 
     const disabledAdd = computed(() => {
-      const value = disabled.value;
+      const { value } = disabled;
       if (!value) {
         if (isNil(props.limit)) {
           return false;

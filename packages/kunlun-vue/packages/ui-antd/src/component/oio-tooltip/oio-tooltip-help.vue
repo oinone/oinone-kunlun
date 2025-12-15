@@ -13,8 +13,7 @@ export default defineComponent({
   },
   props: {
     content: {
-      type: String,
-      required: true
+      type: String
     }
   },
   slots: ['default', 'title'],

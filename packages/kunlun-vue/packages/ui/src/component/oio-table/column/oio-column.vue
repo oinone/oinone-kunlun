@@ -223,7 +223,7 @@ export default defineComponent({
           if (!wrapperChildren.length) {
             wrapperChildren = [createVNode('span', {}, ctx.origin?.seq)];
           }
-        } else if (!props.disableEditorRender && props.editable) {
+        } else if (props.editable) {
           if (
             props.editorTrigger === TableEditorTrigger.manual &&
             props.editorMode === TableEditorMode.cell &&
@@ -323,7 +323,7 @@ export default defineComponent({
           if (!wrapperChildren.length) {
             wrapperChildren = [createVNode('span', {}, ctx.origin?.seq)];
           }
-        } else if (!props.disableEditorRender && props.editable) {
+        } else if (props.editable) {
           if (
             props.editorMode === TableEditorMode.cell &&
             props.editorCloseTrigger === TableEditorCloseTrigger.manual
@@ -379,13 +379,14 @@ export default defineComponent({
       treeNode,
 
       editable,
+      editRender,
       className,
       headerClassName,
       footerClassName,
 
       componentData
     } = this;
-    const children: Record<string, Slot> = {};
+    const children = { ...$slots } as Record<string, Slot>;
     Object.entries(renderMethods).forEach(([slotName, method]) => {
       const fn = (this[method] || $slots[slotName]) as CellRenderFunction;
       if (fn) {
@@ -411,7 +412,7 @@ export default defineComponent({
         resizable,
         treeNode,
 
-        editRender: { enabled: editable },
+        editRender: { enabled: editable, ...(editRender || {}) },
         className,
         headerClassName,
         footerClassName

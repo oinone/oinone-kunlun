@@ -12,7 +12,6 @@ export * from './o2o';
 export * from './map';
 export * from './string';
 export * from './text';
-export * from './metadata-area';
 
 export * from './abstract/FormNumberAbstractFieldWidget';
 export * from './abstract/FormInputAbstractFieldWidget';

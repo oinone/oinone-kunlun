@@ -1,9 +1,17 @@
 <script lang="ts">
 import { ViewType } from '@oinone/kunlun-meta';
 import { Optional } from '@oinone/kunlun-shared';
-import { DslRender, renderWidgets, reportAllMounted, VueWidget, WidgetTagProps } from '@oinone/kunlun-vue-widget';
+import {
+  DslRender,
+  renderWidgets,
+  reportAllMounted,
+  useInjectMetaContext,
+  useProviderMetaContext,
+  VueWidget,
+  WidgetTagProps
+} from '@oinone/kunlun-vue-widget';
 import { computed, defineComponent, PropType, ref, Slots } from 'vue';
-import { createOrUpdateRuntimeContextByDslDefinition, useInjectMetaContext, useProviderMetaContext } from './context';
+import { createOrUpdateRuntimeContextByDslDefinition } from './context';
 import { createCustomWidget, InternalWidget } from './resolve';
 import { ViewWidgetProps } from './resolve/internal';
 

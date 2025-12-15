@@ -1,9 +1,15 @@
 <script lang="ts">
-import { ButtonType, OioButton, OioInnerPopup, StringHelper } from '@oinone/kunlun-vue-ui-antd';
-import { DrawerPlacement, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { ViewType } from '@oinone/kunlun-meta';
+import {
+  ButtonType,
+  DrawerPlacement,
+  OioButton,
+  OioInnerPopup,
+  PropRecordHelper,
+  StringHelper
+} from '@oinone/kunlun-vue-ui-antd';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, PropType, Slot, VNode } from 'vue';
-import { ViewType } from '@oinone/kunlun-meta';
 
 export default defineComponent({
   name: 'DefaultInnerPopup',
@@ -79,16 +85,16 @@ export default defineComponent({
     }
   },
   setup(props) {
-    onAllMounted(() => {
-      props.allMounted?.();
-    });
-
     const teleportTarget = computed<HTMLElement>(() => {
       const handle = props.teleportHandle;
       if (!handle) {
         throw new Error('Invalid teleport handle.');
       }
       return document.getElementById(handle) || document.body;
+    });
+
+    onAllMounted(() => {
+      props.allMounted?.();
     });
 
     return {
@@ -147,14 +153,13 @@ export default defineComponent({
           }
           return footerChildren;
         }
-      }
+      },
+      'header',
+      'extraToolbar'
     ]);
 
     const componentProps: Record<string, unknown> = {
-      class: StringHelper.append(
-        [`default-inner-popup default-inner-popup-${viewType?.toLowerCase()}`],
-        this.class
-      ),
+      class: StringHelper.append([`default-inner-popup default-inner-popup-${viewType?.toLowerCase()}`], this.class),
       style: {
         height
       },

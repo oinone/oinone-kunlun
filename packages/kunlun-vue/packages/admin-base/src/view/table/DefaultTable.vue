@@ -3,6 +3,7 @@ import { DslDefinition } from '@oinone/kunlun-dsl';
 import { ActiveRecord, ActiveRecords, Pagination, translateValueByKey } from '@oinone/kunlun-engine';
 import { EDirection, ISort } from '@oinone/kunlun-service';
 import { ReturnPromise } from '@oinone/kunlun-shared';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import {
   ActiveEditorContext,
   CheckedChangeEvent,
@@ -15,18 +16,34 @@ import {
   TableEditorCloseTrigger,
   TableEditorMode,
   TableEditorTrigger,
+  TableRowClickMode,
   TableSelectTrigger,
   TableSize,
+  useVxeCheckboxCell,
+  useVxeCheckboxHeader,
+  VxeCheckboxCellRenderBodyParams,
+  VxeCheckboxHeaderRenderBodyParams,
   VxeTableActiveEditorEventContext,
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
-import { ListPaginationStyle, ListSelectMode, OioPagination, OioSpin, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
+import {
+  ListPaginationStyle,
+  ListSelectMode,
+  OioPagination,
+  OioSpin,
+  OioTooltip,
+  PropRecordHelper,
+  StyleHelper,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext
+} from '@oinone/kunlun-vue-ui-antd';
 import { DslRender } from '@oinone/kunlun-vue-widget';
 import { debounce } from 'lodash-es';
 import {
   computed,
   createVNode,
   defineComponent,
+  Fragment,
   nextTick,
   onActivated,
   onBeforeUnmount,
@@ -37,10 +54,12 @@ import {
   VNode,
   watch
 } from 'vue';
+
 import { VxeTableDefines, VxeTablePropTypes } from 'vxe-table';
 import { ManualWidget } from '../../basic';
-import { UserTablePrefer } from '../../typing';
-import { TableRowClickMode } from './typing';
+import { TableLineHeightEnum, UserTablePrefer } from '../../typing';
+import DefaultTableFooterOperator from './DefaultTableFooterOperator.vue';
+import DefaultTableGroupCollapse from './DefaultTableGroupCollapse.vue';
 
 const SortDirections = {
   desc: EDirection.DESC,
@@ -107,7 +126,8 @@ export default defineComponent({
     OioTable,
     OioColumn,
     OioSpin,
-    OioPagination
+    OioPagination,
+    OioTooltip
   },
   inheritAttrs: false,
   props: {
@@ -195,7 +215,15 @@ export default defineComponent({
       type: String as PropType<ListSelectMode>
     },
     checkMethod: {
-      type: Function
+      type: Function as PropType<(params: { row: ActiveRecord }) => boolean | string | undefined>
+    },
+    allowAllChecked: {
+      type: [String, Boolean],
+      default: undefined
+    },
+    isAllCheckedIndeterminate: {
+      type: Boolean,
+      default: undefined
     },
     onCheckedChange: {
       type: Function as PropType<(data: ActiveRecords, event?: CheckedChangeEvent) => void>
@@ -247,6 +275,9 @@ export default defineComponent({
     onRowClick: {
       type: Function
     },
+    onCellClick: {
+      type: Function
+    },
     onRowDblClick: {
       type: Function
     },
@@ -262,9 +293,11 @@ export default defineComponent({
       type: Boolean,
       default: undefined
     },
+    expandMethod: {
+      type: Function
+    },
     onToggleRowExpand: {
-      type: Function,
-      default: () => () => {}
+      type: Function
     },
     onResizableChange: {
       type: Function
@@ -278,7 +311,10 @@ export default defineComponent({
       default: undefined
     },
     lineHeight: {
-      type: Number
+      type: [String, Number]
+    },
+    lineHeightType: {
+      type: String as PropType<TableLineHeightEnum>
     },
     minLineHeight: {
       type: Number
@@ -351,11 +387,54 @@ export default defineComponent({
     isHover: {
       type: Boolean,
       default: false
+    },
+    viewControlWidget: {
+      type: Object as PropType<DslDefinition>
+    },
+    showAddBtn: {
+      type: Boolean,
+      default: false
+    },
+    showQuickFill: {
+      type: Boolean,
+      default: false
+    },
+    onAddRow: {
+      type: Function,
+      required: true
+    },
+    enabledGroupView: {
+      type: Boolean,
+      default: false
+    },
+    setAllGroupExpand: {
+      type: Function
+    },
+    groupViewFooterExpandControl: {
+      type: Boolean,
+      default: false
+    },
+    groupViewFooterFoldControl: {
+      type: Boolean,
+      default: false
+    },
+    inline: {
+      type: Boolean,
+      default: false
+    },
+    enabledKeyboard: {
+      type: Boolean,
+      default: undefined
+    },
+    onKeydown: {
+      type: Function
     }
   },
   setup(props) {
     const defaultTableRef = ref<HTMLElement>(null as any);
     const table = ref<OioTableInstance | undefined>();
+
+    const formContext = useInjectOioDefaultFormContext();
 
     const tableContentElement = computed(
       () => defaultTableRef.value && defaultTableRef.value.querySelector('.oio-table-content-wrapper')!
@@ -393,6 +472,25 @@ export default defineComponent({
       }
     };
 
+    const checkboxDisabledTitles = ref<Record<string, string>>({});
+    const checkMethod = (params: { row: ActiveRecord }): boolean => {
+      let res = props.checkMethod?.(params);
+      const key = params.row._X_ROW_KEY as string | undefined;
+      if (res == null) {
+        res = true;
+      }
+      if (typeof res === 'boolean') {
+        if (key) {
+          delete checkboxDisabledTitles.value[key];
+        }
+        return res;
+      }
+      if (key) {
+        checkboxDisabledTitles.value[key] = translateValueByKey(res);
+      }
+      return false;
+    };
+
     const onPaginationChange = (currentPage: number, pageSize: number) => {
       props.onPaginationChange?.(currentPage, pageSize);
       // nextTick(() => {
@@ -418,9 +516,6 @@ export default defineComponent({
           }
         ]);
       }
-      // nextTick(() => {
-      //   table.value?.refreshColumn();
-      // });
     };
 
     const onCheckedChange = (event: CheckedChangeEvent) => {
@@ -445,8 +540,12 @@ export default defineComponent({
     const calcHeight = ref('');
 
     const tableLineHeight = computed(() => {
-      if (props.lineHeight && props.lineHeight > 0) {
-        return `${props.lineHeight}px`;
+      if (typeof props.lineHeight === 'number') {
+        if (props.lineHeight > 0) {
+          return `${props.lineHeight}px`;
+        }
+      } else if (typeof props.lineHeight === 'string') {
+        return props.lineHeight;
       }
 
       if (calcHeight.value) {
@@ -483,8 +582,8 @@ export default defineComponent({
       );
       const operationColumn = tableEle.querySelector('.vxe-table--fixed-right-wrapper .operation-column');
       if (defaultColumn && operationColumn) {
-        const defaultHeight = defaultColumn?.getBoundingClientRect().height!;
-        const operationHeight = operationColumn?.getBoundingClientRect().height!;
+        const defaultHeight = defaultColumn?.getBoundingClientRect().height;
+        const operationHeight = operationColumn?.getBoundingClientRect().height;
 
         if (defaultHeight > 0 && operationHeight > 0) {
           if (operationHeight >= defaultHeight) {
@@ -500,8 +599,8 @@ export default defineComponent({
         '.vxe-table--fixed-wrapper > .vxe-table--fixed-right-wrapper .vxe-header--column'
       );
       if (headerTable && fixedRightColumn) {
-        const headerTableHeight = headerTable?.getBoundingClientRect().height!;
-        const fixedRightColumnHeight = fixedRightColumn?.getBoundingClientRect().height!;
+        const headerTableHeight = headerTable?.getBoundingClientRect().height;
+        const fixedRightColumnHeight = fixedRightColumn?.getBoundingClientRect().height;
         if (headerTableHeight > 0 && fixedRightColumnHeight > 0) {
           if (headerTableHeight >= fixedRightColumnHeight) {
             calcHeaderHeight.value = `${headerTableHeight}px`;
@@ -529,8 +628,8 @@ export default defineComponent({
         ) as HTMLElement[];
 
         rows.forEach((row, index) => {
-          const height = row.clientHeight;
           row.style.height = 'auto';
+          const height = row.clientHeight;
 
           const leftFixedRow = leftFixedRows[index];
           const rightFixedRow = rightFixedRows[index];
@@ -566,7 +665,15 @@ export default defineComponent({
 
       if (target) {
         const { height } = target.contentRect;
-        if (_height !== height) {
+        const inPopupContainer =
+          Array.from(document.querySelectorAll(`.${DEFAULT_PREFIX}-drawer`))?.some((el) =>
+            el?.contains?.(tableContentElement.value)
+          ) ||
+          Array.from(document.querySelectorAll(`.${DEFAULT_PREFIX}-modal`))?.some((el) =>
+            el?.contains?.(tableContentElement.value)
+          );
+
+        if (_height !== height || inPopupContainer) {
           _height = height;
 
           table.value?.refreshColumn();
@@ -601,6 +708,15 @@ export default defineComponent({
       window.removeEventListener('resize', calcTableColumnHeight);
       resizeObserver.unobserve(tableContentElement.value);
     });
+
+    watch(
+      () => props.lineHeightType,
+      () => {
+        nextTick(() => {
+          calcTableColumnHeight();
+        });
+      }
+    );
 
     const stop = watch(
       () => props.dataSource,
@@ -657,6 +773,13 @@ export default defineComponent({
       { immediate: true }
     );
 
+    useProviderOioDefaultFormContext({
+      ...formContext,
+      getTriggerContainer: (triggerNode) => {
+        return document.body;
+      }
+    });
+
     return {
       defaultTableRef,
       table,
@@ -667,6 +790,9 @@ export default defineComponent({
       pagination,
       editorMode,
       autoCloseEditor,
+      checkboxDisabledTitles,
+      checkMethod,
+
       onResizableChange,
       editorClosed,
       onPaginationChange,
@@ -683,6 +809,7 @@ export default defineComponent({
       height,
       minHeight,
       maxHeight,
+      lineHeightType,
       rowClassName,
       headerRowClassName,
       footerRowClassName,
@@ -696,9 +823,13 @@ export default defineComponent({
 
       enableSequence,
 
+      viewControlWidget,
       selectMode,
       checkbox,
+      checkboxDisabledTitles,
       checkMethod,
+      allowAllChecked,
+      isAllCheckedIndeterminate,
       onCurrentChange,
       onCheckedChange,
       onCheckedAllChange,
@@ -716,10 +847,12 @@ export default defineComponent({
       rowClickMode,
       onRowClick,
       onRowDblClick,
+      onCellClick,
 
       expandAccordion,
       expandAll,
       existExpandRow,
+      expandMethod,
       onToggleRowExpand,
       onResizableChange,
 
@@ -730,6 +863,14 @@ export default defineComponent({
       activeEditorBefore,
       activeEditor,
       editorClosed,
+
+      enabledKeyboard,
+      onKeydown,
+
+      setAllGroupExpand,
+      enabledGroupView,
+      groupViewFooterExpandControl,
+      groupViewFooterFoldControl,
 
       treeConfig,
       scrollX,
@@ -747,28 +888,85 @@ export default defineComponent({
       pageSizeOptions,
       stripe,
       isCurrent,
-      isHover
+      isHover,
+      showAddBtn,
+      showQuickFill,
+      onAddRow
     } = this;
     let { border = false } = this;
     const VEX_TABLE_BORDER_MODE = [true, false, 'default', 'outer', 'full', 'inner'];
-    let tableCustomClass = '';
+    const tableCustomClass: string[] = [];
     if (!VEX_TABLE_BORDER_MODE.includes(border)) {
-      tableCustomClass = border as string;
+      tableCustomClass.push(border as string);
       border = 'inner';
     }
+    if (lineHeightType === TableLineHeightEnum.AUTO) {
+      tableCustomClass.push(`default-table-line-height-auto`);
+    }
+
     const tableSlots: Record<string, Slot> = {
       default: () => {
         const children: VNode[] = [];
         if (checkbox !== false) {
           children.push(
-            createVNode(OioColumn, {
-              type: 'checkbox',
-              className: 'table-column-checkbox',
-              headerClassName: 'table-header-column-checkbox',
-              width: 52,
-              align: 'center',
-              fixed: existExpandRow ? undefined : 'left'
-            })
+            createVNode(
+              OioColumn,
+              {
+                type: 'checkbox',
+                className: 'table-column-checkbox',
+                headerClassName: 'table-header-column-checkbox',
+                width: 52,
+                align: 'center',
+                fixed: existExpandRow ? undefined : 'left'
+              },
+              {
+                header: ({ origin }: { origin: VxeCheckboxHeaderRenderBodyParams }) => {
+                  let { indeterminate } = origin;
+                  if (isAllCheckedIndeterminate != null) {
+                    indeterminate = isAllCheckedIndeterminate;
+                  }
+                  if (typeof allowAllChecked === 'boolean') {
+                    if (allowAllChecked) {
+                      return useVxeCheckboxHeader({
+                        ...origin,
+                        indeterminate
+                      });
+                    }
+                    return useVxeCheckboxHeader({
+                      ...origin,
+                      indeterminate,
+                      disabled: true
+                    });
+                  }
+                  if (typeof allowAllChecked === 'string') {
+                    return useVxeCheckboxHeader({
+                      ...origin,
+                      indeterminate,
+                      disabled: true,
+                      disabledTitle: allowAllChecked
+                    });
+                  }
+                  return useVxeCheckboxHeader({
+                    ...origin,
+                    indeterminate
+                  });
+                },
+                checkbox: (params: VxeCheckboxCellRenderBodyParams) => {
+                  const key = params.row._X_ROW_KEY as string | undefined;
+                  let disabledTitle: string | undefined;
+                  if (key) {
+                    disabledTitle = checkboxDisabledTitles[key];
+                  }
+                  if (disabledTitle) {
+                    return useVxeCheckboxCell({
+                      ...params,
+                      disabledTitle: translateValueByKey(disabledTitle)
+                    });
+                  }
+                  return useVxeCheckboxCell(params);
+                }
+              }
+            )
           );
         }
         if (enableSequence) {
@@ -786,22 +984,79 @@ export default defineComponent({
         return [...children, ...columns];
       }
     };
+
+    // 有分页器
     if (showPagination) {
       tableSlots.footer = () => {
-        return [
+        const footerVNodeChildren = [
           createVNode(OioPagination, {
             pageSizeOptions,
             currentPage: pagination.current,
             pageSize: pagination.pageSize,
             total: pagination.total,
             showTotal: true,
-            showJumper: paginationStyle != ListPaginationStyle.SIMPLE,
-            showLastPage: paginationStyle != ListPaginationStyle.SIMPLE,
+            showJumper: paginationStyle !== ListPaginationStyle.SIMPLE,
+            showLastPage: paginationStyle !== ListPaginationStyle.SIMPLE,
             onChange: onPaginationChange
           })
         ];
+
+        // 分组展开折叠
+        if (enabledGroupView) {
+          footerVNodeChildren.unshift(
+            createVNode(DefaultTableGroupCollapse, {
+              groupViewFooterExpandControl,
+              groupViewFooterFoldControl,
+              setAllGroupExpand
+            })
+          );
+        }
+
+        const footerVNode = [createVNode('div', { class: 'default-table-footer-content' }, [footerVNodeChildren])];
+
+        // 添加行、快速填报
+        if (showAddBtn || showQuickFill) {
+          const footerOperatorVNode = createVNode(DefaultTableFooterOperator, {
+            showAddBtn,
+            showQuickFill,
+            onAddRow
+          });
+          footerVNode.unshift(footerOperatorVNode);
+        }
+
+        return footerVNode;
+      };
+    } else {
+      const footerSlots = [] as VNode[];
+
+      // 添加行、快速填报
+      if (showAddBtn || showQuickFill) {
+        const footerOperatorVNode = createVNode(DefaultTableFooterOperator, {
+          showAddBtn,
+          showQuickFill,
+          onAddRow
+        });
+        footerSlots.push(footerOperatorVNode);
+      }
+
+      // 分组展开折叠
+      if (enabledGroupView) {
+        footerSlots.push(
+          createVNode('div', { class: 'default-table-footer-content' }, [
+            createVNode(DefaultTableGroupCollapse, {
+              groupViewFooterExpandControl,
+              groupViewFooterFoldControl,
+              setAllGroupExpand
+            })
+          ])
+        );
+      }
+
+      tableSlots.footer = () => {
+        return [createVNode(Fragment, null, footerSlots)];
       };
     }
+
     const tableProps: Record<string, unknown> = {
       ref: 'table',
       loading: this.loading,
@@ -829,7 +1084,7 @@ export default defineComponent({
       headerRowStyle,
       cellStyle,
       headerCellStyle,
-      expandConfig: { accordion: expandAccordion, expandAll },
+      expandConfig: { visibleMethod: expandMethod, accordion: expandAccordion, expandAll },
       editConfig: {
         trigger: editorTrigger,
         mode: editorMode,
@@ -876,9 +1131,21 @@ export default defineComponent({
         }
       } else {
         tableProps.onCellDblclick = onRowDblClick;
+        tableProps.onCellClick = onCellClick;
       }
     }
-    const containerChildren: VNode[] = [createVNode(OioTable, tableProps, tableSlots)];
+    if (onKeydown && enabledKeyboard !== false) {
+      tableProps.onKeydown = onKeydown;
+    }
+
+    const containerChildren: VNode[] = [];
+    if (viewControlWidget) {
+      const viewControlVNode = DslRender.render(viewControlWidget);
+      if (viewControlVNode) {
+        containerChildren.push(viewControlVNode);
+      }
+    }
+    containerChildren.push(createVNode(OioTable, tableProps, tableSlots));
 
     if (allowRowClick) {
       const clickSlot = DslRender.fetchVNodeSlots(this.template, ['click'])?.click;
@@ -886,31 +1153,48 @@ export default defineComponent({
         containerChildren.push(createVNode('div', { class: 'table-container-click' }, clickSlot()));
       }
     }
+
+    const classs = ['default-table'];
+    if (!this.inline) {
+      classs.push('default-main-table');
+    }
+
     return createVNode(
-      'div',
-      {
-        class: 'default-table',
-        style: {
-          height,
-          minHeight,
-          maxHeight
+      createVNode(
+        'div',
+        {
+          ...PropRecordHelper.collectionBasicProps(this.$attrs, classs, {
+            height,
+            minHeight,
+            maxHeight
+          }),
+          ref: 'defaultTableRef'
         },
-        ref: 'defaultTableRef'
-      },
-      containerChildren
+        containerChildren
+      )
     );
   }
 });
 </script>
 <style lang="scss">
-.default-table .oio-table .oio-table-content {
-  > .vxe-table--render-default.size--mini .vxe-body--row .vxe-body--column.col--ellipsis,
-  .vxe-table--render-default.vxe-editable.size--mini .vxe-body--column {
-    height: v-bind(tableLineHeight);
+.default-table .oio-table {
+  .oio-table-content {
+    > .vxe-table--render-default.size--mini .vxe-body--row .vxe-body--column.col--ellipsis,
+    .vxe-table--render-default.vxe-editable.size--mini .vxe-body--column {
+      height: v-bind(tableLineHeight);
+    }
+
+    > .vxe-table--render-default.size--mini .vxe-header--column.col--ellipsis {
+      height: v-bind(tableHeaderHeight);
+    }
   }
 
-  > .vxe-table--render-default.size--mini .vxe-header--column.col--ellipsis {
-    height: v-bind(tableHeaderHeight);
+  &.default-table-line-height-auto {
+    .oio-column-wrapper:not(.oio-column-manual-editor) {
+      overflow: unset;
+      text-overflow: unset;
+      text-wrap: auto;
+    }
   }
 }
 </style>

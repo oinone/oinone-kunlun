@@ -1,12 +1,6 @@
 import { ActiveRecord, ActiveRecords, RuntimeRelationField } from '@oinone/kunlun-engine';
-import { BooleanHelper } from '@oinone/kunlun-shared';
-import {
-  EmptyStyle,
-  OioTreeNode,
-  SelectMode,
-  SimpleTreeSelected,
-  TreeSelectNodeChangeEvent
-} from '@oinone/kunlun-vue-ui-common';
+import { BooleanHelper, OioTreeNode } from '@oinone/kunlun-shared';
+import { EmptyStyle, SelectMode, SimpleTreeSelected, TreeSelectNodeChangeEvent } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, remove } from 'lodash-es';
 import { FormComplexFieldProps } from '../../basic';

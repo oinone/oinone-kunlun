@@ -231,7 +231,7 @@ export function createSetup(props: Readonly<ExtractPropTypes<typeof IVariableFor
     if (!props.showVariableType) {
       list = list.filter((a) => a.value !== VariableItemType.VARIABLE);
     }
-    const vt = list.find((_a) => _a.value == variableType.value);
+    const vt = list.find((_a) => _a.value === variableType.value);
     if (!vt && list.length) {
       variableType.value = list[0].value as VariableItemType;
       context.emit('changeVariableType', variableType.value);

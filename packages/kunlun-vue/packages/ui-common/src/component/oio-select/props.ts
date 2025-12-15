@@ -77,6 +77,10 @@ export const OioSelectProps = {
   dropdownClassName: {
     type: [String, Array] as PropType<string | string[]>
   },
+  dropdownVisible: {
+    type: Boolean,
+    default: undefined
+  },
   getTriggerContainer: {
     type: Function as PropType<(triggerNode: Node | HTMLElement) => Node | HTMLElement>
   }

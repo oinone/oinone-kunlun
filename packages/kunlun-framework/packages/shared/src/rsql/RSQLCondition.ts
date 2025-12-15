@@ -6,7 +6,7 @@ import { RSQLConditionNodeInfo, RSQLNodeInfo, RSQLNodeInfoType, RSQLQuote } from
 import { RSQLComparisonOperator, RSQLOperators } from './RSQLOperator';
 
 export class RSQLCondition {
-  private readonly root: TreeNode<RSQLConditionNodeInfo>;
+  private root: TreeNode<RSQLConditionNodeInfo>;
 
   private constructor(root?: TreeNode<RSQLConditionNodeInfo>) {
     this.root = root || this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND));
@@ -52,33 +52,33 @@ export class RSQLCondition {
     return this.swapAnd();
   }
 
-  public like(field: string, value: string | null | undefined): RSQLCondition {
-    this.root.addChild(this.generatorSingleComparisonNode(field, RSQLOperators.LIKE, value));
+  public like(field: string, value: string | null | undefined, quote?: RSQLQuote): RSQLCondition {
+    this.root.addChild(this.generatorSingleComparisonNode(field, RSQLOperators.LIKE, value, quote));
     return this.swapAnd();
   }
 
-  public starts(field: string, value: string | null | undefined): RSQLCondition {
-    this.root.addChild(this.generatorSingleComparisonNode(field, RSQLOperators.LIKE_RIGHT, value));
+  public starts(field: string, value: string | null | undefined, quote?: RSQLQuote): RSQLCondition {
+    this.root.addChild(this.generatorSingleComparisonNode(field, RSQLOperators.LIKE_RIGHT, value, quote));
     return this.swapAnd();
   }
 
-  public ends(field: string, value: string | null | undefined): RSQLCondition {
-    this.root.addChild(this.generatorSingleComparisonNode(field, RSQLOperators.LIKE_LEFT, value));
+  public ends(field: string, value: string | null | undefined, quote?: RSQLQuote): RSQLCondition {
+    this.root.addChild(this.generatorSingleComparisonNode(field, RSQLOperators.LIKE_LEFT, value, quote));
     return this.swapAnd();
   }
 
-  public notLike(field: string, value: string | null | undefined): RSQLCondition {
-    this.root.addChild(this.generatorSingleComparisonNode(field, RSQLOperators.NOT_LIKE, value));
+  public notLike(field: string, value: string | null | undefined, quote?: RSQLQuote): RSQLCondition {
+    this.root.addChild(this.generatorSingleComparisonNode(field, RSQLOperators.NOT_LIKE, value, quote));
     return this.swapAnd();
   }
 
-  public notStarts(field: string, value: string | null | undefined): RSQLCondition {
-    this.root.addChild(this.generatorSingleComparisonNode(field, RSQLOperators.NOT_LIKE_RIGHT, value));
+  public notStarts(field: string, value: string | null | undefined, quote?: RSQLQuote): RSQLCondition {
+    this.root.addChild(this.generatorSingleComparisonNode(field, RSQLOperators.NOT_LIKE_RIGHT, value, quote));
     return this.swapAnd();
   }
 
-  public notEnds(field: string, value: string | null | undefined): RSQLCondition {
-    this.root.addChild(this.generatorSingleComparisonNode(field, RSQLOperators.NOT_LIKE_LEFT, value));
+  public notEnds(field: string, value: string | null | undefined, quote?: RSQLQuote): RSQLCondition {
+    this.root.addChild(this.generatorSingleComparisonNode(field, RSQLOperators.NOT_LIKE_LEFT, value, quote));
     return this.swapAnd();
   }
 
@@ -137,17 +137,26 @@ export class RSQLCondition {
       }
       condition.root.addChild(this.root);
       condition.root.addChild(target.root);
-      return condition.swapAnd();
+      return this.transfer(condition.swapAnd().root);
     }
     condition.root.addChild(this.root);
-    return condition;
+    return this.transfer(condition.root);
+  }
+
+  public apply(rsql: string) {
+    const condition = RSQLHelper.parseRSQL(rsql);
+    if (condition) {
+      this.root.addChild(condition);
+      return this.swapAnd();
+    }
+    return this;
   }
 
   private swapAnd(): RSQLCondition {
     if (this.root.value?.type === RSQLNodeInfoType.OR) {
       const conditionNode = this.generatorNode(RSQLNodeInfo.newNodeInfo(RSQLNodeInfoType.AND));
       conditionNode.addChild(this.root);
-      return new RSQLCondition(conditionNode);
+      return this.transfer(conditionNode);
     }
     return this;
   }
@@ -218,6 +227,11 @@ export class RSQLCondition {
       operator,
       args: values.map((v) => v.toString())
     });
+  }
+
+  private transfer(root: TreeNode<RSQLConditionNodeInfo>): RSQLCondition {
+    this.root = root;
+    return this;
   }
 
   public static wrapper(root?: TreeNode<RSQLConditionNodeInfo>): RSQLCondition {

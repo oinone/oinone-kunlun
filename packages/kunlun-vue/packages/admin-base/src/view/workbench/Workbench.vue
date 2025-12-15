@@ -1,5 +1,6 @@
 <template>
   <div class="workbench-wrapper">
+    <slot name="dynamicView"></slot>
     <div class="workbench-total">
       <div class="workbench-total-user">
         <div class="workbench-total-user-title">

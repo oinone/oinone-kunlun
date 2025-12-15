@@ -3,10 +3,9 @@ import { DslDefinition } from '@oinone/kunlun-dsl';
 import { isRelationField, RuntimeContextManager } from '@oinone/kunlun-engine';
 import { isRelatedTtype } from '@oinone/kunlun-meta';
 import { BooleanHelper, CastHelper } from '@oinone/kunlun-shared';
-import { DslRender, WidgetTagProps } from '@oinone/kunlun-vue-widget';
+import { DslRender, useInjectMetaContext, WidgetTagProps } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { defineComponent, Slots } from 'vue';
-import { useInjectMetaContext } from './context';
 import { useWidgetTag, UseWidgetTagMixin } from './mixin';
 import { InternalWidget } from './resolve';
 

@@ -25,9 +25,9 @@ import {
   StringHelper
 } from '@oinone/kunlun-shared';
 import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { OioObjectViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isFunction, isNil, isPlainObject, isString } from 'lodash-es';
-import { isValidatorError } from '../../typing';
+import { DetailBizStyle, FormBizStyle, isValidatorError } from '../../typing';
 import { validatorCallChainingCallAfterFn } from '../constant';
 import { BaseFieldWidget, BaseView } from '../token';
 import { HandlerEvent as FieldHandlerEvent } from '../token/BaseFieldWidget';
@@ -48,6 +48,14 @@ interface FieldWidgetEntity {
 export class BaseElementObjectViewWidget<
   Props extends BaseElementObjectViewWidgetProps = BaseElementObjectViewWidgetProps
 > extends BaseElementViewWidget<Props> {
+  protected viewState: OioObjectViewState | undefined;
+
+  @Widget.Provide()
+  @Widget.Reactive()
+  public get bizStyle(): DetailBizStyle | FormBizStyle | undefined {
+    return this.getDsl().bizStyle;
+  }
+
   @Widget.Reactive()
   protected currentSubmitCallChaining: CallChaining<SubmitValue> | undefined;
 
@@ -308,7 +316,7 @@ export class BaseElementObjectViewWidget<
       }
     }
     const requestFields = this.rootRuntimeContext.getRequestModelFields();
-    return (
+    const res: ActiveRecord =
       (await QueryService.constructOne(this.model, finalQueryData, {
         requestFields,
         responseFields: requestFields,
@@ -316,8 +324,8 @@ export class BaseElementObjectViewWidget<
         isSameModel,
         variables,
         context
-      })) || {}
-    );
+      })) || {};
+    return res;
   }
 
   protected testInitialContext() {
@@ -350,15 +358,15 @@ export class BaseElementObjectViewWidget<
       return {};
     }
     const requestFields = this.rootRuntimeContext.getRequestModelFields();
-    return (
+    const res: ActiveRecord =
       (await QueryService.queryOne(this.model, queryData, {
         requestFields,
         responseFields: requestFields,
         fun: this.loadFunctionFun,
         variables,
         context
-      })) || {}
-    );
+      })) || {};
+    return res || {};
   }
 
   /**
@@ -375,7 +383,7 @@ export class BaseElementObjectViewWidget<
       return {};
     }
     const requestFields = this.rootRuntimeContext.getRequestModelFields();
-    return (
+    const res: ActiveRecord =
       (await QueryService.queryOneByWrapper(this.model, {
         requestFields,
         responseFields: requestFields,
@@ -383,8 +391,8 @@ export class BaseElementObjectViewWidget<
         condition,
         variables,
         context
-      })) || {}
-    );
+      })) || {};
+    return res;
   }
 
   public async submit(): Promise<SubmitValue | undefined> {
@@ -537,8 +545,6 @@ export class BaseElementObjectViewWidget<
     await this.refreshProcess(condition);
   }
 
-  protected fieldWidgetMap: Map<string, FieldWidgetEntity> = new Map();
-
   protected tryScrollToFieldWidget(fieldWidget: BaseFieldWidget) {
     const { enableScrollToErrorField } = OioProvider.getConfig();
     if (!enableScrollToErrorField || !this.enableScrollToErrorField) {
@@ -549,6 +555,14 @@ export class BaseElementObjectViewWidget<
     el && el.scrollIntoView();
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
+  protected fieldWidgetMap: Map<string, FieldWidgetEntity> = new Map();
+
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetMounted(widget: BaseFieldWidget) {
@@ -558,12 +572,18 @@ export class BaseElementObjectViewWidget<
     });
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetUnmounted(widget: BaseFieldWidget) {
     this.fieldWidgetMap.delete(widget.path);
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   public getFieldWidgets(sort = false): BaseFieldWidget[] {
     const iterator = this.fieldWidgetMap.values();
     let next = iterator.next();

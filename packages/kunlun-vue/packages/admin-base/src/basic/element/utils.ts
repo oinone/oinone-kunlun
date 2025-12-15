@@ -59,7 +59,7 @@ export function concatCondition(...conditions: (string | Condition | undefined)[
 
 export function getSortFieldDirection(
   value: string,
-  orderingFieldOrderSeparator: string = ' ',
+  orderingFieldOrderSeparator = ' ',
   defaultOrderingOrder: string = EDirection.ASC
 ): [string, EDirection] {
   let [sortField, direction] = value.split(orderingFieldOrderSeparator);

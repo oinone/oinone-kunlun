@@ -16,7 +16,7 @@ export class GalleryHtmlFieldWidget extends DetailHtmlFieldWidget {
 
   @Widget.Reactive()
   public get showHeight() {
-    return this.getDsl()?.showHeight;
+    return this.getDsl().showHeight;
   }
 
   @Widget.Reactive()

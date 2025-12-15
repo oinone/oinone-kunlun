@@ -1,5 +1,6 @@
 import { PropType } from 'vue';
 import { OioBaseContainerProps, OioComponentData } from '../../typing';
+import { OioTabsBizStyle } from './typing';
 
 export const DEFAULT_TABS_TITLE = '选项卡';
 
@@ -93,6 +94,9 @@ export const OioTabsProps = {
   },
   type: {
     type: String as PropType<OioTabsType | keyof typeof OioTabsType>
+  },
+  bizStyle: {
+    type: String as PropType<OioTabsBizStyle>
   }
 };
 

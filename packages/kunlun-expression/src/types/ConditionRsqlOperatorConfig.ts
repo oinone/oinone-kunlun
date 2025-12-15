@@ -1,8 +1,8 @@
-import { ModelFieldType, isNumberTtype, isStringTtype, deepClone } from '@oinone/kunlun-meta';
+import { deepClone, isNumberTtype, isStringTtype, ModelFieldType } from '@oinone/kunlun-meta';
 import { Condition, DefaultComparisonOperator } from '@oinone/kunlun-request';
+import { translateExpValue } from '../share/utils';
 import { IExpSelectOption } from './Common';
 import { IVariableItem, VariableItemType } from './ExpressionDefinition';
-import { translateExpValue } from '../share';
 
 // 需要包裹括号的比较运算符
 export const WrapperCompareRsqlOperatorList = [
@@ -177,6 +177,11 @@ const StringCompareOperatorList = [
   {
     label: '包含',
     value: DefaultComparisonOperator.LIKE,
+    multi: false
+  },
+  {
+    label: '不包含',
+    value: DefaultComparisonOperator.NOT_LIKE,
     multi: false
   },
   {
@@ -547,10 +552,16 @@ ConditionRsqlFunctionMap.set(
   }
 );
 ConditionRsqlFunctionMap.set(DefaultComparisonOperator.STARTS, (left: string, operator: string, right: string) => {
-  return new Condition(left).like(right).toString();
+  if (right.startsWith('%')) {
+    return new Condition(left).like(right).toString();
+  }
+  return new Condition(left).starts(right).toString();
 });
 ConditionRsqlFunctionMap.set(DefaultComparisonOperator.ENDS, (left: string, operator: string, right: string) => {
-  return new Condition(left).like(right).toString();
+  if (right.endsWith('%')) {
+    return new Condition(left).like(right).toString();
+  }
+  return new Condition(left).ends(right).toString();
 });
 ConditionRsqlFunctionMap.set(
   DefaultComparisonOperator.GREATER_THAN,

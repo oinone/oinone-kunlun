@@ -10,9 +10,16 @@ import { createVisibleArea, useEnv } from '@oinone/kunlun-environment';
 import { ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { CallChaining, Constructor } from '@oinone/kunlun-shared';
 import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
-import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
+import {
+  ActiveRecordsWidgetProps,
+  InnerWidgetType,
+  OioAnyViewState,
+  useOioState,
+  Widget
+} from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { getCurrentInstance } from 'vue';
+import { ViewBizStyle } from '../../typing';
 import DefaultView from '../../view/view/DefaultView.vue';
 import { BaseRuntimePropertiesWidget } from '../common';
 import { validatorCallChainingCallAfterFn, VIEW_WIDGET_PRIORITY } from '../constant';
@@ -71,6 +78,11 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
   public static Selector: SPISingleSelector<BaseViewOptions, Constructor<BaseView>>;
 
   protected defaultAllInvisible = true;
+
+  @Widget.Reactive()
+  protected get bizStyle(): ViewBizStyle | undefined {
+    return this.getDsl().bizStyle;
+  }
 
   @Widget.Reactive()
   @Widget.Provide()
@@ -268,6 +280,24 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
     env.visibleArea.delete(currentHandle);
   }
 
+  protected $$initViewStatePosition(state: OioAnyViewState): void {
+    state.__position.push({ handle: this.currentHandle, slotName: this.getSlotName() });
+  }
+
+  protected $$clearViewStatePosition(state: OioAnyViewState) {
+    const index = state.__position.findIndex((v) => v.handle === this.currentHandle);
+    if (index !== -1) {
+      state.__position.splice(index, 1);
+    }
+  }
+
+  protected $$created() {
+    super.$$created();
+    const state = useOioState(this.currentHandle).createViewState();
+    state.viewType = this.viewType!;
+    this.viewState = state;
+  }
+
   protected $$beforeMount() {
     super.$$beforeMount();
     this.currentMountedCallChaining = new CallChaining();
@@ -351,6 +381,7 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
     this.parentSubmitCallChaining?.unhook(this.path);
     this.parentValidatorCallChaining?.unhook(this.path);
     this.clearVisibleArea();
+    useOioState(this.currentHandle).clearViewState();
   }
 
   protected $$unmountedAfterProperties() {

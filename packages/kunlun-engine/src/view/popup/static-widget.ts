@@ -15,7 +15,7 @@ export interface IStaticDialogWidget extends IStaticPopupWidget {
 
   setDestroyOnClose(destroyOnClose: boolean);
 
-  setTitle(title: string | null);
+  setTitle(title: string | undefined);
 
   setHelp(help: string | undefined);
 
@@ -54,7 +54,7 @@ export interface IStaticDrawerWidget extends IStaticPopupWidget {
 
   setDestroyOnClose(destroyOnClose: boolean);
 
-  setTitle(title: string | null);
+  setTitle(title: string | undefined);
 
   setHelp(help: string | undefined);
 

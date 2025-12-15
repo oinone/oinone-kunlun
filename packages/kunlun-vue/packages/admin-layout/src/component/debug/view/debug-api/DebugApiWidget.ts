@@ -204,6 +204,7 @@ export class DebugApiWidget extends VueWidget {
     };
   }
 
+  @Widget.Method()
   public async responseAnalysis(responseBody: DebugResponseData | DebugResponseData[]): Promise<string> {
     let { requestInfo } = this;
     if (!requestInfo) {
@@ -329,7 +330,11 @@ export class DebugApiWidget extends VueWidget {
       for (const namespace of Object.keys(responseData) || []) {
         const responseFunctionData = responseData[namespace] || {};
         if (typeof responseFunctionData === 'object') {
-          for (const name of Object.keys(responseFunctionData) || []) {
+          const responseFunList = Object.keys(responseFunctionData) || [];
+          if (!responseFunList.length) {
+            responseFunList.push('unknown');
+          }
+          for (const name of responseFunList) {
             gqlInfos.push({
               key: `${i + 1}`,
               title: `GQL#${i + 1}`,

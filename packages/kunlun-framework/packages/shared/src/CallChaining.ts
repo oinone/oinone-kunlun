@@ -50,7 +50,7 @@ export interface CallAfterResult<T> {
  * </p>
  */
 export class CallChaining<T = unknown> {
-  public static readonly MAX_PRIORITY = 0;
+  public static readonly MAX_PRIORITY = -100;
 
   public static readonly MIN_PRIORITY = 99999;
 

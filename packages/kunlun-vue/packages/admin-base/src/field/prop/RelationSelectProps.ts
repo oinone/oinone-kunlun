@@ -1,5 +1,7 @@
+import { SelectSearchArea } from '@oinone/kunlun-engine';
 import { BooleanHelper } from '@oinone/kunlun-shared';
-import { computed, PropType, ref } from 'vue';
+import { delay } from 'lodash-es';
+import { computed, nextTick, onBeforeUnmount, onMounted, PropType, ref } from 'vue';
 import { usePlaceholderProps } from '../../basic';
 
 export const RelationSelectProps = {
@@ -52,6 +54,9 @@ export const RelationSelectProps = {
   options: {
     type: Array as PropType<Record<string, unknown>[]>
   },
+  searchValue: {
+    type: String
+  },
   change: {
     type: Function,
     default: () => ({})
@@ -86,13 +91,24 @@ export const RelationSelectProps = {
   },
   getPopupContainer: {
     type: Function
+  },
+  searchArea: {
+    type: String as PropType<SelectSearchArea>,
+    default: SelectSearchArea.default
   }
 };
 
-export function relationSelectSetup(props) {
+export function relationSelectSetup(props, multi?: boolean) {
+  const selectRef = ref();
+  const dropdownInputRef = ref();
+  const dropdownOpen = ref(false);
   const innerReadonly = computed(() => BooleanHelper.toBoolean(props.readonly));
 
   const innerDisabled = computed(() => BooleanHelper.toBoolean(props.disabled));
+
+  const selectShowSearch = computed(() => props.showSearch && props.searchArea === SelectSearchArea.default);
+
+  const inputShowSearch = computed(() => props.showSearch && props.searchArea === SelectSearchArea.dropdown);
 
   const currentValue = computed(() => {
     const values: any[] = [];
@@ -104,13 +120,73 @@ export function relationSelectSetup(props) {
     });
     return values;
   });
-  const selectRef = ref();
+
   const innerChange = (e) => {
     if (props.change) {
       props.change(e);
     }
 
     selectRef.value.focus();
+  };
+
+  let focusSearchInput = false;
+
+  /**
+   * 在单选状态，下拉框聚焦时，点击回车会出现调用两次 onDropdownVisibleChange 方法的现象
+   * 该计时器用于判定此时是否正处于回车事件，且需要进行数据提交的情况
+   * 如果在计时器创建后立即关闭，则认为此时正处于回车事件，需要进行数据提交
+   */
+  let t;
+
+  const dropdownVisibleChange = (val: boolean) => {
+    if (props.showSearch && props.searchArea === SelectSearchArea.dropdown) {
+      if (focusSearchInput) {
+        return;
+      }
+      if (!focusSearchInput && !val && !multi && dropdownOpen.value) {
+        // 按下 Enter 时，下拉单选框无法正常展开，此时进行数据提交
+        dropdownOpen.value = false;
+        selectRef.value.focus();
+        return;
+      }
+      if (val) {
+        // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
+        t = setTimeout(() => {
+          dropdownOpen.value = true;
+          props.dropdownVisibleChange(true);
+          focusSearchInput = true;
+          delay(() => {
+            dropdownInputRef.value?.focus();
+          }, 200);
+          clearTimeout(t);
+          t = null;
+        });
+      } else if (t != null) {
+        clearTimeout(t);
+        t = null;
+      } else {
+        dropdownOpen.value = false;
+        props.dropdownVisibleChange(false);
+        if (!multi) {
+          selectRef.value.focus();
+        }
+      }
+    } else if (val) {
+      t = setTimeout(() => {
+        dropdownOpen.value = true;
+        props.dropdownVisibleChange(true);
+        clearTimeout(t);
+        t = null;
+      });
+    } else if (t != null) {
+      clearTimeout(t);
+      t = null;
+    } else {
+      nextTick(() => {
+        dropdownOpen.value = false;
+        props.dropdownVisibleChange(false);
+      });
+    }
   };
 
   // 后于change执行
@@ -125,15 +201,84 @@ export function relationSelectSetup(props) {
       props.loadMore();
     }
   };
+
   const { placeholder } = usePlaceholderProps(props);
+
+  const onKeydown = (e: KeyboardEvent) => {
+    // 当键盘数据提交快捷键与下拉框内置选中快捷键冲突时，保证行内编辑态不丢失
+    if (e.key === 'Enter' && e.key === props.tableKeyboardConfig?.enter?.key && dropdownOpen.value) {
+      if (!multi) {
+        focusSearchInput = false;
+        dropdownOpen.value = false;
+        props.dropdownVisibleChange(false);
+        selectRef.value.focus();
+      }
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
+
+  const onFocus = (e) => {
+    props.focus?.(e);
+  };
+
+  const onBlur = (e) => {
+    if (focusSearchInput) {
+      return;
+    }
+    props.blur?.(e);
+  };
+
+  const onSearchInputFocus = (e) => {
+    focusSearchInput = true;
+  };
+
+  const onSearchInputBlur = (e) => {
+    if (focusSearchInput) {
+      focusSearchInput = false;
+      if (!multi) {
+        dropdownVisibleChange(false);
+      }
+    }
+  };
+
+  const onSearchInputKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Backspace') {
+      e.stopPropagation();
+    }
+  };
+
+  const onGlobalMouseDown = (e: MouseEvent) => {
+    focusSearchInput = e.target === dropdownInputRef.value?.originInput?.input;
+  };
+
+  onMounted(() => {
+    window.addEventListener('mousedown', onGlobalMouseDown, true);
+  });
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('mousedown', onGlobalMouseDown);
+  });
+
   return {
     placeholder,
     innerReadonly,
     innerDisabled,
+    selectShowSearch,
+    inputShowSearch,
     selectRef,
     currentValue,
+    dropdownOpen,
+    dropdownInputRef,
     innerChange,
     innerSelect,
-    slipSelect
+    slipSelect,
+    dropdownVisibleChange,
+    onKeydown,
+    onFocus,
+    onBlur,
+    onSearchInputFocus,
+    onSearchInputBlur,
+    onSearchInputKeydown
   };
 }

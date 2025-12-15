@@ -6,16 +6,19 @@ import { http } from '@oinone/kunlun-service';
 export class ModuleService {
   public static apps: IModule[] = [];
 
-  public static async queryApplications(): Promise<IModule[]> {
-    if (ModuleService.apps.length) {
+  /**
+   * 查询应用列表
+   * @param {boolean} force 强制重新加载应用列表，不走缓存
+   * @returns {Promise<IModule[]>} 返回应用列表
+   */
+  public static async queryApplications(force?: boolean): Promise<IModule[]> {
+    if (ModuleService.apps.length && !force) {
       return ModuleService.apps;
     }
 
     ClearCache.register(() => {
       ModuleService.apps = [];
     });
-    const model = await ModelCache.get('base.AppSwitcherModuleProxy');
-    const bindUrlFieldExist = (model?.modelFields ?? []).filter((it) => it.data === 'urlHomePage').length > 0;
 
     const body = gql`
       {
@@ -41,7 +44,10 @@ export class ModuleService {
               application
               latestVersion
               platformVersion
-              ${bindUrlFieldExist ? 'urlHomePage {\ntarget\nurl\n}' : ''}
+              urlHomePage {
+                target
+                url
+              }
             }
             size
             totalPages

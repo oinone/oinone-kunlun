@@ -1,13 +1,11 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { CastHelper, CSSStyle, StringHelper } from '@oinone/kunlun-shared';
+import { CastHelper, CSSStyle } from '@oinone/kunlun-shared';
 import {
   FlexDirection,
   FormLayout,
   OioRow,
   OioRowProps,
   PropRecordHelper,
-  StyleHelper,
   useOioFormLayoutContext
 } from '@oinone/kunlun-vue-ui-antd';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
@@ -22,9 +20,6 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     ...OioRowProps,
-    template: {
-      type: Object as PropType<DslDefinition>
-    },
     invisible: {
       type: Boolean,
       default: false
@@ -59,8 +54,8 @@ export default defineComponent({
     return {};
   },
   render() {
-    const { $attrs, $slots, template, invisible, flexDirection } = this;
-    const style: CSSStyle = CastHelper.cast(StyleHelper.parse(template?.style) || {});
+    const { $attrs, $slots, invisible, flexDirection } = this;
+    const style = {} as CSSStyle;
     if (!style.flexDirection && flexDirection) {
       style.flexDirection = flexDirection;
     }
@@ -69,11 +64,7 @@ export default defineComponent({
         OioRow,
         {
           ...PropRecordHelper.convert(OioRowProps, CastHelper.cast(this)),
-          ...PropRecordHelper.collectionBasicProps(
-            $attrs,
-            StringHelper.append([], CastHelper.cast(template?.class)),
-            style
-          )
+          ...PropRecordHelper.collectionBasicProps($attrs, ['default-row'], style)
         },
         PropRecordHelper.collectionSlots($slots, [{ origin: 'default', isNotNull: true }])
       ),

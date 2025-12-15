@@ -1,10 +1,12 @@
 <template>
-  <div class="media-paragraph" :style="colStyle || {}">
+  <div v-bind="basicProps">
     <div v-html="realContent" class="paragraph-content" :class="[borderClassName]" />
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType, CSSProperties } from 'vue';
+import { CSSStyle } from '@oinone/kunlun-shared';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { computed, defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'DefaultParagraph',
@@ -16,16 +18,21 @@ export default defineComponent({
       type: String
     },
     colStyle: {
-      type: Object as PropType<CSSProperties>
+      type: [String, Object] as PropType<string | CSSStyle>
     }
   },
-  setup(props) {
+  setup(props, { attrs }) {
+    const basicProps = computed(() => {
+      return PropRecordHelper.collectionBasicProps(attrs, ['media-paragraph'], props.colStyle);
+    });
+
     const borderClassName = computed(() => {
       if (props.borderMode) {
         return `border-${props.borderMode.toLowerCase()}`;
       }
       return 'border-none';
     });
+
     const realContent = computed(() => {
       try {
         return decodeURI(props.content || '');
@@ -33,7 +40,9 @@ export default defineComponent({
         return props.content || '';
       }
     });
+
     return {
+      basicProps,
       realContent,
       borderClassName
     };

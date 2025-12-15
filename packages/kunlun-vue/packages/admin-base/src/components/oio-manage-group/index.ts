@@ -1,2 +1,2 @@
-export { default as OioManageGroup } from './oio-manage-group.vue';
+export { default as OioManageGroup } from './OioManageGroup.vue';
 export * from './props';

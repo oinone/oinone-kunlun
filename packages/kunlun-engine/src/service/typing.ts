@@ -27,3 +27,12 @@ export interface VirtualRelationField extends VirtualField {
   relationFields: string[];
   referenceFields: string[];
 }
+
+/**
+ * JSON 格式 GQL 字段
+ */
+export interface CommonGQLFields {
+  fields: string[];
+  field?: string;
+  referenceFields?: CommonGQLFields[];
+}

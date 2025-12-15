@@ -1,7 +1,7 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { isNil } from 'lodash-es';
 import { FormFieldWidget } from '../../../../basic';
 import { FormEnumFieldAbstractWidget } from '../FormEnumFieldAbstractWidget';
 import FormEnumThumbnail from './FormEnumThumbnail.vue';
@@ -22,11 +22,7 @@ export class FormEnumThumbnailFieldWidget extends FormEnumFieldAbstractWidget {
 
   @Widget.Reactive()
   protected get allowClear() {
-    const { allowClear } = this.getDsl();
-    if (isNil(allowClear)) {
-      return false;
-    }
-    return allowClear;
+    return BooleanHelper.toBoolean(this.getDsl().allowClear) || false;
   }
 }
 

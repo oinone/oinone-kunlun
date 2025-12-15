@@ -65,6 +65,7 @@ export default defineComponent({
     };
   },
   render() {
+    const { $attrs } = this;
     const slots = PropRecordHelper.collectionSlots(this.$slots, [
       {
         origin: 'default',
@@ -84,7 +85,10 @@ export default defineComponent({
             createVNode('div', { class: 'oio-tab' }, [
               createVNode(
                 'div',
-                { class: ['oio-tab-content', `oio-tab-${this.tabPosition}-content`] },
+                PropRecordHelper.collectionBasicProps($attrs, [
+                  'oio-tab-content',
+                  `oio-tab-${this.tabPosition}-content`
+                ]),
                 {
                   default: () => [
                     DslRender.render({

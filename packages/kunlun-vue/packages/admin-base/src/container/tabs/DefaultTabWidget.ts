@@ -84,6 +84,8 @@ export class DefaultTabWidget extends BasePackWidget {
       widgetComponent,
       {
         key: this.currentTabKey,
+        class: this.class,
+        style: this.style,
         invisible: this.invisible,
         disabled: this.disabled,
         forceRender: this.forceRender

@@ -1,5 +1,5 @@
 import { IStaticDialogWidget, translateValueByKey } from '@oinone/kunlun-engine';
-import { ModalWidth, OioModalProps } from '@oinone/kunlun-vue-ui-common';
+import { ModalWidth } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../../typing';
 import { StaticPopupWidget } from '../StaticPopupWidget';
@@ -24,7 +24,7 @@ export class StaticDialogWidget extends StaticPopupWidget<DialogWidgetProps> imp
   protected destroyOnClose = true;
 
   @Widget.Reactive()
-  protected title: string | null = OioModalProps.title.default;
+  protected title: string | undefined;
 
   @Widget.Reactive()
   protected help: string | undefined;
@@ -76,7 +76,7 @@ export class StaticDialogWidget extends StaticPopupWidget<DialogWidgetProps> imp
     this.destroyOnClose = destroyOnClose;
   }
 
-  public setTitle(title: string | null) {
+  public setTitle(title: string | undefined) {
     this.title = title;
   }
 

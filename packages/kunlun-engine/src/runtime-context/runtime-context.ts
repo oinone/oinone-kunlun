@@ -3,6 +3,7 @@ import { IModelField, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { ContextNode } from '@oinone/kunlun-shared';
 import {
   RouterPath,
+  RuntimeEnumerationOption,
   RuntimeModel,
   RuntimeModelField,
   RuntimeModule,
@@ -74,6 +75,10 @@ export interface RuntimeContext<Framework = unknown> extends ContextNode<Runtime
    * 运行时虚拟模型
    */
   virtualModels?: Record<string, VirtualModel>;
+  /**
+   * 数据字典
+   */
+  dataDictionaryMap?: Record<string, RuntimeEnumerationOption[]>;
   /**
    * 运行时视图
    */

@@ -36,6 +36,9 @@ export const OioGroupProps = {
     type: [String, Boolean],
     default: undefined
   },
+  bizStyle: {
+    type: String
+  },
   description: {
     type: String
   },

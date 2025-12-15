@@ -1,5 +1,5 @@
+import { useInjectMetaContext, useProviderMetaContext } from '@oinone/kunlun-vue-widget';
 import { ComponentOptionsMixin, computed } from 'vue';
-import { useInjectMetaContext, useProviderMetaContext } from '../../tags/context';
 
 export const ManualWidget: ComponentOptionsMixin = {
   props: {

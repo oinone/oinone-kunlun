@@ -1,5 +1,4 @@
 import { RuntimeModelField, RuntimeSearchField, translateValueByKey } from '@oinone/kunlun-engine';
-import { BooleanHelper, Optional, RSQLCompositeOperators } from '@oinone/kunlun-shared';
 import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../basic';
 
@@ -28,13 +27,6 @@ export abstract class SearchRangeFieldWidget<
   @Widget.Reactive()
   protected get operator() {
     return this.field.operator;
-  }
-
-  @Widget.Reactive()
-  protected get allowClear(): boolean {
-    return Optional.ofNullable(this.getDsl().allowClear)
-      .map((v) => BooleanHelper.toBoolean(v))
-      .orElse(true)!;
   }
 
   @Widget.Reactive()

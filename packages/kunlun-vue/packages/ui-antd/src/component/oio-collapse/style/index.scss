@@ -8,6 +8,7 @@
 
     & > .ant-collapse-item {
       border-color: var(--oio-border-color);
+      border-bottom: 1px solid var(--oio-border-color);
     }
 
     .ant-collapse-header {
@@ -49,7 +50,7 @@
   }
 
   &.#{$collapseClassPrefix}-stripe.ant-collapse {
-    background-color: #fafafa;
+    background-color: var(--oio-stripe-color);
   }
 
   .ant-collapse-item-disabled > .ant-collapse-header,

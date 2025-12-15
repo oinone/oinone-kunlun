@@ -1,5 +1,6 @@
 <script lang="ts">
-import { translateValueByKey } from '@oinone/kunlun-engine';
+import { GroupingField, translateValueByKey } from '@oinone/kunlun-engine';
+import { EDirection } from '@oinone/kunlun-service';
 import { TableFixed } from '@oinone/kunlun-vue-ui';
 import { OioIcon, ReturnPromise, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
@@ -37,6 +38,17 @@ export default defineComponent({
     sortable: {
       type: Boolean,
       default: undefined
+    },
+    enableGrouping: {
+      type: Boolean,
+      default: false
+    },
+    groupList: {
+      type: Array as PropType<GroupingField[]>,
+      default: () => []
+    },
+    onGroupChange: {
+      type: Function
     },
     handleOrderByASC: {
       type: Function as PropType<TableOperatorHandlerFn>
@@ -134,6 +146,8 @@ export default defineComponent({
 
       column,
       sortable,
+      enableGrouping,
+      groupList,
 
       visible,
       onUpdateVisible,
@@ -145,7 +159,8 @@ export default defineComponent({
       handleFreezeRight,
       handleClearFreeze,
       handleClearAllFreeze,
-      handleHide
+      handleHide,
+      onGroupChange
     } = this;
     const { trigger: triggerSlot } = PropRecordHelper.collectionSlots($slots, ['trigger']);
     let triggerChildren: VNode[];
@@ -171,7 +186,7 @@ export default defineComponent({
       {
         default: () => triggerChildren,
         content: () => {
-          const { fixed, order } = column;
+          const { fixed, order, field } = column;
           const options: VNode[] = [];
           if (sortable) {
             if (order === 'asc') {
@@ -201,6 +216,28 @@ export default defineComponent({
             );
           }
           options.push(createOperationItem('隐藏此列', 'oinone-yincangcilie', handleHide));
+
+          if (enableGrouping) {
+            if (groupList?.length && groupList.some((item) => item.field === field)) {
+              options.push(
+                createOperationItem('取消分组', 'oinone-ungroup-outlined', () => {
+                  const list = groupList || [];
+                  const index = list?.findIndex((item) => item.field === field);
+                  list.splice(index, 1);
+                  onGroupChange?.(list);
+                })
+              );
+            } else {
+              options.push(
+                createOperationItem('以此字段分组', 'oinone-group-outlined', () => {
+                  const list = groupList || [];
+                  list.push({ field, direction: EDirection.ASC });
+                  onGroupChange?.(list);
+                })
+              );
+            }
+          }
+
           return [createVNode('div', { class: `${classNamePrefix}-wrapper` }, options)];
         }
       }

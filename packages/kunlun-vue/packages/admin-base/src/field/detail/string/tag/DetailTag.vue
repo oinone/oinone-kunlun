@@ -1,12 +1,11 @@
 <template>
-  <div v-if="list.length > 0" class="detail-multi-select">
-    <div class="detail-multi-select-item" v-for="item in list" :key="item">
-      <div class="detail-multi-select-item-font" :title="item" v-html="item"></div>
+  <detail-common-field :is-empty="!list.length" :empty-style="emptyStyle">
+    <div class="detail-multi-select">
+      <div class="detail-multi-select-item" v-for="item in list" :key="item">
+        <div class="detail-multi-select-item-font" :title="item" v-html="item"></div>
+      </div>
     </div>
-  </div>
-  <div v-else>
-    <detail-common-field :empty-style="emptyStyle" />
-  </div>
+  </detail-common-field>
 </template>
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue';

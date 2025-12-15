@@ -94,7 +94,9 @@ export class FormStringFieldWidget extends FormInputAbstractFieldWidget<string, 
   }
 
   @Widget.Reactive()
-  protected class = '';
+  public get class() {
+    return '';
+  }
 
   @Widget.Reactive()
   protected get type() {

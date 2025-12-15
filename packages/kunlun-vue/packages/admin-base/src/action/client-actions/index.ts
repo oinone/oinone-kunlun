@@ -5,3 +5,4 @@ export * from './TableAddOneAction';
 export * from './TableCopyOneAction';
 export * from './TableEditOneAction';
 export * from './ValidateFormActionWidget';
+export * from './SaveDraftActionWidget';

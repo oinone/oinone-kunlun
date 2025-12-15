@@ -1,7 +1,7 @@
 import { RuntimeO2MField } from '@oinone/kunlun-engine';
 import { ModelType, ViewType } from '@oinone/kunlun-meta';
 import { getModel, http } from '@oinone/kunlun-service';
-import { CallChaining } from '@oinone/kunlun-shared';
+import { CallChaining, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { Tree as ATree } from 'ant-design-vue';
@@ -58,7 +58,7 @@ let counter = 0;
 export class ActionPermissionWidget extends FormFieldWidget<unknown, RuntimeO2MField> {
   @Widget.Reactive()
   public get class() {
-    return 'oio-tree';
+    return StringHelper.append(['oio-tree'], super.class);
   }
 
   public initialize(props) {

@@ -3,7 +3,9 @@ import { BooleanHelper, CSSStyle, uniqueKeyGenerator } from '@oinone/kunlun-shar
 import {
   CleanableEvent,
   OioTabPosition,
+  OioTabsBizStyle,
   OioTabsProps,
+  OioTabsType,
   PropRecordHelper,
   StyleHelper,
   TabHTMLNode,
@@ -107,6 +109,18 @@ export default defineComponent({
       }
     });
 
+    const currentType = computed(() => {
+      if (props.bizStyle && [OioTabsBizStyle.Card, OioTabsBizStyle.AccentCard].includes(props.bizStyle)) {
+        if (props.type === OioTabsType['editable-card']) {
+          return OioTabsType['editable-card'];
+        }
+
+        return OioTabsType.card;
+      }
+
+      return props.type;
+    });
+
     onUnmounted(() => {
       moreButtonMousemove?.remove();
     });
@@ -121,6 +135,7 @@ export default defineComponent({
     return {
       id,
       origin,
+      currentType,
       onUpdateActiveKey
     };
   },
@@ -135,7 +150,8 @@ export default defineComponent({
       tabPosition,
       verticalHeight,
       destroyInactiveTabPane,
-      type
+      currentType,
+      bizStyle
     } = this;
 
     const style = {} as CSSStyle;
@@ -148,6 +164,10 @@ export default defineComponent({
     const classNames = [`${DEFAULT_PREFIX}-tabs`];
     if (disabled) {
       classNames.push(`${DEFAULT_PREFIX}-tabs-disabled`);
+    }
+
+    if (bizStyle === OioTabsBizStyle.AccentCard) {
+      classNames.push(`${DEFAULT_PREFIX}-tabs-accent-card`);
     }
 
     return withDirectives(
@@ -163,7 +183,7 @@ export default defineComponent({
           tabPosition,
           verticalHeight,
           destroyInactiveTabPane,
-          type,
+          type: currentType,
           'onUpdate:activeKey': this.onUpdateActiveKey
         },
         PropRecordHelper.collectionSlots(this.$slots, [

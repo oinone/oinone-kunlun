@@ -1,13 +1,18 @@
 <template>
-  <div class="default-picture">
+  <div v-bind="basicProps">
     <a-image :width="width" :height="height" :src="url" />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { Image as AImage } from 'ant-design-vue';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'DefaultPicture',
+  components: {
+    AImage
+  },
   props: {
     url: {
       type: String
@@ -19,7 +24,15 @@ export default defineComponent({
       type: String
     }
   },
-  setup(props) {}
+  setup(props, { attrs }) {
+    const basicProps = computed(() => {
+      return PropRecordHelper.collectionBasicProps(attrs, ['default-picture']);
+    });
+
+    return {
+      basicProps
+    };
+  }
 });
 </script>
 <style lang="scss">

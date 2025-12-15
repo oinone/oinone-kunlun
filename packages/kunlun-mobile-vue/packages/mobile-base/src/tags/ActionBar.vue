@@ -1,8 +1,7 @@
 <script lang="ts">
 import { ActiveRecords } from '@oinone/kunlun-engine';
-import { WidgetTagProps } from '@oinone/kunlun-vue-widget';
+import { useInjectMetaContext, WidgetTagProps } from '@oinone/kunlun-vue-widget';
 import { defineComponent, PropType } from 'vue';
-import { useInjectMetaContext } from './context';
 import { useWidgetTag, UseWidgetTagMixin } from './mixin';
 import { InternalWidget } from './resolve';
 

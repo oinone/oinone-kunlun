@@ -1,0 +1,5 @@
+@import '../../../style/global-parameters';
+
+$listPrefix: $prefix + -list;
+$listParameterPrefix: $parameterPrefix + -list;
+$listClassPrefix: $listPrefix;

@@ -152,11 +152,12 @@
         <expression-designer-cascader
           :canSelectedComplexField="canSelectedComplexField"
           :class="{ 'field-mode-dropdown': isFieldMode }"
-          :options="availableOptions"
+          :options="options"
           :load-data="fetchChildren"
           :pagination="pagination"
           :change-on-select="changeOnSelect"
           :on-pagination-change="onPaginationChange"
+          :search-key-words="isFieldMode ? fieldKeywords : searchKeywords"
           @change="onSelectVariable"
         >
           <template #header v-if="isFieldMode">
@@ -167,7 +168,11 @@
                 v-model:value="fieldKeywords"
                 allow-clear
                 :placeholder="translateExpValue('输入名称搜索')"
-              />
+              >
+                <template #prefix>
+                  <oio-icon icon="oinone-sousuo1" color="#9E9E9E" size="16"></oio-icon>
+                </template>
+              </oio-input>
             </div>
           </template>
           <template #header v-else-if="!isSimpleMode">
@@ -177,9 +182,13 @@
                 size="small"
                 v-model:value="searchKeywords"
                 allow-clear
-                :placeholder="translateExpValue('输入模型名称搜索')"
+                :placeholder="translateExpValue('输入名称搜索')"
                 @change="onSearchKeywordsChange"
-              />
+              >
+                <template #prefix>
+                  <oio-icon icon="oinone-sousuo1" color="#9E9E9E" size="16"></oio-icon>
+                </template>
+              </oio-input>
             </div>
           </template>
         </expression-designer-cascader>
@@ -188,12 +197,19 @@
   </a-popover>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { CloseCircleFilled } from '@ant-design/icons-vue';
-import { Select as ASelect, Tooltip as ATooltip, Popover as APopover } from 'ant-design-vue';
-import { OioInput, OioDatePicker, OioDateTimePicker, OioYearPicker, OioTimePicker } from '@oinone/kunlun-vue-ui-antd';
-import ControlTag from '../control-tag/ControlTag.vue';
+import {
+  OioDatePicker,
+  OioDateTimePicker,
+  OioIcon,
+  OioInput,
+  OioTimePicker,
+  OioYearPicker
+} from '@oinone/kunlun-vue-ui-antd';
+import { Popover as APopover, Select as ASelect, Tooltip as ATooltip } from 'ant-design-vue';
+import { defineComponent } from 'vue';
 import ExpressionDesignerCascader from '../../cascader/Cascader.vue';
+import ControlTag from '../control-tag/ControlTag.vue';
 import { createComponent, IVariableFormFieldProps } from './variableFormFieldBase';
 
 /**
@@ -201,6 +217,7 @@ import { createComponent, IVariableFormFieldProps } from './variableFormFieldBas
  */
 export default defineComponent({
   components: {
+    OioIcon,
     CloseCircleFilled,
     OioInput,
     ASelect,

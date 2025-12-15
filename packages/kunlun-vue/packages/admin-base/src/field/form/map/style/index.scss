@@ -3,8 +3,13 @@
     display: flex;
     margin-top: 8px;
     gap: var(--oio-margin);
+
     &-readonly {
       color: var(--oio-readonly-color);
+
+      &:first-child {
+        margin-top: 0;
+      }
     }
   }
 

@@ -33,12 +33,11 @@
   </oio-date-picker>
 </template>
 <script lang="ts">
-import { OioDatePicker } from '@oinone/kunlun-vue-ui-antd';
-import { OioDatePickerProps } from '@oinone/kunlun-vue-ui-common';
+import { OioDatePicker, OioDatePickerProps, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, PropType } from 'vue';
-import { OioCommonProps, OioMetadataProps, useInjectOioDefaultFormContext } from '../../../basic';
-import { useDateTimePickerProps } from './use-date-time-picker-props';
+import { OioCommonProps, OioMetadataProps } from '../../../basic';
 import { DateQuickOption } from './date-common';
+import { useDateTimePickerProps } from './use-date-time-picker-props';
 
 export default defineComponent({
   name: 'DefaultDatePicker',

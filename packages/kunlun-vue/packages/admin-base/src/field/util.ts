@@ -243,7 +243,7 @@ export function optionsConvertSelectItem(
       return {
         key: v.name,
         value: v.name,
-        label: v.label || v.displayName || v.name,
+        label: v.label ?? v.displayName ?? v.name,
         data: v,
         state: v.state,
         disabled: !!v.disabled || v.state === EnumOptionState.INACTIVE

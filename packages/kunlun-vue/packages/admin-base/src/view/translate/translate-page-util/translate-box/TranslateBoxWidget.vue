@@ -153,7 +153,13 @@ import {
   OioFormInstance,
   OioSpin
 } from '@oinone/kunlun-vue-ui-antd';
-import { getUrlParamByKey, translateValueByKey, CurrentLanguage, genStaticPath, OioProvider } from '@oinone/kunlun-engine';
+import {
+  getUrlParamByKey,
+  translateValueByKey,
+  CurrentLanguage,
+  genStaticPath,
+  OioProvider
+} from '@oinone/kunlun-engine';
 import { IModelField, ModelFieldType } from '@oinone/kunlun-meta';
 import { buildSingleItemParam } from '@oinone/kunlun-service';
 import { queryTranslateBox, queryTranslateBoxUpdate, saveAndRefreshForBox, saveForBoxWithUpdate } from '../../service';
@@ -510,9 +516,9 @@ const onDeleteLabel = (index: number) => {
   }
 
   .translate-select-item-label {
-    color: var(--oio-text-color);
+    color: var(--oio-form-item-label-color);
     font-size: var(--oio-font-size);
-    font-weight: var(--oio-font-weight-bold);
+    font-weight: var(--oio-form-item-label-weight);
     margin-bottom: var(--oio-margin-sm);
   }
 

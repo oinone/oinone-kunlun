@@ -146,6 +146,7 @@ export interface RuntimeBooleanField extends RuntimeModelField {
 }
 
 export interface RuntimeEnumerationField extends RuntimeModelField {
+  dictionary?: string;
   options: RuntimeEnumerationOption[];
 }
 

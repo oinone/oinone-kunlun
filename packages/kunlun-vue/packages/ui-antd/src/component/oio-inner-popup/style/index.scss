@@ -22,8 +22,7 @@ $innerPopupSmallWidth: 400px;
   display: flex;
   flex-direction: column;
   background-color: var(--oio-background);
-  border: var($parameterPrefix + -border-width) var($parameterPrefix + -border-style)
-    var($parameterPrefix + -border-color);
+  border: var($parameterPrefix + -border-width) var($parameterPrefix + -border-style) var($parameterPrefix + -border-color);
   border-radius: var($parameterPrefix + -border-radius, 4px);
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.05);
 
@@ -53,19 +52,8 @@ $innerPopupSmallWidth: 400px;
       align-items: center;
       column-gap: 8px;
 
-      .#{$innerPopupClassPrefix}-title-icon-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
-        background-color: var(--oio-icon-color);
+      .oio-close-icon {
         cursor: pointer;
-
-        .oio-icon {
-          font-size: 10px;
-        }
       }
     }
 
@@ -77,7 +65,7 @@ $innerPopupSmallWidth: 400px;
   .#{$innerPopupClassPrefix}-body {
     padding: 16px;
     flex: 1 1px;
-    overflow: scroll;
+    overflow: auto;
 
     & + .#{$innerPopupClassPrefix}-footer {
       border-top: 1px solid var(--oio-border-color);
@@ -108,11 +96,11 @@ $innerPopupSmallWidth: 400px;
 
     .#{$innerPopupClassPrefix} {
       @include mediaResponsive(
-        flex-basis,
-        $innerPopupDefaultWidth,
-        $innerPopupLargeWidth,
-        $innerPopupMediumWidth,
-        $innerPopupSmallWidth
+          flex-basis,
+          $innerPopupDefaultWidth,
+          $innerPopupLargeWidth,
+          $innerPopupMediumWidth,
+          $innerPopupSmallWidth
       );
     }
   }
@@ -136,11 +124,11 @@ $innerPopupSmallWidth: 400px;
 
     .#{$innerPopupClassPrefix} {
       @include mediaResponsive(
-        flex-basis,
-        $innerPopupDefaultWidth,
-        $innerPopupLargeWidth,
-        $innerPopupMediumWidth,
-        $innerPopupSmallWidth
+          flex-basis,
+          $innerPopupDefaultWidth,
+          $innerPopupLargeWidth,
+          $innerPopupMediumWidth,
+          $innerPopupSmallWidth
       );
     }
   }

@@ -45,6 +45,13 @@ export enum BooleanConditionComparisonOperator {
 
   LIST_EMPTY = 'LIST_IS_EMPTY',
   LIST_NOT_EMPTY = '!LIST_IS_EMPTY'
+
+  // 范围
+  // BETWEEN_AND = 'BETWEEN_AND',
+  // NOT_BETWEEN_AND = '!BETWEEN_AND',
+  //
+  // IN_SET = 'IN_SET',
+  // NOT_IN_SET = '!IN_SET'
   //
   // // Binary Enumeration
   // HAS = '=has=',
@@ -105,6 +112,10 @@ export const TwoArgLeftRightFunBooleanOperatorList = [
   BooleanConditionComparisonOperator.LIST_NOT_IN,
   BooleanConditionComparisonOperator.LIST_IN_LIST,
   BooleanConditionComparisonOperator.LIST_NOT_IN_LIST
+  // BooleanConditionComparisonOperator.IN_SET,
+  // BooleanConditionComparisonOperator.NOT_IN_SET,
+  // BooleanConditionComparisonOperator.BETWEEN_AND,
+  // BooleanConditionComparisonOperator.NOT_BETWEEN_AND
 ].map((a) => a.toString());
 
 // 后端解析函数需要给参数用单引号包裹起来
@@ -137,6 +148,32 @@ export const BooleanExpressionCompareOperatorList: IExpSelectOption[] = [
   {
     label: '大于等于',
     value: BooleanConditionComparisonOperator.GREATER_THAN_OR_EQUAL
+  },
+  // {
+  //   label: '包含',
+  //   value: BooleanConditionComparisonOperator.IN,
+  //   multi: true
+  // },
+  // {
+  //   label: '不包含',
+  //   value: BooleanConditionComparisonOperator.NOT_IN,
+  //   multi: true
+  // },
+  // {
+  //   label: '在...之内',
+  //   value: BooleanConditionComparisonOperator.IN_SET
+  // },
+  // {
+  //   label: '不在...之内',
+  //   value: BooleanConditionComparisonOperator.NOT_IN_SET
+  // },
+  {
+    label: '为空',
+    value: BooleanConditionComparisonOperator.IS_NULL
+  },
+  {
+    label: '非空',
+    value: BooleanConditionComparisonOperator.NOT_NULL
   }
 ];
 
@@ -183,6 +220,14 @@ export const NumberBooleanCompareOperatorList = [
     label: '非空',
     value: BooleanConditionComparisonOperator.NOT_NULL
   }
+  // {
+  //   label: '范围',
+  //   value: BooleanConditionComparisonOperator.BETWEEN_AND
+  // },
+  // {
+  //   label: '不在范围',
+  //   value: BooleanConditionComparisonOperator.NOT_BETWEEN_AND
+  // }
 ] as IOperatorSelectOption[];
 
 export const DateBooleanCompareOperatorList = [
@@ -228,6 +273,14 @@ export const DateBooleanCompareOperatorList = [
     label: '非空',
     value: BooleanConditionComparisonOperator.NOT_NULL
   }
+  // {
+  //   label: '范围',
+  //   value: BooleanConditionComparisonOperator.BETWEEN_AND
+  // },
+  // {
+  //   label: '不在范围',
+  //   value: BooleanConditionComparisonOperator.NOT_BETWEEN_AND
+  // }
 ] as IOperatorSelectOption[];
 export const StringBooleanCompareOperatorList = [
   {
@@ -262,6 +315,11 @@ export const StringBooleanCompareOperatorList = [
     multi: false
   },
   {
+    label: '不包含',
+    value: BooleanConditionComparisonOperator.NOT_LIKE,
+    multi: false
+  },
+  {
     label: '开始于',
     value: BooleanConditionComparisonOperator.STARTS,
     multi: false
@@ -271,6 +329,14 @@ export const StringBooleanCompareOperatorList = [
     value: BooleanConditionComparisonOperator.ENDS,
     multi: false
   }
+  // {
+  //   label: '在...之内',
+  //   value: BooleanConditionComparisonOperator.IN_SET
+  // },
+  // {
+  //   label: '不在...之内',
+  //   value: BooleanConditionComparisonOperator.NOT_IN_SET
+  // }
 ] as IOperatorSelectOption[];
 
 /**
@@ -421,5 +487,13 @@ export const ExpressionTtypeXBooleanCompareOperatorListMap = {
       multi: true,
       rightArgMulti: true
     }
+    // {
+    //   label: '在...之内',
+    //   value: BooleanConditionComparisonOperator.IN_SET
+    // },
+    // {
+    //   label: '不在...之内',
+    //   value: BooleanConditionComparisonOperator.NOT_IN_SET
+    // }
   ] as IOperatorSelectOption[]
 };

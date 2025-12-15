@@ -50,10 +50,9 @@
 </template>
 <script lang="ts">
 import { CheckOutlined } from '@ant-design/icons-vue';
-import { OioSpin, OioEmptyData, OioIcon } from '@oinone/kunlun-vue-ui-antd';
-import { computed, defineComponent, ref, watch } from 'vue';
+import { OioEmptyData, OioIcon, OioSpin, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect, SelectOption as ASelectOption } from 'ant-design-vue';
-import { useInjectOioDefaultFormContext } from '../../../basic';
+import { computed, defineComponent, ref, watch } from 'vue';
 import { RelationSelectProps, relationSelectSetup } from '../../prop';
 
 export default defineComponent({
@@ -130,6 +129,7 @@ export default defineComponent({
   .lang-badge-selection-opt {
     display: flex;
     align-items: center;
+
     .oio-icon {
       margin-right: 5px;
     }

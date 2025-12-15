@@ -25,7 +25,7 @@ export default defineComponent({
     ...OioInputNumberProps
   },
   slots: ['prepend', 'append', 'prefix', 'suffix'],
-  emits: ['update:value', 'focus', 'blur'],
+  emits: ['update:value', 'change', 'focus', 'blur'],
   setup(props, context) {
     const origin = ref();
     const realValue = computed<BigNumber | undefined>(() => {
@@ -68,11 +68,13 @@ export default defineComponent({
           return false;
         }
         context.emit('update:value', val);
+        context.emit('change', val);
         return true;
       }
       let newVal = val.toString();
       if (newVal.endsWith('.') || newVal.endsWith('0')) {
         context.emit('update:value', newVal);
+        context.emit('change', newVal);
         return true;
       }
       const newNumberVal = new BigNumber(newVal);
@@ -84,6 +86,7 @@ export default defineComponent({
         return false;
       }
       context.emit('update:value', newVal);
+      context.emit('change', newVal);
       return true;
     };
 

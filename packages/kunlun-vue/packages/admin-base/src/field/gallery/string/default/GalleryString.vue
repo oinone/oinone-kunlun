@@ -102,4 +102,12 @@ export default defineComponent({
     color: var(--oio-text-color-secondary);
   }
 }
+
+.default-card-title-wrap,
+.default-card-content-wrap {
+  .gallery-string-value {
+    text-wrap: wrap;
+    word-wrap: break-word;
+  }
+}
 </style>

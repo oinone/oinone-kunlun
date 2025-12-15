@@ -1,6 +1,5 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { CastHelper, CSSStyle, StringHelper } from '@oinone/kunlun-shared';
+import { CastHelper, CSSStyle } from '@oinone/kunlun-shared';
 import {
   FlexColMode,
   FlexDirection,
@@ -22,9 +21,6 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     ...OioColProps,
-    template: {
-      type: Object as PropType<DslDefinition>
-    },
     invisible: {
       type: Boolean,
       default: false
@@ -65,7 +61,7 @@ export default defineComponent({
     };
   },
   render() {
-    const { $attrs, $slots, template, mode, invisible, rowFlexDirection, rowWrap } = this;
+    const { $attrs, $slots, mode, invisible, rowFlexDirection, rowWrap } = this;
     const classList: string[] = [];
     if (mode === FlexColMode.FULL) {
       classList.push('default-col-full');
@@ -76,11 +72,7 @@ export default defineComponent({
     }
     let colProps = {
       ...PropRecordHelper.convert(OioColProps, CastHelper.cast(this)),
-      ...PropRecordHelper.collectionBasicProps(
-        $attrs,
-        StringHelper.append(classList, CastHelper.cast(template?.class)),
-        CastHelper.cast(template?.style)
-      )
+      ...PropRecordHelper.collectionBasicProps($attrs, classList)
     } as OioColModel & Record<string, unknown>;
     if ((mode && [FlexColMode.FULL, FlexColMode.AUTO].includes(mode)) || rowFlexDirection === FlexDirection.Column) {
       colProps = {

@@ -103,6 +103,8 @@ export default defineComponent({
             }
           } else if ((vnode.type as { name: string })?.name?.toLowerCase?.() === InternalWidget.Action) {
             children.push(vnode);
+          } else if ((vnode.type as { name: string })?.name?.toLowerCase?.() === InternalWidget.Action) {
+            children.push(vnode);
           }
         }
         return true;
@@ -184,101 +186,3 @@ export default defineComponent({
   }
 });
 </script>
-<style lang="scss">
-.default-dropdown-overlay {
-  min-width: 96px;
-  max-width: 160px;
-  z-index: 999;
-
-  .default-dropdown-menu {
-    background-color: var(--oio-background);
-    border: 1px solid var(--oio-border-color);
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-    position: unset;
-    padding: 7px 0;
-
-    .ant-dropdown-menu-title-content {
-      position: unset;
-
-      .ant-modal-root {
-        position: fixed;
-        top: 0;
-        left: 0;
-      }
-    }
-
-    & > button {
-      display: block;
-      border: 0;
-      border-bottom: 1px solid var(--oio-border-color);
-      color: var(--oio-primary-color);
-      border-radius: 0;
-
-      &:hover {
-        background: var(--oio-hover-background-color);
-        border: 0;
-        border-bottom: 1px solid var(--oio-border-color);
-      }
-
-      &:first-child {
-        border-radius: 4px 4px 0 0;
-      }
-
-      &:last-child {
-        border-radius: 0 0 4px 4px;
-        border: 0;
-
-        &:hover {
-          border: 0;
-        }
-      }
-    }
-
-    .ant-dropdown-menu-item {
-      padding: 6px 12px;
-
-      &:not(:first-child) {
-        margin-top: 7px;
-      }
-
-      &:not(:last-child) {
-        margin-bottom: 7px;
-
-        &:after {
-          content: '';
-          height: 1px;
-          width: calc(100% - 16px);
-          position: absolute;
-          background-color: var(--oio-border-color);
-          bottom: -4px;
-          left: 8px;
-        }
-      }
-
-      .oio-button {
-        width: 100%;
-
-        &.oio-button-icon-before,
-        &.oio-button-icon-after {
-          .oio-action-content {
-            max-width: calc(100% - 18px);
-          }
-        }
-
-        .oio-action-content {
-          max-width: 100%;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          vertical-align: middle;
-        }
-      }
-
-      &.ant-dropdown-menu-item-disabled:hover {
-        background: var(--oio-disabled-color);
-      }
-    }
-  }
-}
-</style>

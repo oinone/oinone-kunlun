@@ -5,12 +5,11 @@ import {
   ConfirmModal,
   FunctionCache,
   FunctionService,
-  GetRequestModelFieldsOptions,
-  ModelCache,
   parseConfigs,
   RequestModelField,
   resolveDynamicDomain,
   resolveDynamicExpression,
+  ROOT_HANDLE,
   RuntimeAction,
   RuntimeContext,
   RuntimeContextManager,
@@ -51,6 +50,10 @@ export class ActionWidget<
   Action extends RuntimeAction = RuntimeAction,
   Props extends ActionWidgetProps<Action> = ActionWidgetProps<Action>
 > extends BaseActionWidget<Action, Props> {
+  protected get actionConfig() {
+    return this.getMergeConfig('action');
+  }
+
   /**
    * 搜索数据
    * @protected
@@ -243,6 +246,11 @@ export class ActionWidget<
   }
 
   @Widget.Reactive()
+  protected get labelInvisible(): boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().labelInvisible);
+  }
+
+  @Widget.Reactive()
   @Widget.Provide('buttonType')
   protected nextButtonType: string | undefined;
 
@@ -258,6 +266,11 @@ export class ActionWidget<
   @Widget.Inject()
   protected operatorColumnButtonType: string | undefined;
 
+  @Widget.Reactive()
+  protected get actionBarBizStyle(): { type: ButtonType; bizStyle: ButtonBizStyle } | undefined {
+    return this.actionBarState?.getActionBarBizStyle?.(this.currentHandle);
+  }
+
   protected defaultType = ButtonType.primary;
 
   @Widget.Reactive()
@@ -265,17 +278,57 @@ export class ActionWidget<
     if (this.inline) {
       return this.buttonType?.toLowerCase?.() || ButtonType.link;
     }
-    return this.getDsl().type?.toLowerCase?.() || this.buttonType?.toLowerCase?.() || this.defaultType;
+    const type = this.getDsl().type?.toLowerCase?.() || this.buttonType?.toLowerCase?.();
+    if (type) {
+      return type;
+    }
+    const { actionBarBizStyle } = this;
+    if (actionBarBizStyle) {
+      return actionBarBizStyle.type;
+    }
+    return this.defaultType;
   }
 
   @Widget.Reactive()
   protected get bizStyle(): string {
-    return this.getDsl().bizStyle?.toLowerCase?.() || ButtonBizStyle.default;
+    const bizStyle = this.getDsl().bizStyle?.toLowerCase?.();
+    if (bizStyle) {
+      return bizStyle;
+    }
+    const { actionBarBizStyle } = this;
+    if (actionBarBizStyle) {
+      return actionBarBizStyle.bizStyle;
+    }
+    return ButtonBizStyle.default;
   }
 
   @Widget.Reactive()
   protected get icon(): string | undefined {
-    return this.getDsl().icon;
+    let { icon } = this.getDsl();
+    if (!icon && this.rootRuntimeContext.parentContext?.handle !== ROOT_HANDLE) {
+      icon = this.defaultIcon;
+    }
+    return icon;
+  }
+
+  @Widget.Reactive()
+  protected get defaultIcon(): string | undefined {
+    const showDefaultIcon = BooleanHelper.toBoolean(this.actionConfig.showDefaultIcon);
+    if (showDefaultIcon !== false) {
+      const { name } = this.action;
+      switch (name) {
+        case 'redirectCreatePage':
+          return 'oinone-plus-outlined';
+        case 'delete':
+          return 'oinone-delete-outlined';
+        case 'internalGotoListImportDialog':
+          return 'oinone-import-outlined';
+        case 'internalGotoListExportDialog':
+          return 'oinone-export-outlined';
+        case 'internalGotoPrintDialog':
+          return 'oinone-dayin';
+      }
+    }
   }
 
   protected seekSearchRuntimeContext(): RuntimeContext | undefined {
@@ -742,6 +795,32 @@ export class ActionWidget<
     return result;
   }
 
+  @Widget.Reactive()
+  public get actionProps() {
+    return {
+      label: this.label,
+      labelInvisible: this.labelInvisible,
+      bizStyle: this.bizStyle,
+      loading: this.loading,
+      invisible: this.invisible,
+      disabled: this.disabled,
+      help: this.help,
+      disabledTitle: this.disabledTitle,
+      icon: this.icon,
+      action: this.action,
+      enableConfirm: this.enableConfirm,
+      confirm: this.confirm,
+      confirmTitle: this.confirmTitle,
+      confirmPosition: this.confirmPosition,
+      enterText: this.enterText,
+      cancelText: this.cancelText,
+      visibleConfirm: this.visibleConfirm,
+      changeVisibleConfirm: this.changeVisibleConfirm,
+      validatorForm: this.validatorForm.bind(this),
+      validateAndClick: this.validateAndClick.bind(this)
+    };
+  }
+
   /**
    * 手动触发按钮点击方法
    * @param args 参数
@@ -1035,36 +1114,6 @@ export class ActionWidget<
     // }
 
     return result;
-  }
-
-  protected async getRequestModelFields(options?: GetRequestModelFieldsOptions): Promise<RequestModelField[]> {
-    const { viewType } = this;
-    if (viewType === ViewType.Tree) {
-      const runtimeModel = await ModelCache.get(this.model.model);
-      if (runtimeModel) {
-        return runtimeModel.modelFields.map((field) => ({ field }));
-      }
-      return [];
-    }
-    if (this.popupScene) {
-      return this.seekPopupMainRuntimeContext().getRequestModelFields(options);
-    }
-    return this.rootRuntimeContext.getRequestModelFields(options);
-  }
-
-  protected seekPopupMainRuntimeContext(): RuntimeContext {
-    if (this.metadataHandle === this.rootHandle) {
-      const modelModel = this.model.model;
-      if (modelModel) {
-        const popupMainRuntimeContext = RuntimeContextManager.getOthers(this.rootHandle)?.find(
-          (v) => v.model.model === modelModel
-        );
-        if (popupMainRuntimeContext) {
-          return popupMainRuntimeContext;
-        }
-      }
-    }
-    return this.rootRuntimeContext;
   }
 
   protected async submit(action: RuntimeServerAction): Promise<SubmitValue> {

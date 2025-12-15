@@ -1,20 +1,18 @@
 import { PropType } from 'vue';
 import { VcMaskPopupAppearanceProps, VcPopupAppearanceProps, VcPopupControlProps, VcPopupDataProps } from '../vc-popup';
-import { ModalWidth, ModalWidthType } from './typing';
+import { ModalWidthType } from './typing';
 
 const OioModalAppearanceProps = {
   ...VcPopupAppearanceProps,
   ...VcMaskPopupAppearanceProps,
   title: {
-    type: String,
-    default: '对话框'
+    type: String
   },
   help: {
     type: String
   },
   width: {
-    type: [Number, String] as PropType<ModalWidthType | string | number>,
-    default: ModalWidth.small
+    type: [Number, String] as PropType<ModalWidthType | string | number>
   },
   height: {
     type: [Number, String] as PropType<ModalWidthType | string | number>
@@ -26,6 +24,16 @@ const OioModalAppearanceProps = {
   footerInvisible: {
     type: Boolean,
     default: undefined
+  },
+  // 是否显示切换全屏按钮
+  enabledFullScreen: {
+    type: Boolean,
+    default: true
+  },
+  // 是否显示切换窗口类型按钮
+  showPopupToggle: {
+    type: Boolean,
+    default: true
   }
 };
 

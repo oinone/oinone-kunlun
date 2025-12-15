@@ -2,6 +2,7 @@ import { ActionDslDefinition, DslDefinition, DslDefinitionHelper, FieldDslDefini
 import { ModelFieldType, ModelType } from '@oinone/kunlun-meta';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import {
+  RuntimeEnumerationOption,
   RuntimeM2MField,
   RuntimeM2OField,
   RuntimeModel,
@@ -10,7 +11,7 @@ import {
   RuntimeO2OField,
   RuntimeRelationField
 } from '../../../runtime-metadata';
-import { isRelationField } from '../../helper';
+import { isEnumerationField, isRelationField } from '../../helper';
 import { RuntimeContext } from '../../runtime-context';
 import { RuntimeContextManager } from '../../runtime-context-manager';
 import { convert as convertAction, getAndRepairName as getAndRepairActionName } from '../action/resolve';
@@ -62,38 +63,50 @@ export function convertRelationField(
     field.sortFields = sortFields;
   }
 
-  const dslReferences: DslReferenceModel = dsl.options?.[0];
-  const references = dsl.references as string;
-  if (!references) {
-    throw new Error('Invalid relation field. references is required.');
-  }
-
-  if (dslReferences) {
-    const referencesModel: RuntimeModel = {
-      model: references,
-      type: dslReferences.referencesType,
-      name: dslReferences.referencesModelName,
-      moduleName: dslReferences.referencesModuleName,
-      pks: ResolveUtil.toArray(dslReferences.referencesPks),
-      uniques: ResolveUtil.toArray(dslReferences.referencesUniques, ';')
-        ?.map((v) => ResolveUtil.toArray(v)!)
-        .filter((v) => !!v),
-      label: dslReferences.optionLabel || dslReferences.referencesLabel,
-      labelFields: ResolveUtil.toArray(dslReferences.optionFields || dslReferences.referencesLabelFields),
-      modelFields: [],
-      modelActions: []
-    };
+  if (dsl.referencesModel) {
+    const referencesModel = dsl.referencesModel as RuntimeModel;
+    field.references = referencesModel.model;
     field.referencesModel = referencesModel;
+  } else {
+    const dslReferences: DslReferenceModel = dsl.options?.[0];
+    const references = dsl.references as string;
+    if (!references) {
+      throw new Error('Invalid relation field. references is required.');
+    }
 
-    const resolveContext = RuntimeContextManager.createOrReplace(uniqueKeyGenerator());
-    resolveContext.model = referencesModel;
+    if (dslReferences) {
+      const referencesModel: RuntimeModel = {
+        model: references,
+        type: dslReferences.referencesType,
+        name: dslReferences.referencesModelName,
+        moduleName: dslReferences.referencesModuleName,
+        pks: ResolveUtil.toArray(dslReferences.referencesPks),
+        uniques: ResolveUtil.toArray(dslReferences.referencesUniques, ';')
+          ?.map((v) => ResolveUtil.toArray(v)!)
+          .filter((v) => !!v),
+        label: dslReferences.optionLabel || dslReferences.referencesLabel,
+        labelFields: ResolveUtil.toArray(dslReferences.optionFields || dslReferences.referencesLabelFields),
+        modelFields: [],
+        modelActions: []
+      };
+      field.referencesModel = referencesModel;
 
-    resolveExtendFieldAndAction(resolveContext, dsl);
-    resolveReferenceModelField(referencesModel, dslReferences.widgets);
+      const resolveContext = RuntimeContextManager.createOrReplace(uniqueKeyGenerator());
+      resolveContext.model = referencesModel;
 
-    RuntimeContextManager.delete(resolveContext.handle);
+      resolveExtendFieldAndAction(resolveContext, dsl);
+      resolveReferenceModelField(
+        {
+          dataDictionaryMap: runtimeContext.dataDictionaryMap || {}
+        },
+        referencesModel,
+        dslReferences.widgets
+      );
+
+      RuntimeContextManager.delete(resolveContext.handle);
+    }
+    field.references = references;
   }
-  field.references = references;
   field.relationFields = ResolveUtil.toArray(dsl.relationFields) || [];
   field.referenceFields = ResolveUtil.toArray(dsl.referenceFields) || [];
 }
@@ -129,12 +142,19 @@ export function convertM2MField(runtimeContext: RuntimeContext, dsl: FieldDslDef
   }
 }
 
-function resolveReferenceModelField(model: RuntimeModel, fields: DslReferenceModelField[] | undefined): void {
+function resolveReferenceModelField(
+  context: {
+    dataDictionaryMap: Record<string, RuntimeEnumerationOption[]>;
+  },
+  model: RuntimeModel,
+  fields: DslReferenceModelField[] | undefined
+): void {
   const { modelFields } = model;
   fields?.forEach((field) => {
     if (modelFields.some((v) => v.data === field.data)) {
       return;
     }
+    let finalField = field;
     if (isDslReferenceRelationModelField(field)) {
       const relationField = { ...field };
       const dslReferences: DslReferenceModel | undefined = field.options?.[0];
@@ -151,13 +171,18 @@ function resolveReferenceModelField(model: RuntimeModel, fields: DslReferenceMod
           modelActions: []
         };
         (relationField as unknown as RuntimeRelationField).referencesModel = referencesModel;
-        resolveReferenceModelField(referencesModel, dslReferences.widgets);
+        resolveReferenceModelField(context, referencesModel, dslReferences.widgets);
       }
       delete relationField.options;
-      modelFields.push(relationField as unknown as RuntimeModelField);
-      return;
+      finalField = relationField;
     }
-    modelFields.push(field as RuntimeModelField);
+    const runtimeField = finalField as RuntimeModelField;
+    if (isEnumerationField(runtimeField)) {
+      if (!runtimeField.options && runtimeField.dictionary) {
+        runtimeField.options = context.dataDictionaryMap[runtimeField.dictionary] || [];
+      }
+    }
+    modelFields.push(runtimeField);
   });
 }
 

@@ -3,8 +3,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { RowContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { createVNode, VNode } from 'vue';
-import { BaseFieldWidget } from '../../../../basic';
-import { TableM2OFieldWidget } from '../../relation';
+import { BaseFieldWidget, TableObjectFieldWidget } from '../../../../basic';
 import Link from './Link.vue';
 
 @SPI.ClassFactory(
@@ -14,7 +13,7 @@ import Link from './Link.vue';
     widget: 'Upload'
   })
 )
-export class TableM2ODownloadWidget extends TableM2OFieldWidget {
+export class TableM2ODownloadWidget extends TableObjectFieldWidget {
   @Widget.Method()
   public renderDefaultSlot(context: RowContext): VNode[] | string {
     const value = this.compute(context);

@@ -6,6 +6,7 @@ $largeSize: 1.6em;
 
 .#{$spinClassPrefix} {
   background: var(--oio-spin-background);
+
   &-small {
     .#{$spinClassPrefix}-loading {
       width: $smallSize;
@@ -38,11 +39,5 @@ $largeSize: 1.6em;
     100% {
       transform: rotate(360deg);
     }
-  }
-}
-
-.ant-spin-nested-loading > div > .ant-spin {
-  &.#{$spinClassPrefix} {
-    max-height: inherit;
   }
 }

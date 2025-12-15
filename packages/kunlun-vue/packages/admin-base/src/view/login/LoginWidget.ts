@@ -359,7 +359,7 @@ export class LoginWidget extends BaseLoginWidget {
    * @protected
    */
   protected async executeResult(result, isByLogin = false) {
-    const rst = this.afterClick(result);
+    const rst = await this.afterClick(result);
 
     if (!rst) {
       return;

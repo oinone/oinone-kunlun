@@ -194,7 +194,6 @@ const onAdd = () => {
       const dialogWidget = instance.widget as DialogWidget;
       const newPerm = dialogWidget?.rootData?.[0] as unknown as IPermission;
       if (newPerm) {
-        console.log('newPerm', newPerm);
         dataSource.value.push({ ...newPerm, domainExpJson: '' });
         reloadTableData();
       }

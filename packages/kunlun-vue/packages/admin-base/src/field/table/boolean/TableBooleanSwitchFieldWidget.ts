@@ -1,4 +1,4 @@
-import { FunctionService, RuntimeServerAction } from '@oinone/kunlun-engine';
+import { FunctionService, RuntimeServerAction, translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { RowContext } from '@oinone/kunlun-vue-ui';
@@ -34,6 +34,18 @@ export class TableBooleanSwitchFieldWidget extends BaseTableFieldWidget<boolean>
 
   @Widget.Reactive()
   private visiblePopconfirm = false;
+
+  @Widget.Method()
+  public onAutofocus(params: { cell: HTMLElement }) {
+    const { cell } = params;
+    if (!cell) {
+      return;
+    }
+    const input = cell.querySelector('.oio-switch') as HTMLElement;
+    if (input) {
+      input.focus();
+    }
+  }
 
   @Widget.Method()
   public renderDefaultSlot(context: RowContext): VNode[] {
@@ -96,12 +108,20 @@ export class TableBooleanSwitchFieldWidget extends BaseTableFieldWidget<boolean>
               default: () =>
                 createVNode(OioSwitch, {
                   checked: value,
-                  disabled: disabled
+                  disabled
                 })
             }
           )
         ]
       )
     ];
+  }
+
+  public renderGroupTitleSlot(context: RowContext): VNode[] | string {
+    const value = this.compute(context) === true;
+    if (value) {
+      return translateValueByKey('是');
+    }
+    return translateValueByKey('否');
   }
 }

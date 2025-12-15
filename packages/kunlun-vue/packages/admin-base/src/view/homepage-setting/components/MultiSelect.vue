@@ -15,6 +15,7 @@
         mode="multiple"
         class="oio-select"
         show-search
+        show-arrow
         label-in-value
         :max-tag-count="maxTagCount"
         :allowClear="allowClear"
@@ -47,10 +48,9 @@
   </div>
 </template>
 <script lang="ts">
-import { OioSpin, OioEmptyData } from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, PropType, ref, watch } from 'vue';
+import { OioEmptyData, OioSpin, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
-import { useInjectOioDefaultFormContext } from '../../../basic';
+import { defineComponent, PropType, ref, watch } from 'vue';
 import { RelationSelectProps, relationSelectSetup } from '../../../field';
 
 export default defineComponent({

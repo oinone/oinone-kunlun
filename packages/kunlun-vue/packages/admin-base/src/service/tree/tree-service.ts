@@ -3,8 +3,14 @@ import { ExpressionRunParam } from '@oinone/kunlun-expression';
 import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { GQL } from '@oinone/kunlun-request';
 import { http, IQueryPageResult } from '@oinone/kunlun-service';
-import { CastHelper, GraphqlHelper, TreeHelper, TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
+import {
+  CastHelper,
+  GraphqlHelper,
+  OioTreeNode,
+  TreeHelper,
+  TreeNode,
+  uniqueKeyGenerator
+} from '@oinone/kunlun-shared';
 import { cloneDeep } from 'lodash-es';
 import { CardCascaderItemData, TreeData, TreeNodeMetadata } from '../../typing';
 

@@ -1,8 +1,11 @@
+import { PamirsDepartment, RuntimeM2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { BooleanHelper, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { FormFieldWidget } from '../../../../basic';
-import { generatorDefaultDepartmentTreeDefinition } from '../../../../util/default-tree-definition';
-import { FormM2MTreeSelectFieldWidget } from '../tree-select/FormM2MTreeSelectFieldWidget';
+import { SelectMode } from '@oinone/kunlun-vue-ui-common';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { FormFieldWidget, SelectFieldWidget } from '../../../../basic';
+import { DepartmentSelect } from '../../../../components';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
@@ -11,8 +14,55 @@ import { FormM2MTreeSelectFieldWidget } from '../tree-select/FormM2MTreeSelectFi
     widget: 'Department'
   })
 )
-export class FormM2MDepartmentFieldWidget extends FormM2MTreeSelectFieldWidget {
-  protected generatorDefaultTreeDefinition(props) {
-    return generatorDefaultDepartmentTreeDefinition();
+export class FormM2MDepartmentFieldWidget extends SelectFieldWidget<
+  PamirsDepartment,
+  PamirsDepartment[],
+  RuntimeM2MField
+> {
+  @Widget.Reactive()
+  protected mode: SelectMode = SelectMode.multiple;
+
+  public initialize(props) {
+    super.initialize(props);
+    this.setComponent(DepartmentSelect);
+    return this;
+  }
+
+  @Widget.Reactive()
+  protected get departmentCodes(): string[] | undefined {
+    return StringHelper.convertArray(this.getDsl().departmentCodes);
+  }
+
+  @Widget.Reactive()
+  protected get userCompanyDept(): boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().userCompanyDept);
+  }
+
+  @Widget.Reactive()
+  protected get userDept(): boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().userDept);
+  }
+
+  @Widget.Reactive()
+  protected get userDeptAndChildren(): boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().userDeptAndChildren);
+  }
+
+  protected generatorSelectItemKey(value: PamirsDepartment): string {
+    return value.code || super.generatorSelectItemKey(value);
+  }
+
+  public async submit(submitValue: SubmitValue) {
+    const { field, itemName, value, viewMode, submitCache, submitType, relationUpdateType } = this;
+    return SubmitRelationHandler.M2M(
+      field,
+      itemName,
+      submitValue,
+      value,
+      viewMode,
+      submitCache,
+      submitType,
+      relationUpdateType
+    );
   }
 }
