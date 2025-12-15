@@ -1,9 +1,9 @@
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { SPI } from '@oinone/kunlun-spi';
+import { CSSClass, DEFAULT_PREFIX, StringHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
 import { DropdownWidget } from './DropdownWidget';
-import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { translateValueByKey } from '@oinone/kunlun-engine';
 
 export enum DropdownContentType {
   TEXT = 'TEXT',
@@ -40,7 +40,7 @@ export class ToolbarDropdownWidget extends DropdownWidget {
   protected inline = true;
 
   @Widget.Reactive()
-  public get class() {
-    return `${DEFAULT_PREFIX}-action-bar-with-more-popover-container`;
+  public get class(): CSSClass | undefined {
+    return StringHelper.append([`${DEFAULT_PREFIX}-action-bar-with-more-popover-container`], super.class);
   }
 }

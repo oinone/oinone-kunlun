@@ -94,11 +94,6 @@ export class FormStringFieldWidget extends FormInputAbstractFieldWidget<string, 
   }
 
   @Widget.Reactive()
-  public get class() {
-    return '';
-  }
-
-  @Widget.Reactive()
   protected get type() {
     const _type = this.executeExpression(this.getDsl().type, InputType.TEXT);
     if (_type) {
