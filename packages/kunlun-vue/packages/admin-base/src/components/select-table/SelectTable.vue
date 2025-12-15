@@ -150,7 +150,7 @@ export default defineComponent({
     });
 
     const dropdownTableClassName = computed(() => {
-      return `${props.dropdownClassName} oio-select-table-dropdown`;
+      return `${props.dropdownClassName} oio-select-table-dropdown vxe-table--ignore-clear`;
     });
 
     /**

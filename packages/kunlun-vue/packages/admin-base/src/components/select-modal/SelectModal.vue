@@ -26,6 +26,7 @@
     v-model:visible="showModal"
     :title="field?.displayName || field?.label"
     :width="modalWidth"
+    wrapper-class-name="vxe-table--ignore-clear"
     @enter="onModalEnter"
     @cancel="onModalCancel"
   >
