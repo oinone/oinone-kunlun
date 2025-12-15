@@ -8,6 +8,7 @@
         dropdownClassName="oio-select-dropdown"
         :placeholder="placeholder"
         :allowClear="allowClear"
+        show-arrow
         :open="dropdownOpen"
         max-tag-count="responsive"
         :max-tag-placeholder="defaultMaxTagPlaceholder"

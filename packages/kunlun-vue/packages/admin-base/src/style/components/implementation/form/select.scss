@@ -325,16 +325,6 @@
       height: calc(var(--oio-height) - 4px);
       line-height: calc(var(--oio-select-line-height) - 4px);
     }
-
-    &:after {
-      font-family: 'selectIconfont';
-      content: '\e6cf';
-      font-size: 14px;
-      color: var(--oio-icon-color);
-      line-height: var(--oio-select-line-height);
-      width: auto;
-      margin-right: 8px;
-    }
   }
 
   &.hide-clear {

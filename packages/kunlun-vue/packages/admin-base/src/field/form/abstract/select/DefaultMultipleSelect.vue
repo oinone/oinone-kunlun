@@ -19,6 +19,7 @@
         :show-search="selectShowSearch"
         :max-tag-count="maxTagCount"
         :allow-clear="allowClear"
+        show-arrow
         :disabled="innerDisabled"
         :value="currentValue === null ? undefined : currentValue"
         :filter-option="false"

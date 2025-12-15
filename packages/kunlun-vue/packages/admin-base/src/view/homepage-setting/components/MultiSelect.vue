@@ -15,6 +15,7 @@
         mode="multiple"
         class="oio-select"
         show-search
+        show-arrow
         label-in-value
         :max-tag-count="maxTagCount"
         :allowClear="allowClear"
