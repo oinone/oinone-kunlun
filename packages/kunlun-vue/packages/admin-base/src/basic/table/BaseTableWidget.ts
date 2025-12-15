@@ -69,8 +69,6 @@ export interface TableBindingKeyboardConfig {
 
 const URL_SPLIT_SEPARATOR = ',';
 const ORDERING_SEPARATOR = ',';
-const ORDERING_FIELD_ORDER_SEPARATOR = ' ';
-const DEFAULT_ORDERING_ORDER = EDirection.ASC;
 
 export class BaseTableWidget<
   Props extends BaseElementListViewWidgetProps = BaseElementListViewWidgetProps
@@ -155,11 +153,19 @@ export class BaseTableWidget<
     return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.sortable)).orElse(true);
   }
 
+  @Widget.Reactive()
+  protected get enableViewControl() {
+    return BooleanHelper.toBoolean(this.tableConfig.enableViewControl);
+  }
+
   /**
    * 视图控制组，包含所有子组件
    */
   @Widget.Reactive()
   protected get viewControlWidget(): DslDefinition | undefined {
+    if (this.enableViewControl === false) {
+      return undefined;
+    }
     if (!this.viewControlChildren.length) {
       return undefined;
     }
@@ -980,11 +986,15 @@ export class BaseTableWidget<
   @Widget.Reactive()
   @Widget.Provide()
   protected get enableGrouping(): boolean {
+    const enableGrouping = BooleanHelper.toBoolean(this.tableConfig.enableGrouping);
+    if (enableGrouping != null) {
+      return enableGrouping;
+    }
     if (this.inline && !this.isDataSourceProvider) {
       // fixme @zbh 20250925 子表格暂不支持分组
       return false;
     }
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.tableConfig.enableGrouping)).orElse(true);
+    return true;
   }
 
   /**
