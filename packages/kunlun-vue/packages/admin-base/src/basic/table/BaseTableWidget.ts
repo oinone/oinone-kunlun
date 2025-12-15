@@ -765,7 +765,8 @@ export class BaseTableWidget<
           {
             requestFields,
             variables: {
-              path: sessionPath
+              path: sessionPath,
+              relationExcludeUpdate: true
             }
           },
           data
@@ -775,7 +776,10 @@ export class BaseTableWidget<
         model,
         functionDefinition,
         {
-          requestFields
+          requestFields,
+          variables: {
+            relationExcludeUpdate: true
+          }
         },
         data
       );
