@@ -251,7 +251,7 @@ export default defineComponent({
               'onUpdate:checkedKeys': (keys: string[]) => onUpdateState('checkedKeys', keys)
             })
           );
-          let showUserRole = true;
+          let showUserRole = userRole;
           if (!roleCodes?.length) {
             showUserRole = !userRole;
           }
