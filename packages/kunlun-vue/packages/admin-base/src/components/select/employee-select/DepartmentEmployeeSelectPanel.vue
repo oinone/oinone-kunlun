@@ -186,7 +186,7 @@ export default defineComponent({
       onDeploymentSelectedAllEmployee
     } = this;
     return createVNode('div', { class: 'oio-department-employee-selected-panel' }, [
-      createVNode('div', { class: 'oio-department-selected-wrapper' }, [
+      createVNode('div', { class: 'oio-department-selected-wrapper oio-scrollbar' }, [
         createVNode('div', { class: 'oio-department-selected-all-employee-node' }, [
           createVNode(
             'div',
@@ -233,7 +233,7 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .oio-department-employee-selected-panel {
-  height: 100%;
+  height: 400px;
   position: relative;
   display: flex;
 
@@ -241,6 +241,7 @@ export default defineComponent({
     width: 50%;
     flex-basis: 50%;
     padding-right: 8px;
+    overflow: auto;
     display: flex;
     flex-direction: column;
 
@@ -280,6 +281,7 @@ export default defineComponent({
     width: 50%;
     flex-basis: 50%;
     padding-left: 8px;
+    overflow: auto;
   }
 }
 </style>

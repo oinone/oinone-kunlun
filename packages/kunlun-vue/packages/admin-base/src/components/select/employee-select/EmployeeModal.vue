@@ -280,7 +280,6 @@ export default defineComponent({
       {
         title: $translate('选择员工'),
         width: '720px',
-        height: '664px',
         maskClosable: false,
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
         wrapperClassName: StringHelper.append(['oio-employee-modal', 'vxe-table--ignore-clear'], this.wrapperClassName),
@@ -451,46 +450,13 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .oio-employee-modal {
-  .ant-modal-body {
-    overflow-x: hidden;
-
-    & > .oio-spin-wrapper {
-      height: 100%;
-
-      & > .ant-spin-container {
-        height: 100%;
-      }
-    }
-  }
-
   .oio-employee-modal-content {
     display: flex;
     flex-direction: column;
     row-gap: 16px;
-    height: 100%;
 
-    & > .oio-tabs {
-      position: relative;
-      flex: 1;
-
-      & > .ant-tabs-content-holder {
-        position: absolute;
-        width: 100%;
-        height: calc(100% - 54px);
-        top: 54px;
-
-        .ant-tabs-content,
-        .oio-tab,
-        .oio-tab-content {
-          height: 100%;
-        }
-      }
-    }
-
-    .oio-organizational-structure-tree,
-    .oio-employee-list,
-    .oio-role-list {
-      height: 100%;
+    .oio-employee-selected-panel > .oio-employee-list {
+      height: 400px;
       overflow: auto;
     }
   }
