@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui-el",
-  "version": "6.3.7",
+  "version": "6.4.0",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -13,11 +13,11 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-common": "6.3.7"
+    "@oinone/kunlun-vue-ui-common": "6.4.0"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "2.0.9",
-    "@oinone/kunlun-shared": "~6.3.0",
+    "@oinone/kunlun-shared": "~6.4.0",
     "@types/lodash": "4.14.182",
     "@types/lodash-es": "4.17.6",
     "element-plus": "2.2.17",

@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-router",
-  "version": "6.3.7",
+  "version": "6.4.0",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -12,12 +12,12 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-widget": "6.3.7"
+    "@oinone/kunlun-vue-widget": "6.4.0"
   },
   "devDependencies": {
-    "@oinone/kunlun-router": "~6.3.0",
-    "@oinone/kunlun-shared": "~6.3.0",
-    "@oinone/kunlun-spi": "~6.3.0",
+    "@oinone/kunlun-router": "~6.4.0",
+    "@oinone/kunlun-shared": "~6.4.0",
+    "@oinone/kunlun-spi": "~6.4.0",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "11.2.1",
     "@rollup/plugin-replace": "2.4.2",

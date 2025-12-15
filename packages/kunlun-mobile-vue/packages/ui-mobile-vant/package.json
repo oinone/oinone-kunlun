@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui-mobile-vant",
-  "version": "6.3.0",
+  "version": "6.4.0",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -18,8 +18,8 @@
   },
   "devDependencies": {
     "@ant-design/icons-vue": "6.1.0",
-    "@oinone/kunlun-shared": "~6.3.0",
-    "@oinone/kunlun-vue-ui-common": "~6.3.0",
+    "@oinone/kunlun-shared": "~6.4.0",
+    "@oinone/kunlun-vue-ui-common": "~6.4.0",
     "@types/lodash-es": "4.17.6",
     "moment": "2.29.3",
     "sass": "1.44.0",

@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-state",
-  "version": "6.3.1",
+  "version": "6.4.0",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
