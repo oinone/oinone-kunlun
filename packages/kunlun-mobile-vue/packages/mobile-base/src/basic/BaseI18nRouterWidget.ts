@@ -12,7 +12,7 @@ export class BaseI18nRouterWidget extends RouterWidget {
 
   protected translateBrowserTitle = true;
 
-  protected async beforeMount() {
+  protected beforeMount() {
     if (OioProvider.getConfig().enableI18n !== false) {
       initI18n(this.moduleName, this.isoStorageKey).then(() => {
         const title = getDefaultBrowser()?.title;
