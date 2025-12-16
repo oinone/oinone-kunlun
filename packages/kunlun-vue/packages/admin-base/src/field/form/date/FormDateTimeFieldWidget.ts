@@ -11,6 +11,8 @@ import {
   defaultDateFormat,
   defaultDateFormatKey,
   defaultFormat,
+  defaultMillisecondFormat,
+  defaultMillisecondFormatKey,
   defaultTimeFormatKey,
   ObjectUtils,
   Optional
@@ -73,6 +75,9 @@ export class FormDateTimeFieldWidget extends FormFieldWidget<string> {
    */
   @Widget.Reactive()
   protected get valueFormat(): string | undefined {
+    if (this.getDsl().timeFormat === defaultMillisecondFormatKey) {
+      return defaultMillisecondFormat;
+    }
     return this.getDsl().valueFormat;
   }
 

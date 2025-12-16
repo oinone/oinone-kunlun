@@ -29,7 +29,7 @@ export class DetailDateTimeRangeFieldWidget extends FormRangeFieldsWidget<Standa
   }
 
   @Widget.Reactive()
-  protected get valueFormat() {
+  protected get valueFormat(): string {
     return defaultFormat;
   }
 
