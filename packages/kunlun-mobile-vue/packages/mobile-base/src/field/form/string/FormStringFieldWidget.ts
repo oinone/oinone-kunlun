@@ -129,10 +129,10 @@ export class FormStringFieldWidget extends FormInputAbstractFieldWidget<string, 
   protected validateLength(realValue: string | undefined): ValidatorInfo {
     const length = !isNil(realValue) ? realValue.length : 0;
     const { minLength, maxLength } = this;
-    if (!isEmptyValue(realValue) && !isNil(maxLength) && length > maxLength) {
+    if (!isEmptyValue(realValue) && !isNil(maxLength) && maxLength >= 0 && length > maxLength) {
       return this.validatorError(`${translateValueByKey('最大长度为')} ${maxLength}`);
     }
-    if (!isEmptyValue(realValue) && !isNil(minLength) && length < minLength) {
+    if (!isEmptyValue(realValue) && !isNil(minLength) && minLength >= 0 && length < minLength) {
       return this.validatorError(`${translateValueByKey('最小长度为')} ${minLength}`);
     }
     return this.validatorSuccess();
