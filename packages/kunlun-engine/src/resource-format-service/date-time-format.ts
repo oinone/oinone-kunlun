@@ -67,11 +67,15 @@ async function queryResourceDateTimeFormat0() {
       }
       resourceTimeFormat {
         apColonNormal
+        apColonNormalSss
         colonNormal
+        colonNormalSss
         apColonShort
         colonShort
         apColonNormalMap
+        apColonNormalSssMap
         colonNormalMap
+        colonNormalSssMap
         apColonShortMap
         colonShortMap
       }
