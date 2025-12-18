@@ -203,6 +203,7 @@ export class QuickFillWidget extends BaseElementWidget {
   @Widget.Method()
   public async onSure(headers: TableFieldOption[], rows: StandardString[][]) {
     const values = [] as Record<string, StandardString>[];
+    const keepValues = [] as Record<string, StandardString>[];
 
     /**
      * 将excel数据转换成提交的数据格式
@@ -211,16 +212,19 @@ export class QuickFillWidget extends BaseElementWidget {
      */
     rows.forEach((row, rowIndex) => {
       const rowValue = {} as Record<string, StandardString>;
+      const keepRowValue = {} as Record<string, StandardString>;
       const relationObjects: Record<string, ActiveRecord> = {};
+      const keepRelationObjects: Record<string, ActiveRecord> = {};
 
       row.forEach((cell, columnIndex) => {
         if (!cell) {
           return;
         }
-        const fieldName = headers[columnIndex]?.field;
-        if (!fieldName) {
+        const header = headers[columnIndex];
+        if (!header) {
           return;
         }
+        const { value, field: fieldName } = header;
         const [name1, name2] = fieldName.split('#');
         if (name2) {
           let target = relationObjects[name1];
@@ -229,8 +233,25 @@ export class QuickFillWidget extends BaseElementWidget {
             relationObjects[name1] = target;
           }
           target[name2] = cell;
+          if (value === NON_CUT) {
+            const keepValue = this.lastCells?.[`${rowIndex + 1}-${columnIndex + 1}`];
+            if (keepValue) {
+              let keepTarget = keepRelationObjects[name1];
+              if (!keepTarget) {
+                keepTarget = {};
+                keepRelationObjects[name1] = keepTarget;
+              }
+              keepTarget[name2] = keepValue;
+            }
+          }
         } else {
           rowValue[fieldName] = cell;
+          if (value === NON_CUT) {
+            const keepValue = this.lastCells?.[`${rowIndex + 1}-${columnIndex + 1}`];
+            if (keepValue) {
+              keepRowValue[fieldName] = keepValue;
+            }
+          }
         }
       });
 
@@ -238,8 +259,13 @@ export class QuickFillWidget extends BaseElementWidget {
         rowValue[key] = JSON.stringify(value);
       });
 
+      Object.entries(keepRelationObjects).forEach(([key, value]) => {
+        keepRowValue[key] = JSON.stringify(value);
+      });
+
       if (Object.keys(rowValue).length > 0) {
         values.push(rowValue);
+        keepValues.push(keepRowValue);
       }
     });
 
@@ -247,7 +273,7 @@ export class QuickFillWidget extends BaseElementWidget {
      *  values -> 可回填的数据
      *  failures -> 错误信息
      */
-    const { values: resultValues, failures } = await this.validateExcelValue(headers, JSON.stringify(values));
+    const { values: resultValues, failures } = await this.validateExcelValue(headers, values, keepValues);
 
     const data = resultValues ? JSON.parse(resultValues) : [];
 
@@ -280,6 +306,8 @@ export class QuickFillWidget extends BaseElementWidget {
     return fullAddressFieldMapping;
   }
 
+  protected lastCells: Record<string, any> | undefined;
+
   /**
    * 将表格数据，填充到excel中
    */
@@ -287,6 +315,7 @@ export class QuickFillWidget extends BaseElementWidget {
   public fillValueByDataSource(): { cells?: Record<string, unknown>; rowCount?: number } {
     // 处理空数据情况
     if (!this.dataSource?.length) {
+      this.lastCells = undefined;
       return {
         rowCount: 0
       };
@@ -324,6 +353,7 @@ export class QuickFillWidget extends BaseElementWidget {
       });
     });
 
+    this.lastCells = { ...cells };
     return { cells, rowCount: this.dataSource.length };
   }
 
@@ -493,7 +523,11 @@ export class QuickFillWidget extends BaseElementWidget {
   /**
    * 调接口校验excel数据
    */
-  public async validateExcelValue(headers: TableFieldOption[], values: string) {
+  public async validateExcelValue(
+    headers: TableFieldOption[],
+    values: Record<string, StandardString>[],
+    keepValues: Record<string, StandardString>[]
+  ) {
     const fields: QuickFillField[] = [];
     const validHeaders: TableFieldOption[] = headers.filter((v) => v.value !== NON_CUT);
     const keepHeaders: TableFieldOption[] = headers.filter(
@@ -515,25 +549,47 @@ export class QuickFillWidget extends BaseElementWidget {
         fields.push({ field: modelField.data, required });
       }
     }
-    for (const header of keepHeaders) {
-      const { field: modelField } = this.findModelField(fields, header);
-      if (!modelField) {
-        continue;
+    if (this.type === QuickFillType.create) {
+      for (const header of keepHeaders) {
+        const { field: modelField } = this.findModelField(fields, header);
+        if (!modelField) {
+          continue;
+        }
+        for (const value of values) {
+          delete value[modelField.data];
+        }
       }
-      if (isRelationField(modelField)) {
-        fields.push({
-          field: modelField.data,
-          validate: false,
-          labelFields: modelField.referencesModel.labelFields
-        });
-      } else {
-        fields.push({ field: modelField.data, validate: false });
+    } else if (this.type === QuickFillType.update) {
+      for (const header of keepHeaders) {
+        const { field: modelField } = this.findModelField(fields, header);
+        if (!modelField) {
+          continue;
+        }
+        if (isRelationField(modelField)) {
+          fields.push({
+            field: modelField.data,
+            validate: false,
+            labelFields: modelField.referencesModel.labelFields
+          });
+        } else {
+          fields.push({ field: modelField.data, validate: false });
+        }
+        for (let i = 0; i < values.length; i++) {
+          const value = values[i];
+          const keepValue = keepValues[i];
+          const t = keepValue?.[modelField.data];
+          if (t) {
+            value[modelField.data] = t;
+          } else {
+            delete value[modelField.data];
+          }
+        }
       }
     }
     const gqlStr = await buildSingleItemParam(quickFillFields, {
       model: this.model.model,
       fields,
-      values
+      values: JSON.stringify(values)
     });
 
     const body = `{
