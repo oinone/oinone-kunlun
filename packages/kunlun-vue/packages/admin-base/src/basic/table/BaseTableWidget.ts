@@ -3,22 +3,23 @@ import {
   ActiveRecord,
   ActiveRecords,
   ActiveRecordsOperator,
+  formValidateErrorProcess,
   FunctionCache,
   FunctionMetadata,
   FunctionService,
   isRelation2MField,
   parseConfigs,
+  RelationUpdateType,
   RuntimeAction,
   RuntimeFunctionDefinition,
   RuntimeM2MField,
   RuntimeO2MField,
   SubmitCacheManager,
   SubmitValue,
-  translateValueByKey,
-  RelationUpdateType
+  translateValueByKey
 } from '@oinone/kunlun-engine';
 import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
-import { MessageHub } from '@oinone/kunlun-request';
+import { HttpClientError, MessageHub } from '@oinone/kunlun-request';
 import { BooleanHelper, CallChaining, Optional, ReturnPromise } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
@@ -341,7 +342,7 @@ export class BaseTableWidget<
       return false;
     }
     const data = await this.rowEditorClosedForSubmit(context);
-    const useDiffUpdate = [RelationUpdateType.diff, RelationUpdateType.batch].includes(this.relationUpdateType)
+    const useDiffUpdate = [RelationUpdateType.diff, RelationUpdateType.batch].includes(this.relationUpdateType);
     if (this.inline) {
       if (res && data) {
         if (this.createMode && useDiffUpdate) {
@@ -349,7 +350,6 @@ export class BaseTableWidget<
         } else {
           this.updateSubviewFieldWidget(context, data);
         }
-
       }
     } else if (data) {
       try {
@@ -580,27 +580,37 @@ export class BaseTableWidget<
   protected async executeRowEditorUpdate(functionDefinition: RuntimeFunctionDefinition, data: ActiveRecord) {
     const { rootRuntimeContext, model } = this;
     const requestFields = rootRuntimeContext.getRequestModelFields();
-    if (this.currentTriggerCreateAction && this.currentTriggerCreateAction.sessionPath) {
-      return FunctionService.INSTANCE.simpleExecute<Record<string, unknown>>(
+    const sessionPath = this.currentTriggerCreateAction?.sessionPath;
+    try {
+      if (sessionPath) {
+        return await FunctionService.INSTANCE.simpleExecute<Record<string, unknown>>(
+          model,
+          functionDefinition,
+          {
+            requestFields,
+            variables: {
+              path: sessionPath,
+              relationExcludeUpdate: true
+            }
+          },
+          data
+        );
+      }
+      return await FunctionService.INSTANCE.simpleExecute<Record<string, unknown>>(
         model,
         functionDefinition,
         {
           requestFields,
           variables: {
-            path: this.currentTriggerCreateAction?.sessionPath
+            relationExcludeUpdate: true
           }
         },
         data
       );
+    } catch (e) {
+      formValidateErrorProcess(e as HttpClientError);
+      throw e;
     }
-    return FunctionService.INSTANCE.simpleExecute<Record<string, unknown>>(
-      model,
-      functionDefinition,
-      {
-        requestFields
-      },
-      data
-    );
   }
 
   protected refreshRowEditorUpdate(context: RowContext, data: ActiveRecord, res: unknown) {

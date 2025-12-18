@@ -2,6 +2,7 @@ import {
   Dialog,
   Drawer,
   executeViewAction,
+  formValidateErrorProcess,
   FunctionCache,
   FunctionService,
   MultiTabsManager,
@@ -16,7 +17,7 @@ import {
   UpdateOneWithRelationsService
 } from '@oinone/kunlun-engine';
 import { ActionType, ViewType } from '@oinone/kunlun-meta';
-import { HttpClientError, MessageHub, RequestErrorInterceptor, SystemErrorCode } from '@oinone/kunlun-request';
+import { HttpClientError, SystemErrorCode } from '@oinone/kunlun-request';
 import { SPI } from '@oinone/kunlun-spi';
 import { BooleanHelper, CallChaining, debugConsole, OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { VueWidget, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
@@ -135,19 +136,11 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
     return results;
   }
 
+  /**
+   * @deprecated 6.x please using {@link formValidateErrorProcess}
+   */
   protected notifyValidateResults(e: HttpClientError): void {
-    const error = e.errors?.[0];
-    if (!error) {
-      return;
-    }
-    if (error.extensions?.errorCode !== SystemErrorCode.FORM_VALIDATE_ERROR) {
-      return;
-    }
-    for (const messageItem of error.extensions?.messages || []) {
-      if (RequestErrorInterceptor.ignoredFormValidateMessage(messageItem)) {
-        MessageHub.error(messageItem.message);
-      }
-    }
+    formValidateErrorProcess(e);
   }
 
   protected async clickActionAfter(result: ClickResult): Promise<ClickResult> {
