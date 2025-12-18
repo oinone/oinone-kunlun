@@ -59,10 +59,18 @@ export const onJumpUiDesigner = async (viewId?: string) => {
       model: 'ui.designer.UiDesignerView'
     })) as IViewAction;
     if (action) {
-      return executeViewAction(CastHelper.cast(action), undefined, undefined, { id: viewId }, RedirectTargetEnum.BLANK);
-    } else {
-      console.error('跳转至页面设计页面异常');
+      return executeViewAction(
+        CastHelper.cast(action),
+        undefined,
+        undefined,
+        {
+          id: viewId,
+          sessionPath: '/ui_designer/homepage'
+        },
+        RedirectTargetEnum.BLANK
+      );
     }
+    console.error('跳转至页面设计页面异常');
   }
 };
 

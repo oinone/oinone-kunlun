@@ -76,10 +76,17 @@ export function createFlexContainerItem(
     ) => { widget?: VueWidget; slotName?: string };
   }
 ) {
+  let cloneProps = props;
+  if (props.template) {
+    const cloneTemplate = { ...props.template };
+    delete cloneTemplate.class;
+    delete cloneTemplate.style;
+    cloneProps = { ...props, template: cloneTemplate };
+  }
   const { widget: realParentWidget, slotName } = (options?.fetchRealParentWidget || fetchRealParentWidget)(
     widgets,
     parentHandle,
-    props
+    cloneProps
   );
   let parentWidget: VueWidget;
   if (realParentWidget) {
@@ -390,11 +397,11 @@ export function createContainerWidget(props: PackWidgetProps): RenderWidget | un
     props,
     (parentWidget, realParentHandle) => (widgetRef = parentWidget.createWidget(constructor, realParentHandle, props)),
     {
-      fetchRealParentWidget: (_, realParentHandle: string) => {
-        return fetchRealParentWidget(widgets, realParentHandle, props, {
+      fetchRealParentWidget: (_, realParentHandle: string, _props) => {
+        return fetchRealParentWidget(widgets, realParentHandle, _props, {
           createDefaultCol: (rowWidget: DefaultRowWidget) => {
             return rowWidget.createWidget(new DefaultContainerColWidget(rowWidget), undefined, {
-              ...props,
+              ..._props,
               internal: true
             });
           }

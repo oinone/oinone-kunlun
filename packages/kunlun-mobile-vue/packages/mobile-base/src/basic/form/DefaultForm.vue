@@ -1,13 +1,18 @@
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import { OioForm, OioFormInstance, DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { OioFormProps, PropRecordHelper, ValidateTrigger } from '@oinone/kunlun-vue-ui-common';
+import {
+  OioFormProps,
+  PropRecordHelper,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext,
+  ValidateTrigger
+} from '@oinone/kunlun-vue-ui-common';
+import { DEFAULT_PREFIX, OioForm, OioFormInstance } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
 import { createVNode, defineComponent, onMounted, PropType, ref } from 'vue';
 import { defaultFlexResolve } from '../../tags/resolve/helper';
-import { ManualWidget } from '../mixin';
-import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from './context';
 import { DEFAULT_VIEW_CLASS } from '../../ui/theme';
+import { ManualWidget } from '../mixin';
 
 export default defineComponent({
   name: 'DefaultForm',

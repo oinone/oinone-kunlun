@@ -36,11 +36,16 @@
   </oio-modal>
 </template>
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
 import { StringHelper } from '@oinone/kunlun-shared';
-import { DEFAULT_PREFIX, OioButton, OioModal } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../../basic';
+import {
+  DEFAULT_PREFIX,
+  OioButton,
+  OioModal,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext
+} from '@oinone/kunlun-vue-ui-mobile-vant';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'DefaultDialog',

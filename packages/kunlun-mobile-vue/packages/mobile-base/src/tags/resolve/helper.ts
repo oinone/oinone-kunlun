@@ -37,10 +37,7 @@ function collectionAffectiveChildren(dsl: DslDefinition, maxSize?: number, child
   return children;
 }
 
-export function isOnlyOneRowWidget(dsl: DslDefinition | undefined) {
-  if (!dsl) {
-    return false;
-  }
+function isOnlyOneRowWidget(dsl: DslDefinition) {
   const children: DslDefinition[] = collectionAffectiveChildren(dsl, 2);
   const len = children.length;
   if (len === 1) {

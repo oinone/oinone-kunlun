@@ -26,16 +26,10 @@
 </template>
 <script lang="ts">
 import { IModelFieldOption } from '@oinone/kunlun-meta';
-import { defineComponent, PropType, ref } from 'vue';
-import { OioSelect } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { OioSelect, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Cell as VanCell } from 'vant';
-
-import {
-  OioCommonProps,
-  OioMetadataProps,
-  useInjectOioDefaultFormContext,
-  useMetadataProps
-} from '../../../../../basic';
+import { defineComponent, PropType, ref } from 'vue';
+import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../../basic';
 
 export default defineComponent({
   components: { OioSelect, VanCell },
