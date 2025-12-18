@@ -105,6 +105,7 @@ $treeMinWidth: 324px;
     }
   }
 }
+
 .oio-full-screen-view {
   position: fixed;
   top: 0;
@@ -123,6 +124,7 @@ $treeMinWidth: 324px;
   .ant-modal-close-x {
     top: -4px;
   }
+
   .ant-modal-confirm-body {
     display: flex;
     gap: var(--oio-row-gap);
@@ -143,6 +145,7 @@ $treeMinWidth: 324px;
       padding: var(--oio-padding) var(--oio-padding) var(--oio-padding) 0;
       border-bottom: 1px solid var(--oio-border-color);
     }
+
     & > .action-bar {
       height: auto;
       padding: var(--oio-padding);
@@ -152,6 +155,7 @@ $treeMinWidth: 324px;
     & > .oio-default-form {
       padding: var(--oio-padding);
     }
+
     & > .default-gallery {
       padding: var(--oio-padding);
     }
@@ -170,14 +174,22 @@ $treeMinWidth: 324px;
         border: none;
         box-shadow: none;
       }
+
       .oio-group-title-wrapper {
         padding: 0;
       }
 
       .oio-group-content {
         padding: var(--oio-padding) 0 0 0;
+
         .oio-group {
           padding: 0 var(--oio-padding);
+        }
+      }
+
+      &.oio-group-title-hidden {
+        & > .oio-group-content {
+          padding: var(--oio-padding);
         }
       }
     }
@@ -197,21 +209,26 @@ $treeMinWidth: 324px;
           }
         }
       }
+
       .oio-default-search {
         padding: 0 var(--oio-padding) var(--oio-padding) 0;
         border-bottom: 1px solid var(--oio-border-color);
+
         .oio-cate-search.oio-tabs.ant-tabs-top .ant-tabs-nav .ant-tabs-tab {
           padding-top: 0;
         }
+
         .ant-tabs-nav-wrap,
         .oio-cate-search-second {
           padding-left: var(--oio-padding);
         }
       }
+
       .action-bar:not(.action-bar-inline) {
         padding: var(--oio-padding) var(--oio-padding) 0 var(--oio-padding);
         height: auto;
       }
+
       .default-table {
         padding: var(--oio-padding);
       }
@@ -219,6 +236,7 @@ $treeMinWidth: 324px;
       .default-tree-table {
         padding: var(--oio-padding) 0 0 var(--oio-padding);
         position: relative;
+
         &::after {
           content: '';
           position: absolute;
@@ -243,6 +261,7 @@ $treeMinWidth: 324px;
   // 树视图
   &.oio-default-tree-view {
     padding: var(--oio-padding);
+
     .oio-default-view-container .oio-group .oio-group-content {
       padding: 0;
     }
