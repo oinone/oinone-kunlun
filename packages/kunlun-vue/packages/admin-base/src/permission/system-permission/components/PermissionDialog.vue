@@ -72,7 +72,7 @@
               <div>
                 {{ title }}
                 <span style="position: absolute; right: 0; color: var(--oio-icon-color)">
-                  >{{ data.menuName }}/{{ data.displayValue }}</span
+                  {{ data.menuName }}/{{ data.displayValue }}</span
                 >
               </div>
             </template>
@@ -146,9 +146,9 @@ import {
 } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineEmits, defineProps, ref, watch, withDefaults } from 'vue';
 import { IPermission } from '../../permission/type';
+import { ActionPermissionNode, AnyPermissionNode } from '../../types';
 import { queryActionsByMenu, queryGroupData } from '../service';
 import { useStore } from '../store';
-import { ActionPermissionNode, AnyPermissionNode } from '../../types';
 import DataPermission from './data-permission/data-permission.vue';
 
 interface ActionTreeItem {

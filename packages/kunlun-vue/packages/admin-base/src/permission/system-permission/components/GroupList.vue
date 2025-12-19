@@ -25,7 +25,7 @@
           }}</oio-button>
           <a-divider type="vertical" />
           <a-popconfirm
-            v-if="item.dataSource !== 'SYSTEM' && hasDeleteGroupAction"
+            v-if="item.source === 'MANUAL' && hasDeleteGroupAction"
             placement="topLeft"
             :ok-text="$translate('确定')"
             :cancel-text="$translate('取消')"

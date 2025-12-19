@@ -58,7 +58,6 @@ export const queryRoleList = async (
           name
           description
           source
-          permissionDataSource
           createDate
           writeDate
         }
@@ -91,11 +90,10 @@ export const queryGroups = async (options: { nodeType: string; resourceId: strin
 				id
 				name
 				type
-				dataSource
+				source
 				active
 				displayName
 				comment
-				menuName
 				roles {
 					code
 					name
@@ -109,11 +107,10 @@ export const queryGroups = async (options: { nodeType: string; resourceId: strin
 				id
 				name
 				type
-				dataSource
+				source
 				active
 				displayName
 				comment
-				menuName
 				roles {
 					code
 					name
