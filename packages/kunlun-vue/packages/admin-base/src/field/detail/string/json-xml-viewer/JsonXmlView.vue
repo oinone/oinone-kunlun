@@ -4,7 +4,11 @@
       <span class="mode-label">
         <span>{{ mode }}</span>
       </span>
-      <div>
+      <div class="tools">
+        <div class="copy-btn" @click="copyBtnClick" :title="$translate('复制')">
+          <oio-icon icon="oinone-fuzhi2" size="18" v-if="!copied" />
+          <div v-else>{{ $translate('已复制') }}</div>
+        </div>
         <oio-select
           v-model:value="selectedValue"
           :options="selectedList"
@@ -66,6 +70,12 @@ export default defineComponent({
     },
     setMode: {
       type: Function
+    },
+    copyBtnClick: {
+      type: Function
+    },
+    copied: {
+      type: Boolean
     }
   },
   setup(props, { emit }) {
@@ -394,11 +404,31 @@ export default defineComponent({
       border-radius: var(--oio-border-radius);
     }
 
-    .oio-select {
-      .ant-select-selector {
-        border: none !important;
-        box-shadow: none !important;
-        gap: var(--oio-padding-xs);
+    .tools {
+      display: flex;
+      align-items: center;
+
+      .copy-btn {
+        cursor: pointer;
+        width: 100%;
+
+        div {
+          font-size: var(--oio-font-size-sm);
+        }
+
+        &:hover {
+          .oio-icon {
+            color: var(--oio-primary-color-hover);
+          }
+        }
+      }
+
+      .oio-select {
+        .ant-select-selector {
+          border: none !important;
+          box-shadow: none !important;
+          gap: var(--oio-padding-xs);
+        }
       }
     }
   }

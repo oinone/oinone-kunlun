@@ -129,4 +129,26 @@ export class DetailJsonXmlViewWidget extends FormFieldWidget {
 
     return xmlHeader + rootXml;
   }
+
+  @Widget.Reactive()
+  protected copied = false;
+
+  @Widget.Method()
+  protected async copyBtnClick() {
+    let writeData = '';
+    if (this.mode === 'json') {
+      writeData = JSON.stringify(this.formatedValue, null, 2);
+    } else {
+      writeData = this.formatedValue as string;
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(writeData);
+      this.copied = true;
+
+      setTimeout(() => {
+        this.copied = false;
+      }, 1000);
+      return true;
+    }
+  }
 }
