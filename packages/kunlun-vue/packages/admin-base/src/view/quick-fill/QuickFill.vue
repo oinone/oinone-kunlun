@@ -153,7 +153,8 @@ export default defineComponent({
           key: fieldName,
           value: fieldName,
           readonly: field.readonly === true,
-          field: fieldName
+          field: fieldName,
+          originField: fieldName
         };
       });
       if (type.value === QuickFillType.create) {

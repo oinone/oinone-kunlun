@@ -149,15 +149,17 @@ const tableHeaderValues = ref<TableFieldOption[]>([]);
 
 // 表头下拉选项
 const selectOptions = computed(() => {
-  const options: TableFieldOption[] = [...props.fields];
-  options.unshift({
-    label: '不粘贴',
-    key: NON_CUT,
-    value: NON_CUT,
-    readonly: true,
-    field: NON_CUT
-  });
-  return options;
+  return [
+    {
+      label: '不粘贴',
+      key: NON_CUT,
+      value: NON_CUT,
+      readonly: true,
+      field: NON_CUT,
+      originField: NON_CUT
+    },
+    ...props.fields
+  ];
 });
 
 // ======== 状态 =========
@@ -777,13 +779,16 @@ defineExpose({
   getTableHeaderValues() {
     const fields: TableFieldOption[] = [];
     for (const tableHeaderValue of tableHeaderValues.value) {
-      const { value } = tableHeaderValue;
+      const { value, originField } = tableHeaderValue;
       if (value === NON_CUT) {
         fields.push(tableHeaderValue);
       } else {
         const target = props.fields.find((v) => v.field === value);
         if (target) {
-          fields.push(target);
+          fields.push({
+            ...target,
+            originField
+          });
         }
       }
     }
