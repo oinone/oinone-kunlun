@@ -11,4 +11,5 @@ export interface TableFieldOption {
   value: string;
   readonly: boolean;
   field: string;
+  originField: string;
 }

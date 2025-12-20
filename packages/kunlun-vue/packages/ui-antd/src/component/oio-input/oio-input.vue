@@ -16,7 +16,7 @@ export default defineComponent({
     ...OioInputProps
   },
   slots: ['prepend', 'append', 'prefix', 'suffix'],
-  emits: ['update:value', 'press-enter', 'change', 'focus', 'blur'],
+  emits: ['update:value'],
   setup(props, { emit, expose }) {
     const origin = ref();
 
@@ -56,18 +56,6 @@ export default defineComponent({
       value.value = val;
     };
 
-    const onPressEnter = (event: KeyboardEvent) => {
-      emit('press-enter', event);
-    };
-
-    const onFocus = (val: FocusEvent) => {
-      emit('focus', val);
-    };
-
-    const onBlur = (val: FocusEvent) => {
-      emit('blur', val);
-    };
-
     expose({
       focus: (options?: InputFocusOptions) => origin.value.focus(options),
       blur: () => origin.value.blur(),
@@ -85,10 +73,7 @@ export default defineComponent({
       value,
       autocomplete,
 
-      onUpdateValue,
-      onPressEnter,
-      onFocus,
-      onBlur
+      onUpdateValue
     };
   },
   render() {
@@ -108,9 +93,6 @@ export default defineComponent({
         readonly: this.readonly,
         ...this.$attrs,
         'onUpdate:value': this.onUpdateValue,
-        onPressEnter: this.onPressEnter,
-        onFocus: this.onFocus,
-        onBlur: this.onBlur,
         class: StringHelper.append(inputClassList, CastHelper.cast(this.$attrs.class)),
         ref: 'origin'
       },

@@ -212,8 +212,8 @@ export class QuickFillWidget extends BaseElementWidget {
      */
     rows.forEach((row, rowIndex) => {
       const rowValue = {} as Record<string, StandardString>;
-      const keepRowValue = {} as Record<string, StandardString>;
       const relationObjects: Record<string, ActiveRecord> = {};
+      const keepRowValue = {} as Record<string, StandardString>;
       const keepRelationObjects: Record<string, ActiveRecord> = {};
 
       row.forEach((cell, columnIndex) => {
@@ -224,35 +224,16 @@ export class QuickFillWidget extends BaseElementWidget {
         if (!header) {
           return;
         }
-        const { value, field: fieldName } = header;
-        const [name1, name2] = fieldName.split('#');
-        if (name2) {
-          let target = relationObjects[name1];
-          if (!target) {
-            target = {};
-            relationObjects[name1] = target;
-          }
-          target[name2] = cell;
-          if (value === NON_CUT) {
-            const keepValue = this.lastCells?.[`${rowIndex + 1}-${columnIndex + 1}`];
-            if (keepValue) {
-              let keepTarget = keepRelationObjects[name1];
-              if (!keepTarget) {
-                keepTarget = {};
-                keepRelationObjects[name1] = keepTarget;
-              }
-              keepTarget[name2] = keepValue;
-            }
-          }
-        } else {
-          rowValue[fieldName] = cell;
-          if (value === NON_CUT) {
-            const keepValue = this.lastCells?.[`${rowIndex + 1}-${columnIndex + 1}`];
-            if (keepValue) {
-              keepRowValue[fieldName] = keepValue;
-            }
-          }
+        const { value, originField } = header;
+        if (value !== NON_CUT) {
+          this.setRowValue(rowValue, relationObjects, value, cell);
         }
+        this.setRowValue(
+          keepRowValue,
+          keepRelationObjects,
+          originField,
+          this.lastCells?.[`${rowIndex + 1}-${columnIndex + 1}`]
+        );
       });
 
       Object.entries(relationObjects).forEach(([key, value]) => {
@@ -290,6 +271,25 @@ export class QuickFillWidget extends BaseElementWidget {
     } else {
       this.showModal = false;
       this.updateO2MTableValue(this.submitData(data));
+    }
+  }
+
+  protected setRowValue(
+    rowValue: Record<string, StandardString>,
+    relationObjects: Record<string, ActiveRecord>,
+    fieldName: string,
+    cell: string
+  ) {
+    const [name1, name2] = fieldName.split('#');
+    if (name2) {
+      let target = relationObjects[name1];
+      if (!target) {
+        target = {};
+        relationObjects[name1] = target;
+      }
+      target[name2] = cell;
+    } else {
+      rowValue[fieldName] = cell;
     }
   }
 
@@ -529,12 +529,17 @@ export class QuickFillWidget extends BaseElementWidget {
     keepValues: Record<string, StandardString>[]
   ) {
     const fields: QuickFillField[] = [];
-    const validHeaders: TableFieldOption[] = headers.filter((v) => v.value !== NON_CUT);
-    const keepHeaders: TableFieldOption[] = headers.filter(
-      (v) => v.value === NON_CUT && v.field && !validHeaders.find((vv) => vv.value === v.field)
-    );
+    const validHeaders: TableFieldOption[] = [];
+    const keepHeaders: Record<string, boolean> = {};
+    for (const header of headers) {
+      const { value, originField } = header;
+      if (value !== NON_CUT) {
+        validHeaders.push(header);
+      }
+      keepHeaders[originField] = true;
+    }
     for (const header of validHeaders) {
-      const { fieldWidget, field: modelField } = this.findModelField(fields, header);
+      const { fieldWidget, field: modelField } = this.findModelField(fields, header.value);
       if (!modelField) {
         continue;
       }
@@ -548,10 +553,11 @@ export class QuickFillWidget extends BaseElementWidget {
       } else {
         fields.push({ field: modelField.data, required });
       }
+      delete keepHeaders[header.value];
     }
     if (this.type === QuickFillType.create) {
-      for (const header of keepHeaders) {
-        const { field: modelField } = this.findModelField(fields, header);
+      for (const [field] of Object.entries(keepHeaders)) {
+        const { field: modelField } = this.findModelField(fields, field);
         if (!modelField) {
           continue;
         }
@@ -560,8 +566,8 @@ export class QuickFillWidget extends BaseElementWidget {
         }
       }
     } else if (this.type === QuickFillType.update) {
-      for (const header of keepHeaders) {
-        const { field: modelField } = this.findModelField(fields, header);
+      for (const [field] of Object.entries(keepHeaders)) {
+        const { field: modelField } = this.findModelField(fields, field);
         if (!modelField) {
           continue;
         }
@@ -614,14 +620,7 @@ export class QuickFillWidget extends BaseElementWidget {
     return rst.data.quickFillingQuery.loadData as unknown as QuickFillResponse;
   }
 
-  protected findModelField(fields: QuickFillField[], header: TableFieldOption) {
-    const { value, field } = header;
-    let data: string;
-    if (value === NON_CUT) {
-      data = field;
-    } else {
-      data = value;
-    }
+  protected findModelField(fields: QuickFillField[], data: string) {
     let fieldWidget: BaseFieldWidget | undefined;
     const [name1, name2] = data.split('#');
     if (name2) {
