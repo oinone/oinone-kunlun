@@ -47,6 +47,39 @@ async function queryResourceDateTimeFormat0() {
 
   const code = await CurrentLanguage.getCode();
 
+  const timeModel = await ModelCache.get('resource.ResourceTimeFormat');
+
+  const sssTimeformatExisting = timeModel?.modelFields.some((m) => m.name === 'apColonNormalSss');
+
+  let resourceTimeFormat = `
+  resourceTimeFormat {
+        apColonNormal
+        colonNormal
+        apColonShort
+        colonShort
+        apColonNormalMap
+        colonNormalMap
+        apColonShortMap
+        colonShortMap
+      }`;
+  if (sssTimeformatExisting) {
+    resourceTimeFormat = `
+    resourceTimeFormat {
+        apColonNormal
+        apColonNormalSss
+        colonNormal
+        colonNormalSss
+        apColonShort
+        colonShort
+        apColonNormalMap
+        apColonNormalSssMap
+        colonNormalMap
+        colonNormalSssMap
+        apColonShortMap
+        colonShortMap
+      }`;
+  }
+
   const body = `{
   resourceLangQuery {
     queryOne(query: {code: "${code}"}) {
@@ -65,20 +98,7 @@ async function queryResourceDateTimeFormat0() {
         slashYearMonthMap
         chineseYearMonthMap
       }
-      resourceTimeFormat {
-        apColonNormal
-        apColonNormalSss
-        colonNormal
-        colonNormalSss
-        apColonShort
-        colonShort
-        apColonNormalMap
-        apColonNormalSssMap
-        colonNormalMap
-        colonNormalSssMap
-        apColonShortMap
-        colonShortMap
-      }
+      ${resourceTimeFormat}
     }
   }
 }
