@@ -1,3 +1,3 @@
 module.exports = {
-  'packages/*/src/**/*.@(ts|tsx|js)': ['eslint --quiet --fix'],
+  'packages/*/src/**/*.@(ts|tsx|vue|js)': ['eslint --quiet --fix']
 };
