@@ -70,7 +70,7 @@
       heigth="60%"
       :title="translateValueByKey('搜索方案管理')"
       width="560px"
-      v-model:open="managerVisible"
+      v-model:visible="managerVisible"
       :footer-invisible="true"
     >
       <oio-empty-data v-if="isEmptyManagerOptions" />

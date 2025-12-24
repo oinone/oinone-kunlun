@@ -3,9 +3,7 @@ import { BooleanHelper, CSSStyle, uniqueKeyGenerator } from '@oinone/kunlun-shar
 import {
   CleanableEvent,
   OioTabPosition,
-  OioTabsBizStyle,
   OioTabsProps,
-  OioTabsType,
   PropRecordHelper,
   StyleHelper,
   TabHTMLNode,
@@ -14,7 +12,7 @@ import {
   useProviderOioTabsContext
 } from '@oinone/kunlun-vue-ui-common';
 import { Tabs as ATabs } from 'ant-design-vue';
-import useConfigInject from 'ant-design-vue/lib/_util/hooks/useConfigInject.js';
+import useConfigInject from 'ant-design-vue/lib/config-provider/hooks/useConfigInject';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, onMounted, onUnmounted, ref, unref, vShow, withDirectives } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
@@ -109,18 +107,6 @@ export default defineComponent({
       }
     });
 
-    const currentType = computed(() => {
-      if (props.bizStyle && [OioTabsBizStyle.Card, OioTabsBizStyle.AccentCard].includes(props.bizStyle)) {
-        if (props.type === OioTabsType['editable-card']) {
-          return OioTabsType['editable-card'];
-        }
-
-        return OioTabsType.card;
-      }
-
-      return props.type;
-    });
-
     onUnmounted(() => {
       moreButtonMousemove?.remove();
     });
@@ -135,7 +121,6 @@ export default defineComponent({
     return {
       id,
       origin,
-      currentType,
       onUpdateActiveKey
     };
   },
@@ -150,8 +135,7 @@ export default defineComponent({
       tabPosition,
       verticalHeight,
       destroyInactiveTabPane,
-      currentType,
-      bizStyle
+      type
     } = this;
 
     const style = {} as CSSStyle;
@@ -164,10 +148,6 @@ export default defineComponent({
     const classNames = [`${DEFAULT_PREFIX}-tabs`];
     if (disabled) {
       classNames.push(`${DEFAULT_PREFIX}-tabs-disabled`);
-    }
-
-    if (bizStyle === OioTabsBizStyle.AccentCard) {
-      classNames.push(`${DEFAULT_PREFIX}-tabs-accent-card`);
     }
 
     return withDirectives(
@@ -183,7 +163,7 @@ export default defineComponent({
           tabPosition,
           verticalHeight,
           destroyInactiveTabPane,
-          type: currentType,
+          type,
           'onUpdate:activeKey': this.onUpdateActiveKey
         },
         PropRecordHelper.collectionSlots(this.$slots, [
