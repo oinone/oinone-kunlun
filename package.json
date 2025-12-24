@@ -18,7 +18,6 @@
     "postclean": "rimraf package-lock.json node_modules",
     "prebuild": "npx lerna run build --scope @oinone/kunlun-compile",
     "build": "npx lerna run build --no-sort --concurrency 5 --ignore @oinone/kunlun-compile",
-    "dev": "lerna exec npm run dev --scope",
     "lint": "npx lint-staged",
     "patch": "patch-package",
     "test": "lerna run test",
