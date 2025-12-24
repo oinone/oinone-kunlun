@@ -1,9 +1,10 @@
-import pkg from './package.json';
-import rollupConfig from '../../scripts/build.config.js';
+import pkg from './package.json' with { type: 'json' };
+import rollupConfig from '@oinone/kunlun-compile/dist/scripts/build.config.js';
 
-export default rollupConfig(
-  pkg.name,
-  [
+export default rollupConfig({
+  name: pkg.name,
+  prefix: 'oinone-kunlun-vue-',
+  external: [
     '@oinone/kunlun-dsl',
     '@oinone/kunlun-engine',
     '@oinone/kunlun-event',
@@ -16,7 +17,8 @@ export default rollupConfig(
     '@oinone/kunlun-config',
     'lodash',
     'lodash-es',
-    'vue'
+    'vue',
+    '@vue/runtime-core'
   ],
-  false
-);
+  hasSCSS: false
+});

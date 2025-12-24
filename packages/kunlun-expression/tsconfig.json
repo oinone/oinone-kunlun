@@ -11,8 +11,8 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "declaration": true,
     "baseUrl": ".",
+    "paths": {},
     "lib": [
       "ES2018",
       "esnext",
@@ -20,11 +20,6 @@
       "dom.iterable",
       "scripthost"
     ],
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "declarationDir": "dist/types",
-    "outDir": "dist/lib",
     "noImplicitAny": false,
     "incremental": true
   },

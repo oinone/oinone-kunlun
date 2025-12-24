@@ -1,6 +1,7 @@
 {
   "name": "@oinone/kunlun-router",
   "version": "6.4.0",
+  "type": "module",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -11,13 +12,13 @@
     "x-postpublish": "node ../../scripts/postpublish.js"
   },
   "dependencies": {
-    "@types/page": "1.11.5",
     "page": "1.11.6",
     "path-to-regexp": "6.2.0"
   },
   "devDependencies": {
     "@oinone/kunlun-shared": "6.4.0",
-    "@oinone/kunlun-state": "6.4.0"
+    "@oinone/kunlun-state": "6.4.0",
+    "@types/page": "1.11.5"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

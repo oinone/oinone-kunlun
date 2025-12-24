@@ -110,7 +110,7 @@ export default defineComponent({
       if (!layout && formContext) {
         layout = formContext.layout.value!;
       }
-      return layout === FormLayout.VERTICAL;
+      return layout === FormLayout.vertical;
     });
     const fakeVertical = computed(() => props.fakeVertical && !vertical.value);
     const showCustomUploadBtn = computed(() => {

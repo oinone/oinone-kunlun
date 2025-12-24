@@ -1,6 +1,6 @@
 import { computed, ComputedRef, inject, InjectionKey, provide } from 'vue';
 import { IEmptyPlaceholder, OioBaseContainerPropsType } from '../../typing';
-import { $$FormLayout, FormLayout } from './props';
+import { FormLayout } from './props';
 
 export interface OioFormContext {
   layout: ComputedRef<FormLayout | undefined>;
@@ -15,7 +15,7 @@ export const defaultOioFormContext: OioFormContext = {
 export const OioFormContextKey: InjectionKey<OioFormContext> = Symbol('OioFormContext');
 
 export const useProviderOioFormContext = (
-  state: Partial<Omit<OioFormContext, 'layout'> & { layout: ComputedRef<FormLayout | $$FormLayout | undefined> }>
+  state: Partial<Omit<OioFormContext, 'layout'> & { layout: ComputedRef<FormLayout | undefined> }>
 ): void => {
   provide(OioFormContextKey, {
     ...defaultOioFormContext,
@@ -28,7 +28,7 @@ export const useInjectOioFormContext = (): OioFormContext => {
 };
 
 export function useOioFormLayoutContext(
-  props: Omit<OioBaseContainerPropsType, 'layout'> & { layout: FormLayout | $$FormLayout | undefined }
+  props: Omit<OioBaseContainerPropsType, 'layout'> & { layout: FormLayout | undefined }
 ) {
   const formContext = useInjectOioFormContext();
 

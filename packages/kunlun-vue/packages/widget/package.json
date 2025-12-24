@@ -1,6 +1,7 @@
 {
   "name": "@oinone/kunlun-vue-widget",
   "version": "6.4.1",
+  "type": "module",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -29,7 +30,7 @@
     "lodash-es": "4.17.21"
   },
   "peerDependencies": {
-    "vue": ">=3.2.40"
+    "vue": ">=3.5.26"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

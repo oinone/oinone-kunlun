@@ -23,6 +23,6 @@ export class FormStringIframeWidget extends FormStringFieldSingleWidget {
 
   @Widget.Reactive()
   public get layout(): string | undefined {
-    return FormLayout.VERTICAL.toString();
+    return FormLayout.vertical;
   }
 }

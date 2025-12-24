@@ -13,7 +13,7 @@ export const PRIMARY_OUTLET = 'primary';
  * @publicApi
  */
 export type Params = {
-  [key: string]: unknown;
+  [key: string]: string | string[] | null;
 };
 
 /**
@@ -33,6 +33,7 @@ export interface ParamMap {
    * @returns True if the map contains the given parameter, false otherwise.
    */
   has(name: string): boolean;
+
   /**
    * Retrieves a single value for a parameter.
    * @param name The parameter name.
@@ -41,6 +42,7 @@ export interface ParamMap {
    * or `null` when there is no such parameter.
    */
   get(name: string): string | null;
+
   /**
    * Retrieves multiple values for a parameter.
    * @param name The parameter name.
@@ -77,7 +79,12 @@ class ParamsAsMap implements ParamMap {
   public getAll(name: string): string[] {
     if (this.has(name)) {
       const v = this.params[name];
-      return Array.isArray(v) ? v : [v];
+      if (Array.isArray(v)) {
+        return v;
+      } else if (v) {
+        return [v];
+      }
+      return [];
     }
 
     return [];

@@ -1,6 +1,7 @@
 {
   "name": "@oinone/kunlun-vue-ui-common",
   "version": "6.4.1",
+  "type": "module",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -24,11 +25,11 @@
     "@types/lodash": "4.14.182",
     "@types/lodash-es": "4.17.6",
     "rollup-plugin-copy": "3.4.0",
-    "sass": "1.44.0",
-    "sass-loader": "10.1.1"
+    "sass": "1.97.0",
+    "sass-loader": "16.0.6"
   },
   "peerDependencies": {
-    "vue": ">=3.2.40"
+    "vue": ">=3.5.26"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

@@ -1,5 +1,5 @@
 import { PropType } from 'vue';
-import { $$FormLayout, FormLayout } from '../component/oio-form/props';
+import { FormLayout } from '../component/oio-form/props';
 
 export const OioComponentData = {
   /**
@@ -18,7 +18,7 @@ export const OioBaseContainerProps = {
    * 表单布局
    */
   layout: {
-    type: String as PropType<FormLayout | $$FormLayout>
+    type: String as PropType<FormLayout>
   },
   /**
    * 是否隐藏

@@ -4,35 +4,37 @@ export function createVisibleArea(handle: string, el?: HTMLElement | (() => HTML
   const origin = { handle, el } as VisibleArea;
   return new Proxy(origin, {
     get(target, key, receiver) {
+      let tel: HTMLElement | undefined;
+      if (typeof el === 'function') {
+        tel = el();
+      } else {
+        tel = el;
+      }
       switch (key) {
         case 'w':
-          return target.el?.getBoundingClientRect().width || 0;
+          return tel?.getBoundingClientRect().width || 0;
         case 'h':
-          return target.el?.getBoundingClientRect().height || 0;
+          return tel?.getBoundingClientRect().height || 0;
         case 'x':
-          return target.el?.getBoundingClientRect().x || 0;
+          return tel?.getBoundingClientRect().x || 0;
         case 'y':
-          return target.el?.getBoundingClientRect().y || 0;
+          return tel?.getBoundingClientRect().y || 0;
         case 'ex': {
-          const rect = target.el?.getBoundingClientRect();
+          const rect = tel?.getBoundingClientRect();
           if (!rect) {
             return 0;
           }
           return rect.x + rect.width;
         }
         case 'ey': {
-          const rect = target.el?.getBoundingClientRect();
+          const rect = tel?.getBoundingClientRect();
           if (!rect) {
             return 0;
           }
           return rect.y + rect.height;
         }
         case 'el': {
-          const el = Reflect.get(target, key, receiver);
-          if (typeof el === 'function') {
-            return el();
-          }
-          return el;
+          return tel;
         }
       }
       return Reflect.get(target, key, receiver);

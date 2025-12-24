@@ -1,8 +1,9 @@
-import pkg from './package.json';
-import rollupConfig from '../../scripts/build.config.js';
+import pkg from './package.json' with { type: 'json' };
+import rollupConfig from '@oinone/kunlun-compile/dist/scripts/build.config.js';
 
-export default rollupConfig(
-  pkg.name,
-  ['@oinone/kunlun-router', '@oinone/kunlun-spi', '@oinone/kunlun-vue-widget', 'lodash', 'lodash-es', 'vue'],
-  false
-);
+export default rollupConfig({
+  name: pkg.name,
+  prefix: 'oinone-kunlun-vue-',
+  external: ['@oinone/kunlun-router', '@oinone/kunlun-spi', '@oinone/kunlun-vue-widget', 'lodash', 'lodash-es', 'vue'],
+  hasSCSS: false
+});

@@ -144,7 +144,7 @@ export abstract class FormSubviewFieldWidget<
 
   @Widget.Reactive()
   public get layout(): string | undefined {
-    return FormLayout.VERTICAL.toString();
+    return FormLayout.vertical;
   }
 
   @Widget.Reactive()

@@ -1,12 +1,16 @@
-import pkg from './package.json';
-import rollupConfig from '../../scripts/build.config.js';
+import pkg from './package.json' with { type: 'json' };
+import rollupConfig from '@oinone/kunlun-compile/dist/scripts/build.config.js';
 
-export default rollupConfig(pkg.name, [
-  /^(@oinone|@kunlun|@vue|vant\/|dayjs\/)/,
-  'lodash',
-  'lodash-es',
-  'moment',
-  'vue',
-  'vant',
-  '@ant-design/icons-vue'
-]);
+export default rollupConfig({
+  name: pkg.name,
+  prefix: 'oinone-kunlun-vue-',
+  external: [
+    /^(@oinone|@kunlun|@vue|vant\/|dayjs\/)/,
+    'lodash',
+    'lodash-es',
+    'moment',
+    'vue',
+    'vant',
+    '@ant-design/icons-vue'
+  ]
+});

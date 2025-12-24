@@ -1,6 +1,7 @@
 {
   "name": "@oinone/kunlun-vue-ui",
   "version": "6.4.1",
+  "type": "module",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -16,7 +17,7 @@
     "@oinone/kunlun-vue-ui-antd": "6.4.1",
     "@oinone/kunlun-vue-ui-common": "6.4.1",
     "sortablejs": "1.14.0",
-    "vue3-smooth-dnd": "0.0.5",
+    "vue3-smooth-dnd": "0.0.6",
     "vuedraggable": "4.1.0",
     "vxe-table": "4.3.6",
     "vxe-table-plugin-antd": "3.0.6",
@@ -29,11 +30,11 @@
     "@types/lodash-es": "4.17.6",
     "lodash": "4.17.21",
     "lodash-es": "4.17.21",
-    "sass": "1.44.0",
-    "sass-loader": "10.1.1"
+    "sass": "1.97.0",
+    "sass-loader": "16.0.6"
   },
   "peerDependencies": {
-    "vue": ">=3.2.40",
+    "vue": ">=3.5.26",
     "vuedraggable": ">=4.1.0"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"

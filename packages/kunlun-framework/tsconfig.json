@@ -12,18 +12,31 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "declaration": true,
     "baseUrl": ".",
     "paths": {},
-    "lib": ["ES2018", "esnext", "dom", "dom.iterable", "scripthost"],
-    "types": ["node", "reflect-metadata", "jest"],
-    "typeRoots": ["node_modules/@types"],
-    "declarationDir": "dist/types",
-    "outDir": "dist",
+    "lib": [
+      "ES2018",
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ],
+    "types": [
+      "node",
+      "reflect-metadata",
+      "jest"
+    ],
     "noImplicitAny": false,
     "incremental": true,
     "resolveJsonModule": true
   },
-  "include": ["packages", "jest.setup.js"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "packages",
+    "jest.setup.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "rollup.config.js",
+  ]
 }

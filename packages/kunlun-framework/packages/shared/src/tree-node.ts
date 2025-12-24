@@ -155,7 +155,7 @@ export class TreeHelper {
       if (!key) {
         continue;
       }
-      let currentNode: NODE | undefined = TreeHelper.singleNodeVGS(
+      let currentNode: NODE | undefined = TreeHelper.singleNodeVGS<R, NODE>(
         rootMap,
         childrenMap,
         key,

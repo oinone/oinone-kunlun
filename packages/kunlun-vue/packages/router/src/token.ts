@@ -5,6 +5,6 @@ import { genToken } from '@oinone/kunlun-vue-widget';
 
 const __DEV__ = process.env.NODE_ENV === 'development';
 
-export const ACTIVATED_ROUTE_TOKEN = genToken<ComputedRef<ActivatedRoute>>(
+export const ACTIVATED_ROUTE_TOKEN = genToken<ComputedRef<ActivatedRoute | null>>(
   __DEV__ ? 'router view location matched' : 'rvlm'
 );

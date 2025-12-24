@@ -19,7 +19,7 @@ export class FormStringFieldWidget extends FormInputAbstractFieldWidget<string, 
   }
 
   @Widget.Reactive()
-  protected get maxLength() {
+  protected get maxLength(): number {
     const _maxLength = this.getDsl().maxLength;
     if (_maxLength) {
       const calLength = this.getLimitLength('maxLength');
@@ -28,13 +28,13 @@ export class FormStringFieldWidget extends FormInputAbstractFieldWidget<string, 
       }
     }
     if (this.field.store) {
-      return this.field.size;
+      return this.field.size as number;
     }
     return _maxLength || 1024;
   }
 
   @Widget.Reactive()
-  protected get minLength() {
+  protected get minLength(): number {
     const _minLength = this.getDsl().minLength;
     if (_minLength) {
       return this.getLimitLength('minLength') || 0;

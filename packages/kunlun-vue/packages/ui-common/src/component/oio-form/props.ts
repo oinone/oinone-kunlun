@@ -21,8 +21,6 @@ export enum FormLayout {
   inline = 'inline'
 }
 
-export type $$FormLayout = keyof Omit<typeof FormLayout, 'HORIZONTAL' | 'VERTICAL' | 'INLINE'>;
-
 export enum FormLabelAlign {
   /**
    * @deprecated please using FormLabelAlign#left
@@ -116,7 +114,7 @@ export const AFormProps = {
     type: Object as PropType<Record<string, FormItemRule[]>>
   },
   layout: {
-    type: String as PropType<FormLayout | $$FormLayout>
+    type: String as PropType<FormLayout>
   },
   labelCol: {
     type: Object as PropType<OioColModel>

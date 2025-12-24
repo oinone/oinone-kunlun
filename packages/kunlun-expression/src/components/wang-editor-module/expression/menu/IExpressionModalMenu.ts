@@ -1,4 +1,4 @@
-import { DomEditor, IDomEditor, IModalMenu, t } from '@wangeditor/core';
+import { DomEditor, IDomEditor, IModalMenu } from '@wangeditor/core';
 import { DOMElement } from '@wangeditor/editor/dist/editor/src/utils/dom';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { createExpressionDialog } from './util';

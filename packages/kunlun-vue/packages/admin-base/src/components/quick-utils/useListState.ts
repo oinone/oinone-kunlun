@@ -39,7 +39,7 @@ export interface ListStateProps {
   getSearchValue?: () => string | null | undefined;
 }
 
-export type ListStateLoadFunction<T> = (
+export type ListStateLoadFunction<T extends IdModel> = (
   state: ListState<T>,
   service: ListModelApi<T>,
   queryWrapper: QueryWrapper

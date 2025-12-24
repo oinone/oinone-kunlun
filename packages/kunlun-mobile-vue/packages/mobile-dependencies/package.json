@@ -1,6 +1,7 @@
 {
   "name": "@oinone/kunlun-mobile-dependencies",
   "version": "6.4.1",
+  "type": "module",
   "main": "index.ts",
   "dependencies": {
     "@oinone/kunlun-cache": "~6.4.0",
@@ -24,7 +25,7 @@
   },
   "peerDependencies": {
     "vant": "~3.6.0",
-    "vue": "3.2.40"
+    "vue": ">=3.5.26"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

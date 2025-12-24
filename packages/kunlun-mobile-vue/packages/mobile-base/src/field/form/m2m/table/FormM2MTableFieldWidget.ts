@@ -64,7 +64,7 @@ export class FormM2MTableFieldWidget extends FormSubviewListFieldWidget<RuntimeM
 
   @Widget.Reactive()
   public get layout(): string | undefined {
-    return FormLayout.VERTICAL.toString();
+    return FormLayout.vertical;
   }
 
   @Widget.Reactive()

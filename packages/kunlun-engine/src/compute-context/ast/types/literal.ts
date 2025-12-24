@@ -84,19 +84,19 @@ export function isRegExpLiteral(node: Node | undefined): node is RegExpLiteral {
   return node?.type === 'RegExpLiteral';
 }
 
-type UndefinedLiteralValueType = undefined;
+export type UndefinedLiteralValueType = undefined;
 
-type NullLiteralValueType = null;
+export type NullLiteralValueType = null;
 
-type StringLiteralValueType = string;
+export type StringLiteralValueType = string;
 
-type TemplateLiteralValueType = AnyExpression[];
+export type TemplateLiteralValueType = AnyExpression[];
 
-type NumberLiteralValueType = number | bigint | BigNumber;
+export type NumberLiteralValueType = number | bigint | BigNumber;
 
-type BooleanLiteralValueType = boolean;
+export type BooleanLiteralValueType = boolean;
 
-type RegExpLiteralValueType = RegExp;
+export type RegExpLiteralValueType = RegExp;
 
 type LiteralValueType<T extends Literal> = T extends UndefinedLiteral
   ? UndefinedLiteralValueType

@@ -1,6 +1,6 @@
-const fs = require('fs');
-const postcss = require('postcss');
-const pxtorem = require('postcss-pxtorem');
+import fs from 'fs';
+import postcss from 'postcss';
+import pxtorem from 'postcss-pxtorem';
 
 function px2rem(fileName) {
   const css = fs.readFileSync(fileName, 'utf8');

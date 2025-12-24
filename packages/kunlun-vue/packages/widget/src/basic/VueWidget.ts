@@ -1,8 +1,8 @@
 import { genStaticPath, translateValueByKey, WidgetConstructor, WidgetProps } from '@oinone/kunlun-engine';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { ComponentPublicInstance } from '@vue/runtime-core';
 import {
   Component,
+  ComponentPublicInstance,
   ComponentOptions,
   computed,
   createVNode,
@@ -464,7 +464,7 @@ export class VueWidget<Props extends WidgetProps = WidgetProps> extends Widget<P
 
     const hosts = VueWidget.getHookHosts(this);
     hosts.forEach((hookName) => {
-      const host = Reflect.get(this, hookName);
+      const host = Reflect.get(this, hookName) as Function;
       Reflect.set(this, hookName, (...args: unknown[]) => {
         if (hookName === 'render') {
           return host.apply(operator, args);

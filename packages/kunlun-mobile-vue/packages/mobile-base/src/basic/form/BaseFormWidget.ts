@@ -36,7 +36,7 @@ export abstract class BaseFormWidget<
     return (
       this.getDsl().layout?.toLowerCase?.() ||
       this.metadataRuntimeContext.viewTemplate?.direction?.toLowerCase?.() ||
-      FormLayout.VERTICAL
+      FormLayout.vertical
     );
   }
 

@@ -1,9 +1,9 @@
-import pkg from './package.json';
-import rollupConfig from '../../scripts/build.config.js';
+import pkg from './package.json' with { type: 'json' };
+import rollupConfig from '@oinone/kunlun-compile/dist/scripts/build.config.js';
 
-export default rollupConfig(
-  pkg.name,
-  [
+export default rollupConfig({
+  name: pkg.name,
+  external: [
     'vue',
     /^(@oinone|@kunlun|@vue|@wangeditor|vant\/|dayjs\/|vxe-table\/)/,
     'vuedraggable',
@@ -17,7 +17,5 @@ export default rollupConfig(
     'vant',
     'smooth-signature'
   ],
-  true,
-  [],
-  false
-);
+  ugly: false
+});

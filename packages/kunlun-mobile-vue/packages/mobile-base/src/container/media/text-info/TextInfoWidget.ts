@@ -39,7 +39,7 @@ export class TextInfoWidget extends BaseElementWidget {
 
   @Widget.Reactive()
   protected get layout() {
-    return this.getDsl().layout || FormLayout.HORIZONTAL;
+    return this.getDsl().layout || FormLayout.horizontal;
   }
 
   @Widget.Reactive()

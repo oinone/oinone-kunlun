@@ -1,11 +1,11 @@
 import { Condition } from '@oinone/kunlun-request';
-import { ISort, EDirection, IQueryPageOption, queryPage } from '@oinone/kunlun-service';
-import { Subject, distinctUntilChanged } from '@oinone/kunlun-state';
+import { EDirection, IQueryPageOption, ISort, queryPage } from '@oinone/kunlun-service';
+import { distinctUntilChanged, Subject } from '@oinone/kunlun-state';
 import { isPromise } from '@oinone/kunlun-meta';
 import { getRouterInstance, useMatched } from '@oinone/kunlun-router';
 import { ViewVM } from './view';
 
-import { IListValue, EntityBody, Pagination, PaginationChange, IBaseListProps } from '../typing/interface';
+import { EntityBody, IBaseListProps, IListValue, Pagination, PaginationChange } from '../typing/interface';
 
 const sortDirections = {
   desc: EDirection.DESC,
@@ -84,7 +84,7 @@ export class ListVM<P extends IBaseListProps = IBaseListProps> extends ViewVM<IL
 
     const { sortField = '', direction = '' } = segmentPage;
 
-    const urlParams: PaginationChange = { current, pageSize } || {};
+    const urlParams: PaginationChange = { current, pageSize };
 
     if (sortField && direction) {
       Object.assign(urlParams, { sort: { sortField, direction } });

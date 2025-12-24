@@ -1,7 +1,6 @@
 import { DateTimePickerMode, DateUtil, defaultFormat } from '@oinone/kunlun-shared';
 import { isNil, isString } from 'lodash-es';
 import { Moment } from 'moment';
-
 import { computed, ref, watch } from 'vue';
 
 export function useDateTimePickerProps(props, context) {
@@ -83,7 +82,7 @@ export function useDateTimePickerProps(props, context) {
     context.emit('update:value', formatValue(val));
   };
 
-  const panelChange = (val: Moment | String, mode: string) => {
+  const panelChange = (val: Moment | string, mode: string) => {
     const originMode = realMode.value;
     const value = typeof val === 'string' ? val : (val as Moment).format(valueFormat.value);
     if (originMode && [DateTimePickerMode.year, DateTimePickerMode.month].includes(originMode)) {

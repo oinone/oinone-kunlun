@@ -601,7 +601,11 @@ class UrlParser {
       // Append to existing values
       let currentVal = params[decodedKey];
       if (!Array.isArray(currentVal)) {
-        currentVal = [currentVal];
+        if (currentVal) {
+          currentVal = [currentVal];
+        } else {
+          currentVal = [];
+        }
         params[decodedKey] = currentVal;
       }
       (currentVal as Array<string>).push(decodedVal);

@@ -67,11 +67,6 @@ export type EnumerationValue = boolean | string;
 export type StandardDateTimeRangeValue = [StandardString, StandardString] | null | undefined;
 
 /**
- * 非空类型
- */
-export type NonNullable<T> = Exclude<T, null | undefined>;
-
-/**
  * 可空类型
  */
 export type Nullable<T> = NonNullable<T> | null | undefined;

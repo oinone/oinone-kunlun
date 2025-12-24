@@ -61,9 +61,9 @@ export default defineComponent({
     const vertical = computed(() => {
       let { layout } = props;
       if (!layout && formContext) {
-        layout = formContext.layout.value!;
+        layout = formContext.layout.value;
       }
-      return layout === FormLayout.VERTICAL;
+      return layout === FormLayout.vertical;
     });
     const fakeVertical = computed(() => props.fakeVertical && !vertical.value);
 

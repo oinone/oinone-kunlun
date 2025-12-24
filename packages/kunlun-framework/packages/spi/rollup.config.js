@@ -1,4 +1,9 @@
-import pkg from './package.json';
-import rollupConfig from '../../scripts/build.config.js';
+import pkg from './package.json' with { type: 'json' };
+import rollupConfig from '@oinone/kunlun-compile/dist/scripts/build.config.js';
 
-export default rollupConfig(pkg.name, ['reflect-metadata', '@oinone/kunlun-shared']);
+export default rollupConfig({
+  name: pkg.name,
+  hasVue: false,
+  hasSCSS: false,
+  external: ['reflect-metadata', '@oinone/kunlun-shared']
+});

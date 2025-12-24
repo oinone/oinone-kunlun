@@ -4,9 +4,8 @@
  */
 import { Pagination } from '@oinone/kunlun-engine';
 import { IModelField, ModelFieldType } from '@oinone/kunlun-meta';
-import { ExtractPropTypes } from '@vue/runtime-core';
 import { toString } from 'lodash-es';
-import { computed, onMounted, PropType, ref, SetupContext } from 'vue';
+import { computed, ExtractPropTypes, onMounted, PropType, ref, SetupContext } from 'vue';
 import { expFetchFieldSimpleInfo } from '../../../service/modelDefinitionService';
 import {
   contextItems2ModelSelection,
@@ -354,7 +353,6 @@ export function createComponent() {
     setup(props, context) {
       return createSetup(props, context);
     },
-    onCreated() {
-    }
+    onCreated() {}
   };
 }

@@ -12,7 +12,6 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "declaration": true,
     "baseUrl": ".",
     "paths": {},
     "lib": [
@@ -23,15 +22,11 @@
       "scripthost"
     ],
     "types": [
+      "vue",
       "node",
       "reflect-metadata",
       "jest"
     ],
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "declarationDir": "dist/types",
-    "outDir": "dist",
     "noImplicitAny": false,
     "incremental": true,
     "resolveJsonModule": true

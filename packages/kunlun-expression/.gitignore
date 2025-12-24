@@ -1,6 +1,0 @@
-node_modules
-.DS_Store
-*.local
-package-lock.json
-.env
-.vscode

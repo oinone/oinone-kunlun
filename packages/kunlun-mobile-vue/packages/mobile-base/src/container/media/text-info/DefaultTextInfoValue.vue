@@ -1,7 +1,6 @@
 <script lang="ts">
-import { computed, createVNode, defineComponent, PropType } from 'vue';
+import { createVNode, defineComponent, PropType } from 'vue';
 import Field from '../../../tags/Field.vue';
-import { TextInfoJustifyContent } from './typing';
 
 export default defineComponent({
   name: 'DefaultTextInfoValue',
@@ -18,7 +17,7 @@ export default defineComponent({
       return undefined;
     }
     const fieldProperties = this.fieldWidget;
-    const fieldVNode = createVNode(Field, { ...fieldProperties, label: false } || {});
+    const fieldVNode = createVNode(Field, { ...fieldProperties, label: false });
     return createVNode('div', { class: 'mobile-default-value' }, [fieldVNode]);
   }
 });

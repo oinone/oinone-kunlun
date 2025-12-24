@@ -1,10 +1,10 @@
 import { Consumer, Converter, Supplier } from './LambdaFunction';
-import { NonNullable, Nullable, PredictNullable } from './typing';
+import { Nullable, PredictNullable } from './typing';
 
 export class Optional<T> {
   private static EMPTY = new Optional<unknown>();
 
-  private readonly value?: T;
+  private readonly value: T | null | undefined;
 
   private constructor(value?: T) {
     this.value = value;
@@ -23,7 +23,7 @@ export class Optional<T> {
     if (value == null) {
       return Optional.empty();
     }
-    return Optional.ofNullable(mapper(value!));
+    return Optional.ofNullable(mapper(value));
   }
 
   public predict<R extends NonNullable<T>>(predicate: (value: NonNullable<T>) => value is R): Optional<R> {
@@ -35,7 +35,7 @@ export class Optional<T> {
     if (value == null) {
       return this as unknown as Optional<R>;
     }
-    return predicate(value!) ? (this as unknown as Optional<R>) : (Optional.EMPTY as Optional<R>);
+    return predicate(value) ? (this as unknown as Optional<R>) : (Optional.EMPTY as Optional<R>);
   }
 
   public orElse<R extends Nullable<T>>(other: R): PredictNullable<T, R> {
@@ -60,13 +60,13 @@ export class Optional<T> {
       // eslint-disable-next-line @typescript-eslint/no-throw-literal
       throw exceptionSupplier();
     }
-    return value!;
+    return value;
   }
 
   public ifPresent(consumer: Consumer<NonNullable<T>>) {
     const { value } = this;
     if (value != null) {
-      consumer(value!);
+      consumer(value);
     }
   }
 }

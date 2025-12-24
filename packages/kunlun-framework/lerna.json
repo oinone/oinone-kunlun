@@ -1,14 +1,11 @@
 {
-  "packages": ["packages/*"],
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "version": "6.4.0",
   "command": {
-    "bootstrap": {
-      "hoist": true,
-      "npmClientArgs": ["--no-package-lock"]
-    },
-    "version": {},
     "publish": {
-      "ignoreChanges": ["*.md", "integration/*"]
+      "ignoreChanges": [
+        "*.md"
+      ]
     }
   }
 }

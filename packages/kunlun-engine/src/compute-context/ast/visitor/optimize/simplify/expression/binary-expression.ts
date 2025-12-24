@@ -13,9 +13,11 @@ import {
   Node,
   NullLiteral,
   NumberLiteral,
+  NumberLiteralValueType,
   UnaryExpression,
   VisitContext
 } from '../../../../types';
+import { BigNumber } from '@oinone/kunlun-shared';
 import { Executor } from '../../../executor';
 import { AdapterContext, VisitorAdapter } from '../../../visit';
 import { AbstractOptimizeAdapter } from '../../base';
@@ -428,7 +430,7 @@ export class SimplifyBinaryExpression<C extends AdapterContext = AdapterContext>
           this.toNode(lastedCombiningResult.node, createLiteral<NullLiteral>('NullLiteral', {}));
           if (isNumberLiteral(literalNode)) {
             let nextOperator: BinaryOperator;
-            if (literalNode.value >= 0) {
+            if (this.isPositiveNumber(literalNode.value)) {
               nextOperator = '+';
             } else {
               nextOperator = '-';
@@ -445,7 +447,7 @@ export class SimplifyBinaryExpression<C extends AdapterContext = AdapterContext>
         }
       } else if (isNumberLiteral(literalNode)) {
         let nextOperator: BinaryOperator;
-        if (literalNode.value >= 0) {
+        if (this.isPositiveNumber(literalNode.value)) {
           nextOperator = '+';
         } else {
           nextOperator = '-';
@@ -458,5 +460,15 @@ export class SimplifyBinaryExpression<C extends AdapterContext = AdapterContext>
         this.combiningStack.push(lastedCombiningResult);
       }
     }
+  }
+
+  protected isPositiveNumber(value: NumberLiteralValueType): boolean {
+    let numberValue: number | bigint;
+    if (value instanceof BigNumber) {
+      numberValue = value.toNumber();
+    } else {
+      numberValue = value;
+    }
+    return numberValue >= 0;
   }
 }

@@ -18,7 +18,6 @@ compiled
 .awcache
 .rpt2_cache
 docs
-packages/dsl/test
 .env
 stats.html
 

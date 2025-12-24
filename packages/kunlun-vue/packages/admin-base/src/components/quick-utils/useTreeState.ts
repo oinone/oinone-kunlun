@@ -36,7 +36,7 @@ export interface TreeStateProps {
   getSearchValue?: () => string | null | undefined;
 }
 
-export type TreeStateLoadFunction<T> = (
+export type TreeStateLoadFunction<T extends IdModel> = (
   state: TreeState<T>,
   service: TreeModelApi<T>,
   queryWrapper: QueryWrapper

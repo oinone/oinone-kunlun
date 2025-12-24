@@ -239,7 +239,7 @@ export default defineComponent({
       walkList: string[] = [],
       res: Record<string, any>[] = []
     ): Record<string, any>[] {
-      if (optionsList === []) {
+      if (!optionsList?.length) {
         return [];
       }
       if (parent) {

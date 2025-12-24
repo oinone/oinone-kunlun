@@ -88,7 +88,7 @@
         </div>
         <div class="translate-toolbox-modal-right oio-scrollbar">
           <div v-if="currentTranslate && currentTranslate.id !== '-1'">
-            <oio-form ref="formRef" :data="currentTranslate" :layout="FormLayout.VERTICAL">
+            <oio-form ref="formRef" :data="currentTranslate" :layout="FormLayout.vertical">
               <oio-form-item :label="translateValueByKey('源语言所在应用')">
                 <span class="translate-toolbox-form-value">
                   {{ translateValueByKey(currentTranslate.moduleDefinition.displayName) }}
