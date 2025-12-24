@@ -27,8 +27,11 @@
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,vue}": [
-      "prettier --write",
-      "eslint --quiet --fix"
+      "eslint --quiet --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css,less,scss}": [
+      "prettier --write"
     ]
   },
   "devDependencies": {
