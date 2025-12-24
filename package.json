@@ -19,16 +19,21 @@
     "prebuild": "npx lerna run build --scope @oinone/kunlun-compile",
     "build": "npx lerna run build --no-sort --concurrency 5 --ignore @oinone/kunlun-compile",
     "dev": "lerna exec npm run dev --scope",
-    "lint": "lint-staged",
-    "lint:all": "eslint --quiet --fix",
+    "lint": "npx lint-staged",
     "patch": "patch-package",
     "test": "lerna run test",
     "publish": "lerna publish --no-git-reset --skip-git --exact -y",
     "type-check": "vue-tsc --build"
   },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,vue}": [
+      "prettier --write",
+      "eslint --quiet --fix"
+    ]
+  },
   "devDependencies": {
-    "@commitlint/cli": "9.1.2",
-    "@commitlint/config-conventional": "9.1.2",
+    "@commitlint/cli": "20.2.0",
+    "@commitlint/config-conventional": "20.2.0",
     "@rollup/plugin-commonjs": "29.0.0",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "16.0.3",

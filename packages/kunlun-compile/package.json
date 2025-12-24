@@ -10,8 +10,8 @@
     "clean": "rimraf dist package-lock.json node_modules"
   },
   "devDependencies": {
-    "@commitlint/cli": "9.1.2",
-    "@commitlint/config-conventional": "9.1.2",
+    "@commitlint/cli": "20.2.0",
+    "@commitlint/config-conventional": "20.2.0",
     "@rollup/plugin-commonjs": "29.0.0",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "16.0.3",
@@ -35,6 +35,8 @@
     "jiti": "2.6.1",
     "lerna": "9.0.3",
     "lint-staged": "10.4.2",
+    "postcss-pxtorem": "6.1.0",
+    "postcss": "8.5.6",
     "prettier": "3.6.2",
     "rimraf": "6.1.2",
     "rollup": "4.53.5",

@@ -2,6 +2,7 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "allowJs": true,
     "target": "ES6",
     "module": "esnext",
     "strict": true,
@@ -20,9 +21,18 @@
       "dom.iterable",
       "scripthost"
     ],
+    "types": [
+      "node",
+      "jest"
+    ],
     "noImplicitAny": false,
-    "incremental": true
+    "incremental": true,
+    "resolveJsonModule": true
   },
+  "include": [
+    "index.ts",
+    "src"
+  ],
   "exclude": [
     "node_modules",
     "dist"

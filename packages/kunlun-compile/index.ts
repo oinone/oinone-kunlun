@@ -287,7 +287,7 @@ class AbstractPluginBuilder {
     incremental: false,
     sourceMap: false,
     preserveSymlinks: true,
-    preserveValueImports: true,
+    verbatimModuleSyntax: false,
     isolatedModules: true,
     stripInternal: false
   };
