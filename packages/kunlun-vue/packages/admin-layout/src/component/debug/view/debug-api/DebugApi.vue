@@ -49,13 +49,14 @@ import {
   OioTooltipHelp,
   uniqueKeyGenerator
 } from '@oinone/kunlun-vue-ui-antd';
-import { computed, defineComponent, PropType, ref, Ref } from 'vue';
+import { computed, defineComponent, onMounted, PropType, ref, Ref } from 'vue';
 import { DebugFetchRequest, DebugFetchResponse, DebugRequestInfo } from '../../typing';
 import DebugJsonView from '../components/DebugJsonView.vue';
 import DebugRequestInfoPanel from '../components/DebugRequestInfoPanel.vue';
 import DebugResponsePanel from '../components/DebugResponsePanel.vue';
 import { DebugUtils } from '../debug-utils';
 import { useDebugRequestInfo } from '../useDebugRequestInfo';
+import { useMatched } from '@oinone/kunlun-router';
 
 function setData(val: Ref, newValue, defaultValue = '') {
   if (newValue === undefined) {
@@ -201,6 +202,32 @@ export default defineComponent({
     const onUpdateText = (text: string) => {
       inputResponseText.value = text;
     };
+
+    onMounted(() => {
+      const { debug } = useMatched().matched.segmentParams;
+      if (debug?.reqId) {
+        const debugReqKey = `__OIO_DEBUG_${debug.reqId}`;
+        const debugText = localStorage.getItem(debugReqKey);
+        if (!debugText) {
+          return;
+        }
+        try {
+          const debugInfo = JSON.parse(debugText);
+          const fetchArg = {
+            headers: debugInfo.headers,
+            referrer: debugInfo.referrer,
+            method: debugInfo.method,
+            body: debugInfo.requestData
+          };
+          requestData.value = `fetch("${debugInfo.url}", ${JSON.stringify(fetchArg)});`;
+          onRequest().then(() => {
+            localStorage.removeItem(debugReqKey);
+          });
+        } catch (e) {
+          console.error('parse debug error', e);
+        }
+      }
+    });
 
     return {
       logLevel,
