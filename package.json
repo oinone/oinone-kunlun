@@ -21,7 +21,7 @@
     "lint": "npx lint-staged",
     "patch": "patch-package",
     "test": "lerna run test",
-    "publish": "npx lerna publish --no-git-reset --no-git-tag-version --no-push --force-publish --exact --yes",
+    "publish": "lerna publish --no-git-reset --no-git-tag-version --no-push --force-publish --exact --yes",
     "type-check": "vue-tsc --build"
   },
   "lint-staged": {
