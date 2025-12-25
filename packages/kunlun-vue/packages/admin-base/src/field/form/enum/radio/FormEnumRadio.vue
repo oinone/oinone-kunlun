@@ -45,7 +45,7 @@
               @mousedown.stop="clickRadio(item.data, item.disabled)"
               >{{ item.label || item.displayName }}</span
             >
-            <oio-tooltip-help v-if="item.data?.help" :content="item.data?.help" />
+            <oio-tooltip-help v-if="computeHelp(item)" :content="computeHelp(item)" />
             <br />
             <span v-if="computeItemHintIf(item.data)" class="item-hint">{{ item.data.hint }}</span>
           </a-radio>
@@ -156,6 +156,10 @@ export default defineComponent({
       return props.orientation === OrientationEnum.VERTICAL ? 'vertical' : '';
     });
 
+    const computeHelp = (item: SelectItem<RuntimeEnumerationOption>) => {
+      return item.data?.help;
+    };
+
     const computeValue = (item) => {
       return item.name === 'false' || item.name === 'true' ? JSON.parse(item.name) : item.name;
     };
@@ -235,6 +239,7 @@ export default defineComponent({
       computeRadioGroupClass,
       realButtonOptions,
       extraButtonStyle,
+      computeHelp,
       computeItemShow,
       computeRadioClass,
       computeItemHintIf,
