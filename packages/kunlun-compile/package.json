@@ -35,6 +35,8 @@
     "husky": "4.2.5",
     "jiti": "2.6.1",
     "lerna": "9.0.3",
+    "less": "4.5.1",
+    "less-loader": "12.3.0",
     "lint-staged": "10.4.2",
     "postcss": "8.5.6",
     "postcss-pxtorem": "6.1.0",
