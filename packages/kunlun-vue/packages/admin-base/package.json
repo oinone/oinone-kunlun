@@ -10,8 +10,9 @@
     "dist": "npm run prepublishOnly",
     "test": "jest",
     "index": "npm run postpublish",
-    "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
-    "x-postpublish": "node ../../scripts/postpublish.js",
+    "prepublishOnly": "node ../../scripts/prepublish-only.cjs",
+    "deploy": "npm publish --exact",
+    "postpublish": "node ../../scripts/postpublish.cjs",
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {

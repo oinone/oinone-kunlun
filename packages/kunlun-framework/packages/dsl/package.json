@@ -9,8 +9,9 @@
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
     "test": "jest",
-    "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
-    "x-postpublish": "node ../../scripts/postpublish.js"
+    "prepublishOnly": "node ../../scripts/prepublish-only.cjs",
+    "deploy": "npm publish --exact",
+    "postpublish": "node ../../scripts/postpublish.cjs"
   },
   "devDependencies": {
     "@oinone/kunlun-meta": "6.4.0"

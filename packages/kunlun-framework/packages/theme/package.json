@@ -8,8 +8,9 @@
     "build": "rollup -c",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
-    "x-prepublishOnly": "node ../../scripts/prepublish-only.js",
-    "x-postpublish": "node ../../scripts/postpublish.js"
+    "prepublishOnly": "node ../../scripts/prepublish-only.cjs",
+    "deploy": "npm publish --exact",
+    "postpublish": "node ../../scripts/postpublish.cjs"
   },
   "dependencies": {
     "@oinone/kunlun-config": "6.4.0"

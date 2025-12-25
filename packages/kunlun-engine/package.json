@@ -17,10 +17,10 @@
     "build-css": "sass --style compressed --no-source-map ./dist/oinone-kunlun-engine.scss ./dist/oinone-kunlun-engine.css",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
-    "x-prepublishOnly": "node ./scripts/prepublish-only.js",
-    "x-postpublish": "node ./scripts/postpublish.js",
-    "doc": "typedoc --out docs src/index.ts",
+    "prepublishOnly": "node ./scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
+    "postpublish": "node ./scripts/postpublish.cjs",
+    "doc": "typedoc --out docs src/index.ts",
     "format": "prettier --write --parser typescript \"packages/**/*.ts\""
   },
   "author": "",
