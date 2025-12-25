@@ -96,6 +96,7 @@ export class RollupConfigBuilder {
         console.error(warning.message);
       },
       preserveSymlinks: true,
+      makeAbsoluteExternalsRelative: false,
       external: _external,
       plugins
     };
@@ -171,9 +172,7 @@ class AbstractPluginBuilder {
   }
 
   public nodeResolve(config: boolean | RollupNodeResolveOptions = true): typeof this {
-    return this.$$setPluginOptions((val) => (this._nodeResolve = val), config, {
-      moduleDirectories: ['node_modules']
-    });
+    return this.$$setPluginOptions((val) => (this._nodeResolve = val), config, {});
   }
 
   public commonjs(config: boolean | RollupCommonJSOptions = true): typeof this {
@@ -363,10 +362,10 @@ class RollupSingleModulePluginBuilder extends AbstractPluginBuilder {
           ...this.defaultTypescriptCompilerOptions
         },
         include: ['index.ts', 'src/**/*.ts'],
-        exclude: ['node_modules', '**/__tests__/**/*.ts']
+        exclude: ['**/node_modules/**/*', '**/__tests__/**/*']
       },
       include: ['index.ts', 'src/**/*.ts'],
-      exclude: ['node_modules', '**/__tests__/**/*.ts']
+      exclude: ['**/node_modules/**/*', '**/__tests__/**/*']
     });
   }
 }
@@ -399,9 +398,9 @@ class RollupMultipleModulePluginBuilder extends AbstractPluginBuilder {
           declarationDir: `${basePath}/dist/types`
         },
         include: [`${basePath}/index.ts`, `${basePath}/src/**/*.ts`],
-        exclude: ['node_modules', '**/__tests__/**/*']
+        exclude: ['**/node_modules/**/*', '**/__tests__/**/*']
       },
-      exclude: ['node_modules', '**/__tests__/**/*']
+      exclude: ['**/node_modules/**/*', '**/__tests__/**/*']
     });
   }
 }

@@ -31,7 +31,6 @@ export const rollupConfig = ({
   extendPlugins,
   outputEntryFiles = false
 }: QuickBuilderOptions) => {
-  console.log(`building ${pkg.name}(${pkg.version})...`);
   const finalExternal = [
     ...new Set([
       /node_modules/,
