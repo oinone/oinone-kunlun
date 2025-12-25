@@ -64,9 +64,9 @@
         </oio-table>
 
         <oio-pagination
-          :page-size="tablePagination?.pageSize"
-          :current-page="tablePagination?.current"
-          :total="tablePagination?.total"
+          :page-size="tablePagination.pageSize"
+          :current-page="tablePagination.current"
+          :total="tablePagination.total"
           @change="onPaginationChange"
         ></oio-pagination>
       </div>
@@ -122,7 +122,8 @@ export default defineComponent({
       type: Function
     },
     tablePagination: {
-      type: Object as PropType<Pagination>
+      type: Object as PropType<Pagination>,
+      required: true
     },
     onPaginationChange: {
       type: Function
