@@ -33,7 +33,6 @@ export const rollupConfig = ({
 }: QuickBuilderOptions) => {
   const finalExternal = [
     ...new Set([
-      /node_modules/,
       ...Object.keys(pkg.dependencies || {}),
       ...Object.keys(pkg.devDependencies || {}),
       ...(includeExternal || [])

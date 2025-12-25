@@ -63,7 +63,11 @@ export class RollupConfigBuilder {
   }
 
   public external(val: RollupExternalType): RollupConfigBuilder {
-    this._external = val;
+    if (Array.isArray(val)) {
+      this._external = [/node_modules/, ...val];
+    } else {
+      this._external = [/node_modules/, val];
+    }
     return this;
   }
 
