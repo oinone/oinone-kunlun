@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "rollup -c && rimraf dist",
+    "build": "rollup -c && npm run build-css",
     "build-css": "sass --style compressed --no-source-map ./dist/oinone-kunlun-vue-mobile-base.scss ./dist/oinone-kunlun-vue-mobile-base.css",
     "build-css-rem": "node ../../scripts/px2rem.js ./dist/oinone-kunlun-vue-mobile-base.css",
     "dist": "npm run prepublishOnly",
