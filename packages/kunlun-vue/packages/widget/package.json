@@ -9,6 +9,7 @@
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
     "prepublishOnly": "node ../../scripts/prepublish-only.cjs",
+    "deploy": "npm publish --exact",
     "postpublish": "node ../../scripts/postpublish.cjs"
   },
   "dependencies": {
