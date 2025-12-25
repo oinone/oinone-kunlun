@@ -32,8 +32,6 @@ export interface WidgetBehaviorSubjection<T> extends BaseWidgetSubjection<T> {
 export type watcher<T> = { path: string; handler: (newVal: T, oldVal: T) => void; options?: { deep?: boolean } };
 export type HANDLE = string;
 
-type InjectionType = { name: typeof Widget; list: Map<string | Symbol, string> };
-
 export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknown> implements IWidget<Props> {
   private static widgetCount = 0;
 
@@ -225,10 +223,10 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
    */
   protected static Inject(injectName?: string | Symbol) {
     return <T extends Widget>(target: T, name: string) => {
-      let injection = (Reflect.get(target, 'injection') || {
+      let injection: { name: typeof Widget; list: Map<string | Symbol, string> } = Reflect.get(target, 'injection') || {
         name: this,
         list: new Map()
-      }) as InjectionType;
+      };
       if (injection.name !== target.constructor) {
         const oldInjection = injection;
         injection = { name: target.constructor as typeof Widget, list: new Map() };
@@ -262,10 +260,10 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
    */
   protected static Provide(provideName?: string | Symbol) {
     return <T extends Widget>(target: T, name: string) => {
-      let injection = (Reflect.get(target, 'provider') || {
+      let injection: { name: typeof Widget; list: Map<string | Symbol, string> } = Reflect.get(target, 'provider') || {
         name: this,
         list: new Map()
-      }) as InjectionType;
+      };
       if (injection.name !== (target.constructor as typeof Widget)) {
         const old = injection;
         injection = { name: target.constructor as typeof Widget, list: new Map() };
@@ -321,7 +319,7 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
     }
 
     const props = {};
-    const injection = (Reflect.get(this, 'injection') as InjectionType | undefined)?.list;
+    const injection = (Reflect.get(this, 'injection') || { list: new Map() }).list as Map<string | Symbol, string>;
     const attrs = this.getAttributes();
 
     if (injection) {
@@ -747,7 +745,7 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
     let parent = this.getParent();
     let name = '';
     while (parent) {
-      const provider = (Reflect.get(this, 'provider') as InjectionType | undefined)?.list;
+      const provider: Map<string | Symbol, string> = (Reflect.get(parent, 'provider') || { list: new Map() }).list;
       if (provider && provider.get(injectName)) {
         name = provider.get(injectName)!;
         break;
@@ -765,7 +763,7 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
   }
 
   private releaseInjection() {
-    const injection = Reflect.get(this, 'injection') as InjectionType;
+    const injection: { list: Map<string | Symbol, string> } = Reflect.get(this, 'injection');
     if (injection) {
       injection.list.forEach((name) => {
         const widget = this.getSelf()!;
@@ -780,7 +778,7 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
   }
 
   public getComputeHandler(name: string) {
-    return Reflect.get(this, `$compute$${name}`) as { get: Function; set?: Function };
+    return Reflect.get(this, `$compute$${name}`);
   }
 
   protected getProps() {
