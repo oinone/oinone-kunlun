@@ -24,7 +24,7 @@
   <!-- 弹窗 -->
   <oio-modal
     v-model:visible="showModal"
-    :title="field?.displayName || field?.label"
+    :title="title"
     :width="modalWidth"
     wrapper-class-name="vxe-table--ignore-clear"
     @enter="onModalEnter"
@@ -164,6 +164,10 @@ export default defineComponent({
     const checkbox = computed(() => {
       return !!props.field?.multi;
     });
+
+    const title = computed(() => {
+      return field?.displayName || field?.label;
+    })
 
     const onShowModal = () => {
       showModal.value = true;
@@ -306,6 +310,7 @@ export default defineComponent({
       ...selectSetup,
       tableActiveRecords,
       checkbox,
+      title,
       showModal,
       currentValue,
       optionList,
