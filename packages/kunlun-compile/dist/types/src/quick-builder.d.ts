@@ -1,11 +1,20 @@
-export declare const rollupConfig: ({ name, prefix, external, hasVue, hasSCSS, ugly, keep_classnames, extendPlugins, outputEntryFiles }: {
-    name?: string | undefined;
-    prefix?: string | undefined;
-    external?: never[] | undefined;
-    hasVue?: boolean | undefined;
-    hasSCSS?: boolean | undefined;
-    ugly?: boolean | undefined;
-    keep_classnames?: boolean | undefined;
-    extendPlugins: any;
-    outputEntryFiles?: boolean | undefined;
-}) => import("rollup").RollupOptions;
+import { Plugin as RollupPlugin } from 'rollup';
+interface QuickBuilderOptions {
+    pkg: {
+        name: string;
+        version: string;
+        dependencies?: Record<string, unknown>;
+        devDependencies?: Record<string, unknown>;
+    };
+    prefix?: boolean;
+    includeExternal?: string[];
+    excludeExternal?: string[];
+    hasVue?: boolean;
+    hasSCSS?: boolean;
+    ugly?: boolean;
+    keep_classnames?: boolean;
+    extendPlugins?: RollupPlugin[];
+    outputEntryFiles?: boolean;
+}
+export declare const rollupConfig: ({ pkg, prefix, includeExternal, excludeExternal, hasVue, hasSCSS, ugly, keep_classnames, extendPlugins, outputEntryFiles }: QuickBuilderOptions) => import("rollup").RollupOptions;
+export {};

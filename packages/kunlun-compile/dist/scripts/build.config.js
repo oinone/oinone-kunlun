@@ -13,7 +13,7 @@ const rollupConfig = ({
 }) => {
   const builder = RollupConfigBuilder.config()
     .prefix(name, prefix)
-    .external(external)
+    .external([/node_modules/, ...external])
     .multipleModule()
     .replace()
     .nodeResolve()
