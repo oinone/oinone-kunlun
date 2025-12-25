@@ -1,10 +1,10 @@
 import pkg from './package.json' with { type: 'json' };
-import rollupConfig from '@oinone/kunlun-compile/dist/scripts/build.config.js';
+import { rollupConfig } from '@oinone/kunlun-compile';
 
 export default rollupConfig({
-  name: pkg.name,
+  pkg,
   prefix: 'oinone-kunlun-vue-',
-  external: [
+  includeExternal: [
     '@oinone/kunlun-shared',
     '@oinone/kunlun-vue-ui-antd',
     '@oinone/kunlun-vue-ui-common',
@@ -13,7 +13,7 @@ export default rollupConfig({
     'vue',
     'vxe-table',
     'vxe-table/lib/style.min.css',
-    'vxe-table/lib/v-x-e-table/src/conf',
+    'vxe-table/lib/v-x-e-table/src/conf.min.js',
     'vxe-table-plugin-antd',
     'vxe-table-plugin-antd/dist/style.min.css',
     'vxe-table-plugin-element',

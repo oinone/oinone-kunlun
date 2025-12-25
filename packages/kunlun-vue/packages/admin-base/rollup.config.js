@@ -1,10 +1,10 @@
 import pkg from './package.json' with { type: 'json' };
-import rollupConfig from '@oinone/kunlun-compile/dist/scripts/build.config.js';
+import { rollupConfig } from '@oinone/kunlun-compile';
 
 export default rollupConfig({
-  name: pkg.name,
+  pkg,
   prefix: 'oinone-kunlun-vue-',
-  external: [
+  includeExternal: [
     '@ant-design/icons-vue',
     '@element-plus/icons-vue',
     '@oinone/kunlun-dsl',
@@ -44,6 +44,5 @@ export default rollupConfig({
     'vue3-smooth-dnd',
     'smooth-signature',
     /^(element-plus\/dist|dayjs\/locale|@wangeditor)/
-  ],
-  ugly: false
+  ]
 });
