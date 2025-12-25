@@ -57,7 +57,7 @@
             @cell-click="onCellClick"
             @checked-all-change="onCheckedAllChange"
           >
-            <oio-column type="checkbox" width="50" v-if="field?.multi"></oio-column>
+            <oio-column type="checkbox" width="50" v-if="checkbox"></oio-column>
             <oio-column type="radio" width="50" v-else></oio-column>
             <oio-column v-for="column in optionColumns" :key="column.key" v-bind="column"></oio-column>
           </oio-table>
@@ -147,6 +147,10 @@ export default defineComponent({
       }
 
       return null;
+    });
+
+    const checkbox = computed(() => {
+      return !!props.field?.multi;
     });
 
     const dropdownTableClassName = computed(() => {
@@ -269,6 +273,7 @@ export default defineComponent({
       SelectSearchArea,
 
       ...selectSetup,
+      checkbox,
       dropdownTableClassName,
       currentValue,
       optionList,

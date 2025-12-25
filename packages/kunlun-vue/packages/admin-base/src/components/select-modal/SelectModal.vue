@@ -52,13 +52,13 @@
           :height="modalHeight"
           :data="optionList"
           :row-config="{ isCurrent: false, isHover: true }"
-          :checkbox-config="field?.multi ? { highlight: true, trigger: 'row' } : {}"
-          :radio-config="field?.multi ? {} : { highlight: true, trigger: 'row' }"
+          :checkbox-config="checkbox ? { highlight: true, trigger: 'row' } : {}"
+          :radio-config="checkbox ? {} : { highlight: true, trigger: 'row' }"
           @checked-all-change="onCheckedAllChange"
           @checked-change="onCheckedChange"
           @radio-change="onRadioChange"
         >
-          <oio-column type="checkbox" width="50" v-if="field?.multi"></oio-column>
+          <oio-column type="checkbox" width="50" v-if="checkbox"></oio-column>
           <oio-column type="radio" width="50" v-else></oio-column>
           <oio-column v-for="column in optionColumns" :key="column.key" v-bind="column"></oio-column>
         </oio-table>
@@ -159,6 +159,10 @@ export default defineComponent({
       }
 
       return null;
+    });
+
+    const checkbox = computed(() => {
+      return !!props.field?.multi;
     });
 
     const onShowModal = () => {
@@ -301,6 +305,7 @@ export default defineComponent({
     return {
       ...selectSetup,
       tableActiveRecords,
+      checkbox,
       showModal,
       currentValue,
       optionList,
