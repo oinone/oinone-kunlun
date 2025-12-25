@@ -14,25 +14,12 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {},
-    "lib": [
-      "ES2018",
-      "esnext",
-      "dom",
-      "scripthost"
-    ],
-    "types": [
-      "node"
-    ],
+    "lib": ["ES2018", "esnext", "dom", "scripthost"],
+    "types": ["node"],
     "noImplicitAny": false,
     "incremental": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "index.ts",
-    "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["index.ts", "src"],
+  "exclude": ["node_modules", "dist"]
 }

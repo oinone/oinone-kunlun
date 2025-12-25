@@ -7,6 +7,7 @@
   "scripts": {
     "prebuild": "rimraf dist node_modules/.cache",
     "build": "rollup -c",
+    "deploy": "npm publish --exact",
     "clean": "rimraf dist package-lock.json node_modules"
   },
   "devDependencies": {

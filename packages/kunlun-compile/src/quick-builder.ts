@@ -1,19 +1,48 @@
+import { Plugin as RollupPlugin } from 'rollup';
 import { RollupConfigBuilder } from './builder';
 
+interface QuickBuilderOptions {
+  pkg: {
+    name: string;
+    version: string;
+    dependencies?: Record<string, unknown>;
+    devDependencies?: Record<string, unknown>;
+  };
+  prefix?: boolean;
+  includeExternal?: string[];
+  excludeExternal?: string[];
+  hasVue?: boolean;
+  hasSCSS?: boolean;
+  ugly?: boolean;
+  keep_classnames?: boolean;
+  extendPlugins?: RollupPlugin[];
+  outputEntryFiles?: boolean;
+}
+
 export const rollupConfig = ({
-  name = '',
+  pkg,
   prefix = 'oinone-kunlun-',
-  external = [],
+  includeExternal,
+  excludeExternal,
   hasVue = true,
   hasSCSS = true,
   ugly = true,
   keep_classnames = false,
   extendPlugins,
   outputEntryFiles = false
-}) => {
+}: QuickBuilderOptions) => {
+  console.log(`building ${pkg.name}(${pkg.version})...`);
+  const finalExternal = [
+    ...new Set([
+      /node_modules/,
+      ...Object.keys(pkg.dependencies || {}),
+      ...Object.keys(pkg.devDependencies || {}),
+      ...(includeExternal || [])
+    ]).difference(new Set([...(excludeExternal || [])]))
+  ];
   const builder = RollupConfigBuilder.config()
-    .prefix(name, prefix)
-    .external(external)
+    .prefix(pkg.name, prefix)
+    .external(finalExternal)
     .multipleModule()
     .replace()
     .nodeResolve()

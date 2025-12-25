@@ -95,6 +95,7 @@ export class RollupConfigBuilder {
         }
         console.error(warning.message);
       },
+      preserveSymlinks: true,
       external: _external,
       plugins
     };
@@ -147,7 +148,10 @@ class AbstractPluginBuilder {
   public replace(config: boolean | RollupReplaceOptions = true): typeof this {
     return this.$$setPluginOptions((val) => (this._replace = val), config, {
       'process.env.NODE_ENV': JSON.stringify('development'),
-      preventAssignment: true
+      preventAssignment: true,
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false,
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false
     });
   }
 
@@ -163,24 +167,13 @@ class AbstractPluginBuilder {
   }
 
   public vue(config: boolean | Partial<VuePluginOptions> = true): typeof this {
-    return this.$$setPluginOptions((val) => (this._vue = val), config, {
-      target: 'vue3',
-      compilerOptions: {
-        script: {
-          lang: 'ts',
-          preserveRawSrc: true, // 保留原始源码（辅助调试，确保预处理内容完整）
-          enableTsSyntax: true
-        },
-        preserveIdentifiers: true
-      },
-      // 关键：开启调试模式，输出预处理相关信息
-      devtools: true, // 启用 Vue 开发者工具调试，会暴露预处理后的模块内容
-      verbose: true // 打印插件详细日志，包含预处理后的 TS 代码片段
-    });
+    return this.$$setPluginOptions((val) => (this._vue = val), config, {});
   }
 
   public nodeResolve(config: boolean | RollupNodeResolveOptions = true): typeof this {
-    return this.$$setPluginOptions((val) => (this._nodeResolve = val), config, {});
+    return this.$$setPluginOptions((val) => (this._nodeResolve = val), config, {
+      moduleDirectories: ['node_modules']
+    });
   }
 
   public commonjs(config: boolean | RollupCommonJSOptions = true): typeof this {
