@@ -209,7 +209,7 @@ class AbstractPluginBuilder {
     return this.$$setPluginOptions((val) => (this._copy = val), config, {});
   }
 
-  public copyTypeFiles(typesDir: string, deleteDir: string): typeof this {
+  public copyTypeFiles(typesDir: string, deleteDir: string | string[]): typeof this {
     if (!this._plugins) {
       this._plugins = [];
     }
@@ -223,15 +223,22 @@ class AbstractPluginBuilder {
       ]
     });
     const home = process.cwd();
-    deleteDir = path.resolve(home, `dist/types/${deleteDir}`);
+    const deleteDirs = [];
+    if (Array.isArray(deleteDir)) {
+      deleteDirs.push(...deleteDir.map((v) => path.resolve(home, `dist/types/${v}`)));
+    } else {
+      deleteDirs.push(path.resolve(home, `dist/types/${deleteDir}`));
+    }
     this._plugins.push({
       name: 'copy-and-delete-type-files',
       hook: 'writeBundle',
       writeBundle: async () => {
         await copyPlugin.writeBundle?.();
-        if (fs.existsSync(deleteDir)) {
-          if (fs.statSync(deleteDir).isDirectory()) {
-            fs.rm(deleteDir, { recursive: true, force: true }, () => {});
+        for (const dir of deleteDirs) {
+          if (fs.existsSync(dir)) {
+            if (fs.statSync(dir).isDirectory()) {
+              fs.rm(dir, { recursive: true, force: true }, () => {});
+            }
           }
         }
       }

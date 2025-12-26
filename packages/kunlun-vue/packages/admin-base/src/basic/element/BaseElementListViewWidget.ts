@@ -271,7 +271,9 @@ export abstract class BaseElementListViewWidget<
       options = sizeOptions || [];
     }
 
-    return options.length ? options.map((v) => NumberHelper.toNumber(v)) : this.defaultPageSizeOptions;
+    return options.length
+      ? options.map((v) => NumberHelper.toNumber(v)).filter((v) => v != null)
+      : this.defaultPageSizeOptions;
   }
 
   @Widget.Reactive()

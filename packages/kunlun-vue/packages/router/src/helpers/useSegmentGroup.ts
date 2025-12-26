@@ -9,7 +9,7 @@ export const useSegmentGroup = (namespace?: string) => {
   const activatedRoute = inject(ACTIVATED_ROUTE_TOKEN)!;
   const parentSegmentGroup = inject(
     PARENT_SEGMENT_GROUP_TOKEN,
-    computed(() => activatedRoute.value.root)
+    computed(() => activatedRoute.value!.root)
   );
 
   const currentSegmentGroupRef = computed(() => {

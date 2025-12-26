@@ -17,7 +17,7 @@ interface QuickBuilderOptions {
     outputEntryFiles?: boolean;
     copyTypeFiles?: {
         typesDir: string;
-        deleteDir: string;
+        deleteDir: string | string[];
     };
 }
 export declare const rollupConfig: ({ pkg, prefix, includeExternal, excludeExternal, hasVue, hasSCSS, ugly, keep_classnames, extendPlugins, outputEntryFiles, copyTypeFiles }: QuickBuilderOptions) => import("rollup").RollupOptions;

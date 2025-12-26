@@ -19,7 +19,7 @@ interface QuickBuilderOptions {
   outputEntryFiles?: boolean;
   copyTypeFiles?: {
     typesDir: string;
-    deleteDir: string;
+    deleteDir: string | string[];
   };
 }
 

@@ -27,5 +27,9 @@ export default rollupConfig({
     'lodash',
     'lodash-es',
     'vue'
-  ]
+  ],
+  copyTypeFiles: {
+    typesDir: 'kunlun-vue/packages/admin-layout/*',
+    deleteDir: ['kunlun-vue', 'packages']
+  }
 });
