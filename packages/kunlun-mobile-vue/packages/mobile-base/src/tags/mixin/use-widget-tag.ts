@@ -10,7 +10,7 @@ import {
   WidgetTagProps
 } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
-import { ComponentOptionsMixin, computed, Ref, ref, SetupContext, Slots } from 'vue';
+import { ComponentOptionsMixin, computed, type Ref, ref, SetupContext, Slots } from 'vue';
 import { createCustomWidget, CustomWidgetProps, InternalWidget } from '../resolve';
 import { BaseWidgetTagMixinContext } from './typing';
 

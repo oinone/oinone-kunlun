@@ -1,7 +1,7 @@
 <script lang="ts">
 import { AuthRole, PamirsEmployee, PamirsEmployeeService, QueryWrapper } from '@oinone/kunlun-engine';
 import { OioDivider, OioListItem, RSQLCondition, RSQLHelper, SelectMode } from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType, Ref, ref } from 'vue';
+import { computed, createVNode, defineComponent, PropType, type Ref, ref } from 'vue';
 import { ListState } from '../../quick-utils';
 import { RoleList } from '../role-select';
 import EmployeeList from './EmployeeList.vue';

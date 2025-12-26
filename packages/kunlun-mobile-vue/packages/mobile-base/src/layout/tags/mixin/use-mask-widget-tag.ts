@@ -7,7 +7,7 @@ import {
   VueWidget,
   WidgetTagProps
 } from '@oinone/kunlun-vue-widget';
-import { ComponentOptionsMixin, computed, ref, Ref, SetupContext, Slots } from 'vue';
+import { ComponentOptionsMixin, computed, ref, type Ref, SetupContext, Slots } from 'vue';
 import { useInjectMaskContext, useProviderMaskContext } from '../context';
 import { createMaskWidget, CreateMaskWidgetProps } from '../resolve';
 import { MaskWidgetTagMixinContext } from './typing';

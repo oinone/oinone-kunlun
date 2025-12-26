@@ -8,7 +8,7 @@ import {
   QueryWrapper
 } from '@oinone/kunlun-engine';
 import { OioDivider, RSQLCondition, RSQLHelper, SelectMode } from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType, Ref, ref } from 'vue';
+import { computed, createVNode, defineComponent, PropType, type Ref, ref } from 'vue';
 import { ListState, TreeState } from '../../quick-utils';
 import { OrganizationalStructureTree } from '../organizational-structure-tree';
 import EmployeeList from './EmployeeList.vue';

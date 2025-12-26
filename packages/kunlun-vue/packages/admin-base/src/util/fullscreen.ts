@@ -1,4 +1,4 @@
-import { onMounted, onBeforeMount, ref, Ref, isRef } from 'vue';
+import { onMounted, onBeforeMount, ref, type Ref, isRef } from 'vue';
 
 const useFullscreen = (target: HTMLElement | Ref<HTMLElement>) => {
   const isFullScreen = ref(false);

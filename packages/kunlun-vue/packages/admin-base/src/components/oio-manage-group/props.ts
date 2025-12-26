@@ -1,4 +1,4 @@
-import { Ref, PropType } from 'vue';
+import { type Ref, PropType } from 'vue';
 
 export type IconGroupCommon = {
   id: string;

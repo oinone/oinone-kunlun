@@ -1,4 +1,4 @@
-import { computed, onBeforeUnmount, ref, Ref, watch } from 'vue';
+import { computed, onBeforeUnmount, ref, type Ref, watch } from 'vue';
 import { IExpressionItem, IExpressionLabelDisplayType, IExpressionOption } from '../../../types';
 import {
   createDefaultExpressionItem,

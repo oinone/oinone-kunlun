@@ -1,4 +1,4 @@
-import { ComputedRef, onBeforeUnmount, onMounted, Ref, watchEffect } from 'vue';
+import { ComputedRef, onBeforeUnmount, onMounted, type Ref, watchEffect } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { StyleHelper } from '../../util';
 

@@ -8,7 +8,7 @@ import {
   KeepAlive,
   markRaw,
   PropType,
-  Ref,
+  type Ref,
   resolveDynamicComponent,
   shallowRef,
   toRaw

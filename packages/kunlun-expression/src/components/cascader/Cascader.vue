@@ -44,7 +44,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, onUpdated, PropType, Ref, ref, watch } from 'vue';
+import { computed, defineComponent, onUpdated, PropType, type Ref, ref, watch } from 'vue';
 import { isNil } from 'lodash-es';
 import { Pagination } from '@oinone/kunlun-engine';
 import { ExpressionKeyword } from '@oinone/kunlun-expression';

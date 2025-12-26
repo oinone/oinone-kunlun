@@ -1,5 +1,5 @@
 import { DEFAULT_TAB_TITLE } from '@oinone/kunlun-vue-ui-common';
-import { createVNode, Ref, unref, VNode } from 'vue';
+import { createVNode, type Ref, unref, VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 
 export function useTabBar(title: string | Ref<string>, invisible: boolean): VNode {

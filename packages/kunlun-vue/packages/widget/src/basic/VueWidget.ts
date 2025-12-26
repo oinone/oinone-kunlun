@@ -13,7 +13,7 @@ import {
   isRef,
   nextTick,
   ref,
-  Ref,
+  type Ref,
   Slot,
   Slots,
   toRaw,
