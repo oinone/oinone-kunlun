@@ -10,4 +10,4 @@ delete packageJSON.module;
 delete packageJSON.typings;
 delete packageJSON.files;
 
-fs.writeFileSync('package.json', JSON.stringify(packageJSON, null, 2));
+fs.writeFileSync('package.json', JSON.stringify(packageJSON, null, 2) + '\n');
