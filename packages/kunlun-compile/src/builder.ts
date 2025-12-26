@@ -11,6 +11,7 @@ import copy, { CopyOptions as RollupCopyPluginOptions } from 'rollup-plugin-copy
 import terser, { Options as RollupTerserPluginOptions } from '@rollup/plugin-terser';
 import sourcemaps, { SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
 import fs from 'fs';
+import path from 'path';
 
 type RollupExternalType = string | RegExp | ((id: string) => boolean);
 
@@ -221,11 +222,13 @@ class AbstractPluginBuilder {
       hook: 'writeBundle',
       targets: [
         {
-          src: `dist/types/${typesDir}/src`,
+          src: `dist/types/${typesDir}`,
           dest: 'dist/types'
         }
       ]
     });
+    const home = process.cwd();
+    deleteDir = path.resolve(home, `dist/types/${deleteDir}`);
     this._plugins.push({
       name: 'copy-and-delete-type-files',
       hook: 'writeBundle',
@@ -394,10 +397,11 @@ class RollupMultipleModulePluginBuilder extends AbstractPluginBuilder {
 
   public typescript2(config: boolean | RollupTypescript2PluginOptions = true): typeof this {
     const basePath = `packages/${this._builder.getPathName()}`;
+    // const home = path.resolve(process.cwd(), '../../');
     return this.$$setPluginOptions((val) => (this._typescript2 = val), config, {
+      // cwd: home,
       tsconfig: '../../tsconfig.json',
       useTsconfigDeclarationDir: true,
-      clean: true,
       tsconfigOverride: {
         compilerOptions: {
           ...this.defaultTypescriptCompilerOptions,

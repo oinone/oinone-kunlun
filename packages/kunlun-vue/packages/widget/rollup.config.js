@@ -22,7 +22,7 @@ export default rollupConfig({
   ],
   hasSCSS: false,
   copyTypeFiles: {
-    typeDir: 'kunlun-vue/packages/widget',
+    typesDir: 'kunlun-vue/packages/widget/*',
     deleteDir: 'kunlun-vue'
   }
 });
