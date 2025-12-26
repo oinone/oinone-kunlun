@@ -1,7 +1,7 @@
 import CompileConfigBuilder from '@oinone/kunlun-compile';
 
 export default CompileConfigBuilder.config()
-  .libraryName('oinone-kunlun-engine')
+  .setLibraryName('oinone-kunlun-engine')
   .external([
     '@oinone/kunlun-dsl',
     '@oinone/kunlun-event',

@@ -1,7 +1,7 @@
 import CompileConfigBuilder from '@oinone/kunlun-compile';
 
 export default CompileConfigBuilder.config()
-  .libraryName('oinone-kunlun-vue-expression')
+  .setLibraryName('oinone-kunlun-vue-expression')
   .external([
     'vue',
     'lodash-es',

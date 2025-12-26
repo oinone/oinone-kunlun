@@ -167,7 +167,7 @@ export default defineComponent({
     });
 
     const title = computed(() => {
-      return field?.displayName || field?.label;
+      return props.field?.displayName || props.field?.label;
     })
 
     const onShowModal = () => {

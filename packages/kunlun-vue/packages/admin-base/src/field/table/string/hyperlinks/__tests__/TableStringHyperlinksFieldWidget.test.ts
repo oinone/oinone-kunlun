@@ -1,4 +1,4 @@
-import { createVNode, VNode } from 'vue';
+import { VNode } from 'vue';
 import { TableStringHyperlinksFieldWidget } from './TableStringHyperlinksFieldWidget';
 
 const TEST_URL = 'https://example.com';

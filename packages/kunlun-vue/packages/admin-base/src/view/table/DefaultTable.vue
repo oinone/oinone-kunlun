@@ -440,8 +440,8 @@ export default defineComponent({
       () => defaultTableRef.value && defaultTableRef.value.querySelector('.oio-table-content-wrapper')!
     );
 
-    const pagination = computed(() => {
-      return props.pagination || {};
+    const pagination = computed<Pagination>(() => {
+      return props.pagination || { current: 0, pageSize: 0, total: 0 };
     });
 
     const editorMode = computed(() => {

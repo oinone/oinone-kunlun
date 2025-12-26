@@ -641,8 +641,8 @@ export class BaseTableFieldWidget<
         'div',
         {
           class: 'default-table-hyperlinks',
-          onClick: withModifiers(this.handleClick.bind(this, context), ['stop']),
-          onDblclick: withModifiers(this.handleClick.bind(this, context), ['stop'])
+          onClick: withModifiers((e) => this.handleClick.bind(this)(context, e as MouseEvent), ['stop']),
+          onDblclick: withModifiers((e) => this.handleClick.bind(this)(context, e as MouseEvent), ['stop'])
         },
         [createVNode('a', {}, node)]
       )

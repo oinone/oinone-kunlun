@@ -44,5 +44,6 @@ export default rollupConfig({
     'vue3-smooth-dnd',
     'smooth-signature',
     /^(element-plus\/dist|dayjs\/locale|@wangeditor)/
-  ]
+  ],
+  debug: true
 });

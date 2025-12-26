@@ -21,6 +21,7 @@ interface QuickBuilderOptions {
     typesDir: string;
     deleteDir: string | string[];
   };
+  debug?: boolean;
 }
 
 export const rollupConfig = ({
@@ -34,7 +35,8 @@ export const rollupConfig = ({
   keep_classnames = false,
   extendPlugins,
   outputEntryFiles = false,
-  copyTypeFiles
+  copyTypeFiles,
+  debug
 }: QuickBuilderOptions) => {
   const finalExternal = [
     ...new Set([
@@ -43,7 +45,7 @@ export const rollupConfig = ({
       ...(includeExternal || [])
     ]).difference(new Set([...(excludeExternal || [])]))
   ];
-  const builder = CompileConfigBuilder.config()
+  const builder = CompileConfigBuilder.config(debug)
     .prefix(pkg.name, prefix)
     .external(finalExternal)
     .multipleModule()
@@ -70,7 +72,7 @@ export const rollupConfig = ({
     return builder.build({
       output: {
         dir: 'dist',
-        entryFileNames: `${builder.getLibraryName()}.esm.js`,
+        entryFileNames: `${builder.libraryName}.esm.js`,
         file: null
       }
     });

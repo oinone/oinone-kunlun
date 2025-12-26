@@ -12,17 +12,21 @@ import terser, { Options as RollupTerserPluginOptions } from '@rollup/plugin-ter
 import sourcemaps, { SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
 import fs from 'fs';
 import path from 'path';
+import * as console from 'node:console';
 
 type RollupExternalType = string | RegExp | ((id: string) => boolean);
 
 type RollupExternalTypes = RollupExternalType | RollupExternalType[];
 
 type RollupBuildOptions = {
+  debug?: boolean;
   output?: RollupOutputOptions;
   outputOverride?: RollupOutputOptions | RollupOutputOptions[];
 };
 
 export class CompileConfigBuilder {
+  private _debug: boolean | undefined;
+
   private _libraryName: string | undefined;
 
   private _pathName: string | undefined;
@@ -33,8 +37,10 @@ export class CompileConfigBuilder {
 
   private _pluginBuilder: AbstractPluginBuilder | undefined;
 
-  public static config(): CompileConfigBuilder {
-    return new CompileConfigBuilder();
+  public static config(debug?: boolean): CompileConfigBuilder {
+    const builder = new CompileConfigBuilder();
+    builder._debug = debug;
+    return builder;
   }
 
   public prefix(packageJsonName: string, prefix = 'oinone-'): CompileConfigBuilder {
@@ -47,21 +53,47 @@ export class CompileConfigBuilder {
     return this;
   }
 
-  public libraryName(val: string): CompileConfigBuilder {
+  public get libraryName(): string | undefined {
+    return this._libraryName;
+  }
+
+  public set libraryName(val: string) {
+    this._libraryName = val;
+  }
+
+  public setLibraryName(val: string): CompileConfigBuilder {
     this._libraryName = val;
     return this;
   }
 
-  public getLibraryName(): string | undefined {
-    return this._libraryName;
-  }
-
-  public getPathName(): string | undefined {
+  public get pathName(): string | undefined {
     return this._pathName;
   }
 
-  public getCamelCaseName(): string | undefined {
+  public set pathName(val: string | undefined) {
+    this._pathName = val;
+  }
+
+  public setPathName(val: string | undefined): CompileConfigBuilder {
+    this._pathName = val;
+    return this;
+  }
+
+  public get camelCaseName(): string | undefined {
     return this._camelCaseName;
+  }
+
+  public set camelCaseName(val: string | undefined) {
+    this._camelCaseName = val;
+  }
+
+  public setCamelCaseName(val: string | undefined): CompileConfigBuilder {
+    this._camelCaseName = val;
+    return this;
+  }
+
+  public get isDebug(): boolean {
+    return !!this._debug;
   }
 
   public external(val: RollupExternalTypes): CompileConfigBuilder {
@@ -140,16 +172,16 @@ class AbstractPluginBuilder {
 
   protected _plugins: RollupPlugin[] | undefined;
 
-  public getLibraryName(): string | undefined {
-    return this._builder.getLibraryName();
+  public get libraryName(): string | undefined {
+    return this._builder.libraryName;
   }
 
-  public getPathName(): string | undefined {
-    return this._builder.getPathName();
+  public get pathName(): string | undefined {
+    return this._builder.pathName;
   }
 
-  public getCamelCaseName(): string | undefined {
-    return this._builder.getCamelCaseName();
+  public get camelCaseName(): string | undefined {
+    return this._builder.camelCaseName;
   }
 
   public replace(config: boolean | RollupReplaceOptions = true): typeof this {
@@ -163,7 +195,7 @@ class AbstractPluginBuilder {
   }
 
   public scss(config: boolean | SCSSPluginOptions = true): typeof this {
-    const libraryName = this._builder.getLibraryName();
+    const { libraryName } = this._builder;
     return this.$$setPluginOptions((val) => (this._scss = val), config, {
       fileName: `${libraryName}.scss`,
       output: 'dist',
@@ -398,12 +430,18 @@ class RollupMultipleModulePluginBuilder extends AbstractPluginBuilder {
   }
 
   public typescript2(config: boolean | RollupTypescript2PluginOptions = true): typeof this {
-    const basePath = `packages/${this._builder.getPathName()}`;
-    // const home = path.resolve(process.cwd(), '../../');
+    const basePath = `packages/${this._builder.pathName}`;
+    let extraOptions: RollupTypescript2PluginOptions = {};
+    if (this._builder.isDebug) {
+      extraOptions = {
+        clean: true,
+        abortOnError: false
+      };
+    }
     return this.$$setPluginOptions((val) => (this._typescript2 = val), config, {
-      // cwd: home,
       tsconfig: '../../tsconfig.json',
       useTsconfigDeclarationDir: true,
+      ...extraOptions,
       tsconfigOverride: {
         compilerOptions: {
           ...this.defaultTypescriptCompilerOptions,
