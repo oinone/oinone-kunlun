@@ -8,9 +8,11 @@
     "prebuild": "rimraf dist",
     "build": "rollup -c && npm run build-css",
     "build-css": "sass --style compressed --no-source-map ./dist/oinone-kunlun-vue-expression.scss ./dist/oinone-kunlun-vue-expression.css",
-    "prepublishOnly": "node ./scripts/prepublish-only.cjs",
+    "dist": "npm run prepublishOnly",
+    "index": "npm run postpublish",
+    "prepublishOnly": "node ../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
-    "postpublish": "node ./scripts/postpublish.cjs"
+    "postpublish": "node ../../scripts/postpublish.cjs"
   },
   "dependencies": {
     "@wangeditor/editor": "5.1.23",

@@ -8,9 +8,9 @@
     "build": "rollup -c",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
-    "prepublishOnly": "node ../../scripts/prepublish-only.cjs",
+    "prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
-    "postpublish": "node ../../scripts/postpublish.cjs"
+    "postpublish": "node ../../../../scripts/postpublish.cjs"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

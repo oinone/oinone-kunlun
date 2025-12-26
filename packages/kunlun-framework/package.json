@@ -6,23 +6,6 @@
   "workspaces": [
     "packages/*"
   ],
-  "scripts": {
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-    "clean": "lerna clean -y && lerna run clean",
-    "dev": "lerna exec npm run dev --scope",
-    "build": "lerna run build --parallel",
-    "dist": "lerna run dist --parallel",
-    "index": "lerna run index --parallel",
-    "lint": "lint-staged && node ./scripts/check-keyword.js",
-    "lint:all": "eslint --quiet --fix",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:@oinone/kunlun-spi": "jest --selectProjects=@oinone/kunlun-spi",
-    "test:@oinone/kunlun-dsl": "jest --selectProjects=@oinone/kunlun-dsl",
-    "test:@oinone/kunlun-request": "jest --selectProjects=@oinone/kunlun-request",
-    "publish": "lerna publish --no-git-reset --no-git-tag-version --no-push --force-publish --exact --yes",
-    "format": "prettier --write --parser typescript \"packages/**/*.ts\""
-  },
   "devDependencies": {
     "@oinone/kunlun-compile": "~6.4.0",
     "@oinone/kunlun-test": "~6.4.0"
