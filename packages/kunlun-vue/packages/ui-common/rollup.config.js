@@ -1,11 +1,11 @@
 import copy from 'rollup-plugin-copy';
 import pkg from './package.json' with { type: 'json' };
-import rollupConfig from '@oinone/kunlun-compile/dist/scripts/build.config.js';
+import { rollupConfig } from '@oinone/kunlun-compile';
 
 export default rollupConfig({
-  name: pkg.name,
+  pkg,
   prefix: 'oinone-kunlun-vue-',
-  external: [
+  includeExternal: [
     './icons',
     '@oinone/kunlun-request',
     '@oinone/kunlun-shared',

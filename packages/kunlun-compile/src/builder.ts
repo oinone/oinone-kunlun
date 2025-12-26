@@ -13,29 +13,31 @@ import sourcemaps, { SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
 import path from 'path';
 import fs from 'fs';
 
-type RollupExternalType = string[] | ((id: string) => boolean);
+type RollupExternalType = string | RegExp | ((id: string) => boolean);
+
+type RollupExternalTypes = RollupExternalType | RollupExternalType[];
 
 type RollupBuildOptions = {
   output?: RollupOutputOptions;
   outputOverride?: RollupOutputOptions | RollupOutputOptions[];
 };
 
-export class RollupConfigBuilder {
+export class CompileConfigBuilder {
   private _libraryName: string | undefined;
 
   private _pathName: string | undefined;
 
   private _camelCaseName: string | undefined;
 
-  private _external: RollupExternalType | undefined;
+  private _external: RollupExternalTypes | undefined;
 
   private _pluginBuilder: AbstractPluginBuilder | undefined;
 
-  public static config(): RollupConfigBuilder {
-    return new RollupConfigBuilder();
+  public static config(): CompileConfigBuilder {
+    return new CompileConfigBuilder();
   }
 
-  public prefix(packageJsonName: string, prefix = 'oinone-'): RollupConfigBuilder {
+  public prefix(packageJsonName: string, prefix = 'oinone-'): CompileConfigBuilder {
     const libraryName = packageJsonName.replace('@', '').replace('/', '-');
     const pathName = libraryName.substring(prefix.length);
     const camelCaseName = libraryName.replace(/-(\w)/g, (all, letter) => letter.toUpperCase());
@@ -45,7 +47,7 @@ export class RollupConfigBuilder {
     return this;
   }
 
-  public libraryName(val: string): RollupConfigBuilder {
+  public libraryName(val: string): CompileConfigBuilder {
     this._libraryName = val;
     return this;
   }
@@ -62,7 +64,7 @@ export class RollupConfigBuilder {
     return this._camelCaseName;
   }
 
-  public external(val: RollupExternalType): RollupConfigBuilder {
+  public external(val: RollupExternalTypes): CompileConfigBuilder {
     if (Array.isArray(val)) {
       this._external = [/node_modules/, ...val];
     } else {
@@ -108,9 +110,9 @@ export class RollupConfigBuilder {
 }
 
 class AbstractPluginBuilder {
-  protected readonly _builder: RollupConfigBuilder;
+  protected readonly _builder: CompileConfigBuilder;
 
-  protected constructor(builder: RollupConfigBuilder) {
+  protected constructor(builder: CompileConfigBuilder) {
     this._builder = builder;
   }
 
@@ -172,7 +174,12 @@ class AbstractPluginBuilder {
   }
 
   public vue(config: boolean | Partial<VuePluginOptions> = true): typeof this {
-    return this.$$setPluginOptions((val) => (this._vue = val), config, {});
+    return this.$$setPluginOptions((val) => (this._vue = val), config, {
+      compilerOptions: {
+        mode: 'module',
+        comments: false
+      }
+    });
   }
 
   public nodeResolve(config: boolean | RollupNodeResolveOptions = true): typeof this {
@@ -344,7 +351,7 @@ class AbstractPluginBuilder {
 }
 
 class RollupSingleModulePluginBuilder extends AbstractPluginBuilder {
-  public constructor(builder: RollupConfigBuilder) {
+  public constructor(builder: CompileConfigBuilder) {
     super(builder);
   }
 
@@ -375,7 +382,7 @@ class RollupSingleModulePluginBuilder extends AbstractPluginBuilder {
 }
 
 class RollupMultipleModulePluginBuilder extends AbstractPluginBuilder {
-  public constructor(builder: RollupConfigBuilder) {
+  public constructor(builder: CompileConfigBuilder) {
     super(builder);
   }
 

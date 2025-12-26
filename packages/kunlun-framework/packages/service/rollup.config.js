@@ -1,11 +1,11 @@
 import pkg from './package.json' with { type: 'json' };
-import rollupConfig from '@oinone/kunlun-compile/dist/scripts/build.config.js';
+import { rollupConfig } from '@oinone/kunlun-compile';
 
 export default rollupConfig({
-  name: pkg.name,
+  pkg,
   hasVue: false,
   hasSCSS: false,
-  external: [
+  includeExternal: [
     '@oinone/kunlun-meta',
     '@oinone/kunlun-request',
     '@oinone/kunlun-router',

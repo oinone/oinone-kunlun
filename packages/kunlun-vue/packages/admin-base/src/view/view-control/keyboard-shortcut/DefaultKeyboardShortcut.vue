@@ -9,7 +9,7 @@
       @update:visible="onUpdateVisible"
     >
       <template #default>
-        <a-tooltip placement="bottom" class="oio-tooltip" v-model:visible="tooltipVisible">
+        <a-tooltip placement="bottom" class="oio-tooltip" v-model:open="tooltipVisible">
           <template #title>
             <span>{{ $translate('快捷键') }}</span>
           </template>

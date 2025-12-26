@@ -1,5 +1,5 @@
 import { Plugin as RollupPlugin } from 'rollup';
-import { RollupConfigBuilder } from './builder';
+import { CompileConfigBuilder } from './builder';
 
 interface QuickBuilderOptions {
   pkg: {
@@ -38,7 +38,7 @@ export const rollupConfig = ({
       ...(includeExternal || [])
     ]).difference(new Set([...(excludeExternal || [])]))
   ];
-  const builder = RollupConfigBuilder.config()
+  const builder = CompileConfigBuilder.config()
     .prefix(pkg.name, prefix)
     .external(finalExternal)
     .multipleModule()

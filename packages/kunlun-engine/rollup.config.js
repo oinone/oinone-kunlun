@@ -1,6 +1,6 @@
-import RollupConfigBuilder from '@oinone/kunlun-compile';
+import CompileConfigBuilder from '@oinone/kunlun-compile';
 
-export default RollupConfigBuilder.config()
+export default CompileConfigBuilder.config()
   .libraryName('oinone-kunlun-engine')
   .external([
     '@oinone/kunlun-dsl',

@@ -3,7 +3,7 @@
     overlay-class-name="default-table-line-height-dropdown"
     trigger="click"
     placement="bottomRight"
-    @visible-change="handleVisibleChange"
+    @open-change="handleVisibleChange"
   >
     <div class="default-view-control-item default-table-line-height">
       <a-tooltip placement="bottom" class="oio-tooltip" v-model:visible="tooltipStatus">

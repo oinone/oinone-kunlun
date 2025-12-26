@@ -4,8 +4,8 @@
     trigger="click"
     placement="bottomRight"
     destroy-tooltip-on-hide
-    :visible="state.visible"
-    @visibleChange="onVisibleChange"
+    :open="state.visible"
+    @openChange="onVisibleChange"
   >
     <template #content>
       <sortable-group
@@ -17,7 +17,7 @@
       ></sortable-group>
     </template>
     <div class="default-view-control-item default-view-control-sort">
-      <a-tooltip placement="bottom" class="oio-tooltip" v-model:visible="tooltipStatus">
+      <a-tooltip placement="bottom" class="oio-tooltip" v-model:open="tooltipStatus">
         <template #title>
           <span>{{ $translate('排序') }}</span>
         </template>

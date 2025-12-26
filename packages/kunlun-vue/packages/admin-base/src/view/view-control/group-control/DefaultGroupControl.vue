@@ -4,8 +4,8 @@
     trigger="click"
     placement="bottomRight"
     destroy-tooltip-on-hide
-    :visible="state.visible"
-    @visibleChange="onVisibleChange"
+    :open="state.visible"
+    @openChange="onVisibleChange"
   >
     <template #content>
       <sortable-group

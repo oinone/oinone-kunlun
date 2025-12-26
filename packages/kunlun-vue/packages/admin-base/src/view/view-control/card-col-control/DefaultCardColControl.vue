@@ -3,8 +3,8 @@
     overlay-class-name="oio-popover default-view-control-popover"
     trigger="click"
     placement="bottomRight"
-    :visible="visible"
-    @visible-change="onVisibleChange"
+    :open="visible"
+    @open-change="onVisibleChange"
   >
     <template #content>
       <div class="default-card-col-control">

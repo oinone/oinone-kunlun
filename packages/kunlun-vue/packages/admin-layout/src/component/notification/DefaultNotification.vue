@@ -1,7 +1,7 @@
 <template>
   <div class="k-layout-extra-btn">
     <a-popover
-      v-model:open="visible"
+      :open="visible"
       trigger="click"
       overlayClassName="message-popover-wrapper"
       @update:open="onShowPopover"
