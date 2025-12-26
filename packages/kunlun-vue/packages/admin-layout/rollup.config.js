@@ -27,6 +27,5 @@ export default rollupConfig({
     'lodash',
     'lodash-es',
     'vue'
-  ],
-  ugly: false
+  ]
 });

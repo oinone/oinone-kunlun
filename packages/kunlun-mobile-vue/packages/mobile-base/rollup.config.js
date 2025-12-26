@@ -17,6 +17,5 @@ export default rollupConfig({
     'lodash-es',
     'vant',
     'smooth-signature'
-  ],
-  ugly: false
+  ]
 });
