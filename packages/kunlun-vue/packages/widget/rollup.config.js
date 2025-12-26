@@ -20,5 +20,9 @@ export default rollupConfig({
     'vue',
     '@vue/runtime-core'
   ],
-  hasSCSS: false
+  hasSCSS: false,
+  copyTypeFiles: {
+    typeDir: 'kunlun-vue/packages/widget',
+    deleteDir: 'kunlun-vue'
+  }
 });

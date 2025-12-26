@@ -17,7 +17,10 @@ interface QuickBuilderOptions {
   keep_classnames?: boolean;
   extendPlugins?: RollupPlugin[];
   outputEntryFiles?: boolean;
-  copyTypeFiles?: boolean | string;
+  copyTypeFiles?: {
+    typesDir: string;
+    deleteDir: string;
+  };
 }
 
 export const rollupConfig = ({
@@ -60,12 +63,8 @@ export const rollupConfig = ({
   if (ugly) {
     builder.terser({ keep_classnames });
   }
-  if (typeof copyTypeFiles === 'boolean') {
-    if (copyTypeFiles) {
-      builder.copyTypeFiles();
-    }
-  } else if (typeof copyTypeFiles === 'string') {
-    builder.copyTypeFiles(copyTypeFiles);
+  if (copyTypeFiles) {
+    builder.copyTypeFiles(copyTypeFiles.typesDir, copyTypeFiles.deleteDir);
   }
   if (outputEntryFiles) {
     return builder.build({

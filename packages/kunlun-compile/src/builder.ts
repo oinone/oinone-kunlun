@@ -10,7 +10,6 @@ import json, { RollupJsonOptions } from '@rollup/plugin-json';
 import copy, { CopyOptions as RollupCopyPluginOptions } from 'rollup-plugin-copy';
 import terser, { Options as RollupTerserPluginOptions } from '@rollup/plugin-terser';
 import sourcemaps, { SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
-import path from 'path';
 import fs from 'fs';
 
 type RollupExternalType = string | RegExp | ((id: string) => boolean);
@@ -214,19 +213,15 @@ class AbstractPluginBuilder {
     return this.$$setPluginOptions((val) => (this._copy = val), config, {});
   }
 
-  public copyTypeFiles(typesDir?: string): typeof this {
+  public copyTypeFiles(typesDir: string, deleteDir: string): typeof this {
     if (!this._plugins) {
       this._plugins = [];
-    }
-    if (!typesDir) {
-      const home = process.cwd();
-      typesDir = home.split('/').pop();
     }
     const copyPlugin = copy({
       hook: 'writeBundle',
       targets: [
         {
-          src: `dist/types/packages/${typesDir}/src`,
+          src: `dist/types/${typesDir}/src`,
           dest: 'dist/types'
         }
       ]
@@ -236,7 +231,6 @@ class AbstractPluginBuilder {
       hook: 'writeBundle',
       writeBundle: async () => {
         await copyPlugin.writeBundle?.();
-        const deleteDir = path.resolve(home, 'dist/types/packages');
         if (fs.existsSync(deleteDir)) {
           if (fs.statSync(deleteDir).isDirectory()) {
             fs.rm(deleteDir, { recursive: true, force: true }, () => {});
