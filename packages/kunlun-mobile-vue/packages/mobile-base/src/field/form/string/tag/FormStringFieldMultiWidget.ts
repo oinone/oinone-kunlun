@@ -48,7 +48,7 @@ export class FormStringFieldMultiWidget extends FormFieldWidget<string, RuntimeS
       return res;
     }
     if (this.limit && this.value && this.value.length > 0) {
-      if (this.limit && this.value.length > this.limit) {
+      if (this.limit && this.value.length > (this.limit as number)) {
         return this.validatorError(`${translateValueByKey('超出标签最大个数')} :${this.limit}`);
       }
     }

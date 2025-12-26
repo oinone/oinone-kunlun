@@ -157,7 +157,7 @@ export class FormStringUploadFieldWidget extends FormFieldWidget<string[], Runti
     }
     if (this.field.size && this.value) {
       const currentValueLength = JSON.stringify(this.value).length;
-      if (currentValueLength > this.field.size) {
+      if (currentValueLength > (this.field.size as number)) {
         return this.validatorError(
           `${translateValueByKey('链接总长度')} ${currentValueLength} ${translateValueByKey('超出字段大小')}: ${
             this.field.size

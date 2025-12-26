@@ -40,10 +40,9 @@
     </van-popup>
   </div>
 </template>
-
 <script lang="ts">
-import { ref, defineComponent, PropType, computed } from 'vue';
-import { Popup as VanPopup, Image as VanImage } from 'vant';
+import { computed, defineComponent, PropType, ref } from 'vue';
+import { Image as VanImage, Popup as VanPopup } from 'vant';
 import { FormLayout, useInjectOioFormContext } from '@oinone/kunlun-vue-ui-common';
 import { CastHelper, DEFAULT_PREFIX, StringHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { isNil } from 'lodash-es';
@@ -116,7 +115,7 @@ export default defineComponent({
         !readonly.value &&
         (!props.value ||
           (Array.isArray(props.value)
-            ? !isNil(props.limit) && (props.limit === -1 || props.value.length < props.limit)
+            ? !isNil(props.limit) && ((props.limit as number) === -1 || props.value.length < (props.limit as number))
             : Object.keys(props.value).filter((name) => !name.includes('_')).length === 0))
       );
     });

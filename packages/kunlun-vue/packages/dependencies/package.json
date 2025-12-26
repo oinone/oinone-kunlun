@@ -3,6 +3,9 @@
   "version": "6.4.1",
   "type": "module",
   "main": "index.ts",
+  "scripts": {
+    "deploy": "npm publish --exact"
+  },
   "dependencies": {
     "@oinone/kunlun-cache": "~6.4.0",
     "@oinone/kunlun-dsl": "~6.4.0",

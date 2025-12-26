@@ -1,5 +1,5 @@
 import { ViewType } from '@oinone/kunlun-meta';
-import { Widget, DslNodeWidget } from '@oinone/kunlun-vue-widget';
+import { DslNodeWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { IGridWidgetProps } from '@oinone/kunlun-engine';
 import Grid from './Grid.vue';
 
@@ -31,13 +31,15 @@ export class GridWidget extends DslNodeWidget {
     }
 
     // 比如网络一共12列，当前grid占据3列，那么就是 3 + 2，这样在网格中的位置才是对的
-    if (!Number.isNaN(Number(this.cols)) && !Number.isNaN(Number(_columnIndex))) {
+    const colsNumber = Number(this.cols);
+    const columnIndexNumber = Number(_columnIndex);
+    if (!Number.isNaN(colsNumber) && !Number.isNaN(columnIndexNumber)) {
       // 比如网络一共12列，当前grid占据12列，那么是 12 + 1，这样在网格中的位置才是对的
-
-      if (_columnIndex >= this.cols || Number(span) + 2 >= this.cols) {
-        _columnIndex = Number(this.cols) + 1;
+      const spanNumber = Number(span);
+      if (columnIndexNumber >= colsNumber || spanNumber + 2 >= colsNumber) {
+        _columnIndex = colsNumber + 1;
       } else {
-        _columnIndex = Number(span) + 2;
+        _columnIndex = spanNumber + 2;
       }
     }
 

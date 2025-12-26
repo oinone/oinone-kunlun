@@ -122,7 +122,7 @@ export class FormStringSingleMediaWidget extends FormStringFieldSingleWidget {
     const size = this.field.size;
     if (size && realValue) {
       const currentValueLength = JSON.stringify(realValue).length;
-      if (currentValueLength > size) {
+      if (currentValueLength > (size as number)) {
         return this.validatorError(
           `${translateValueByKey('链接总长度')} ${currentValueLength} ${translateValueByKey('超出字段大小')}: ${size}`
         );

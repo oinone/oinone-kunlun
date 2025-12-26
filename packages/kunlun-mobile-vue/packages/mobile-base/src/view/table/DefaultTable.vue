@@ -236,8 +236,8 @@ export default defineComponent({
   setup(props) {
     const table = ref<OioTableInstance | undefined>();
 
-    const pagination = computed(() => {
-      return props.pagination || {};
+    const pagination = computed<Pagination>(() => {
+      return props.pagination || { current: 0, pageSize: 0, total: 0 };
     });
 
     const editorMode = computed(() => {

@@ -118,7 +118,7 @@ export default defineComponent({
         !readonly.value &&
         (!props.value ||
           (Array.isArray(props.value)
-            ? !isNil(props.limit) && (props.limit === -1 || props.value.length < props.limit)
+            ? !isNil(props.limit) && (props.limit === -1 || props.value.length < (props.limit as number))
             : Object.keys(props.value).filter((name) => !name.includes('_')).length === 0))
       );
     });

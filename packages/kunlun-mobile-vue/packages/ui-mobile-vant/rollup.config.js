@@ -12,5 +12,6 @@ export default rollupConfig({
     'vue',
     'vant',
     '@ant-design/icons-vue'
-  ]
+  ],
+  debug: true
 });

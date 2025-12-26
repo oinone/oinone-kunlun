@@ -57,7 +57,7 @@ export class FormIntegerMultiFieldWidget extends FormIntegerFieldWidget<NumberVa
       return res;
     }
     if (this.value && this.value.length) {
-      if (this.limit && this.value.length > this.limit) {
+      if (this.limit && this.value.length > (this.limit as number)) {
         return this.validatorError(`${translateValueByKey('超出标签最大个数')}: ${this.limit}`);
       }
       for (let i = 0; i < this.value.length; i++) {
