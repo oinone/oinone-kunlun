@@ -15,7 +15,7 @@
     "baseUrl": ".",
     "paths": {},
     "lib": ["ES2020", "ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
-    "types": ["node", "reflect-metadata", "jest", "vue", "element-plus"],
+    "types": ["node", "reflect-metadata", "jest"],
     "noImplicitAny": false,
     "incremental": true,
     "resolveJsonModule": true
