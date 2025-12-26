@@ -397,6 +397,7 @@ class RollupSingleModulePluginBuilder extends AbstractPluginBuilder {
   }
 
   public typescript2(val: boolean | RollupTypescript2PluginOptions = true): typeof this {
+    const home = path.resolve(process.cwd(), './');
     let extraOptions: RollupTypescript2PluginOptions = {};
     if (this._builder.isDebug) {
       extraOptions = {
@@ -405,6 +406,7 @@ class RollupSingleModulePluginBuilder extends AbstractPluginBuilder {
       };
     }
     return this.$$setPluginOptions((val) => (this._typescript2 = val), val, {
+      cwd: home,
       useTsconfigDeclarationDir: true,
       ...extraOptions,
       tsconfigOverride: {
