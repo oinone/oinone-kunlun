@@ -12,7 +12,6 @@ export default defineComponent({
   props: {
     ...OioIconProps
   },
-  slots: ['default'],
   setup(props) {
     const rotateNumber = computed(() => NumberHelper.toNumber(props.rotate));
 

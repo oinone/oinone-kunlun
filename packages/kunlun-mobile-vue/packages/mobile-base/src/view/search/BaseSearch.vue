@@ -115,7 +115,6 @@ export default defineComponent({
     CaretUpOutlined
   },
   inheritAttrs: false,
-  slots: ['default'],
   props: {
     ...OioFormProps,
     template: {

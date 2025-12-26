@@ -16,7 +16,6 @@ export default defineComponent({
       type: String as PropType<IInputmodeEnum>
     }
   },
-  slots: ['prepend', 'append', 'prefix', 'suffix'],
   emits: ['update:value', 'change', 'blur', 'focus'],
   setup(props, context) {
     const origin = ref();

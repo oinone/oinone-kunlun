@@ -14,7 +14,6 @@ export default defineComponent({
   props: {
     ...OioTagProps
   },
-  slots: ['default'],
   emits: ['update:checked', 'checked', 'closed'],
   setup(props, context) {
     const key = getVNodeKey() || 'undefined';

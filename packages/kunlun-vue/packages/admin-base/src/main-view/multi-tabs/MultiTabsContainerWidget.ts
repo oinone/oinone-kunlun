@@ -25,7 +25,7 @@ import { Subscription } from '@oinone/kunlun-state';
 import { MenuService, MenuUrlParameters, RuntimeMenu } from '@oinone/kunlun-vue-admin-layout';
 import { DslDefinitionWidget, DslDefinitionWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isString } from 'lodash-es';
-import { Component, Ref } from 'vue';
+import { Component, type Ref } from 'vue';
 import { MultiTabContainerWidget } from './MultiTabContainerWidget';
 import MultiTabsContainer from './MultiTabsContainer.vue';
 import { MultiTabNamedHelper } from './named';

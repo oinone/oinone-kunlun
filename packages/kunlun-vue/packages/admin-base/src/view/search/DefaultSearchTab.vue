@@ -7,7 +7,6 @@ import { CATE_ALL_NAME } from './types';
 export default defineComponent({
   name: 'DefaultSearchTab',
   inheritAttrs: false,
-  slots: ['default'],
   props: {
     formData: {
       type: Object,

@@ -13,7 +13,6 @@ export default defineComponent({
   props: {
     ...OioInputPasswordProps
   },
-  slots: ['prepend', 'append', 'prefix'],
   emits: ['update:value'],
   render() {
     return createVNode(

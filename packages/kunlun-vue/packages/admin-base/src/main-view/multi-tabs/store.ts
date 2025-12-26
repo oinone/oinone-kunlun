@@ -1,4 +1,4 @@
-import { ref, Ref } from 'vue';
+import { ref, type Ref } from 'vue';
 
 export interface KeepAliveStore {
   store: Ref<string[]>;

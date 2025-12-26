@@ -71,7 +71,6 @@ export default defineComponent({
       default: 'body'
     }
   },
-  slots: ['default', 'header', 'footer'],
   emits: ['update:visible', 'change'],
   setup(props, context) {
     const setupProps = useModal(props, context);

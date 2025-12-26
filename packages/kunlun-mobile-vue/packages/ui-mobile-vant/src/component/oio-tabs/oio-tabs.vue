@@ -42,7 +42,6 @@ export default defineComponent({
   props: {
     ...tabsProps
   },
-  slots: ['default', 'tabBarExtraContent'],
   emits: ['update:active-key', 'change'],
   setup(props, context) {
     const onUpdateActiveKey = (val) => {

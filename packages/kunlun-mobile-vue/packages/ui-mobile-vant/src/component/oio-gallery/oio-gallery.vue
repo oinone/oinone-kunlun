@@ -29,7 +29,6 @@ export default defineComponent({
   props: {
     ...OioGalleryProps
   },
-  slots: ['default', 'header', 'footer'],
   setup(props, { expose }) {
     const checkedRowMap = ref({} as { [key: string]: any });
     provide(OioGalleryInjectKey, {

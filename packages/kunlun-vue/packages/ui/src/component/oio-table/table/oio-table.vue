@@ -56,7 +56,6 @@ export default defineComponent({
     ...OioTableProps
   },
   emits: ['sort-change', 'checked-change', 'checked-all-change', 'radio-change', ...Object.values(events)],
-  slots: ['default', 'header', 'footer'],
   setup(props, context) {
     const vxeTable = ref<VxeTableInstance>();
 

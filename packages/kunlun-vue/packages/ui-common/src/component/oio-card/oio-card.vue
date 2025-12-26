@@ -13,7 +13,6 @@ export default defineComponent({
   props: {
     ...OioCardProps
   },
-  slots: ['default', 'title', 'titleToolbar', 'toolbar'],
   setup(props, context) {
     const onClick = (...args) => {
       (context.attrs.onClick as Function)?.(...args);

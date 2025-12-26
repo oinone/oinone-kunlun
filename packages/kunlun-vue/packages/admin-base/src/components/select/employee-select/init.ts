@@ -1,7 +1,7 @@
 import { PamirsDepartment, PamirsEmployee, PamirsEmployeeServiceToken } from '@oinone/kunlun-engine';
 import { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { ComputedRef, Ref } from 'vue';
+import { ComputedRef, type Ref } from 'vue';
 import {
   ListInitOptions,
   ListState,

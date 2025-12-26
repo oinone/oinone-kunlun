@@ -11,7 +11,6 @@ export default defineComponent({
   props: {
     ...OioGroupProps
   },
-  slots: ['default', 'title', 'titleToolbar'],
   render() {
     const {
       $attrs,

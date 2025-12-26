@@ -21,7 +21,6 @@ export default defineComponent({
   props: {
     ...OioInputSearchProps
   },
-  slots: ['prepend', 'append', 'prefix', 'suffix', 'enter'],
   emits: ['update:value', 'search'],
   setup(props, context) {
     const internalValue = ref();

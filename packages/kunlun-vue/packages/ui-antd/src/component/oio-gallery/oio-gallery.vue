@@ -28,7 +28,6 @@ export default defineComponent({
   props: {
     ...OioGalleryProps
   },
-  slots: ['default', 'header', 'footer'],
   setup(props) {
     const cols = computed(() => props.cols || 4);
 

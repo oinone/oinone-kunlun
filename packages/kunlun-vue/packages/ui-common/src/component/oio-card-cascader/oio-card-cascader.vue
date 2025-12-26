@@ -10,7 +10,6 @@ export default defineComponent({
   props: {
     ...OioCardCascaderProps
   },
-  slots: ['default'],
   render() {
     return createVNode(
       'div',

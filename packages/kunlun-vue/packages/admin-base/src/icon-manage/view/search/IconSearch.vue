@@ -43,7 +43,6 @@ export default defineComponent({
     OioManageGroup
   },
   inheritAttrs: false,
-  slots: ['default', 'actions'],
   props: {
     ...DefaultSearchProps,
     ...OioManageGroupProps,

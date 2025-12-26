@@ -18,7 +18,6 @@ export default defineComponent({
     ...OioDateTimePickerProps
   },
   emits: ['update:value'],
-  slots: ['dateRender', 'renderExtraFooter'],
   setup(props, context) {
     return {
       ...useDateTimePickerProps(props, context)

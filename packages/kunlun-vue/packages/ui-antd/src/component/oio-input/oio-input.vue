@@ -15,7 +15,6 @@ export default defineComponent({
   props: {
     ...OioInputProps
   },
-  slots: ['prepend', 'append', 'prefix', 'suffix'],
   emits: ['update:value'],
   setup(props, { emit, expose }) {
     const origin = ref();

@@ -30,7 +30,6 @@ export default defineComponent({
   props: {
     ...OioDrawerProps
   },
-  slots: ['default', 'title', 'header', 'footer', 'closeIcon'],
   emits: ['update:visible', 'update:displayAs'],
   setup(props, context) {
     const formContext = useInjectOioDefaultFormContext();

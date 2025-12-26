@@ -15,5 +15,9 @@ export default rollupConfig({
     'lodash-es',
     'moment',
     'vue'
-  ]
+  ],
+  copyTypeFiles: {
+    typesDir: 'kunlun-vue/packages/ui-antd/*',
+    deleteDir: 'kunlun-vue'
+  }
 });

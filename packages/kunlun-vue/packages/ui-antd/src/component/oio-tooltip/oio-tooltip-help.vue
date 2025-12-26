@@ -16,7 +16,6 @@ export default defineComponent({
       type: String
     }
   },
-  slots: ['default', 'title'],
   render() {
     const { content } = this;
     return [

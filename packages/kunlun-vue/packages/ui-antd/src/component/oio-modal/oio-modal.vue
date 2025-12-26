@@ -33,7 +33,6 @@ export default defineComponent({
   props: {
     ...OioModalProps
   },
-  slots: ['default', 'title', 'header', 'footer', 'closeIcon'],
   emits: ['update:visible', 'update:displayAs', 'enter', 'cancel'],
   setup(props, context) {
     const formContext = useInjectOioDefaultFormContext();

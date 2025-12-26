@@ -24,7 +24,6 @@ export default defineComponent({
   props: {
     ...OioInputNumberProps
   },
-  slots: ['prepend', 'append', 'prefix', 'suffix'],
   emits: ['update:value', 'change', 'focus', 'blur'],
   setup(props, context) {
     const origin = ref();

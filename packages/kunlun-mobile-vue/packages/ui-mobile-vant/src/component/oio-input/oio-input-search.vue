@@ -15,7 +15,6 @@ export default defineComponent({
   props: {
     ...OioInputSearchProps
   },
-  slots: ['prepend', 'append', 'prefix', 'suffix'],
   emits: ['update:value'],
   render() {
     const inputClassList = [`${DEFAULT_PREFIX}-input`, `${DEFAULT_PREFIX}-input-search`];

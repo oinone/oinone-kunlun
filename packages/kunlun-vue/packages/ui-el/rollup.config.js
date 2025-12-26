@@ -14,7 +14,7 @@ export default rollupConfig({
     'vue'
   ],
   copyTypeFiles: {
-    typesDir: 'packages/oinone-kunlun/packages/kunlun-vue/packages/ui-el/*',
-    deleteDir: 'oinone-kunlun'
+    typesDir: 'kunlun-vue/packages/ui-el/*',
+    deleteDir: 'kunlun-vue'
   }
 });

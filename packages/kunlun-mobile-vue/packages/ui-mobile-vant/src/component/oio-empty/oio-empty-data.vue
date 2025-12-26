@@ -13,7 +13,6 @@ export default defineComponent({
   props: {
     ...OioEmptyDataProps
   },
-  slots: ['image', 'description'],
   render() {
     const slots = PropRecordHelper.collectionSlots(this.$slots, [{ origin: 'image' }, { origin: 'description' }]);
     let { description } = this;

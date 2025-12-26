@@ -233,7 +233,6 @@ export default defineComponent({
       default: 'body'
     }
   },
-  slots: ['dropdownRender', 'removeIcon', 'clearIcon', 'suffixIcon', 'menuItemSelectedIcon'],
   emits: ['update:value', 'change', 'search', 'load-more', 'close', 'focus'],
   setup(props, { emit, attrs, expose }) {
     const searchKeyword = ref('');

@@ -16,7 +16,6 @@ export default defineComponent({
   props: {
     ...OioInputPasswordProps
   },
-  slots: ['prepend', 'append', 'prefix'],
   emits: ['update:value'],
   setup(props) {
     const autocomplete = computed<string | undefined>(() => {

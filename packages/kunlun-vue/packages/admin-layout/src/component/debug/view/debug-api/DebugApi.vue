@@ -49,7 +49,7 @@ import {
   OioTooltipHelp,
   uniqueKeyGenerator
 } from '@oinone/kunlun-vue-ui-antd';
-import { computed, defineComponent, PropType, ref, Ref } from 'vue';
+import { computed, defineComponent, PropType, ref, type Ref } from 'vue';
 import { DebugFetchRequest, DebugFetchResponse, DebugRequestInfo } from '../../typing';
 import DebugJsonView from '../components/DebugJsonView.vue';
 import DebugRequestInfoPanel from '../components/DebugRequestInfoPanel.vue';

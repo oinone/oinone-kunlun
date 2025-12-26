@@ -15,7 +15,6 @@ export default defineComponent({
   props: {
     ...OioModalProps
   },
-  slots: ['default', 'header', 'footer', 'icon'],
   emits: ['update:visible'],
   setup(props, context) {
     return {

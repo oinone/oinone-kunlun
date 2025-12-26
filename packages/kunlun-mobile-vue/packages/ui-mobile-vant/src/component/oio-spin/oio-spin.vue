@@ -28,7 +28,6 @@ export default defineComponent({
       type: [String, Array] as PropType<string | string[]>
     }
   },
-  slots: ['default'],
   setup(props) {
     const wrapperClassName = computed(() => {
       return StringHelper.append([`${DEFAULT_PREFIX}-spin-wrapper`], props.wrapperClassName).join(' ');

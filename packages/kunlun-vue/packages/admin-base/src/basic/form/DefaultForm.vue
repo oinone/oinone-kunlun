@@ -21,7 +21,6 @@ export default defineComponent({
     OioForm
   },
   inheritAttrs: false,
-  slots: ['default'],
   props: {
     ...OioFormProps,
     template: {

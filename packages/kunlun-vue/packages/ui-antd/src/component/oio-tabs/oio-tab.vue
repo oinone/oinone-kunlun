@@ -20,7 +20,6 @@ export default defineComponent({
   props: {
     ...OioTabProps
   },
-  slots: ['default', 'tab'],
   setup(props) {
     useOioFormLayoutContext(props);
 

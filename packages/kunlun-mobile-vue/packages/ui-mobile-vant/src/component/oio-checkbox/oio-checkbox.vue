@@ -14,7 +14,6 @@ export default defineComponent({
     ...OioCheckboxProps
   },
   emits: ['update:checked', 'change'],
-  slots: ['default'],
   render() {
     return createVNode(
       VanCheckbox,

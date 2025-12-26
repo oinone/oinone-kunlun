@@ -38,7 +38,6 @@ export default defineComponent({
       type: Object as PropType<DslDefinition>
     }
   },
-  slots: ['default', 'header', 'extra'],
   setup(props) {
     useOioFormLayoutContext(props);
 

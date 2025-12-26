@@ -14,7 +14,6 @@ export default defineComponent({
   props: {
     ...OioTooltipProps
   },
-  slots: ['default', 'title'],
   emits: ['update:visible'],
   setup(props, context) {
     const placement = computed<string | undefined>(() => {

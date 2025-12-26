@@ -21,7 +21,6 @@ export default defineComponent({
   props: {
     ...OioDropdownProps
   },
-  slots: ['default', 'overlay'],
   emits: ['update:value'],
   setup(props, context) {
     const trigger = computed<string[]>(() => {

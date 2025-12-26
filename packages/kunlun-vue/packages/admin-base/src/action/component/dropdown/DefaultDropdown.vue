@@ -57,7 +57,6 @@ export default defineComponent({
       type: Function
     }
   },
-  slots: ['default', 'trigger'],
   setup(props, { slots }) {
     const needRenderOverlayChildren = ref(false);
 

@@ -1,4 +1,4 @@
-import { customRef, Ref } from 'vue';
+import { customRef, type Ref } from 'vue';
 
 /**
  * 防抖ref

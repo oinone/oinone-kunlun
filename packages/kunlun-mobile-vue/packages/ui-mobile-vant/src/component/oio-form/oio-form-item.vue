@@ -53,7 +53,6 @@ export default defineComponent({
     autoHeight: Boolean,
     fieldValueOverflowHidden: Boolean
   },
-  slots: ['default', 'label', 'extra', 'help'],
   setup(props, context) {
     const origin = ref();
     const formContext = useInjectOioFormContext();

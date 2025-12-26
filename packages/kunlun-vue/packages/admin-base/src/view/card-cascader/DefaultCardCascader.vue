@@ -48,7 +48,6 @@ export default defineComponent({
       default: false
     }
   },
-  slots: ['default', 'content'],
   setup(props) {
     const rootNodesChildren = computed(() => {
       return props.rootNodes?.map((v) => TreeUtils.fillLoadMoreAction([...(v.children || [])])) || [];

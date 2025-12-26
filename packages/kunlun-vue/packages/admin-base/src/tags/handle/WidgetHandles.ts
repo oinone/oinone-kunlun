@@ -1,4 +1,4 @@
-import { ComponentInternalInstance, Ref } from 'vue';
+import { ComponentInternalInstance, type Ref } from 'vue';
 
 export class WidgetHandles {
   private static map: Map<string, Ref<ComponentInternalInstance>> = new Map();

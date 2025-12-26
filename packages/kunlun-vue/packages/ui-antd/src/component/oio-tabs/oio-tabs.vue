@@ -27,7 +27,6 @@ export default defineComponent({
     ...OioTabsProps
   },
   emits: ['update:active-key'],
-  slots: ['default', 'tabBarLeftExtraContent', 'tabBarExtraContent'],
   setup(props, context) {
     useOioFormLayoutContext(props);
 

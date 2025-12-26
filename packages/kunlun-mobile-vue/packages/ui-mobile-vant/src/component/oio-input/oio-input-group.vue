@@ -48,7 +48,6 @@ export default defineComponent({
       required: false
     }
   },
-  slots: ['addonBefore', 'addonAfter', 'prefix', 'suffix'],
   emits: ['update:value', 'change', 'blur', 'focus'],
   setup(props, context) {
     const origin = ref();

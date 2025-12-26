@@ -27,7 +27,6 @@ export default defineComponent({
   props: {
     ...OioTreeSelectProps
   },
-  slots: ['title'],
   emits: ['update:value', 'update:expanded-keys', 'update:search-value', 'change', 'search'],
   setup(props, context) {
     const internalProperties = computed<TreeSelectProperties>(() => {

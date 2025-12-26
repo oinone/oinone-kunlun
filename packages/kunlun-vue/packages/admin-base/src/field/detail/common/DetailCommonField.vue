@@ -19,7 +19,6 @@ export default defineComponent({
       type: String
     }
   },
-  slots: ['default', 'empty'],
   setup(props) {
     const realValue = computed<string>(() => {
       const value = props.value;

@@ -12,7 +12,6 @@ export default defineComponent({
   props: {
     ...OioShapeProps
   },
-  slots: ['default'],
   render() {
     const { radius } = this;
     let { width, height } = this;

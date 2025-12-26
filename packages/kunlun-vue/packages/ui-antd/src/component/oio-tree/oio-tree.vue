@@ -23,7 +23,6 @@ export default defineComponent({
   props: {
     ...OioTreeProps
   },
-  slots: ['title', 'icon', 'switcherIcon'],
   emits: [
     'update:expandedKeys',
     'update:selectedKeys',

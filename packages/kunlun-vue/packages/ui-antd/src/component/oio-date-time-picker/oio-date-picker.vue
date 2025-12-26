@@ -13,7 +13,6 @@ export default defineComponent({
     ...OioDatePickerProps
   },
   emits: ['update:value'],
-  slots: ['dateRender', 'renderExtraFooter'],
   render() {
     return createVNode(
       OioDateTimePicker,

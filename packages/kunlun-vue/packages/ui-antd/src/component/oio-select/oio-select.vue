@@ -22,7 +22,6 @@ export default defineComponent({
   props: {
     ...OioSelectProps
   },
-  slots: ['dropdownRender', 'removeIcon', 'clearIcon', 'suffixIcon', 'menuItemSelectedIcon'],
   emits: ['update:value', 'update:dropdown-visible'],
   setup(props, { emit }) {
     const internalProperties = computed<SelectProperties>(() => {

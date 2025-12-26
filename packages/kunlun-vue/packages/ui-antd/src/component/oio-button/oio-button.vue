@@ -39,7 +39,6 @@ export default defineComponent({
   props: {
     ...OioButtonProps
   },
-  slots: ['default', 'icon', 'update:loading', 'update:selected'],
   setup(props, context) {
     const state = reactive<State>({
       loading: false

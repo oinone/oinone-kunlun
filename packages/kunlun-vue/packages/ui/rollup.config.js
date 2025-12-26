@@ -20,5 +20,9 @@ export default rollupConfig({
     'vxe-table-plugin-element/dist/style.min.css',
     'xe-utils',
     'vuedraggable'
-  ]
+  ],
+  copyTypeFiles: {
+    typesDir: 'packages/oinone-kunlun/packages/kunlun-vue/packages/ui-antd/*',
+    deleteDir: 'packages'
+  }
 });

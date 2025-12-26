@@ -20,7 +20,6 @@ export default defineComponent({
   props: {
     ...OioCollapsePanelProps
   },
-  slots: ['default', 'header', 'extra'],
   setup(props) {
     useOioFormLayoutContext(props);
 

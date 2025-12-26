@@ -20,7 +20,6 @@ export default defineComponent({
     ...OioPaginationProps,
     onChange: Function
   },
-  slots: ['pageSizeOption'],
   emits: ['update:current-page', 'update:page-size'],
   render() {
     const { showTotal } = this;

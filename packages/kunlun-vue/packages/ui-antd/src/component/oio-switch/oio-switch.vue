@@ -13,7 +13,6 @@ export default defineComponent({
   props: {
     ...OioSwitchProps
   },
-  slots: ['checkedChildren', 'uncheckedChildren'],
   emits: ['update:checked', 'change'],
   render() {
     return createVNode(

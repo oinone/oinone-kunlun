@@ -14,7 +14,6 @@ export default defineComponent({
   props: {
     ...OioPopperProps
   },
-  slots: [DEFAULT_SLOT_NAME, TRIGGER_SLOT_NAME],
   setup(props, context: SetupContext<EmitType[]>) {
     const triggerOrigin = ref<HTMLElement>();
 

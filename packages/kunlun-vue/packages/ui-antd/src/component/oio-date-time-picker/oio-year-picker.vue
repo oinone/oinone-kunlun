@@ -13,7 +13,6 @@ export default defineComponent({
     ...OioYearPickerProps
   },
   emits: ['update:value'],
-  slots: ['renderExtraFooter'],
   render() {
     return createVNode(
       OioDateTimePicker,

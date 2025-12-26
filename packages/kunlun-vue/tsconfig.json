@@ -14,28 +14,12 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {},
-    "lib": [
-      "ES2018",
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ],
-    "types": [
-      "vue",
-      "node",
-      "reflect-metadata",
-      "jest"
-    ],
+    "lib": ["ES2018", "esnext", "dom", "dom.iterable", "scripthost"],
+    "types": ["vue", "element-plus", "node", "reflect-metadata", "jest"],
     "noImplicitAny": false,
     "incremental": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "packages"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["packages"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -62,7 +62,6 @@ export default defineComponent({
     showActionPopup: Boolean,
     onShowActionsPopup: Function
   },
-  slots: ['default', 'trigger'],
   setup(props) {
     onAllMounted({
       allMounted: () => {

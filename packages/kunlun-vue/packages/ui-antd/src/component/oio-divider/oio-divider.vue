@@ -14,7 +14,6 @@ export default defineComponent({
   props: {
     ...OioDividerProps
   },
-  slots: ['default'],
   render() {
     return createVNode(
       ADivider,

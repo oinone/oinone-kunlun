@@ -15,7 +15,6 @@ export default defineComponent({
   props: {
     ...OioButtonProps
   },
-  slots: ['default', 'icon'],
   render() {
     const slots = PropRecordHelper.collectionSlots(this.$slots, [
       {

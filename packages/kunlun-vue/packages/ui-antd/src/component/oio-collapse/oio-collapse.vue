@@ -22,7 +22,6 @@ export default defineComponent({
   props: {
     ...OioCollapseProps
   },
-  slots: ['default'],
   emits: ['update:active-key'],
   setup(props, context) {
     useOioFormLayoutContext(props);

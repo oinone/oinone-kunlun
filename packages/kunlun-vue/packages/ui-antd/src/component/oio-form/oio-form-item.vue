@@ -20,7 +20,6 @@ export default defineComponent({
   props: {
     ...OioFormItemProps
   },
-  slots: ['default', 'label', 'extra', 'help'],
   setup(props, context) {
     const origin = ref();
     const formContext = useInjectOioFormContext();

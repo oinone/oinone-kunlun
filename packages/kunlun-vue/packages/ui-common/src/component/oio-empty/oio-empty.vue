@@ -10,7 +10,6 @@ export default defineComponent({
   props: {
     ...OioEmptyProps
   },
-  slots: ['default'],
   setup(props) {
     const emptyValue = computed(() => {
       const value = props.emptyStyle?.toLowerCase?.();

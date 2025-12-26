@@ -70,7 +70,6 @@ export default defineComponent({
     }
   },
   emits: ['change', 'remove'],
-  slots: ['default', 'empty'],
   setup(props, context) {
     const fileList = ref<any[]>([]);
 

@@ -197,7 +197,6 @@ export default defineComponent({
     CaretUpOutlined
   },
   inheritAttrs: false,
-  slots: ['default'],
   props: {
     ...DefaultSearchProps
   },

@@ -25,5 +25,9 @@ export default rollupConfig({
         }
       ]
     })
-  ]
+  ],
+  copyTypeFiles: {
+    typesDir: 'kunlun-vue/packages/ui-common/*',
+    deleteDir: 'kunlun-vue'
+  }
 });

@@ -13,7 +13,6 @@ export default defineComponent({
   props: {
     ...OioInputGroupProps
   },
-  slots: ['default'],
   setup(props) {
     const compact = computed<boolean>(() => {
       if (props.compact == null) {

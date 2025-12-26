@@ -36,7 +36,6 @@ export default defineComponent({
       default: DEFAULT_TAB_TITLE
     }
   },
-  slots: ['default'],
   setup(props) {
     const formContext = useInjectOioFormContext();
     const tabsContext = useInjectOioTabsContext();

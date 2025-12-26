@@ -1,4 +1,4 @@
-import { computed, onMounted, Ref } from 'vue';
+import { computed, onMounted, type Ref } from 'vue';
 import { IExpressionItem, IExpressionLabelDisplayType, IExpressionOption } from '../../../types';
 import { createDefaultExpressionItem } from '../../../share';
 

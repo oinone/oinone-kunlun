@@ -24,7 +24,6 @@ export default defineComponent({
       type: String as PropType<string> | Slot
     }
   },
-  slots: ['default', 'tip'],
   setup(props) {
     const loading = computed<boolean>(() => {
       if (isNil(props.loading)) {

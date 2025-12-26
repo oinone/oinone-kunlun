@@ -14,7 +14,6 @@ export default defineComponent({
     ...OioCheckboxProps
   },
   emits: ['update:checked', 'change'],
-  slots: ['default'],
   setup(props, context) {
     const internalChecked = ref(false);
     const checked = computed<boolean>({

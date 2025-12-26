@@ -174,12 +174,7 @@ class AbstractPluginBuilder {
   }
 
   public vue(config: boolean | Partial<VuePluginOptions> = true): typeof this {
-    return this.$$setPluginOptions((val) => (this._vue = val), config, {
-      compilerOptions: {
-        mode: 'module',
-        comments: false
-      }
-    });
+    return this.$$setPluginOptions((val) => (this._vue = val), config, {});
   }
 
   public nodeResolve(config: boolean | RollupNodeResolveOptions = true): typeof this {

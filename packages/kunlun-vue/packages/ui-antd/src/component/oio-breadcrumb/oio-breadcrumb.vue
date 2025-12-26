@@ -14,7 +14,6 @@ export default defineComponent({
   props: {
     ...OioBreadcrumbProps
   },
-  slots: ['default', 'separator', 'itemRender'],
   render() {
     return createVNode(
       ABreadcrumb,

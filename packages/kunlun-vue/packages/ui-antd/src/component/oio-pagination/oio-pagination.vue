@@ -13,7 +13,6 @@ export default defineComponent({
   props: {
     ...OioPaginationProps
   },
-  slots: ['pageSizeOption'],
   emits: ['update:current-page', 'update:page-size', 'change'],
   setup(props, context) {
     const virtualTotal = computed(() => {
