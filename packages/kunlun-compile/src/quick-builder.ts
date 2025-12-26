@@ -32,7 +32,7 @@ export const rollupConfig = ({
   hasVue = true,
   hasSCSS = true,
   ugly = true,
-  keep_classnames = false,
+  keep_classnames = true,
   extendPlugins,
   outputEntryFiles = false,
   copyTypeFiles,

@@ -12,7 +12,6 @@ import terser, { Options as RollupTerserPluginOptions } from '@rollup/plugin-ter
 import sourcemaps, { SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
 import fs from 'fs';
 import path from 'path';
-import * as console from 'node:console';
 
 type RollupExternalType = string | RegExp | ((id: string) => boolean);
 
@@ -398,8 +397,16 @@ class RollupSingleModulePluginBuilder extends AbstractPluginBuilder {
   }
 
   public typescript2(val: boolean | RollupTypescript2PluginOptions = true): typeof this {
+    let extraOptions: RollupTypescript2PluginOptions = {};
+    if (this._builder.isDebug) {
+      extraOptions = {
+        clean: true,
+        abortOnError: false
+      };
+    }
     return this.$$setPluginOptions((val) => (this._typescript2 = val), val, {
       useTsconfigDeclarationDir: true,
+      ...extraOptions,
       tsconfigOverride: {
         compilerOptions: {
           ...this.defaultTypescriptCompilerOptions
@@ -430,6 +437,7 @@ class RollupMultipleModulePluginBuilder extends AbstractPluginBuilder {
   }
 
   public typescript2(config: boolean | RollupTypescript2PluginOptions = true): typeof this {
+    const home = path.resolve(process.cwd(), '../../');
     const basePath = `packages/${this._builder.pathName}`;
     let extraOptions: RollupTypescript2PluginOptions = {};
     if (this._builder.isDebug) {
@@ -439,7 +447,7 @@ class RollupMultipleModulePluginBuilder extends AbstractPluginBuilder {
       };
     }
     return this.$$setPluginOptions((val) => (this._typescript2 = val), config, {
-      tsconfig: '../../tsconfig.json',
+      cwd: home,
       useTsconfigDeclarationDir: true,
       ...extraOptions,
       tsconfigOverride: {
