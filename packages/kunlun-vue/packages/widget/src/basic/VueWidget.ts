@@ -2,8 +2,8 @@ import { genStaticPath, translateValueByKey, WidgetConstructor, WidgetProps } fr
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import {
   Component,
-  ComponentPublicInstance,
   ComponentOptions,
+  ComponentPublicInstance,
   computed,
   createVNode,
   defineComponent,
@@ -100,14 +100,14 @@ export class VueWidget<Props extends WidgetProps = WidgetProps> extends Widget<P
           if (compute) {
             if (compute.get) {
               if (!compute.set) {
-                Reflect.set(result, displayName, computed(compute.get!.bind(opt)));
+                Reflect.set(result, displayName, computed(compute.get.bind(opt)));
               } else {
                 Reflect.set(
                   result,
                   displayName,
                   computed({
-                    get: compute.get!.bind(opt),
-                    set: compute.set!.bind(opt)
+                    get: compute.get.bind(opt),
+                    set: compute.set.bind(opt)
                   })
                 );
               }

@@ -44,5 +44,6 @@ export default rollupConfig({
     'vue3-smooth-dnd',
     'smooth-signature',
     /^(element-plus\/dist|dayjs\/locale|@wangeditor)/
-  ]
+  ],
+  copyTypeFiles: 'oinone-kunlun/packages/kunlun-vue/packages/admin-base'
 });
