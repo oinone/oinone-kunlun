@@ -10,31 +10,32 @@ import { RollupJsonOptions } from '@rollup/plugin-json';
 import { CopyOptions as RollupCopyPluginOptions } from 'rollup-plugin-copy';
 import { Options as RollupTerserPluginOptions } from '@rollup/plugin-terser';
 import { SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
-type RollupExternalType = string[] | ((id: string) => boolean);
+type RollupExternalType = string | RegExp | ((id: string) => boolean);
+type RollupExternalTypes = RollupExternalType | RollupExternalType[];
 type RollupBuildOptions = {
     output?: RollupOutputOptions;
     outputOverride?: RollupOutputOptions | RollupOutputOptions[];
 };
-export declare class RollupConfigBuilder {
+export declare class CompileConfigBuilder {
     private _libraryName;
     private _pathName;
     private _camelCaseName;
     private _external;
     private _pluginBuilder;
-    static config(): RollupConfigBuilder;
-    prefix(packageJsonName: string, prefix?: string): RollupConfigBuilder;
-    libraryName(val: string): RollupConfigBuilder;
+    static config(): CompileConfigBuilder;
+    prefix(packageJsonName: string, prefix?: string): CompileConfigBuilder;
+    libraryName(val: string): CompileConfigBuilder;
     getLibraryName(): string | undefined;
     getPathName(): string | undefined;
     getCamelCaseName(): string | undefined;
-    external(val: RollupExternalType): RollupConfigBuilder;
+    external(val: RollupExternalTypes): CompileConfigBuilder;
     singleModule(): RollupSingleModulePluginBuilder;
     multipleModule(): RollupMultipleModulePluginBuilder;
     build(options?: RollupBuildOptions, plugins?: RollupPlugin[]): RollupOptions;
 }
 declare class AbstractPluginBuilder {
-    protected readonly _builder: RollupConfigBuilder;
-    protected constructor(builder: RollupConfigBuilder);
+    protected readonly _builder: CompileConfigBuilder;
+    protected constructor(builder: CompileConfigBuilder);
     protected _replace: RollupReplaceOptions | undefined;
     protected _scss: SCSSPluginOptions | undefined;
     protected _vue: VuePluginOptions | undefined;
@@ -80,12 +81,12 @@ declare class AbstractPluginBuilder {
     private buildPlugins;
 }
 declare class RollupSingleModulePluginBuilder extends AbstractPluginBuilder {
-    constructor(builder: RollupConfigBuilder);
+    constructor(builder: CompileConfigBuilder);
     typescript(val?: boolean | RollupTypescriptPluginOptions): typeof this;
     typescript2(val?: boolean | RollupTypescript2PluginOptions): typeof this;
 }
 declare class RollupMultipleModulePluginBuilder extends AbstractPluginBuilder {
-    constructor(builder: RollupConfigBuilder);
+    constructor(builder: CompileConfigBuilder);
     typescript(config?: boolean | RollupTypescriptPluginOptions): typeof this;
     typescript2(config?: boolean | RollupTypescript2PluginOptions): typeof this;
 }

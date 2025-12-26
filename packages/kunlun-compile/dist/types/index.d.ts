@@ -1,3 +1,3 @@
-import { rollupConfig, RollupConfigBuilder } from './src';
+import { rollupConfig, CompileConfigBuilder } from './src';
 export { rollupConfig };
-export default RollupConfigBuilder;
+export default CompileConfigBuilder;
