@@ -101,8 +101,8 @@ export class CompileConfigBuilder {
         }
         console.error(warning.message);
       },
-      preserveSymlinks: true,
-      makeAbsoluteExternalsRelative: false,
+      preserveSymlinks: false,
+      makeAbsoluteExternalsRelative: 'ifRelativeSource',
       external: _external,
       plugins
     };
@@ -214,17 +214,19 @@ class AbstractPluginBuilder {
     return this.$$setPluginOptions((val) => (this._copy = val), config, {});
   }
 
-  public copyTypeFiles(): typeof this {
+  public copyTypeFiles(typesDir?: string): typeof this {
     if (!this._plugins) {
       this._plugins = [];
     }
-    const home = process.cwd();
-    const packageName = home.split('/').pop();
+    if (!typesDir) {
+      const home = process.cwd();
+      typesDir = home.split('/').pop();
+    }
     const copyPlugin = copy({
       hook: 'writeBundle',
       targets: [
         {
-          src: `dist/types/packages/${packageName}/src`,
+          src: `dist/types/packages/${typesDir}/src`,
           dest: 'dist/types'
         }
       ]
@@ -289,7 +291,6 @@ class AbstractPluginBuilder {
     moduleResolution: 'Bundler',
     incremental: false,
     sourceMap: false,
-    preserveSymlinks: true,
     verbatimModuleSyntax: false,
     isolatedModules: true,
     stripInternal: false
@@ -360,6 +361,7 @@ class RollupSingleModulePluginBuilder extends AbstractPluginBuilder {
       compilerOptions: {
         ...this.defaultTypescriptCompilerOptions
       },
+      tslib: 'node_modules/tslib/tslib.ts6.js',
       include: ['index.ts', 'src/**/*.ts'],
       exclude: ['**/__tests__/**/*.ts']
     });
@@ -392,6 +394,7 @@ class RollupMultipleModulePluginBuilder extends AbstractPluginBuilder {
       compilerOptions: {
         ...this.defaultTypescriptCompilerOptions
       },
+      tslib: 'node_modules/tslib/tslib.ts6.js',
       include: ['index.ts', 'src/**/*.ts'],
       exclude: ['node_modules', '**/__tests__/**/*.ts']
     });

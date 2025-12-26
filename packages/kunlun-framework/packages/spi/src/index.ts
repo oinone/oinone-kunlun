@@ -113,6 +113,6 @@ export class SPI {
 export * from './typing';
 export * from './register/typing';
 export * from './operator';
-export { StorageKey as SPIStorageKey, Storage as SPIStorage } from './operator/storage';
+export type { StorageKey as SPIStorageKey, Storage as SPIStorage } from './operator/storage';
 export * from './selector';
 export * from './utils';

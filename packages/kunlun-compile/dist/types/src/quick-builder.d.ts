@@ -15,6 +15,7 @@ interface QuickBuilderOptions {
     keep_classnames?: boolean;
     extendPlugins?: RollupPlugin[];
     outputEntryFiles?: boolean;
+    copyTypeFiles?: boolean | string;
 }
-export declare const rollupConfig: ({ pkg, prefix, includeExternal, excludeExternal, hasVue, hasSCSS, ugly, keep_classnames, extendPlugins, outputEntryFiles }: QuickBuilderOptions) => import("rollup").RollupOptions;
+export declare const rollupConfig: ({ pkg, prefix, includeExternal, excludeExternal, hasVue, hasSCSS, ugly, keep_classnames, extendPlugins, outputEntryFiles, copyTypeFiles }: QuickBuilderOptions) => import("rollup").RollupOptions;
 export {};

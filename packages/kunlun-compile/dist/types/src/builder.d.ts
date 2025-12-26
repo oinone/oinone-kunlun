@@ -62,7 +62,7 @@ declare class AbstractPluginBuilder {
     terser(config?: boolean | RollupTerserPluginOptions): typeof this;
     sourcemaps(config?: boolean | SourcemapsPluginOptions): typeof this;
     copy(config?: boolean | RollupCopyPluginOptions): typeof this;
-    copyTypeFiles(): typeof this;
+    copyTypeFiles(typesDir?: string): typeof this;
     plugins(val: RollupPlugin | RollupPlugin[]): this;
     protected $$setPluginOptions<V>(setter: (val: V | undefined) => void, config: boolean | V, defaultConfig: V): typeof this;
     build(options?: RollupBuildOptions): RollupOptions;
@@ -73,9 +73,9 @@ declare class AbstractPluginBuilder {
         moduleResolution: string;
         incremental: boolean;
         sourceMap: boolean;
-        preserveSymlinks: boolean;
         verbatimModuleSyntax: boolean;
         isolatedModules: boolean;
+        importHelpers: boolean;
         stripInternal: boolean;
     };
     private buildPlugins;

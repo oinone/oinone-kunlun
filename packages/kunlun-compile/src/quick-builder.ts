@@ -17,6 +17,7 @@ interface QuickBuilderOptions {
   keep_classnames?: boolean;
   extendPlugins?: RollupPlugin[];
   outputEntryFiles?: boolean;
+  copyTypeFiles?: boolean | string;
 }
 
 export const rollupConfig = ({
@@ -29,7 +30,8 @@ export const rollupConfig = ({
   ugly = true,
   keep_classnames = false,
   extendPlugins,
-  outputEntryFiles = false
+  outputEntryFiles = false,
+  copyTypeFiles
 }: QuickBuilderOptions) => {
   const finalExternal = [
     ...new Set([
@@ -48,7 +50,7 @@ export const rollupConfig = ({
     .json()
     .plugins(extendPlugins);
   if (hasVue) {
-    builder.vue().typescript2({ check: false });
+    builder.vue().typescript2();
   } else {
     builder.typescript();
   }
@@ -57,6 +59,13 @@ export const rollupConfig = ({
   }
   if (ugly) {
     builder.terser({ keep_classnames });
+  }
+  if (typeof copyTypeFiles === 'boolean') {
+    if (copyTypeFiles) {
+      builder.copyTypeFiles();
+    }
+  } else if (typeof copyTypeFiles === 'string') {
+    builder.copyTypeFiles(copyTypeFiles);
   }
   if (outputEntryFiles) {
     return builder.build({
