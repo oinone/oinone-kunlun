@@ -442,7 +442,7 @@ export default defineComponent({
             createVNode(
               'div',
               { class: [`${DEFAULT_PREFIX}-pagination-total`] },
-              `${pagination.total || 0}${this.$translate('条')}`
+              `${pagination.total || 0}${translateValueByKey('条')}`
             )
           ];
         }
