@@ -7,9 +7,15 @@
   "scripts": {
     "prebuild": "rimraf dist node_modules/.cache",
     "build": "rollup -c",
+    "prepublishOnly": "node ../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
-    "clean": "rimraf dist package-lock.json node_modules"
+    "postpublish": "node ../../scripts/postpublish.cjs"
   },
+  "files": [
+    "dist",
+    "scripts",
+    "tsconfig"
+  ],
   "devDependencies": {
     "@commitlint/cli": "20.2.0",
     "@commitlint/config-conventional": "20.2.0",

@@ -1,3 +1,3 @@
 {
-  "extends": "@oinone/kunlun-compile/ts/single-module-tsconfig.json"
+  "extends": "@oinone/kunlun-compile/tsconfig/single-module.json"
 }

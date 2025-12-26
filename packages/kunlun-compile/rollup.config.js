@@ -2,7 +2,6 @@ import typescript from '@rollup/plugin-typescript';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import commonjs from '@rollup/plugin-commonjs';
-import copy from 'rollup-plugin-copy';
 
 export default {
   input: 'index.ts',
@@ -47,14 +46,6 @@ export default {
       },
       include: ['index.ts', 'src/**/*.ts'],
       exclude: ['node_modules', '**/__tests__/**/*.ts']
-    }),
-    copy({
-      targets: [
-        {
-          src: './ts/*',
-          dest: 'dist/ts'
-        }
-      ]
     }),
     terser()
   ]
