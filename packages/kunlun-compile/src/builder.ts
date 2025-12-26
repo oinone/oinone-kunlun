@@ -361,7 +361,6 @@ class RollupSingleModulePluginBuilder extends AbstractPluginBuilder {
       compilerOptions: {
         ...this.defaultTypescriptCompilerOptions
       },
-      tslib: 'node_modules/tslib/tslib.ts6.js',
       include: ['index.ts', 'src/**/*.ts'],
       exclude: ['**/__tests__/**/*.ts']
     });
