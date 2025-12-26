@@ -18,5 +18,8 @@ export default rollupConfig({
     'vant',
     'smooth-signature'
   ],
-  debug: true
+  copyTypeFiles: {
+    typesDir: 'kunlun-mobile-vue/packages/mobile-base/*',
+    deleteDir: 'kunlun-mobile-vue'
+  }
 });

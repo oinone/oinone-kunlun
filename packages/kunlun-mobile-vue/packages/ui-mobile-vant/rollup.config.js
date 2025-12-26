@@ -13,5 +13,8 @@ export default rollupConfig({
     'vant',
     '@ant-design/icons-vue'
   ],
-  debug: true
+  copyTypeFiles: {
+    typesDir: 'kunlun-mobile-vue/packages/ui-mobile-vant/*',
+    deleteDir: 'kunlun-mobile-vue'
+  }
 });
