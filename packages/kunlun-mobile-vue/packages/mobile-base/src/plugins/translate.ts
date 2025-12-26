@@ -1,10 +1,11 @@
 import { translateValueByKey } from '@oinone/kunlun-engine';
+import { GenericType, StandardString } from '@oinone/kunlun-shared';
 import { Plugin } from 'vue';
 
 export const $translate: Plugin = {
   install: (app) => {
-    app.config.globalProperties.$translate = <T extends string | null | undefined = string | null | undefined>(
-      text: T
-    ): T => translateValueByKey(text as string) as T;
+    app.config.globalProperties.$translate = <T extends StandardString = StandardString>(text: T): T => {
+      return translateValueByKey(text as unknown as GenericType<T>) as unknown as T;
+    };
   }
 };
