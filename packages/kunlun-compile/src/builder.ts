@@ -394,7 +394,6 @@ class RollupMultipleModulePluginBuilder extends AbstractPluginBuilder {
       compilerOptions: {
         ...this.defaultTypescriptCompilerOptions
       },
-      tslib: 'node_modules/tslib/tslib.ts6.js',
       include: ['index.ts', 'src/**/*.ts'],
       exclude: ['node_modules', '**/__tests__/**/*.ts']
     });
@@ -405,6 +404,7 @@ class RollupMultipleModulePluginBuilder extends AbstractPluginBuilder {
     return this.$$setPluginOptions((val) => (this._typescript2 = val), config, {
       tsconfig: '../../tsconfig.json',
       useTsconfigDeclarationDir: true,
+      clean: true,
       tsconfigOverride: {
         compilerOptions: {
           ...this.defaultTypescriptCompilerOptions,
@@ -414,6 +414,7 @@ class RollupMultipleModulePluginBuilder extends AbstractPluginBuilder {
         include: [`${basePath}/index.ts`, `${basePath}/src/**/*.ts`],
         exclude: ['**/node_modules/**/*', '**/__tests__/**/*']
       },
+      include: ['index.ts', 'src/**/*.ts'],
       exclude: ['**/node_modules/**/*', '**/__tests__/**/*']
     });
   }

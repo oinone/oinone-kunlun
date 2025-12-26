@@ -52,7 +52,7 @@ export const rollupConfig = ({
   if (hasVue) {
     builder.vue().typescript2();
   } else {
-    builder.typescript();
+    builder.typescript2();
   }
   if (hasSCSS) {
     builder.scss();
