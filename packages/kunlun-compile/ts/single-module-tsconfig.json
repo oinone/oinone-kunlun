@@ -15,7 +15,7 @@
     "baseUrl": ".",
     "paths": {},
     "lib": ["ES2020", "ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
-    "types": ["node"],
+    "types": ["node", "jest"],
     "noImplicitAny": false,
     "incremental": true,
     "resolveJsonModule": true

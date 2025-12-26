@@ -51,8 +51,8 @@ export default {
     copy({
       targets: [
         {
-          src: './scripts/*',
-          dest: 'dist/scripts'
+          src: './ts/*',
+          dest: 'dist/ts'
         }
       ]
     }),
