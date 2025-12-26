@@ -45,5 +45,8 @@ export default rollupConfig({
     'smooth-signature',
     /^(element-plus\/dist|dayjs\/locale|@wangeditor)/
   ],
-  copyTypeFiles: 'oinone-kunlun/packages/kunlun-vue/packages/admin-base'
+  copyTypeFiles: {
+    typesDir: 'oinone-kunlun/packages/kunlun-vue/packages/admin-base',
+    deleteDir: 'oinone-kunlun'
+  }
 });

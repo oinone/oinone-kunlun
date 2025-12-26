@@ -12,5 +12,9 @@ export default rollupConfig({
     'lodash',
     'lodash-es',
     'vue'
-  ]
+  ],
+  copyTypeFiles: {
+    typesDir: 'packages/oinone-kunlun/packages/kunlun-vue/packages/ui-el/*',
+    deleteDir: 'oinone-kunlun'
+  }
 });
