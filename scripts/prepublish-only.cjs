@@ -7,8 +7,8 @@ const packageJSON = require(url);
 
 const libName = packageJSON.name.replace('@', '').replace('/', '-');
 
-packageJSON.main = `dist/${libName}.umd.js`;
-packageJSON.module = `dist/${libName}.umd.js`;
+packageJSON.main = `dist/${libName}.esm.js`;
+packageJSON.module = `dist/${libName}.esm.js`;
 const typings = 'dist/types/index.d.ts';
 packageJSON.typings = typings;
 
@@ -19,6 +19,6 @@ if (!dir) {
   packageJSON.typings = 'dist/index.d.ts';
 }
 
-packageJSON.files = ['dist'];
+packageJSON.files = ['dist', 'index.ts', 'src'];
 
 fs.writeFileSync('package.json', JSON.stringify(packageJSON, null, 2));
