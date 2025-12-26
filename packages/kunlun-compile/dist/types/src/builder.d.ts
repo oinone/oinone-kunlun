@@ -75,7 +75,6 @@ declare class AbstractPluginBuilder {
         sourceMap: boolean;
         verbatimModuleSyntax: boolean;
         isolatedModules: boolean;
-        importHelpers: boolean;
         stripInternal: boolean;
     };
     private buildPlugins;
