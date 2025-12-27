@@ -8,7 +8,7 @@ interface QuickBuilderOptions {
     dependencies?: Record<string, unknown>;
     devDependencies?: Record<string, unknown>;
   };
-  prefix?: boolean;
+  prefix?: string;
   includeExternal?: string[];
   excludeExternal?: string[];
   hasVue?: boolean;
