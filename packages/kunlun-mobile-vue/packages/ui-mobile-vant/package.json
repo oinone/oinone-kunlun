@@ -16,7 +16,10 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "lodash-es": "4.17.21"
+    "@vant/compat": "1.0.1",
+    "lodash-es": "4.17.21",
+    "vant": "4.9.22",
+    "vue": "3.5.26"
   },
   "devDependencies": {
     "@ant-design/icons-vue": "6.1.0",
@@ -24,11 +27,11 @@
     "@oinone/kunlun-shared": "~6.4.0",
     "@oinone/kunlun-vue-ui-common": "~6.4.0",
     "@types/lodash-es": "4.17.6",
+    "less": "4.5.1",
+    "less-loader": "12.3.0",
     "moment": "2.29.3",
     "sass": "1.97.0",
-    "sass-loader": "16.0.6",
-    "vant": "~3.6.0",
-    "vue": "3.5.26"
+    "sass-loader": "16.0.6"
   },
   "peerDependencies": {
     "vue": ">=3.5.26"

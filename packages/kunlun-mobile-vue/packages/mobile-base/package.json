@@ -51,8 +51,8 @@
     "vuedraggable": "4.1.0"
   },
   "peerDependencies": {
-    "dayjs": "1.10.7",
-    "vant": "~3.6.0",
+    "dayjs": ">=1.10.7",
+    "vant": ">=4.9.22",
     "vue": ">=3.5.26"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"

@@ -1,5 +1,5 @@
 import { OioNotificationOptions } from '@oinone/kunlun-vue-ui-common';
-import { Toast, Notify } from 'vant';
+import { showFailToast, showNotify, showSuccessToast, showToast } from 'vant';
 
 export enum NotificationType {
   success = 'success',
@@ -10,19 +10,19 @@ export enum NotificationType {
 
 class Message {
   public success(message) {
-    Toast.success(message);
+    showSuccessToast(message);
   }
 
   public info(message) {
-    Toast(message);
+    showToast(message);
   }
 
   public warning(message) {
-    Toast.fail(message);
+    showFailToast(message);
   }
 
   public error(message) {
-    Toast.fail(message);
+    showFailToast(message);
   }
 
   /**
@@ -30,7 +30,7 @@ class Message {
    * @param message
    */
   public validateTipError(message) {
-    Toast.fail({
+    showFailToast({
       duration: 3,
       message
     });
@@ -39,7 +39,7 @@ class Message {
 
 class Notification {
   public open(type: NotificationType, message, description = '', options?: OioNotificationOptions) {
-    Notify({
+    showNotify({
       type,
       message: `${message}${description ? `:${description}` : ''}`,
       duration: (options && options!.duration!) || 3000

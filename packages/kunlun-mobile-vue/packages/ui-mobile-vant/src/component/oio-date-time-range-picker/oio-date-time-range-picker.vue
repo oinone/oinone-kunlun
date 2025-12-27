@@ -45,7 +45,8 @@
 import { DateTimePickerMode, DateUtil, StringHelper } from '@oinone/kunlun-shared';
 import { OioDateTimeRangePickerProps } from '@oinone/kunlun-vue-ui-common';
 import { computed, defineComponent, ref } from 'vue';
-import { DatetimePicker as VanDatetimePicker, Popup as VanPopup } from 'vant';
+import { DatePicker as VanDatetimePicker, Popup as VanPopup } from 'vant';
+// fixme @zbh 20251227 回归功能
 import { isString } from 'lodash-es';
 import { DEFAULT_PREFIX } from '../../theme';
 import { useDatetimeRangePickerProps } from './use-date-time-range-picker-props';

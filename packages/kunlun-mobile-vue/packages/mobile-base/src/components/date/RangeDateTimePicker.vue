@@ -4,7 +4,8 @@
   </van-config-provider>
 </template>
 <script lang="ts">
-import { ConfigProvider as VanConfigProvider, DatetimePicker as VanRangePicker } from 'vant';
+import { ConfigProvider as VanConfigProvider, DatePicker as VanRangePicker } from 'vant';
+// fixme @zbh 20251226 PickerGroup as VanPickerGroup
 import { defineComponent, PropType } from 'vue';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 
