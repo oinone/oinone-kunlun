@@ -9,9 +9,9 @@
     "build-css": "sass --style compressed --no-source-map ./dist/oinone-kunlun-vue-ui.scss ./dist/oinone-kunlun-vue-ui.css",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
-    "prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
+    "x-prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
-    "postpublish": "node ../../../../scripts/postpublish.cjs",
+    "x-postpublish": "node ../../../../scripts/postpublish.cjs",
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
