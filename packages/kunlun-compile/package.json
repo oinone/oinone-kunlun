@@ -28,6 +28,7 @@
     "@typescript-eslint/eslint-plugin": "8.50.0",
     "@typescript-eslint/parser": "8.50.0",
     "@vue/eslint-config-typescript": "14.6.0",
+    "@vue/compiler-sfc": "3.5.26",
     "@vue/tsconfig": "0.8.1",
     "esbuild": "0.27.2",
     "eslint": "9.39.2",
