@@ -115,7 +115,7 @@ export default defineComponent({
     padding: var(--oio-padding);
 
     .active-record-size {
-      color: var(-oio-text-color-secondary);
+      color: var(--oio-text-color-secondary);
       margin-right: var(--oio-margin);
     }
   }
