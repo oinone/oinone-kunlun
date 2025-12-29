@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-widget",
-  "version": "6.4.1",
+  "version": "6.4.2",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -13,7 +13,7 @@
     "postpublish": "node ../../../../scripts/postpublish.cjs"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-common": "6.4.1"
+    "@oinone/kunlun-vue-ui-common": "6.4.2"
   },
   "devDependencies": {
     "@oinone/kunlun-config": "~6.4.0",
