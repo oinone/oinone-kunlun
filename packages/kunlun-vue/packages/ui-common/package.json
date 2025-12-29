@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui-common",
-  "version": "6.3.9",
+  "version": "6.3.10",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
