@@ -20,6 +20,6 @@ export default CompileConfigBuilder.config()
   .commonjs()
   .typescript2()
   .json()
-  .terser({ keep_classnames: true })
-  .sourcemaps()
+  .terser()
+  .copyTypeFiles('kunlun-expression/*', 'kunlun-expression')
   .build();

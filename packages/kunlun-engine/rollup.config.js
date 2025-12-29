@@ -29,6 +29,6 @@ export default CompileConfigBuilder.config()
   .commonjs()
   .typescript2()
   .json()
-  .terser({ keep_classnames: true })
-  .sourcemaps()
+  .terser()
+  .copyTypeFiles('kunlun-engine/*', 'kunlun-engine')
   .build();
