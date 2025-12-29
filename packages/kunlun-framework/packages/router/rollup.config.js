@@ -5,5 +5,9 @@ export default rollupConfig({
   pkg,
   hasVue: false,
   hasSCSS: false,
-  includeExternal: ['@oinone/kunlun-shared', '@oinone/kunlun-state']
+  includeExternal: ['@oinone/kunlun-shared', '@oinone/kunlun-state'],
+  copyTypeFiles: {
+    typesDir: 'router/*',
+    deleteDir: 'router'
+  }
 });

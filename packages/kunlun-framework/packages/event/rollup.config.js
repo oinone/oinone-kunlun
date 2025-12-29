@@ -5,5 +5,9 @@ export default rollupConfig({
   pkg,
   hasVue: false,
   hasSCSS: false,
-  includeExternal: ['@oinone/kunlun-shared', '@oinone/kunlun-spi', '@oinone/kunlun-environment']
+  includeExternal: ['@oinone/kunlun-shared', '@oinone/kunlun-spi', '@oinone/kunlun-environment'],
+  copyTypeFiles: {
+    typesDir: 'event/*',
+    deleteDir: 'event'
+  }
 });

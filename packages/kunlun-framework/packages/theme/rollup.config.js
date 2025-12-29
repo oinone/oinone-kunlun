@@ -5,5 +5,8 @@ export default rollupConfig({
   pkg,
   hasVue: false,
   hasSCSS: false,
-  includeExternal: ['@oinone/kunlun-config']
+  copyTypeFiles: {
+    typesDir: 'theme/*',
+    deleteDir: 'theme'
+  }
 });

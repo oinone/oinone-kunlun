@@ -5,5 +5,9 @@ export default rollupConfig({
   pkg,
   hasVue: false,
   hasSCSS: false,
-  includeExternal: ['@oinone/kunlun-meta']
+  includeExternal: ['@oinone/kunlun-meta'],
+  copyTypeFiles: {
+    typesDir: 'dsl/*',
+    deleteDir: 'dsl'
+  }
 });

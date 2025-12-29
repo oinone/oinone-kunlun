@@ -5,5 +5,9 @@ export default rollupConfig({
   pkg,
   hasVue: false,
   hasSCSS: false,
-  includeExternal: ['reflect-metadata', '@oinone/kunlun-shared']
+  includeExternal: ['reflect-metadata', '@oinone/kunlun-shared'],
+  copyTypeFiles: {
+    typesDir: 'spi/*',
+    deleteDir: 'spi'
+  }
 });

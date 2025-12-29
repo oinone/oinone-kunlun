@@ -5,5 +5,9 @@ export default rollupConfig({
   pkg,
   hasVue: false,
   hasSCSS: false,
-  includeExternal: ['lodash-es', '@oinone/kunlun-shared', '@oinone/kunlun-spi']
+  includeExternal: ['lodash-es', '@oinone/kunlun-shared', '@oinone/kunlun-spi'],
+  copyTypeFiles: {
+    typesDir: 'expression/*',
+    deleteDir: 'expression'
+  }
 });

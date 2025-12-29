@@ -11,5 +11,9 @@ export default rollupConfig({
     '@oinone/kunlun-router',
     '@oinone/kunlun-cache',
     '@oinone/kunlun-shared'
-  ]
+  ],
+  copyTypeFiles: {
+    typesDir: 'service/*',
+    deleteDir: 'service'
+  }
 });
