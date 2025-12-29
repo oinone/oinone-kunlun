@@ -49,7 +49,7 @@ function createMoreAction(
   return createVNode(
     DefaultDropdown,
     {
-      trigger: [OioDropdownTrigger.click, OioDropdownTrigger.hover],
+      trigger: [OioDropdownTrigger.hover],
       allMounted
     },
     {
