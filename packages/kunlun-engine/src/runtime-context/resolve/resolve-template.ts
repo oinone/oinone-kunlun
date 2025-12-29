@@ -3,11 +3,13 @@ import { ModelFieldType } from '@oinone/kunlun-meta';
 import { RuntimeEnumerationOption, RuntimeModel } from '../../runtime-metadata';
 import { RuntimeContext } from '../runtime-context';
 import { dslOptionToEnumerationOption } from './field/enumeration-field';
+import { convert as actionConvert } from './action/resolve';
 import { convert as fieldConvert } from './field/resolve';
 import { selectorResolves } from './spi';
 import { ResolveUtil } from './util';
 
 export function resolveTemplate(runtimeContext: RuntimeContext, dsl: DslDefinition) {
+  console.log('🚀 ~ resolveTemplate ~ runtimeContext:', runtimeContext);
   if (DslDefinitionHelper.isView(dsl)) {
     resolveMetadata(runtimeContext, dsl);
   } else {
@@ -34,7 +36,7 @@ function traversal(runtimeContext: RuntimeContext, dsl: DslDefinition) {
 
 function resolveModelMetadata(runtimeContext: RuntimeContext, dsl: ViewDslDefinition) {
   for (const model of dsl.metadata?.model || []) {
-    const { model: modelModel, field: fields } = model;
+    const { model: modelModel, field: fields, action: actions } = model as any;
     let { virtualModels } = runtimeContext;
     if (!virtualModels) {
       virtualModels = {};
@@ -44,7 +46,8 @@ function resolveModelMetadata(runtimeContext: RuntimeContext, dsl: ViewDslDefini
     if (!virtualModel) {
       virtualModel = {
         model: modelModel,
-        fields: {}
+        fields: {},
+        actions: {}
       };
       virtualModels[modelModel] = virtualModel;
     }
@@ -67,6 +70,19 @@ function resolveModelMetadata(runtimeContext: RuntimeContext, dsl: ViewDslDefini
           field.template = undefined;
           virtualModel.fields[field.data] = field;
         }
+      }
+    }
+    console.log(actions);
+    for (const virtualAction of actions || []) {
+      let action = actionConvert(resolveRuntimeContext, virtualAction);
+      if (action) {
+        action.modelDefinition = undefined;
+        action = {
+          ...action,
+          ...action.template
+        }; // 虚拟字段上有些东西需要保留,当前转换后template中一部分信息被移除掉了
+        action.template = undefined;
+        virtualModel.actions![action.name] = action;
       }
     }
   }
