@@ -401,13 +401,13 @@ class RollupSingleModulePluginBuilder extends AbstractPluginBuilder {
     let extraOptions: RollupTypescript2PluginOptions = {};
     if (this._builder.isDebug) {
       extraOptions = {
+        clean: true,
         abortOnError: false
       };
     }
     return this.$$setPluginOptions((val) => (this._typescript2 = val), val, {
       cwd: home,
       useTsconfigDeclarationDir: true,
-      clean: true,
       ...extraOptions,
       tsconfigOverride: {
         compilerOptions: {
@@ -444,13 +444,13 @@ class RollupMultipleModulePluginBuilder extends AbstractPluginBuilder {
     let extraOptions: RollupTypescript2PluginOptions = {};
     if (this._builder.isDebug) {
       extraOptions = {
+        clean: true,
         abortOnError: false
       };
     }
     return this.$$setPluginOptions((val) => (this._typescript2 = val), config, {
       cwd: home,
       useTsconfigDeclarationDir: true,
-      clean: true,
       ...extraOptions,
       tsconfigOverride: {
         compilerOptions: {
