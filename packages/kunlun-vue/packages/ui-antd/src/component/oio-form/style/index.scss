@@ -34,7 +34,7 @@
     flex-flow: row nowrap;
     align-items: center;
 
-    & > .ant-form-item-label {
+    & > .ant-form-item-row > .ant-form-item-label {
       @include form-item-label;
     }
   }
@@ -44,7 +44,7 @@
   }
 
   .#{$formItemClassPrefix} {
-    & > .ant-form-item-label {
+    & > .ant-form-item-row > .ant-form-item-label {
       align-self: flex-start;
 
       & > label {
@@ -73,7 +73,7 @@
 
   &.ant-form-vertical {
     .#{$formItemClassPrefix}-vertical {
-      & > .ant-form-item-label {
+      & > .ant-form-item-row > .ant-form-item-label {
         height: var(--oio-label-height);
         line-height: 18px;
         flex-basis: var(--oio-label-height);
@@ -104,7 +104,7 @@
     .#{$formItemClassPrefix}-horizontal {
       flex-flow: row nowrap;
 
-      & > .ant-form-item-label {
+      & > .ant-form-item-row > .ant-form-item-label {
         @include form-item-label;
       }
     }

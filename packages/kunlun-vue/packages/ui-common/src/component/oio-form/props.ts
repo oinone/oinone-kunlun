@@ -51,8 +51,6 @@ export enum ValidateTrigger {
   blur = 'blur'
 }
 
-type $$ValidateTrigger = keyof Omit<ValidateTrigger, 'CHANGE' | 'BLUR'>;
-
 export enum ComputeTrigger {
   /**
    * @deprecated please using ComputeTrigger#change
@@ -130,7 +128,7 @@ export const AFormProps = {
     default: false
   },
   validateTrigger: {
-    type: [String, Array] as PropType<ValidateTrigger | ValidateTrigger[] | $$ValidateTrigger | $$ValidateTrigger[]>
+    type: [String, Array] as PropType<ValidateTrigger | ValidateTrigger[]>
   },
   validateOnRuleChange: {
     type: Boolean,
@@ -198,7 +196,7 @@ export const AFormItemProps = {
     default: undefined
   },
   validateTrigger: {
-    type: [String, Array] as PropType<(ValidateTrigger | $$ValidateTrigger) | (ValidateTrigger | $$ValidateTrigger)[]>
+    type: [String, Array] as PropType<ValidateTrigger | ValidateTrigger[]>
   }
 };
 
