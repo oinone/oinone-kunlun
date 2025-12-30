@@ -54,6 +54,13 @@ import { ref, computed, watch, defineComponent, PropType } from 'vue';
 import { isString } from 'lodash-es';
 import { OioIcon, OioSelect } from '@oinone/kunlun-vue-ui-antd';
 
+interface JsonLine {
+  indent: number;
+  html: string;
+  collapsible: boolean;
+  type?: string;
+}
+
 export default defineComponent({
   name: 'jsonXmlViewer',
   components: {
@@ -78,7 +85,7 @@ export default defineComponent({
       type: Boolean
     }
   },
-  setup(props, { emit }) {
+  setup(props) {
     const collapsedLines = ref(new Set());
 
     /**
@@ -97,13 +104,8 @@ export default defineComponent({
      * @param indent 缩进级别
      * @returns 解析后的行数据数组
      */
-    const parseJSON = (obj: any, indent = 0) => {
-      const lines: Array<{
-        indent: number;
-        html: string;
-        collapsible: boolean;
-        type?: string;
-      }> = [];
+    const parseJSON = (obj: unknown, indent = 0): JsonLine[] => {
+      const lines: Array<JsonLine> = [];
 
       /**
        * 处理字符串中的URL，将其替换为a标签
@@ -228,7 +230,7 @@ export default defineComponent({
     };
 
     // 解析XML
-    const parseXML = (xmlString) => {
+    const parseXML = (xmlString): JsonLine[] => {
       if (!xmlString || !isString(xmlString)) {
         return [];
       }
@@ -236,7 +238,7 @@ export default defineComponent({
         .replace(/\n/g, '')
         .replace(/<[^/]*?>/g, (match) => `\n${match}\n`)
         .replace(/<\/.*?>/g, (match) => `\n${match}\n`);
-      const lines: any[] = [];
+      const lines: JsonLine[] = [];
       const xmlLines = xmlString.trim().split('\n');
       let indent = 0;
 
@@ -264,7 +266,7 @@ export default defineComponent({
           .replace(/'/g, '&#039;');
 
         lines.push({
-          indent: indent,
+          indent,
           html: `<pre>${lineHtml}</pre>`,
           collapsible: closeAble
         });
@@ -276,8 +278,8 @@ export default defineComponent({
       return lines;
     };
 
-    const parseString = (str) => {
-      const lines: any[] = [];
+    const parseString = (str): JsonLine[] => {
+      const lines: JsonLine[] = [];
       lines.push({
         indent: 1,
         html: `<span class="text-gray-600">${str}</span>`,
@@ -287,7 +289,7 @@ export default defineComponent({
     };
 
     // 计算所有行
-    const allLines = computed(() => {
+    const allLines = computed((): JsonLine[] => {
       if (props.mode === 'json' && isString(props.formatedValue)) {
         return parseString(props.formatedValue);
       }
@@ -299,7 +301,7 @@ export default defineComponent({
 
     // 计算可见行（考虑折叠）
     const parsedLines = computed(() => {
-      const result: any[] = [];
+      const result: JsonLine[] = [];
       const collapsedRanges = new Set();
 
       // 首先标记所有被折叠的行范围
