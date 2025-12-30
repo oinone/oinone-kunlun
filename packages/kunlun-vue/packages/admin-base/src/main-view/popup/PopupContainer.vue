@@ -9,7 +9,7 @@
 <script lang="ts">
 import { ConfigProvider as AConfigProvider } from 'ant-design-vue';
 import enUS from 'ant-design-vue/es/locale/en_US';
-import zhCN from 'ant-design-vue/lib/locale/zh_CN';
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import { ElConfigProvider } from 'element-plus';

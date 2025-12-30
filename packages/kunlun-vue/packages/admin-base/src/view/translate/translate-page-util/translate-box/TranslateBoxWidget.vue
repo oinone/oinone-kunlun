@@ -142,7 +142,7 @@ import {
   RadioGroup as ARadioGroup,
   Radio as ARadio
 } from 'ant-design-vue';
-import { SelectValue } from 'ant-design-vue/lib/select';
+import { SelectValue } from 'ant-design-vue/es/select';
 import {
   OioIcon,
   OioForm,

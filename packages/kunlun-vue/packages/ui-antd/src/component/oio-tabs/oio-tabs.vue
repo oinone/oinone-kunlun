@@ -12,7 +12,7 @@ import {
   useProviderOioTabsContext
 } from '@oinone/kunlun-vue-ui-common';
 import { Tabs as ATabs } from 'ant-design-vue';
-import useConfigInject from 'ant-design-vue/lib/config-provider/hooks/useConfigInject';
+import useConfigInject from 'ant-design-vue/es/config-provider/hooks/useConfigInject';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, onMounted, onUnmounted, ref, unref, vShow, withDirectives } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
