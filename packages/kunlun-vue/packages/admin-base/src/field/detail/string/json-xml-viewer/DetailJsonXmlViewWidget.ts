@@ -1,5 +1,5 @@
 import { toString } from 'lodash-es';
-import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -50,7 +50,7 @@ export class DetailJsonXmlViewWidget extends FormFieldWidget {
     try {
       const jsonValue = JSON.parse(this.value as string);
       jsonData = jsonValue;
-    } catch (e) {
+    } catch {
       return toString(this.value);
     }
 
@@ -68,7 +68,7 @@ export class DetailJsonXmlViewWidget extends FormFieldWidget {
     return toString(this.value);
   }
 
-  protected objectToXml(obj: Record<string, any>, rootName = 'root', options: XmlConvertOptions = {}): string {
+  protected objectToXml(obj: Record<string, unknown>, rootName = 'root', options: XmlConvertOptions = {}): string {
     const { pretty = true, indentSize = 2, ignoreEmpty = true } = options;
 
     // 生成缩进字符串
@@ -88,9 +88,8 @@ export class DetailJsonXmlViewWidget extends FormFieldWidget {
     };
 
     // 递归处理对象节点
-    const buildXml = (data: any, nodeName: string, level: number): string => {
+    const buildXml = (data: unknown, nodeName: string, level: number): string => {
       const indent = getIndent(level);
-      const childIndent = getIndent(level + 1);
       const newline = pretty ? '\n' : '';
 
       // 忽略空值（null/undefined/空字符串，根据配置）
