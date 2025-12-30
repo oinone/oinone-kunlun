@@ -69,10 +69,11 @@ export const rollupConfig = ({
   }
   if (outputEntryFiles) {
     return builder.build({
-      output: {
+      outputOverride: {
         dir: 'dist',
         entryFileNames: `${builder.libraryName}.esm.js`,
-        file: null
+        format: 'esm',
+        sourcemap: false
       }
     });
   }

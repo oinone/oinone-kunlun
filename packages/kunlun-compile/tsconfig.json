@@ -3,15 +3,14 @@
     "target": "ES6",
     "module": "esnext",
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "incremental": true,
+    "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {},
-    "lib": ["ES2020", "ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
-    "types": ["node"],
-    "typeRoots": ["node_modules/@types"]
+    "lib": ["ES2020", "ESNext", "DOM", "DOM.Iterable", "ScriptHost"]
   },
   "include": ["index.ts", "src"],
   "exclude": ["node_modules", "dist"]
