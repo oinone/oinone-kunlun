@@ -1,7 +1,7 @@
-import { RenderWidget as ViewTagCustomWidget } from '@oinone/kunlun-vue-widget';
+import { type RenderWidget as ViewTagCustomWidget } from '@oinone/kunlun-vue-widget';
 import './spi-register';
 import {
-  CustomWidgetProps,
+  type CustomWidgetProps,
   registerCustomWidgetFunction,
   registerElementTag,
   registerPackTag,
