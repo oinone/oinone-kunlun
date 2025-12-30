@@ -38,12 +38,11 @@ export const rollupConfig = ({
   copyTypeFiles,
   debug
 }: QuickBuilderOptions) => {
+  const defaultExternal: (string | RegExp)[] = [];
+  pushExternal(defaultExternal, Object.keys(pkg.dependencies || {}));
+  pushExternal(defaultExternal, Object.keys(pkg.devDependencies || {}));
   const finalExternal = [
-    ...new Set([
-      ...Object.keys(pkg.dependencies || {}),
-      ...Object.keys(pkg.devDependencies || {}),
-      ...(includeExternal || [])
-    ]).difference(new Set([...(excludeExternal || [])]))
+    ...new Set([...defaultExternal, ...(includeExternal || [])]).difference(new Set([...(excludeExternal || [])]))
   ];
   const builder = CompileConfigBuilder.config(debug)
     .prefix(pkg.name, prefix)
@@ -79,3 +78,15 @@ export const rollupConfig = ({
   }
   return builder.build();
 };
+
+function escapeRegExp(str) {
+  // 正则特殊字符：^ $ \ . * + ? | ( ) [ ] { } ,
+  return str.replace(/[\\^$.*+?|()[\]{}]/g, '\\$&');
+}
+
+function pushExternal(array: (string | RegExp)[], external: string[]) {
+  for (const value of external) {
+    array.push(value);
+    array.push(new RegExp(`^${escapeRegExp(value)}`));
+  }
+}
