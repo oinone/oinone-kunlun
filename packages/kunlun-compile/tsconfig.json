@@ -1,24 +1,17 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "allowJs": true,
     "target": "ES6",
     "module": "esnext",
     "strict": true,
-    "importHelpers": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
     "skipLibCheck": true,
+    "incremental": true,
     "baseUrl": ".",
     "paths": {},
     "lib": ["ES2020", "ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
     "types": ["node"],
-    "noImplicitAny": false,
-    "incremental": true,
-    "resolveJsonModule": true
+    "typeRoots": ["node_modules/@types"]
   },
   "include": ["index.ts", "src"],
   "exclude": ["node_modules", "dist"]

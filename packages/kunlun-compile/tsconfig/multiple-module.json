@@ -16,6 +16,7 @@
     "paths": {},
     "lib": ["ES2020", "ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
     "types": ["node", "reflect-metadata", "jest"],
+    "typeRoots": ["node_modules/@types"],
     "noImplicitAny": false,
     "incremental": true,
     "resolveJsonModule": true

@@ -1,4 +1,4 @@
-import { OutputOptions as RollupOutputOptions, Plugin as RollupPlugin, RollupOptions } from 'rollup';
+import { ExternalOption, OutputOptions as RollupOutputOptions, Plugin as RollupPlugin, RollupOptions } from 'rollup';
 import replace, { RollupReplaceOptions } from '@rollup/plugin-replace';
 import scss, { CSSPluginOptions as SCSSPluginOptions } from 'rollup-plugin-scss';
 import vue, { Options as VuePluginOptions } from 'rollup-plugin-vue';
@@ -32,7 +32,7 @@ export class CompileConfigBuilder {
 
   private _camelCaseName: string | undefined;
 
-  private _external: RollupExternalTypes | undefined;
+  private _external: ExternalOption | undefined;
 
   private _pluginBuilder: AbstractPluginBuilder | undefined;
 
@@ -97,9 +97,9 @@ export class CompileConfigBuilder {
 
   public external(val: RollupExternalTypes): CompileConfigBuilder {
     if (Array.isArray(val)) {
-      this._external = [/node_modules/, ...val];
+      this._external = [/node_modules/, ...(val as (string | RegExp)[])];
     } else {
-      this._external = [/node_modules/, val];
+      this._external = [/node_modules/, val as string | RegExp];
     }
     return this;
   }
@@ -199,13 +199,12 @@ class AbstractPluginBuilder {
       fileName: `${libraryName}.scss`,
       output: 'dist',
       sourceMap: false,
-      outputStyle: 'compressed',
-      silenceDeprecations: ['legacy-js-api', 'import']
+      outputStyle: 'compressed'
     });
   }
 
   public vue(config: boolean | Partial<VuePluginOptions> = true): typeof this {
-    return this.$$setPluginOptions((val) => (this._vue = val), config, {});
+    return this.$$setPluginOptions((val) => (this._vue = val as VuePluginOptions), config, {});
   }
 
   public nodeResolve(config: boolean | RollupNodeResolveOptions = true): typeof this {
