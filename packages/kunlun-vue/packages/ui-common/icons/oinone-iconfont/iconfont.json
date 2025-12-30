@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "46515793",
+      "name": "火苗",
+      "font_class": "huomiao",
+      "unicode": "e9b9",
+      "unicode_decimal": 59833
+    },
+    {
+      "icon_id": "46507887",
+      "name": "箭头",
+      "font_class": "jiantou1",
+      "unicode": "e9b8",
+      "unicode_decimal": 59832
+    },
+    {
+      "icon_id": "46391580",
+      "name": "规划",
+      "font_class": "guihua",
+      "unicode": "e9b6",
+      "unicode_decimal": 59830
+    },
+    {
+      "icon_id": "46391579",
+      "name": "场景",
+      "font_class": "changjing",
+      "unicode": "e9b7",
+      "unicode_decimal": 59831
+    },
+    {
       "icon_id": "45682254",
       "name": "大模型",
       "font_class": "damoxing",
