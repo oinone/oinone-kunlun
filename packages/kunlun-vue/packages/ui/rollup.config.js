@@ -13,7 +13,7 @@ export default rollupConfig({
     'vue',
     'vxe-table',
     'vxe-table/lib/style.min.css',
-    'vxe-table/lib/v-x-e-table/src/conf.min.js',
+    'vxe-table/es/v-x-e-table/src/conf.js',
     'vxe-table-plugin-antd',
     'vxe-table-plugin-antd/dist/style.min.css',
     'vxe-table-plugin-element',
