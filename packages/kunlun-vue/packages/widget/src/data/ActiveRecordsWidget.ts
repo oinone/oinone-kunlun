@@ -17,6 +17,7 @@ import {
   UpdateEntity
 } from '@oinone/kunlun-engine';
 import { Widget } from '../basic';
+import { OioAnyViewState, useOioState } from '../state';
 import { PathWidget, PathWidgetProps } from './PathWidget';
 
 export interface ActiveRecordsWidgetProps extends PathWidgetProps {
@@ -30,6 +31,20 @@ export interface ActiveRecordsWidgetProps extends PathWidgetProps {
 export class ActiveRecordsWidget<
   Props extends ActiveRecordsWidgetProps = ActiveRecordsWidgetProps
 > extends PathWidget<Props> {
+  /**
+   * 视图级别状态, 在 beforeMounted 后可获取到有效值
+   * @protected
+   */
+  protected viewState: OioAnyViewState | undefined;
+
+  public getViewState(): OioAnyViewState | undefined {
+    return this.viewState;
+  }
+
+  public setViewState(state: OioAnyViewState) {
+    this.viewState = state;
+  }
+
   public initialize(props: Props) {
     super.initialize(props);
     const { dataSource, activeRecords } = props;
@@ -175,10 +190,11 @@ export class ActiveRecordsWidget<
    *
    * @param records 数据
    * @param predict 推送判定
+   * @param index 推送到指定位置; 0 表示插入到数组头; 未传入或-1 表示插入到数组尾;
    */
   @Widget.Method()
   @Widget.Provide()
-  public pushDataSource(records: ActiveRecords, predict?: PushActiveRecordsPredict) {
+  public pushDataSource(records: ActiveRecords, predict?: PushActiveRecordsPredict, index?: number) {
     if (this.parentPushDataSource && this.getCurrentDataSource() === undefined) {
       this.parentPushDataSource(records, predict);
     } else {
@@ -188,7 +204,7 @@ export class ActiveRecordsWidget<
         pushPredict = ActiveRecordsOperator.defaultPushPredict.bind(submitCache);
       }
       const nextDataSource = ActiveRecordsOperator.operator(this.getCurrentDataSource() || undefined, this.submitCache)
-        .push(records, pushPredict)
+        .push(records, pushPredict, index)
         .get();
       if (!submitCache) {
         this.setCurrentDataSource(nextDataSource);
@@ -311,24 +327,6 @@ export class ActiveRecordsWidget<
       if (!this.submitCache) {
         this.setCurrentDataSource(nextDataSource);
       }
-    }
-  }
-
-
-  @Widget.Method()
-  @Widget.Inject('createDataSourceByEntity')
-  protected parentCreateDataSourceByEntity: PushActiveRecordsFunction | undefined;
-
-
-  @Widget.Method()
-  @Widget.Provide()
-  public createDataSourceByEntity(records:ActiveRecords,predict?:PushActiveRecordsPredict){
-    if (this.parentCreateDataSourceByEntity && this.getCurrentDataSource() === undefined) {
-      this.parentCreateDataSourceByEntity(records, predict);
-    } else {
-      const nextDataSource = Array.isArray(records) ? records : [records];
-      const oldDataSource = this.getCurrentDataSource() || [];
-      this.setCurrentDataSource([...nextDataSource, ...oldDataSource]);
     }
   }
 
@@ -567,6 +565,60 @@ export class ActiveRecordsWidget<
       this.parentFlushActiveRecords();
     } else {
       this.currentActiveRecords = [];
+    }
+  }
+
+  protected $$initViewStatePosition(state: OioAnyViewState): void {
+    // do nothing.
+  }
+
+  protected $$clearViewStatePosition(state: OioAnyViewState): void {
+    // do nothing.
+  }
+
+  protected $$initViewState(state: OioAnyViewState): void {
+    // do nothing.
+  }
+
+  protected $$clearViewState(state: OioAnyViewState): void {
+    // do nothing.
+  }
+
+  protected $$beforeMount() {
+    super.$$beforeMount();
+    let isInitStatePosition = false;
+    if (!this.viewState) {
+      this.viewState = useOioState().viewState;
+      if (this.viewState) {
+        isInitStatePosition = true;
+        this.$$initViewStatePosition(this.viewState);
+        this.$$initViewState(this.viewState);
+      }
+    }
+    if (this.viewState && !isInitStatePosition) {
+      this.$$initViewStatePosition(this.viewState);
+    }
+  }
+
+  protected $$mounted() {
+    super.$$mounted();
+    if (this.viewState) {
+      this.$$clearViewStatePosition(this.viewState);
+      this.$$clearViewState(this.viewState);
+    }
+  }
+
+  protected $$beforeUnmount() {
+    super.$$beforeUnmount();
+    if (this.viewState) {
+      this.$$initViewStatePosition(this.viewState);
+    }
+  }
+
+  protected $$unmounted() {
+    super.$$unmounted();
+    if (this.viewState) {
+      this.$$clearViewStatePosition(this.viewState);
     }
   }
 }

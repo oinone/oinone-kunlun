@@ -1,11 +1,11 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { BooleanHelper } from '@oinone/kunlun-shared';
-import { ModalWidth, OioModalProps } from '@oinone/kunlun-vue-ui-common';
+import { ModalWidth } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../../typing';
 import { PopupWidget, PopupWidgetProps } from '../PopupWidget';
 import DefaultDialog from './DefaultDialog.vue';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 
 export type DialogWidgetProps = PopupWidgetProps;
 
@@ -29,8 +29,11 @@ export class DialogWidget<Props extends DialogWidgetProps = DialogWidgetProps> e
   }
 
   @Widget.Reactive()
-  public get title() {
-    const title = this.getDsl().title || OioModalProps.title.default;
+  public get title(): string | undefined {
+    const title = this.getDsl().title;
+    if (!title) {
+      return undefined;
+    }
 
     return Expression.run(
       {
@@ -57,17 +60,22 @@ export class DialogWidget<Props extends DialogWidgetProps = DialogWidgetProps> e
 
   @Widget.Reactive()
   protected get wrapperClassName(): string | undefined {
-    return this.getDsl()?.wrapperClassName;
+    return this.getDsl().wrapperClassName;
   }
 
   @Widget.Reactive()
   public get width() {
-    return this.getDsl().width || ModalWidth.medium;
+    return this.getDsl().width;
   }
 
   @Widget.Reactive()
   public get height() {
     return this.getDsl().height;
+  }
+
+  @Widget.Reactive()
+  protected get defaultSize(): keyof typeof ModalWidth {
+    return 'medium';
   }
 
   @Widget.Reactive()

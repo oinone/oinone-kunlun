@@ -1,5 +1,6 @@
 import { isString, sampleSize } from 'lodash-es';
 import { Consumer } from './LambdaFunction';
+import { GenericReturnTypeNotNull, GenericType } from './typing';
 
 export class StringHelper {
   public static ARRAY_DEFAULT_SEPARATOR = ',';
@@ -110,12 +111,12 @@ export class StringHelper {
    * @param val 值
    * @param separator 分隔符，默认使用 {@link StringHelper#ARRAY_DEFAULT_SEPARATOR}
    */
-  public static convertArray(
-    val: string | string[] | null | undefined,
+  public static convertArray<T extends string | string[] | null | undefined>(
+    val: GenericType<T>,
     separator?: string | RegExp
-  ): string[] | undefined {
+  ): GenericReturnTypeNotNull<T, string[]> {
     if (Array.isArray(val)) {
-      return val.filter((v) => !!v).map((v) => v.trim());
+      return val.filter((v) => !!v).map((v) => v.trim()) as GenericReturnTypeNotNull<T, string[]>;
     }
     if (isString(val)) {
       if (!separator) {
@@ -124,9 +125,9 @@ export class StringHelper {
       return val
         .split(separator)
         .filter((v) => !!v)
-        .map((v) => v.trim());
+        .map((v) => v.trim()) as GenericReturnTypeNotNull<T, string[]>;
     }
-    return undefined;
+    return undefined as GenericReturnTypeNotNull<T, string[]>;
   }
 
   public static getOrDefault(s: string | null | undefined, defaultValue: string): string {

@@ -75,7 +75,7 @@ export class DefaultCollapseWidget extends BasePackWidget {
 
   @Widget.Reactive()
   protected get expandIconPosition() {
-    return this.getDsl()?.expandIconPosition?.toLowerCase() || OioCollapseExpandIconPosition.right;
+    return this.getDsl().expandIconPosition?.toLowerCase() || OioCollapseExpandIconPosition.right;
   }
 
   @Widget.Method()

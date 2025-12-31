@@ -7,7 +7,7 @@ import {
   RuntimeContextManager,
   RuntimeModelField
 } from '@oinone/kunlun-engine';
-import { BooleanHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, CSSClass, CSSStyle } from '@oinone/kunlun-shared';
 import { isNil } from 'lodash-es';
 import { Widget } from '../basic';
 import { InvisibleSupported, isAllInvisible } from '../feature';
@@ -30,7 +30,7 @@ export interface DslDefinitionWidgetProps extends DslRenderWidgetProps {
    */
   inline?: boolean;
   /**
-   * 自动组件
+   * 自动渲染组件
    */
   automatic?: boolean;
 }
@@ -50,6 +50,16 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
 
   public getMetadataHandle() {
     return this.metadataHandle;
+  }
+
+  @Widget.Reactive()
+  protected get class(): CSSClass | undefined {
+    return this.getDsl().class;
+  }
+
+  @Widget.Reactive()
+  protected get style(): string | Partial<CSSStyle> | undefined {
+    return this.getDsl().style;
   }
 
   @Widget.Reactive()
@@ -128,25 +138,35 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
   }
 
   public get metadataRuntimeContext(): RuntimeContext {
-    const { metadataHandle } = this;
-    let runtimeContext: RuntimeContext | undefined;
-    if (metadataHandle) {
-      runtimeContext = RuntimeContextManager.get(metadataHandle);
-    }
+    const runtimeContext = this.metadataRuntimeContextNullable;
     if (!runtimeContext) {
       throw new Error('Invalid metadata runtime context.');
     }
     return runtimeContext;
   }
 
+  public get metadataRuntimeContextNullable(): RuntimeContext | undefined {
+    const { metadataHandle } = this;
+    let runtimeContext: RuntimeContext | undefined;
+    if (metadataHandle) {
+      runtimeContext = RuntimeContextManager.get(metadataHandle);
+    }
+    return runtimeContext;
+  }
+
   public get rootRuntimeContext(): RuntimeContext {
+    const runtimeContext = this.rootRuntimeContextNullable;
+    if (!runtimeContext) {
+      throw new Error('Invalid root runtime context.');
+    }
+    return runtimeContext;
+  }
+
+  public get rootRuntimeContextNullable(): RuntimeContext | undefined {
     const { rootHandle } = this;
     let runtimeContext: RuntimeContext | undefined;
     if (rootHandle) {
       runtimeContext = RuntimeContextManager.get(rootHandle);
-    }
-    if (!runtimeContext) {
-      throw new Error('Invalid root runtime context.');
     }
     return runtimeContext;
   }

@@ -120,9 +120,7 @@ export default defineComponent({
     } else {
       let finalTitleSlot = titleSlot;
       if (!finalTitleSlot) {
-        finalTitleSlot = () => [
-          createVNode('span', { class: `${CLASS_NAME}-title` }, this.title || OioInnerPopupProps.title.default)
-        ];
+        finalTitleSlot = () => [createVNode('span', { class: `${CLASS_NAME}-title` }, this.title || '标题')];
       }
       if (this.help) {
         const titleChildren = finalTitleSlot();

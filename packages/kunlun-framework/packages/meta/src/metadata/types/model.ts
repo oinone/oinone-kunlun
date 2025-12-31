@@ -52,7 +52,11 @@ export enum ModelFieldType {
   // region string
   String = 'STRING',
   Text = 'TEXT',
+  /**
+   * @deprecated please using {@link ModelFieldType#Html}
+   */
   HTML = 'HTML',
+  Html = 'HTML',
   Phone = 'PHONE',
   Email = 'EMAIL',
   // endregion
@@ -752,6 +756,12 @@ export enum ModelDefaultActionName {
   // 校验表单
   $$internal_ValidateForm = '$$internal_ValidateForm',
   // 下载
+
+  /**
+   * 保存草稿动作
+   */
+  $$internal_SaveDraft = '$$internal_SaveDraft',
+
   $$internal_Download = '$$internal_Download',
 
   /**

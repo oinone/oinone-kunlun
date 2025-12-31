@@ -55,7 +55,7 @@ export class BaseDataWidget<
    */
   @Widget.Reactive()
   @Widget.Provide()
-  protected get dataPath(): string {
+  public get dataPath(): string {
     const { parentDataPath, subDataPath, subDataIndex, currentDataPath } = this;
     if (isNil(currentDataPath)) {
       let dataPath = parentDataPath || '';

@@ -27,7 +27,7 @@ export const cssVars = {
   'background-focus': `var(--${prefix}-background)`,
   'border-width-focus': `var(--${prefix}-border-width)`,
   'border-style-focus': `var(--${prefix}-border-style)`,
-  'border-color-focus': `var(--${DEFAULT_PREFIX}-primary-color-hover)`,
+  'border-color-focus': `var(--${DEFAULT_PREFIX}-primary-color-focus)`,
   'border-radius-focus': `var(--${prefix}-border-radius)`,
   'outline-focus': `var(--${prefix}-outline)`,
   'shadow-focus': `0px 0px 0px 2px rgba(var(--${DEFAULT_PREFIX}-primary-color-rgb),0.1);`,
@@ -41,6 +41,8 @@ export const cssVars = {
   'addon-background': '#303B48',
   'addon-color': 'rgba(255,255,255,0.65)',
   'tag-background': 'rgba(3,93,255,0.2)',
+  'ready-delete-tag-background': 'rgba(224, 32, 32, 0.2)',
+  'ready-delete-tag-color': '#ff4d4f',
   'clear-background': '#000',
   'clear-color': 'var(--oio-text-color)'
 };

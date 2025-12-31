@@ -1,10 +1,4 @@
-import {
-  ModelCache,
-  RuntimeContext,
-  RuntimeRelationField,
-  RuntimeServerAction,
-  SubmitValue
-} from '@oinone/kunlun-engine';
+import { RuntimeContext, RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelDefaultActionName } from '@oinone/kunlun-meta';
 import { Condition, getSessionPath, GQL } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
@@ -49,11 +43,6 @@ export class ExportWorkbookActionWidget extends AbstractTaskAction<ExcelExportTa
       : undefined;
 
     const modelName = this.model.name || 'excelExportTask';
-    const excelExportTaskModel = await ModelCache.get('file.ExcelExportTask');
-    const selectedFieldsField = excelExportTaskModel?.modelFields.find(
-      (v) => v.data === 'selectedFields'
-    ) as RuntimeRelationField;
-    const hasOptionLabel = selectedFieldsField.references === 'file.ExcelModelField';
     return GQL.mutation(`${modelName}Mutation`, 'createExportTask')
       .buildRequest((builder) => {
         builder.buildObjectParameter('data', (builder) => {
@@ -78,9 +67,7 @@ export class ExportWorkbookActionWidget extends AbstractTaskAction<ExcelExportTa
             builder.buildArrayParameter('selectedFields', selectedFields, (builder, value) => {
               builder.stringParameter('field', value.data);
               builder.stringParameter('displayName', value.displayName);
-              if (hasOptionLabel) {
-                builder.stringParameter('optionLabel', value.optionLabel);
-              }
+              builder.stringParameter('optionLabel', value.optionLabel);
             });
           }
         });

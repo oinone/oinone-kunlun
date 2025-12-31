@@ -72,9 +72,8 @@ export const OioColumnEditorProps = {
     type: String as PropType<TableEditorCloseTrigger | keyof typeof TableEditorCloseTrigger>,
     default: TableEditorCloseTrigger.manual
   },
-  disableEditorRender: {
-    type: Boolean,
-    default: false
+  editRender: {
+    type: Object
   },
   rowEditorClosedByEnter: {
     type: Function as PropType<(context: RowContext) => ReturnPromise<boolean>>
@@ -117,6 +116,9 @@ export const OioColumnControlProps = {
 };
 
 export const OioColumnRenderFunctionProps = {
+  renderGroupCellSlot: {
+    type: Function as PropType<CellRenderFunction>
+  },
   renderDefaultSlot: {
     type: Function as PropType<CellRenderFunction>
   },
@@ -128,6 +130,9 @@ export const OioColumnRenderFunctionProps = {
   },
   renderHeaderSlot: {
     type: Function as PropType<CellRenderFunction>
+  },
+  dynamicRenderDefaultSlot: {
+    type: Function as PropType<(context: RowContext) => CellRenderFunction>
   }
 };
 

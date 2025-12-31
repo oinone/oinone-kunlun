@@ -246,7 +246,7 @@ function createVariableListStr(
               return a.value;
             }
             if (
-              expressionSeniorMode == ExpressionSeniorMode.VALUE &&
+              expressionSeniorMode === ExpressionSeniorMode.VALUE &&
               expressionOption.type === ExpressionDefinitionType.OPERATION &&
               expressionOption.leftJoinTtype === ModelFieldType.Boolean
             ) {
@@ -257,9 +257,10 @@ function createVariableListStr(
               return a.value;
             }
           }
+
           if (
             (!leftVariableItem || isStringTtype(leftVariableItem.ttype) || isDateTtype(leftVariableItem.ttype)) &&
-            expressionSeniorMode != ExpressionSeniorMode.DISPLAY_NAME
+            expressionSeniorMode !== ExpressionSeniorMode.DISPLAY_NAME
           ) {
             let right = autoAddQuote(a.value, expressionOption.quoteType);
             if (
@@ -275,8 +276,9 @@ function createVariableListStr(
             }
             return right;
           }
+
           if (
-            expressionSeniorMode == ExpressionSeniorMode.VALUE &&
+            expressionSeniorMode === ExpressionSeniorMode.VALUE &&
             expressionOption.type === ExpressionDefinitionType.BOOLEAN_CONDITION &&
             leftVariableItem &&
             isNumberTtype(leftVariableItem.ttype) &&
@@ -293,6 +295,7 @@ function createVariableListStr(
         return processFunc(a);
       }
     });
+
   // 单个变量下多余2个值就需要用 "+" 连接,且用括号包裹
   return expressionOption.isBetweenInBrackets && list.length > 1 ? `(${list.join(' + ')})` : list.join(' + ');
 }

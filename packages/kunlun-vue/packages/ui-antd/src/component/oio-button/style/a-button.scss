@@ -20,32 +20,40 @@
 }
 
 @mixin biz-type-style($prefix: $buttonParameterPrefix) {
-  $dangerPrefix: $prefix + -danger;
-
-  &.#{$buttonClassPrefix}-biz-type-danger {
-    @include oio-appearance($dangerPrefix);
-    @include event-style($dangerPrefix);
-  }
-
-  $infoPrefix: $prefix + -info;
-
   &.#{$buttonClassPrefix}-biz-type-info {
+    $infoPrefix: $prefix + -info;
+
+    --oio-icon-color: var(#{$infoPrefix + -text-color});
+
     @include oio-appearance($infoPrefix);
     @include event-style($infoPrefix);
   }
 
-  $warningPrefix: $prefix + -warning;
-
   &.#{$buttonClassPrefix}-biz-type-warning {
+    $warningPrefix: $prefix + -warning;
+
+    --oio-icon-color: var(#{$warningPrefix + -text-color});
+
     @include oio-appearance($warningPrefix);
     @include event-style($warningPrefix);
   }
 
-  $successPrefix: $prefix + -success;
-
   &.#{$buttonClassPrefix}-biz-type-success {
+    $successPrefix: $prefix + -success;
+
+    --oio-icon-color: var(#{$successPrefix + -text-color});
+
     @include oio-appearance($successPrefix);
     @include event-style($successPrefix);
+  }
+
+  $dangerPrefix: $prefix + -danger;
+
+  &.#{$buttonClassPrefix}-biz-type-danger {
+    --oio-icon-color: var(#{$dangerPrefix + -text-color});
+
+    @include oio-appearance($dangerPrefix);
+    @include event-style($dangerPrefix);
   }
 }
 
@@ -147,7 +155,7 @@ $primaryParameterPrefix: $buttonParameterPrefix + -primary;
   @include event-style($primaryParameterPrefix);
   @include biz-type-style($primaryParameterPrefix);
 
-  .oio-icon {
+  .#{$iconClassPrefix} {
     color: #ffffff;
   }
 }
@@ -205,6 +213,87 @@ $linkParameterPrefix: $buttonParameterPrefix + -link;
       .oio-icon {
         color: var($parameterPrefix + -disabled-color);
       }
+    }
+  }
+}
+
+&.ant-btn-text {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+
+  &:hover,
+  &:focus {
+    --oio-icon-color: var(#{$buttonParameterPrefix + -text-color-hover});
+
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  &[disabled] {
+    background-color: transparent;
+    border-color: transparent;
+
+    &:hover,
+    &:focus {
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+
+  &.#{$buttonClassPrefix}-biz-type-info {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+      --oio-icon-color: var(#{$buttonParameterPrefix + -default-info-text-color});
+
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+
+  &.#{$buttonClassPrefix}-biz-type-warning {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+      --oio-icon-color: var(#{$buttonParameterPrefix + -default-warning-text-color});
+
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+
+  &.#{$buttonClassPrefix}-biz-type-success {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+      --oio-icon-color: var(#{$buttonParameterPrefix + -default-success-text-color});
+
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+
+  &.#{$buttonClassPrefix}-biz-type-danger {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+      --oio-icon-color: var(#{$buttonParameterPrefix + -default-danger-text-color});
+
+      background-color: transparent;
+      border-color: transparent;
     }
   }
 }

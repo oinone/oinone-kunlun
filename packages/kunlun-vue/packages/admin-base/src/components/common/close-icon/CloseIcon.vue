@@ -15,7 +15,6 @@ export default defineComponent({
 .default-close-icon {
   width: 24px;
   height: 24px;
-  background: var(--oio-close-icon-background);
   color: var(--oio-icon-color);
   border-radius: 50%;
   display: flex;

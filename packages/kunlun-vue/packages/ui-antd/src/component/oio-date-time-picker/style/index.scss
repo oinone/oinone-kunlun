@@ -10,13 +10,14 @@
     @include oio-appearance($inputParameterPrefix);
     height: var($parameterPrefix + -height);
     line-height: var($inputParameterPrefix + -line-height);
-    font-size: var(--oio-font-size);
+    font-size: var($parameterPrefix + -font-size);
     padding: 12px;
 
     &:hover {
       @include oio-hover($inputParameterPrefix);
     }
 
+    &.ant-picker-focused,
     &:focus {
       @include oio-focus($inputParameterPrefix);
     }
@@ -40,15 +41,15 @@
   }
 
   .ant-picker-input > input {
-    color: var(--oio-text-color);
+    color: var($parameterPrefix + -text-color);
 
     &[disabled] {
-      color: var(--oio-disabled-color);
+      color: var($parameterPrefix + -disabled-color);
     }
   }
 
   .ant-picker-suffix {
-    color: var(--oio-icon-color) !important;
+    color: var($parameterPrefix + -icon-color) !important;
   }
 
   .ant-picker-clear {
@@ -91,7 +92,7 @@
     &.ant-picker-cell-range-start:not(.ant-picker-cell-range-start-single),
     &.ant-picker-cell-in-range {
       &:before {
-        background-color: rgba(var(--oio-primary-color-rgb), 0.1);
+        background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
       }
     }
   }
@@ -102,16 +103,16 @@
   }
 
   .ant-picker-panel-container {
-    background: var(--oio-background);
+    background: var($parameterPrefix + -background);
   }
 
   .ant-picker-footer-extra {
-    border-bottom-color: var(--oio-border-color);
+    border-bottom-color: var($parameterPrefix + -border-color);
   }
 
   .ant-picker-header {
-    color: var(--oio-text-color);
-    border-bottom-color: var(--oio-border-color);
+    color: var($parameterPrefix + -text-color);
+    border-bottom-color: var($parameterPrefix + -border-color);
   }
 
   .ant-picker-datetime-panel .ant-picker-time-panel,
@@ -119,7 +120,7 @@
   .ant-picker-panel .ant-picker-footer,
   .ant-picker-panel .ant-picker-footer,
   .ant-picker-panel {
-    border-color: var(--oio-border-color);
+    border-color: var($parameterPrefix + -border-color);
     border-bottom: 0;
   }
 
@@ -141,7 +142,7 @@
 
   .ant-picker-cell:hover:not(.ant-picker-cell-in-view) .ant-picker-cell-inner,
   .ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end)
-    .ant-picker-cell-inner {
+  .ant-picker-cell-inner {
     background: var($parameterPrefix + -menu-hover-background-color);
     color: var($parameterPrefix + -text-color);
   }
@@ -154,21 +155,21 @@
     .ant-picker-cell.ant-picker-cell-in-view {
       .ant-picker-cell-inner {
         color: var($parameterPrefix + -text-color);
-        font-size: var(--oio-font-size);
+        font-size: var($parameterPrefix + -font-size);
         text-align: center;
       }
 
       &:active:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) {
         .ant-picker-cell-inner {
-          color: #ffffff;
+          color: var($parameterPrefix + -datetime-cell-internal-text-color-hover);
           background-color: var($parameterPrefix + -primary-color-active);
         }
       }
 
       &:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) {
         .ant-picker-cell-inner {
-          color: #ffffff;
-          background-color: var($parameterPrefix + -primary-color-hover);
+          color: var($parameterPrefix + -datetime-cell-internal-text-color-hover);
+          background-color: var($parameterPrefix + -datetime-background-hover);
         }
       }
 
@@ -191,13 +192,13 @@
             position: relative;
 
             &:active {
-              color: #ffffff;
+              color: var($parameterPrefix + -datetime-text-color-active);
               background-color: var($parameterPrefix + -primary-color-active);
             }
 
             &:hover {
-              color: #ffffff;
-              background-color: var($parameterPrefix + -primary-color-hover);
+              color: var($parameterPrefix + -datetime-cell-internal-text-color-hover);
+              background-color: var($parameterPrefix + -datetime-background-hover);
             }
           }
         }
@@ -205,7 +206,7 @@
 
       &.ant-picker-cell-selected {
         .ant-picker-cell-inner {
-          color: #ffffff;
+          color: var($parameterPrefix + -datetime-text-color-selected);
           background-color: var($parameterPrefix + -primary-color);
           border-radius: 2px;
         }
@@ -217,22 +218,22 @@
     .ant-picker-time-panel-cell {
       .ant-picker-time-panel-cell-inner {
         color: var($parameterPrefix + -text-color);
-        font-size: var(--oio-font-size);
+        font-size: var($parameterPrefix + -font-size);
 
         &:active {
-          color: #ffffff;
+          color: var($parameterPrefix + -datetime-text-color-active);
           background-color: var($parameterPrefix + -primary-color-active);
         }
 
         &:hover {
-          color: #ffffff;
-          background-color: var($parameterPrefix + -primary-color-hover);
+          color: var($parameterPrefix + -datetime-cell-internal-text-color-hover);
+          background-color: var($parameterPrefix + -datetime-background-hover);
         }
       }
 
       &.ant-picker-time-panel-cell-selected {
         .ant-picker-time-panel-cell-inner {
-          color: #ffffff;
+          color: var($parameterPrefix + -datetime-text-color-selected);
           background-color: var($parameterPrefix + -primary-color);
         }
       }
@@ -243,27 +244,27 @@
     .ant-picker-cell.ant-picker-cell-in-view {
       .ant-picker-cell-inner {
         color: var($parameterPrefix + -text-color);
-        font-size: var(--oio-font-size);
+        font-size: var($parameterPrefix + -font-size);
         text-align: center;
       }
 
       &:active:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) {
         .ant-picker-cell-inner {
-          color: #ffffff;
+          color: var($parameterPrefix + -datetime-cell-internal-text-color-hover);
           background-color: var($parameterPrefix + -primary-color-active);
         }
       }
 
       &:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) {
         .ant-picker-cell-inner {
-          color: #ffffff;
-          background-color: var($parameterPrefix + -primary-color-hover);
+          color: var($parameterPrefix + -datetime-cell-internal-text-color-hover);
+          background-color: var($parameterPrefix + -datetime-background-hover);
         }
       }
 
       &.ant-picker-cell-selected {
         .ant-picker-cell-inner {
-          color: #ffffff;
+          color: var($parameterPrefix + -datetime-text-color-selected);
           background-color: var($parameterPrefix + -primary-color);
           border-radius: 2px;
         }
@@ -291,7 +292,7 @@
       @include oio-appearance($buttonParameterPrefix + -primary);
 
       .oio-icon {
-        color: #ffffff;
+        color: var($parameterPrefix + -datetime-cell-internal-text-color-hover);
       }
 
       &:active {
@@ -312,37 +313,37 @@
     }
 
     .ant-picker-ranges .ant-picker-preset > .ant-tag-blue {
-      background-color: rgba(var(--oio-primary-color-rgb), 0.1);
-      border-color: var(--oio-primary-color);
-      color: var(--oio-primary-color);
+      background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
+      border-color: var($parameterPrefix + -primary-color);
+      color: var($parameterPrefix + -primary-color);
     }
   }
 }
 
 .el-color-dropdown {
-  background: var(--oio-addon-color-pick-dropdown-background) !important;
-  border-color: var(--oio-addon-color-pick-dropdown-border-color) !important;
+  background: var($parameterPrefix + -addon-color-pick-dropdown-background) !important;
+  border-color: var($parameterPrefix + -addon-color-pick-dropdown-border-color) !important;
 
   .el-input__wrapper {
-    background: var(--oio-input-background);
-    box-shadow: 0 0 0 1px var(--oio-input-border-color, var(--el-border-color)) inset;
+    background: var($parameterPrefix + -input-background);
+    box-shadow: 0 0 0 1px var($parameterPrefix + -input-border-color, var(--el-border-color)) inset;
 
     .el-input__inner {
-      color: var(--oio-input-text-color);
+      color: var($parameterPrefix + -input-text-color);
     }
   }
 }
 
 .ant-picker-header-view button:hover {
-  color: var(--oio-primary-color);
+  color: var($parameterPrefix + -primary-color);
 }
 
 .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner,
 .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
 .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
-  background: var(--oio-primary-color);
+  background: var($parameterPrefix + -primary-color);
 }
 
 .ant-picker-today-btn {
-  color: var(--oio-primary-color);
+  color: var($parameterPrefix + -primary-color);
 }

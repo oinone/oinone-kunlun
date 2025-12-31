@@ -3,10 +3,10 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { watch } from 'vue';
 import { FormFieldWidget } from '../../../../../basic';
-import { FormM2MFieldSelectWidget } from '../../../../../field';
+import { FormM2MSelectFieldWidget } from '../../../../../field';
 
 @SPI.ClassFactory(FormFieldWidget.Token({ widget: 'AppsModuleUpstreamSelect' }))
-export class AppsModuleUpstreamSelectWidget extends FormM2MFieldSelectWidget {
+export class AppsModuleUpstreamSelectWidget extends FormM2MSelectFieldWidget {
   @Widget.Reactive()
   public get moduleOptionsField(): string {
     return this.getDsl().moduleOptionsField || '';

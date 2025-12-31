@@ -1,7 +1,8 @@
-import { SubmitValue } from '@oinone/kunlun-engine';
+import { GroupingField, SubmitValue } from '@oinone/kunlun-engine';
 import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
 import {
   ActiveEditorContext,
+  GROUP_TREE_KEY,
   OioTableInstance,
   RenderCellContext,
   RowContext,
@@ -15,6 +16,7 @@ import { isNil, isString, toString } from 'lodash-es';
 import { toRaw, VNode } from 'vue';
 import { fetchPopconfirmPlacement } from '../../typing';
 import { executeConfirm } from '../../util';
+import type { TableWidget } from '../../view';
 import { BaseDataWidget } from '../common';
 import { FieldWidgetComponentFunction } from '../types';
 import DefaultTableColumn from './DefaultTableColumn.vue';
@@ -74,7 +76,7 @@ export abstract class BaseTableColumnWidget<
   }
 
   @Widget.Reactive()
-  public get columnType(): string {
+  public get columnType(): string | undefined {
     return this.getDsl().columnType;
   }
 
@@ -120,17 +122,17 @@ export abstract class BaseTableColumnWidget<
 
   @Widget.Method()
   public className(context: RenderCellContext): string | string[] | undefined {
-    return this.getDsl().className;
+    return this.getDsl().className || this.getDsl().class;
   }
 
   @Widget.Method()
   public headerClassName(context: RenderCellContext): string | string[] | undefined {
-    return this.getDsl().headerClassName;
+    return this.getDsl().headerClassName || this.getDsl().class;
   }
 
   @Widget.Method()
   public footerClassName(context: RenderCellContext): string | string[] | undefined {
-    return this.getDsl().footerClassName;
+    return this.getDsl().footerClassName || this.getDsl().class;
   }
 
   @Widget.Reactive()
@@ -151,17 +153,47 @@ export abstract class BaseTableColumnWidget<
     return sortable;
   }
 
+  /**
+   * 当前视图使用分组结构展示
+   * 启动了分组并且有分组字段
+   *
+   * @see {@link BaseElementListViewWidget}
+   */
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected enabledGroupView: boolean | undefined;
+
+  /**
+   * 表格配置 -> 启用分组
+   * @see {@link BaseElementListViewWidget}
+   */
+  @Widget.Reactive()
+  @Widget.Inject('enableGrouping')
+  protected tableEnableGrouping!: boolean;
+
+  /**
+   * 分组字段
+   * @see {@link BaseElementListViewWidget}
+   */
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected groupList: GroupingField[] | undefined;
+
+  /**
+   * 当前字段是否启动的分组
+   */
+  @Widget.Reactive()
+  public get enableGrouping(): boolean {
+    const enableGrouping = BooleanHelper.toBoolean(this.getDsl().enableGrouping);
+    if (enableGrouping == null) {
+      return this.tableEnableGrouping || false;
+    }
+    return enableGrouping;
+  }
+
   @Widget.Reactive()
   public get invisible() {
     return this.clientInvisible || BooleanHelper.toBoolean(this.getDsl().invisible) || false;
-  }
-
-  /**
-   * @deprecated invalid prop in the table column
-   */
-  @Widget.Reactive()
-  public get readonly() {
-    return BooleanHelper.toBoolean(this.getDsl().readonly) || false;
   }
 
   @Widget.Reactive()
@@ -187,11 +219,11 @@ export abstract class BaseTableColumnWidget<
    */
   @Widget.Reactive()
   public get editable(): boolean {
-    if (this.tableForceEditable) {
-      return this.tableForceEditable;
-    }
     if (this.readonly) {
       return false;
+    }
+    if (this.currentEditorContext?.forceEditable) {
+      return true;
     }
     const { editable, independentlyEditable } = this.getDsl();
     const finalEditable = Optional.ofNullable(editable).orElse(independentlyEditable) as boolean | string | undefined;
@@ -223,6 +255,19 @@ export abstract class BaseTableColumnWidget<
   @Widget.Method()
   public cellEditable(context: RowContext): boolean {
     return true;
+  }
+
+  @Widget.Reactive()
+  public get editorAutofocus() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().editorAutofocus)).orElse(true);
+  }
+
+  @Widget.Method()
+  protected get editRender(): Record<string, unknown> | undefined {
+    if (this.editorAutofocus) {
+      return { autofocus: this.onAutofocus.bind(this) };
+    }
+    return undefined;
   }
 
   @Widget.Reactive()
@@ -364,9 +409,33 @@ export abstract class BaseTableColumnWidget<
     return true;
   }
 
+  @Widget.Method()
+  public onAutofocus(params: { cell: HTMLElement }) {
+    const { cell } = params;
+    if (!cell) {
+      return;
+    }
+    const input = cell.querySelector('input') as HTMLInputElement;
+    if (input) {
+      input.focus();
+    }
+  }
+
+  /**
+   * 修改分组配置
+   *  @see {@link BaseElementListViewWidget}
+   */
+  @Widget.Method()
+  @Widget.Inject()
+  public onGroupChange!: (list: GroupingField[]) => void;
+
   @Widget.Reactive()
   @Widget.Inject('expandTreeFieldColumn')
-  private tableExpandTreeFieldColumn: string | undefined;
+  protected tableExpandTreeFieldColumn: string | undefined;
+
+  @Widget.Reactive()
+  @Widget.Inject('groupTitleEmptyStyle')
+  protected tableGroupTitleEmptyStyle: string | undefined;
 
   @Widget.Reactive()
   protected get treeNode(): boolean | undefined {
@@ -377,6 +446,43 @@ export abstract class BaseTableColumnWidget<
     return treeNode;
   }
 
+  protected getColumnWidgets(): BaseTableColumnWidget[] {
+    return (this.getParentWidget() as TableWidget).getColumnWidgets();
+  }
+
+  protected renderGroupTitleEmptyStyle(context: RowContext): VNode[] | string {
+    return this.tableGroupTitleEmptyStyle || '';
+  }
+
+  @Widget.Method()
+  protected dynamicRenderDefaultSlot(context: RowContext): ((context: RowContext) => VNode[] | string) | undefined {
+    const groupProps = (context.data as Record<string, { field: string; value: unknown }>)[GROUP_TREE_KEY.PROPS_KEY];
+    const { tableExpandTreeFieldColumn } = this;
+    if (!groupProps || !tableExpandTreeFieldColumn) {
+      return undefined;
+    }
+    const { field, value } = groupProps;
+    if (!field || value == null || (typeof value === 'string' && !value)) {
+      return this.renderGroupTitleEmptyStyle.bind(this);
+    }
+    const column = this.getColumnWidgets().find((v) => v.itemData === field);
+    if (!column) {
+      return undefined;
+    }
+    const internalRender = (column.renderGroupTitleSlot || column.renderDefaultSlot)?.bind(column);
+    if (!internalRender) {
+      return undefined;
+    }
+    return (context: RowContext) => {
+      return internalRender({
+        ...context,
+        data: {
+          [field]: value
+        }
+      });
+    };
+  }
+
   public renderDefaultSlot?(context: RowContext): VNode[] | string;
 
   public renderEditSlot?(context: RowContext): VNode[] | string;
@@ -384,4 +490,14 @@ export abstract class BaseTableColumnWidget<
   public renderContentSlot?(context: RowContext): VNode[] | string;
 
   public renderHeaderSlot?(context: RowContext): VNode[] | string;
+
+  public renderGroupTitleSlot?(context: RowContext): VNode[] | string;
+
+  /**
+   * @deprecated invalid prop in the table column
+   */
+  @Widget.Reactive()
+  public get readonly() {
+    return BooleanHelper.toBoolean(this.getDsl().readonly) || false;
+  }
 }

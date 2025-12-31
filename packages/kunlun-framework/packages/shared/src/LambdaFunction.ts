@@ -9,3 +9,5 @@ export type BiConverter<T, U, R> = (t: T, u: U) => R;
 export type Converter<T, R> = (t: T) => R;
 
 export type Comparator<T> = (a: T, b: T) => number;
+
+export type Predict<T> = (t: T) => boolean;

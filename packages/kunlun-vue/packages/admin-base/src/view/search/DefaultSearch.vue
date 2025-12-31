@@ -16,14 +16,15 @@ import {
   OioFormProps,
   OioIcon,
   PropRecordHelper,
+  StableSlotProp,
   StringHelper,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext,
   ValidateTrigger
 } from '@oinone/kunlun-vue-ui-antd';
-import { StableSlotProp } from '@oinone/kunlun-vue-ui-common';
 import { DslRender, DslRenderDefinition } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { computed, createVNode, defineComponent, ref, VNode, vShow, withDirectives, withKeys } from 'vue';
-import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '../../basic';
 import { InternalWidget, ResolveMode } from '../../tags';
 import { UserSearchPrefer } from '../../typing';
 import { useProviderSearchPreferContext } from './context';
@@ -42,7 +43,7 @@ function appendFieldDslDefinition(
     switch (dslNodeType as DslDefinitionType) {
       case DslDefinitionType.FIELD:
       case DslDefinitionType.ELEMENT: {
-        if (BooleanHelper.isTrue(widget.invisible) || (cateFields?.length && cateFields.includes(widget.name))) {
+        if (BooleanHelper.isTrue(widget.invisible) || cateFields?.includes(widget.name)) {
           break;
         }
         const cloneWidget = cloneDeep(widget);
@@ -72,11 +73,8 @@ function appendFieldDslDefinition(
 function appendCateFieldDslDefinition(
   targets: DslDefinition[],
   widgets: DslDefinition[],
-  cateFields?: string[]
+  cateFields: string[]
 ): boolean {
-  if (!cateFields?.length) {
-    return false;
-  }
   for (const widget of widgets) {
     const { dslNodeType } = widget;
     switch (dslNodeType as DslDefinitionType) {
@@ -237,170 +235,200 @@ export default defineComponent({
       options: computed(() => props.searchPreferOptions)
     });
 
-    const defaultChildrenAndStyle = computed(() => {
-      const defaultChildren: VNode[] = [];
-      let invisible = false;
-      let hasExpandButton = false;
+    return {
+      origin,
+      onExpand,
+      onSearch,
+      onReset
+    };
+  },
+  render() {
+    const {
+      $slots,
 
-      if (props.template) {
-        const { widgets } = props.template;
-        if (widgets && widgets.length) {
-          let fields: DslDefinition[] = [];
-          const cateWidgets = [] as DslDefinition[];
-          appendCateFieldDslDefinition(cateWidgets, widgets, props.cateFields);
+      template,
+      cateFields,
+      showTopCateAll,
+      showSecondCateAll,
+      topCateJustify,
+      disabledExpand,
+      invisibleSearch,
+      foldSize,
+      showSearchPrefer,
+      isExpand,
+
+      translate,
+      selectedPrefer,
+      searchPreferOptions,
+      onLoadSearchPreferOptions,
+      onCreateSearchPrefer,
+      onUpdateSearchPrefer,
+      onRemoveSearchPrefer,
+      onSelectSearchPrefer,
+      onUnselectSearchPrefer,
+
+      onSearch,
+      onReset,
+      onExpand
+    } = this;
+
+    const defaultChildren: VNode[] = [];
+    let invisible = false;
+    let hasExpandButton = false;
+
+    if (template) {
+      const { widgets } = template;
+      if (widgets && widgets.length) {
+        const cateWidgets = [] as DslDefinition[];
+        if (cateFields?.length) {
+          appendCateFieldDslDefinition(cateWidgets, widgets, cateFields);
           if (cateWidgets.length) {
             defaultChildren.push(
               DslRender.render({
-                cateFields: props.cateFields,
+                cateFields,
                 dslNodeType: DslDefinitionType.ELEMENT,
                 widget: 'SearchTab',
                 widgets: cateWidgets,
-                showTopCateAll: props.showTopCateAll,
-                showSecondCateAll: props.showSecondCateAll,
-                topCateJustify: props.topCateJustify
+                showTopCateAll,
+                showSecondCateAll,
+                topCateJustify
               })!
             );
           }
+        }
 
-          if (!props.disabledExpand) {
-            const finalExpandSize = props.invisibleSearch ? props.foldSize + 1 : props.foldSize;
-            appendFieldDslDefinition(fields, widgets, finalExpandSize, props.foldSize, props.cateFields);
+        let fields: DslDefinition[] = [];
+        if (!disabledExpand) {
+          const finalExpandSize = invisibleSearch ? foldSize + 1 : foldSize;
+          appendFieldDslDefinition(fields, widgets, finalExpandSize, foldSize, cateFields);
+          if (fields.length) {
             hasExpandButton = fields.length > finalExpandSize;
             if (hasExpandButton) {
               fields = fields.slice(0, finalExpandSize);
             }
-
-            if (!props.invisibleSearch) {
+            if (!invisibleSearch) {
               const searchActionBar: VNode[] = createSearchBar(false, {
                 hasExpandButton,
-                showSearchPrefer: props.showSearchPrefer,
+                showSearchPrefer,
                 onSearch,
                 onReset,
                 onExpand,
-                translate: props.translate,
+                translate,
                 preferProps: {
-                  selected: props.selectedPrefer,
-                  options: props.searchPreferOptions,
-                  onLoad: props.onLoadSearchPreferOptions,
-                  onCreate: props.onCreateSearchPrefer,
-                  onUpdate: props.onUpdateSearchPrefer,
-                  onRemove: props.onRemoveSearchPrefer,
-                  onSelect: props.onSelectSearchPrefer,
-                  onUnselect: props.onUnselectSearchPrefer
+                  selected: selectedPrefer,
+                  options: searchPreferOptions,
+                  onLoad: onLoadSearchPreferOptions,
+                  onCreate: onCreateSearchPrefer,
+                  onUpdate: onUpdateSearchPrefer,
+                  onRemove: onRemoveSearchPrefer,
+                  onSelect: onSelectSearchPrefer,
+                  onUnselect: onUnselectSearchPrefer
                 }
               });
               invisible = !fields.length;
 
               const searchBarCol = createSearchBarCol(
                 searchActionBar,
-                (props.foldSize - fields.length) * (DEFAULT_COLS / (props.foldSize + 1)),
+                (foldSize - fields.length) * (DEFAULT_COLS / (foldSize + 1)),
                 invisible,
-                props.foldSize
+                foldSize
               );
               fields.push(searchBarCol);
             }
-            defaultChildren.push(
-              withDirectives(
-                DslRender.render({
-                  internal: true,
-                  dslNodeType: DslDefinitionType.PACK,
-                  widgets: fields,
-                  widget: InternalWidget.Row,
-                  cols: DEFAULT_COLS,
-                  resolveOptions: {
-                    mode: ResolveMode.NORMAL
-                  }
-                })!,
-                [[vShow, !props.isExpand]]
-              )
-            );
+          } else {
+            hasExpandButton = false;
+            fields = widgets;
           }
+          defaultChildren.push(
+            withDirectives(
+              DslRender.render({
+                internal: true,
+                dslNodeType: DslDefinitionType.PACK,
+                widgets: fields,
+                widget: InternalWidget.Row,
+                cols: DEFAULT_COLS,
+                resolveOptions: {
+                  mode: ResolveMode.NORMAL
+                }
+              })!,
+              [[vShow, !isExpand]]
+            )
+          );
         }
       }
+    }
 
-      if (hasExpandButton || props.disabledExpand) {
-        const foldChildren = PropRecordHelper.collectionSlots(context.slots, [
+    if (hasExpandButton || disabledExpand) {
+      const foldChildren = PropRecordHelper.collectionSlots($slots, [
+        {
+          origin: 'default',
+          isNotNull: true
+        }
+      ])
+        .default()
+        .filter((VNode) => !cateFields?.includes(VNode.props?.dslDefinition?.name));
+
+      const foldVNodes: VNode[] = [
+        DslRender.render(
           {
-            origin: 'default',
-            isNotNull: true
-          }
-        ])
-          .default()
-          .filter((VNode) => !props.cateFields?.includes(VNode.props?.dslDefinition?.name));
-
-        const foldVNodes: VNode[] = [
-          DslRender.render(
-            {
-              ...(props.template || {}),
-              internal: true,
-              dslNodeType: DslDefinitionType.PACK,
-              widgets: [],
-              widget: InternalWidget.Row,
-              resolveOptions: {
-                mode: ResolveMode.NORMAL
-              }
-            },
-            undefined,
-            { default: () => foldChildren }
-          )!
-        ];
-        if (!props.invisibleSearch) {
-          const searchActionBar: VNode[] = createSearchBar(true, {
-            hasExpandButton,
-            showSearchPrefer: props.showSearchPrefer,
-            onSearch,
-            onReset,
-            onExpand,
-            translate: props.translate,
-            preferProps: {
-              selected: props.selectedPrefer,
-              options: props.searchPreferOptions,
-              onLoad: props.onLoadSearchPreferOptions,
-              onCreate: props.onCreateSearchPrefer,
-              onUpdate: props.onUpdateSearchPrefer,
-              onRemove: props.onRemoveSearchPrefer,
-              onSelect: props.onSelectSearchPrefer,
-              onUnselect: props.onUnselectSearchPrefer
+            ...(template || {}),
+            internal: true,
+            dslNodeType: DslDefinitionType.PACK,
+            widgets: [],
+            widget: InternalWidget.Row,
+            resolveOptions: {
+              mode: ResolveMode.NORMAL
             }
-          });
-          const searchBarCol = createSearchBarCol(
-            searchActionBar,
-            props.foldSize * (DEFAULT_COLS / (props.foldSize + 1)), // 预留高级搜索区域
-            invisible,
-            props.foldSize
-          );
-          foldVNodes.push(
-            DslRender.render({
-              internal: true,
-              dslNodeType: DslDefinitionType.PACK,
-              widgets: [searchBarCol],
-              widget: InternalWidget.Row,
-              cols: DEFAULT_COLS,
-              resolveOptions: {
-                mode: ResolveMode.NORMAL
-              }
-            })!
-          );
-        }
-        let foldContent = createVNode('div', { class: `${DEFAULT_PREFIX}-default-search-fold-content` }, foldVNodes);
-        if (!props.disabledExpand) {
-          foldContent = withDirectives(foldContent, [[vShow, props.isExpand]]);
-        }
-        defaultChildren.push(foldContent);
+          },
+          undefined,
+          { default: () => foldChildren }
+        )!
+      ];
+      if (!invisibleSearch) {
+        const searchActionBar: VNode[] = createSearchBar(true, {
+          hasExpandButton,
+          showSearchPrefer,
+          onSearch,
+          onReset,
+          onExpand,
+          translate,
+          preferProps: {
+            selected: selectedPrefer,
+            options: searchPreferOptions,
+            onLoad: onLoadSearchPreferOptions,
+            onCreate: onCreateSearchPrefer,
+            onUpdate: onUpdateSearchPrefer,
+            onRemove: onRemoveSearchPrefer,
+            onSelect: onSelectSearchPrefer,
+            onUnselect: onUnselectSearchPrefer
+          }
+        });
+        const searchBarCol = createSearchBarCol(
+          searchActionBar,
+          foldSize * (DEFAULT_COLS / (foldSize + 1)), // 预留高级搜索区域
+          invisible,
+          foldSize
+        );
+        foldVNodes.push(
+          DslRender.render({
+            internal: true,
+            dslNodeType: DslDefinitionType.PACK,
+            widgets: [searchBarCol],
+            widget: InternalWidget.Row,
+            cols: DEFAULT_COLS,
+            resolveOptions: {
+              mode: ResolveMode.NORMAL
+            }
+          })!
+        );
       }
+      let foldContent = createVNode('div', { class: `${DEFAULT_PREFIX}-default-search-fold-content` }, foldVNodes);
+      if (!disabledExpand) {
+        foldContent = withDirectives(foldContent, [[vShow, isExpand]]);
+      }
+      defaultChildren.push(foldContent);
+    }
 
-      return { defaultChildren };
-    });
-
-    return {
-      origin,
-      onExpand,
-      onSearch,
-      onReset,
-      defaultChildrenAndStyle
-    };
-  },
-  render() {
     const classList = [`${DEFAULT_PREFIX}-default-form`, `${DEFAULT_PREFIX}-default-search`];
     if (this.isExpand) {
       classList.push(`${DEFAULT_PREFIX}-default-search-expand`);
@@ -410,8 +438,7 @@ export default defineComponent({
       createVNode(
         'div',
         {
-          class: StringHelper.append(classList, CastHelper.cast(this.$attrs.class)),
-          style: this.$attrs.style,
+          ...PropRecordHelper.collectionBasicProps(this.$attrs, classList),
           ref: 'origin'
         },
         [
@@ -429,7 +456,7 @@ export default defineComponent({
               onKeyup: withKeys(this.onSearch, ['enter'])
             },
             {
-              default: () => this.defaultChildrenAndStyle.defaultChildren,
+              default: () => defaultChildren,
               ...StableSlotProp
             }
           )

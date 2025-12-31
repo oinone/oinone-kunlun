@@ -1,7 +1,7 @@
 <template>
   <div class="biz-audit-record-detail" v-if="realData.fieldRecordList || realData.oneList || realData.manyList">
     <div class="common-field-list">
-      <oio-group v-if="realData.fieldRecordList" :border="false" :title="translateValueByKey('基础信息')">
+      <oio-group v-if="realData.fieldRecordList" :border="false" :title="$translate('基础信息')">
         <div v-for="item in realData.fieldRecordList" :key="item.fieldCode" class="single-field-data">
           <div class="field-info field-label">{{ item.fieldName }}</div>
           <div class="field-info field-origin-value" :title="item.originFieldVal">{{ item.originFieldVal }}</div>
@@ -11,13 +11,13 @@
       </oio-group>
     </div>
     <div class="one-field-list" v-if="realData.oneList && realData.oneList.length">
-      <oio-group :border="false" :title="translateValueByKey('关联信息') + '-' + translateValueByKey('单值')">
+      <oio-group :border="false" :title="$translate('关联信息') + '-' + $translate('单值')">
         <a-table :columns="oneFieldsColumns" :data-source="realData.oneList">
           <template #bodyCell="context">
             <template v-if="context.column.key === 'fieldList'">
               <biz-audit-record-detail-field-value
                 :field-list="context.record.fieldList"
-                :title="translateValueByKey('关联数据')"
+                :title="$translate('关联数据')"
                 width="300px"
               />
             </template>
@@ -26,13 +26,13 @@
       </oio-group>
     </div>
     <div class="many-field-list" v-if="realData.manyList && realData.manyList.length">
-      <oio-group :border="false" :title="translateValueByKey('关联信息') + '-' + translateValueByKey('多值')">
+      <oio-group :border="false" :title="$translate('关联信息') + '-' + $translate('多值')">
         <a-table :columns="manyFieldsColumns" :data-source="realData.manyList">
           <template #bodyCell="context">
             <template v-if="context.column.key === 'fieldList'">
               <biz-audit-record-detail-field-value
                 :field-list="context.record.fieldList"
-                :title="translateValueByKey('关联数据')"
+                :title="$translate('关联数据')"
                 width="300px"
               />
             </template>
@@ -46,10 +46,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { OioGroup } from '@oinone/kunlun-vue-ui-antd';
+import { computed, defineComponent } from 'vue';
 import BizAuditRecordDetailFieldValue from './BizAuditRecordDetailFieldValue.vue';
 
 const commonColumns = [
@@ -115,20 +114,26 @@ const manyFieldsColumns = [
     ellipsis: true
   }
 ];
+
 export default defineComponent({
   name: 'BizAuditRecordDetail',
-  components: { BizAuditRecordDetailFieldValue, OioIcon, OioGroup },
+  components: { BizAuditRecordDetailFieldValue, OioGroup },
   props: {
     data: {
-      type: Array,
-      default: () => []
+      type: [Object, Array]
     }
   },
-
   setup(props) {
     const realData = computed(() => {
-      return props.data[0] || props.data || {};
+      if (props.data == null) {
+        return {};
+      }
+      if (Array.isArray(props.data)) {
+        return props.data[0];
+      }
+      return props.data;
     });
+
     return {
       commonColumns,
       oneFieldsColumns,
@@ -139,7 +144,6 @@ export default defineComponent({
   }
 });
 </script>
-
 <style lang="scss">
 .biz-audit-record-detail {
   .common-field-list {
@@ -208,12 +212,6 @@ export default defineComponent({
     font-size: 14px;
     color: var(--oio-text-color);
     font-weight: 400;
-
-    &:before {
-      content: '';
-      border-left: 2px solid var(--oio-primary-color);
-      margin-right: 6px;
-    }
   }
 
   .oio-group {
@@ -253,6 +251,7 @@ export default defineComponent({
 
   .ant-table {
     background: var(--oio-background);
+
     .ant-table-tbody > tr > td {
       border-color: var(--oio-border-color);
       color: var(--oio-text-color);

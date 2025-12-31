@@ -28,6 +28,10 @@
   .anticon {
     color: var(--oio-icon-color);
   }
+
+  & > .ant-tree-treenode[aria-hidden="true"] {
+    padding: 0;
+  }
 }
 
 .ant-tree-checkbox-checked .ant-tree-checkbox-inner {

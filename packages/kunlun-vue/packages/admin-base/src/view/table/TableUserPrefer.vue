@@ -3,6 +3,7 @@
     <default-user-prefer
       :simple="simple"
       :fields="fields"
+      :title="modalTitle"
       :enter-callback="enterCallback"
       :reset-callback="resetCallback"
     />
@@ -45,6 +46,9 @@ export default defineComponent({
     },
     resetCallback: {
       type: Function
+    },
+    modalTitle: {
+      type: String
     }
   }
 });

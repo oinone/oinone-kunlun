@@ -32,6 +32,7 @@ export function fetchPopconfirmPlacement(placement: string | undefined): Popconf
   return realPlacement;
 }
 
+export * from './event';
 export * from './action';
 export * from './active-count';
 export * from './card-cascader';
@@ -44,3 +45,5 @@ export * from './typing';
 export * from './user-prefer';
 export * from './validator';
 export * from './widget-names';
+export * from './control-icon';
+export * from './view';

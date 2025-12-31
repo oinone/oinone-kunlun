@@ -17,10 +17,10 @@ import { ViewType } from '@oinone/kunlun-meta';
 import { debugConsole, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { getDefaultMaskTemplate, maskTemplateEdit } from '@oinone/kunlun-vue-admin-layout';
+import { useInjectMetaContext } from '@oinone/kunlun-vue-widget';
 import { isNil, isPlainObject, isString } from 'lodash-es';
 import { LayoutManager, LayoutRegisterOptions, MaskManager } from '../../spi';
 import { ActiveLayoutEffectOpt } from './active';
-import { useInjectMetaContext } from './context';
 
 export function seekViewMask(viewAction: RuntimeViewAction, moduleName?: string): DslDefinition {
   let maskTemplate: string | undefined = MaskManager.selector({
@@ -81,6 +81,7 @@ function seekViewLayout(
   if (!finalViewLayout) {
     finalViewLayout = createDefaultLayout(viewType, inline);
   }
+
   return finalViewLayout;
 }
 

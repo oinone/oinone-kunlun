@@ -525,8 +525,6 @@ export class BaseElementObjectViewWidget<
     await this.refreshProcess(condition);
   }
 
-  protected fieldWidgetMap: Map<string, FieldWidgetEntity> = new Map();
-
   protected tryScrollToFieldWidget(fieldWidget: BaseFieldWidget) {
     const { enableScrollToErrorField } = OioProvider.getConfig();
     if (!enableScrollToErrorField || !this.enableScrollToErrorField) {
@@ -537,6 +535,14 @@ export class BaseElementObjectViewWidget<
     el && el.scrollIntoView();
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
+  protected fieldWidgetMap: Map<string, FieldWidgetEntity> = new Map();
+
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetMounted(widget: BaseFieldWidget) {
@@ -546,12 +552,18 @@ export class BaseElementObjectViewWidget<
     });
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetUnmounted(widget: BaseFieldWidget) {
     this.fieldWidgetMap.delete(widget.path);
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   public getFieldWidgets(sort = false): BaseFieldWidget[] {
     const iterator = this.fieldWidgetMap.values();
     let next = iterator.next();

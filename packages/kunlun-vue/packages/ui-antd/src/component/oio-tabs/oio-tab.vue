@@ -86,7 +86,7 @@ export default defineComponent({
             createVNode('div', { class: 'oio-tab' }, [
               createVNode(
                 'div',
-                { class: ['oio-tab-content', `oio-tab-${this.tabPosition}-content`] },
+                { class: ['oio-tab-content', `oio-tab-${this.tabPosition}-content`, 'oio-scrollbar'] },
                 { default: () => slots.default() }
               )
             ])

@@ -2,12 +2,14 @@ import { ActiveRecord, RefreshCallChainingParameters, RefreshCallChainingScope }
 import { getRouterInstance } from '@oinone/kunlun-router';
 import { CallChaining, CastHelper, NumberHelper } from '@oinone/kunlun-shared';
 import { parseActionDomain4search } from '@oinone/kunlun-vue-admin-layout';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { isSearchViewState, OioAnyViewState, OioSearchViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isNil } from 'lodash-es';
 import { BaseElementWidget } from './token';
 import { QueryExpression } from './types';
 
 export class BaseSearchWidget extends BaseElementWidget {
+  protected viewState: OioSearchViewState | undefined;
+
   protected defaultAllInvisible = true;
 
   @Widget.Reactive()
@@ -163,5 +165,11 @@ export class BaseSearchWidget extends BaseElementWidget {
   protected $$unmounted() {
     super.$$unmounted();
     this.mountedCallChaining?.unhook(this.path);
+  }
+
+  protected $$initViewState(state: OioAnyViewState): void {
+    if (isSearchViewState(state) && !state.search) {
+      state.search = this.currentHandle;
+    }
   }
 }

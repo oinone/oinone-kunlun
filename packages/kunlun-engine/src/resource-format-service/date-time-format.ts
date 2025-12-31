@@ -34,17 +34,6 @@ export function queryResourceDateTimeFormat(): Promise<IResourceDateTimeFormat> 
 }
 
 async function queryResourceDateTimeFormat0() {
-  const model = await ModelCache.get('resource.ResourceLang');
-
-  const existing = model?.modelFields.some((m) => m.name === 'resourceDateFormat');
-
-  if (!existing) {
-    return {
-      resourceDateFormat: {},
-      resourceTimeFormat: {}
-    } as IResourceDateTimeFormat;
-  }
-
   const code = await CurrentLanguage.getCode();
 
   const timeModel = await ModelCache.get('resource.ResourceTimeFormat');

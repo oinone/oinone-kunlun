@@ -1,10 +1,9 @@
 <script lang="ts">
 import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { OioSpinProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { DslRender } from '@oinone/kunlun-vue-widget';
+import { DslRender, useInjectMetaContext, useProviderMetaContext } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, VNode } from 'vue';
 import { MetadataViewProps } from '../basic';
-import { useInjectMetaContext, useProviderMetaContext } from '../tags';
 
 export default defineComponent({
   name: 'DefaultMainView',

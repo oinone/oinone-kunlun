@@ -1,9 +1,9 @@
 <script lang="ts">
 import { deepClone } from '@oinone/kunlun-meta';
-import { OioSelect, SelectItem } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { OioSelect, SelectItem, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Radio as ARadioButton, RadioGroup as ARadioGroup } from 'vant';
 import { computed, createVNode, defineComponent } from 'vue';
-import { OioCommonProps, OioMetadataProps, useInjectOioDefaultFormContext, useMetadataProps } from '../../../basic';
+import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../basic';
 
 export default defineComponent({
   name: 'TagSelect',

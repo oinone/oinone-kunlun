@@ -59,41 +59,58 @@ $tagRemoveLineHeight: $tagHeight - 4px;
   background: var(--oio-select-dropdown-background);
   box-shadow: var(--oio-select-dropdown-box-shadow);
 
+  .oio-input {
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--oio-border-color);
+
+    &:hover,
+    &:focus,
+    &.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):not(.oio-input-readonly) {
+      border: 0;
+      border-bottom: 1px solid var(--oio-border-color);
+      border-color: var(--oio-border-color);
+      box-shadow: none;
+    }
+  }
+
   .ant-select-item {
-    color: var(--oio-select-dropdown-color) !important;
+    color: var(--oio-select-dropdown-color);
 
     &:hover {
-      background: var(--oio-select-dropdown-selected) !important;
-      color: var(--oio-select-dropdown-selected-color) !important;
+      color: var(--oio-select-dropdown-hover-color);
+      background-color: var(--oio-select-dropdown-hover-background);
     }
 
     &.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-      background: var(--oio-select-dropdown-selected) !important;
+      background-color: var(--oio-select-dropdown-selected);
 
       .ant-select-item-option-content {
-        color: var(--oio-select-dropdown-selected-color) !important;
+        color: var(--oio-select-dropdown-selected-color);
       }
     }
 
     &.ant-select-item-option-disabled,
     &.ant-select-item.ant-select-item-option-selected.ant-select-item-option-disabled {
-      color: var(--oio-disabled-color) !important;
-      background: transparent !important;
+      color: var(--oio-disabled-color);
+      background: transparent;
       text-decoration-line: line-through;
+
       &:hover {
-        background: transparent !important;
-        color: var(--oio-disabled-color) !important;
+        background: transparent;
+        color: var(--oio-disabled-color);
       }
     }
   }
 
   .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
     color: var($parameterPrefix + -primary-color);
-    background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
+    background-color: var(--oio-select-dropdown-selected);
   }
 
   .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-    background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
+    background-color: var(--oio-select-dropdown-selected);
   }
 
   .ant-select-item-option-state {

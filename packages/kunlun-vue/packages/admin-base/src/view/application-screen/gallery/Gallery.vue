@@ -313,6 +313,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+.oio-default-minimalism-view {
+  .application-screen-container {
+    border-radius: var(--oio-border-radius-sm);
+    padding: var(--oio-padding);
+  }
+}
 .gallery-header {
   display: flex;
   align-items: center;

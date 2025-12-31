@@ -1,20 +1,24 @@
 <script lang="ts">
-import { CastHelper, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { CastHelper, CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import {
   OioCloseIcon,
+  OioIcon,
   OioModalProps,
+  PopupDisplayAs,
   PropRecordHelper,
   StyleHelper,
   useDraggable,
-  useModal
+  useInjectOioDefaultFormContext,
+  useModal,
+  useProviderOioDefaultFormContext
 } from '@oinone/kunlun-vue-ui-common';
 import { Modal as AModal } from 'ant-design-vue';
 import { isBoolean } from 'lodash-es';
-import { computed, createVNode, defineComponent, nextTick, ref, watch } from 'vue';
+import { computed, createVNode, defineComponent, nextTick, ref, watch, withModifiers } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { OioButton } from '../oio-button';
 import { OioSpin } from '../oio-spin';
-import { OioTooltip, OioTooltipHelp } from '../oio-tooltip';
+import { OioTooltip } from '../oio-tooltip';
 
 export default defineComponent({
   name: 'OioModal',
@@ -22,15 +26,18 @@ export default defineComponent({
     AModal,
     OioButton,
     OioSpin,
-    OioTooltip
+    OioTooltip,
+    OioIcon
   },
   inheritAttrs: false,
   props: {
     ...OioModalProps
   },
   slots: ['default', 'title', 'header', 'footer', 'closeIcon'],
-  emits: ['update:visible'],
+  emits: ['update:visible', 'update:displayAs', 'enter', 'cancel'],
   setup(props, context) {
+    const formContext = useInjectOioDefaultFormContext();
+
     const internalId = `${DEFAULT_PREFIX}-modal-${uniqueKeyGenerator()}`;
 
     const modalRef = ref<HTMLElement | undefined>();
@@ -72,12 +79,21 @@ export default defineComponent({
       { immediate: true }
     );
 
+    useProviderOioDefaultFormContext({
+      ...formContext,
+      getTriggerContainer() {
+        return document.body;
+      }
+    });
+
     return {
       ...useModal(props, context),
       id
     };
   },
   render() {
+    const mainClassName = `${DEFAULT_PREFIX}-modal`;
+
     const slots = PropRecordHelper.collectionSlots(this.$slots, [
       {
         origin: 'default',
@@ -105,28 +121,66 @@ export default defineComponent({
     } else {
       defaultSlot = () => finalDefaultSlot;
     }
+
     const isOverrideTitle = !!slots.header;
     if (!isOverrideTitle) {
-      let titleSlot = slots.title;
-      if (!titleSlot) {
-        titleSlot = () => {
-          const title = this.title || OioModalProps.title.default;
-          return [createVNode('span', {}, this.$translate(title))];
-        };
-      }
-      if (this.help) {
-        const titleChildren = titleSlot();
-        titleSlot = () => {
-          return [createVNode('span', {}, titleChildren), createVNode(OioTooltipHelp, { content: this.help })];
-        };
-      }
-      slots.title = titleSlot;
+      const originalTitleSlot = slots.title;
+
+      // 默认标题插槽
+      const createDefaultTitle = () => [createVNode('span', {}, this.$translate(this.title || '弹窗'))];
+
+      slots.title = () => {
+        // 获取原始或默认的标题插槽
+        const originalSlot = [...(originalTitleSlot?.() || createDefaultTitle())];
+
+        if (this.help) {
+          originalSlot.push(
+            createVNode(OioTooltip, {
+              content: this.help
+            })
+          );
+        }
+
+        // 控制图标
+        const controlIcons = [
+          this.showPopupToggle &&
+            !this.isFullScreen &&
+            createVNode(OioIcon, {
+              style: { cursor: 'pointer' },
+              icon: this.displayAs === PopupDisplayAs.modal ? 'oinone-drawer' : 'oinone-dialog',
+              size: 16,
+              onClick: withModifiers(this.onDisplayAsSwitch, ['stop'])
+            }),
+          this.enabledFullScreen &&
+            createVNode(OioIcon, {
+              style: { cursor: 'pointer' },
+              icon: this.isFullScreen ? 'oinone-suoxiao1' : 'oinone-fangda2',
+              size: 16,
+              onClick: withModifiers(this.onFullSwitch, ['stop'])
+            })
+        ].filter(Boolean);
+
+        // 包装控制区域
+        if (controlIcons.length > 0) {
+          originalSlot.push(
+            createVNode(
+              'div',
+              {
+                class: `${mainClassName}-title-extend`
+              },
+              controlIcons
+            )
+          );
+        }
+
+        return originalSlot;
+      };
     }
+
     if (!slots.closeIcon) {
       slots.closeIcon = () => [createVNode(OioCloseIcon)];
     }
 
-    const mainClassName = `${DEFAULT_PREFIX}-modal`;
     const classNames = [mainClassName];
     if (this.widthClassSuffix) {
       classNames.push(`${mainClassName}-width-${this.widthClassSuffix}`);
@@ -134,30 +188,31 @@ export default defineComponent({
     if (this.heightClassSuffix) {
       classNames.push(`${mainClassName}-height-${this.heightClassSuffix}`);
     }
-
-    if (this.customHeightClassSuffix) {
-      classNames.push(`${mainClassName}-height-${this.customHeightClassSuffix}`);
-    }
-
     if (this.headerInvisible) {
       classNames.push(`${mainClassName}-header-invisible`);
     }
     if (this.footerInvisible) {
       classNames.push(`${mainClassName}-footer-invisible`);
     }
+
+    const style = {} as CSSStyle;
+    if (!this.heightClassSuffix && this.height) {
+      classNames.push(`${mainClassName}-height-custom`);
+      style[`--${mainClassName}-custom-height`] = StyleHelper.px(this.height)!;
+    }
+
     return createVNode(
       AModal,
       {
-        ...PropRecordHelper.collectionBasicProps(this.$attrs, classNames),
+        ...PropRecordHelper.collectionBasicProps(this.$attrs, classNames, style),
         mask: this.mask,
         maskClosable: this.headerInvisible ? true : this.maskClosable,
-        width: StyleHelper.px(this.width),
-        wrapClassName: StringHelper.append([`${mainClassName}-wrapper`], CastHelper.cast(this.wrapperClassName)).join(
-          ' '
-        ),
-        style: {
-          [`--${mainClassName}-custom-height`]: this.heightPx
-        },
+        width: this.width,
+        wrapClassName: StringHelper.append(
+          [`${mainClassName}-wrapper`],
+          CastHelper.cast(this.wrapperClassName),
+          this.drawerModalClassName
+        ).join(' '),
         wrapProps: {
           ...(this.wrapperProps || {}),
           id: this.id

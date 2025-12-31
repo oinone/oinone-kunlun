@@ -105,3 +105,182 @@ $treeMinWidth: 324px;
     }
   }
 }
+
+.oio-full-screen-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--oio-background);
+  z-index: 10;
+
+  &.oio-default-view-inline {
+    padding: var(--oio-padding) 0;
+  }
+}
+
+.oio-draft-data-modal-confirm {
+  .ant-modal-close-x {
+    top: -4px;
+  }
+
+  .ant-modal-confirm-body {
+    display: flex;
+    gap: var(--oio-row-gap);
+  }
+}
+
+// 极简风格视图
+.oio-default-minimalism-view {
+  background: var(--oio-background);
+  border-radius: var(--oio-border-radius, 4px);
+  box-shadow: var(--oio-box-shadow);
+
+  & > .oio-default-view-container {
+    row-gap: 0;
+
+    // 表单、详情、画廊视图
+    & > .oio-default-search-view {
+      padding: var(--oio-padding) var(--oio-padding) var(--oio-padding) 0;
+      border-bottom: 1px solid var(--oio-border-color);
+    }
+
+    & > .action-bar {
+      height: auto;
+      padding: var(--oio-padding);
+      border-bottom: 1px solid var(--oio-border-color);
+    }
+
+    & > .oio-default-form {
+      padding: var(--oio-padding);
+    }
+
+    & > .default-gallery {
+      padding: var(--oio-padding);
+    }
+
+    .oio-tabs {
+      &.ant-tabs-top.oio-tabs-accent-card {
+        .ant-tabs-nav {
+          padding-left: 0;
+        }
+      }
+    }
+
+    // 分组
+    .oio-group {
+      &.oio-group-border {
+        border: none;
+        box-shadow: none;
+      }
+
+      .oio-group-title-wrapper {
+        padding: 0;
+      }
+
+      .oio-group-content {
+        padding: var(--oio-padding) 0 0 0;
+
+        .oio-group {
+          padding: 0 var(--oio-padding);
+        }
+      }
+
+      &.oio-group-title-hidden {
+        & > .oio-group-content {
+          padding: var(--oio-padding);
+        }
+      }
+    }
+  }
+
+  // 表格
+  &.oio-default-table-view {
+    .oio-default-view-container {
+      & > .oio-group {
+        & > .oio-group-content {
+          padding: var(--oio-padding) 0 0 0;
+
+          & > .oio-row {
+            row-gap: 0 !important;
+          }
+        }
+
+        &:last-child > .oio-group-content {
+          padding-top: 0;
+        }
+      }
+
+      .oio-default-search {
+        padding: 0 var(--oio-padding) var(--oio-padding) 0;
+        border-bottom: 1px solid var(--oio-border-color);
+
+        .oio-cate-search.oio-tabs.ant-tabs-top .ant-tabs-nav .ant-tabs-tab {
+          padding-top: 0;
+        }
+
+        .ant-tabs-nav-wrap,
+        .oio-cate-search-second {
+          padding-left: var(--oio-padding);
+        }
+      }
+
+      .action-bar:not(.action-bar-inline) {
+        padding: var(--oio-padding) var(--oio-padding) 0 var(--oio-padding);
+        height: auto;
+      }
+
+      .default-table {
+        padding: var(--oio-padding);
+      }
+
+      .default-tree-table {
+        padding: var(--oio-padding) 0 0 var(--oio-padding);
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: calc(var(--oio-padding) * -1);
+          width: 1px;
+          background-color: var(--oio-border-color);
+        }
+      }
+    }
+  }
+
+  // 画廊
+  &.oio-default-gallery-view {
+    & > .oio-default-view-container > .action-bar {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  // 树视图
+  &.oio-default-tree-view {
+    padding: var(--oio-padding);
+
+    .oio-default-view-container .oio-group .oio-group-content {
+      padding: 0;
+    }
+  }
+
+  .oio-group-toolbar-flex-end {
+    .default-view-control-icon.default-view-control-icon-has-action {
+      bottom: 100%;
+      margin-left: var(--oio-padding-md);
+      right: unset;
+    }
+  }
+
+  .default-view-control-icon {
+    &.default-view-control-icon-has-action {
+      bottom: 100%;
+      right: calc(var(--oio-padding-md));
+    }
+  }
+}

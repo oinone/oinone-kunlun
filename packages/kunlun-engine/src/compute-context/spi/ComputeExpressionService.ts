@@ -13,8 +13,16 @@ export class ComputeExpressionService implements ExpressionExecutorService {
     if (!isString(expression) || isEmpty(expression)) {
       return expression;
     }
-    const activeRecord = !param.activeRecord ? param.activeRecords[0] || {} : param.activeRecord;
-    param.activeRecord = activeRecord;
+    let activeRecord: Record<string, unknown>;
+    if (param.activeRecord) {
+      activeRecord = param.activeRecord;
+    } else {
+      activeRecord = param.activeRecords?.[0] || {};
+    }
+    param = {
+      ...param,
+      activeRecord
+    };
     try {
       return ExpressionExecutor.run(param, expression, errorValue) as unknown as T;
     } catch (e) {

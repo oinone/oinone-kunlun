@@ -4,12 +4,13 @@ import {
   RenderWidget,
   renderWidgets,
   reportAllMounted,
+  useInjectMetaContext,
+  useProviderMetaContext,
   VueWidget,
   WidgetTagProps
 } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { ComponentOptionsMixin, computed, Ref, ref, SetupContext, Slots } from 'vue';
-import { useInjectMetaContext, useProviderMetaContext } from '../context';
 import { createCustomWidget, CustomWidgetProps, InternalWidget } from '../resolve';
 import { BaseWidgetTagMixinContext } from './typing';
 

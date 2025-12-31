@@ -2,11 +2,13 @@
 import {
   ButtonType,
   DrawerPlacement,
+  OioCloseIcon,
   OioIcon,
   OioInnerPopupProps,
   PropRecordHelper,
-  useResizableHandle,
-  OioCloseIcon
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext,
+  useResizableHandle
 } from '@oinone/kunlun-vue-ui-common';
 import { isFunction, isString } from 'lodash-es';
 import {
@@ -48,7 +50,7 @@ function createHeader(children: VNode[]) {
 }
 
 function createBody(children: VNode[]) {
-  return createVNode('div', { class: `${CLASS_NAME}-body` }, children);
+  return createVNode('div', { class: `${CLASS_NAME}-body oio-scrollbar` }, children);
 }
 
 function createFooter(children: VNode[]) {
@@ -69,6 +71,8 @@ export default defineComponent({
     ...OioInnerPopupProps
   },
   setup(props) {
+    const formContext = useInjectOioDefaultFormContext();
+
     const popupRef = ref<HTMLElement>();
 
     const resizable = computed(() => {
@@ -133,6 +137,13 @@ export default defineComponent({
       { immediate: true }
     );
 
+    useProviderOioDefaultFormContext({
+      ...formContext,
+      getTriggerContainer() {
+        return document.body;
+      }
+    });
+
     return {
       popupRef,
 
@@ -144,7 +155,8 @@ export default defineComponent({
       default: defaultSlot,
       title: titleSlot,
       header: headerSlot,
-      footer: footerSlot
+      footer: footerSlot,
+      extraToolbar: extraToolbarSlot
     } = PropRecordHelper.collectionSlots(this.$slots, [
       {
         origin: 'default',
@@ -152,7 +164,8 @@ export default defineComponent({
       },
       'title',
       'header',
-      'footer'
+      'footer',
+      'extraToolbar'
     ]);
 
     const finalHeaderSlot: Slot | null | undefined = headerSlot || this.header;
@@ -166,7 +179,7 @@ export default defineComponent({
       let finalTitleSlot = titleSlot;
       if (!finalTitleSlot) {
         finalTitleSlot = () => [
-          createVNode('span', { class: `${CLASS_NAME}-title` }, this.title || OioInnerPopupProps.title.default)
+          createVNode('span', { class: `${CLASS_NAME}-title` }, this.$translate(this.title || '标题'))
         ];
       }
       if (this.help) {
@@ -179,12 +192,10 @@ export default defineComponent({
       if (this.closable) {
         headerChildren.push(
           createVNode('div', { class: `${CLASS_NAME}-title-toolbar` }, [
-            createVNode(
-              OioCloseIcon,
-              {
-                onClick: this.cancelCallback
-              },
-            )
+            ...(extraToolbarSlot?.() || []),
+            createVNode(OioCloseIcon, {
+              onClick: this.cancelCallback
+            })
           ])
         );
       }

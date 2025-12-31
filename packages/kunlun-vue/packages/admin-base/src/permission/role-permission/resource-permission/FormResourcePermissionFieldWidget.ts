@@ -1,8 +1,7 @@
 import { ActiveRecord, MemoryListSearchCache, SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { OioTreeNode, TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
 import { FormM2MTreeFieldWidget } from '../../../field';
@@ -313,9 +312,10 @@ export class FormResourcePermissionFieldWidget extends FormM2MTreeFieldWidget {
   }
 
   protected generatorResourcePermissionItem(node: PermissionNode): AuthResourcePermissionItem {
-    const { path, nodeType, resourceId, canAccess, canManagement, canDesign } = node;
+    const { path, nodeType, resourceId, resourceCode, canAccess, canManagement, canDesign } = node;
     return {
       resourceId,
+      resourceCode,
       subtype: nodeType,
       path,
       canAccess,

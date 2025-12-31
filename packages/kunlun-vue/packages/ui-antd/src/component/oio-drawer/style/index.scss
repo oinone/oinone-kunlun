@@ -16,27 +16,45 @@ $footerHeight: 73px;
       display: none;
     }
   }
+
+  .ant-drawer-content {
+    background: var(--oio-background);
+  }
+
   &.no-mask {
-    width: 100% !important;
+    width: 100%;
   }
 
   &.#{$drawerClassPrefix}-width-small .ant-drawer-content-wrapper {
-    width: var($drawerParameterPrefix + -width-small) !important;
+    width: var($drawerParameterPrefix + -width-small);
   }
+
   &.#{$drawerClassPrefix}-width-medium .ant-drawer-content-wrapper {
-    width: var($drawerParameterPrefix + -width-medium) !important;
+    width: var($drawerParameterPrefix + -width-medium);
   }
+
   &.#{$drawerClassPrefix}-width-large .ant-drawer-content-wrapper {
-    width: var($drawerParameterPrefix + -width-large) !important;
+    width: var($drawerParameterPrefix + -width-large);
   }
+
+  &.#{$drawerClassPrefix}-width-full .ant-drawer-content-wrapper {
+    width: 100vw;
+  }
+
   &.#{$drawerClassPrefix}-height-small .ant-drawer-content-wrapper {
-    height: var($drawerParameterPrefix + -height-small) !important;
+    height: var($parameterPrefix + -modal-height-small);
   }
+
   &.#{$drawerClassPrefix}-height-medium .ant-drawer-content-wrapper {
-    height: var($drawerParameterPrefix + -height-medium) !important;
+    height: var($parameterPrefix + -modal-height-medium);
   }
+
   &.#{$drawerClassPrefix}-height-large .ant-drawer-content-wrapper {
-    height: var($drawerParameterPrefix + -height-large) !important;
+    height: var($parameterPrefix + -modal-height-large);
+  }
+
+  &.#{$drawerClassPrefix}-height-full .ant-drawer-content-wrapper {
+    height: 100vh;
   }
 
   & > .ant-drawer-content-wrapper {
@@ -54,7 +72,7 @@ $footerHeight: 73px;
       @include oio-scrollbar();
 
       height: calc(100% - #{$titleHeight});
-      padding: 16px;
+      padding: var($parameterPrefix + -margin-md);
       overflow: auto;
 
       & > .ant-spin-nested-loading {
@@ -66,8 +84,47 @@ $footerHeight: 73px;
       }
     }
 
+    .ant-drawer-header {
+      background-color: var(--oio-background);
+      border-color: var(--oio-border-color);
+      padding: 16px;
+    }
+
+    .ant-drawer-header-title {
+      flex-direction: row-reverse;
+    }
+
+    .ant-drawer-title {
+      opacity: 0.85;
+      font-size: var($parameterPrefix + -font-size-lg);
+      color: var($parameterPrefix + -text-color);
+      line-height: 24px;
+      font-weight: var($parameterPrefix + -font-weight-bold);
+      position: relative;
+
+      .#{$drawerClassPrefix}-title-extend {
+        height: 24px;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        column-gap: 16px;
+        position: absolute;
+        top: 0;
+        right: 16px;
+
+        .oio-icon {
+          width: 24px;
+          height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+
     .ant-drawer-close {
       padding: 0;
+      margin-right: 0;
     }
 
     .ant-drawer-footer {
@@ -84,10 +141,72 @@ $footerHeight: 73px;
 
         &.ant-btn {
           height: var($parameterPrefix + -height);
-          margin: var($parameterPrefix + -margin-xxs) 0 var($parameterPrefix + -margin-xxs)
-            var($parameterPrefix + -margin-md);
+          margin: var($parameterPrefix + -margin-xxs) 0 var($parameterPrefix + -margin-xxs) var($parameterPrefix + -margin-md);
         }
       }
+    }
+  }
+
+  &.#{$drawerClassPrefix}-modal-mode {
+    @include oio-scrollbar();
+
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    outline: 0;
+    overflow: auto;
+
+    .ant-drawer-mask {
+      height: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .ant-drawer-content {
+      height: unset;
+    }
+
+    .ant-drawer-content-wrapper {
+      position: relative;
+      height: unset;
+      top: 100px;
+      z-index: 1000;
+      margin: 0 auto;
+
+      .ant-drawer-content {
+        background-color: var(--oio-background);
+        border: 1px solid var(--oio-border-color);
+        box-shadow: var(--oio-box-shadow);
+        border-radius: var(--oio-border-radius);
+      }
+    }
+
+    & > .ant-drawer-content-wrapper {
+      opacity: 0;
+      transition: none;
+    }
+
+    &.ant-drawer-open > .ant-drawer-content-wrapper {
+      opacity: 1;
+      transition: none;
+    }
+
+    &.#{$drawerClassPrefix}-width-small .ant-drawer-content-wrapper {
+      width: var($modalParameterPrefix + -width-small);
+    }
+
+    &.#{$drawerClassPrefix}-width-medium .ant-drawer-content-wrapper {
+      width: var($modalParameterPrefix + -width-medium);
+    }
+
+    &.#{$drawerClassPrefix}-width-large .ant-drawer-content-wrapper {
+      width: var($modalParameterPrefix + -width-large);
     }
   }
 }

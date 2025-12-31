@@ -103,7 +103,7 @@ export class FormSubviewListFieldWidget<
     this.refreshCallChaining?.syncCall();
   }
 
-  public flushDataSource(reloadDataSource = true) {
+  public flushDataSource() {
     const { dataSource, submitCache, subviewSubmitCache } = this;
     let showRecords = dataSource;
     if (submitCache) {
@@ -112,7 +112,7 @@ export class FormSubviewListFieldWidget<
     if (subviewSubmitCache) {
       subviewSubmitCache.submit(dataSource || []);
     }
-    reloadDataSource && this.reloadDataSource(showRecords);
+    this.reloadDataSource(showRecords);
     this.change(showRecords);
 
     this.repairTablePagination();

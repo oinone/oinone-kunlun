@@ -1,6 +1,7 @@
 <script lang="ts">
 import { DslDefinition } from '@oinone/kunlun-dsl';
 import {
+  GROUP_TREE_KEY,
   OioColumn,
   OioColumnAppearanceProps,
   OioColumnEditorProps,
@@ -8,7 +9,8 @@ import {
   OioTableInstance,
   RowContext,
   TableEditorMode,
-  useInjectOioTableInstance
+  useInjectOioTableInstance,
+  VxeTableRowContext
 } from '@oinone/kunlun-vue-ui';
 import { computed, createVNode, defineComponent, onMounted, PropType, VNode } from 'vue';
 import { ManualWidget } from '../mixin';
@@ -54,6 +56,15 @@ export default defineComponent({
     existExpandRow: {
       type: Boolean
     },
+    enabledGroupView: {
+      type: Boolean
+    },
+    enableGrouping: {
+      type: Boolean
+    },
+    tableExpandTreeFieldColumn: {
+      type: String
+    },
     treeNode: {
       type: Boolean,
       default: undefined
@@ -76,15 +87,41 @@ export default defineComponent({
       return [createVNode('span', { class: 'oio-column-header-title' }, props.label)];
     };
 
-    const renderDefaultSlot = (context: RowContext) => {
+    const renderDefaultSlot = (context: VxeTableRowContext) => {
+      /**
+       * 当前视图启动了分组 & 当前字段允许分许 & 当前是展开行 & 当前单元格不是展开字段
+       * 则渲染分组单元格
+       */
+      if (props.enabledGroupView && props.enableGrouping && context.data[GROUP_TREE_KEY.CHILDREN_KEY]) {
+        // 非展开行字段
+        if (context.origin?.column?.field !== props.tableExpandTreeFieldColumn) {
+          return props.renderGroupCellSlot?.(context);
+        }
+
+        // 展开行字段
+        return [
+          createVNode('span', { class: 'default-group-compose-cell' }, [
+            createVNode('span', { class: 'default-group-compose-cell-content' }, [
+              (props.dynamicRenderDefaultSlot?.(context) || props.renderDefaultSlot)?.(context)
+            ]),
+            props.renderGroupCellSlot?.(context)
+          ])
+        ];
+      }
+
       if (props.editorMode === TableEditorMode.table && props.editable) {
         return props.renderEditSlot?.(context);
       }
+
       const vNodes = props.renderDefaultSlot?.(context);
       if (vNodes == null) {
         return [];
       }
       return props.wrapperToFieldAction?.(vNodes, context);
+    };
+
+    const renderContentSlot = (context: VxeTableRowContext) => {
+      return props.renderContentSlot?.(context);
     };
 
     onMounted(() => {
@@ -94,7 +131,8 @@ export default defineComponent({
     return {
       fixed,
       defaultRenderHeaderSlot,
-      renderDefaultSlot
+      renderDefaultSlot,
+      renderContentSlot
     };
   },
   render() {
@@ -120,6 +158,7 @@ export default defineComponent({
       editorTrigger,
       editorMode,
       editorCloseTrigger,
+      editRender,
       rowEditorClosedByEnter,
       rowEditorClosedByCancel,
       editorConfirm,
@@ -165,6 +204,7 @@ export default defineComponent({
       editorTrigger,
       editorMode: isEditTable ? TableEditorMode.row : editorMode,
       editorCloseTrigger,
+      editRender,
       rowEditorClosedByEnter,
       rowEditorClosedByCancel,
       editorConfirm,

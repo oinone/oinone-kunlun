@@ -1,6 +1,6 @@
 import { Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { hasRowActionBarViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseElementWidget } from '../../../basic';
 import { ActionBarWidget, ActionBarWidgetProps } from './ActionBarWidget';
@@ -75,5 +75,34 @@ export class RowActionBarWidget<
   @Widget.Provide()
   protected get buttonType(): string | undefined {
     return Optional.ofNullable(super.buttonType).orElse(this.operatorColumnButtonType?.toLowerCase?.());
+  }
+
+  protected $$initViewStatePosition(state: OioAnyViewState): void {
+    state.__position.push({ handle: this.currentHandle, slotName: this.getSlotName(), rowIndex: this.rowIndex });
+  }
+
+  protected $$initViewState(state: OioAnyViewState): void {
+    const { currentHandle, rowIndex } = this;
+    if (hasRowActionBarViewState(state)) {
+      if (!state.inlineActionBars) {
+        state.inlineActionBars = [];
+      }
+      state.inlineActionBars[rowIndex] = state.createActionBarState({
+        handle: currentHandle,
+        inline: true
+      });
+    }
+  }
+
+  protected $$unmounted() {
+    super.$$unmounted();
+    const { viewState, rowIndex } = this;
+    if (viewState && hasRowActionBarViewState(viewState)) {
+      const { inlineActionBars } = viewState;
+      if (inlineActionBars) {
+        inlineActionBars.splice(rowIndex, 1);
+        viewState.inlineActionBars = [...inlineActionBars];
+      }
+    }
   }
 }

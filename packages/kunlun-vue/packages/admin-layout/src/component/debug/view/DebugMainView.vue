@@ -54,6 +54,8 @@ export default defineComponent({
   },
   setup(props) {
     let importChangeEvent: CleanableEvent | undefined;
+    let dragoverImportEvent: CleanableEvent | undefined;
+    let dropImportEvent: CleanableEvent | undefined;
 
     const getDownloadResponseData = () => {
       const { pageParameters, viewAction, requestInfo, responseData, runtimeContext } = DebugUtils.getDebugStorage();
@@ -91,9 +93,42 @@ export default defineComponent({
       importChangeEvent?.el?.click();
     };
 
-    onMounted(() => {
-      const reader = new FileReader();
+    const reader = new FileReader();
 
+    reader.onload = async (e) => {
+      const content = e.target?.result;
+      if (!content) {
+        return;
+      }
+      try {
+        const storage = DebugUtils.getDebugStorage();
+        const data = JSON.parse(content as string);
+        const { responseData, pageParameters, viewAction, runtimeContext, errors } = data;
+        if (!responseData && !pageParameters && !viewAction && !runtimeContext && errors) {
+          await props.responseAnalysis?.(data);
+          storage.forceUpdate();
+        } else {
+          storage.requestInfo = data;
+          if (responseData && typeof responseData === 'string') {
+            storage.responseData = responseData;
+          }
+          if (pageParameters && typeof pageParameters !== 'string') {
+            storage.pageParameters = pageParameters;
+          }
+          if (viewAction && typeof viewAction !== 'string') {
+            storage.viewAction = viewAction;
+          }
+          if (runtimeContext && typeof runtimeContext !== 'string') {
+            storage.runtimeContext = runtimeContext;
+          }
+          storage.forceUpdate();
+        }
+      } catch (e) {
+        console.error('Error parse JSON.', e);
+      }
+    };
+
+    const initImportChangeEvent = () => {
       const fileInput = document.getElementById('import-debug-info');
       if (!fileInput) {
         return;
@@ -105,46 +140,34 @@ export default defineComponent({
           return;
         }
         e.target.value = null;
-
-        reader.onload = async (e) => {
-          const content = e.target?.result;
-          if (!content) {
-            return;
-          }
-          try {
-            const storage = DebugUtils.getDebugStorage();
-            const data = JSON.parse(content as string);
-            const { responseData, pageParameters, viewAction, runtimeContext, errors } = data;
-            if (!responseData && !pageParameters && !viewAction && !runtimeContext && errors) {
-              await props.responseAnalysis?.(data);
-              storage.forceUpdate();
-            } else {
-              storage.requestInfo = data;
-              if (responseData && typeof responseData === 'string') {
-                storage.responseData = responseData;
-              }
-              if (pageParameters && typeof pageParameters !== 'string') {
-                storage.pageParameters = pageParameters;
-              }
-              if (viewAction && typeof viewAction !== 'string') {
-                storage.viewAction = viewAction;
-              }
-              if (runtimeContext && typeof runtimeContext !== 'string') {
-                storage.runtimeContext = runtimeContext;
-              }
-              storage.forceUpdate();
-            }
-          } catch (e) {
-            console.error('Error parse JSON.', e);
-          }
-        };
-
         reader.readAsText(file);
       });
+    };
+
+    const initDropImportEvent = () => {
+      dragoverImportEvent = useCleanableEvent(document.body, 'dragover', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+      dropImportEvent = useCleanableEvent(document.body, 'drop', (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer?.files?.[0];
+        if (!file) {
+          return;
+        }
+        reader.readAsText(file);
+      });
+    };
+
+    onMounted(() => {
+      initImportChangeEvent();
+      initDropImportEvent();
     });
 
     onUnmounted(() => {
       importChangeEvent?.remove();
+      dragoverImportEvent?.remove();
+      dropImportEvent?.remove();
     });
 
     return {

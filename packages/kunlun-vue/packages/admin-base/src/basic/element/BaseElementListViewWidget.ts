@@ -41,9 +41,9 @@ import {
 import { CheckedChangeEvent, RadioChangeEvent } from '@oinone/kunlun-vue-ui';
 import { ListPaginationStyle, ListSelectMode, PageSizeEnum } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { ceil, isEmpty, isNil, isString, toInteger, toString } from 'lodash-es';
-import { VxeTablePropTypes } from 'vxe-table';
-import { fetchPageSize } from '../../typing';
+import { ceil, isNil, isString, toInteger, toString } from 'lodash-es';
+import { UserPreferEventManager, UserPreferService } from '../../service';
+import { fetchPageSize, UserTablePrefer } from '../../typing';
 import { FetchUtil } from '../../util';
 import { BaseRuntimePropertiesWidget } from '../common';
 import { QueryExpression, RefreshProcessFunction, UrlQueryParameters } from '../types';
@@ -51,9 +51,6 @@ import { BaseElementViewWidget, BaseElementViewWidgetProps } from './BaseElement
 import { generatorCondition, getSortFieldDirection } from './utils';
 
 const URL_SPLIT_SEPARATOR = ',';
-const ORDERING_SEPARATOR = ',';
-const ORDERING_FIELD_ORDER_SEPARATOR = ' ';
-const DEFAULT_ORDERING_ORDER = EDirection.ASC;
 
 export type BaseElementListViewWidgetProps = BaseElementViewWidgetProps;
 
@@ -79,10 +76,16 @@ export abstract class BaseElementListViewWidget<
     }
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetMounted(widget) {}
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Provide()
   protected fieldWidgetUnmounted(widget) {}
@@ -178,7 +181,7 @@ export abstract class BaseElementListViewWidget<
    */
   @Widget.Reactive()
   protected get sortable() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().sortable)).orElse(false);
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().sortable)).orElse(true);
   }
 
   /**
@@ -189,37 +192,17 @@ export abstract class BaseElementListViewWidget<
    */
   @Widget.Reactive()
   protected get ordering(): ISort[] | undefined {
-    const dsf: string = this.getDsl().ordering;
-    if (dsf) {
-      const dsfArr = dsf.split(ORDERING_SEPARATOR).filter((v) => !isEmpty(v));
-      return dsfArr.map((v: string) => {
-        const [sortField, direction] = getSortFieldDirection(v, ORDERING_FIELD_ORDER_SEPARATOR, DEFAULT_ORDERING_ORDER);
-        return { sortField, direction };
-      });
-    }
-    return undefined;
-  }
-
-  @Widget.Reactive()
-  protected get sortConfig(): VxeTablePropTypes.SortConfig {
-    let config: VxeTablePropTypes.SortConfig = this.getDsl().sortConfig || {};
-    if (!config.remote) {
-      config.remote = true;
-    }
-    return config;
-  }
-
-  @Widget.Reactive()
-  protected get defaultPageSizeOptions() {
-    return Object.keys(PageSizeEnum)
-      .filter((key) => typeof PageSizeEnum[key] === 'number')
-      .map((key) => PageSizeEnum[key]);
+    return StringHelper.convertArray(this.getDsl().ordering)?.map((v) => {
+      const [sortField, direction] = getSortFieldDirection(v);
+      return { sortField, direction };
+    });
   }
 
   /**
    * 排序参数
    * @protected
    */
+  @Widget.Provide()
   @Widget.Reactive()
   protected sortList: ISort[] | undefined = undefined;
 
@@ -258,6 +241,23 @@ export abstract class BaseElementListViewWidget<
   }
 
   /**
+   * 分页参数
+   * @protected
+   */
+  @Widget.Reactive()
+  protected pagination: Pagination | undefined;
+
+  public getPagination(): Pagination {
+    return (
+      this.pagination ||
+      ({
+        total: 0,
+        current: 1
+      } as Pagination)
+    );
+  }
+
+  /**
    * 分页选项
    */
   @Widget.Reactive()
@@ -274,22 +274,12 @@ export abstract class BaseElementListViewWidget<
     return options.length ? options.map((v) => NumberHelper.toNumber(v)) : this.defaultPageSizeOptions;
   }
 
-  public getPagination(): Pagination {
-    return (
-      this.pagination ||
-      ({
-        total: 0,
-        current: 1
-      } as Pagination)
-    );
-  }
-
-  /**
-   * 分页参数
-   * @protected
-   */
   @Widget.Reactive()
-  protected pagination: Pagination | undefined;
+  protected get defaultPageSizeOptions() {
+    return Object.keys(PageSizeEnum)
+      .filter((key) => typeof PageSizeEnum[key] === 'number')
+      .map((key) => PageSizeEnum[key]);
+  }
 
   /**
    * 默认分页数
@@ -298,6 +288,17 @@ export abstract class BaseElementListViewWidget<
   @Widget.Reactive()
   protected get defaultPageSize(): number {
     return fetchPageSize(this.getDsl().defaultPageSize);
+  }
+
+  @Widget.Reactive()
+  protected get enabledFullScreen(): boolean {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enabledFullScreen)).orElse(
+      this.defaultEnabledFullScreen
+    );
+  }
+
+  protected get defaultEnabledFullScreen() {
+    return true;
   }
 
   /**
@@ -445,6 +446,7 @@ export abstract class BaseElementListViewWidget<
     this.refreshProcess();
   }
 
+  @Widget.Provide()
   @Widget.Method()
   public onSortChange(sortList: ISort[]): void {
     const sortFields: string[] = [];
@@ -473,9 +475,6 @@ export abstract class BaseElementListViewWidget<
         sortField: sortFields[i],
         direction: directions[i]
       });
-    }
-    if (!finalSortList.length) {
-      finalSortList.push(...(this.ordering || []));
     }
     this.sortList = finalSortList;
     if (this.inline) {
@@ -610,6 +609,8 @@ export abstract class BaseElementListViewWidget<
     return finalCondition;
   }
 
+  @Widget.Provide()
+  @Widget.Method()
   protected generatorSearchBody(): ActiveRecord | undefined {
     const { searchBody } = this;
     if (!searchBody) {
@@ -860,6 +861,63 @@ export abstract class BaseElementListViewWidget<
   @Widget.Inject('refreshProcess')
   protected parentRefreshProcess: RefreshProcessFunction | undefined;
 
+  // region user prefer
+
+  @Widget.Reactive()
+  protected get usingSimpleUserPrefer(): boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().usingSimpleUserPrefer);
+  }
+
+  protected userPreferEventManager: UserPreferEventManager | undefined;
+
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected userPrefer?: UserTablePrefer;
+
+  protected initUserPrefer() {
+    this.userPreferEventManager = UserPreferEventManager.get(this.rootHandle || this.currentHandle);
+    if (this.inline) {
+      this.userPrefer = {} as UserTablePrefer;
+    } else {
+      this.userPrefer = (UserPreferService.parsePreferForTable(
+        this.metadataRuntimeContext.view?.extension?.userPreference as Record<string, unknown>
+      ) || {}) as UserTablePrefer;
+      this.userPreferEventManager.onSave(this.$saveUserPrefer.bind(this));
+    }
+    this.userPreferEventManager.setData(this.userPrefer);
+    this.userPreferEventManager.onReload(this.$reloadUserPrefer.bind(this), CallChaining.MAX_PRIORITY);
+  }
+
+  /**
+   *
+   * @param userPrefer
+   * @deprecated 兼容原有逻辑 使用UserPreferEventManager.INSTANCE.reload方法替换
+   */
+  @Widget.Provide()
+  @Widget.Method()
+  public reloadUserPrefer(userPrefer: UserTablePrefer) {
+    this.userPreferEventManager?.reload(userPrefer);
+  }
+
+  protected $reloadUserPrefer(userPrefer: Partial<UserTablePrefer>) {
+    this.userPrefer = { ...(this.userPrefer || {}), ...userPrefer } as UserTablePrefer;
+    this.userPreferEventManager?.setData(this.userPrefer);
+  }
+
+  protected async $saveUserPrefer(userPrefer: Partial<UserTablePrefer>) {
+    const viewName = userPrefer.viewName || this.metadataRuntimeContext.view.name;
+    if (viewName) {
+      const saveUserPrefer = {
+        ...userPrefer,
+        model: userPrefer.model || this.metadataRuntimeContext.model.model,
+        viewName
+      } as UserTablePrefer;
+      await UserPreferService.savePreferForTable(saveUserPrefer);
+    }
+  }
+
+  // endregion user prefer
+
   @Widget.Method()
   protected async refreshProcess(condition?: Condition) {
     const rootConditionBodyData = this.rootRuntimeContext.view.context?.rootConditionBodyData as Record<
@@ -905,10 +963,31 @@ export abstract class BaseElementListViewWidget<
     this.reloadActiveRecords([]);
   }
 
-  protected $$beforeMount() {
-    super.$$beforeMount();
-    const { currentPage, pageSize, sortField, direction } = this.urlParameters;
-    let { pagination, sortList } = this;
+  /**
+   * 初始化排序字段列表页, 优选取url上面的配置，如果没有就取设计器配置
+   */
+  protected initSortList() {
+    const { sortField, direction } = this.urlParameters;
+    let { sortList } = this;
+    if (!sortList && sortField && direction) {
+      sortList = [];
+      const sortFields = sortField.split(URL_SPLIT_SEPARATOR);
+      const directions = direction.split(URL_SPLIT_SEPARATOR);
+      if (sortFields.length && directions.length && sortFields.length === directions.length) {
+        for (let i = 0; i < sortFields.length; i++) {
+          sortList.push({ sortField: sortFields[i], direction: directions[i] as EDirection });
+        }
+      }
+      this.sortList = sortList;
+    }
+    if (!sortList && this.ordering?.length) {
+      this.sortList = [...this.ordering];
+    }
+  }
+
+  protected initPagination() {
+    const { currentPage, pageSize } = this.urlParameters;
+    let { pagination } = this;
     if (!pagination && (currentPage || pageSize)) {
       pagination = {
         current: toInteger(currentPage),
@@ -916,25 +995,13 @@ export abstract class BaseElementListViewWidget<
       } as Pagination;
       this.pagination = pagination;
     }
-    if (!sortList && sortField && direction) {
-      sortList = [];
-      const sortFields = sortField.split(URL_SPLIT_SEPARATOR);
-      const directions = direction.split(URL_SPLIT_SEPARATOR);
-      if (sortFields.length && directions.length && sortFields.length === directions.length) {
-        this.sortConfig.defaultSort = [];
-        for (let i = 0; i < sortFields.length; i++) {
-          sortList.push({ sortField: sortFields[i], direction: directions[i] as EDirection });
-          this.sortConfig.defaultSort.push({
-            field: sortFields[i],
-            order: directions[i].toLowerCase() as VxeTablePropTypes.SortOrder
-          });
-        }
-      }
-      this.sortList = sortList;
-    }
-    if (!sortList && this.ordering?.length) {
-      this.sortList = this.ordering;
-    }
+  }
+
+  protected $$beforeMount() {
+    super.$$beforeMount();
+    this.initSortList();
+    this.initPagination();
+    this.initUserPrefer();
   }
 
   protected $$mounted() {
@@ -953,6 +1020,7 @@ export abstract class BaseElementListViewWidget<
 
   protected $$unmounted() {
     super.$$unmounted();
+    this.userPreferEventManager?.dispose();
     this.checkboxAllCallChaining?.unhook(this.path);
   }
 

@@ -10,10 +10,11 @@ import {
   defaultLabelsSeparator,
   OioCascader,
   OioTreeNode,
-  SelectMode
+  SelectMode,
+  useInjectOioDefaultFormContext
 } from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, PropType, VNode, vShow, withDirectives, withModifiers } from 'vue';
-import { OioCommonProps, OioMetadataProps, useInjectOioDefaultFormContext } from '../../basic';
+import { OioCommonProps, OioMetadataProps } from '../../basic';
 import { TreeData } from '../../typing';
 
 /**

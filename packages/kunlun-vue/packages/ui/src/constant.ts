@@ -1,1 +1,7 @@
 export const VXE_TABLE_X_ID = '_X_ROW_KEY';
+
+export const GROUP_TREE_KEY = {
+  CHILDREN_KEY: 'CHILDREN_KEY',
+  PROPS_KEY: 'PROPS_KEY',
+  IS_LEAF_KEY: 'IS_LEAF_KEY'
+};

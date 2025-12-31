@@ -1,12 +1,12 @@
 import { getReloadMainViewParameters, RuntimeContextManager } from '@oinone/kunlun-engine';
+import { useMatched } from '@oinone/kunlun-router';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { useInjectMetaContext, Widget } from '@oinone/kunlun-vue-widget';
 import { MetadataViewWidget, UrlQueryParameters } from '../basic';
+import { MobileMaskWidget } from '../layout';
 import DefaultMainView from './DefaultMainView.vue';
-import { MobileMaskWidget, MobileViewWidget } from '../layout';
-import { useInjectMetaContext } from '../tags';
-import { useMatched } from '@oinone/kunlun-router';
+
 const HOOK_PATH = '__main_view__';
 
 /**

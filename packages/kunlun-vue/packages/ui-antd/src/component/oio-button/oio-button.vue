@@ -92,7 +92,7 @@ export default defineComponent({
     };
   },
   render() {
-    const { type, htmlType, block, href, target, internalLoading, disabled, onClick, selected } = this;
+    const { type, htmlType, block, href, target, internalLoading, disabled, onClick, selected, iconColor } = this;
     const slots = PropRecordHelper.collectionSlots(this.$slots, [
       {
         origin: 'default',
@@ -101,7 +101,7 @@ export default defineComponent({
       'icon'
     ]);
     if (!slots.icon && this.icon) {
-      slots.icon = () => [createVNode(OioIcon, { icon: this.icon })];
+      slots.icon = () => [createVNode(OioIcon, { icon: this.icon, color: iconColor })];
     }
     const buttonClassList = [`${DEFAULT_PREFIX}-button`, `${DEFAULT_PREFIX}-button-${this.type}`];
     if (this.bizStyle) {

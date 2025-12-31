@@ -1,3 +1,5 @@
+import { PopupDisplayAs } from './vc-popup';
+
 export * from './oio-block';
 export * from './oio-breadcrumb';
 export * from './oio-button';
@@ -39,3 +41,5 @@ export * from './oio-tooltip';
 export * from './oio-tree';
 export * from './oio-tree-select';
 export * from './oio-upload';
+
+export { PopupDisplayAs };

@@ -33,7 +33,7 @@ export default defineComponent({
         ...PropRecordHelper.collectionBasicProps(this.$attrs, [`${DEFAULT_PREFIX}-input-group`]),
         compact: this.compact
       },
-      this.$slots.default?.() || []
+      this.$slots
     );
   }
 });

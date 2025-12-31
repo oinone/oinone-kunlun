@@ -1,5 +1,6 @@
 import { ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
+import { isDetailViewState, OioAnyViewState } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget, BaseFormWidget } from '../../basic';
 import { DETAIL_WIDGET } from '../../typing';
 import DefaultDetail from './DefaultDetail.vue';
@@ -15,5 +16,11 @@ export class DetailWidget extends BaseFormWidget {
     super.initialize(props);
     this.setComponent(DefaultDetail);
     return this;
+  }
+
+  protected $$initViewState(state: OioAnyViewState): void {
+    if (isDetailViewState(state) && !state.detail) {
+      state.detail = this.currentHandle;
+    }
   }
 }

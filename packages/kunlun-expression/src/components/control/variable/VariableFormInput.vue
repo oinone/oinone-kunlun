@@ -8,6 +8,7 @@
     :fetch-children="fetchChildrenInner"
     :on-keyword-change="onKeywordChange"
     :change="onChange"
+    :compare-operator-option="compareOperatorOption"
     @change="onChange"
     @change-list="onChangeList"
     @change-variable-type="changeVariableType"

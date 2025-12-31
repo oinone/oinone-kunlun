@@ -23,17 +23,16 @@
 </template>
 <script lang="ts">
 import { deepClone } from '@oinone/kunlun-meta';
-import { defaultSelectProperties, OioSelect, SelectItem, SelectProperties } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { computed, defineComponent, watch } from 'vue';
-import { isNil } from 'lodash-es';
 import {
-  OioCommonProps,
-  OioMetadataProps,
-  useMetadataProps,
+  defaultSelectProperties,
+  OioSelect,
+  SelectItem,
+  SelectProperties,
   useInjectOioDefaultFormContext
-} from '../../../../../basic';
-import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
-import { optionsConvertSelectItem } from '../../../../util';
+} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { isNil } from 'lodash-es';
+import { computed, defineComponent } from 'vue';
+import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../../basic';
 
 export default defineComponent({
   components: {

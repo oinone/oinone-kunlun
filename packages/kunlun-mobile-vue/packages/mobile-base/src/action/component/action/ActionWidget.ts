@@ -231,6 +231,11 @@ export class ActionWidget<
     return label || this.action?.name;
   }
 
+  @Widget.Reactive()
+  protected get labelInvisible(): boolean | undefined {
+    return BooleanHelper.toBoolean(this.getDsl().labelInvisible);
+  }
+
   protected defaultType = ButtonType.primary;
 
   @Widget.Reactive()

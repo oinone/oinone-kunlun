@@ -9,19 +9,32 @@
         :class="{ 'expression-designer-cascader-content-single': optionsList.length === 1 }"
       >
         <slot name="empty">
-          <div class="empty" v-if="!options || !options.length">
+          <div class="empty" v-if="isEmpty">
             {{ translateExpValue('没有可选数据') }}
           </div>
         </slot>
-        <expression-cascader-menu
-          v-for="(opts, index) in optionsList"
-          :options="opts"
-          :pagination="pagination"
-          :on-pagination-change="onPaginationChange"
-          :group-by-store="groupByStore"
-          @click-option="(option, isMouse) => onClickOption(option, index, isMouse)"
-          @load-data="(option) => onLoadData(option, index)"
-        />
+        <div v-if="searchKeyWords === '' && !isEmpty">
+          <expression-cascader-menu
+            v-for="(opts, index) in optionsList"
+            :options="opts"
+            :pagination="pagination"
+            :on-pagination-change="onPaginationChange"
+            :group-by-store="groupByStore"
+            @click-option="(option, isMouse) => onClickOption(option, index, isMouse)"
+            @load-data="(option) => onLoadData(option, index)"
+          />
+        </div>
+        <div v-if="searchKeyWords !== '' && !isEmpty">
+          <search-cascader-menu
+            :options="searchShowOptions"
+            :pagination="pagination"
+            :on-pagination-change="onPaginationChange"
+            :search-key-words="searchKeyWords"
+            :loading="searchLoading"
+            @click-option="searchOptionClick"
+            @load-more-search-data="loadMoreSearchData"
+          />
+        </div>
       </div>
       <div class="expression-designer-cascader-footer" v-if="footerTitle || footerDesc">
         <div class="expression-designer-cascader-footer-title" v-if="footerTitle">{{ footerTitle }}</div>
@@ -31,13 +44,14 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, onUpdated, PropType, Ref, ref, watch } from 'vue';
 import { isNil } from 'lodash-es';
 import { Pagination } from '@oinone/kunlun-engine';
 import { ExpressionKeyword } from '@oinone/kunlun-expression';
 import { isComplexTtype } from '@oinone/kunlun-meta';
 import { translateExpValue } from '../../share';
 import ExpressionCascaderMenu from './CascaderMenu.vue';
+import SearchCascaderMenu from './SearchCascaderMenu.vue';
 import { IExpSelectOption } from '../../types';
 
 function appendOptions(options: IExpSelectOption[], optionsList: IExpSelectOption[][], maxDepth = 5) {
@@ -84,7 +98,7 @@ function isViewDataKeywords(field: string) {
 
 export default defineComponent({
   name: 'expression-designer-cascader',
-  components: { ExpressionCascaderMenu },
+  components: { ExpressionCascaderMenu, SearchCascaderMenu },
   props: {
     value: {
       type: Array as PropType<string[]>,
@@ -120,16 +134,43 @@ export default defineComponent({
     groupByStore: {
       type: Boolean,
       default: false
+    },
+    searchKeyWords: {
+      type: String,
+      default: ''
     }
   },
   emits: ['update:value', 'change'],
   setup(props, { emit }) {
     const selectedValues = ref([] as string[]);
 
+    // 搜索过滤-仅前端
+    const searchFilterOptions: Ref<Record<string, any>[]> = ref([]);
+
+    const searchFilterPage = ref(1);
+    const searchOptionCountPerPage = 20;
+
+    const searchShowOptions = computed(() => {
+      if (searchFilterPage.value * searchOptionCountPerPage > searchFilterOptions.value.length) {
+        return searchFilterOptions.value;
+      }
+      return searchFilterOptions.value.slice(0, searchFilterPage.value * searchOptionCountPerPage);
+    });
+
+    const searchLoading = ref(false);
+
     const optionsList = computed(() => {
       const list = [] as IExpSelectOption[][];
       appendOptions(props.options, list, props.maxDepth);
       return list;
+    });
+
+    const isEmpty = computed(() => {
+      return (
+        !props.options ||
+        !props.options.length ||
+        (props.searchKeyWords !== '' && searchFilterOptions.value.length === 0)
+      );
     });
 
     async function onLoadData(option: IExpSelectOption, currentDepth: number) {
@@ -162,6 +203,7 @@ export default defineComponent({
         emit('change', selectedValues.value, selectedOptions);
       }
     }
+
     watch(
       () => props.value,
       () => {
@@ -171,12 +213,147 @@ export default defineComponent({
       },
       { deep: true }
     );
+
+    watch(
+      () => props.searchKeyWords,
+      (newValue) => {
+        if (newValue !== '') {
+          searchFilterOptions.value = optionsSearchWalk(newValue.split(' '), props.options);
+        }
+        searchFilterPage.value = 1;
+      }
+    );
+
+    /**
+     * @param keywordList 搜索关键字的列表
+     * @param optionsList option列表
+     * @param walkList 祖先列表-保存根节点到当前节点的所有节点
+     * @param res 返回值数组
+     * @desc 遍历所有叶子节点，找到包含keyword的options返回
+     * @returns Record<string,any>[]
+     */
+    function optionsSearchWalk(
+      keywordList,
+      optionsList,
+      parent: Record<string, any> | null = null,
+      walkList: string[] = [],
+      res: Record<string, any>[] = []
+    ): Record<string, any>[] {
+      if (optionsList === []) {
+        return [];
+      }
+      if (parent) {
+        for (let i = 0; i < optionsList.length; i++) {
+          if (optionsList[i].references === parent.references && optionsList[i].field === parent.field) {
+            return [];
+          }
+        }
+      }
+
+      for (let i = 0; i < optionsList.length; i++) {
+        // 查找option是否包含关键字
+        let isTargetOption = false;
+        for (let j = 0; j < keywordList.length; j++) {
+          if (
+            keywordList[j] !== '' &&
+            (optionsList[i].label.toLowerCase().indexOf(keywordList[j].toLowerCase()) !== -1 ||
+              optionsList[i].name.toLowerCase().indexOf(keywordList[j].toLowerCase()) !== -1)
+          ) {
+            isTargetOption = true;
+          }
+        }
+
+        if (!optionsList[i].children) {
+          if (isTargetOption) {
+            res.push(optionsList[i]);
+          }
+          return [];
+        }
+        const tempObj = {
+          ...optionsList[i],
+          parent
+        };
+        walkList.push(optionsList[i].label);
+        if (optionsList[i]?.children?.length === 0 && isTargetOption) {
+          const displayLabel = walkList.join(' / ');
+          res.push({
+            ...optionsList[i],
+            label: displayLabel,
+            parent
+          });
+        } else {
+          optionsSearchWalk(keywordList, tempObj.children, tempObj, walkList, res);
+        }
+        walkList.pop();
+      }
+      return res;
+    }
+
+    async function buildStartOptions(options, deep = 0, loadOptionsList: Record<string, any>[] = []) {
+      if (deep >= 2) {
+        return;
+      }
+      for (let i = 0; i < options.length; i++) {
+        const tempList = [...loadOptionsList, options[i]];
+        await props.loadData?.(tempList);
+        if (options[i]?.children !== undefined && options[i]?.children?.length !== 0) {
+          await buildStartOptions(options[i].children, deep + 1, tempList);
+        }
+      }
+    }
+
+    function buildSubmitOptions(targetOption) {
+      let res: Record<string, any>[] = [];
+      let ob = targetOption;
+      while (ob !== null) {
+        res.push(ob);
+        ob = ob.parent;
+      }
+      res = res.reverse();
+      return res;
+    }
+
+    function searchOptionClick(option: IExpSelectOption, isMouse = false) {
+      if (isMouse || isViewDataKeywords(option.value as string)) {
+        return;
+      }
+
+      const selectedOptions = buildSubmitOptions(option);
+      selectedValues.value = selectedOptions.map((a) => a.value as string);
+
+      emit('update:value', selectedValues.value);
+      emit('change', selectedValues.value, selectedOptions);
+    }
+
+    function loadMoreSearchData() {
+      if (searchFilterPage.value * searchOptionCountPerPage >= searchFilterOptions.value.length) {
+        return;
+      }
+
+      searchLoading.value = true;
+      searchFilterPage.value++;
+
+      // 假loading
+      setTimeout(() => {
+        searchLoading.value = false;
+      }, 200);
+    }
+
+    onUpdated(() => {
+      buildStartOptions(optionsList.value[0], 0, []);
+    });
     return {
       optionsList,
       selectedValues,
+      searchFilterOptions,
+      searchShowOptions,
+      searchLoading,
+      isEmpty,
       onClickOption,
       onLoadData,
-      translateExpValue
+      translateExpValue,
+      searchOptionClick,
+      loadMoreSearchData
     };
   }
 });

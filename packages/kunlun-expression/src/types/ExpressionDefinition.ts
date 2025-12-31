@@ -1,6 +1,6 @@
 import { IModelField, ModelFieldType } from '@oinone/kunlun-meta';
 import { IExpSelectOption } from './Common';
-import { SessionContextOption } from './ConditionRsqlOperatorConfig';
+import type { SessionContextOption } from './ConditionRsqlOperatorConfig';
 
 export interface IFunction {
   name: string;
@@ -217,7 +217,7 @@ export interface IVariableItem {
   // api名称，为变量时是不带上下文名称的 field
   apiName?: string;
   // 参数的字符串，为变量时是带上下文名称的 例如：activeRecord.name，在api中只有activeRecord不展示，
-  value: string;
+  value: any;
   // 嵌套的表达式用该值存储
   expression: IExpressionItem;
   subTitle: string;
@@ -420,5 +420,6 @@ export interface IQueryExpressionParam {
   model: string;
   field: string;
   key: string;
+
   [key: string]: any;
 }

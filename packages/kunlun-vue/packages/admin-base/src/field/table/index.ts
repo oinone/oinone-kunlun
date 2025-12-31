@@ -7,6 +7,7 @@ export * from './m2m';
 export * from './m2o';
 export * from './map';
 export * from './number';
-export * from './relation';
+export * from './o2m';
+export * from './o2o';
 export * from './string';
 export * from './text';

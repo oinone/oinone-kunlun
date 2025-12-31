@@ -51,10 +51,9 @@
 </template>
 <script lang="ts">
 import { CheckOutlined } from '@ant-design/icons-vue';
-import { OioSpin, OioEmptyData } from '@oinone/kunlun-vue-ui-antd';
-import { computed, defineComponent, ref, watch } from 'vue';
+import { OioEmptyData, OioSpin, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
-import { useInjectOioDefaultFormContext } from '../../../basic';
+import { computed, defineComponent, ref, watch } from 'vue';
 import { RelationSelectProps, relationSelectSetup } from '../../../field';
 
 export default defineComponent({

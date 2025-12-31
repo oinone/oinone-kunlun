@@ -29,4 +29,3 @@ export async function queryOpenInterface() {
   const result = await http.mutate(SYSTEM_MODULE_NAME.EIP, body);
   return result.data.eipOpenInterfaceQuery.queryListByWrapper as unknown as any[];
 }
-

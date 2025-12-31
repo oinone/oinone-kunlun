@@ -1,5 +1,6 @@
 export const SYSTEM_MODULE = {
   BASE: 'base',
+  GROUPING: 'grouping',
   COMMON: 'common',
   USER: 'user',
   AUTH: 'auth',
@@ -12,6 +13,7 @@ export const SYSTEM_MODULE = {
 
 export const SYSTEM_MODULE_NAME = {
   BASE: 'base',
+  GROUPING: 'grouping',
   COMMON: 'common',
   USER: 'user',
   AUTH: 'auth',

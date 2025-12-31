@@ -2,10 +2,10 @@
 import { DownOutlined } from '@ant-design/icons-vue';
 import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { ListSelectMode, OioDropdownTrigger, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import DefaultDropdown from '../dropdown/DefaultDropdown.vue';
-import DefaultActionBarBatchOpt from './DefaultActionBarBatchOpt.vue';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { onAllMounted } from '@oinone/kunlun-vue-widget';
+import { isNil } from 'lodash-es';
 import {
   computed,
   createElementVNode,
@@ -18,10 +18,9 @@ import {
   withDirectives
 } from 'vue';
 import { ActiveCountEnum } from '../../../typing';
-import { DslRenderDefinition, onAllMounted } from '@oinone/kunlun-vue-widget';
-import { isNil } from 'lodash-es';
 import { CollectionActions } from '../../../util/collection-actions';
-import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
+import DefaultDropdown from '../dropdown/DefaultDropdown.vue';
+import DefaultActionBarBatchOpt from './DefaultActionBarBatchOpt.vue';
 
 const fragmentVNodeType = 'Symbol(Fragment)';
 const ACTION_BAR_CLASS_NAME = `${DEFAULT_PREFIX}-action-bar`;
@@ -67,9 +66,6 @@ export default defineComponent({
   props: {
     currentHandle: {
       type: String
-    },
-    template: {
-      type: Object as PropType<DslRenderDefinition>
     },
     dataSource: {
       type: Array as PropType<ActiveRecord[]>
@@ -245,17 +241,7 @@ export default defineComponent({
     }
 
     return withDirectives(
-      createVNode(
-        'div',
-        {
-          ...PropRecordHelper.collectionBasicProps(
-            this.$attrs,
-            StringHelper.append(classList, CastHelper.cast(this.template?.class)),
-            CastHelper.cast(this.template?.style)
-          )
-        },
-        nodeChildren
-      ),
+      createVNode('div', PropRecordHelper.collectionBasicProps(this.$attrs, classList), nodeChildren),
       [[vShow, !this.invisible]]
     );
   }

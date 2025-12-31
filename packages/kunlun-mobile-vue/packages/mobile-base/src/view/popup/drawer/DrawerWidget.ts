@@ -1,11 +1,11 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { BooleanHelper } from '@oinone/kunlun-shared';
-import { DrawerHeight, DrawerPlacement, DrawerWidth, OioDrawerProps } from '@oinone/kunlun-vue-ui-common';
+import { DrawerHeight, DrawerPlacement } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../../typing';
 import { PopupWidget, PopupWidgetProps } from '../PopupWidget';
 import DefaultDrawer from './DefaultDrawer.vue';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 
 export type DrawerWidgetProps = PopupWidgetProps;
 
@@ -30,7 +30,7 @@ export class DrawerWidget<Props extends DrawerWidgetProps = DrawerWidgetProps> e
 
   @Widget.Reactive()
   public get title() {
-    const title = this.getDsl().title || OioDrawerProps.title.default;
+    const title = this.getDsl().title;
 
     return Expression.run(
       {

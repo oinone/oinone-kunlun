@@ -1,0 +1,18 @@
+.oio-default-view {
+  .oio-form-field-has_border {
+    .widget-container {
+      .detail-common-field {
+        border-radius: var(--oio-border-radius);
+        background: var(--oio-disabled-bg);
+        padding: 4px;
+
+        .detail-multi-select {
+          .detail-multi-select-item {
+            height: auto;
+            line-height: calc(var(--oio-height-sm) - var(--oio-padding-md));
+          }
+        }
+      }
+    }
+  }
+}

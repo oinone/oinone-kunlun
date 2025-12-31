@@ -51,9 +51,11 @@ $seniorRowContentHeight: 22px;
         height: var(--oio-height);
         line-height: calc(var(--oio-height) - 8px);
         font-size: var(--oio-font-size);
+
         &.placeholder {
           color: var(--oio-placeholder-color) !important;
         }
+
         &:focus,
         &:focus + .ant-input-group-addon {
           box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
@@ -167,6 +169,7 @@ $seniorRowContentHeight: 22px;
         align-items: center;
       }
     }
+
     .ant-select-arrow {
       color: var(--oio-select-counter-color);
     }
@@ -357,6 +360,7 @@ $seniorRowContentHeight: 22px;
         .expression-input-param {
           margin-right: var(--oio-margin-sm);
         }
+
         .expression-input-param-tab {
           display: inline-block;
           height: $seniorRowHeight;
@@ -602,10 +606,13 @@ $seniorRowContentHeight: 22px;
 .expression-input-operator-dropdown {
   z-index: 99999;
 }
+
 .expression-input-panel {
   height: 300px;
+
   &-disabled {
     position: relative;
+
     &:before {
       content: ' ';
       position: absolute;
@@ -617,10 +624,12 @@ $seniorRowContentHeight: 22px;
       background: rgba(255, 255, 255, 0.65);
     }
   }
+
   &-footer {
     display: flex;
     justify-content: right;
     margin-top: 10px;
+
     .oio-button {
       margin-left: 5px;
     }

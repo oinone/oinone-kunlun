@@ -2,6 +2,7 @@ import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
 import { ActionType, ViewActionTarget } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { ActionWidget } from '../../component';
 import { InnerViewActionWidget } from '../popup';
 import { loadBizRecord } from './service';
@@ -29,5 +30,11 @@ export class BizAuditRecordViewAction extends InnerViewActionWidget {
       data: (await loadBizRecord(data[0]?.id, this.model.model)) as unknown as ActiveRecord[],
       isFetchData: false
     };
+  }
+
+  @Widget.Provide()
+  protected async reFetchData() {
+    const { data } = await this.loadData();
+    this.innerPopup?.setCurrentDataSource(data);
   }
 }

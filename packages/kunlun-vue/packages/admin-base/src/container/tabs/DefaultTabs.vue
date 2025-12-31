@@ -4,6 +4,7 @@ import {
   OioTabAlign,
   OioTabPosition,
   OioTabs,
+  OioTabsBizStyle,
   PropRecordHelper
 } from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, PropType } from 'vue';
@@ -32,6 +33,9 @@ export default defineComponent({
     tabAlign: {
       type: String as PropType<OioTabAlign>,
       default: OioTabAlign.LEFT
+    },
+    bizStyle: {
+      type: String as PropType<OioTabsBizStyle>
     }
   },
   setup(props) {
@@ -52,14 +56,16 @@ export default defineComponent({
     };
   },
   render() {
+    const { $attrs } = this;
     return createVNode(
       OioTabs,
       {
-        class: ['oio-default-tabs', this.tabAlignClass],
+        ...PropRecordHelper.collectionBasicProps($attrs, ['oio-default-tabs', this.tabAlignClass]),
         id: this.currentHandle,
         activeKey: this.activeKey,
         tabPosition: this.tabPosition,
         verticalHeight: 264,
+        bizStyle: this.bizStyle,
         layout: this.layout,
         invisible: this.invisible,
         disabled: this.disabled,

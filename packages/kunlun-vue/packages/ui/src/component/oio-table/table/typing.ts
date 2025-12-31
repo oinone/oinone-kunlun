@@ -94,3 +94,11 @@ export enum TableFixed {
   right = 'right',
   all = 'all'
 }
+
+/**
+ * 表格行点击模式
+ */
+export enum TableRowClickMode {
+  click = 'click',
+  dblclick = 'dblclick'
+}

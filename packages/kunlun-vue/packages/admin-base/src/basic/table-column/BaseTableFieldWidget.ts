@@ -1,4 +1,11 @@
-import { ActiveRecord, isRelatedField, isRelationField, RuntimeModelField } from '@oinone/kunlun-engine';
+import {
+  ActiveRecord,
+  GroupStatisticsEnum,
+  isAllowGrouping,
+  isAllowSortable,
+  isRelatedField,
+  RuntimeModelField
+} from '@oinone/kunlun-engine';
 import { FieldEventName, FieldEventNames, LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
 import { Expression, ExpressionKeyword, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { isEmptyValue, ViewMode, ViewType } from '@oinone/kunlun-meta';
@@ -22,6 +29,7 @@ import {
   TableColumnMinWidthComputeConfigContext
 } from '../theme';
 import { BaseTableQuickOperationColumnWidget } from './BaseTableQuickOperationColumnWidget';
+import DefaultGroupCell from './DefaultGroupCell.vue';
 
 export type HandlerEvent = (field: BaseTableFieldWidget) => void;
 
@@ -50,7 +58,6 @@ export class BaseTableFieldWidget<
   @Widget.Provide()
   protected viewMode = ViewMode.Editor;
 
-  @Widget.Reactive()
   protected runtimeField: Field | undefined;
 
   @Widget.Reactive()
@@ -203,30 +210,31 @@ export class BaseTableFieldWidget<
       if (!this.tableSortable) {
         return false;
       }
-      const { field, relationSortFields } = this;
-      const { store } = field;
-      if (isRelationField(field)) {
-        const { relationStore } = field;
-        if (store) {
-          return false;
-        }
-        if (!relationStore) {
-          return false;
-        }
-        return !!relationSortFields && !!relationSortFields.length;
-      }
-      return store;
+      return this.defaultSortable;
     }
-    return sortable || false;
+    return sortable;
   }
 
   @Widget.Reactive()
-  public get relationSortFields(): string[] | undefined {
-    // const { field } = this;
-    // if (isRelationField(field)) {
-    //   return field.sortFields || field.referencesModel?.labelFields;
-    // }
-    return undefined;
+  protected get defaultSortable() {
+    return isAllowSortable(this.field);
+  }
+
+  @Widget.Reactive()
+  public get enableGrouping(): boolean {
+    const enableGrouping = BooleanHelper.toBoolean(this.getDsl().enableGrouping);
+    if (enableGrouping == null) {
+      if (!this.tableEnableGrouping) {
+        return false;
+      }
+      return this.defaultEnableGrouping;
+    }
+    return enableGrouping || false;
+  }
+
+  @Widget.Reactive()
+  protected get defaultEnableGrouping() {
+    return isAllowGrouping(this.field);
   }
 
   @Widget.Reactive()
@@ -467,6 +475,7 @@ export class BaseTableFieldWidget<
 
   protected $$mounted() {
     super.$$mounted();
+    this.viewState?.pushField(this.currentHandle);
     this.fieldWidgetMounted?.(this);
     this.notify(LifeCycleTypes.ON_FIELD_MOUNTED);
   }
@@ -488,14 +497,21 @@ export class BaseTableFieldWidget<
 
   protected $$unmounted() {
     super.$$unmounted();
+    this.viewState?.popField(this.currentHandle);
     this.fieldWidgetUnmounted?.(this);
     this.notify(LifeCycleTypes.ON_FIELD_UNMOUNTED);
   }
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Inject()
   protected fieldWidgetMounted: ((widget: BaseTableFieldWidget) => void) | undefined;
 
+  /**
+   * @deprecated widget finder please this.viewState.fields
+   */
   @Widget.Method()
   @Widget.Inject()
   protected fieldWidgetUnmounted: ((widget: BaseTableFieldWidget) => void) | undefined;
@@ -570,7 +586,7 @@ export class BaseTableFieldWidget<
         LifeCycleHeart.publish<BaseTableFieldWidget>(type, `${view.name}:${field.name}`, this);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -636,5 +652,48 @@ export class BaseTableFieldWidget<
   @Widget.Method()
   public renderDefaultSlot(context: RowContext): VNode[] | string {
     return toString(this.compute(context));
+  }
+
+  // region 分组统计
+
+  /**
+   *
+   * @see {@link TableWidget#loadGroupStatistics}
+   */
+  @Widget.Method()
+  @Widget.Inject()
+  protected loadGroupStatistics!: (
+    row: ActiveRecord,
+    field: RuntimeModelField,
+    groupStatistics: GroupStatisticsEnum
+  ) => Promise<string | undefined>;
+
+  /**
+   * 渲染分组展开行的单元格
+   */
+  @Widget.Method()
+  protected renderGroupCellSlot(context: RowContext) {
+    return [
+      createVNode(DefaultGroupCell, {
+        context,
+        model: this.model,
+        field: this.field,
+        loadGroupStatistics: this.loadGroupStatistics
+      })
+    ];
+  }
+
+  // endregion
+
+  /**
+   * @deprecated invalid property
+   */
+  @Widget.Reactive()
+  public get relationSortFields(): string[] | undefined {
+    // const { field } = this;
+    // if (isRelationField(field)) {
+    //   return field.sortFields || field.referencesModel?.labelFields;
+    // }
+    return undefined;
   }
 }

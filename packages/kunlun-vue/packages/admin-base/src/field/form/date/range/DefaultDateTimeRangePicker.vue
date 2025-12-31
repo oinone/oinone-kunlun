@@ -1,5 +1,7 @@
 <template>
   <default-form-item
+    :class="$attrs.class"
+    :style="$attrs.style"
     :name="itemName"
     :invisible="invisible"
     :colon="colon"
@@ -34,17 +36,14 @@
   </default-form-item>
 </template>
 <script lang="ts">
-import { OioDateTimeRangePicker } from '@oinone/kunlun-vue-ui-antd';
-import { OioDateTimeRangePickerProps } from '@oinone/kunlun-vue-ui-common';
+import {
+  OioDateTimeRangePicker,
+  OioDateTimeRangePickerProps,
+  useInjectOioDefaultFormContext
+} from '@oinone/kunlun-vue-ui-antd';
 import { Moment } from 'moment';
 import { defineComponent, PropType } from 'vue';
-import {
-  BaseFormItemProps,
-  DefaultFormItem,
-  OioCommonProps,
-  OioMetadataProps,
-  useInjectOioDefaultFormContext
-} from '../../../../basic';
+import { BaseFormItemProps, DefaultFormItem, OioCommonProps, OioMetadataProps } from '../../../../basic';
 import { DefaultDateTimeRangePickerProps, useDateTimeRangePickerProps } from './props';
 
 export default defineComponent({

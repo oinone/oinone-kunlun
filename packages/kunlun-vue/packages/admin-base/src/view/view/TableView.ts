@@ -1,9 +1,9 @@
-import { ActiveRecords } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseListView, BaseView } from '../../basic';
+import { TableEventCallChaining } from '../../typing';
 
 /**
  * <h3>表格视图</h3>
@@ -16,10 +16,15 @@ import { BaseListView, BaseView } from '../../basic';
 export class TableView extends BaseListView {
   @Widget.Reactive()
   @Widget.Provide()
-  protected editRowCallChaining: CallChaining<[string, ActiveRecords]> | undefined;
+  protected tableEventCallChaining: TableEventCallChaining | undefined;
+
+  protected $$created() {
+    super.$$created();
+    this.viewState!.fields = [];
+  }
 
   protected $$beforeMount() {
     super.$$beforeMount();
-    this.editRowCallChaining = new CallChaining<[string, ActiveRecords]>();
+    this.tableEventCallChaining = new CallChaining();
   }
 }

@@ -27,9 +27,12 @@
         </template>
       </oio-group>
       <oio-group class="oio-debug-response" title="接口响应结果">
-        <debug-json-view text-class="oio-debug-textarea" :text="responseData" />
+        <debug-json-view text-class="oio-debug-textarea" :text="responseText" @update:text="onUpdateText" />
         <template #titleToolbar>
           <oio-button v-if="isShowResponseInfo" type="primary" @click="onDownload">下载接口调试数据</oio-button>
+          <oio-button v-if="allowInputResponseText" type="primary" @click="onResolveResponseText"
+            >解析响应结果
+          </oio-button>
         </template>
       </oio-group>
     </div>
@@ -46,7 +49,7 @@ import {
   OioTooltipHelp,
   uniqueKeyGenerator
 } from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, PropType, Ref, ref } from 'vue';
+import { computed, defineComponent, PropType, ref, Ref } from 'vue';
 import { DebugFetchRequest, DebugFetchResponse, DebugRequestInfo } from '../../typing';
 import DebugJsonView from '../components/DebugJsonView.vue';
 import DebugRequestInfoPanel from '../components/DebugRequestInfoPanel.vue';
@@ -95,6 +98,9 @@ export default defineComponent({
       type: Function as PropType<(fetchObject: DebugFetchRequest) => DebugFetchResponse | undefined>
     },
     resetInfo: {
+      type: Function
+    },
+    responseAnalysis: {
       type: Function
     }
   },
@@ -160,6 +166,7 @@ export default defineComponent({
       }
       const { hint } = fetchResponse;
 
+      allowInputResponseText.value = false;
       setData(requestHint, hint);
       DebugUtils.getDebugStorage().responseData = props.responseData;
     };
@@ -168,11 +175,31 @@ export default defineComponent({
       logLevel.value = 1;
       requestData.value = '';
       requestHint.value = '';
+      inputResponseText.value = '';
+      allowInputResponseText.value = true;
       props.resetInfo?.();
     };
 
     const onDownload = () => {
       DebugUtils.downloadJSON(getDownloadResponseData(), getDownloadFilename());
+    };
+
+    const onResolveResponseText = () => {
+      props.responseAnalysis?.(JSON.parse(inputResponseText.value));
+    };
+
+    const inputResponseText = ref();
+    const allowInputResponseText = ref(true);
+
+    const responseText = computed(() => {
+      if (allowInputResponseText.value) {
+        return inputResponseText.value;
+      }
+      return props.responseData;
+    });
+
+    const onUpdateText = (text: string) => {
+      inputResponseText.value = text;
     };
 
     return {
@@ -186,7 +213,12 @@ export default defineComponent({
       onLogLevelBlur,
       onRequest,
       onReset,
-      onDownload
+      onDownload,
+
+      allowInputResponseText,
+      responseText,
+      onUpdateText,
+      onResolveResponseText
     };
   }
 });

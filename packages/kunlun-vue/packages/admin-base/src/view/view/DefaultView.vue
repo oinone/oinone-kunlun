@@ -1,10 +1,11 @@
 <script lang="ts">
+import { isMinimalismTheme } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { PropRecordHelper, StableSlotProp } from '@oinone/kunlun-vue-ui-common';
-import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
+import { useOioState } from '@oinone/kunlun-vue-widget';
+import { computed, createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
+import { ViewBizStyle } from '../../typing';
 
 export default defineComponent({
   name: 'DefaultView',
@@ -12,9 +13,6 @@ export default defineComponent({
   props: {
     currentHandle: {
       type: String
-    },
-    template: {
-      type: Object as PropType<DslRenderDefinition>
     },
     viewType: {
       type: String as PropType<ViewType>
@@ -26,10 +24,25 @@ export default defineComponent({
     invisible: {
       type: Boolean,
       default: false
+    },
+    bizStyle: {
+      type: String as PropType<ViewBizStyle>
     }
   },
+  setup(props) {
+    const { globalState, viewState } = useOioState(props.currentHandle!);
+
+    return {
+      fullScreen: computed(() => {
+        if (props.inline) {
+          return !!viewState?.fullscreen;
+        }
+        return viewState?.fullscreen || globalState.fullscreen;
+      })
+    };
+  },
   render() {
-    const { viewType, currentHandle } = this;
+    const { viewType, currentHandle, fullScreen, bizStyle } = this;
     const classList: string[] = [`${DEFAULT_PREFIX}-default-view`];
     if (viewType) {
       classList.push(`${DEFAULT_PREFIX}-default-${viewType.toLowerCase()}-view`);
@@ -37,16 +50,28 @@ export default defineComponent({
     if (this.inline) {
       classList.push(`${DEFAULT_PREFIX}-default-view-inline`);
     }
+
+    // 全屏
+    if (fullScreen) {
+      classList.push(`${DEFAULT_PREFIX}-full-screen-view`);
+    }
+
+    // 视图风格
+    if (bizStyle) {
+      if (bizStyle === ViewBizStyle.COMPACT) {
+        classList.push(`${DEFAULT_PREFIX}-default-minimalism-view`);
+      }
+      classList.push(`${DEFAULT_PREFIX}-default-${bizStyle.toLowerCase()}-view`);
+    } else if (isMinimalismTheme() && !this.inline && viewType !== ViewType.Search) {
+      classList.push(`${DEFAULT_PREFIX}-default-minimalism-view`);
+    }
+
     return withDirectives(
       createVNode(
         'div',
         {
-          id: currentHandle,
-          ...PropRecordHelper.collectionBasicProps(
-            this.$attrs,
-            StringHelper.append(classList, CastHelper.cast(this.template?.class)),
-            CastHelper.cast(this.template?.style)
-          )
+          ...PropRecordHelper.collectionBasicProps(this.$attrs, classList),
+          id: currentHandle
         },
         {
           ...StableSlotProp,

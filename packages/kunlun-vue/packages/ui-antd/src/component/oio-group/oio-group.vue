@@ -4,6 +4,7 @@ import { OioGroupProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, defineComponent, VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import OioGroupHelp from './oio-group-help.vue';
+import { GroupStyle } from './typing';
 
 export default defineComponent({
   name: 'OioGroup',
@@ -29,7 +30,8 @@ export default defineComponent({
       helpIconColor,
       helpPlacement,
       helpBgColor,
-      helpAdjustOverflow
+      helpAdjustOverflow,
+      bizStyle
     } = this;
     const slots = PropRecordHelper.collectionSlots($slots, [
       { origin: 'default', isNotNull: true },
@@ -40,6 +42,9 @@ export default defineComponent({
     if (border) {
       classList.push(`${DEFAULT_PREFIX}-group-border`);
     }
+
+    classList.push(`${DEFAULT_PREFIX}-group-${bizStyle || GroupStyle.style1}`);
+
     let hiddenTitle = title === false;
     let titleVNodes: VNode[] | undefined;
     if (slots.title) {
@@ -113,6 +118,7 @@ export default defineComponent({
         )
       ];
       titleClassList.push(`${DEFAULT_PREFIX}-group-title-flex-end`);
+      classList.push(`${DEFAULT_PREFIX}-group-toolbar-flex-end`);
       titleVNodes = [createVNode('div', { class: titleClassList }, titleVNodes)];
     } else {
       hiddenTitle = true;

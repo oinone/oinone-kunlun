@@ -5,8 +5,8 @@ import {
   RuntimeRelationField,
   UnsupportedOperationException
 } from '@oinone/kunlun-engine';
-import { BooleanHelper, CastHelper } from '@oinone/kunlun-shared';
-import { OioTreeNode, SelectMode } from '@oinone/kunlun-vue-ui-common';
+import { BooleanHelper, CastHelper, OioTreeNode } from '@oinone/kunlun-shared';
+import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormComplexFieldProps } from '../../basic';
 import { TreeNodeResponseBody, TreeService } from '../../service';

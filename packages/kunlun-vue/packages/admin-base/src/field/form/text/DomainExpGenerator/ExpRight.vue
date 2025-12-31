@@ -6,6 +6,7 @@
       class="oio-select"
       dropdown-class-name="oio-select-dropdown"
       :mode="field.ttype === 'O2M' || field.ttype === 'M2M' ? 'multiple' : 'default'"
+      show-arrow
       :value="exp.right.val"
       @change="changeValue"
       style="width: 20%"

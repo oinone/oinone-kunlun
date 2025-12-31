@@ -10,6 +10,11 @@ export class FormView extends BaseObjectView {
   @Widget.Provide()
   protected formValidateCallChaining: CallChaining<FormValidateResult[]> | undefined;
 
+  protected $$created() {
+    super.$$created();
+    this.viewState!.fields = [];
+  }
+
   protected $$beforeMount() {
     super.$$beforeMount();
     this.formValidateCallChaining = new CallChaining();

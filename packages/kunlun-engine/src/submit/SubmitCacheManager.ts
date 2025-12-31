@@ -1,6 +1,6 @@
+import { deepClone } from '@oinone/kunlun-meta';
 import { isNil, isString } from 'lodash-es';
 import { ActiveRecord, ActiveRecordExtendKeys, DeleteEntity, UpdateEntity } from '../typing';
-import { deepClone } from '@oinone/kunlun-meta';
 
 /**
  * 提交模型
@@ -32,6 +32,7 @@ interface OperatorItem {
  */
 interface PushOperatorItem extends OperatorItem {
   records: ActiveRecord[];
+  index?: number;
 }
 
 /**
@@ -135,15 +136,16 @@ export class SubmitCacheManager {
     }
   }
 
-  public pushRecord(data: ActiveRecord) {
-    this.pushRecords([data]);
+  public pushRecord(data: ActiveRecord, index?: number) {
+    this.pushRecords([data], index);
   }
 
-  public pushRecords(data: ActiveRecord[]) {
-    data.forEach((value) => {
+  public pushRecords(data: ActiveRecord[], baseIndex?: number) {
+    data.forEach((value, offset) => {
       const pushItem: PushOperatorItem = {
         operator: SubmitOperator.PUSH,
-        records: [value]
+        records: [value],
+        index: baseIndex == null ? undefined : baseIndex + offset
       };
       if (this.predictOperatorRecord(value, SubmitOperator.PUSH)) {
         this.operatorQueue.push(pushItem);
@@ -279,9 +281,12 @@ export class SubmitCacheManager {
   }
 
   private pushOperator(origin: ActiveRecord[], operatorItem: PushOperatorItem): ActiveRecord[] {
-    operatorItem.records.forEach((record) => {
-      origin.push(record);
-    });
+    const { records, index } = operatorItem;
+    if (index == null) {
+      origin.push(...records);
+    } else {
+      origin.splice(index, 0, ...records);
+    }
     return origin;
   }
 
@@ -324,11 +329,16 @@ export class SubmitCacheManager {
 
   private analysisEqualKeys(): string[][] {
     const equalKeys: string[][] = [];
-    const pks = this.model.pks;
     if (this.excludes && this.excludes.length) {
       equalKeys.push(this.excludes);
-    } else if (pks) {
-      equalKeys.push(pks);
+    } else {
+      const { pks, uniques } = this.model;
+      if (pks) {
+        equalKeys.push(pks);
+      }
+      if (uniques) {
+        equalKeys.push(...uniques);
+      }
     }
     equalKeys.push([ActiveRecordExtendKeys.DRAFT_ID]);
     return equalKeys;

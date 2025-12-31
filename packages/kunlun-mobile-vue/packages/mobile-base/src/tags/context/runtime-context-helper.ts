@@ -15,12 +15,12 @@ import {
 import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, debugConsole, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
+import { useInjectMetaContext } from '@oinone/kunlun-vue-widget';
 import { isNil, isPlainObject, isString } from 'lodash-es';
 import { getDefaultMaskTemplate, maskTemplateEdit } from '../../layout';
 import { LayoutManager, LayoutRegisterOptions, MaskManager } from '../../spi';
 import { findWidget } from '../../util/utils';
 import { ActiveLayoutEffectOpt } from './active';
-import { useInjectMetaContext } from './context';
 import { createMobileDefaultLayout } from './default-layout';
 
 export function seekViewMask(viewAction: RuntimeViewAction, moduleName?: string): DslDefinition {

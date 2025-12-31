@@ -46,6 +46,6 @@ export class FormStringInputFieldWidget extends FormStringFieldWidget {
 }
 
 /**
- * @deprecated please using FormStringInputFieldWidget
+ * @deprecated 6.0.0 please using FormStringInputFieldWidget
  */
 export const FormStringFieldSingleWidget = FormStringInputFieldWidget;

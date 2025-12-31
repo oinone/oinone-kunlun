@@ -6,13 +6,31 @@ $height: 20px;
   width: 100%;
   line-height: $height;
   color: var($parameterPrefix + -text-color);
+  font-size: var($parameterPrefix + -font-size-sm);
   white-space: pre-wrap;
   display: flex;
   flex-flow: row nowrap;
+
+  .ant-upload-list-picture-card-container {
+    width: 50px;
+    height: 50px;
+    .ant-upload-list-item {
+      padding: 0;
+      border: 1px solid var(--oio-border-color);
+    }
+  }
 
   .gallery-common-field-value {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+.default-card-title-wrap,
+.default-card-content-wrap {
+  .gallery-common-field-value {
+    text-wrap: wrap;
+    word-wrap: break-word;
   }
 }

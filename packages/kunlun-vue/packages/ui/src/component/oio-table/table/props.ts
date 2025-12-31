@@ -11,6 +11,10 @@ export const OioTableAppearanceProps = {
     type: Boolean,
     default: undefined
   },
+  autoResize: {
+    type: Boolean,
+    default: false
+  },
   height: {
     type: [String, Number]
   },
@@ -118,7 +122,7 @@ export const OioTableControlProps = {
    * 单选框配置
    */
   radioConfig: {
-    type: Object as PropType<VxeTablePropTypes.SortConfig>
+    type: Object as PropType<VxeTablePropTypes.RadioConfig>
   },
   /**
    * 复选框配置

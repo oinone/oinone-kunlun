@@ -1,7 +1,7 @@
-import { DslDefinitionType } from '@oinone/kunlun-dsl';
+import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { getCurrentThemeSize } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { NumberHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import {
   DEFAULT_CARD_GUTTERS,
@@ -9,7 +9,7 @@ import {
   DEFAULT_VERTICAL_GUTTERS,
   LayoutHelper
 } from '@oinone/kunlun-vue-ui-common';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { isGalleryViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNil, isString } from 'lodash-es';
 import { BaseElementListViewWidget, BaseElementWidget } from '../../basic';
 import { GALLERY_WIDGET } from '../../typing';
@@ -22,13 +22,16 @@ import DefaultGallery from './DefaultGallery.vue';
   })
 )
 export class GalleryWidget extends BaseElementListViewWidget {
+  protected get galleryConfig() {
+    return this.getMergeConfig('gallery');
+  }
+
   /**
    * 默认间距
    */
   @Widget.Reactive()
   private get defaultGutter() {
     const size = getCurrentThemeSize();
-
     switch (size) {
       case 'large':
         return DEFAULT_GUTTERS;
@@ -46,7 +49,43 @@ export class GalleryWidget extends BaseElementListViewWidget {
   }
 
   @Widget.Reactive()
+  @Widget.Provide()
+  protected get sortable() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.galleryConfig.sortable)).orElse(true);
+  }
+
+  @Widget.Reactive()
+  public cardCols?: number;
+
+  @Widget.Provide()
+  @Widget.Method()
+  public setCardCols(cols: number) {
+    this.cardCols = cols;
+  }
+
+  /**
+   * 卡片数量切换
+   */
+  @Widget.Reactive()
+  public get switchCols() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().switchCols)).orElse(this.defaultSwitchCols);
+  }
+
+  protected get defaultSwitchCols() {
+    const { switchCols } = this.galleryConfig;
+    if (switchCols == null) {
+      return true;
+    }
+    return switchCols;
+  }
+
+  @Widget.Provide()
+  @Widget.Reactive()
   public get cols() {
+    if (typeof this.cardCols === 'number' && this.cardCols > 0) {
+      return this.cardCols;
+    }
+
     let cols = NumberHelper.toNumber(this.getDsl().cols);
     if (isNil(cols)) {
       cols = 4;
@@ -93,7 +132,75 @@ export class GalleryWidget extends BaseElementListViewWidget {
     return NumberHelper.toNumber(cardDslDefinition?.maxWidth);
   }
 
+  /**
+   * 视图控制组，包含所有子组件
+   */
+  @Widget.Reactive()
+  protected get viewControlWidget(): DslDefinition | undefined {
+    if (!this.viewControlChildren.length) {
+      return undefined;
+    }
+    return {
+      dslNodeType: DslDefinitionType.ELEMENT,
+      widget: 'ViewControl',
+      widgets: this.viewControlChildren
+    };
+  }
+
+  @Widget.Reactive()
+  protected get viewControlChildren(): DslDefinition[] {
+    const controls: { enabled: boolean; widget: string; props?: Record<string, unknown> }[] = [
+      {
+        enabled: this.sortable,
+        widget: 'SortControl'
+      },
+      {
+        enabled: this.switchCols,
+        widget: 'CardColControl',
+        props: {
+          subPath: 'card-col-control'
+        }
+      },
+      {
+        enabled: this.enabledFullScreen,
+        widget: 'FullScreenControl'
+      },
+      {
+        enabled: true,
+        widget: 'UserPrefer',
+        props: {
+          subPath: 'user-prefer',
+          modalTitle: '字段设置'
+        }
+      }
+    ];
+    return controls
+      .filter(({ enabled }) => enabled)
+      .map(({ widget, props }) => ({
+        dslNodeType: DslDefinitionType.ELEMENT,
+        ...props,
+        widget,
+        widgets: []
+      }));
+  }
+
+  protected get defaultEnabledFullScreen() {
+    const { enabledFullScreen } = this.galleryConfig;
+    if (enabledFullScreen == null) {
+      return true;
+    }
+    return enabledFullScreen;
+  }
+
   protected childrenInvisibleProcess(): boolean {
     return false;
+  }
+
+  protected $$initViewState(state: OioAnyViewState): void {
+    super.$$initViewState(state);
+    if (isGalleryViewState(state) && !state.gallery) {
+      state.gallery = this.currentHandle;
+      state.cards = [];
+    }
   }
 }

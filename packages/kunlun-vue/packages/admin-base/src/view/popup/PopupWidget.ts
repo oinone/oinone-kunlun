@@ -15,13 +15,20 @@ import {
   SubmitValue
 } from '@oinone/kunlun-engine';
 import { ExpressionRunParam } from '@oinone/kunlun-expression';
-import { ViewType } from '@oinone/kunlun-meta';
+import { ActionContextType, deepClone, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
-import { ActiveRecordsWidget, ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
+import {
+  ActiveRecordsWidget,
+  ActiveRecordsWidgetProps,
+  OioAnyViewState,
+  useInjectMetaContext,
+  useProviderMetaContext,
+  Widget,
+  WidgetSubjection
+} from '@oinone/kunlun-vue-widget';
 import { isArray, isFunction, isNil } from 'lodash-es';
 import { computed } from 'vue';
-import { validatorCallChainingCallAfterFn } from '../../basic/constant';
-import { useInjectMetaContext, useProviderMetaContext } from '../../tags';
+import { REFRESH_FORM_DATA, validatorCallChainingCallAfterFn } from '../../basic/constant';
 import {
   ClickResult,
   PopupEventHandle,
@@ -44,7 +51,16 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
   extends ActiveRecordsWidget<Props>
   implements IPopupWidget<Props>
 {
+  @Widget.SubContext(REFRESH_FORM_DATA)
+  protected reloadFormData$!: WidgetSubjection<boolean>;
+
   private handlers: PopupEventHandle = { cancel: [], ok: [] };
+
+  public initialize(props: Props) {
+    super.initialize(props);
+    this.mountedVisible = Optional.ofNullable(props.mountedVisible).orElse(true)!;
+    return this;
+  }
 
   @Widget.Reactive()
   @Widget.Inject()
@@ -56,12 +72,12 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
 
   @Widget.Reactive()
   protected get popupSubmitType(): PopupSubmitType {
-    return (this.getDsl()?.submitType?.toLowerCase?.() as PopupSubmitType) || PopupSubmitType.current;
+    return (this.getDsl().submitType?.toLowerCase?.() as PopupSubmitType) || PopupSubmitType.current;
   }
 
   @Widget.Reactive()
   protected get viewType(): ViewType {
-    return this.getDsl()?.type as unknown as ViewType;
+    return this.getDsl().type as unknown as ViewType;
   }
 
   @Widget.Reactive()
@@ -173,21 +189,44 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
   @Widget.Provide()
   public cols: number | undefined;
 
+  /**
+   * 置空rowIndex属性
+   */
+  @Widget.Reactive()
+  @Widget.Provide()
+  public rowIndex: number | undefined;
+
   @Widget.Reactive()
   private visible = false;
 
   @Widget.Reactive()
   private mountedVisible = false;
 
+  /**
+   * 是否显示切换全屏按钮
+   */
   @Widget.Reactive()
-  private get openHandle() {
-    return this.getDsl().openHandle;
+  protected get enabledFullScreen() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enabledFullScreen)).orElse(true);
   }
 
-  public initialize(props: Props) {
-    super.initialize(props);
-    this.mountedVisible = Optional.ofNullable(props.mountedVisible).orElse(true)!;
-    return this;
+  /**
+   * 是否显示切换窗口类型按钮
+   */
+  @Widget.Reactive()
+  protected get showPopupToggle() {
+    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showPopupToggle)).orElse(true);
+  }
+
+  /**
+   * 是否显示上一条、下一条数据切换
+   */
+  @Widget.Reactive()
+  protected get showQuickToggle() {
+    if (this.action?.contextType === ActionContextType.Single) {
+      return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showQuickToggle)).orElse(true);
+    }
+    return false;
   }
 
   @Widget.Method()
@@ -205,6 +244,9 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
     return this.visible;
   }
 
+  /**
+   * @deprecated please extends widget override onVisibleChange
+   */
   public beforeClose;
 
   @Widget.Method()
@@ -294,6 +336,55 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
     return false;
   }
 
+  @Widget.Reactive()
+  protected get listViewTotalPage() {
+    return this.openerDataSource?.length || 0;
+  }
+
+  @Widget.Reactive()
+  protected listViewRowNumber = 1;
+
+  /**
+   * 计算当前的数据是表格的第一行
+   */
+  protected computedRowNumber() {
+    if (!this.openerDataSource?.length || !this.showQuickToggle) {
+      return;
+    }
+
+    const __draftId = this.action?.resView?.initialValue?.[0]?.__draftId;
+    if (!__draftId) {
+      return;
+    }
+
+    const index = this.openerDataSource.findIndex((item) => item.__draftId === __draftId);
+    if (index >= 0) {
+      this.listViewRowNumber = index + 1;
+    }
+  }
+
+  /**
+   * 上一行、下一行切换
+   */
+  @Widget.Method()
+  protected async onChangeRowNumber(currentPage: number) {
+    this.listViewRowNumber = currentPage;
+    const activeRecord = deepClone(this.openerDataSource?.[this.listViewRowNumber - 1]);
+
+    if (!activeRecord) {
+      return;
+    }
+
+    this.reloadActiveRecords(activeRecord);
+    this.reloadDataSource(activeRecord);
+
+    if (this.action?.resView) {
+      this.action.resView.initialValue = this.activeRecords;
+    }
+
+    this.mountedCallChaining?.syncCall();
+  }
+
   protected isSameModel(): boolean {
     const { model, field, viewAction } = this.metadataRuntimeContext;
     let isSameModel = false;
@@ -367,6 +458,12 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
     return PopupManager.INSTANCE.getInstances(this.getPopupScene()).find((v) => v.key === key);
   }
 
+  protected $$initViewState(state: OioAnyViewState): void {
+    if (!state.popupScene) {
+      state.popupScene = this.popupScene;
+    }
+  }
+
   protected $$beforeCreated() {
     super.$$beforeCreated();
     const metaContext = useInjectMetaContext();
@@ -399,6 +496,7 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
 
   protected $$beforeMount() {
     super.$$beforeMount();
+    this.computedRowNumber();
     this.currentMountedCallChaining = new CallChaining();
     this.currentRefreshCallChaining = new CallChaining();
     this.submitCallChaining = new CallChaining();
@@ -407,6 +505,7 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
 
   protected $$mounted() {
     super.$$mounted();
+
     this.currentRefreshCallChaining?.callBefore(
       (...args) => {
         const { refreshParent } = getRefreshParameters(args);

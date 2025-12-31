@@ -3,20 +3,11 @@
 
   &.ant-form-item-has-error {
     .ant-form-item-explain {
-      position: relative;
-      height: 0;
-      min-height: 0;
-      overflow: inherit;
-
       .ant-form-item-explain-error {
-        position: absolute;
-        left: 0;
-        top: 2px;
         padding: var(--oio-padding-xs);
-        background-color: rgba(var(--oio-error-color-rgb), 0.1);
-        border-radius: var(--oio-border-radius);
-        font-size: var(--oio-font-size);
+        font-size: var(--oio-font-size-sm);
         color: var(--oio-error-color);
+        white-space: pre-wrap;
       }
     }
   }

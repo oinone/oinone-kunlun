@@ -2,7 +2,7 @@
 
 .#{$groupClassPrefix} {
   width: 100%;
-  background: var(--oio-background);
+  background-color: var(--oio-background);
 
   &-border {
     border: var($parameterPrefix + -border-width) var(--oio-group-border-width) var($parameterPrefix + -border-color);
@@ -58,7 +58,7 @@
     text-overflow: ellipsis;
 
     & + .#{$groupClassPrefix}-description {
-      margin-left: 12px;
+      margin-left: 8px;
     }
   }
 
@@ -73,13 +73,26 @@
   }
 
   &-description {
-    color: var(--oio-text-color-secondary);
+    color: var(--oio-placeholder-color);
     font-size: var(--oio-font-size-sm);
-    line-height: var(--oio-line-height-lg);
     max-width: 400px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  &-style1 {
+    .#{$groupClassPrefix}-title-wrapper:not(.#{$groupClassPrefix}-title-space-between),
+    .#{$groupClassPrefix}-title-space-between > .#{$groupClassPrefix}-title-content {
+      &::before {
+        content: '';
+        width: 3px;
+        height: var(--oio-font-size-lg);
+        display: block;
+        background-color: var(--oio-primary-color);
+        margin-right: 8px;
+      }
+    }
   }
 
   &-content {

@@ -1,9 +1,7 @@
 <script lang="ts">
 import { DslDefinition } from '@oinone/kunlun-dsl';
-import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import {
   FormLayout,
-  OioGroup,
   OioSpin,
   OioSpinProps,
   PropRecordHelper,
@@ -72,11 +70,7 @@ export default defineComponent({
       createVNode(
         OioSpin,
         {
-          ...PropRecordHelper.collectionBasicProps(
-            $attrs,
-            StringHelper.append(['oio-default-spin'], CastHelper.cast(template?.class)),
-            CastHelper.cast(template?.style)
-          ),
+          ...PropRecordHelper.collectionBasicProps($attrs, ['oio-default-spin']),
           loading,
           loadingIndicator,
           wrapperClassName,

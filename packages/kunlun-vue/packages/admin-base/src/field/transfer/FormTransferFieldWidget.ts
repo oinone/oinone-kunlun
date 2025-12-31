@@ -20,7 +20,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { FormFieldWidget } from '../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../typing';
-import { FormM2MFieldSelectWidget } from '../form';
+import { FormM2MSelectFieldWidget } from '../form';
 import DefaultTransfer from './DefaultTransfer.vue';
 
 @SPI.ClassFactory(
@@ -30,7 +30,7 @@ import DefaultTransfer from './DefaultTransfer.vue';
     widget: 'Transfer'
   })
 )
-export class FormTransferFieldWidget extends FormM2MFieldSelectWidget {
+export class FormTransferFieldWidget extends FormM2MSelectFieldWidget {
   @Widget.Reactive()
   protected get selectMode(): SelectMode {
     return SelectMode.multiple;

@@ -2,12 +2,17 @@
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { OioForm, OioFormInstance } from '@oinone/kunlun-vue-ui-antd';
-import { OioFormProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import {
+  OioFormProps,
+  PropRecordHelper,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext
+} from '@oinone/kunlun-vue-ui-common';
 import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
 import { createVNode, defineComponent, onMounted, PropType, ref } from 'vue';
 import { defaultFlexResolve } from '../../tags/resolve/helper';
+import { FormBizStyle } from '../../typing';
 import { ManualWidget } from '../mixin';
-import { useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from './context';
 
 export default defineComponent({
   name: 'DefaultForm',
@@ -28,6 +33,9 @@ export default defineComponent({
     formData: {
       type: Object,
       default: () => {}
+    },
+    bizStyle: {
+      type: String as PropType<FormBizStyle>
     }
   },
   setup(props) {
@@ -58,7 +66,7 @@ export default defineComponent({
     };
   },
   render() {
-    const { template } = this;
+    const { template, bizStyle } = this;
     const { default: defaultSlot } = PropRecordHelper.collectionSlots(this.$slots, [
       {
         origin: 'default',
@@ -66,14 +74,16 @@ export default defineComponent({
       }
     ]);
     const defaultChildren = defaultFlexResolve(template, defaultSlot);
+
+    const classNames = [`${DEFAULT_PREFIX}-default-form`];
+    if (bizStyle === FormBizStyle.WORD) {
+      classNames.push(`${DEFAULT_PREFIX}-default-word-form`);
+    }
+
     return createVNode(
       'div',
       {
-        ...PropRecordHelper.collectionBasicProps(
-          this.$attrs,
-          StringHelper.append([`${DEFAULT_PREFIX}-default-form`], CastHelper.cast(this.template?.class)),
-          CastHelper.cast(this.template?.style)
-        ),
+        ...PropRecordHelper.collectionBasicProps(this.$attrs, classNames),
         ref: 'origin'
       },
       [

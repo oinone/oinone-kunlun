@@ -2,8 +2,8 @@
 import { useProviderMaskContext } from '@oinone/kunlun-vue-admin-layout';
 import { OioSpin, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { OioSpinProps } from '@oinone/kunlun-vue-ui-common';
+import { useProviderMetaContext } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent } from 'vue';
-import { useProviderMetaContext } from '../../tags';
 
 export default defineComponent({
   name: 'SharedMainView',

@@ -21,9 +21,8 @@ import {
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { isDev } from '@oinone/kunlun-router';
-import { StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { OioTreeNode, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { OioTreeNode } from '@oinone/kunlun-vue-ui-common';
 import { DslRender } from '@oinone/kunlun-vue-widget';
 import { isNil, isObject, isString, toString } from 'lodash-es';
 import { Slot } from 'vue';

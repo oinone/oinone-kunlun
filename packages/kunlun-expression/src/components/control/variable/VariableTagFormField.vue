@@ -166,7 +166,7 @@
                 size="small"
                 v-model:value="searchKeywords"
                 allow-clear
-                :placeholder="translateExpValue('输入模型名称搜索')"
+                :placeholder="translateExpValue('输入名称搜索')"
                 @change="onSearchKeywordsChange"
               />
             </div>
