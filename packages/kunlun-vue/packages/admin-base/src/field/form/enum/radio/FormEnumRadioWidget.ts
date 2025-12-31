@@ -3,6 +3,7 @@ import { BooleanHelper, EnumerationValue } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
+import { SearchTrigger } from '@oinone/kunlun-vue-ui-common';
 import { FormEnumFieldAbstractWidget } from '../FormEnumFieldAbstractWidget';
 import FormEnumRadio from './FormEnumRadio.vue';
 
@@ -51,5 +52,25 @@ export class FormEnumRadioWidget extends FormEnumFieldAbstractWidget<Enumeration
   @Widget.Reactive()
   protected get rowLimit() {
     return this.getDsl().rowLimit;
+  }
+
+  public defaultSearchTrigger: SearchTrigger[] = [SearchTrigger.MANUAL];
+
+  @Widget.Reactive()
+  protected get searchTrigger(): SearchTrigger[] {
+    const searchTrigger = (this.getDsl().searchTrigger as string)
+      ?.split(',')
+      ?.map((v) => v.trim().toLowerCase?.() as SearchTrigger);
+    if (searchTrigger) {
+      return searchTrigger;
+    }
+    return this.defaultSearchTrigger;
+  }
+
+  protected override afterChange() {
+    super.afterChange();
+    if (this.viewType === ViewType.Search && this.searchTrigger.includes(SearchTrigger.CHANGE)) {
+      this.onSearch?.();
+    }
   }
 }
