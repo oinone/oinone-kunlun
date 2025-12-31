@@ -1,23 +1,23 @@
 <template>
   <div class="form-rich-text form-expression-rich-text">
-    <Toolbar :editor-id="editorId" :editor="editorRef" :default-config="toolbarConfig" :mode="mode" />
-    <Editor
-      :editor-id="editorId"
-      :default-config="editorConfig"
-      :mode="mode"
-      v-model="defaultHtml"
-      @onCreated="handleCreated"
-      @onDestroyed="handleDestroyed"
-      @onChange="handleChange"
-      :style="editorStyle"
-    />
+<!--    <Toolbar :editor-id="editorId" :editor="editorRef" :default-config="toolbarConfig" :mode="mode" />-->
+<!--    <Editor-->
+<!--      :editor-id="editorId"-->
+<!--      :default-config="editorConfig"-->
+<!--      :mode="mode"-->
+<!--      v-model="defaultHtml"-->
+<!--      @onCreated="handleCreated"-->
+<!--      @onDestroyed="handleDestroyed"-->
+<!--      @onChange="handleChange"-->
+<!--      :style="editorStyle"-->
+<!--    />-->
   </div>
 </template>
 <script lang="ts">
 import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, PropType, ref, shallowRef, watch } from 'vue';
 import { ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
+// import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import { i18nChangeLanguage } from '@wangeditor/editor';
 import {
   EXPRESSION_MODAL_CLASS_NAME,
@@ -32,7 +32,7 @@ import { CSSStyle, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 const EDITOR_DEFAULT_HTML = '<p><br></p>';
 const EDITOR_EXP_MODAL_CLASS = 'exp-modal-in-body';
 export default defineComponent({
-  components: { Editor, Toolbar },
+  // components: { Editor, Toolbar },
   props: {
     contextItems: Array as PropType<IVariableContextItem[]>,
     change: {
