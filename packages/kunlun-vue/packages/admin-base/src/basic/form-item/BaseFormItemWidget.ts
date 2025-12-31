@@ -11,7 +11,7 @@ import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { ILevel } from '@oinone/kunlun-request';
 import { BooleanHelper, CallChaining, CastHelper, ObjectUtils, Optional, ReturnPromise } from '@oinone/kunlun-shared';
-import { ComputeTrigger, ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { ComputeTrigger, ValidateTrigger, WidgetTrigger, SearchTrigger } from '@oinone/kunlun-vue-ui-common';
 import { ActiveRecordsWidget, ActiveRecordsWidgetProps, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isEmpty, isNil, isString } from 'lodash-es';
 import { clearFieldsDataFun, generatorConstructMirrorSubmitData } from '../../field/util';
@@ -247,6 +247,19 @@ export class BaseFormItemWidget<
     return this.defaultValidateTrigger;
   }
 
+  public defaultSearchTrigger: SearchTrigger[] = [SearchTrigger.MANUAL];
+
+  @Widget.Reactive()
+  protected get searchTrigger(): SearchTrigger[] {
+    const searchTrigger = (this.getDsl().searchTrigger as string)
+      ?.split(',')
+      ?.map((v) => v.trim().toLowerCase?.() as SearchTrigger);
+    if (searchTrigger) {
+      return searchTrigger;
+    }
+    return this.defaultSearchTrigger;
+  }
+
   @Widget.Reactive()
   protected validation: ValidatorInfo | undefined;
 
@@ -301,8 +314,15 @@ export class BaseFormItemWidget<
     this.setValue(val);
   }
 
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected onSearch: (() => void) | undefined;
+
   protected afterChange() {
     this.afterTriggerExecute(WidgetTrigger.CHANGE);
+    if (this.viewType === ViewType.Search && this.searchTrigger.includes(SearchTrigger.CHANGE)) {
+      this.onSearch?.();
+    }
   }
 
   /**
