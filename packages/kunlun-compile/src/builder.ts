@@ -344,9 +344,6 @@ class AbstractPluginBuilder {
     if (_replace) {
       plugins.push(replace(_replace));
     }
-    if (_scss) {
-      plugins.push(scss(_scss));
-    }
     if (_vue) {
       plugins.push(vue(_vue));
     }
@@ -355,6 +352,9 @@ class AbstractPluginBuilder {
     }
     if (_commonjs) {
       plugins.push(commonjs(_commonjs));
+    }
+    if (_scss) {
+      plugins.push(scss(_scss));
     }
     if (_typescript2) {
       plugins.push(typescript2(_typescript2));
