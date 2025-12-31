@@ -76,7 +76,7 @@ function createMoreAction(
       OioDropdown,
       {
         overlayClassName: 'default-dropdown-overlay',
-        trigger: [OioDropdownTrigger.click, OioDropdownTrigger.hover]
+        trigger: [OioDropdownTrigger.hover]
       },
       {
         default: () => [triggerVNode],
