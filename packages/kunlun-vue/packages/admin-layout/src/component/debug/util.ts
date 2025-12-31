@@ -1,3 +1,12 @@
+interface ILoadScriptOption {
+  // 给 script 标签设置 id（避免重复加载）
+  id?: string;
+  // 是否异步加载
+  async?: boolean;
+  // CORS 设置，如 'anonymous'
+  crossorigin?: string
+}
+
 /**
  * 动态加载一个外部 JavaScript 脚本
  * @param {string} src - 脚本的 URL
@@ -7,8 +16,14 @@
  * @param {string} [options.crossorigin] - CORS 设置，如 'anonymous'
  * @returns {Promise<void>} 加载成功则 resolve，失败则 reject
  */
-export function loadScript(src: string, options: any = {}) {
+export function loadScript(src: string, options: string | ILoadScriptOption = {}) {
   // 防止重复加载（如果指定了 id 或相同 src 已存在）
+  if (typeof options === 'string') {
+    options = { id: options } as ILoadScriptOption;
+  }
+  if (!options) {
+    options = {} as ILoadScriptOption
+  }
   if (options.id && document.getElementById(options.id)) {
     return Promise.resolve();
   }
