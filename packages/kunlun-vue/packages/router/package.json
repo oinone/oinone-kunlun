@@ -20,7 +20,7 @@
     "@oinone/kunlun-router": "~6.4.0",
     "@oinone/kunlun-shared": "~6.4.0",
     "@oinone/kunlun-spi": "~6.4.0",
-    "@types/lodash": "4.14.182",
+    "@types/lodash": "4.17.21",
     "@types/lodash-es": "4.17.6",
     "lodash": "4.17.21",
     "lodash-es": "4.17.21"
