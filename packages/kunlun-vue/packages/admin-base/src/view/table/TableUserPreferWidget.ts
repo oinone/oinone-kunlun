@@ -33,7 +33,7 @@ export class TableUserPreferWidget extends BaseElementWidget {
 
   @Widget.Reactive()
   private get internalVisibleFields(): VisibleField[] {
-    return this.metadataRuntimeContext.model.modelFields
+    return this.rootRuntimeContext.model.modelFields
       .filter((f) => BooleanHelper.isFalse(f.invisible))
       .map((f) => {
         return {
