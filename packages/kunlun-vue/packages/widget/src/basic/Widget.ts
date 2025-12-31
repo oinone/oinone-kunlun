@@ -380,7 +380,7 @@ export abstract class Widget<Props extends WidgetProps = WidgetProps, R = unknow
    * 包装发布者事件
    * 如果启动了作用域检查，那么发布的时候会携带发布者的widget实例
    **/
-  private wrapSubjectWithScope(subject: AnySubject, scope?: WidgetTypeKey): AnySubject {
+  private wrapSubjectWithScope(subject: AnySubject<any>, scope?: WidgetTypeKey): AnySubject {
     if (!scope) {
       return subject;
     }
