@@ -67,6 +67,10 @@ export class FormEnumRadioWidget extends FormEnumFieldAbstractWidget<Enumeration
     return this.defaultSearchTrigger;
   }
 
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected onSearch: (() => void) | undefined;
+
   protected override afterChange() {
     super.afterChange();
     if (this.viewType === ViewType.Search && this.searchTrigger.includes(SearchTrigger.CHANGE)) {
