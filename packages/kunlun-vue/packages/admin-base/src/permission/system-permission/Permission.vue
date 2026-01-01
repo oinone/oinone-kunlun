@@ -79,5 +79,5 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
-@use './style/permission.scss' as *;
+@import './style/permission.scss';
 </style>

@@ -81,9 +81,6 @@ declare class AbstractPluginBuilder {
         moduleResolution: string;
         incremental: boolean;
         sourceMap: boolean;
-        verbatimModuleSyntax: boolean;
-        isolatedModules: boolean;
-        stripInternal: boolean;
     };
     private buildPlugins;
 }

@@ -3,6 +3,7 @@ import type { TreeModelApi } from '../service';
 import type { PamirsDepartment } from '../typing';
 
 export interface DepartmentQueryFilter {
+  model?: string;
   rsql?: string;
   departmentCodes?: string[];
   userCompanyDept?: boolean;

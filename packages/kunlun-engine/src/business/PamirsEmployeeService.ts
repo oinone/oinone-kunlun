@@ -3,6 +3,7 @@ import type { ListModelApi } from '../service';
 import type { PamirsEmployee } from '../typing';
 
 export interface PamirsEmployeeQueryFilter {
+  model?: string;
   rsql?: string;
   employeeCodes?: string[];
   departmentCodes?: string[];

@@ -319,10 +319,7 @@ class AbstractPluginBuilder {
     declarationDir: 'dist/types',
     moduleResolution: 'Bundler',
     incremental: false,
-    sourceMap: false,
-    verbatimModuleSyntax: false,
-    isolatedModules: false,
-    stripInternal: false
+    sourceMap: false
   };
 
   private buildPlugins(): RollupPlugin[] {

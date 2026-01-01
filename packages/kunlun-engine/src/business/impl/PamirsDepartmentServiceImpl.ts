@@ -21,7 +21,7 @@ export class PamirsDepartmentServiceImpl
     // fixme @zbh 20251205 optimize request
     return (
       (await GenericFunctionService.INSTANCE.simpleExecuteByFun(
-        queryWrapper.model || this.modelModel,
+        query.model || this.modelModel,
         'queryListByFilter',
         query
       )) || []
