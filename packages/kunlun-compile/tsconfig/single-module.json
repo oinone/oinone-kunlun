@@ -10,7 +10,6 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "allowDefaultProject": true,
     "sourceMap": true,
     "skipLibCheck": true,
     "baseUrl": ".",
