@@ -1,15 +1,15 @@
-import { OutputOptions as RollupOutputOptions, type Plugin as RollupPlugin, RollupOptions } from 'rollup';
-import { RollupReplaceOptions } from '@rollup/plugin-replace';
-import { CSSPluginOptions as SCSSPluginOptions } from 'rollup-plugin-scss';
-import { Options as VuePluginOptions } from 'rollup-plugin-vue';
-import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
-import { RollupCommonJSOptions } from '@rollup/plugin-commonjs';
-import { RollupTypescriptPluginOptions } from '@rollup/plugin-typescript';
-import { RPT2Options as RollupTypescript2PluginOptions } from 'rollup-plugin-typescript2';
-import { RollupJsonOptions } from '@rollup/plugin-json';
-import { CopyOptions as RollupCopyPluginOptions } from 'rollup-plugin-copy';
-import { Options as RollupTerserPluginOptions } from '@rollup/plugin-terser';
-import { SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
+import { type OutputOptions as RollupOutputOptions, type Plugin as RollupPlugin, type RollupOptions } from 'rollup';
+import { type RollupReplaceOptions } from '@rollup/plugin-replace';
+import { type CSSPluginOptions as SCSSPluginOptions } from 'rollup-plugin-scss';
+import { type Options as VuePluginOptions } from 'rollup-plugin-vue';
+import { type RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
+import { type RollupCommonJSOptions } from '@rollup/plugin-commonjs';
+import { type RollupTypescriptPluginOptions } from '@rollup/plugin-typescript';
+import { type RPT2Options as RollupTypescript2PluginOptions } from 'rollup-plugin-typescript2';
+import { type RollupJsonOptions } from '@rollup/plugin-json';
+import { type CopyOptions as RollupCopyPluginOptions } from 'rollup-plugin-copy';
+import { type Options as RollupTerserPluginOptions } from '@rollup/plugin-terser';
+import { type SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
 type RollupExternalType = string | RegExp | ((id: string) => boolean);
 type RollupExternalTypes = RollupExternalType | RollupExternalType[];
 type RollupBuildOptions = {

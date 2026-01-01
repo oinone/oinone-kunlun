@@ -1,15 +1,15 @@
-import { ExternalOption, OutputOptions as RollupOutputOptions, type Plugin as RollupPlugin, RollupOptions } from 'rollup';
-import replace, { RollupReplaceOptions } from '@rollup/plugin-replace';
-import scss, { CSSPluginOptions as SCSSPluginOptions } from 'rollup-plugin-scss';
-import vue, { Options as VuePluginOptions } from 'rollup-plugin-vue';
-import nodeResolve, { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
-import commonjs, { RollupCommonJSOptions } from '@rollup/plugin-commonjs';
-import typescript, { RollupTypescriptPluginOptions } from '@rollup/plugin-typescript';
-import typescript2, { RPT2Options as RollupTypescript2PluginOptions } from 'rollup-plugin-typescript2';
-import json, { RollupJsonOptions } from '@rollup/plugin-json';
-import copy, { CopyOptions as RollupCopyPluginOptions } from 'rollup-plugin-copy';
-import terser, { Options as RollupTerserPluginOptions } from '@rollup/plugin-terser';
-import sourcemaps, { SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
+import { type ExternalOption, type OutputOptions as RollupOutputOptions, type Plugin as RollupPlugin, type RollupOptions } from 'rollup';
+import replace, { type RollupReplaceOptions } from '@rollup/plugin-replace';
+import scss, { type CSSPluginOptions as SCSSPluginOptions } from 'rollup-plugin-scss';
+import vue, { type Options as VuePluginOptions } from 'rollup-plugin-vue';
+import nodeResolve, { type RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
+import commonjs, { type RollupCommonJSOptions } from '@rollup/plugin-commonjs';
+import typescript, { type RollupTypescriptPluginOptions } from '@rollup/plugin-typescript';
+import typescript2, { type RPT2Options as RollupTypescript2PluginOptions } from 'rollup-plugin-typescript2';
+import json, { type RollupJsonOptions } from '@rollup/plugin-json';
+import copy, { type CopyOptions as RollupCopyPluginOptions } from 'rollup-plugin-copy';
+import terser, { type Options as RollupTerserPluginOptions } from '@rollup/plugin-terser';
+import sourcemaps, { type SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
 import fs from 'fs';
 import path from 'path';
 
