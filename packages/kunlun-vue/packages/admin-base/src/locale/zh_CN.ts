@@ -1,4 +1,4 @@
-import ILangConfig from './type';
+import type ILangConfig from './type';
 
 export default {
   kunlun: {

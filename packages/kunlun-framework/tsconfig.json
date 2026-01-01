@@ -1,3 +1,5 @@
 {
-  "extends": "@oinone/kunlun-compile/tsconfig/multiple-module.json"
+  "extends": "@oinone/kunlun-compile/tsconfig/multiple-module.json",
+  "include": ["packages", "eslint.config.ts"],
+  "exclude": ["node_modules", "dist"]
 }

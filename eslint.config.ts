@@ -1,5 +1,6 @@
-import { globalIgnores } from 'eslint/config';
+import pluginOinone from '@oinone/kunlun-compile/eslint';
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
+import { globalIgnores } from 'eslint/config';
 import pluginVue from 'eslint-plugin-vue';
 
 // To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
@@ -17,14 +18,6 @@ export default defineConfigWithVueTs(
 
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
-
-  {
-    name: 'kunlun/files-to-lint',
-    files: ['**/*.{ts,mts,tsx,vue}'],
-    rules: {
-      '@typescript-eslint/no-unsafe-function-type': 'off',
-      '@typescript-eslint/no-wrapper-object-types': 'off',
-      'vue/no-dupe-keys': 'off'
-    }
-  }
+  pluginOinone.common,
+  pluginOinone.importExportRules
 );
