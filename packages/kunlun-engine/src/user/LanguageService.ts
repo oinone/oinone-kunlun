@@ -1,5 +1,5 @@
 import { ServiceIdentifier } from '@oinone/kunlun-spi';
-import { UserLang } from '../typing';
+import type { UserLang } from '../typing';
 
 export interface LanguageService {
   get(): Promise<UserLang | undefined>;

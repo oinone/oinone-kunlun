@@ -72,12 +72,12 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, type PropType } from 'vue';
 import { groupBy } from 'lodash-es';
-import { Pagination } from '@oinone/kunlun-engine';
+import type { Pagination } from '@oinone/kunlun-engine';
 import { OioPagination } from '@oinone/kunlun-vue-ui-antd';
 import { isComplexTtype } from '@oinone/kunlun-meta';
-import { ExpActiveType, ExpTtypeInfoMap, IExpSelectOption } from '../../types';
+import { ExpActiveType, ExpTtypeInfoMap, type IExpSelectOption } from '../../types';
 import { translateExpValue } from '../../share';
 
 export default defineComponent({

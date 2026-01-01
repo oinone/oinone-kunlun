@@ -1,4 +1,4 @@
-import { generatorGQLRequestParameterMap, GQLRequestParameterBuilder, GQLRequestParameterMap } from '../typing';
+import { generatorGQLRequestParameterMap, type GQLRequestParameterBuilder, type GQLRequestParameterMap } from '../typing';
 
 export class GQLRequestParameterBuilderImpl implements GQLRequestParameterBuilder {
   private readonly parameters: GQLRequestParameterMap;

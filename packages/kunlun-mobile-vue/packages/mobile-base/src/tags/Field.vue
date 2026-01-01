@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, Slots } from 'vue';
+import { defineComponent, type Slots } from 'vue';
 import { InternalWidget } from './resolve';
 import { BaseWidgetTagMixin } from './mixin';
 

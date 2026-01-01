@@ -1,18 +1,8 @@
 import { BooleanHelper, RSQLOperators } from '@oinone/kunlun-shared';
-import {
-  ArrayPattern,
-  BinaryExpression,
-  BooleanLiteral,
-  Identifier,
-  Literal,
-  NumberLiteral,
-  StringLiteral,
-  TemplateLiteral,
-  VisitContext
-} from '../../types';
-import { RSQLArrayPattern } from '../../types/rsql/pattern';
-import { StringAdapterContext } from '../to-string';
-import { VisitorAdapter } from '../visit';
+import type { ArrayPattern, BinaryExpression, BooleanLiteral, Identifier, Literal, NumberLiteral, StringLiteral, TemplateLiteral, VisitContext } from '../../types';
+import type { RSQLArrayPattern } from '../../types/rsql/pattern';
+import type { StringAdapterContext } from '../to-string';
+import type { VisitorAdapter } from '../visit';
 import { TranslateAdapter } from './adapter';
 
 export class RSQLTranslateAdapter extends TranslateAdapter implements VisitorAdapter<StringAdapterContext> {

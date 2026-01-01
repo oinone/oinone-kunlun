@@ -1,5 +1,5 @@
-import { Constructor, instantiate } from '@oinone/kunlun-shared';
-import { InterceptorOptions, NetworkInterceptor } from '../types';
+import { type Constructor, instantiate } from '@oinone/kunlun-shared';
+import type { InterceptorOptions, NetworkInterceptor } from '../types';
 
 type InternalInterceptors = Record<keyof InterceptorOptions, NetworkInterceptor>;
 

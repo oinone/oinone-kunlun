@@ -1,6 +1,6 @@
-import { DslDefinition, DslDefinitionHelper } from '@oinone/kunlun-dsl';
-import { IDslNode, RuntimeConfig } from '@oinone/kunlun-meta';
-import { GenericReturnType, GenericType, StandardString } from '@oinone/kunlun-shared';
+import { type DslDefinition, DslDefinitionHelper } from '@oinone/kunlun-dsl';
+import { type IDslNode, RuntimeConfig } from '@oinone/kunlun-meta';
+import type { GenericReturnType, GenericType, StandardString } from '@oinone/kunlun-shared';
 import { getSystemMajorConfig } from '../provider/major';
 import { getI18nStatus } from '../provider/provider';
 import { CurrentLanguage } from '../user';
@@ -61,8 +61,7 @@ useLanguage(lang);
  * 在项目中的main.ts文件
  *
  * import { registryLanguage, LanguageType, .... } from '@oinone/kunlun-vue';
- * import { CustomLanguageZH, CustomLanguageEN } from './customLanguage'
- *
+ * import { CustomLanguageZH, CustomLanguageEN } from './customLanguage';*
  * CustomLanguageZH -> {demo: {field: '这是字段'}}
  * CustomLanguageEN -> {demo: {field: 'this is field'}}
  *

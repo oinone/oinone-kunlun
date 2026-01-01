@@ -4,8 +4,8 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { get as getValue } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';
-import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
-import { NumberValue } from '../abstract/FormNumberAbstractFieldWidget';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../typing';
+import type { NumberValue } from '../abstract/FormNumberAbstractFieldWidget';
 import Tag from '../string/tag/Tag.vue';
 import { FormIntegerFieldWidget } from './FormIntegerFieldWidget';
 

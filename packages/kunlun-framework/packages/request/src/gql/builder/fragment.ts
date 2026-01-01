@@ -1,11 +1,5 @@
 import { fragmentsToString } from '../convert';
-import {
-  GQLFragmentBuilder,
-  GQLFragmentDefinition,
-  GQLResponseParameterBuilder,
-  GQLResponseParameterMap,
-  SimpleGQLResponseParameter
-} from '../typing';
+import type { GQLFragmentBuilder, GQLFragmentDefinition, GQLResponseParameterBuilder, GQLResponseParameterMap, SimpleGQLResponseParameter } from '../typing';
 import { GQLResponseParameterBuilderImpl } from './response';
 
 export class GQLFragmentBuilderImpl implements GQLFragmentBuilder {

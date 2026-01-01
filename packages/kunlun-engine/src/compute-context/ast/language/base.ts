@@ -1,5 +1,5 @@
 import * as types from '../tokens';
-import { AnyExpression, Node, ParserContext, Token, TokenParser, TokenReader, TokenType } from '../types';
+import { type AnyExpression, type Node, type ParserContext, type Token, type TokenParser, type TokenReader, TokenType } from '../types';
 import { createParseContext } from '../utils/helper';
 
 type ReadTextResult = {

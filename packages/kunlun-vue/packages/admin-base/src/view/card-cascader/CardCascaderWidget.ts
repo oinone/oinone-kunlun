@@ -1,8 +1,8 @@
 import { ViewType } from '@oinone/kunlun-meta';
-import { OioTreeNode } from '@oinone/kunlun-shared';
+import type { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { BaseElementWidget } from '../../basic';
-import { CardCascaderItemData } from '../../typing';
+import type { CardCascaderItemData } from '../../typing';
 import { AbstractCardCascaderElementWidget } from './AbstractCardCascaderElementWidget';
 
 @SPI.ClassFactory(

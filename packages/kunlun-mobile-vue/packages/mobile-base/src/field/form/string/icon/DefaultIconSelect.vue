@@ -24,7 +24,7 @@
 import { OioButton, OioIcon, OioModal } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { isEmpty, isString } from 'lodash-es';
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { computed, defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, type PropType, ref } from 'vue';
 import { IconDefine, IconSelect } from '../../../../components';
 
 interface EditValue {

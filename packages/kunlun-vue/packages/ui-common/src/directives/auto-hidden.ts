@@ -1,5 +1,5 @@
-import { BooleanHelper, CastHelper, CSSStyle, NumberHelper } from '@oinone/kunlun-shared';
-import { ObjectDirective } from '@vue/runtime-core';
+import { BooleanHelper, CastHelper, type CSSStyle, NumberHelper } from '@oinone/kunlun-shared';
+import type { ObjectDirective } from '@vue/runtime-core';
 import { isObject } from 'lodash-es';
 import { nextTick } from 'vue';
 import { DEFAULT_PREFIX } from '../theme';

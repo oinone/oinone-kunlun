@@ -1,4 +1,4 @@
-import { App, shallowRef, computed } from 'vue';
+import { type App, shallowRef, computed } from 'vue';
 import { getRouterInstance, ActivatedRoute } from '@oinone/kunlun-router';
 
 import { ACTIVATED_ROUTE_TOKEN } from './token';

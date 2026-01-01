@@ -1,7 +1,7 @@
-import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { isObjectLike } from 'lodash-es';
-import { RuntimeContext } from '../runtime-context';
+import type { RuntimeContext } from '../runtime-context';
 
 const IGNORED_KEYS = ['widgets'];
 

@@ -1,4 +1,4 @@
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 import { FormLayout } from '../component/oio-form/props';
 
 export const OioComponentData = {

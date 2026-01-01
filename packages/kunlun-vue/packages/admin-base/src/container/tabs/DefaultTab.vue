@@ -1,10 +1,10 @@
 <script lang="ts">
-import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { onTabInvisibleChange, useOioFormLayoutContext } from '@oinone/kunlun-vue-ui-antd';
-import { OioTabProps, PropRecordHelper, TabHTMLNode, useInjectOioTabsContext } from '@oinone/kunlun-vue-ui-common';
+import { OioTabProps, PropRecordHelper, type TabHTMLNode, useInjectOioTabsContext } from '@oinone/kunlun-vue-ui-common';
 import { DslRender } from '@oinone/kunlun-vue-widget';
 import { TabPane as ATabPane } from 'ant-design-vue';
-import { createVNode, defineComponent, getCurrentInstance, onUpdated, PropType, watch } from 'vue';
+import { createVNode, defineComponent, getCurrentInstance, onUpdated, type PropType, watch } from 'vue';
 import { InternalWidget, ResolveMode } from '../../tags/resolve/typing';
 
 export default defineComponent({

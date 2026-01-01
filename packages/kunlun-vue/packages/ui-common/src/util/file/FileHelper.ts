@@ -1,4 +1,4 @@
-import { FileModel } from './typing';
+import type { FileModel } from './typing';
 
 function isAbsoluteURL(url) {
   return /^(?:[a-z]+:)?\/\//i.test(url);

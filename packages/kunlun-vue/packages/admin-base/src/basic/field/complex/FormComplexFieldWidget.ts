@@ -1,15 +1,9 @@
-import {
-  ActiveRecords,
-  resolveDynamicDomain,
-  RuntimeModel,
-  RuntimeRelationField,
-  SubmitCacheManager
-} from '@oinone/kunlun-engine';
+import { type ActiveRecords, resolveDynamicDomain, type RuntimeModel, type RuntimeRelationField, SubmitCacheManager } from '@oinone/kunlun-engine';
 import { isDev } from '@oinone/kunlun-router';
-import { CallChaining, ReturnPromise } from '@oinone/kunlun-shared';
+import { CallChaining, type ReturnPromise } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { SUBVIEW_WIDGET_PRIORITY } from '../../constant';
-import { BaseFieldProps } from '../../token';
+import type { BaseFieldProps } from '../../token';
 import { FormFieldWidget } from '../FormFieldWidget';
 
 export type FormComplexFieldProps<Field extends RuntimeRelationField = RuntimeRelationField> = BaseFieldProps<Field>;

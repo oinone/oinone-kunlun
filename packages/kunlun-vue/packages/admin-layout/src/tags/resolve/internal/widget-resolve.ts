@@ -1,8 +1,8 @@
-import { Constructor } from '@oinone/kunlun-shared';
-import { getWidgetNotNull, RenderWidget, ViewWidget, VueWidget } from '@oinone/kunlun-vue-widget';
-import { BaseMaskOptions, BaseMaskWidget, BaseMaskWidgetProps } from '../../../basic';
+import type { Constructor } from '@oinone/kunlun-shared';
+import { getWidgetNotNull, type RenderWidget, ViewWidget, VueWidget } from '@oinone/kunlun-vue-widget';
+import { type BaseMaskOptions, BaseMaskWidget, type BaseMaskWidgetProps } from '../../../basic';
 import { InternalMaskWidget } from '../typing';
-import { DslDefinitionTypeProps } from './typing';
+import type { DslDefinitionTypeProps } from './typing';
 
 function createNormalItem(
   widgets: VueWidget[],

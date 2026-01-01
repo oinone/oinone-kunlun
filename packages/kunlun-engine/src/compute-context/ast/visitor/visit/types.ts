@@ -1,18 +1,4 @@
-import {
-  ArrayPattern,
-  BinaryExpression,
-  CallExpression,
-  ConditionalExpression,
-  ExpressionStatement,
-  Identifier,
-  Literal,
-  LogicalExpression,
-  MemberExpression,
-  Node,
-  TokenContext,
-  UnaryExpression,
-  VisitContext
-} from '../../types';
+import type { ArrayPattern, BinaryExpression, CallExpression, ConditionalExpression, ExpressionStatement, Identifier, Literal, LogicalExpression, MemberExpression, Node, TokenContext, UnaryExpression, VisitContext } from '../../types';
 
 export interface AdapterContext extends TokenContext {
   visitor: VisitorAdapter;

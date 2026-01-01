@@ -1,6 +1,6 @@
-import { Component, defineComponent } from 'vue';
+import { type Component, defineComponent } from 'vue';
 import { useWidgetTag, UseWidgetTagMixin } from '../mixin';
-import { CreateCustomWidgetFunction, registerCustomWidgetFunction } from '../resolve';
+import { type CreateCustomWidgetFunction, registerCustomWidgetFunction } from '../resolve';
 import { createCommonCustomWidget, createElementWidget, createPackWidget } from '../resolve/internal';
 
 const CUSTOM_VIEW_TAG_MAP = new Map<Component, string | string[]>();

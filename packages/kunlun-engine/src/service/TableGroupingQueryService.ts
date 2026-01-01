@@ -1,11 +1,11 @@
-import { GQL, GQLResponseParameterBuilder } from '@oinone/kunlun-request';
+import { GQL, type GQLResponseParameterBuilder } from '@oinone/kunlun-request';
 import { GraphqlHelper } from '@oinone/kunlun-shared';
-import { RequestModelField } from '../runtime-context';
-import { RuntimeModel } from '../runtime-metadata';
-import { ActiveRecord } from '../typing';
+import type { RequestModelField } from '../runtime-context';
+import type { RuntimeModel } from '../runtime-metadata';
+import type { ActiveRecord } from '../typing';
 import { FunctionService } from './FunctionService';
-import { FunctionMetadata, GroupingData, GroupingField, GroupingStatisticField } from './metadata';
-import { QueryPageOptions, QueryService, QueryWrapperOptions } from './QueryService';
+import { FunctionMetadata, type GroupingData, type GroupingField, type GroupingStatisticField } from './metadata';
+import { type QueryPageOptions, QueryService, type QueryWrapperOptions } from './QueryService';
 import { RequestHelper } from './util/request-helper';
 
 export interface TableGroupingWrapperOptions extends QueryWrapperOptions {

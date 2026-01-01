@@ -43,13 +43,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, type PropType, ref, watch } from 'vue';
 import draggable from 'vuedraggable';
 import { Checkbox as VxeCheckbox } from 'vxe-table';
 import { translate } from '@oinone/kunlun-engine';
 import { DEFAULT_PREFIX, OioButton, OioIcon } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Popover as VanPopover } from 'vant';
-import { OperateEntity, VisibleField, UserTablePrefer } from '../../typing';
+import type { OperateEntity, VisibleField, UserTablePrefer } from '../../typing';
 
 export default defineComponent({
   name: 'OperationTitle',

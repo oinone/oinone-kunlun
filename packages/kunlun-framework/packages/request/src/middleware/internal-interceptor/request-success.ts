@@ -1,5 +1,5 @@
 import { MessageHub } from '../../message';
-import { ILevel, IResponseResult, NetworkInterceptor } from '../../types';
+import { ILevel, type IResponseResult, type NetworkInterceptor } from '../../types';
 
 export class RequestSuccessInterceptor implements NetworkInterceptor {
   public success(response: IResponseResult) {

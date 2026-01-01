@@ -1,8 +1,8 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { RowContext } from '@oinone/kunlun-vue-ui';
+import type { RowContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { createVNode, VNode } from 'vue';
+import { createVNode, type VNode } from 'vue';
 import { BaseFieldWidget } from '../../../basic';
 import { TableStringFieldWidget } from '../string';
 

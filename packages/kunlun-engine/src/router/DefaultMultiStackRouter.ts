@@ -1,4 +1,4 @@
-import { MultiStackRouter, StackStores } from './typing';
+import type { MultiStackRouter, StackStores } from './typing';
 
 export class DefaultMultiStackRouter implements MultiStackRouter {
   public static INSTANCE = new DefaultMultiStackRouter();

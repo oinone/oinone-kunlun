@@ -1,4 +1,4 @@
-import { RuntimeModelField } from '@oinone/kunlun-engine';
+import type { RuntimeModelField } from '@oinone/kunlun-engine';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { InputMediaMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';

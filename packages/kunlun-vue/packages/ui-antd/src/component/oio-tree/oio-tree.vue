@@ -1,12 +1,6 @@
 <script lang="ts">
-import { OioTreeNode, StringHelper } from '@oinone/kunlun-shared';
-import {
-  OioTreeProps,
-  PropRecordHelper,
-  TreeNodeCheckedEvent,
-  TreeNodeExpandedEvent,
-  TreeNodeSelectedEvent
-} from '@oinone/kunlun-vue-ui-common';
+import { type OioTreeNode, StringHelper } from '@oinone/kunlun-shared';
+import { OioTreeProps, PropRecordHelper, type TreeNodeCheckedEvent, type TreeNodeExpandedEvent, type TreeNodeSelectedEvent } from '@oinone/kunlun-vue-ui-common';
 import { Tree as ATree } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, ref } from 'vue';

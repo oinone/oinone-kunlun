@@ -1,8 +1,8 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { OioColgroup, OioColgroupProps } from '@oinone/kunlun-vue-ui';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { computed, createVNode, defineComponent, PropType } from 'vue';
+import { computed, createVNode, defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
   name: 'DefaultColgroupColumn',

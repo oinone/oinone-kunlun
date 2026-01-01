@@ -1,5 +1,5 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { BaseMaskWidgetProps } from '../../basic';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import type { BaseMaskWidgetProps } from '../../basic';
 
 export interface CreateMaskWidgetProps extends BaseMaskWidgetProps {
   automatic?: boolean;

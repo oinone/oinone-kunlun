@@ -4,7 +4,7 @@ import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
-import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../../typing';
 import { FormStringFieldWidget } from '../../string';
 import RichText from './RichText.vue';
 

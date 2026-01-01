@@ -1,4 +1,4 @@
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 import { VcMaskPopupAppearanceProps, VcPopupAppearanceProps, VcPopupControlProps, VcPopupDataProps } from '../vc-popup';
 import { DrawerHeight, DrawerPlacement, DrawerWidth } from './typing';
 

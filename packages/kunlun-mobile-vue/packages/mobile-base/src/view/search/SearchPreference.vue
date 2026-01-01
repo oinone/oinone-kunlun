@@ -107,25 +107,10 @@
 
 <script>
 import { computed, defineComponent, onMounted, ref } from 'vue';
-import {
-  OioButton,
-  OioForm,
-  OioFormItem,
-  OioIcon,
-  OioInput,
-  OioMessage,
-  OioModal,
-  OioEmptyData
-} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { OioButton, OioForm, OioFormItem, OioIcon, OioInput, OioMessage, OioModal, OioEmptyData } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { ActiveRecordExtendKeys, translateValueByKey } from '@oinone/kunlun-engine';
 import { deepClone } from '@oinone/kunlun-meta';
-import {
-  createUserQueryPrefer,
-  deleteUserQueryPrefer,
-  injectSearchPreferFun,
-  querySearchPreferByUserId,
-  updateUserQueryPreferName
-} from './service.ts';
+import { createUserQueryPrefer, deleteUserQueryPrefer, injectSearchPreferFun, querySearchPreferByUserId, updateUserQueryPreferName } from './service.ts';
 
 export default defineComponent({
   name: 'SearchPreference',

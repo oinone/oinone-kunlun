@@ -1,14 +1,9 @@
-import { ModelFieldType, IModelField, ViewType, SystemSource } from '@oinone/kunlun-meta';
+import { ModelFieldType, type IModelField, ViewType, SystemSource } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { ExpressionKeyword } from '@oinone/kunlun-expression';
 import { FormFieldWidget } from '../../../../../basic';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import {
-  ModelFieldSelectControl,
-  ExpressionKeywordDisplayName,
-  IVariableContextItem,
-  IVariableItem
-} from '@oinone/kunlun-vue-expression';
+import { ModelFieldSelectControl, ExpressionKeywordDisplayName, type IVariableContextItem, type IVariableItem } from '@oinone/kunlun-vue-expression';
 import { isBoolean, isNil, isString } from 'lodash-es';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 

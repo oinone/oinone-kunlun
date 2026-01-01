@@ -4,8 +4,8 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
 import { FormStringInputFieldWidget } from '../../../field';
-import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
-import { HomepageConfigRule } from '../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../typing';
+import type { HomepageConfigRule } from '../typing';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({

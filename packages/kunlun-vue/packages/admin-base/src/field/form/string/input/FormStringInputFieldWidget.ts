@@ -3,7 +3,7 @@ import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseFieldWidget } from '../../../../basic';
-import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../../typing';
 import { encrypt } from '../../../../util';
 import { FormStringFieldWidget } from '../FormStringFieldWidget';
 

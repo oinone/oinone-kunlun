@@ -1,7 +1,7 @@
 import { QueryPageResult } from '@oinone/kunlun-engine';
 import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { gql, HttpClient } from '@oinone/kunlun-request';
-import { ResourceCountry } from '../../typing';
+import type { ResourceCountry } from '../../typing';
 
 const http = HttpClient.getInstance();
 

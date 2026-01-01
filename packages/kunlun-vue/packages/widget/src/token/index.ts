@@ -1,4 +1,4 @@
-import { InjectionKey } from 'vue';
+import type { InjectionKey } from 'vue';
 import { InjectionToken } from '@oinone/kunlun-spi';
 
 const __DEV__ = process.env.NODE_ENV === 'development';

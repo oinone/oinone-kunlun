@@ -2,7 +2,7 @@ import { GroupingField, isAllowGrouping } from '@oinone/kunlun-engine';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
-import { SortableGroupOption } from '../../../components';
+import type { SortableGroupOption } from '../../../components';
 import DefaultGroupControl from './DefaultGroupControl.vue';
 
 type GroupingFieldOption = GroupingField & { title?: string };

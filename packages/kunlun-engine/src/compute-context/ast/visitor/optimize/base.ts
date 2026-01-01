@@ -1,22 +1,7 @@
 import { TokenPropertiesManager } from '../../manager';
-import {
-  AnyExpression,
-  BooleanLiteral,
-  getLiteralValue,
-  Identifier,
-  isIdentifier,
-  isMemberExpression,
-  Literal,
-  MemberExpression,
-  Node,
-  NullLiteral,
-  NumberLiteral,
-  StringLiteral,
-  UndefinedLiteral,
-  VisitContext
-} from '../../types';
+import { type AnyExpression, type BooleanLiteral, getLiteralValue, type Identifier, isIdentifier, isMemberExpression, type Literal, type MemberExpression, type Node, type NullLiteral, type NumberLiteral, type StringLiteral, type UndefinedLiteral, type VisitContext } from '../../types';
 import { ToString } from '../to-string';
-import { AdapterContext } from '../visit';
+import type { AdapterContext } from '../visit';
 import { NodeConverter } from './convert';
 
 export interface BaseOptimizeAdapterOptions {

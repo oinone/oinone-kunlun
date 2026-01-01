@@ -1,6 +1,6 @@
 import { SPIFactory } from '../operator';
-import { StorageKey } from '../operator/storage';
-import { SPIMatchKeys } from '../typing';
+import type { StorageKey } from '../operator/storage';
+import type { SPIMatchKeys } from '../typing';
 
 export const Base = (
   tokenType: StorageKey,

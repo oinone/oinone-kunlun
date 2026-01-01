@@ -1,7 +1,7 @@
 import { ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
 import { Condition, ILevel } from '@oinone/kunlun-request';
-import { ReturnPromise } from '@oinone/kunlun-shared';
-import { Component } from 'vue';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
+import type { Component } from 'vue';
 
 export interface QueryExpression {
   leftValue: string[];

@@ -1,5 +1,5 @@
-import { PropType } from 'vue';
-import { PaginationResult, SelectItem, SelectProperties } from './model';
+import type { PropType } from 'vue';
+import type { PaginationResult, SelectItem, SelectProperties } from './model';
 
 export enum SelectMode {
   single = 'single',

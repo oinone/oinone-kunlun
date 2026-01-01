@@ -133,20 +133,10 @@
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldTypeDisplayName } from '@oinone/kunlun-meta';
 import { GraphqlHelper } from '@oinone/kunlun-shared';
-import {
-  OioButton,
-  OioForm,
-  OioFormItem,
-  OioInput,
-  OioModal,
-  OioSwitch,
-  OioTab,
-  OioTabs,
-  OioTextarea
-} from '@oinone/kunlun-vue-ui-antd';
+import { OioButton, OioForm, OioFormItem, OioInput, OioModal, OioSwitch, OioTab, OioTabs, OioTextarea } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineEmits, defineProps, ref, watch, withDefaults } from 'vue';
-import { IPermission } from '../../permission/type';
-import { ActionPermissionNode, AnyPermissionNode } from '../../types';
+import type { IPermission } from '../../permission/type';
+import type { ActionPermissionNode, AnyPermissionNode } from '../../types';
 import { queryActionsByMenu, queryGroupData } from '../service';
 import { useStore } from '../store';
 import DataPermission from './data-permission/data-permission.vue';

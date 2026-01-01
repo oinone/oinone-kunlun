@@ -1,5 +1,5 @@
 import { Optional } from '@oinone/kunlun-shared';
-import { Component, VNode } from 'vue';
+import type { Component, VNode } from 'vue';
 
 export type HTMLElementEntity = HTMLElement & Record<string, unknown>;
 

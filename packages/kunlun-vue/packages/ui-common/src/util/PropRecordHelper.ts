@@ -1,6 +1,6 @@
-import { CastHelper, CSSStyle, StringHelper } from '@oinone/kunlun-shared';
+import { CastHelper, type CSSStyle, StringHelper } from '@oinone/kunlun-shared';
 import { isArray, isFunction, isNil, isObject, isString } from 'lodash-es';
-import { Slot, Slots, VNodeProps } from 'vue';
+import { type Slot, type Slots, VNodeProps } from 'vue';
 import { StyleHelper } from './style';
 
 /**

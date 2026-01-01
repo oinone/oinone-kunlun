@@ -40,7 +40,7 @@
 import { genStaticPath } from '@oinone/kunlun-engine';
 import { OioEmptyData, OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { OioIcon } from '@oinone/kunlun-vue-ui-common';
-import { defineComponent, PropType, ref } from 'vue';
+import { defineComponent, type PropType, ref } from 'vue';
 import BizAuditRecordDetail from './BizAuditRecordDetail.vue';
 
 export default defineComponent({

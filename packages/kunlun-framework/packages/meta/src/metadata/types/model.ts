@@ -1,5 +1,5 @@
-import { BIGINT, EntityId } from './value';
-import { IView, SystemSource, ViewActionTarget, ViewType } from './view';
+import type { BIGINT, EntityId } from './value';
+import { type IView, SystemSource, ViewActionTarget, ViewType } from './view';
 
 export type ModelId = EntityId;
 

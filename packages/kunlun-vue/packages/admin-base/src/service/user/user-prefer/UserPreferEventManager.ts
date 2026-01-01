@@ -1,5 +1,5 @@
 import { BlockingEventManager } from '@oinone/kunlun-shared';
-import { UserTablePrefer } from '../../../typing';
+import type { UserTablePrefer } from '../../../typing';
 
 enum EventKeys {
   reload = 'reload',

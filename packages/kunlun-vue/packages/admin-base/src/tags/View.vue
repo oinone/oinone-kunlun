@@ -1,19 +1,11 @@
 <script lang="ts">
 import { ViewType } from '@oinone/kunlun-meta';
 import { Optional } from '@oinone/kunlun-shared';
-import {
-  DslRender,
-  renderWidgets,
-  reportAllMounted,
-  useInjectMetaContext,
-  useProviderMetaContext,
-  VueWidget,
-  WidgetTagProps
-} from '@oinone/kunlun-vue-widget';
-import { computed, defineComponent, PropType, ref, Slots } from 'vue';
+import { DslRender, renderWidgets, reportAllMounted, useInjectMetaContext, useProviderMetaContext, VueWidget, WidgetTagProps } from '@oinone/kunlun-vue-widget';
+import { computed, defineComponent, type PropType, ref, type Slots } from 'vue';
 import { createOrUpdateRuntimeContextByDslDefinition } from './context';
 import { createCustomWidget, InternalWidget } from './resolve';
-import { ViewWidgetProps } from './resolve/internal';
+import type { ViewWidgetProps } from './resolve/internal';
 
 export default defineComponent({
   name: 'View',

@@ -1,4 +1,4 @@
-import { EventCategoryType } from './category';
+import type { EventCategoryType } from './category';
 
 export interface EventEngine<K = string> {
   key: string;

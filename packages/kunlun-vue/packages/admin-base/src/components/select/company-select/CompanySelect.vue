@@ -1,8 +1,8 @@
 <script lang="ts">
-import { PamirsCompany, TableKeyboardConfig } from '@oinone/kunlun-engine';
-import { OioSelectItem } from '@oinone/kunlun-shared';
+import type { PamirsCompany, TableKeyboardConfig } from '@oinone/kunlun-engine';
+import type { OioSelectItem } from '@oinone/kunlun-shared';
 import { CastHelper, OioButton, PropRecordHelper, StringHelper } from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType } from 'vue';
+import { computed, createVNode, defineComponent, type PropType } from 'vue';
 import { DefaultSelect, DefaultSelectProps } from '../base';
 import { selectorCompanySelectOptionRender } from './render';
 

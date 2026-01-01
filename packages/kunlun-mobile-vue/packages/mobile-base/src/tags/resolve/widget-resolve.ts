@@ -1,19 +1,9 @@
 import { isDev } from '@oinone/kunlun-router';
 import { CastHelper } from '@oinone/kunlun-shared';
-import { defaultMetaContext, RenderWidget } from '@oinone/kunlun-vue-widget';
+import { defaultMetaContext, type RenderWidget } from '@oinone/kunlun-vue-widget';
 import { unref } from 'vue';
-import {
-  createActionColumnWidget,
-  createActionWidget,
-  createColWidget,
-  createCommonCustomWidget,
-  createContainerWidget,
-  createElementWidget,
-  createFieldWidget,
-  createPackWidget,
-  createViewWidget
-} from './internal';
-import { CustomWidgetProps, InternalWidget } from './typing';
+import { createActionColumnWidget, createActionWidget, createColWidget, createCommonCustomWidget, createContainerWidget, createElementWidget, createFieldWidget, createPackWidget, createViewWidget } from './internal';
+import { type CustomWidgetProps, InternalWidget } from './typing';
 
 export type CreateCustomWidgetFunction<T extends CustomWidgetProps = CustomWidgetProps> = (
   props: T

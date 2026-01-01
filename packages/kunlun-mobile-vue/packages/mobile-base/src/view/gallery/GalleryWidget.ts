@@ -2,7 +2,7 @@ import { DslDefinitionType } from '@oinone/kunlun-dsl';
 import { ViewType } from '@oinone/kunlun-meta';
 import { NumberHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { DEFAULT_GUTTERS, StandardGutterType } from '@oinone/kunlun-vue-ui-common';
+import { DEFAULT_GUTTERS, type StandardGutterType } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget, BaseElementListViewWidget } from '../../basic';
 import DefaultGallery from './DefaultGallery.vue';

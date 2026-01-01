@@ -2,7 +2,7 @@
   <span v-if="!invisible" class="mobile-default-label" :style="{ fontSize: labelFontSize }">{{ label }}</span>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 import { TextInfoJustifyContent } from './typing';
 
 export default defineComponent({

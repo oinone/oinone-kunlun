@@ -1,11 +1,11 @@
-import { ActiveRecord, executeViewAction, RuntimeViewAction } from '@oinone/kunlun-engine';
+import { type ActiveRecord, executeViewAction, type RuntimeViewAction } from '@oinone/kunlun-engine';
 import { ActionType } from '@oinone/kunlun-meta';
 import { http } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { ActionWidget } from '../../../action/component/action/ActionWidget';
 import { gotoPrevPage } from '../../../util';
-import { IPermission } from '../type';
+import type { IPermission } from '../type';
 
 @SPI.ClassFactory(ActionWidget.Token({ actionType: ActionType.Client, name: '$$permission_submit' }))
 export class PermissionSubmitActionWidget extends ActionWidget {

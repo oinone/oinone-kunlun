@@ -1,5 +1,5 @@
-import { ComputableType, isNullableComputableType } from '@oinone/kunlun-shared';
-import { isUnaryExpression, Node, NodeVisitor, UnaryExpression, VisitContext } from '../../../types';
+import { type ComputableType, isNullableComputableType } from '@oinone/kunlun-shared';
+import { isUnaryExpression, type Node, type NodeVisitor, type UnaryExpression, type VisitContext } from '../../../types';
 
 export class UnaryExpressionExecutor implements NodeVisitor<UnaryExpression> {
   public static readonly INSTANCE = new UnaryExpressionExecutor();

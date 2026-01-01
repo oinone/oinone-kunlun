@@ -1,22 +1,12 @@
 <script lang="ts">
 import { DownOutlined } from '@ant-design/icons-vue';
-import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
+import { type ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { ListSelectMode, OioDropdownTrigger, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
-import {
-  computed,
-  createElementVNode,
-  createVNode,
-  defineComponent,
-  PropType,
-  ref,
-  VNode,
-  vShow,
-  withDirectives
-} from 'vue';
+import { computed, createElementVNode, createVNode, defineComponent, type PropType, ref, type VNode, vShow, withDirectives } from 'vue';
 import { ActiveCountEnum } from '../../../typing';
 import { CollectionActions } from '../../../util/collection-actions';
 import DefaultDropdown from '../dropdown/DefaultDropdown.vue';

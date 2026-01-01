@@ -1,7 +1,7 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { AbstractListModelApi, GenericFunctionService } from '../../service';
-import { AuthRole } from '../../typing';
-import { AuthRoleMetadata, AuthRoleQueryFilter, AuthRoleService, AuthRoleServiceToken } from '../AuthRoleService';
+import type { AuthRole } from '../../typing';
+import { AuthRoleMetadata, type AuthRoleQueryFilter, type AuthRoleService, AuthRoleServiceToken } from '../AuthRoleService';
 
 @SPI.Service(AuthRoleServiceToken)
 export class AuthRoleServiceImpl extends AbstractListModelApi<AuthRole> implements AuthRoleService {

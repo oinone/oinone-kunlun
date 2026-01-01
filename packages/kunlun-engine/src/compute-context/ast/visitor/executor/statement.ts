@@ -1,4 +1,4 @@
-import { ExpressionStatement, isStatement, Node, NodeVisitor, Statement, VisitContext } from '../../types';
+import { type ExpressionStatement, isStatement, type Node, type NodeVisitor, type Statement, type VisitContext } from '../../types';
 
 export class StatementExecutor implements NodeVisitor<Statement> {
   public static readonly INSTANCE = new StatementExecutor();

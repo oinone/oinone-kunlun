@@ -1,6 +1,6 @@
-import { ActionDslDefinition } from '@oinone/kunlun-dsl';
-import { RuntimeUrlAction } from '../../../runtime-metadata';
-import { RuntimeContext } from '../../runtime-context';
+import type { ActionDslDefinition } from '@oinone/kunlun-dsl';
+import type { RuntimeUrlAction } from '../../../runtime-metadata';
+import type { RuntimeContext } from '../../runtime-context';
 
 export function convertUrlAction(runtimeContext: RuntimeContext, dsl: ActionDslDefinition, action: RuntimeUrlAction) {
   action.url = dsl.url;

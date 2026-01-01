@@ -1,4 +1,4 @@
-import { ArrayPattern, Node, NodeVisitor, VisitContext } from '../../../types';
+import type { ArrayPattern, Node, NodeVisitor, VisitContext } from '../../../types';
 
 export class ArrayExecutor implements NodeVisitor<ArrayPattern> {
   public static readonly INSTANCE = new ArrayExecutor();

@@ -1,11 +1,4 @@
-import {
-  SPIFactory,
-  SPIMatchAnyValue,
-  SPIMultiSelectorNoOptions,
-  SPIOperator,
-  SPIOptions,
-  SPITokenFactory
-} from '@oinone/kunlun-spi';
+import { SPIFactory, SPIMatchAnyValue, type SPIMultiSelectorNoOptions, SPIOperator, type SPIOptions, type SPITokenFactory } from '@oinone/kunlun-spi';
 import { VueWidget } from '@oinone/kunlun-vue-widget';
 
 export type RootComponentType = VueWidget | { new (): VueWidget };

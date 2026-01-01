@@ -1,6 +1,6 @@
 import { unref, WritableComputedRef } from 'vue';
 import { PopperTrigger } from '../props';
-import { PopperEvents } from './typing';
+import type { PopperEvents } from './typing';
 
 function createBlurEvent(triggerFocused: WritableComputedRef<boolean>, hide: () => void) {
   return (e: Event) => {

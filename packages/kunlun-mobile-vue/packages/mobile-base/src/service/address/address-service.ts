@@ -1,9 +1,9 @@
-import { Pagination } from '@oinone/kunlun-engine';
+import type { Pagination } from '@oinone/kunlun-engine';
 import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
-import { ObjectValue, RequestContext } from '@oinone/kunlun-request';
+import type { ObjectValue, RequestContext } from '@oinone/kunlun-request';
 import { http, IQueryPageResult } from '@oinone/kunlun-service';
 import { GraphqlHelper } from '@oinone/kunlun-shared';
-import { ResourceAddress } from '../../typing';
+import type { ResourceAddress } from '../../typing';
 
 export class AddressService {
   public static async construct(data: ResourceAddress): Promise<ResourceAddress> {

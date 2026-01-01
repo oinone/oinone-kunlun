@@ -1,10 +1,10 @@
-import { IPopupWidget, PopupManager } from '@oinone/kunlun-engine';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import { type IPopupWidget, PopupManager } from '@oinone/kunlun-engine';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPIFactory } from '@oinone/kunlun-spi';
 import { RootComponentSPI } from '../../spi';
 import { PopupScene } from '../../typing';
 import { DialogWidget } from '../../view';
-import { PopupContainerWidget, PopupInfo } from './PopupContainerWidget';
+import { PopupContainerWidget, type PopupInfo } from './PopupContainerWidget';
 
 @SPIFactory.Register(RootComponentSPI.Token({ widget: 'dialog-container' }))
 export class DialogContainerWidget extends PopupContainerWidget {

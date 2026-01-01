@@ -1,6 +1,6 @@
-import { RuntimeContext } from '@oinone/kunlun-engine';
+import type { RuntimeContext } from '@oinone/kunlun-engine';
 import { ServiceIdentifier } from '@oinone/kunlun-spi';
-import { DebugErrorAnalysisResult } from '../../typing';
+import type { DebugErrorAnalysisResult } from '../../typing';
 
 /**
  * 调试运行时上下文异常分析服务

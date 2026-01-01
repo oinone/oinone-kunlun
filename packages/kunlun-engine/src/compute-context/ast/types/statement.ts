@@ -1,4 +1,4 @@
-import { AnyExpression, Node, Statement } from './base';
+import type { AnyExpression, Node, Statement } from './base';
 
 export type BlockStatement = Statement & {
   type: 'BlockStatement';

@@ -1,4 +1,4 @@
-import { OioListItem, OioTreeNode } from '@oinone/kunlun-shared';
+import type { OioListItem, OioTreeNode } from '@oinone/kunlun-shared';
 
 export class CheckedHelper {
   public static diffListCheckedKeys(

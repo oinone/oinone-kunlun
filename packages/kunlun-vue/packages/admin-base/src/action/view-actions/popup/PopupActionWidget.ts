@@ -1,28 +1,16 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import {
-  ActiveRecord,
-  ActiveRecordsOperator,
-  computeViewMode,
-  PushActiveRecordsPredict,
-  resolveDynamicDomain,
-  RuntimeContext,
-  RuntimeView,
-  RuntimeViewAction,
-  SubmitCacheManager,
-  translateValueByKey,
-  UpdateActiveRecordsByEntityPredict
-} from '@oinone/kunlun-engine';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { type ActiveRecord, ActiveRecordsOperator, computeViewMode, type PushActiveRecordsPredict, resolveDynamicDomain, type RuntimeContext, type RuntimeView, type RuntimeViewAction, SubmitCacheManager, translateValueByKey, type UpdateActiveRecordsByEntityPredict } from '@oinone/kunlun-engine';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { ActionContextType, ViewMode, ViewType } from '@oinone/kunlun-meta';
-import { debugConsole, ReturnPromise } from '@oinone/kunlun-shared';
+import { debugConsole, type ReturnPromise } from '@oinone/kunlun-shared';
 import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { MetadataViewWidget } from '../../../basic';
-import { ClickResult, PopupSubmitParameters } from '../../../typing';
+import type { ClickResult, PopupSubmitParameters } from '../../../typing';
 import { ViewActionWidget } from '../ViewActionWidget';
-import { PopupLoadDataResult } from './typing';
-import { createPopupDslDefinition, PopupDslDefinition, seekPopupDslDefinition } from './util';
+import type { PopupLoadDataResult } from './typing';
+import { createPopupDslDefinition, type PopupDslDefinition, seekPopupDslDefinition } from './util';
 
 export abstract class PopupActionWidget extends ViewActionWidget {
   protected metadataSubviewWidget: MetadataViewWidget | undefined;

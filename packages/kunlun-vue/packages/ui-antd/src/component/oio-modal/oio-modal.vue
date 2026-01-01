@@ -1,17 +1,6 @@
 <script lang="ts">
-import { CastHelper, CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import {
-  OioCloseIcon,
-  OioIcon,
-  OioModalProps,
-  PopupDisplayAs,
-  PropRecordHelper,
-  StyleHelper,
-  useDraggable,
-  useInjectOioDefaultFormContext,
-  useModal,
-  useProviderOioDefaultFormContext
-} from '@oinone/kunlun-vue-ui-common';
+import { CastHelper, type CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { OioCloseIcon, OioIcon, OioModalProps, PopupDisplayAs, PropRecordHelper, StyleHelper, useDraggable, useInjectOioDefaultFormContext, useModal, useProviderOioDefaultFormContext } from '@oinone/kunlun-vue-ui-common';
 import { Modal as AModal } from 'ant-design-vue';
 import { isBoolean } from 'lodash-es';
 import { computed, createVNode, defineComponent, nextTick, ref, watch, withModifiers } from 'vue';

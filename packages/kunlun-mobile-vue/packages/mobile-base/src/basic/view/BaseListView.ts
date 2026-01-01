@@ -1,10 +1,10 @@
 import { ActionContextType } from '@oinone/kunlun-meta';
-import { ActiveRecord } from '@oinone/kunlun-engine';
+import type { ActiveRecord } from '@oinone/kunlun-engine';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { BaseView, BaseViewProps } from '../token';
-import { QueryExpression } from '../types';
+import { BaseView, type BaseViewProps } from '../token';
+import type { QueryExpression } from '../types';
 
 export class BaseListView<T extends BaseViewProps = BaseViewProps> extends BaseView<T> {
   /**

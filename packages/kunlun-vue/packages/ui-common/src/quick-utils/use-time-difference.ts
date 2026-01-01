@@ -1,5 +1,5 @@
-import { computed, ComputedRef, unref } from 'vue';
-import { UnrefType } from '../typing';
+import { computed, type ComputedRef, unref } from 'vue';
+import type { UnrefType } from '../typing';
 
 type TimeUnits = {
   year: string | null;

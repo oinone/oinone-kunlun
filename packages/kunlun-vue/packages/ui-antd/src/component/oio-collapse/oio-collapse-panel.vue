@@ -1,11 +1,5 @@
 <script lang="ts">
-import {
-  getVNodeKey,
-  OioCollapsePanelProps,
-  PropRecordHelper,
-  useInjectOioCollapseContext,
-  useOioFormLayoutContext
-} from '@oinone/kunlun-vue-ui-common';
+import { getVNodeKey, OioCollapsePanelProps, PropRecordHelper, useInjectOioCollapseContext, useOioFormLayoutContext } from '@oinone/kunlun-vue-ui-common';
 import { CollapsePanel as ACollapsePanel } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, onBeforeMount, vShow, withDirectives } from 'vue';

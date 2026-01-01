@@ -3,7 +3,7 @@ import { NumberHelper, StringHelper } from '@oinone/kunlun-shared';
 import { OioSpinProps, PropRecordHelper, SpinSize, StableSlotProp, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { Spin as ASpin } from 'ant-design-vue';
 import { isNil, isString } from 'lodash-es';
-import { computed, createVNode, defineComponent, PropType, Slot } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, type Slot } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 
 export default defineComponent({

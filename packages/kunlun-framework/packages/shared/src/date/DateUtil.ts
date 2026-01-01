@@ -1,16 +1,9 @@
 import dayjs from 'dayjs';
 import { isNil, isString } from 'lodash-es';
 import moment from 'moment';
-import { Converter } from '../LambdaFunction';
-import { GenericReturnType, GenericType } from '../typing';
-import {
-  DateFormatMap,
-  DateTimeFormatMap,
-  DateTimeValueFormatMap,
-  defaultDateFormat,
-  defaultTimeFormat,
-  TimeFormatMap
-} from './constant';
+import type { Converter } from '../LambdaFunction';
+import type { GenericReturnType, GenericType } from '../typing';
+import { DateFormatMap, DateTimeFormatMap, DateTimeValueFormatMap, defaultDateFormat, defaultTimeFormat, TimeFormatMap } from './constant';
 import { DateTimePickerMode } from './typing';
 
 moment.locale('zh-cn');

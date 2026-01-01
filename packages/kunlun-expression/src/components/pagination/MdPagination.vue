@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, SetupContext, watch } from 'vue';
+import { defineComponent, ref, computed, type SetupContext, watch } from 'vue';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
 import { ElementSize } from '../../types';
 import { OioInput } from '@oinone/kunlun-vue-ui-antd';

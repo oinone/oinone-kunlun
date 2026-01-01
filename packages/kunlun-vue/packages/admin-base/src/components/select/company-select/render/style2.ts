@@ -1,7 +1,7 @@
-import { PamirsCompany, StaffSize } from '@oinone/kunlun-engine';
-import { OioSelectItem } from '@oinone/kunlun-shared';
+import { type PamirsCompany, StaffSize } from '@oinone/kunlun-engine';
+import type { OioSelectItem } from '@oinone/kunlun-shared';
 import { OioDivider, Optional } from '@oinone/kunlun-vue-ui-antd';
-import { createVNode, VNode } from 'vue';
+import { createVNode, type VNode } from 'vue';
 import createLogo from './logo';
 
 export default function render(data: OioSelectItem<PamirsCompany>): string | VNode | VNode[] {

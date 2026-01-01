@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash-es';
-import { RuntimeContext } from '../runtime-context';
+import type { RuntimeContext } from '../runtime-context';
 
 export default function transfer(this: RuntimeContext, target: RuntimeContext, clone = true) {
   if (clone) {

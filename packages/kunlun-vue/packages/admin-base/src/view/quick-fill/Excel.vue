@@ -89,7 +89,7 @@
 import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { computed, defineExpose, defineProps, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
-import { NON_CUT, TableFieldOption } from './type';
+import { NON_CUT, type TableFieldOption } from './type';
 
 const runFun = window.requestIdleCallback || ((fn) => setTimeout(fn));
 

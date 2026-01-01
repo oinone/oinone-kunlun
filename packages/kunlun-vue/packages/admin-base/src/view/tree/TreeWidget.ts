@@ -1,10 +1,10 @@
-import { ActiveRecord, ExperimentalConfigManager } from '@oinone/kunlun-engine';
+import { type ActiveRecord, ExperimentalConfigManager } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { OioTreeNode } from '@oinone/kunlun-shared';
+import type { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { isTreeViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { isTreeViewState, type OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../basic';
-import { TreeData } from '../../typing';
+import type { TreeData } from '../../typing';
 import { AbstractTreeElementWidget } from './AbstractTreeElementWidget';
 
 @SPI.ClassFactory(

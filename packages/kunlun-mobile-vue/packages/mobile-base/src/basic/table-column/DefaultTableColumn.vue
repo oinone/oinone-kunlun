@@ -4,9 +4,9 @@ import {
   OioColumnAppearanceProps,
   OioColumnEditorProps,
   OioColumnRenderFunctionProps,
-  RowContext
+  type RowContext,
 } from '../../ui';
-import { computed, createVNode, defineComponent, PropType } from 'vue';
+import { computed, createVNode, defineComponent, type PropType } from 'vue';
 import { ManualWidget } from '../mixin';
 
 export default defineComponent({

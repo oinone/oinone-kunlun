@@ -1,4 +1,4 @@
-import { UserTablePreferFieldWidth, UserTablePrefer } from '../typing';
+import type { UserTablePreferFieldWidth, UserTablePrefer } from '../typing';
 
 /**
  *  获取table列的宽度

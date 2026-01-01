@@ -1,16 +1,9 @@
-import { ActiveRecord, IResourceDateTimeFormat, queryResourceDateTimeFormat } from '@oinone/kunlun-engine';
+import { type ActiveRecord, type IResourceDateTimeFormat, queryResourceDateTimeFormat } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import {
-  BooleanHelper,
-  defaultDateFormatKey,
-  defaultTimeFormatKey,
-  ObjectUtils,
-  Optional,
-  StandardString
-} from '@oinone/kunlun-shared';
+import { BooleanHelper, defaultDateFormatKey, defaultTimeFormatKey, ObjectUtils, Optional, type StandardString } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { ValidateTrigger } from '@oinone/kunlun-vue-ui-common';
-import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
+import { Widget, type WidgetComponent } from '@oinone/kunlun-vue-widget';
 import moment from 'moment';
 import { BaseElementWidget } from '../../../../basic';
 import { FormRangeFieldsWidget } from '../../../range';

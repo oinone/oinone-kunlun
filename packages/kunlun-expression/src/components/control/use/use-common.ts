@@ -1,11 +1,6 @@
 import { computed, onBeforeUnmount, ref, type Ref, watch } from 'vue';
-import { IExpressionItem, IExpressionLabelDisplayType, IExpressionOption } from '../../../types';
-import {
-  createDefaultExpressionItem,
-  createExpressionApiName,
-  createExpressionDisplayName,
-  createExpressionValue
-} from '../../../share';
+import { type IExpressionItem, IExpressionLabelDisplayType, type IExpressionOption } from '../../../types';
+import { createDefaultExpressionItem, createExpressionApiName, createExpressionDisplayName, createExpressionValue } from '../../../share';
 import { deepClone, isEmptyValue } from '@oinone/kunlun-meta';
 import { ExpressionExecutor } from '@oinone/kunlun-engine';
 

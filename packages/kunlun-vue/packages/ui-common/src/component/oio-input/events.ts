@@ -1,4 +1,4 @@
-import { OioEvent } from '../../event';
+import type { OioEvent } from '../../event';
 
 export interface InputSearchEvent extends OioEvent {
   /**

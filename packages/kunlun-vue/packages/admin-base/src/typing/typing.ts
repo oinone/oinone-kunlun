@@ -1,6 +1,6 @@
-import { VNode } from 'vue';
+import type { VNode } from 'vue';
 import { OperationColumnDirection } from './operation-column';
-import { UserTablePrefer } from './user-prefer';
+import type { UserTablePrefer } from './user-prefer';
 import { OioDropdownTrigger } from '@oinone/kunlun-vue-ui-common';
 
 export interface VisibleField {

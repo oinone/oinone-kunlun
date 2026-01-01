@@ -3,7 +3,7 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons-vue';
 import { BigNumber, CastHelper, fetchRealValue, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { IInputmodeEnum, OioInputNumberProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty, isNil, isString, toString } from 'lodash-es';
-import { computed, createVNode, defineComponent, PropType, ref, Slot } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, ref, type Slot } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import OioInput from './oio-input.vue';
 

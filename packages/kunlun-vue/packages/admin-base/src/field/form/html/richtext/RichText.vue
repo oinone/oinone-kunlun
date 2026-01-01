@@ -16,7 +16,7 @@
 </template>
 <script lang="ts">
 import { delay } from 'lodash-es';
-import { BooleanHelper, CSSStyle } from '@oinone/kunlun-shared';
+import { BooleanHelper, type CSSStyle } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { createResourceFile, getFileSignature, ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
 import { translateValueByKey } from '@oinone/kunlun-engine';

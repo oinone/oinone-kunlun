@@ -1,4 +1,4 @@
-import { RouterPath, RuntimeContextManager } from '@oinone/kunlun-engine';
+import { type RouterPath, RuntimeContextManager } from '@oinone/kunlun-engine';
 import { GlobalConfig } from '@oinone/kunlun-meta';
 import { setGlobalEnv } from '@oinone/kunlun-router';
 import { UrlHelper } from '@oinone/kunlun-shared';

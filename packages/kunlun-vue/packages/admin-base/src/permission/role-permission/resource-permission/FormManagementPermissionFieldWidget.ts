@@ -1,18 +1,10 @@
 import { SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { OioTreeNode } from '@oinone/kunlun-shared';
+import type { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../basic';
-import { TreeData } from '../../../typing';
-import {
-  AnyPermissionNode,
-  isActionPermissionNode,
-  isHomepagePermissionNode,
-  isMenuPermissionNode,
-  isModulePermissionNode,
-  PermissionNode,
-  ResourcePermissionSubtypeEnum
-} from '../../types';
+import type { TreeData } from '../../../typing';
+import { type AnyPermissionNode, isActionPermissionNode, isHomepagePermissionNode, isMenuPermissionNode, isModulePermissionNode, type PermissionNode, ResourcePermissionSubtypeEnum } from '../../types';
 import { FormResourcePermissionFieldWidget } from './FormResourcePermissionFieldWidget';
 
 @SPI.ClassFactory(

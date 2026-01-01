@@ -1,5 +1,5 @@
-import { Converter } from '@oinone/kunlun-shared';
-import { RuntimeViewAction } from '../../runtime-metadata';
+import type { Converter } from '@oinone/kunlun-shared';
+import type { RuntimeViewAction } from '../../runtime-metadata';
 
 /**
  * 多标签页类型

@@ -1,16 +1,7 @@
 import * as charCodes from '../../charcodes';
 import * as types from '../../tokens';
 import { getBinopByKey } from '../../tokens';
-import {
-  BinaryExpression,
-  BinaryOperator,
-  createExpression,
-  ParserContext,
-  Token,
-  TokenParser,
-  TokenReader,
-  TokenType
-} from '../../types';
+import { type BinaryExpression, type BinaryOperator, createExpression, type ParserContext, type Token, type TokenParser, type TokenReader, TokenType } from '../../types';
 import { BaseParser, BaseReader } from '../base';
 
 export class BinaryOperatorReader extends BaseReader implements TokenReader {

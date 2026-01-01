@@ -1,18 +1,5 @@
-import {
-  isArray,
-  isBoolean,
-  isEmpty,
-  isEqual,
-  isNaN,
-  isNil,
-  isNumber,
-  isObject,
-  isString,
-  snakeCase,
-  toNumber,
-  toUpper
-} from 'lodash-es';
-import { Nullable } from './typing';
+import { isArray, isBoolean, isEmpty, isEqual, isNaN, isNil, isNumber, isObject, isString, snakeCase, toNumber, toUpper } from 'lodash-es';
+import type { Nullable } from './typing';
 import { uniqueKeyGenerator } from './UniqueKeyGenerator';
 
 /**

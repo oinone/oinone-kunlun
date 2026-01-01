@@ -1,14 +1,6 @@
 import { computed, onMounted, type Ref } from 'vue';
-import { IExpressionItem, IExpressionLabelDisplayType, IExpressionOption } from '../../../types';
-import {
-  createConditionExpressionApiName,
-  createConditionExpressionDisplayName,
-  createConditionExpressionValue,
-  createDefaultExpressionItem,
-  createExpressionApiName,
-  createExpressionDisplayName,
-  createExpressionValue
-} from '../../../share';
+import { type IExpressionItem, IExpressionLabelDisplayType, type IExpressionOption } from '../../../types';
+import { createConditionExpressionApiName, createConditionExpressionDisplayName, createConditionExpressionValue, createDefaultExpressionItem, createExpressionApiName, createExpressionDisplayName, createExpressionValue } from '../../../share';
 import { useExpressionLabelMaybeSourceCode } from './use-common';
 
 export function useConditionOptions(

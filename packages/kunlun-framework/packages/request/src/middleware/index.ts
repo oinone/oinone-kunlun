@@ -1,14 +1,6 @@
-import { Constructor } from '@oinone/kunlun-shared';
-import { InterceptorOptions, NetworkInterceptor } from '../types';
-import {
-  ActionRedirectInterceptor,
-  LoginRedirectInterceptor,
-  MessageHubInterceptor,
-  NetworkErrorInterceptor,
-  RequestErrorInterceptor,
-  RequestSuccessInterceptor,
-  TranslateInterceptor
-} from './internal-interceptor';
+import type { Constructor } from '@oinone/kunlun-shared';
+import type { InterceptorOptions, NetworkInterceptor } from '../types';
+import { ActionRedirectInterceptor, LoginRedirectInterceptor, MessageHubInterceptor, NetworkErrorInterceptor, RequestErrorInterceptor, RequestSuccessInterceptor, TranslateInterceptor } from './internal-interceptor';
 import { NetworkInterceptorManager } from './manager';
 
 function register(key: keyof InterceptorOptions, interceptor: Constructor<NetworkInterceptor>) {

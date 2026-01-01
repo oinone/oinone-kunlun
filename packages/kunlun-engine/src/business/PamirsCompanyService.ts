@@ -1,6 +1,6 @@
 import { ServiceIdentifier } from '@oinone/kunlun-spi';
-import { TreeModelApi } from '../service';
-import { PamirsCompany } from '../typing';
+import type { TreeModelApi } from '../service';
+import type { PamirsCompany } from '../typing';
 
 export type PamirsCompanyService = TreeModelApi<PamirsCompany>;
 

@@ -1,6 +1,6 @@
-import { isUnaryExpression, Node, UnaryExpression, VisitContext } from '../../../types';
+import { isUnaryExpression, type Node, type UnaryExpression, type VisitContext } from '../../../types';
 import { BaseVisitor } from '../base';
-import { AdapterContext } from '../types';
+import type { AdapterContext } from '../types';
 
 export class UnaryExpressionVisitor extends BaseVisitor<UnaryExpression> {
   public static readonly INSTANCE = new UnaryExpressionVisitor();

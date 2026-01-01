@@ -1,4 +1,4 @@
-import { ActiveRecord, RuntimeM2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { type ActiveRecord, type RuntimeM2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';

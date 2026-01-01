@@ -1,6 +1,6 @@
-import { executeViewAction, ModelCache, RuntimeModel } from '@oinone/kunlun-engine';
-import { IModel } from '@oinone/kunlun-meta';
-import { getRouterInstance, Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { executeViewAction, ModelCache, type RuntimeModel } from '@oinone/kunlun-engine';
+import type { IModel } from '@oinone/kunlun-meta';
+import { getRouterInstance, type Matched, Router, useMatched } from '@oinone/kunlun-router';
 import { http } from '@oinone/kunlun-service';
 import { CastHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';

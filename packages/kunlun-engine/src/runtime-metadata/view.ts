@@ -1,6 +1,6 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { ViewType } from '@oinone/kunlun-meta';
-import { BaseRuntimeModelMetadata } from './base';
+import type { BaseRuntimeModelMetadata } from './base';
 
 /**
  * <h3>运行时视图</h3>

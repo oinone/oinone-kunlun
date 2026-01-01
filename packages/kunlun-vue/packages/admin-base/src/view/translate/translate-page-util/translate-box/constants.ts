@@ -1,4 +1,4 @@
-import { TranslateManageItem } from '../typings';
+import type { TranslateManageItem } from '../typings';
 
 export const translateAddText = {
   modalTitle: '添加翻译项',

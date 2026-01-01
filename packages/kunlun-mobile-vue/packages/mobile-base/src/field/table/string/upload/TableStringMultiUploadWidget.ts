@@ -4,7 +4,7 @@ import { BaseFieldWidget } from '../../../../basic';
 import { TableStringTagFieldWidget } from '../tag/TableStringTagFieldWidget';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { createVNode, VNode } from 'vue';
+import { createVNode, type VNode } from 'vue';
 import DefaultTableUpload from './DefaultTableUpload.vue';
 
 @SPI.ClassFactory(

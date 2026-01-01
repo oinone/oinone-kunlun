@@ -1,4 +1,4 @@
-import { FrameworkInitializeService, FrameworkInitializeSPI, OioProviderProps } from '@oinone/kunlun-engine';
+import { type FrameworkInitializeService, FrameworkInitializeSPI, type OioProviderProps } from '@oinone/kunlun-engine';
 import { SPIFactory } from '@oinone/kunlun-spi';
 import { DebugConfigManager } from '../../../config';
 import { DEBUG_ROUTER, DEBUG_VIEW_WIDGET } from '../constants';

@@ -1,6 +1,6 @@
-import { DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
+import { type DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { SPIFactory, SPIOperator, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
+import { SPIFactory, SPIOperator, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
 
 export interface LayoutRegisterOptions extends SPIOptions {
   // region view

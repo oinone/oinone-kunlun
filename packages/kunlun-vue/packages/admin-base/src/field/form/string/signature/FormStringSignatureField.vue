@@ -21,7 +21,7 @@
 <script lang="ts">
 import { OioSpin, OioButton } from '@oinone/kunlun-vue-ui-antd';
 import SmoothSignature from 'smooth-signature';
-import { defineComponent, nextTick, onMounted, PropType, ref } from 'vue';
+import { defineComponent, nextTick, onMounted, type PropType, ref } from 'vue';
 
 export default defineComponent({
   name: 'FormStringSignatureField',

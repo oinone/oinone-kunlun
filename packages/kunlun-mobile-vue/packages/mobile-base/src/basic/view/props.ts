@@ -1,6 +1,6 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { ViewType } from '@oinone/kunlun-meta';
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 
 export const MetadataViewProps = {
   currentHandle: {

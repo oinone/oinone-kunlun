@@ -1,6 +1,6 @@
-import { CallExpression, isCallExpression, Node, VisitContext } from '../../../types';
+import { type CallExpression, isCallExpression, type Node, type VisitContext } from '../../../types';
 import { BaseVisitor } from '../base';
-import { AdapterContext } from '../types';
+import type { AdapterContext } from '../types';
 
 export class CallExpressionVisitor extends BaseVisitor<CallExpression> {
   public static readonly INSTANCE = new CallExpressionVisitor();

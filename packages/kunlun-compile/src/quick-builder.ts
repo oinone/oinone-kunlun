@@ -1,4 +1,4 @@
-import { Plugin as RollupPlugin } from 'rollup';
+import type { Plugin as RollupPlugin } from 'rollup';
 import { CompileConfigBuilder } from './builder';
 
 interface QuickBuilderOptions {

@@ -1,44 +1,16 @@
-import {
-  ActiveRecord,
-  ActiveRecords,
-  buildQueryCondition,
-  ConfirmModal,
-  FunctionCache,
-  FunctionService,
-  parseConfigs,
-  RequestModelField,
-  resolveDynamicDomain,
-  resolveDynamicExpression,
-  ROOT_HANDLE,
-  RuntimeAction,
-  RuntimeContext,
-  RuntimeContextManager,
-  RuntimeFunctionDefinition,
-  RuntimeServerAction,
-  SubmitRelationValue,
-  SubmitValue,
-  translate,
-  translateValueByKey,
-  ValidatorCallChainingParameters
-} from '@oinone/kunlun-engine';
-import { EventBus, EventConsumer, KeyboardEventMessage } from '@oinone/kunlun-event';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
-import { ActionContextType, ActionElement, IAction, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { type ActiveRecord, type ActiveRecords, buildQueryCondition, type ConfirmModal, FunctionCache, FunctionService, parseConfigs, type RequestModelField, resolveDynamicDomain, resolveDynamicExpression, ROOT_HANDLE, type RuntimeAction, type RuntimeContext, RuntimeContextManager, type RuntimeFunctionDefinition, type RuntimeServerAction, SubmitRelationValue, SubmitValue, translate, translateValueByKey, type ValidatorCallChainingParameters } from '@oinone/kunlun-engine';
+import { EventBus, type EventConsumer, type KeyboardEventMessage } from '@oinone/kunlun-event';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
+import { ActionContextType, type ActionElement, type IAction, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
-import { BooleanHelper, debugConsole, GraphqlHelper, ReturnPromise } from '@oinone/kunlun-shared';
-import {
-  ButtonBizStyle,
-  ButtonType,
-  ConfirmType,
-  PopconfirmPlacement,
-  StyleHelper
-} from '@oinone/kunlun-vue-ui-common';
+import { BooleanHelper, debugConsole, GraphqlHelper, type ReturnPromise } from '@oinone/kunlun-shared';
+import { ButtonBizStyle, ButtonType, ConfirmType, PopconfirmPlacement, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString, set as setData } from 'lodash-es';
-import { Component, createVNode, toRaw } from 'vue';
-import { BaseActionWidget, BaseActionWidgetProps, BaseView, QueryExpression } from '../../../basic';
-import { ActionKeyboardConfig, ClickResult, fetchPopconfirmPlacement } from '../../../typing';
+import { type Component, createVNode, toRaw } from 'vue';
+import { BaseActionWidget, type BaseActionWidgetProps, BaseView, type QueryExpression } from '../../../basic';
+import { type ActionKeyboardConfig, type ClickResult, fetchPopconfirmPlacement } from '../../../typing';
 import { executeConfirm } from '../../../util';
 import DefaultAction from './DefaultAction.vue';
 

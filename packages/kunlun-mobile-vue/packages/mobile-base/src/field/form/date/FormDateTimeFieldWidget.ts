@@ -1,25 +1,12 @@
-import {
-  getRealTtype,
-  IResourceDateTimeFormat,
-  queryResourceDateTimeFormat,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
+import { getRealTtype, type IResourceDateTimeFormat, queryResourceDateTimeFormat, translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import {
-  BooleanHelper,
-  defaultDateFormat,
-  defaultDateFormatKey,
-  defaultFormat,
-  defaultTimeFormatKey,
-  ObjectUtils,
-  Optional
-} from '@oinone/kunlun-shared';
+import { BooleanHelper, defaultDateFormat, defaultDateFormatKey, defaultFormat, defaultTimeFormatKey, ObjectUtils, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
-import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
+import { Widget, type WidgetComponent } from '@oinone/kunlun-vue-widget';
 import moment from 'moment';
 import { FormFieldWidget } from '../../../basic';
-import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../typing';
 import { translateByOffset } from './date-common';
 import DefaultDateTimePicker from './DefaultDateTimePicker.vue';
 

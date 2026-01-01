@@ -1,4 +1,4 @@
-import { VNode } from 'vue';
+import type { VNode } from 'vue';
 import { VxeTableDefines, VxeTableInstance } from 'vxe-table';
 import { TableEditorCloseTrigger, TableEditorMode } from './table';
 

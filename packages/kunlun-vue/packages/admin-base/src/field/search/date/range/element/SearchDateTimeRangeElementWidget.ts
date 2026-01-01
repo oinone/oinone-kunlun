@@ -1,16 +1,9 @@
-import { IResourceDateTimeFormat, queryResourceDateTimeFormat, RuntimeSearchField } from '@oinone/kunlun-engine';
+import { type IResourceDateTimeFormat, queryResourceDateTimeFormat, type RuntimeSearchField } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import {
-  BooleanHelper,
-  defaultDateFormatKey,
-  defaultTimeFormatKey,
-  ObjectUtils,
-  Optional,
-  RSQLOperators
-} from '@oinone/kunlun-shared';
+import { BooleanHelper, defaultDateFormatKey, defaultTimeFormatKey, ObjectUtils, Optional, RSQLOperators } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { ValidateTrigger } from '@oinone/kunlun-vue-ui-common';
-import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
+import { Widget, type WidgetComponent } from '@oinone/kunlun-vue-widget';
 import moment from 'moment';
 import { BaseElementWidget } from '../../../../../basic';
 import DefaultDateTimeRangePicker from '../../../../form/date/range/DefaultDateTimeRangePicker.vue';

@@ -1,6 +1,6 @@
-import { BinaryExpression, isBinaryExpression, Node, VisitContext } from '../../../types';
+import { type BinaryExpression, isBinaryExpression, type Node, type VisitContext } from '../../../types';
 import { BaseVisitor } from '../base';
-import { AdapterContext } from '../types';
+import type { AdapterContext } from '../types';
 
 export class BinaryExpressionVisitor extends BaseVisitor<BinaryExpression> {
   public static readonly INSTANCE = new BinaryExpressionVisitor();

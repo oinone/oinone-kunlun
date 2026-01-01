@@ -1,5 +1,5 @@
 import { instantiate } from '@oinone/kunlun-shared';
-import { ConfigProviderSPI, ConfigProviderOptions, ConfigProviderService } from './helper/ConfigProviderSPI';
+import { ConfigProviderSPI, type ConfigProviderOptions, type ConfigProviderService } from './helper/ConfigProviderSPI';
 
 /**
  * 从对象中尝试多个键获取值，支持链式访问(如 'a.b.c')

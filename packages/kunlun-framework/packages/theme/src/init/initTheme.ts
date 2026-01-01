@@ -1,10 +1,5 @@
-import {
-  registerDarkThemeFn,
-  registerDefaultThemeFn,
-  registerDefaultModernThemeFn,
-  registerDarkModernThemeFn
-} from '../style';
-import { DefaultSideBarTheme, ThemeType } from '../typing';
+import { registerDarkThemeFn, registerDefaultThemeFn, registerDefaultModernThemeFn, registerDarkModernThemeFn } from '../style';
+import type { DefaultSideBarTheme, ThemeType } from '../typing';
 import { setCurrentThemeType } from './currentTheme';
 
 interface DefaultComponentTheme {

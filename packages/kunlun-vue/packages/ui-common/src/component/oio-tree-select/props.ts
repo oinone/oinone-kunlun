@@ -1,7 +1,7 @@
-import { PropType } from 'vue';
-import { PaginationResult, SelectMode } from '../oio-select';
-import { TreeSelectNode, TreeSelectProperties } from './model';
-import { SimpleTreeSelected, TreeSelectCheckedStrategy, TreeSelectTagRenderFunction } from './typing';
+import type { PropType } from 'vue';
+import { type PaginationResult, SelectMode } from '../oio-select';
+import type { TreeSelectNode, TreeSelectProperties } from './model';
+import { type SimpleTreeSelected, TreeSelectCheckedStrategy, type TreeSelectTagRenderFunction } from './typing';
 
 export const OioTreeSelectOptionsProps = {
   mode: {

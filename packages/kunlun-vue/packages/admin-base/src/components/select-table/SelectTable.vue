@@ -73,21 +73,14 @@
   </a-select>
 </template>
 <script lang="ts">
-import { RuntimeModelField, SelectSearchArea } from '@oinone/kunlun-engine';
-import { Entity } from '@oinone/kunlun-meta';
-import { CheckedChangeEvent, OioColumn, OioTable, OioTableInstance } from '@oinone/kunlun-vue-ui';
-import {
-  OioEmptyData,
-  OioIcon,
-  OioInput,
-  OioSpin,
-  SelectMode,
-  useInjectOioDefaultFormContext
-} from '@oinone/kunlun-vue-ui-antd';
+import { type RuntimeModelField, SelectSearchArea } from '@oinone/kunlun-engine';
+import type { Entity } from '@oinone/kunlun-meta';
+import { type CheckedChangeEvent, OioColumn, OioTable, type OioTableInstance } from '@oinone/kunlun-vue-ui';
+import { OioEmptyData, OioIcon, OioInput, OioSpin, SelectMode, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { delay } from 'lodash-es';
-import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue';
-import { SelectTableColumn } from '../../basic';
+import { computed, defineComponent, nextTick, type PropType, ref, watch } from 'vue';
+import type { SelectTableColumn } from '../../basic';
 import { RelationSelectProps, relationSelectSetup } from '../../field/prop';
 
 export default defineComponent({

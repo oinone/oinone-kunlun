@@ -1,13 +1,6 @@
 // import moment from 'moment-timezone';
 
-import {
-  CurrencySymbolPosition,
-  ICurrencyConfig,
-  IFloatConfig,
-  WritingMode,
-  IIntegerConfig,
-  IStringConfig
-} from '../typing';
+import { CurrencySymbolPosition, ICurrencyConfig, IFloatConfig, WritingMode, IIntegerConfig, IStringConfig } from '../typing';
 import { BigIntClass } from './bigint';
 
 // 用于 money 字段、float 字段，将非数字及非小数点非负号过滤掉

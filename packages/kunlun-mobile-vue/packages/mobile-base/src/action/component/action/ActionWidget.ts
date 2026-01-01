@@ -1,40 +1,16 @@
-import {
-  ActiveRecord,
-  ActiveRecords,
-  buildQueryCondition,
-  GetRequestModelFieldsOptions,
-  ModelCache,
-  RequestModelField,
-  resolveDynamicExpression,
-  RuntimeAction,
-  RuntimeContext,
-  RuntimeContextManager,
-  RuntimeServerAction,
-  SubmitRelationValue,
-  SubmitValue,
-  translate,
-  translateValueByKey,
-  ValidatorCallChainingParameters
-} from '@oinone/kunlun-engine';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
-import {
-  ActionContextType,
-  ActionElement,
-  IAction,
-  ModelFieldType,
-  ViewActionTarget,
-  ViewType
-} from '@oinone/kunlun-meta';
+import { type ActiveRecord, type ActiveRecords, buildQueryCondition, type GetRequestModelFieldsOptions, ModelCache, type RequestModelField, resolveDynamicExpression, type RuntimeAction, type RuntimeContext, RuntimeContextManager, type RuntimeServerAction, SubmitRelationValue, SubmitValue, translate, translateValueByKey, type ValidatorCallChainingParameters } from '@oinone/kunlun-engine';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
+import { ActionContextType, type ActionElement, type IAction, ModelFieldType, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
-import { BooleanHelper, debugConsole, GraphqlHelper, ReturnPromise } from '@oinone/kunlun-shared';
+import { BooleanHelper, debugConsole, GraphqlHelper, type ReturnPromise } from '@oinone/kunlun-shared';
 import { Subject } from '@oinone/kunlun-state';
 import { ButtonBizStyle, ButtonType, ConfirmType, PopconfirmPlacement } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString } from 'lodash-es';
-import { Component, toRaw } from 'vue';
-import { BaseActionWidget, BaseActionWidgetProps, BaseView, QueryExpression } from '../../../basic';
-import { ClickResult, fetchPopconfirmPlacement } from '../../../typing';
+import { type Component, toRaw } from 'vue';
+import { BaseActionWidget, type BaseActionWidgetProps, BaseView, type QueryExpression } from '../../../basic';
+import { type ClickResult, fetchPopconfirmPlacement } from '../../../typing';
 import { executeConfirm } from '../../../util';
 import DefaultAction from './DefaultAction.vue';
 import DefaultSelectItemAction from './DefaultSelectItemAction.vue';

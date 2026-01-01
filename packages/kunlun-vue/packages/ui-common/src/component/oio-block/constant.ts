@@ -1,4 +1,4 @@
-import { StandardGutterType } from './typing';
+import type { StandardGutterType } from './typing';
 
 export const DEFAULT_COLS = 24;
 

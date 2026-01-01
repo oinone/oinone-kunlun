@@ -1,7 +1,7 @@
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { SPIMatchKeys, SPIOptions } from '../typing';
+import type { SPIMatchKeys, SPIOptions } from '../typing';
 import { SPIOperator } from './operator';
-import { StorageKey } from './storage';
+import type { StorageKey } from './storage';
 
 export type SPISingleSelector<O extends SPIOptions, V = unknown> = (options: O) => V | undefined;
 

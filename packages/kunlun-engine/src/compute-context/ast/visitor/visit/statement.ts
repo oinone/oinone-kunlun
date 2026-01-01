@@ -1,6 +1,6 @@
-import { isExpressionStatement, isStatement, Node, Statement, VisitContext } from '../../types';
+import { isExpressionStatement, isStatement, type Node, type Statement, type VisitContext } from '../../types';
 import { BaseVisitor } from './base';
-import { AdapterContext } from './types';
+import type { AdapterContext } from './types';
 
 export class StatementVisitor extends BaseVisitor<Statement> {
   public static readonly INSTANCE = new StatementVisitor();

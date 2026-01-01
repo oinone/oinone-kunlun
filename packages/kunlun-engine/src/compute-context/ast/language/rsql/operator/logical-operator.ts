@@ -1,15 +1,6 @@
 import { RSQLLogicalOperator, RSQLLogicalOperators } from '@oinone/kunlun-shared';
 import * as types from '../../../tokens';
-import {
-  createExpression,
-  Node,
-  ParserContext,
-  RSQLLogicalExpression,
-  Token,
-  TokenParser,
-  TokenReader,
-  TokenType
-} from '../../../types';
+import { createExpression, type Node, type ParserContext, type RSQLLogicalExpression, type Token, type TokenParser, type TokenReader, TokenType } from '../../../types';
 import { BaseParser, BaseReader } from '../../base';
 
 export class RSQLLogicalOperatorReader extends BaseReader implements TokenReader {

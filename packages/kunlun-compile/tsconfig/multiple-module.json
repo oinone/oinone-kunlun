@@ -19,6 +19,6 @@
     "incremental": true,
     "resolveJsonModule": true
   },
-  "include": ["packages"],
+  "include": ["packages", "eslint.config.ts"],
   "exclude": ["node_modules", "dist"]
 }

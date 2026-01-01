@@ -3,7 +3,7 @@ import { autoRgbaStr, CastHelper, NumberHelper, StringHelper } from '@oinone/kun
 import { OioColorPickerProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { ElColorPicker, ElInput } from 'element-plus';
 import { isString } from 'lodash-es';
-import { computed, createVNode, defineComponent, ref, VNode } from 'vue';
+import { computed, createVNode, defineComponent, ref, type VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 
 export default defineComponent({

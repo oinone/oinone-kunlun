@@ -1,7 +1,7 @@
-import { IMenu } from '@oinone/kunlun-meta';
+import type { IMenu } from '@oinone/kunlun-meta';
 import { StateStream } from '@oinone/kunlun-state';
 
-import { Page, useCurrentContextService } from './typing';
+import { type Page, useCurrentContextService } from './typing';
 
 interface TabContext {
   tabs: Tab[];

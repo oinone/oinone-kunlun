@@ -1,14 +1,7 @@
 import clone from 'lodash/clone';
 import cloneDeep from 'lodash/cloneDeep';
 import isNil from 'lodash/isNil';
-import {
-  DEFAULT_SLOT_NAME,
-  DslDefinition,
-  DslDefinitionHelper,
-  DslDefinitionType,
-  DslSlots,
-  TemplateDslDefinition
-} from '../typing';
+import { DEFAULT_SLOT_NAME, type DslDefinition, DslDefinitionHelper, DslDefinitionType, type DslSlots, type TemplateDslDefinition } from '../typing';
 
 export const DEFAULT_CHILDREN_KEY = 'widgets';
 

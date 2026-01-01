@@ -1,5 +1,5 @@
-import { PropType } from 'vue';
-import { CommonGutterType, FlexDirection, FlexRowAlign, FlexRowJustify, StandardGutterType } from './typing';
+import type { PropType } from 'vue';
+import { type CommonGutterType, FlexDirection, FlexRowAlign, FlexRowJustify, type StandardGutterType } from './typing';
 
 export const RowProps = {
   gutter: {

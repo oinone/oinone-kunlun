@@ -1,7 +1,7 @@
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
-import { DEFAULT_TAB_TITLE, TabHTMLNode } from '@oinone/kunlun-vue-ui-common';
+import { DEFAULT_TAB_TITLE, type TabHTMLNode } from '@oinone/kunlun-vue-ui-common';
 import { Tooltip as ATooltip } from 'ant-design-vue';
-import { createVNode, type Ref, unref, VNode } from 'vue';
+import { createVNode, type Ref, unref, type VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 
 export function useTabBar(title: string | Ref<string>, help?: string | Ref<string>): VNode {

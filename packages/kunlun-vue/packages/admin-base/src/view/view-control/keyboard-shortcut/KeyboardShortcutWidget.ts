@@ -1,4 +1,4 @@
-import { KeyboardConfig, TableKeyboardConfig } from '@oinone/kunlun-engine';
+import type { KeyboardConfig, TableKeyboardConfig } from '@oinone/kunlun-engine';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';

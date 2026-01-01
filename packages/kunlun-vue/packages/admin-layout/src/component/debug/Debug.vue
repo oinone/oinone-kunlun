@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
   name: 'Debug',

@@ -1,18 +1,9 @@
 import * as charCodes from '../../charcodes';
 import * as types from '../../tokens';
-import {
-  AnyExpression,
-  createLiteral,
-  Node,
-  ParserContext,
-  TemplateLiteral,
-  Token,
-  TokenParser,
-  TokenReader
-} from '../../types';
+import { type AnyExpression, createLiteral, type Node, type ParserContext, type TemplateLiteral, type Token, type TokenParser, type TokenReader } from '../../types';
 import { InputStream } from '../../utils';
 import { createParseContext } from '../../utils/helper';
-import { BaseParser, ReadTokenOptions } from '../base';
+import { BaseParser, type ReadTokenOptions } from '../base';
 import { StringReader } from './string';
 
 export class TemplateReader extends StringReader implements TokenReader {

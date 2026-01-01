@@ -1,7 +1,7 @@
 import { debugConsole } from '@oinone/kunlun-shared';
-import { InternalMatchKey, MatchKeys } from '../typing/match-key';
-import { isMultiValueNode, MatchNode, MultiValueNode, NodeType, SingleValueNode } from '../typing/node';
-import { isMatchAnyValue, isMatchArrayValue, MatchValues, Options } from '../typing/options';
+import type { InternalMatchKey, MatchKeys } from '../typing/match-key';
+import { isMultiValueNode, type MatchNode, type MultiValueNode, type NodeType, type SingleValueNode } from '../typing/node';
+import { isMatchAnyValue, isMatchArrayValue, type MatchValues, type Options } from '../typing/options';
 import { isMatch } from './match';
 
 /**

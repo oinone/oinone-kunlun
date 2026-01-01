@@ -57,7 +57,7 @@
 </template>
 <script lang="ts" setup>
 import { ref, defineProps, watchEffect } from 'vue';
-import moment, { Moment } from 'moment';
+import moment, { type Moment } from 'moment';
 import { OioForm, OioFormItem, OioInput, OioButton, OioDatePicker } from '@oinone/kunlun-vue-ui-antd';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import UploadImg from '../../components/upload/UploadImg.vue';

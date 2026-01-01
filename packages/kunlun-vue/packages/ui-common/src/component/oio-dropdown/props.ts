@@ -1,5 +1,5 @@
-import { CSSStyle } from '@oinone/kunlun-shared';
-import { PropType } from 'vue';
+import type { CSSStyle } from '@oinone/kunlun-shared';
+import type { PropType } from 'vue';
 
 export enum OioDropdownTrigger {
   /**

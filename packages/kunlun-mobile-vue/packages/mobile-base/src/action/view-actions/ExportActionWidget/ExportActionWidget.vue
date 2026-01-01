@@ -44,15 +44,7 @@
 </template>
 
 <script lang="ts">
-import {
-  DEFAULT_PREFIX,
-  OioSelect,
-  OioButton,
-  OioForm,
-  OioFormItem,
-  OioModal,
-  OioSpin
-} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { DEFAULT_PREFIX, OioSelect, OioButton, OioForm, OioFormItem, OioModal, OioSpin } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { defineComponent } from 'vue';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 

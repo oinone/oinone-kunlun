@@ -1,5 +1,5 @@
 import { computed, onMounted, type Ref } from 'vue';
-import { IExpressionItem, IExpressionLabelDisplayType, IExpressionOption } from '../../../types';
+import { type IExpressionItem, IExpressionLabelDisplayType, type IExpressionOption } from '../../../types';
 import { createDefaultExpressionItem } from '../../../share';
 
 export function useExpressionOptions(

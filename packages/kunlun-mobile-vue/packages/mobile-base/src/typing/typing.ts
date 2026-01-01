@@ -1,4 +1,4 @@
-import { UserTablePrefer } from './user-prefer';
+import type { UserTablePrefer } from './user-prefer';
 
 export interface VisibleField {
   displayName?: string;

@@ -1,16 +1,8 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { IModelField, ViewMode, ViewType } from '@oinone/kunlun-meta';
-import { ContextNode } from '@oinone/kunlun-shared';
-import {
-  RouterPath,
-  RuntimeEnumerationOption,
-  RuntimeModel,
-  RuntimeModelField,
-  RuntimeModule,
-  RuntimeView,
-  RuntimeViewAction
-} from '../runtime-metadata';
-import { QueryVariables, VirtualModel } from '../service/typing';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { type IModelField, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import type { ContextNode } from '@oinone/kunlun-shared';
+import type { RouterPath, RuntimeEnumerationOption, RuntimeModel, RuntimeModelField, RuntimeModule, RuntimeView, RuntimeViewAction } from '../runtime-metadata';
+import type { QueryVariables, VirtualModel } from '../service/typing';
 import { RelationUpdateType, SubmitType } from '../submit';
 
 export type GetModelResult = {

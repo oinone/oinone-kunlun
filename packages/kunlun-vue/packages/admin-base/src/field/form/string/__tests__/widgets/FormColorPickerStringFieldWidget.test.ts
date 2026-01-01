@@ -1,4 +1,4 @@
-import { RuntimeStringField } from '@oinone/kunlun-engine';
+import type { RuntimeStringField } from '@oinone/kunlun-engine';
 import { DEFAULT_PREDEFINE } from '@oinone/kunlun-vue-ui-common';
 import { FormStringColorPickerFieldWidget } from '../../color/FormStringColorPickerFieldWidget';
 

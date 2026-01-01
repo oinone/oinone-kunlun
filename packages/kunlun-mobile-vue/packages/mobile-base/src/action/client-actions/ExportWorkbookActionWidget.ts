@@ -1,23 +1,15 @@
-import {
-  ActiveRecord,
-  buildQueryCondition,
-  resolveDynamicExpression,
-  RuntimeContext,
-  RuntimeContextManager,
-  RuntimeServerAction,
-  SubmitValue
-} from '@oinone/kunlun-engine';
+import { type ActiveRecord, buildQueryCondition, resolveDynamicExpression, type RuntimeContext, RuntimeContextManager, type RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
 import { Condition, getSessionPath } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isString } from 'lodash-es';
-import { QueryExpression } from '../../basic';
+import type { QueryExpression } from '../../basic';
 import { ExcelExportService } from '../../service';
-import { ClickResult } from '../../typing';
+import type { ClickResult } from '../../typing';
 import { SearchView } from '../../view';
 import { ActionWidget } from '../component';
 import { ServerActionWidget } from '../server-actions';

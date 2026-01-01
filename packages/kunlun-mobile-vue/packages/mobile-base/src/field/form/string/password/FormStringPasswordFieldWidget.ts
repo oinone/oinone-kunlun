@@ -2,7 +2,7 @@ import { SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../../basic';
-import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../../typing';
 import { encrypt } from '../../../../util';
 import { FormStringFieldWidget } from '../FormStringFieldWidget';
 import Password from './Password.vue';

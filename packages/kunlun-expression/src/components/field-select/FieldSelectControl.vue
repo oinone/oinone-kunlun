@@ -66,7 +66,7 @@ import { CloseCircleFilled, CloseCircleOutlined, DownOutlined } from '@ant-desig
 import ModelSelection from '../ModelSelection.vue';
 import ControlTag from '../control/control-tag/ControlTag.vue';
 import ExpressionDesignerCascader from '../cascader/Cascader.vue';
-import { IExpSelectOption } from '../../types';
+import type { IExpSelectOption } from '../../types';
 import { checkBlurFocus } from '../../share/utils';
 
 /**

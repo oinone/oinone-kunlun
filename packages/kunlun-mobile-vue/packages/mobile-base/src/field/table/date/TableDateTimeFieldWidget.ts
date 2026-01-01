@@ -1,20 +1,11 @@
-import { IResourceDateTimeFormat, queryResourceDateTimeFormat } from '@oinone/kunlun-engine';
+import { type IResourceDateTimeFormat, queryResourceDateTimeFormat } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import {
-  DateFormatMap,
-  DateTimeFormatMap,
-  DateUtil,
-  defaultDateFormatKey,
-  defaultFormat,
-  defaultTimeFormatKey,
-  ObjectUtils,
-  TimeFormatMap
-} from '@oinone/kunlun-shared';
+import { DateFormatMap, DateTimeFormatMap, DateUtil, defaultDateFormatKey, defaultFormat, defaultTimeFormatKey, ObjectUtils, TimeFormatMap } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseFieldWidget, BaseTableFieldWidget } from '../../../basic';
-import { RowContext } from '../../../ui';
+import type { RowContext } from '../../../ui';
 
 @SPI.ClassFactory(BaseFieldWidget.Token({ viewType: ViewType.Table, ttype: [ModelFieldType.DateTime] }))
 export class TableDateTimeFieldWidget extends BaseTableFieldWidget<string | Date> {

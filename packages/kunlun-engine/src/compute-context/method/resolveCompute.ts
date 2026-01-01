@@ -1,8 +1,8 @@
-import { ExpressionRunParam } from '@oinone/kunlun-expression';
+import type { ExpressionRunParam } from '@oinone/kunlun-expression';
 import { isString } from 'lodash-es';
-import { RuntimeModelField } from '../../runtime-metadata';
-import { EffectManager, ExpressionExecutor, Node, ReactiveEffect, ReactiveEffectRunner } from '../ast';
-import { ComputeContext, Dep } from '../compute-context';
+import type { RuntimeModelField } from '../../runtime-metadata';
+import { EffectManager, ExpressionExecutor, type Node, ReactiveEffect, type ReactiveEffectRunner } from '../ast';
+import type { ComputeContext, Dep } from '../compute-context';
 import { DepManager } from '../reactive';
 
 export default function resolveCompute(this: ComputeContext): void {

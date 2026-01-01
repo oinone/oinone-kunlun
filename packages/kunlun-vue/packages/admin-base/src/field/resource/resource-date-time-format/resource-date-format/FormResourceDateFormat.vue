@@ -58,14 +58,9 @@
   </a-popover>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, type PropType, ref } from 'vue';
 import { CloseCircleFilled } from '@ant-design/icons-vue';
-import {
-  Select as ASelect,
-  Tooltip as ATooltip,
-  Popover as APopover,
-  SelectOption as ASelectOption
-} from 'ant-design-vue';
+import { Select as ASelect, Tooltip as ATooltip, Popover as APopover, SelectOption as ASelectOption } from 'ant-design-vue';
 import { OioIcon, ResourceDateTimeOption } from '@oinone/kunlun-vue-ui-antd';
 import ControlTag from './ControlTag.vue';
 import FormatConcat from './FormatConcat.vue';

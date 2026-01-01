@@ -1,7 +1,7 @@
 import { ViewType } from '@oinone/kunlun-meta';
-import { Constructor } from '@oinone/kunlun-shared';
-import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
-import { ActiveRecordsWidgetProps, InnerWidgetType, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
+import type { Constructor } from '@oinone/kunlun-shared';
+import { SPI, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
+import { type ActiveRecordsWidgetProps, InnerWidgetType, type OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseRuntimePropertiesWidget } from '../common';
 
 /**

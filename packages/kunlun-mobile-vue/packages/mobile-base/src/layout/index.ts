@@ -20,7 +20,7 @@ export {
   REFRESH_DATA,
   EXECUTE_HOME_PAGE,
   GlobalStateSubSymbol,
-  IGlobalState,
+  type IGlobalState,
   MenusCollapsedSymbol,
   MenusSubSymbol
 } from './type';

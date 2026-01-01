@@ -2,7 +2,7 @@
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { AInputProps, IInputmodeEnum, OioInputProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty, isNil } from 'lodash-es';
-import { createVNode, defineComponent, PropType, ref } from 'vue';
+import { createVNode, defineComponent, type PropType, ref } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import OioInputGroup from './oio-input-group.vue';
 

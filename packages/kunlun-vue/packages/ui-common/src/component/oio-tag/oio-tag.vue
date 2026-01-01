@@ -1,11 +1,11 @@
 <script lang="ts">
-import { CSSStyle } from '@oinone/kunlun-shared';
-import { createVNode, defineComponent, VNode } from 'vue';
+import type { CSSStyle } from '@oinone/kunlun-shared';
+import { createVNode, defineComponent, type VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { PropRecordHelper } from '../../util';
 import { getVNodeKey } from '../../util/vnode/util';
 import { OioIcon } from '../oio-icon';
-import { OioTagCheckedEvent, OioTagClosedEvent } from './event';
+import type { OioTagCheckedEvent, OioTagClosedEvent } from './event';
 import { OioTagProps } from './props';
 
 export default defineComponent({

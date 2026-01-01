@@ -1,4 +1,4 @@
-import { OioListItem } from '@oinone/kunlun-shared';
+import type { OioListItem } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 
 type Options = {

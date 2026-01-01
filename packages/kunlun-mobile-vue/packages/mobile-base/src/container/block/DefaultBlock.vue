@@ -1,15 +1,8 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import {
-  FormLayout,
-  OioBlock,
-  OioBlockProps,
-  PropRecordHelper,
-  useInjectOioFormContext,
-  useProviderOioFormContext
-} from '@oinone/kunlun-vue-ui-mobile-vant';
-import { computed, createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
+import { FormLayout, OioBlock, OioBlockProps, PropRecordHelper, useInjectOioFormContext, useProviderOioFormContext } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { computed, createVNode, defineComponent, type PropType, vShow, withDirectives } from 'vue';
 
 export default defineComponent({
   name: 'DefaultBlock',

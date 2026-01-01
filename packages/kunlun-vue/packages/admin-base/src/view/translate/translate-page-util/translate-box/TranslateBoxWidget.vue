@@ -135,35 +135,14 @@
 </template>
 <script lang="ts" setup>
 import { computed, ref, nextTick } from 'vue';
-import {
-  Modal as AModal,
-  Select as ASelect,
-  SelectOption as ASelectOption,
-  RadioGroup as ARadioGroup,
-  Radio as ARadio
-} from 'ant-design-vue';
+import { Modal as AModal, Select as ASelect, SelectOption as ASelectOption, RadioGroup as ARadioGroup, Radio as ARadio } from 'ant-design-vue';
 import { SelectValue } from 'ant-design-vue/es/select';
-import {
-  OioIcon,
-  OioForm,
-  OioFormItem,
-  OioInput,
-  FormLayout,
-  OioMessage,
-  OioFormInstance,
-  OioSpin
-} from '@oinone/kunlun-vue-ui-antd';
-import {
-  getUrlParamByKey,
-  translateValueByKey,
-  CurrentLanguage,
-  genStaticPath,
-  OioProvider
-} from '@oinone/kunlun-engine';
-import { IModelField, ModelFieldType } from '@oinone/kunlun-meta';
+import { OioIcon, OioForm, OioFormItem, OioInput, FormLayout, OioMessage, OioFormInstance, OioSpin } from '@oinone/kunlun-vue-ui-antd';
+import { getUrlParamByKey, translateValueByKey, CurrentLanguage, genStaticPath, OioProvider } from '@oinone/kunlun-engine';
+import { type IModelField, ModelFieldType } from '@oinone/kunlun-meta';
 import { buildSingleItemParam } from '@oinone/kunlun-service';
 import { queryTranslateBox, queryTranslateBoxUpdate, saveAndRefreshForBox, saveForBoxWithUpdate } from '../../service';
-import { SearchCommonParams, TranslateManageItem, TranslateMode, TranslateScopeValue } from '../typings';
+import { type SearchCommonParams, type TranslateManageItem, TranslateMode, TranslateScopeValue } from '../typings';
 import { defaultCurrentTranslate, translateAddText, translateUpdateText } from './constants';
 
 const notFoundTranslatedImg = genStaticPath('not-found-translated.png?x-oss-process=image/resize,m_lfit,h_800');

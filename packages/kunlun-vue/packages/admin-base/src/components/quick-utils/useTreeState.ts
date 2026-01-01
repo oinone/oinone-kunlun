@@ -1,5 +1,5 @@
-import { IdModel, QueryWrapper, TreeModelApi } from '@oinone/kunlun-engine';
-import { Converter, OioTreeNode, Optional, ReturnPromise, TreeHelper } from '@oinone/kunlun-shared';
+import { type IdModel, QueryWrapper, type TreeModelApi } from '@oinone/kunlun-engine';
+import { type Converter, type OioTreeNode, Optional, type ReturnPromise, TreeHelper } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { computed, reactive, watch } from 'vue';
 import { useTreeChecked } from './useTreeChecked';

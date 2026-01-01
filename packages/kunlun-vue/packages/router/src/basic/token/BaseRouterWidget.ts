@@ -1,5 +1,5 @@
-import { Constructor } from '@oinone/kunlun-shared';
-import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
+import type { Constructor } from '@oinone/kunlun-shared';
+import { SPI, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
 import { VueWidget } from '@oinone/kunlun-vue-widget';
 
 /**

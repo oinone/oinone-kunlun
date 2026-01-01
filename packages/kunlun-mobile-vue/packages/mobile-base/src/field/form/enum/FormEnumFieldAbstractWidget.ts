@@ -1,11 +1,11 @@
-import { RuntimeEnumerationField, RuntimeEnumerationOption, translateValueByKey } from '@oinone/kunlun-engine';
+import { type RuntimeEnumerationField, type RuntimeEnumerationOption, translateValueByKey } from '@oinone/kunlun-engine';
 import { deepClone } from '@oinone/kunlun-meta';
-import { BooleanHelper, EnumerationValue } from '@oinone/kunlun-shared';
+import { BooleanHelper, type EnumerationValue } from '@oinone/kunlun-shared';
 import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toString } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';
-import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../typing';
 import { OptionColorStyle } from '../../FieldCommonEnum';
 import { enumFetchLabelByValue } from '../../util';
 

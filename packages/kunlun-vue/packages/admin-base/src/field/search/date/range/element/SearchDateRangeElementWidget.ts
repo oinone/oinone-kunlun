@@ -1,6 +1,6 @@
 import { ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { WidgetComponent } from '@oinone/kunlun-vue-widget';
+import type { WidgetComponent } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../../../basic';
 import DefaultDateRangePicker from '../../../../form/date/range/DefaultDateRangePicker.vue';
 import { SearchDateTimeRangeElementWidget } from './SearchDateTimeRangeElementWidget';

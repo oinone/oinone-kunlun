@@ -1,12 +1,6 @@
 <script lang="ts">
-import { CastHelper, ReturnPromise, ReturnVoid, StringHelper } from '@oinone/kunlun-shared';
-import {
-  FileModel,
-  IUploadMethod,
-  OioUploadProps,
-  PropRecordHelper,
-  useUploadFileEvent
-} from '@oinone/kunlun-vue-ui-common';
+import { CastHelper, type ReturnPromise, type ReturnVoid, StringHelper } from '@oinone/kunlun-shared';
+import { type FileModel, IUploadMethod, OioUploadProps, PropRecordHelper, useUploadFileEvent } from '@oinone/kunlun-vue-ui-common';
 import { Uploader as VanUploader } from 'vant';
 
 import { isNil, isString, isArray } from 'lodash-es';

@@ -1,27 +1,15 @@
-import {
-  ActiveRecord,
-  activeRecordsToJSONString,
-  RefreshCallChainingParameters,
-  RefreshCallChainingScope,
-  RuntimeModelField
-} from '@oinone/kunlun-engine';
-import { ViewType, Entity, IModelField, ModelFieldType } from '@oinone/kunlun-meta';
+import { type ActiveRecord, activeRecordsToJSONString, type RefreshCallChainingParameters, RefreshCallChainingScope, type RuntimeModelField } from '@oinone/kunlun-engine';
+import { ViewType, type Entity, type IModelField, ModelFieldType } from '@oinone/kunlun-meta';
 import { getRouterInstance } from '@oinone/kunlun-router';
 import { BooleanHelper, NumberHelper, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioMessage } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { Widget, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { toString, isNil } from 'lodash-es';
 import { EDirection, ISort } from '@oinone/kunlun-service';
 import { BaseElementWidget, BaseSearchWidget, URL_SPLIT_SEPARATOR } from '../../basic';
 import { UserPreferService } from '../../service';
-import {
-  GlobalKeywordSearchSubSymbol,
-  IKeywordSearchInfo,
-  SEARCH_WIDGET,
-  UserSearchPrefer,
-  UserSearchPreferField
-} from '../../typing';
+import { GlobalKeywordSearchSubSymbol, type IKeywordSearchInfo, SEARCH_WIDGET, type UserSearchPrefer, type UserSearchPreferField } from '../../typing';
 import DefaultSearch from './DefaultSearch.vue';
 import KeywordSearchMetadataViewWidget from './KeywordSearchMetadataViewWidget';
 import { CATE_ALL_OPTION } from './types';

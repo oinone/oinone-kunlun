@@ -1,4 +1,4 @@
-import { ILayoutWidgetProps, Layout } from '@oinone/kunlun-engine';
+import { type ILayoutWidgetProps, Layout } from '@oinone/kunlun-engine';
 import { BooleanHelper, StringHelper } from '@oinone/kunlun-shared';
 import { FlexDirection } from '@oinone/kunlun-vue-ui-common';
 import { DslNodeWidget, Widget } from '@oinone/kunlun-vue-widget';

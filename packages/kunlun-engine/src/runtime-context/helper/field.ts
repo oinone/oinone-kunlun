@@ -1,29 +1,6 @@
 import { ModelFieldType } from '@oinone/kunlun-meta';
-import {
-  RuntimeBooleanField,
-  RuntimeDateField,
-  RuntimeDateTimeField,
-  RuntimeEnumerationField,
-  RuntimeM2MField,
-  RuntimeM2OField,
-  RuntimeModelField,
-  RuntimeNumberField,
-  RuntimeO2MField,
-  RuntimeO2OField,
-  RuntimeRelatedField,
-  RuntimeRelationField,
-  RuntimeStringField,
-  RuntimeTimeField,
-  RuntimeYearField
-} from '../../runtime-metadata';
-import {
-  NUMBER_FIELD_TTYPES,
-  RELATION_2M_FIELD_TTYPES,
-  RELATION_2O_FIELD_TTYPES,
-  RELATION_FIELD_STATIC_FLAG,
-  RELATION_FIELD_TTYPES,
-  STRING_FIELD_TTYPES
-} from './field-constant';
+import type { RuntimeBooleanField, RuntimeDateField, RuntimeDateTimeField, RuntimeEnumerationField, RuntimeM2MField, RuntimeM2OField, RuntimeModelField, RuntimeNumberField, RuntimeO2MField, RuntimeO2OField, RuntimeRelatedField, RuntimeRelationField, RuntimeStringField, RuntimeTimeField, RuntimeYearField } from '../../runtime-metadata';
+import { NUMBER_FIELD_TTYPES, RELATION_2M_FIELD_TTYPES, RELATION_2O_FIELD_TTYPES, RELATION_FIELD_STATIC_FLAG, RELATION_FIELD_TTYPES, STRING_FIELD_TTYPES } from './field-constant';
 
 export function isRelatedField(field: RuntimeModelField): field is RuntimeRelatedField {
   return field.ttype === ModelFieldType.Related;

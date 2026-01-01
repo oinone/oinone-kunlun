@@ -1,10 +1,10 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { RowContext } from '@oinone/kunlun-vue-ui';
+import type { RowContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { VNode } from 'vue';
+import type { VNode } from 'vue';
 import { BaseFieldWidget, TableObjectFieldWidget } from '../../../../basic';
-import { ResourceAddress } from '../../../../typing';
+import type { ResourceAddress } from '../../../../typing';
 
 @SPI.ClassFactory(
   BaseFieldWidget.Token({

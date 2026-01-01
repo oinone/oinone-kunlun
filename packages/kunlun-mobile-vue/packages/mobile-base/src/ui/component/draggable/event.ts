@@ -1,4 +1,4 @@
-import { Component } from 'vue';
+import type { Component } from 'vue';
 
 export interface DraggableStartEvent<T = unknown> {
   element: T;

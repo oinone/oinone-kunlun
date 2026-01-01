@@ -1,13 +1,6 @@
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import {
-  defaultSelectProperties,
-  fillSelectItemProperties,
-  OioSelectProps,
-  PropRecordHelper,
-  SelectItem,
-  SelectProperties
-} from '@oinone/kunlun-vue-ui-common';
+import { defaultSelectProperties, fillSelectItemProperties, OioSelectProps, PropRecordHelper, type SelectItem, type SelectProperties } from '@oinone/kunlun-vue-ui-common';
 import { Popup as VanPopup, Picker as VanPicker } from 'vant';
 import { isNil, isObject } from 'lodash-es';
 import { computed, createVNode, defineComponent, ref } from 'vue';

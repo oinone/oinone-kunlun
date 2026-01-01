@@ -1,7 +1,7 @@
 import { constructOne, insertOne, queryOne, updateOne } from '@oinone/kunlun-service';
-import { ActionElement } from '@oinone/kunlun-meta';
+import type { ActionElement } from '@oinone/kunlun-meta';
 
-import { IObjectValue, IBaseObjectProps } from '../typing/interface';
+import type { IObjectValue, IBaseObjectProps } from '../typing/interface';
 import { ViewVM } from './view';
 import { customMutationByApi } from '../helper/dataParse';
 

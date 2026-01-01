@@ -1,9 +1,9 @@
 <script lang="ts">
 import { OioCheckbox, OioEmptyData, OioIcon, OioInputSearch, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Popover as APopover } from 'ant-design-vue';
-import { computed, createVNode, defineComponent, PropType, ref, watch } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, ref, watch } from 'vue';
 import { Container, Draggable } from 'vue3-smooth-dnd';
-import { classNamePrefix, DataOption } from './typing';
+import { classNamePrefix, type DataOption } from './typing';
 
 export default defineComponent({
   name: 'SimpleUserPreferSetting',

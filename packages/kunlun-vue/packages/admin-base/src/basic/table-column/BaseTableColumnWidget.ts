@@ -1,24 +1,15 @@
-import { GroupingField, SubmitValue } from '@oinone/kunlun-engine';
+import { type GroupingField, SubmitValue } from '@oinone/kunlun-engine';
 import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
-import {
-  ActiveEditorContext,
-  GROUP_TREE_KEY,
-  OioTableInstance,
-  RenderCellContext,
-  RowContext,
-  TableEditorCloseTrigger,
-  TableEditorMode,
-  TableEditorTrigger
-} from '@oinone/kunlun-vue-ui';
+import { type ActiveEditorContext, GROUP_TREE_KEY, type OioTableInstance, type RenderCellContext, type RowContext, type TableEditorCloseTrigger, type TableEditorMode, type TableEditorTrigger } from '@oinone/kunlun-vue-ui';
 import { ConfirmType, PopconfirmPlacement } from '@oinone/kunlun-vue-ui-antd';
-import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
+import { type ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, isString, toString } from 'lodash-es';
-import { toRaw, VNode } from 'vue';
+import { toRaw, type VNode } from 'vue';
 import { fetchPopconfirmPlacement } from '../../typing';
 import { executeConfirm } from '../../util';
 import type { TableWidget } from '../../view';
 import { BaseDataWidget } from '../common';
-import { FieldWidgetComponentFunction } from '../types';
+import type { FieldWidgetComponentFunction } from '../types';
 import DefaultTableColumn from './DefaultTableColumn.vue';
 
 export abstract class BaseTableColumnWidget<

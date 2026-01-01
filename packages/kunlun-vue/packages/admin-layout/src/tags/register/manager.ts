@@ -1,6 +1,6 @@
 import { StringHelper } from '@oinone/kunlun-shared';
-import { Component, defineComponent } from 'vue';
-import { IMaskTagManager, setMaskTagManagerInstance } from '../../basic/register';
+import { type Component, defineComponent } from 'vue';
+import { type IMaskTagManager, setMaskTagManagerInstance } from '../../basic/register';
 import { MaskWidgetTagMixin } from '../mixin';
 import { InternalMaskWidget, registerMaskWidgetFunction } from '../resolve';
 

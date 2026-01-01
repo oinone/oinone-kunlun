@@ -3,7 +3,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../basic';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { IQueryExpressionParam } from '@oinone/kunlun-vue-expression';
+import type { IQueryExpressionParam } from '@oinone/kunlun-vue-expression';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({

@@ -1,7 +1,7 @@
 import { debugConsole, Optional, prettyConsole } from '@oinone/kunlun-shared';
-import { SPIMatchAnyValue, SPIMatchKeys, SPIMatchPriorityKey, SPIOptions } from '../typing';
+import { SPIMatchAnyValue, type SPIMatchKeys, SPIMatchPriorityKey, type SPIOptions } from '../typing';
 import { InternalOperator } from './internal-operator';
-import { Storage, StorageKey } from './storage';
+import type { Storage, StorageKey } from './storage';
 
 export interface CreateStorageOptions {
   key: StorageKey;

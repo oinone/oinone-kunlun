@@ -1,4 +1,4 @@
-import { CallExpression, isCallExpression, Node, NodeVisitor, VisitContext } from '../../../types';
+import { type CallExpression, isCallExpression, type Node, type NodeVisitor, type VisitContext } from '../../../types';
 
 export class CallExpressionExecutor implements NodeVisitor<CallExpression> {
   public static readonly INSTANCE = new CallExpressionExecutor();

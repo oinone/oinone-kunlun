@@ -1,11 +1,11 @@
 <script lang="ts">
-import { AuthRole, PamirsEmployee, PamirsEmployeeService, QueryWrapper } from '@oinone/kunlun-engine';
+import { type AuthRole, type PamirsEmployee, type PamirsEmployeeService, QueryWrapper } from '@oinone/kunlun-engine';
 import { OioDivider, OioListItem, RSQLCondition, RSQLHelper, SelectMode } from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType, type Ref, ref } from 'vue';
-import { ListState } from '../../quick-utils';
+import { computed, createVNode, defineComponent, type PropType, type Ref, ref } from 'vue';
+import type { ListState } from '../../quick-utils';
 import { RoleList } from '../role-select';
 import EmployeeList from './EmployeeList.vue';
-import { EmployeeListInstance } from './init';
+import type { EmployeeListInstance } from './init';
 
 export default defineComponent({
   name: 'RoleEmployeeSelectPanel',

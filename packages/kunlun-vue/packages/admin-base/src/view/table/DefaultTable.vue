@@ -1,63 +1,18 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { ActiveRecord, ActiveRecords, Pagination, translateValueByKey } from '@oinone/kunlun-engine';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { type ActiveRecord, type ActiveRecords, type Pagination, translateValueByKey } from '@oinone/kunlun-engine';
 import { EDirection, ISort } from '@oinone/kunlun-service';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-import {
-  ActiveEditorContext,
-  CheckedChangeEvent,
-  OioColumn,
-  OioTable,
-  OioTableInstance,
-  RadioChangeEvent,
-  RowContext,
-  SortChangeEvent,
-  TableEditorCloseTrigger,
-  TableEditorMode,
-  TableEditorTrigger,
-  TableRowClickMode,
-  TableSelectTrigger,
-  TableSize,
-  useVxeCheckboxCell,
-  useVxeCheckboxHeader,
-  VxeCheckboxCellRenderBodyParams,
-  VxeCheckboxHeaderRenderBodyParams,
-  VxeTableActiveEditorEventContext,
-  VxeTableHelper
-} from '@oinone/kunlun-vue-ui';
-import {
-  ListPaginationStyle,
-  ListSelectMode,
-  OioPagination,
-  OioSpin,
-  OioTooltip,
-  PropRecordHelper,
-  StyleHelper,
-  useInjectOioDefaultFormContext,
-  useProviderOioDefaultFormContext
-} from '@oinone/kunlun-vue-ui-antd';
+import { type ActiveEditorContext, type CheckedChangeEvent, OioColumn, OioTable, type OioTableInstance, type RadioChangeEvent, type RowContext, type SortChangeEvent, TableEditorCloseTrigger, TableEditorMode, TableEditorTrigger, TableRowClickMode, TableSelectTrigger, TableSize, useVxeCheckboxCell, useVxeCheckboxHeader, type VxeCheckboxCellRenderBodyParams, type VxeCheckboxHeaderRenderBodyParams, type VxeTableActiveEditorEventContext, VxeTableHelper } from '@oinone/kunlun-vue-ui';
+import { ListPaginationStyle, ListSelectMode, OioPagination, OioSpin, OioTooltip, PropRecordHelper, StyleHelper, useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
 import { DslRender } from '@oinone/kunlun-vue-widget';
 import { debounce } from 'lodash-es';
-import {
-  computed,
-  createVNode,
-  defineComponent,
-  Fragment,
-  nextTick,
-  onActivated,
-  onBeforeUnmount,
-  onMounted,
-  PropType,
-  ref,
-  Slot,
-  VNode,
-  watch
-} from 'vue';
+import { computed, createVNode, defineComponent, Fragment, nextTick, onActivated, onBeforeUnmount, onMounted, type PropType, ref, type Slot, type VNode, watch } from 'vue';
 
-import { VxeTableDefines, VxeTablePropTypes } from 'vxe-table';
+import { VxeTableDefines, type VxeTablePropTypes } from 'vxe-table';
 import { ManualWidget } from '../../basic';
-import { TableLineHeightEnum, UserTablePrefer } from '../../typing';
+import { TableLineHeightEnum, type UserTablePrefer } from '../../typing';
 import DefaultTableFooterOperator from './DefaultTableFooterOperator.vue';
 import DefaultTableGroupCollapse from './DefaultTableGroupCollapse.vue';
 

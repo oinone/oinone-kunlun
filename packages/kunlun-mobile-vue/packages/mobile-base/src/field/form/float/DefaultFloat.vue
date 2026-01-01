@@ -33,7 +33,7 @@
 <script lang="ts">
 import { IInputmodeEnum, OioInputNumber } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { OioInputNumberProps } from '@oinone/kunlun-vue-ui-common';
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic';
 import { PreSuffixProps } from '../../prop';
 import InputPreSuffix from '../common/InputPreSuffix.vue';

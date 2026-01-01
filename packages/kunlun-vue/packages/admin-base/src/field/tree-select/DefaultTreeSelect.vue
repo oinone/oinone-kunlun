@@ -1,19 +1,8 @@
 <script lang="ts">
-import {
-  BooleanHelper,
-  ButtonType,
-  OioButton,
-  OioTreeNode,
-  OioTreeSelect,
-  SimpleTreeSelected,
-  TreeSelectNode,
-  TreeSelectNodeChangeEvent,
-  TreeSelectProperties,
-  useInjectOioDefaultFormContext
-} from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType, VNode, withModifiers } from 'vue';
+import { BooleanHelper, ButtonType, OioButton, type OioTreeNode, OioTreeSelect, SimpleTreeSelected, TreeSelectNode, TreeSelectNodeChangeEvent, TreeSelectProperties, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
+import { computed, createVNode, defineComponent, type PropType, type VNode, withModifiers } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../basic';
-import { TreeData } from '../../typing';
+import type { TreeData } from '../../typing';
 import { TreeUtils } from '../../util';
 
 export default defineComponent({

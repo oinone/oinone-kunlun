@@ -1,7 +1,7 @@
 import { HttpClient } from '@oinone/kunlun-request';
 import { buildSingleItemParam, getModel } from '@oinone/kunlun-service';
 import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
-import { EXP_MODULE, ExpModelConfig, IExpressionDefinition, IQueryExpressionParam } from '../types';
+import { EXP_MODULE, ExpModelConfig, type IExpressionDefinition, type IQueryExpressionParam } from '../types';
 
 const http = HttpClient.getInstance();
 

@@ -1,10 +1,10 @@
-import { IStaticDialogWidget, translateValueByKey } from '@oinone/kunlun-engine';
+import { type IStaticDialogWidget, translateValueByKey } from '@oinone/kunlun-engine';
 import { ModalWidth } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../../typing';
 import { StaticPopupWidget } from '../StaticPopupWidget';
 import DefaultDialog from './DefaultDialog.vue';
-import { DialogWidgetProps } from './DialogWidget';
+import type { DialogWidgetProps } from './DialogWidget';
 
 export class StaticDialogWidget extends StaticPopupWidget<DialogWidgetProps> implements IStaticDialogWidget {
   protected getPopupScene(): string {

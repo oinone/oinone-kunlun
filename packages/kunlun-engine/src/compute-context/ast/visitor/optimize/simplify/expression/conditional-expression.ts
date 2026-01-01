@@ -1,5 +1,5 @@
-import { ConditionalExpression, isLiteral, VisitContext } from '../../../../types';
-import { AdapterContext, VisitorAdapter } from '../../../visit';
+import { type ConditionalExpression, isLiteral, type VisitContext } from '../../../../types';
+import type { AdapterContext, VisitorAdapter } from '../../../visit';
 import { AbstractOptimizeAdapter } from '../../base';
 
 export class SimplifyConditionalExpression<C extends AdapterContext = AdapterContext>

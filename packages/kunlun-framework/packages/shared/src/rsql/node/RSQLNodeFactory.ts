@@ -1,5 +1,5 @@
 import { RSQLComparisonOperator, RSQLLogicalOperator } from '../RSQLOperator';
-import { RSQLAndNode, RSQLComparisonNode, RSQLLogicalNode, RSQLNode, RSQLOrNode } from './RSQLNode';
+import { RSQLAndNode, RSQLComparisonNode, RSQLLogicalNode, type RSQLNode, RSQLOrNode } from './RSQLNode';
 
 export class RSQLNodeFactory {
   private comparisonOperators: Record<string, RSQLComparisonOperator>;

@@ -1,6 +1,6 @@
 import { Manager, ObjectUtils } from '@oinone/kunlun-shared';
 import { RuntimeContextManager } from '../runtime-context';
-import { ComputeContext } from './compute-context';
+import type { ComputeContext } from './compute-context';
 import { compute, resolveCompute } from './method';
 
 /**

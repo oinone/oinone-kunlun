@@ -1,8 +1,8 @@
-import { ActiveRecord, buildQueryCondition, RuntimeContext } from '@oinone/kunlun-engine';
+import { type ActiveRecord, buildQueryCondition, type RuntimeContext } from '@oinone/kunlun-engine';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, EDirection } from '@oinone/kunlun-service';
 import { isString } from 'lodash-es';
-import { QueryExpression } from '../types';
+import type { QueryExpression } from '../types';
 
 export function generatorCondition(
   runtimeContext?: RuntimeContext,

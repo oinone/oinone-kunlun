@@ -2,7 +2,7 @@ import { watch, nextTick } from 'vue';
 
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { ActiveRecord, Pagination } from '@oinone/kunlun-engine';
+import type { ActiveRecord, Pagination } from '@oinone/kunlun-engine';
 import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-antd';
 
 import { BaseElementWidget, FormFieldWidget } from '../../../basic';

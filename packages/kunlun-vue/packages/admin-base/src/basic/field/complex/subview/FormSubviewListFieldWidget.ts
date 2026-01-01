@@ -1,20 +1,12 @@
-import {
-  ActiveRecord,
-  ActiveRecords,
-  ActiveRecordsOperator,
-  DeleteActiveRecordsByEntityPredict,
-  RuntimeM2MField,
-  RuntimeO2MField,
-  SubmitCacheManager
-} from '@oinone/kunlun-engine';
+import { type ActiveRecord, type ActiveRecords, ActiveRecordsOperator, type DeleteActiveRecordsByEntityPredict, type RuntimeM2MField, type RuntimeO2MField, SubmitCacheManager } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { ComputeTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { InlineTable } from '../../../../components';
-import { IFormSubviewListFieldWidget, RefreshProcessFunction } from '../../../types';
-import { FormComplexFieldProps } from '../FormComplexFieldWidget';
+import type { IFormSubviewListFieldWidget, RefreshProcessFunction } from '../../../types';
+import type { FormComplexFieldProps } from '../FormComplexFieldWidget';
 import { FormSubviewFieldWidget } from './FormSubviewFieldWidget';
 
 export class FormSubviewListFieldWidget<

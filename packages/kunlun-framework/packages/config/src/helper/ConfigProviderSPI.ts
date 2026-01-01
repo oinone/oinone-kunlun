@@ -1,11 +1,4 @@
-import {
-  SPIFactory,
-  SPIOptions,
-  SPIMultiSelector,
-  SPIOperator,
-  SPITokenFactory,
-  SPIMatchAnyValue
-} from '@oinone/kunlun-spi';
+import { SPIFactory, type SPIOptions, type SPIMultiSelector, SPIOperator, type SPITokenFactory, SPIMatchAnyValue } from '@oinone/kunlun-spi';
 
 export type IConfigProviderResult = Record<string, string | string[] | boolean | number | number[] | undefined>;
 

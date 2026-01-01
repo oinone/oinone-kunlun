@@ -1,18 +1,6 @@
 import * as charCodes from '../../../charcodes';
 import * as types from '../../../tokens';
-import {
-  AnyExpression,
-  createLiteral,
-  isStringLiteral,
-  Node,
-  ParserContext,
-  RSQLAnyExpression,
-  RSQLStringLiteral,
-  StringLiteral,
-  Token,
-  TokenParser,
-  TokenReader
-} from '../../../types';
+import { type AnyExpression, createLiteral, isStringLiteral, type Node, type ParserContext, type RSQLAnyExpression, type RSQLStringLiteral, type StringLiteral, type Token, type TokenParser, type TokenReader } from '../../../types';
 import { InputStream } from '../../../utils';
 import { createParseContext } from '../../../utils/helper';
 import { BaseParser } from '../../base';

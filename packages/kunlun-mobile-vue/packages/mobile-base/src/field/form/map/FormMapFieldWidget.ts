@@ -1,12 +1,12 @@
 import { SubmitHandler, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { CallChaining, ReturnPromise } from '@oinone/kunlun-shared';
+import { CallChaining, type ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
-import { ValidatorInfo } from '../../../typing';
+import type { ValidatorInfo } from '../../../typing';
 import DefaultMap from './DefaultMap.vue';
-import { MapItem } from './typing';
+import type { MapItem } from './typing';
 
 @SPI.ClassFactory(FormFieldWidget.Token({ ttype: ModelFieldType.Map, viewType: [ViewType.Form, ViewType.Detail] }))
 export class FormMapFieldWidget extends FormFieldWidget<Record<string, string>> {

@@ -1,18 +1,9 @@
-import { ActionDslDefinition, DslDefinition, DslDefinitionHelper, FieldDslDefinition } from '@oinone/kunlun-dsl';
+import { type ActionDslDefinition, type DslDefinition, DslDefinitionHelper, type FieldDslDefinition } from '@oinone/kunlun-dsl';
 import { ModelFieldType, ModelType } from '@oinone/kunlun-meta';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import {
-  RuntimeEnumerationOption,
-  RuntimeM2MField,
-  RuntimeM2OField,
-  RuntimeModel,
-  RuntimeModelField,
-  RuntimeO2MField,
-  RuntimeO2OField,
-  RuntimeRelationField
-} from '../../../runtime-metadata';
+import type { RuntimeEnumerationOption, RuntimeM2MField, RuntimeM2OField, RuntimeModel, RuntimeModelField, RuntimeO2MField, RuntimeO2OField, RuntimeRelationField } from '../../../runtime-metadata';
 import { isEnumerationField, isRelationField } from '../../helper';
-import { RuntimeContext } from '../../runtime-context';
+import type { RuntimeContext } from '../../runtime-context';
 import { RuntimeContextManager } from '../../runtime-context-manager';
 import { convert as convertAction, getAndRepairName as getAndRepairActionName } from '../action/resolve';
 import { ResolveUtil } from '../util';

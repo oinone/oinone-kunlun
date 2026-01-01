@@ -1,7 +1,7 @@
-import { Pagination } from '@oinone/kunlun-engine';
-import { IModule } from '@oinone/kunlun-meta';
+import type { Pagination } from '@oinone/kunlun-engine';
+import type { IModule } from '@oinone/kunlun-meta';
 import { HttpClient, Condition } from '@oinone/kunlun-request';
-import { HomePageConfig, HomepageConfigRule } from '../typing';
+import type { HomePageConfig, HomepageConfigRule } from '../typing';
 
 const http = HttpClient.getInstance();
 

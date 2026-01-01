@@ -1,5 +1,5 @@
-import { DslDefinitionWidget, DslDefinitionWidgetProps, DslRender } from '@oinone/kunlun-vue-widget';
-import { Slot, Slots, VNode } from 'vue';
+import { DslDefinitionWidget, type DslDefinitionWidgetProps, DslRender } from '@oinone/kunlun-vue-widget';
+import type { Slot, Slots, VNode } from 'vue';
 import { DefaultTabWidget } from '../../container';
 
 export function useTabWidgetTag(tabsWidgetInstance: DslDefinitionWidget, vnode: VNode): Slot | undefined {

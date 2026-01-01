@@ -1,5 +1,5 @@
 import { isString } from 'lodash-es';
-import { StandardString } from './typing';
+import type { StandardString } from './typing';
 
 const __IGNORE_VALUE__ = Symbol('JSON.stringify_ignored');
 

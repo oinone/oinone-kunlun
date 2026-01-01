@@ -3,7 +3,7 @@ import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 import { CastHelper, OioFormItem, PropRecordHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { Popover as VanPopover } from 'vant';
-import { computed, createVNode, defineComponent, Slot, VNode, vShow, withDirectives } from 'vue';
+import { computed, createVNode, defineComponent, type Slot, type VNode, vShow, withDirectives } from 'vue';
 import { BaseFormItemProps } from './props';
 import { ValidatorStatus } from '../../typing';
 

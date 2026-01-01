@@ -1,4 +1,4 @@
-import { ComputedRef, type Ref, ref, watch } from 'vue';
+import { type ComputedRef, type Ref, ref, watch } from 'vue';
 
 export interface ScrollState {
   readonly top: number;

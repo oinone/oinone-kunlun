@@ -1,4 +1,4 @@
-import { ActiveRecord, PopupManager } from '@oinone/kunlun-engine';
+import { type ActiveRecord, PopupManager } from '@oinone/kunlun-engine';
 import { ActionType, ViewActionTarget } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { BaseActionWidget } from '../../../../basic';

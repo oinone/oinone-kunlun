@@ -1,6 +1,6 @@
 import { SPI } from '@oinone/kunlun-spi';
-import { DebugErrorAnalysisResult, DebugResponseError } from '../../../../typing';
-import { DebugStackInfoService, DebugStackInfoServiceToken } from '../../DebugStackInfoService';
+import type { DebugErrorAnalysisResult, DebugResponseError } from '../../../../typing';
+import { type DebugStackInfoService, DebugStackInfoServiceToken } from '../../DebugStackInfoService';
 import { DebugDefaultStackInfoService } from './DebugDefaultStackInfoService';
 
 @SPI.Service(DebugStackInfoServiceToken, { name: 'halfPureBizStack', priority: 0 })

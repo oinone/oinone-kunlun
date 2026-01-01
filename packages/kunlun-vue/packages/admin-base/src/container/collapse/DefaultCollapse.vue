@@ -1,14 +1,6 @@
 <script lang="ts">
-import {
-  OioBaseContainerProps,
-  OioCollapse,
-  OioCollapseExpandIconPosition,
-  OioCollapseInstance,
-  OioCollapseMethod,
-  OioCollapseType,
-  PropRecordHelper
-} from '@oinone/kunlun-vue-ui-antd';
-import { createVNode, defineComponent, onMounted, PropType, ref } from 'vue';
+import { OioBaseContainerProps, OioCollapse, OioCollapseExpandIconPosition, OioCollapseInstance, OioCollapseMethod, OioCollapseType, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
+import { createVNode, defineComponent, onMounted, type PropType, ref } from 'vue';
 
 export default defineComponent({
   name: 'DefaultCollapse',

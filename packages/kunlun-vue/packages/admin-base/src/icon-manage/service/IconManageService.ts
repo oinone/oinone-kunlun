@@ -1,4 +1,4 @@
-import { Pagination } from '@oinone/kunlun-engine';
+import type { Pagination } from '@oinone/kunlun-engine';
 import { HttpClient, Condition } from '@oinone/kunlun-request';
 
 const http = HttpClient.getInstance();

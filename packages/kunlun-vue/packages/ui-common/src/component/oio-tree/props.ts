@@ -1,5 +1,5 @@
-import { OioTreeNode } from '@oinone/kunlun-shared';
-import { PropType } from 'vue';
+import type { OioTreeNode } from '@oinone/kunlun-shared';
+import type { PropType } from 'vue';
 import { OioSpinProps } from '../oio-spin';
 
 const OioTreeSelectProps = {

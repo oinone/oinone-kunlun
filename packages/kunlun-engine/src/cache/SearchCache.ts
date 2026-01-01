@@ -1,4 +1,4 @@
-import { Converter } from '@oinone/kunlun-shared';
+import type { Converter } from '@oinone/kunlun-shared';
 
 export interface InitializationBody<K, V> {
   key: K;

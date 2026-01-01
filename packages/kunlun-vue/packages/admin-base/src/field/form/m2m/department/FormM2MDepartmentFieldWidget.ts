@@ -1,4 +1,4 @@
-import { PamirsDepartment, RuntimeM2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { type PamirsDepartment, type RuntimeM2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';

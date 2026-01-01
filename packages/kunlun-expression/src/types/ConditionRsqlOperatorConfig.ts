@@ -1,8 +1,8 @@
 import { deepClone, isNumberTtype, isStringTtype, ModelFieldType } from '@oinone/kunlun-meta';
 import { Condition, DefaultComparisonOperator } from '@oinone/kunlun-request';
 import { translateExpValue } from '../share/utils';
-import { IExpSelectOption } from './Common';
-import { IVariableItem, VariableItemType } from './ExpressionDefinition';
+import type { IExpSelectOption } from './Common';
+import { type IVariableItem, VariableItemType } from './ExpressionDefinition';
 
 // 需要包裹括号的比较运算符
 export const WrapperCompareRsqlOperatorList = [

@@ -1,14 +1,6 @@
 <script lang="ts">
-import {
-  FormLayout,
-  OioTabPosition,
-  OioTabs,
-  PropRecordHelper,
-  useInjectOioFormContext,
-  useProviderOioFormContext,
-  DEFAULT_PREFIX
-} from '@oinone/kunlun-vue-ui-mobile-vant';
-import { computed, createVNode, defineComponent, PropType } from 'vue';
+import { FormLayout, OioTabPosition, OioTabs, PropRecordHelper, useInjectOioFormContext, useProviderOioFormContext, DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { computed, createVNode, defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
   name: 'DefaultTabs',

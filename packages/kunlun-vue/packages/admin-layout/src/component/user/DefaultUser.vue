@@ -36,10 +36,10 @@
 </template>
 <script lang="ts">
 import { CaretDownOutlined } from '@ant-design/icons-vue';
-import { UserInfo } from '@oinone/kunlun-engine';
+import type { UserInfo } from '@oinone/kunlun-engine';
 
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
   name: 'DefaultUser',

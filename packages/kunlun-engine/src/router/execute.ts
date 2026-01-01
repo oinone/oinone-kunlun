@@ -1,4 +1,4 @@
-import { RuntimeAction } from '../runtime-metadata';
+import type { RuntimeAction } from '../runtime-metadata';
 import { getBackRouter, getForwardRouter } from './factory';
 
 export interface ForwardOptions {

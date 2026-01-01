@@ -1,8 +1,8 @@
 <script lang="ts">
-import { CastHelper, CSSStyle, StringHelper } from '@oinone/kunlun-shared';
-import { OioGalleryItem, OioGalleryProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { CastHelper, type CSSStyle, StringHelper } from '@oinone/kunlun-shared';
+import { type OioGalleryItem, OioGalleryProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isNil, isObject, isString } from 'lodash-es';
-import { computed, createVNode, defineComponent, VNode } from 'vue';
+import { computed, createVNode, defineComponent, type VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { OioCol, OioRow } from '../oio-block';
 import { OioEmptyData } from '../oio-empty';

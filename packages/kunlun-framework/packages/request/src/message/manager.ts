@@ -1,6 +1,6 @@
 import { NonBlockingEventManager } from '@oinone/kunlun-shared';
 import { ILevel } from '../types';
-import { MessageHandler, MessageOptions } from './typing';
+import type { MessageHandler, MessageOptions } from './typing';
 
 enum MessageLevel {
   ERROR = 1,

@@ -1,4 +1,4 @@
-import { GQLResponseParameterMap, IS_GQL_PARAMETER_MAP_FLAG, isGQLResponseParameterMap } from '../typing';
+import { type GQLResponseParameterMap, IS_GQL_PARAMETER_MAP_FLAG, isGQLResponseParameterMap } from '../typing';
 
 export default function responseParametersToString(responseParameters: GQLResponseParameterMap): Promise<string> {
   return Promise.all(

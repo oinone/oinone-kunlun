@@ -5,7 +5,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { debounce } from 'lodash-es';
 import { FormFieldWidget } from '../../basic';
 import { SearchM2OSelectFieldWidget } from '../../field';
-import { IconGroup } from '../service/IconManageService';
+import type { IconGroup } from '../service/IconManageService';
 import { GroupAll } from '../typing';
 
 @SPI.ClassFactory(

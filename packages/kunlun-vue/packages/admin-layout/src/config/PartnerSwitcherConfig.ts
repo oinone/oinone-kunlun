@@ -1,5 +1,5 @@
-import { ConfigHelper, EnabledConfig } from '@oinone/kunlun-engine';
-import { RuntimeConfig, RuntimeConfigOptions } from '@oinone/kunlun-meta';
+import { ConfigHelper, type EnabledConfig } from '@oinone/kunlun-engine';
+import { RuntimeConfig, type RuntimeConfigOptions } from '@oinone/kunlun-meta';
 
 /**
  * 合作伙伴切换配置

@@ -108,10 +108,10 @@
 </template>
 <script lang="ts">
 import { genStaticPath, translateValueByKey } from '@oinone/kunlun-engine';
-import { IModule } from '@oinone/kunlun-meta';
+import type { IModule } from '@oinone/kunlun-meta';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 
-import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, nextTick, type PropType, ref, watch } from 'vue';
 import { DEFAULT_APPLICATION_LOGO } from '../../typing';
 
 export default defineComponent({

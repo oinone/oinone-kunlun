@@ -1,6 +1,6 @@
 import { InputStream } from '../utils';
-import { Node } from './base';
-import { Token } from './token';
+import type { Node } from './base';
+import type { Token } from './token';
 
 /**
  * parser interface

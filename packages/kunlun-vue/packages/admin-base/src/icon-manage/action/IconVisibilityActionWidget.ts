@@ -1,8 +1,8 @@
-import { ActiveRecord } from '@oinone/kunlun-engine';
+import type { ActiveRecord } from '@oinone/kunlun-engine';
 import { ActionType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { ActionWidget, ServerActionWidget } from '../../action';
-import { ClickResult } from '../../typing';
+import type { ClickResult } from '../../typing';
 import { IconActionBarWidget } from './IconActionBarWidget';
 
 @SPI.ClassFactory(ActionWidget.Token({ actionType: ActionType.Server, widget: 'iconVisibilityAction' }))

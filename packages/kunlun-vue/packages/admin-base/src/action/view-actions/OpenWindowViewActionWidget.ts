@@ -1,12 +1,7 @@
-import {
-  executeViewAction,
-  MultiTabsRuntimeManifestMergedConfigManager,
-  RedirectTargetEnum,
-  RuntimeViewAction
-} from '@oinone/kunlun-engine';
+import { executeViewAction, MultiTabsRuntimeManifestMergedConfigManager, RedirectTargetEnum, type RuntimeViewAction } from '@oinone/kunlun-engine';
 import { ActionType, ViewActionTarget } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { UrlQueryParameters } from '../../basic';
+import type { UrlQueryParameters } from '../../basic';
 import { ActionWidget } from '../component';
 import { RouterViewActionWidget } from './RouterViewActionWidget';
 

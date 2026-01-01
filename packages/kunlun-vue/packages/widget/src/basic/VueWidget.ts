@@ -1,25 +1,6 @@
-import { genStaticPath, translateValueByKey, WidgetConstructor, WidgetProps } from '@oinone/kunlun-engine';
+import { genStaticPath, translateValueByKey, type WidgetConstructor, type WidgetProps } from '@oinone/kunlun-engine';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import {
-  Component,
-  ComponentOptions,
-  ComponentPublicInstance,
-  computed,
-  createVNode,
-  defineComponent,
-  DefineComponent,
-  EffectScope,
-  effectScope,
-  isRef,
-  nextTick,
-  ref,
-  type Ref,
-  Slot,
-  Slots,
-  toRaw,
-  VNode,
-  watch
-} from 'vue';
+import { type Component, type ComponentOptions, type ComponentPublicInstance, computed, createVNode, defineComponent, type DefineComponent, type EffectScope, effectScope, isRef, nextTick, ref, type Ref, type Slot, type Slots, toRaw, type VNode, watch } from 'vue';
 import VueFragment from './VueFragment.vue';
 import { Widget } from './Widget';
 

@@ -3,7 +3,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../basic';
 
 import CustomView from './Permission.vue';
-import { IPermissionDslActions } from './types';
+import type { IPermissionDslActions } from './types';
 
 @SPI.ClassFactory(BaseElementWidget.Token({ widget: 'permission-view' }))
 export class PermissionWidget extends BaseElementWidget {

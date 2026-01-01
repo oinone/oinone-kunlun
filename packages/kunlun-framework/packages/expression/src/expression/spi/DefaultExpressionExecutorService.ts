@@ -1,8 +1,8 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { isEmpty, isString } from 'lodash-es';
 import { Expression } from '../Expression';
-import { ExpressionRunParam } from '../ExpressionDefinition';
-import { ExpressionExecutorService, ExpressionExecutorServiceToken } from './ExpressionExecutorService';
+import type { ExpressionRunParam } from '../ExpressionDefinition';
+import { type ExpressionExecutorService, ExpressionExecutorServiceToken } from './ExpressionExecutorService';
 
 @SPI.Service(ExpressionExecutorServiceToken, { name: '__default__', priority: 0 })
 export class DefaultExpressionExecutorService implements ExpressionExecutorService {

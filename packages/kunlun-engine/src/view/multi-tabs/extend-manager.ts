@@ -1,7 +1,7 @@
 import { getRouterInstance } from '@oinone/kunlun-router';
 import { MultiTabsManager } from './manager';
 import { MultiTabsRouter } from './router';
-import { MultiTabInstance } from './typing';
+import type { MultiTabInstance } from './typing';
 
 export class MultiTabsManagerExtend {
   /**

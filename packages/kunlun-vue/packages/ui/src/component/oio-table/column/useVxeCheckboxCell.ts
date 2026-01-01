@@ -1,5 +1,5 @@
 import { OioTooltip } from '@oinone/kunlun-vue-ui-antd';
-import { createVNode, VNode } from 'vue';
+import { createVNode, type VNode } from 'vue';
 import type { SlotVNodeType, VxeTableDefines } from 'vxe-table';
 import VxeGlobalConfig from 'vxe-table/es/v-x-e-table/src/conf.js';
 import XEUtils from 'xe-utils';

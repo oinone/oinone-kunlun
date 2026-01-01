@@ -1,7 +1,7 @@
 import { darkModernVars } from '../../color';
 import { registerTheme } from '../../register';
 import { defaultLargeSizeVars, defaultMediumSizeVars, defaultSmallSizeVars } from '../../size';
-import { ThemeSize } from '../../typing';
+import type { ThemeSize } from '../../typing';
 import { getComponentTheme } from './component-theme';
 
 function registerComponentThemeWithBase(baseCssVars) {

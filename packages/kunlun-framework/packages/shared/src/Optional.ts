@@ -1,5 +1,5 @@
-import { Consumer, Converter, Supplier } from './LambdaFunction';
-import { Nullable, PredictNullable } from './typing';
+import type { Consumer, Converter, Supplier } from './LambdaFunction';
+import type { Nullable, PredictNullable } from './typing';
 
 export class Optional<T> {
   private static EMPTY = new Optional<unknown>();

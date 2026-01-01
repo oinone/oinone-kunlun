@@ -1,13 +1,5 @@
 import { ProducerOperator } from '../operator';
-import {
-  EventCategory,
-  EventConsumer,
-  EventConsumerFunction,
-  EventConsumerOptions,
-  EventProducer,
-  HTMLKeyboardEventConsumerConfig,
-  KeyboardEventMessage
-} from '../typing';
+import { EventCategory, type EventConsumer, type EventConsumerFunction, type EventConsumerOptions, type EventProducer, type HTMLKeyboardEventConsumerConfig, type KeyboardEventMessage } from '../typing';
 import { Basic } from './basic';
 
 const PRODUCER_TYPE = 'global';

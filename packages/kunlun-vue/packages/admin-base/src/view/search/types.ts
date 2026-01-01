@@ -1,9 +1,9 @@
-import { IModelFieldOption } from '@oinone/kunlun-meta';
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
+import type { IModelFieldOption } from '@oinone/kunlun-meta';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import type { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
 import { OioFormProps } from '@oinone/kunlun-vue-ui-antd';
-import { PropType } from 'vue';
-import { UserSearchPrefer } from '../../typing';
+import type { PropType } from 'vue';
+import type { UserSearchPrefer } from '../../typing';
 
 export const CATE_ALL_NAME = '$ALL';
 export const CATE_ALL_OPTION = { value: CATE_ALL_NAME, name: CATE_ALL_NAME, displayName: '全部' } as IModelFieldOption;

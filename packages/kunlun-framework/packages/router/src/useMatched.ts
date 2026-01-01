@@ -1,6 +1,6 @@
 import { BehaviorSubject, distinctUntilChanged, Subscription } from '@oinone/kunlun-state';
 
-import { Matched } from './matchPath';
+import type { Matched } from './matchPath';
 
 let matched: Matched;
 let globePrevMatched: Matched | null = null;

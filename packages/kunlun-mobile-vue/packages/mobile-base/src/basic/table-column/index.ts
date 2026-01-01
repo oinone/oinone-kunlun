@@ -1,2 +1,2 @@
 export * from './BaseTableColumnWidget';
-export { BaseTableFieldWidgetProps, BaseTableFieldWidget } from './BaseTableFieldWidget';
+export { type BaseTableFieldWidgetProps, BaseTableFieldWidget } from './BaseTableFieldWidget';

@@ -2,7 +2,7 @@
 import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { OioSpinProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { DslRender, useInjectMetaContext, useProviderMetaContext } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, VNode } from 'vue';
+import { computed, createVNode, defineComponent, type VNode } from 'vue';
 import { MetadataViewProps } from '../basic';
 
 export default defineComponent({

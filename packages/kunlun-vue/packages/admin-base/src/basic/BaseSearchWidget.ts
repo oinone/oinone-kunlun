@@ -1,11 +1,11 @@
-import { ActiveRecord, RefreshCallChainingParameters, RefreshCallChainingScope } from '@oinone/kunlun-engine';
+import { type ActiveRecord, type RefreshCallChainingParameters, RefreshCallChainingScope } from '@oinone/kunlun-engine';
 import { getRouterInstance } from '@oinone/kunlun-router';
 import { CallChaining, CastHelper, NumberHelper } from '@oinone/kunlun-shared';
 import { parseActionDomain4search } from '@oinone/kunlun-vue-admin-layout';
-import { isSearchViewState, OioAnyViewState, OioSearchViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { isSearchViewState, type OioAnyViewState, type OioSearchViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isNil } from 'lodash-es';
 import { BaseElementWidget } from './token';
-import { QueryExpression } from './types';
+import type { QueryExpression } from './types';
 
 export class BaseSearchWidget extends BaseElementWidget {
   protected viewState: OioSearchViewState | undefined;

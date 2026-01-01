@@ -1,6 +1,6 @@
 import { isString } from 'lodash-es';
-import { BiConverter, Consumer, Converter, Predict } from './LambdaFunction';
-import { StandardTreeNode } from './typing';
+import type { BiConverter, Consumer, Converter, Predict } from './LambdaFunction';
+import type { StandardTreeNode } from './typing';
 
 /**
  * 树节点构造函数

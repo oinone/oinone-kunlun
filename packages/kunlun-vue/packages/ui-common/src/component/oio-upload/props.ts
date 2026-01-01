@@ -1,6 +1,6 @@
-import { ReturnPromise, ReturnVoid } from '@oinone/kunlun-shared';
-import { PropType } from 'vue';
-import { FileModel } from '../../util';
+import type { ReturnPromise, ReturnVoid } from '@oinone/kunlun-shared';
+import type { PropType } from 'vue';
+import type { FileModel } from '../../util';
 
 export const AUploadProps = {
   multiple: {

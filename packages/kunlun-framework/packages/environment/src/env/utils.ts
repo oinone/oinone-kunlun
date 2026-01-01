@@ -1,4 +1,4 @@
-import { VisibleArea } from './typing';
+import type { VisibleArea } from './typing';
 
 export function createVisibleArea(handle: string, el?: HTMLElement | (() => HTMLElement | undefined)): VisibleArea {
   const origin = { handle, el } as VisibleArea;

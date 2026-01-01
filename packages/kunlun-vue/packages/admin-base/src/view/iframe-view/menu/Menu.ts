@@ -1,4 +1,4 @@
-import { IMenu } from '@oinone/kunlun-meta';
+import type { IMenu } from '@oinone/kunlun-meta';
 import { Router } from '@oinone/kunlun-router';
 import { SPI } from '@oinone/kunlun-spi';
 import { MaskWidget } from '@oinone/kunlun-vue-admin-layout';

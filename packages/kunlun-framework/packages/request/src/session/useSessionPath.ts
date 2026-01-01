@@ -1,4 +1,4 @@
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 
 let activeSessionPath: string | undefined;
 

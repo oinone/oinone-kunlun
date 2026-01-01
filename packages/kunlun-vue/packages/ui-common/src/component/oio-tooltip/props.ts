@@ -1,4 +1,4 @@
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 import { PopperTrigger } from '../oio-popper';
 
 export enum OioTooltipPlacement {

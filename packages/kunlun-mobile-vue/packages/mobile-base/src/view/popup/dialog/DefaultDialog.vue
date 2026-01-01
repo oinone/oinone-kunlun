@@ -37,13 +37,7 @@
 </template>
 <script lang="ts">
 import { StringHelper } from '@oinone/kunlun-shared';
-import {
-  DEFAULT_PREFIX,
-  OioButton,
-  OioModal,
-  useInjectOioDefaultFormContext,
-  useProviderOioDefaultFormContext
-} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { DEFAULT_PREFIX, OioButton, OioModal, useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { computed, defineComponent } from 'vue';
 

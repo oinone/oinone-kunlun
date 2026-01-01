@@ -1,5 +1,5 @@
-import { ReturnPromise, ReturnVoid } from '@oinone/kunlun-shared';
-import { PropType, Slot } from 'vue';
+import type { ReturnPromise, ReturnVoid } from '@oinone/kunlun-shared';
+import type { PropType, Slot } from 'vue';
 import { DrawerPlacement } from '../oio-drawer';
 import { VcPopupAppearanceProps, VcPopupDataProps } from '../vc-popup';
 import { InnerPopupSize } from './typing';

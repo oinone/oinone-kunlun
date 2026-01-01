@@ -1,4 +1,4 @@
-import { ActiveRecord } from '@oinone/kunlun-engine';
+import type { ActiveRecord } from '@oinone/kunlun-engine';
 
 export interface ResourceAddress extends ActiveRecord {
   id?: string;

@@ -66,13 +66,13 @@
 </template>
 
 <script lang="ts">
-import { ActiveRecord, RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
+import { type ActiveRecord, type RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
 import { OioButton, OioIcon, OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { ModalWidth, OioCloseIcon } from '@oinone/kunlun-vue-ui-common';
 import { Modal, Radio as ARadio, RadioGroup as ARadioGroup } from 'ant-design-vue';
-import { computed, createVNode, defineComponent, PropType, ref, watch } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, ref, watch } from 'vue';
 import Excel from './Excel.vue';
-import { QuickFillType, TableFieldOption } from './type';
+import { QuickFillType, type TableFieldOption } from './type';
 
 const DEFAULT_ROW_COUNT = 9;
 

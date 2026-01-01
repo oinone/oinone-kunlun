@@ -1,9 +1,9 @@
-import { RowContext, TableFixed, VxeTableHelper, VxeTableRowContext } from '@oinone/kunlun-vue-ui';
-import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
-import { createVNode, VNode } from 'vue';
+import { TableFixed, VxeTableHelper, type RowContext, type VxeTableRowContext } from '@oinone/kunlun-vue-ui';
+import { type ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
+import { createVNode, type VNode } from 'vue';
 import type { VxeTableConstructor, VxeTableDefines, VxeTableMethods, VxeTablePrivateMethods } from 'vxe-table';
 import { UserPreferEventManager } from '../../service';
-import { UserTablePrefer } from '../../typing';
+import type { UserTablePrefer } from '../../typing';
 import { BaseTableColumnWidget } from './BaseTableColumnWidget';
 import DefaultQuickOperationColumn from './DefaultQuickOperationColumn.vue';
 import Element from '../../tags/Element.vue';

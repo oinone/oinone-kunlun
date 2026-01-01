@@ -1,7 +1,7 @@
 import { NumberHelper } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
-import { BaseView, BaseViewProps } from '../token';
+import { BaseView, type BaseViewProps } from '../token';
 
 export class BaseObjectView<Props extends BaseViewProps = BaseViewProps> extends BaseView<Props> {
   @Widget.Reactive()

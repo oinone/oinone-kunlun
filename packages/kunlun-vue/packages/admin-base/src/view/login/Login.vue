@@ -306,19 +306,12 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, defineProps, PropType, ref, nextTick, onActivated } from 'vue';
+import { computed, defineProps, type PropType, ref, nextTick, onActivated } from 'vue';
 import { Menu as AMenu, MenuItem as AMenuItem, Dropdown as ADropdown } from 'ant-design-vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 
-import {
-  OioLoginThemeName,
-  OioLoginLogoPosition,
-  getCopyrightStatus,
-  OioLoginThemeConfig,
-  genStaticPath,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
-import { LoginMode, LoginData, RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
+import { OioLoginThemeName, OioLoginLogoPosition, getCopyrightStatus, type OioLoginThemeConfig, genStaticPath, translateValueByKey } from '@oinone/kunlun-engine';
+import { LoginMode, type LoginData, type RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
 import { OioForm, OioButton, OioFormItem, OioInput, OioIcon, VIDEO_SUFFIX_LIST } from '@oinone/kunlun-vue-ui-antd';
 
 const props = defineProps({

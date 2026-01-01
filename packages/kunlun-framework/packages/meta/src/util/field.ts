@@ -1,4 +1,4 @@
-import { IModelField, ModelFieldType } from '../metadata/types';
+import { type IModelField, ModelFieldType } from '../metadata/types';
 
 const isSimpleField = (field: IModelField): boolean => {
   switch (field.ttype) {

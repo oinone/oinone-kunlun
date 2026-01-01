@@ -1,38 +1,18 @@
-import {
-  ActiveRecord,
-  ActiveRecordExtendKeys,
-  ActiveRecords,
-  ActiveRecordsOperator,
-  getRefreshParameters,
-  getValidatorParameters,
-  OioProvider,
-  QueryContext,
-  QueryService,
-  QueryVariables,
-  SubmitValue
-} from '@oinone/kunlun-engine';
-import { FieldEventName, FieldEventNames, LifeCycleTypes } from '@oinone/kunlun-event';
+import { type ActiveRecord, ActiveRecordExtendKeys, type ActiveRecords, ActiveRecordsOperator, getRefreshParameters, getValidatorParameters, OioProvider, type QueryContext, QueryService, type QueryVariables, SubmitValue } from '@oinone/kunlun-engine';
+import { type FieldEventName, FieldEventNames, LifeCycleTypes } from '@oinone/kunlun-event';
 import { ActionContextType, ModelType, ViewMode } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
-import {
-  BooleanHelper,
-  CallChaining,
-  debugConsole,
-  NumberHelper,
-  ObjectUtils,
-  Optional,
-  StringHelper
-} from '@oinone/kunlun-shared';
+import { BooleanHelper, CallChaining, debugConsole, NumberHelper, ObjectUtils, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
-import { OioObjectViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { type OioObjectViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isFunction, isNil, isPlainObject, isString } from 'lodash-es';
 import { DetailBizStyle, FormBizStyle, isValidatorError } from '../../typing';
 import { validatorCallChainingCallAfterFn } from '../constant';
 import { BaseFieldWidget, BaseView } from '../token';
-import { HandlerEvent as FieldHandlerEvent } from '../token/BaseFieldWidget';
-import { RefreshProcessFunction } from '../types';
-import { BaseElementViewWidget, BaseElementViewWidgetProps } from './BaseElementViewWidget';
+import type { HandlerEvent as FieldHandlerEvent } from '../token/BaseFieldWidget';
+import type { RefreshProcessFunction } from '../types';
+import { BaseElementViewWidget, type BaseElementViewWidgetProps } from './BaseElementViewWidget';
 import { concatCondition } from './utils';
 
 export interface BaseElementObjectViewWidgetProps extends BaseElementViewWidgetProps {

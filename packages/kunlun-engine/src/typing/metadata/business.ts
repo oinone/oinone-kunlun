@@ -1,6 +1,6 @@
 import { DataStatusEnum } from '@oinone/kunlun-meta';
-import { ActiveRecord } from '../active-record';
-import { BizModel, NameCodeModel, TreeModel } from './base';
+import type { ActiveRecord } from '../active-record';
+import type { BizModel, NameCodeModel, TreeModel } from './base';
 
 export enum StaffSize {
   SS_1_9 = '1-9',

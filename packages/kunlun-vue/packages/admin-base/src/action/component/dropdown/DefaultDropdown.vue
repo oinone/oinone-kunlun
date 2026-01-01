@@ -1,22 +1,11 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { IconPlacement, OioButton, OioDropdown, OioDropdownProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { Menu as AMenu, Popover as APopover } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
-import {
-  computed,
-  createVNode,
-  defineComponent,
-  nextTick,
-  onMounted,
-  PropType,
-  ref,
-  VNode,
-  vShow,
-  withDirectives
-} from 'vue';
+import { computed, createVNode, defineComponent, nextTick, onMounted, type PropType, ref, type VNode, vShow, withDirectives } from 'vue';
 import { InternalWidget } from '../../../tags';
 import { VNodeHelper } from '../../../util';
 import { useProviderActionContext } from '../context';

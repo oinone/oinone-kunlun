@@ -1,15 +1,4 @@
-import {
-  ActionType,
-  IAction,
-  IClientAction,
-  ICompositionAction,
-  IModel,
-  IModelField,
-  ModelFieldType,
-  ElementType,
-  IDslNode,
-  IDslTree
-} from '@oinone/kunlun-meta';
+import { ActionType, type IAction, type IClientAction, type ICompositionAction, type IModel, type IModelField, ModelFieldType, ElementType, type IDslNode, type IDslTree } from '@oinone/kunlun-meta';
 import { getDefaultFieldRenderType } from '../create-default-xml/field';
 
 const ModelFieldTypeValues = Object.values(ModelFieldType);

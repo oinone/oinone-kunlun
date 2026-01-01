@@ -1,5 +1,5 @@
 import { StableSlotProp } from '@oinone/kunlun-vue-ui-common';
-import { Slots, VNode } from 'vue';
+import type { Slots, VNode } from 'vue';
 import { VueWidget } from '../basic';
 
 export function renderWidgets(widgets: VueWidget[], ctx: Record<string, unknown>, slots?: Slots) {

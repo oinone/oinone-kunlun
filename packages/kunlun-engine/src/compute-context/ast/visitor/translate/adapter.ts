@@ -1,31 +1,14 @@
 import { isRelationField } from '../../../../runtime-context';
-import { RuntimeModel, RuntimeModelField } from '../../../../runtime-metadata';
+import type { RuntimeModel, RuntimeModelField } from '../../../../runtime-metadata';
 import { TokenPropertiesManager } from '../../manager';
 import { parser } from '../../parser';
-import {
-  AnyExpression,
-  ArrayPattern,
-  BinaryExpression,
-  BooleanLiteral,
-  CallExpression,
-  ConditionalExpression,
-  Identifier,
-  isIdentifier,
-  Literal,
-  LogicalExpression,
-  MemberExpression,
-  Node,
-  NumberLiteral,
-  StringLiteral,
-  TemplateLiteral,
-  VisitContext
-} from '../../types';
+import { type AnyExpression, type ArrayPattern, type BinaryExpression, type BooleanLiteral, type CallExpression, type ConditionalExpression, type Identifier, isIdentifier, type Literal, type LogicalExpression, type MemberExpression, type Node, type NumberLiteral, type StringLiteral, type TemplateLiteral, type VisitContext } from '../../types';
 import { Executor } from '../executor';
 import { Optimize } from '../optimize';
-import { StringAdapter, StringAdapterContext } from '../to-string';
-import { VisitorAdapter } from '../visit';
+import { StringAdapter, type StringAdapterContext } from '../to-string';
+import type { VisitorAdapter } from '../visit';
 import { ExpressionLocaleManager } from './expression-locale';
-import { ExpressionLocaleType } from './language';
+import type { ExpressionLocaleType } from './language';
 
 export interface TranslateAdapterOptions {
   model?: RuntimeModel;

@@ -1,6 +1,6 @@
 import { BooleanHelper } from '../../BooleanHeler';
 import { NumberHelper } from '../../NumberHelper';
-import { RSQLConditionNodeInfo, RSQLNodeInfo } from '../RSQLNodeInfo';
+import { type RSQLConditionNodeInfo, RSQLNodeInfo } from '../RSQLNodeInfo';
 import { RSQLLogicalOperator } from '../RSQLOperator';
 
 export interface NodeConnector<T> {

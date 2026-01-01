@@ -1,7 +1,7 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { DslRender, useInjectMetaContext, useProviderMetaContext } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, Fragment, PropType, VNode } from 'vue';
+import { computed, createVNode, defineComponent, Fragment, type PropType, type VNode } from 'vue';
 import { MetadataViewProps } from '../basic';
 import { useProviderMaskContext } from '../layout';
 

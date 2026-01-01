@@ -1,13 +1,13 @@
 <script lang="ts">
 import { DslDefinitionType, DslSlotUtils } from '@oinone/kunlun-dsl';
 import { CastHelper } from '@oinone/kunlun-shared';
-import { RowContext } from '@oinone/kunlun-vue-ui';
+import type { RowContext } from '@oinone/kunlun-vue-ui';
 import { CSSStyle, DEFAULT_CARD_GUTTERS, FlexRowJustify, OioCheckbox, useClick } from '@oinone/kunlun-vue-ui-antd';
 import { FlexRowAlign, ListSelectMode, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
-import { DslRender, DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, PropType, VNode } from 'vue';
+import { DslRender, type DslRenderDefinition } from '@oinone/kunlun-vue-widget';
+import { computed, createVNode, defineComponent, type PropType, type VNode } from 'vue';
 import { ActionBar, InternalWidget, ResolveMode } from '../../tags';
-import { UserTablePrefer } from '../../typing';
+import type { UserTablePrefer } from '../../typing';
 import DefaultCardContent from './DefaultCardContent.vue';
 import DefaultCardTitle from './DefaultCardTitle.vue';
 import DefaultCardTitleToolbar from './DefaultCardTitleToolbar.vue';

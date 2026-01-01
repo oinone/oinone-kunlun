@@ -1,14 +1,7 @@
 import { useCurrentInstance } from '@oinone/kunlun-environment';
 import { instantiate } from '@oinone/kunlun-shared';
 import { selectorEventConsumer } from '../spi';
-import {
-  EventConsumer,
-  EventConsumerConfig,
-  EventConsumerFunction,
-  EventConsumerOptions,
-  EventEngineOptions,
-  EventMessage
-} from '../typing';
+import type { EventConsumer, EventConsumerConfig, EventConsumerFunction, EventConsumerOptions, EventEngineOptions, EventMessage } from '../typing';
 
 export class ConsumerOperator {
   private static consumers: Map<string, EventConsumer<unknown, unknown, unknown>[]> = new Map<

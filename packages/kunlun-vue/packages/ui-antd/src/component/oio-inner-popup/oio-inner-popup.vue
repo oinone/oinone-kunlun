@@ -1,29 +1,7 @@
 <script lang="ts">
-import {
-  ButtonType,
-  DrawerPlacement,
-  OioCloseIcon,
-  OioIcon,
-  OioInnerPopupProps,
-  PropRecordHelper,
-  useInjectOioDefaultFormContext,
-  useProviderOioDefaultFormContext,
-  useResizableHandle
-} from '@oinone/kunlun-vue-ui-common';
+import { ButtonType, DrawerPlacement, OioCloseIcon, OioIcon, OioInnerPopupProps, PropRecordHelper, useInjectOioDefaultFormContext, useProviderOioDefaultFormContext, useResizableHandle } from '@oinone/kunlun-vue-ui-common';
 import { isFunction, isString } from 'lodash-es';
-import {
-  computed,
-  createVNode,
-  defineComponent,
-  ref,
-  Slot,
-  Teleport,
-  VNode,
-  VNodeProps,
-  vShow,
-  watch,
-  withDirectives
-} from 'vue';
+import { computed, createVNode, defineComponent, ref, type Slot, Teleport, type VNode, VNodeProps, vShow, watch, withDirectives } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { OioButton } from '../oio-button';
 import { OioSpin } from '../oio-spin';

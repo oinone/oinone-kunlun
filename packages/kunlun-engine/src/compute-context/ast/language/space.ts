@@ -1,6 +1,6 @@
 import * as charCodes from '../charcodes';
 import * as types from '../tokens';
-import { Node, ParserContext, Token, TokenParser, TokenReader } from '../types';
+import type { Node, ParserContext, Token, TokenParser, TokenReader } from '../types';
 import { BaseReader } from './base';
 
 export class SpaceReader extends BaseReader implements TokenReader {

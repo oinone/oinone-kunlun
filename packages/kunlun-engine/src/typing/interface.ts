@@ -1,7 +1,7 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { Entity, EntityId, IDslNode, IModel, IModelField, IView, ViewType } from '@oinone/kunlun-meta';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { type Entity, type EntityId, type IDslNode, type IModel, type IModelField, type IView, ViewType } from '@oinone/kunlun-meta';
 import { ISort } from '@oinone/kunlun-service';
-import { WidgetProps } from '../view/widget/typing';
+import type { WidgetProps } from '../view/widget/typing';
 
 export type Align = 'left' | 'right' | 'center';
 export type Overflow = 'hidden' | 'scroll' | 'auto';

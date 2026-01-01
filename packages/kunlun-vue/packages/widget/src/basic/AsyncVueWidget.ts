@@ -1,5 +1,5 @@
-import { h, Suspense, VNode, SetupContext } from 'vue';
-import { SetupHook, VueWidget } from './VueWidget';
+import { h, Suspense, type VNode, type SetupContext } from 'vue';
+import { type SetupHook, VueWidget } from './VueWidget';
 
 export class AsyncVueWidget extends VueWidget {
   public setup(setupHook?: SetupHook) {

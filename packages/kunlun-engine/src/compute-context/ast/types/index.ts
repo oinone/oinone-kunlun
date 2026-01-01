@@ -1,4 +1,4 @@
-import { AnyExpression, Declaration, Expression, Literal, Node, NodeType, Pattern, Statement } from './base';
+import type { AnyExpression, Declaration, Expression, Literal, Node, NodeType, Pattern, Statement } from './base';
 
 export function createLiteral<T extends Literal>(type: T['type'], options: Omit<T, keyof Literal>): T {
   return {

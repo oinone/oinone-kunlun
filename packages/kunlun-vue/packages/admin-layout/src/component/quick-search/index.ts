@@ -1,4 +1,4 @@
-import { IModel } from '@oinone/kunlun-meta';
+import type { IModel } from '@oinone/kunlun-meta';
 import { queryPage } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';

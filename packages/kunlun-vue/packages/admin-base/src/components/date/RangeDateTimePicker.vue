@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import { RangePicker as ARangePicker } from 'ant-design-vue';
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
   components: {

@@ -3,7 +3,7 @@ import { CSSPluginLoader } from '../loader/CSSPluginLoader';
 import { ESMPluginLoader } from '../loader/ESMPluginLoader';
 import { IIFEPluginLoader } from '../loader/IIFEPluginLoader';
 import { UMDPluginLoader } from '../loader/UMDPluginLoader';
-import { PluginLoader, PluginLoadType } from '../typing';
+import type { PluginLoader, PluginLoadType } from '../typing';
 
 export class PluginLoaderFactory {
   public static get(type: PluginLoadType): PluginLoader | undefined {

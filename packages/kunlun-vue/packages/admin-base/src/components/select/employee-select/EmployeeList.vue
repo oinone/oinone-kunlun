@@ -1,8 +1,8 @@
 <script lang="ts">
-import { PamirsEmployee } from '@oinone/kunlun-engine';
+import type { PamirsEmployee } from '@oinone/kunlun-engine';
 import { OioList, OioListItem, SelectMode } from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, onMounted, PropType } from 'vue';
-import { ListStateLoadFunction } from '../../quick-utils';
+import { computed, createVNode, defineComponent, onMounted, type PropType } from 'vue';
+import type { ListStateLoadFunction } from '../../quick-utils';
 import { useEmployeeList } from './init';
 
 export default defineComponent({

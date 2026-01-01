@@ -1,8 +1,8 @@
-import { ActiveRecord, RuntimeM2MField, RuntimeO2MField } from '@oinone/kunlun-engine';
+import type { ActiveRecord, RuntimeM2MField, RuntimeO2MField } from '@oinone/kunlun-engine';
 import { Condition } from '@oinone/kunlun-request';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { RefreshProcessFunction } from '../../types';
-import { FormComplexFieldProps, FormComplexFieldWidget } from './FormComplexFieldWidget';
+import type { RefreshProcessFunction } from '../../types';
+import { type FormComplexFieldProps, FormComplexFieldWidget } from './FormComplexFieldWidget';
 
 export abstract class FormComplexListFieldWidget<
   Field extends RuntimeO2MField | RuntimeM2MField = RuntimeO2MField | RuntimeM2MField,

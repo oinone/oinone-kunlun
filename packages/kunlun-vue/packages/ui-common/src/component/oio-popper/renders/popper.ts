@@ -1,7 +1,7 @@
 import { isNil } from 'lodash-es';
-import { createVNode, Slot, Transition, VNode, vShow, withDirectives } from 'vue';
-import { PopperPosition, PopperRelative, PopperRelativePosition } from '../props';
-import { TriggerElementInfo } from '../use-popper/typing';
+import { createVNode, type Slot, Transition, type VNode, vShow, withDirectives } from 'vue';
+import { type PopperPosition, PopperRelative, PopperRelativePosition } from '../props';
+import type { TriggerElementInfo } from '../use-popper/typing';
 
 interface RenderPopperProps {
   triggerInfo: TriggerElementInfo;

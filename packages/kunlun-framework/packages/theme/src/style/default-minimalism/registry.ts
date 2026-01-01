@@ -1,5 +1,5 @@
 import { registerTheme } from '../../register';
-import { ThemeSize } from '../../typing';
+import type { ThemeSize } from '../../typing';
 import { getComponentTheme } from './component-theme';
 
 import { defaultModernVars } from '../../color';

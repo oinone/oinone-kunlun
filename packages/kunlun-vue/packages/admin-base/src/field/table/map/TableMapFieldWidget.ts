@@ -1,7 +1,7 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { createVNode, VNode } from 'vue';
+import { createVNode, type VNode } from 'vue';
 import { BaseFieldWidget, BaseTableFieldWidget } from '../../../basic';
 
 interface IValue {

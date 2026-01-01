@@ -1,6 +1,6 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { SPI } from '@oinone/kunlun-spi';
-import { MaskEditor, MaskEditorContext, MaskEditorToken } from './mask-editor';
+import { type MaskEditor, type MaskEditorContext, MaskEditorToken } from './mask-editor';
 
 // inversify至少要有1个实现类，否则会报错
 @SPI.Service(MaskEditorToken, { priority: 1 })

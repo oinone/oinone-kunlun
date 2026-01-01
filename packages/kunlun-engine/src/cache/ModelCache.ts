@@ -1,16 +1,7 @@
-import {
-  IClientAction,
-  IModel,
-  IModelField,
-  IModelFieldOption,
-  IServerAction,
-  IURLAction,
-  IViewAction,
-  ViewType
-} from '@oinone/kunlun-meta';
+import { type IClientAction, type IModel, type IModelField, type IModelFieldOption, type IServerAction, type IURLAction, type IViewAction, ViewType } from '@oinone/kunlun-meta';
 import { getModel, getModelByFields } from '@oinone/kunlun-service';
 import { ResolveUtil } from '../runtime-context/resolve/util';
-import { RuntimeAction, RuntimeEnumerationOption, RuntimeModel, RuntimeModelField } from '../runtime-metadata';
+import type { RuntimeAction, RuntimeEnumerationOption, RuntimeModel, RuntimeModelField } from '../runtime-metadata';
 import { MemoryAsyncCache } from './cache';
 import { ClearCache } from './CacheClear';
 

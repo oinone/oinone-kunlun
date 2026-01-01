@@ -1,9 +1,9 @@
-import { ActionDslDefinition } from '@oinone/kunlun-dsl';
+import type { ActionDslDefinition } from '@oinone/kunlun-dsl';
 import { ActionContextType, ActionType, ViewType } from '@oinone/kunlun-meta';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { generatorModelName, RuntimeAction } from '../../../runtime-metadata';
+import { generatorModelName, type RuntimeAction } from '../../../runtime-metadata';
 import { parseConfigs } from '../../../util';
-import { RuntimeContext } from '../../runtime-context';
+import type { RuntimeContext } from '../../runtime-context';
 import { ResolveUtil } from '../util';
 import { selectorConverters } from './spi';
 

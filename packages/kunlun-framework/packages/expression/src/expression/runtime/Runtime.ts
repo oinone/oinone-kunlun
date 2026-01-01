@@ -1,4 +1,4 @@
-import { IExpression } from '../language';
+import type { IExpression } from '../language';
 
 export interface Variable {
   value: unknown;

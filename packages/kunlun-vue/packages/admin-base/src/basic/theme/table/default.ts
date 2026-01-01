@@ -1,4 +1,4 @@
-import { TableColumnMinWidthComputeConfigContext } from './config';
+import type { TableColumnMinWidthComputeConfigContext } from './config';
 
 const CHINESE_REG_EXP = new RegExp(/[\u4E00-\u9FA5]/g);
 

@@ -1,6 +1,6 @@
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { GenericType, StandardString } from '@oinone/kunlun-shared';
-import { Plugin } from 'vue';
+import type { GenericType, StandardString } from '@oinone/kunlun-shared';
+import type { Plugin } from 'vue';
 
 export const $translate: Plugin = {
   install: (app) => {

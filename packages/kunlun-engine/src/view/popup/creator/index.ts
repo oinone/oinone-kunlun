@@ -1,7 +1,7 @@
-import { ObjectValue } from '@oinone/kunlun-request';
-import { RuntimeAction, RuntimeViewAction } from '../../../runtime-metadata';
-import { IStaticDialogWidget, IStaticDrawerWidget } from '../static-widget';
-import { IPopupInstance } from '../typing';
+import type { ObjectValue } from '@oinone/kunlun-request';
+import type { RuntimeAction, RuntimeViewAction } from '../../../runtime-metadata';
+import type { IStaticDialogWidget, IStaticDrawerWidget } from '../static-widget';
+import type { IPopupInstance } from '../typing';
 import { Popup } from './popup';
 
 /**

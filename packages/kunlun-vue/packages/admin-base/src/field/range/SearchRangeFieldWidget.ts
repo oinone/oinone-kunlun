@@ -1,5 +1,5 @@
-import { RuntimeModelField, RuntimeSearchField, translateValueByKey } from '@oinone/kunlun-engine';
-import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
+import { type RuntimeModelField, type RuntimeSearchField, translateValueByKey } from '@oinone/kunlun-engine';
+import { Widget, type WidgetComponent } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../basic';
 
 export abstract class SearchRangeFieldWidget<

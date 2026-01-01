@@ -1,5 +1,5 @@
 import { RemotePluginLoader } from './loader/RemotePluginLoader';
-import { PluginLoadDependencies, PluginsLoaderConfig } from './typing';
+import type { PluginLoadDependencies, PluginsLoaderConfig } from './typing';
 import { PluginLoadHelper } from './util';
 
 export class PluginsLoader {

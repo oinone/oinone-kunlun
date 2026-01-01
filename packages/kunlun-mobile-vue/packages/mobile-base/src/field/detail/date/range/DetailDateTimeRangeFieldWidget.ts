@@ -1,5 +1,5 @@
 import { ViewType } from '@oinone/kunlun-meta';
-import { DateFormatMap, DateTimeFormatMap, defaultFormat, StandardString, TimeFormatMap } from '@oinone/kunlun-shared';
+import { DateFormatMap, DateTimeFormatMap, defaultFormat, type StandardString, TimeFormatMap } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../../basic';

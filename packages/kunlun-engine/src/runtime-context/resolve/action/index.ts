@@ -2,7 +2,7 @@ import { ActionType } from '@oinone/kunlun-meta';
 import { convertClientAction } from './client-action';
 import { convertCompositionAction } from './composition-action';
 import { convertServerAction } from './server-action';
-import { ActionConverterOptions, registerConverter } from './spi';
+import { type ActionConverterOptions, registerConverter } from './spi';
 import { convertUrlAction } from './url-action';
 import { convertViewAction } from './view-action';
 

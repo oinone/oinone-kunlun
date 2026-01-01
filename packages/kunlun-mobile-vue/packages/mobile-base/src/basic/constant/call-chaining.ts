@@ -1,4 +1,4 @@
-import { CallAfterFunction } from '@oinone/kunlun-shared';
+import type { CallAfterFunction } from '@oinone/kunlun-shared';
 
 /**
  * 视图挂载 - 1

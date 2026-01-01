@@ -1,4 +1,4 @@
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 import { OioSpinProps } from '../oio-spin';
 
 export enum EmptyStyle {

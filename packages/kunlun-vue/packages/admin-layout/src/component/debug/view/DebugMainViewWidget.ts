@@ -2,7 +2,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { RouterWidget } from '@oinone/kunlun-vue-router';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { DEBUG_VIEW_WIDGET } from '../constants';
-import { DebugResponseData } from '../typing';
+import type { DebugResponseData } from '../typing';
 import { DebugApiWidget } from './debug-api/DebugApiWidget';
 import { DebugUtils } from './debug-utils';
 import { DebugViewWidget } from './debug-view/DebugViewWidget';

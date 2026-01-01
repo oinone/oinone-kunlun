@@ -1,7 +1,7 @@
 <script lang="ts">
-import { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
+import type { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
 import { OioTab, OioTabs } from '@oinone/kunlun-vue-ui-antd';
-import { createVNode, defineComponent, nextTick, PropType, ref, VNode, watch } from 'vue';
+import { createVNode, defineComponent, nextTick, type PropType, ref, type VNode, watch } from 'vue';
 import { CATE_ALL_NAME } from './types';
 
 export default defineComponent({

@@ -1,6 +1,6 @@
-import { ActionDslDefinition, DslDefinitionHelper } from '@oinone/kunlun-dsl';
-import { RuntimeAction, RuntimeCompositionAction } from '../../../runtime-metadata';
-import { RuntimeContext } from '../../runtime-context';
+import { type ActionDslDefinition, DslDefinitionHelper } from '@oinone/kunlun-dsl';
+import type { RuntimeAction, RuntimeCompositionAction } from '../../../runtime-metadata';
+import type { RuntimeContext } from '../../runtime-context';
 import { convert } from './resolve';
 
 export function convertCompositionAction(

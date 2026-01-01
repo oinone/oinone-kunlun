@@ -1,4 +1,4 @@
-import { RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
+import { type RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { InputMediaMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';

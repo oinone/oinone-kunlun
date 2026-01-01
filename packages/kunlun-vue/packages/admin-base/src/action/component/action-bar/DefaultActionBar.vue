@@ -1,23 +1,15 @@
 <script lang="ts">
 import { DownOutlined } from '@ant-design/icons-vue';
-import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
+import { type ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { CastHelper, CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import {
-  ButtonBizStyle,
-  ButtonType,
-  IconPlacement,
-  OioButton,
-  OioCheckbox,
-  OioDropdown,
-  OioSwitch
-} from '@oinone/kunlun-vue-ui-antd';
+import { CastHelper, type CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { ButtonBizStyle, ButtonType, IconPlacement, OioButton, OioCheckbox, OioDropdown, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
 import { ListSelectMode, OioDropdownTrigger, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
-import { DslRenderDefinition, onAllMounted } from '@oinone/kunlun-vue-widget';
+import { type DslRenderDefinition, onAllMounted } from '@oinone/kunlun-vue-widget';
 import { Menu as AMenu } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
-import { computed, createVNode, defineComponent, PropType, VNode, vShow, withDirectives, withModifiers } from 'vue';
-import { ActiveCountEnum, MoreActionRender, OperationColumnDirection } from '../../../typing';
+import { computed, createVNode, defineComponent, type PropType, type VNode, vShow, withDirectives, withModifiers } from 'vue';
+import { ActiveCountEnum, type MoreActionRender, OperationColumnDirection } from '../../../typing';
 import { CollectionActions } from '../../../util/collection-actions';
 import { ActionBarBizStyle } from '../typing';
 import DefaultMoreActionItem from './DefaultMoreActionItem.vue';

@@ -1,7 +1,7 @@
 import { ViewType } from '@oinone/kunlun-meta';
-import { DslDefinitionWidget, DslDefinitionWidgetProps, DslRender } from '@oinone/kunlun-vue-widget';
-import { Slot, Slots, VNode } from 'vue';
-import { BasePackOptions, BasePackWidget } from '../../../basic';
+import { DslDefinitionWidget, type DslDefinitionWidgetProps, DslRender } from '@oinone/kunlun-vue-widget';
+import type { Slot, Slots, VNode } from 'vue';
+import { type BasePackOptions, BasePackWidget } from '../../../basic';
 import { ActiveLayoutEffectOpt } from '../../context';
 
 const DEFAULT_PACK_COMBINATION_WIDGET = 'tabs';

@@ -55,8 +55,8 @@
 </template>
 
 <script lang="ts">
-import { executeServerAction, executeViewAction, RedirectTargetEnum, RuntimeViewAction } from '@oinone/kunlun-engine';
-import { ActionType, IModel, ViewActionTarget } from '@oinone/kunlun-meta';
+import { executeServerAction, executeViewAction, RedirectTargetEnum, type RuntimeViewAction } from '@oinone/kunlun-engine';
+import { ActionType, type IModel, ViewActionTarget } from '@oinone/kunlun-meta';
 import { Router, useMatched } from '@oinone/kunlun-router';
 import { getModel } from '@oinone/kunlun-service';
 import { useRouter } from '@oinone/kunlun-vue-router';

@@ -2,8 +2,8 @@ import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { GQL } from '@oinone/kunlun-request';
 import { http } from '@oinone/kunlun-service';
 import { GraphqlHelper } from '@oinone/kunlun-shared';
-import { IPermission } from '../../permission/type';
-import { AnyPermissionNode, MenuPermissionNode, PermissionNode } from '../../types';
+import type { IPermission } from '../../permission/type';
+import type { AnyPermissionNode, MenuPermissionNode, PermissionNode } from '../../types';
 
 interface IQueryRole {
   currentPage: number;

@@ -1,43 +1,12 @@
-import {
-  ActiveRecord,
-  ActiveRecordExtendKeys,
-  ActiveRecords,
-  ActiveRecordsOperator,
-  EventKeys,
-  getRefreshParameters,
-  IPopupInstance,
-  IPopupWidget,
-  isRelationField,
-  PopupManager,
-  RelationUpdateType,
-  RuntimeAction,
-  RuntimeViewAction,
-  SubmitValue
-} from '@oinone/kunlun-engine';
-import { ExpressionRunParam } from '@oinone/kunlun-expression';
+import { type ActiveRecord, ActiveRecordExtendKeys, type ActiveRecords, ActiveRecordsOperator, EventKeys, getRefreshParameters, type IPopupInstance, type IPopupWidget, isRelationField, PopupManager, RelationUpdateType, type RuntimeAction, type RuntimeViewAction, SubmitValue } from '@oinone/kunlun-engine';
+import type { ExpressionRunParam } from '@oinone/kunlun-expression';
 import { ActionContextType, deepClone, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
-import {
-  ActiveRecordsWidget,
-  ActiveRecordsWidgetProps,
-  OioAnyViewState,
-  useInjectMetaContext,
-  useProviderMetaContext,
-  Widget,
-  WidgetSubjection
-} from '@oinone/kunlun-vue-widget';
+import { ActiveRecordsWidget, type ActiveRecordsWidgetProps, type OioAnyViewState, useInjectMetaContext, useProviderMetaContext, Widget, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { isArray, isFunction, isNil } from 'lodash-es';
 import { computed } from 'vue';
 import { REFRESH_FORM_DATA, validatorCallChainingCallAfterFn } from '../../basic/constant';
-import {
-  ClickResult,
-  PopupEventHandle,
-  PopupEventHandles,
-  PopupScene,
-  PopupSubmitOptions,
-  PopupSubmitParameters,
-  PopupSubmitType
-} from '../../typing';
+import { type ClickResult, type PopupEventHandle, type PopupEventHandles, PopupScene, type PopupSubmitOptions, type PopupSubmitParameters, PopupSubmitType } from '../../typing';
 import { executeMapping } from '../../util';
 
 export interface PopupWidgetProps extends ActiveRecordsWidgetProps {

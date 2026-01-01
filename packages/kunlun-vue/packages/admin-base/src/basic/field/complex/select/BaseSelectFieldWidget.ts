@@ -1,32 +1,9 @@
-import {
-  ActiveRecord,
-  ActiveRecordExtendKeys,
-  ActiveRecords,
-  ActiveRecordsOperator,
-  isMinimalismTheme,
-  Pagination,
-  parseConfigs,
-  QueryContext,
-  QueryVariables,
-  RequestHelper,
-  RequestModelField,
-  RuntimeRelationField,
-  SelectConfigManager,
-  SelectRuntimeConfig,
-  SelectSearchArea
-} from '@oinone/kunlun-engine';
-import {
-  BooleanHelper,
-  NumberHelper,
-  Optional,
-  RSQLCondition,
-  StringHelper,
-  uniqueKeyGenerator
-} from '@oinone/kunlun-shared';
-import { SelectItem } from '@oinone/kunlun-vue-ui-common';
+import { type ActiveRecord, ActiveRecordExtendKeys, type ActiveRecords, ActiveRecordsOperator, isMinimalismTheme, type Pagination, parseConfigs, type QueryContext, type QueryVariables, RequestHelper, type RequestModelField, type RuntimeRelationField, SelectConfigManager, type SelectRuntimeConfig, SelectSearchArea } from '@oinone/kunlun-engine';
+import { BooleanHelper, NumberHelper, Optional, RSQLCondition, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import type { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toInteger } from 'lodash-es';
-import { FormComplexFieldProps, FormComplexFieldWidget } from '../FormComplexFieldWidget';
+import { type FormComplexFieldProps, FormComplexFieldWidget } from '../FormComplexFieldWidget';
 
 export abstract class BaseSelectFieldWidget<
   Value extends ActiveRecords = ActiveRecords,

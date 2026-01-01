@@ -2,7 +2,7 @@
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { ButtonType, OioButton, OioPopconfirm, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { MenuItem as AMenuItem } from 'ant-design-vue';
-import { computed, createVNode, defineComponent, VNode, vShow, withDirectives, withModifiers } from 'vue';
+import { computed, createVNode, defineComponent, type VNode, vShow, withDirectives, withModifiers } from 'vue';
 import { useInjectActionContext, useProviderActionContext } from '../context';
 import MenuItem from './MenuItem.vue';
 import { ActionProps, useAction } from './typing';

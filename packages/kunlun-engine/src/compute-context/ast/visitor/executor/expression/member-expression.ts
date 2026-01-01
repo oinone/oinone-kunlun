@@ -1,12 +1,4 @@
-import {
-  isIdentifier,
-  isMemberExpression,
-  MemberExpression,
-  Node,
-  NodeVisitor,
-  TokenContext,
-  VisitContext
-} from '../../../types';
+import { isIdentifier, isMemberExpression, type MemberExpression, type Node, type NodeVisitor, type TokenContext, type VisitContext } from '../../../types';
 
 export class MemberExpressionExecutor implements NodeVisitor<MemberExpression> {
   public static readonly INSTANCE = new MemberExpressionExecutor();

@@ -1,4 +1,4 @@
-import { IPopupWidget } from './typing';
+import type { IPopupWidget } from './typing';
 
 /**
  * 静态弹出层组件

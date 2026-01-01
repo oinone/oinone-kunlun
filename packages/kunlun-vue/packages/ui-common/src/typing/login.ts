@@ -1,5 +1,5 @@
 import { CurrentLanguage } from '@oinone/kunlun-engine';
-import { RuntimeConfigOptions } from '@oinone/kunlun-meta';
+import type { RuntimeConfigOptions } from '@oinone/kunlun-meta';
 
 export interface LoginData {
   login?: string;

@@ -1,5 +1,5 @@
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { HomepageConfigRule } from '../typing';
+import type { HomepageConfigRule } from '../typing';
 
 export const UN_COMMITTED = 'MODULE_UN_COMMITTED';
 export const ALL = 'MODULE_ALL';

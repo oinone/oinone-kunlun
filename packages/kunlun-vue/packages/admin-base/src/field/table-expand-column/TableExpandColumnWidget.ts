@@ -1,23 +1,14 @@
-import { DslDefinition, DslDefinitionHelper, DslSlotUtils, ViewDslDefinition } from '@oinone/kunlun-dsl';
-import {
-  ActiveRecord,
-  ActiveRecords,
-  createDefaultLayout,
-  getRealTtype,
-  isRelationField,
-  ModelCache,
-  RuntimeModel,
-  RuntimeRelationField
-} from '@oinone/kunlun-engine';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { type DslDefinition, DslDefinitionHelper, DslSlotUtils, type ViewDslDefinition } from '@oinone/kunlun-dsl';
+import { type ActiveRecord, type ActiveRecords, createDefaultLayout, getRealTtype, isRelationField, ModelCache, type RuntimeModel, type RuntimeRelationField } from '@oinone/kunlun-engine';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { ModelFieldType, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { CallChaining, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-import { RenderCellContext, RowContext } from '@oinone/kunlun-vue-ui';
+import type { RenderCellContext, RowContext } from '@oinone/kunlun-vue-ui';
 import { DslRender, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isString } from 'lodash-es';
-import { VNode } from 'vue';
+import type { VNode } from 'vue';
 import { BaseElementWidget, BaseTableColumnWidget } from '../../basic';
 
 export interface ExpandColumnLoadedData {

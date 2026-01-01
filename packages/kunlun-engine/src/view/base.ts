@@ -1,4 +1,4 @@
-import { DataValue, IBaseVMProps } from '../typing';
+import type { DataValue, IBaseVMProps } from '../typing';
 
 /**
  * BaseVM 管理所有的上下文，视图、字段等都要从这里开始。

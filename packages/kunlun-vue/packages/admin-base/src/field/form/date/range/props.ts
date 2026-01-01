@@ -1,6 +1,6 @@
 import { DateUtil, RSQLOperators } from '@oinone/kunlun-shared';
 import { isArray, isNil } from 'lodash-es';
-import { computed, PropType, watch } from 'vue';
+import { computed, type PropType, watch } from 'vue';
 import { useMetadataProps, buildPlaceholder } from '../../../../basic';
 
 export const DefaultDateTimeRangePickerProps = {

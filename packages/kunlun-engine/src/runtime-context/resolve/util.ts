@@ -1,6 +1,6 @@
-import { ActionDslDefinition, FieldDslDefinition } from '@oinone/kunlun-dsl';
+import type { ActionDslDefinition, FieldDslDefinition } from '@oinone/kunlun-dsl';
 import { isObject } from 'lodash-es';
-import { RuntimeContext } from '../runtime-context';
+import type { RuntimeContext } from '../runtime-context';
 
 export class ResolveUtil {
   public static toArray<T = string>(val: string | string[] | null | undefined, split = ','): T[] | undefined {

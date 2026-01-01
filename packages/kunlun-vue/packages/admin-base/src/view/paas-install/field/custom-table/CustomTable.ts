@@ -1,11 +1,5 @@
-import {
-  Dialog,
-  executeServerAction,
-  executeViewAction,
-  translateValueByKey,
-  ViewActionCache
-} from '@oinone/kunlun-engine';
-import { ActionType, IModel, ModelFieldType, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import { Dialog, executeServerAction, executeViewAction, translateValueByKey, ViewActionCache } from '@oinone/kunlun-engine';
+import { ActionType, type IModel, ModelFieldType, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
 import { customMutation, getModel } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioNotification } from '@oinone/kunlun-vue-ui-antd';

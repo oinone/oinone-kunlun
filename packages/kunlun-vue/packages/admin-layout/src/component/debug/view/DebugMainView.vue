@@ -18,19 +18,11 @@
   </div>
 </template>
 <script lang="ts">
-import { RuntimeContext } from '@oinone/kunlun-engine';
-import {
-  CleanableEvent,
-  OioButton,
-  OioTab,
-  OioTabs,
-  Optional,
-  uniqueKeyGenerator,
-  useCleanableEvent
-} from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, onMounted, onUnmounted, PropType } from 'vue';
+import type { RuntimeContext } from '@oinone/kunlun-engine';
+import { CleanableEvent, OioButton, OioTab, OioTabs, Optional, uniqueKeyGenerator, useCleanableEvent } from '@oinone/kunlun-vue-ui-antd';
+import { defineComponent, onMounted, onUnmounted, type PropType } from 'vue';
 import 'vue-json-pretty/lib/styles.css';
-import { DebugResponseData } from '../typing';
+import { type DebugResponseData } from '../typing';
 import { DebugUtils } from './debug-utils';
 
 export default defineComponent({

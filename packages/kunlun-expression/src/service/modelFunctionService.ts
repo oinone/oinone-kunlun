@@ -1,7 +1,7 @@
 import { HttpClient } from '@oinone/kunlun-request';
 import { IQueryPageResult } from '@oinone/kunlun-service';
 import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
-import { IFunction } from '../types';
+import type { IFunction } from '../types';
 
 const http = HttpClient.getInstance();
 

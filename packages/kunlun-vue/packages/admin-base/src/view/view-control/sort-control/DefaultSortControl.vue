@@ -29,8 +29,8 @@
 <script lang="ts">
 import { ISort } from '@oinone/kunlun-service';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, PropType, reactive, ref } from 'vue';
-import { SortableGroup, SortableGroupOption } from '../../../components';
+import { defineComponent, type PropType, reactive, ref } from 'vue';
+import { SortableGroup, type SortableGroupOption } from '../../../components';
 
 export default defineComponent({
   name: 'DefaultSortControl',

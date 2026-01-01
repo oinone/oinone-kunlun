@@ -1,4 +1,4 @@
-import { RuntimeConfigOptions } from '@oinone/kunlun-meta';
+import type { RuntimeConfigOptions } from '@oinone/kunlun-meta';
 
 export interface KeyboardConfig extends RuntimeConfigOptions {
   key: string;

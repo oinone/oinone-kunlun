@@ -1,6 +1,6 @@
-import { PamirsCompany } from '@oinone/kunlun-engine';
-import { OioSelectItem, StringHelper } from '@oinone/kunlun-shared';
-import { createVNode, VNode } from 'vue';
+import type { PamirsCompany } from '@oinone/kunlun-engine';
+import { type OioSelectItem, StringHelper } from '@oinone/kunlun-shared';
+import { createVNode, type VNode } from 'vue';
 
 export default function render(data: OioSelectItem<PamirsCompany>): VNode {
   const { logoUrl } = data.data;

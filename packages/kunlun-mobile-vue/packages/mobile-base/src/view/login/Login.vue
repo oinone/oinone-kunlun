@@ -147,22 +147,15 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, defineProps, PropType, ref } from 'vue';
+import { computed, defineProps, type PropType, ref } from 'vue';
 import { UserOutlined, LockOutlined, MailOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons-vue';
-import { RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
+import type { RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
 import { OioButton, OioPicker, DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Row as VanRow, Col as VanCol, Form as VanForm, Field as VanField, CellGroup as VanCellGroup } from 'vant';
 
-import {
-  genStaticPath,
-  getCopyrightStatus,
-  OioLoginLogoPosition,
-  OioLoginThemeConfig,
-  OioLoginThemeName,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
+import { genStaticPath, getCopyrightStatus, OioLoginLogoPosition, type OioLoginThemeConfig, OioLoginThemeName, translateValueByKey } from '@oinone/kunlun-engine';
 
-import { LoginMode, LoginData } from './types';
+import { LoginMode, type LoginData } from './types';
 
 const props = defineProps({
   login: { type: Function as PropType<() => void>, required: true },

@@ -1,6 +1,6 @@
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
-import { createVNode, PropType, VNode } from 'vue';
+import { createVNode, type PropType, type VNode } from 'vue';
 
 export const FooterProps = {
   okText: {

@@ -42,7 +42,7 @@
 <script lang="ts">
 import { OioTooltip } from '@oinone/kunlun-vue-ui-antd';
 import { OioIcon } from '@oinone/kunlun-vue-ui-common';
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, type PropType } from 'vue';
 import GalleryCommonField from '../../common/GalleryCommonField.vue';
 
 export default defineComponent({

@@ -1,4 +1,4 @@
-import { CascaderItem } from './model';
+import type { CascaderItem } from './model';
 
 export enum CascaderCheckedStrategy {
   SHOW_ALL = 'SHOW_ALL',

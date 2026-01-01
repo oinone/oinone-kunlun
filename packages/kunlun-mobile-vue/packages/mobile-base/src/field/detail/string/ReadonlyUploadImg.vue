@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
 import { isEmpty } from 'lodash-es';
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, type PropType } from 'vue';
 import UploadImg from '../../../components/upload/UploadImg.vue';
 import DetailCommonField from '../common/DetailCommonField.vue';
 

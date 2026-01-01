@@ -4,17 +4,10 @@ import { ISort } from '@oinone/kunlun-service';
 import { isArray, toInteger } from 'lodash-es';
 import { FunctionCache, ModelCache } from '../cache';
 import { RELATION_2M_FIELD_TTYPES, RELATION_2O_FIELD_TTYPES } from '../runtime-context';
-import { RuntimeModel, RuntimeRelationField } from '../runtime-metadata';
-import { ActiveRecord, ActiveRecords } from '../typing';
-import { FunctionOptions, FunctionService } from './FunctionService';
-import {
-  FunctionMetadata,
-  QueryPageResult,
-  QueryPagination,
-  QuerySort,
-  QueryWrapper,
-  StaticMetadata
-} from './metadata';
+import type { RuntimeModel, RuntimeRelationField } from '../runtime-metadata';
+import type { ActiveRecord, ActiveRecords } from '../typing';
+import { type FunctionOptions, FunctionService } from './FunctionService';
+import { FunctionMetadata, type QueryPageResult, type QueryPagination, type QuerySort, type QueryWrapper, StaticMetadata } from './metadata';
 
 export interface QueryOptions extends FunctionOptions {
   fun?: string;

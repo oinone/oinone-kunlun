@@ -1,4 +1,4 @@
-import { FunctionExecuteOptions, FunctionOptions, FunctionService } from './FunctionService';
+import { type FunctionExecuteOptions, type FunctionOptions, FunctionService } from './FunctionService';
 
 export * from './metadata';
 export * from './util';

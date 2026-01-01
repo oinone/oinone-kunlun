@@ -1,7 +1,7 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { Slots } from 'vue';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import type { Slots } from 'vue';
 import { VueWidget } from '../basic';
-import { DslDefinitionWidgetProps } from '../dsl';
+import type { DslDefinitionWidgetProps } from '../dsl';
 
 /**
  * 渲染组件

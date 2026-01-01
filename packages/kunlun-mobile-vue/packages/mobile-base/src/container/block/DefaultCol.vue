@@ -1,18 +1,9 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { CastHelper, CSSStyle, StringHelper } from '@oinone/kunlun-shared';
-import {
-  DEFAULT_COLS,
-  FlexColMode,
-  FlexDirection,
-  OioCol,
-  OioColModel,
-  OioColProps,
-  PropRecordHelper,
-  StyleHelper
-} from '@oinone/kunlun-vue-ui-mobile-vant';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { CastHelper, type CSSStyle, StringHelper } from '@oinone/kunlun-shared';
+import { DEFAULT_COLS, FlexColMode, FlexDirection, OioCol, OioColModel, OioColProps, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
-import { createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
+import { createVNode, defineComponent, type PropType, vShow, withDirectives } from 'vue';
 import { useInjectOioDefaultRowContext, useProviderOioDefaultRowContext } from './context';
 import { ViewType } from '@oinone/kunlun-meta';
 

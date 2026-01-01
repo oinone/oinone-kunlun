@@ -1,21 +1,12 @@
-import {
-  ModuleCache,
-  RuntimeContext,
-  RuntimeContextManager,
-  RuntimeContextServiceToken,
-  RuntimeModule,
-  RuntimeViewAction,
-  ViewActionCache,
-  ViewActionQueryParameter
-} from '@oinone/kunlun-engine';
+import { ModuleCache, type RuntimeContext, RuntimeContextManager, RuntimeContextServiceToken, type RuntimeModule, type RuntimeViewAction, ViewActionCache, type ViewActionQueryParameter } from '@oinone/kunlun-engine';
 import { useSessionPath } from '@oinone/kunlun-request';
 import { Router } from '@oinone/kunlun-router';
 import { TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { MenuService } from '../../../../service';
-import { RuntimeMenu } from '../../../../typing';
-import { DebugErrorPanel } from '../../typing';
+import type { RuntimeMenu } from '../../../../typing';
+import type { DebugErrorPanel } from '../../typing';
 import { DebugUtils } from '../debug-utils';
 import { DebugRuntimeContextServiceToken } from '../service/DebugRuntimeContextService';
 import { DebugInfoStorage } from '../storage';

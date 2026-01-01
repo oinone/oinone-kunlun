@@ -1,4 +1,4 @@
-import { CreateMaskWidgetProps } from '../typing';
+import type { CreateMaskWidgetProps } from '../typing';
 
 export interface DslDefinitionTypeProps extends CreateMaskWidgetProps {
   dslNodeType?: string;

@@ -1,13 +1,4 @@
-import {
-  frameworkFactory,
-  FrameworkInitializeService,
-  FrameworkInitializeSPI,
-  LanguageType,
-  OioProvider,
-  OioProviderProps,
-  registryLanguage,
-  RuntimeContextManager
-} from '@oinone/kunlun-engine';
+import { frameworkFactory, type FrameworkInitializeService, FrameworkInitializeSPI, LanguageType, OioProvider, type OioProviderProps, registryLanguage, RuntimeContextManager } from '@oinone/kunlun-engine';
 import { isMobile } from '@oinone/kunlun-shared';
 import { SPIFactory } from '@oinone/kunlun-spi';
 import { DefaultThemeName, isSystemTheme } from '@oinone/kunlun-theme';

@@ -1,4 +1,4 @@
-import { MultiTabInstance } from '@oinone/kunlun-engine';
+import type { MultiTabInstance } from '@oinone/kunlun-engine';
 
 export interface MultiTabItem {
   key: string;

@@ -10,8 +10,8 @@
   </div>
 </template>
 <script lang="ts">
-import { ReturnPromise } from '@oinone/kunlun-shared';
-import { defineComponent, PropType } from 'vue';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
+import { defineComponent, type PropType } from 'vue';
 import { DefaultUserPrefer } from '../../components';
 
 interface DataOption {

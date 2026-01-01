@@ -1,17 +1,11 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
-import {
-  ConfirmOptions,
-  MultiTabsConfigManager,
-  translate,
-  translateValueByKey,
-  ViewActionCache
-} from '@oinone/kunlun-engine';
+import { type ConfirmOptions, MultiTabsConfigManager, translate, translateValueByKey, ViewActionCache } from '@oinone/kunlun-engine';
 import { ViewActionTarget } from '@oinone/kunlun-meta';
 import { MessageHub } from '@oinone/kunlun-request';
 import { Modal } from 'ant-design-vue';
 import { isString } from 'lodash-es';
 import { createVNode } from 'vue';
-import { UrlQueryParameters } from '../basic/types';
+import type { UrlQueryParameters } from '../basic/types';
 
 /**
  *@description 二次确认弹窗

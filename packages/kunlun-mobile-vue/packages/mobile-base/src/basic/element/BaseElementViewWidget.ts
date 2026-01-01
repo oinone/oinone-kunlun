@@ -1,16 +1,10 @@
-import {
-  ExperimentalConfigManager,
-  parseConfigs,
-  RelationUpdateType,
-  SubmitType,
-  SubmitValue
-} from '@oinone/kunlun-engine';
+import { ExperimentalConfigManager, parseConfigs, RelationUpdateType, SubmitType, SubmitValue } from '@oinone/kunlun-engine';
 import { LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
 import { ViewMode } from '@oinone/kunlun-meta';
 import { Router } from '@oinone/kunlun-router';
 import { CallChaining, RSQLHelper } from '@oinone/kunlun-shared';
 import { useRouter } from '@oinone/kunlun-vue-router';
-import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
+import { type ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { FETCH_DATA_WIDGET_PRIORITY } from '../constant';
 import { BaseElementWidget } from '../token';
 

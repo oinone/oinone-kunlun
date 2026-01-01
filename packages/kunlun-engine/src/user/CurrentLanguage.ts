@@ -1,7 +1,7 @@
 import { NonBlockingEventManager } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { UserLang } from '../typing';
-import { LanguageService, LanguageServiceToken } from './LanguageService';
+import type { UserLang } from '../typing';
+import { type LanguageService, LanguageServiceToken } from './LanguageService';
 
 export enum CurrentLanguageEventKeys {
   refreshLocalStorage = 'refreshLocalStorage',

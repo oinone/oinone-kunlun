@@ -1,8 +1,8 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
-import { OioTreeNode, ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { type OioTreeNode, type ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { TreeService } from '../../service';
-import { CardCascaderItemData, TreeNodeMetadata } from '../../typing';
+import type { CardCascaderItemData, TreeNodeMetadata } from '../../typing';
 import { TreeUtils } from '../../util';
 import { AbstractTreeWidget } from '../tree';
 import DefaultCardCascader from './DefaultCardCascader.vue';

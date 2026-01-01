@@ -1,4 +1,4 @@
-import { IModelFieldOption, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { type IModelFieldOption, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { isNil } from 'lodash-es';
 import { FormFieldWidget } from '../../../../../basic';

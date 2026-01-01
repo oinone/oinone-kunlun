@@ -1,58 +1,20 @@
-import { ActionDslDefinition, DslDefinitionType, TemplateDslDefinition } from '@oinone/kunlun-dsl';
-import {
-  ActiveRecord,
-  ActiveRecordExtendKeys,
-  ActiveRecords,
-  ActiveRecordsOperator,
-  ConditionWrapper,
-  GenericFunctionService,
-  GroupingData,
-  GroupingField,
-  GroupStatisticsEnum,
-  isM2MField,
-  isRelation2OField,
-  isRelationField,
-  Pagination,
-  QueryContext,
-  QueryService,
-  QuerySort,
-  QueryVariables,
-  RuntimeModelField,
-  RuntimeRelationField,
-  TableGroupingPageOptions,
-  TableGroupingQueryService,
-  TableGroupingWrapperOptions,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
-import { Entity, ViewType } from '@oinone/kunlun-meta';
+import { type ActionDslDefinition, DslDefinitionType, type TemplateDslDefinition } from '@oinone/kunlun-dsl';
+import { type ActiveRecord, ActiveRecordExtendKeys, type ActiveRecords, ActiveRecordsOperator, ConditionWrapper, GenericFunctionService, GroupingData, GroupingField, GroupStatisticsEnum, isM2MField, isRelation2OField, isRelationField, type Pagination, type QueryContext, QueryService, QuerySort, type QueryVariables, type RuntimeModelField, type RuntimeRelationField, type TableGroupingPageOptions, TableGroupingQueryService, type TableGroupingWrapperOptions, translateValueByKey } from '@oinone/kunlun-engine';
+import { type Entity, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, ISort } from '@oinone/kunlun-service';
 import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import {
-  ActiveEditorContext,
-  GROUP_TREE_KEY,
-  TableEditorCloseTrigger,
-  TableEditorMode,
-  TableRowClickMode,
-  VxeTableHelper
-} from '@oinone/kunlun-vue-ui';
+import { type ActiveEditorContext, GROUP_TREE_KEY, TableEditorCloseTrigger, TableEditorMode, TableRowClickMode, VxeTableHelper } from '@oinone/kunlun-vue-ui';
 import { EmptyStyle, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { delay, find, isBoolean, isNaN, isNil, isNumber, isPlainObject, isString, toNumber, toString } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTableDefines } from 'vxe-table';
 import { ActionWidget } from '../../action/component/action';
-import { BaseElementListViewWidgetProps, BaseElementWidget, BaseTableColumnWidget, BaseTableWidget } from '../../basic';
+import { type BaseElementListViewWidgetProps, BaseElementWidget, BaseTableColumnWidget, BaseTableWidget } from '../../basic';
 import { ExpandColumnWidgetNames } from '../../field';
-import {
-  ActiveCountEnum,
-  fetchPageSize,
-  fetchPageSizeNullable,
-  TABLE_WIDGET,
-  TableLineHeightEnum,
-  UserTablePrefer
-} from '../../typing';
+import { ActiveCountEnum, fetchPageSize, fetchPageSizeNullable, TABLE_WIDGET, TableLineHeightEnum, type UserTablePrefer } from '../../typing';
 import { TreeUtils } from '../../util';
 import DefaultTable from './DefaultTable.vue';
 

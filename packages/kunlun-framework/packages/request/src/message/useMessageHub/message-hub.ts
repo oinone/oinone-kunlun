@@ -1,6 +1,6 @@
 import { filter, Subject } from '@oinone/kunlun-state';
-import { ILevel, IMessage } from '../../types';
-import { IMessageHub, MessageHubHandler } from '../typing';
+import { ILevel, type IMessage } from '../../types';
+import type { IMessageHub, MessageHubHandler } from '../typing';
 import { MessageHubManager } from './manager';
 
 /**

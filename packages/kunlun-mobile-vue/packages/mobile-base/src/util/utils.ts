@@ -1,14 +1,5 @@
-import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
-import {
-  ConfirmOptions,
-  MultiTabsRuntimeManifestMergedConfigManager,
-  Page,
-  RedirectTargetEnum,
-  ROOT_HANDLE,
-  RuntimeContext,
-  translate,
-  ViewActionCache
-} from '@oinone/kunlun-engine';
+import { type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { type ConfirmOptions, MultiTabsRuntimeManifestMergedConfigManager, type Page, RedirectTargetEnum, ROOT_HANDLE, type RuntimeContext, translate, ViewActionCache } from '@oinone/kunlun-engine';
 import { ViewActionTarget } from '@oinone/kunlun-meta';
 import { HttpClient } from '@oinone/kunlun-request';
 import { ISort } from '@oinone/kunlun-service';

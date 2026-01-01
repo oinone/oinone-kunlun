@@ -1,4 +1,4 @@
-import { ObjectValue, RequestContext } from '../types';
+import type { ObjectValue, RequestContext } from '../types';
 
 /**
  * GQL类型

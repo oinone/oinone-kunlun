@@ -1,5 +1,5 @@
 import { PluginLoader as InternalPluginLoader } from '../loader';
-import { CSSPlugin, JavascriptPlugin, PluginLoadDependencies, PluginLoadDependency, PluginLoadOption } from '../typing';
+import type { CSSPlugin, JavascriptPlugin, PluginLoadDependencies, PluginLoadDependency, PluginLoadOption } from '../typing';
 
 let counter = 1;
 

@@ -1,17 +1,9 @@
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { HttpClient } from '../client';
-import { ObjectValue, RequestContext } from '../types';
+import type { ObjectValue, RequestContext } from '../types';
 import { GQLFragmentBuilderImpl, GQLRequestParameterBuilderImpl, GQLResponseParameterBuilderImpl } from './builder';
 import { fragmentsToString, requestParametersToString, responseParametersToString } from './convert';
-import {
-  generatorGQLRequestParameterMap,
-  generatorGQLResponseParameterMap,
-  GQLBuilder,
-  GQLFragment,
-  GQLRequestParameterBuilder,
-  GQLResponseParameterBuilder,
-  GQLType
-} from './typing';
+import { generatorGQLRequestParameterMap, generatorGQLResponseParameterMap, type GQLBuilder, type GQLFragment, type GQLRequestParameterBuilder, type GQLResponseParameterBuilder, type GQLType } from './typing';
 
 const http = HttpClient.getInstance();
 

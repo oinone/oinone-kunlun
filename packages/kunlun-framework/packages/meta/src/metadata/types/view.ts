@@ -1,4 +1,4 @@
-import { BIGINT, EntityId } from './value';
+import type { BIGINT, EntityId } from './value';
 
 export type ViewId = EntityId;
 

@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash-es';
 import { isRelation2OField } from '../helper';
-import { RuntimeContext } from '../runtime-context';
+import type { RuntimeContext } from '../runtime-context';
 import { seekFieldRuntimeContext } from './util';
 
 export default async function getDefaultValue(this: RuntimeContext): Promise<Record<string, unknown>> {

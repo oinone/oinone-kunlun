@@ -1,9 +1,9 @@
-import { IdModel, ListModelApi, QueryWrapper } from '@oinone/kunlun-engine';
-import { Converter, OioListItem, Optional, ReturnPromise } from '@oinone/kunlun-shared';
+import { type IdModel, type ListModelApi, QueryWrapper } from '@oinone/kunlun-engine';
+import { type Converter, type OioListItem, Optional, type ReturnPromise } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { computed, reactive, watch } from 'vue';
 import { useListChecked } from './useListChecked';
-import { TreeInitOptions } from './useTreeState';
+import type { TreeInitOptions } from './useTreeState';
 
 interface ListInitContext<T> {
   storage: Record<string, OioListItem<T>>;

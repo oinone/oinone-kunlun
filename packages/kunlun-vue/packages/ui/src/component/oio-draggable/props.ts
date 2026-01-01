@@ -1,13 +1,6 @@
 import { OioComponentData } from '@oinone/kunlun-vue-ui-common';
-import { PropType } from 'vue';
-import {
-  DraggableAddedEvent,
-  DraggableEndEvent,
-  DraggableMovedEvent,
-  DraggableRemovedEvent,
-  DraggableSendEvent,
-  DraggableStartEvent
-} from './event';
+import type { PropType } from 'vue';
+import type { DraggableAddedEvent, DraggableEndEvent, DraggableMovedEvent, DraggableRemovedEvent, DraggableSendEvent, DraggableStartEvent } from './event';
 
 export interface DraggableItemProperties {
   itemKeyProps: string;

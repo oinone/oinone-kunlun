@@ -1,7 +1,7 @@
 import { ModuleCache } from '@oinone/kunlun-engine';
-import { IMenu } from '@oinone/kunlun-meta';
-import { Comparator, TreeHelper, TreeNode } from '@oinone/kunlun-shared';
-import { MenuUrlParameters, RuntimeMenu } from '../typing';
+import type { IMenu } from '@oinone/kunlun-meta';
+import { type Comparator, TreeHelper, TreeNode } from '@oinone/kunlun-shared';
+import type { MenuUrlParameters, RuntimeMenu } from '../typing';
 
 const defaultCompareFunction: Comparator<TreeNode<RuntimeMenu>> = (a, b) => {
   const ap = a.value?.priority;

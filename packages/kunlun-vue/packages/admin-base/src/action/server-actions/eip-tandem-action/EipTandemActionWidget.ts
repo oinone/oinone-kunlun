@@ -1,11 +1,11 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { ActionType } from '@oinone/kunlun-meta';
-import { RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { type RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { Widget, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { ActionWidget } from '../../component';
 import { ServerActionWidget } from '../ServerActionWidget';
-import { ClickResult } from '../../../typing';
+import type { ClickResult } from '../../../typing';
 import { REFRESH_FORM_DATA } from '../../../basic/constant/state-stream';
 import { executeEipTandemMutation } from './server';
 import { findTandemActionHostViewName } from '../../../util';

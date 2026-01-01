@@ -1,5 +1,5 @@
-import { Node } from '../../types';
-import { Visitor, VisitorAdapter } from '../visit';
+import type { Node } from '../../types';
+import { Visitor, type VisitorAdapter } from '../visit';
 import { OptimizeAdapter } from './adapter';
 
 export class Optimize {

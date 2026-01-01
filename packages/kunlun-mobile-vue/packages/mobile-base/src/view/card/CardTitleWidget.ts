@@ -1,11 +1,11 @@
 import { deepClone, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { BaseElementWidget, BaseFieldProps } from '../../basic';
+import { BaseElementWidget, type BaseFieldProps } from '../../basic';
 import DefaultCardTitle from './DefaultCardTitle.vue';
 import { isEmptyObject } from '../../layout';
 import { DetailCommonFieldWidget } from '../../field';
-import { Component, createVNode, Slots, VNode } from 'vue';
+import { type Component, createVNode, type Slots, type VNode } from 'vue';
 
 @SPI.ClassFactory(
   BaseElementWidget.Token({

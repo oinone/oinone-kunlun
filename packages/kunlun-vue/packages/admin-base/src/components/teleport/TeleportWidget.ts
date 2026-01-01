@@ -1,4 +1,4 @@
-import { WidgetProps } from '@oinone/kunlun-engine';
+import type { WidgetProps } from '@oinone/kunlun-engine';
 import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import DefaultTeleport from './DefaultTeleport.vue';
 

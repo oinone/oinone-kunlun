@@ -2,7 +2,7 @@ import { BooleanHelper } from '../BooleanHeler';
 import { TreeNode } from '../tree-node';
 import { uniqueKeyGenerator } from '../UniqueKeyGenerator';
 import { RSQLHelper } from './RSQLHelper';
-import { RSQLConditionNodeInfo, RSQLNodeInfo, RSQLNodeInfoType, RSQLQuote } from './RSQLNodeInfo';
+import { type RSQLConditionNodeInfo, RSQLNodeInfo, RSQLNodeInfoType, type RSQLQuote } from './RSQLNodeInfo';
 import { RSQLComparisonOperator, RSQLOperators } from './RSQLOperator';
 
 export class RSQLCondition {

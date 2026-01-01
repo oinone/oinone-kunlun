@@ -1,7 +1,7 @@
 import { SPI } from '@oinone/kunlun-spi';
-import { UserLang } from '../../typing';
-import { LanguageService, LanguageServiceToken } from '../LanguageService';
-import { UserService, UserServiceToken } from '../UserService';
+import type { UserLang } from '../../typing';
+import { type LanguageService, LanguageServiceToken } from '../LanguageService';
+import { type UserService, UserServiceToken } from '../UserService';
 
 @SPI.Service(LanguageServiceToken)
 export class LanguageServiceImpl implements LanguageService {

@@ -17,11 +17,7 @@
   />
 </template>
 <script lang="ts">
-import {
-  OioDateRangePicker,
-  OioDateRangePickerProps,
-  useInjectOioDefaultFormContext
-} from '@oinone/kunlun-vue-ui-antd';
+import { OioDateRangePicker, OioDateRangePickerProps, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent } from 'vue';
 import { BaseFormItemProps, DefaultFormItem, OioCommonProps, OioMetadataProps } from '../../../../../basic';
 import { DefaultDateTimeRangePickerProps, useDateTimeRangePickerProps } from '../../../../form/date/range/props';

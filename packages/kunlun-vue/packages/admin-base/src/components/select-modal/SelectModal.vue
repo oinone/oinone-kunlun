@@ -74,22 +74,14 @@
   </oio-modal>
 </template>
 <script lang="ts">
-import { Pagination, RuntimeModelField } from '@oinone/kunlun-engine';
-import { deepClone, Entity } from '@oinone/kunlun-meta';
-import { CheckedChangeEvent, OioColumn, OioTable, OioTableInstance } from '@oinone/kunlun-vue-ui';
-import {
-  ModalWidth,
-  OioIcon,
-  OioInput,
-  OioModal,
-  OioPagination,
-  OioSpin,
-  SelectMode
-} from '@oinone/kunlun-vue-ui-antd';
+import type { Pagination, RuntimeModelField } from '@oinone/kunlun-engine';
+import { deepClone, type Entity } from '@oinone/kunlun-meta';
+import { type CheckedChangeEvent, OioColumn, OioTable, type OioTableInstance } from '@oinone/kunlun-vue-ui';
+import { ModalWidth, OioIcon, OioInput, OioModal, OioPagination, OioSpin, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { uniqBy } from 'lodash-es';
-import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue';
-import { SelectTableColumn } from '../../basic';
+import { computed, defineComponent, nextTick, type PropType, ref, watch } from 'vue';
+import type { SelectTableColumn } from '../../basic';
 import { RelationSelectProps, relationSelectSetup } from '../../field/prop';
 
 export default defineComponent({

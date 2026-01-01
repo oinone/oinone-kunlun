@@ -1,8 +1,8 @@
 <script lang="ts">
-import { TableKeyboardConfig } from '@oinone/kunlun-engine';
-import { OioSelectItem, StringHelper } from '@oinone/kunlun-shared';
+import type { TableKeyboardConfig } from '@oinone/kunlun-engine';
+import { type OioSelectItem, StringHelper } from '@oinone/kunlun-shared';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { computed, createVNode, defineComponent, PropType } from 'vue';
+import { computed, createVNode, defineComponent, type PropType } from 'vue';
 import BaseSelect from './BaseSelect.vue';
 import { DefaultSelectProps } from './props';
 

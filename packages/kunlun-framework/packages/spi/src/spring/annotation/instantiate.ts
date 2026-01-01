@@ -1,6 +1,6 @@
-import { ServiceIdentifier, ServiceNamed } from '../../typing';
+import { ServiceIdentifier, type ServiceNamed } from '../../typing';
 import { container } from '../container';
-import { isProxyConstructor, ProxyConstructor, ProxyNewableConstructor, proxyTargetConstructor } from '../helper';
+import { isProxyConstructor, type ProxyConstructor, type ProxyNewableConstructor, proxyTargetConstructor } from '../helper';
 import { ServicePriorityManager } from './priority';
 
 export function RawInstantiate<Interface>(

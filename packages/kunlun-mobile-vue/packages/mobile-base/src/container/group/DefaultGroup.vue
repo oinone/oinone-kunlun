@@ -1,17 +1,9 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import {
-  FormLayout,
-  OioGroup,
-  PropRecordHelper,
-  StyleHelper,
-  useInjectOioFormContext,
-  useProviderOioFormContext,
-  DEFAULT_PREFIX
-} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { FormLayout, OioGroup, PropRecordHelper, StyleHelper, useInjectOioFormContext, useProviderOioFormContext, DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { computed, createVNode, defineComponent, PropType, Slot, vShow, withDirectives } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, type Slot, vShow, withDirectives } from 'vue';
 import { defaultFlexResolve } from '../../tags/resolve/helper';
 import DefaultGroupTitleToolbar from './DefaultGroupTitleToolbar.vue';
 

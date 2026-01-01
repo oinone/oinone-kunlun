@@ -1,9 +1,9 @@
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import { OioGalleryItem, OioGalleryProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { type OioGalleryItem, OioGalleryProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import OioSpin from '../oio-spin/oio-spin.vue';
 import { isNil, isObject, isString } from 'lodash-es';
-import { computed, createVNode, defineComponent, VNode, ref, provide } from 'vue';
+import { computed, createVNode, defineComponent, type VNode, ref, provide } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { OioCol, OioRow } from '../oio-block';
 import { OioEmptyData } from '../oio-empty';

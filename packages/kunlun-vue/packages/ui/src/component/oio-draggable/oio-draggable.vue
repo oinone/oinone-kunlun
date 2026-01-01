@@ -1,10 +1,10 @@
 <script lang="ts">
 import { CastHelper, DomHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
-import { createVNode, defineComponent, ref, VNode, VNodeProps } from 'vue';
+import { createVNode, defineComponent, ref, type VNode, VNodeProps } from 'vue';
 import draggable from 'vuedraggable';
-import { EndEvent, GhostBody, MoveBody, StartEvent } from './draggable-types';
-import { DraggableEndEvent, DraggableSendEvent, DraggableStartEvent } from './event';
+import type { EndEvent, GhostBody, MoveBody, StartEvent } from './draggable-types';
+import type { DraggableEndEvent, DraggableSendEvent, DraggableStartEvent } from './event';
 import { OioDraggableProps } from './props';
 import { fetchOioDraggableComponent, getUnderlyingPotencialDraggableComponent, isTransition, skipVNode } from './util';
 

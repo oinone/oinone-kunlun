@@ -1,7 +1,7 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../basic';
-import { ValidatorInfo } from '../../../typing';
+import type { ValidatorInfo } from '../../../typing';
 import CheckboxCom from './Checkbox.vue';
 
 @SPI.ClassFactory(

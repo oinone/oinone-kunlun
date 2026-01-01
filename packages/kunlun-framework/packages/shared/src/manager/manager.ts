@@ -1,5 +1,5 @@
-import { EventType, Handler } from './event';
-import { ContextNode } from './typing';
+import { EventType, type Handler } from './event';
+import type { ContextNode } from './typing';
 
 export type Handlers<T> = Record<EventType, Set<Handler<T>>>;
 

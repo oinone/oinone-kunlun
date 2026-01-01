@@ -1,5 +1,5 @@
 import { ServiceIdentifier } from '@oinone/kunlun-spi';
-import { PartnerInfo, PartnerItem } from '../typing';
+import type { PartnerInfo, PartnerItem } from '../typing';
 
 /**
  * 合作伙伴选择服务

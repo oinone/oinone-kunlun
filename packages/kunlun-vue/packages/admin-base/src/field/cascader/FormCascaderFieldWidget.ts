@@ -1,11 +1,11 @@
-import { ActiveRecord, ActiveRecords, RuntimeRelationField } from '@oinone/kunlun-engine';
-import { BooleanHelper, ObjectUtils, OioTreeNode } from '@oinone/kunlun-shared';
-import { CascaderCheckedStrategy, CascaderItem, SelectMode } from '@oinone/kunlun-vue-ui-common';
+import type { ActiveRecord, ActiveRecords, RuntimeRelationField } from '@oinone/kunlun-engine';
+import { BooleanHelper, ObjectUtils, type OioTreeNode } from '@oinone/kunlun-shared';
+import { CascaderCheckedStrategy, type CascaderItem, SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean } from 'lodash-es';
-import { FormComplexFieldProps } from '../../basic';
-import { TreeNodeResponseBody, TreeService } from '../../service';
-import { TreeData, TreeNodeMetadata } from '../../typing';
+import type { FormComplexFieldProps } from '../../basic';
+import { type TreeNodeResponseBody, TreeService } from '../../service';
+import type { TreeData, TreeNodeMetadata } from '../../typing';
 import { AbstractTreeFieldWidget } from '../tree-select';
 import DefaultCascader from './DefaultCascader.vue';
 

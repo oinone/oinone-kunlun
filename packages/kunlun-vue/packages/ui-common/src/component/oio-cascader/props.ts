@@ -1,7 +1,7 @@
-import { PropType } from 'vue';
-import { PaginationResult, SelectMode } from '../oio-select';
-import { CascaderItem, CascaderProperties } from './model';
-import { CascaderCheckedStrategy, CascaderDisplayRenderFunction } from './typing';
+import type { PropType } from 'vue';
+import { type PaginationResult, SelectMode } from '../oio-select';
+import type { CascaderItem, CascaderProperties } from './model';
+import { CascaderCheckedStrategy, type CascaderDisplayRenderFunction } from './typing';
 
 export const OioCascaderOptionsProps = {
   mode: {

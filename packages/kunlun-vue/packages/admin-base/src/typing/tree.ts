@@ -1,7 +1,7 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { ActiveRecord, Pagination, RefreshCallChainingParameters } from '@oinone/kunlun-engine';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import type { ActiveRecord, Pagination, RefreshCallChainingParameters } from '@oinone/kunlun-engine';
 import { TreeNode } from '@oinone/kunlun-shared';
-import { Slot } from 'vue';
+import type { Slot } from 'vue';
 
 export type SimpleTreeModelField = {
   model?: string;

@@ -52,14 +52,10 @@ import { BooleanHelper } from '@oinone/kunlun-shared';
 import ExpressionDialog from '../../dialog/ExpressionDialog.vue';
 import ConditionInputForm from './ConditionInputForm.vue';
 import { createDefaultFieldExpressionItem } from '../../../share';
-import { IExpressionItem } from '../../../types';
+import type { IExpressionItem } from '../../../types';
 import { ConditionCommonProps } from '../typing';
 import { useConditionLabel, useConditionOptions } from '../use/use-condition';
-import {
-  useSubmitExpressionHandler,
-  useWatchExpressionItemList,
-  useWatchIsShowExpressionDialog
-} from '../use/use-common';
+import { useSubmitExpressionHandler, useWatchExpressionItemList, useWatchIsShowExpressionDialog } from '../use/use-common';
 
 export default defineComponent({
   inheritAttrs: false,

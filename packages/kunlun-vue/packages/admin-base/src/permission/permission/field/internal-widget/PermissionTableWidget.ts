@@ -1,6 +1,6 @@
-import { ActiveRecord, ActiveRecords } from '@oinone/kunlun-engine';
+import type { ActiveRecord, ActiveRecords } from '@oinone/kunlun-engine';
 import { Condition } from '@oinone/kunlun-request';
-import { TableWidgetProps } from '../../../../view';
+import type { TableWidgetProps } from '../../../../view';
 import { InlineTableWidget } from './InlineTableWidget';
 
 export type CheckedChangeHandler = (data: ActiveRecord[]) => void;

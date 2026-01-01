@@ -1,5 +1,5 @@
 import { GenericFunctionService } from '@oinone/kunlun-engine';
-import { Condition, HttpClient, ObjectValue } from '@oinone/kunlun-request';
+import { Condition, HttpClient, type ObjectValue } from '@oinone/kunlun-request';
 import { GraphqlHelper, UrlHelper } from '@oinone/kunlun-shared';
 
 export interface CdnFileSingleUploadData {

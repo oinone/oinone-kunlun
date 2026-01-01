@@ -1,13 +1,6 @@
 <script lang="ts">
-import {
-  OioBaseContainerProps,
-  OioTabAlign,
-  OioTabPosition,
-  OioTabs,
-  OioTabsBizStyle,
-  PropRecordHelper
-} from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType } from 'vue';
+import { OioBaseContainerProps, OioTabAlign, OioTabPosition, OioTabs, OioTabsBizStyle, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
+import { computed, createVNode, defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
   name: 'DefaultTabs',

@@ -1,4 +1,4 @@
-import { IWidget, WidgetConstructor, WidgetProps } from '@oinone/kunlun-engine';
+import type { IWidget, WidgetConstructor, WidgetProps } from '@oinone/kunlun-engine';
 import { instantiate } from '@oinone/kunlun-shared';
 import { BehaviorSubject, Subject, Subscription } from '@oinone/kunlun-state';
 import { InnerWidgetType } from '../typing/typing';

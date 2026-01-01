@@ -15,8 +15,8 @@
 import { CaretDownOutlined } from '@ant-design/icons-vue';
 import { OioDropdown } from '@oinone/kunlun-vue-ui-antd';
 import { Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
-import { defineComponent, PropType } from 'vue';
-import { PartnerItem } from './typing';
+import { defineComponent, type PropType } from 'vue';
+import type { PartnerItem } from './typing';
 
 export default defineComponent({
   name: 'PartnerSwitcher',

@@ -4,7 +4,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { ButtonType } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isFunction } from 'lodash-es';
-import { ClickResult } from '../../../../typing';
+import type { ClickResult } from '../../../../typing';
 import { ActionWidget } from '../../../component';
 
 @SPI.ClassFactory(ActionWidget.Token({ name: ModelDefaultActionName.$$internal_DialogCancel }))

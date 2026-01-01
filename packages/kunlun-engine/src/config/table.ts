@@ -1,6 +1,6 @@
-import { RuntimeConfig, RuntimeConfigOptions } from '@oinone/kunlun-meta';
+import { RuntimeConfig, type RuntimeConfigOptions } from '@oinone/kunlun-meta';
 import { ConfigHelper } from './config-helper';
-import { KeyboardConfig } from './keyboard';
+import type { KeyboardConfig } from './keyboard';
 
 /**
  * Table配置

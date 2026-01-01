@@ -1,10 +1,10 @@
-import { RuntimeEnumerationField, RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import type { RuntimeEnumerationField, RuntimeEnumerationOption } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { RowContext } from '@oinone/kunlun-vue-ui';
+import type { RowContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { toString } from 'lodash-es';
-import { createVNode, VNode } from 'vue';
+import { createVNode, type VNode } from 'vue';
 import { BaseFieldWidget, BaseTableFieldWidget } from '../../../basic';
 import { OptionColorStyle } from '../../FieldCommonEnum';
 import { enumFetchLabelByValue } from '../../util';

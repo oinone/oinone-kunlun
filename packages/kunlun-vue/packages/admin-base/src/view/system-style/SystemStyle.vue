@@ -233,14 +233,7 @@ import { ref, computed, defineProps, watchEffect, watch } from 'vue';
 import { kebabCase } from 'lodash-es';
 import { getTheme } from '@oinone/kunlun-theme';
 import { OioIcon, OioButton } from '@oinone/kunlun-vue-ui-antd';
-import {
-  translateValueByKey,
-  SideBarThemeColor,
-  SideBarTheme,
-  MultiTabTheme,
-  MajorConfig,
-  MultiTabsApplicationHomepageConfig
-} from '@oinone/kunlun-engine';
+import { translateValueByKey, SideBarThemeColor, SideBarTheme, MultiTabTheme, type MajorConfig, type MultiTabsApplicationHomepageConfig } from '@oinone/kunlun-engine';
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 
 import { useFullscreen } from '../../util';

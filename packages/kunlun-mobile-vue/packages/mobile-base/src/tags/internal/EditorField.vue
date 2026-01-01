@@ -1,14 +1,14 @@
 <script lang="ts">
 import { DslDefinitionType } from '@oinone/kunlun-dsl';
-import { ActiveRecords, RuntimeContextManager, RuntimeModelField } from '@oinone/kunlun-engine';
+import { type ActiveRecords, RuntimeContextManager, type RuntimeModelField } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { RenderWidget, useInjectMetaContext, VueWidget, WidgetTagProps } from '@oinone/kunlun-vue-widget';
-import { defineComponent, PropType, Slots } from 'vue';
-import { BaseFieldOptions, BaseFieldWidget, EditorFieldWidget } from '../../basic';
+import { type RenderWidget, useInjectMetaContext, VueWidget, WidgetTagProps } from '@oinone/kunlun-vue-widget';
+import { defineComponent, type PropType, type Slots } from 'vue';
+import { type BaseFieldOptions, BaseFieldWidget, EditorFieldWidget } from '../../basic';
 import { selectorEditorFieldMixinComponent } from '../../spi';
 import { useWidgetTag, UseWidgetTagMixin } from '../mixin';
-import { CustomWidgetProps, InternalWidget } from '../resolve';
-import { createFlexContainerItem, FieldWidgetProps } from '../resolve/internal';
+import { type CustomWidgetProps, InternalWidget } from '../resolve';
+import { createFlexContainerItem, type FieldWidgetProps } from '../resolve/internal';
 
 function createEditorFieldWidget(props: FieldWidgetProps): RenderWidget | undefined {
   const { rootHandle, parentHandle, widget, model, data, __metadata_index } = props;

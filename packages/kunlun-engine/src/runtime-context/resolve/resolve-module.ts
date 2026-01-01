@@ -1,5 +1,5 @@
-import { RuntimeModule } from '../../runtime-metadata';
-import { RuntimeContext } from '../runtime-context';
+import type { RuntimeModule } from '../../runtime-metadata';
+import type { RuntimeContext } from '../runtime-context';
 
 export function resolveModule(runtimeContext: RuntimeContext) {
   const { module, moduleName } = runtimeContext.view;

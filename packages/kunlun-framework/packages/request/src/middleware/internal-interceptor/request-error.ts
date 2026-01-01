@@ -1,6 +1,6 @@
 import { MessageHub } from '../../message';
 import { notPermissionCodes, SystemErrorCode } from '../../permission';
-import { IMessage, IResponseErrorResult, NetworkInterceptor } from '../../types';
+import type { IMessage, IResponseErrorResult, NetworkInterceptor } from '../../types';
 
 export class RequestErrorInterceptor implements NetworkInterceptor {
   public static ignoredFormValidateMessage(message: IMessage): boolean {

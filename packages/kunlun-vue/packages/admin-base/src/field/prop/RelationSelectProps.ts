@@ -1,7 +1,7 @@
 import { SelectSearchArea } from '@oinone/kunlun-engine';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { delay } from 'lodash-es';
-import { computed, nextTick, onBeforeUnmount, onMounted, PropType, ref } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, type PropType, ref } from 'vue';
 import { usePlaceholderProps } from '../../basic';
 
 export const RelationSelectProps = {

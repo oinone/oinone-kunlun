@@ -1,8 +1,8 @@
-import { DslDefinition, DslSlotUtils, XMLParse } from '@oinone/kunlun-dsl';
+import { type DslDefinition, DslSlotUtils, XMLParse } from '@oinone/kunlun-dsl';
 import { isString } from 'lodash-es';
-import { RuntimeView } from '../../runtime-metadata';
+import type { RuntimeView } from '../../runtime-metadata';
 import { translateDslDefinition } from '../../util';
-import { RuntimeContext } from '../runtime-context';
+import type { RuntimeContext } from '../runtime-context';
 import { resolveModel } from './resolve-model';
 import { resolveModule } from './resolve-module';
 import { resolveRelated } from './resolve-related';

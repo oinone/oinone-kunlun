@@ -1,15 +1,6 @@
 import * as charCodes from '../charcodes';
 import * as types from '../tokens';
-import {
-  createExpression,
-  isAnyExpression,
-  MemberExpression,
-  Node,
-  ParserContext,
-  Token,
-  TokenParser,
-  TokenReader
-} from '../types';
+import { createExpression, isAnyExpression, type MemberExpression, type Node, type ParserContext, type Token, type TokenParser, type TokenReader } from '../types';
 import { createParseContext } from '../utils/helper';
 import { BaseParser, BaseReader } from './base';
 import { NumberReader } from './literal';

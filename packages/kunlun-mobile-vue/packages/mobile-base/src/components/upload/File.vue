@@ -1,16 +1,9 @@
 <script lang="ts">
 import { NumberHelper } from '@oinone/kunlun-shared';
-import {
-  FileHelper,
-  PropRecordHelper,
-  AUploadProps,
-  notification,
-  OioEmpty,
-  OioUpload
-} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { FileHelper, PropRecordHelper, AUploadProps, notification, OioEmpty, OioUpload } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { isEmpty } from 'lodash-es';
-import { createVNode, defineComponent, PropType, ref, watch } from 'vue';
+import { createVNode, defineComponent, type PropType, ref, watch } from 'vue';
 import { useMetadataProps } from '../../basic';
 
 export default defineComponent({

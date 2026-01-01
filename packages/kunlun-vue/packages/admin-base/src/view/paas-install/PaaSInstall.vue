@@ -43,7 +43,7 @@ import { defineComponent, onMounted, ref, watch } from 'vue';
 import { getModel } from '@oinone/kunlun-service';
 import { Router, useMatched } from '@oinone/kunlun-router';
 import { useRouter } from '@oinone/kunlun-vue-router';
-import { ActionType, IModel, ViewActionTarget } from '@oinone/kunlun-meta';
+import { ActionType, type IModel, ViewActionTarget } from '@oinone/kunlun-meta';
 import { executeServerAction, executeViewAction, RedirectTargetEnum, translateValueByKey } from '@oinone/kunlun-engine';
 
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';

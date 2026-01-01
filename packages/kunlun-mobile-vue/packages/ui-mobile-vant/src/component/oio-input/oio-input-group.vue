@@ -29,7 +29,7 @@
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { IInputmodeEnum, OioInputProps } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty } from 'lodash-es';
-import { computed, defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, type PropType, ref } from 'vue';
 import OioCustomInput from './oio-custome-input.vue';
 import { DEFAULT_PREFIX } from '../../theme';
 

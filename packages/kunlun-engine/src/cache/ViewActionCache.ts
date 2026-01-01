@@ -1,13 +1,7 @@
-import { ActionContextType, ActionType, IModel, IModule, IViewAction, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { ActionContextType, ActionType, type IModel, type IModule, type IViewAction, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { isNotPermission } from '@oinone/kunlun-request';
 import { queryHomePageDsl, queryPageDslByModelAndName, queryPageDslBySharedCode } from '@oinone/kunlun-service';
-import {
-  RuntimeFunctionDefinition,
-  RuntimeModel,
-  RuntimeModule,
-  RuntimeViewAction,
-  SharedRuntimeViewAction
-} from '../runtime-metadata';
+import type { RuntimeFunctionDefinition, RuntimeModel, RuntimeModule, RuntimeViewAction, SharedRuntimeViewAction } from '../runtime-metadata';
 import { MemoryAsyncCache } from './cache';
 import { ClearCache } from './CacheClear';
 import { toRecord } from './helper';

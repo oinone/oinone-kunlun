@@ -1,6 +1,6 @@
 import { isNil } from 'lodash-es';
 import { Widget } from '../basic';
-import { DslDefinitionWidgetProps, DslDefinitionWidget } from '../dsl';
+import { type DslDefinitionWidgetProps, DslDefinitionWidget } from '../dsl';
 
 export interface PathWidgetProps extends DslDefinitionWidgetProps {
   path?: string;

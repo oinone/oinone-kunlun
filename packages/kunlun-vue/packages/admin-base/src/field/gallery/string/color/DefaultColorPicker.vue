@@ -17,7 +17,7 @@
 import { FlexRowJustify, OioColorPicker } from '@oinone/kunlun-vue-ui-el';
 import { isEmpty } from 'lodash-es';
 import { Tooltip as ATooltip } from 'ant-design-vue';
-import { computed, defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, type PropType, ref } from 'vue';
 import GalleryCommonField from '../../common/GalleryCommonField.vue';
 
 export default defineComponent({

@@ -1,24 +1,12 @@
-import { ActiveRecord, MemoryListSearchCache, SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { type ActiveRecord, MemoryListSearchCache, SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { OioTreeNode, TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { type OioTreeNode, TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
 import { FormM2MTreeFieldWidget } from '../../../field';
-import { TreeData, TreeNodeMetadata } from '../../../typing';
-import {
-  ActionPermissionNode,
-  AnyPermissionNode,
-  AuthResourcePermissionItem,
-  HomepagePermissionNode,
-  isActionPermissionNode,
-  isHomepagePermissionNode,
-  isMenuPermissionNode,
-  isModulePermissionNode,
-  MenuPermissionNode,
-  ModulePermissionNode,
-  PermissionNode
-} from '../../types';
+import type { TreeData, TreeNodeMetadata } from '../../../typing';
+import { type ActionPermissionNode, type AnyPermissionNode, type AuthResourcePermissionItem, type HomepagePermissionNode, isActionPermissionNode, isHomepagePermissionNode, isMenuPermissionNode, isModulePermissionNode, type MenuPermissionNode, type ModulePermissionNode, type PermissionNode } from '../../types';
 
 type TreeNodeSearchFilter = (node: OioTreeNode<TreeData>, keywords: string) => boolean;
 

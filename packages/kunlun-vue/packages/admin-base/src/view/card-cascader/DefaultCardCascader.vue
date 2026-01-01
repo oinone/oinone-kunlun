@@ -1,12 +1,12 @@
 <script lang="ts">
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { OioTreeNode } from '@oinone/kunlun-shared';
+import type { OioTreeNode } from '@oinone/kunlun-shared';
 import { ButtonType, OioButton, OioInputSearch, OioSpin, OioTree } from '@oinone/kunlun-vue-ui-antd';
 import { OioCard, OioCardCascader, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty } from 'lodash-es';
-import { computed, createVNode, defineComponent, PropType, VNode, vShow, withDirectives, withModifiers } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, type VNode, vShow, withDirectives, withModifiers } from 'vue';
 import { ActionBar } from '../../tags';
-import { CardCascaderItemData } from '../../typing';
+import type { CardCascaderItemData } from '../../typing';
 import { TreeUtils } from '../../util';
 
 export default defineComponent({

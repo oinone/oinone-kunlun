@@ -1,6 +1,6 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { ViewType } from '@oinone/kunlun-meta';
-import { DslDefinitionWidgetProps, VueWidget } from '@oinone/kunlun-vue-widget';
+import { type DslDefinitionWidgetProps, VueWidget } from '@oinone/kunlun-vue-widget';
 
 export enum ResolveMode {
   DEFAULT,

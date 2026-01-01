@@ -34,7 +34,7 @@
 import { OioButton, OioIcon, OioInputNumber } from '@oinone/kunlun-vue-ui-antd';
 import { Popover as APopover } from 'ant-design-vue';
 import { toNumber } from 'lodash-es';
-import { defineComponent, PropType, ref } from 'vue';
+import { defineComponent, type PropType, ref } from 'vue';
 
 export default defineComponent({
   name: 'DefaultCardColControl',

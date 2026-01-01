@@ -1,5 +1,5 @@
 import { ModelDefaultActionName } from '@oinone/kunlun-meta';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { getEasyImportTemplate } from '@oinone/kunlun-vue-ui-antd';
 import { ActionWidget, UrlActionWidget } from '../../../action';

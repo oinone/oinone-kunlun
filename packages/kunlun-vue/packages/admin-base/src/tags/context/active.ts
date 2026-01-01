@@ -1,4 +1,4 @@
-import { LayoutRegisterOptions } from '../../spi';
+import type { LayoutRegisterOptions } from '../../spi';
 
 interface RegisterOptionsMap {
   Layout: LayoutRegisterOptions;

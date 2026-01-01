@@ -4,7 +4,7 @@ import { BooleanHelper, CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { AInputPasswordProps, OioInputPasswordProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { InputPassword as AInputPassword } from 'ant-design-vue';
 import { isBoolean, isNil } from 'lodash-es';
-import { computed, createVNode, defineComponent, VNode } from 'vue';
+import { computed, createVNode, defineComponent, type VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 
 export default defineComponent({

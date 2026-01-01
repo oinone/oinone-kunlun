@@ -1,14 +1,5 @@
 import { KeyboardEventHelper } from '@oinone/kunlun-shared';
-import {
-  EventCategory,
-  EventProducer,
-  EventProducerConstructor,
-  EventProducerOptions,
-  KeyboardEventMessage,
-  KeyboardType,
-  KeyboardTypes,
-  registerEventProducer
-} from '../../bus';
+import { EventCategory, type EventProducer, type EventProducerConstructor, type EventProducerOptions, type KeyboardEventMessage, type KeyboardType, KeyboardTypes, registerEventProducer } from '../../bus';
 import { AbstractHTMLEventProducer } from '../basic';
 
 abstract class AbstractHTMLKeyboardEventProducer<K extends KeyboardType> extends AbstractHTMLEventProducer<

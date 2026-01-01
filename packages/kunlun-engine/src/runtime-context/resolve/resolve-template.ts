@@ -1,7 +1,7 @@
-import { DslDefinition, DslDefinitionHelper, ViewDslDefinition } from '@oinone/kunlun-dsl';
+import { type DslDefinition, DslDefinitionHelper, type ViewDslDefinition } from '@oinone/kunlun-dsl';
 import { ModelFieldType } from '@oinone/kunlun-meta';
-import { RuntimeEnumerationOption, RuntimeModel } from '../../runtime-metadata';
-import { RuntimeContext } from '../runtime-context';
+import type { RuntimeEnumerationOption, RuntimeModel } from '../../runtime-metadata';
+import type { RuntimeContext } from '../runtime-context';
 import { dslOptionToEnumerationOption } from './field/enumeration-field';
 import { convert as fieldConvert } from './field/resolve';
 import { selectorResolves } from './spi';

@@ -103,23 +103,11 @@
 </template>
 <script lang="ts" setup>
 import { LockOutlined, UserOutlined } from '@ant-design/icons-vue';
-import {
-  genStaticPath,
-  getCopyrightStatus,
-  OioLoginLogoPosition,
-  OioLoginThemeConfig,
-  OioLoginThemeName,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
+import { genStaticPath, getCopyrightStatus, OioLoginLogoPosition, type OioLoginThemeConfig, OioLoginThemeName, translateValueByKey } from '@oinone/kunlun-engine';
 import { OioButton, OioForm, OioFormItem, OioIcon, OioInput, VIDEO_SUFFIX_LIST } from '@oinone/kunlun-vue-ui-antd';
-import { LoginData, RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
-import {
-  Dropdown as ADropdown,
-  InputPassword as AInputPassword,
-  Menu as AMenu,
-  MenuItem as AMenuItem
-} from 'ant-design-vue';
-import { computed, defineProps, nextTick, onActivated, PropType, ref } from 'vue';
+import type { LoginData, RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
+import { Dropdown as ADropdown, InputPassword as AInputPassword, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
+import { computed, defineProps, nextTick, onActivated, type PropType, ref } from 'vue';
 
 const props = defineProps({
   loginMethod: { type: String, required: true },

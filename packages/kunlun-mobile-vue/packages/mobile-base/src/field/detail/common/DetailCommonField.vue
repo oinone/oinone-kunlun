@@ -1,7 +1,7 @@
 <script lang="ts">
 import { OioEmpty, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isBoolean, isFunction, isNil, isArray, toString } from 'lodash-es';
-import { computed, createVNode, defineComponent, PropType } from 'vue';
+import { computed, createVNode, defineComponent, type PropType } from 'vue';
 import { DEFAULT_PREFIX } from '../../../ui/theme';
 
 export default defineComponent({

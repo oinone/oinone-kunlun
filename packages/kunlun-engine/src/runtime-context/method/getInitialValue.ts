@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash-es';
-import { RuntimeContext } from '../runtime-context';
+import type { RuntimeContext } from '../runtime-context';
 
 export default async function getInitialValue(this: RuntimeContext): Promise<Record<string, unknown>> {
   let initialValue = this.initialValueCache;

@@ -1,8 +1,8 @@
-import { DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
+import { type DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
 import { MultiTabsRuntimeManifestMergedConfigManager } from '@oinone/kunlun-engine';
 import { SPI } from '@oinone/kunlun-spi';
 import { debugConsole } from '@oinone/kunlun-shared';
-import { MaskEditorContext, MaskEditorToken } from '../spi';
+import { type MaskEditorContext, MaskEditorToken } from '../spi';
 import { InlineMultiTabsMaskXML, DefaultMask } from './default-mask';
 
 export function getDefaultMaskTemplate(): DslDefinition {

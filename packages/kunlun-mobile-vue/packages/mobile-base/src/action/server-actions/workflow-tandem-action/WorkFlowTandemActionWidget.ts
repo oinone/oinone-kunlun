@@ -1,11 +1,11 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { ActionType } from '@oinone/kunlun-meta';
-import { RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
+import { type RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
 import { Widget } from '@oinone/kunlun-vue-widget';
 
 import { ActionWidget } from '../../component';
 import { ServerActionWidget } from '../ServerActionWidget';
-import { ClickResult } from '../../../typing';
+import type { ClickResult } from '../../../typing';
 import { executeWorkflowTandemMutation } from './server';
 
 @SPI.ClassFactory(

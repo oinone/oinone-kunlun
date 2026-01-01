@@ -1,6 +1,6 @@
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 import { VcMaskPopupAppearanceProps, VcPopupAppearanceProps, VcPopupControlProps, VcPopupDataProps } from '../vc-popup';
-import { ModalWidthType } from './typing';
+import type { ModalWidthType } from './typing';
 
 const OioModalAppearanceProps = {
   ...VcPopupAppearanceProps,

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createVNode, defineComponent, PropType } from 'vue';
+import { createVNode, defineComponent, type PropType } from 'vue';
 import Field from '../../../tags/Field.vue';
 
 export default defineComponent({

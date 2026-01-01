@@ -1,6 +1,6 @@
-import { RuntimeViewAction } from '@oinone/kunlun-engine';
-import { IMenu, IViewAction } from '@oinone/kunlun-meta';
-import { CastHelper, OioTreeNode, TreeHelper, TreeNode } from '@oinone/kunlun-shared';
+import type { RuntimeViewAction } from '@oinone/kunlun-engine';
+import type { IMenu, IViewAction } from '@oinone/kunlun-meta';
+import { CastHelper, type OioTreeNode, TreeHelper, TreeNode } from '@oinone/kunlun-shared';
 
 export interface IResolvedMenu {
   value: IMenu;

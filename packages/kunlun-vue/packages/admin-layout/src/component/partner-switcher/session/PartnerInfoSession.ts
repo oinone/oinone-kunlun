@@ -1,5 +1,5 @@
 import { ServiceIdentifier } from '@oinone/kunlun-spi';
-import { PartnerInfo, PartnerItem } from '../typing';
+import type { PartnerInfo, PartnerItem } from '../typing';
 
 export interface PartnerInfoSession<T = unknown> {
   /**

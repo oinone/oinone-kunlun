@@ -1,18 +1,11 @@
-import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
-import {
-  ActiveRecord,
-  ActiveRecords,
-  RuntimeContext,
-  RuntimeContextManager,
-  RuntimeRelationField,
-  RuntimeView
-} from '@oinone/kunlun-engine';
+import { type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { type ActiveRecord, type ActiveRecords, type RuntimeContext, RuntimeContextManager, type RuntimeRelationField, type RuntimeView } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { IFormSubviewFieldWidget } from '../../../types';
+import type { IFormSubviewFieldWidget } from '../../../types';
 import { MetadataViewWidget } from '../../../view';
-import { FormComplexFieldProps, FormComplexFieldWidget } from '../FormComplexFieldWidget';
+import { type FormComplexFieldProps, FormComplexFieldWidget } from '../FormComplexFieldWidget';
 
 export abstract class FormSubviewFieldWidget<
     Value extends ActiveRecords = ActiveRecords,

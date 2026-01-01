@@ -1,21 +1,9 @@
-import {
-  computeViewMode,
-  IPopupInstance,
-  IPopupManager,
-  IPopupWidget,
-  PopupManager,
-  ROOT_HANDLE,
-  RuntimeContext,
-  RuntimeContextManager,
-  RuntimeView,
-  RuntimeViewAction,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
+import { computeViewMode, type IPopupInstance, type IPopupManager, type IPopupWidget, PopupManager, ROOT_HANDLE, type RuntimeContext, RuntimeContextManager, type RuntimeView, type RuntimeViewAction, translateValueByKey } from '@oinone/kunlun-engine';
 import { ActionContextType, ViewMode, ViewType } from '@oinone/kunlun-meta';
-import { debugConsole, ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { debugConsole, type ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
-import { createPopupDslDefinition, PopupDslDefinition, seekPopupDslDefinition } from '../../action';
+import { createPopupDslDefinition, type PopupDslDefinition, seekPopupDslDefinition } from '../../action';
 import { MetadataViewWidget } from '../../basic';
 import { createRuntimeContextByView, createRuntimeContextByViewAction } from '../../tags';
 import { PopupScene } from '../../typing';

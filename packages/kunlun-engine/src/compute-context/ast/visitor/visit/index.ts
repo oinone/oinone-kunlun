@@ -1,16 +1,9 @@
-import { IVisitor, Node, NodeVisitor, VisitContext } from '../../types';
-import {
-  BinaryExpressionVisitor,
-  CallExpressionVisitor,
-  ConditionExpressionVisitor,
-  LogicalExpressionVisitor,
-  MemberExpressionVisitor,
-  UnaryExpressionVisitor
-} from './expression';
+import type { IVisitor, Node, NodeVisitor, VisitContext } from '../../types';
+import { BinaryExpressionVisitor, CallExpressionVisitor, ConditionExpressionVisitor, LogicalExpressionVisitor, MemberExpressionVisitor, UnaryExpressionVisitor } from './expression';
 import { LiteralVisitor } from './literal';
 import { ArrayVisitor, IdentifierVisitor } from './pattern';
 import { StatementVisitor } from './statement';
-import { AdapterContext, VisitorAdapter } from './types';
+import type { AdapterContext, VisitorAdapter } from './types';
 
 export interface VisitorOptions {
   optimizes?: NodeVisitor[];

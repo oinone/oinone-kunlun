@@ -2,9 +2,9 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { MaskWidget } from '../../basic';
 import PartnerSwitcher from './PartnerSwitcher.vue';
-import { PartnerSwitcherService, PartnerSwitcherServiceToken } from './service';
-import { PartnerInfoSession, PartnerInfoSessionToken, PartnerSessionStore } from './session';
-import { PartnerInfo, PartnerItem } from './typing';
+import { type PartnerSwitcherService, PartnerSwitcherServiceToken } from './service';
+import { type PartnerInfoSession, PartnerInfoSessionToken, type PartnerSessionStore } from './session';
+import type { PartnerInfo, PartnerItem } from './typing';
 
 @SPI.ClassFactory(MaskWidget.Token({ widget: 'partner-switcher' }))
 export class PartnerSwitcherWidget extends MaskWidget {

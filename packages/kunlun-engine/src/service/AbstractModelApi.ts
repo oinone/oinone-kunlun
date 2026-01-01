@@ -1,7 +1,7 @@
-import { OioListItem, OioTreeNode, TreeHelper, TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { IdModel, NameCodeModel, TreeModel } from '../typing';
+import { type OioListItem, type OioTreeNode, TreeHelper, TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import type { IdModel, NameCodeModel, TreeModel } from '../typing';
 import { GenericFunctionService } from './GenericFunctionService';
-import { QueryPageResult, QueryPagination, QueryWrapper } from './metadata';
+import type { QueryPageResult, QueryPagination, QueryWrapper } from './metadata';
 
 export interface ModelApi<T extends IdModel> {
   queryListByWrapper(queryWrapper: QueryWrapper): Promise<T[]>;
@@ -36,14 +36,22 @@ export abstract class AbstractModelApi<T extends IdModel> implements ModelApi<T>
 
   public async queryListByWrapper(queryWrapper: QueryWrapper): Promise<T[]> {
     return (
-      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(this.modelModel, 'queryListByWrapper', queryWrapper)) ||
-      []
+      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(
+        queryWrapper.model || this.modelModel,
+        'queryListByWrapper',
+        queryWrapper
+      )) || []
     );
   }
 
   public async queryPage(page: QueryPagination, queryWrapper: QueryWrapper): Promise<QueryPageResult<T>> {
     return (
-      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(this.modelModel, 'queryPage', page, queryWrapper)) || {
+      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(
+        queryWrapper.model || this.modelModel,
+        'queryPage',
+        page,
+        queryWrapper
+      )) || {
         content: [],
         totalPages: 0,
         totalElements: 0

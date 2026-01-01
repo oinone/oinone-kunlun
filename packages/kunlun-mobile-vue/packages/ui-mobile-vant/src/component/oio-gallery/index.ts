@@ -1,4 +1,4 @@
-import { computed, ComputedRef, InjectionKey } from 'vue';
+import { computed, type ComputedRef, type InjectionKey } from 'vue';
 
 export { default as OioGallery } from './oio-gallery.vue';
 

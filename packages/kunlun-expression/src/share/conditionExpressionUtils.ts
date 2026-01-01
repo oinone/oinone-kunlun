@@ -1,42 +1,9 @@
 import { ExpressionKeyword } from '@oinone/kunlun-expression';
 import { isNumberTtype, ModelFieldSerializeType } from '@oinone/kunlun-meta';
 import { DefaultComparisonOperator } from '@oinone/kunlun-request';
-import {
-  AUTO_SINGLE_QUOTE_OPERATOR_LIST,
-  BooleanConditionComparisonOperator,
-  ConditionRsqlFunctionMap,
-  ExpressionDefinitionType,
-  ExpressionItemType,
-  IExpressionItem,
-  IExpressionOption,
-  IExpressionQuoteType,
-  IExpSelectOption,
-  IVariableItem,
-  IVariableValueType,
-  NoArgFunBooleanOperatorList,
-  NoRightCompareBooleanOperatorList,
-  NoRightCompareRsqlOperatorList,
-  OneArgFunBooleanOperatorList,
-  TwoArgLeftRightFunBooleanOperatorList,
-  VariableItemType,
-  WrapperCompareBooleanOperatorList,
-  WrapperCompareRsqlOperatorList
-} from '../types';
-import {
-  createDefaultExpressionItem,
-  createExpressionCommon,
-  isConditionExpression,
-  translateCompareOperatorDisplayName,
-  translateOperator
-} from './expressionUtils';
-import {
-  autoAddQuote,
-  createApiNameVariableListStr,
-  createDefaultVariableItem,
-  createDisplayNameVariableListStr,
-  createValueVariableListStr,
-  getValidVariableItemList
-} from './expressionVariableUtils';
+import { AUTO_SINGLE_QUOTE_OPERATOR_LIST, BooleanConditionComparisonOperator, ConditionRsqlFunctionMap, ExpressionDefinitionType, ExpressionItemType, type IExpressionItem, type IExpressionOption, IExpressionQuoteType, type IExpSelectOption, type IVariableItem, IVariableValueType, NoArgFunBooleanOperatorList, NoRightCompareBooleanOperatorList, NoRightCompareRsqlOperatorList, OneArgFunBooleanOperatorList, TwoArgLeftRightFunBooleanOperatorList, VariableItemType, WrapperCompareBooleanOperatorList, WrapperCompareRsqlOperatorList } from '../types';
+import { createDefaultExpressionItem, createExpressionCommon, isConditionExpression, translateCompareOperatorDisplayName, translateOperator } from './expressionUtils';
+import { autoAddQuote, createApiNameVariableListStr, createDefaultVariableItem, createDisplayNameVariableListStr, createValueVariableListStr, getValidVariableItemList } from './expressionVariableUtils';
 
 /**
  * 字段变量

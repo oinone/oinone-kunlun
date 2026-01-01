@@ -1,5 +1,5 @@
 import { ViewType } from '@oinone/kunlun-meta';
-import { computed, ComputedRef, inject, InjectionKey, provide } from 'vue';
+import { computed, type ComputedRef, inject, type InjectionKey, provide } from 'vue';
 
 /**
  * 元数据上下文

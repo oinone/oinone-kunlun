@@ -1,7 +1,7 @@
 import { ActionType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { ActionWidget, ServerActionWidget } from '../../action';
-import { ClickResult } from '../../typing';
+import type { ClickResult } from '../../typing';
 import { groupChangeBehavior } from './constants';
 
 @SPI.ClassFactory(ActionWidget.Token({ actionType: ActionType.Server, widget: 'iconEditConfirmAction' }))

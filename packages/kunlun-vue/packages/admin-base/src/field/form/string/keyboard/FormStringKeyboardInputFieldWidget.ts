@@ -1,4 +1,4 @@
-import { KeyboardEventMessage } from '@oinone/kunlun-event';
+import type { KeyboardEventMessage } from '@oinone/kunlun-event';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';

@@ -4,21 +4,8 @@
 
 import { DslSlotUtils } from '../util/index';
 import { XMLParse } from '../parser/xml-parse';
-import {
-  baseTemplate,
-  viewTemplate,
-  resultTemplate,
-  repeatSlotTemplate,
-  viewRepeatSlotTemplate,
-  invalidSlotTemplate,
-  baseReverseMergeTemplate,
-  reverseMergeDSLTemplate,
-  reverseMergeResultTemplate,
-  fetchSlotTemplate,
-  hasRepeatSlotView,
-  mergeAttrResult
-} from './template';
-import { DslSlots, DslDefinitionType, DslDefinition } from '../typing';
+import { baseTemplate, viewTemplate, resultTemplate, repeatSlotTemplate, viewRepeatSlotTemplate, invalidSlotTemplate, baseReverseMergeTemplate, reverseMergeDSLTemplate, reverseMergeResultTemplate, fetchSlotTemplate, hasRepeatSlotView, mergeAttrResult } from './template';
+import { type DslSlots, DslDefinitionType, type DslDefinition } from '../typing';
 
 describe('DslSlotUtils', () => {
   describe('mergeSlotsToLayout', () => {

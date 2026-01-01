@@ -6,8 +6,8 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
-import { DEFAULT_CONDITION_OPT, ExpressionRsqlLogicOperatorList, IExpSelectOption } from '../../../types';
+import { computed, defineComponent, type PropType } from 'vue';
+import { DEFAULT_CONDITION_OPT, ExpressionRsqlLogicOperatorList, type IExpSelectOption } from '../../../types';
 import { translateExpValue } from '../../../share';
 /**
  * 逻辑运算符选择

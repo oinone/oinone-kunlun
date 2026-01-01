@@ -1,6 +1,6 @@
 import { isString, sampleSize } from 'lodash-es';
-import { Consumer } from './LambdaFunction';
-import { GenericReturnTypeNotNull, GenericType } from './typing';
+import type { Consumer } from './LambdaFunction';
+import type { GenericReturnTypeNotNull, GenericType } from './typing';
 
 export class StringHelper {
   public static ARRAY_DEFAULT_SEPARATOR = ',';

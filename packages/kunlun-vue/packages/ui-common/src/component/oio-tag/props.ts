@@ -1,6 +1,6 @@
-import { PropType } from 'vue';
-import { SelectMode, SelectProperties } from '../oio-select';
-import { TagsItem } from './model';
+import type { PropType } from 'vue';
+import { SelectMode, type SelectProperties } from '../oio-select';
+import type { TagsItem } from './model';
 
 export const OioTagProps = {
   color: {

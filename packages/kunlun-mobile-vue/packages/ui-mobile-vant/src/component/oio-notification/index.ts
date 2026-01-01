@@ -1,4 +1,4 @@
-import { OioNotificationOptions } from '@oinone/kunlun-vue-ui-common';
+import type { OioNotificationOptions } from '@oinone/kunlun-vue-ui-common';
 import { showFailToast, showNotify, showSuccessToast, showToast } from 'vant';
 
 export enum NotificationType {

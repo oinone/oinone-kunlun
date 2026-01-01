@@ -1,9 +1,9 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { onTabInvisibleChange, useOioFormLayoutContext } from '@oinone/kunlun-vue-ui-antd';
-import { OioTabProps, PropRecordHelper, TabHTMLNode, useInjectOioTabsContext } from '@oinone/kunlun-vue-ui-common';
+import { OioTabProps, PropRecordHelper, type TabHTMLNode, useInjectOioTabsContext } from '@oinone/kunlun-vue-ui-common';
 import { TabPane as ATabPane } from 'ant-design-vue';
-import { createVNode, defineComponent, getCurrentInstance, onUpdated, PropType, watch } from 'vue';
+import { createVNode, defineComponent, getCurrentInstance, onUpdated, type PropType, watch } from 'vue';
 
 export default defineComponent({
   name: 'DefaultMultiViewTab',

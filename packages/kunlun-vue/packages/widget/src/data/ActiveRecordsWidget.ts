@@ -1,24 +1,7 @@
-import {
-  ActiveRecord,
-  ActiveRecords,
-  ActiveRecordsOperator,
-  DeleteActiveRecordsByEntityFunction,
-  DeleteActiveRecordsByEntityPredict,
-  DeleteActiveRecordsFunction,
-  FlushActiveRecordsFunction,
-  PushActiveRecordsFunction,
-  PushActiveRecordsPredict,
-  ReloadActiveRecordsFunction,
-  RuntimeRelationField,
-  SubmitCacheManager,
-  UpdateActiveRecordsByEntityFunction,
-  UpdateActiveRecordsByEntityPredict,
-  UpdateActiveRecordsFunction,
-  UpdateEntity
-} from '@oinone/kunlun-engine';
+import { type ActiveRecord, type ActiveRecords, ActiveRecordsOperator, type DeleteActiveRecordsByEntityFunction, type DeleteActiveRecordsByEntityPredict, type DeleteActiveRecordsFunction, type FlushActiveRecordsFunction, type PushActiveRecordsFunction, type PushActiveRecordsPredict, type ReloadActiveRecordsFunction, type RuntimeRelationField, SubmitCacheManager, type UpdateActiveRecordsByEntityFunction, type UpdateActiveRecordsByEntityPredict, type UpdateActiveRecordsFunction, type UpdateEntity } from '@oinone/kunlun-engine';
 import { Widget } from '../basic';
-import { OioAnyViewState, useOioState } from '../state';
-import { PathWidget, PathWidgetProps } from './PathWidget';
+import { type OioAnyViewState, useOioState } from '../state';
+import { PathWidget, type PathWidgetProps } from './PathWidget';
 
 export interface ActiveRecordsWidgetProps extends PathWidgetProps {
   dataSource?: ActiveRecords | null;

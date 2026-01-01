@@ -41,7 +41,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, type PropType, ref } from 'vue';
 import { Image as VanImage, Popup as VanPopup } from 'vant';
 import { FormLayout, useInjectOioFormContext } from '@oinone/kunlun-vue-ui-common';
 import { CastHelper, DEFAULT_PREFIX, StringHelper } from '@oinone/kunlun-vue-ui-mobile-vant';

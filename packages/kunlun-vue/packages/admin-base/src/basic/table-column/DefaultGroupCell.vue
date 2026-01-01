@@ -32,34 +32,12 @@
 </template>
 
 <script lang="ts">
-import {
-  ActiveRecord,
-  getRealTtype,
-  GroupStatisticsEnum,
-  IResourceDateTimeFormat,
-  isDateField,
-  isDateTimeField,
-  isNumberField,
-  isTimeField,
-  isYearField,
-  queryResourceDateTimeFormat,
-  RuntimeModel,
-  RuntimeModelField,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
-import { VxeTableRowContext } from '@oinone/kunlun-vue-ui';
-import {
-  DateTimeFormatMap,
-  DateUtil,
-  defaultDateFormatKey,
-  defaultTimeFormatKey,
-  ObjectUtils,
-  OioIcon,
-  OioSpin
-} from '@oinone/kunlun-vue-ui-antd';
+import { type ActiveRecord, getRealTtype, GroupStatisticsEnum, type IResourceDateTimeFormat, isDateField, isDateTimeField, isNumberField, isTimeField, isYearField, queryResourceDateTimeFormat, type RuntimeModel, type RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
+import type { VxeTableRowContext } from '@oinone/kunlun-vue-ui';
+import { DateTimeFormatMap, DateUtil, defaultDateFormatKey, defaultTimeFormatKey, ObjectUtils, OioIcon, OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import dayjs from 'dayjs';
-import { computed, defineComponent, nextTick, onMounted, PropType, reactive, ref } from 'vue';
+import { computed, defineComponent, nextTick, onMounted, type PropType, reactive, ref } from 'vue';
 
 export default defineComponent({
   inheritAttrs: false,

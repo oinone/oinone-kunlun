@@ -1,20 +1,11 @@
-import {
-  frameworkFactory,
-  FrameworkInitializeService,
-  FrameworkInitializeSPI,
-  LanguageType,
-  OioProvider,
-  OioProviderProps,
-  registryLanguage,
-  RuntimeContextManager
-} from '@oinone/kunlun-engine';
+import { frameworkFactory, type FrameworkInitializeService, FrameworkInitializeSPI, LanguageType, OioProvider, type OioProviderProps, registryLanguage, RuntimeContextManager } from '@oinone/kunlun-engine';
 import { registerCurrentInstanceGetter } from '@oinone/kunlun-environment';
 import { isMobile } from '@oinone/kunlun-shared';
 import { SPIFactory } from '@oinone/kunlun-spi';
 import { maskInstall } from '@oinone/kunlun-vue-admin-layout';
 import { Boot } from '@wangeditor/editor';
 import attachmentModule from '@wangeditor/plugin-upload-attachment';
-import { App, getCurrentInstance } from 'vue';
+import { type App, getCurrentInstance } from 'vue';
 import { createApp as CreateVueApp } from './create_app';
 import enUs from './locale/en_US';
 import zhCn from './locale/zh_CN';

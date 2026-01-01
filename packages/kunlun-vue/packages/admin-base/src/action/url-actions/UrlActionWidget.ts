@@ -1,16 +1,7 @@
-import {
-  ActiveRecord,
-  FunctionCache,
-  FunctionService,
-  RedirectTargetEnum,
-  RequestModelField,
-  RuntimeFunctionDefinition,
-  RuntimeUrlAction,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
+import { type ActiveRecord, FunctionCache, FunctionService, RedirectTargetEnum, type RequestModelField, type RuntimeFunctionDefinition, type RuntimeUrlAction, translateValueByKey } from '@oinone/kunlun-engine';
 import { Expression } from '@oinone/kunlun-expression';
 import { ActionType, ViewActionTarget } from '@oinone/kunlun-meta';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioMessage, OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';

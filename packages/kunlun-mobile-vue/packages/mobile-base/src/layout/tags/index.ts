@@ -1,6 +1,6 @@
 import { StringHelper } from '@oinone/kunlun-shared';
 import { componentInstall, DEFAULT_TAG_PREFIX } from '@oinone/kunlun-vue-widget';
-import { Component } from 'vue';
+import type { Component } from 'vue';
 import { getMaskTagManagerInstance } from '../basic/register';
 import Block from './Block.vue';
 import Container from './Container.vue';

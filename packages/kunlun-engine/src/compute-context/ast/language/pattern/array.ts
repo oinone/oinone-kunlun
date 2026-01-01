@@ -1,17 +1,6 @@
 import * as charCodes from '../../charcodes';
 import * as types from '../../tokens';
-import {
-  ArrayPattern,
-  createExpression,
-  createPattern,
-  isIdentifier,
-  MemberExpression,
-  Node,
-  ParserContext,
-  Token,
-  TokenParser,
-  TokenReader
-} from '../../types';
+import { type ArrayPattern, createExpression, createPattern, isIdentifier, type MemberExpression, type Node, type ParserContext, type Token, type TokenParser, type TokenReader } from '../../types';
 import { BaseParser, BaseReader } from '../base';
 
 export class ArrayReader extends BaseReader implements TokenReader {

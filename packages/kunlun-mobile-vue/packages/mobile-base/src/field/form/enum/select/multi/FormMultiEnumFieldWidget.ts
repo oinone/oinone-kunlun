@@ -1,5 +1,5 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { EnumerationValue } from '@oinone/kunlun-shared';
+import type { EnumerationValue } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../../basic';

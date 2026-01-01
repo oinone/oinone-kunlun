@@ -1,4 +1,4 @@
-import { EventConsumerConfig, EventMessage } from './basic';
+import type { EventConsumerConfig, EventMessage } from './basic';
 
 export interface KeyboardEventMessage extends EventMessage<KeyboardEvent> {
   code: string;

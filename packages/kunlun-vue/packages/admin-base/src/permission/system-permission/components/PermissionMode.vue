@@ -14,7 +14,7 @@
 </template>
 <script lang="ts" setup>
 import { ref, defineProps, withDefaults } from 'vue';
-import { executeViewAction, RuntimeViewAction, translateValueByKey } from '@oinone/kunlun-engine';
+import { executeViewAction, type RuntimeViewAction, translateValueByKey } from '@oinone/kunlun-engine';
 
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { IPermissionModeEnum } from '../types';

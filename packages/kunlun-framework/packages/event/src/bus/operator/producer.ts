@@ -1,6 +1,6 @@
 import { instantiate } from '@oinone/kunlun-shared';
 import { selectorEventProducer } from '../spi';
-import { EventCategoryType, EventEngineOptions, EventProducer, EventProducerOptions } from '../typing';
+import type { EventCategoryType, EventEngineOptions, EventProducer, EventProducerOptions } from '../typing';
 
 export class ProducerOperator {
   private static producers: Map<string, EventProducer<unknown>> = new Map<

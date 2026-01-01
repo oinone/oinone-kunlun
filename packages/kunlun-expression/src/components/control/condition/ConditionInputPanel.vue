@@ -20,11 +20,11 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, type PropType, ref } from 'vue';
 import { StringHelper } from '@oinone/kunlun-shared';
 import ConditionInputForm from './ConditionInputForm.vue';
 import { createDefaultExpressionItem } from '../../../share';
-import { IExpressionItem } from '../../../types';
+import type { IExpressionItem } from '../../../types';
 import { ConditionCommonProps, ExpressionEvent } from '../typing';
 import { useConditionOptions } from '../use/use-condition';
 import { useSubmitExpressionHandler, useWatchExpressionItemList } from '../use/use-common';

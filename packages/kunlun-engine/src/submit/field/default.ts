@@ -3,7 +3,7 @@ import { isArray, isObject } from 'lodash-es';
 import { isRelatedField } from '../../runtime-context';
 import { SubmitType } from '../typing';
 import { relatedSubmit } from './related';
-import { SubmitFn } from './typing';
+import type { SubmitFn } from './typing';
 
 export const defaultSubmit: SubmitFn = (field, itemName, submitValue, value) => {
   if (value === undefined) {

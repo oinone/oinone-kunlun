@@ -89,7 +89,7 @@ import { OioButton, OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { useDslActionPermission } from '../hooks';
 import { collectionPermissionItems, queryGroups } from '../service';
 import { useStore } from '../store';
-import { PermissionNode } from '../../types';
+import type { PermissionNode } from '../../types';
 import GroupListComponent from './GroupList.vue';
 import Empty from './Empty.vue';
 

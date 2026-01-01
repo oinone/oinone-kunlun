@@ -112,14 +112,7 @@
 import { OioButton, OioIcon, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineEmits, defineProps, ref } from 'vue';
 import { useDslActionPermission } from '../hooks';
-import {
-  activeOrCancelGroup,
-  batchModifyRole,
-  createOrUpdateGroup,
-  deleteGroupById,
-  modifyManagementRole,
-  modifyRole
-} from '../service';
+import { activeOrCancelGroup, batchModifyRole, createOrUpdateGroup, deleteGroupById, modifyManagementRole, modifyRole } from '../service';
 
 import { useStore } from '../store';
 import PermissionDialog from './PermissionDialog.vue';

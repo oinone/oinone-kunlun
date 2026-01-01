@@ -1,10 +1,5 @@
-import {
-  getReloadMainViewParameters,
-  getReloadMaskParameters,
-  ReloadMainViewCallChainingParameters,
-  ReloadMaskCallChainingParameters
-} from '@oinone/kunlun-engine';
-import { CallChaining, ReturnPromise } from '@oinone/kunlun-shared';
+import { getReloadMainViewParameters, getReloadMaskParameters, type ReloadMainViewCallChainingParameters, type ReloadMaskCallChainingParameters } from '@oinone/kunlun-engine';
+import { CallChaining, type ReturnPromise } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseMaskWidget } from './token';
 

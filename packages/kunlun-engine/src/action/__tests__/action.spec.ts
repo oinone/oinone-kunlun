@@ -1,8 +1,8 @@
 import { generatorViewActionQueryParameter } from '../helper';
 import { ViewActionTarget } from '@oinone/kunlun-meta';
 import { MultiTabsRuntimeManifestMergedConfigManager } from '../../view/multi-tabs/config-manager';
-import { RuntimeViewAction, RuntimeServerAction } from '../../runtime-metadata';
-import { ActionElement, IServerAction } from '@oinone/kunlun-meta';
+import type { RuntimeViewAction, RuntimeServerAction } from '../../runtime-metadata';
+import type { ActionElement, IServerAction } from '@oinone/kunlun-meta';
 import { executeServerAction, runServerAction } from '../implementation/server';
 
 jest.mock('@oinone/kunlun-router', () => ({

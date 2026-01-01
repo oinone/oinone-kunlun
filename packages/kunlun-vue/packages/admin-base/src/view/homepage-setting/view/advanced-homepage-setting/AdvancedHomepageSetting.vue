@@ -68,12 +68,12 @@
   </div>
 </template>
 <script lang="ts">
-import { IModule } from '@oinone/kunlun-meta';
+import type { IModule } from '@oinone/kunlun-meta';
 import { OioButton, OioIcon, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
 import { debounce } from 'lodash-es';
-import { defineComponent, PropType, ref, watchEffect } from 'vue';
+import { defineComponent, type PropType, ref, watchEffect } from 'vue';
 import LazyLoadSelect from '../../components/LazyLoadSelect.vue';
-import { EnableStatusOptions, FetchValueOptions, FetchValueReturnType } from '../../typing';
+import { EnableStatusOptions, type FetchValueOptions, type FetchValueReturnType } from '../../typing';
 
 export default defineComponent({
   name: 'AdvancedHomepageSetting',

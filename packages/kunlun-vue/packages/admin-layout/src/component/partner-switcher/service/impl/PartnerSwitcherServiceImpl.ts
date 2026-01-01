@@ -1,8 +1,8 @@
 import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { GQL } from '@oinone/kunlun-request';
 import { SPI } from '@oinone/kunlun-spi';
-import { PartnerInfo, PartnerItem } from '../../typing';
-import { PartnerSwitcherService, PartnerSwitcherServiceToken } from '../PartnerSwitcherService';
+import type { PartnerInfo, PartnerItem } from '../../typing';
+import { type PartnerSwitcherService, PartnerSwitcherServiceToken } from '../PartnerSwitcherService';
 
 const SHOW_PARTNERS_MODEL_NAME = 'showPartners';
 

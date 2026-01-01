@@ -2,7 +2,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseElementWidget } from '../../../basic';
-import { ActionBarWidget, ActionBarWidgetProps } from './ActionBarWidget';
+import { ActionBarWidget, type ActionBarWidgetProps } from './ActionBarWidget';
 
 export interface RowActionBarWidgetProps extends ActionBarWidgetProps {
   rowIndex: number;

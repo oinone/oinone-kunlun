@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash-es';
-import { RuntimeModel } from '../../runtime-metadata';
-import { RuntimeContext } from '../runtime-context';
+import type { RuntimeModel } from '../../runtime-metadata';
+import type { RuntimeContext } from '../runtime-context';
 import { ResolveUtil } from './util';
 
 export function resolveModel(runtimeContext: RuntimeContext) {

@@ -1,7 +1,7 @@
-import { ActiveRecord, ActiveRecords, ActiveRecordsOperator, RuntimeRelationField } from '@oinone/kunlun-engine';
+import { type ActiveRecord, type ActiveRecords, ActiveRecordsOperator, type RuntimeRelationField } from '@oinone/kunlun-engine';
 import { StringHelper } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { FormComplexFieldProps, FormComplexFieldWidget } from '../FormComplexFieldWidget';
+import { type FormComplexFieldProps, FormComplexFieldWidget } from '../FormComplexFieldWidget';
 
 function isNull(value: ActiveRecords | null | undefined): value is null | undefined {
   return value == null;

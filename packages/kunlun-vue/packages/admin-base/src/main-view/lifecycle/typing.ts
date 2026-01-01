@@ -1,4 +1,4 @@
-import { RuntimeViewAction, ViewActionQueryParameter } from '@oinone/kunlun-engine';
+import type { RuntimeViewAction, ViewActionQueryParameter } from '@oinone/kunlun-engine';
 
 export type MetadataMainViewBeforeRender = (
   action: RuntimeViewAction,

@@ -1,5 +1,5 @@
-import { InternalMatchKey } from './match-key';
-import { MatchArrayValue, MatchSingleValue } from './options';
+import type { InternalMatchKey } from './match-key';
+import type { MatchArrayValue, MatchSingleValue } from './options';
 
 /**
  * 节点

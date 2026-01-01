@@ -1,6 +1,6 @@
 import { DocumentNode } from 'graphql';
-import { GQLType } from '../gql/typing';
-import { ObjectValue, RawResponse, RequestContext } from '../types';
+import type { GQLType } from '../gql/typing';
+import type { ObjectValue, RawResponse, RequestContext } from '../types';
 
 export type HttpClientHookOptions = {
   operation: GQLType;

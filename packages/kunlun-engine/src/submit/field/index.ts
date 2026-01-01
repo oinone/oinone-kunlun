@@ -1,12 +1,6 @@
 import { ViewMode } from '@oinone/kunlun-meta';
-import {
-  RuntimeM2MField,
-  RuntimeM2OField,
-  RuntimeO2MField,
-  RuntimeO2OField,
-  RuntimeRelationField
-} from '../../runtime-metadata';
-import { ActiveRecord, ActiveRecords } from '../../typing';
+import type { RuntimeM2MField, RuntimeM2OField, RuntimeO2MField, RuntimeO2OField, RuntimeRelationField } from '../../runtime-metadata';
+import type { ActiveRecord, ActiveRecords } from '../../typing';
 import { SubmitCacheManager } from '../SubmitCacheManager';
 import { RelationUpdateType, SubmitType } from '../typing';
 import { booleanSubmit } from './boolean';
@@ -15,7 +9,7 @@ import { M2MSubmit } from './m2m';
 import { M2OSubmit } from './m2o';
 import { O2MSubmit } from './o2m';
 import { O2OSubmit } from './o2o';
-import { SubmitFn, SubmitRelationValue, SubmitRelationValueFn, SubmitValue } from './typing';
+import { type SubmitFn, SubmitRelationValue, type SubmitRelationValueFn, SubmitValue } from './typing';
 
 export class SubmitHandler {
   public static DEFAULT = defaultSubmit;

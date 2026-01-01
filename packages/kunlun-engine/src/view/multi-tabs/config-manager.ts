@@ -2,8 +2,8 @@ import { RuntimeConfig } from '@oinone/kunlun-meta';
 import { StringHelper } from '@oinone/kunlun-shared';
 import { ConfigHelper } from '../../config';
 import { getSystemMajorConfig } from '../../provider/major';
-import { MajorConfig } from '../../provider/typing';
-import { MultiTabsApplicationHomepageConfig, MultiTabsConfig, MultiTabsModuleHomepageConfig } from './config';
+import type { MajorConfig } from '../../provider/typing';
+import type { MultiTabsApplicationHomepageConfig, MultiTabsConfig, MultiTabsModuleHomepageConfig } from './config';
 
 export class MultiTabsRuntimeManifestMergedConfigManager {
   private constructor() {

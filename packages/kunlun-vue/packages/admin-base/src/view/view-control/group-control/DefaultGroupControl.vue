@@ -34,8 +34,8 @@
 import { GroupingField } from '@oinone/kunlun-engine';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { Tooltip as ATooltip } from 'ant-design-vue';
-import { defineComponent, PropType, reactive, ref } from 'vue';
-import { SortableGroup, SortableGroupOption } from '../../../components';
+import { defineComponent, type PropType, reactive, ref } from 'vue';
+import { SortableGroup, type SortableGroupOption } from '../../../components';
 
 export default defineComponent({
   name: 'DefaultGroupControl',

@@ -1,4 +1,4 @@
-import { IDslNode } from '@oinone/kunlun-meta';
+import type { IDslNode } from '@oinone/kunlun-meta';
 import { ViewWidget } from '@oinone/kunlun-vue-widget';
 
 type Align = 'left' | 'center' | 'right';
@@ -32,4 +32,4 @@ interface IResolveWidget extends TagAttrs {
   childrenIndex?: number; // 如果当前是子节点，那么childrenIndex代表是当前下标
 }
 
-export { TagLayout, ignoreAttr, ignorePatchProps, TagAttrs, IResolveWidget };
+export { TagLayout, ignoreAttr, ignorePatchProps, type TagAttrs, type IResolveWidget };

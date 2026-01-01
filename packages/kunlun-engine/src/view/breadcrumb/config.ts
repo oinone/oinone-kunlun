@@ -1,5 +1,5 @@
-import { RuntimeConfig, RuntimeConfigOptions } from '@oinone/kunlun-meta';
-import { ConfigHelper, EnabledConfig } from '../../config';
+import { RuntimeConfig, type RuntimeConfigOptions } from '@oinone/kunlun-meta';
+import { ConfigHelper, type EnabledConfig } from '../../config';
 
 /**
  * 面包屑配置

@@ -1,5 +1,5 @@
-import { ActiveRecords } from '@oinone/kunlun-engine';
-import { TableWidget, TableWidgetProps } from '../../../../view';
+import type { ActiveRecords } from '@oinone/kunlun-engine';
+import { TableWidget, type TableWidgetProps } from '../../../../view';
 
 export class InlineTableWidget<Props extends TableWidgetProps = TableWidgetProps> extends TableWidget<Props> {
   public reloadDataSource(records: ActiveRecords | undefined) {

@@ -4,7 +4,7 @@ import { ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isNumber } from 'lodash-es';
 import { FormFieldWidget } from '../../../../basic';
-import { ValidatorInfo } from '../../../../typing';
+import type { ValidatorInfo } from '../../../../typing';
 import { FormStringFieldSingleWidget } from '../FormStringFieldSingleWidget';
 import DefaultFormSingleMedia from './DefaultFormSingleMedia.vue';
 import { translateValueByKey } from '@oinone/kunlun-engine';

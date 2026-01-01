@@ -1,6 +1,6 @@
-import { getLoginTheme, MajorConfig } from '@oinone/kunlun-engine';
+import { getLoginTheme, type MajorConfig } from '@oinone/kunlun-engine';
 import { computed, reactive, ref } from 'vue';
-import { Copyright } from '../../typing';
+import type { Copyright } from '../../typing';
 
 export function useResetPassword(props: { majorConfig?: MajorConfig; copyrightYear?: string; onOk?: Function }) {
   const formLayout = reactive({

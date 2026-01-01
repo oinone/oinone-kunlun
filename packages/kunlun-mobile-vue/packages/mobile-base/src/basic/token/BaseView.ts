@@ -1,20 +1,13 @@
-import {
-  getRefreshParameters,
-  parseConfigs,
-  RelationUpdateType,
-  RuntimeContextManager,
-  SubmitType,
-  SubmitValue
-} from '@oinone/kunlun-engine';
+import { getRefreshParameters, parseConfigs, RelationUpdateType, RuntimeContextManager, SubmitType, SubmitValue } from '@oinone/kunlun-engine';
 import { ViewMode, ViewType } from '@oinone/kunlun-meta';
-import { CallChaining, Constructor } from '@oinone/kunlun-shared';
-import { SPI, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
-import { ActiveRecordsWidgetProps, Widget, InnerWidgetType } from '@oinone/kunlun-vue-widget';
+import { CallChaining, type Constructor } from '@oinone/kunlun-shared';
+import { SPI, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
+import { type ActiveRecordsWidgetProps, Widget, InnerWidgetType } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import DefaultView from '../../view/view/DefaultView.vue';
 import { BaseRuntimePropertiesWidget } from '../common';
 import { validatorCallChainingCallAfterFn, VIEW_WIDGET_PRIORITY } from '../constant';
-import { MobileSPIOptions } from '../types';
+import type { MobileSPIOptions } from '../types';
 
 export interface BaseViewProps extends ActiveRecordsWidgetProps {
   metadataHandle: string;

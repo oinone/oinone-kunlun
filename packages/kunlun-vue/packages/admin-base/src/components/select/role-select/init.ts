@@ -1,15 +1,8 @@
-import { AuthRole, AuthRoleServiceToken } from '@oinone/kunlun-engine';
-import { OioTreeNode } from '@oinone/kunlun-shared';
+import { type AuthRole, AuthRoleServiceToken } from '@oinone/kunlun-engine';
+import type { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { ComputedRef, type Ref } from 'vue';
-import {
-  ListInitOptions,
-  ListState,
-  ListStateLoadFunction,
-  ListStateProps,
-  TreeState,
-  useListState
-} from '../../quick-utils';
+import type { ComputedRef, Ref } from 'vue';
+import { type ListInitOptions, type ListState, type ListStateLoadFunction, type ListStateProps, type TreeState, useListState } from '../../quick-utils';
 
 export interface RoleListInstance {
   state: Ref<TreeState<AuthRole>>;

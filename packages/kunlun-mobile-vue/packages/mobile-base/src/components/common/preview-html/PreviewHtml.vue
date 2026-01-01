@@ -9,7 +9,7 @@
   ></iframe>
 </template>
 <script lang="ts">
-import { computed, defineComponent, nextTick, onMounted, PropType, ref } from 'vue';
+import { computed, defineComponent, nextTick, onMounted, type PropType, ref } from 'vue';
 
 export default defineComponent({
   inheritAttrs: false,

@@ -2,7 +2,7 @@ import { isArray, isNumber } from 'lodash-es';
 import { BooleanHelper } from '../../BooleanHeler';
 import { DateUtil, defaultFormat, defaultTimeFormat } from '../../date';
 import { NumberHelper } from '../../NumberHelper';
-import { RSQLConditionNodeInfo, RSQLNodeInfo } from '../RSQLNodeInfo';
+import { type RSQLConditionNodeInfo, RSQLNodeInfo } from '../RSQLNodeInfo';
 
 export interface NodeComputer<N, T> {
   comparisonCompute(nodeInfo: N, data: T): boolean;

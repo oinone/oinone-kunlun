@@ -1,4 +1,4 @@
-import { PropType, VNode } from 'vue';
+import type { PropType, VNode } from 'vue';
 import { $$OioTooltipPlacement, OioTooltipPlacement } from '../oio-tooltip';
 
 const MIN_STEP = 1;

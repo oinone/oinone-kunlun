@@ -1,4 +1,4 @@
-import { CSSStyle } from '../style';
+import type { CSSStyle } from '../style';
 
 /**
  * 标准树节点

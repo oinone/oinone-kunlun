@@ -1,18 +1,9 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { CastHelper, CSSStyle, StringHelper } from '@oinone/kunlun-shared';
-import {
-  FlexDirection,
-  FormLayout,
-  OioRow,
-  OioRowProps,
-  PropRecordHelper,
-  StyleHelper,
-  useInjectOioFormContext,
-  useProviderOioFormContext
-} from '@oinone/kunlun-vue-ui-mobile-vant';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { CastHelper, type CSSStyle, StringHelper } from '@oinone/kunlun-shared';
+import { FlexDirection, FormLayout, OioRow, OioRowProps, PropRecordHelper, StyleHelper, useInjectOioFormContext, useProviderOioFormContext } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, vShow, withDirectives } from 'vue';
 import { useProviderOioDefaultRowContext } from './context';
 
 export default defineComponent({

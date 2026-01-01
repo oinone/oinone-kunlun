@@ -67,10 +67,10 @@
 </template>
 <script lang="ts">
 import { CheckOutlined } from '@ant-design/icons-vue';
-import { TableKeyboardConfig } from '@oinone/kunlun-engine';
+import type { TableKeyboardConfig } from '@oinone/kunlun-engine';
 import { OioEmptyData, OioIcon, OioInput, OioSpin, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, type PropType, ref, watch } from 'vue';
 import { RelationSelectProps, relationSelectSetup } from '../../../prop';
 
 export default defineComponent({

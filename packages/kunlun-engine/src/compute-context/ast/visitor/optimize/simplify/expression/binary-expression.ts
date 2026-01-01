@@ -1,25 +1,8 @@
 import { getBinopByKey } from '../../../../tokens';
-import {
-  AnyExpression,
-  BinaryExpression,
-  BinaryOperator,
-  createExpression,
-  createLiteral,
-  isBinaryExpression,
-  isLiteral,
-  isNumberLiteral,
-  isUnaryExpression,
-  Literal,
-  Node,
-  NullLiteral,
-  NumberLiteral,
-  NumberLiteralValueType,
-  UnaryExpression,
-  VisitContext
-} from '../../../../types';
+import { type AnyExpression, type BinaryExpression, type BinaryOperator, createExpression, createLiteral, isBinaryExpression, isLiteral, isNumberLiteral, isUnaryExpression, type Literal, type Node, type NullLiteral, type NumberLiteral, type NumberLiteralValueType, type UnaryExpression, type VisitContext } from '../../../../types';
 import { BigNumber } from '@oinone/kunlun-shared';
 import { Executor } from '../../../executor';
-import { AdapterContext, VisitorAdapter } from '../../../visit';
+import type { AdapterContext, VisitorAdapter } from '../../../visit';
 import { AbstractOptimizeAdapter } from '../../base';
 
 export interface BinaryOperatorWithBinop {

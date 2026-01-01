@@ -1,11 +1,4 @@
-import {
-  ActiveRecords,
-  DeleteActiveRecordsByEntityPredict,
-  PushActiveRecordsPredict,
-  SubmitValue,
-  UpdateActiveRecordsByEntityPredict,
-  UpdateEntity
-} from '@oinone/kunlun-engine';
+import { type ActiveRecords, type DeleteActiveRecordsByEntityPredict, type PushActiveRecordsPredict, SubmitValue, type UpdateActiveRecordsByEntityPredict, type UpdateEntity } from '@oinone/kunlun-engine';
 import { ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';

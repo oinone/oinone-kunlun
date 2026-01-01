@@ -58,16 +58,11 @@
   </div>
 </template>
 <script lang="ts">
-import { deepClone, IModelFieldOption } from '@oinone/kunlun-meta';
+import { deepClone, type IModelFieldOption } from '@oinone/kunlun-meta';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { isEmpty, isNil } from 'lodash-es';
-import { computed, defineComponent, PropType, watch, ref, nextTick } from 'vue';
-import {
-  CheckboxGroup as VanCheckboxGroup,
-  Checkbox as VanCheckbox,
-  Cell as VanCell,
-  CellGroup as VanCellGroup
-} from 'vant';
+import { computed, defineComponent, type PropType, watch, ref, nextTick } from 'vue';
+import { CheckboxGroup as VanCheckboxGroup, Checkbox as VanCheckbox, Cell as VanCell, CellGroup as VanCellGroup } from 'vant';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../basic';
 import { multiEnumFetchLabelByValue } from '../../../util';
 import { CHECK_ALL_VALUE } from '../../../../typing';

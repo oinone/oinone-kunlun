@@ -1,6 +1,6 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
+import { Widget, type WidgetComponent } from '@oinone/kunlun-vue-widget';
 import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 
 import { FormFieldWidget } from '../../../basic';

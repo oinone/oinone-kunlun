@@ -1,15 +1,9 @@
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import {
-  OioFormProps,
-  PropRecordHelper,
-  useInjectOioDefaultFormContext,
-  useProviderOioDefaultFormContext,
-  ValidateTrigger
-} from '@oinone/kunlun-vue-ui-common';
+import { OioFormProps, PropRecordHelper, useInjectOioDefaultFormContext, useProviderOioDefaultFormContext, ValidateTrigger } from '@oinone/kunlun-vue-ui-common';
 import { DEFAULT_PREFIX, OioForm, OioFormInstance } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { createVNode, defineComponent, onMounted, PropType, ref } from 'vue';
+import type { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
+import { createVNode, defineComponent, onMounted, type PropType, ref } from 'vue';
 import { defaultFlexResolve } from '../../tags/resolve/helper';
 import { DEFAULT_VIEW_CLASS } from '../../ui/theme';
 import { ManualWidget } from '../mixin';

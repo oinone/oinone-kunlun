@@ -1,22 +1,14 @@
-import {
-  CommonPatternMap,
-  FieldPattern,
-  RuntimeModelField,
-  SubmitHandler,
-  SubmitRelationValue,
-  SubmitValue,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
-import { FieldEventName, FieldEventNames, LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
+import { CommonPatternMap, type FieldPattern, type RuntimeModelField, SubmitHandler, SubmitRelationValue, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
+import { type FieldEventName, FieldEventNames, LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
 import { Expression } from '@oinone/kunlun-expression';
 import { isEmptyValue, isValidateEmpty, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { Constructor, ReturnPromise } from '@oinone/kunlun-shared';
-import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
+import type { Constructor, ReturnPromise } from '@oinone/kunlun-shared';
+import { SPI, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
 import { ComputeTrigger } from '@oinone/kunlun-vue-ui-common';
 import { InnerWidgetType, PathWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isFunction, isPlainObject, isString } from 'lodash-es';
-import { isValidatorError, isValidatorSuccess, ValidatorInfo } from '../../typing';
-import { BaseFormItemWidget, BaseFormItemWidgetProps } from '../form-item';
+import { isValidatorError, isValidatorSuccess, type ValidatorInfo } from '../../typing';
+import { BaseFormItemWidget, type BaseFormItemWidgetProps } from '../form-item';
 
 /**
  * Field组件注册可选项

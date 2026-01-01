@@ -68,19 +68,10 @@
 <script lang="ts">
 import { OioSelect } from '@oinone/kunlun-vue-ui-antd';
 import { isEmpty } from 'lodash-es';
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, type PropType, ref, watch } from 'vue';
 import LazyLoadSelect from '../components/LazyLoadSelect.vue';
 import { HomepageSettingCondition } from '../service/HomepageSettingCondition';
-import {
-  ExpressionItem,
-  FetchValueOptions,
-  FetchValueReturnType,
-  LogicOperatorEnum,
-  RelationOptions,
-  RelationOptionsEnum,
-  RoleUserOptions,
-  RoleUserOptionsEnum
-} from '../typing';
+import { type ExpressionItem, type FetchValueOptions, type FetchValueReturnType, LogicOperatorEnum, RelationOptions, RelationOptionsEnum, RoleUserOptions, RoleUserOptionsEnum } from '../typing';
 
 export default defineComponent({
   name: 'RoleConfig',

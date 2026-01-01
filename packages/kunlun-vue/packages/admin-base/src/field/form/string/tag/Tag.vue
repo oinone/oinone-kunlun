@@ -32,12 +32,12 @@
 </template>
 <script lang="ts">
 import { CloseCircleFilled, CloseOutlined } from '@ant-design/icons-vue';
-import { TableKeyboardConfig, translateValueByKey } from '@oinone/kunlun-engine';
+import { type TableKeyboardConfig, translateValueByKey } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { Tag as ATag } from 'ant-design-vue';
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, type PropType, ref, watch } from 'vue';
 import { OioCommonProps, OioMetadataProps, usePlaceholderProps } from '../../../../basic';
 
 export default defineComponent({

@@ -2,7 +2,7 @@
 import { ButtonType, OioButton, OioInnerPopup } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { DrawerPlacement, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, PropType, Slot, VNode } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, type Slot, type VNode } from 'vue';
 import { ViewType } from '@oinone/kunlun-meta';
 
 export default defineComponent({

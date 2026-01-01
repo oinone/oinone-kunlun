@@ -4,7 +4,7 @@ import { NumberHelper } from '@oinone/kunlun-shared';
 import { OioEmpty, OioMessage, OioUpload } from '@oinone/kunlun-vue-ui-antd';
 import { AUploadProps, FileHelper, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty } from 'lodash-es';
-import { createVNode, defineComponent, PropType, ref, watch } from 'vue';
+import { createVNode, defineComponent, type PropType, ref, watch } from 'vue';
 import { useMetadataProps } from '../../basic';
 
 export default defineComponent({

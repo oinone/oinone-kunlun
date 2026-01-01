@@ -1,6 +1,6 @@
-import { PamirsCompany } from '@oinone/kunlun-engine';
-import { OioSelectItem } from '@oinone/kunlun-shared';
-import { createVNode, VNode } from 'vue';
+import type { PamirsCompany } from '@oinone/kunlun-engine';
+import type { OioSelectItem } from '@oinone/kunlun-shared';
+import { createVNode, type VNode } from 'vue';
 import styleRender1 from './style1';
 import styleRender2 from './style2';
 

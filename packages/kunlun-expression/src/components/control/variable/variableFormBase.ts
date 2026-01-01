@@ -2,33 +2,13 @@
  * VariableFormInput.vue
  * VariableFormTag.vue
  */
-import { Pagination } from '@oinone/kunlun-engine';
-import { IModelField, ModelFieldType } from '@oinone/kunlun-meta';
+import type { Pagination } from '@oinone/kunlun-engine';
+import { type IModelField, ModelFieldType } from '@oinone/kunlun-meta';
 import { toString } from 'lodash-es';
-import { computed, ExtractPropTypes, onMounted, PropType, ref, SetupContext } from 'vue';
+import { computed, type ExtractPropTypes, onMounted, type PropType, ref, type SetupContext } from 'vue';
 import { expFetchFieldSimpleInfo } from '../../../service/modelDefinitionService';
-import {
-  contextItems2ModelSelection,
-  convertModels2FieldSelectionOptions,
-  fetchExpressionChildren,
-  fetchModelData,
-  translateExpValue
-} from '../../../share';
-import {
-  buildSessionContextOptions,
-  ElementSize,
-  ExpressionDefinitionType,
-  ExpressionSeniorMode,
-  IExpModel,
-  IExpSelectOption,
-  IFunFilterMethod,
-  IOperatorSelectOption,
-  IVariableContextItem,
-  IVariableItem,
-  RSQL_MATCH_COMPARE_OPERATOR_LIST,
-  SessionContextOption,
-  VariableItemType
-} from '../../../types';
+import { contextItems2ModelSelection, convertModels2FieldSelectionOptions, fetchExpressionChildren, fetchModelData, translateExpValue } from '../../../share';
+import { buildSessionContextOptions, ElementSize, ExpressionDefinitionType, ExpressionSeniorMode, type IExpModel, type IExpSelectOption, type IFunFilterMethod, type IOperatorSelectOption, type IVariableContextItem, type IVariableItem, RSQL_MATCH_COMPARE_OPERATOR_LIST, type SessionContextOption, VariableItemType } from '../../../types';
 
 export const IVariableFormProps = {
   expType: String, // 表达式类型

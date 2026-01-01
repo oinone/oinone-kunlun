@@ -1,4 +1,4 @@
-import { cloneVNode, Slot, VNode, VNodeProps } from 'vue';
+import { cloneVNode, type Slot, type VNode, VNodeProps } from 'vue';
 import { getFirstValidNode } from '../../../util/vnode/util';
 import { DEFAULT_SLOT_NAME } from './constant';
 

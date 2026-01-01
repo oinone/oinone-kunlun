@@ -1,6 +1,6 @@
-import { OioTreeNode } from '@oinone/kunlun-shared';
-import { PropType } from 'vue';
-import { TreeData } from '../../typing';
+import type { OioTreeNode } from '@oinone/kunlun-shared';
+import type { PropType } from 'vue';
+import type { TreeData } from '../../typing';
 
 const DefaultTreeSearchProps = {
   enableSearch: {

@@ -2,12 +2,12 @@
 import { StringHelper } from '@oinone/kunlun-shared';
 import { OioIcon, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { debounce, isBoolean, isFunction, isNil, isString } from 'lodash-es';
-import { computed, createVNode, defineComponent, Slot, VNode, vShow, watch, withDirectives, withModifiers } from 'vue';
+import { computed, createVNode, defineComponent, type Slot, type VNode, vShow, watch, withDirectives, withModifiers } from 'vue';
 import { Column } from 'vxe-table';
 import { DEFAULT_PREFIX } from '../../../theme';
 import { useInjectOioTableInstance } from '../context';
 import { TableEditorCloseTrigger, TableEditorMode, TableEditorTrigger } from '../table';
-import { CellRenderFunction, RowContext, VxeTableCellRenderFunction, VxeTableRowContext } from '../typing';
+import type { CellRenderFunction, RowContext, VxeTableCellRenderFunction, VxeTableRowContext } from '../typing';
 import { OioColumnProps } from './props';
 
 const DEFAULT_CLASS_NAME = `${DEFAULT_PREFIX}-column`;

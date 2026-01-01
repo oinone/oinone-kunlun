@@ -69,11 +69,11 @@
 
 <script lang="ts">
 import { PlusOutlined, EyeOutlined } from '@ant-design/icons-vue';
-import { Entity } from '@oinone/kunlun-meta';
+import type { Entity } from '@oinone/kunlun-meta';
 import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { isString } from 'lodash-es';
-import { computed, defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, type PropType, ref } from 'vue';
 import { useMetadataProps } from '../../basic';
 import FileUpload from './File.vue';
 import { UploadCommonProps } from '../prop';

@@ -195,4 +195,4 @@ const getRouterInstance = () => {
   return instance;
 };
 
-export { ActivatedRoute, NavigateOptions, Router, createRouter, getRouterInstance, SegmentGroup };
+export { type ActivatedRoute, type NavigateOptions, type Router, createRouter, getRouterInstance, type SegmentGroup };

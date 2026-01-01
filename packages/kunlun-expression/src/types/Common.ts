@@ -1,12 +1,4 @@
-import {
-  EntityId,
-  IModel,
-  IModelField,
-  IModule,
-  ModelFieldType,
-  ModelFieldTypeDisplayName,
-  SystemSource
-} from '@oinone/kunlun-meta';
+import { type EntityId, type IModel, type IModelField, type IModule, ModelFieldType, ModelFieldTypeDisplayName, SystemSource } from '@oinone/kunlun-meta';
 
 export enum ElementSize {
   LARGE = 'large',

@@ -1,5 +1,5 @@
-import { PropType } from 'vue';
-import { OioColModel } from '../oio-block';
+import type { PropType } from 'vue';
+import type { OioColModel } from '../oio-block';
 import { OioSpinProps } from '../oio-spin';
 
 export enum FormLayout {

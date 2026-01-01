@@ -1,9 +1,5 @@
 import { SPI } from '@oinone/kunlun-spi';
-import {
-  DEFAULT_CARD_CONTAINERS_GUTTERS,
-  DEFAULT_CONTAINERS_GUTTERS,
-  StandardGutterType
-} from '@oinone/kunlun-vue-ui-common';
+import { DEFAULT_CARD_CONTAINERS_GUTTERS, DEFAULT_CONTAINERS_GUTTERS, type StandardGutterType } from '@oinone/kunlun-vue-ui-common';
 import { isAllInvisible, Widget } from '@oinone/kunlun-vue-widget';
 import { isString } from 'lodash-es';
 import { BasePackWidget } from '../../basic';

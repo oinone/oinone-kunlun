@@ -1,6 +1,6 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { SPIOperator, SPIOptions } from '@oinone/kunlun-spi';
-import { Component } from 'vue';
+import { SPIOperator, type SPIOptions } from '@oinone/kunlun-spi';
+import type { Component } from 'vue';
 
 /**
  * 混入组件存储键

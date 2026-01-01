@@ -1,18 +1,11 @@
 <script lang="ts">
-import {
-  OrganizationalStructureType,
-  PamirsDepartment,
-  PamirsDepartmentService,
-  PamirsEmployee,
-  PamirsEmployeeService,
-  QueryWrapper
-} from '@oinone/kunlun-engine';
+import { OrganizationalStructureType, type PamirsDepartment, type PamirsDepartmentService, type PamirsEmployee, type PamirsEmployeeService, QueryWrapper } from '@oinone/kunlun-engine';
 import { OioDivider, RSQLCondition, RSQLHelper, SelectMode } from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType, type Ref, ref } from 'vue';
-import { ListState, TreeState } from '../../quick-utils';
+import { computed, createVNode, defineComponent, type PropType, type Ref, ref } from 'vue';
+import type { ListState, TreeState } from '../../quick-utils';
 import { OrganizationalStructureTree } from '../organizational-structure-tree';
 import EmployeeList from './EmployeeList.vue';
-import { EmployeeListInstance } from './init';
+import type { EmployeeListInstance } from './init';
 
 export default defineComponent({
   name: 'DepartmentEmployeeSelectPanel',

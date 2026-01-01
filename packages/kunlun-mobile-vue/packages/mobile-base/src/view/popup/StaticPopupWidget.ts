@@ -1,21 +1,7 @@
-import {
-  ActiveRecord,
-  ActiveRecords,
-  ActiveRecordsOperator,
-  DeleteActiveRecordsByEntityPredict,
-  EventKeys,
-  IPopupInstance,
-  IPopupWidget,
-  PopupManager,
-  PushActiveRecordsPredict,
-  RuntimeAction,
-  UpdateActiveRecordsByEntityPredict,
-  UpdateEntity,
-  WidgetProps
-} from '@oinone/kunlun-engine';
+import { type ActiveRecord, type ActiveRecords, ActiveRecordsOperator, type DeleteActiveRecordsByEntityPredict, EventKeys, type IPopupInstance, type IPopupWidget, PopupManager, type PushActiveRecordsPredict, type RuntimeAction, type UpdateActiveRecordsByEntityPredict, type UpdateEntity, type WidgetProps } from '@oinone/kunlun-engine';
 import { emitEvent } from '@oinone/kunlun-shared';
 import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
-import { PopupEventHandle, PopupEventHandles } from '../../typing';
+import type { PopupEventHandle, PopupEventHandles } from '../../typing';
 import { isFunction } from 'lodash-es';
 
 export abstract class StaticPopupWidget<Props extends WidgetProps = WidgetProps>

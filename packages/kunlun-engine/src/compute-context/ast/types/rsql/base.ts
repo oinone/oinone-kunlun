@@ -1,4 +1,4 @@
-import { AnyExpression } from '../base';
+import type { AnyExpression } from '../base';
 
 export type RSQLAnyExpression = AnyExpression & {
   marker?: number;

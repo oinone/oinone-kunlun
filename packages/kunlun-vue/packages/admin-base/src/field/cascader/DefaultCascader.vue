@@ -1,21 +1,10 @@
 <script lang="ts">
 import { CloseOutlined } from '@ant-design/icons-vue';
 import { BooleanHelper } from '@oinone/kunlun-shared';
-import {
-  CascaderCheckedStrategy,
-  CascaderDisplayRenderFunction,
-  CascaderItem,
-  CascaderProperties,
-  defaultCascaderProperties,
-  defaultLabelsSeparator,
-  OioCascader,
-  OioTreeNode,
-  SelectMode,
-  useInjectOioDefaultFormContext
-} from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType, VNode, vShow, withDirectives, withModifiers } from 'vue';
+import { CascaderCheckedStrategy, CascaderDisplayRenderFunction, CascaderItem, CascaderProperties, defaultCascaderProperties, defaultLabelsSeparator, OioCascader, type OioTreeNode, SelectMode, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
+import { computed, createVNode, defineComponent, type PropType, type VNode, vShow, withDirectives, withModifiers } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../basic';
-import { TreeData } from '../../typing';
+import type { TreeData } from '../../typing';
 
 /**
  * copyright ant-design-vue

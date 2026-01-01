@@ -1,8 +1,8 @@
-import { RuntimeNumberField, RuntimeSearchField } from '@oinone/kunlun-engine';
+import type { RuntimeNumberField, RuntimeSearchField } from '@oinone/kunlun-engine';
 import { BooleanHelper, NumberHelper, Optional, RSQLCompositeOperators } from '@oinone/kunlun-shared';
-import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
+import { Widget, type WidgetComponent } from '@oinone/kunlun-vue-widget';
 import { isNil, toString } from 'lodash-es';
-import { NumberValue } from '../../form';
+import type { NumberValue } from '../../form';
 import { SearchRangeFieldWidget } from '../../range';
 import DefaultNumberInputRange from './DefaultNumberInputRange.vue';
 

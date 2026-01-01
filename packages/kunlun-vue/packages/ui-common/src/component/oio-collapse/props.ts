@@ -1,4 +1,4 @@
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 import { OioBaseContainerProps, OioComponentData } from '../../typing';
 
 export const DEFAULT_COLLAPSE_TITLE = '折叠面板';

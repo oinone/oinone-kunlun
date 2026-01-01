@@ -4,9 +4,9 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNil, isNumber, isString, toString } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';
-import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../typing';
 import { stringIsAllNum } from '../../util';
-import { FormNumberAbstractFieldWidget, NumberValue } from '../abstract/FormNumberAbstractFieldWidget';
+import { FormNumberAbstractFieldWidget, type NumberValue } from '../abstract/FormNumberAbstractFieldWidget';
 import DefaultInteger from './DefaultInteger.vue';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 

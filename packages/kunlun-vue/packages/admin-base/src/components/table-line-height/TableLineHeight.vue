@@ -33,7 +33,7 @@
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem, Tooltip as ATooltip } from 'ant-design-vue';
-import { computed, defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, type PropType, ref } from 'vue';
 import { TableLineHeightEnum } from '../../typing';
 
 export default defineComponent({

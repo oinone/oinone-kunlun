@@ -1,4 +1,4 @@
-import { IModel, ViewType } from '@oinone/kunlun-meta';
+import { type IModel, ViewType } from '@oinone/kunlun-meta';
 import { getModel, ISort, queryModuleByName } from '@oinone/kunlun-service';
 import { StateStream } from '@oinone/kunlun-state';
 import { ClearCache } from '../cache';

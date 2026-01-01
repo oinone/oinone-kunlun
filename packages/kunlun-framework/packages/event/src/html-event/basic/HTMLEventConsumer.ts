@@ -1,13 +1,4 @@
-import {
-  AbstractEventConsumer,
-  EventCategory,
-  EventConsumerConfig,
-  EventConsumerConstructor,
-  EventConsumerFunction,
-  EventConsumerOptions,
-  EventMessage,
-  registerEventConsumer
-} from '../../bus';
+import { AbstractEventConsumer, EventCategory, type EventConsumerConfig, type EventConsumerConstructor, type EventConsumerFunction, type EventConsumerOptions, type EventMessage, registerEventConsumer } from '../../bus';
 
 export class HTMLEventConsumer<
   K extends keyof HTMLElementEventMap,

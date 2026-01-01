@@ -1,8 +1,8 @@
-import { ActiveRecords, getRelationFieldKey, RuntimeRelationField } from '@oinone/kunlun-engine';
+import { type ActiveRecords, getRelationFieldKey, type RuntimeRelationField } from '@oinone/kunlun-engine';
 import { isEmptyValue } from '@oinone/kunlun-meta';
 import { autoFillByLabel, autoFillByLabelFields } from '../../../layout';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { BaseSelectFieldWidget, FormComplexFieldProps } from '../../../basic';
+import { BaseSelectFieldWidget, type FormComplexFieldProps } from '../../../basic';
 
 export class DetailRelationSelectFieldWidget<
   Value extends ActiveRecords = ActiveRecords,

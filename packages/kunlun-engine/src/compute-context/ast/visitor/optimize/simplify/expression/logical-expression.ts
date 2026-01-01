@@ -1,6 +1,6 @@
-import { isLiteral, LogicalExpression, VisitContext } from '../../../../types';
+import { isLiteral, type LogicalExpression, type VisitContext } from '../../../../types';
 import { Executor } from '../../../executor';
-import { AdapterContext, VisitorAdapter } from '../../../visit';
+import type { AdapterContext, VisitorAdapter } from '../../../visit';
 import { AbstractOptimizeAdapter } from '../../base';
 
 export class SimplifyLogicalExpression<C extends AdapterContext = AdapterContext>

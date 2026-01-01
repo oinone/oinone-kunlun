@@ -1,4 +1,4 @@
-import { Node } from './base';
+import type { Node } from './base';
 
 export type TokenContext = Record<string, unknown>;
 

@@ -1,23 +1,5 @@
-import {
-  AnyExpression,
-  ArrayPattern,
-  BinaryExpression,
-  BooleanLiteral,
-  CallExpression,
-  ConditionalExpression,
-  ExpressionStatement,
-  Identifier,
-  Literal,
-  LogicalExpression,
-  MemberExpression,
-  Node,
-  NumberLiteral,
-  StringLiteral,
-  TemplateLiteral,
-  UnaryExpression,
-  VisitContext
-} from '../../types';
-import { AdapterContext, VisitorAdapter } from '../visit';
+import type { AnyExpression, ArrayPattern, BinaryExpression, BooleanLiteral, CallExpression, ConditionalExpression, ExpressionStatement, Identifier, Literal, LogicalExpression, MemberExpression, Node, NumberLiteral, StringLiteral, TemplateLiteral, UnaryExpression, VisitContext } from '../../types';
+import type { AdapterContext, VisitorAdapter } from '../visit';
 
 export interface StringAdapterContext extends AdapterContext {
   result?: string;

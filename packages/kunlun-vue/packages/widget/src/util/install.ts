@@ -1,6 +1,6 @@
 import { RuntimeContextManager } from '@oinone/kunlun-engine';
 import { isDev } from '@oinone/kunlun-router';
-import { App, Component, Directive, Plugin } from 'vue';
+import type { App, Component, Directive, Plugin } from 'vue';
 
 export function componentInstall(component: Component, name?: string | string[]): void {
   if (!name) {

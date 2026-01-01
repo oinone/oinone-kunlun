@@ -1,10 +1,10 @@
 <script lang="ts">
-import { OrganizationalStructureType, PamirsDepartment, PamirsOrganizationalStructure } from '@oinone/kunlun-engine';
-import { OioTreeNode } from '@oinone/kunlun-shared';
+import { OrganizationalStructureType, type PamirsDepartment, type PamirsOrganizationalStructure } from '@oinone/kunlun-engine';
+import type { OioTreeNode } from '@oinone/kunlun-shared';
 import { OioCheckbox, OioIcon, OioTree, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { Radio as ARadio } from 'ant-design-vue';
-import { computed, createVNode, defineComponent, onMounted, PropType, VNode } from 'vue';
-import { TreeStateLoadFunction } from '../../quick-utils';
+import { computed, createVNode, defineComponent, onMounted, type PropType, type VNode } from 'vue';
+import type { TreeStateLoadFunction } from '../../quick-utils';
 import { useOrganizationalStructureTree } from './init';
 
 export default defineComponent({

@@ -3,7 +3,7 @@ import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { AInputPasswordProps, OioInputPasswordProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons-vue';
 import { isNil } from 'lodash-es';
-import { createVNode, defineComponent, VNode } from 'vue';
+import { createVNode, defineComponent, type VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 
 export default defineComponent({

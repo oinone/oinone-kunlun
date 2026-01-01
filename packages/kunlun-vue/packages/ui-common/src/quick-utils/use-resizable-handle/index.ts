@@ -1,15 +1,8 @@
 import { emitEvent, Optional } from '@oinone/kunlun-shared';
 import { onBeforeUnmount, onMounted, unref, watchEffect } from 'vue';
-import { UnrefType } from '../../typing';
-import { CleanableEvent, useCleanableEvent } from '../use-cleanable-event';
-import {
-  Direction,
-  HANDLE_DRAGGING_CLASS_NAME,
-  HandleEventHandles,
-  HandlePosition,
-  ResizableOptions,
-  TARGET_CLASS_NAME
-} from './typing';
+import type { UnrefType } from '../../typing';
+import { type CleanableEvent, useCleanableEvent } from '../use-cleanable-event';
+import { type Direction, HANDLE_DRAGGING_CLASS_NAME, type HandleEventHandles, type HandlePosition, type ResizableOptions, TARGET_CLASS_NAME } from './typing';
 import { closeResizable, generatorHandleClassName, openResizable } from './util';
 
 type onChangeFunction = (

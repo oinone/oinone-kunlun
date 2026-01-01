@@ -1,11 +1,11 @@
-import { ActiveRecord } from '@oinone/kunlun-engine';
+import type { ActiveRecord } from '@oinone/kunlun-engine';
 import { getRouterInstance, useMatched } from '@oinone/kunlun-router';
 import { CallChaining, CastHelper, NumberHelper } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isNil } from 'lodash-es';
 import { parseActionDomain4search } from '../layout/utils';
 import { BaseElementWidget } from './token';
-import { QueryExpression } from './types';
+import type { QueryExpression } from './types';
 
 export class BaseSearchWidget extends BaseElementWidget {
   protected defaultAllInvisible = true;

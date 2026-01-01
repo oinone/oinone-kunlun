@@ -1,19 +1,11 @@
-import {
-  ActiveRecord,
-  QueryPageOptions,
-  QueryPageResult,
-  QueryService,
-  RequestHelper,
-  RuntimeRelationField,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { type ActiveRecord, type QueryPageOptions, QueryPageResult, QueryService, RequestHelper, type RuntimeRelationField, translateValueByKey } from '@oinone/kunlun-engine';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { BooleanHelper, NumberHelper } from '@oinone/kunlun-shared';
-import { SelectItem, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { type SelectItem, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { FormComplexFieldWidget } from '../../../../basic/field/complex/FormComplexFieldWidget';
-import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../../typing';
 
 export abstract class FormRelationFieldCheckboxWidget<
   Field extends RuntimeRelationField = RuntimeRelationField

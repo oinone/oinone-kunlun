@@ -1,5 +1,5 @@
-import { RuntimeModelField } from '../../runtime-metadata';
-import { RuntimeContext } from '../runtime-context';
+import type { RuntimeModelField } from '../../runtime-metadata';
+import type { RuntimeContext } from '../runtime-context';
 
 export function seekFieldRuntimeContext(context: RuntimeContext, field: RuntimeModelField): RuntimeContext | undefined {
   const name = field.data;

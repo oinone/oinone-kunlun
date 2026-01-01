@@ -2,7 +2,7 @@ import { ViewType } from '@oinone/kunlun-meta';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { BaseObjectView, BaseView, FormValidateResult } from '../../basic';
+import { BaseObjectView, BaseView, type FormValidateResult } from '../../basic';
 
 @SPI.ClassFactory(BaseView.Token({ type: ViewType.Form }))
 export class FormView extends BaseObjectView {

@@ -1,16 +1,6 @@
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import {
-  defaultTreeSelectProperties,
-  fillTreeSelectNodesProperties,
-  OioTreeSelectProps,
-  PropRecordHelper,
-  SelectMode,
-  SimpleTreeSelected,
-  TreeSelectNode,
-  TreeSelectNodeChangeEvent,
-  TreeSelectProperties
-} from '@oinone/kunlun-vue-ui-common';
+import { defaultTreeSelectProperties, fillTreeSelectNodesProperties, OioTreeSelectProps, PropRecordHelper, SelectMode, type SimpleTreeSelected, type TreeSelectNode, type TreeSelectNodeChangeEvent, type TreeSelectProperties } from '@oinone/kunlun-vue-ui-common';
 import { Popover as APopover, TreeSelect as ATreeSelect } from 'ant-design-vue';
 import { computed, createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

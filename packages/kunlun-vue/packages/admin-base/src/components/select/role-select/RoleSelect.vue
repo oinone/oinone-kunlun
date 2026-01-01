@@ -1,8 +1,8 @@
 <script lang="ts">
-import { AuthRole } from '@oinone/kunlun-engine';
+import type { AuthRole } from '@oinone/kunlun-engine';
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { computed, createVNode, defineComponent, PropType, ref } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, ref } from 'vue';
 import { DefaultSelect, DefaultSelectProps } from '../base';
 import RoleModal from './RoleModal.vue';
 

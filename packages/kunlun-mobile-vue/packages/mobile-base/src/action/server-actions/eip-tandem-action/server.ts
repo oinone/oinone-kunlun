@@ -1,4 +1,4 @@
-import { ActiveRecord } from '@oinone/kunlun-engine';
+import type { ActiveRecord } from '@oinone/kunlun-engine';
 import { http } from '@oinone/kunlun-service';
 import { GraphqlHelper } from '@oinone/kunlun-shared';
 

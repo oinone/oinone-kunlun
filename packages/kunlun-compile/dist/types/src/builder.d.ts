@@ -1,4 +1,4 @@
-import { OutputOptions as RollupOutputOptions, Plugin as RollupPlugin, RollupOptions } from 'rollup';
+import { OutputOptions as RollupOutputOptions, type Plugin as RollupPlugin, RollupOptions } from 'rollup';
 import { RollupReplaceOptions } from '@rollup/plugin-replace';
 import { CSSPluginOptions as SCSSPluginOptions } from 'rollup-plugin-scss';
 import { Options as VuePluginOptions } from 'rollup-plugin-vue';

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { MatrixRouteHelper } from '@oinone/kunlun-shared';
-import { convertToParamMap, ParamMap, Params, PRIMARY_OUTLET } from './shared';
+import { convertToParamMap, type ParamMap, type Params, PRIMARY_OUTLET } from './shared';
 import { equalArraysOrString, forEach, shallowEqual } from './util/collection';
 
 export function containsTree(container: UrlTree, containee: UrlTree, exact: boolean): boolean {

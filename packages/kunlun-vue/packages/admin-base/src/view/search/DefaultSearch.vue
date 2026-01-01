@@ -1,32 +1,14 @@
 <script lang="ts">
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons-vue';
-import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-import {
-  BooleanHelper,
-  ButtonType,
-  CastHelper,
-  DEFAULT_COLS,
-  FormLayout,
-  IconPlacement,
-  OioButton,
-  OioForm,
-  OioFormItem,
-  OioFormProps,
-  OioIcon,
-  PropRecordHelper,
-  StableSlotProp,
-  StringHelper,
-  useInjectOioDefaultFormContext,
-  useProviderOioDefaultFormContext,
-  ValidateTrigger
-} from '@oinone/kunlun-vue-ui-antd';
-import { DslRender, DslRenderDefinition } from '@oinone/kunlun-vue-widget';
+import { BooleanHelper, ButtonType, CastHelper, DEFAULT_COLS, FormLayout, IconPlacement, OioButton, OioForm, OioFormItem, OioFormProps, OioIcon, PropRecordHelper, StableSlotProp, StringHelper, useInjectOioDefaultFormContext, useProviderOioDefaultFormContext, ValidateTrigger } from '@oinone/kunlun-vue-ui-antd';
+import { DslRender, type DslRenderDefinition } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
-import { computed, createVNode, defineComponent, ref, VNode, vShow, withDirectives, withKeys } from 'vue';
+import { computed, createVNode, defineComponent, ref, type VNode, vShow, withDirectives, withKeys } from 'vue';
 import { InternalWidget, ResolveMode } from '../../tags';
-import { UserSearchPrefer } from '../../typing';
+import type { UserSearchPrefer } from '../../typing';
 import { useProviderSearchPreferContext } from './context';
 import SearchPrefer from './SearchPrefer.vue';
 import { DefaultSearchProps } from './types';

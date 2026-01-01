@@ -30,8 +30,8 @@
 </template>
 <script lang="ts">
 import { OioCol, OioForm, OioFormItem, OioRow, OioTab, OioTabs, OioTextarea } from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, PropType } from 'vue';
-import { DebugRequestInfo } from '../../typing';
+import { defineComponent, type PropType } from 'vue';
+import type { DebugRequestInfo } from '../../typing';
 import DebugJsonView from '../components/DebugJsonView.vue';
 
 export default defineComponent({

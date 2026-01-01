@@ -339,4 +339,4 @@ export class Condition extends StrControl {
 
 const isCondition = (v: unknown): v is Condition => v instanceof Condition;
 
-export { DefaultLogicalOperator, DefaultComparisonOperator, ConditionConfig, RawValue, isCondition, ConditionType };
+export { DefaultLogicalOperator, DefaultComparisonOperator, type ConditionConfig, RawValue, isCondition, type ConditionType };

@@ -37,11 +37,11 @@
   </a-sub-menu>
 </template>
 <script lang="ts">
-import { IMenu } from '@oinone/kunlun-meta';
+import type { IMenu } from '@oinone/kunlun-meta';
 import { TreeNode } from '@oinone/kunlun-shared';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { MenuItem as AMenuItem, SubMenu as ASubMenu } from 'ant-design-vue';
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
   name: 'DefaultSubMenu',
