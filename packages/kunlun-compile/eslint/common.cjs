@@ -6,6 +6,9 @@ const common = {
     '@typescript-eslint/no-unused-expressions': 'warn',
     '@typescript-eslint/no-unused-vars': 'warn',
     'prefer-rest-params': 'warn',
+    'vue/no-unused-components': 'warn',
+    'vue/multi-word-component-names': 'warn',
+    'vue/block-lang': 'warn',
 
     '@typescript-eslint/no-unsafe-function-type': 'off',
     '@typescript-eslint/no-wrapper-object-types': 'off',
