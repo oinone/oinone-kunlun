@@ -106,7 +106,7 @@ export default defineComponent({
 
     async function formatGql(gqlInfo: DebugRequestGraphQLInfo) {
       try {
-        const prettier = Reflect.get(window, 'translate') as any;
+        const prettier = Reflect.get(window, 'prettier') as any;
         const prettierPlugins = Reflect.get(window, 'prettierPlugins') as any;
         if (prettier && prettierPlugins) {
           gqlInfo.gql = await prettier.format(gqlInfo.gql, {
