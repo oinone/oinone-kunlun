@@ -30,6 +30,7 @@ function createMoreAction(
   vnodes: VNode[],
   inline: boolean,
   options: {
+    slotName?: string;
     rowIndex?: number;
     bizStyle?: string;
     buttonType?: string;
@@ -48,7 +49,7 @@ function createMoreAction(
     defaultButtonType = ButtonType.text;
     defaultBizStyle = ButtonBizStyle.default;
   }
-  const { buttonType, allMounted } = options;
+  const { buttonType } = options;
   const triggerVNode = createVNode(
     OioButton,
     {
@@ -67,6 +68,7 @@ function createMoreAction(
     createVNode(DefaultMoreActionItem, {
       model: v.props?.model,
       name: v.props?.name,
+      slotName: options.slotName,
       rowIndex: options.rowIndex
     })
   );
@@ -101,6 +103,9 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     currentHandle: {
+      type: String
+    },
+    slotName: {
       type: String
     },
     template: {
@@ -243,6 +248,7 @@ export default defineComponent({
       const originMoreAction = showActions[showActions.length - 1];
       let moreActionVNodes: VNode[] = [];
       const renderResult = (this.moreActionRender || createMoreAction)(moreActions, this.inline, {
+        slotName: this.slotName,
         rowIndex: this.rowIndex,
         bizStyle: this.bizStyle,
         buttonType: this.buttonType,

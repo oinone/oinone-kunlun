@@ -58,6 +58,7 @@ import {
 import { VxeTableDefines, VxeTablePropTypes } from 'vxe-table';
 import { ManualWidget } from '../../basic';
 import { TableLineHeightEnum, UserTablePrefer } from '../../typing';
+import DefaultTableClickContainer from './DefaultTableClickContainer.vue';
 import DefaultTableFooterOperator from './DefaultTableFooterOperator.vue';
 import DefaultTableGroupCollapse from './DefaultTableGroupCollapse.vue';
 
@@ -127,7 +128,10 @@ export default defineComponent({
     OioColumn,
     OioSpin,
     OioPagination,
-    OioTooltip
+    OioTooltip,
+    DefaultTableFooterOperator,
+    DefaultTableGroupCollapse,
+    DefaultTableClickContainer
   },
   inheritAttrs: false,
   props: {
@@ -1150,7 +1154,15 @@ export default defineComponent({
     if (allowRowClick) {
       const clickSlot = DslRender.fetchVNodeSlots(this.template, ['click'])?.click;
       if (clickSlot && (onRowClick || onRowDblClick)) {
-        containerChildren.push(createVNode('div', { class: 'table-container-click' }, clickSlot()));
+        containerChildren.push(
+          createVNode(
+            DefaultTableClickContainer,
+            {},
+            {
+              default: () => clickSlot()
+            }
+          )
+        );
       }
     }
 
