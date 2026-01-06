@@ -1,8 +1,7 @@
-import { GQLResponseParameterBuilderImpl } from '../gql/builder/response';
-import { GQLRequestParameterBuilderImpl } from '../gql/builder/request';
+import { GQLRequestParameterBuilderImpl, GQLResponseParameterBuilderImpl } from '../src/gql/builder';
 
-jest.mock('../gql/typing', () => ({
-  ...jest.requireActual('../gql/typing'),
+jest.mock('../src/gql/typing', () => ({
+  ...jest.requireActual('../src/gql/typing'),
   generatorGQLResponseParameterMap: () => ({}),
   generatorGQLRequestParameterMap: () => ({})
 }));

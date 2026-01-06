@@ -1,6 +1,6 @@
 import { UrlHelper } from '@oinone/kunlun-shared';
-import type { IResponseErrorResult, NetworkInterceptor } from '../../types';
 import { setSessionPath } from '../../session';
+import type { IResponseErrorResult, NetworkInterceptor } from '../../types';
 
 export class LoginRedirectInterceptor implements NetworkInterceptor {
   /**

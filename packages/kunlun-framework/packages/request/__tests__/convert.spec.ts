@@ -1,4 +1,4 @@
-import { fragmentsToString, requestParametersToString, responseParametersToString } from '../gql/convert';
+import { fragmentsToString, requestParametersToString, responseParametersToString } from '../src/gql/convert';
 
 describe('GraphQL Convert Functions', () => {
   describe('fragmentsToString', () => {

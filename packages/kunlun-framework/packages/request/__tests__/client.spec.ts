@@ -1,12 +1,11 @@
 /**
  * @jest-environment jsdom
  */
-
 import { ApolloClient } from 'apollo-client';
-import { HttpClient } from '../client';
+import { HttpClient } from '../index';
 
-jest.mock('../license', () => ({
-  ...jest.requireActual('../license'),
+jest.mock('../src/license', () => ({
+  ...jest.requireActual('../src/license'),
   verify: () => {}
 }));
 
@@ -52,7 +51,7 @@ describe('HttpClient', () => {
         readQuery: jest.fn(),
         writeQuery: jest.fn()
       }
-    } as unknown as ApolloClient<unknown>);
+    }) as unknown as ApolloClient<unknown>;
 
   describe('Request Building', () => {
     let mockApolloClient: ApolloClient<unknown>;

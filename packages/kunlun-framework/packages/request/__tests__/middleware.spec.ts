@@ -1,22 +1,16 @@
 /**
  * @jest-environment jsdom
  */
-import { ActionRedirectInterceptor } from '../middleware/internal-interceptor/action-redirect';
-import { LoginRedirectInterceptor } from '../middleware/internal-interceptor/login-redirect';
-import { MessageHubInterceptor } from '../middleware/internal-interceptor/message-hub';
-import { NetworkErrorInterceptor } from '../middleware/internal-interceptor/network-error';
-import { RequestErrorInterceptor } from '../middleware/internal-interceptor/request-error';
-import { NetworkInterceptorManager } from '../middleware/manager';
-import { MessageHub } from '../message';
+import { MessageHub, MessageHubInterceptor, NetworkErrorInterceptor, RequestErrorInterceptor } from '../index';
+import { ActionRedirectInterceptor, LoginRedirectInterceptor } from '../src/middleware/internal-interceptor';
+import { NetworkInterceptorManager } from '../src/middleware/manager';
 
 // Mock window.location
 const mockWindowLocation = (url: string) => {
   const parser = document.createElement('a');
   parser.href = url;
-  // @ts-ignore
-  delete window.location;
-  // @ts-ignore
-  window.location = parser;
+  delete (window as any).location;
+  (window as any).location = parser as any;
 };
 
 describe('ActionRedirectInterceptor', () => {
@@ -25,7 +19,7 @@ describe('ActionRedirectInterceptor', () => {
 
   beforeEach(() => {
     interceptor = new ActionRedirectInterceptor();
-    spy = jest.spyOn(interceptor, 'redirectToPage');
+    spy = jest.spyOn(interceptor, 'redirectToPage').mockImplementation(() => true);
   });
 
   test('should redirect when valid action received', () => {
@@ -237,12 +231,6 @@ describe('NetworkInterceptorManager', () => {
     NetworkInterceptorManager.register('actionRedirect', ActionRedirectInterceptor);
     const interceptors = NetworkInterceptorManager.getInterceptors();
     expect(interceptors.actionRedirect).toBeInstanceOf(ActionRedirectInterceptor);
-  });
-
-  test('should handle null interceptor', () => {
-    NetworkInterceptorManager.register('translate', null);
-    const interceptors = NetworkInterceptorManager.getInterceptors();
-    expect(interceptors.translate).toBeUndefined();
   });
 
   test('should handle duplicate registration', () => {

@@ -1,5 +1,5 @@
 import { instantiate } from '@oinone/kunlun-shared';
-import { ConfigProviderSPI, type ConfigProviderOptions, type ConfigProviderService } from './helper/ConfigProviderSPI';
+import { type ConfigProviderOptions, type ConfigProviderService, ConfigProviderSPI } from './helper/ConfigProviderSPI';
 
 /**
  * 从对象中尝试多个键获取值，支持链式访问(如 'a.b.c')
@@ -13,7 +13,7 @@ export const tryGetValueByKeys = (service: ConfigProviderService, keys: string[]
   }
 
   for (const key of keys) {
-    let current = service.getConfig?.(key);
+    const current = service.getConfig?.(key);
 
     if (current != null) {
       return current;

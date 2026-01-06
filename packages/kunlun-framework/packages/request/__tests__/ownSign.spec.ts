@@ -1,8 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-
-import { createOwnSignComponent, setActive } from '../ownSign';
+import { createOwnSignComponent, setActive } from '../src/ownSign';
 
 const mockLocalStorage = (() => {
   let store: Record<string, string> = {};

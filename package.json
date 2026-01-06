@@ -34,7 +34,8 @@
     ],
     "*.{json,md,css,less,scss}": [
       "prettier --write"
-    ]
+    ],
+    "!__tests__/**/*": []
   },
   "devDependencies": {
     "@commitlint/cli": "20.2.0",

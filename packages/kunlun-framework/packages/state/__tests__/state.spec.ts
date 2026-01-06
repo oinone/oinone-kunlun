@@ -1,4 +1,4 @@
-import { defineOioStore } from '../src/index';
+import { defineOioStore } from '../index';
 
 describe('state', () => {
   const useStore = defineOioStore({
