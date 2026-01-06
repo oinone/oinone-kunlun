@@ -34,10 +34,15 @@
     border: 1px solid var($parameterPrefix + -border-color);
     box-shadow: var(--oio-box-shadow);
     border-radius: var($parameterPrefix + -border-radius);
+    padding: 0;
   }
 
   .ant-modal-close {
     margin: 16px;
+    top: 0;
+    right: 0;
+    width: unset;
+    height: unset;
   }
 
   .ant-modal-close-x {
@@ -53,6 +58,7 @@
     padding: 16px;
     border-bottom: 1px solid var($parameterPrefix + -border-color);
     background-color: var($parameterPrefix + -background);
+    margin-bottom: 0;
 
     .ant-modal-title {
       opacity: 0.85;
@@ -108,13 +114,15 @@
     padding: var($parameterPrefix + -margin-md);
     border-top: 1px solid var($parameterPrefix + -border-color);
     overflow: auto hidden;
+    margin-top: 0;
 
     button {
       @import '../../oio-button/style/a-button.scss';
 
       &.ant-btn {
         height: var($parameterPrefix + -height);
-        margin: var($parameterPrefix + -margin-xxs) 0 var($parameterPrefix + -margin-xxs) var($parameterPrefix + -margin-md);
+        margin: var($parameterPrefix + -margin-xxs) 0 var($parameterPrefix + -margin-xxs)
+          var($parameterPrefix + -margin-md);
 
         & + .ant-btn {
           margin-left: var($parameterPrefix + -margin-md);

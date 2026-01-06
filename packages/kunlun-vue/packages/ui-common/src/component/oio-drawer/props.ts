@@ -1,6 +1,16 @@
+import type { CSSStyle } from '@oinone/kunlun-shared';
 import type { PropType } from 'vue';
 import { VcMaskPopupAppearanceProps, VcPopupAppearanceProps, VcPopupControlProps, VcPopupDataProps } from '../vc-popup';
 import { DrawerHeight, DrawerPlacement, DrawerWidth } from './typing';
+
+export interface DrawerWrapperProps {
+  style?: string | CSSStyle;
+  rootStyle?: string | CSSStyle;
+  headerStyle?: string | CSSStyle;
+  bodyStyle?: string | CSSStyle;
+  footerStyle?: string | CSSStyle;
+  maskStyle?: string | CSSStyle;
+}
 
 const OioDrawerAppearanceProps = {
   ...VcPopupAppearanceProps,
@@ -37,6 +47,9 @@ const OioDrawerAppearanceProps = {
   showPopupToggle: {
     type: Boolean,
     default: true
+  },
+  wrapperProps: {
+    type: Object as PropType<DrawerWrapperProps>
   }
 };
 

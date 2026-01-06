@@ -1,6 +1,17 @@
 <script lang="ts">
 import { CastHelper, type CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { OioCloseIcon, OioIcon, OioModalProps, PopupDisplayAs, PropRecordHelper, StyleHelper, useDraggable, useInjectOioDefaultFormContext, useModal, useProviderOioDefaultFormContext } from '@oinone/kunlun-vue-ui-common';
+import {
+  OioCloseIcon,
+  OioIcon,
+  OioModalProps,
+  PopupDisplayAs,
+  PropRecordHelper,
+  StyleHelper,
+  useDraggable,
+  useInjectOioDefaultFormContext,
+  useModal,
+  useProviderOioDefaultFormContext
+} from '@oinone/kunlun-vue-ui-common';
 import { Modal as AModal } from 'ant-design-vue';
 import { isBoolean } from 'lodash-es';
 import { computed, createVNode, defineComponent, nextTick, ref, watch, withModifiers } from 'vue';
@@ -37,6 +48,10 @@ export default defineComponent({
     const id = computed<string>(() => {
       return props.wrapperProps?.id || internalId;
     });
+
+    const onUpdateVisible = (val: boolean) => {
+      context.emit('update:visible', val);
+    };
 
     watch(
       () => props.visible,
@@ -76,7 +91,8 @@ export default defineComponent({
 
     return {
       ...useModal(props, context),
-      id
+      id,
+      onUpdateVisible
     };
   },
   render() {
@@ -205,17 +221,20 @@ export default defineComponent({
           ...(this.wrapperProps || {}),
           id: this.id
         },
+        bodyStyle: this.wrapperProps?.bodyStyle,
+        maskStyle: this.wrapperProps?.maskStyle,
         zIndex: this.zIndex,
         okText: this.$translate(this.enterText),
         cancelText: this.$translate(this.cancelText),
-        visible: this.visible,
+        open: this.visible,
         closable: this.closable,
         keyboard: this.keyboard,
         destroyOnClose: this.destroyOnClose,
         getContainer: this.getTriggerContainer,
         confirmLoading: this.confirmLoading,
         onOk: this.enter,
-        onCancel: this.cancel
+        onCancel: this.cancel,
+        'onUpdate:open': this.onUpdateVisible
       },
       {
         ...slots,

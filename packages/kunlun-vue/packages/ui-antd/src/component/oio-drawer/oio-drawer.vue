@@ -1,6 +1,15 @@
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import { OioCloseIcon, OioDrawerProps, OioIcon, PopupDisplayAs, PropRecordHelper, useDrawer, useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '@oinone/kunlun-vue-ui-common';
+import {
+  OioCloseIcon,
+  OioDrawerProps,
+  OioIcon,
+  PopupDisplayAs,
+  PropRecordHelper,
+  useDrawer,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext
+} from '@oinone/kunlun-vue-ui-common';
 import { Drawer as ADrawer } from 'ant-design-vue';
 import { isBoolean } from 'lodash-es';
 import { createVNode, defineComponent, withModifiers } from 'vue';
@@ -140,18 +149,20 @@ export default defineComponent({
     return createVNode(
       ADrawer,
       {
-        ...PropRecordHelper.collectionBasicProps(
-          this.$attrs,
-          StringHelper.append(classNames, CastHelper.cast(this.wrapperClassName)),
-          this.wrapperProps?.style
-        ),
+        ...PropRecordHelper.collectionBasicProps(this.$attrs),
+        rootClassName: StringHelper.append(classNames, CastHelper.cast(this.wrapperClassName)),
+        rootStyle: this.wrapperProps?.rootStyle || this.wrapperProps?.style,
+        headerStyle: this.wrapperProps?.headerStyle,
+        bodyStyle: this.wrapperProps?.bodyStyle,
+        footerStyle: this.wrapperProps?.footerStyle,
+        maskStyle: this.wrapperProps?.maskStyle,
         placement: this.placement,
         width: this.width,
         height: this.height,
         mask: this.mask,
         maskClosable: this.maskClosable,
         zIndex: this.zIndex,
-        visible: this.visible,
+        open: this.visible,
         closable: this.closable,
         keyboard: this.keyboard,
         destroyOnClose: this.destroyOnClose,
