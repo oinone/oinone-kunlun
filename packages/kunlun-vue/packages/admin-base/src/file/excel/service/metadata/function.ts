@@ -1,4 +1,4 @@
-import { FunctionType, RuntimeFunctionDefinition } from '@oinone/kunlun-engine';
+import { FunctionType, type RuntimeFunctionDefinition } from '@oinone/kunlun-engine';
 import { ModelFieldType } from '@oinone/kunlun-meta';
 import { StaticFileMetadata } from './model';
 

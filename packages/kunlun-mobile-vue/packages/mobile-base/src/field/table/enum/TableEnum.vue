@@ -14,10 +14,10 @@
   <span v-else>{{ currentValue }}</span>
 </template>
 <script lang="ts">
-import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
-import { CSSStyle } from '@oinone/kunlun-shared';
-import { SelectItem } from '@oinone/kunlun-vue-ui-common';
-import { computed, defineComponent, PropType } from 'vue';
+import type { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import type { CSSStyle } from '@oinone/kunlun-shared';
+import type { SelectItem } from '@oinone/kunlun-vue-ui-common';
+import { computed, defineComponent, type PropType } from 'vue';
 import { enumFetchOptionByValue, optionsConvertSelectItem } from '../../util';
 
 export default defineComponent({

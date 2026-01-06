@@ -1,5 +1,5 @@
-import { Constructor } from '@oinone/kunlun-shared';
-import { DisposableSupported } from '../feature';
+import type { Constructor } from '@oinone/kunlun-shared';
+import type { DisposableSupported } from '../feature';
 
 /**
  * 组件构造器

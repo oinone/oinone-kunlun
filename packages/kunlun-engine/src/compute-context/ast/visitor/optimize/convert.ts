@@ -1,5 +1,5 @@
 import { ObjectUtils } from '@oinone/kunlun-shared';
-import { Declaration, Expression, getNodeType, Literal, Node, NodeType, Pattern, Statement } from '../../types';
+import { type Declaration, type Expression, getNodeType, type Literal, type Node, type NodeType, type Pattern, type Statement } from '../../types';
 
 export class NodeConverter {
   private node: Node;

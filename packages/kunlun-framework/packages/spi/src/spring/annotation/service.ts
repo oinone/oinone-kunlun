@@ -1,5 +1,5 @@
 import { injectable, interfaces } from 'inversify';
-import { BindingToSyntax, ServiceIdentifier, ServiceNamed } from '../../typing';
+import { type BindingToSyntax, ServiceIdentifier, type ServiceNamed } from '../../typing';
 import { autowiredConstraint } from '../constraint-helper';
 import { container } from '../container';
 import { ServicePriorityManager } from './priority';

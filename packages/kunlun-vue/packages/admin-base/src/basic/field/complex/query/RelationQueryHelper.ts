@@ -1,12 +1,4 @@
-import {
-  ActiveRecord,
-  getStaticRelationField,
-  isStaticRelationField,
-  RelationUpdateType,
-  RuntimeModel,
-  RuntimeRelationField,
-  SubmitType
-} from '@oinone/kunlun-engine';
+import { type ActiveRecord, getStaticRelationField, isStaticRelationField, RelationUpdateType, type RuntimeModel, type RuntimeRelationField, SubmitType } from '@oinone/kunlun-engine';
 import { ViewMode } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { FetchUtil } from '../../../../util';

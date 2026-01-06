@@ -3,7 +3,7 @@ import { ActionType } from '@oinone/kunlun-meta';
 import { Router, useMatched } from '@oinone/kunlun-router';
 import { SPI } from '@oinone/kunlun-spi';
 import { isBoolean } from 'lodash-es';
-import { ActionWidgetProps, createActionWidget } from '../../tags/resolve/internal';
+import { type ActionWidgetProps, createActionWidget } from '../../tags/resolve/internal';
 import { ActionWidget } from '../component';
 import { RouterViewActionWidget } from '../view-actions';
 import CompositionAction from './CompositionAction.vue';

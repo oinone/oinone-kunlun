@@ -1,22 +1,9 @@
 <script lang="ts">
-import { PamirsEmployee, PamirsEmployeeService, QueryWrapper } from '@oinone/kunlun-engine';
-import { OioSelectItem } from '@oinone/kunlun-shared';
-import {
-  CastHelper,
-  OioEmptyData,
-  OioInput,
-  OioInputSearch,
-  OioListItem,
-  OioModal,
-  OioModalProps,
-  OioTab,
-  OioTabs,
-  PropRecordHelper,
-  SelectMode,
-  StringHelper
-} from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType, reactive, VNode, watch } from 'vue';
-import { CheckedHelper, ListState } from '../../quick-utils';
+import { type PamirsEmployee, type PamirsEmployeeService, type QueryWrapper } from '@oinone/kunlun-engine';
+import type { OioSelectItem } from '@oinone/kunlun-shared';
+import { CastHelper, OioEmptyData, OioInput, OioInputSearch, OioListItem, OioModal, OioModalProps, OioTab, OioTabs, PropRecordHelper, SelectMode, StringHelper } from '@oinone/kunlun-vue-ui-antd';
+import { computed, createVNode, defineComponent, type PropType, reactive, type VNode, watch } from 'vue';
+import { CheckedHelper, type ListState } from '../../quick-utils';
 import { BaseSelect } from '../base';
 import { OrganizationalStructureTree } from '../organizational-structure-tree';
 import DepartmentEmployeeSelectPanel from './DepartmentEmployeeSelectPanel.vue';

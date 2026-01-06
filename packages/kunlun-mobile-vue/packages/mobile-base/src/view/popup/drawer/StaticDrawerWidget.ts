@@ -1,10 +1,10 @@
-import { IStaticDrawerWidget, translateValueByKey } from '@oinone/kunlun-engine';
+import { type IStaticDrawerWidget, translateValueByKey } from '@oinone/kunlun-engine';
 import { DrawerHeight, DrawerPlacement, DrawerWidth } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../../typing';
 import { StaticPopupWidget } from '../StaticPopupWidget';
 import DefaultDrawer from './DefaultDrawer.vue';
-import { DrawerWidgetProps } from './DrawerWidget';
+import type { DrawerWidgetProps } from './DrawerWidget';
 
 export class StaticDrawerWidget extends StaticPopupWidget<DrawerWidgetProps> implements IStaticDrawerWidget {
   protected getPopupScene(): string {

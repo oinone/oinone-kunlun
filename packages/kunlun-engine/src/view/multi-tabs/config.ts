@@ -1,5 +1,5 @@
-import { RuntimeConfigOptions } from '@oinone/kunlun-meta';
-import { EnabledConfig } from '../../config/config-helper';
+import type { RuntimeConfigOptions } from '@oinone/kunlun-meta';
+import type { EnabledConfig } from '../../config/config-helper';
 
 /**
  * 多Tab主题

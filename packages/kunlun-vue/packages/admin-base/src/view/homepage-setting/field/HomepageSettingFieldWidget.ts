@@ -1,4 +1,4 @@
-import { RuntimeView, ViewCache } from '@oinone/kunlun-engine';
+import { type RuntimeView, ViewCache } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -6,8 +6,8 @@ import { FormWidget } from '../../form';
 import { FormFieldWidget } from '../../../basic/field';
 import { createRuntimeContextForWidget } from '../../../tags';
 import { AbstractHomepageSettingFieldWidget } from './AbstractHomepageSettingFieldWidget';
-import { BindingTypeEnum, HomepageConfigRule } from '../typing';
-import { WidgetConstructor } from './AbstractHomepageSettingFieldWidget';
+import { BindingTypeEnum, type HomepageConfigRule } from '../typing';
+import type { WidgetConstructor } from './AbstractHomepageSettingFieldWidget';
 
 const HomepageSettingField_MODEL = 'base.HomePageConfigRules';
 

@@ -3,7 +3,7 @@ import { ISort } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
-import { SortableGroupOption } from '../../../components';
+import type { SortableGroupOption } from '../../../components';
 import DefaultSortControl from './DefaultSortControl.vue';
 
 @SPI.ClassFactory(

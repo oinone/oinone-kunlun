@@ -1,10 +1,10 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { Constructor, StringHelper } from '@oinone/kunlun-shared';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { type Constructor, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { Slots, VNode } from 'vue';
+import type { Slots, VNode } from 'vue';
 import { BaseMaskLayoutWidget } from '../BaseMaskLayoutWidget';
-import { BaseMaskWidget, BaseMaskWidgetProps, MobileMaskWidget, MobileViewWidget } from '../basic';
+import { BaseMaskWidget, type BaseMaskWidgetProps, MobileMaskWidget, MobileViewWidget } from '../basic';
 
 export interface MaskCommonWidgetProps extends BaseMaskWidgetProps {
   widget: string;

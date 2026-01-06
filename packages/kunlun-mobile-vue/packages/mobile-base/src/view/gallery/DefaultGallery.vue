@@ -1,17 +1,10 @@
 <script lang="ts">
-import { ActiveRecord, ActiveRecordExtendKeys, Pagination } from '@oinone/kunlun-engine';
-import { RowContext } from '../../ui';
-import { CSSStyle } from '@oinone/kunlun-shared';
-import {
-  CommonGutterType,
-  DEFAULT_PREFIX,
-  OioGallery,
-  OioGalleryItem,
-  OioPagination,
-  StyleHelper
-} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { type ActiveRecord, ActiveRecordExtendKeys, type Pagination } from '@oinone/kunlun-engine';
+import type { RowContext } from '../../ui';
+import type { CSSStyle } from '@oinone/kunlun-shared';
+import { CommonGutterType, DEFAULT_PREFIX, OioGallery, OioGalleryItem, OioPagination, StyleHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { createVNode, defineComponent, PropType, VNode } from 'vue';
+import { createVNode, defineComponent, type PropType, type VNode } from 'vue';
 import { Icon as VanIcon } from 'vant';
 import { DEFAULT_VIEW_CLASS } from '../../ui/theme';
 

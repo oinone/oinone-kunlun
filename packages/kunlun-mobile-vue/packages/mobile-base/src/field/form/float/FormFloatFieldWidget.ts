@@ -4,7 +4,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNil, toString } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';
-import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../typing';
 import { numberZeroFill } from '../../util';
 import { FormIntegerFieldWidget } from '../integer';
 import DefaultFloat from './DefaultFloat.vue';

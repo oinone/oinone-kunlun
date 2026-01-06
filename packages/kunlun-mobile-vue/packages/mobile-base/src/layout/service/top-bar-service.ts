@@ -1,8 +1,8 @@
-import { ClearCache, UserInfo, UserLang } from '@oinone/kunlun-engine';
+import { ClearCache, type UserInfo, type UserLang } from '@oinone/kunlun-engine';
 import { MetadataFragment, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { gql } from '@oinone/kunlun-request';
 import { http } from '@oinone/kunlun-service';
-import { RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
+import type { RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
 
 export class TopBarService {
   protected static userInfoCache: Promise<UserInfo> | null | undefined;

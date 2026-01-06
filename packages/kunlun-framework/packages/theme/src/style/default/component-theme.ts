@@ -1,25 +1,4 @@
-import {
-  largeInputSizeVars,
-  largeMenuSizeVars,
-  largePaginationSizeVars,
-  largeSelectSizeVars,
-  largeTableSizeVars,
-  largeTabsSizeVars,
-  largeTreeSelectSizeVars,
-  mediumInputSizeVars,
-  mediumMenuSizeVars,
-  mediumPaginationSizeVars,
-  mediumSelectSizeVars,
-  mediumTableSizeVars,
-  mediumTabsSizeVars,
-  mediumTreeSelectSizeVars,
-  smallMenuSizeVars,
-  smallPaginationSizeVars,
-  smallSelectSizeVars,
-  smallTableSizeVars,
-  smallTabsSizeVars,
-  smallTreeSelectSizeVars
-} from '../../size';
+import { largeInputSizeVars, largeMenuSizeVars, largePaginationSizeVars, largeSelectSizeVars, largeTableSizeVars, largeTabsSizeVars, largeTreeSelectSizeVars, mediumInputSizeVars, mediumMenuSizeVars, mediumPaginationSizeVars, mediumSelectSizeVars, mediumTableSizeVars, mediumTabsSizeVars, mediumTreeSelectSizeVars, smallMenuSizeVars, smallPaginationSizeVars, smallSelectSizeVars, smallTableSizeVars, smallTabsSizeVars, smallTreeSelectSizeVars } from '../../size';
 import { component as AppSwitch, cssVars as AppSwitchCSSVars } from './app-switch/app-switch';
 import { component as Button, cssVars as ButtonCSSVars } from './button';
 import { component as Checkbox, cssVars as CheckboxCSSVars } from './checkbox/checkbox';

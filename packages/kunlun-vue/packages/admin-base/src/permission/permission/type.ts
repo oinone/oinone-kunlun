@@ -1,4 +1,4 @@
-import { IModel, IModelField, ModelFieldType } from '@oinone/kunlun-meta';
+import { type IModel, type IModelField, ModelFieldType } from '@oinone/kunlun-meta';
 
 export interface IPermission extends Record<string, unknown> {
   id?: string;

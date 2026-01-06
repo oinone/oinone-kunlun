@@ -2,53 +2,9 @@ import { deepClone, isEmptyKeObject as isEmptyObject } from '@oinone/kunlun-meta
 import { isNil } from 'lodash-es';
 import { nextTick } from 'vue';
 import { queryExpBuildInFunction } from '../service/modelFunctionService';
-import {
-  BooleanExpressionCompareOperatorList,
-  DEFAULT_BOOLEAN_CONDITION_OPT,
-  DEFAULT_CONDITION_COMPARE_OPT,
-  DEFAULT_CONDITION_OPT,
-  DEFAULT_EXPRESSION_OPT,
-  ExpressionBooleanLogicOperatorList,
-  ExpressionDefinitionType,
-  ExpressionItemType,
-  ExpressionOperatorConfig,
-  ExpressionRsqlCompareOperatorList,
-  ExpressionRsqlLogicOperatorList,
-  ExpressionTtypeXBooleanCompareOperatorListMap,
-  ExpressionTtypeXCompareOperatorListMap,
-  ExpressionTtypeXExpressionOperatorListMap,
-  IExpressionBlock,
-  IExpressionCell,
-  IExpressionDefinition,
-  IExpressionDisplay,
-  IExpressionItem,
-  IExpressionOption,
-  IExpressionQuoteType,
-  IExpressionRow,
-  IExpSelectOption,
-  IFunction,
-  IFunctionArgument,
-  IQueryExpressionParam,
-  IVariableContextItem,
-  IVariableItem,
-  VARIABLE_MAX_STRING_LENGTH,
-  VariableItemType
-} from '../types';
-import {
-  createConditionExpressionApiName,
-  createConditionExpressionDisplayName,
-  isNoCompareExpOperator
-} from './conditionExpressionUtils';
-import {
-  createApiNameVariableListStr,
-  createDefaultVariableItemList,
-  createDisplayNameVariableListStr,
-  createValueVariableListStr,
-  createVariableItemCode,
-  expressionCellList2variableItemList,
-  isEmptyVariable,
-  variableItemList2expressionCellList
-} from './expressionVariableUtils';
+import { BooleanExpressionCompareOperatorList, DEFAULT_BOOLEAN_CONDITION_OPT, DEFAULT_CONDITION_COMPARE_OPT, DEFAULT_CONDITION_OPT, DEFAULT_EXPRESSION_OPT, ExpressionBooleanLogicOperatorList, ExpressionDefinitionType, ExpressionItemType, ExpressionOperatorConfig, ExpressionRsqlCompareOperatorList, ExpressionRsqlLogicOperatorList, ExpressionTtypeXBooleanCompareOperatorListMap, ExpressionTtypeXCompareOperatorListMap, ExpressionTtypeXExpressionOperatorListMap, type IExpressionBlock, type IExpressionCell, type IExpressionDefinition, type IExpressionDisplay, type IExpressionItem, type IExpressionOption, IExpressionQuoteType, type IExpressionRow, type IExpSelectOption, type IFunction, type IFunctionArgument, type IQueryExpressionParam, type IVariableContextItem, type IVariableItem, VARIABLE_MAX_STRING_LENGTH, VariableItemType } from '../types';
+import { createConditionExpressionApiName, createConditionExpressionDisplayName, isNoCompareExpOperator } from './conditionExpressionUtils';
+import { createApiNameVariableListStr, createDefaultVariableItemList, createDisplayNameVariableListStr, createValueVariableListStr, createVariableItemCode, expressionCellList2variableItemList, isEmptyVariable, variableItemList2expressionCellList } from './expressionVariableUtils';
 import { randomNum, translateExpValue } from './utils';
 
 export function createDefaultExpressionItem(type: ExpressionDefinitionType): IExpressionItem {

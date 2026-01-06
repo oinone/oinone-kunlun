@@ -1,22 +1,9 @@
-import {
-  getRefreshParameters,
-  parseConfigs,
-  RelationUpdateType,
-  RuntimeContextManager,
-  SubmitType,
-  SubmitValue
-} from '@oinone/kunlun-engine';
+import { getRefreshParameters, parseConfigs, RelationUpdateType, RuntimeContextManager, SubmitType, SubmitValue } from '@oinone/kunlun-engine';
 import { createVisibleArea, useEnv } from '@oinone/kunlun-environment';
 import { ViewMode, ViewType } from '@oinone/kunlun-meta';
-import { CallChaining, Constructor } from '@oinone/kunlun-shared';
-import { SPI, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
-import {
-  ActiveRecordsWidgetProps,
-  InnerWidgetType,
-  OioAnyViewState,
-  useOioState,
-  Widget
-} from '@oinone/kunlun-vue-widget';
+import { CallChaining, type Constructor } from '@oinone/kunlun-shared';
+import { SPI, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
+import { type ActiveRecordsWidgetProps, InnerWidgetType, type OioAnyViewState, useOioState, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { getCurrentInstance } from 'vue';
 import { ViewBizStyle } from '../../typing';

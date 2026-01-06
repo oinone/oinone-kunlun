@@ -2,7 +2,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { ActionWidget } from '../../../action/component/action/ActionWidget';
 import { ActionType, ViewType } from '@oinone/kunlun-meta';
 import { ServerActionWidget } from '../../../action/server-actions';
-import { ActiveRecord, ViewActionCache, executeViewAction } from '@oinone/kunlun-engine';
+import { type ActiveRecord, ViewActionCache, executeViewAction } from '@oinone/kunlun-engine';
 
 @SPI.ClassFactory(
   ActionWidget.Token({

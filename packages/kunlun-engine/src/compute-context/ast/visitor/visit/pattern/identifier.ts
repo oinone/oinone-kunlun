@@ -1,6 +1,6 @@
-import { Identifier, isIdentifier, Node, VisitContext } from '../../../types';
+import { type Identifier, isIdentifier, type Node, type VisitContext } from '../../../types';
 import { BaseVisitor } from '../base';
-import { AdapterContext } from '../types';
+import type { AdapterContext } from '../types';
 
 export class IdentifierVisitor extends BaseVisitor<Identifier> {
   public static readonly INSTANCE = new IdentifierVisitor();

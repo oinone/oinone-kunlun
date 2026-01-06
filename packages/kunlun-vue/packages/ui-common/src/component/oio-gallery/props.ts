@@ -1,6 +1,6 @@
-import { CSSStyle } from '@oinone/kunlun-shared';
-import { PropType } from 'vue';
-import { CommonGutterType } from '../oio-block';
+import type { CSSStyle } from '@oinone/kunlun-shared';
+import type { PropType } from 'vue';
+import type { CommonGutterType } from '../oio-block';
 import { ListSelectMode } from '../oio-list';
 import { OioSpinProps } from '../oio-spin';
 

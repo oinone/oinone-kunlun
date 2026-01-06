@@ -1,4 +1,4 @@
-import { EventCategory, EventProducerConstructor, EventProducerOptions, registerEventProducer } from '../../bus';
+import { EventCategory, type EventProducerConstructor, type EventProducerOptions, registerEventProducer } from '../../bus';
 import { AbstractHTMLEventProducer } from './AbstractHTMLEventProducer';
 
 export class HTMLEventProducer<K extends keyof HTMLElementEventMap> extends AbstractHTMLEventProducer<K> {

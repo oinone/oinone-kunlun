@@ -1,12 +1,4 @@
-import {
-  ActionDslDefinition,
-  DslDefinition,
-  DslDefinitionType,
-  FieldDslDefinition,
-  SlotDslDefinition,
-  TemplateDslDefinition,
-  ViewDslDefinition
-} from './dsl';
+import { type ActionDslDefinition, type DslDefinition, DslDefinitionType, type FieldDslDefinition, type SlotDslDefinition, type TemplateDslDefinition, type ViewDslDefinition } from './dsl';
 
 export class DslDefinitionHelper {
   public static isTemplate(dsl: DslDefinition | undefined): dsl is TemplateDslDefinition {

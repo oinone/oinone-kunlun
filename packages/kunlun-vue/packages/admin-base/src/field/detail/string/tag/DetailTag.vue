@@ -8,8 +8,8 @@
   </detail-common-field>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue';
-import { RuntimeModelField } from '@oinone/kunlun-engine';
+import { defineComponent, type PropType, computed } from 'vue';
+import type { RuntimeModelField } from '@oinone/kunlun-engine';
 
 import DetailCommonField from '../../common/DetailCommonField.vue';
 

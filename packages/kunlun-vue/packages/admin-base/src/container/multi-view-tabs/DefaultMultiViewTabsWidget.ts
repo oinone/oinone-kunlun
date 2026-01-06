@@ -3,7 +3,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { BasePackWidget } from '../../basic';
 import { DefaultTabsWidget } from '../tabs';
 import DefaultMultiViewTabs from './DefaultMultiViewTabs.vue';
-import { useMultiViewKeyCache, MultiViewKeyCache } from './useMultiViewKeyCache';
+import { useMultiViewKeyCache, type MultiViewKeyCache } from './useMultiViewKeyCache';
 
 @SPI.ClassFactory(BasePackWidget.Token({ widget: 'MultiViewTabs' }))
 export class DefaultMultiViewTabsWidget extends DefaultTabsWidget {

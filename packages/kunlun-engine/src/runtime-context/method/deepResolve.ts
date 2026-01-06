@@ -1,8 +1,8 @@
-import { DslDefinitionHelper, ViewDslDefinition } from '@oinone/kunlun-dsl';
-import { RuntimeRelationField } from '../../runtime-metadata';
+import { DslDefinitionHelper, type ViewDslDefinition } from '@oinone/kunlun-dsl';
+import type { RuntimeRelationField } from '../../runtime-metadata';
 import { isRelationField } from '../helper';
 import { resolveView } from '../resolve';
-import { RuntimeContext } from '../runtime-context';
+import type { RuntimeContext } from '../runtime-context';
 
 export default function deepResolve(this: RuntimeContext): void {
   this.model?.modelFields.forEach((field) => {

@@ -25,10 +25,10 @@
   </div>
 </template>
 <script lang="ts">
-import { IModelFieldOption } from '@oinone/kunlun-meta';
+import type { IModelFieldOption } from '@oinone/kunlun-meta';
 import { OioSelect, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Cell as VanCell } from 'vant';
-import { defineComponent, PropType, ref } from 'vue';
+import { defineComponent, type PropType, ref } from 'vue';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../../basic';
 
 export default defineComponent({

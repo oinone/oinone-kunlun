@@ -1,5 +1,5 @@
-import { executeViewAction, RedirectTargetEnum, RuntimeViewAction } from '@oinone/kunlun-engine';
-import { IModel, IModule, IViewAction, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import { executeViewAction, RedirectTargetEnum, type RuntimeViewAction } from '@oinone/kunlun-engine';
+import { type IModel, type IModule, type IViewAction, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
 import { getModel, queryOne } from '@oinone/kunlun-service';
 import { CastHelper } from '@oinone/kunlun-shared';
 

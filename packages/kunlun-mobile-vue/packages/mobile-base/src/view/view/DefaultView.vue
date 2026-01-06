@@ -3,8 +3,8 @@ import { ViewType } from '@oinone/kunlun-meta';
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
+import type { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
+import { createVNode, defineComponent, type PropType, vShow, withDirectives } from 'vue';
 
 export default defineComponent({
   name: 'DefaultView',

@@ -1,6 +1,6 @@
 import { Container, injectable } from 'inversify';
-import { SPIFactory, SPIToken } from '../operator';
-import { SPIOptions } from '../typing';
+import { SPIFactory, type SPIToken } from '../operator';
+import type { SPIOptions } from '../typing';
 import { definePriority } from './priority';
 import { InjectionToken } from './typing';
 

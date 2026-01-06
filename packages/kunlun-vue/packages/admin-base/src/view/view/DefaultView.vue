@@ -4,7 +4,7 @@ import { ViewType } from '@oinone/kunlun-meta';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { PropRecordHelper, StableSlotProp } from '@oinone/kunlun-vue-ui-common';
 import { useOioState } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, PropType, vShow, withDirectives } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, vShow, withDirectives } from 'vue';
 import { ViewBizStyle } from '../../typing';
 
 export default defineComponent({

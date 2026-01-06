@@ -1,31 +1,13 @@
-import {
-  ActiveRecords,
-  Dialog,
-  Drawer,
-  executeViewAction,
-  FunctionCache,
-  FunctionService,
-  Popup,
-  RelationUpdateType,
-  RequestModelField,
-  ROOT_HANDLE,
-  RuntimeContext,
-  RuntimeFunctionDefinition,
-  RuntimeServerAction,
-  RuntimeViewAction,
-  SubmitValue,
-  translateValueByKey,
-  UpdateOneWithRelationsService
-} from '@oinone/kunlun-engine';
+import { type ActiveRecords, Dialog, Drawer, executeViewAction, FunctionCache, FunctionService, Popup, RelationUpdateType, type RequestModelField, ROOT_HANDLE, type RuntimeContext, type RuntimeFunctionDefinition, type RuntimeServerAction, type RuntimeViewAction, SubmitValue, translateValueByKey, UpdateOneWithRelationsService } from '@oinone/kunlun-engine';
 import { ActionType, ViewType } from '@oinone/kunlun-meta';
 import { HttpClientError, MessageHub, RequestErrorInterceptor, SystemErrorCode } from '@oinone/kunlun-request';
 import { SPI } from '@oinone/kunlun-spi';
 import { BooleanHelper, CallChaining, OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { InnerWidgetType, VueWidget, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { InnerWidgetType, VueWidget, Widget, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isFunction, isNil } from 'lodash-es';
-import { FormValidateResult } from '../../basic';
+import type { FormValidateResult } from '../../basic';
 import { REFRESH_FORM_DATA } from '../../basic/constant/state-stream';
-import { ClickResult, PopupSubmitFunction } from '../../typing';
+import type { ClickResult, PopupSubmitFunction } from '../../typing';
 import { gotoPrevPage } from '../../util';
 import { ActionWidget } from '../component';
 

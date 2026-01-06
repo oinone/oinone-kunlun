@@ -32,7 +32,7 @@
 <script lang="ts">
 import { NumberHelper } from '@oinone/kunlun-shared';
 import { OioInputNumber, OioSlider, SliderDirection, SliderToolbarFormatter } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, type PropType, ref, watch } from 'vue';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../basic';
 
 export default defineComponent({

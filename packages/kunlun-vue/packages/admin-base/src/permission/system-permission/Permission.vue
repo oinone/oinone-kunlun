@@ -17,7 +17,7 @@ import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import LeftMenu from './components/Menu.vue';
 import RightConfig from './components/Config.vue';
 import { useStore } from './store';
-import { IPermissionDslActions } from './types';
+import type { IPermissionDslActions } from './types';
 import { useDslActionPermission } from './hooks';
 
 const props = defineProps<{ permissionActions: IPermissionDslActions }>();

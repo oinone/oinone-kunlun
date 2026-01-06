@@ -1,33 +1,17 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { ActiveRecord, ActiveRecords, Pagination, translateValueByKey } from '@oinone/kunlun-engine';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { type ActiveRecord, type ActiveRecords, type Pagination, translateValueByKey } from '@oinone/kunlun-engine';
 import { EDirection, ISort } from '@oinone/kunlun-service';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX, THEME_CONFIG } from '@oinone/kunlun-theme';
-import {
-  ActiveEditorContext,
-  CheckedChangeEvent,
-  OioColumn,
-  OioTable,
-  OioTableInstance,
-  RadioChangeEvent,
-  RowContext,
-  SortChangeEvent,
-  TableEditorCloseTrigger,
-  TableEditorMode,
-  TableEditorTrigger,
-  TableSelectTrigger,
-  TableSize,
-  VXE_TABLE_X_ID,
-  VxeTableActiveEditorEventContext
-} from '../../ui';
+import { type ActiveEditorContext, type CheckedChangeEvent, OioColumn, OioTable, type OioTableInstance, type RadioChangeEvent, type RowContext, type SortChangeEvent, TableEditorCloseTrigger, TableEditorMode, TableEditorTrigger, TableSelectTrigger, TableSize, VXE_TABLE_X_ID, type VxeTableActiveEditorEventContext } from '../../ui';
 import { ListSelectMode, OioPagination, OioSpin, StyleHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { DslRender } from '@oinone/kunlun-vue-widget';
 import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { computed, createVNode, defineComponent, nextTick, onMounted, PropType, ref, Slot, VNode, watch } from 'vue';
+import { computed, createVNode, defineComponent, nextTick, onMounted, type PropType, ref, type Slot, type VNode, watch } from 'vue';
 import { VxeTableDefines } from 'vxe-table';
 import { ManualWidget } from '../../basic';
-import { UserTablePrefer } from '../../typing';
+import type { UserTablePrefer } from '../../typing';
 import { TableRowClickMode } from './typing';
 import { Icon as VanIcon } from 'vant';
 import { DEFAULT_VIEW_CLASS } from '../../ui/theme';

@@ -1,31 +1,11 @@
-import {
-  $systemMajorConfig,
-  generatorViewActionQueryParameter,
-  getReloadMainViewParameters,
-  IMultiTabsManager,
-  ModuleCache,
-  MultiTabInstance,
-  MultiTabsApplicationHomepageConfig,
-  MultiTabsConfigManager,
-  MultiTabsManager,
-  MultiTabsModuleHomepageConfig,
-  MultiTabStackItem,
-  MultiTabType,
-  ReloadMainViewCallChainingParameters,
-  RuntimeContext,
-  RuntimeContextManager,
-  RuntimeViewAction,
-  systemMajorConfig,
-  ViewActionCache,
-  ViewActionQueryParameter
-} from '@oinone/kunlun-engine';
-import { ActionType, IModule, ViewActionTarget } from '@oinone/kunlun-meta';
-import { BooleanHelper, CallChaining, Consumer, Executor, Optional, TreeNode } from '@oinone/kunlun-shared';
+import { $systemMajorConfig, generatorViewActionQueryParameter, getReloadMainViewParameters, type IMultiTabsManager, ModuleCache, type MultiTabInstance, type MultiTabsApplicationHomepageConfig, MultiTabsConfigManager, MultiTabsManager, type MultiTabsModuleHomepageConfig, type MultiTabStackItem, MultiTabType, type ReloadMainViewCallChainingParameters, type RuntimeContext, RuntimeContextManager, type RuntimeViewAction, systemMajorConfig, ViewActionCache, type ViewActionQueryParameter } from '@oinone/kunlun-engine';
+import { ActionType, type IModule, ViewActionTarget } from '@oinone/kunlun-meta';
+import { BooleanHelper, CallChaining, type Consumer, type Executor, Optional, TreeNode } from '@oinone/kunlun-shared';
 import { Subscription } from '@oinone/kunlun-state';
-import { MenuService, MenuUrlParameters, RuntimeMenu } from '@oinone/kunlun-vue-admin-layout';
-import { DslDefinitionWidget, DslDefinitionWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
+import { MenuService, type MenuUrlParameters, type RuntimeMenu } from '@oinone/kunlun-vue-admin-layout';
+import { DslDefinitionWidget, type DslDefinitionWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isString } from 'lodash-es';
-import { Component, type Ref } from 'vue';
+import type { Component, Ref } from 'vue';
 import { MultiTabContainerWidget } from './MultiTabContainerWidget';
 import MultiTabsContainer from './MultiTabsContainer.vue';
 import { MultiTabNamedHelper } from './named';

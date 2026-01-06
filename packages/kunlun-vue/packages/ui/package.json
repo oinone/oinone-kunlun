@@ -9,9 +9,9 @@
     "build-css": "sass --style compressed --no-source-map ./dist/oinone-kunlun-vue-ui.scss ./dist/oinone-kunlun-vue-ui.css",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
-    "x-prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
+    "prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
-    "x-postpublish": "node ../../../../scripts/postpublish.cjs",
+    "postpublish": "node ../../../../scripts/postpublish.cjs",
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@oinone/kunlun-shared": "~6.4.0",
-    "@types/lodash": "4.14.182",
+    "@types/lodash": "4.17.21",
     "@types/lodash-es": "4.17.6",
     "lodash": "4.17.21",
     "lodash-es": "4.17.21",

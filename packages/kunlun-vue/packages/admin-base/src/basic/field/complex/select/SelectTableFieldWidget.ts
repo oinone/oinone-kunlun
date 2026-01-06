@@ -1,15 +1,9 @@
-import {
-  ActiveRecords,
-  isEnumerationField,
-  isRelationField,
-  RuntimeModelField,
-  RuntimeRelationField
-} from '@oinone/kunlun-engine';
+import { type ActiveRecords, isEnumerationField, isRelationField, type RuntimeModelField, type RuntimeRelationField } from '@oinone/kunlun-engine';
 import { StringHelper } from '@oinone/kunlun-shared';
-import { RowContext } from '@oinone/kunlun-vue-ui';
+import type { RowContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { get as getValue } from 'lodash-es';
-import { VNode } from 'vue';
+import type { VNode } from 'vue';
 import { SelectTable } from '../../../../components';
 import { FormSelectComplexFieldWidget } from './FormSelectComplexFieldWidget';
 

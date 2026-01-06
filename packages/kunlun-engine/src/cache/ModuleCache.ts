@@ -1,4 +1,4 @@
-import { IModule } from '@oinone/kunlun-meta';
+import type { IModule } from '@oinone/kunlun-meta';
 import { queryModuleByName } from '@oinone/kunlun-service';
 import { MemoryAsyncCache } from './cache';
 import { ClearCache } from './CacheClear';

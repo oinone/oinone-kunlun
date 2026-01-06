@@ -1,6 +1,6 @@
-import { ActionDslDefinition } from '@oinone/kunlun-dsl';
-import { RuntimeClientAction } from '../../../runtime-metadata';
-import { RuntimeContext } from '../../runtime-context';
+import type { ActionDslDefinition } from '@oinone/kunlun-dsl';
+import type { RuntimeClientAction } from '../../../runtime-metadata';
+import type { RuntimeContext } from '../../runtime-context';
 
 export function convertClientAction(
   runtimeContext: RuntimeContext,

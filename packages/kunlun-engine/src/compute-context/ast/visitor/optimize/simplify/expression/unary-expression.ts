@@ -1,6 +1,6 @@
-import { isLiteral, UnaryExpression, VisitContext } from '../../../../types';
+import { isLiteral, type UnaryExpression, type VisitContext } from '../../../../types';
 import { Executor } from '../../../executor';
-import { AdapterContext, VisitorAdapter } from '../../../visit';
+import type { AdapterContext, VisitorAdapter } from '../../../visit';
 import { AbstractOptimizeAdapter } from '../../base';
 
 export class SimplifyUnaryExpression<C extends AdapterContext = AdapterContext>

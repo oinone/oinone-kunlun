@@ -1,5 +1,5 @@
-import { ClearCache, ModelCache, QueryPageResult, RuntimeViewAction } from '@oinone/kunlun-engine';
-import { IModule, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
+import { ClearCache, ModelCache, QueryPageResult, type RuntimeViewAction } from '@oinone/kunlun-engine';
+import { type IModule, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { gql } from '@oinone/kunlun-request';
 import { http } from '@oinone/kunlun-service';
 

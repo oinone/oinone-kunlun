@@ -45,15 +45,7 @@
 </template>
 
 <script lang="ts">
-import {
-  FileHelper,
-  CastHelper,
-  FormLayout,
-  OioButton,
-  OioIcon,
-  StringHelper,
-  useInjectOioFormContext
-} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { FileHelper, CastHelper, FormLayout, OioButton, OioIcon, StringHelper, useInjectOioFormContext } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { computed, defineComponent, ref, watch } from 'vue';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { isNil } from 'lodash-es';

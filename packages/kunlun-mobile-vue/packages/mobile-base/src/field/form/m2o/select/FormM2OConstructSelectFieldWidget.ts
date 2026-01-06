@@ -1,5 +1,5 @@
-import { ModelCache, RuntimeModelField } from '@oinone/kunlun-engine';
-import { IBaseSelectWidgetConfig, isEmptyKeObject, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { ModelCache, type RuntimeModelField } from '@oinone/kunlun-engine';
+import { type IBaseSelectWidgetConfig, isEmptyKeObject, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { customQuery } from '@oinone/kunlun-service';
 import { CastHelper, ObjectUtils } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';

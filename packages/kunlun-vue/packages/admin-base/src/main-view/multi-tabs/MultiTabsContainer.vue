@@ -1,18 +1,7 @@
 <script lang="ts">
-import { Consumer, Executor } from '@oinone/kunlun-shared';
+import type { Consumer, Executor } from '@oinone/kunlun-shared';
 import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
-import {
-  Component,
-  createVNode,
-  defineComponent,
-  KeepAlive,
-  markRaw,
-  PropType,
-  type Ref,
-  resolveDynamicComponent,
-  shallowRef,
-  toRaw
-} from 'vue';
+import { type Component, createVNode, defineComponent, KeepAlive, markRaw, type PropType, type Ref, resolveDynamicComponent, shallowRef, toRaw } from 'vue';
 import { useMultiTabKeepAliveStore } from './store';
 
 export default defineComponent({

@@ -13,9 +13,11 @@
     "packages/kunlun-mobile-vue/packages/*"
   ],
   "scripts": {
+    "prepare": "husky",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "clean": "lerna clean -y && lerna run clean",
     "postclean": "rimraf package-lock.json node_modules",
+    "postinstall": "npm run prebuild",
     "prebuild": "npx lerna run build --scope @oinone/kunlun-compile",
     "build": "npx lerna run build --no-sort --concurrency 5 --ignore @oinone/kunlun-compile",
     "lint": "npx lint-staged && node ./scripts/check-keyword.cjs",
@@ -32,7 +34,8 @@
     ],
     "*.{json,md,css,less,scss}": [
       "prettier --write"
-    ]
+    ],
+    "!__tests__/**/*": []
   },
   "devDependencies": {
     "@commitlint/cli": "20.2.0",
@@ -43,12 +46,10 @@
     "@rollup/plugin-replace": "6.0.3",
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.3.0",
-    "@tsconfig/node24": "24.0.3",
     "@types/node": "24.10.4",
     "@typescript-eslint/eslint-plugin": "8.50.0",
     "@typescript-eslint/parser": "8.50.0",
     "@vue/eslint-config-typescript": "14.6.0",
-    "@vue/tsconfig": "0.8.1",
     "esbuild": "0.27.2",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
@@ -56,10 +57,12 @@
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-prettier": "5.5.4",
     "eslint-plugin-vue": "10.5.1",
-    "husky": "4.2.5",
+    "husky": "9.1.7",
     "jiti": "2.6.1",
     "lerna": "9.0.3",
     "lint-staged": "10.4.2",
+    "postcss": "8.5.6",
+    "postcss-pxtorem": "6.1.0",
     "prettier": "3.6.2",
     "rimraf": "6.1.2",
     "rollup": "4.53.5",
@@ -73,8 +76,8 @@
     "rollup-plugin-vue": "6.0.0",
     "sass": "1.97.0",
     "sass-loader": "16.0.6",
-    "typescript": "5.9.3",
     "tslib": "2.8.1",
+    "typescript": "5.9.3",
     "vue-eslint-parser": "10.2.0",
     "vue-tsc": "3.1.8"
   }

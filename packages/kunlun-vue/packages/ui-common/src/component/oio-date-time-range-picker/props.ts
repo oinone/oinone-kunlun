@@ -1,15 +1,5 @@
-import {
-  DateFormatMap,
-  DateTimeFormatMap,
-  DateTimePickerMode,
-  defaultDateFormat,
-  defaultFormat,
-  defaultTimeFormat,
-  defaultYearFormat,
-  defaultYearValueFormat,
-  TimeFormatMap
-} from '@oinone/kunlun-shared';
-import { PropType } from 'vue';
+import { DateFormatMap, DateTimeFormatMap, DateTimePickerMode, defaultDateFormat, defaultFormat, defaultTimeFormat, defaultYearFormat, defaultYearValueFormat, TimeFormatMap } from '@oinone/kunlun-shared';
+import type { PropType } from 'vue';
 import { OioDateTimePickerFormatProps } from '../oio-date-time-picker';
 
 const OioCommonDateTimeRangePickerProps = {

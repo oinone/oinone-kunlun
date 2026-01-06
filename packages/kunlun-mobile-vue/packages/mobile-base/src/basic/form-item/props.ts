@@ -1,6 +1,6 @@
 import { FormLayout, ValidateTrigger } from '@oinone/kunlun-vue-ui-common';
-import { PropType } from 'vue';
-import { ValidatorInfo } from '../../typing';
+import type { PropType } from 'vue';
+import type { ValidatorInfo } from '../../typing';
 
 export const BaseFormItemProps = {
   name: {

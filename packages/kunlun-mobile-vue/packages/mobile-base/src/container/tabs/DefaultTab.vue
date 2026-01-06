@@ -1,17 +1,10 @@
 <script lang="ts">
-import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { DEFAULT_PREFIX, useTabBar } from '@oinone/kunlun-vue-ui-mobile-vant';
-import {
-  DEFAULT_TAB_TITLE,
-  OioTabProps,
-  PropRecordHelper,
-  useInjectOioFormContext,
-  useInjectOioTabsContext,
-  useProviderOioFormContext
-} from '@oinone/kunlun-vue-ui-common';
+import { DEFAULT_TAB_TITLE, OioTabProps, PropRecordHelper, useInjectOioFormContext, useInjectOioTabsContext, useProviderOioFormContext } from '@oinone/kunlun-vue-ui-common';
 import { DslRender } from '@oinone/kunlun-vue-widget';
 import { Tab as VanTab } from 'vant';
-import { computed, createVNode, defineComponent, getCurrentInstance, PropType } from 'vue';
+import { computed, createVNode, defineComponent, getCurrentInstance, type PropType } from 'vue';
 import { InternalWidget, ResolveMode } from '../../tags/resolve/typing';
 
 export default defineComponent({

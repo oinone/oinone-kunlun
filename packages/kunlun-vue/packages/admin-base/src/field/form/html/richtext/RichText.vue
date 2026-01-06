@@ -1,27 +1,27 @@
 <template>
   <div class="form-rich-text" :class="className">
-    <Toolbar :editor-id="editorId" :editor="editorRef" :default-config="toolbarConfig" />
-    <Editor
-      ref="editorNodeRef"
-      :editor-id="editorId"
-      :default-config="editorConfig"
-      v-model="defaultHtml"
-      @onCreated="handleCreated"
-      @onFocus="focus"
-      @onBlur="onBlur"
-      @onChange="handleChange"
-      :style="editorStyle"
-    />
+<!--    <Toolbar :editor-id="editorId" :editor="editorRef" :default-config="toolbarConfig" />-->
+<!--    <Editor-->
+<!--      ref="editorNodeRef"-->
+<!--      :editor-id="editorId"-->
+<!--      :default-config="editorConfig"-->
+<!--      v-model="defaultHtml"-->
+<!--      @onCreated="handleCreated"-->
+<!--      @onFocus="focus"-->
+<!--      @onBlur="onBlur"-->
+<!--      @onChange="handleChange"-->
+<!--      :style="editorStyle"-->
+<!--    />-->
   </div>
 </template>
 <script lang="ts">
 import { delay } from 'lodash-es';
-import { BooleanHelper, CSSStyle } from '@oinone/kunlun-shared';
+import { BooleanHelper, type CSSStyle } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { createResourceFile, getFileSignature, ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { IToolbarConfig, i18nChangeLanguage } from '@wangeditor/editor';
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
+// import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import '@wangeditor/editor/dist/css/style.css';
 
 import { computed, defineComponent, onBeforeUnmount, ref, shallowRef, watch } from 'vue';
@@ -105,7 +105,7 @@ class MyUploadAdapter {
 }
 
 export default defineComponent({
-  components: { Toolbar, Editor },
+  // components: { Toolbar, Editor },
   props: [
     'value',
     'field',

@@ -1,4 +1,4 @@
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 import { FormLayout } from '@oinone/kunlun-vue-ui-common';
 
 export const BaseGalleryItemProps = {

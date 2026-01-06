@@ -1,18 +1,8 @@
-import { VueWidget, Widget, WidgetBehaviorSubjection } from '@oinone/kunlun-vue-widget';
+import { VueWidget, Widget, type WidgetBehaviorSubjection } from '@oinone/kunlun-vue-widget';
 import { GlobalConfig } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { Matched, Router, useMatched } from '@oinone/kunlun-router';
-import {
-  executeServerAction,
-  executeViewAction,
-  OioProvider,
-  UserInfo,
-  translateValueByKey,
-  ViewActionCache,
-  RuntimeAction,
-  isRuntimeViewAction,
-  ServerActionCache
-} from '@oinone/kunlun-engine';
+import { type Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { executeServerAction, executeViewAction, OioProvider, type UserInfo, translateValueByKey, ViewActionCache, type RuntimeAction, isRuntimeViewAction, ServerActionCache } from '@oinone/kunlun-engine';
 import { useRouter } from '@oinone/kunlun-vue-router';
 import { notification } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { get as getValue } from 'lodash-es';

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { BooleanHelper, CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import { AInputProps, InputFocusOptions, OioInputProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import { AInputProps, type InputFocusOptions, OioInputProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Input as AInput } from 'ant-design-vue';
 import { isBoolean, isEmpty, isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent, onMounted, ref, watch } from 'vue';

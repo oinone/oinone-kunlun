@@ -141,30 +141,11 @@
 </template>
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import {
-  defaultSelectProperties,
-  fillSelectItemProperties,
-  OioSelectProps,
-  SelectItem,
-  SelectProperties,
-  OioIcon
-} from '@oinone/kunlun-vue-ui-common';
-import {
-  Loading as VanLoading,
-  Field as VanField,
-  Popup as VanPopup,
-  PullRefresh as VanPullRefresh,
-  List as VanList,
-  Cell as VanCell,
-  CellGroup as VanCellGroup,
-  CheckboxGroup as VanCheckboxGroup,
-  Checkbox as VanCheckbox,
-  Icon as VanIcon,
-  Empty as VanEmpty
-} from 'vant';
+import { defaultSelectProperties, fillSelectItemProperties, OioSelectProps, type SelectItem, type SelectProperties, OioIcon } from '@oinone/kunlun-vue-ui-common';
+import { Loading as VanLoading, Field as VanField, Popup as VanPopup, PullRefresh as VanPullRefresh, List as VanList, Cell as VanCell, CellGroup as VanCellGroup, CheckboxGroup as VanCheckboxGroup, Checkbox as VanCheckbox, Icon as VanIcon, Empty as VanEmpty } from 'vant';
 
 import { isNil, isObject } from 'lodash-es';
-import { computed, defineComponent, nextTick, onBeforeUpdate, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, nextTick, onBeforeUpdate, type PropType, ref, watch } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { callInterceptor } from '../../utils';
 import OioCustomInput from '../oio-input/oio-custome-input.vue';

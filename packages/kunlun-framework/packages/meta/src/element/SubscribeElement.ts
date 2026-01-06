@@ -7,4 +7,4 @@ interface SubscribeElement extends IBaseElement {
   api: string;
   event: string;
 }
-export { SubscribeElement };
+export { type SubscribeElement };

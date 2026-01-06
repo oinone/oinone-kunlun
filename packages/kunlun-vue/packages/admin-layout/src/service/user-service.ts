@@ -1,4 +1,4 @@
-import { UserInfo, UserService, UserServiceToken } from '@oinone/kunlun-engine';
+import { type UserInfo, type UserService, UserServiceToken } from '@oinone/kunlun-engine';
 import { SPI } from '@oinone/kunlun-spi';
 import { TopBarService } from './top-bar-service';
 

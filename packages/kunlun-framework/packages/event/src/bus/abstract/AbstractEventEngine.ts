@@ -1,4 +1,4 @@
-import { EventCategoryType, EventEngine } from '../typing';
+import type { EventCategoryType, EventEngine } from '../typing';
 
 export abstract class AbstractEventEngine<K = string> implements EventEngine<K> {
   private readonly _key: string;

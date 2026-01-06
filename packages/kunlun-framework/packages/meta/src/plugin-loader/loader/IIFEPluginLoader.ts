@@ -1,4 +1,4 @@
-import { PluginLoader, PluginLoadOption } from '../typing';
+import type { PluginLoader, PluginLoadOption } from '../typing';
 import { UMDPluginLoader } from './UMDPluginLoader';
 
 export class IIFEPluginLoader implements PluginLoader {

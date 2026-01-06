@@ -1,17 +1,5 @@
 import { useEnv } from '@oinone/kunlun-environment';
-import {
-  AbstractEventConsumer,
-  EventCategory,
-  EventCategoryType,
-  EventConsumerConstructor,
-  EventConsumerFunction,
-  EventConsumerOptions,
-  EventConsumerScope,
-  HTMLKeyboardEventConsumerConfig,
-  KeyboardEventMessage,
-  KeyboardTypes,
-  registerEventConsumer
-} from '../../bus';
+import { AbstractEventConsumer, EventCategory, type EventCategoryType, type EventConsumerConstructor, type EventConsumerFunction, type EventConsumerOptions, EventConsumerScope, type HTMLKeyboardEventConsumerConfig, type KeyboardEventMessage, KeyboardTypes, registerEventConsumer } from '../../bus';
 
 type KeyboardEventConsumerOptions = EventConsumerOptions<
   KeyboardEvent,

@@ -1,6 +1,6 @@
 import { ConfigProviderSPI } from '@oinone/kunlun-config';
 import { getTheme } from '../register';
-import { DefaultThemeName, ThemeName } from '../typing';
+import { DefaultThemeName, type ThemeName } from '../typing';
 import { DEFAULT_PREFIX } from './constant';
 
 /**

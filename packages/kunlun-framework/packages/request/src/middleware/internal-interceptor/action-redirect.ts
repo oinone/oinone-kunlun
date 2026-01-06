@@ -1,5 +1,5 @@
 import { UrlHelper } from '@oinone/kunlun-shared';
-import { IResponseResult, NetworkInterceptor } from '../../types';
+import type { IResponseResult, NetworkInterceptor } from '../../types';
 
 export class ActionRedirectInterceptor implements NetworkInterceptor {
   public success(response: IResponseResult) {

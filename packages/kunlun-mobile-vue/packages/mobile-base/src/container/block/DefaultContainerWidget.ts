@@ -1,4 +1,4 @@
-import { BooleanHelper, CSSStyle } from '@oinone/kunlun-shared';
+import { BooleanHelper, type CSSStyle } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';

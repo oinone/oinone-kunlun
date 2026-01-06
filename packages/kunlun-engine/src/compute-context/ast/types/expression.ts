@@ -1,4 +1,4 @@
-import { AnyExpression, Expression, Node } from './base';
+import type { AnyExpression, Expression, Node } from './base';
 
 /**
  * 一元表达式

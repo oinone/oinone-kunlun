@@ -1,5 +1,5 @@
 import { IDomEditor } from '@wangeditor/core';
-import { ExpressionElement, ExpressionElementType } from './custome-types';
+import { type ExpressionElement, ExpressionElementType } from './custome-types';
 
 export function withExpression<T extends IDomEditor>(editor: T): T {
   // console.log('withExpression')

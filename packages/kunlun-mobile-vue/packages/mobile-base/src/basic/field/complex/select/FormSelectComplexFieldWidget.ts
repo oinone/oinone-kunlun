@@ -1,29 +1,14 @@
-import {
-  ActiveRecord,
-  ActiveRecords,
-  getRelationFieldKey,
-  isRelatedField,
-  parseConfigs,
-  QueryService,
-  RequestHelper,
-  RuntimeModel,
-  RuntimeModelField,
-  RuntimeRelationField
-} from '@oinone/kunlun-engine';
-import { Entity, IModelField, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
-import { Condition, ObjectValue } from '@oinone/kunlun-request';
+import { type ActiveRecord, type ActiveRecords, getRelationFieldKey, isRelatedField, parseConfigs, QueryService, RequestHelper, type RuntimeModel, type RuntimeModelField, type RuntimeRelationField } from '@oinone/kunlun-engine';
+import { type Entity, type IModelField, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
+import { Condition, type ObjectValue } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, IQueryPageOption, IQueryPageResult, queryPage } from '@oinone/kunlun-service';
 import { CastHelper, NumberHelper } from '@oinone/kunlun-shared';
-import {
-  autoFillSelectedValueToOptions,
-  autoFillSelectedValueToOptionsByLabel,
-  builderSelectSearchCondition
-} from '../../../../layout';
+import { autoFillSelectedValueToOptions, autoFillSelectedValueToOptionsByLabel, builderSelectSearchCondition } from '../../../../layout';
 import { PageSizeEnum, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
-import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
-import { FormComplexFieldProps } from '../FormComplexFieldWidget';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../../typing';
+import type { FormComplexFieldProps } from '../FormComplexFieldWidget';
 import { BaseSelectFieldWidget } from './BaseSelectFieldWidget';
 
 /**

@@ -1,5 +1,5 @@
 import { isString } from 'lodash-es';
-import { TagsItem, TagsProperties } from './model';
+import type { TagsItem, TagsProperties } from './model';
 
 export function fillTagsItemProperties<T = unknown>(
   value: T,

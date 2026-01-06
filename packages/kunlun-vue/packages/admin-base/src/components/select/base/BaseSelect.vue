@@ -1,20 +1,9 @@
 <script lang="ts">
 import { SelectSearchArea, translateValueByKey } from '@oinone/kunlun-engine';
-import {
-  OioEmptyData,
-  OioIcon,
-  OioInput,
-  OioInputGroup,
-  OioSpin,
-  PropRecordHelper,
-  SelectMode,
-  StringHelper,
-  useInjectOioDefaultFormContext,
-  useMaxTagPlaceholder
-} from '@oinone/kunlun-vue-ui-antd';
+import { OioEmptyData, OioIcon, OioInput, OioInputGroup, OioSpin, PropRecordHelper, SelectMode, StringHelper, useInjectOioDefaultFormContext, useMaxTagPlaceholder } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { debounce, delay } from 'lodash-es';
-import { computed, createVNode, defineComponent, nextTick, onBeforeUnmount, onMounted, ref, VNode } from 'vue';
+import { computed, createVNode, defineComponent, nextTick, onBeforeUnmount, onMounted, ref, type VNode } from 'vue';
 import { useMetadataProps } from '../../../basic';
 import { BaseSelectProps } from './props';
 

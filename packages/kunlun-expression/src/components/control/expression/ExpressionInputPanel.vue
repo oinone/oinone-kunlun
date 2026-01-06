@@ -21,11 +21,11 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, type PropType, ref } from 'vue';
 import { OioButton, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import ExpressionInputForm from './ExpressionInputForm.vue';
 import { createDefaultExpressionItem, createExpressionApiName, translateExpValue } from '../../../share';
-import { IExpressionItem } from '../../../types';
+import type { IExpressionItem } from '../../../types';
 import { ExpressionCommonProps } from '../typing';
 import { useExpressionOptions } from '../use/use-expression';
 import { useWatchExpressionItemList } from '../use/use-common';

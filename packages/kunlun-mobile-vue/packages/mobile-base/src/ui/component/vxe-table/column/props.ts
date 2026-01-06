@@ -1,8 +1,8 @@
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { OioComponentData } from '@oinone/kunlun-vue-ui-common';
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 import { TableEditorCloseTrigger, TableEditorMode, TableEditorTrigger } from '../table';
-import { CellRenderFunction, RenderCellContext, RowContext } from '../typing';
+import type { CellRenderFunction, RenderCellContext, RowContext } from '../typing';
 import { ColumnAlignType, ColumnFixedType } from './typing';
 
 export const OioColumnAppearanceProps = {

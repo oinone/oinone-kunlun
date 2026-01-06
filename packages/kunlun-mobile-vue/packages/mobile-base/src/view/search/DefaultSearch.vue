@@ -160,25 +160,18 @@
   </van-popup>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
-import {
-  Icon as VanIcon,
-  Popup as VanPopup,
-  Search as VanSearch,
-  Tab as VanTab,
-  Tabs as VanTabs,
-  Toast as VanToast
-} from 'vant';
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import { computed, defineComponent, type PropType, ref, watch } from 'vue';
+import { Icon as VanIcon, Popup as VanPopup, Search as VanSearch, Tab as VanTab, Tabs as VanTabs, Toast as VanToast } from 'vant';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { IListSortEnum, OioFormProps, OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { DEFAULT_PREFIX, OioButton, OioEmptyData } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { IModel, IModelField, isComplexTtype, isDateTtype, isNumberTtype, ModelFieldType } from '@oinone/kunlun-meta';
+import { type IModel, type IModelField, isComplexTtype, isDateTtype, isNumberTtype, ModelFieldType } from '@oinone/kunlun-meta';
 import { EDirection, ISort } from '@oinone/kunlun-service';
 import { Condition, DefaultLogicalOperator } from '@oinone/kunlun-request';
 import BaseSearch from './BaseSearch.vue';
-import { UserSearchPrefer } from '../../typing';
+import type { UserSearchPrefer } from '../../typing';
 import { CATE_ALL_NAME } from './types';
-import { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
+import type { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 
 interface ISelectOption {

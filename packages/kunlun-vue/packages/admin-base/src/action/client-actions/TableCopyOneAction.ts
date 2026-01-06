@@ -1,7 +1,7 @@
 import { ModelDefaultActionName } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { TableCopyEvent, TableEventCallChaining, TableEventType } from '../../typing';
+import { type TableCopyEvent, type TableEventCallChaining, TableEventType } from '../../typing';
 import { ActionWidget } from '../component';
 
 @SPI.ClassFactory(ActionWidget.Token({ name: ModelDefaultActionName.$$internal_CopyOne }))

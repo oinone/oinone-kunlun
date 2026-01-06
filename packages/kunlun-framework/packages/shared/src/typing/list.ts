@@ -1,4 +1,4 @@
-import { OioSelectItem } from './select';
+import type { OioSelectItem } from './select';
 
 /**
  * 通用列表项数据结构

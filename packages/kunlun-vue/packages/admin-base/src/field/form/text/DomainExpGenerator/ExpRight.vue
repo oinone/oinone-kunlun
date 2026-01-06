@@ -83,17 +83,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
-import {
-  OioInput,
-  OioButton,
-  OioInputNumber,
-  OioTextarea,
-  OioDateTimePicker,
-  OioDatePicker,
-  OioTimePicker,
-  OioYearPicker
-} from '@oinone/kunlun-vue-ui-antd';
-import { IModelField, ModelFieldType } from '@oinone/kunlun-meta';
+import { OioInput, OioButton, OioInputNumber, OioTextarea, OioDateTimePicker, OioDatePicker, OioTimePicker, OioYearPicker } from '@oinone/kunlun-vue-ui-antd';
+import { type IModelField, ModelFieldType } from '@oinone/kunlun-meta';
 import { queryPage, getModel } from '@oinone/kunlun-service';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Select as ASelect } from 'ant-design-vue';

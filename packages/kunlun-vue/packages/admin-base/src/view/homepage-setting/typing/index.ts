@@ -1,5 +1,5 @@
-import { Pagination } from '@oinone/kunlun-engine';
-import { Slot } from 'vue';
+import type { Pagination } from '@oinone/kunlun-engine';
+import type { Slot } from 'vue';
 
 export interface Options {
   label: string;

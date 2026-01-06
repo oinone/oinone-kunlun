@@ -1,9 +1,9 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { CSSStyle } from '@oinone/kunlun-shared';
+import type { CSSStyle } from '@oinone/kunlun-shared';
 import { FormLayout, OioGroup, PropRecordHelper, useOioFormLayoutContext } from '@oinone/kunlun-vue-ui-antd';
-import { createVNode, defineComponent, PropType, Slot, vShow, withDirectives } from 'vue';
+import { createVNode, defineComponent, type PropType, type Slot, vShow, withDirectives } from 'vue';
 import { defaultFlexResolve } from '../../tags/resolve/helper';
 import DefaultGroupTitleToolbar from './DefaultGroupTitleToolbar.vue';
 

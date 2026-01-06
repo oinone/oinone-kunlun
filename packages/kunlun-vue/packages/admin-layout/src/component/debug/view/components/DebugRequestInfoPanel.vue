@@ -66,8 +66,8 @@
 </template>
 <script lang="ts">
 import { OioCol, OioForm, OioFormItem, OioGroup, OioRow, OioTab, OioTabs, OioTextarea } from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, PropType } from 'vue';
-import { DebugErrorPanel, DebugRequestInfo } from '../../typing';
+import { defineComponent, type PropType } from 'vue';
+import type { DebugErrorPanel, DebugRequestInfo } from '../../typing';
 import { useDebugRequestInfo } from '../useDebugRequestInfo';
 import DebugDefaultInfo from './DebugDefaultInfo.vue';
 

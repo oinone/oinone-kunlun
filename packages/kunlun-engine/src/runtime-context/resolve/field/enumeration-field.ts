@@ -1,7 +1,7 @@
-import { EnumerationOptionDslDefinition, FieldDslDefinition } from '@oinone/kunlun-dsl';
+import type { EnumerationOptionDslDefinition, FieldDslDefinition } from '@oinone/kunlun-dsl';
 import { toString } from 'lodash-es';
-import { RuntimeEnumerationField, RuntimeEnumerationOption } from '../../../runtime-metadata';
-import { RuntimeContext } from '../../runtime-context';
+import type { RuntimeEnumerationField, RuntimeEnumerationOption } from '../../../runtime-metadata';
+import type { RuntimeContext } from '../../runtime-context';
 
 export function convertEnumerationField(
   runtimeContext: RuntimeContext,

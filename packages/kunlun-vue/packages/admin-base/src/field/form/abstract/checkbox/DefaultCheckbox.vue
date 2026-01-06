@@ -10,10 +10,10 @@
   </div>
 </template>
 <script lang="ts">
-import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
-import { SelectItem } from '@oinone/kunlun-vue-ui-common';
+import { type ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
+import type { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { Checkbox as ACheckbox, CheckboxGroup as ACheckboxGroup } from 'ant-design-vue';
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, type PropType } from 'vue';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../basic';
 
 const MOCK_OPTIONS = ['1', '2', '3'].map((v) => ({

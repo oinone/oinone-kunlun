@@ -1,20 +1,13 @@
-import {
-  CurrentLanguage,
-  generatorViewActionQueryParameter,
-  isRuntimeViewAction,
-  RuntimeAction,
-  RuntimeViewAction,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
+import { CurrentLanguage, generatorViewActionQueryParameter, isRuntimeViewAction, type RuntimeAction, type RuntimeViewAction, translateValueByKey } from '@oinone/kunlun-engine';
 import { ActionType, ViewActionTarget } from '@oinone/kunlun-meta';
 import { MessageHub } from '@oinone/kunlun-request';
 import { useMatched } from '@oinone/kunlun-router';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { ModuleService } from '@oinone/kunlun-vue-admin-layout';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseActionWidget } from '../../../../basic';
-import { PopupLoadDataResult } from '../typing';
+import type { PopupLoadDataResult } from '../typing';
 import { DialogViewActionWidget } from './DialogViewActionWidget';
 
 @SPI.ClassFactory(

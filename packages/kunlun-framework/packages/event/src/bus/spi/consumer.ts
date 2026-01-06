@@ -1,5 +1,5 @@
-import { SPIOperator, SPIOptions } from '@oinone/kunlun-spi';
-import { EventCategoryType, EventConsumerConfig, EventConsumerConstructor, EventMessage } from '../typing';
+import { SPIOperator, type SPIOptions } from '@oinone/kunlun-spi';
+import type { EventCategoryType, EventConsumerConfig, EventConsumerConstructor, EventMessage } from '../typing';
 
 const EVENT_BUS_CONSUMER_KEY = Symbol('__event_bus_consumer');
 

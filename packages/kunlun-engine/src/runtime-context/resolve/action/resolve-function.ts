@@ -1,5 +1,5 @@
 import { ModelFieldType } from '@oinone/kunlun-meta';
-import { FunctionType, RuntimeFunctionDefinition } from '../../../runtime-metadata';
+import { FunctionType, type RuntimeFunctionDefinition } from '../../../runtime-metadata';
 
 export interface DslFunction {
   type: FunctionType[];

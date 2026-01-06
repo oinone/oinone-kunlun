@@ -1,13 +1,4 @@
-import {
-  ServerAction,
-  ServerActionFragmentName,
-  SharedViewAction,
-  SharedViewActionFragmentName,
-  UrlAction,
-  UrlActionFragmentName,
-  ViewAction,
-  ViewActionFragmentName
-} from './action';
+import { ServerAction, ServerActionFragmentName, SharedViewAction, SharedViewActionFragmentName, UrlAction, UrlActionFragmentName, ViewAction, ViewActionFragmentName } from './action';
 import { Function, FunctionFragmentName } from './function';
 import { Model, ModelFragmentName } from './model';
 import { Module, ModuleFragmentName } from './module';

@@ -1,6 +1,6 @@
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormM2MFieldWidget } from '../../../../basic';
-import { MultipartUploadRuntimeConfig } from '@oinone/kunlun-vue-ui-common';
+import type { MultipartUploadRuntimeConfig } from '@oinone/kunlun-vue-ui-common';
 import { ConfigHelper } from '@oinone/kunlun-engine';
 import { RuntimeConfig } from '@oinone/kunlun-meta';
 

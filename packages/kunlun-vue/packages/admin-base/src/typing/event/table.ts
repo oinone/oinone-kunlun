@@ -1,4 +1,4 @@
-import { ActiveRecord, RuntimeAction } from '@oinone/kunlun-engine';
+import type { ActiveRecord, RuntimeAction } from '@oinone/kunlun-engine';
 import { CallChaining } from '@oinone/kunlun-shared';
 
 export enum TableEventType {

@@ -1,44 +1,12 @@
 import { ModelFieldType } from '@oinone/kunlun-meta';
-import {
-  generatorGQLResponseParameterMap,
-  GQL,
-  GQLBuilder,
-  GQLRequestParameterBuilder,
-  GQLResponseParameter,
-  GQLResponseParameterBuilder,
-  GQLResponseParameterMap,
-  isGQLResponseParameterMap
-} from '@oinone/kunlun-request';
+import { generatorGQLResponseParameterMap, GQL, type GQLBuilder, type GQLRequestParameterBuilder, type GQLResponseParameter, type GQLResponseParameterBuilder, type GQLResponseParameterMap, isGQLResponseParameterMap } from '@oinone/kunlun-request';
 import { BigNumber, BooleanHelper, GraphqlHelper } from '@oinone/kunlun-shared';
 import { isArray, toString } from 'lodash-es';
 import { FunctionCache, MemoryCache } from '../cache';
-import {
-  DATETIME_FIELD_TTYPES,
-  getRealTtype,
-  isRelatedField,
-  isRelation2MField,
-  isRelation2OField,
-  isRelationField,
-  NUMBER_FIELD_TTYPES,
-  RELATION_2M_FIELD_TTYPES,
-  RELATION_2O_FIELD_TTYPES,
-  RequestModelField,
-  STRING_FIELD_TTYPES
-} from '../runtime-context';
-import {
-  FunctionSelfFlag,
-  FunctionSelfFlagType,
-  FunctionType,
-  RuntimeFunctionArgument,
-  RuntimeFunctionDefinition,
-  RuntimeFunctionReturnType,
-  RuntimeModel,
-  RuntimeModelField,
-  RuntimeRelatedField,
-  RuntimeRelationField
-} from '../runtime-metadata';
+import { DATETIME_FIELD_TTYPES, getRealTtype, isRelatedField, isRelation2MField, isRelation2OField, isRelationField, NUMBER_FIELD_TTYPES, RELATION_2M_FIELD_TTYPES, RELATION_2O_FIELD_TTYPES, type RequestModelField, STRING_FIELD_TTYPES } from '../runtime-context';
+import { FunctionSelfFlag, type FunctionSelfFlagType, FunctionType, type RuntimeFunctionArgument, type RuntimeFunctionDefinition, type RuntimeFunctionReturnType, type RuntimeModel, type RuntimeModelField, type RuntimeRelatedField, type RuntimeRelationField } from '../runtime-metadata';
 import { StaticMetadata } from './metadata/basic';
-import { QueryContext, QueryVariables } from './typing';
+import type { QueryContext, QueryVariables } from './typing';
 
 const STRING_PARAMETER_TYPES = [...STRING_FIELD_TTYPES, ...DATETIME_FIELD_TTYPES];
 

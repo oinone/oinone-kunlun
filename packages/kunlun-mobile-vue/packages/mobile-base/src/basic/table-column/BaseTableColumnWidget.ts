@@ -1,17 +1,17 @@
 import { SubmitValue } from '@oinone/kunlun-engine';
 import { BooleanHelper, CallChaining, Optional } from '@oinone/kunlun-shared';
+import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { type ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
+import { isEmpty, isString } from 'lodash-es';
+import type { VNode } from 'vue';
 import {
-  ActiveEditorContext,
-  RenderCellContext,
-  RowContext,
+  type ActiveEditorContext,
+  type RenderCellContext,
+  type RowContext,
   TableEditorCloseTrigger,
   TableEditorMode,
   TableEditorTrigger
 } from '../../ui';
-import { ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
-import { isEmpty, isString } from 'lodash-es';
-import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { VNode } from 'vue';
 import { BaseDataWidget } from '../common';
 import DefaultTableColumn from './DefaultTableColumn.vue';
 

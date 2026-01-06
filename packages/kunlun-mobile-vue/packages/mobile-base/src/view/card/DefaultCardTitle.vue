@@ -48,8 +48,8 @@
   </template>
 </template>
 <script lang="ts">
-import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { defineComponent, PropType } from 'vue';
+import type { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
+import { defineComponent, type PropType } from 'vue';
 import { OioCol, OioRow, DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { DefaultGalleryItem } from '../../basic';
 import { DetailCommonFieldWidget } from '../../field';

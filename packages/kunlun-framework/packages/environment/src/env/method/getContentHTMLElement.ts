@@ -1,4 +1,4 @@
-import { RuntimeEnvironment } from '../typing';
+import type { RuntimeEnvironment } from '../typing';
 
 export function getContentHTMLElement(this: RuntimeEnvironment): HTMLElement | undefined {
   const { contentSelector } = this;

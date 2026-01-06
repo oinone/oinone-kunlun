@@ -1,16 +1,6 @@
 import * as charCodes from '../../charcodes';
 import * as types from '../../tokens';
-import {
-  createExpression,
-  LogicalExpression,
-  LogicalOperator,
-  Node,
-  ParserContext,
-  Token,
-  TokenParser,
-  TokenReader,
-  TokenType
-} from '../../types';
+import { createExpression, type LogicalExpression, type LogicalOperator, type Node, type ParserContext, type Token, type TokenParser, type TokenReader, TokenType } from '../../types';
 import { BaseParser, BaseReader } from '../base';
 
 export class LogicalOperatorReader extends BaseReader implements TokenReader {

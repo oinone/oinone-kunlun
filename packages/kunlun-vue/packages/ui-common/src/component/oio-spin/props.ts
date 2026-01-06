@@ -1,4 +1,4 @@
-import { PropType, VNode } from 'vue';
+import type { PropType, VNode } from 'vue';
 
 export enum SpinSize {
   default = 'default',

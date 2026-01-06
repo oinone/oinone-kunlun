@@ -1,4 +1,4 @@
-import { RuntimeRelatedField } from '@oinone/kunlun-engine';
+import type { RuntimeRelatedField } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../basic';

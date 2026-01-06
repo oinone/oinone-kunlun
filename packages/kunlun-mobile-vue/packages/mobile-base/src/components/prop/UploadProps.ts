@@ -1,5 +1,5 @@
 import { defaultMultiPartConfig } from '@oinone/kunlun-vue-ui-common';
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 
 export const UploadCommonProps = {
   change: {

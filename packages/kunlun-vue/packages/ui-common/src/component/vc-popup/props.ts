@@ -1,5 +1,5 @@
-import { ReturnPromise, ReturnVoid } from '@oinone/kunlun-shared';
-import { PropType } from 'vue';
+import type { ReturnPromise, ReturnVoid } from '@oinone/kunlun-shared';
+import type { PropType } from 'vue';
 
 export enum PopupDisplayAs {
   drawer = 'drawer',

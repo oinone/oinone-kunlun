@@ -1,6 +1,6 @@
 <script lang="ts">
 import { DslRender, useInjectMetaContext, useProviderMetaContext } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, Fragment, VNode } from 'vue';
+import { computed, createVNode, defineComponent, Fragment, type VNode } from 'vue';
 import { MetadataViewProps } from './props';
 
 export default defineComponent({

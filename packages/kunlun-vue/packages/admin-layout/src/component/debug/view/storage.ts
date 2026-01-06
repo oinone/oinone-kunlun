@@ -1,6 +1,6 @@
-import { RuntimeContext, RuntimeViewAction, ViewActionQueryParameter } from '@oinone/kunlun-engine';
+import type { RuntimeContext, RuntimeViewAction, ViewActionQueryParameter } from '@oinone/kunlun-engine';
 import { StandardEventManager } from '@oinone/kunlun-shared';
-import { DebugRequestInfo } from '../typing';
+import type { DebugRequestInfo } from '../typing';
 
 enum EventKeys {
   'update' = 'update'

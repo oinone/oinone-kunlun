@@ -1,4 +1,4 @@
-import { ParserContext } from '../types';
+import type { ParserContext } from '../types';
 
 export function createParseContext(context: Pick<ParserContext, 'parser' | 'inputStream' | 'node'>): ParserContext {
   return {

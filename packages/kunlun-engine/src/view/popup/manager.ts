@@ -1,6 +1,6 @@
-import { StandardEventHandler, StandardEventManager } from '@oinone/kunlun-shared';
-import { IPopupInstance, IPopupManager } from './typing';
-import { RuntimeAction } from '../../runtime-metadata';
+import { type StandardEventHandler, StandardEventManager } from '@oinone/kunlun-shared';
+import type { IPopupInstance, IPopupManager } from './typing';
+import type { RuntimeAction } from '../../runtime-metadata';
 
 /**
  * 事件键值

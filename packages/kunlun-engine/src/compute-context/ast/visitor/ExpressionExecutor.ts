@@ -1,11 +1,11 @@
-import { ExpressionRunParam } from '@oinone/kunlun-expression';
-import { Options, parser } from '../parser';
-import { Node } from '../types';
+import type { ExpressionRunParam } from '@oinone/kunlun-expression';
+import { type Options, parser } from '../parser';
+import type { Node } from '../types';
 import { Executor } from './executor';
 import { Optimize, OptimizeAdapter } from './optimize';
 import { ToString } from './to-string';
-import { Translate, TranslateAdapter, TranslateOptions } from './translate';
-import { AdapterContext, Visitor, VisitorAdapter } from './visit';
+import { Translate, TranslateAdapter, type TranslateOptions } from './translate';
+import { type AdapterContext, Visitor, type VisitorAdapter } from './visit';
 
 export class ExpressionExecutor {
   private constructor() {

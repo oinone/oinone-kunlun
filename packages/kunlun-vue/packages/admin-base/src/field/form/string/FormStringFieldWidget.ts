@@ -1,10 +1,10 @@
-import { RuntimeStringField, translateValueByKey } from '@oinone/kunlun-engine';
+import { type RuntimeStringField, translateValueByKey } from '@oinone/kunlun-engine';
 import { isEmptyValue } from '@oinone/kunlun-meta';
 import { InputType } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
 
 import { isNil, isNumber } from 'lodash-es';
-import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../typing';
 import { FormInputAbstractFieldWidget } from '../abstract/FormInputAbstractFieldWidget';
 import FormString from './DefaultString.vue';
 

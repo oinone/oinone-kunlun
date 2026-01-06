@@ -1,4 +1,4 @@
-import { HTMLElementEntity } from './util';
+import type { HTMLElementEntity } from './util';
 
 export interface GhostBody {
   sendEvent;

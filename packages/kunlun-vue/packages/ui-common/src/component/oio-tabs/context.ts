@@ -1,4 +1,4 @@
-import { computed, ComputedRef, inject, InjectionKey, provide } from 'vue';
+import { computed, type ComputedRef, inject, type InjectionKey, provide } from 'vue';
 import { $$OioTabPosition, OioTabPosition } from './props';
 
 export interface TabHTMLNode {

@@ -1,9 +1,9 @@
-import { _useMatched, Matched, matchPath } from '@oinone/kunlun-router';
+import { _useMatched, type Matched, matchPath } from '@oinone/kunlun-router';
 import { ViewWidget } from '@oinone/kunlun-vue-widget';
-import { SetupContext, toRefs, VNodeProps } from 'vue';
+import { type SetupContext, toRefs, VNodeProps } from 'vue';
 import { BaseRouterWidget } from './basic';
 import { useSegmentGroup } from './helpers/useSegmentGroup';
-import { useWidgetService, Widgets } from './useWidget';
+import { useWidgetService, type Widgets } from './useWidget';
 
 export interface RouteProps {
   path: string;

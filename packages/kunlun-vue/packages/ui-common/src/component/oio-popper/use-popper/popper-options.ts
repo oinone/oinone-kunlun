@@ -1,4 +1,4 @@
-import { PopperPosition, PopperRelative, PopperRelativePosition, PopperTriggerType } from '../props';
+import { type PopperPosition, PopperRelative, PopperRelativePosition, type PopperTriggerType } from '../props';
 
 export default interface PopperOptions {
   visible?: boolean;

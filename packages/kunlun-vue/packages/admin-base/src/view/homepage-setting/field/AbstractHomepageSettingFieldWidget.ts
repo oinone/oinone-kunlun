@@ -1,10 +1,10 @@
-import { ActiveRecords, RuntimeContext, SubmitValue, RuntimeView } from '@oinone/kunlun-engine';
+import { type ActiveRecords, type RuntimeContext, SubmitValue, type RuntimeView } from '@oinone/kunlun-engine';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { Subscription } from '@oinone/kunlun-state';
 import { FormFieldWidget } from '../../../basic/field';
 import { FormWidget } from '../../form';
-import { HomepageConfigRule } from '../typing';
+import type { HomepageConfigRule } from '../typing';
 import { RenderWidgetsBehavior, ValidateWidgetsBehavior } from '../service/behaviors';
 import HomepageSettingField from './HomepageSettingField.vue';
 

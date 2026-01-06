@@ -1,18 +1,6 @@
 import * as charCodes from '../charcodes';
 import * as types from '../tokens';
-import {
-  BooleanLiteral,
-  createLiteral,
-  createPattern,
-  Identifier,
-  Node,
-  NullLiteral,
-  ParserContext,
-  Token,
-  TokenParser,
-  TokenReader,
-  UndefinedLiteral
-} from '../types';
+import { type BooleanLiteral, createLiteral, createPattern, type Identifier, type Node, type NullLiteral, type ParserContext, type Token, type TokenParser, type TokenReader, type UndefinedLiteral } from '../types';
 import { BaseParser, BaseReader } from './base';
 import { NumberReader } from './literal';
 

@@ -1,6 +1,6 @@
 import { Optional } from '@oinone/kunlun-shared';
-import { Node, NodeVisitor, VisitContext } from '../../types';
-import { AdapterContext, VisitorAdapter } from './types';
+import type { Node, NodeVisitor, VisitContext } from '../../types';
+import type { AdapterContext, VisitorAdapter } from './types';
 
 export abstract class BaseVisitor<N extends Node = Node, C extends AdapterContext = AdapterContext>
   implements NodeVisitor<N, C, boolean>

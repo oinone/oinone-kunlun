@@ -1,12 +1,6 @@
-import {
-  ActiveRecord,
-  MultiTabsRuntimeManifestMergedConfigManager,
-  MultiTabsRouter,
-  RuntimeAction,
-  RuntimeViewAction
-} from '@oinone/kunlun-engine';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
-import { IViewAction, ViewType } from '@oinone/kunlun-meta';
+import { type ActiveRecord, MultiTabsRuntimeManifestMergedConfigManager, MultiTabsRouter, type RuntimeAction, type RuntimeViewAction } from '@oinone/kunlun-engine';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
+import { type IViewAction, ViewType } from '@oinone/kunlun-meta';
 import { NavigateOptions } from '@oinone/kunlun-router';
 import { getModel } from '@oinone/kunlun-service';
 import { isString, set as setValue } from 'lodash-es';

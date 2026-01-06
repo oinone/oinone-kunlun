@@ -1,10 +1,10 @@
 <script lang="ts">
 import { ButtonType, OioButton, OioModal, PropRecordHelper, ReturnPromise } from '@oinone/kunlun-vue-ui-antd';
 import { Transfer as ATransfer } from 'ant-design-vue';
-import { createVNode, defineComponent, nextTick, PropType, ref, VNode } from 'vue';
+import { createVNode, defineComponent, nextTick, type PropType, ref, type VNode } from 'vue';
 import SimpleUserPreferSetting from './SimpleUserPreferSetting.vue';
 import StandardUserPreferSetting from './StandardUserPreferSetting.vue';
-import { classNamePrefix, DataOption } from './typing';
+import { classNamePrefix, type DataOption } from './typing';
 
 export default defineComponent({
   name: 'DefaultUserPrefer',

@@ -1,31 +1,13 @@
-import {
-  ActiveRecord,
-  ActiveRecordExtendKeys,
-  ExperimentalConfigManager,
-  parseConfigs,
-  SubmitHandler,
-  SubmitValue
-} from '@oinone/kunlun-engine';
+import { type ActiveRecord, ActiveRecordExtendKeys, ExperimentalConfigManager, parseConfigs, SubmitHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import {
-  BooleanHelper,
-  CastHelper,
-  ObjectUtils,
-  OioTreeNode,
-  Optional,
-  StandardString,
-  uniqueKeyGenerator
-} from '@oinone/kunlun-shared';
+import { BooleanHelper, CastHelper, ObjectUtils, type OioTreeNode, Optional, type StandardString, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
-import { TreeNodeResponseBody, TreeService } from '../../../../service';
-import { AddressTypeEnum, ResourceAddress, ResourceRegion, TreeData, TreeNodeMetadata } from '../../../../typing';
+import { type TreeNodeResponseBody, TreeService } from '../../../../service';
+import { AddressTypeEnum, type ResourceAddress, type ResourceRegion, type TreeData, type TreeNodeMetadata } from '../../../../typing';
 import { FetchUtil } from '../../../../util';
-import {
-  DefaultAddressTypeEnum,
-  generatorDefaultAddressTreeDefinition
-} from '../../../../util/default-tree-definition';
+import { DefaultAddressTypeEnum, generatorDefaultAddressTreeDefinition } from '../../../../util/default-tree-definition';
 import { FormM2OCascaderFieldWidget } from '../cascader/FormM2OCascaderFieldWidget';
 
 @SPI.ClassFactory(

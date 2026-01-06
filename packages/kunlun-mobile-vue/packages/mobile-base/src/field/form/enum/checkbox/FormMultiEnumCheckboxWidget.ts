@@ -1,10 +1,10 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { EnumerationValue } from '@oinone/kunlun-shared';
+import type { EnumerationValue } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { FormFieldWidget } from '../../../../basic';
-import { ValidatorInfo } from '../../../../typing';
+import type { ValidatorInfo } from '../../../../typing';
 import { FormEnumFieldAbstractWidget } from '../FormEnumFieldAbstractWidget';
 import MultiEnumCheckbox from './MultiEnumCheckbox.vue';
 

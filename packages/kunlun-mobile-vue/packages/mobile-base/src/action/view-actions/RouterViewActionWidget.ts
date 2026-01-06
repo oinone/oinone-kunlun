@@ -1,11 +1,11 @@
-import { executeViewAction, Popup, RuntimeViewAction } from '@oinone/kunlun-engine';
+import { executeViewAction, Popup, type RuntimeViewAction } from '@oinone/kunlun-engine';
 import { ActionContextType, ActionType, isEmptyKeObject, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
-import { Matched, Router } from '@oinone/kunlun-router';
+import { type Matched, Router } from '@oinone/kunlun-router';
 import { getModel } from '@oinone/kunlun-service';
 import { debugConsole, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { parseActionDomain4search } from '../../layout';
-import { UrlQueryParameters } from '../../basic';
+import type { UrlQueryParameters } from '../../basic';
 import { ActionWidget } from '../component';
 import { ViewActionWidget } from './ViewActionWidget';
 

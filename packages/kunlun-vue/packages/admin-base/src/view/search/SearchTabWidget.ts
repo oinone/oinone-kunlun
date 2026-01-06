@@ -1,7 +1,7 @@
 import { SPI } from '@oinone/kunlun-spi';
-import { IModelField, IModelFieldOption, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { type IModelField, type IModelFieldOption, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
+import type { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
 import { BooleanHelper, CallChaining, Optional } from '@oinone/kunlun-shared';
 import DefaultSearchTab from './DefaultSearchTab.vue';
 import { BaseElementWidget } from '../../basic';

@@ -1,7 +1,7 @@
-import { FieldDslDefinition } from '@oinone/kunlun-dsl';
+import type { FieldDslDefinition } from '@oinone/kunlun-dsl';
 import { BooleanHelper, RSQLOperators } from '@oinone/kunlun-shared';
-import { RuntimeSearchField } from '../../../runtime-metadata';
-import { RuntimeContext } from '../../runtime-context';
+import type { RuntimeSearchField } from '../../../runtime-metadata';
+import type { RuntimeContext } from '../../runtime-context';
 
 export function convertSearchField(runtimeContext: RuntimeContext, dsl: FieldDslDefinition, field: RuntimeSearchField) {
   field.operator = convertOperator(dsl.operator);

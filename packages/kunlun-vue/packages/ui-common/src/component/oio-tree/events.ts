@@ -1,5 +1,5 @@
-import { OioTreeNode } from '@oinone/kunlun-shared';
-import { OioEvent } from '../../event';
+import type { OioTreeNode } from '@oinone/kunlun-shared';
+import type { OioEvent } from '../../event';
 
 /**
  * 树节点选中事件

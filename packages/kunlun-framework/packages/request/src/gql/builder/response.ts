@@ -1,9 +1,4 @@
-import {
-  generatorGQLResponseParameterMap,
-  GQLResponseParameterBuilder,
-  GQLResponseParameterMap,
-  SimpleGQLResponseParameter
-} from '../typing';
+import { generatorGQLResponseParameterMap, type GQLResponseParameterBuilder, type GQLResponseParameterMap, type SimpleGQLResponseParameter } from '../typing';
 
 export class GQLResponseParameterBuilderImpl implements GQLResponseParameterBuilder {
   private readonly parameters: GQLResponseParameterMap;

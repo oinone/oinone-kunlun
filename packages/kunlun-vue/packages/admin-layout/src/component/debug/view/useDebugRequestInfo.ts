@@ -1,5 +1,5 @@
 import { computed } from 'vue';
-import { DebugRequestInfo } from '../typing';
+import type { DebugRequestInfo } from '../typing';
 
 export function useDebugRequestInfo(props: { requestInfo?: DebugRequestInfo }) {
   const isShowResponseInfo = computed(() => {

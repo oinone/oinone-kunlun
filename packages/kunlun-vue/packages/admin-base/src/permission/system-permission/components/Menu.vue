@@ -52,7 +52,7 @@
 import { OioButton, OioIcon, OioInputSearch } from '@oinone/kunlun-vue-ui-antd';
 import { debounce } from 'lodash-es';
 import { computed, defineEmits, ref, watch } from 'vue';
-import { AnyPermissionNode, MenuPermissionNode, ModulePermissionNode } from '../../types';
+import type { AnyPermissionNode, MenuPermissionNode, ModulePermissionNode } from '../../types';
 import { useDslActionPermission } from '../hooks';
 import { queryMenus } from '../service';
 import { useStore } from '../store';

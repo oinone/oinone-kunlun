@@ -1,5 +1,5 @@
 import { Subscription } from '@oinone/kunlun-state';
-import { ILevel, IMessage } from '../types';
+import { ILevel, type IMessage } from '../types';
 
 export interface MessageOptions extends Record<string, unknown> {
   title?: string;

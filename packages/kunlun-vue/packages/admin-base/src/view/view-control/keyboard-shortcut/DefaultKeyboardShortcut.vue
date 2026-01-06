@@ -62,7 +62,7 @@
 <script lang="ts">
 import { ButtonType, OioButton, OioCol, OioIcon, OioRow } from '@oinone/kunlun-vue-ui-antd';
 import { Popover as APopover, Tooltip as ATooltip } from 'ant-design-vue';
-import { defineComponent, PropType, ref } from 'vue';
+import { defineComponent, type PropType, ref } from 'vue';
 
 export default defineComponent({
   inheritAttrs: false,

@@ -1,10 +1,10 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { useProviderMaskContext } from '@oinone/kunlun-vue-admin-layout';
 import { OioSpin, OioSpinProps } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { DslRender, useProviderMetaContext } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, PropType, VNode } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, type VNode } from 'vue';
 import { MetadataViewProps } from '../basic';
 
 export default defineComponent({

@@ -1,6 +1,6 @@
-import { ObjectValue } from '@oinone/kunlun-request';
-import { RuntimeAction, RuntimeViewAction } from '../../runtime-metadata';
-import { IWidget, WidgetProps } from '../widget';
+import type { ObjectValue } from '@oinone/kunlun-request';
+import type { RuntimeAction, RuntimeViewAction } from '../../runtime-metadata';
+import type { IWidget, WidgetProps } from '../widget';
 
 /**
  * <h3>弹出层类型</h3>

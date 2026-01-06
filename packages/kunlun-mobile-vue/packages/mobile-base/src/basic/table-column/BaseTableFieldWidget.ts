@@ -1,15 +1,15 @@
-import { ActiveRecord, isRelatedField, isRelationField, RuntimeModelField } from '@oinone/kunlun-engine';
-import { FieldEventName, FieldEventNames, LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
-import { Expression, ExpressionKeyword, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { type ActiveRecord, isRelatedField, isRelationField, type RuntimeModelField } from '@oinone/kunlun-engine';
+import { type FieldEventName, FieldEventNames, LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
+import { Expression, ExpressionKeyword, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { isEmptyValue, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
+import { type ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isFunction, isNaN, isNil, isPlainObject, isString, toString } from 'lodash-es';
-import { createVNode, VNode } from 'vue';
+import { createVNode, type VNode } from 'vue';
 import { EditorField } from '../../tags/internal';
-import { UserTablePrefer } from '../../typing';
-import { ActiveEditorContext, RenderCellContext, RowContext } from '../../ui';
+import type { UserTablePrefer } from '../../typing';
+import type { ActiveEditorContext, RenderCellContext, RowContext } from '../../ui';
 import { BaseTableColumnWidget } from './BaseTableColumnWidget';
 
 export type HandlerEvent = (field: BaseTableFieldWidget) => void;

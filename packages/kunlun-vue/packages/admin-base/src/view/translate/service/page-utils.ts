@@ -1,5 +1,5 @@
 import { HttpClient } from '@oinone/kunlun-request';
-import { SearchCommonParams, TranslateManageItem } from '../translate-page-util/typings';
+import type { SearchCommonParams, TranslateManageItem } from '../translate-page-util/typings';
 
 const http = HttpClient.getInstance();
 

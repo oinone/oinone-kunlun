@@ -1,5 +1,5 @@
 import { ServiceIdentifier } from '@oinone/kunlun-spi';
-import { DebugErrorAnalysisResult, DebugResponseError } from '../../typing';
+import type { DebugErrorAnalysisResult, DebugResponseError } from '../../typing';
 
 /**
  * 调试异常分析服务

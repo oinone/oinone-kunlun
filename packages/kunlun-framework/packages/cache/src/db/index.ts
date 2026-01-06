@@ -1,5 +1,5 @@
 import getValue from 'lodash/get';
-import { IOioDB, IDBTable } from '../typing';
+import type { IOioDB, IDBTable } from '../typing';
 import { getDB } from '../util';
 import { DB_NAME, DB_VERSION } from '../constant';
 

@@ -1,4 +1,4 @@
-import { WidgetTagContext } from '@oinone/kunlun-vue-widget';
+import type { WidgetTagContext } from '@oinone/kunlun-vue-widget';
 import { InternalMaskWidget } from '../resolve';
 
 export interface MaskWidgetTagMixinContext extends WidgetTagContext {

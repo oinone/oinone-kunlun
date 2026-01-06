@@ -2,11 +2,11 @@ import { isRelationField } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_FALSE_CONDITION, DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
-import { NumberHelper, OioTreeNode, ReturnPromise } from '@oinone/kunlun-shared';
+import { NumberHelper, type OioTreeNode, type ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../basic';
-import { DropMode, TreeData, TreeRefreshCallChainingParameters } from '../../typing';
+import { DropMode, type TreeData, type TreeRefreshCallChainingParameters } from '../../typing';
 import { TreeUtils } from '../../util';
 import { AbstractTreeElementWidget } from './AbstractTreeElementWidget';
 

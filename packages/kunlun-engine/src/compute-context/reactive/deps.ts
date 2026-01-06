@@ -1,24 +1,8 @@
-import { ExpressionRunParam } from '@oinone/kunlun-expression';
+import type { ExpressionRunParam } from '@oinone/kunlun-expression';
 import { ObjectUtils } from '@oinone/kunlun-shared';
-import { RuntimeModelField } from '../../runtime-metadata';
-import {
-  ASTOptimize,
-  ASTOptimizeAdapter,
-  ASTOptimizeAdapterOptions,
-  ASTVisitorAdapter,
-  EffectManager,
-  ExpressionExecutor,
-  Identifier,
-  isIdentifier,
-  isMemberExpression,
-  MemberExpression,
-  Node,
-  ReactiveEffect,
-  ReactiveEffectRunner,
-  TriggerDirective,
-  useTriggerDirective
-} from '../ast';
-import { ComputeContext, Dep, Deps } from '../compute-context';
+import type { RuntimeModelField } from '../../runtime-metadata';
+import { ASTOptimize, ASTOptimizeAdapter, type ASTOptimizeAdapterOptions, type ASTVisitorAdapter, EffectManager, ExpressionExecutor, type Identifier, isIdentifier, isMemberExpression, type MemberExpression, type Node, ReactiveEffect, type ReactiveEffectRunner, TriggerDirective, useTriggerDirective } from '../ast';
+import type { ComputeContext, Dep, Deps } from '../compute-context';
 
 type DepMethod = Function & { __creator?: boolean };
 

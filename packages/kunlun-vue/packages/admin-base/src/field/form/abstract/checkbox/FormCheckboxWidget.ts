@@ -1,5 +1,5 @@
-import { RuntimeEnumerationOption, RuntimeModelField } from '@oinone/kunlun-engine';
-import { BooleanHelper, EnumerationValue } from '@oinone/kunlun-shared';
+import type { RuntimeEnumerationOption, RuntimeModelField } from '@oinone/kunlun-engine';
+import { BooleanHelper, type EnumerationValue } from '@oinone/kunlun-shared';
 import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic/field/FormFieldWidget';

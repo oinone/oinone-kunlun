@@ -1,4 +1,4 @@
-import { IDslNode } from '@oinone/kunlun-meta';
+import type { IDslNode } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 
 import { LayoutWidget, MobileViewWidget } from '../../layout';

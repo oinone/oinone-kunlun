@@ -1,7 +1,7 @@
 <script lang="ts">
 import { StringHelper } from '@oinone/kunlun-shared';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { createVNode, defineComponent, PropType, VNode } from 'vue';
+import { createVNode, defineComponent, type PropType, type VNode } from 'vue';
 import Icon from '../../../tags/Icon.vue';
 import Picture from '../../../tags/Picture.vue';
 import DefaultTextInfoLabel from './DefaultTextInfoLabel.vue';

@@ -1,5 +1,5 @@
-import { ReturnPromise } from '@oinone/kunlun-shared';
-import { GQLFragment } from '../typing';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
+import type { GQLFragment } from '../typing';
 import responseParametersToString from './response';
 
 export default function fragmentsToString(fragments: ReturnPromise<GQLFragment>[]): Promise<string> {

@@ -1,8 +1,8 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { ServiceIdentifier, SPI } from '@oinone/kunlun-spi';
 import { UnsupportedOperationException } from '../../exception';
-import { RuntimeViewAction } from '../../runtime-metadata';
-import { RuntimeContext } from '../runtime-context';
+import type { RuntimeViewAction } from '../../runtime-metadata';
+import type { RuntimeContext } from '../runtime-context';
 
 /**
  * 运行时上下文服务

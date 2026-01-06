@@ -1,9 +1,9 @@
 import { getStaticRelationField, isStaticRelationField } from '../../runtime-context';
-import { RuntimeM2MField } from '../../runtime-metadata';
-import { ActiveRecord } from '../../typing';
+import type { RuntimeM2MField } from '../../runtime-metadata';
+import type { ActiveRecord } from '../../typing';
 import { SubmitType, SubmitVerificationType } from '../typing';
 import { defaultSubmit } from './default';
-import { SubmitFn } from './typing';
+import type { SubmitFn } from './typing';
 
 export const M2MSubmit: SubmitFn<RuntimeM2MField, ActiveRecord[]> = (
   field,

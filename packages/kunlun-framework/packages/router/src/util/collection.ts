@@ -1,6 +1,6 @@
 import { Observable, of, concatAll, last as lastValue, map } from '@oinone/kunlun-state';
 
-import { Params, PRIMARY_OUTLET } from '../shared';
+import { type Params, PRIMARY_OUTLET } from '../shared';
 
 /**
  * Test equality for arrays of strings or a string.

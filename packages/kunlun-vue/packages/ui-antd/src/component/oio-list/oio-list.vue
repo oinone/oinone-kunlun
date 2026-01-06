@@ -1,8 +1,8 @@
 <script lang="ts">
-import { OioListItem, StringHelper } from '@oinone/kunlun-shared';
+import { type OioListItem, StringHelper } from '@oinone/kunlun-shared';
 import { OioIcon, PropRecordHelper, SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Radio as ARadio } from 'ant-design-vue';
-import { computed, createVNode, defineComponent, PropType, ref, VNode } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, ref, type VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { OioCheckbox } from '../oio-checkbox';
 import { OioEmptyData } from '../oio-empty';

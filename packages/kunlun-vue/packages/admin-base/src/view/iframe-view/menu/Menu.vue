@@ -30,7 +30,7 @@
 <script lang="ts">
 import { executeViewAction, RedirectTargetEnum } from '@oinone/kunlun-engine';
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { IMenu } from '@oinone/kunlun-meta';
+import type { IMenu } from '@oinone/kunlun-meta';
 import { CastHelper } from '@oinone/kunlun-shared';
 import { useMatched, useRouter } from '@oinone/kunlun-vue-router';
 import { Menu as AMenu } from 'ant-design-vue';

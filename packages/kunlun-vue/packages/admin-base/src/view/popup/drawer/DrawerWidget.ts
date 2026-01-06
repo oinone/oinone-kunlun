@@ -1,9 +1,9 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { DrawerHeight, DrawerPlacement } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../../typing';
-import { PopupWidget, PopupWidgetProps } from '../PopupWidget';
+import { PopupWidget, type PopupWidgetProps } from '../PopupWidget';
 import DefaultDrawer from './DefaultDrawer.vue';
 
 export type DrawerWidgetProps = PopupWidgetProps;

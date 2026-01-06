@@ -1,6 +1,13 @@
-import { PropType } from 'vue';
+import type { CSSStyle } from '@oinone/kunlun-shared';
+import type { PropType } from 'vue';
 import { VcMaskPopupAppearanceProps, VcPopupAppearanceProps, VcPopupControlProps, VcPopupDataProps } from '../vc-popup';
-import { ModalWidthType } from './typing';
+import type { ModalWidthType } from './typing';
+
+export interface ModalWrapperProps {
+  id?: string;
+  bodyStyle?: string | CSSStyle;
+  maskStyle?: string | CSSStyle;
+}
 
 const OioModalAppearanceProps = {
   ...VcPopupAppearanceProps,
@@ -34,6 +41,9 @@ const OioModalAppearanceProps = {
   showPopupToggle: {
     type: Boolean,
     default: true
+  },
+  wrapperProps: {
+    type: Object as PropType<ModalWrapperProps>
   }
 };
 

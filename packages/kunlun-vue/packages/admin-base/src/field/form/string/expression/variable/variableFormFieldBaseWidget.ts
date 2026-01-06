@@ -1,33 +1,10 @@
-import { ModelFieldType, IModelField } from '@oinone/kunlun-meta';
+import { ModelFieldType, type IModelField } from '@oinone/kunlun-meta';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { Pagination, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
-import {
-  fetchModelData,
-  createExpressionDefinition,
-  queryExpression,
-  convertModels2FieldSelectionOptions,
-  createContextItems,
-  createDefaultExpressionItem,
-  createDefaultVariableItemList,
-  createExpressionDefinitionByExpressionItem,
-  createExpressionItemByExpressionDefinition,
-  createValueVariableListStr,
-  isDefaultBlankStringVariableItemList,
-  ExpressionDefinitionType,
-  IExpressionDefinition,
-  IExpressionOption,
-  IExpressionQuoteType,
-  IExpModel,
-  IExpSelectOption,
-  IVariableContextItem,
-  IVariableItem,
-  VariableItemType,
-  IQueryExpressionParam,
-  fetchExpressionChildren
-} from '@oinone/kunlun-vue-expression';
+import { type Pagination, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
+import { fetchModelData, createExpressionDefinition, queryExpression, convertModels2FieldSelectionOptions, createContextItems, createDefaultExpressionItem, createDefaultVariableItemList, createExpressionDefinitionByExpressionItem, createExpressionItemByExpressionDefinition, createValueVariableListStr, isDefaultBlankStringVariableItemList, ExpressionDefinitionType, type IExpressionDefinition, type IExpressionOption, IExpressionQuoteType, type IExpModel, type IExpSelectOption, type IVariableContextItem, type IVariableItem, VariableItemType, type IQueryExpressionParam, fetchExpressionChildren } from '@oinone/kunlun-vue-expression';
 
 import { FormFieldWidget } from '../../../../../basic';
-import { isValidatorSuccess, ValidatorInfo } from '../../../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../../../typing';
 import { isNil, isString } from 'lodash-es';
 
 const allowFieldTypes = [

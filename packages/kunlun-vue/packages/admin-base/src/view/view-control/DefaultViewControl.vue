@@ -12,7 +12,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 import { FlexRowJustify } from '@oinone/kunlun-vue-ui-common';
 
 export default defineComponent({

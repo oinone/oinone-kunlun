@@ -34,7 +34,7 @@
 </template>
 <script lang="ts">
 import { OioDatePicker, OioDatePickerProps, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic';
 import { DateQuickOption } from './date-common';
 import { useDateTimePickerProps } from './use-date-time-picker-props';

@@ -1,16 +1,6 @@
-import {
-  ActionElement,
-  ApiElement,
-  ClearElement,
-  ContextElement,
-  FieldElement,
-  PropElement,
-  RequestElement,
-  ResponseElement,
-  ViewElement
-} from '../element';
+import { type ActionElement, ApiElement, ClearElement, ContextElement, FieldElement, PropElement, RequestElement, ResponseElement, ViewElement } from '../element';
 
-import { IModelField, ElementType, IDslNode } from '../metadata';
+import { type IModelField, ElementType, type IDslNode } from '../metadata';
 import { deepClone } from './helper';
 
 const createViewElement = (dslNode: IDslNode | undefined): ViewElement | null => {

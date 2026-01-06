@@ -1,7 +1,7 @@
 <script lang="ts">
-import { ActiveRecords } from '@oinone/kunlun-engine';
+import type { ActiveRecords } from '@oinone/kunlun-engine';
 import { useInjectMetaContext, WidgetTagProps } from '@oinone/kunlun-vue-widget';
-import { defineComponent, PropType, watch } from 'vue';
+import { defineComponent, type PropType, watch } from 'vue';
 import { useWidgetTag, UseWidgetTagMixin } from './mixin';
 import { InternalWidget } from './resolve';
 

@@ -47,9 +47,9 @@
   </van-popup>
 </template>
 <script lang="ts">
-import { ModalWidthType, OioModalProps, StyleHelper, useModal } from '@oinone/kunlun-vue-ui-common';
+import { type ModalWidthType, OioModalProps, StyleHelper, useModal } from '@oinone/kunlun-vue-ui-common';
 import { Popup as VanPopup } from 'vant';
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 import { isNumber } from 'lodash-es';
 import { DEFAULT_PREFIX } from '../../theme';
 

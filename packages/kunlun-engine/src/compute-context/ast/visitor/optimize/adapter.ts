@@ -1,25 +1,9 @@
 import { Optional } from '@oinone/kunlun-shared';
-import {
-  BinaryExpression,
-  ConditionalExpression,
-  ExpressionStatement,
-  Identifier,
-  isMemberExpression,
-  LogicalExpression,
-  MemberExpression,
-  UnaryExpression,
-  VisitContext
-} from '../../types';
+import { type BinaryExpression, type ConditionalExpression, type ExpressionStatement, type Identifier, isMemberExpression, type LogicalExpression, type MemberExpression, type UnaryExpression, type VisitContext } from '../../types';
 import { Executor } from '../executor';
-import { AdapterContext, VisitorAdapter } from '../visit';
-import { AbstractOptimizeAdapter, BaseOptimizeAdapterOptions } from './base';
-import {
-  SimplifyBinaryExpression,
-  SimplifyConditionalExpression,
-  SimplifyLogicalExpression,
-  SimplifyStatement,
-  SimplifyUnaryExpression
-} from './simplify';
+import type { AdapterContext, VisitorAdapter } from '../visit';
+import { AbstractOptimizeAdapter, type BaseOptimizeAdapterOptions } from './base';
+import { SimplifyBinaryExpression, SimplifyConditionalExpression, SimplifyLogicalExpression, SimplifyStatement, SimplifyUnaryExpression } from './simplify';
 
 /**
  * 优化可选项

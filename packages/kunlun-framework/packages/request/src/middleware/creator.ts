@@ -1,6 +1,6 @@
 import { serialExecutor } from '@oinone/kunlun-shared';
 import { ApolloLink, NextLink, Observable, Operation } from 'apollo-link';
-import { IResponseErrorResult, IResponseResult, NetworkInterceptor, NetworkMiddlewareHandler } from '../types';
+import type { IResponseErrorResult, IResponseResult, NetworkInterceptor, NetworkMiddlewareHandler } from '../types';
 
 export function createMiddleware(handler: NetworkMiddlewareHandler): ApolloLink {
   return new ApolloLink((operation: Operation, forward: NextLink) => {

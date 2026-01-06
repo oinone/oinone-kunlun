@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint-disable import/no-dynamic-require */
-/* eslint-disable @typescript-eslint/no-var-requires */
 const logger = console;
 
 const { execSync } = require('child_process');
@@ -11,7 +9,7 @@ const fieldNames = execSync('git diff --name-only --cached')
   .toString('utf8')
   .trim()
   .split('\n')
-  .filter((name) => !name.startsWith('scripts/') && name && fs.existsSync(name));
+  .filter((name) => name && !name.startsWith('scripts/') && !name.includes('__tests__/') && fs.existsSync(name));
 
 const checkKeyword = (content) => {
   // 字符串的debugger 不需要处理

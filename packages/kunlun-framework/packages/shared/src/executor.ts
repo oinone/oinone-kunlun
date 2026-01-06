@@ -1,4 +1,4 @@
-import { ReturnPromise, ReturnVoid } from './typing';
+import type { ReturnPromise, ReturnVoid } from './typing';
 
 type InterruptibleExecuteFunction<T> = (target: T) => ReturnPromise<boolean | ReturnVoid>;
 

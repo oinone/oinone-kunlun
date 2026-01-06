@@ -3,7 +3,7 @@ import { isArray } from 'lodash-es';
 import { BooleanHelper } from '../../BooleanHeler';
 import { TreeNode } from '../../tree-node';
 import { RSQLNodeFactory } from '../node';
-import { RSQLField, RSQLModel, RSQLNodeInfo, RSQLNodeInfoType } from '../RSQLNodeInfo';
+import { type RSQLField, type RSQLModel, RSQLNodeInfo, RSQLNodeInfoType } from '../RSQLNodeInfo';
 import { RSQLLogicalOperators, RSQLOperators } from '../RSQLOperator';
 
 interface NodeVisitor {

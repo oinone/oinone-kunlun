@@ -2,13 +2,13 @@
 import { StringHelper } from '@oinone/kunlun-shared';
 import { OioEmptyData, OioSpin, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { isNil } from 'lodash-es';
-import { computed, createVNode, defineComponent, ref, VNode } from 'vue';
+import { computed, createVNode, defineComponent, ref, type VNode } from 'vue';
 import { Column as VxeColumn, Table as VxeTable, VxeTableDefines, VxeTableInstance } from 'vxe-table';
 import { DEFAULT_PREFIX } from '../../../theme';
 import { VxeTableHelper } from '../../../utils';
 import { useProviderOioTableInstance } from '../context';
-import { CheckedChangeEvent, RadioChangeEvent, SortChangeEvent } from '../event';
-import { ActiveEditorContext, OioTableInstance, RowContext } from '../typing';
+import type { CheckedChangeEvent, RadioChangeEvent, SortChangeEvent } from '../event';
+import type { ActiveEditorContext, OioTableInstance, RowContext } from '../typing';
 import { OioTableProps } from './props';
 import { TableSize } from './typing';
 

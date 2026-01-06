@@ -1,13 +1,13 @@
-import { ActionElement, Entity, IAction, IDslNode, IModel, IModule } from '@oinone/kunlun-meta';
-import { UserInfo } from '@oinone/kunlun-engine';
+import type { ActionElement, Entity, IAction, IDslNode, IModel, IModule } from '@oinone/kunlun-meta';
+import type { UserInfo } from '@oinone/kunlun-engine';
 
-interface IAstNode {
+export interface IAstNode {
   name: string;
   props: Record<string, string>;
   children: IAstNode[];
 }
 
-interface IColumn {
+export interface IColumn {
   title?: string;
   width?: number | string;
   dataIndex: string | number;
@@ -40,63 +40,63 @@ interface PamirsUser {
     timeFormat: string;
     weekStart: string;
     writeDate: string;
-  };
+    };
 }
 
-interface IGlobalState {
+export interface IGlobalState {
   rootData: Record<string, unknown> | Record<string, unknown>[];
   user: UserInfo;
   currentModule: IModule;
   modules: Omit<IModule, 'allMenus'>[];
 }
 
-enum ValidatorStatus {
+export enum ValidatorStatus {
   Success = 'success',
   Error = 'error',
   Warning = 'warning',
   Validating = 'validating'
 }
 
-interface ValidatorInfo {
+export interface ValidatorInfo {
   message?: string;
   status?: ValidatorStatus;
   path: string;
   children?: ValidatorInfo[];
 }
 
-interface ValidatorCallback {
+export interface ValidatorCallback {
   resolve: (result: boolean) => void;
   // reject: () => ValidatorError;
 }
-interface UpdateCallback {
+export interface UpdateCallback {
   resolve: () => void;
   reject?: () => void;
   actionElement?: ActionElement;
 }
-interface NormalCallback<T> {
+export interface NormalCallback<T> {
   resolve: (value: T) => void;
   reject?: (value: T) => void;
   actionElement?: ActionElement;
 }
-const GlobalStateSubSymbol = Symbol('GlobalStateSubSymbol');
-const ValidatorSubSymbol = Symbol('ValidatorSubSymbol');
-const ValidatorResSubSymbol = Symbol('ValidatorResSubSymbol');
+export const GlobalStateSubSymbol = Symbol('GlobalStateSubSymbol');
+export const ValidatorSubSymbol = Symbol('ValidatorSubSymbol');
+export const ValidatorResSubSymbol = Symbol('ValidatorResSubSymbol');
 
-const WatchTableRowSubSymbol = Symbol('WatchTableRowSubSymbol');
+export const WatchTableRowSubSymbol = Symbol('WatchTableRowSubSymbol');
 
-const UpdateSubSymbol = Symbol('UpdateSubSymbol');
-const CreateSubSymbol = Symbol('CreateSubSymbol');
+export const UpdateSubSymbol = Symbol('UpdateSubSymbol');
+export const CreateSubSymbol = Symbol('CreateSubSymbol');
 
-const MenusSubSymbol = Symbol('MenusSubSymbol');
-const MenusCollapsedSymbol = Symbol('MenusCollapsedSymbol');
+export const MenusSubSymbol = Symbol('MenusSubSymbol');
+export const MenusCollapsedSymbol = Symbol('MenusCollapsedSymbol');
 
-interface IPreciseTableRowData {
+export interface IPreciseTableRowData {
   index: number;
   value: Entity;
 }
 
 // action 与 视图之间的信息传递
-type UpperContext = {
+export type UpperContext = {
   // 选中了表格的哪些行
   rows?: Entity[];
   // m2m 添加打开的 Table 选中了哪些行 | o2m 创建或编辑打开的 form 数据
@@ -107,12 +107,12 @@ type UpperContext = {
   cache: SubmitCache[];
 };
 // 增量提交模式(SubmitType == 'increment')时且模型下存在o2m或m2m关联数据需要存储的时候，关联模型的数据存在该对象中
-interface SubmitCache {
+export interface SubmitCache {
   operator: SubmitCacheOperator;
   model: IModel;
   record: Entity;
 }
-enum SubmitCacheOperator {
+export enum SubmitCacheOperator {
   INSERT = 'insert',
   UPDATE = 'update',
   DELETE = 'delete'
@@ -126,26 +126,4 @@ export const SWITCH_APP_STATUS = Symbol('SWITCH_APP_STATUS');
 
 export const EXECUTE_HOME_PAGE = Symbol('Execute-Home-Page');
 
-export {
-  IAstNode,
-  IColumn,
-  IGlobalState,
-  GlobalStateSubSymbol,
-  ValidatorSubSymbol,
-  ValidatorCallback,
-  ValidatorStatus,
-  ValidatorInfo,
-  ValidatorResSubSymbol,
-  UpdateSubSymbol,
-  CreateSubSymbol,
-  MenusSubSymbol,
-  MenusCollapsedSymbol,
-  WatchTableRowSubSymbol,
-  IPreciseTableRowData,
-  UpdateCallback,
-  NormalCallback,
-  UpperContext,
-  SubmitCache,
-  SubmitCacheOperator,
-  UserInfo
-};
+export type { UserInfo };

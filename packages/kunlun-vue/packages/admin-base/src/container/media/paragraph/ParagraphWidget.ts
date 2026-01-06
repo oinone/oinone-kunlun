@@ -1,9 +1,9 @@
-import { ActiveRecord, resolveDynamicDomain } from '@oinone/kunlun-engine';
+import { type ActiveRecord, resolveDynamicDomain } from '@oinone/kunlun-engine';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
 import DefaultParagraph from './DefaultParagraph.vue';
-import { CSSStyle } from '@oinone/kunlun-shared';
+import type { CSSStyle } from '@oinone/kunlun-shared';
 
 export enum ParagraphBorderMode {
   Solid = 'SOLID',

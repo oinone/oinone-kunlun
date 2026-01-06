@@ -67,7 +67,7 @@
   </a-popover>
 </template>
 <script lang="ts">
-import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, type PropType, ref, watch } from 'vue';
 import { OioInput, OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { CloseCircleFilled, DownOutlined } from '@ant-design/icons-vue';
 import { ModelFieldType } from '@oinone/kunlun-meta';
@@ -75,25 +75,8 @@ import { CastHelper } from '@oinone/kunlun-shared';
 import { debounce } from 'lodash-es';
 import ControlTag from '../control/control-tag/ControlTag.vue';
 import ExpressionDesignerCascader from '../cascader/Cascader.vue';
-import {
-  ExpressionSeniorMode,
-  IExpSelectOption,
-  IFunFilterMethod,
-  IVariableContextItem,
-  IVariableItem,
-  ModelOptionType,
-  VARIABLE_SEPARATE,
-  VariableItemType
-} from '../../types';
-import {
-  checkBlurFocus,
-  contextItems2ModelSelection,
-  convertModelFields2Options,
-  createVariableContextItem,
-  createVariableItemBySelectedOptions,
-  fetchExpressionChildren,
-  translateExpValue
-} from '../../share';
+import { ExpressionSeniorMode, type IExpSelectOption, type IFunFilterMethod, type IVariableContextItem, type IVariableItem, ModelOptionType, VARIABLE_SEPARATE, VariableItemType } from '../../types';
+import { checkBlurFocus, contextItems2ModelSelection, convertModelFields2Options, createVariableContextItem, createVariableItemBySelectedOptions, fetchExpressionChildren, translateExpValue } from '../../share';
 import { queryExpModelFields } from '../../service/modelDefinitionService';
 
 const SIZE_CLASS_CONFIG = { default: '', small: 'ant-select-sm', large: 'ant-select-lg' };

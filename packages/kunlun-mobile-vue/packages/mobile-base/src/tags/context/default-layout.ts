@@ -1,4 +1,4 @@
-import { DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
+import { type DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
 import { ViewType } from '@oinone/kunlun-meta';
 import { DEFAULT_VIEW_CLASS } from '../../ui/theme';
 import { debugConsole } from '@oinone/kunlun-shared';

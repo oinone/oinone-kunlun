@@ -8,7 +8,7 @@
 </template>
 <script lang="ts">
 import { OioIcon } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 import { InputPreSuffixType } from '../abstract/FormInputAbstractFieldWidget';
 
 export default defineComponent({

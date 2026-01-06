@@ -1,11 +1,11 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
-import { ExpressionRunParam } from '@oinone/kunlun-expression';
+import type { ExpressionRunParam } from '@oinone/kunlun-expression';
 import { ViewType } from '@oinone/kunlun-meta';
-import { BooleanHelper, OioTreeNode, ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { BooleanHelper, type OioTreeNode, type ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { TreeNodeResponseBody, TreeService } from '../../service';
-import { TreeData, TreeNodeMetadata } from '../../typing';
+import { type TreeNodeResponseBody, TreeService } from '../../service';
+import type { TreeData, TreeNodeMetadata } from '../../typing';
 import { TreeUtils } from '../../util';
 import { AbstractTreeWidget } from './AbstractTreeWidget';
 import DefaultTree from './DefaultTree.vue';

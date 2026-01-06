@@ -2,8 +2,8 @@
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { OioFormProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { createVNode, defineComponent, PropType } from 'vue';
+import type { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
+import { createVNode, defineComponent, type PropType } from 'vue';
 import { DefaultForm, ManualWidget } from '../../basic';
 import { DEFAULT_VIEW_CLASS } from '../../ui/theme';
 

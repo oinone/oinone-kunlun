@@ -3,20 +3,11 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { isEmpty, isEqual } from 'lodash-es';
-import { ValidatorInfo, isValidatorSuccess } from '../../../typing';
+import { type ValidatorInfo, isValidatorSuccess } from '../../../typing';
 import { FormFieldWidget } from '../../../basic';
 import { FormStringFieldWidget } from '../../../field';
 import RoleUserConfig from './RoleUserConfig.vue';
-import {
-  ExpressionValue,
-  FetchValueOptions,
-  FetchValueReturnType,
-  HomepageConfigRule,
-  RelationOptions,
-  RoleUserOptions,
-  RoleUserOptionsEnum,
-  HomePageConfigKeys
-} from '../typing';
+import { type ExpressionValue, type FetchValueOptions, type FetchValueReturnType, type HomepageConfigRule, RelationOptions, RoleUserOptions, RoleUserOptionsEnum, HomePageConfigKeys } from '../typing';
 import { fetchRoleList, fetchRoleOne, fetchUserList, fetchUserOne } from '../service/HomepageSettingService';
 
 @SPI.ClassFactory(

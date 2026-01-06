@@ -1,7 +1,7 @@
 <script lang="ts">
 import { StringHelper } from '@oinone/kunlun-shared';
 import { OioGroupProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { createVNode, defineComponent, VNode } from 'vue';
+import { createVNode, defineComponent, type VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import OioGroupHelp from './oio-group-help.vue';
 

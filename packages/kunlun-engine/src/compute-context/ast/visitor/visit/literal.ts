@@ -1,6 +1,6 @@
-import { isLiteral, Literal, Node, TemplateLiteral, VisitContext } from '../../types';
+import { isLiteral, type Literal, type Node, type TemplateLiteral, type VisitContext } from '../../types';
 import { BaseVisitor } from './base';
-import { AdapterContext } from './types';
+import type { AdapterContext } from './types';
 
 export class LiteralVisitor extends BaseVisitor<Literal> {
   public static readonly INSTANCE = new LiteralVisitor();

@@ -47,17 +47,10 @@ import ExpressionDialog from '../../dialog/ExpressionDialog.vue';
 import ExpressionInputForm from './ExpressionInputForm.vue';
 import ControlTag from '../control-tag/ControlTag.vue';
 import { PlusCircleOutlined } from '@ant-design/icons-vue';
-import { IExpressionItem } from '../../../types';
+import type { IExpressionItem } from '../../../types';
 import { ExpressionCommonProps, ExpressionEvent } from '../typing';
 import { useExpressionOptions } from '../use/use-expression';
-import {
-  useClearExpressionHandler,
-  useExpressionLabel,
-  useOnShowExpressionDialog,
-  useSubmitExpressionHandler,
-  useWatchExpressionItemList,
-  useWatchIsShowExpressionDialog
-} from '../use/use-common';
+import { useClearExpressionHandler, useExpressionLabel, useOnShowExpressionDialog, useSubmitExpressionHandler, useWatchExpressionItemList, useWatchIsShowExpressionDialog } from '../use/use-common';
 
 export default defineComponent({
   inheritAttrs: false,

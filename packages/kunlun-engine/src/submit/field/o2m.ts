@@ -1,7 +1,7 @@
-import { RuntimeO2MField } from '../../runtime-metadata';
-import { ActiveRecord } from '../../typing';
+import type { RuntimeO2MField } from '../../runtime-metadata';
+import type { ActiveRecord } from '../../typing';
 import { defaultSubmit } from './default';
-import { SubmitFn } from './typing';
+import type { SubmitFn } from './typing';
 
 export const O2MSubmit: SubmitFn<RuntimeO2MField, ActiveRecord[]> = (
   field,

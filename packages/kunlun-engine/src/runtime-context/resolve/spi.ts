@@ -1,6 +1,6 @@
-import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
-import { SPIOperator, SPIOptions } from '@oinone/kunlun-spi';
-import { RuntimeContext } from '../runtime-context';
+import { type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { SPIOperator, type SPIOptions } from '@oinone/kunlun-spi';
+import type { RuntimeContext } from '../runtime-context';
 
 export interface ResolveTemplateOptions extends SPIOptions {
   dslNodeType?: string | DslDefinitionType;

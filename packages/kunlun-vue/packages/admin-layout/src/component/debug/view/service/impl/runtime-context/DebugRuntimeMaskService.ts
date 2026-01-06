@@ -1,8 +1,8 @@
-import { RuntimeContext, RuntimeContextServiceToken } from '@oinone/kunlun-engine';
+import { type RuntimeContext, RuntimeContextServiceToken } from '@oinone/kunlun-engine';
 import { SPI } from '@oinone/kunlun-spi';
-import { DebugErrorAnalysisResult } from '../../../../typing';
+import type { DebugErrorAnalysisResult } from '../../../../typing';
 import { DebugUtils } from '../../../debug-utils';
-import { DebugRuntimeContextService, DebugRuntimeContextServiceToken } from '../../DebugRuntimeContextService';
+import { type DebugRuntimeContextService, DebugRuntimeContextServiceToken } from '../../DebugRuntimeContextService';
 
 @SPI.Service(DebugRuntimeContextServiceToken, { priority: 60 })
 export class DebugRuntimeMaskService implements DebugRuntimeContextService {

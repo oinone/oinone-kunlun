@@ -1,4 +1,4 @@
-import { RuntimeConfig, RuntimeConfigOptions } from '@oinone/kunlun-meta';
+import { RuntimeConfig, type RuntimeConfigOptions } from '@oinone/kunlun-meta';
 import { ConfigHelper } from './config-helper';
 
 export interface GalleryConfig extends RuntimeConfigOptions {

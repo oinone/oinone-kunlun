@@ -1,5 +1,5 @@
 import { isNil } from 'lodash-es';
-import { ServiceIdentifier, ServiceNamed } from '../../typing';
+import { ServiceIdentifier, type ServiceNamed } from '../../typing';
 
 export interface ServicePriority {
   bindingId: number;

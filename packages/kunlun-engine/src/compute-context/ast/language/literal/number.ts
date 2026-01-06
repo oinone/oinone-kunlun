@@ -1,17 +1,7 @@
 import { BigNumber } from '@oinone/kunlun-shared';
 import * as charCodes from '../../charcodes';
 import * as types from '../../tokens';
-import {
-  createLiteral,
-  Node,
-  NumberLiteral,
-  ParserContext,
-  StringLiteral,
-  Token,
-  TokenParser,
-  TokenReader,
-  TokenType
-} from '../../types';
+import { createLiteral, type Node, type NumberLiteral, type ParserContext, type StringLiteral, type Token, type TokenParser, type TokenReader, TokenType } from '../../types';
 import { BaseReader } from '../base';
 
 export class NumberReader extends BaseReader implements TokenReader {

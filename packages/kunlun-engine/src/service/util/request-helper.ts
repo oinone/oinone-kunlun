@@ -1,8 +1,8 @@
-import { GQLRequestParameterBuilder } from '@oinone/kunlun-request';
-import { isRelatedField, isRelationField, RequestModelField } from '../../runtime-context';
-import { RuntimeModelField } from '../../runtime-metadata';
+import type { GQLRequestParameterBuilder } from '@oinone/kunlun-request';
+import { isRelatedField, isRelationField, type RequestModelField } from '../../runtime-context';
+import type { RuntimeModelField } from '../../runtime-metadata';
 import { StaticRequestModelFieldsCache } from '../FunctionService';
-import { CommonGQLFields } from '../typing';
+import type { CommonGQLFields } from '../typing';
 
 export class RequestHelper {
   public static convertRequestFields(fields: RuntimeModelField[]): RequestModelField[] {

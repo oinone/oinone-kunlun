@@ -4,6 +4,5 @@ import { rollupConfig } from '@oinone/kunlun-compile';
 export default rollupConfig({
   pkg,
   hasVue: false,
-  hasSCSS: false,
-  includeExternal: ['rxjs']
+  hasSCSS: false
 });

@@ -1,9 +1,5 @@
 import './style/index.scss';
-import {
-  autoSetPopoverCss,
-  isModelModel,
-  isModelField
-} from './share';
+import { autoSetPopoverCss, isModelModel, isModelField } from './share';
 
 export * from './components';
 export * from './service';

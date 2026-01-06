@@ -1,7 +1,7 @@
-import { FieldDslDefinition } from '@oinone/kunlun-dsl';
+import type { FieldDslDefinition } from '@oinone/kunlun-dsl';
 import { ModelFieldType } from '@oinone/kunlun-meta';
-import { RuntimeRelatedField } from '../../../runtime-metadata';
-import { RuntimeContext } from '../../runtime-context';
+import type { RuntimeRelatedField } from '../../../runtime-metadata';
+import type { RuntimeContext } from '../../runtime-context';
 import { ResolveUtil } from '../util';
 import { selectorConverters } from './spi';
 

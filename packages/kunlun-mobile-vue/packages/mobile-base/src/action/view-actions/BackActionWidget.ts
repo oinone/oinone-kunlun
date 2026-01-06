@@ -1,12 +1,4 @@
-import {
-  Dialog,
-  Drawer,
-  executeViewAction,
-  Popup,
-  RuntimeViewAction,
-  translate,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
+import { Dialog, Drawer, executeViewAction, Popup, type RuntimeViewAction, translate, translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelDefaultActionName } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { ButtonType } from '@oinone/kunlun-vue-ui-common';

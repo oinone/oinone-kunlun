@@ -1,4 +1,4 @@
-import { IErrorMessage, IResponseErrorResult, IResponseExtensions, IResponseNetworkError } from '../types';
+import type { IErrorMessage, IResponseErrorResult, IResponseExtensions, IResponseNetworkError } from '../types';
 
 export class HttpClientError extends Error implements IResponseErrorResult {
   /**

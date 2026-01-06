@@ -1,4 +1,4 @@
-import { ConditionalExpression, isConditionalExpression, Node, NodeVisitor, VisitContext } from '../../../types';
+import { type ConditionalExpression, isConditionalExpression, type Node, type NodeVisitor, type VisitContext } from '../../../types';
 
 export class ConditionExpressionExecutor implements NodeVisitor<ConditionalExpression> {
   public static readonly INSTANCE = new ConditionExpressionExecutor();

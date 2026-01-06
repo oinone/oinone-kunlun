@@ -1,5 +1,5 @@
-import { ComputeContext, ComputeContextManager } from '../../compute-context';
-import { RuntimeContext } from '../runtime-context';
+import { type ComputeContext, ComputeContextManager } from '../../compute-context';
+import type { RuntimeContext } from '../runtime-context';
 
 export function resolveCompute(runtimeContext: RuntimeContext) {
   const computeContext = createOrReplaceComputeContext(runtimeContext);

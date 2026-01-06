@@ -3,7 +3,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
 import FormResourceDateFormat from './FormResourceDateFormat.vue';
-import { ResourceDateTimeOption } from '@oinone/kunlun-shared';
+import type { ResourceDateTimeOption } from '@oinone/kunlun-shared';
 import { getResourceDateFormatOptions } from '../constant';
 
 @SPI.ClassFactory(

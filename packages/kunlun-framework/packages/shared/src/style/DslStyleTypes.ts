@@ -1,4 +1,4 @@
-import { CSSStyle } from './types';
+import type { CSSStyle } from './types';
 
 export enum DslBorderVisibleType {
   top = 'top',

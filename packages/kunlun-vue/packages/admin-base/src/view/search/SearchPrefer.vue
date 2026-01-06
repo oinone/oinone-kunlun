@@ -98,22 +98,12 @@
   </div>
 </template>
 <script lang="ts">
-import {
-  OioButton,
-  OioEmptyData,
-  OioForm,
-  OioFormItem,
-  OioIcon,
-  OioInput,
-  OioMessage,
-  OioModal,
-  OioSpin
-} from '@oinone/kunlun-vue-ui-antd';
+import { OioButton, OioEmptyData, OioForm, OioFormItem, OioIcon, OioInput, OioMessage, OioModal, OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Popover as APopover } from 'ant-design-vue';
 import { cloneDeep, trim } from 'lodash-es';
 import { computed, defineComponent, ref } from 'vue';
-import { UserSearchPrefer } from '../../typing';
+import type { UserSearchPrefer } from '../../typing';
 import { useInjectSearchPreferContext } from './context';
 
 export default defineComponent({

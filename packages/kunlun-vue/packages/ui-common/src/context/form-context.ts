@@ -1,4 +1,4 @@
-import { inject, InjectionKey, provide } from 'vue';
+import { inject, type InjectionKey, provide } from 'vue';
 
 export interface OioDefaultFormContext {
   getTriggerContainer: (triggerNode: Node | HTMLElement) => Node | HTMLElement;

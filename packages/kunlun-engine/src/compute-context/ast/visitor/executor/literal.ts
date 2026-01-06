@@ -1,16 +1,5 @@
 import { Optional } from '@oinone/kunlun-shared';
-import {
-  BooleanLiteral,
-  isLiteral,
-  Literal,
-  Node,
-  NodeVisitor,
-  NumberLiteral,
-  RegExpLiteral,
-  StringLiteral,
-  TemplateLiteral,
-  VisitContext
-} from '../../types';
+import { type BooleanLiteral, isLiteral, type Literal, type Node, type NodeVisitor, type NumberLiteral, type RegExpLiteral, type StringLiteral, type TemplateLiteral, type VisitContext } from '../../types';
 
 export class LiteralExecutor implements NodeVisitor<Literal> {
   public static readonly INSTANCE = new LiteralExecutor();

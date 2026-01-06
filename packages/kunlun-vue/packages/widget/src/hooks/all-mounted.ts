@@ -1,6 +1,6 @@
 import { isFunction, isNil } from 'lodash-es';
 
-import { inject, InjectionKey, onBeforeMount, onMounted, onUnmounted, provide } from 'vue';
+import { inject, type InjectionKey, onBeforeMount, onMounted, onUnmounted, provide } from 'vue';
 
 interface AllMountedContext {
   reportBeforeMount: (key: string) => void;

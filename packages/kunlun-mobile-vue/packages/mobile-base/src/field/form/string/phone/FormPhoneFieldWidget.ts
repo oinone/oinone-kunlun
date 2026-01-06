@@ -5,7 +5,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 
 import { FormFieldWidget } from '../../../../basic';
-import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../../typing';
 import { FormStringFieldWidget } from '../FormStringFieldWidget';
 
 @SPI.ClassFactory(

@@ -1,25 +1,16 @@
-import {
-  $systemMajorConfig,
-  executeUrlAction,
-  MultiTabsRuntimeManifestMergedConfigManager,
-  OioProvider,
-  ReloadMaskCallChainingParameters,
-  SideBarTheme,
-  systemMajorConfig,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
-import { ActionType, IServerAction, IURLAction, IViewAction, ViewActionTarget } from '@oinone/kunlun-meta';
+import { $systemMajorConfig, executeUrlAction, MultiTabsRuntimeManifestMergedConfigManager, OioProvider, type ReloadMaskCallChainingParameters, SideBarTheme, systemMajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
+import { ActionType, type IServerAction, type IURLAction, type IViewAction, ViewActionTarget } from '@oinone/kunlun-meta';
 import { Router, useMatched } from '@oinone/kunlun-router';
 import { callFunction } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { Subscription } from '@oinone/kunlun-state';
 import { useRouter } from '@oinone/kunlun-vue-router';
 import { OioMessage, TreeNode } from '@oinone/kunlun-vue-ui-antd';
-import { Widget, WidgetBehaviorSubjection } from '@oinone/kunlun-vue-widget';
+import { Widget, type WidgetBehaviorSubjection } from '@oinone/kunlun-vue-widget';
 import { MaskWidget } from '../../basic';
 import { MenuService } from '../../service';
-import { MenuCollapsedSymbol, MenuUrlParameters, RuntimeMenu } from '../../typing';
+import { MenuCollapsedSymbol, type MenuUrlParameters, type RuntimeMenu } from '../../typing';
 import { maskCollapsed } from '../../util';
 import DefaultMenu from './DefaultMenu.vue';
 

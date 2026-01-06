@@ -1,6 +1,6 @@
 import { SPI } from '@oinone/kunlun-spi';
-import { PartnerInfo, PartnerItem } from '../../typing';
-import { PartnerInfoSession, PartnerInfoSessionToken } from '../PartnerInfoSession';
+import type { PartnerInfo, PartnerItem } from '../../typing';
+import { type PartnerInfoSession, PartnerInfoSessionToken } from '../PartnerInfoSession';
 
 export interface PartnerSessionStore {
   sid: string | null | undefined;

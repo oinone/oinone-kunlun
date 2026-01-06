@@ -1,5 +1,5 @@
 <script lang="ts">
-import { CSSStyle, NumberHelper } from '@oinone/kunlun-shared';
+import { type CSSStyle, NumberHelper } from '@oinone/kunlun-shared';
 import { isNil } from 'lodash-es';
 import { computed, createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

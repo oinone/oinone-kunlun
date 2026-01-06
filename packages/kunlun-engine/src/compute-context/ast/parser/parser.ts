@@ -1,7 +1,7 @@
-import { IParser, Node, ParserContext, Token, TokenParser, TokenReader } from '../types';
+import type { IParser, Node, ParserContext, Token, TokenParser, TokenReader } from '../types';
 import { InputStream } from '../utils';
 import { createParseContext } from '../utils/helper';
-import { getOptions, Options } from './options';
+import { getOptions, type Options } from './options';
 
 export class Parser implements IParser {
   protected readonly source: string;

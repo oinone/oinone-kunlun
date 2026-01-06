@@ -1,24 +1,15 @@
-import {
-  ActiveRecord,
-  getRefreshParameters,
-  getStaticRelationField,
-  isRelationField,
-  isStaticRelationField,
-  ModelCache,
-  Pagination,
-  RefreshCallChainingScope
-} from '@oinone/kunlun-engine';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { type ActiveRecord, getRefreshParameters, getStaticRelationField, isRelationField, isStaticRelationField, ModelCache, type Pagination, RefreshCallChainingScope } from '@oinone/kunlun-engine';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_FALSE_CONDITION, DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
-import { BooleanHelper, CallChaining, Optional, ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { OioTreeNode } from '@oinone/kunlun-vue-ui-antd';
+import { BooleanHelper, CallChaining, Optional, type ReturnPromise, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import type { OioTreeNode } from '@oinone/kunlun-vue-ui-antd';
 import { isAllInvisible, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toInteger } from 'lodash-es';
 import { BaseElementWidget } from '../../basic';
 import { FETCH_DATA_WIDGET_PRIORITY } from '../../basic/constant';
-import { TreeNodeResponseBody, TreeService } from '../../service';
-import { CardCascaderItemData, TreeData, TreeNodeMetadata, TreeRefreshCallChainingParameters } from '../../typing';
+import { type TreeNodeResponseBody, TreeService } from '../../service';
+import type { CardCascaderItemData, TreeData, TreeNodeMetadata, TreeRefreshCallChainingParameters } from '../../typing';
 import { FetchUtil, TreeUtils } from '../../util';
 
 type ResponseBody = {

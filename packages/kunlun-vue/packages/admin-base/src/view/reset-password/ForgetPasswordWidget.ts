@@ -1,17 +1,17 @@
-import { getMajorConfig, MajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
+import { getMajorConfig, type MajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
 import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { Router } from '@oinone/kunlun-router';
 import { http } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { RouterWidget, useRouter } from '@oinone/kunlun-vue-router';
 import { FormItemRule, OioFormInstance, OioMessage } from '@oinone/kunlun-vue-ui-antd';
-import { SelectItem } from '@oinone/kunlun-vue-ui-common';
+import type { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseI18nRouterWidget } from '../../basic';
 import { PhoneCodeQueryService, UserService } from '../../service';
-import { ResourceCountry } from '../../typing';
+import type { ResourceCountry } from '../../typing';
 import ForgetPassword from './ForgetPassword.vue';
-import { ResetPasswordData } from './typing';
+import type { ResetPasswordData } from './typing';
 
 @SPI.ClassFactory(
   RouterWidget.Token({

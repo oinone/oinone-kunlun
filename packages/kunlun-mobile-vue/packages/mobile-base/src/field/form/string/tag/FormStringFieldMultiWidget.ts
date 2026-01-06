@@ -1,4 +1,4 @@
-import { RuntimeStringField, translateValueByKey } from '@oinone/kunlun-engine';
+import { type RuntimeStringField, translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -6,7 +6,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { get as getValue } from 'lodash-es';
 import { BaseFieldWidget, FormFieldWidget } from '../../../../basic';
 import Tag from './Tag.vue';
-import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../../typing';
 
 @SPI.ClassFactory(
   BaseFieldWidget.Token({

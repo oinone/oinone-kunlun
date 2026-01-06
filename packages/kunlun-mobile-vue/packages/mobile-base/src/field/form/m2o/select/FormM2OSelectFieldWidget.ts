@@ -1,5 +1,5 @@
-import { ActiveRecord, ModelCache, RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
-import { IModel, isEmptyKeObject, isEmptyValue, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { type ActiveRecord, ModelCache, type RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { type IModel, isEmptyKeObject, isEmptyValue, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { getModel, queryOne } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';

@@ -1,6 +1,6 @@
 import { UrlSegmentGroup } from '@oinone/kunlun-router';
 import { genToken } from '@oinone/kunlun-vue-widget';
-import { computed, ComputedRef, inject, provide } from 'vue';
+import { computed, type ComputedRef, inject, provide } from 'vue';
 import { ACTIVATED_ROUTE_TOKEN } from '../token';
 
 export const PARENT_SEGMENT_GROUP_TOKEN = genToken<ComputedRef<UrlSegmentGroup | undefined>>('parent_segment_group');

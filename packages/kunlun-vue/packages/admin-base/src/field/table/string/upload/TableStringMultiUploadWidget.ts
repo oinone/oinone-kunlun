@@ -2,7 +2,7 @@ import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { createVNode, VNode } from 'vue';
+import { createVNode, type VNode } from 'vue';
 import { BaseFieldWidget } from '../../../../basic';
 import { TableStringTagFieldWidget } from '../tag';
 import DefaultTableUpload from './DefaultTableUpload.vue';

@@ -1,11 +1,11 @@
-import { RuntimeNumberField } from '@oinone/kunlun-engine';
+import type { RuntimeNumberField } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { RowContext } from '@oinone/kunlun-vue-ui';
+import type { RowContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toString } from 'lodash-es';
-import { VNode } from 'vue';
+import type { VNode } from 'vue';
 import { BaseFieldWidget, BaseTableFieldWidget } from '../../../basic';
 import { numberAddThousandth, numberZeroFill } from '../../util';
 

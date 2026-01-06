@@ -1,20 +1,8 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import {
-  RuntimeContext,
-  RuntimeContextManager,
-  RuntimeModelField,
-  RuntimeView,
-  RuntimeViewAction,
-  WidgetConstructor,
-  WidgetProps
-} from '@oinone/kunlun-engine';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { type RuntimeContext, RuntimeContextManager, type RuntimeModelField, type RuntimeView, type RuntimeViewAction, type WidgetConstructor, type WidgetProps } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { DslDefinitionWidget, DslDefinitionWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
-import {
-  createRuntimeContextByFieldSubview,
-  createRuntimeContextByView,
-  createRuntimeContextByViewAction
-} from '../../tags/context';
+import { DslDefinitionWidget, type DslDefinitionWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
+import { createRuntimeContextByFieldSubview, createRuntimeContextByView, createRuntimeContextByViewAction } from '../../tags/context';
 import MetadataView from './MetadataView.vue';
 
 export interface MetadataViewWidgetProps extends DslDefinitionWidgetProps {

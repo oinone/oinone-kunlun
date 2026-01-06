@@ -1,4 +1,4 @@
-import { PluginLoader, PluginLoadOption } from '../typing';
+import type { PluginLoader, PluginLoadOption } from '../typing';
 import { bindScriptLoadedEvent } from './LoadedEvent';
 
 export class UMDPluginLoader implements PluginLoader {

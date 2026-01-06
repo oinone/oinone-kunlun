@@ -4,7 +4,7 @@
 <script lang="ts">
 import { ViewType } from '@oinone/kunlun-meta';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { computed, defineComponent, onBeforeUnmount, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, onBeforeUnmount, type PropType, ref, watch } from 'vue';
 import { BaseFormItemProps, OioCommonProps, OioMetadataProps } from '../../../basic';
 
 const loadBaiDuMap = (cb) => {

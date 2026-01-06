@@ -1,24 +1,16 @@
-import {
-  ActiveRecord,
-  QueryService,
-  RelationUpdateType,
-  SubmitRelationValue,
-  SubmitType,
-  SubmitValue,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { type ActiveRecord, QueryService, RelationUpdateType, SubmitRelationValue, SubmitType, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { isEmptyKeObject, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { ILevel } from '@oinone/kunlun-request';
-import { BooleanHelper, CallChaining, CastHelper, ObjectUtils, Optional, ReturnPromise } from '@oinone/kunlun-shared';
+import { BooleanHelper, CallChaining, CastHelper, ObjectUtils, Optional, type ReturnPromise } from '@oinone/kunlun-shared';
 import { ComputeTrigger, ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
-import { ActiveRecordsWidget, ActiveRecordsWidgetProps, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { ActiveRecordsWidget, type ActiveRecordsWidgetProps, Widget, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isEmpty, isNil, isString } from 'lodash-es';
 import { clearFieldsDataFun, generatorConstructMirrorSubmitData } from '../../field/util';
-import { isValidatorLikeSuccess, isValidatorSuccess, ValidatorInfo, ValidatorStatus } from '../../typing';
+import { isValidatorLikeSuccess, isValidatorSuccess, type ValidatorInfo, ValidatorStatus } from '../../typing';
 import { BaseDataWidget } from '../common';
 import { REFRESH_FORM_DATA } from '../constant/state-stream';
-import { FormValidateResult } from '../types';
+import type { FormValidateResult } from '../types';
 
 function isSubmitRelationValue(value: Record<string, unknown> | SubmitRelationValue): value is SubmitRelationValue {
   return value instanceof SubmitRelationValue;

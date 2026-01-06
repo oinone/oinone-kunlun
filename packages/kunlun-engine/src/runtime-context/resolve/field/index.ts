@@ -5,16 +5,10 @@ import { convertDateTimeField } from './date-time-field';
 import { convertEnumerationField } from './enumeration-field';
 import { convertNumberField } from './number-field';
 import { convertRelatedField } from './related-field';
-import {
-  convertM2MField,
-  convertM2OField,
-  convertO2MField,
-  convertO2OField,
-  convertRelationField
-} from './relation-field';
+import { convertM2MField, convertM2OField, convertO2MField, convertO2OField, convertRelationField } from './relation-field';
 import { resolveDefaultValue, resolveSearchDatetimeDefaultValue } from './resolve-default-value';
 import { convertSearchField } from './search-field';
-import { FieldConverterOptions, registerConverter } from './spi';
+import { type FieldConverterOptions, registerConverter } from './spi';
 import { convertStringField } from './string-field';
 import { convertTimeField } from './time-field';
 import { convertYearField } from './year-field';

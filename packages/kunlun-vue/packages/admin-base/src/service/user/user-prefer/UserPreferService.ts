@@ -2,7 +2,7 @@ import { activeRecordsToJSONString, QueryPageResult } from '@oinone/kunlun-engin
 import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { gql, HttpClient } from '@oinone/kunlun-request';
 import { GraphqlHelper, StringHelper } from '@oinone/kunlun-shared';
-import { UserSearchPrefer, UserTablePrefer, UserTablePreferFieldWidth } from '../../../typing';
+import type { UserSearchPrefer, UserTablePrefer, UserTablePreferFieldWidth } from '../../../typing';
 
 const http = HttpClient.getInstance();
 

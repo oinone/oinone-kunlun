@@ -1,45 +1,17 @@
-import {
-  BASIC_CONFIG_KEY,
-  ConfigHelper,
-  CurrentLanguage,
-  getLoginTheme,
-  MajorConfig,
-  OINONE_HOMEPAGE_KEY,
-  OioProvider,
-  systemMajorConfig,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
+import { BASIC_CONFIG_KEY, ConfigHelper, CurrentLanguage, getLoginTheme, type MajorConfig, OINONE_HOMEPAGE_KEY, OioProvider, systemMajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
 import { isEmptyKeObject, MetadataFragment, RuntimeConfig, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
-import {
-  gql,
-  HttpClient,
-  HttpClientError,
-  IErrorMessage,
-  ILevel,
-  isFirstResetPasswordError,
-  isPicCodeError,
-  SystemErrorCode,
-  useMessageHub
-} from '@oinone/kunlun-request';
+import { gql, HttpClient, HttpClientError, type IErrorMessage, ILevel, isFirstResetPasswordError, isPicCodeError, SystemErrorCode, useMessageHub } from '@oinone/kunlun-request';
 import { Router } from '@oinone/kunlun-router';
 import { http } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { RouterWidget, useRouter } from '@oinone/kunlun-vue-router';
-import { defaultLoginErrorMessages, EN_US_CODE, RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
+import { defaultLoginErrorMessages, EN_US_CODE, type RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
 import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseI18nRouterWidget } from '../../basic';
 import { encrypt, homepageMaybeRuntimeContext } from '../../util';
 import LoginComponent from './Login.vue';
-import {
-  defaultLoginPageSettings,
-  LOGIN_LANGUAGE_ISO_STORAGE_KEY,
-  LOGIN_LANGUAGE_STORAGE_KEY,
-  LoginConfig,
-  LoginData,
-  loginMessageHubName,
-  LoginMode
-} from './types';
+import { defaultLoginPageSettings, LOGIN_LANGUAGE_ISO_STORAGE_KEY, LOGIN_LANGUAGE_STORAGE_KEY, type LoginConfig, type LoginData, loginMessageHubName, LoginMode } from './types';
 
 @SPI.ClassFactory(RouterWidget.Token({ widget: 'MobileLogin' }))
 export class LoginWidget extends BaseI18nRouterWidget {

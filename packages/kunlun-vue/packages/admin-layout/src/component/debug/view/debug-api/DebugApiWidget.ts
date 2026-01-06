@@ -3,25 +3,9 @@ import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { DefinitionNode, FieldNode, OperationDefinitionNode, SelectionNode } from 'graphql';
 import gql from 'graphql-tag';
 import { isArray, isPlainObject } from 'lodash-es';
-import {
-  DebugErrorPanel,
-  DebugFetchRequest,
-  DebugFetchResponse,
-  DebugRequestFunction,
-  DebugRequestGQLBody,
-  DebugRequestGraphQLInfo,
-  DebugRequestInfo,
-  DebugResponseData,
-  DebugResponseError,
-  RequestResolveResult
-} from '../../typing';
+import type { DebugErrorPanel, DebugFetchRequest, DebugFetchResponse, DebugRequestFunction, DebugRequestGQLBody, DebugRequestGraphQLInfo, DebugRequestInfo, DebugResponseData, DebugResponseError, RequestResolveResult } from '../../typing';
 import { DebugUtils } from '../debug-utils';
-import {
-  DebugDefaultStackInfoServiceType,
-  DebugStackInfoServiceToken,
-  DebugUnhandledExceptionMessage,
-  DebugUnhandledExceptionTitle
-} from '../service';
+import { DebugDefaultStackInfoServiceType, DebugStackInfoServiceToken, DebugUnhandledExceptionMessage, DebugUnhandledExceptionTitle } from '../service';
 import { DebugInfoStorage } from '../storage';
 import DebugApi from './DebugApi.vue';
 

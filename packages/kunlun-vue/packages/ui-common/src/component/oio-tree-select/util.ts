@@ -1,6 +1,6 @@
 import { Optional } from '@oinone/kunlun-shared';
 import { isString } from 'lodash-es';
-import { TreeSelectNode, TreeSelectProperties } from './model';
+import type { TreeSelectNode, TreeSelectProperties } from './model';
 
 export function fillTreeSelectNodesProperties<T = unknown>(
   options: T[] | undefined,

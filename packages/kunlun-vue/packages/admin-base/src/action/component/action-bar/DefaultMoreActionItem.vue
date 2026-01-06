@@ -3,7 +3,7 @@ import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { ObjectUtils, OioButton, OioPopconfirm } from '@oinone/kunlun-vue-ui-antd';
 import { ButtonType } from '@oinone/kunlun-vue-ui-common';
 import { useOioState, Widget } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, ref, VNode } from 'vue';
+import { computed, createVNode, defineComponent, ref, type VNode } from 'vue';
 import type { ActionWidget } from '../action';
 import MenuItem from '../action/MenuItem.vue';
 

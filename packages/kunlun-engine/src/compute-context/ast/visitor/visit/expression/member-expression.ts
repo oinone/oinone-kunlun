@@ -1,6 +1,6 @@
-import { isMemberExpression, MemberExpression, Node, VisitContext } from '../../../types';
+import { isMemberExpression, type MemberExpression, type Node, type VisitContext } from '../../../types';
 import { BaseVisitor } from '../base';
-import { AdapterContext } from '../types';
+import type { AdapterContext } from '../types';
 
 export class MemberExpressionVisitor extends BaseVisitor<MemberExpression> {
   public static readonly INSTANCE = new MemberExpressionVisitor();

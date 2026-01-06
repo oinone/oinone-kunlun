@@ -1,22 +1,15 @@
-import { RuntimeModelField } from '@oinone/kunlun-engine';
+import type { RuntimeModelField } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { isDev } from '@oinone/kunlun-router';
-import {
-  DateFormatMap,
-  DateTimeFormatMap,
-  DateUtil,
-  defaultFormat,
-  Optional,
-  TimeFormatMap
-} from '@oinone/kunlun-shared';
+import { DateFormatMap, DateTimeFormatMap, DateUtil, defaultFormat, Optional, TimeFormatMap } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { RowContext } from '@oinone/kunlun-vue-ui';
+import type { RowContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isDate, isNil, isString, toString } from 'lodash-es';
-import { createVNode, VNode } from 'vue';
+import { createVNode, type VNode } from 'vue';
 import { BaseElementWidget, BaseTableColumnWidget, BaseTableQuickOperationColumnWidget } from '../../../../basic';
 import { EditorField } from '../../../../tags/internal';
-import { UserTablePrefer } from '../../../../typing';
+import type { UserTablePrefer } from '../../../../typing';
 import { findRangeFields } from '../../../util';
 
 @SPI.ClassFactory(

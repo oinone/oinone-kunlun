@@ -1,7 +1,7 @@
 import { MetadataRuntimeFragment, MetadataRuntimeFragmentName, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { http } from '@oinone/kunlun-service';
 import gql from 'graphql-tag';
-import { RuntimeFunctionDefinition } from '../runtime-metadata';
+import type { RuntimeFunctionDefinition } from '../runtime-metadata';
 import { MemoryAsyncCache } from './cache';
 import { ClearCache } from './CacheClear';
 
@@ -147,16 +147,12 @@ async function fetchFunction(namespace: string, fun: string): Promise<RuntimeFun
     }
     ${MetadataRuntimeFragment.Function}
   `;
-  try {
-    const result = await http.query<RuntimeFunctionDefinition>(SYSTEM_MODULE_NAME.BASE, body);
-    const functionDefinition = result.data.functionQuery[modelActionName];
-    if (!functionDefinition.name) {
-      return undefined;
-    }
-    return functionDefinition;
-  } catch (e) {
+  const result = await http.query<RuntimeFunctionDefinition>(SYSTEM_MODULE_NAME.BASE, body);
+  const functionDefinition = result.data.functionQuery[modelActionName];
+  if (!functionDefinition.name) {
     return undefined;
   }
+  return functionDefinition;
 }
 
 async function fetchFunctionByName(namespace: string, name: string): Promise<RuntimeFunctionDefinition | undefined> {
@@ -173,16 +169,12 @@ async function fetchFunctionByName(namespace: string, name: string): Promise<Run
     }
     ${MetadataRuntimeFragment.Function}
   `;
-  try {
-    const result = await http.query<RuntimeFunctionDefinition>(SYSTEM_MODULE_NAME.BASE, body);
-    const functionDefinition = result.data.functionQuery[modelActionName];
-    if (!functionDefinition.fun) {
-      return undefined;
-    }
-    return functionDefinition;
-  } catch (e) {
+  const result = await http.query<RuntimeFunctionDefinition>(SYSTEM_MODULE_NAME.BASE, body);
+  const functionDefinition = result.data.functionQuery[modelActionName];
+  if (!functionDefinition.fun) {
     return undefined;
   }
+  return functionDefinition;
 }
 
 ClearCache.register(() => {

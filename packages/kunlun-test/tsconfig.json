@@ -1,0 +1,5 @@
+{
+  "extends": "@oinone/kunlun-compile/tsconfig/single-module.json",
+  "include": ["index.ts", "src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

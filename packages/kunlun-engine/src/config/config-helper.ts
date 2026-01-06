@@ -1,4 +1,4 @@
-import { RuntimeConfigOptions } from '@oinone/kunlun-meta';
+import type { RuntimeConfigOptions } from '@oinone/kunlun-meta';
 import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
 
 export interface EnabledConfig extends RuntimeConfigOptions {

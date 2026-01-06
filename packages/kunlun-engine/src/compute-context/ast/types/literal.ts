@@ -1,5 +1,5 @@
 import { BigNumber } from '@oinone/kunlun-shared';
-import { AnyExpression, Literal, Node } from './base';
+import type { AnyExpression, Literal, Node } from './base';
 
 /**
  * undefined

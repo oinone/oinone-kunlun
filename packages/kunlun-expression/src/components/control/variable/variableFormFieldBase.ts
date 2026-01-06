@@ -2,51 +2,13 @@
  * VariableInputFormField.vue
  * VariableTagFormField.vue
  */
-import { Pagination } from '@oinone/kunlun-engine';
-import { IModelField, isDateTtype, isNumberTtype, ModelFieldType } from '@oinone/kunlun-meta';
+import type { Pagination } from '@oinone/kunlun-engine';
+import { type IModelField, isDateTtype, isNumberTtype, ModelFieldType } from '@oinone/kunlun-meta';
 import { BooleanHelper, OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { isNil } from 'lodash-es';
-import {
-  computed,
-  ExtractPropTypes,
-  nextTick,
-  onBeforeUnmount,
-  onMounted,
-  PropType,
-  ref,
-  SetupContext,
-  watch
-} from 'vue';
-import {
-  checkBlurFocus,
-  createDefaultExpressionItem,
-  createDefaultVariableItemList,
-  createExpressionDisplayName,
-  createInputPatternByTtype,
-  createValueVariableListStr,
-  createVariableContextItem,
-  createVariableItemBySelectedOptions,
-  getSelectedFields,
-  isCustomInputWidget,
-  isDefaultBlankStringVariableItemList,
-  removeVariableItemByIndex,
-  translateExpValue
-} from '../../../share';
-import {
-  ElementSize,
-  ExpressionDefinitionType,
-  ExpressionSeniorMode,
-  IExpressionItem,
-  IExpressionOption,
-  IExpressionQuoteType,
-  IExpSelectOption,
-  IVariableContextItem,
-  IVariableItem,
-  VARIABLE_MAX_STRING_LENGTH,
-  VariableItemType,
-  VariableItemTypeDisplayName,
-  VariableItemTypeList
-} from '../../../types';
+import { computed, type ExtractPropTypes, nextTick, onBeforeUnmount, onMounted, type PropType, ref, type SetupContext, watch } from 'vue';
+import { checkBlurFocus, createDefaultExpressionItem, createDefaultVariableItemList, createExpressionDisplayName, createInputPatternByTtype, createValueVariableListStr, createVariableContextItem, createVariableItemBySelectedOptions, getSelectedFields, isCustomInputWidget, isDefaultBlankStringVariableItemList, removeVariableItemByIndex, translateExpValue } from '../../../share';
+import { ElementSize, ExpressionDefinitionType, ExpressionSeniorMode, type IExpressionItem, type IExpressionOption, IExpressionQuoteType, type IExpSelectOption, type IVariableContextItem, type IVariableItem, VARIABLE_MAX_STRING_LENGTH, VariableItemType, VariableItemTypeDisplayName, VariableItemTypeList } from '../../../types';
 
 export const IVariableFormFieldProps = {
   type: String as PropType<ExpressionDefinitionType>,

@@ -1,5 +1,5 @@
-import { IGridWidgetProps } from '@oinone/kunlun-engine';
-import { CSSStyle } from '@oinone/kunlun-shared';
+import type { IGridWidgetProps } from '@oinone/kunlun-engine';
+import type { CSSStyle } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { MaskWidget } from '../../../basic';
 import Grid from './Grid.vue';

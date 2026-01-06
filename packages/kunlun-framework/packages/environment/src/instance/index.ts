@@ -1,5 +1,5 @@
 import { selectorCurrentInstanceGetter } from '../spi';
-import { FrameworkInstance } from './typing';
+import type { FrameworkInstance } from './typing';
 
 export function useCurrentInstance(): FrameworkInstance {
   return selectorCurrentInstanceGetter({ framework: 'vue' })!();

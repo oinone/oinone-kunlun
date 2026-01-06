@@ -1,9 +1,9 @@
-import { RuntimeModel } from '../../../../runtime-metadata';
+import type { RuntimeModel } from '../../../../runtime-metadata';
 import { Language } from '../../language';
 import { parser } from '../../parser';
-import { Node } from '../../types';
-import { StringAdapterContext } from '../to-string';
-import { Visitor, VisitorAdapter } from '../visit';
+import type { Node } from '../../types';
+import type { StringAdapterContext } from '../to-string';
+import { Visitor, type VisitorAdapter } from '../visit';
 import { TranslateAdapter } from './adapter';
 
 /**

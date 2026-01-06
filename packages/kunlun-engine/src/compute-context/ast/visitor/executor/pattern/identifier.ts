@@ -1,4 +1,4 @@
-import { Identifier, isIdentifier, Node, NodeVisitor, VisitContext } from '../../../types';
+import { type Identifier, isIdentifier, type Node, type NodeVisitor, type VisitContext } from '../../../types';
 import { TokenPropertiesManager } from '../../../manager';
 import { EffectManager } from '../reactive';
 

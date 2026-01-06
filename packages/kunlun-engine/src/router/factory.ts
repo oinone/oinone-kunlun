@@ -1,6 +1,6 @@
 import { MultiTabsRuntimeManifestMergedConfigManager, MultiTabsRouter } from '../view';
 import { DefaultSingleStackRouter } from './DefaultSingleStackRouter';
-import { BackRouter, ForwardRouter } from './typing';
+import type { BackRouter, ForwardRouter } from './typing';
 
 export function getBackRouter(): { router: BackRouter; force: boolean } {
   if (MultiTabsRuntimeManifestMergedConfigManager.isEnabled()) {

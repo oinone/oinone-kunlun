@@ -44,15 +44,15 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, onUpdated, PropType, type Ref, ref, watch } from 'vue';
+import { computed, defineComponent, onUpdated, type PropType, type Ref, ref, watch } from 'vue';
 import { isNil } from 'lodash-es';
-import { Pagination } from '@oinone/kunlun-engine';
+import type { Pagination } from '@oinone/kunlun-engine';
 import { ExpressionKeyword } from '@oinone/kunlun-expression';
 import { isComplexTtype } from '@oinone/kunlun-meta';
 import { translateExpValue } from '../../share';
 import ExpressionCascaderMenu from './CascaderMenu.vue';
 import SearchCascaderMenu from './SearchCascaderMenu.vue';
-import { IExpSelectOption } from '../../types';
+import type { IExpSelectOption } from '../../types';
 
 function appendOptions(options: IExpSelectOption[], optionsList: IExpSelectOption[][], maxDepth = 5) {
   if (!isNil(maxDepth) && maxDepth > 0 && optionsList?.length > maxDepth) {

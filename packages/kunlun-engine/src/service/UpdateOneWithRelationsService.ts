@@ -1,10 +1,10 @@
-import { GQLBuilder, GQLRequestParameterBuilder } from '@oinone/kunlun-request';
-import { isRelation2MField, RequestModelField } from '../runtime-context';
-import { RuntimeModel, RuntimeRelationField } from '../runtime-metadata';
+import type { GQLBuilder, GQLRequestParameterBuilder } from '@oinone/kunlun-request';
+import { isRelation2MField, type RequestModelField } from '../runtime-context';
+import type { RuntimeModel, RuntimeRelationField } from '../runtime-metadata';
 import { SubmitRelationValue, SubmitValue } from '../submit';
-import { ActiveRecord } from '../typing';
-import { FunctionExecuteOptions, FunctionOptions, FunctionService } from './FunctionService';
-import { FunctionMetadata, RelationData, RelationDataModel } from './metadata';
+import type { ActiveRecord } from '../typing';
+import { type FunctionExecuteOptions, type FunctionOptions, FunctionService } from './FunctionService';
+import { FunctionMetadata, type RelationData, type RelationDataModel } from './metadata';
 
 export class UpdateOneWithRelationsService {
   private static DATA_PARAMETER_NAME = 'data';

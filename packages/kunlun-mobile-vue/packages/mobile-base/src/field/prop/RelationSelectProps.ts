@@ -1,6 +1,6 @@
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { computed, PropType, ref, watch } from 'vue';
+import { computed, type PropType, ref, watch } from 'vue';
 import { isNil } from 'lodash-es';
 import { OioMetadataProps } from '../../basic';
 

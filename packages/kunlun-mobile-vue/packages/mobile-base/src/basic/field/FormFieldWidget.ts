@@ -1,10 +1,10 @@
-import { isRelatedField, RuntimeModelField } from '@oinone/kunlun-engine';
+import { isRelatedField, type RuntimeModelField } from '@oinone/kunlun-engine';
 import { ExpressionKeyword } from '@oinone/kunlun-expression';
 import { isComplexTtype, isDateTtype, isNumberTtype, ModelFieldType, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, Optional } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNaN, isNumber, isString, set } from 'lodash-es';
-import { BaseFieldProps, BaseFieldWidget } from '../token';
+import { type BaseFieldProps, BaseFieldWidget } from '../token';
 
 /**
  * 单字段通用组件

@@ -5,7 +5,7 @@ import { TableFixed } from '@oinone/kunlun-vue-ui';
 import { OioIcon, ReturnPromise, StringHelper } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Popover as APopover } from 'ant-design-vue';
-import { createVNode, defineComponent, PropType, ref, VNode } from 'vue';
+import { createVNode, defineComponent, type PropType, ref, type VNode } from 'vue';
 import { VxeTableConstructor, VxeTablePrivateMethods } from 'vxe-table';
 
 type TableOperatorHandlerFn = (table, column) => ReturnPromise<boolean>;

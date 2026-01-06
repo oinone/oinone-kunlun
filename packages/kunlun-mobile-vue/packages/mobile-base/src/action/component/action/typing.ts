@@ -1,7 +1,7 @@
-import { IAction } from '@oinone/kunlun-meta';
+import type { IAction } from '@oinone/kunlun-meta';
 import { ObjectUtils } from '@oinone/kunlun-shared';
 import { ButtonBizStyle, ButtonType, PopconfirmPlacement } from '@oinone/kunlun-vue-ui-common';
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 
 export const BaseActionProps = {
   action: {

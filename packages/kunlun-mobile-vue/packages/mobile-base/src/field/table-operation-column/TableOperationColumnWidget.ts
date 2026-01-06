@@ -1,9 +1,9 @@
-import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseTableColumnWidget } from '../../basic';
 import { UserPreferService } from '../../service';
-import { OperateEntity, UserTablePrefer, VisibleField } from '../../typing';
+import type { OperateEntity, UserTablePrefer, VisibleField } from '../../typing';
 import TableOperationColumn from './TableOperationColumn.vue';
 
 function hasAction(dsl: DslDefinition | undefined) {

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { CastHelper, CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { CastHelper, type CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import {
   OioCloseIcon,
   OioIcon,
@@ -49,6 +49,10 @@ export default defineComponent({
       return props.wrapperProps?.id || internalId;
     });
 
+    const onUpdateVisible = (val: boolean) => {
+      context.emit('update:visible', val);
+    };
+
     watch(
       () => props.visible,
       (val) => {
@@ -87,7 +91,8 @@ export default defineComponent({
 
     return {
       ...useModal(props, context),
-      id
+      id,
+      onUpdateVisible
     };
   },
   render() {
@@ -216,17 +221,20 @@ export default defineComponent({
           ...(this.wrapperProps || {}),
           id: this.id
         },
+        bodyStyle: this.wrapperProps?.bodyStyle,
+        maskStyle: this.wrapperProps?.maskStyle,
         zIndex: this.zIndex,
         okText: this.$translate(this.enterText),
         cancelText: this.$translate(this.cancelText),
-        visible: this.visible,
+        open: this.visible,
         closable: this.closable,
         keyboard: this.keyboard,
         destroyOnClose: this.destroyOnClose,
         getContainer: this.getTriggerContainer,
         confirmLoading: this.confirmLoading,
         onOk: this.enter,
-        onCancel: this.cancel
+        onCancel: this.cancel,
+        'onUpdate:open': this.onUpdateVisible
       },
       {
         ...slots,

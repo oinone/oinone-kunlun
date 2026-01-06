@@ -1,23 +1,5 @@
-import {
-  $systemMajorConfig,
-  executeViewAction,
-  IMultiTabsManager,
-  MultiTabInstance,
-  MultiTabsApplicationHomepageConfig,
-  MultiTabsConfigManager,
-  MultiTabsHelper,
-  MultiTabsManager,
-  MultiTabsModuleHomepageConfig,
-  MultiTabsRouter,
-  MultiTabsRuntimeManifestMergedConfigManager,
-  MultiTabTheme,
-  MultiTabType,
-  RedirectTargetEnum,
-  ReloadMainViewCallChainingParameters,
-  systemMajorConfig,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
-import { Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { $systemMajorConfig, executeViewAction, type IMultiTabsManager, type MultiTabInstance, type MultiTabsApplicationHomepageConfig, MultiTabsConfigManager, MultiTabsHelper, MultiTabsManager, type MultiTabsModuleHomepageConfig, MultiTabsRouter, MultiTabsRuntimeManifestMergedConfigManager, MultiTabTheme, MultiTabType, RedirectTargetEnum, type ReloadMainViewCallChainingParameters, systemMajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
+import { type Matched, Router, useMatched } from '@oinone/kunlun-router';
 import { BooleanHelper, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Subscription } from '@oinone/kunlun-state';
@@ -27,7 +9,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { MaskWidget } from '../../basic';
 import { ModuleService } from '../../service';
 import MultiTabs from './MultiTabs.vue';
-import { MultiTabItem } from './typing';
+import type { MultiTabItem } from './typing';
 
 @SPI.ClassFactory(MaskWidget.Token({ dslNodeType: 'multi-tabs' }))
 export class MultiTabsWidget extends MaskWidget {

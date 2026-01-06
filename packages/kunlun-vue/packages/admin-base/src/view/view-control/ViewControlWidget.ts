@@ -1,6 +1,6 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { FlexRowJustify } from '@oinone/kunlun-vue-ui-common';
-import { OioActionBarState, OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { type OioActionBarState, type OioTableViewState, Widget } from '@oinone/kunlun-vue-widget';
 import type { ActionBarWidget, ActionWidget } from '../../action';
 import { BaseElementWidget } from '../../basic';
 import DefaultViewControl from './DefaultViewControl.vue';

@@ -1,5 +1,5 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
-import { ROOT_HANDLE, RuntimeContext } from '@oinone/kunlun-engine';
+import { ROOT_HANDLE, type RuntimeContext } from '@oinone/kunlun-engine';
 import { BooleanHelper, Optional } from '@oinone/kunlun-shared';
 import { DrawerPlacement, InnerPopupSize } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';

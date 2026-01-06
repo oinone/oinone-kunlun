@@ -1,4 +1,4 @@
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 
 export enum OioShapeType {
   square = 'square',

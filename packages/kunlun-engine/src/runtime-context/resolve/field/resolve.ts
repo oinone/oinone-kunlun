@@ -1,8 +1,8 @@
-import { DslDefinition, DslDefinitionHelper, FieldDslDefinition } from '@oinone/kunlun-dsl';
+import { type DslDefinition, DslDefinitionHelper, type FieldDslDefinition } from '@oinone/kunlun-dsl';
 import { isRelationTtype, ModelFieldSerializeType, ModelFieldType } from '@oinone/kunlun-meta';
 import { BooleanHelper } from '@oinone/kunlun-shared';
-import { generatorModelName, RuntimeModelField } from '../../../runtime-metadata';
-import { RuntimeContext } from '../../runtime-context';
+import { generatorModelName, type RuntimeModelField } from '../../../runtime-metadata';
+import type { RuntimeContext } from '../../runtime-context';
 import { resolveAction } from '../action';
 import { ResolveUtil } from '../util';
 import { selectorConverters } from './spi';

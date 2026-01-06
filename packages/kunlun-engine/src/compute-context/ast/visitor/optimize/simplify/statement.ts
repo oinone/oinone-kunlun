@@ -1,5 +1,5 @@
-import { ExpressionStatement, isLiteral, VisitContext } from '../../../types';
-import { AdapterContext, VisitorAdapter } from '../../visit';
+import { type ExpressionStatement, isLiteral, type VisitContext } from '../../../types';
+import type { AdapterContext, VisitorAdapter } from '../../visit';
 import { AbstractOptimizeAdapter } from '../base';
 
 export class SimplifyStatement<C extends AdapterContext = AdapterContext>

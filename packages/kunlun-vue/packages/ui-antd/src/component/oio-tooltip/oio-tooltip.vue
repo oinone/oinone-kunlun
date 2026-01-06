@@ -38,19 +38,18 @@ export default defineComponent({
       trigger: this.trigger,
       placement: this.placement,
       overlayStyle: this.overlayStyle,
-      ...this.$attrs,
+      ...PropRecordHelper.collectionBasicProps(this.$attrs, [`${DEFAULT_PREFIX}-tooltip`]),
       destroyTooltipOnHide: this.destroyOnHide,
-      'onUpdate:visible': this.onUpdateVisible,
-      class: StringHelper.append([`${DEFAULT_PREFIX}-tooltip`], CastHelper.cast(this.$attrs.class)),
+      'onUpdate:open': this.onUpdateVisible,
       overlayClassName: StringHelper.append(
         [`${DEFAULT_PREFIX}-tooltip-overlay`],
         CastHelper.cast(this.overlayClassName)
       ).join(' ')
     };
     if (this.disabled) {
-      componentProps.visible = false;
+      componentProps.open = false;
     } else if (this.visible !== undefined) {
-      componentProps.visible = this.visible;
+      componentProps.open = this.visible;
     }
     return createVNode(ATooltip, componentProps, PropRecordHelper.collectionSlots(this.$slots, ['default', 'title']));
   }

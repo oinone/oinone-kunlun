@@ -1,12 +1,4 @@
-import {
-  ActiveRecord,
-  ActiveRecords,
-  RuntimeM2MField,
-  RuntimeM2OField,
-  RuntimeO2MField,
-  RuntimeO2OField,
-  RuntimeRelationField
-} from '@oinone/kunlun-engine';
+import type { ActiveRecord, ActiveRecords, RuntimeM2MField, RuntimeM2OField, RuntimeO2MField, RuntimeO2OField, RuntimeRelationField } from '@oinone/kunlun-engine';
 import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 
 /**

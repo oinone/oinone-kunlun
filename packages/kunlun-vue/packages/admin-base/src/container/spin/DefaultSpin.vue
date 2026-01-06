@@ -1,15 +1,7 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import {
-  FormLayout,
-  OioSpin,
-  OioSpinProps,
-  PropRecordHelper,
-  SpinSize,
-  useInjectOioFormContext,
-  useProviderOioFormContext
-} from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType, Slot, vShow, withDirectives } from 'vue';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { FormLayout, OioSpin, OioSpinProps, PropRecordHelper, SpinSize, useInjectOioFormContext, useProviderOioFormContext } from '@oinone/kunlun-vue-ui-antd';
+import { computed, createVNode, defineComponent, type PropType, type Slot, vShow, withDirectives } from 'vue';
 import { defaultFlexResolve } from '../../tags/resolve/helper';
 
 export default defineComponent({

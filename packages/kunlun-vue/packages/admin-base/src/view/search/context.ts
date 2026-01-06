@@ -1,5 +1,5 @@
-import { ComputedRef, inject, InjectionKey, provide } from 'vue';
-import { UserSearchPrefer } from '../../typing';
+import { type ComputedRef, inject, type InjectionKey, provide } from 'vue';
+import type { UserSearchPrefer } from '../../typing';
 
 export interface SearchPreferContext {
   selected: ComputedRef<UserSearchPrefer | undefined>;

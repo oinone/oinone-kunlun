@@ -1,5 +1,5 @@
 import { ViewType } from '@oinone/kunlun-meta';
-import { SPIFactory, SPIOperator, SPIOptions, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
+import { SPIFactory, SPIOperator, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
 
 /**
  * 母版注册可选项

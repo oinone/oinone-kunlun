@@ -1,8 +1,8 @@
-import { RuntimeContext } from '@oinone/kunlun-engine';
+import type { RuntimeContext } from '@oinone/kunlun-engine';
 import { SPI } from '@oinone/kunlun-spi';
-import { DebugErrorAnalysisResult } from '../../../../typing';
+import type { DebugErrorAnalysisResult } from '../../../../typing';
 import { DebugUtils } from '../../../debug-utils';
-import { DebugRuntimeContextService, DebugRuntimeContextServiceToken } from '../../DebugRuntimeContextService';
+import { type DebugRuntimeContextService, DebugRuntimeContextServiceToken } from '../../DebugRuntimeContextService';
 
 @SPI.Service(DebugRuntimeContextServiceToken, { priority: 70 })
 export class DebugRuntimeTemplateService implements DebugRuntimeContextService {

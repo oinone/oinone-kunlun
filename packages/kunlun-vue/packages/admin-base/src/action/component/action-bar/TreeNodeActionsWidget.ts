@@ -2,8 +2,8 @@ import { TreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
-import { TreeData } from '../../../typing';
-import { ActionBarWidget, ActionBarWidgetProps } from './ActionBarWidget';
+import type { TreeData } from '../../../typing';
+import { ActionBarWidget, type ActionBarWidgetProps } from './ActionBarWidget';
 
 export interface TreeNodeActionsWidgetProps<V extends TreeData = TreeData> extends ActionBarWidgetProps {
   node: TreeNode<V>;

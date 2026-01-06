@@ -1,4 +1,4 @@
-import { CSSPlugin, JavascriptPlugin, PluginLoadType } from './load-option';
+import type { CSSPlugin, JavascriptPlugin, PluginLoadType } from './load-option';
 
 /**
  * 插件加载依赖

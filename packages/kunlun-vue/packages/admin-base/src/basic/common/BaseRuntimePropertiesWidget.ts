@@ -1,16 +1,9 @@
-import {
-  ActiveRecord,
-  RuntimeContext,
-  RuntimeContextManager,
-  RuntimeModel,
-  RuntimeView,
-  RuntimeViewAction
-} from '@oinone/kunlun-engine';
+import { type ActiveRecord, type RuntimeContext, RuntimeContextManager, type RuntimeModel, type RuntimeView, type RuntimeViewAction } from '@oinone/kunlun-engine';
 import { ViewClientType } from '@oinone/kunlun-meta';
 import { useMatched } from '@oinone/kunlun-router';
 import { BooleanHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
-import { ActiveRecordsWidget, ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
-import { UrlQueryParameters } from '../types';
+import { ActiveRecordsWidget, type ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
+import type { UrlQueryParameters } from '../types';
 
 // fixme @zbh 20230209 获取真实的当前客户端类型
 function getCurrentClientType(): ViewClientType {

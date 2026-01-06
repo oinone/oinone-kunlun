@@ -1,5 +1,5 @@
-import { ActiveRecord, ActiveRecords, RuntimeAction } from '@oinone/kunlun-engine';
-import { ClickResult } from './action';
+import type { ActiveRecord, ActiveRecords, RuntimeAction } from '@oinone/kunlun-engine';
+import type { ClickResult } from './action';
 
 export interface PopupEventHandles {
   cancel: Function;

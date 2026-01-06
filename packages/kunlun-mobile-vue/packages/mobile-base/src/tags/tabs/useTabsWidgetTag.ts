@@ -1,6 +1,6 @@
 import { DslDefinitionWidget, DslRender } from '@oinone/kunlun-vue-widget';
-import { SetupContext, Slot, VNode } from 'vue';
-import { useWidgetTag, UseWidgetTagContext } from '../mixin';
+import type { SetupContext, Slot, VNode } from 'vue';
+import { useWidgetTag, type UseWidgetTagContext } from '../mixin';
 import { InternalWidget } from '../resolve';
 import { useTabWidgetTag } from './useTabWidgetTag';
 

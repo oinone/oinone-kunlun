@@ -1,35 +1,15 @@
-import {
-  ColSpanEnum,
-  getRealTtype,
-  isRuntimeClientAction,
-  RuntimeAction,
-  RuntimeContextManager,
-  RuntimeModelField,
-  RuntimeViewAction
-} from '@oinone/kunlun-engine';
-import { IDslNode, ViewType } from '@oinone/kunlun-meta';
+import { ColSpanEnum, getRealTtype, isRuntimeClientAction, type RuntimeAction, RuntimeContextManager, type RuntimeModelField, type RuntimeViewAction } from '@oinone/kunlun-engine';
+import { type IDslNode, ViewType } from '@oinone/kunlun-meta';
 import { CastHelper, debugConsole, instantiate } from '@oinone/kunlun-shared';
-import { getWidget, getWidgetNotNull, newVueWidget, RenderWidget, VueWidget } from '@oinone/kunlun-vue-widget';
-import {
-  BaseActionOptions,
-  BaseActionWidget,
-  BaseElementOptions,
-  BaseElementWidget,
-  BaseFieldOptions,
-  BaseFieldWidget,
-  BasePackOptions,
-  BasePackWidget,
-  BaseView,
-  BaseViewOptions,
-  CustomWidget as CommonCustomWidget
-} from '../../../basic';
+import { getWidget, getWidgetNotNull, newVueWidget, type RenderWidget, VueWidget } from '@oinone/kunlun-vue-widget';
+import { type BaseActionOptions, BaseActionWidget, type BaseElementOptions, BaseElementWidget, type BaseFieldOptions, BaseFieldWidget, type BasePackOptions, BasePackWidget, BaseView, type BaseViewOptions, CustomWidget as CommonCustomWidget } from '../../../basic';
 import { DefaultColWidget, DefaultContainerColWidget, DefaultRowWidget } from '../../../container';
 import { TableOperationColumnWidget } from '../../../field/table-operation-column/TableOperationColumnWidget';
 import { selectorFieldMixinComponent } from '../../../spi';
 import { ActiveLayoutEffectOpt } from '../../context/active';
 import { isCreateFlexElement } from '../helper';
-import { CustomWidgetProps } from '../typing';
-import { ActionWidgetProps, ElementWidgetProps, FieldWidgetProps, PackWidgetProps, ViewWidgetProps } from './typing';
+import type { CustomWidgetProps } from '../typing';
+import type { ActionWidgetProps, ElementWidgetProps, FieldWidgetProps, PackWidgetProps, ViewWidgetProps } from './typing';
 
 export function createDefaultCol(rowWidget: DefaultRowWidget, props: PackWidgetProps) {
   return rowWidget.createWidget(new DefaultColWidget(rowWidget), props.slotName, {

@@ -1,6 +1,6 @@
 import { ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { isDetailViewState, OioAnyViewState } from '@oinone/kunlun-vue-widget';
+import { isDetailViewState, type OioAnyViewState } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget, BaseFormWidget } from '../../basic';
 import { DETAIL_WIDGET } from '../../typing';
 import DefaultDetail from './DefaultDetail.vue';

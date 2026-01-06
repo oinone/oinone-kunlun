@@ -1,7 +1,7 @@
 import { ExpressionKeyword } from '@oinone/kunlun-expression';
-import { RuntimeModelField, RuntimeRelatedField, RuntimeRelationField } from '../../runtime-metadata';
+import type { RuntimeModelField, RuntimeRelatedField, RuntimeRelationField } from '../../runtime-metadata';
 import { isRelatedField, isRelation2MField, isRelationField } from '../helper';
-import { RuntimeContext } from '../runtime-context';
+import type { RuntimeContext } from '../runtime-context';
 import { RuntimeContextManager } from '../runtime-context-manager';
 
 function isEffectiveRelatedField(field: RuntimeModelField): field is RuntimeRelatedField {

@@ -1,5 +1,5 @@
 import { DEFAULT_NONE_GUTTERS } from './constant';
-import { FlexRowJustify, StandardGutterType } from './typing';
+import { FlexRowJustify, type StandardGutterType } from './typing';
 
 export class FlexHelper {
   public static justify(justify: string | FlexRowJustify | undefined): string | undefined {

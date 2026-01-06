@@ -1,5 +1,5 @@
-import { OioTreeNode } from '@oinone/kunlun-shared';
-import { TreeData } from './tree';
+import type { OioTreeNode } from '@oinone/kunlun-shared';
+import type { TreeData } from './tree';
 
 export interface CardCascaderItemData extends TreeData {
   expandedKeys?: string[];

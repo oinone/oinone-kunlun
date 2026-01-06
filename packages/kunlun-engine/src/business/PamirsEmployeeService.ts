@@ -1,8 +1,9 @@
 import { ServiceIdentifier } from '@oinone/kunlun-spi';
-import { ListModelApi } from '../service';
-import { PamirsEmployee } from '../typing';
+import type { ListModelApi } from '../service';
+import type { PamirsEmployee } from '../typing';
 
 export interface PamirsEmployeeQueryFilter {
+  model?: string;
   rsql?: string;
   employeeCodes?: string[];
   departmentCodes?: string[];

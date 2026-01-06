@@ -1,7 +1,7 @@
-import { ActionElement, IServerAction } from '@oinone/kunlun-meta';
+import type { ActionElement, IServerAction } from '@oinone/kunlun-meta';
 import { callFunction } from '@oinone/kunlun-service';
 import { requestMutationByActionElement } from '../../helper';
-import { RuntimeServerAction } from '../../runtime-metadata';
+import type { RuntimeServerAction } from '../../runtime-metadata';
 
 /**
  *@description 执行一个serverAction v2版本使用，为了兼容老版本

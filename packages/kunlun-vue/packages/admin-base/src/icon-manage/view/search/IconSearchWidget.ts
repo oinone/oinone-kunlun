@@ -1,9 +1,4 @@
-import {
-  ActiveRecord,
-  activeRecordsToJSONString,
-  RefreshCallChainingParameters,
-  RefreshCallChainingScope
-} from '@oinone/kunlun-engine';
+import { type ActiveRecord, activeRecordsToJSONString, type RefreshCallChainingParameters, RefreshCallChainingScope } from '@oinone/kunlun-engine';
 import { LifeCycleHeart } from '@oinone/kunlun-event';
 import { ViewType } from '@oinone/kunlun-meta';
 import { getRouterInstance, useMatched } from '@oinone/kunlun-router';
@@ -12,11 +7,11 @@ import { SPI } from '@oinone/kunlun-spi';
 import { parseActionDomain4search } from '@oinone/kunlun-vue-admin-layout';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, debounce } from 'lodash-es';
-import { BaseElementWidget, BaseFieldWidget, BaseSearchWidget, QueryExpression } from '../../../basic';
+import { BaseElementWidget, BaseFieldWidget, BaseSearchWidget, type QueryExpression } from '../../../basic';
 import { FormStringInputFieldWidget } from '../../../field';
 import { groupChangeBehavior } from '../../action';
 import { IconGroupSelectWidget } from '../../field/IconGroupSelectWidget';
-import { createGroup, deleteGroup, fetchAllGroup, IconGroup, modifyGroup } from '../../service/IconManageService';
+import { createGroup, deleteGroup, fetchAllGroup, type IconGroup, modifyGroup } from '../../service/IconManageService';
 import IconSearch from './IconSearch.vue';
 
 @SPI.ClassFactory(

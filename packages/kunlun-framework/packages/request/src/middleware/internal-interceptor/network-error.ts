@@ -1,5 +1,5 @@
 import { MessageHub } from '../../message';
-import { IResponseErrorResult, NetworkInterceptor } from '../../types';
+import type { IResponseErrorResult, NetworkInterceptor } from '../../types';
 
 export class NetworkErrorInterceptor implements NetworkInterceptor {
   public error(response: IResponseErrorResult) {

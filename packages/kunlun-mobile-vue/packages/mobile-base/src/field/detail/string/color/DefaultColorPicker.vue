@@ -19,7 +19,7 @@
 import { ColorFormat, ColorInputPlacement, DEFAULT_PREDEFINE } from '@oinone/kunlun-vue-ui-common';
 import { OioColorPicker } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../basic';
 import DetailCommonField from '../../common/DetailCommonField.vue';
 

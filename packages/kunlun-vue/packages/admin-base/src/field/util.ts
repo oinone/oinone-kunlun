@@ -1,14 +1,8 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import {
-  ActiveRecord,
-  RuntimeContext,
-  RuntimeEnumerationOption,
-  RuntimeModel,
-  RuntimeModelField
-} from '@oinone/kunlun-engine';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import type { ActiveRecord, RuntimeContext, RuntimeEnumerationOption, RuntimeModel, RuntimeModelField } from '@oinone/kunlun-engine';
 import { EnumOptionState, ModelFieldType } from '@oinone/kunlun-meta';
-import { StandardEnumerationValue, StringHelper } from '@oinone/kunlun-shared';
-import { SelectItem } from '@oinone/kunlun-vue-ui-common';
+import { type StandardEnumerationValue, StringHelper } from '@oinone/kunlun-shared';
+import type { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty, isNil, toNumber, toString } from 'lodash-es';
 
 export const enumFetchLabelByValue = (value, options: RuntimeEnumerationOption[] | undefined): string | undefined => {

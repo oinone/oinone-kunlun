@@ -1,10 +1,5 @@
-import {
-  ActiveRecord,
-  activeRecordsToJSONString,
-  RefreshCallChainingParameters,
-  RefreshCallChainingScope
-} from '@oinone/kunlun-engine';
-import { Entity, ViewType } from '@oinone/kunlun-meta';
+import { type ActiveRecord, activeRecordsToJSONString, type RefreshCallChainingParameters, RefreshCallChainingScope } from '@oinone/kunlun-engine';
+import { type Entity, ViewType } from '@oinone/kunlun-meta';
 import { getRouterInstance } from '@oinone/kunlun-router';
 import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
@@ -14,7 +9,7 @@ import { toString } from 'lodash-es';
 import { BaseElementWidget, BaseSearchWidget } from '../../basic';
 import { DefaultRowWidget } from '../../container';
 import { UserPreferService } from '../../service';
-import { SEARCH_WIDGET, UserSearchPrefer, UserSearchPreferField } from '../../typing';
+import { SEARCH_WIDGET, type UserSearchPrefer, type UserSearchPreferField } from '../../typing';
 import DefaultSearch from './DefaultSearch.vue';
 
 @SPI.ClassFactory(

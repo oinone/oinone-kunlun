@@ -1,4 +1,4 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { ServiceIdentifier, SPI } from '@oinone/kunlun-spi';
 import { InternalMaskWidget } from '../tags';
 

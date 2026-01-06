@@ -1,6 +1,6 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { isMinimalismTheme } from '@oinone/kunlun-engine';
-import { BooleanHelper, CSSClass, CSSStyle } from '@oinone/kunlun-shared';
+import { BooleanHelper, type CSSClass, type CSSStyle } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { GroupStyle } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';

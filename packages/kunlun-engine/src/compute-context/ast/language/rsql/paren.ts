@@ -1,16 +1,6 @@
 import * as types from '../../tokens';
-import {
-  createExpression,
-  createPattern,
-  isIdentifier,
-  MemberExpression,
-  Node,
-  ParserContext,
-  Token,
-  TokenParser,
-  TokenReader
-} from '../../types';
-import { RSQLArrayPattern } from '../../types/rsql/pattern';
+import { createExpression, createPattern, isIdentifier, type MemberExpression, type Node, type ParserContext, type Token, type TokenParser, type TokenReader } from '../../types';
+import type { RSQLArrayPattern } from '../../types/rsql/pattern';
 import { ParenParser, ParenReader } from '../paren';
 
 export class RSQLParenReader extends ParenReader implements TokenReader {

@@ -1,18 +1,18 @@
-import { RuntimeContext, RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
+import { type RuntimeContext, type RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelDefaultActionName } from '@oinone/kunlun-meta';
 import { Condition, getSessionPath, GQL } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
-import { BooleanHelper, GraphqlHelper, ReturnPromise, UrlHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, GraphqlHelper, type ReturnPromise, UrlHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { ActionWidget } from '../../../action';
-import { ClickResult } from '../../../typing';
+import type { ClickResult } from '../../../typing';
 import { FILE_MODULE_NAME } from '../../constant';
 import { AbstractTaskAction } from '../../task';
 import { DEFAULT_WORKBOOK_DEFINITION_ID_EXPRESSION } from '../constant';
 import { ExcelExportService } from '../service';
-import { ExcelExportMethodEnum, ExcelExportTask } from '../typing';
+import { ExcelExportMethodEnum, type ExcelExportTask } from '../typing';
 
 @SPI.ClassFactory(ActionWidget.Token({ name: ModelDefaultActionName.$$internal_ExportWorkbook }))
 export class ExportWorkbookActionWidget extends AbstractTaskAction<ExcelExportTask> {

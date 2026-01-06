@@ -1,5 +1,5 @@
 import { XMLParse } from '@oinone/kunlun-dsl';
-import { TreeNodeMetadata } from '../typing';
+import type { TreeNodeMetadata } from '../typing';
 import { TreeUtils } from './tree-utils';
 
 const defaultAddressTemplate = XMLParse.INSTANCE.parse(`<template>

@@ -1,4 +1,4 @@
-import { ComputedRef } from 'vue';
+import type { ComputedRef } from 'vue';
 import { ActivatedRoute } from '@oinone/kunlun-router';
 
 import { genToken } from '@oinone/kunlun-vue-widget';

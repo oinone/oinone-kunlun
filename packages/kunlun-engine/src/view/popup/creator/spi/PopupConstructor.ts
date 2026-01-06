@@ -1,5 +1,5 @@
-import { SPIOperator, SPIOptions } from '@oinone/kunlun-spi';
-import { IPopupWidget } from '../../typing';
+import { SPIOperator, type SPIOptions } from '@oinone/kunlun-spi';
+import type { IPopupWidget } from '../../typing';
 
 /**
  * 弹出层组件构造器

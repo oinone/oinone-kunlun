@@ -289,53 +289,15 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, type PropType, ref, watch } from 'vue';
 import { ModelFieldType, deepClone, isDateTtype, isEmptyKeObject as isEmptyObject } from '@oinone/kunlun-meta';
 import { OioTextarea } from '@oinone/kunlun-vue-ui-antd';
-import {
-  Popconfirm as APopconfirm,
-  Select as ASelect,
-  SelectOption as ASelectOption,
-  Tooltip as ATooltip,
-  Checkbox as ACheckbox
-} from 'ant-design-vue';
+import { Popconfirm as APopconfirm, Select as ASelect, SelectOption as ASelectOption, Tooltip as ATooltip, Checkbox as ACheckbox } from 'ant-design-vue';
 import VariableFormInput from '../variable/VariableFormInput.vue';
 import VariableFormTag from '../variable/VariableFormTag.vue';
 import BuildInFunctionSelect from '../build-in-function-select/BuildInFunctionSelect.vue';
-import {
-  DEFAULT_EXPRESSION_OPT,
-  ExpressionItemType,
-  ExpressionMode,
-  ExpressionOperatorConfig,
-  ExpressionSeniorMode,
-  IExpressionItem,
-  IExpressionOption,
-  IExpressionQuoteType,
-  IFunction,
-  IFunctionArgument,
-  IExpSelectOption,
-  IVariableItem,
-  IFunFilterMethod
-} from '../../../types';
-import {
-  autoSetBracketDeep,
-  changeBracketCheckStatus,
-  createApiNameVariableListStr,
-  createDefaultExpressionLeftBracket,
-  createDefaultExpressionRightBracket,
-  createDefaultExpressionItem,
-  createDefaultVariableItemList,
-  createDisplayNameVariableListStr,
-  createExpressionApiName,
-  createExpressionDisplayName,
-  getDefaultOperator,
-  getExpressionOperatorOptions,
-  isEmptyRow,
-  quickMode2SeniorMode,
-  recalculateShowOperator,
-  seniorMode2quickMode,
-  translateExpValue
-} from '../../../share';
+import { DEFAULT_EXPRESSION_OPT, ExpressionItemType, ExpressionMode, ExpressionOperatorConfig, ExpressionSeniorMode, type IExpressionItem, type IExpressionOption, IExpressionQuoteType, type IFunction, type IFunctionArgument, type IExpSelectOption, type IVariableItem, type IFunFilterMethod } from '../../../types';
+import { autoSetBracketDeep, changeBracketCheckStatus, createApiNameVariableListStr, createDefaultExpressionLeftBracket, createDefaultExpressionRightBracket, createDefaultExpressionItem, createDefaultVariableItemList, createDisplayNameVariableListStr, createExpressionApiName, createExpressionDisplayName, getDefaultOperator, getExpressionOperatorOptions, isEmptyRow, quickMode2SeniorMode, recalculateShowOperator, seniorMode2quickMode, translateExpValue } from '../../../share';
 
 export default defineComponent({
   inheritAttrs: false,

@@ -3,7 +3,7 @@ import { CallChaining } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseListView, BaseView } from '../../basic';
-import { TableEventCallChaining } from '../../typing';
+import type { TableEventCallChaining } from '../../typing';
 
 /**
  * <h3>表格视图</h3>

@@ -1,22 +1,8 @@
 <script lang="ts">
-import { AuthRole, AuthRoleService, QueryWrapper } from '@oinone/kunlun-engine';
-import {
-  CastHelper,
-  OioEmptyData,
-  OioInput,
-  OioInputSearch,
-  OioListItem,
-  OioModal,
-  OioModalProps,
-  OioSelectItem,
-  OioTab,
-  OioTabs,
-  PropRecordHelper,
-  SelectMode,
-  StringHelper
-} from '@oinone/kunlun-vue-ui-antd';
-import { computed, createVNode, defineComponent, PropType, reactive, VNode, watch } from 'vue';
-import { CheckedHelper, ListState } from '../../quick-utils';
+import { type AuthRole, type AuthRoleService, QueryWrapper } from '@oinone/kunlun-engine';
+import { CastHelper, OioEmptyData, OioInput, OioInputSearch, OioListItem, OioModal, OioModalProps, OioSelectItem, OioTab, OioTabs, PropRecordHelper, SelectMode, StringHelper } from '@oinone/kunlun-vue-ui-antd';
+import { computed, createVNode, defineComponent, type PropType, reactive, type VNode, watch } from 'vue';
+import { CheckedHelper, type ListState } from '../../quick-utils';
 import { BaseSelect } from '../base';
 import RoleList from './RoleList.vue';
 

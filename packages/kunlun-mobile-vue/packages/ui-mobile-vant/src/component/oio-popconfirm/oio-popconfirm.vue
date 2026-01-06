@@ -2,7 +2,7 @@
 import { ObjectUtils, StringHelper } from '@oinone/kunlun-shared';
 import { OioPopconfirmProps } from '@oinone/kunlun-vue-ui-common';
 import { isBoolean, isFunction } from 'lodash-es';
-import { cloneVNode, computed, createVNode, defineComponent, Fragment, h, ref, Slot } from 'vue';
+import { cloneVNode, computed, createVNode, defineComponent, Fragment, h, ref, type Slot } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { OioDialog } from '../oio-dialog';
 

@@ -2,9 +2,9 @@ import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { VNode } from 'vue';
+import type { VNode } from 'vue';
 import { BaseFieldWidget, BaseTableFieldWidget } from '../../../basic';
-import { RowContext } from '../../../ui';
+import type { RowContext } from '../../../ui';
 import { enumFetchLabelByValue } from '../../util';
 
 @SPI.ClassFactory(

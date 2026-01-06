@@ -4,7 +4,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
 import { TableWidget } from '../../table';
 import { ViewType } from '@oinone/kunlun-meta';
-import { ActiveRecord } from '@oinone/kunlun-engine';
+import type { ActiveRecord } from '@oinone/kunlun-engine';
 
 @SPI.ClassFactory(
   BaseElementWidget.Token({

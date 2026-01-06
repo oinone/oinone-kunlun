@@ -1,8 +1,9 @@
 import { ServiceIdentifier } from '@oinone/kunlun-spi';
-import { TreeModelApi } from '../service';
-import { PamirsDepartment } from '../typing';
+import type { TreeModelApi } from '../service';
+import type { PamirsDepartment } from '../typing';
 
 export interface DepartmentQueryFilter {
+  model?: string;
   rsql?: string;
   departmentCodes?: string[];
   userCompanyDept?: boolean;

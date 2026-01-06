@@ -5,6 +5,8 @@ $titleHeight: 55px;
 $footerHeight: 73px;
 
 .#{$drawerClassPrefix} {
+  position: absolute;
+
   &-header-invisible {
     .ant-drawer-wrapper-body > .ant-drawer-header {
       display: none;
@@ -141,7 +143,8 @@ $footerHeight: 73px;
 
         &.ant-btn {
           height: var($parameterPrefix + -height);
-          margin: var($parameterPrefix + -margin-xxs) 0 var($parameterPrefix + -margin-xxs) var($parameterPrefix + -margin-md);
+          margin: var($parameterPrefix + -margin-xxs) 0 var($parameterPrefix + -margin-xxs)
+            var($parameterPrefix + -margin-md);
         }
       }
     }

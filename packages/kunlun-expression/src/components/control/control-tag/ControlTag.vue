@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 import { CloseCircleOutlined } from '@ant-design/icons-vue';
 import { Divider as ADivider } from 'ant-design-vue';
 import { ElementSize } from '../../../types';

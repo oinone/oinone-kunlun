@@ -1,6 +1,6 @@
 import { StandardEventManager } from '@oinone/kunlun-shared';
 import { ClearCache } from '../../cache';
-import { IMultiTabsManager, MultiTabInstance } from './typing';
+import type { IMultiTabsManager, MultiTabInstance } from './typing';
 
 /**
  * 事件键值

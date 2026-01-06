@@ -1,5 +1,5 @@
-import { ActionDslDefinition, DslDefinitionType, TemplateDslDefinition } from '@oinone/kunlun-dsl';
-import { ActiveRecord, ActiveRecords } from '@oinone/kunlun-engine';
+import { type ActionDslDefinition, DslDefinitionType, type TemplateDslDefinition } from '@oinone/kunlun-dsl';
+import type { ActiveRecord, ActiveRecords } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
@@ -7,7 +7,7 @@ import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { ListPaginationStyle, ListSelectMode, PageSizeEnum } from '@oinone/kunlun-vue-ui-common';
 import { isNil } from 'lodash-es';
 import { ActionWidget } from '../../action/component/action';
-import { BaseElementListViewWidgetProps, BaseElementWidget, BaseTableWidget } from '../../basic';
+import { type BaseElementListViewWidgetProps, BaseElementWidget, BaseTableWidget } from '../../basic';
 import { ActiveCountEnum, fetchPageSize, fetchPageSizeNullable, TABLE_WIDGET } from '../../typing';
 import DefaultTable from './DefaultTable.vue';
 import { TableRowClickMode } from './typing';

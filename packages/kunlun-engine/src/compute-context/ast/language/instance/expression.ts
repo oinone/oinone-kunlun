@@ -3,16 +3,7 @@ import { DotParser, DotReader } from '../dot';
 import { EndReader } from '../end';
 import { Language } from '../language';
 import { NumberParser, NumberReader, StringParser, StringReader, TemplateParser, TemplateReader } from '../literal';
-import {
-  BinaryOperatorParser,
-  BinaryOperatorReader,
-  ConditionOperatorParser,
-  ConditionOperatorReader,
-  LogicalOperatorParser,
-  LogicalOperatorReader,
-  UnaryOperatorParser,
-  UnaryOperatorReader
-} from '../operator';
+import { BinaryOperatorParser, BinaryOperatorReader, ConditionOperatorParser, ConditionOperatorReader, LogicalOperatorParser, LogicalOperatorReader, UnaryOperatorParser, UnaryOperatorReader } from '../operator';
 import { ParenParser, ParenReader } from '../paren';
 import { ArrayParser, ArrayReader, FunctionParser, FunctionReader } from '../pattern';
 import { SpaceParser, SpaceReader } from '../space';

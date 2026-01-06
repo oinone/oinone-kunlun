@@ -1,8 +1,8 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { reactive } from 'vue';
 import { Widget } from '../../basic';
-import { executeInvisible, InvisibleSupported } from '../../feature';
-import { hasActionBarViewState, hasRowActionBarViewState, OioActionBarState, OioAnyViewState } from '../typing';
+import { executeInvisible, type InvisibleSupported } from '../../feature';
+import { hasActionBarViewState, hasRowActionBarViewState, type OioActionBarState, type OioAnyViewState } from '../typing';
 
 export function createActionBarState(
   this: OioAnyViewState,

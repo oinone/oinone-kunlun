@@ -1,4 +1,4 @@
-import { ActiveRecords, Pagination, RuntimeRelationField } from '@oinone/kunlun-engine';
+import type { ActiveRecords, Pagination, RuntimeRelationField } from '@oinone/kunlun-engine';
 import { buildSelectSearchCondition } from '@oinone/kunlun-vue-admin-layout';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { toInteger } from 'lodash-es';

@@ -1,6 +1,6 @@
 import { Optional } from '@oinone/kunlun-shared';
 import { inject, named, optional, tagged } from 'inversify';
-import { ServiceIdentifier, ServiceNamed } from '../../typing';
+import { ServiceIdentifier, type ServiceNamed } from '../../typing';
 import * as METADATA_KEY from '../metadata-keys';
 
 function autowired() {

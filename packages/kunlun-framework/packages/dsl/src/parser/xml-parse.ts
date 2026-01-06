@@ -1,4 +1,4 @@
-import { DslDefinition, DslDefinitionType } from '../typing';
+import { type DslDefinition, DslDefinitionType } from '../typing';
 
 /**
  * 根据节点获取所需值

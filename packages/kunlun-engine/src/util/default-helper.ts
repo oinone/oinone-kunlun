@@ -1,5 +1,5 @@
 import { isRelationField } from '../runtime-context/helper/field';
-import { RuntimeModelField } from '../runtime-metadata';
+import type { RuntimeModelField } from '../runtime-metadata';
 
 export function isAllowSortable(field: RuntimeModelField) {
   const { store } = field;

@@ -1,18 +1,14 @@
-import { RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
+import { type RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelDefaultActionName, ModelFieldType } from '@oinone/kunlun-meta';
 import { getSessionPath } from '@oinone/kunlun-request';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { createEasyImportTask, importTaskWithTableField } from '@oinone/kunlun-vue-ui-common';
 import { isFunction } from 'lodash-es';
 import { ActionWidget, ServerActionWidget } from '../../../action';
-import { ClickResult } from '../../../typing';
-import {
-  DEFAULT_WORKBOOK_DEFINITION_ID_EXPRESSION,
-  DEFAULT_WORKBOOK_FILE_ID_EXPRESSION,
-  DEFAULT_WORKBOOK_FILE_URL_EXPRESSION
-} from '../constant';
+import type { ClickResult } from '../../../typing';
+import { DEFAULT_WORKBOOK_DEFINITION_ID_EXPRESSION, DEFAULT_WORKBOOK_FILE_ID_EXPRESSION, DEFAULT_WORKBOOK_FILE_URL_EXPRESSION } from '../constant';
 
 @SPI.ClassFactory(ActionWidget.Token({ name: ModelDefaultActionName.$$internal_ImportWorkbook }))
 export class ImportWorkbookActionWidget extends ServerActionWidget {

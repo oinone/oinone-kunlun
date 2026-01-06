@@ -1,5 +1,5 @@
 import { THEME_CONFIG } from '@oinone/kunlun-theme';
-import { FormItemThemeConfig } from './config';
+import type { FormItemThemeConfig } from './config';
 
 export function getFormItemThemeConfig(): Partial<FormItemThemeConfig> {
   return {

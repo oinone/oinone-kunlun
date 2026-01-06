@@ -1,9 +1,9 @@
 import { ViewType } from '@oinone/kunlun-meta';
-import { Constructor } from '@oinone/kunlun-shared';
-import { SPI, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
-import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
+import type { Constructor } from '@oinone/kunlun-shared';
+import { SPI, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
+import { type ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseRuntimePropertiesWidget } from '../common';
-import { MobileSPIOptions } from '../types';
+import type { MobileSPIOptions } from '../types';
 
 export interface BaseElementOptions extends MobileSPIOptions {
   viewType?: ViewType | ViewType[];

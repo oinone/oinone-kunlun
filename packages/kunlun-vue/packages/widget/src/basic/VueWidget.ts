@@ -1,23 +1,23 @@
-import { genStaticPath, translateValueByKey, WidgetConstructor, WidgetProps } from '@oinone/kunlun-engine';
+import { genStaticPath, translateValueByKey, type WidgetConstructor, type WidgetProps } from '@oinone/kunlun-engine';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import {
-  Component,
-  ComponentOptions,
-  ComponentPublicInstance,
+  type Component,
+  type ComponentOptions,
+  type ComponentPublicInstance,
   computed,
   createVNode,
   defineComponent,
-  DefineComponent,
-  EffectScope,
+  type DefineComponent,
+  type EffectScope,
   effectScope,
   isRef,
   nextTick,
   ref,
   type Ref,
-  Slot,
-  Slots,
+  type Slot,
+  type Slots,
   toRaw,
-  VNode,
+  type VNode,
   watch
 } from 'vue';
 import VueFragment from './VueFragment.vue';
@@ -70,7 +70,7 @@ export class VueWidget<Props extends WidgetProps = WidgetProps> extends Widget<P
   /**
    * vue实例内属性（props、computed、data）的集合
    */
-  private res?: {};
+  private res?: object;
 
   public revolveNodeCode() {
     return uniqueKeyGenerator();
@@ -290,7 +290,7 @@ export class VueWidget<Props extends WidgetProps = WidgetProps> extends Widget<P
     ) => {
       const afterHosts = VueWidget.afterHooks.get(target.constructor.name) || new Map();
       const afterHooks = afterHosts.get(host) || [];
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
       afterHooks.push(description.value!);
       afterHosts.set(host, afterHooks);
       VueWidget.afterHooks.set(target.constructor.name, afterHosts);
@@ -587,6 +587,7 @@ export class VueWidget<Props extends WidgetProps = WidgetProps> extends Widget<P
         this.behaviorGroup[BehaviorName.mounted]?.();
         this.$$mounted.call(opt);
         this.mounted.call(opt);
+        this.$$mountedAfterProperties.call(opt);
       },
       beforeUpdate: () => {
         this.behaviorGroup[BehaviorName.beforeUpdate]?.();
@@ -883,6 +884,11 @@ export class VueWidget<Props extends WidgetProps = WidgetProps> extends Widget<P
    * @internal
    */
   protected $$mounted() {}
+
+  /**
+   * @internal
+   */
+  protected $$mountedAfterProperties() {}
 
   /**
    * Vue钩子

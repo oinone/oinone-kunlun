@@ -1,4 +1,4 @@
-import { hasFieldsViewState, isGalleryViewState, OioAnyViewState } from '../typing';
+import { hasFieldsViewState, isGalleryViewState, type OioAnyViewState } from '../typing';
 
 interface FieldState {
   fields?: string[];

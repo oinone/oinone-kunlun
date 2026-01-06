@@ -1,8 +1,8 @@
-import { RuntimeViewAction } from '@oinone/kunlun-engine';
-import { ActionType, IDslNode } from '@oinone/kunlun-meta';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { RuntimeViewAction } from '@oinone/kunlun-engine';
+import { ActionType, type IDslNode } from '@oinone/kunlun-meta';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { ClickResult } from '../../typing';
+import type { ClickResult } from '../../typing';
 import { ActionWidget } from '../component';
 
 @SPI.ClassFactory(ActionWidget.Token({ actionType: ActionType.View }))

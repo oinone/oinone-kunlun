@@ -1,7 +1,7 @@
 import { CallChaining } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioTabAlign, OioTabPosition } from '@oinone/kunlun-vue-ui-common';
-import { executeInvisible, InvisibleSupported, Widget } from '@oinone/kunlun-vue-widget';
+import { executeInvisible, type InvisibleSupported, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, isString } from 'lodash-es';
 import { BasePackWidget } from '../../basic';
 import DefaultTabs from './DefaultTabs.vue';

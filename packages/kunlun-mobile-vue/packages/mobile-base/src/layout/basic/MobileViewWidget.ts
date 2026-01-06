@@ -1,8 +1,8 @@
-import { IViewProps, ListVM, ObjectVM } from '@oinone/kunlun-engine';
-import { Constructor } from '@oinone/kunlun-shared';
-import { SPI, SPISingleSelector, SPITokenFactory } from '@oinone/kunlun-spi';
-import { IViewFilterOptions, ViewWidget } from '@oinone/kunlun-vue-widget';
-import { MobileSPIOptions } from '../../basic/types';
+import { type IViewProps, ListVM, ObjectVM } from '@oinone/kunlun-engine';
+import type { Constructor } from '@oinone/kunlun-shared';
+import { SPI, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
+import { type IViewFilterOptions, ViewWidget } from '@oinone/kunlun-vue-widget';
+import type { MobileSPIOptions } from '../../basic/types';
 
 // import { MASK_WIDGET_STORAGE_KEY } from './token';
 

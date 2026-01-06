@@ -1,23 +1,11 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import {
-  IResourceDateTimeFormat,
-  RedirectTargetEnum,
-  executeViewAction,
-  queryResourceDateTimeFormat
-} from '@oinone/kunlun-engine';
+import { type IResourceDateTimeFormat, RedirectTargetEnum, executeViewAction, queryResourceDateTimeFormat } from '@oinone/kunlun-engine';
 import { getModel } from '@oinone/kunlun-service';
-import {
-  CastHelper,
-  DateUtil,
-  defaultDateFormatKey,
-  defaultFormat,
-  defaultTimeFormatKey,
-  ObjectUtils
-} from '@oinone/kunlun-shared';
+import { CastHelper, DateUtil, defaultDateFormatKey, defaultFormat, defaultTimeFormatKey, ObjectUtils } from '@oinone/kunlun-shared';
 import { isDev } from '@oinone/kunlun-router';
 import { MaskWidget } from '../../basic';
-import { MessageService, PamirsMessage } from '../../service';
+import { MessageService, type PamirsMessage } from '../../service';
 import DefaultNotification from './DefaultNotification.vue';
 
 type ReturnBeforeClick = (message, messageInfo) => Promise<Boolean | null | undefined>;

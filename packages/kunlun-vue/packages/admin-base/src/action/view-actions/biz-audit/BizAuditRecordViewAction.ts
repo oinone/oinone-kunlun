@@ -1,4 +1,4 @@
-import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
+import { type ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
 import { ActionType, ViewActionTarget } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioMessage } from '@oinone/kunlun-vue-ui-antd';

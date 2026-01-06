@@ -3,7 +3,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { DEFAULT_COLLAPSE_PANEL_TITLE } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isString } from 'lodash-es';
-import { Component, createVNode, Slots, VNode } from 'vue';
+import { type Component, createVNode, type Slots, type VNode } from 'vue';
 import { BasePackWidget } from '../../basic';
 import DefaultCollapsePanel from './DefaultCollapsePanel.vue';
 

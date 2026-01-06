@@ -1,9 +1,9 @@
 import { XMLTemplateParser } from '@oinone/kunlun-dsl';
-import { ILayoutWidgetProps, IViewProps, TagName } from '@oinone/kunlun-engine';
+import { type ILayoutWidgetProps, type IViewProps, TagName } from '@oinone/kunlun-engine';
 import { GlobalConfig } from '@oinone/kunlun-meta';
 import { instantiate } from '@oinone/kunlun-shared';
 import { ViewWidget } from '@oinone/kunlun-vue-widget';
-import { IMobileViewFilterOptions, LayoutWidget, MobileViewWidget } from '../basic';
+import { type IMobileViewFilterOptions, LayoutWidget, MobileViewWidget } from '../basic';
 import { MaskTemplate } from '../template';
 import { filterProps, isFalsy } from './share';
 

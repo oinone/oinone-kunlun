@@ -1,8 +1,4 @@
-import {
-  ExpressionExecutorService,
-  ExpressionExecutorServiceToken,
-  ExpressionRunParam
-} from '@oinone/kunlun-expression';
+import { type ExpressionExecutorService, ExpressionExecutorServiceToken, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { SPI } from '@oinone/kunlun-spi';
 import { isEmpty, isString } from 'lodash-es';
 import { ExpressionExecutor } from '../ast';

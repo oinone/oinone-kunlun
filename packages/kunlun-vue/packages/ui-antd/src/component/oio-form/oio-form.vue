@@ -1,15 +1,9 @@
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import {
-  NamePath,
-  OioFormInstance,
-  OioFormProps,
-  PropRecordHelper,
-  useOioFormLayoutContext
-} from '@oinone/kunlun-vue-ui-common';
+import { type NamePath, type OioFormInstance, OioFormProps, PropRecordHelper, useOioFormLayoutContext } from '@oinone/kunlun-vue-ui-common';
 import { Form as AForm, FormInstance as AFormInstance } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
-import { createVNode, defineComponent, ref, VNode } from 'vue';
+import { createVNode, defineComponent, ref, type VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { OioSpin } from '../oio-spin';
 

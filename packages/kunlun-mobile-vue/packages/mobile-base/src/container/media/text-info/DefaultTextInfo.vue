@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createVNode, defineComponent, PropType, VNode } from 'vue';
+import { createVNode, defineComponent, type PropType, type VNode } from 'vue';
 import { TextInfoJustifyContent, TextInfoMediaType, TextInfoTemplateType } from './typing';
 import DefaultTextInfoValue from './DefaultTextInfoValue.vue';
 import DefaultTextInfoLabel from './DefaultTextInfoLabel.vue';

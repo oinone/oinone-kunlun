@@ -1,15 +1,10 @@
-import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { getCurrentThemeSize } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import {
-  DEFAULT_CARD_GUTTERS,
-  DEFAULT_GUTTERS,
-  DEFAULT_VERTICAL_GUTTERS,
-  LayoutHelper
-} from '@oinone/kunlun-vue-ui-common';
-import { isGalleryViewState, OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
+import { DEFAULT_CARD_GUTTERS, DEFAULT_GUTTERS, DEFAULT_VERTICAL_GUTTERS, LayoutHelper } from '@oinone/kunlun-vue-ui-common';
+import { isGalleryViewState, type OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNil, isString } from 'lodash-es';
 import { BaseElementListViewWidget, BaseElementWidget } from '../../basic';
 import { GALLERY_WIDGET } from '../../typing';

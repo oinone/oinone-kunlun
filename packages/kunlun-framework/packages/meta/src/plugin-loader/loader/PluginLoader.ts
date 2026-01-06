@@ -1,5 +1,5 @@
 import { PluginLoaderFactory } from '../factory';
-import { PluginLoadOption, PluginLoadType } from '../typing';
+import type { PluginLoadOption, PluginLoadType } from '../typing';
 
 export class PluginLoader {
   public static async load(options: PluginLoadOption[]): Promise<void> {

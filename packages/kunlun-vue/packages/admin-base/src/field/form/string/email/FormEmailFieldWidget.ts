@@ -3,7 +3,7 @@ import { isEmptyValue, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 
 import { FormFieldWidget } from '../../../../basic';
-import { isValidatorSuccess, ValidatorInfo, ValidatorStatus } from '../../../../typing';
+import { isValidatorSuccess, type ValidatorInfo, ValidatorStatus } from '../../../../typing';
 import { FormStringFieldWidget } from '../FormStringFieldWidget';
 
 @SPI.ClassFactory(

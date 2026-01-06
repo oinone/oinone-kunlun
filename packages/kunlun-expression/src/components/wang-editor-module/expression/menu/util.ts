@@ -1,16 +1,10 @@
 import { createApp, h } from 'vue';
 import { IDomEditor } from '@wangeditor/core';
 import { SlateTransforms } from '@wangeditor/editor';
-import {
-  ExpressionDefinitionType,
-  IExpressionItem,
-  IExpressionOption,
-  IExpressionQuoteType,
-  IVariableContextItem
-} from '../../../../types';
+import { ExpressionDefinitionType, type IExpressionItem, type IExpressionOption, IExpressionQuoteType, type IVariableContextItem } from '../../../../types';
 import { createDefaultExpressionItem, createExpressionDisplayName, createExpressionValue } from '../../../../share';
 import ExpressionInputPanel from '../../../control/expression/ExpressionInputPanel.vue';
-import { ExpressionElement, ExpressionElementType } from '../custome-types';
+import { type ExpressionElement, ExpressionElementType } from '../custome-types';
 
 export function createExpressionOption(contextItems: IVariableContextItem[]): IExpressionOption {
   return {

@@ -1,5 +1,5 @@
-import { AnyExpression, Expression, Node, Pattern } from './base';
-import { StringLiteral } from './literal';
+import type { AnyExpression, Expression, Node, Pattern } from './base';
+import type { StringLiteral } from './literal';
 
 /**
  * 基础对象成员节点

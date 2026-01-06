@@ -1,18 +1,9 @@
-import { DEFAULT_SLOT_NAME, DslDefinition } from '@oinone/kunlun-dsl';
-import {
-  DslRender,
-  RenderWidget,
-  renderWidgets,
-  reportAllMounted,
-  useInjectMetaContext,
-  useProviderMetaContext,
-  VueWidget,
-  WidgetTagProps
-} from '@oinone/kunlun-vue-widget';
+import { DEFAULT_SLOT_NAME, type DslDefinition } from '@oinone/kunlun-dsl';
+import { DslRender, type RenderWidget, renderWidgets, reportAllMounted, useInjectMetaContext, useProviderMetaContext, VueWidget, WidgetTagProps } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
-import { ComponentOptionsMixin, computed, type Ref, ref, SetupContext, Slots } from 'vue';
-import { createCustomWidget, CustomWidgetProps, InternalWidget } from '../resolve';
-import { BaseWidgetTagMixinContext } from './typing';
+import { ComponentOptionsMixin, computed, type Ref, ref, type SetupContext, type Slots } from 'vue';
+import { createCustomWidget, type CustomWidgetProps, InternalWidget } from '../resolve';
+import type { BaseWidgetTagMixinContext } from './typing';
 
 /**
  * 函数式组件标签混入可选项

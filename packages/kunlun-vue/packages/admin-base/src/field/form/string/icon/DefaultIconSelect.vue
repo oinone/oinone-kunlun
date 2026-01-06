@@ -23,7 +23,7 @@
 <script lang="ts">
 import { OioButton, OioIcon, OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { isEmpty, isString } from 'lodash-es';
-import { computed, defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, type PropType, ref } from 'vue';
 import { IconDefine, IconSelect } from '../../../../icon-manage/components/icon-select';
 
 interface EditValue {

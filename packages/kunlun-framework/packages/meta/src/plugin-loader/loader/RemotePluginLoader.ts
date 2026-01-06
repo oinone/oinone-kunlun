@@ -1,6 +1,6 @@
 import { gql, HttpClient } from '@oinone/kunlun-request';
 import { SYSTEM_MODULE_NAME } from '../../metadata';
-import { RemoteLoadOption } from '../typing';
+import type { RemoteLoadOption } from '../typing';
 import { PluginLoadHelper } from '../util';
 
 const http = HttpClient.getInstance();

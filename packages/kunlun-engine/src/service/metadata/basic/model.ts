@@ -1,6 +1,6 @@
 import { ModelFieldType, ModelType, SYSTEM_MODULE, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
-import { FunctionSelfFlag, RuntimeModel, RuntimeRelationField } from '../../../runtime-metadata';
-import { ActiveRecord } from '../../../typing';
+import { FunctionSelfFlag, type RuntimeModel, type RuntimeRelationField } from '../../../runtime-metadata';
+import type { ActiveRecord } from '../../../typing';
 import { MetadataHelper } from '../../util/metadata-helper';
 
 export interface QueryPagination {
@@ -19,6 +19,7 @@ export interface QuerySort {
 }
 
 export interface QueryWrapper {
+  model?: string;
   rsql?: string;
   queryData?: ActiveRecord;
 }

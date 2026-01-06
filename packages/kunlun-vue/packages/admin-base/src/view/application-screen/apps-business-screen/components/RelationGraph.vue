@@ -7,7 +7,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref, watch, nextTick, onMounted } from 'vue';
+import { defineComponent, type PropType, ref, watch, nextTick, onMounted } from 'vue';
 import { genStaticPath, translateValueByKey } from '@oinone/kunlun-engine';
 
 export default defineComponent({

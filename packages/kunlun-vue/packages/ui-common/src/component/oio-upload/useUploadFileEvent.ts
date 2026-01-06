@@ -1,14 +1,8 @@
 import { ConfigHelper } from '@oinone/kunlun-engine';
-import { RuntimeConfig, RuntimeConfigOptions } from '@oinone/kunlun-meta';
+import { RuntimeConfig, type RuntimeConfigOptions } from '@oinone/kunlun-meta';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { get as getValue, set as setValue } from 'lodash-es';
-import {
-  CdnFileMultipartUploadData,
-  CdnFileSingleUploadData,
-  createResourceFile,
-  getFileSignature,
-  UploadChunkFile
-} from './UploadService';
+import { type CdnFileMultipartUploadData, type CdnFileSingleUploadData, createResourceFile, getFileSignature, type UploadChunkFile } from './UploadService';
 
 interface IUploadedPartHeader {
   partNumber: string;

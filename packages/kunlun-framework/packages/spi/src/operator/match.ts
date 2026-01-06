@@ -1,6 +1,6 @@
-import { InternalMatchKey } from '../typing/match-key';
-import { isMultiValueNode, MultiValueNode, NodeType, SingleValueNode } from '../typing/node';
-import { isMatchAnyValue, isMatchArrayValue, MatchValues } from '../typing/options';
+import type { InternalMatchKey } from '../typing/match-key';
+import { isMultiValueNode, type MultiValueNode, type NodeType, type SingleValueNode } from '../typing/node';
+import { isMatchAnyValue, isMatchArrayValue, type MatchValues } from '../typing/options';
 
 /**
  * [是否匹配, 匹配数量]

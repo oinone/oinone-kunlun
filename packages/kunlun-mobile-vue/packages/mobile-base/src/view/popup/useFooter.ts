@@ -1,5 +1,5 @@
 import { OioButton } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { createVNode, PropType, VNode } from 'vue';
+import { createVNode, type PropType, type VNode } from 'vue';
 
 export const FooterProps = {
   okText: {

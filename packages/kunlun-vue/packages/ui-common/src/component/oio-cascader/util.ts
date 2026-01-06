@@ -1,5 +1,5 @@
 import { isString } from 'lodash-es';
-import { CascaderItem, CascaderProperties } from './model';
+import type { CascaderItem, CascaderProperties } from './model';
 
 export function fillCascaderItemsProperties<T = unknown>(
   options: T[] | undefined,

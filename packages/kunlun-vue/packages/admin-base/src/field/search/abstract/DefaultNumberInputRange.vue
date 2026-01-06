@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, createVNode, defineComponent, PropType } from 'vue';
+import { computed, createVNode, defineComponent, type PropType } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic';
 import { NumberRange } from '../../range';
 

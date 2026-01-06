@@ -1,13 +1,6 @@
 import { BASIC_CONFIG_KEY, OINONE_HOMEPAGE_KEY, translateValueByKey } from '@oinone/kunlun-engine';
 import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
-import {
-  gql,
-  HttpClientError,
-  ILevel,
-  isFirstResetPasswordError,
-  isPicCodeError,
-  useMessageHub
-} from '@oinone/kunlun-request';
+import { gql, HttpClientError, ILevel, isFirstResetPasswordError, isPicCodeError, useMessageHub } from '@oinone/kunlun-request';
 import { http } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { RouterWidget } from '@oinone/kunlun-vue-router';

@@ -4,7 +4,7 @@ import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isFunction, isNil } from 'lodash-es';
-import { ClickResult, PopupSubmitFunction, PopupSubmitParameters } from '../../../../typing';
+import type { ClickResult, PopupSubmitFunction, PopupSubmitParameters } from '../../../../typing';
 import { ActionWidget } from '../../../component';
 
 @SPI.ClassFactory(

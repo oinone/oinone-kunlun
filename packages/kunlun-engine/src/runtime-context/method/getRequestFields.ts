@@ -1,14 +1,9 @@
-import { IModelField, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { type IModelField, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { isBoolean, isFunction } from 'lodash-es';
-import { RuntimeModelField } from '../../runtime-metadata';
+import type { RuntimeModelField } from '../../runtime-metadata';
 import { RelationUpdateType, SubmitType } from '../../submit';
 import { isRelation2MField, isRelationField } from '../helper';
-import {
-  GetRequestModelFieldsOptions,
-  RequestModelField,
-  RequestModelFieldFilterFunction,
-  RuntimeContext
-} from '../runtime-context';
+import type { GetRequestModelFieldsOptions, RequestModelField, RequestModelFieldFilterFunction, RuntimeContext } from '../runtime-context';
 import { seekFieldRuntimeContext } from './util';
 
 export function getRequestFields(this: RuntimeContext): IModelField[] {

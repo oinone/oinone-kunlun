@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createVNode, defineComponent, renderSlot, VNode } from 'vue';
+import { createVNode, defineComponent, renderSlot, type VNode } from 'vue';
 
 export default defineComponent({
   name: 'TeleportTargetMainView',

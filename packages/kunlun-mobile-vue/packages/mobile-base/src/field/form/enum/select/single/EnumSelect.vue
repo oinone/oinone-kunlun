@@ -23,13 +23,7 @@
 </template>
 <script lang="ts">
 import { deepClone } from '@oinone/kunlun-meta';
-import {
-  defaultSelectProperties,
-  OioSelect,
-  SelectItem,
-  SelectProperties,
-  useInjectOioDefaultFormContext
-} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { defaultSelectProperties, OioSelect, SelectItem, SelectProperties, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { isNil } from 'lodash-es';
 import { computed, defineComponent } from 'vue';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../../basic';

@@ -99,4 +99,4 @@ class ConditionBuilder {
   }
 }
 
-export { ConditionBuilder, StructValue };
+export { ConditionBuilder, type StructValue };

@@ -1,4 +1,4 @@
-import { encodeBase64, MatrixRouteHelper, ReturnPromise } from '@oinone/kunlun-shared';
+import { encodeBase64, MatrixRouteHelper, type ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
@@ -10,27 +10,16 @@ import { DocumentNode } from 'graphql';
 import gql from 'graphql-tag';
 import { determine } from 'jstz';
 import { HttpClientError } from './exception';
-import { GQLMutationType, GQLQueryType, GQLType } from './gql/typing';
+import { GQLMutationType, GQLQueryType, type GQLType } from './gql/typing';
 import { verify } from './license';
 import { RequestError } from './license/RequestError';
 import { createDefaultMiddleware, createMiddleware } from './middleware/creator';
 import { NetworkInterceptorManager } from './middleware/manager';
 import { createOwnSignComponent } from './ownSign';
 import { getSessionPath } from './session';
-import { HttpClientHook, HttpClientHookToken } from './spi';
-import { HttpClientHookAfterData, HttpClientHookBeforeData, HttpClientHookOptions } from './spi/typing';
-import {
-  IErrorMessage,
-  InterceptorOptions,
-  IResponseErrorResult,
-  IResponseExtensions,
-  IResponseNetworkError,
-  NetworkInterceptor,
-  NetworkMiddlewareHandler,
-  ObjectValue,
-  RawResponse,
-  RequestContext
-} from './types';
+import { type HttpClientHook, HttpClientHookToken } from './spi';
+import type { HttpClientHookAfterData, HttpClientHookBeforeData, HttpClientHookOptions } from './spi/typing';
+import type { IErrorMessage, InterceptorOptions, IResponseErrorResult, IResponseExtensions, IResponseNetworkError, NetworkInterceptor, NetworkMiddlewareHandler, ObjectValue, RawResponse, RequestContext } from './types';
 
 interface BaseBuilderOption {
   // 模块名，uri 定位

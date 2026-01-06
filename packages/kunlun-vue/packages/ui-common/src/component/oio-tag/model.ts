@@ -1,4 +1,4 @@
-import { defaultSelectProperties, SelectItem, SelectProperties } from '../oio-select';
+import { defaultSelectProperties, type SelectItem, type SelectProperties } from '../oio-select';
 
 export interface TagsItem<T = unknown> extends Omit<SelectItem<T>, 'state'> {
   color?: string;

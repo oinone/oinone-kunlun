@@ -1,6 +1,6 @@
 import { SPIOperator } from '@oinone/kunlun-spi';
-import { FrameworkInitializeOptions } from '../framework';
-import { FrameworkInstanceGetter } from '../instance/typing';
+import type { FrameworkInitializeOptions } from '../framework';
+import type { FrameworkInstanceGetter } from '../instance/typing';
 
 const CURRENT_INSTANCE_GETTER_KEY = Symbol('__current_instance_getter');
 

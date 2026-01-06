@@ -1,15 +1,6 @@
 import { interfaces } from 'inversify';
 import { AutoFactory, Base, ClassFactory, Constructor, Factory, InjectionToken, Provide } from './register';
-import {
-  Autowired,
-  Instantiate,
-  InstantiatePostConstruct,
-  Instantiates,
-  PostConstruct,
-  RawInstantiate,
-  RawInstantiates,
-  Service
-} from './spring';
+import { Autowired, Instantiate, InstantiatePostConstruct, Instantiates, PostConstruct, RawInstantiate, RawInstantiates, Service } from './spring';
 
 export class SPI {
   /**

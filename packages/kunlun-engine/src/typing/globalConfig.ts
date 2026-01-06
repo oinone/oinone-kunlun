@@ -1,4 +1,4 @@
-import { EntityId } from '@oinone/kunlun-meta';
+import type { EntityId } from '@oinone/kunlun-meta';
 
 // interface IGlobalConfig {
 //   // TODO 根据数据结构描述定义
@@ -132,14 +132,14 @@ interface IPhoneConfig {
 
 export {
   CurrencySymbolPosition,
-  ICurrencyConfig,
-  IFloatConfig,
+  type ICurrencyConfig,
+  type IFloatConfig,
   WritingMode,
-  IIntegerConfig,
-  IStringConfig,
-  IDateConfig,
-  IAddressConfig,
-  INameConfig,
-  IPhoneConfig,
+  type IIntegerConfig,
+  type IStringConfig,
+  type IDateConfig,
+  type IAddressConfig,
+  type INameConfig,
+  type IPhoneConfig,
   WeekDay
 };

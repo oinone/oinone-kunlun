@@ -1,8 +1,8 @@
 <script lang="ts">
-import { CSSStyle, Optional } from '@oinone/kunlun-shared';
+import { type CSSStyle, Optional } from '@oinone/kunlun-shared';
 import { FlexRowJustify, OioEmpty, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isArray, isBoolean, isFunction, isNil, toString } from 'lodash-es';
-import { computed, createVNode, defineComponent, PropType } from 'vue';
+import { computed, createVNode, defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
   name: 'GalleryCommonField',

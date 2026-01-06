@@ -1,9 +1,9 @@
 <script lang="ts">
 import { translate, translateValueByKey } from '@oinone/kunlun-engine';
-import { GROUP_TREE_KEY, RenderRowContext, useInjectOioTableInstance } from '@oinone/kunlun-vue-ui';
+import { GROUP_TREE_KEY, type RenderRowContext, useInjectOioTableInstance } from '@oinone/kunlun-vue-ui';
 import { StableSlotProp, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { debounce, isBoolean } from 'lodash-es';
-import { computed, createVNode, defineComponent, PropType } from 'vue';
+import { computed, createVNode, defineComponent, type PropType } from 'vue';
 import { Column } from 'vxe-table';
 import { RowActionBarWidget } from '../../action/component/action-bar/RowActionBarWidget';
 import { Element } from '../../tags';

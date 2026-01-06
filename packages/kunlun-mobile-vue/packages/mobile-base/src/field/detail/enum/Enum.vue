@@ -16,10 +16,10 @@
   </div>
 </template>
 <script lang="ts">
-import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
-import { CSSStyle } from '@oinone/kunlun-shared';
-import { SelectItem } from '@oinone/kunlun-vue-ui-common';
-import { computed, defineComponent, PropType } from 'vue';
+import type { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import type { CSSStyle } from '@oinone/kunlun-shared';
+import type { SelectItem } from '@oinone/kunlun-vue-ui-common';
+import { computed, defineComponent, type PropType } from 'vue';
 import { optionsConvertSelectItem } from '../../util';
 import DetailCommonField from '../common/DetailCommonField.vue';
 

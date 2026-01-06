@@ -19,19 +19,7 @@
 <script lang="ts" setup>
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { GraphqlHelper, JSONUtils } from '@oinone/kunlun-shared';
-import {
-  ConditionInputPanel,
-  createConditionExpressionDisplayName,
-  createConditionExpressionValue,
-  createDefaultExpressionItem,
-  CURRENT_USER_BACKEND_EXPRESSION,
-  currentUserOption,
-  ExpressionDefinitionType,
-  ExpressionMode,
-  IExpressionItem,
-  IExpressionOption,
-  IExpressionQuoteType
-} from '@oinone/kunlun-vue-expression';
+import { ConditionInputPanel, createConditionExpressionDisplayName, createConditionExpressionValue, createDefaultExpressionItem, CURRENT_USER_BACKEND_EXPRESSION, currentUserOption, ExpressionDefinitionType, ExpressionMode, type IExpressionItem, type IExpressionOption, IExpressionQuoteType } from '@oinone/kunlun-vue-expression';
 import { computed, defineEmits, defineExpose, defineProps, ref, watch, withDefaults } from 'vue';
 
 const props = withDefaults(

@@ -1,7 +1,7 @@
 import { ModelFieldType } from '@oinone/kunlun-meta';
 import { Optional } from '@oinone/kunlun-shared';
 import { isRelationField, RELATION_FIELD_TTYPES } from '../../runtime-context';
-import { RuntimeModel, RuntimeModelField, RuntimeRelationField } from '../../runtime-metadata';
+import type { RuntimeModel, RuntimeModelField, RuntimeRelationField } from '../../runtime-metadata';
 
 export class MetadataHelper {
   public static buildSimpleModelField(

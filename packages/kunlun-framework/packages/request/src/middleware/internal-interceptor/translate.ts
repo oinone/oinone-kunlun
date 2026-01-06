@@ -1,4 +1,4 @@
-import { IResponseErrorResult, IResponseResult, NetworkInterceptor } from '../../types';
+import type { IResponseErrorResult, IResponseResult, NetworkInterceptor } from '../../types';
 
 function translateResp(resp: IResponseErrorResult) {
   const jsonStr = JSON.stringify(resp);

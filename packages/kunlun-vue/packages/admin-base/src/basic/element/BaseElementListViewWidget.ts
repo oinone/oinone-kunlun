@@ -1,53 +1,18 @@
-import {
-  ActiveRecord,
-  ActiveRecords,
-  ActiveRecordsOperator,
-  getRefreshParameters,
-  isM2MField,
-  isRelationField,
-  Pagination,
-  QueryContext,
-  QueryPageResult,
-  QueryService,
-  QueryVariables,
-  RelationUpdateType,
-  RequestModelField,
-  resolveDynamicDomain,
-  resolveDynamicExpression,
-  RuntimeContextManager,
-  RuntimeM2MField,
-  SubmitType,
-  SubmitValue,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
-import { ActionContextType, Entity, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { type ActiveRecord, type ActiveRecords, ActiveRecordsOperator, getRefreshParameters, isM2MField, isRelationField, type Pagination, type QueryContext, type QueryPageResult, QueryService, type QueryVariables, RelationUpdateType, type RequestModelField, resolveDynamicDomain, resolveDynamicExpression, RuntimeContextManager, type RuntimeM2MField, SubmitType, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
+import { ActionContextType, type Entity, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_LIST_TRUE_CONDITION, DEFAULT_TRUE_CONDITION, EDirection, ISort } from '@oinone/kunlun-service';
-import {
-  BooleanHelper,
-  CallChaining,
-  debugConsole,
-  NumberHelper,
-  ObjectUtils,
-  Optional,
-  RSQLField,
-  RSQLHelper,
-  RSQLNodeInfo,
-  SortDirection,
-  SortHelper,
-  StringHelper,
-  TreeNode
-} from '@oinone/kunlun-shared';
-import { CheckedChangeEvent, RadioChangeEvent } from '@oinone/kunlun-vue-ui';
+import { BooleanHelper, CallChaining, debugConsole, NumberHelper, ObjectUtils, Optional, type RSQLField, RSQLHelper, RSQLNodeInfo, type SortDirection, SortHelper, StringHelper, TreeNode } from '@oinone/kunlun-shared';
+import type { CheckedChangeEvent, RadioChangeEvent } from '@oinone/kunlun-vue-ui';
 import { ListPaginationStyle, ListSelectMode, PageSizeEnum } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { ceil, isNil, isString, toInteger, toString } from 'lodash-es';
 import { UserPreferEventManager, UserPreferService } from '../../service';
-import { fetchPageSize, UserTablePrefer } from '../../typing';
+import { fetchPageSize, type UserTablePrefer } from '../../typing';
 import { FetchUtil } from '../../util';
 import { BaseRuntimePropertiesWidget } from '../common';
-import { QueryExpression, RefreshProcessFunction, UrlQueryParameters } from '../types';
-import { BaseElementViewWidget, BaseElementViewWidgetProps } from './BaseElementViewWidget';
+import type { QueryExpression, RefreshProcessFunction, UrlQueryParameters } from '../types';
+import { BaseElementViewWidget, type BaseElementViewWidgetProps } from './BaseElementViewWidget';
 import { generatorCondition, getSortFieldDirection } from './utils';
 
 const URL_SPLIT_SEPARATOR = ',';

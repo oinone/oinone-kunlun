@@ -1,4 +1,4 @@
-import { PluginLoader, PluginLoadOption } from '../typing';
+import type { PluginLoader, PluginLoadOption } from '../typing';
 import { bindLinkLoadedEvent } from './LoadedEvent';
 
 export class CSSPluginLoader implements PluginLoader {

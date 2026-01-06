@@ -1,6 +1,6 @@
-import { ActiveRecord, FunctionOptions, GenericFunctionService, RuntimeModel } from '@oinone/kunlun-engine';
+import { type ActiveRecord, FunctionOptions, GenericFunctionService, type RuntimeModel } from '@oinone/kunlun-engine';
 import { Condition } from '@oinone/kunlun-request';
-import { PdfPrintTask } from '../typing';
+import type { PdfPrintTask } from '../typing';
 
 export class PrintService {
   public static createPrintTask(

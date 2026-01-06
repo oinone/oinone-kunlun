@@ -1,8 +1,8 @@
-import { ActiveRecord, ActiveRecords, RuntimeContext, RuntimeView, ViewCache } from '@oinone/kunlun-engine';
+import { type ActiveRecord, type ActiveRecords, type RuntimeContext, type RuntimeView, ViewCache } from '@oinone/kunlun-engine';
 import { CallChaining, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { Slots, VNode } from 'vue';
+import type { Slots, VNode } from 'vue';
 import { BasePackWidget, MetadataViewWidget } from '../../basic';
 import { DefaultTabWidget } from '../tabs/DefaultTabWidget';
 import DefaultMultiViewTab from './DefaultMultiViewTab.vue';

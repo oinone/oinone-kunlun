@@ -1,5 +1,5 @@
 import { ServiceIdentifier } from '@oinone/kunlun-spi';
-import { ExpressionRunParam } from '../ExpressionDefinition';
+import type { ExpressionRunParam } from '../ExpressionDefinition';
 
 /**
  * 表达式执行服务

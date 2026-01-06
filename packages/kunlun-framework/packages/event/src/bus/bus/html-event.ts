@@ -1,13 +1,5 @@
 import { ProducerOperator } from '../operator';
-import {
-  EventCategory,
-  EventConsumer,
-  EventConsumerConfig,
-  EventConsumerFunction,
-  EventConsumerOptions,
-  EventMessage,
-  EventProducer
-} from '../typing';
+import { EventCategory, type EventConsumer, type EventConsumerConfig, type EventConsumerFunction, type EventConsumerOptions, type EventMessage, type EventProducer } from '../typing';
 import { Basic } from './basic';
 
 export class HTMLEvent {

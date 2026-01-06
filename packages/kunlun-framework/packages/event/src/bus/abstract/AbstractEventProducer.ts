@@ -1,12 +1,5 @@
 import { ConsumerOperator, ProducerOperator } from '../operator';
-import {
-  EventCategoryType,
-  EventConvertFunction,
-  EventMessage,
-  EventProducer,
-  EventProducerOptions,
-  EventPublishFunction
-} from '../typing';
+import type { EventCategoryType, EventConvertFunction, EventMessage, EventProducer, EventProducerOptions, EventPublishFunction } from '../typing';
 import { AbstractEventEngine } from './AbstractEventEngine';
 
 let counter = 0;

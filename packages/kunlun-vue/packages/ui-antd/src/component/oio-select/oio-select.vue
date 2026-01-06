@@ -1,13 +1,6 @@
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import {
-  defaultSelectProperties,
-  fillSelectItemProperties,
-  OioSelectProps,
-  PropRecordHelper,
-  SelectItem,
-  SelectProperties
-} from '@oinone/kunlun-vue-ui-common';
+import { defaultSelectProperties, fillSelectItemProperties, OioSelectProps, PropRecordHelper, type SelectItem, type SelectProperties } from '@oinone/kunlun-vue-ui-common';
 import { Select as ASelect } from 'ant-design-vue';
 import { isString } from 'lodash-es';
 import { computed, createVNode, defineComponent } from 'vue';

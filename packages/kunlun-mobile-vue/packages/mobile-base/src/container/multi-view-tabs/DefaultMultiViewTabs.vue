@@ -10,16 +10,9 @@
   </van-tabs>
 </template>
 <script lang="ts">
-import {
-  DEFAULT_PREFIX,
-  DEFAULT_TAB_TITLE,
-  FormLayout,
-  OioTabPosition,
-  useInjectOioFormContext,
-  useProviderOioFormContext
-} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { DEFAULT_PREFIX, DEFAULT_TAB_TITLE, FormLayout, OioTabPosition, useInjectOioFormContext, useProviderOioFormContext } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Tabs as VanTabs } from 'vant';
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
   name: 'DefaultMultiViewTabs',

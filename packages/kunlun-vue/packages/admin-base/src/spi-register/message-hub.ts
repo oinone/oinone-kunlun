@@ -1,5 +1,5 @@
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { MessageHub, MessageOptions } from '@oinone/kunlun-request';
+import { MessageHub, type MessageOptions } from '@oinone/kunlun-request';
 import { NotificationType, OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { get as getValue } from 'lodash-es';
 import zh_CN from '../locale/zh_CN';

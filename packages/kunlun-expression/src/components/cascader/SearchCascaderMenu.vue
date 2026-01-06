@@ -54,9 +54,9 @@
   </oio-spin>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
-import { ExpActiveType, ExpTtypeInfoMap, IExpSelectOption } from '../../types';
-import { Pagination } from '@oinone/kunlun-engine';
+import { computed, defineComponent, type PropType } from 'vue';
+import { ExpActiveType, ExpTtypeInfoMap, type IExpSelectOption } from '../../types';
+import type { Pagination } from '@oinone/kunlun-engine';
 import { OioPagination, OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { isComplexTtype } from '@oinone/kunlun-meta';
 import { translateExpValue } from '../../share';

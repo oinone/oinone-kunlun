@@ -1,4 +1,4 @@
-import { IModelField, IModelFunc } from '@oinone/kunlun-meta';
+import type { IModelField, IModelFunc } from '@oinone/kunlun-meta';
 
 export function executeFunction(
   namespace: string,

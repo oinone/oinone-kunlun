@@ -1,5 +1,5 @@
 import { GraphqlHelper } from '@oinone/kunlun-shared';
-import { GQLRequestParameterMap, IS_GQL_PARAMETER_MAP_FLAG, isGQLRequestParameterMap } from '../typing';
+import { type GQLRequestParameterMap, IS_GQL_PARAMETER_MAP_FLAG, isGQLRequestParameterMap } from '../typing';
 
 export default function requestParametersToString(
   requestParameters: GQLRequestParameterMap,

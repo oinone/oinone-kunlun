@@ -1,5 +1,5 @@
 import { unref } from 'vue';
-import { UnrefType } from '../typing';
+import type { UnrefType } from '../typing';
 
 export interface ScrollOperator {
   updateScroll(): number;

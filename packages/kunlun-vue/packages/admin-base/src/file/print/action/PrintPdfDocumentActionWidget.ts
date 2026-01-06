@@ -1,17 +1,17 @@
-import { RuntimeContext, RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
+import { type RuntimeContext, type RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelDefaultActionName } from '@oinone/kunlun-meta';
 import { Condition, GQL } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
-import { BooleanHelper, GraphqlHelper, ReturnPromise } from '@oinone/kunlun-shared';
+import { BooleanHelper, GraphqlHelper, type ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { ActionWidget } from '../../../action';
-import { ClickResult } from '../../../typing';
+import type { ClickResult } from '../../../typing';
 import { AbstractTaskAction } from '../../task';
 import { DEFAULT_PDF_DOCUMENT_ID_EXPRESSION } from '../constant';
 import { PRINT_MODULE_NAME } from '../constant/module-name';
 import { PrintService } from '../service';
-import { PdfPrintTask } from '../typing';
+import type { PdfPrintTask } from '../typing';
 
 @SPI.ClassFactory(ActionWidget.Token({ name: ModelDefaultActionName.$$internal_PrintPdfDocument }))
 export class PrintPdfDocumentActionWidget extends AbstractTaskAction<PdfPrintTask> {

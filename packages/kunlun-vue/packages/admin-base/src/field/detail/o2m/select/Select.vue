@@ -10,7 +10,7 @@
   </detail-common-field>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 import DetailCommonField from '../../common/DetailCommonField.vue';
 
 export default defineComponent({

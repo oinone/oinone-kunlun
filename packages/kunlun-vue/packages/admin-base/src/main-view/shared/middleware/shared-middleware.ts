@@ -1,4 +1,4 @@
-import { NetworkMiddlewareHandler } from '@oinone/kunlun-request';
+import type { NetworkMiddlewareHandler } from '@oinone/kunlun-request';
 import { getSharedSession } from '../session';
 
 export const SharedMiddleware: NetworkMiddlewareHandler = (operation, forward) => {

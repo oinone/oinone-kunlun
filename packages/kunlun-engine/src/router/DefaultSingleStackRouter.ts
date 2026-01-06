@@ -1,4 +1,4 @@
-import { SingleStackRouter, StackStore } from './typing';
+import type { SingleStackRouter, StackStore } from './typing';
 
 export class DefaultSingleStackRouter implements SingleStackRouter {
   public static INSTANCE = new DefaultSingleStackRouter();

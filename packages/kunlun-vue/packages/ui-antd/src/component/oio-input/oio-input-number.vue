@@ -1,17 +1,9 @@
 <script lang="ts">
 import { DownOutlined, UpOutlined } from '@ant-design/icons-vue';
-import {
-  BigNumber,
-  CastHelper,
-  fetchRealValue,
-  NumberHelper,
-  Optional,
-  StandardNumber,
-  StringHelper
-} from '@oinone/kunlun-shared';
+import { BigNumber, CastHelper, fetchRealValue, NumberHelper, Optional, type StandardNumber, StringHelper } from '@oinone/kunlun-shared';
 import { OioInputNumberProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty, isNil, isString, toString } from 'lodash-es';
-import { computed, createVNode, defineComponent, ref, Slot } from 'vue';
+import { computed, createVNode, defineComponent, ref, type Slot } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import OioInput from './oio-input.vue';
 

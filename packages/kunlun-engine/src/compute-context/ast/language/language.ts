@@ -1,4 +1,4 @@
-import { ParserContext, Token, TokenParser, TokenReader } from '../types';
+import type { ParserContext, Token, TokenParser, TokenReader } from '../types';
 
 export interface LanguageOptions {
   readers?: TokenReader[];

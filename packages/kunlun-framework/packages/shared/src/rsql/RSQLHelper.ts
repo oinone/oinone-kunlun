@@ -2,9 +2,9 @@ import { ExpressionNode } from '@rsql/ast';
 import { parse } from '@rsql/parser';
 import { ObjectUtils } from '../ObjectUtils';
 import { TreeNode } from '../tree-node';
-import { NodeComputer, RSQLNodeComputer } from './computer';
-import { NodeConnector, RSQLNodeConnector } from './connector';
-import { BaseRSQLNodeInfo, RSQLModel, RSQLNodeInfo, RSQLNodeInfoType } from './RSQLNodeInfo';
+import { type NodeComputer, RSQLNodeComputer } from './computer';
+import { type NodeConnector, RSQLNodeConnector } from './connector';
+import { type BaseRSQLNodeInfo, type RSQLModel, RSQLNodeInfo, RSQLNodeInfoType } from './RSQLNodeInfo';
 import { RSQLLogicalOperator } from './RSQLOperator';
 import { ModelRSQLVisitor, NormalRSQLVisitor } from './visitor';
 

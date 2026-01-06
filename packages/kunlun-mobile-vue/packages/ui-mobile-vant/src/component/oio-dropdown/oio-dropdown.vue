@@ -1,12 +1,6 @@
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import {
-  convertAntdDropdownPlacement,
-  OioDropdownPlacement,
-  OioDropdownProps,
-  OioDropdownTrigger,
-  PropRecordHelper
-} from '@oinone/kunlun-vue-ui-common';
+import { convertAntdDropdownPlacement, OioDropdownPlacement, OioDropdownProps, OioDropdownTrigger, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { DropdownMenu as VanDropdownMenu, DropdownItem as VanDropdownItem } from 'vant';
 import { isNil, isString } from 'lodash-es';
 import { computed, createVNode, defineComponent, ref } from 'vue';

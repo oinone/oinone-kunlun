@@ -1,6 +1,6 @@
 import { postConstruct } from 'inversify';
-import { ServiceNamed } from '../../typing';
-import { isProxyConstructor, ProxyConstructor, ProxyNewableConstructor, proxyTargetConstructor } from '../helper';
+import type { ServiceNamed } from '../../typing';
+import { isProxyConstructor, type ProxyConstructor, type ProxyNewableConstructor, proxyTargetConstructor } from '../helper';
 
 export function PostConstruct() {
   return <T extends Object, R>(target: T, propertyKey: string, descriptor: TypedPropertyDescriptor<R>) => {

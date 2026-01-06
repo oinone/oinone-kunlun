@@ -32,10 +32,10 @@
   ></SingleSelect>
 </template>
 <script lang="ts">
-import { Pagination } from '@oinone/kunlun-engine';
+import type { Pagination } from '@oinone/kunlun-engine';
 import { debounce, isEmpty } from 'lodash-es';
-import { defineComponent, PropType, ref, watch } from 'vue';
-import { FetchValueOptions, FetchValueReturnType } from '../typing';
+import { defineComponent, type PropType, ref, watch } from 'vue';
+import type { FetchValueOptions, FetchValueReturnType } from '../typing';
 import MultiSelect from './MultiSelect.vue';
 import SingleSelect from './SingleSelect.vue';
 

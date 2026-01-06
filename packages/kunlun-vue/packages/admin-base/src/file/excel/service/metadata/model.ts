@@ -1,4 +1,4 @@
-import { MetadataHelper, RuntimeModel, StaticMetadata } from '@oinone/kunlun-engine';
+import { MetadataHelper, type RuntimeModel, StaticMetadata } from '@oinone/kunlun-engine';
 import { ModelFieldType, SYSTEM_MODULE, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 
 export namespace StaticFileMetadata {

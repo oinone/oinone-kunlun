@@ -1,18 +1,13 @@
-import { ConfigHelper, RuntimeStringField, translateValueByKey } from '@oinone/kunlun-engine';
+import { ConfigHelper, type RuntimeStringField, translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldType, RuntimeConfig, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import {
-  defaultMultiPartConfig,
-  MultipartUploadRuntimeConfig,
-  ValidateTrigger,
-  WidgetTrigger
-} from '@oinone/kunlun-vue-ui-common';
+import { defaultMultiPartConfig, type MultipartUploadRuntimeConfig, ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isNumber } from 'lodash-es';
 import { BaseFieldWidget, FormFieldWidget } from '../../../../basic';
 import { UploadCom } from '../../../../components';
-import { isValidatorSuccess, ValidatorInfo } from '../../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../../typing';
 
 @SPI.ClassFactory(
   BaseFieldWidget.Token({

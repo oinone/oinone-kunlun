@@ -3,7 +3,7 @@ import { deepClone, ModelDefaultActionName } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { VXE_TABLE_X_ID } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { TableEditEvent, TableEventCallChaining, TableEventType } from '../../typing';
+import { type TableEditEvent, type TableEventCallChaining, TableEventType } from '../../typing';
 import { ActionWidget } from '../component';
 
 @SPI.ClassFactory(ActionWidget.Token({ name: ModelDefaultActionName.$$internal_EditOne }))

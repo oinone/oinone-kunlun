@@ -1,9 +1,9 @@
-import { RedirectTargetEnum, RuntimeUrlAction, translateValueByKey } from '@oinone/kunlun-engine';
+import { RedirectTargetEnum, type RuntimeUrlAction, translateValueByKey } from '@oinone/kunlun-engine';
 import { Expression } from '@oinone/kunlun-expression';
 import { ActionType, ViewActionTarget } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioMessage } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 
 import { ActionWidget } from '../component';

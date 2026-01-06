@@ -1,7 +1,7 @@
-import { ActionDslDefinition } from '@oinone/kunlun-dsl';
-import { RuntimeViewAction } from '../../../runtime-metadata';
-import { RuntimeContext } from '../../runtime-context';
-import { convertFunction, DslFunction } from './resolve-function';
+import type { ActionDslDefinition } from '@oinone/kunlun-dsl';
+import type { RuntimeViewAction } from '../../../runtime-metadata';
+import type { RuntimeContext } from '../../runtime-context';
+import { convertFunction, type DslFunction } from './resolve-function';
 
 export function convertViewAction(runtimeContext: RuntimeContext, dsl: ActionDslDefinition, action: RuntimeViewAction) {
   action.title = dsl.title;

@@ -1,5 +1,5 @@
 import { ServiceIdentifier } from '@oinone/kunlun-spi';
-import { UserInfo } from '../typing';
+import type { UserInfo } from '../typing';
 
 export interface UserService {
   getUserInfo(): Promise<UserInfo | undefined>;

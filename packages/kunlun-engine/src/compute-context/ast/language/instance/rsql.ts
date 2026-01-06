@@ -3,25 +3,9 @@ import { DotParser, DotReader } from '../dot';
 import { EndReader } from '../end';
 import { Language } from '../language';
 import { NumberParser, NumberReader, TemplateParser, TemplateReader } from '../literal';
-import {
-  BinaryOperatorParser,
-  BinaryOperatorReader,
-  ConditionOperatorParser,
-  ConditionOperatorReader,
-  LogicalOperatorParser,
-  LogicalOperatorReader,
-  UnaryOperatorParser,
-  UnaryOperatorReader
-} from '../operator';
+import { BinaryOperatorParser, BinaryOperatorReader, ConditionOperatorParser, ConditionOperatorReader, LogicalOperatorParser, LogicalOperatorReader, UnaryOperatorParser, UnaryOperatorReader } from '../operator';
 import { ArrayParser, ArrayReader, FunctionParser, FunctionReader } from '../pattern';
-import {
-  RSQLBinaryOperatorParser,
-  RSQLBinaryOperatorReader,
-  RSQLLogicalOperatorParser,
-  RSQLLogicalOperatorReader,
-  RSQLStringParser,
-  RSQLStringReader
-} from '../rsql';
+import { RSQLBinaryOperatorParser, RSQLBinaryOperatorReader, RSQLLogicalOperatorParser, RSQLLogicalOperatorReader, RSQLStringParser, RSQLStringReader } from '../rsql';
 import { RSQLParenParser, RSQLParenReader } from '../rsql/paren';
 import { SpaceParser, SpaceReader } from '../space';
 import { WordParser, WordReader } from '../word';

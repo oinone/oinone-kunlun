@@ -1,4 +1,4 @@
-import { Comment, Fragment, getCurrentInstance, isVNode, Text, VNode, VNodeChild, VNodeTypes } from 'vue';
+import { Comment, Fragment, getCurrentInstance, isVNode, Text, type VNode, VNodeChild, VNodeTypes } from 'vue';
 
 type Children = VNodeTypes[] | VNodeTypes;
 

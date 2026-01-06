@@ -1,17 +1,22 @@
-import { OutputOptions as RollupOutputOptions, Plugin as RollupPlugin, RollupOptions } from 'rollup';
-import replace, { RollupReplaceOptions } from '@rollup/plugin-replace';
-import scss, { CSSPluginOptions as SCSSPluginOptions } from 'rollup-plugin-scss';
-import vue, { Options as VuePluginOptions } from 'rollup-plugin-vue';
-import nodeResolve, { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
-import commonjs, { RollupCommonJSOptions } from '@rollup/plugin-commonjs';
-import typescript, { RollupTypescriptPluginOptions } from '@rollup/plugin-typescript';
-import typescript2, { RPT2Options as RollupTypescript2PluginOptions } from 'rollup-plugin-typescript2';
-import json, { RollupJsonOptions } from '@rollup/plugin-json';
-import copy, { CopyOptions as RollupCopyPluginOptions } from 'rollup-plugin-copy';
-import terser, { Options as RollupTerserPluginOptions } from '@rollup/plugin-terser';
-import sourcemaps, { SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
 import fs from 'fs';
 import path from 'path';
+import commonjs, { type RollupCommonJSOptions } from '@rollup/plugin-commonjs';
+import json, { type RollupJsonOptions } from '@rollup/plugin-json';
+import nodeResolve, { type RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
+import replace, { type RollupReplaceOptions } from '@rollup/plugin-replace';
+import terser, { type Options as RollupTerserPluginOptions } from '@rollup/plugin-terser';
+import typescript, { type RollupTypescriptPluginOptions } from '@rollup/plugin-typescript';
+import {
+  type ExternalOption,
+  type RollupOptions,
+  type OutputOptions as RollupOutputOptions,
+  type Plugin as RollupPlugin
+} from 'rollup';
+import copy, { type CopyOptions as RollupCopyPluginOptions } from 'rollup-plugin-copy';
+import scss, { type CSSPluginOptions as SCSSPluginOptions } from 'rollup-plugin-scss';
+import sourcemaps, { type SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
+import typescript2, { type RPT2Options as RollupTypescript2PluginOptions } from 'rollup-plugin-typescript2';
+import vue, { type Options as VuePluginOptions } from 'rollup-plugin-vue';
 
 type RollupExternalType = string | RegExp | ((id: string) => boolean);
 
@@ -32,7 +37,7 @@ export class CompileConfigBuilder {
 
   private _camelCaseName: string | undefined;
 
-  private _external: RollupExternalTypes | undefined;
+  private _external: ExternalOption | undefined;
 
   private _pluginBuilder: AbstractPluginBuilder | undefined;
 
@@ -97,9 +102,9 @@ export class CompileConfigBuilder {
 
   public external(val: RollupExternalTypes): CompileConfigBuilder {
     if (Array.isArray(val)) {
-      this._external = [/node_modules/, ...val];
+      this._external = [/node_modules/, ...(val as (string | RegExp)[])];
     } else {
-      this._external = [/node_modules/, val];
+      this._external = [/node_modules/, val as string | RegExp];
     }
     return this;
   }
@@ -199,13 +204,12 @@ class AbstractPluginBuilder {
       fileName: `${libraryName}.scss`,
       output: 'dist',
       sourceMap: false,
-      outputStyle: 'compressed',
-      silenceDeprecations: ['legacy-js-api', 'import']
+      outputStyle: 'compressed'
     });
   }
 
   public vue(config: boolean | Partial<VuePluginOptions> = true): typeof this {
-    return this.$$setPluginOptions((val) => (this._vue = val), config, {});
+    return this.$$setPluginOptions((val) => (this._vue = val as VuePluginOptions), config, {});
   }
 
   public nodeResolve(config: boolean | RollupNodeResolveOptions = true): typeof this {
@@ -320,10 +324,7 @@ class AbstractPluginBuilder {
     declarationDir: 'dist/types',
     moduleResolution: 'Bundler',
     incremental: false,
-    sourceMap: false,
-    verbatimModuleSyntax: false,
-    isolatedModules: false,
-    stripInternal: false
+    sourceMap: false
   };
 
   private buildPlugins(): RollupPlugin[] {
@@ -345,9 +346,6 @@ class AbstractPluginBuilder {
     if (_replace) {
       plugins.push(replace(_replace));
     }
-    if (_scss) {
-      plugins.push(scss(_scss));
-    }
     if (_vue) {
       plugins.push(vue(_vue));
     }
@@ -356,6 +354,9 @@ class AbstractPluginBuilder {
     }
     if (_commonjs) {
       plugins.push(commonjs(_commonjs));
+    }
+    if (_scss) {
+      plugins.push(scss(_scss));
     }
     if (_typescript2) {
       plugins.push(typescript2(_typescript2));

@@ -2,9 +2,9 @@
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { BooleanHelper, ButtonType, OioButton, OioInput, OioTextarea } from '@oinone/kunlun-vue-ui-antd';
 import { debounce, isNil } from 'lodash-es';
-import { computed, createVNode, defineComponent, PropType, VNode } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, type VNode } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic';
-import { MapItem } from './typing';
+import type { MapItem } from './typing';
 
 export default defineComponent({
   name: 'DefaultMap',

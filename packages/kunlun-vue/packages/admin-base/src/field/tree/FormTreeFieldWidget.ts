@@ -1,17 +1,11 @@
-import {
-  ActiveRecord,
-  ActiveRecords,
-  MemoryListSearchCache,
-  RuntimeRelationField,
-  UnsupportedOperationException
-} from '@oinone/kunlun-engine';
-import { BooleanHelper, CastHelper, OioTreeNode } from '@oinone/kunlun-shared';
+import { type ActiveRecord, type ActiveRecords, MemoryListSearchCache, type RuntimeRelationField, UnsupportedOperationException } from '@oinone/kunlun-engine';
+import { BooleanHelper, CastHelper, type OioTreeNode } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { FormComplexFieldProps } from '../../basic';
-import { TreeNodeResponseBody, TreeService } from '../../service';
-import { TreeData, TreeNodeMetadata } from '../../typing';
-import { AbstractTreeFieldWidget, BackfillDataParameters } from '../tree-select';
+import type { FormComplexFieldProps } from '../../basic';
+import { type TreeNodeResponseBody, TreeService } from '../../service';
+import type { TreeData, TreeNodeMetadata } from '../../typing';
+import { AbstractTreeFieldWidget, type BackfillDataParameters } from '../tree-select';
 import DefaultFieldTree from './DefaultFieldTree.vue';
 
 export class FormTreeFieldWidget<

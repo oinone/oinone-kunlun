@@ -1,5 +1,5 @@
 import { generatorViewActionQueryParameter } from '../../action/helper';
-import { MultiTabStackItem } from './typing';
+import type { MultiTabStackItem } from './typing';
 
 export class MultiTabsHelper {
   // public static async fetchStackAction(stackItem: MultiTabStackItem): Promise<RuntimeViewAction> {

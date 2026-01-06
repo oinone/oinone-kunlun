@@ -41,16 +41,9 @@
   </div>
 </template>
 <script lang="ts">
-import {
-  OioButton,
-  OioGroup,
-  OioInputNumber,
-  OioTextarea,
-  OioTooltipHelp,
-  uniqueKeyGenerator
-} from '@oinone/kunlun-vue-ui-antd';
-import { computed, defineComponent, PropType, ref, type Ref } from 'vue';
-import { DebugFetchRequest, DebugFetchResponse, DebugRequestInfo } from '../../typing';
+import { OioButton, OioGroup, OioInputNumber, OioTextarea, OioTooltipHelp, uniqueKeyGenerator } from '@oinone/kunlun-vue-ui-antd';
+import { computed, defineComponent, type PropType, ref, type Ref } from 'vue';
+import type { DebugFetchRequest, DebugFetchResponse, DebugRequestInfo } from '../../typing';
 import DebugJsonView from '../components/DebugJsonView.vue';
 import DebugRequestInfoPanel from '../components/DebugRequestInfoPanel.vue';
 import DebugResponsePanel from '../components/DebugResponsePanel.vue';

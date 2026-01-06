@@ -1,10 +1,10 @@
 import { createDefaultXML, XMLTemplateParser } from '@oinone/kunlun-dsl';
-import { LifeCycleHeart, LifeCycleTypes, ViewEventName, ViewEventNames } from '@oinone/kunlun-event';
-import { deepClone, IDslNode, IModel, IView, ViewType } from '@oinone/kunlun-meta';
+import { LifeCycleHeart, LifeCycleTypes, type ViewEventName, ViewEventNames } from '@oinone/kunlun-event';
+import { deepClone, type IDslNode, type IModel, type IView, type ViewType } from '@oinone/kunlun-meta';
 import { useMatched } from '@oinone/kunlun-router';
 import { BehaviorSubject, distinctUntilChanged, filter, pairwise, Subject, Subscription } from '@oinone/kunlun-state';
 import { isFunction, isPlainObject, isString } from 'lodash-es';
-import { IBaseIViewProps, IListValue, IObjectValue, PageViewState } from '../typing/interface';
+import type { IBaseIViewProps, IListValue, IObjectValue, PageViewState } from '../typing/interface';
 import { translateNode } from '../util/translate';
 import { BaseVM } from './base';
 

@@ -1,6 +1,6 @@
 import { ILevel } from '@oinone/kunlun-request';
 import { OperationTypeNode } from 'graphql';
-import { Component } from 'vue';
+import type { Component } from 'vue';
 
 export interface DebugFetchRequest {
   url: string;

@@ -1,44 +1,20 @@
-import {
-  ClearCache,
-  executeServerAction,
-  executeUrlAction,
-  getDefaultBrowser,
-  OioProvider,
-  PamirsUser,
-  ReloadMaskCallChainingParameters,
-  RuntimeViewAction,
-  ServerActionCache,
-  translateValueByKey,
-  useCurrentContextService,
-  UserInfo,
-  ViewActionCache
-} from '@oinone/kunlun-engine';
-import {
-  ActionType,
-  Entity,
-  GlobalConfig,
-  IBaseAction,
-  IMenu,
-  isEmptyKeObject,
-  IView,
-  ViewActionTarget,
-  ViewType
-} from '@oinone/kunlun-meta';
+import { ClearCache, executeServerAction, executeUrlAction, getDefaultBrowser, OioProvider, type PamirsUser, type ReloadMaskCallChainingParameters, type RuntimeViewAction, ServerActionCache, translateValueByKey, useCurrentContextService, type UserInfo, ViewActionCache } from '@oinone/kunlun-engine';
+import { ActionType, type Entity, GlobalConfig, type IBaseAction, type IMenu, isEmptyKeObject, type IView, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
 import { getRouterInstance, Router, subscribeRoute, useMatched } from '@oinone/kunlun-router';
 import { SPI } from '@oinone/kunlun-spi';
 import { Subscription } from '@oinone/kunlun-state';
-import { ViewSubSymbol, Widget, WidgetBehaviorSubjection, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { ViewSubSymbol, Widget, type WidgetBehaviorSubjection, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { callFunction, getModel } from '@oinone/kunlun-service';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { OioNotification, TreeNode } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { GlobalStateSubSymbol, IGlobalState, MenusSubSymbol } from '../type';
 import { parseActionDomain4search } from '../utils';
 import MenuComponent from './NavMenu.vue';
-import { GlobalKeywordSearchSubSymbol, IKeywordSearchInfo } from '../../typing';
+import { GlobalKeywordSearchSubSymbol, type IKeywordSearchInfo } from '../../typing';
 import { autoNoticeOuterUrl, getCurrentTenant } from '../../util';
 
-import { MenuUrlParameters, RuntimeMenu } from '../typing';
+import type { MenuUrlParameters, RuntimeMenu } from '../typing';
 import { MenuService } from '../service';
 import { MobileMaskWidget } from '../basic';
 

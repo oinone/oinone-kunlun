@@ -1,4 +1,4 @@
-import { BaseMaskWidget, BaseMaskWidgetProps } from './basic';
+import { BaseMaskWidget, type BaseMaskWidgetProps } from './basic';
 import MaskBlock from './MaskBlock.vue';
 
 export class BaseMaskLayoutWidget<

@@ -41,10 +41,10 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue';
-import { Select as ASelect, Popover as APopover} from 'ant-design-vue';
+import { Select as ASelect, Popover as APopover } from 'ant-design-vue';
 import { CloseCircleOutlined, CloseCircleFilled, DownOutlined } from '@ant-design/icons-vue';
 import { checkBlurFocus, createDefaultVariableItemList, translateExpValue } from '../../../share';
-import { FunctionCategoryList, IExpSelectOption } from '../../../types';
+import { FunctionCategoryList, type IExpSelectOption } from '../../../types';
 import ExpressionDesignerCascader from '../../cascader/Cascader.vue';
 import { queryExpBuildInFunction } from '../../../service';
 import { deepClone } from '@oinone/kunlun-meta';

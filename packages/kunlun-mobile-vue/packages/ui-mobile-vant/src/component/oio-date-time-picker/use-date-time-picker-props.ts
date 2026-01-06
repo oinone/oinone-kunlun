@@ -1,6 +1,6 @@
 import { DateTimePickerMode, DateUtil, defaultFormat } from '@oinone/kunlun-shared';
 import { isString } from 'lodash-es';
-import { Moment } from 'moment';
+import type { Moment } from 'moment';
 import { computed, ref, watch } from 'vue';
 import { DateFormatEnum } from './interface';
 

@@ -80,23 +80,13 @@
   </reset-password-layout>
 </template>
 <script lang="ts">
-import { MajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
-import {
-  OioButton,
-  OioForm,
-  OioFormInstance,
-  OioFormItem,
-  OioInput,
-  OioInputGroup,
-  OioInputPassword,
-  OioMessage,
-  SelectItem
-} from '@oinone/kunlun-vue-ui-antd';
+import { type MajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
+import { OioButton, OioForm, type OioFormInstance, OioFormItem, OioInput, OioInputGroup, OioInputPassword, OioMessage, type SelectItem } from '@oinone/kunlun-vue-ui-antd';
 import { FormItemRest as AFormItemRest, Select as ASelect } from 'ant-design-vue';
-import { defineComponent, onMounted, PropType, reactive, ref } from 'vue';
-import { ResourceCountry } from '../../typing';
+import { defineComponent, onMounted, type PropType, reactive, ref } from 'vue';
+import type { ResourceCountry } from '../../typing';
 import ResetPasswordLayout from './layout/ResetPasswordLayout.vue';
-import { ResetPasswordData } from './typing';
+import type { ResetPasswordData } from './typing';
 import { useResetPassword } from './useResetPassword';
 
 interface VerificationCodeBtnState {

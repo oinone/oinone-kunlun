@@ -1,5 +1,5 @@
 import { isNil } from 'lodash-es';
-import { ReturnPromise } from './typing';
+import type { ReturnPromise } from './typing';
 
 export type CallFunction<T = unknown, R = void> = ((
   args: unknown[] | undefined,

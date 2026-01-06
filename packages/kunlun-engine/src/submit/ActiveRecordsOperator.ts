@@ -1,16 +1,7 @@
-import { Entity } from '@oinone/kunlun-meta';
+import type { Entity } from '@oinone/kunlun-meta';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { isArray, isNil } from 'lodash-es';
-import {
-  ActiveRecord,
-  ActiveRecords,
-  DeleteActiveRecordsByEntityPredict,
-  DeleteEntity,
-  PushActiveRecordsPredict,
-  RepairOptions,
-  UpdateActiveRecordsByEntityPredict,
-  UpdateEntity
-} from '../typing';
+import type { ActiveRecord, ActiveRecords, DeleteActiveRecordsByEntityPredict, DeleteEntity, PushActiveRecordsPredict, RepairOptions, UpdateActiveRecordsByEntityPredict, UpdateEntity } from '../typing';
 import { SubmitCacheManager } from './SubmitCacheManager';
 
 interface OperatorFlag {

@@ -1,9 +1,9 @@
 import { isBoolean, isNil, isString } from 'lodash-es';
-import { computed, reactive, SetupContext } from 'vue';
+import { computed, reactive, type SetupContext } from 'vue';
 import { PopperTrigger } from '../props';
 import createEvents from './events';
 import PopperOptions from './popper-options';
-import { EmitType, PopperState } from './typing';
+import type { EmitType, PopperState } from './typing';
 
 export default function usePopper(props: PopperOptions, context: SetupContext<EmitType[]>) {
   const state = reactive<PopperState>({

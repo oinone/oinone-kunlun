@@ -1,6 +1,6 @@
 <script lang="ts">
-import { CSSStyle } from '@oinone/kunlun-shared';
-import { createVNode, defineComponent, PropType } from 'vue';
+import type { CSSStyle } from '@oinone/kunlun-shared';
+import { createVNode, defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
   name: 'MaskBlock',

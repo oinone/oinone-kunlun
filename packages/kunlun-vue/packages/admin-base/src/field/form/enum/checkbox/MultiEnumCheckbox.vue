@@ -27,10 +27,10 @@
   </div>
 </template>
 <script lang="ts">
-import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
-import { SelectItem } from '@oinone/kunlun-vue-ui-common';
+import type { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import type { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { isEmpty, isNil } from 'lodash-es';
-import { computed, defineComponent, PropType, watch } from 'vue';
+import { computed, defineComponent, type PropType, watch } from 'vue';
 import { Checkbox as ACheckbox, CheckboxGroup as ACheckboxGroup } from 'ant-design-vue';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../basic';
 import { multiEnumFetchLabelByValue, optionsConvertSelectItem } from '../../../util';

@@ -69,12 +69,12 @@
 </template>
 
 <script lang="ts">
-import { RuntimeModelField } from '@oinone/kunlun-engine';
+import type { RuntimeModelField } from '@oinone/kunlun-engine';
 import { EDirection } from '@oinone/kunlun-service';
 import { OioButton, OioIcon, OioInput } from '@oinone/kunlun-vue-ui-antd';
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, type PropType, ref, watch } from 'vue';
 import Draggable from 'vuedraggable';
-import { SortableGroupOption } from './typing';
+import type { SortableGroupOption } from './typing';
 
 export default defineComponent({
   props: {

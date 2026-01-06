@@ -1,6 +1,6 @@
-import { FieldDslDefinition } from '@oinone/kunlun-dsl';
-import { RuntimeStringField } from '../../../runtime-metadata';
-import { RuntimeContext } from '../../runtime-context';
+import type { FieldDslDefinition } from '@oinone/kunlun-dsl';
+import type { RuntimeStringField } from '../../../runtime-metadata';
+import type { RuntimeContext } from '../../runtime-context';
 import { ResolveUtil } from '../util';
 
 export function convertStringField(runtimeContext: RuntimeContext, dsl: FieldDslDefinition, field: RuntimeStringField) {

@@ -39,7 +39,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref, watch } from 'vue';
+import { defineComponent, type PropType, ref, watch } from 'vue';
 import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Tree as ATree } from 'ant-design-vue';

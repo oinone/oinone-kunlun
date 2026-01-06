@@ -1,8 +1,8 @@
-import { FieldDslDefinition } from '@oinone/kunlun-dsl';
+import type { FieldDslDefinition } from '@oinone/kunlun-dsl';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { SPIOperator, SPIOptions } from '@oinone/kunlun-spi';
-import { RuntimeModelField } from '../../../runtime-metadata';
-import { RuntimeContext } from '../../runtime-context';
+import { SPIOperator, type SPIOptions } from '@oinone/kunlun-spi';
+import type { RuntimeModelField } from '../../../runtime-metadata';
+import type { RuntimeContext } from '../../runtime-context';
 
 export interface FieldConverterOptions extends SPIOptions {
   viewType?: ViewType;

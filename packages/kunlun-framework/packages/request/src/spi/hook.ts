@@ -1,5 +1,5 @@
 import { ServiceIdentifier, SPI } from '@oinone/kunlun-spi';
-import { HttpClientHookAfterData, HttpClientHookBeforeData, HttpClientHookOptions } from './typing';
+import type { HttpClientHookAfterData, HttpClientHookBeforeData, HttpClientHookOptions } from './typing';
 
 export interface HttpClientHook {
   isSupported(options: HttpClientHookOptions): boolean;

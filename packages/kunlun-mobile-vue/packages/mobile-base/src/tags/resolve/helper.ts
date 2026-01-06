@@ -1,7 +1,7 @@
-import { DEFAULT_SLOT_NAME, DslDefinition, DslDefinitionHelper, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { DEFAULT_SLOT_NAME, type DslDefinition, DslDefinitionHelper, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { DslRender } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
-import { Slot, VNode } from 'vue';
+import type { Slot, VNode } from 'vue';
 import { InternalWidget, ResolveMode } from './typing';
 
 /**

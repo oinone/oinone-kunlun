@@ -1,18 +1,7 @@
-import {
-  AnyExpression,
-  ArrayPattern,
-  BooleanLiteral,
-  Literal,
-  NumberLiteral,
-  RSQLAnyExpression,
-  RSQLStringLiteral,
-  StringLiteral,
-  TemplateLiteral,
-  VisitContext
-} from '../../types';
-import { RSQLArrayPattern } from '../../types/rsql/pattern';
-import { VisitorAdapter } from '../visit';
-import { StringAdapter, StringAdapterContext } from './adapter';
+import type { AnyExpression, ArrayPattern, BooleanLiteral, Literal, NumberLiteral, RSQLAnyExpression, RSQLStringLiteral, StringLiteral, TemplateLiteral, VisitContext } from '../../types';
+import type { RSQLArrayPattern } from '../../types/rsql/pattern';
+import type { VisitorAdapter } from '../visit';
+import { StringAdapter, type StringAdapterContext } from './adapter';
 
 export class RSQLStringAdapter extends StringAdapter implements VisitorAdapter<StringAdapterContext> {
   public visitLiteral(ctx: VisitContext<StringAdapterContext>, node: Literal): boolean {

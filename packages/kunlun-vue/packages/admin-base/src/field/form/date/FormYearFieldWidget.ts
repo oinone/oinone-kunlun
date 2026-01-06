@@ -1,7 +1,7 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
-import { Widget, WidgetComponent } from '@oinone/kunlun-vue-widget';
+import { Widget, type WidgetComponent } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
 import DefaultYearPicker from './DefaultYearPicker.vue';
 import { FormDateTimeFieldWidget } from './FormDateTimeFieldWidget';

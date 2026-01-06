@@ -70,9 +70,8 @@ const createRouter = () => {
 
     activatedRoute.pipe(take(1)).subscribe((route) => {
       if (path === route.raw.canonicalPath) {
-        throw new Error(
-          `NavigationDuplicated: Avoided redundant navigation to current location: ${route.raw.canonicalPath}`
-        );
+        console.warn(`NavigationDuplicated: Avoided redundant navigation to current location: ${route.raw.canonicalPath}`);
+        return;
       }
       if (replaceUrl) {
         router.replace(path);
@@ -196,4 +195,4 @@ const getRouterInstance = () => {
   return instance;
 };
 
-export { ActivatedRoute, NavigateOptions, Router, createRouter, getRouterInstance, SegmentGroup };
+export { type ActivatedRoute, type NavigateOptions, type Router, createRouter, getRouterInstance, type SegmentGroup };

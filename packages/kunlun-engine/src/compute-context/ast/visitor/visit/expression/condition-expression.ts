@@ -1,6 +1,6 @@
-import { ConditionalExpression, isConditionalExpression, Node, VisitContext } from '../../../types';
+import { type ConditionalExpression, isConditionalExpression, type Node, type VisitContext } from '../../../types';
 import { BaseVisitor } from '../base';
-import { AdapterContext } from '../types';
+import type { AdapterContext } from '../types';
 
 export class ConditionExpressionVisitor extends BaseVisitor<ConditionalExpression> {
   public static readonly INSTANCE = new ConditionExpressionVisitor();

@@ -3,7 +3,7 @@ import { useMatched } from '@oinone/kunlun-router';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { useInjectMetaContext, Widget } from '@oinone/kunlun-vue-widget';
-import { MetadataViewWidget, UrlQueryParameters } from '../basic';
+import { MetadataViewWidget, type UrlQueryParameters } from '../basic';
 import { MobileMaskWidget } from '../layout';
 import DefaultMainView from './DefaultMainView.vue';
 

@@ -1,14 +1,7 @@
-import { Nullable } from '@oinone/kunlun-shared';
+import type { Nullable } from '@oinone/kunlun-shared';
 import { parser } from '../../parser';
-import { IVisitor, Node, NodeVisitor, TokenContext, VisitContext } from '../../types';
-import {
-  BinaryExpressionExecutor,
-  CallExpressionExecutor,
-  ConditionExpressionExecutor,
-  LogicalExpressionExecutor,
-  MemberExpressionExecutor,
-  UnaryExpressionExecutor
-} from './expression';
+import type { IVisitor, Node, NodeVisitor, TokenContext, VisitContext } from '../../types';
+import { BinaryExpressionExecutor, CallExpressionExecutor, ConditionExpressionExecutor, LogicalExpressionExecutor, MemberExpressionExecutor, UnaryExpressionExecutor } from './expression';
 import { LiteralExecutor } from './literal';
 import { ArrayExecutor, IdentifierExecutor } from './pattern';
 import { StatementExecutor } from './statement';

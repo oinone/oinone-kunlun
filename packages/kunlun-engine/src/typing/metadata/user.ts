@@ -1,4 +1,4 @@
-import { IBaseAction, IServerAction, IViewAction } from '@oinone/kunlun-meta';
+import type { IBaseAction, IServerAction, IViewAction } from '@oinone/kunlun-meta';
 
 export interface UserLang {
   code: string;

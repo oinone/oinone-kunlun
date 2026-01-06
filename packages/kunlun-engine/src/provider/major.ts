@@ -3,13 +3,8 @@ import { gql } from '@oinone/kunlun-request';
 import { http } from '@oinone/kunlun-service';
 import { Subject } from '@oinone/kunlun-state';
 import { ClearCache } from '../cache';
-import {
-  DEFAULT_APP_SIDE_LOGO,
-  DEFAULT_APP_SWITCH_LOGO,
-  DEFAULT_FAVICON,
-  DEFAULT_LOGIN_LOGO
-} from '../constant/defaultLogo';
-import { MajorConfig } from './typing';
+import { DEFAULT_APP_SIDE_LOGO, DEFAULT_APP_SWITCH_LOGO, DEFAULT_FAVICON, DEFAULT_LOGIN_LOGO } from '../constant/defaultLogo';
+import type { MajorConfig } from './typing';
 
 const initBasicConfig = async () => {
   const res = await http.mutate(

@@ -1,4 +1,4 @@
-import { CustomWidget as ViewTagCustomWidget, CustomWidgetProps, registerCustomWidgetFunction } from './tags';
+import { type CustomWidget as ViewTagCustomWidget, type CustomWidgetProps, registerCustomWidgetFunction } from './tags';
 import { createFlexContainerItem } from './tags/resolve/internal';
 
 export * from './action';

@@ -1,5 +1,5 @@
 import { queryServerActionByModelAndName } from '@oinone/kunlun-service';
-import { RuntimeServerAction } from '../runtime-metadata';
+import type { RuntimeServerAction } from '../runtime-metadata';
 import { MemoryAsyncCache } from './cache';
 import { ClearCache } from './CacheClear';
 

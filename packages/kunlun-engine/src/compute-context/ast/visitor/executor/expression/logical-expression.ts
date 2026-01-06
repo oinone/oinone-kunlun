@@ -1,4 +1,4 @@
-import { isLogicalExpression, LogicalExpression, Node, NodeVisitor, VisitContext } from '../../../types';
+import { isLogicalExpression, type LogicalExpression, type Node, type NodeVisitor, type VisitContext } from '../../../types';
 
 export class LogicalExpressionExecutor implements NodeVisitor<LogicalExpression> {
   public static readonly INSTANCE = new LogicalExpressionExecutor();

@@ -5,7 +5,7 @@ import { defaultMultiPartConfig, InputMediaMode, ValidateTrigger, WidgetTrigger 
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isNumber } from 'lodash-es';
 import { FormFieldWidget } from '../../../../basic';
-import { ValidatorInfo } from '../../../../typing';
+import type { ValidatorInfo } from '../../../../typing';
 import { FormStringInputFieldWidget } from '../input';
 import DefaultFormSingleMedia from './DefaultFormSingleMedia.vue';
 

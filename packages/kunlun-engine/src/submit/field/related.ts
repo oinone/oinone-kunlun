@@ -1,6 +1,6 @@
 import { isArray } from 'lodash-es';
-import { RuntimeRelatedField } from '../../runtime-metadata';
-import { SubmitFn } from './typing';
+import type { RuntimeRelatedField } from '../../runtime-metadata';
+import type { SubmitFn } from './typing';
 
 export const relatedSubmit: SubmitFn<RuntimeRelatedField> = (field, itemName, submitValue, value) => {
   const currentSubmitResult = submitValue.records;

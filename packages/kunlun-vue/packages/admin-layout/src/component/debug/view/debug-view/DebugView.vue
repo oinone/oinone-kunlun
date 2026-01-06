@@ -51,23 +51,13 @@
   </div>
 </template>
 <script lang="ts">
-import { RuntimeModule, RuntimeViewAction, ViewActionQueryParameter } from '@oinone/kunlun-engine';
+import type { RuntimeModule, RuntimeViewAction, ViewActionQueryParameter } from '@oinone/kunlun-engine';
 import { TreeNode } from '@oinone/kunlun-shared';
-import {
-  OioButton,
-  OioCol,
-  OioForm,
-  OioFormItem,
-  OioGroup,
-  OioRow,
-  OioTab,
-  OioTabs,
-  OioTextarea
-} from '@oinone/kunlun-vue-ui-antd';
+import { OioButton, OioCol, OioForm, OioFormItem, OioGroup, OioRow, OioTab, OioTabs, OioTextarea } from '@oinone/kunlun-vue-ui-antd';
 import { get as getValue, isArray, isPlainObject } from 'lodash-es';
-import { computed, defineComponent, PropType } from 'vue';
-import { RuntimeMenu } from '../../../../typing';
-import { DebugErrorPanel } from '../../typing';
+import { computed, defineComponent, type PropType } from 'vue';
+import type { RuntimeMenu } from '../../../../typing';
+import type { DebugErrorPanel } from '../../typing';
 import DebugDefaultInfo from '../components/DebugDefaultInfo.vue';
 import DebugJsonView from '../components/DebugJsonView.vue';
 import { DebugUtils } from '../debug-utils';

@@ -1,15 +1,7 @@
-import { Handler, Manager, ObjectUtils } from '@oinone/kunlun-shared';
-import { RouterPath, RuntimeModelField } from '../runtime-metadata';
-import {
-  deepResolve,
-  generatorVariables,
-  getDefaultValue,
-  getInitialValue,
-  getRequestFields,
-  getRequestModelFields,
-  transfer
-} from './method';
-import { GetModelFieldResult, GetModelResult, RuntimeContext } from './runtime-context';
+import { type Handler, Manager, ObjectUtils } from '@oinone/kunlun-shared';
+import type { RouterPath, RuntimeModelField } from '../runtime-metadata';
+import { deepResolve, generatorVariables, getDefaultValue, getInitialValue, getRequestFields, getRequestModelFields, transfer } from './method';
+import type { GetModelFieldResult, GetModelResult, RuntimeContext } from './runtime-context';
 
 export const ROOT_HANDLE = '__ROOT_HANDLE__';
 

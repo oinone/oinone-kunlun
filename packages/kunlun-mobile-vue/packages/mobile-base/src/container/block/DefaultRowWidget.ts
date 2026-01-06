@@ -1,6 +1,6 @@
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { DEFAULT_CARD_GUTTERS, DEFAULT_GUTTERS, LayoutHelper, StandardGutterType } from '@oinone/kunlun-vue-ui-common';
+import { DEFAULT_CARD_GUTTERS, DEFAULT_GUTTERS, LayoutHelper, type StandardGutterType } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNil, isString } from 'lodash-es';
 import { BasePackWidget } from '../../basic';

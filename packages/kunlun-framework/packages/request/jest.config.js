@@ -1,14 +1,6 @@
-const baseConfig = require('../../jest.base.config');
+import buildConfig from '@oinone/kunlun-test';
 
-
-module.exports = {
-  ...baseConfig,
-  moduleNameMapper: {
-    'lodash-es': 'lodash'
-  },
-  globals: {
-    window: {}
-  },
-  testEnvironment: 'jsdom',
-  setupFiles: ['./jest.setup.js']
-};
+export default buildConfig({
+  tsconfig: '../../tsconfig.json',
+  testEnvironment: 'jsdom'
+});

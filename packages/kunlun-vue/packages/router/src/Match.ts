@@ -1,21 +1,7 @@
-import {
-  cloneVNode,
-  SetupContext,
-  VNodeProps,
-  isVNode,
-  VNode,
-  RendererNode,
-  RendererElement,
-  ConcreteComponent,
-  toRefs,
-  Fragment,
-  computed,
-  ref,
-  watch
-} from 'vue';
-import { UrlSegment, matchPath, Matched, _useMatched } from '@oinone/kunlun-router';
+import { cloneVNode, type SetupContext, VNodeProps, isVNode, type VNode, RendererNode, RendererElement, ConcreteComponent, toRefs, Fragment, computed, ref, watch } from 'vue';
+import { UrlSegment, matchPath, type Matched, _useMatched } from '@oinone/kunlun-router';
 
-import { RouteProps, ROUTE_COMPONENT_NAME } from './Route';
+import { type RouteProps, ROUTE_COMPONENT_NAME } from './Route';
 import { REDIRECT_COMPONENT_NAME } from './Redirect';
 import { useSegmentGroup } from './helpers/useSegmentGroup';
 import { useWidgetService } from './useWidget';

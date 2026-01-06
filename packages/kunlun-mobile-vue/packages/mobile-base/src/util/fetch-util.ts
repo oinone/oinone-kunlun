@@ -1,5 +1,5 @@
-import { RuntimeModel } from '@oinone/kunlun-engine';
-import { Entity, IModel, IModelField } from '@oinone/kunlun-meta';
+import type { RuntimeModel } from '@oinone/kunlun-engine';
+import type { Entity, IModel, IModelField } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { getModel, queryOne } from '@oinone/kunlun-service';
 import { ObjectUtils } from '@oinone/kunlun-shared';

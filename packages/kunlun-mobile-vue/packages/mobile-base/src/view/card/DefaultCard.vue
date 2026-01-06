@@ -1,11 +1,11 @@
 <script lang="ts">
 import { DslDefinitionType, DslSlotUtils } from '@oinone/kunlun-dsl';
-import { CastHelper, CSSStyle } from '@oinone/kunlun-shared';
-import { RowContext } from '../../ui';
+import { CastHelper, type CSSStyle } from '@oinone/kunlun-shared';
+import type { RowContext } from '../../ui';
 import { DEFAULT_CARD_GUTTERS, FlexRowJustify, useClick } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { FlexRowAlign, ListSelectMode, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
-import { DslRender, DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { computed, createVNode, defineComponent, PropType, VNode } from 'vue';
+import { DslRender, type DslRenderDefinition } from '@oinone/kunlun-vue-widget';
+import { computed, createVNode, defineComponent, type PropType, type VNode } from 'vue';
 import { ActionBar, InternalWidget, ResolveMode } from '../../tags';
 import DefaultCardTitleToolbar from './DefaultCardTitleToolbar.vue';
 import { Checkbox as VanCheckbox } from 'vant';

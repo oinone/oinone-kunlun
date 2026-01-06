@@ -279,53 +279,13 @@
   </div>
 </template>
 <script lang="ts">
-import { deepClone, IModelField } from '@oinone/kunlun-meta';
+import { deepClone, type IModelField } from '@oinone/kunlun-meta';
 import { OioTextarea } from '@oinone/kunlun-vue-ui-antd';
-import {
-  Checkbox as ACheckbox,
-  Popconfirm as APopconfirm,
-  Select as ASelect,
-  Tooltip as ATooltip
-} from 'ant-design-vue';
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
-import {
-  autoSetBracketDeep,
-  changeBracketCheckStatus,
-  createApiNameVariableListStr,
-  createConditionExpressionApiName,
-  createConditionExpressionDisplayName,
-  createDefaultExpressionItem,
-  createDefaultExpressionLeftBracket,
-  createDefaultExpressionRightBracket,
-  createDefaultFieldVariableItems,
-  createDefaultVariableItemList,
-  createDisplayNameVariableListStr,
-  getDefaultCompareOperatorOptions,
-  getDefaultOperator,
-  isEmptyRow,
-  isNoRightCompareExpOperator,
-  isOneArgFunExpOperator,
-  quickMode2SeniorMode,
-  recalculateShowOperator,
-  seniorMode2quickMode,
-  translateExpValue
-} from '../../../share';
+import { Checkbox as ACheckbox, Popconfirm as APopconfirm, Select as ASelect, Tooltip as ATooltip } from 'ant-design-vue';
+import { computed, defineComponent, type PropType, ref, watch } from 'vue';
+import { autoSetBracketDeep, changeBracketCheckStatus, createApiNameVariableListStr, createConditionExpressionApiName, createConditionExpressionDisplayName, createDefaultExpressionItem, createDefaultExpressionLeftBracket, createDefaultExpressionRightBracket, createDefaultFieldVariableItems, createDefaultVariableItemList, createDisplayNameVariableListStr, getDefaultCompareOperatorOptions, getDefaultOperator, isEmptyRow, isNoRightCompareExpOperator, isOneArgFunExpOperator, quickMode2SeniorMode, recalculateShowOperator, seniorMode2quickMode, translateExpValue } from '../../../share';
 
-import {
-  ExpressionBooleanLogicOperatorList,
-  ExpressionDefinitionType,
-  ExpressionItemType,
-  ExpressionMode,
-  ExpressionRsqlLogicOperatorList,
-  ExpressionSeniorMode,
-  IExpressionItem,
-  IExpressionOption,
-  IExpSelectOption,
-  IFunFilterMethod,
-  IOperatorSelectOption,
-  IVariableItem,
-  VariableItemType
-} from '../../../types';
+import { ExpressionBooleanLogicOperatorList, ExpressionDefinitionType, ExpressionItemType, ExpressionMode, ExpressionRsqlLogicOperatorList, ExpressionSeniorMode, type IExpressionItem, type IExpressionOption, type IExpSelectOption, type IFunFilterMethod, type IOperatorSelectOption, type IVariableItem, VariableItemType } from '../../../types';
 import ModelFieldSelectControl from '../../model-field-select/ModelFieldSelectControl.vue';
 import LogicOperatorSelect from '../logic-operator-select/LogicOperatorSelect.vue';
 

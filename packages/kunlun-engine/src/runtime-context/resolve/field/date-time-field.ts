@@ -1,6 +1,6 @@
-import { FieldDslDefinition } from '@oinone/kunlun-dsl';
-import { RuntimeDateTimeField } from '../../../runtime-metadata';
-import { RuntimeContext } from '../../runtime-context';
+import type { FieldDslDefinition } from '@oinone/kunlun-dsl';
+import type { RuntimeDateTimeField } from '../../../runtime-metadata';
+import type { RuntimeContext } from '../../runtime-context';
 
 export function convertDateTimeField(
   runtimeContext: RuntimeContext,

@@ -1,5 +1,5 @@
 import '@oinone/kunlun-vue-ui-common/dist/oinone-kunlun-vue-ui-common.css';
-// import '@oinone/kunlun-vue-mobile-base/dist/oinone-kunlun-vue-mobile-base.css';
+import '@oinone/kunlun-vue-mobile-base/dist/oinone-kunlun-vue-mobile-base.css';
 
 export * from '@oinone/kunlun-event';
 export * from '@oinone/kunlun-expression';

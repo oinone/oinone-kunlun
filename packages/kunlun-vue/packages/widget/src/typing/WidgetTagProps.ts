@@ -1,5 +1,5 @@
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import { PropType } from 'vue';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import type { PropType } from 'vue';
 
 /**
  * 组件标签属性

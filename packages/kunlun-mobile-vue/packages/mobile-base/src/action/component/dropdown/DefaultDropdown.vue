@@ -1,16 +1,10 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import {
-  DEFAULT_PREFIX,
-  IconPlacement,
-  OioButton,
-  OioDropdownProps,
-  PropRecordHelper
-} from '@oinone/kunlun-vue-ui-mobile-vant';
+import { DEFAULT_PREFIX, IconPlacement, OioButton, OioDropdownProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { isArray } from 'lodash-es';
-import { cloneVNode, createVNode, defineComponent, Fragment, PropType, ref, VNode, watch } from 'vue';
+import { cloneVNode, createVNode, defineComponent, Fragment, type PropType, ref, type VNode, watch } from 'vue';
 import { InternalWidget } from '../../../tags';
 import { Popover as VanPopover, Popup as VanPopup } from 'vant';
 import { VNodeHelper } from '../../../util';

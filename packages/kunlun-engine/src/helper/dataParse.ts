@@ -1,31 +1,10 @@
 import { Expression } from '@oinone/kunlun-expression';
-import {
-  ActionContextType,
-  ActionElement,
-  ApiElement,
-  ContextElement,
-  Entity,
-  FieldElement,
-  fieldElement2ModelField,
-  IModel,
-  IModelField,
-  IServerAction,
-  modelField2fieldElement,
-  ModelFieldType
-} from '@oinone/kunlun-meta';
+import { ActionContextType, type ActionElement, ApiElement, ContextElement, type Entity, FieldElement, fieldElement2ModelField, type IModel, type IModelField, type IServerAction, modelField2fieldElement, ModelFieldType } from '@oinone/kunlun-meta';
 import { useMatched } from '@oinone/kunlun-router';
-import {
-  customMutation,
-  customQuery,
-  customQueryPage,
-  getModel,
-  IQueryPageOption,
-  IQueryPageResult,
-  requestMutation
-} from '@oinone/kunlun-service';
-import { RuntimeServerAction } from '../runtime-metadata';
+import { customMutation, customQuery, customQueryPage, getModel, IQueryPageOption, IQueryPageResult, requestMutation } from '@oinone/kunlun-service';
+import type { RuntimeServerAction } from '../runtime-metadata';
 
-import { FORM_DATA } from '../typing';
+import type { FORM_DATA } from '../typing';
 
 const api2RequestParam = async (
   fieldElements: FieldElement[],

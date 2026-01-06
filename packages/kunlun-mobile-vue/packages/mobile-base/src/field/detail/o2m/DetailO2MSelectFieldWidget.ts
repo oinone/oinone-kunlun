@@ -1,4 +1,4 @@
-import { ActiveRecord, getLabelFieldList4query, RuntimeO2MField } from '@oinone/kunlun-engine';
+import { type ActiveRecord, getLabelFieldList4query, type RuntimeO2MField } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';

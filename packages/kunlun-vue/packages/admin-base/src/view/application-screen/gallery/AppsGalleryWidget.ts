@@ -1,62 +1,21 @@
-import {
-  ActiveRecord,
-  Dialog,
-  executeViewAction,
-  FunctionMetadata,
-  GenericFunctionService,
-  ModelCache,
-  ModuleCache,
-  Pagination,
-  QueryContext,
-  QueryVariables,
-  RedirectTargetEnum,
-  RuntimeAction,
-  RuntimeModelField,
-  RuntimeViewAction,
-  translateValueByKey,
-  ViewCache
-} from '@oinone/kunlun-engine';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
-import { IModelField, ViewType } from '@oinone/kunlun-meta';
+import { type ActiveRecord, Dialog, executeViewAction, FunctionMetadata, GenericFunctionService, ModelCache, ModuleCache, type Pagination, type QueryContext, type QueryVariables, RedirectTargetEnum, type RuntimeAction, type RuntimeModelField, type RuntimeViewAction, translateValueByKey, ViewCache } from '@oinone/kunlun-engine';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
+import { type IModelField, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
-import {
-  customQueryPage,
-  DEFAULT_TRUE_CONDITION,
-  EDirection,
-  getModel,
-  http,
-  insertOne,
-  IQueryPageResult,
-  ISort,
-  updateOne
-} from '@oinone/kunlun-service';
+import { customQueryPage, DEFAULT_TRUE_CONDITION, EDirection, getModel, http, insertOne, IQueryPageResult, ISort, updateOne } from '@oinone/kunlun-service';
 import { CastHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { appFinderSymbol } from '@oinone/kunlun-vue-admin-layout';
 import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
-import { Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { Widget, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseElementListViewWidget, BaseElementWidget } from '../../../basic';
 import { createRuntimeContextForWidget } from '../../../tags';
 import { onJumpCodeFuse, onJumpModelDesigner, onJumpUiDesignerHomePage } from '../../../util';
 import { FormWidget } from '../../form';
 import GalleryVue from './Gallery.vue';
-import {
-  AppBindType,
-  appQueryOne,
-  BindAppHomepageForm,
-  BindAppHomepageFormXml,
-  bindHomePageByMenu,
-  bindHomePageByURL,
-  bindHomePageByView,
-  CreateAppForm,
-  CreateAppFormXml,
-  EditAppModelModel,
-  uninstallAppFun,
-  UpdateAppForm,
-  UpdateAppFormXml
-} from './service';
-import { ActionPermission, AppState, AppStateDisplayNameENum } from './type';
+import { AppBindType, appQueryOne, BindAppHomepageForm, BindAppHomepageFormXml, bindHomePageByMenu, bindHomePageByURL, bindHomePageByView, CreateAppForm, CreateAppFormXml, EditAppModelModel, uninstallAppFun, UpdateAppForm, UpdateAppFormXml } from './service';
+import { type ActionPermission, AppState, AppStateDisplayNameENum } from './type';
 
 @SPI.ClassFactory(BaseElementWidget.Token({ widget: 'AppsGallery' }))
 export class AppsGalleryWidget extends BaseElementListViewWidget {

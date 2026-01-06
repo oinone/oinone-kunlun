@@ -38,8 +38,8 @@
 </template>
 <script lang="ts">
 import { OioDateTimePicker, OioDateTimePickerProps, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
-import { Moment } from 'moment';
-import { defineComponent, PropType } from 'vue';
+import type { Moment } from 'moment';
+import { defineComponent, type PropType } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic';
 import { DateQuickOption } from './date-common';
 import { useDateTimePickerProps } from './use-date-time-picker-props';

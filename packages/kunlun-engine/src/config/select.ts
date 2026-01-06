@@ -1,6 +1,6 @@
-import { RuntimeConfig, RuntimeConfigOptions } from '@oinone/kunlun-meta';
+import { RuntimeConfig, type RuntimeConfigOptions } from '@oinone/kunlun-meta';
 import { ConfigHelper } from './config-helper';
-import { TableConfig } from './table';
+import type { TableConfig } from './table';
 
 export enum SelectSearchArea {
   default = 'default',

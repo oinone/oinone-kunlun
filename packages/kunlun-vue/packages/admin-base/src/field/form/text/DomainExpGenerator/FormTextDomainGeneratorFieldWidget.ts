@@ -1,5 +1,5 @@
 import { SubmitValue } from '@oinone/kunlun-engine';
-import { IModel, IModelField, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { type IModel, type IModelField, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { getModel } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';

@@ -1,4 +1,4 @@
-import { RuntimeNumberField } from '@oinone/kunlun-engine';
+import type { RuntimeNumberField } from '@oinone/kunlun-engine';
 import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toString } from 'lodash-es';

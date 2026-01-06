@@ -1,18 +1,10 @@
-import { OioTreeNode } from '@oinone/kunlun-shared';
+import type { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { AbstractTreeModelApi, QueryWrapper } from '../../service';
-import { OrganizationalStructureType, PamirsDepartment, PamirsOrganizationalStructure } from '../../typing';
-import { PamirsCompanyService, PamirsCompanyServiceToken } from '../PamirsCompanyService';
-import {
-  DepartmentQueryFilter,
-  PamirsDepartmentMetadata,
-  PamirsDepartmentService,
-  PamirsDepartmentServiceToken
-} from '../PamirsDepartmentService';
-import {
-  PamirsOrganizationalStructureService,
-  PamirsOrganizationalStructureServiceToken
-} from '../PamirsOrganizationalStructureService';
+import { OrganizationalStructureType, type PamirsDepartment, type PamirsOrganizationalStructure } from '../../typing';
+import { type PamirsCompanyService, PamirsCompanyServiceToken } from '../PamirsCompanyService';
+import { type DepartmentQueryFilter, PamirsDepartmentMetadata, type PamirsDepartmentService, PamirsDepartmentServiceToken } from '../PamirsDepartmentService';
+import { type PamirsOrganizationalStructureService, PamirsOrganizationalStructureServiceToken } from '../PamirsOrganizationalStructureService';
 
 @SPI.Service(PamirsOrganizationalStructureServiceToken)
 export class PamirsOrganizationalStructureServiceImpl

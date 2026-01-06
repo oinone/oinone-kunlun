@@ -1,5 +1,5 @@
 import { ConfigProviderSPI, ConfigProviderService } from '@oinone/kunlun-config';
-import { PluginLoadDependencies } from '../plugin-loader';
+import type { PluginLoadDependencies } from '../plugin-loader';
 
 const RUNTIME_CONFIG_RESOLVE = 'runtimeConfigResolve';
 

@@ -35,7 +35,7 @@
 import { NumberHelper } from '@oinone/kunlun-shared';
 import { OioInputNumber, OioSlider, SliderDirection, SliderToolbarFormatter } from '@oinone/kunlun-vue-ui-antd';
 import { FormItemRest as AFormItemRest } from 'ant-design-vue';
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, type PropType, ref, watch } from 'vue';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../basic';
 
 export default defineComponent({

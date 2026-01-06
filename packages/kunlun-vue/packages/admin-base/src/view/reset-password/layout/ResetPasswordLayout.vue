@@ -1,8 +1,8 @@
 <script lang="ts">
 import { StringHelper } from '@oinone/kunlun-shared';
 import { getCopyrightStatus, systemMajorConfig } from '@oinone/kunlun-engine';
-import { computed, createVNode, defineComponent, PropType } from 'vue';
-import { Copyright } from '../../../typing';
+import { computed, createVNode, defineComponent, type PropType } from 'vue';
+import type { Copyright } from '../../../typing';
 
 export default defineComponent({
   name: 'ResetPasswordLayout',

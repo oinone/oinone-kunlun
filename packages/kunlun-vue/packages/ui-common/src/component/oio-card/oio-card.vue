@@ -1,6 +1,6 @@
 <script lang="ts">
 import { isNil } from 'lodash-es';
-import { createVNode, defineComponent, VNode } from 'vue';
+import { createVNode, defineComponent, type VNode } from 'vue';
 import { useClick } from '../../quick-utils';
 import { DEFAULT_PREFIX } from '../../theme';
 import { PropRecordHelper } from '../../util';

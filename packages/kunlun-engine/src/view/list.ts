@@ -5,7 +5,7 @@ import { isPromise } from '@oinone/kunlun-meta';
 import { getRouterInstance, useMatched } from '@oinone/kunlun-router';
 import { ViewVM } from './view';
 
-import { EntityBody, IBaseListProps, IListValue, Pagination, PaginationChange } from '../typing/interface';
+import type { EntityBody, IBaseListProps, IListValue, Pagination, PaginationChange } from '../typing/interface';
 
 const sortDirections = {
   desc: EDirection.DESC,

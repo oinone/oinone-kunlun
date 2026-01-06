@@ -1,4 +1,4 @@
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 import { InputType } from '@oinone/kunlun-vue-ui-common';
 import { OioCommonProps, OioMetadataProps } from '../../basic/props';
 

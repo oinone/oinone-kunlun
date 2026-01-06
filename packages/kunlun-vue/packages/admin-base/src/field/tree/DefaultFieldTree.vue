@@ -1,34 +1,12 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import {
-  ButtonType,
-  CastHelper,
-  InputSearchEvent,
-  OioButton,
-  OioIcon,
-  OioInputSearch,
-  OioTree,
-  OioTreeNode,
-  PropRecordHelper,
-  StringHelper,
-  StyleHelper
-} from '@oinone/kunlun-vue-ui-antd';
+import { ButtonType, CastHelper, InputSearchEvent, OioButton, OioIcon, OioInputSearch, OioTree, type OioTreeNode, PropRecordHelper, StringHelper, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { isBoolean, isNil } from 'lodash-es';
-import {
-  computed,
-  createVNode,
-  defineComponent,
-  PropType,
-  ref,
-  VNode,
-  vShow,
-  withDirectives,
-  withModifiers
-} from 'vue';
+import { computed, createVNode, defineComponent, type PropType, ref, type VNode, vShow, withDirectives, withModifiers } from 'vue';
 import { ActionBar } from '../../tags';
-import { TreeData } from '../../typing';
+import type { TreeData } from '../../typing';
 import { TreeUtils } from '../../util';
 import { DefaultTreeProps } from '../../view/tree/props';
 

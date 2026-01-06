@@ -1,27 +1,10 @@
-import {
-  BASIC_CONFIG_KEY,
-  ConfigHelper,
-  CurrentLanguage,
-  getLoginTheme,
-  MajorConfig,
-  OioProvider,
-  systemMajorConfig
-} from '@oinone/kunlun-engine';
+import { BASIC_CONFIG_KEY, ConfigHelper, CurrentLanguage, getLoginTheme, type MajorConfig, OioProvider, systemMajorConfig } from '@oinone/kunlun-engine';
 import { RuntimeConfig, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { gql } from '@oinone/kunlun-request';
-import { Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { type Matched, Router, useMatched } from '@oinone/kunlun-router';
 import { http } from '@oinone/kunlun-service';
 import { useRouter } from '@oinone/kunlun-vue-router';
-import {
-  defaultLoginErrorMessages,
-  defaultLoginPageSettings,
-  EN_US_CODE,
-  LOGIN_LANGUAGE_ISO_STORAGE_KEY,
-  LOGIN_LANGUAGE_STORAGE_KEY,
-  LoginConfig,
-  LoginData,
-  RuntimeLanguage
-} from '@oinone/kunlun-vue-ui-common';
+import { defaultLoginErrorMessages, defaultLoginPageSettings, EN_US_CODE, LOGIN_LANGUAGE_ISO_STORAGE_KEY, LOGIN_LANGUAGE_STORAGE_KEY, type LoginConfig, type LoginData, type RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseI18nRouterWidget } from '../../basic';
 

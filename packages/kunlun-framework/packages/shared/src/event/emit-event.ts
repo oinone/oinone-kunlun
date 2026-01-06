@@ -1,4 +1,4 @@
-import { ReturnPromise } from '../typing';
+import type { ReturnPromise } from '../typing';
 
 /**
  * 事件函数

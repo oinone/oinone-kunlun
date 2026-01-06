@@ -24,7 +24,7 @@
   }
 
   .#{$formItemClassPrefix} {
-    & > .ant-form-item-label {
+    & > .ant-form-item-row > .ant-form-item-label {
       flex-basis: var(--ss-ant-form-item-label-width);
       flex-shrink: 0;
       margin-right: 8px;
@@ -38,13 +38,13 @@
       }
     }
 
-    & > .ant-form-item-control {
+    & > .ant-form-item-row > .ant-form-item-control {
       flex: 1;
       max-width: calc(100% - var(--ss-ant-form-item-label-width) - 8px);
     }
 
     &.hide-ant-form-item-label {
-      & > .ant-form-item-control {
+      & > .ant-form-item-row > .ant-form-item-control {
         max-width: 100%;
       }
     }
@@ -52,7 +52,7 @@
 
   .oio-form {
     &.ant-form-horizontal {
-      .#{$formItemClassPrefix}-vertical {
+      .#{$formItemClassPrefix}-vertical > .ant-form-item-row {
         & > .ant-form-item-label {
           flex-basis: unset;
           text-align: left;
@@ -67,7 +67,7 @@
 
     &.ant-form-vertical {
       .#{$formItemClassPrefix} {
-        & > .ant-form-item-control {
+        & > .ant-form-item-row > .ant-form-item-control {
           flex: 1;
           // flex-basis: 100%;
           max-width: 100%;
@@ -75,18 +75,18 @@
       }
 
       .#{$formItemClassPrefix}-horizontal {
-        & > .ant-form-item-label {
+        & > .ant-form-item-row > .ant-form-item-label {
           flex-basis: var(--ss-ant-form-item-label-width);
           margin-right: 8px;
         }
 
         &.hide-ant-form-item-label {
-          & > .ant-form-item-control {
+          & > .ant-form-item-row > .ant-form-item-control {
             max-width: 100%;
           }
         }
 
-        & > .ant-form-item-control {
+        & > .ant-form-item-row > .ant-form-item-control {
           flex: 1;
           max-width: calc(100% - var(--ss-ant-form-item-label-width) - 8px);
         }

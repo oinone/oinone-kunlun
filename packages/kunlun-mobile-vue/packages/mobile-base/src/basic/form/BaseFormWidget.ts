@@ -1,7 +1,7 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
-import { FormLayout, OioFormInstance } from '@oinone/kunlun-vue-ui-common';
+import { FormLayout, type OioFormInstance } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { BaseElementObjectViewWidget, BaseElementObjectViewWidgetProps } from '../element';
+import { BaseElementObjectViewWidget, type BaseElementObjectViewWidgetProps } from '../element';
 import DefaultForm from './DefaultForm.vue';
 
 /**

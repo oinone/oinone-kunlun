@@ -1,9 +1,9 @@
-import { ObjectValue } from '@oinone/kunlun-request';
+import type { ObjectValue } from '@oinone/kunlun-request';
 import { instantiate } from '@oinone/kunlun-shared';
-import { RuntimeAction, RuntimeViewAction } from '../../../runtime-metadata';
+import type { RuntimeAction, RuntimeViewAction } from '../../../runtime-metadata';
 import { PopupManager } from '../manager';
-import { IPopupInstance, IPopupWidget, PopupType } from '../typing';
-import { PopupConstructor, selectorPopupConstructor } from './spi';
+import type { IPopupInstance, IPopupWidget, PopupType } from '../typing';
+import { type PopupConstructor, selectorPopupConstructor } from './spi';
 
 let counter = 0;
 

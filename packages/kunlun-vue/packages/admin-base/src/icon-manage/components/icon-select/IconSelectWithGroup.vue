@@ -54,18 +54,12 @@
   </div>
 </template>
 <script lang="ts">
-import { Pagination, translateValueByKey } from '@oinone/kunlun-engine';
+import { type Pagination, translateValueByKey } from '@oinone/kunlun-engine';
 import { OioEmptyData, OioIcon, OioInputSearch, OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { debounce } from 'lodash-es';
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import { OioManageGroup } from '../../../components';
-import {
-  fetchGroupWithoutCount,
-  IconData,
-  IconGroup,
-  queryIconsWithCondition,
-  queryIconWithFullFontClass
-} from '../../service/IconManageService';
+import { fetchGroupWithoutCount, type IconData, type IconGroup, queryIconsWithCondition, queryIconWithFullFontClass } from '../../service/IconManageService';
 import { GroupAll } from '../../typing';
 
 export default defineComponent({

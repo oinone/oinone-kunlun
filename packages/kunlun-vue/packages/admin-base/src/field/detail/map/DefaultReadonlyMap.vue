@@ -8,8 +8,8 @@
   </detail-common-field>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
-import { MapItem } from '../../form/map/typing';
+import { computed, defineComponent, type PropType } from 'vue';
+import type { MapItem } from '../../form/map/typing';
 import { DetailCommonField } from '../common';
 
 export default defineComponent({

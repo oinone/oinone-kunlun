@@ -1,4 +1,4 @@
-import { PluginLoader, PluginLoadOption } from '../typing';
+import type { PluginLoader, PluginLoadOption } from '../typing';
 import { ESMPluginLoader } from './ESMPluginLoader';
 
 export class CJSPluginLoader implements PluginLoader {

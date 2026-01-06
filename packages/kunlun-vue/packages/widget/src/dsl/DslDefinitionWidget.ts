@@ -1,17 +1,10 @@
 import { getMergeConfig } from '@oinone/kunlun-config';
-import {
-  ComputeContext,
-  ComputeContextManager,
-  ROOT_HANDLE,
-  RuntimeContext,
-  RuntimeContextManager,
-  RuntimeModelField
-} from '@oinone/kunlun-engine';
-import { BooleanHelper, CSSClass, CSSStyle } from '@oinone/kunlun-shared';
+import { type ComputeContext, ComputeContextManager, ROOT_HANDLE, type RuntimeContext, RuntimeContextManager, type RuntimeModelField } from '@oinone/kunlun-engine';
+import { BooleanHelper, type CSSClass, type CSSStyle } from '@oinone/kunlun-shared';
 import { isNil } from 'lodash-es';
 import { Widget } from '../basic';
-import { InvisibleSupported, isAllInvisible } from '../feature';
-import { DslRenderWidget, DslRenderWidgetProps } from './DslRenderWidget';
+import { type InvisibleSupported, isAllInvisible } from '../feature';
+import { DslRenderWidget, type DslRenderWidgetProps } from './DslRenderWidget';
 
 /**
  * dsl组件属性

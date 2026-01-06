@@ -1,5 +1,5 @@
-import { PropType } from 'vue';
-import { OioColModel } from '../oio-block';
+import type { PropType } from 'vue';
+import type { OioColModel } from '../oio-block';
 import { OioSpinProps } from '../oio-spin';
 
 export enum FormLayout {
@@ -50,8 +50,6 @@ export enum ValidateTrigger {
   change = 'change',
   blur = 'blur'
 }
-
-type $$ValidateTrigger = keyof Omit<ValidateTrigger, 'CHANGE' | 'BLUR'>;
 
 export enum ComputeTrigger {
   /**
@@ -130,7 +128,7 @@ export const AFormProps = {
     default: false
   },
   validateTrigger: {
-    type: [String, Array] as PropType<ValidateTrigger | ValidateTrigger[] | $$ValidateTrigger | $$ValidateTrigger[]>
+    type: [String, Array] as PropType<ValidateTrigger | ValidateTrigger[]>
   },
   validateOnRuleChange: {
     type: Boolean,
@@ -198,7 +196,7 @@ export const AFormItemProps = {
     default: undefined
   },
   validateTrigger: {
-    type: [String, Array] as PropType<(ValidateTrigger | $$ValidateTrigger) | (ValidateTrigger | $$ValidateTrigger)[]>
+    type: [String, Array] as PropType<ValidateTrigger | ValidateTrigger[]>
   }
 };
 

@@ -1,4 +1,4 @@
-import { AbstractEventProducer, EventCategoryType, EventMessage, EventProducer, EventProducerOptions } from '../../bus';
+import { AbstractEventProducer, type EventCategoryType, type EventMessage, type EventProducer, type EventProducerOptions } from '../../bus';
 
 export abstract class AbstractHTMLEventProducer<
   K extends keyof HTMLElementEventMap,

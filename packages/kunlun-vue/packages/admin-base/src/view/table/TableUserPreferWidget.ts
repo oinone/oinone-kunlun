@@ -5,7 +5,7 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { nextTick } from 'vue';
 import { BaseElementWidget } from '../../basic';
 import { UserPreferEventManager } from '../../service';
-import { UserTablePrefer, VisibleField } from '../../typing';
+import type { UserTablePrefer, VisibleField } from '../../typing';
 import TableUserPrefer from './TableUserPrefer.vue';
 
 interface DataOption {

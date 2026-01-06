@@ -1,5 +1,5 @@
 import { translateValueByKey } from '@oinone/kunlun-engine';
-// import { UI_DESIGNER, WidgetCategoryGroup, WidgetCategoryList } from '@oinone/kunlun-ui-designer-core';
+// import { UI_DESIGNER, type WidgetCategoryGroup, WidgetCategoryList } from '@oinone/kunlun-ui-designer-core';
 import { HttpClient } from '@oinone/kunlun-request';
 
 const http = HttpClient.getInstance();

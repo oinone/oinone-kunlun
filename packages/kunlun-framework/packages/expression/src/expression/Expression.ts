@@ -1,18 +1,9 @@
 import { NumberHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import {
-  COLLECTION_FUNCTION,
-  CONVERT_FUNCTION,
-  DATETIME_FUNCTION,
-  LOGIC_FUNCTION,
-  MATCH_FUNCTION,
-  MATH_FUNCTION,
-  OBJECT_FUNCTION,
-  STRING_FUNCTION
-} from '../function';
-import { ExpressionRunParam } from './ExpressionDefinition';
-import { ExpressionKeyword, IExpression, IToken, ITokenTree, Language } from './language';
-import { Runtime, Variable } from './runtime';
+import { COLLECTION_FUNCTION, CONVERT_FUNCTION, DATETIME_FUNCTION, LOGIC_FUNCTION, MATCH_FUNCTION, MATH_FUNCTION, OBJECT_FUNCTION, STRING_FUNCTION } from '../function';
+import type { ExpressionRunParam } from './ExpressionDefinition';
+import { ExpressionKeyword, type IExpression, type IToken, type ITokenTree, Language } from './language';
+import { Runtime, type Variable } from './runtime';
 import { ExpressionExecutorServiceToken } from './spi/ExpressionExecutorService';
 
 const symbols = [

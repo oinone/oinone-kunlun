@@ -1,5 +1,5 @@
-import { IModelField, ModelFieldType } from '@oinone/kunlun-meta';
-import { IExpSelectOption } from './Common';
+import { type IModelField, ModelFieldType } from '@oinone/kunlun-meta';
+import type { IExpSelectOption } from './Common';
 import type { SessionContextOption } from './ConditionRsqlOperatorConfig';
 
 export interface IFunction {

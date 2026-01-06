@@ -1,5 +1,5 @@
-import { VNode } from 'vue';
-import { TreeSelectNode } from './model';
+import type { VNode } from 'vue';
+import type { TreeSelectNode } from './model';
 
 export enum TreeSelectCheckedStrategy {
   SHOW_ALL = 'SHOW_ALL',

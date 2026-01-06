@@ -6,8 +6,8 @@ import { CheckCircleOutlined } from '@ant-design/icons-vue';
 import { initOioComponentTheme } from '@oinone/kunlun-theme';
 import { HttpClient } from '@oinone/kunlun-request';
 import { customMutation } from '@oinone/kunlun-service';
-import { MajorConfig, OioProvider, translateValueByKey } from '@oinone/kunlun-engine';
-import { Matched, Router, useMatched } from '@oinone/kunlun-router';
+import { type MajorConfig, OioProvider, translateValueByKey } from '@oinone/kunlun-engine';
+import { type Matched, Router, useMatched } from '@oinone/kunlun-router';
 import { useRouter } from '@oinone/kunlun-vue-router';
 
 import { BaseElementWidget } from '../../basic';

@@ -1,24 +1,12 @@
-import { DslDefinition, DslDefinitionType, XMLParse } from '@oinone/kunlun-dsl';
-import {
-  ClientType,
-  resolveView,
-  RuntimeContext,
-  RuntimeContextManager,
-  RuntimeContextService,
-  RuntimeContextServiceToken,
-  RuntimeLayoutDefinition,
-  RuntimeModelField,
-  RuntimeRelatedField,
-  RuntimeView,
-  RuntimeViewAction
-} from '@oinone/kunlun-engine';
+import { type DslDefinition, DslDefinitionType, XMLParse } from '@oinone/kunlun-dsl';
+import { ClientType, resolveView, type RuntimeContext, RuntimeContextManager, type RuntimeContextService, RuntimeContextServiceToken, type RuntimeLayoutDefinition, type RuntimeModelField, type RuntimeRelatedField, type RuntimeView, type RuntimeViewAction } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, debugConsole, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { useInjectMetaContext } from '@oinone/kunlun-vue-widget';
 import { isNil, isPlainObject, isString } from 'lodash-es';
 import { getDefaultMaskTemplate, maskTemplateEdit } from '../../layout';
-import { LayoutManager, LayoutRegisterOptions, MaskManager } from '../../spi';
+import { LayoutManager, type LayoutRegisterOptions, MaskManager } from '../../spi';
 import { findWidget } from '../../util/utils';
 import { ActiveLayoutEffectOpt } from './active';
 import { createMobileDefaultLayout } from './default-layout';

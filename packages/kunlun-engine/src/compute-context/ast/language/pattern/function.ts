@@ -1,26 +1,7 @@
-import {
-  COLLECTION_FUNCTION,
-  CONVERT_FUNCTION,
-  DATETIME_FUNCTION,
-  LOGIC_FUNCTION,
-  MATCH_FUNCTION,
-  MATH_FUNCTION,
-  OBJECT_FUNCTION,
-  STRING_FUNCTION
-} from '@oinone/kunlun-expression';
+import { COLLECTION_FUNCTION, CONVERT_FUNCTION, DATETIME_FUNCTION, LOGIC_FUNCTION, MATCH_FUNCTION, MATH_FUNCTION, OBJECT_FUNCTION, STRING_FUNCTION } from '@oinone/kunlun-expression';
 import * as charCodes from '../../charcodes';
 import * as types from '../../tokens';
-import {
-  CallExpression,
-  createExpression,
-  isAnyExpression,
-  isIdentifier,
-  Node,
-  ParserContext,
-  Token,
-  TokenParser,
-  TokenReader
-} from '../../types';
+import { type CallExpression, createExpression, isAnyExpression, isIdentifier, type Node, type ParserContext, type Token, type TokenParser, type TokenReader } from '../../types';
 import { BaseParser, BaseReader } from '../base';
 
 const STATIC_FUNCTION = {

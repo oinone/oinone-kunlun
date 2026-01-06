@@ -1,10 +1,10 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { AbstractTreeModelApi, GenericFunctionService } from '../../service';
-import { PamirsDepartment } from '../../typing';
+import type { PamirsDepartment } from '../../typing';
 import {
-  DepartmentQueryFilter,
+  type DepartmentQueryFilter,
   PamirsDepartmentMetadata,
-  PamirsDepartmentService,
+  type PamirsDepartmentService,
   PamirsDepartmentServiceToken
 } from '../PamirsDepartmentService';
 
@@ -20,7 +20,11 @@ export class PamirsDepartmentServiceImpl
   public async queryListByFilter(query: DepartmentQueryFilter): Promise<PamirsDepartment[]> {
     // fixme @zbh 20251205 optimize request
     return (
-      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(this.modelModel, 'queryListByFilter', query)) || []
+      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(
+        query.model || this.modelModel,
+        'queryListByFilter',
+        query
+      )) || []
     );
   }
 }

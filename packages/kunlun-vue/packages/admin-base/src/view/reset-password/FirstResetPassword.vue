@@ -32,19 +32,12 @@
   </reset-password-layout>
 </template>
 <script lang="ts">
-import { MajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
+import { type MajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
 
-import {
-  FormItemRule,
-  OioButton,
-  OioForm,
-  OioFormInstance,
-  OioFormItem,
-  OioInputPassword
-} from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, onMounted, PropType, reactive, ref } from 'vue';
+import { FormItemRule, OioButton, OioForm, OioFormInstance, OioFormItem, OioInputPassword } from '@oinone/kunlun-vue-ui-antd';
+import { defineComponent, onMounted, type PropType, reactive, ref } from 'vue';
 import ResetPasswordLayout from './layout/ResetPasswordLayout.vue';
-import { ResetPasswordData } from './typing';
+import type { ResetPasswordData } from './typing';
 import { useResetPassword } from './useResetPassword';
 
 export default defineComponent({

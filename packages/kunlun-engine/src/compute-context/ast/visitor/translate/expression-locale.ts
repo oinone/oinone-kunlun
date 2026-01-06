@@ -1,4 +1,4 @@
-import { ExpressionLocale, ExpressionLocaleType } from './language';
+import { ExpressionLocale, type ExpressionLocaleType } from './language';
 
 export class ExpressionLocaleManager {
   private static active: ExpressionLocaleType | undefined;

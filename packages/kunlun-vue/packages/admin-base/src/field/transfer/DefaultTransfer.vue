@@ -93,14 +93,9 @@
   </div>
 </template>
 <script lang="ts">
-import { ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
+import { type ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
 import { OioIcon } from '@oinone/kunlun-vue-ui-common';
-import {
-  CheckboxGroup as ACheckboxGroup,
-  Pagination as APagination,
-  Table as ATable,
-  Transfer as ATransfer
-} from 'ant-design-vue';
+import { CheckboxGroup as ACheckboxGroup, Pagination as APagination, Table as ATable, Transfer as ATransfer } from 'ant-design-vue';
 import { computed, defineComponent, ref, watch } from 'vue';
 import Draggable from 'vuedraggable';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../basic';

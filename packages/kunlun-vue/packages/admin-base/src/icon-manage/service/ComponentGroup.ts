@@ -1,4 +1,4 @@
-import { IModelField, ModelFieldType } from '@oinone/kunlun-meta';
+import { type IModelField, ModelFieldType } from '@oinone/kunlun-meta';
 import { buildSingleItemParam, http } from '@oinone/kunlun-service';
 
 const MODULE_NAME = 'uiDesigner';

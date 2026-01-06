@@ -1,8 +1,8 @@
-import { ExpressionRunParam } from '@oinone/kunlun-expression';
+import type { ExpressionRunParam } from '@oinone/kunlun-expression';
 import { ObjectUtils } from '@oinone/kunlun-shared';
-import { RuntimeModelField } from '../../runtime-metadata';
+import type { RuntimeModelField } from '../../runtime-metadata';
 import { EffectManager, isUsingTriggerDirective, TriggerDirective } from '../ast';
-import { ComputeContext } from '../compute-context';
+import type { ComputeContext } from '../compute-context';
 import { DepManager } from '../reactive';
 
 export default function compute(

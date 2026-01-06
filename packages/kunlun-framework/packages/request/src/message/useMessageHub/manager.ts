@@ -1,6 +1,6 @@
 import { instantiate } from '@oinone/kunlun-shared';
-import { IMessage } from '../../types';
-import { IMessageHub, MessageHubConstructor } from '../typing';
+import type { IMessage } from '../../types';
+import type { IMessageHub, MessageHubConstructor } from '../typing';
 
 export class InternalMessageHubManager {
   private messageHubConstructor: MessageHubConstructor | undefined;

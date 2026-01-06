@@ -1,34 +1,15 @@
-import {
-  ActiveRecord,
-  ActiveRecords,
-  ActiveRecordsOperator,
-  FunctionCache,
-  FunctionService,
-  MetadataHelper,
-  QueryContext,
-  QueryService,
-  QueryVariables,
-  RuntimeModelField,
-  RuntimeStringField,
-  StaticMetadata,
-  SubmitValue,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
-import { ActionContextType, Entity, ModelDefaultActionName, ModelFieldType, ModelType } from '@oinone/kunlun-meta';
+import { type ActiveRecord, type ActiveRecords, ActiveRecordsOperator, FunctionCache, FunctionService, MetadataHelper, type QueryContext, QueryService, type QueryVariables, type RuntimeModelField, type RuntimeStringField, StaticMetadata, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
+import { ActionContextType, type Entity, ModelDefaultActionName, ModelFieldType, ModelType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { BooleanHelper, CallChaining, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioButton, OioCloseIcon, OioIcon, OioNotification } from '@oinone/kunlun-vue-ui-antd';
-import { ActiveRecordsWidget, isFormViewState, Widget, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { ActiveRecordsWidget, isFormViewState, Widget, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { Modal } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
 import { createVNode } from 'vue';
 import type { BaseView } from '../../basic';
-import {
-  FETCH_DRAFT_DATA_WIDGET_PRIORITY,
-  POPUP_FETCH_DRAFT_DATA_WIDGET_PRIORITY,
-  REFRESH_FORM_DATA
-} from '../../basic/constant';
+import { FETCH_DRAFT_DATA_WIDGET_PRIORITY, POPUP_FETCH_DRAFT_DATA_WIDGET_PRIORITY, REFRESH_FORM_DATA } from '../../basic/constant';
 import { ActionWidget } from '../component';
 
 /**

@@ -1,4 +1,4 @@
-import { ThemeType } from '../typing';
+import type { ThemeType } from '../typing';
 
 export let currentOioThemeType: ThemeType = 'default';
 

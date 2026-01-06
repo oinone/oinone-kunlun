@@ -1,19 +1,5 @@
 import { Widget } from '@oinone/kunlun-vue-widget';
-import {
-  ExpActiveType,
-  IExpressionDefinition,
-  IExpressionItem,
-  IExpressionOption,
-  IExpSelectOption,
-  convertModelFields2Options,
-  createConditionExpressionValue,
-  createDefaultExpressionItem,
-  createDefaultExpressionItemList,
-  createDefaultFieldExpressionItem,
-  createExpressionItemByExpressionDefinition,
-  queryExpModelFields,
-  createConditionExpressionDisplayName
-} from '@oinone/kunlun-vue-expression';
+import { ExpActiveType, type IExpressionDefinition, type IExpressionItem, type IExpressionOption, type IExpSelectOption, convertModelFields2Options, createConditionExpressionValue, createDefaultExpressionItem, createDefaultExpressionItemList, createDefaultFieldExpressionItem, createExpressionItemByExpressionDefinition, queryExpModelFields, createConditionExpressionDisplayName } from '@oinone/kunlun-vue-expression';
 import { ExpressionAbstractWidget } from '../ExpressionAbstractWidget';
 import { ExpressionExecutor } from '@oinone/kunlun-engine';
 

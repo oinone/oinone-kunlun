@@ -57,12 +57,12 @@
   </div>
 </template>
 <script lang="ts">
-import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import type { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
 import { OioTooltipHelp } from '@oinone/kunlun-vue-ui-antd';
-import { SelectItem } from '@oinone/kunlun-vue-ui-common';
+import type { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { Radio as ARadio, RadioButton as ARadioButton, RadioGroup as ARadioGroup } from 'ant-design-vue';
 import { isNil, toNumber, toString } from 'lodash-es';
-import { computed, defineComponent, PropType, watch } from 'vue';
+import { computed, defineComponent, type PropType, watch } from 'vue';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../basic';
 import { arrSplit, enumFetchLabelByValue, optionsConvertSelectItem } from '../../../util';
 

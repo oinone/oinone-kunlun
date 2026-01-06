@@ -2,23 +2,12 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { IModule } from '@oinone/kunlun-meta';
-import { BaseElementWidget, BaseFormWidget, UrlQueryParameters } from '../../../../basic';
+import type { IModule } from '@oinone/kunlun-meta';
+import { BaseElementWidget, BaseFormWidget, type UrlQueryParameters } from '../../../../basic';
 import AdvancedHomepageSetting from './AdvancedHomepageSetting.vue';
-import {
-  saveHomepageSettingConfig,
-  queryHomepageConfig,
-  fetchModuleList,
-  fetchModuleOne
-} from '../../service/HomepageSettingService';
+import { saveHomepageSettingConfig, queryHomepageConfig, fetchModuleList, fetchModuleOne } from '../../service/HomepageSettingService';
 import { RenderWidgetsBehavior, ValidateWidgetsBehavior } from '../../service/behaviors';
-import {
-  BindingTypeEnum,
-  EnableStatusOptionsEnum,
-  FetchValueOptions,
-  FetchValueReturnType,
-  HomepageConfigRule
-} from '../../typing';
+import { BindingTypeEnum, EnableStatusOptionsEnum, type FetchValueOptions, type FetchValueReturnType, type HomepageConfigRule } from '../../typing';
 import { sortFn, useHomepageSetting } from '../../hook/useHomepageSetting';
 
 @SPI.ClassFactory(BaseElementWidget.Token({ widget: 'AdvancedHomepageSettingWidget' }))

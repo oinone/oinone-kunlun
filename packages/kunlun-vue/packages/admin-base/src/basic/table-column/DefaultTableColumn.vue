@@ -1,18 +1,7 @@
 <script lang="ts">
-import { DslDefinition } from '@oinone/kunlun-dsl';
-import {
-  GROUP_TREE_KEY,
-  OioColumn,
-  OioColumnAppearanceProps,
-  OioColumnEditorProps,
-  OioColumnRenderFunctionProps,
-  OioTableInstance,
-  RowContext,
-  TableEditorMode,
-  useInjectOioTableInstance,
-  VxeTableRowContext
-} from '@oinone/kunlun-vue-ui';
-import { computed, createVNode, defineComponent, onMounted, PropType, VNode } from 'vue';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { GROUP_TREE_KEY, OioColumn, OioColumnAppearanceProps, OioColumnEditorProps, OioColumnRenderFunctionProps, type OioTableInstance, type RowContext, TableEditorMode, useInjectOioTableInstance, type VxeTableRowContext } from '@oinone/kunlun-vue-ui';
+import { computed, createVNode, defineComponent, onMounted, type PropType, type VNode } from 'vue';
 import { ManualWidget } from '../mixin';
 
 export default defineComponent({

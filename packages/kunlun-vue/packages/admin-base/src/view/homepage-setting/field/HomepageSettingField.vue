@@ -27,9 +27,9 @@
 
 <script lang="ts">
 import { OioButton, OioIcon, OioSpin } from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 import draggable from 'vuedraggable';
-import { HomepageConfigRule } from '../typing';
+import type { HomepageConfigRule } from '../typing';
 
 export default defineComponent({
   name: 'HomepageSettingField',

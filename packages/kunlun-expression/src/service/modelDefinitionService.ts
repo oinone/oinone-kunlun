@@ -1,6 +1,6 @@
 import { useMatched } from '@oinone/kunlun-router';
 import { Condition, HttpClient } from '@oinone/kunlun-request';
-import { Pagination } from '@oinone/kunlun-engine';
+import type { Pagination } from '@oinone/kunlun-engine';
 import dayjs from 'dayjs';
 import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 

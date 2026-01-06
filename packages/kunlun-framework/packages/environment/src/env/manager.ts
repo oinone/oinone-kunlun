@@ -1,7 +1,7 @@
 import { Manager, ObjectUtils } from '@oinone/kunlun-shared';
 import { CONTENT_NULL_SELECTOR } from './constant';
 import { getContentHTMLElement } from './method';
-import { RuntimeEnvironment, VisibleArea } from './typing';
+import type { RuntimeEnvironment, VisibleArea } from './typing';
 import { createVisibleArea } from './utils';
 
 const runtimeEnvironmentMethods: Record<string, Function> = {

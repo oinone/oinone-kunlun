@@ -1,6 +1,6 @@
 import { ServiceIdentifier } from '@oinone/kunlun-spi';
-import { ListModelApi } from '../service';
-import { AuthRole } from '../typing';
+import type { ListModelApi } from '../service';
+import type { AuthRole } from '../typing';
 
 export interface AuthRoleQueryFilter {
   rsql?: string;

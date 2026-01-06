@@ -1,11 +1,11 @@
-import { DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { BooleanHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { RenderCellContext } from '@oinone/kunlun-vue-ui';
+import type { RenderCellContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget, getTableThemeConfig } from '../../basic';
 import { BaseTableColumnWidget } from '../../basic/table-column';
-import { OperationColumnDirection, UserTablePrefer } from '../../typing';
+import { OperationColumnDirection, type UserTablePrefer } from '../../typing';
 import { getTableColumnWidth } from '../../util';
 import TableOperationColumn from './TableOperationColumn.vue';
 

@@ -1,14 +1,5 @@
 import { ConsumerOperator, ProducerOperator } from '../operator';
-import {
-  EventConsumer,
-  EventConsumerConfig,
-  EventConsumerFunction,
-  EventConsumerOptions,
-  EventEngineOptions,
-  EventMessage,
-  EventProducer,
-  EventProducerOptions
-} from '../typing';
+import type { EventConsumer, EventConsumerConfig, EventConsumerFunction, EventConsumerOptions, EventEngineOptions, EventMessage, EventProducer, EventProducerOptions } from '../typing';
 
 export class Basic {
   private static consumerMap: Map<Function, EventConsumer<unknown, unknown, unknown>> = new Map<

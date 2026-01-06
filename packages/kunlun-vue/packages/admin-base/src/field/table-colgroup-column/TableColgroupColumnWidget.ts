@@ -1,6 +1,6 @@
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { RenderCellContext } from '@oinone/kunlun-vue-ui';
+import type { RenderCellContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../basic';
 import DefaultColgroupColumn from './DefaultColgroupColumn.vue';

@@ -1,6 +1,6 @@
 import * as charCodes from '../charcodes';
 import * as types from '../tokens';
-import { ParserContext, Token, TokenReader } from '../types';
+import type { ParserContext, Token, TokenReader } from '../types';
 import { BaseReader } from './base';
 
 export class EndReader extends BaseReader implements TokenReader {

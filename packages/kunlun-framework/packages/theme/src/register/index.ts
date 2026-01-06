@@ -1,4 +1,4 @@
-import { ThemeName } from '../typing';
+import type { ThemeName } from '../typing';
 
 const themeMap = new Map<string, Record<string, unknown>>();
 

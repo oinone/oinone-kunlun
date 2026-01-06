@@ -13,17 +13,10 @@
   </van-tab>
 </template>
 <script lang="ts">
-import {
-  DEFAULT_PREFIX,
-  DEFAULT_TAB_TITLE,
-  OioTabProps,
-  useInjectOioFormContext,
-  useInjectOioTabsContext,
-  useProviderOioFormContext
-} from '@oinone/kunlun-vue-ui-mobile-vant';
-import { DslDefinition } from '@oinone/kunlun-dsl';
+import { DEFAULT_PREFIX, DEFAULT_TAB_TITLE, OioTabProps, useInjectOioFormContext, useInjectOioTabsContext, useProviderOioFormContext } from '@oinone/kunlun-vue-ui-mobile-vant';
+import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { Tab as VanTab } from 'vant';
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
   name: 'DefaultMultiViewTab',

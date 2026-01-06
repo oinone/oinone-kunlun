@@ -1,5 +1,5 @@
 import { MessageHubManager } from '../../message';
-import { ILevel, IResponseErrorResult, IResponseResult, NetworkInterceptor } from '../../types';
+import { ILevel, type IResponseErrorResult, type IResponseResult, type NetworkInterceptor } from '../../types';
 
 export class MessageHubInterceptor implements NetworkInterceptor {
   public success(response: IResponseResult) {

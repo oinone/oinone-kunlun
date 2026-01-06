@@ -1,25 +1,13 @@
 import { Subscription } from '@oinone/kunlun-state';
 import { Router, useMatched } from '@oinone/kunlun-router';
-import { IMenu, IModule, ViewActionTarget } from '@oinone/kunlun-meta';
+import { type IMenu, type IModule, ViewActionTarget } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { Widget, WidgetBehaviorSubjection, WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import { Widget, type WidgetBehaviorSubjection, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { http, queryHomePageDsl } from '@oinone/kunlun-service';
-import {
-  getMajorConfigByModuleModule,
-  MajorConfig,
-  useCurrentContextService,
-  useMultiTabsService
-} from '@oinone/kunlun-engine';
+import { getMajorConfigByModuleModule, type MajorConfig, useCurrentContextService, useMultiTabsService } from '@oinone/kunlun-engine';
 import { useRouter } from '@oinone/kunlun-vue-router';
 
-import {
-  EXECUTE_HOME_PAGE,
-  GlobalStateSubSymbol,
-  IGlobalState,
-  MenusCollapsedSymbol,
-  MenusSubSymbol,
-  SWITCH_APP_COLLECTION
-} from '../type';
+import { EXECUTE_HOME_PAGE, GlobalStateSubSymbol, IGlobalState, MenusCollapsedSymbol, MenusSubSymbol, SWITCH_APP_COLLECTION } from '../type';
 
 import AppComponent from './AppSwitcher.vue';
 import { getCurrentTenant } from '../../util';

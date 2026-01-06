@@ -1,12 +1,5 @@
 <script lang="ts">
-import {
-  FormLayout,
-  OioTabProps,
-  PropRecordHelper,
-  useInjectOioFormContext,
-  useInjectOioTabsContext,
-  useProviderOioFormContext
-} from '@oinone/kunlun-vue-ui-common';
+import { FormLayout, OioTabProps, PropRecordHelper, useInjectOioFormContext, useInjectOioTabsContext, useProviderOioFormContext } from '@oinone/kunlun-vue-ui-common';
 import { Tab as VanTab } from 'vant';
 import { computed, createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

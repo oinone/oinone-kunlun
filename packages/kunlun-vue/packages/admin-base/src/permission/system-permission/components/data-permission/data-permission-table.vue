@@ -44,26 +44,11 @@
 import { defineProps, nextTick, onMounted, reactive, ref, watch, withDefaults } from 'vue';
 import { OioButton, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
 import { OioTable, OioColumn } from '@oinone/kunlun-vue-ui';
-import { IPermission } from '../../../permission/type';
-import {
-  ActionContextType,
-  ModelDefaultActionName,
-  ModelFieldType,
-  ViewActionTarget,
-  ViewType
-} from '@oinone/kunlun-meta';
-import {
-  Dialog,
-  IPopupInstance,
-  PopupManager,
-  RuntimeViewAction,
-  DisposeEventHandler,
-  OpenEventHandler,
-  RuntimeAction,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
+import type { IPermission } from '../../../permission/type';
+import { ActionContextType, ModelDefaultActionName, ModelFieldType, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import { Dialog, type IPopupInstance, PopupManager, type RuntimeViewAction, type DisposeEventHandler, type OpenEventHandler, type RuntimeAction, translateValueByKey } from '@oinone/kunlun-engine';
 import { DialogWidget } from '../../../popup';
-import { ClickResult, PopupSubmitParameters } from '../../../../typing';
+import type { ClickResult, PopupSubmitParameters } from '../../../../typing';
 
 const props = withDefaults(defineProps<{ authGroupId: string; model: string; dataPermissions: IPermission[] }>(), {
   authGroupId: '',

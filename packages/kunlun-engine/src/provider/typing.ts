@@ -1,7 +1,7 @@
-import { PluginLoadDependencies } from '@oinone/kunlun-meta';
-import { InterceptorOptions, NetworkMiddlewareHandler } from '@oinone/kunlun-request';
+import type { PluginLoadDependencies } from '@oinone/kunlun-meta';
+import type { InterceptorOptions, NetworkMiddlewareHandler } from '@oinone/kunlun-request';
 import { ThemeName } from '@oinone/kunlun-theme';
-import { RouterPath } from '../runtime-metadata';
+import type { RouterPath } from '../runtime-metadata';
 import type { MultiTabsConfig } from '../view';
 
 export interface MajorConfig {

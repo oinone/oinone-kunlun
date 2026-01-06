@@ -1,5 +1,5 @@
-import { QueryVariables } from '../../service/typing';
-import { RuntimeContext } from '../runtime-context';
+import type { QueryVariables } from '../../service/typing';
+import type { RuntimeContext } from '../runtime-context';
 
 export default function generatorVariables(this: RuntimeContext, variables?: QueryVariables): QueryVariables {
   if (!variables) {

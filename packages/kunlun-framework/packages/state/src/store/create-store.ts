@@ -1,5 +1,5 @@
 import { StateStream } from './state-stream';
-import { ActionsTree, GettersTree, Options, StateTree, StoreDefinition, StoreWithGetters, SubAction } from './typing';
+import type { ActionsTree, GettersTree, Options, StateTree, StoreDefinition, StoreWithGetters, SubAction } from './typing';
 
 const isPlainObject = (v) => {
   return Object.prototype.toString.call(v) === '[object Object]';

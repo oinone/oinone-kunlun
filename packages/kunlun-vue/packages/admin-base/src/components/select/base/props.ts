@@ -1,7 +1,7 @@
 import { SelectSearchArea } from '@oinone/kunlun-engine';
-import { OioSelectItem } from '@oinone/kunlun-shared';
+import type { OioSelectItem } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic/props';
 
 const AppearanceProps = {

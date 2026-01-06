@@ -1,16 +1,9 @@
-import { DEFAULT_SLOT_NAME, DslDefinition } from '@oinone/kunlun-dsl';
-import {
-  DslRender,
-  RenderWidget,
-  renderWidgets,
-  reportAllMounted,
-  VueWidget,
-  WidgetTagProps
-} from '@oinone/kunlun-vue-widget';
-import { ComponentOptionsMixin, computed, ref, type Ref, SetupContext, Slots } from 'vue';
+import { DEFAULT_SLOT_NAME, type DslDefinition } from '@oinone/kunlun-dsl';
+import { DslRender, type RenderWidget, renderWidgets, reportAllMounted, VueWidget, WidgetTagProps } from '@oinone/kunlun-vue-widget';
+import { ComponentOptionsMixin, computed, ref, type Ref, type SetupContext, type Slots } from 'vue';
 import { useInjectMaskContext, useProviderMaskContext } from '../context';
-import { createMaskWidget, CreateMaskWidgetProps } from '../resolve';
-import { MaskWidgetTagMixinContext } from './typing';
+import { createMaskWidget, type CreateMaskWidgetProps } from '../resolve';
+import type { MaskWidgetTagMixinContext } from './typing';
 
 /**
  * 函数式组件标签混入可选项

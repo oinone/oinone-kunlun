@@ -2,10 +2,12 @@
  * @jest-environment jsdom
  */
 
-import { SPI, SPITokenFactory, SPISingleSelector, ServiceIdentifier } from '../src';
 import 'reflect-metadata';
-import { container } from '../src/spring/container';
+import { ServiceIdentifier, SPI, SPISingleSelector, SPITokenFactory } from '../index';
 import { ServicePriorityManager } from '../src/spring/annotation/priority';
+import { container } from '../src/spring/container';
+import { definePriority, getPriority } from '../src/register/priority';
+import { ProtoHelper } from '../src/utils/proto-helper';
 
 describe('SPI', () => {
   beforeEach(() => {
@@ -181,6 +183,7 @@ describe('SPI', () => {
           console.log('OracleDB');
         }
       }
+
       const result = SPI.RawInstantiate(DB_TOKEN);
 
       console.log(result);
@@ -249,6 +252,22 @@ describe('SPI', () => {
       const result = SPI.RawInstantiate(TargetServiceToken);
 
       expect((result as TargetService).testService).toBeInstanceOf(TestService);
+    });
+  });
+
+  describe('Priority 与 ProtoHelper', () => {
+    it('definePriority 与 getPriority 可以在原型链上存取优先级', () => {
+      class A {}
+      definePriority(A, { order: 5 });
+      expect(getPriority(A).order).toBe(5);
+    });
+
+    it('ProtoHelper 可以在原型链上定义和删除属性', () => {
+      class B {}
+      ProtoHelper.define(B, 'testKey', 1);
+      expect(ProtoHelper.get<number>(B, 'testKey')).toBe(1);
+      ProtoHelper.delete(B, 'testKey');
+      expect(ProtoHelper.get<number>(B, 'testKey')).toBeUndefined();
     });
   });
 });

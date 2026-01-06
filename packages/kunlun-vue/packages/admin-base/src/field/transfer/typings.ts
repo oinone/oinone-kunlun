@@ -1,5 +1,5 @@
-import { ActiveRecord } from '@oinone/kunlun-engine';
-import { PropType } from 'vue';
+import type { ActiveRecord } from '@oinone/kunlun-engine';
+import type { PropType } from 'vue';
 
 export enum ChildrenViewType {
   LIST = 'LIST',

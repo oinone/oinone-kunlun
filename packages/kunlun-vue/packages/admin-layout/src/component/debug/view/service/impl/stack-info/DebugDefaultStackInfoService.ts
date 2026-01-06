@@ -1,13 +1,8 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { isArray } from 'lodash-es';
-import { DebugErrorAnalysisResult, DebugResponseError } from '../../../../typing';
+import type { DebugErrorAnalysisResult, DebugResponseError } from '../../../../typing';
 import { DebugUtils } from '../../../debug-utils';
-import {
-  DebugDefaultStackInfoServiceType,
-  DebugStackInfoService,
-  DebugStackInfoServiceToken,
-  DebugUnhandledExceptionTitle
-} from '../../DebugStackInfoService';
+import { DebugDefaultStackInfoServiceType, type DebugStackInfoService, DebugStackInfoServiceToken, DebugUnhandledExceptionTitle } from '../../DebugStackInfoService';
 
 @SPI.Service(DebugStackInfoServiceToken, { name: DebugDefaultStackInfoServiceType, priority: 0 })
 export class DebugDefaultStackInfoService implements DebugStackInfoService {

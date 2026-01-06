@@ -1,6 +1,6 @@
 import { ModelFieldType } from '@oinone/kunlun-meta';
-import { IExpSelectOption } from './Common';
-import { IOperatorSelectOption } from './ExpressionDefinition';
+import type { IExpSelectOption } from './Common';
+import type { IOperatorSelectOption } from './ExpressionDefinition';
 
 export enum BooleanConditionComparisonOperator {
   DATE_EQUAL = 'DATE_EQUALS',

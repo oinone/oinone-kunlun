@@ -30,7 +30,7 @@
   </gallery-common-field>
 </template>
 <script lang="ts">
-import { CSSStyle } from '@oinone/kunlun-shared';
+import type { CSSStyle } from '@oinone/kunlun-shared';
 import { OioEmpty } from '@oinone/kunlun-vue-ui-common';
 import { computed, defineComponent } from 'vue';
 import InputPreSuffix from '../../../form/common/InputPreSuffix.vue';

@@ -181,12 +181,7 @@ import { defineComponent } from 'vue';
 import ControlTag from '../control-tag/ControlTag.vue';
 import ExpressionDesignerCascader from '../../cascader/Cascader.vue';
 import { createComponent, IVariableFormFieldProps } from './variableFormFieldBase';
-import {
-  Select as ASelect,
-  Tooltip as ATooltip,
-  Popover as APopover,
-  SelectOption as ASelectOption
-} from 'ant-design-vue';
+import { Select as ASelect, Tooltip as ATooltip, Popover as APopover, SelectOption as ASelectOption } from 'ant-design-vue';
 import { OioInput, OioDatePicker, OioDateTimePicker, OioYearPicker, OioTimePicker } from '@oinone/kunlun-vue-ui-antd';
 
 /**

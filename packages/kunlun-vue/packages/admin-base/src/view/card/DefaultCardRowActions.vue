@@ -5,7 +5,7 @@ import { DividerType, OioDropdownTrigger, PropRecordHelper } from '@oinone/kunlu
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
-import { computed, createVNode, defineComponent, PropType, VNode, vShow, withDirectives, withModifiers } from 'vue';
+import { computed, createVNode, defineComponent, type PropType, type VNode, vShow, withDirectives, withModifiers } from 'vue';
 import DefaultDropdown from '../../action/component/dropdown/DefaultDropdown.vue';
 import { ActiveCountEnum } from '../../typing';
 import { CollectionActions } from '../../util/collection-actions';

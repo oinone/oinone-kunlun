@@ -1,6 +1,6 @@
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { NextLink, Operation } from 'apollo-link';
-import { IResponseErrorResult, IResponseResult } from './message';
+import type { IResponseErrorResult, IResponseResult } from './message';
 
 /**
  * 网络请求中间件处理器 (基于原生apollo封装)

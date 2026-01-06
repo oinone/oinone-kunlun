@@ -1,5 +1,5 @@
-import { inject, InjectionKey, provide } from 'vue';
-import { OioTableInstance } from './typing';
+import { inject, type InjectionKey, provide } from 'vue';
+import type { OioTableInstance } from './typing';
 
 const OioTableContextKey: InjectionKey<OioTableInstance> = Symbol('OioTableContext');
 

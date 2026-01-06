@@ -94,20 +94,12 @@
   </div>
 </template>
 <script lang="ts">
-import { ActiveRecord, Pagination } from '@oinone/kunlun-engine';
-import {
-  CommonGutterType,
-  ListPaginationStyle,
-  OioButton,
-  OioEmptyData,
-  OioIcon,
-  OioPagination,
-  OioSpin
-} from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, PropType } from 'vue';
-import { FileUpload, GroupListItem, OioManageGroup } from '../../../components';
+import type { ActiveRecord, Pagination } from '@oinone/kunlun-engine';
+import { type CommonGutterType, ListPaginationStyle, OioButton, OioEmptyData, OioIcon, OioPagination, OioSpin } from '@oinone/kunlun-vue-ui-antd';
+import { defineComponent, type PropType } from 'vue';
+import { FileUpload, type GroupListItem, OioManageGroup } from '../../../components';
 import { GroupList } from '../../components';
-import { IconGroup } from '../../service/IconManageService';
+import type { IconGroup } from '../../service/IconManageService';
 import { UploadStatus } from '../../typing';
 import IconCard from '../card/IconCard.vue';
 

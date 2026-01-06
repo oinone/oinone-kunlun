@@ -1,8 +1,8 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { ViewWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { tableViewToGalleryView } from '../../tags';
-import { RuntimeContext } from '@oinone/kunlun-engine';
-import { Entity, IViewAction, ViewType } from '@oinone/kunlun-meta';
+import type { RuntimeContext } from '@oinone/kunlun-engine';
+import { type Entity, type IViewAction, ViewType } from '@oinone/kunlun-meta';
 import { GalleryView, TableView } from '../view';
 import { IQueryPageOption } from '@oinone/kunlun-service';
 import { GalleryWidget } from '../gallery';

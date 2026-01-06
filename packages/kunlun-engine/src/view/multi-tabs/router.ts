@@ -1,9 +1,9 @@
 import { getRouterInstance, Router } from '@oinone/kunlun-router';
 import { isString } from 'lodash-es';
-import { BackRouter, ForwardRouter } from '../../router/typing';
+import type { BackRouter, ForwardRouter } from '../../router/typing';
 import { MultiTabsHelper } from './helper';
 import { MultiTabsManager } from './manager';
-import { MultiTabInstance, MultiTabStackItem } from './typing';
+import type { MultiTabInstance, MultiTabStackItem } from './typing';
 
 /**
  * 多标签页路由

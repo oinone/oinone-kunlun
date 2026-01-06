@@ -1,5 +1,5 @@
-import { computed, ComputedRef, inject, InjectionKey, provide } from 'vue';
-import { IEmptyPlaceholder, OioBaseContainerPropsType } from '../../typing';
+import { computed, type ComputedRef, inject, type InjectionKey, provide } from 'vue';
+import { IEmptyPlaceholder, type OioBaseContainerPropsType } from '../../typing';
 import { FormLayout } from './props';
 
 export interface OioFormContext {

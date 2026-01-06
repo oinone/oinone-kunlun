@@ -1,7 +1,7 @@
 import { isNil } from 'lodash-es';
-import { ReturnPromise } from '../../typing';
+import type { ReturnPromise } from '../../typing';
 import { emitEvent } from '../emit-event';
-import { EventKeysDefinition, EventManager } from './typing';
+import type { EventKeysDefinition, EventManager } from './typing';
 
 type KeyOfType = string | number | symbol;
 

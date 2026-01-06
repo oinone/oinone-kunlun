@@ -1,11 +1,11 @@
-import { RuntimeO2MField, SubmitValue, ViewCache } from '@oinone/kunlun-engine';
+import { type RuntimeO2MField, SubmitValue, ViewCache } from '@oinone/kunlun-engine';
 import { ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
 import { http } from '@oinone/kunlun-service';
 import { CallChaining, GraphqlHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { AsyncFormSubviewListFieldWidget, FormFieldWidget } from '../../../basic';
-import { IPermission, ResourcePermissionModel } from '../type';
+import { type IPermission, ResourcePermissionModel } from '../type';
 
 @SPI.ClassFactory(FormFieldWidget.Token({ widget: 'data-permission' }))
 export class DataPermissionWidget extends AsyncFormSubviewListFieldWidget<RuntimeO2MField> {

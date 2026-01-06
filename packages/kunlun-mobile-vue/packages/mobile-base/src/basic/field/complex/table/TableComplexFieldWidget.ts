@@ -1,9 +1,9 @@
-import { ActiveRecords, ModelCache, RuntimeModel, RuntimeRelationField } from '@oinone/kunlun-engine';
+import { type ActiveRecords, ModelCache, type RuntimeModel, type RuntimeRelationField } from '@oinone/kunlun-engine';
 import { isEmptyValue } from '@oinone/kunlun-meta';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { autoFillByLabel, autoFillByLabelFields } from '../../../../layout';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { BaseTableFieldWidget, BaseTableFieldWidgetProps } from '../../../table-column';
+import { BaseTableFieldWidget, type BaseTableFieldWidgetProps } from '../../../table-column';
 
 export class TableComplexFieldWidget<
   Value = ActiveRecords,

@@ -1,32 +1,13 @@
-import {
-  ActiveRecord,
-  ActiveRecords,
-  Pagination,
-  resolveDynamicDomain,
-  RuntimeModel,
-  RuntimeRelationField
-} from '@oinone/kunlun-engine';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
-import {
-  BooleanHelper,
-  CallChaining,
-  CastHelper,
-  NumberHelper,
-  ObjectUtils,
-  OioTreeNode,
-  Optional,
-  ReturnPromise,
-  TreeHelper,
-  TreeNode,
-  uniqueKeyGenerator
-} from '@oinone/kunlun-shared';
+import { type ActiveRecord, type ActiveRecords, type Pagination, resolveDynamicDomain, type RuntimeModel, type RuntimeRelationField } from '@oinone/kunlun-engine';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
+import { BooleanHelper, CallChaining, CastHelper, NumberHelper, ObjectUtils, type OioTreeNode, Optional, type ReturnPromise, TreeHelper, TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { EmptyStyle, SelectMode, WidgetTrigger } from '@oinone/kunlun-vue-ui-antd';
-import { defaultTreeSelectProperties, TreeSelectProperties } from '@oinone/kunlun-vue-ui-common';
+import { defaultTreeSelectProperties, type TreeSelectProperties } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { debounce, DebouncedFunc, isNil, toInteger } from 'lodash-es';
-import { BaseFieldProps, FormFieldWidget } from '../../basic';
-import { TreeNodeResponseBody, TreeService } from '../../service';
-import { TreeData, TreeNodeMetadata } from '../../typing';
+import { type BaseFieldProps, FormFieldWidget } from '../../basic';
+import { type TreeNodeResponseBody, TreeService } from '../../service';
+import type { TreeData, TreeNodeMetadata } from '../../typing';
 import { FetchUtil, TreeUtils } from '../../util';
 
 // fixme @zbh 20230214 此处使用节点模型对应的pks

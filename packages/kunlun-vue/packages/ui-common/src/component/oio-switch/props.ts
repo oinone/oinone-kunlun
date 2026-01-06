@@ -1,4 +1,4 @@
-import { PropType, Slot } from 'vue';
+import type { PropType, Slot } from 'vue';
 
 export enum SwitchSize {
   default = 'default',

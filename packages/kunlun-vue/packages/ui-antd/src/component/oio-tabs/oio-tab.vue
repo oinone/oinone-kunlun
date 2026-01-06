@@ -1,12 +1,5 @@
 <script lang="ts">
-import {
-  getVNodeKey,
-  OioTabProps,
-  PropRecordHelper,
-  TabHTMLNode,
-  useInjectOioTabsContext,
-  useOioFormLayoutContext
-} from '@oinone/kunlun-vue-ui-common';
+import { getVNodeKey, OioTabProps, PropRecordHelper, type TabHTMLNode, useInjectOioTabsContext, useOioFormLayoutContext } from '@oinone/kunlun-vue-ui-common';
 import { TabPane as ATabPane } from 'ant-design-vue';
 import { createVNode, defineComponent, onUpdated, watch } from 'vue';
 import { onTabInvisibleChange } from './use-tab-bar';

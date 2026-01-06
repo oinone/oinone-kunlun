@@ -1,24 +1,24 @@
 import {
-  ActiveRecord,
-  ActiveRecords,
+  type ActiveRecord,
+  type ActiveRecords,
   ActiveRecordsOperator,
-  DeleteActiveRecordsByEntityFunction,
-  DeleteActiveRecordsByEntityPredict,
-  DeleteActiveRecordsFunction,
-  FlushActiveRecordsFunction,
-  PushActiveRecordsFunction,
-  PushActiveRecordsPredict,
-  ReloadActiveRecordsFunction,
-  RuntimeRelationField,
+  type DeleteActiveRecordsByEntityFunction,
+  type DeleteActiveRecordsByEntityPredict,
+  type DeleteActiveRecordsFunction,
+  type FlushActiveRecordsFunction,
+  type PushActiveRecordsFunction,
+  type PushActiveRecordsPredict,
+  type ReloadActiveRecordsFunction,
+  type RuntimeRelationField,
   SubmitCacheManager,
-  UpdateActiveRecordsByEntityFunction,
-  UpdateActiveRecordsByEntityPredict,
-  UpdateActiveRecordsFunction,
-  UpdateEntity
+  type UpdateActiveRecordsByEntityFunction,
+  type UpdateActiveRecordsByEntityPredict,
+  type UpdateActiveRecordsFunction,
+  type UpdateEntity
 } from '@oinone/kunlun-engine';
 import { Widget } from '../basic';
-import { OioAnyViewState, useOioState } from '../state';
-import { PathWidget, PathWidgetProps } from './PathWidget';
+import { type OioAnyViewState, useOioState } from '../state';
+import { PathWidget, type PathWidgetProps } from './PathWidget';
 
 export interface ActiveRecordsWidgetProps extends PathWidgetProps {
   dataSource?: ActiveRecords | null;
@@ -600,8 +600,8 @@ export class ActiveRecordsWidget<
     }
   }
 
-  protected $$mounted() {
-    super.$$mounted();
+  protected $$mountedAfterProperties() {
+    super.$$mountedAfterProperties();
     if (this.viewState) {
       this.$$clearViewStatePosition(this.viewState);
       this.$$clearViewState(this.viewState);

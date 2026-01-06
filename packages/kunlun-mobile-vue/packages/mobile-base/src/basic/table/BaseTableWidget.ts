@@ -1,40 +1,18 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
-import {
-  ActiveRecord,
-  ActiveRecords,
-  ActiveRecordsOperator,
-  FunctionCache,
-  FunctionMetadata,
-  FunctionService,
-  isRelation2MField,
-  RuntimeFunctionDefinition,
-  RuntimeM2MField,
-  RuntimeO2MField,
-  SubmitCacheManager,
-  SubmitValue,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
-import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
+import { type ActiveRecord, type ActiveRecords, ActiveRecordsOperator, FunctionCache, FunctionMetadata, FunctionService, isRelation2MField, type RuntimeFunctionDefinition, type RuntimeM2MField, type RuntimeO2MField, SubmitCacheManager, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
+import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { MessageHub } from '@oinone/kunlun-request';
-import { BooleanHelper, Optional, ReturnPromise } from '@oinone/kunlun-shared';
-import {
-  ActiveEditorContext,
-  OioTableInstance,
-  RowContext,
-  TableEditorCloseTrigger,
-  TableEditorMode,
-  TableEditorTrigger,
-  VxeTableHelper
-} from '../../ui';
+import { BooleanHelper, Optional, type ReturnPromise } from '@oinone/kunlun-shared';
+import { type ActiveEditorContext, type OioTableInstance, type RowContext, TableEditorCloseTrigger, TableEditorMode, TableEditorTrigger, VxeTableHelper } from '../../ui';
 import { ListPaginationStyle, ListSelectMode, OioNotification, StyleHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isEmpty, isEqual, isPlainObject } from 'lodash-es';
 import { UserPreferService } from '../../service';
-import { UserTablePrefer } from '../../typing';
+import type { UserTablePrefer } from '../../typing';
 import { FetchUtil } from '../../util';
-import { BaseElementListViewWidget, BaseElementListViewWidgetProps } from '../element';
+import { BaseElementListViewWidget, type BaseElementListViewWidgetProps } from '../element';
 import { BaseTableColumnWidget } from '../table-column';
-import { IFormSubviewListFieldWidget } from '../types';
+import type { IFormSubviewListFieldWidget } from '../types';
 
 interface ColumnWidgetEntity {
   widget: BaseTableColumnWidget;

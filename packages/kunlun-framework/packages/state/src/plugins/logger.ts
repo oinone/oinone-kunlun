@@ -1,4 +1,4 @@
-import { StoreDefinition } from '../store/typing';
+import type { StoreDefinition } from '../store/typing';
 
 export function useOioLogger() {
   return (store: StoreDefinition) => {

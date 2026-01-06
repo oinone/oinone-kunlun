@@ -3,7 +3,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget, FormM2OFieldWidget } from '../../../../basic';
 import { UploadCom } from '../../../../components';
-import { MultipartUploadRuntimeConfig } from '@oinone/kunlun-vue-ui-common';
+import type { MultipartUploadRuntimeConfig } from '@oinone/kunlun-vue-ui-common';
 import { ConfigHelper } from '@oinone/kunlun-engine';
 
 @SPI.ClassFactory(

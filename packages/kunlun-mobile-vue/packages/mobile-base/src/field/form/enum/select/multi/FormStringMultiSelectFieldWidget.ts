@@ -1,4 +1,4 @@
-import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import type { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { isNil } from 'lodash-es';

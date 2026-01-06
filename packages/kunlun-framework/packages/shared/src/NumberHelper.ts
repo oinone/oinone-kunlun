@@ -1,6 +1,6 @@
 import { isNaN, isNil, isString, toNumber, trim } from 'lodash-es';
 import { BigNumber } from './BigNumber';
-import { NullableComputableType, StandardNumber } from './typing';
+import type { NullableComputableType, StandardNumber } from './typing';
 
 export class NumberHelper {
   private static RADIX_POINT = '.';

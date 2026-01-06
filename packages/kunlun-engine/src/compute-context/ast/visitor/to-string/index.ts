@@ -1,6 +1,6 @@
-import { Node } from '../../types';
-import { Visitor, VisitorAdapter } from '../visit';
-import { StringAdapterContext, StringAdapterInstance } from './adapter';
+import type { Node } from '../../types';
+import { Visitor, type VisitorAdapter } from '../visit';
+import { type StringAdapterContext, StringAdapterInstance } from './adapter';
 
 export class ToString {
   public static run(node: Node, visitor?: VisitorAdapter): string {

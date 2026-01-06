@@ -8,11 +8,11 @@
     "build": "rollup -c && npm run build-css",
     "build-css": "sass --style compressed --no-source-map ./dist/oinone-kunlun-vue-admin-base.scss ./dist/oinone-kunlun-vue-admin-base.css",
     "dist": "npm run prepublishOnly",
-    "test": "jest",
     "index": "npm run postpublish",
-    "x-prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
+    "test": "jest",
+    "prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
-    "x-postpublish": "node ../../../../scripts/postpublish.cjs",
+    "postpublish": "node ../../../../scripts/postpublish.cjs",
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
@@ -47,7 +47,7 @@
     "@oinone/kunlun-vue-expression": "~6.4.0",
     "@types/crypto-js": "4.1.1",
     "@types/file-saver": "2.0.7",
-    "@types/lodash": "4.14.182",
+    "@types/lodash": "4.17.21",
     "@types/lodash-es": "4.17.6",
     "lodash": "4.17.21",
     "lodash-es": "4.17.21",

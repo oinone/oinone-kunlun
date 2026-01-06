@@ -1,5 +1,5 @@
-import { Literal } from '../base';
-import { RSQLAnyExpression } from './base';
+import type { Literal } from '../base';
+import type { RSQLAnyExpression } from './base';
 
 /**
  * '{@link RSQLStringLiteral#value}'

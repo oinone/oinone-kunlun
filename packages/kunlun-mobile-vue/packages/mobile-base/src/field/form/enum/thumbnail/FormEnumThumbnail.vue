@@ -9,9 +9,9 @@
   </div>
 </template>
 <script lang="ts">
-import { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
-import { SelectItem } from '@oinone/kunlun-vue-ui-common';
-import { computed, defineComponent, PropType } from 'vue';
+import type { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import type { SelectItem } from '@oinone/kunlun-vue-ui-common';
+import { computed, defineComponent, type PropType } from 'vue';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../basic';
 import { optionsConvertSelectItem } from '../../../util';
 

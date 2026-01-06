@@ -1,6 +1,6 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { VNode } from 'vue';
+import type { VNode } from 'vue';
 import { BasePackWidget } from '../../basic';
 import DefaultSpin from './DefaultSpin.vue';
 

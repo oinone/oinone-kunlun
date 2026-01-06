@@ -1,8 +1,8 @@
-import { RuntimeContext, ViewActionQueryParameter } from '@oinone/kunlun-engine';
+import type { RuntimeContext, ViewActionQueryParameter } from '@oinone/kunlun-engine';
 import { MessageHub } from '@oinone/kunlun-request';
 import { useMatched } from '@oinone/kunlun-router';
 import { Optional } from '@oinone/kunlun-shared';
-import { DebugRequestInfo } from '../typing';
+import type { DebugRequestInfo } from '../typing';
 import { DebugInfoStorage } from './storage';
 
 export class DebugUtils {

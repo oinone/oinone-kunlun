@@ -1,9 +1,9 @@
 import { ActionType, ViewActionTarget, ViewMode, ViewType } from '@oinone/kunlun-meta';
-import { RuntimeAction, RuntimeModel, RuntimeModule } from './base';
-import { RuntimeFunctionDefinition } from './function';
-import { RuntimeLayoutDefinition } from './layout';
-import { RuntimeMaskDefinition } from './mask';
-import { RuntimeView } from './view';
+import type { RuntimeAction, RuntimeModel, RuntimeModule } from './base';
+import type { RuntimeFunctionDefinition } from './function';
+import type { RuntimeLayoutDefinition } from './layout';
+import type { RuntimeMaskDefinition } from './mask';
+import type { RuntimeView } from './view';
 
 /**
  * 运行时跳转动作

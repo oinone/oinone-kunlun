@@ -1,8 +1,8 @@
-import { RuntimeModelField } from '@oinone/kunlun-engine';
+import type { RuntimeModelField } from '@oinone/kunlun-engine';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
-import { BaseFormItemWidget, BaseFormItemWidgetProps } from '../../basic';
-import { ValidatorInfo } from '../../typing';
+import { BaseFormItemWidget, type BaseFormItemWidgetProps } from '../../basic';
+import type { ValidatorInfo } from '../../typing';
 import { findRangeFields } from '../util';
 
 export type FormRangeWidgetProps = BaseFormItemWidgetProps;

@@ -1,4 +1,4 @@
-import { IdModel } from '@oinone/kunlun-engine';
+import type { IdModel } from '@oinone/kunlun-engine';
 import { DataStatusEnum } from '@oinone/kunlun-meta';
 
 export interface PdfDocumentDefinition extends Required<IdModel> {

@@ -1,4 +1,4 @@
-import { WatermarkInfo } from './typing';
+import type { WatermarkInfo } from './typing';
 import watermark from './watermark';
 
 let watermarkInfo: WatermarkInfo | undefined;

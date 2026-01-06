@@ -4,10 +4,10 @@ import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNaN, isNumber } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';
-import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../typing';
 import { FormStringFieldWidget } from '../string/FormStringFieldWidget';
 import DefaultTextarea from './DefaultTextarea.vue';
-import { InputTextareaSize } from './typing';
+import type { InputTextareaSize } from './typing';
 
 @SPI.ClassFactory(FormFieldWidget.Token({ viewType: [ViewType.Form, ViewType.Search], ttype: ModelFieldType.Text }))
 export class FormTextFieldWidget extends FormStringFieldWidget {

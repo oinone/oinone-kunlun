@@ -1,7 +1,7 @@
-import { RuntimeO2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { type RuntimeO2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
-import { ReturnPromise } from '@oinone/kunlun-shared';
+import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { BaseFieldWidget, FormSubviewListFieldWidget, RelationQueryHelper } from '../../../../basic';
 import { Widget } from '@oinone/kunlun-vue-widget';

@@ -1,7 +1,7 @@
 import { RSQLOperators, StringHelper } from '@oinone/kunlun-shared';
 import * as charCodes from '../../../charcodes';
 import * as types from '../../../tokens';
-import { ParserContext, Token, TokenParser, TokenReader, TokenType } from '../../../types';
+import { type ParserContext, type Token, type TokenParser, type TokenReader, TokenType } from '../../../types';
 import { BaseReader } from '../../base';
 import { BinaryOperatorParser } from '../../operator';
 

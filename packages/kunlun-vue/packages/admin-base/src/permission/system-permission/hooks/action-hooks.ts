@@ -1,5 +1,5 @@
 import { ref, watchEffect } from 'vue';
-import { IPermissionDslActions } from '../types';
+import type { IPermissionDslActions } from '../types';
 
 const state = ref<IPermissionDslActions>({
   hasModifyRoleAction: true,

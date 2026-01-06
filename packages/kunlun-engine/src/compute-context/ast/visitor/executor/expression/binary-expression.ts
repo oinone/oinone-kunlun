@@ -1,11 +1,5 @@
-import {
-  ComputableType,
-  isComputableType,
-  isNullableComputableType,
-  NullableComputableType,
-  NumberHelper
-} from '@oinone/kunlun-shared';
-import { BinaryExpression, isBinaryExpression, Node, NodeVisitor, VisitContext } from '../../../types';
+import { type ComputableType, isComputableType, isNullableComputableType, type NullableComputableType, NumberHelper } from '@oinone/kunlun-shared';
+import { type BinaryExpression, isBinaryExpression, type Node, type NodeVisitor, type VisitContext } from '../../../types';
 
 export class BinaryExpressionExecutor implements NodeVisitor<BinaryExpression> {
   public static readonly INSTANCE = new BinaryExpressionExecutor();

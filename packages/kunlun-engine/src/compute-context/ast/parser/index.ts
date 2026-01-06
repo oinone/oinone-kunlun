@@ -1,5 +1,5 @@
-import { isNode, Node } from '../types';
-import { Options } from './options';
+import { isNode, type Node } from '../types';
+import type { Options } from './options';
 import { Parser } from './parser';
 
 export function rawParser(source: string, options?: Partial<Options>): Node {
