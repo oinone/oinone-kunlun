@@ -173,6 +173,21 @@ $seniorRowContentHeight: 22px;
 
     .ant-select-arrow {
       color: var(--oio-select-counter-color);
+      display: inline-block;
+      font-size: 12px;
+      font-style: normal;
+      height: 12px;
+      line-height: 1;
+      margin-top: -6px;
+      pointer-events: none;
+      position: absolute;
+      right: 11px;
+      text-align: center;
+      text-rendering: optimizelegibility;
+      text-transform: none;
+      top: 50%;
+      vertical-align: -0.125em;
+      width: 12px;
     }
   }
 
@@ -317,6 +332,19 @@ $seniorRowContentHeight: 22px;
           flex: 1;
           max-width: 200px;
           margin-right: var(--oio-margin-sm);
+          color: rgba(0, 0, 0, 0.85);
+          cursor: pointer;
+          display: inline-block;
+          font-size: 14px;
+          font-variant: tabular-nums;
+          line-height: 1.5715;
+          list-style: none;
+          padding: 0;
+          position: relative;
+
+          .ant-select-selector {
+            display: flex;
+          }
 
           .ant-input-affix-wrapper {
             width: 100%;
@@ -329,9 +357,7 @@ $seniorRowContentHeight: 22px;
             .ant-select-selector {
               height: $quickRowContentHeight;
               line-height: $quickRowContentHeight;
-
-              .ant-select-selection-item {
-              }
+              border: var(--oio-select-border-width) var(--oio-select-border-style) var(--oio-select-border-color);
             }
           }
         }

@@ -316,6 +316,10 @@ $select-width: 328px;
     text-align: center;
     transition: all 0.3s;
 
+    &:first-child {
+      border-right: 0;
+    }
+
     &:last-child {
       border-left: 0;
     }
