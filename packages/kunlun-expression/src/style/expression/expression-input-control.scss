@@ -39,8 +39,8 @@ $seniorRowContentHeight: 22px;
       & > .ant-input {
         display: flex;
         overflow: hidden;
-        //height: 40px;
-        padding-right: 16px;
+        width: 100%;
+        padding: 4px 16px 4px 11px;
 
         background-color: var(--oio-input-background);
         border: var(--oio-input-border-width) var(--oio-input-border-style) var(--oio-input-border-color);
@@ -108,6 +108,7 @@ $seniorRowContentHeight: 22px;
       width: 39px;
       display: flex;
       align-items: center;
+      padding: 0 11px;
     }
 
     &:hover .ant-input-clear {
@@ -316,6 +317,10 @@ $seniorRowContentHeight: 22px;
           flex: 1;
           max-width: 200px;
           margin-right: var(--oio-margin-sm);
+
+          .ant-input-affix-wrapper {
+            width: 100%;
+          }
         }
 
         .expression-input-param,
@@ -359,6 +364,18 @@ $seniorRowContentHeight: 22px;
       &-param {
         .expression-input-param {
           margin-right: var(--oio-margin-sm);
+
+          &.ant-select {
+            .ant-select-selector {
+              display: flex;
+              cursor: pointer;
+            }
+
+            .ant-select-selection-placeholder {
+              padding-right: 18px;
+              color: #bfbfbf;
+            }
+          }
         }
 
         .expression-input-param-tab {

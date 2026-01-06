@@ -63,8 +63,8 @@
                           showTypeSelect && variableType === 'string'
                             ? innerPlaceholder
                             : isOnlyOneInput
-                            ? innerPlaceholder
-                            : ''
+                              ? innerPlaceholder
+                              : ''
                         "
                         class="variable-item-input ant-input"
                         @change.keypress.keyup.keydown="onChangeVariableItemString(index)"
@@ -177,12 +177,17 @@
   </a-popover>
 </template>
 <script lang="ts">
+import { OioDatePicker, OioDateTimePicker, OioInput, OioTimePicker, OioYearPicker } from '@oinone/kunlun-vue-ui-antd';
+import {
+  Popover as APopover,
+  Select as ASelect,
+  SelectOption as ASelectOption,
+  Tooltip as ATooltip
+} from 'ant-design-vue';
 import { defineComponent } from 'vue';
-import ControlTag from '../control-tag/ControlTag.vue';
 import ExpressionDesignerCascader from '../../cascader/Cascader.vue';
+import ControlTag from '../control-tag/ControlTag.vue';
 import { createComponent, IVariableFormFieldProps } from './variableFormFieldBase';
-import { Select as ASelect, Tooltip as ATooltip, Popover as APopover, SelectOption as ASelectOption } from 'ant-design-vue';
-import { OioInput, OioDatePicker, OioDateTimePicker, OioYearPicker, OioTimePicker } from '@oinone/kunlun-vue-ui-antd';
 
 /**
  * 适用于非表单类变量控件

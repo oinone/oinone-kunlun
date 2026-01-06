@@ -30,11 +30,11 @@
     }
   }
 
-  .#{$formItemClassPrefix}.#{$formItemClassPrefix}-horizontal {
+  .#{$formItemClassPrefix}.#{$formItemClassPrefix}-horizontal > .ant-form-item-row {
     flex-flow: row nowrap;
     align-items: center;
 
-    & > .ant-form-item-row > .ant-form-item-label {
+    & > .ant-form-item-label {
       @include form-item-label;
     }
   }
@@ -101,10 +101,10 @@
       }
     }
 
-    .#{$formItemClassPrefix}-horizontal {
+    .#{$formItemClassPrefix}-horizontal > .ant-form-item-row {
       flex-flow: row nowrap;
 
-      & > .ant-form-item-row > .ant-form-item-label {
+      & > .ant-form-item-label {
         @include form-item-label;
       }
     }

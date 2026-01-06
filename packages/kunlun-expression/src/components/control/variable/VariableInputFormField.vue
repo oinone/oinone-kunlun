@@ -46,7 +46,7 @@
           </div>
           <div v-else class="ant-input-affix-wrapper">
             <span class="ant-input" ref="variableItemListRef" :class="{ 'only-one-input': isOnlyOneInput }">
-              <div class="ant-input-inner" @click="(e) => isVariableMode && onAddVariableItem('input')">
+              <div class="ant-input-inner oio-scrollbar" @click="(e) => isVariableMode && onAddVariableItem('input')">
                 <span
                   class="variable-item variable-string placeholder"
                   v-if="isVariableMode && !variableItemNum && !valueList[0].value"
@@ -198,7 +198,14 @@
 </template>
 <script lang="ts">
 import { CloseCircleFilled } from '@ant-design/icons-vue';
-import { OioDatePicker, OioDateTimePicker, OioIcon, OioInput, OioTimePicker, OioYearPicker } from '@oinone/kunlun-vue-ui-antd';
+import {
+  OioDatePicker,
+  OioDateTimePicker,
+  OioIcon,
+  OioInput,
+  OioTimePicker,
+  OioYearPicker
+} from '@oinone/kunlun-vue-ui-antd';
 import { Popover as APopover, Select as ASelect, Tooltip as ATooltip } from 'ant-design-vue';
 import { defineComponent } from 'vue';
 import ExpressionDesignerCascader from '../../cascader/Cascader.vue';

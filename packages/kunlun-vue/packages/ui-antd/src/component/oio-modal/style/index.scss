@@ -133,6 +133,10 @@
         }
       }
     }
+
+    .ant-btn + .ant-btn:not(.ant-dropdown-trigger) {
+      margin-inline-start: var($parameterPrefix + -margin-md);
+    }
   }
 
   .ant-modal-confirm-btns .ant-btn + .ant-btn {

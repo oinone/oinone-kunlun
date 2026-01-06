@@ -15,7 +15,7 @@
       width: 100%;
       max-width: none;
       padding: 0;
-      border-bottom: 1px solid #F3F3F3;
+      border-bottom: 1px solid #f3f3f3;
       margin-bottom: 5px;
 
       .oio-input {
@@ -42,8 +42,15 @@
       display: inline-block;
       max-width: 400px;
       width: fit-content;
-
       scrollbar-width: none;
+      border-right: 1px solid #f0f0f0;
+      height: 180px;
+      list-style: none;
+      margin: -4px 0;
+      min-width: 111px;
+      overflow: auto;
+      padding: 4px 0;
+      vertical-align: top;
     }
 
     //.ant-cascader-menus {
@@ -55,6 +62,7 @@
     }
 
     .ant-cascader-menu-item {
+      display: flex;
       line-height: 30px;
       padding: 3px 10px;
       margin: 0 var(--oio-margin-xxs);
@@ -63,6 +71,7 @@
       border-radius: 4px;
 
       &-content {
+        flex: auto;
         max-width: none;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -73,7 +82,7 @@
         }
 
         .selected-option-label {
-          color: #035DFF;
+          color: #035dff;
         }
 
         .source-code {
@@ -127,6 +136,13 @@
       &:only-child {
         width: 100%;
       }
+    }
+
+    .ant-cascader-menu-item-expand .ant-cascader-menu-item-expand-icon,
+    .ant-cascader-menu-item-loading-icon {
+      color: rgba(0, 0, 0, 0.45);
+      font-size: 10px;
+      margin-left: 4px;
     }
 
     .expression-designer-cascader-menu-inner {

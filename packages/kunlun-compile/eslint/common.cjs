@@ -10,11 +10,14 @@ const common = {
     'vue/multi-word-component-names': 'warn',
     'vue/block-lang': 'warn',
     'vue/no-unused-vars': 'warn',
+    'vue/require-v-for-key': 'warn',
+    'vue/valid-next-tick': 'warn',
+    'vue/valid-v-for': 'warn',
+    'vue/valid-v-on': 'warn',
 
     '@typescript-eslint/no-unsafe-function-type': 'off',
     '@typescript-eslint/no-wrapper-object-types': 'off',
-    'vue/no-dupe-keys': 'off',
-    'vue/valid-next-tick': 'off'
+    'vue/no-dupe-keys': 'off'
   }
 };
 
