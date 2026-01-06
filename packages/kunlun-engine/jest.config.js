@@ -1,22 +1,6 @@
-// const { createDefaultPreset } = require('ts-jest')
+import buildConfig from '@oinone/kunlun-test';
 
-module.exports = {
+export default buildConfig({
   testEnvironment: 'jsdom',
-  transform: {
-    '^.+\\.(j|t)s?$': [
-      'ts-jest',
-      {
-        diagnostics: {
-          warnOnly: true
-        },
-        useESM: true
-      }
-    ]
-  },
-  setupFiles: ['./jest.setup.js'],
-  extensionsToTreatAsEsm: ['.ts'],
-  transformIgnorePatterns: ['/node_modules/(?!(@kunlun|@oinone)/)'],
-  moduleNameMapper: {
-    '^lodash-es$': 'lodash'
-  }
-};
+  setupFiles: ['<rootDir>/src/jest.http-setup.ts']
+});

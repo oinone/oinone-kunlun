@@ -9,6 +9,7 @@
     "build": "rollup -c",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
+    "test": "jest",
     "prepublishOnly": "node ../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
     "postpublish": "node ../../scripts/postpublish.cjs"
