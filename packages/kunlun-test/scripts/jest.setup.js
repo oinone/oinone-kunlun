@@ -1,4 +1,4 @@
-require('reflect-metadata');
+import 'reflect-metadata';
 
 const localStorageMock = (function () {
   let store = {};
@@ -21,7 +21,10 @@ Object.defineProperty(global, 'localStorage', {
   writable: true
 });
 
-// Object.defineProperty(window, 'location', {
-//   value: {},
-//   writable: true
-// });
+jest.mock('page', () => {
+  const pageFn = () => {};
+  return {
+    __esModule: true,
+    default: pageFn
+  };
+});

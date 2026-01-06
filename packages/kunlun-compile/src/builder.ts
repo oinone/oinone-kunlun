@@ -1,17 +1,22 @@
-import { type ExternalOption, type OutputOptions as RollupOutputOptions, type Plugin as RollupPlugin, type RollupOptions } from 'rollup';
-import replace, { type RollupReplaceOptions } from '@rollup/plugin-replace';
-import scss, { type CSSPluginOptions as SCSSPluginOptions } from 'rollup-plugin-scss';
-import vue, { type Options as VuePluginOptions } from 'rollup-plugin-vue';
-import nodeResolve, { type RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
-import commonjs, { type RollupCommonJSOptions } from '@rollup/plugin-commonjs';
-import typescript, { type RollupTypescriptPluginOptions } from '@rollup/plugin-typescript';
-import typescript2, { type RPT2Options as RollupTypescript2PluginOptions } from 'rollup-plugin-typescript2';
-import json, { type RollupJsonOptions } from '@rollup/plugin-json';
-import copy, { type CopyOptions as RollupCopyPluginOptions } from 'rollup-plugin-copy';
-import terser, { type Options as RollupTerserPluginOptions } from '@rollup/plugin-terser';
-import sourcemaps, { type SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
 import fs from 'fs';
 import path from 'path';
+import commonjs, { type RollupCommonJSOptions } from '@rollup/plugin-commonjs';
+import json, { type RollupJsonOptions } from '@rollup/plugin-json';
+import nodeResolve, { type RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
+import replace, { type RollupReplaceOptions } from '@rollup/plugin-replace';
+import terser, { type Options as RollupTerserPluginOptions } from '@rollup/plugin-terser';
+import typescript, { type RollupTypescriptPluginOptions } from '@rollup/plugin-typescript';
+import {
+  type ExternalOption,
+  type RollupOptions,
+  type OutputOptions as RollupOutputOptions,
+  type Plugin as RollupPlugin
+} from 'rollup';
+import copy, { type CopyOptions as RollupCopyPluginOptions } from 'rollup-plugin-copy';
+import scss, { type CSSPluginOptions as SCSSPluginOptions } from 'rollup-plugin-scss';
+import sourcemaps, { type SourcemapsPluginOptions } from 'rollup-plugin-sourcemaps';
+import typescript2, { type RPT2Options as RollupTypescript2PluginOptions } from 'rollup-plugin-typescript2';
+import vue, { type Options as VuePluginOptions } from 'rollup-plugin-vue';
 
 type RollupExternalType = string | RegExp | ((id: string) => boolean);
 
