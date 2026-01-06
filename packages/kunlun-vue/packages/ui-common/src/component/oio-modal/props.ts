@@ -4,6 +4,7 @@ import { VcMaskPopupAppearanceProps, VcPopupAppearanceProps, VcPopupControlProps
 import type { ModalWidthType } from './typing';
 
 export interface ModalWrapperProps {
+  id?: string;
   bodyStyle?: string | CSSStyle;
   maskStyle?: string | CSSStyle;
 }
