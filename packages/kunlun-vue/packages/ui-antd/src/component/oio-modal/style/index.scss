@@ -43,6 +43,10 @@
     right: 0;
     width: unset;
     height: unset;
+
+    :hover {
+      background-color: transparent;
+    }
   }
 
   .ant-modal-close-x {
