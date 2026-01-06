@@ -1,4 +1,4 @@
-import { ActionType, ActiveEnum, EnumOptionState, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { ActionType, EnumOptionState, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 
 /**
  * 默认模板插槽名称
@@ -77,6 +77,7 @@ export interface ViewMetadataDslDefinition extends DslDefinition {
   model?: {
     model: string;
     field: FieldDslDefinition[];
+    action: ActionDslDefinition[];
   }[];
   dictionary?: {
     dictionary: string;

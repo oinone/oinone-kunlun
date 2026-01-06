@@ -9,7 +9,6 @@ import { selectorResolves } from './spi';
 import { ResolveUtil } from './util';
 
 export function resolveTemplate(runtimeContext: RuntimeContext, dsl: DslDefinition) {
-  console.log('🚀 ~ resolveTemplate ~ runtimeContext:', runtimeContext);
   if (DslDefinitionHelper.isView(dsl)) {
     resolveMetadata(runtimeContext, dsl);
   } else {
@@ -36,7 +35,7 @@ function traversal(runtimeContext: RuntimeContext, dsl: DslDefinition) {
 
 function resolveModelMetadata(runtimeContext: RuntimeContext, dsl: ViewDslDefinition) {
   for (const model of dsl.metadata?.model || []) {
-    const { model: modelModel, field: fields, action: actions } = model as any;
+    const { model: modelModel, field: fields, action: actions } = model;
     let { virtualModels } = runtimeContext;
     if (!virtualModels) {
       virtualModels = {};
@@ -72,7 +71,6 @@ function resolveModelMetadata(runtimeContext: RuntimeContext, dsl: ViewDslDefini
         }
       }
     }
-    console.log(actions);
     for (const virtualAction of actions || []) {
       let action = actionConvert(resolveRuntimeContext, virtualAction);
       if (action) {
