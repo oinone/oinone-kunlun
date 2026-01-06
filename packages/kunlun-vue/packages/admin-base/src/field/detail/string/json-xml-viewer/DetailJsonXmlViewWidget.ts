@@ -142,12 +142,28 @@ export class DetailJsonXmlViewWidget extends FormFieldWidget {
     }
     if (navigator.clipboard && window.isSecureContext) {
       await navigator.clipboard.writeText(writeData);
-      this.copied = true;
+    } else {
+      const textArea = document.createElement('textarea');
+      textArea.value = writeData;
 
-      setTimeout(() => {
-        this.copied = false;
-      }, 1000);
-      return true;
+      // 设置样式防止闪烁
+      textArea.style.position = 'fixed';
+      textArea.style.top = '-9999px';
+      textArea.style.left = '-9999px';
+
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      // 执行复制
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
     }
+    this.copied = true;
+
+    setTimeout(() => {
+      this.copied = false;
+    }, 1000);
+    return true;
   }
 }
