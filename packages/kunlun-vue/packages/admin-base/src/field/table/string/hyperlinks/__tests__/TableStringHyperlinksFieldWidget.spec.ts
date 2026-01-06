@@ -1,5 +1,5 @@
 import type { VNode } from 'vue';
-import { TableStringHyperlinksFieldWidget } from './TableStringHyperlinksFieldWidget';
+import { TableStringHyperlinksFieldWidget } from '../TableStringHyperlinksFieldWidget';
 
 const TEST_URL = 'https://example.com';
 const TEST_TEXT = 'Test Link';
