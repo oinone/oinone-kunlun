@@ -1,4 +1,3 @@
-import { StableSlotProp } from '@oinone/kunlun-vue-ui-common';
 import type { Slots, VNode } from 'vue';
 import { VueWidget } from '../basic';
 
@@ -9,12 +8,9 @@ export function renderWidgets(widgets: VueWidget[], ctx: Record<string, unknown>
     const widget = widgets[i];
     if (vNodes) {
       const finalVNodes = Array.isArray(vNodes) ? vNodes : [vNodes];
-      vNodes = widget.render(ctx, { default: () => finalVNodes, ...StableSlotProp });
+      vNodes = widget.render(ctx, { default: () => finalVNodes });
     } else {
-      vNodes = widget.render(ctx, {
-        ...slots,
-        ...StableSlotProp
-      });
+      vNodes = widget.render(ctx, slots);
     }
   }
   return vNodes;

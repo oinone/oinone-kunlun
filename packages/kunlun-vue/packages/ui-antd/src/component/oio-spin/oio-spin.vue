@@ -1,6 +1,6 @@
 <script lang="ts">
 import { NumberHelper, StringHelper } from '@oinone/kunlun-shared';
-import { OioSpinProps, PropRecordHelper, SpinSize, StableSlotProp, StyleHelper } from '@oinone/kunlun-vue-ui-common';
+import { OioSpinProps, PropRecordHelper, SpinSize, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { Spin as ASpin } from 'ant-design-vue';
 import { isNil, isString } from 'lodash-es';
 import { computed, createVNode, defineComponent, type PropType, type Slot } from 'vue';
@@ -76,10 +76,7 @@ export default defineComponent({
         tip: this.tip,
         ...PropRecordHelper.collectionBasicProps(this.$attrs, classNames)
       },
-      {
-        ...PropRecordHelper.collectionSlots(this.$slots, ['default', 'tip']),
-        ...StableSlotProp
-      }
+      PropRecordHelper.collectionSlots(this.$slots, ['default', 'tip'])
     );
   }
 });

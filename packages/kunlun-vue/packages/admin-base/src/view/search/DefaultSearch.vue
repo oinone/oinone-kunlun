@@ -3,7 +3,24 @@ import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons-vue';
 import { type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-import { BooleanHelper, ButtonType, CastHelper, DEFAULT_COLS, FormLayout, IconPlacement, OioButton, OioForm, OioFormItem, OioFormProps, OioIcon, PropRecordHelper, StableSlotProp, StringHelper, useInjectOioDefaultFormContext, useProviderOioDefaultFormContext, ValidateTrigger } from '@oinone/kunlun-vue-ui-antd';
+import {
+  BooleanHelper,
+  ButtonType,
+  CastHelper,
+  DEFAULT_COLS,
+  FormLayout,
+  IconPlacement,
+  OioButton,
+  OioForm,
+  OioFormItem,
+  OioFormProps,
+  OioIcon,
+  PropRecordHelper,
+  StringHelper,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext,
+  ValidateTrigger
+} from '@oinone/kunlun-vue-ui-antd';
 import { DslRender, type DslRenderDefinition } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { computed, createVNode, defineComponent, ref, type VNode, vShow, withDirectives, withKeys } from 'vue';
@@ -437,8 +454,7 @@ export default defineComponent({
               onKeyup: withKeys(this.onSearch, ['enter'])
             },
             {
-              default: () => defaultChildren,
-              ...StableSlotProp
+              default: () => defaultChildren
             }
           )
         ]

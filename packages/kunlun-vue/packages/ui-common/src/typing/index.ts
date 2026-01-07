@@ -45,7 +45,6 @@ export * from './content-type';
 export * from './props';
 export * from './vue-types';
 export * from './icon';
-export * from './stable-slot-prop';
 export * from './view';
 export * from './login';
 export * from './language';

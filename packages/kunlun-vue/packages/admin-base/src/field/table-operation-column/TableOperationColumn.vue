@@ -1,7 +1,7 @@
 <script lang="ts">
 import { translate, translateValueByKey } from '@oinone/kunlun-engine';
 import { GROUP_TREE_KEY, type RenderRowContext, useInjectOioTableInstance } from '@oinone/kunlun-vue-ui';
-import { StableSlotProp, StyleHelper } from '@oinone/kunlun-vue-ui-common';
+import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { debounce, isBoolean } from 'lodash-es';
 import { computed, createVNode, defineComponent, type PropType } from 'vue';
 import { Column } from 'vxe-table';
@@ -145,8 +145,7 @@ export default defineComponent({
               })
             },
             {
-              default: () => this.$slots.default?.() || [],
-              ...StableSlotProp
+              default: () => this.$slots.default?.() || []
             }
           );
         },

@@ -2,7 +2,7 @@
 import { isMinimalismTheme } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-import { PropRecordHelper, StableSlotProp } from '@oinone/kunlun-vue-ui-common';
+import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { useOioState } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, type PropType, vShow, withDirectives } from 'vue';
 import { ViewBizStyle } from '../../typing';
@@ -74,7 +74,6 @@ export default defineComponent({
           id: currentHandle
         },
         {
-          ...StableSlotProp,
           default: () => [
             createVNode('div', { class: `${DEFAULT_PREFIX}-default-view-container` }, this.$slots.default?.())
           ]
