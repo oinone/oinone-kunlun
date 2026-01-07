@@ -15,7 +15,7 @@
     "scripts",
     "tsconfig"
   ],
-  "devDependencies": {
+  "dependencies": {
     "@commitlint/cli": "20.2.0",
     "@commitlint/config-conventional": "20.2.0",
     "@playwright/test": "1.57.0",
@@ -44,6 +44,7 @@
     "less": "4.5.1",
     "less-loader": "12.3.0",
     "lint-staged": "10.4.2",
+    "playwright": "1.57.0",
     "postcss": "8.5.6",
     "postcss-pxtorem": "6.1.0",
     "prettier": "3.6.2",
