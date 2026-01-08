@@ -1,5 +1,5 @@
 import { SPI } from '@oinone/kunlun-spi';
-import { RouterWidget } from '@oinone/kunlun-vue-router';
+import { RouterWidget, useMatched } from '@oinone/kunlun-vue-router';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { DEBUG_VIEW_WIDGET } from '../constants';
 import { DebugResponseData } from '../typing';
@@ -38,5 +38,13 @@ export class DebugMainViewWidget extends RouterWidget {
   protected created() {
     this.createWidget(DebugViewWidget, 'debugView');
     this.createWidget(DebugApiWidget, 'debugApi');
+  }
+
+  protected mounted() {
+    const { debug } = useMatched().matched.segmentParams;
+    if (debug?.reqId) {
+      this.activeDebugTab = 'debugApi';
+    }
+    super.mounted();
   }
 }
