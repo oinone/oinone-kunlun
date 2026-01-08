@@ -44,7 +44,7 @@ export function useDrawer(props, context) {
     if (displayAs.value === PopupDisplayAs.modal) {
       return DrawerPlacement.right;
     }
-    return props.placement?.toLowerCase?.();
+    return props.placement?.toLowerCase?.() || 'right';
   });
 
   const usingWidth = computed(() => {
