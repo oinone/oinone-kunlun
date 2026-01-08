@@ -38,7 +38,7 @@ export class DetailDateTimeRangeFieldWidget extends FormRangeFieldsWidget<Standa
 
   @Widget.Reactive()
   protected get valueFormat(): string {
-    if (this.getDsl().timeFormat === defaultMillisecondFormatKey) {
+    if (this.timeFormat === defaultMillisecondFormatKey) {
       return defaultMillisecondFormat;
     }
     return defaultFormat;

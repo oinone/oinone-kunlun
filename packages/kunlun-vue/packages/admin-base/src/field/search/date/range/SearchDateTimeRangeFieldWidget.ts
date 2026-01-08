@@ -43,7 +43,7 @@ export class SearchDateTimeRangeFieldWidget extends SearchRangeFieldWidget<
 
   @Widget.Reactive()
   protected get valueFormat(): string | undefined {
-    if (this.getDsl().timeFormat === defaultMillisecondFormatKey) {
+    if (this.timeFormat === defaultMillisecondFormatKey) {
       return defaultMillisecondFormat;
     }
     return this.getDsl().valueFormat;
