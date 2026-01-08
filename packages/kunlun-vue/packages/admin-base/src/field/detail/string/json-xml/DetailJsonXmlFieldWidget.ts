@@ -4,7 +4,7 @@ import { SPI } from '@oinone/kunlun-spi';
 
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic/field/FormFieldWidget';
-import JsonXmlView from './JsonXmlView.vue';
+import JsonXmlField from './JsonXmlField.vue';
 
 interface XmlConvertOptions {
   // 是否格式化输出（缩进）
@@ -18,13 +18,13 @@ interface XmlConvertOptions {
 @SPI.ClassFactory(
   FormFieldWidget.Token({
     viewType: ViewType.Detail,
-    widget: 'jsonXmlViewWidget'
+    widget: 'JsonXmlFieldWidget'
   })
 )
-export class DetailJsonXmlViewWidget extends FormFieldWidget {
+export class DetailJsonXmlFieldWidget extends FormFieldWidget {
   public initialize(props) {
     super.initialize(props);
-    this.setComponent(JsonXmlView);
+    this.setComponent(JsonXmlField);
     return this;
   }
 

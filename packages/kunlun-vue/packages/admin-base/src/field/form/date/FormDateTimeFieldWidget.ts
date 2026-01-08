@@ -75,7 +75,7 @@ export class FormDateTimeFieldWidget extends FormFieldWidget<string> {
    */
   @Widget.Reactive()
   protected get valueFormat(): string | undefined {
-    if (this.getDsl().timeFormat === defaultMillisecondFormatKey) {
+    if (this.timeFormat === defaultMillisecondFormatKey) {
       return defaultMillisecondFormat;
     }
     return this.getDsl().valueFormat;
