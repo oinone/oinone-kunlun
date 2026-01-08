@@ -4,7 +4,7 @@ interface ILoadScriptOption {
   // 是否异步加载
   async?: boolean;
   // CORS 设置，如 'anonymous'
-  crossorigin?: string
+  crossorigin?: string;
 }
 
 /**
@@ -18,13 +18,8 @@ interface ILoadScriptOption {
  */
 export function loadScript(src: string, options: string | ILoadScriptOption = {}) {
   // 防止重复加载（如果指定了 id 或相同 src 已存在）
-  if (typeof options === 'string') {
-    options = { id: options } as ILoadScriptOption;
-  }
-  if (!options) {
-    options = {} as ILoadScriptOption
-  }
-  if (options.id && document.getElementById(options.id)) {
+  const finalOptions: ILoadScriptOption = typeof options === 'string' ? { id: options } : options;
+  if (finalOptions.id && document.getElementById(finalOptions.id)) {
     return Promise.resolve();
   }
   const existingScript = document.querySelector(`script[src="${src}"]`);
@@ -35,13 +30,13 @@ export function loadScript(src: string, options: string | ILoadScriptOption = {}
   return new Promise<void>((resolve, reject) => {
     const script = document.createElement('script');
     script.src = src;
-    script.async = options.async !== undefined ? options.async : true;
+    script.async = finalOptions.async !== undefined ? finalOptions.async : true;
 
-    if (options.id) {
-      script.id = options.id;
+    if (finalOptions.id) {
+      script.id = finalOptions.id;
     }
-    if (options.crossorigin) {
-      script.crossOrigin = options.crossorigin;
+    if (finalOptions.crossorigin) {
+      script.crossOrigin = finalOptions.crossorigin;
     }
 
     // 标记已加载（用于防重）
