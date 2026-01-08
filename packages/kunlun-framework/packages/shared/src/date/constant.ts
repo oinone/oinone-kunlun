@@ -1,5 +1,7 @@
 export const defaultFormat = 'YYYY-MM-DD HH:mm:ss';
 
+export const defaultMillisecondFormat = 'YYYY-MM-DD HH:mm:ss.SSS';
+
 export const defaultDateFormat = 'YYYY-MM-DD';
 
 export const defaultTimeFormat = 'HH:mm:ss';
@@ -11,6 +13,8 @@ export const defaultYearValueFormat = 'YYYY';
 export const defaultDateFormatKey = 'CHINESE';
 
 export const defaultTimeFormatKey = 'COLON_NORMAL';
+
+export const defaultMillisecondFormatKey = 'COLON_NORMAL_SSS';
 
 export const DateTimeFormatMap = new Map<string, string>([
   ['DATETIME', defaultFormat],
@@ -40,6 +44,7 @@ export const DateFormatMap = new Map<string, string>([
 
 export const TimeFormatMap = new Map<string, string>([
   [defaultTimeFormatKey, defaultTimeFormat],
+  [defaultMillisecondFormatKey, 'HH:mm:ss.SSS'],
   ['COLON_SHORT', 'HH:mm'],
   ['AP_COLON_NORMAL', `A hh:mm:ss`],
   ['AP_COLON_SHORT', 'A hh:mm']

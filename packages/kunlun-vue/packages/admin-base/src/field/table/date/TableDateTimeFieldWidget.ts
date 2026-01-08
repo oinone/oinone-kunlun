@@ -6,6 +6,8 @@ import {
   DateUtil,
   defaultDateFormatKey,
   defaultFormat,
+  defaultMillisecondFormat,
+  defaultMillisecondFormatKey,
   defaultTimeFormatKey,
   ObjectUtils,
   TimeFormatMap
@@ -90,7 +92,10 @@ export class TableDateTimeFieldWidget extends BaseTableFieldWidget<string | Date
     return defaultFormat;
   }
 
-  protected get valueFormat() {
+  protected get valueFormat(): string {
+    if (this.getDsl().timeFormat === defaultMillisecondFormatKey) {
+      return defaultMillisecondFormat;
+    }
     return defaultFormat;
   }
 

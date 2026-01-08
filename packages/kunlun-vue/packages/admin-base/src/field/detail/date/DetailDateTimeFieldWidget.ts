@@ -4,6 +4,8 @@ import {
   DateFormatMap,
   DateTimeFormatMap,
   defaultDateFormatKey,
+  defaultMillisecondFormat,
+  defaultMillisecondFormatKey,
   defaultTimeFormatKey,
   ObjectUtils,
   TimeFormatMap
@@ -36,6 +38,9 @@ export class DetailDateTimeFieldWidget extends FormFieldWidget {
 
   @Widget.Reactive()
   protected get valueFormat(): string | undefined {
+    if (this.timeFormat === defaultMillisecondFormatKey) {
+      return defaultMillisecondFormat;
+    }
     return this.getDsl().valueFormat;
   }
 

@@ -6,6 +6,8 @@ import {
   DateTimeFormatMap,
   DateUtil,
   defaultFormat,
+  defaultMillisecondFormat,
+  defaultMillisecondFormatKey,
   Optional,
   TimeFormatMap
 } from '@oinone/kunlun-shared';
@@ -84,7 +86,10 @@ export class TableDateTimeRangeFieldWidget extends BaseTableQuickOperationColumn
     return this.getDsl().format;
   }
 
-  protected get valueFormat() {
+  protected get valueFormat(): string {
+    if (this.getDsl().timeFormat === defaultMillisecondFormatKey) {
+      return defaultMillisecondFormat;
+    }
     return defaultFormat;
   }
 

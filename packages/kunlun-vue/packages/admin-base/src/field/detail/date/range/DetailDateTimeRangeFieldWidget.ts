@@ -1,5 +1,13 @@
 import { ViewType } from '@oinone/kunlun-meta';
-import { DateFormatMap, DateTimeFormatMap, defaultFormat, StandardString, TimeFormatMap } from '@oinone/kunlun-shared';
+import {
+  DateFormatMap,
+  DateTimeFormatMap,
+  defaultFormat,
+  defaultMillisecondFormat,
+  defaultMillisecondFormatKey,
+  StandardString,
+  TimeFormatMap
+} from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../../basic';
@@ -29,7 +37,10 @@ export class DetailDateTimeRangeFieldWidget extends FormRangeFieldsWidget<Standa
   }
 
   @Widget.Reactive()
-  protected get valueFormat() {
+  protected get valueFormat(): string {
+    if (this.timeFormat === defaultMillisecondFormatKey) {
+      return defaultMillisecondFormat;
+    }
     return defaultFormat;
   }
 
