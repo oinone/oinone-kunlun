@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2657071 */
-  src: url('iconfont.woff2?t=1767947667862') format('woff2'),
-       url('iconfont.woff?t=1767947667862') format('woff'),
-       url('iconfont.ttf?t=1767947667862') format('truetype');
+  src: url('iconfont.woff2?t=1767950316504') format('woff2'),
+       url('iconfont.woff?t=1767950316504') format('woff'),
+       url('iconfont.ttf?t=1767950316504') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,194 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.oinone-copy-outlined:before {
+  content: "\e9d1";
+}
+
+.oinone-display-outlined:before {
+  content: "\e9d2";
+}
+
+.oinone-dialog-box-outlined:before {
+  content: "\e9d3";
+}
+
+.oinone-delete-outlined:before {
+  content: "\e9d4";
+}
+
+.oinone-down-outlined:before {
+  content: "\e9d5";
+}
+
+.oinone-drag-outlined:before {
+  content: "\e9d6";
+}
+
+.oinone-export-outlined:before {
+  content: "\e9d7";
+}
+
+.oinone-file-text-outlined:before {
+  content: "\e9d8";
+}
+
+.oinone-edit-square-outlined:before {
+  content: "\e9d9";
+}
+
+.oinone-drawer-outlined:before {
+  content: "\e9da";
+}
+
+.oinone-fullscreen-outlined:before {
+  content: "\e9db";
+}
+
+.oinone-hide-outlined:before {
+  content: "\e9dc";
+}
+
+.oinone-high-height-outlined:before {
+  content: "\e9dd";
+}
+
+.oinone-left-outlined:before {
+  content: "\e9de";
+}
+
+.oinone-minus-outlined:before {
+  content: "\e9df";
+}
+
+.oinone-import-outlined:before {
+  content: "\e9e0";
+}
+
+.oinone-folder-outlined:before {
+  content: "\e9e1";
+}
+
+.oinone-height-outlined:before {
+  content: "\e9e2";
+}
+
+.oinone-group-outlined:before {
+  content: "\e9e4";
+}
+
+.oinone-plus-outlined:before {
+  content: "\e9e5";
+}
+
+.oinone-medium-height-outlined:before {
+  content: "\e9e6";
+}
+
+.oinone-low-height-outlined:before {
+  content: "\e9e7";
+}
+
+.oinone-fullscreen-exit-outlined:before {
+  content: "\e9e8";
+}
+
+.oinone-up-outlined:before {
+  content: "\e9e9";
+}
+
+.oinone-user-outlined:before {
+  content: "\e9ea";
+}
+
+.oinone-zoom-in-outlined:before {
+  content: "\e9eb";
+}
+
+.oinone-zoom-out-outlined:before {
+  content: "\e9ec";
+}
+
+.oinone-ungroup-outlined:before {
+  content: "\e9ed";
+}
+
+.oinone-upload-outlined:before {
+  content: "\e9ee";
+}
+
+.oinone-shortcutkey-outlined:before {
+  content: "\e9ef";
+}
+
+.oinone-order-outlined:before {
+  content: "\e9f0";
+}
+
+.oinone-a-defaultrowheight:before {
+  content: "\e9f1";
+}
+
+.oinone-jump-outlined:before {
+  content: "\e9f2";
+}
+
+.oinone-drill-down-outlined:before {
+  content: "\e9f3";
+}
+
+.oinone-double-down-outlined:before {
+  content: "\e9f4";
+}
+
+.oinone-double-right-outlined:before {
+  content: "\e9f5";
+}
+
+.oinone-double-left-outlined:before {
+  content: "\e9f6";
+}
+
+.oinone-double-up-outlined:before {
+  content: "\e9f7";
+}
+
+.oinone-card-outlined:before {
+  content: "\e9f8";
+}
+
+.oinone-apartment-outlined:before {
+  content: "\e9c9";
+}
+
+.oinone-caret-left-filled:before {
+  content: "\e9ca";
+}
+
+.oinone-caret-right-filled:before {
+  content: "\e9cb";
+}
+
+.oinone-caret-down-filled:before {
+  content: "\e9cc";
+}
+
+.oinone-caret-up-filled:before {
+  content: "\e9cd";
+}
+
+.oinone-adaptive-outlined:before {
+  content: "\e9ce";
+}
+
+.oinone-close-outlined:before {
+  content: "\e9cf";
+}
+
+.oinone-check-outlined:before {
+  content: "\e9d0";
 }
 
 .oinone-weixin:before {
@@ -99,6 +287,10 @@
 
 .oinone-xiangshang:before {
   content: "\e9b5";
+}
+
+.oinone-gongsi1:before {
+  content: "\e9b4";
 }
 
 .oinone-yuanshuju:before {
