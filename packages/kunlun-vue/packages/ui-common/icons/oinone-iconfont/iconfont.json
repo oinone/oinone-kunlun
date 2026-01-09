@@ -6,6 +6,139 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "46551589",
+      "name": "微信",
+      "font_class": "weixin",
+      "unicode": "e9c8",
+      "unicode_decimal": 59848
+    },
+    {
+      "icon_id": "46525499",
+      "name": "心",
+      "font_class": "xin",
+      "unicode": "e9c7",
+      "unicode_decimal": 59847
+    },
+    {
+      "icon_id": "46524496",
+      "name": "钱袋",
+      "font_class": "qiandai",
+      "unicode": "e9c3",
+      "unicode_decimal": 59843
+    },
+    {
+      "icon_id": "46524495",
+      "name": "购物袋",
+      "font_class": "gouwudai",
+      "unicode": "e9c4",
+      "unicode_decimal": 59844
+    },
+    {
+      "icon_id": "46524494",
+      "name": "组件",
+      "font_class": "zujian",
+      "unicode": "e9c5",
+      "unicode_decimal": 59845
+    },
+    {
+      "icon_id": "46524493",
+      "name": "下载",
+      "font_class": "xiazai3",
+      "unicode": "e9c6",
+      "unicode_decimal": 59846
+    },
+    {
+      "icon_id": "46524499",
+      "name": "火箭",
+      "font_class": "huojian",
+      "unicode": "e9c1",
+      "unicode_decimal": 59841
+    },
+    {
+      "icon_id": "46524498",
+      "name": "放大镜",
+      "font_class": "fangdajing",
+      "unicode": "e9c2",
+      "unicode_decimal": 59842
+    },
+    {
+      "icon_id": "46524536",
+      "name": "退出",
+      "font_class": "tuichu1",
+      "unicode": "e9bb",
+      "unicode_decimal": 59835
+    },
+    {
+      "icon_id": "46524535",
+      "name": "设置",
+      "font_class": "shezhi4",
+      "unicode": "e9bc",
+      "unicode_decimal": 59836
+    },
+    {
+      "icon_id": "46524533",
+      "name": "购物",
+      "font_class": "gouwu",
+      "unicode": "e9bd",
+      "unicode_decimal": 59837
+    },
+    {
+      "icon_id": "46524534",
+      "name": "灯泡",
+      "font_class": "dengpao",
+      "unicode": "e9be",
+      "unicode_decimal": 59838
+    },
+    {
+      "icon_id": "46524532",
+      "name": "开发",
+      "font_class": "kaifa",
+      "unicode": "e9bf",
+      "unicode_decimal": 59839
+    },
+    {
+      "icon_id": "46524531",
+      "name": "放大",
+      "font_class": "fangda4",
+      "unicode": "e9c0",
+      "unicode_decimal": 59840
+    },
+    {
+      "icon_id": "46524537",
+      "name": "星星",
+      "font_class": "xingxing",
+      "unicode": "e9ba",
+      "unicode_decimal": 59834
+    },
+    {
+      "icon_id": "46515793",
+      "name": "火苗",
+      "font_class": "huomiao",
+      "unicode": "e9b9",
+      "unicode_decimal": 59833
+    },
+    {
+      "icon_id": "46507887",
+      "name": "箭头",
+      "font_class": "jiantou1",
+      "unicode": "e9b8",
+      "unicode_decimal": 59832
+    },
+    {
+      "icon_id": "46391580",
+      "name": "规划",
+      "font_class": "guihua",
+      "unicode": "e9b6",
+      "unicode_decimal": 59830
+    },
+    {
+      "icon_id": "46391579",
+      "name": "场景",
+      "font_class": "changjing",
+      "unicode": "e9b7",
+      "unicode_decimal": 59831
+    },
+    {
       "icon_id": "45682254",
       "name": "大模型",
       "font_class": "damoxing",
