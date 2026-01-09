@@ -8,6 +8,7 @@ import {
   RuntimeModelField
 } from '@oinone/kunlun-engine';
 import { BooleanHelper, CSSClass, CSSStyle } from '@oinone/kunlun-shared';
+import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { isNil } from 'lodash-es';
 import { Widget } from '../basic';
 import { InvisibleSupported, isAllInvisible } from '../feature';
@@ -58,8 +59,8 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
   }
 
   @Widget.Reactive()
-  protected get style(): string | Partial<CSSStyle> | undefined {
-    return this.getDsl().style;
+  protected get style(): CSSStyle | undefined {
+    return StyleHelper.convertStyleByDslDefinition(this.getDsl());
   }
 
   @Widget.Reactive()

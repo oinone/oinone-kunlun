@@ -16,9 +16,9 @@ export class DefaultContainerWidget extends DefaultRowWidget {
   }
 
   @Widget.Reactive()
-  protected get style(): string | Partial<CSSStyle> | undefined {
+  protected get style(): CSSStyle | undefined {
     return {
-      ...(StyleHelper.parse(super.style as string) || {}),
+      ...(super.style || {}),
       height: '100%'
     } as CSSStyle;
   }
