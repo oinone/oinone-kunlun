@@ -2,7 +2,8 @@ import { IResourceDateTimeFormat, queryResourceDateTimeFormat, RuntimeSearchFiel
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import {
   CallChaining,
-  defaultDateFormatKey, defaultMillisecondFormat,
+  defaultDateFormatKey,
+  defaultMillisecondFormat,
   defaultMillisecondFormatKey,
   defaultTimeFormatKey,
   ObjectUtils,
@@ -43,7 +44,8 @@ export class SearchDateTimeRangeFieldWidget extends SearchRangeFieldWidget<
 
   @Widget.Reactive()
   protected get valueFormat(): string | undefined {
-    if (this.timeFormat === defaultMillisecondFormatKey) {
+    const timeFormat = this.executeExpression<string>(this.getDsl().timeFormat);
+    if (timeFormat === defaultMillisecondFormatKey) {
       return defaultMillisecondFormat;
     }
     return this.getDsl().valueFormat;

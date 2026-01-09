@@ -38,7 +38,8 @@ export class DetailDateTimeFieldWidget extends FormFieldWidget {
 
   @Widget.Reactive()
   protected get valueFormat(): string | undefined {
-    if (this.timeFormat === defaultMillisecondFormatKey) {
+    const timeFormat = this.executeExpression<string>(this.getDsl().timeFormat);
+    if (timeFormat === defaultMillisecondFormatKey) {
       return defaultMillisecondFormat;
     }
     return this.getDsl().valueFormat;
