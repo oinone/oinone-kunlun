@@ -3,12 +3,29 @@ import { DownOutlined } from '@ant-design/icons-vue';
 import { type ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { CastHelper, type CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { ButtonBizStyle, ButtonType, IconPlacement, OioButton, OioCheckbox, OioDropdown, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
+import {
+  ButtonBizStyle,
+  ButtonType,
+  IconPlacement,
+  OioButton,
+  OioCheckbox,
+  OioDropdown,
+  OioSwitch
+} from '@oinone/kunlun-vue-ui-antd';
 import { ListSelectMode, OioDropdownTrigger, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { type DslRenderDefinition, onAllMounted } from '@oinone/kunlun-vue-widget';
 import { Menu as AMenu } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
-import { computed, createVNode, defineComponent, type PropType, type VNode, vShow, withDirectives, withModifiers } from 'vue';
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  type PropType,
+  type VNode,
+  vShow,
+  withDirectives,
+  withModifiers
+} from 'vue';
 import { ActiveCountEnum, type MoreActionRender, OperationColumnDirection } from '../../../typing';
 import { CollectionActions } from '../../../util/collection-actions';
 import { ActionBarBizStyle } from '../typing';
@@ -22,6 +39,7 @@ function createMoreAction(
   vnodes: VNode[],
   inline: boolean,
   options: {
+    slotName?: string;
     rowIndex?: number;
     bizStyle?: string;
     buttonType?: string;
@@ -40,7 +58,7 @@ function createMoreAction(
     defaultButtonType = ButtonType.text;
     defaultBizStyle = ButtonBizStyle.default;
   }
-  const { buttonType, allMounted } = options;
+  const { buttonType } = options;
   const triggerVNode = createVNode(
     OioButton,
     {
@@ -59,6 +77,7 @@ function createMoreAction(
     createVNode(DefaultMoreActionItem, {
       model: v.props?.model,
       name: v.props?.name,
+      slotName: options.slotName,
       rowIndex: options.rowIndex
     })
   );
@@ -93,6 +112,9 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     currentHandle: {
+      type: String
+    },
+    slotName: {
       type: String
     },
     template: {
@@ -235,6 +257,7 @@ export default defineComponent({
       const originMoreAction = showActions[showActions.length - 1];
       let moreActionVNodes: VNode[] = [];
       const renderResult = (this.moreActionRender || createMoreAction)(moreActions, this.inline, {
+        slotName: this.slotName,
         rowIndex: this.rowIndex,
         bizStyle: this.bizStyle,
         buttonType: this.buttonType,

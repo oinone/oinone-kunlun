@@ -1,6 +1,14 @@
 import { getMergeConfig } from '@oinone/kunlun-config';
-import { type ComputeContext, ComputeContextManager, ROOT_HANDLE, type RuntimeContext, RuntimeContextManager, type RuntimeModelField } from '@oinone/kunlun-engine';
+import {
+  type ComputeContext,
+  ComputeContextManager,
+  ROOT_HANDLE,
+  type RuntimeContext,
+  RuntimeContextManager,
+  type RuntimeModelField
+} from '@oinone/kunlun-engine';
 import { BooleanHelper, type CSSClass, type CSSStyle } from '@oinone/kunlun-shared';
+import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { isNil } from 'lodash-es';
 import { Widget } from '../basic';
 import { type InvisibleSupported, isAllInvisible } from '../feature';
@@ -51,8 +59,8 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
   }
 
   @Widget.Reactive()
-  protected get style(): string | Partial<CSSStyle> | undefined {
-    return this.getDsl().style;
+  protected get style(): CSSStyle | undefined {
+    return StyleHelper.convertStyleByDslDefinition(this.getDsl());
   }
 
   @Widget.Reactive()

@@ -1,8 +1,9 @@
 <script lang="ts">
+import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { ObjectUtils, OioButton, OioPopconfirm } from '@oinone/kunlun-vue-ui-antd';
 import { ButtonType } from '@oinone/kunlun-vue-ui-common';
-import { useOioState, Widget } from '@oinone/kunlun-vue-widget';
+import { hasActionBarViewState, OioActionBarState, useOioState, Widget } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, ref, type VNode } from 'vue';
 import type { ActionWidget } from '../action';
 import MenuItem from '../action/MenuItem.vue';
@@ -20,6 +21,9 @@ export default defineComponent({
       type: String,
       required: true
     },
+    slotName: {
+      type: String
+    },
     rowIndex: {
       type: Number
     }
@@ -27,7 +31,19 @@ export default defineComponent({
   setup(props) {
     // 二次确认的显示和隐藏不同步 ActionWidget，否则页面会出现多个二次确认弹出层
     const visibleConfirm = ref(false);
-    const actionBarState = useOioState().viewState?.getActionBarState(props.rowIndex);
+
+    // 当前组件在 OioDropdown 渲染时，vue 生命周期与 ActionBar 组件生命周期脱离
+    // 导致其无法正确执行 ViewState#getActionBarState 方法获取有效 actionBarState 变量
+    // 因此，此处手动获取 actionBarState 保证其运行逻辑完整
+    let actionBarState: OioActionBarState | undefined;
+    const { viewState } = useOioState();
+    if (viewState && hasActionBarViewState(viewState)) {
+      if (!props.slotName || props.slotName === DEFAULT_SLOT_NAME) {
+        actionBarState = viewState.actionBar;
+      } else {
+        actionBarState = viewState.actionBars[props.slotName];
+      }
+    }
 
     const actionWidget = computed<ActionWidget | undefined>(() => {
       const actionHandles = actionBarState?.actions;

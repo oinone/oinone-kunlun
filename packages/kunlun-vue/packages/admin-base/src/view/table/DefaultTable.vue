@@ -4,15 +4,60 @@ import { type ActiveRecord, type ActiveRecords, type Pagination, translateValueB
 import { EDirection, ISort } from '@oinone/kunlun-service';
 import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-import { type ActiveEditorContext, type CheckedChangeEvent, OioColumn, OioTable, type OioTableInstance, type RadioChangeEvent, type RowContext, type SortChangeEvent, TableEditorCloseTrigger, TableEditorMode, TableEditorTrigger, TableRowClickMode, TableSelectTrigger, TableSize, useVxeCheckboxCell, useVxeCheckboxHeader, type VxeCheckboxCellRenderBodyParams, type VxeCheckboxHeaderRenderBodyParams, type VxeTableActiveEditorEventContext, VxeTableHelper } from '@oinone/kunlun-vue-ui';
-import { ListPaginationStyle, ListSelectMode, OioPagination, OioSpin, OioTooltip, PropRecordHelper, StyleHelper, useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
+import {
+  type ActiveEditorContext,
+  type CheckedChangeEvent,
+  OioColumn,
+  OioTable,
+  type OioTableInstance,
+  type RadioChangeEvent,
+  type RowContext,
+  type SortChangeEvent,
+  TableEditorCloseTrigger,
+  TableEditorMode,
+  TableEditorTrigger,
+  TableRowClickMode,
+  TableSelectTrigger,
+  TableSize,
+  useVxeCheckboxCell,
+  useVxeCheckboxHeader,
+  type VxeCheckboxCellRenderBodyParams,
+  type VxeCheckboxHeaderRenderBodyParams,
+  type VxeTableActiveEditorEventContext,
+  VxeTableHelper
+} from '@oinone/kunlun-vue-ui';
+import {
+  ListPaginationStyle,
+  ListSelectMode,
+  OioPagination,
+  OioSpin,
+  OioTooltip,
+  PropRecordHelper,
+  StyleHelper,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext
+} from '@oinone/kunlun-vue-ui-antd';
 import { DslRender } from '@oinone/kunlun-vue-widget';
 import { debounce } from 'lodash-es';
-import { computed, createVNode, defineComponent, Fragment, nextTick, onActivated, onBeforeUnmount, onMounted, type PropType, ref, type Slot, type VNode, watch } from 'vue';
-
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  Fragment,
+  nextTick,
+  onActivated,
+  onBeforeUnmount,
+  onMounted,
+  type PropType,
+  ref,
+  type Slot,
+  type VNode,
+  watch
+} from 'vue';
 import { VxeTableDefines, type VxeTablePropTypes } from 'vxe-table';
 import { ManualWidget } from '../../basic';
 import { TableLineHeightEnum, type UserTablePrefer } from '../../typing';
+import DefaultTableClickContainer from './DefaultTableClickContainer.vue';
 import DefaultTableFooterOperator from './DefaultTableFooterOperator.vue';
 import DefaultTableGroupCollapse from './DefaultTableGroupCollapse.vue';
 
@@ -82,7 +127,10 @@ export default defineComponent({
     OioColumn,
     OioSpin,
     OioPagination,
-    OioTooltip
+    OioTooltip,
+    DefaultTableFooterOperator,
+    DefaultTableGroupCollapse,
+    DefaultTableClickContainer
   },
   inheritAttrs: false,
   props: {
@@ -1105,7 +1153,15 @@ export default defineComponent({
     if (allowRowClick) {
       const clickSlot = DslRender.fetchVNodeSlots(this.template, ['click'])?.click;
       if (clickSlot && (onRowClick || onRowDblClick)) {
-        containerChildren.push(createVNode('div', { class: 'table-container-click' }, clickSlot()));
+        containerChildren.push(
+          createVNode(
+            DefaultTableClickContainer,
+            {},
+            {
+              default: () => clickSlot()
+            }
+          )
+        );
       }
     }
 
