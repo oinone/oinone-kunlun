@@ -1,6 +1,17 @@
 <script lang="ts">
 import { SelectSearchArea, translateValueByKey } from '@oinone/kunlun-engine';
-import { OioEmptyData, OioIcon, OioInput, OioInputGroup, OioSpin, PropRecordHelper, SelectMode, StringHelper, useInjectOioDefaultFormContext, useMaxTagPlaceholder } from '@oinone/kunlun-vue-ui-antd';
+import {
+  OioEmptyData,
+  OioIcon,
+  OioInput,
+  OioInputGroup,
+  OioSpin,
+  PropRecordHelper,
+  SelectMode,
+  StringHelper,
+  useInjectOioDefaultFormContext,
+  useMaxTagPlaceholder
+} from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { debounce, delay } from 'lodash-es';
 import { computed, createVNode, defineComponent, nextTick, onBeforeUnmount, onMounted, ref, type VNode } from 'vue';
@@ -383,6 +394,7 @@ export default defineComponent({
       'suffixIcon',
       'option'
     ];
+
     if (allowSearch && (!searchArea || searchArea === SelectSearchArea.default)) {
       props.showSearch = true;
       props.onSearch = onSearch;
@@ -409,6 +421,10 @@ export default defineComponent({
           return [];
         }
       });
+    }
+
+    if (props.options === null) {
+      slotNames.push('default');
     }
     const selectVNode = createVNode(ASelect, props, PropRecordHelper.collectionSlots($slots, slotNames));
     const classNames = ['oio-basic-select-wrapper'];
