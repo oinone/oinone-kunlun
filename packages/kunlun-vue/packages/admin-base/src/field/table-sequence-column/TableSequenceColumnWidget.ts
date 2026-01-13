@@ -1,8 +1,8 @@
-import { Optional } from '@oinone/kunlun-shared';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { RenderCellContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { translateValueByKey } from '@oinone/kunlun-engine';
 import { BaseElementWidget, BaseTableColumnWidget } from '../../basic';
 
 @SPI.ClassFactory(
@@ -27,13 +27,13 @@ export class TableSequenceColumnWidget extends BaseTableColumnWidget {
   }
 
   @Widget.Reactive()
-  public className(context: RenderCellContext): string {
-    return 'table-column-sequence';
+  public className(context: RenderCellContext): string[] {
+    return StringHelper.append(['table-column-sequence'], super.className(context));
   }
 
   @Widget.Reactive()
-  public headerClassName(context: RenderCellContext): string {
-    return 'table-header-column-sequence';
+  public headerClassName(context: RenderCellContext): string[] {
+    return StringHelper.append(['table-header-column-sequence'], super.headerClassName(context));
   }
 
   @Widget.Reactive()

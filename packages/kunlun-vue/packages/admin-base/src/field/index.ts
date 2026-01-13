@@ -11,6 +11,7 @@ export * from './table';
 export * from './table-checkbox-column';
 export * from './table-colgroup-column';
 export * from './table-expand-column';
+export * from './table-layout-column';
 export * from './table-operation-column';
 export * from './table-radio-column';
 export * from './table-sequence-column';
