@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "46628985",
+      "name": "折叠面板",
+      "font_class": "zhediemianban",
+      "unicode": "e9fa",
+      "unicode_decimal": 59898
+    },
+    {
+      "icon_id": "46628984",
+      "name": "多级表头",
+      "font_class": "duojibiaotou",
+      "unicode": "e9fb",
+      "unicode_decimal": 59899
+    },
+    {
+      "icon_id": "46628986",
+      "name": "列分组",
+      "font_class": "liefenzu",
+      "unicode": "e9f9",
+      "unicode_decimal": 59897
+    },
+    {
+      "icon_id": "15933094",
+      "name": "微信",
+      "font_class": "weixin1",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "46600926",
+      "name": "别针",
+      "font_class": "biezhen",
+      "unicode": "e9e3",
+      "unicode_decimal": 59875
+    },
+    {
       "icon_id": "45415519",
       "name": "copy-outlined",
       "font_class": "copy-outlined",
