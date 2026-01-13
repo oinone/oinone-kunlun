@@ -87,7 +87,7 @@ function createMoreAction(
       OioDropdown,
       {
         overlayClassName: 'default-dropdown-overlay',
-        trigger: [OioDropdownTrigger.hover]
+        trigger: options.moreActionTriggers
       },
       {
         default: () => [triggerVNode],
@@ -263,7 +263,7 @@ export default defineComponent({
         buttonType: this.buttonType,
         operatorColumnDirection: operatorColumnDirection as OperationColumnDirection,
         allMounted: this.allMounted,
-        moreActionTriggers: this.moreActionTriggers!
+        moreActionTriggers: this.moreActionTriggers || [OioDropdownTrigger.hover]
       });
       if (Array.isArray(renderResult)) {
         moreActionVNodes = renderResult;
