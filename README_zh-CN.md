@@ -1,72 +1,68 @@
 ### 1、仓库简介
 
-欢迎访问 Oinone Kunlun，与我们一起完善企业级产品化引擎，此仓库为 Oinone 前端框架。
+欢迎访问 Oinone Kunlun，与我们一起完善 AI 驱动的企业级产品化引擎，此仓库为 Oinone 前端框架。
 
-Oinone 是企业级产品化引擎，以低代码和无代码驱动的标准化研发与敏捷交付一体化研发框架。Oinone 响应信创工程，全栈支持国产操作系统、中间件、数据库等。
+Oinone 是 AI 驱动的企业级产品化引擎，以低代码和无代码为载体的软件标准产品研发与敏捷交付一体化研发框架。Oinone 谐音 All-in-one 之意，O 代表开源，象征：一站式、敏捷响应、持续创新。
 
-O 代表开源，谐音 All in one 之意，象征：一站式、敏捷响应、持续创新。
+Oinone 响应信创工程，全栈支持国产操作系统、中间件、数据库等。
+
+了解更多信息，您可以访问 [🍀 官网](https://www.oinone.top) | [🍀 Gitee-中文](https://gitee.com/oinone) | [🍀 AtomGit-中文](https://gitcode.com/oinone) | [🍀 Github-EN](https://github.com/Oinone)。
+
+【[⚡ 后端-Gitee](https://gitee.com/oinone/oinone-pamirs) | [⚡ 前端-Gitee](https://gitee.com/oinone/oinone-kunlun) | [⚡ 后端-AtomGit](https://gitcode.com/oinone/oinone-pamirs) | [⚡ 前端-AtomGit](https://gitcode.com/oinone/oinone-kunlun) | [⚡ Back-end Framework-Github](https://github.com/oinone/oinone-pamirs) | [⚡ Front-end Framework-Github](https://github.com/oinone/oinone-kunlun)】
 
 ### 2、核心价值
 - 🌟 解决谁的问题：面向软件公司设计，作为软件公司产品技术底座，致力于为行业带来改变，为伙伴提供支持，目前已经服务近100家软件公司，包括行业领先软件企业如：杰克科技（全球最大的服装生产成套智联解决方案提供商）、上海数策（中国汽车整机行业知名软件产品提供商）、工福云（中国领先的工会福利软件提供商）等。
-- 🌟 解决什么问题：解决软件公司研发效率与成本问题，更重要的是为有产品化梦想的软件公司解决产品标准化与规模化交付问题。
+- 🌟 解决什么问题：助力软件公司全面拥抱 AI，保障 AI 输出质量的稳定性，为有产品化梦想的软件公司解决产品标准化与规模化交付问题。
 
 ### 3、核心特性
-![核心特性](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7.png)
+![核心特性I](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7I.png)
+- 🌟 企业级 Vibe Coding 最佳实践
+  - 标准：作为标准避免 Vibe Coding 生成的代码“难以维护”和“黑盒”的问题
+  - 开源：让 AI 快速学习企业级低代码的设计原理与开发范式
+  - 智能体：提供特定的前、后端智能体保障AI输出质量的稳定性
+- 🌟 应用天然具备“数据-反馈闭环”（Data-Feedback Loop，DFL）机制，构建“自演进”的应用成长模式
+  - 构建[训练 -> 建模 -> 执行 -> 评估 -> 自主执行]的 AI 员工全生命周期能力
 
-### 4、了解更多
-- 了解更多关于 Oinone 的信息，您可以访问 [🍀 官网](https://www.oinone.top) | [🍀 Gitee-中文](https://gitee.com/oinone) | [🍀 Gitcode-中文](https://gitcode.com/oinone) | [🍀 Github-EN](https://github.com/Oinone)。
-- 【[⚡ 后端框架-Gitee](https://gitee.com/oinone/oinone-pamirs) | [⚡ 前端框架-Gitee](https://gitee.com/oinone/oinone-kunlun) | [⚡ 后端框架-Gitcode](https://gitcode.com/oinone/oinone-pamirs) | [⚡ 前端框架-Gitcode](https://gitcode.com/oinone/oinone-kunlun) | [⚡ Back-end Framework-Github](https://github.com/oinone/oinone-pamirs) | [⚡ Front-end Framework-Github](https://github.com/oinone/oinone-kunlun)】
+![核心特性II](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7II.png)
 
-### 5、演示环境
-| 演示环境                                                            | 相关视频                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-|-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [⚡ 直达演示环境](https://demo.oinone.top)<br>☕ 账号：admin<br>☕ 密码：admin | [🎬 1. [数式Oinone] #产品化演示# 后端研发与无代码辅助](https://www.bilibili.com/video/BV1eDMizYEts/?vd_source=ee004011d0afa992f50d15c8738450b3) <br>[🎬 2. [数式Oinone] #产品化演示# 前端开发](https://www.bilibili.com/video/BV1DoMizbECt/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 3. [数式Oinone] #个性化二开# 后端逻辑](https://www.bilibili.com/video/BV1RDMizYELg/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 4. [数式Oinone] #个性化二开# 前端交互](https://www.bilibili.com/video/BV1eDMizYED1/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 5. [数式Oinone] #个性化二开# 无代码模式](https://www.bilibili.com/video/BV1eDMizYEdF/?vd_source=ee004011d0afa992f50d15c8738450b3) |
+### 4、产品体系
+全方位覆盖产品研发及实施所需。
+![产品体系](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/%E4%BA%A7%E5%93%81%E4%BD%93%E7%B3%BB2026-1.png "产品体系-1")
+![产品体系](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/%E4%BA%A7%E5%93%81%E4%BD%93%E7%B3%BB2026-2.png "产品体系-2")
 
-### 6、近期动态
-#### 6.1 专属福利 🎁
+### 5、Aino
+#### 5.1 何为 Oinone Aino
+![Oinone AI](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/Oinone%20AI.png)
+Aino 寓意 AI Innovation，谐音`I Know`，是 Oinone 产品体系中 AI 开发平台。提供从大模型接入/微调、智能体开发、AI员工设计及无缝融合原有业务系统的核心能力。
+
+#### 5.2 DFL（Data-Feedback Loop）
+![DFL](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/DFL.png)
+
+#### 5.3 Aino UX
+![Aino](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/Aino.png)
+
+### 6、演示环境
+| 演示环境                                                            | 相关视频                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+|-----------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [⚡ 直达演示环境](https://demo.oinone.top)<br>☕ 账号：admin<br>☕ 密码：admin |[🎬 1. [数式Oinone] #产品化演示# 后端研发与无代码辅助](https://www.bilibili.com/video/BV1eDMizYEts/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 2. [数式Oinone] #产品化演示# 前端开发](https://www.bilibili.com/video/BV1DoMizbECt/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 3. [数式Oinone] #个性化二开# 后端逻辑](https://www.bilibili.com/video/BV1RDMizYELg/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 4. [数式Oinone] #个性化二开# 前端交互](https://www.bilibili.com/video/BV1eDMizYED1/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 5. [数式Oinone] #个性化二开# 无代码模式](https://www.bilibili.com/video/BV1eDMizYEdF/?vd_source=ee004011d0afa992f50d15c8738450b3)|
+
+### 7、近期动态
+#### 7.1 专属福利 🎁
 | 二维码 | 领取步骤                                                                                                   |
 |-----|--------------------------------------------------------------------------------------------------------|
 |<img src="http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/Oinone%E5%B0%8F%E5%8A%A9%E6%89%8B.png" alt="Assistant" width="150"><br>| 1. ⭐ Star 本项目<br>2. 扫码左侧二维码添加小助手<br>3. 截图（已 Star 凭证）发给小助手<br>4. 小助手邀请 Star 用户进入专属交流群<br>5. 限时申请企业版试用授权 |
 
-### 7、快速入门
-- [安装与升级](https://guide.oinone.top/zh-cn/InstallOrUpgrade/)
-  - [环境准备](https://guide.oinone.top/zh-cn/InstallOrUpgrade/Dev-ENV/)
-  - [社区版：源码安装](https://guide.oinone.top/zh-cn/InstallOrUpgrade/CommunityEdition/source-code-installation.html)
-  - [企业版：Docker-full 方式安装](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)
-  - [企业版：Docker-mini 方式安装](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-mini-installation.html)
-  - [企业版：运行程序包方式安装](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)
-- [教程](https://guide.oinone.top/zh-cn/DevManual/Tutorials/)
-  - [探索前端框架](https://guide.oinone.top/zh-cn/DevManual/Tutorials/DiscoverTheFront-endFramework/)
-    - [章节 1 - 组件（Widget）](https://guide.oinone.top/zh-cn/DevManual/Tutorials/DiscoverTheFront-endFramework/chapter1-widget.html)
-    - [章节 2 - 构建仪表盘（Build a dashboard）](https://guide.oinone.top/zh-cn/DevManual/Tutorials/DiscoverTheFront-endFramework/chapter2-build-a-dashboard.html)
-  - [精通前端框架](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/)
-    - [章节 1 - 前端框架概览（Front-End Overview）](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/chapter1-front-end-overview.html)
-    - [章节 2 - 创建甘特视图（Create a gantt view）](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/chapter2-create-a-gantt-view.html)
-    - [章节 3 - 自定义画廊视图（Customize a gallery view）](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/chapter3-customize-a-gallery-view.html)
-- [调试工具（Debug Tools）](https://guide.oinone.top/zh-cn/DevManual/Tutorials/debug-tools.html)
-
-### 8、工程概览
-| Package              | 内容            |
-|----------------------|---------------|
-| 📦 kunlun-framework  | 🌟 前端核心功能包    |
-| 📦 kunlun-engine     | 🌟 前端核心功能扩展包  |
-| 📦 kunlun-expression | 🌟 前端表达式组件包   |
-| 📦 kunlun-vue        | 🌟 前端 PC 端组件包 |
-| 📦 kunlun-mobile-vue | 🌟 前端移动端组件包   |
-
-### 9、 文档链接
-- [📗 安装与升级](https://guide.oinone.top/zh-cn/InstallOrUpgrade)
-- [📗 用户手册](https://guide.oinone.top/zh-cn/UserManual)
-- [📗 研发手册](https://guide.oinone.top/zh-cn/DevManual)
-- [📗 产品白皮书](https://www.oinone.top/whitePaper)
-- [📗 最佳范式](https://guide.oinone.top/zh-cn/DevManual/R_DParadigm)
-- [📗 常见解决方案](https://guide.oinone.top/zh-cn/DevManual/CommonSolutions)
-- [📗 常见问题](https://guide.oinone.top/zh-cn/DevManual/FAQ)
-
-### 10、产品体系
-全方位覆盖产品研发及实施所需。
-![产品体系](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/%E4%BA%A7%E5%93%81%E4%BD%93%E7%B3%BB1.png "产品体系")
-![产品体系](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/%E4%BA%A7%E5%93%81%E4%BD%93%E7%B3%BB2.png "产品体系")
+### 8、入门与文档
+| 快速入门                                                                                                                                                                                                                                                                     |文档链接     | Package | Package 内容 |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|---|----|
+| ⚡ [安装与升级](https://guide.oinone.top/zh-cn/InstallOrUpgrade/)                                                                                                                                                                                                              |[📗 用户手册](https://guide.oinone.top/zh-cn/UserManual/) | 📦 kunlun-framework | 🌟 前端核心功能包 |
+| ⚡ [环境准备](https://guide.oinone.top/zh-cn/InstallOrUpgrade/Dev-ENV/)                                                                                                                                                                                                       |[📗 研发手册](https://guide.oinone.top/zh-cn/DevManual/)| 📦 kunlun-engine | 🌟 前端核心功能扩展包 |
+| ⚡ [社区版：源码安装](https://guide.oinone.top/zh-cn/InstallOrUpgrade/CommunityEdition/source-code-installation.html)                                                                                                                                                             | [📗 产品白皮书](https://www.oinone.top/whitePaper)| 📦 kunlun-expression | 🌟 前端表达式组件包 |
+| ⚡ [企业版：docker-full 方式安装](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)                                                                                                                                                |[📗 最佳范式](https://guide.oinone.top/zh-cn/DevManual/R_DParadigm)| 📦 kunlun-vue | 🌟 前端 PC 端组件包 |
+| ⚡ [企业版：docker-mini 方式安装](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-mini-installation.html)                                                                                                                                                | [📗 常见解决方案](https://guide.oinone.top/zh-cn/DevManual/CommonSolutions)| 📦 kunlun-mobile-vue | 🌟 前端移动端组件包 |
+| ⚡ [企业版：运行程序包方式安装](https://guide.oinone.top/zh-cn/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)                                                                                                                                                       |[📗 常见问题](https://guide.oinone.top/zh-cn/DevManual/FAQ)|   |  |
+| ⚡ [入门教程`建议完整学习` ](https://guide.oinone.top/zh-cn/DevManual/Tutorials/)<br/>⚡ [探索前端框架](https://guide.oinone.top/zh-cn/DevManual/Tutorials/DiscoverTheFront-endFramework/)<br/>⚡ [精通前端框架](https://guide.oinone.top/zh-cn/DevManual/Tutorials/MasterTheFront-endFramework/) ||  |  |
+| ⚡ [调试工具](https://guide.oinone.top/zh-cn/DevManual/Tutorials/debug-tools.html)                                                                                                                                                                                            | | |  |
 
 ### 11、许可协议
 - Oinone Kunlun 遵循 AGPL-3.0 协议。
