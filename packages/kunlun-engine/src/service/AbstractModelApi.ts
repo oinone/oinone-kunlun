@@ -36,14 +36,22 @@ export abstract class AbstractModelApi<T extends IdModel> implements ModelApi<T>
 
   public async queryListByWrapper(queryWrapper: QueryWrapper): Promise<T[]> {
     return (
-      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(this.modelModel, 'queryListByWrapper', queryWrapper)) ||
-      []
+      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(
+        queryWrapper.model || this.modelModel,
+        'queryListByWrapper',
+        queryWrapper
+      )) || []
     );
   }
 
   public async queryPage(page: QueryPagination, queryWrapper: QueryWrapper): Promise<QueryPageResult<T>> {
     return (
-      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(this.modelModel, 'queryPage', page, queryWrapper)) || {
+      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(
+        queryWrapper.model || this.modelModel,
+        'queryPage',
+        page,
+        queryWrapper
+      )) || {
         content: [],
         totalPages: 0,
         totalElements: 0

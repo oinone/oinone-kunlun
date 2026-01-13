@@ -12,7 +12,11 @@ export class AuthRoleServiceImpl extends AbstractListModelApi<AuthRole> implemen
   public async queryListByFilter(query: AuthRoleQueryFilter): Promise<AuthRole[]> {
     // fixme @zbh 20251205 optimize request
     return (
-      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(this.modelModel, 'queryListByFilter', query)) || []
+      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(
+        query.model || this.modelModel,
+        'queryListByFilter',
+        query
+      )) || []
     );
   }
 }

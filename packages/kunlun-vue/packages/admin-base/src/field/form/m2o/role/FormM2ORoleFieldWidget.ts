@@ -1,10 +1,8 @@
 import { AuthRole, RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { BooleanHelper, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { Widget } from '@oinone/kunlun-vue-widget';
-import { FormFieldWidget, SelectFieldWidget } from '../../../../basic';
-import { RoleSelect } from '../../../../components';
+import { FormFieldWidget } from '../../../../basic';
+import { AbstractFormRoleFieldWidget } from '../../abstract';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
@@ -13,27 +11,7 @@ import { RoleSelect } from '../../../../components';
     widget: 'Role'
   })
 )
-export class FormM2ORoleFieldWidget extends SelectFieldWidget<AuthRole, AuthRole, RuntimeM2OField> {
-  public initialize(props) {
-    super.initialize(props);
-    this.setComponent(RoleSelect);
-    return this;
-  }
-
-  @Widget.Reactive()
-  protected get roleCodes(): string[] | undefined {
-    return StringHelper.convertArray(this.getDsl().roleCodes);
-  }
-
-  @Widget.Reactive()
-  protected get userRole(): boolean | undefined {
-    return BooleanHelper.toBoolean(this.getDsl().userRole);
-  }
-
-  protected generatorSelectItemKey(value: AuthRole): string {
-    return value.code || super.generatorSelectItemKey(value);
-  }
-
+export class FormM2ORoleFieldWidget extends AbstractFormRoleFieldWidget<AuthRole, AuthRole, RuntimeM2OField> {
   public async submit(submitValue: SubmitValue) {
     const { field, itemName, value, viewMode, submitCache, submitType, relationUpdateType } = this;
     return SubmitRelationHandler.M2O(

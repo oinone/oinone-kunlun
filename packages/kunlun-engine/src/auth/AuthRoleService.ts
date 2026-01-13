@@ -3,6 +3,7 @@ import { ListModelApi } from '../service';
 import { AuthRole } from '../typing';
 
 export interface AuthRoleQueryFilter {
+  model?: string;
   rsql?: string;
   roleCodes?: string[];
   userRole?: boolean;

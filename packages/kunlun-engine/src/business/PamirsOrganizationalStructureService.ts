@@ -3,8 +3,12 @@ import { TreeModelApi } from '../service';
 import { PamirsDepartment, PamirsOrganizationalStructure } from '../typing';
 import { DepartmentQueryFilter } from './PamirsDepartmentService';
 
+export interface OrganizationalStructureQueryFilter extends DepartmentQueryFilter {
+  companyModel?: string;
+}
+
 export interface PamirsOrganizationalStructureService extends TreeModelApi<PamirsOrganizationalStructure> {
-  queryListByFilter(query: DepartmentQueryFilter): Promise<PamirsDepartment[]>;
+  queryListByFilter(query: OrganizationalStructureQueryFilter): Promise<PamirsDepartment[]>;
 }
 
 export const PamirsOrganizationalStructureServiceToken = ServiceIdentifier<PamirsOrganizationalStructureService>(
