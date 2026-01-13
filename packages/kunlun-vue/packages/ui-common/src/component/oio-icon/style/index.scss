@@ -44,6 +44,15 @@
   }
 }
 
+.oio-close-icon {
+  background: var(--oio-close-icon-background);
+  color: var(--oio-icon-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @keyframes oio-rotating {
   0% {
     transform: rotateZ(0deg);
