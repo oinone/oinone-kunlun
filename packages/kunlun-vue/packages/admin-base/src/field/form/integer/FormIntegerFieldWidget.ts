@@ -3,7 +3,7 @@ import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { BigNumber, BooleanHelper, fetchRealValue, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { isEmpty, isNil, isNumber, isString, toString } from 'lodash-es';
+import { isEmpty, isNil, isNumber, toString } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';
 import { isValidatorSuccess, ValidatorInfo } from '../../../typing';
 import { stringIsAllNum } from '../../util';
@@ -27,42 +27,40 @@ export class FormIntegerFieldWidget<
 
   @Widget.Reactive()
   protected get min(): string | number | undefined {
-    if (stringIsAllNum(this.getDsl().min)) {
-      return this.getDsl().min;
+    const min = this.field.min;
+    if (min == null) {
+      return this.computeNumericFieldMin(this.size, this.precision);
     }
-    let dslMin = this.executeExpression<string | number>(this.getDsl().min);
+    if (isNumber(min)) {
+      return min;
+    }
+    if (stringIsAllNum(min)) {
+      return min;
+    }
+    const dslMin = this.executeExpression<string | number>(min);
     if (isNumber(dslMin)) {
       return dslMin;
     }
-    if (isEmpty(dslMin)) {
-      dslMin = toString(this.field.min);
-      if (isEmpty(dslMin)) {
-        dslMin = this.computeNumericFieldMin(this.size, this.precision);
-      }
-    }
-    return dslMin;
+    return this.computeNumericFieldMin(this.size, this.precision);
   }
 
   @Widget.Reactive()
   protected get max(): string | number | undefined {
-    if (stringIsAllNum(this.getDsl().max)) {
-      return this.getDsl().max;
+    const max = this.field.max;
+    if (max == null) {
+      return this.computeNumericFieldMax(this.size, this.precision);
     }
-    let dslMax = this.executeExpression<string | number>(this.getDsl().max);
+    if (isNumber(max)) {
+      return max;
+    }
+    if (stringIsAllNum(max)) {
+      return max;
+    }
+    const dslMax = this.executeExpression<string | number>(max);
     if (isNumber(dslMax)) {
       return dslMax;
     }
-    if (isString(dslMax)) {
-      if (isEmpty(dslMax)) {
-        dslMax = toString(this.field.max);
-        if (isEmpty(dslMax)) {
-          dslMax = this.computeNumericFieldMax(this.size, this.precision);
-        }
-      }
-    } else if (isNil(dslMax)) {
-      dslMax = this.computeNumericFieldMax(this.size, this.precision);
-    }
-    return dslMax;
+    return this.computeNumericFieldMax(this.size, this.precision);
   }
 
   @Widget.Reactive()

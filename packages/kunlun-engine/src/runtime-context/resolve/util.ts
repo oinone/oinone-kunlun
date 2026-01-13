@@ -25,10 +25,10 @@ export class ResolveUtil {
     }
     if (typeof val === 'string') {
       if (val === 'Infinity') {
-        return Infinity;
+        return undefined;
       }
       if (val === '-Infinity') {
-        return -Infinity;
+        return undefined;
       }
       const num = Number(val);
       if (!Number.isNaN(num)) {
