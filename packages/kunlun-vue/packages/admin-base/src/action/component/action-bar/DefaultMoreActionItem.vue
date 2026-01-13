@@ -38,7 +38,9 @@ export default defineComponent({
     let actionBarState: OioActionBarState | undefined;
     const { viewState } = useOioState();
     if (viewState && hasActionBarViewState(viewState)) {
-      if (!props.slotName || props.slotName === DEFAULT_SLOT_NAME) {
+      if (viewState.__position) {
+        actionBarState = viewState.getActionBarState(props.rowIndex);
+      } else if (!props.slotName || props.slotName === DEFAULT_SLOT_NAME) {
         actionBarState = viewState.actionBar;
       } else {
         actionBarState = viewState.actionBars[props.slotName];

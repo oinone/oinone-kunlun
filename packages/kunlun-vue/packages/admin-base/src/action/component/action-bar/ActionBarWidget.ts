@@ -117,7 +117,7 @@ export class ActionBarWidget<
   protected get moreActionTriggers(): OioDropdownTrigger[] {
     const moreActionTriggersStr = this.getDsl().moreActionTriggers?.();
     if (!moreActionTriggersStr) {
-      return [OioDropdownTrigger.click, OioDropdownTrigger.hover];
+      return [OioDropdownTrigger.hover];
     }
     return moreActionTriggersStr.split(',') as unknown[] as OioDropdownTrigger[];
   }
