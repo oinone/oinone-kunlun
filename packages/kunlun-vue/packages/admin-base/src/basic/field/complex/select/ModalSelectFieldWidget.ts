@@ -1,4 +1,4 @@
-import { ActiveRecord, ActiveRecords, RuntimeRelationField } from '@oinone/kunlun-engine';
+import { type ActiveRecord, type ActiveRecords, RuntimeRelationField } from '@oinone/kunlun-engine';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { ModalSelect } from '../../../../components';
 import { TableSelectFieldWidget } from './TableSelectFieldWidget';

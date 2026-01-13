@@ -1,4 +1,5 @@
 import {
+  type ActiveRecord,
   type ActiveRecords,
   isEnumerationField,
   isRelationField,
