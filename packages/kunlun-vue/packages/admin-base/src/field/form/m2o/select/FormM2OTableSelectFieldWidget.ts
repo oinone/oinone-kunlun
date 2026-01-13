@@ -1,18 +1,16 @@
-import { ActiveRecord, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { ActiveRecord, RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { Widget } from '@oinone/kunlun-vue-widget';
-import { debounce } from 'lodash-es';
-import { FormFieldWidget, SelectTableFieldWidget } from '../../../../basic';
+import { FormFieldWidget, TableSelectFieldWidget } from '../../../../basic';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({
     viewType: [ViewType.Form, ViewType.Search],
     ttype: ModelFieldType.ManyToOne,
-    widget: 'SelectTable'
+    widget: ['TableSelect', 'SelectTable']
   })
 )
-export class FormM2OSelectTableFieldWidget extends SelectTableFieldWidget<ActiveRecord> {
+export class FormM2OTableSelectFieldWidget extends TableSelectFieldWidget<ActiveRecord, ActiveRecord, RuntimeM2OField> {
   public async submit(submitValue: SubmitValue) {
     const { field, itemName, value, viewMode, submitCache, submitType, relationUpdateType } = this;
     return SubmitRelationHandler.M2O(
@@ -26,13 +24,4 @@ export class FormM2OSelectTableFieldWidget extends SelectTableFieldWidget<Active
       relationUpdateType
     );
   }
-
-  @Widget.Watch('formData', { deep: true })
-  public async watchM2OValue() {
-    this.delayUpdateM2oValue();
-  }
-
-  public delayUpdateM2oValue = debounce(() => {
-    this.updateM2oValue();
-  });
 }

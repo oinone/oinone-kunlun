@@ -14,6 +14,7 @@ interface ListInitContext<T> {
 }
 
 export interface ListInitOptions {
+  model: string;
   rsql: string;
   checkedKeys: string[];
 }
@@ -124,6 +125,9 @@ export function useListState<T extends IdModel>(initOptions: {
 
   const $$load = async (options?: Partial<ListInitOptions>): Promise<OioListItem<T>[]> => {
     const queryWrapper: QueryWrapper = {};
+    if (options?.model) {
+      queryWrapper.model = options.model;
+    }
     if (options?.rsql) {
       queryWrapper.rsql = options.rsql;
     }
@@ -141,6 +145,7 @@ export function useListState<T extends IdModel>(initOptions: {
 
   const $$initOptions = (options?: Partial<ListInitOptions>): ListInitOptions => {
     return {
+      model: options?.model || '',
       rsql: options?.rsql || '',
       checkedKeys: options?.checkedKeys || []
     };

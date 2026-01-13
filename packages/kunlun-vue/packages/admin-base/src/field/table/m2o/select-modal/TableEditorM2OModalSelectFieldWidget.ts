@@ -1,13 +1,13 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { EditorFieldWidget } from '../../../../basic';
-import { FormO2OSelectTableFieldWidget } from '../../../form';
+import { FormM2OModalSelectFieldWidget } from '../../../form';
 
 @SPI.ClassFactory(
   EditorFieldWidget.Token({
     viewType: ViewType.Table,
-    ttype: ModelFieldType.OneToOne,
-    widget: 'SelectTable'
+    ttype: ModelFieldType.ManyToOne,
+    widget: ['ModalSelect', 'SelectModal']
   })
 )
-export class TableEditorO2OSelectTableFieldWidget extends FormO2OSelectTableFieldWidget {}
+export class TableEditorM2OModalSelectFieldWidget extends FormM2OModalSelectFieldWidget {}

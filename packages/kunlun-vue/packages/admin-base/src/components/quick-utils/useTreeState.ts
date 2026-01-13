@@ -14,6 +14,7 @@ export interface TreeInitContext<T = unknown> {
 }
 
 export interface TreeInitOptions {
+  model: string;
   rsql: string;
   checkedKeys: string[];
 }
@@ -137,6 +138,9 @@ export function useTreeState<T extends IdModel>(initOptions: {
 
   const $$load = async (options?: Partial<TreeInitOptions>): Promise<OioTreeNode<T>[]> => {
     const queryWrapper: QueryWrapper = {};
+    if (options?.model) {
+      queryWrapper.model = options.model;
+    }
     if (options?.rsql) {
       queryWrapper.rsql = options.rsql;
     }
@@ -154,6 +158,7 @@ export function useTreeState<T extends IdModel>(initOptions: {
 
   const $$initOptions = (options?: Partial<TreeInitOptions>): TreeInitOptions => {
     return {
+      model: options?.model || '',
       rsql: options?.rsql || '',
       checkedKeys: options?.checkedKeys || []
     };
