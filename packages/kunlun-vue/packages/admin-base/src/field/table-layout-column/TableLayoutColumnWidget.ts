@@ -3,7 +3,7 @@ import { ActiveRecords, createDefaultLayout } from '@oinone/kunlun-engine';
 import { ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { RenderCellContext, RowContext } from '@oinone/kunlun-vue-ui';
+import type { RenderCellContext, RowContext } from '@oinone/kunlun-vue-ui';
 import { DslRender, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { VNode } from 'vue';
