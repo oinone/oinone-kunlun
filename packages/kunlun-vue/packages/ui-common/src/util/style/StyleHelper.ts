@@ -10,8 +10,8 @@ import {
   type StandardNumber,
   StringHelper
 } from '@oinone/kunlun-shared';
+import { parseStringStyle } from '@vue/shared';
 import { isArray, isBoolean, isNil, isObject, isString, toString } from 'lodash-es';
-import { parseStringStyle } from 'vue';
 import { DEFAULT_DSL_STYLE_VALUE } from './DslStyleConstant';
 
 /**

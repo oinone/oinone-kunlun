@@ -19,7 +19,8 @@ const common = {
     '@typescript-eslint/no-namespace': 'off',
     '@typescript-eslint/no-unsafe-function-type': 'off',
     '@typescript-eslint/no-wrapper-object-types': 'off',
-    'vue/no-dupe-keys': 'off'
+    'vue/no-dupe-keys': 'off',
+    'vue/prefer-import-from-vue': 'off'
   }
 };
 
