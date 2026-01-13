@@ -150,7 +150,7 @@ export default defineComponent({
       ADrawer,
       {
         ...PropRecordHelper.collectionBasicProps(this.$attrs),
-        rootClassName: StringHelper.append(classNames, CastHelper.cast(this.wrapperClassName)),
+        rootClassName: StringHelper.append(classNames, CastHelper.cast(this.wrapperClassName)).join(' '),
         rootStyle: this.wrapperProps?.rootStyle || this.wrapperProps?.style,
         headerStyle: this.wrapperProps?.headerStyle,
         bodyStyle: this.wrapperProps?.bodyStyle,
