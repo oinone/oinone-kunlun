@@ -12,7 +12,7 @@
 
   .ant-pagination-prev,
   .ant-pagination-next {
-    button {
+    .ant-pagination-item-link {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -26,6 +26,7 @@
     height: var($paginationParameterPrefix + -item-height);
 
     vertical-align: -1px;
+
     a {
       display: flex;
       height: 100%;
@@ -33,11 +34,13 @@
       justify-content: center;
     }
   }
+
   &-simple {
     .ant-pagination-jump-next + .ant-pagination-item {
       display: none;
     }
   }
+
   &.ant-pagination-simple {
     .ant-pagination-prev,
     .ant-pagination-next {
@@ -121,11 +124,13 @@
           align-items: center;
         }
       }
+
       .ant-select-arrow {
         transform: translate(0, -50%);
         color: var(--oio-pagination-text-color);
         margin: 0;
       }
+
       .ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled):after {
         display: none;
       }
