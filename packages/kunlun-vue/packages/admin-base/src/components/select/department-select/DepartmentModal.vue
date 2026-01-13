@@ -41,6 +41,12 @@ export default defineComponent({
     allowClear: {
       type: Boolean
     },
+    model: {
+      type: String
+    },
+    companyModel: {
+      type: String
+    },
     domain: {
       type: String
     },
@@ -122,6 +128,7 @@ export default defineComponent({
     ) => {
       try {
         return await service.queryListByFilter({
+          model: props.model,
           rsql: queryWrapper.rsql,
           departmentCodes: props.departmentCodes,
           userCompanyDept: props.userCompanyDept,
@@ -175,6 +182,7 @@ export default defineComponent({
           userDept = true;
         }
         return await service.queryListByFilter({
+          model: props.model,
           rsql: queryWrapper.rsql,
           userCompanyDept,
           userDept,
@@ -231,6 +239,8 @@ export default defineComponent({
       $translate,
       mode,
       allowClear,
+      model,
+      companyModel,
       domain,
       departmentCodes,
       userCompanyDept,
@@ -276,6 +286,8 @@ export default defineComponent({
             loading: state.loading,
             usingLoading: false,
             autoInit: true,
+            model,
+            companyModel,
             domain,
             userCompanyDept,
             userDept,
@@ -313,6 +325,8 @@ export default defineComponent({
                   loading: state.loading,
                   usingLoading: false,
                   autoInit: true,
+                  model,
+                  companyModel,
                   domain,
                   userCompanyDept,
                   userDept,

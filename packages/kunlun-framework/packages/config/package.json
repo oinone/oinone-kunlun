@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-config",
-  "version": "6.4.0",
+  "version": "6.4.1",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -14,8 +14,8 @@
     "postpublish": "node ../../../../scripts/postpublish.cjs"
   },
   "devDependencies": {
-    "@oinone/kunlun-shared": "6.4.0",
-    "@oinone/kunlun-spi": "6.4.0"
+    "@oinone/kunlun-shared": "6.4.1",
+    "@oinone/kunlun-spi": "6.4.1"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

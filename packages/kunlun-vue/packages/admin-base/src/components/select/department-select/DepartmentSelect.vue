@@ -14,6 +14,12 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     ...DefaultSelectProps,
+    departmentModel: {
+      type: String
+    },
+    companyModel: {
+      type: String
+    },
     domain: {
       type: String
     },
@@ -97,6 +103,8 @@ export default defineComponent({
       onShowModal,
       onChange,
 
+      departmentModel,
+      companyModel,
       domain,
       departmentCodes,
       userCompanyDept,
@@ -110,6 +118,8 @@ export default defineComponent({
       visible,
       'onUpdate:visible': onUpdateVisible,
       onChange,
+      model: departmentModel,
+      companyModel,
       domain,
       departmentCodes,
       userCompanyDept,

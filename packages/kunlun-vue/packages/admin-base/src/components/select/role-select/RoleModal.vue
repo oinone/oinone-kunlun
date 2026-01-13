@@ -37,6 +37,9 @@ export default defineComponent({
     allowClear: {
       type: Boolean
     },
+    model: {
+      type: String
+    },
     domain: {
       type: String
     },
@@ -117,6 +120,7 @@ export default defineComponent({
 
     const roleLoad = (res: ListState<AuthRole>, service: AuthRoleService, queryWrapper: QueryWrapper) => {
       return service.queryListByFilter({
+        model: props.model,
         rsql: queryWrapper.rsql,
         roleCodes: props.roleCodes,
         userRole: props.userRole
@@ -136,6 +140,7 @@ export default defineComponent({
 
     const userRoleLoad = (res: ListState<AuthRole>, service: AuthRoleService, queryWrapper: QueryWrapper) => {
       return service.queryListByFilter({
+        model: props.model,
         rsql: queryWrapper.rsql,
         userRole: true
       });

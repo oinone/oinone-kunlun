@@ -1,6 +1,14 @@
 import { type IResourceDateTimeFormat, queryResourceDateTimeFormat, type RuntimeSearchField } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { CallChaining, defaultDateFormatKey, defaultTimeFormatKey, ObjectUtils, RSQLOperators } from '@oinone/kunlun-shared';
+import {
+  CallChaining,
+  defaultDateFormatKey,
+  defaultMillisecondFormat,
+  defaultMillisecondFormatKey,
+  defaultTimeFormatKey,
+  ObjectUtils,
+  RSQLOperators
+} from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget, type WidgetComponent } from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
@@ -36,6 +44,10 @@ export class SearchDateTimeRangeFieldWidget extends SearchRangeFieldWidget<
 
   @Widget.Reactive()
   protected get valueFormat(): string | undefined {
+    const timeFormat = this.executeExpression<string>(this.getDsl().timeFormat);
+    if (timeFormat === defaultMillisecondFormatKey) {
+      return defaultMillisecondFormat;
+    }
     return this.getDsl().valueFormat;
   }
 

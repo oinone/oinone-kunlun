@@ -1,4 +1,4 @@
-import { Optional } from '@oinone/kunlun-shared';
+import { Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import type { RenderCellContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -26,13 +26,13 @@ export class TableRadioColumnWidget extends BaseTableColumnWidget {
   }
 
   @Widget.Reactive()
-  public className(context: RenderCellContext): string {
-    return 'table-column-radio';
+  public className(context: RenderCellContext): string[] {
+    return StringHelper.append(['table-column-radio'], super.className(context));
   }
 
   @Widget.Reactive()
-  public headerClassName(context: RenderCellContext): string {
-    return 'table-header-column-radio';
+  public headerClassName(context: RenderCellContext): string[] {
+    return StringHelper.append(['table-header-column-radio'], super.headerClassName(context));
   }
 
   @Widget.Reactive()

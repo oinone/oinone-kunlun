@@ -45,6 +45,12 @@ export default defineComponent({
     load: {
       type: Function as PropType<TreeStateLoadFunction<PamirsOrganizationalStructure>>
     },
+    model: {
+      type: String
+    },
+    companyModel: {
+      type: String
+    },
     domain: {
       type: String
     },
@@ -116,6 +122,7 @@ export default defineComponent({
         loading.value = true;
         try {
           const res = await init({
+            model: props.model,
             rsql: props.domain,
             checkedKeys: props.initCheckedKeys || props.checkedKeys
           });

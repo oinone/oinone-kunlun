@@ -4,7 +4,7 @@ import { AbstractTreeModelApi, QueryWrapper } from '../../service';
 import { OrganizationalStructureType, type PamirsDepartment, type PamirsOrganizationalStructure } from '../../typing';
 import { type PamirsCompanyService, PamirsCompanyServiceToken } from '../PamirsCompanyService';
 import { type DepartmentQueryFilter, PamirsDepartmentMetadata, type PamirsDepartmentService, PamirsDepartmentServiceToken } from '../PamirsDepartmentService';
-import { type PamirsOrganizationalStructureService, PamirsOrganizationalStructureServiceToken } from '../PamirsOrganizationalStructureService';
+import { type OrganizationalStructureQueryFilter, type PamirsOrganizationalStructureService, PamirsOrganizationalStructureServiceToken } from '../PamirsOrganizationalStructureService';
 
 @SPI.Service(PamirsOrganizationalStructureServiceToken)
 export class PamirsOrganizationalStructureServiceImpl
@@ -21,6 +21,10 @@ export class PamirsOrganizationalStructureServiceImpl
     return PamirsDepartmentMetadata.MODEL_MODEL;
   }
 
+  protected get companyModel(): string | undefined {
+    return undefined;
+  }
+
   public async queryListByWrapper(queryWrapper: QueryWrapper): Promise<PamirsOrganizationalStructure[]> {
     const departments = await this.departmentService.queryListByWrapper(queryWrapper);
     if (!departments.length) {
@@ -29,16 +33,17 @@ export class PamirsOrganizationalStructureServiceImpl
     return this.convertOrganizationalStructures(departments);
   }
 
-  public async queryListByFilter(query: DepartmentQueryFilter): Promise<PamirsOrganizationalStructure[]> {
+  public async queryListByFilter(query: OrganizationalStructureQueryFilter): Promise<PamirsOrganizationalStructure[]> {
     const departments = await this.departmentService.queryListByFilter(query);
     if (!departments.length) {
       return [];
     }
-    return this.convertOrganizationalStructures(departments);
+    return this.convertOrganizationalStructures(departments, query);
   }
 
   protected async convertOrganizationalStructures(
-    departments: PamirsDepartment[]
+    departments: PamirsDepartment[],
+    query?: OrganizationalStructureQueryFilter
   ): Promise<PamirsOrganizationalStructure[]> {
     const results: PamirsOrganizationalStructure[] = [];
     const companyCodes = new Set<string>();
@@ -67,6 +72,7 @@ export class PamirsOrganizationalStructureServiceImpl
       return [];
     }
     const companyList = await this.companyService.queryListByWrapper({
+      model: query?.model || this.companyModel,
       rsql: `code =in= (${Array.from(companyCodes.values())
         .map((v) => `${v}`)
         .join(',')})`

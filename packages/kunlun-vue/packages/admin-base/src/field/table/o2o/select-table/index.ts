@@ -1,1 +1,1 @@
-export * from './TableEditorO2OSelectTableFieldWidget';
+export * from './TableEditorO2OTableSelectFieldWidget';

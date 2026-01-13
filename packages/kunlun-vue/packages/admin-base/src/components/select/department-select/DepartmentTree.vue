@@ -41,6 +41,9 @@ export default defineComponent({
     load: {
       type: Function as PropType<TreeStateLoadFunction<PamirsDepartment>>
     },
+    model: {
+      type: String
+    },
     domain: {
       type: String
     },

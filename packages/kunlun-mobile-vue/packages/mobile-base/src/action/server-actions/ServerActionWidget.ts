@@ -64,16 +64,14 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
   }
 
   protected formValidateProcess(e: HttpClientError) {
-    if (this.view?.type !== ViewType.Form) {
+    const { formValidateCallChaining } = this;
+    if (this.view?.type !== ViewType.Form || !formValidateCallChaining) {
       this.notifyValidateResults(e);
       return;
     }
-    const { formValidateCallChaining } = this;
-    if (formValidateCallChaining) {
-      const results: FormValidateResult[] = this.convertFormValidateResults(e);
-      if (results.length) {
-        formValidateCallChaining.syncCall(results);
-      }
+    const results: FormValidateResult[] = this.convertFormValidateResults(e);
+    if (results.length) {
+      formValidateCallChaining.syncCall(results);
     }
   }
 

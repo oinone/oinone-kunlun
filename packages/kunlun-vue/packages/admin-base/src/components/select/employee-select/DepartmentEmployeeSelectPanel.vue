@@ -32,6 +32,15 @@ export default defineComponent({
     onInit: {
       type: Function
     },
+    model: {
+      type: String
+    },
+    companyModel: {
+      type: String
+    },
+    departmentModel: {
+      type: String
+    },
     domain: {
       type: String
     },
@@ -87,6 +96,7 @@ export default defineComponent({
       queryWrapper: QueryWrapper
     ) => {
       return service.queryListByFilter({
+        model: props.departmentModel,
         departmentCodes: props.departmentCodes,
         userDept: props.userDept,
         userDeptAndChildren: props.userDeptAndChildren
@@ -99,6 +109,7 @@ export default defineComponent({
       queryWrapper: QueryWrapper
     ) => {
       return service.queryListByFilter({
+        model: props.model,
         rsql: queryWrapper.rsql,
         employeeCodes: props.employeeCodes,
         departmentCodes: props.departmentCodes,
@@ -131,6 +142,7 @@ export default defineComponent({
       state.loading = true;
       try {
         return await instance.init({
+          model: props.model,
           rsql: RSQLHelper.concatByAnd(props.domain, rsql),
           checkedKeys: state.checkedKeys
         });
@@ -168,6 +180,9 @@ export default defineComponent({
       mode,
       initCheckedKeys,
       onInit,
+      model,
+      companyModel,
+      departmentModel,
       domain,
 
       state,
@@ -195,6 +210,8 @@ export default defineComponent({
         ]),
         createVNode(OrganizationalStructureTree, {
           autoInit: true,
+          model: departmentModel,
+          companyModel,
           domain: deptDomain,
           load: deptLoad,
           selectable: true,

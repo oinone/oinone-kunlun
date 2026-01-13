@@ -15,6 +15,18 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     ...DefaultSelectProps,
+    employeeModel: {
+      type: String
+    },
+    companyModel: {
+      type: String
+    },
+    departmentModel: {
+      type: String
+    },
+    roleModel: {
+      type: String
+    },
     domain: {
       type: String
     },
@@ -79,6 +91,10 @@ export default defineComponent({
       mode,
       selected,
       options,
+      employeeModel,
+      companyModel,
+      departmentModel,
+      roleModel,
       domain,
       employeeCodes,
       departmentCodes,
@@ -100,6 +116,10 @@ export default defineComponent({
     const modal = createVNode(EmployeeModal, {
       mode,
       selected,
+      model: employeeModel,
+      companyModel,
+      departmentModel,
+      roleModel,
       domain,
       employeeCodes,
       departmentCodes,

@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-mobile-base",
-  "version": "6.4.1",
+  "version": "6.4.2",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -43,7 +43,7 @@
     "@oinone/kunlun-theme": "~6.4.0",
     "@oinone/kunlun-vue-router": "~6.4.0",
     "@oinone/kunlun-vue-ui-common": "~6.4.0",
-    "@oinone/kunlun-vue-ui-mobile-vant": "6.4.1",
+    "@oinone/kunlun-vue-ui-mobile-vant": "6.4.2",
     "@oinone/kunlun-vue-widget": "~6.4.0",
     "@types/crypto-js": "4.1.1",
     "@types/lodash-es": "4.17.6",

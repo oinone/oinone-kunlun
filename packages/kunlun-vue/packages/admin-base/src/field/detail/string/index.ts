@@ -9,3 +9,4 @@ export * from './default/DetailStringFieldWidget';
 export * from './download/DetailStringDownloadFieldWidget';
 export * from './hyperlinks/DetailStringHyperlinksFieldWidget';
 export * from './string-with-copy/DetailStringWithCopyFieldWidget';
+export * from './json-xml/DetailJsonXmlFieldWidget';

@@ -1,3 +1,3 @@
+export * from './FormO2OModalSelectFieldWidget';
 export * from './FormO2OSelectFieldWidget';
-export * from './FormO2OSelectModalFieldWidget';
-export * from './FormO2OSelectTableFieldWidget';
+export * from './FormO2OTableSelectFieldWidget';

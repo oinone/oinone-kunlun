@@ -1,6 +1,7 @@
 import { type IResourceDateTimeFormat, queryResourceDateTimeFormat } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { DateFormatMap, DateTimeFormatMap, defaultDateFormatKey, defaultTimeFormatKey, ObjectUtils, TimeFormatMap } from '@oinone/kunlun-shared';
+import { DateFormatMap, DateTimeFormatMap, defaultDateFormatKey, defaultMillisecondFormat,
+  defaultMillisecondFormatKey, defaultTimeFormatKey, ObjectUtils, TimeFormatMap } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
@@ -29,6 +30,10 @@ export class DetailDateTimeFieldWidget extends FormFieldWidget {
 
   @Widget.Reactive()
   protected get valueFormat(): string | undefined {
+    const timeFormat = this.executeExpression<string>(this.getDsl().timeFormat);
+    if (timeFormat === defaultMillisecondFormatKey) {
+      return defaultMillisecondFormat;
+    }
     return this.getDsl().valueFormat;
   }
 

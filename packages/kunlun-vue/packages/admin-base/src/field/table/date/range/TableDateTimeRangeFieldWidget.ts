@@ -1,7 +1,8 @@
 import type { RuntimeModelField } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { isDev } from '@oinone/kunlun-router';
-import { DateFormatMap, DateTimeFormatMap, DateUtil, defaultFormat, Optional, TimeFormatMap } from '@oinone/kunlun-shared';
+import { DateFormatMap, DateTimeFormatMap, DateUtil, defaultFormat,  defaultMillisecondFormat,
+  defaultMillisecondFormatKey, Optional, TimeFormatMap } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import type { RowContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -77,7 +78,10 @@ export class TableDateTimeRangeFieldWidget extends BaseTableQuickOperationColumn
     return this.getDsl().format;
   }
 
-  protected get valueFormat() {
+  protected get valueFormat(): string {
+    if (this.getDsl().timeFormat === defaultMillisecondFormatKey) {
+      return defaultMillisecondFormat;
+    }
     return defaultFormat;
   }
 

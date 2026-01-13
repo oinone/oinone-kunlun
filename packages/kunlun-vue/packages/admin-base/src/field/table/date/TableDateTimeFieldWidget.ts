@@ -1,6 +1,7 @@
 import { type IResourceDateTimeFormat, queryResourceDateTimeFormat } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { DateFormatMap, DateTimeFormatMap, DateUtil, defaultDateFormatKey, defaultFormat, defaultTimeFormatKey, ObjectUtils, TimeFormatMap } from '@oinone/kunlun-shared';
+import { DateFormatMap, DateTimeFormatMap, DateUtil, defaultDateFormatKey, defaultFormat, defaultMillisecondFormat,
+  defaultMillisecondFormatKey, defaultTimeFormatKey, ObjectUtils, TimeFormatMap } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import type { RowContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -81,7 +82,10 @@ export class TableDateTimeFieldWidget extends BaseTableFieldWidget<string | Date
     return defaultFormat;
   }
 
-  protected get valueFormat() {
+  protected get valueFormat(): string {
+    if (this.getDsl().timeFormat === defaultMillisecondFormatKey) {
+      return defaultMillisecondFormat;
+    }
     return defaultFormat;
   }
 

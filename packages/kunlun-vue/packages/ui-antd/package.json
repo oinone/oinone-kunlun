@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui-antd",
-  "version": "6.4.2",
+  "version": "6.4.4",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -15,7 +15,7 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-common": "6.4.2"
+    "@oinone/kunlun-vue-ui-common": "6.4.4"
   },
   "devDependencies": {
     "@oinone/kunlun-shared": "~6.4.0",

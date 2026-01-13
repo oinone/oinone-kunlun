@@ -3,7 +3,7 @@ import { SelectSearchArea, translateValueByKey } from '@oinone/kunlun-engine';
 import { OioEmptyData, OioIcon, OioInput, OioInputGroup, OioSpin, PropRecordHelper, SelectMode, StringHelper, useInjectOioDefaultFormContext, useMaxTagPlaceholder } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { debounce, delay } from 'lodash-es';
-import { computed, createVNode, defineComponent, nextTick, onBeforeUnmount, onMounted, ref, type VNode } from 'vue';
+import { computed, createVNode, defineComponent, nextTick, onBeforeUnmount, onMounted, ref, type Slot, type VNode } from 'vue';
 import { useMetadataProps } from '../../../basic';
 import { BaseSelectProps } from './props';
 
@@ -33,9 +33,20 @@ export default defineComponent({
     const origin = ref();
     const dropdownInputRef = ref();
     const formContext = useInjectOioDefaultFormContext();
-
     const { readonly, disabled, placeholder } = useMetadataProps(props, true);
-    const dropdownVisible = ref(false);
+
+    const $$dropdownVisible = ref(false);
+    const dropdownVisible = computed({
+      get() {
+        // 受控属性，不允许外部变更
+        return $$dropdownVisible.value;
+      },
+      set(val: boolean) {
+        $$dropdownVisible.value = val;
+        emit('update:dropdown-visible', val);
+      }
+    });
+
     const showLoadCompleted = ref(false);
 
     let focusSearchInput = false;
@@ -279,7 +290,6 @@ export default defineComponent({
       onSearchInputBlur,
       onSearchInputKeydown
     } = this;
-    const { prefix, suffix } = $slots;
     const props: Record<string, unknown> = {
       ref: 'origin',
       class: 'oio-select oio-basic-select',
@@ -325,10 +335,12 @@ export default defineComponent({
     } else {
       props.value = value;
     }
+    const { prefix, suffix, dropdownContentRender } = $slots;
+    const finalDropdownContentRender: Slot = dropdownContentRender || (({ menuNode: menu }) => menu);
     const slotNames = [
       {
         origin: 'dropdownRender',
-        default: ({ menuNode: menu }) => {
+        default: (...args: unknown[]) => {
           const vNodes: VNode[] = [];
           if (allowSearch && searchArea === SelectSearchArea.dropdown) {
             vNodes.push(
@@ -356,7 +368,12 @@ export default defineComponent({
               )
             );
           }
-          vNodes.push(menu);
+          const content = finalDropdownContentRender(...args);
+          if (Array.isArray(content)) {
+            vNodes.push(...content);
+          } else {
+            vNodes.push(content);
+          }
           if (loadMoreLoading) {
             vNodes.push(
               createVNode('div', { class: 'oio-select-dropdown-spin' }, [

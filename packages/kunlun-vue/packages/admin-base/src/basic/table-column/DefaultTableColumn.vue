@@ -106,7 +106,10 @@ export default defineComponent({
       if (vNodes == null) {
         return [];
       }
-      return props.wrapperToFieldAction?.(vNodes, context);
+      if (props.wrapperToFieldAction) {
+        return props.wrapperToFieldAction(vNodes, context);
+      }
+      return vNodes;
     };
 
     const renderContentSlot = (context: VxeTableRowContext) => {
