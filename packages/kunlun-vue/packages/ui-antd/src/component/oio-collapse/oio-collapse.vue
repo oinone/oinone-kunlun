@@ -1,5 +1,14 @@
 <script lang="ts">
-import { OioCollapseExpandIconPosition, type OioCollapseInstance, OioCollapseMethod, OioCollapseProps, OioCollapseType, PropRecordHelper, useOioFormLayoutContext, useProviderOioCollapseContext } from '@oinone/kunlun-vue-ui-common';
+import {
+  OioCollapseExpandIconPosition,
+  type OioCollapseInstance,
+  OioCollapseMethod,
+  OioCollapseProps,
+  OioCollapseType,
+  PropRecordHelper,
+  useOioFormLayoutContext,
+  useProviderOioCollapseContext
+} from '@oinone/kunlun-vue-ui-common';
 import { Collapse as ACollapse } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, ref, vShow, withDirectives } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';

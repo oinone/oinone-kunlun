@@ -1,5 +1,11 @@
 import { type IPopupInstance, type IWidget, PopupManager, type PopupType, ROOT_HANDLE } from '@oinone/kunlun-engine';
-import { CLICK_ACTIVATED_CLASS, createVisibleArea, RuntimeEnvironmentManager, useEnv, type VisibleArea } from '@oinone/kunlun-environment';
+import {
+  CLICK_ACTIVATED_CLASS,
+  createVisibleArea,
+  RuntimeEnvironmentManager,
+  useEnv,
+  type VisibleArea
+} from '@oinone/kunlun-environment';
 import { EventBus, type EventConsumer, type EventMessage } from '@oinone/kunlun-event';
 import { SPIFactory } from '@oinone/kunlun-spi';
 import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';

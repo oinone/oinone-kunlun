@@ -1,7 +1,13 @@
 import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { SPI } from '@oinone/kunlun-spi';
 import { DebugConfigManager } from '../../../config';
-import { type MaskEditor, type MaskEditorContext, MaskEditorToken, type MaskEditService, MaskEditServiceToken } from '../../../spi';
+import {
+  type MaskEditor,
+  type MaskEditorContext,
+  MaskEditorToken,
+  type MaskEditService,
+  MaskEditServiceToken
+} from '../../../spi';
 
 @SPI.Service(MaskEditorToken, { priority: 1000 })
 export class DebugMaskEditor implements MaskEditor {

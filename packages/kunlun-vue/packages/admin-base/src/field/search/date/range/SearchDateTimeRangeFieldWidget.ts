@@ -1,4 +1,8 @@
-import { type IResourceDateTimeFormat, queryResourceDateTimeFormat, type RuntimeSearchField } from '@oinone/kunlun-engine';
+import {
+  type IResourceDateTimeFormat,
+  queryResourceDateTimeFormat,
+  type RuntimeSearchField
+} from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import {
   CallChaining,

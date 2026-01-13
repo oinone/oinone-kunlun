@@ -3,7 +3,17 @@ import { StringHelper } from '@oinone/kunlun-shared';
 import { OioPopconfirm } from '@oinone/kunlun-vue-ui-antd';
 import { OioIcon, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { debounce, isBoolean, isFunction, isNil, isString, toString } from 'lodash-es';
-import { computed, createVNode, defineComponent, type Slot, type VNode, vShow, watch, withDirectives, withModifiers } from 'vue';
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  type Slot,
+  type VNode,
+  vShow,
+  watch,
+  withDirectives,
+  withModifiers
+} from 'vue';
 import { Column } from 'vxe-table';
 import { DEFAULT_PREFIX } from '../../../theme';
 import { useInjectOioTableInstance } from '../context';

@@ -1,14 +1,23 @@
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { translateValueByKey } from '@oinone/kunlun-engine';
 import { isEmpty, isEqual } from 'lodash-es';
-import { type ValidatorInfo, isValidatorSuccess } from '../../../typing';
 import { FormFieldWidget } from '../../../basic';
 import { FormStringFieldWidget } from '../../../field';
-import RoleUserConfig from './RoleUserConfig.vue';
-import { type ExpressionValue, type FetchValueOptions, type FetchValueReturnType, type HomepageConfigRule, RelationOptions, RoleUserOptions, RoleUserOptionsEnum, HomePageConfigKeys } from '../typing';
+import { isValidatorSuccess, type ValidatorInfo } from '../../../typing';
 import { fetchRoleList, fetchRoleOne, fetchUserList, fetchUserOne } from '../service/HomepageSettingService';
+import {
+  type ExpressionValue,
+  type FetchValueOptions,
+  type FetchValueReturnType,
+  HomePageConfigKeys,
+  type HomepageConfigRule,
+  RelationOptions,
+  RoleUserOptions,
+  RoleUserOptionsEnum
+} from '../typing';
+import RoleUserConfig from './RoleUserConfig.vue';
 
 @SPI.ClassFactory(
   FormFieldWidget.Token({

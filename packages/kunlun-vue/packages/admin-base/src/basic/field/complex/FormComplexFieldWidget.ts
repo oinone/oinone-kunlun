@@ -1,4 +1,10 @@
-import { type ActiveRecords, resolveDynamicDomain, type RuntimeModel, type RuntimeRelationField, SubmitCacheManager } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecords,
+  resolveDynamicDomain,
+  type RuntimeModel,
+  type RuntimeRelationField,
+  SubmitCacheManager
+} from '@oinone/kunlun-engine';
 import { isDev } from '@oinone/kunlun-router';
 import { CallChaining, type ReturnPromise } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';

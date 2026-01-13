@@ -1,4 +1,19 @@
-import { type ActiveRecord, type ActiveRecords, ActiveRecordsOperator, FunctionCache, FunctionService, MetadataHelper, type QueryContext, QueryService, type QueryVariables, type RuntimeModelField, type RuntimeStringField, StaticMetadata, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  type ActiveRecords,
+  ActiveRecordsOperator,
+  FunctionCache,
+  FunctionService,
+  MetadataHelper,
+  type QueryContext,
+  QueryService,
+  type QueryVariables,
+  type RuntimeModelField,
+  type RuntimeStringField,
+  StaticMetadata,
+  SubmitValue,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import { ActionContextType, type Entity, ModelDefaultActionName, ModelFieldType, ModelType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { BooleanHelper, CallChaining, StringHelper } from '@oinone/kunlun-shared';
@@ -9,7 +24,11 @@ import { Modal } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
 import { createVNode } from 'vue';
 import type { BaseView } from '../../basic';
-import { FETCH_DRAFT_DATA_WIDGET_PRIORITY, POPUP_FETCH_DRAFT_DATA_WIDGET_PRIORITY, REFRESH_FORM_DATA } from '../../basic/constant';
+import {
+  FETCH_DRAFT_DATA_WIDGET_PRIORITY,
+  POPUP_FETCH_DRAFT_DATA_WIDGET_PRIORITY,
+  REFRESH_FORM_DATA
+} from '../../basic/constant';
 import { ActionWidget } from '../component';
 
 /**
@@ -363,7 +382,7 @@ export class SaveDraftAction extends ActionWidget {
         queryData = { id };
       }
       if (ids) {
-        queryData = ids.map((v) => ({ id: v } as ActiveRecord));
+        queryData = ids.map((v) => ({ id: v }) as ActiveRecord);
       }
       [result] = ActiveRecordsOperator.repairRecords(await this.queryConstruct(queryData, variables, context));
     }

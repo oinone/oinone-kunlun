@@ -1,10 +1,30 @@
-import { type ActiveRecord, QueryService, RelationUpdateType, SubmitRelationValue, SubmitType, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  QueryService,
+  RelationUpdateType,
+  SubmitRelationValue,
+  SubmitType,
+  SubmitValue,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { ILevel } from '@oinone/kunlun-request';
-import { BooleanHelper, CallChaining, CastHelper, ObjectUtils, Optional, type ReturnPromise } from '@oinone/kunlun-shared';
+import {
+  BooleanHelper,
+  CallChaining,
+  CastHelper,
+  ObjectUtils,
+  Optional,
+  type ReturnPromise
+} from '@oinone/kunlun-shared';
 import { ComputeTrigger, ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
-import { ActiveRecordsWidget, type ActiveRecordsWidgetProps, Widget, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
+import {
+  ActiveRecordsWidget,
+  type ActiveRecordsWidgetProps,
+  Widget,
+  type WidgetSubjection
+} from '@oinone/kunlun-vue-widget';
 import { isBoolean, isEmpty, isNil, isString } from 'lodash-es';
 import { clearFieldsDataFun, generatorConstructMirrorSubmitData } from '../../field/util';
 import { isValidatorLikeSuccess, isValidatorSuccess, type ValidatorInfo, ValidatorStatus } from '../../typing';

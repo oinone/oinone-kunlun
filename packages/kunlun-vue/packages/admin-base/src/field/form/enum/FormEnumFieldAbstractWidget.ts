@@ -1,4 +1,8 @@
-import { type RuntimeEnumerationField, type RuntimeEnumerationOption, translateValueByKey } from '@oinone/kunlun-engine';
+import {
+  type RuntimeEnumerationField,
+  type RuntimeEnumerationOption,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import { deepClone, EnumOptionState } from '@oinone/kunlun-meta';
 import { BooleanHelper, type EnumerationValue } from '@oinone/kunlun-shared';
 import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';

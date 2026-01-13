@@ -1,4 +1,14 @@
-import { DEFAULT_SLOT_NAME, type DslDefinition, DslDefinitionHelper, DslDefinitionType, type DslSlots, DslSlotUtils, type ElementDslDefinition, type PackDslDefinition, type TemplateDslDefinition } from '@oinone/kunlun-dsl';
+import {
+  DEFAULT_SLOT_NAME,
+  type DslDefinition,
+  DslDefinitionHelper,
+  DslDefinitionType,
+  type DslSlots,
+  DslSlotUtils,
+  type ElementDslDefinition,
+  type PackDslDefinition,
+  type TemplateDslDefinition
+} from '@oinone/kunlun-dsl';
 import { StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { intersection, isNil, isString } from 'lodash-es';

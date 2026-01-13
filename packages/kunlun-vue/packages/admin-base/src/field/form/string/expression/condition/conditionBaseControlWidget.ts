@@ -1,7 +1,21 @@
-import { Widget } from '@oinone/kunlun-vue-widget';
-import { ExpActiveType, type IExpressionDefinition, type IExpressionItem, type IExpressionOption, type IExpSelectOption, convertModelFields2Options, createConditionExpressionValue, createDefaultExpressionItem, createDefaultExpressionItemList, createDefaultFieldExpressionItem, createExpressionItemByExpressionDefinition, queryExpModelFields, createConditionExpressionDisplayName } from '@oinone/kunlun-vue-expression';
-import { ExpressionAbstractWidget } from '../ExpressionAbstractWidget';
 import { ExpressionExecutor } from '@oinone/kunlun-engine';
+import {
+  convertModelFields2Options,
+  createConditionExpressionDisplayName,
+  createConditionExpressionValue,
+  createDefaultExpressionItem,
+  createDefaultExpressionItemList,
+  createDefaultFieldExpressionItem,
+  createExpressionItemByExpressionDefinition,
+  ExpActiveType,
+  type IExpressionDefinition,
+  type IExpressionItem,
+  type IExpressionOption,
+  type IExpSelectOption,
+  queryExpModelFields
+} from '@oinone/kunlun-vue-expression';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { ExpressionAbstractWidget } from '../ExpressionAbstractWidget';
 
 export class ConditionBaseControlWidget extends ExpressionAbstractWidget {
   public initialize(props) {

@@ -62,7 +62,12 @@
     }
   }
 
-  &-table .ant-drawer-content .ant-drawer-wrapper-body .ant-drawer-body > .ant-spin-nested-loading > .ant-spin-container {
+  &-table
+    .ant-drawer-content
+    .ant-drawer-wrapper-body
+    .ant-drawer-body
+    > .ant-spin-nested-loading
+    > .ant-spin-container {
     position: absolute;
     height: 100%;
     width: 100%;

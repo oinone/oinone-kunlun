@@ -22,65 +22,65 @@ cover: https://gw.alipayobjects.com/zos/alicdn/3StSdUlSH/Modal.svg
 
 ### 属性
 
-| 参数 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| visible(v-model) | 对话框是否可见 | Boolean | 无 |  |
-| confirmLoading | 确定按钮 loading | boolean | 无 |  |
-| afterClose | Modal 完全关闭后的回调 | function | 无 |  |
-| bodyStyle | Modal body 样式 | object | {} |  |
-| cancelText | 取消按钮文字 | string | slot | 取消 |  |
-| centered | 垂直居中展示 Modal | Boolean | `false` |  |
-| closable | 是否显示右上角的关闭按钮 | boolean | true |  |
-| closeIcon | 自定义关闭图标 | VNode \| slot | - |  |
-| destroyOnClose | 关闭时销毁 Modal 里的子元素 | boolean | false |  |
-| footer | 底部内容，当不需要默认底部按钮时，可以设为 `:footer="null"` | string\|slot | 确定取消按钮 |  |
-| forceRender | 强制渲染 Modal | boolean | false |  |
-| getContainer | 指定 Modal 挂载的 HTML 节点 | (instance): HTMLElement | () => document.body |  |
-| keyboard | 是否支持键盘 esc 关闭 | boolean | true |  |
-| mask | 是否展示遮罩 | Boolean | true |  |
-| maskClosable | 点击蒙层是否允许关闭 | boolean | true |  |
-| maskStyle | 遮罩样式 | object | {} |  |
-| okText | 确认按钮文字 | string\|slot | 确定 |  |
-| okType | 确认按钮类型 | string | primary |  |
-| okButtonProps | ok 按钮 props | [ButtonProps](/components/button/#API) | - |  |
-| cancelButtonProps | cancel 按钮 props | [ButtonProps](/components/button/#API) | - |  |
-| title | 标题 | string\|slot | 无 |  |
-| width | 宽度 | string\|number | 520 |  |
-| wrapClassName | 对话框外层容器的类名 | string | - |  |
-| zIndex | 设置 Modal 的 `z-index` | Number | 1000 |  |
-| dialogStyle | 可用于设置浮层的样式，调整浮层位置等 | object | - |  |
-| dialogClass | 可用于设置浮层的类名 | string | - |  |
+| 参数              | 说明                                                        | 类型                                   | 默认值              | 版本 |
+| ----------------- | ----------------------------------------------------------- | -------------------------------------- | ------------------- | ---- | --- |
+| visible(v-model)  | 对话框是否可见                                              | Boolean                                | 无                  |      |
+| confirmLoading    | 确定按钮 loading                                            | boolean                                | 无                  |      |
+| afterClose        | Modal 完全关闭后的回调                                      | function                               | 无                  |      |
+| bodyStyle         | Modal body 样式                                             | object                                 | {}                  |      |
+| cancelText        | 取消按钮文字                                                | string                                 | slot                | 取消 |     |
+| centered          | 垂直居中展示 Modal                                          | Boolean                                | `false`             |      |
+| closable          | 是否显示右上角的关闭按钮                                    | boolean                                | true                |      |
+| closeIcon         | 自定义关闭图标                                              | VNode \| slot                          | -                   |      |
+| destroyOnClose    | 关闭时销毁 Modal 里的子元素                                 | boolean                                | false               |      |
+| footer            | 底部内容，当不需要默认底部按钮时，可以设为 `:footer="null"` | string\|slot                           | 确定取消按钮        |      |
+| forceRender       | 强制渲染 Modal                                              | boolean                                | false               |      |
+| getContainer      | 指定 Modal 挂载的 HTML 节点                                 | (instance): HTMLElement                | () => document.body |      |
+| keyboard          | 是否支持键盘 esc 关闭                                       | boolean                                | true                |      |
+| mask              | 是否展示遮罩                                                | Boolean                                | true                |      |
+| maskClosable      | 点击蒙层是否允许关闭                                        | boolean                                | true                |      |
+| maskStyle         | 遮罩样式                                                    | object                                 | {}                  |      |
+| okText            | 确认按钮文字                                                | string\|slot                           | 确定                |      |
+| okType            | 确认按钮类型                                                | string                                 | primary             |      |
+| okButtonProps     | ok 按钮 props                                               | [ButtonProps](/components/button/#API) | -                   |      |
+| cancelButtonProps | cancel 按钮 props                                           | [ButtonProps](/components/button/#API) | -                   |      |
+| title             | 标题                                                        | string\|slot                           | 无                  |      |
+| width             | 宽度                                                        | string\|number                         | 520                 |      |
+| wrapClassName     | 对话框外层容器的类名                                        | string                                 | -                   |      |
+| zIndex            | 设置 Modal 的 `z-index`                                     | Number                                 | 1000                |      |
+| dialogStyle       | 可用于设置浮层的样式，调整浮层位置等                        | object                                 | -                   |      |
+| dialogClass       | 可用于设置浮层的类名                                        | string                                 | -                   |      |
 
 ### 回调
 
-| 参数 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| confirmLoading | 确定按钮 loading | boolean | 无 |  |
-| afterClose | Modal 完全关闭后的回调 | function | 无 |  |
-| bodyStyle | Modal body 样式 | object | {} |  |
-| cancelText | 取消按钮文字 | string\| slot | 取消 |  |
-| centered | 垂直居中展示 Modal | Boolean | `false` |  |
-| closable | 是否显示右上角的关闭按钮 | boolean | true |  |
-| closeIcon | 自定义关闭图标 | VNode \| slot | - |  |
-| destroyOnClose | 关闭时销毁 Modal 里的子元素 | boolean | false |  |
-| footer | 底部内容，当不需要默认底部按钮时，可以设为 `:footer="null"` | string\|slot | 确定取消按钮 |  |
-| forceRender | 强制渲染 Modal | boolean | false |  |
-| getContainer | 指定 Modal 挂载的 HTML 节点 | (instance): HTMLElement | () => document.body |  |
-| keyboard | 是否支持键盘 esc 关闭 | boolean | true |  |
-| mask | 是否展示遮罩 | Boolean | true |  |
-| maskClosable | 点击蒙层是否允许关闭 | boolean | true |  |
-| maskStyle | 遮罩样式 | object | {} |  |
-| okText | 确认按钮文字 | string\|slot | 确定 |  |
-| okType | 确认按钮类型 | string | primary |  |
-| okButtonProps | ok 按钮 props | [ButtonProps](/components/button/#API) | - |  |
-| cancelButtonProps | cancel 按钮 props | [ButtonProps](/components/button/#API) | - |  |
-| title | 标题 | string\|slot | 无 |  |
-| visible(v-model) | 对话框是否可见 | boolean | 无 |  |
-| width | 宽度 | string\|number | 520 |  |
-| wrapClassName | 对话框外层容器的类名 | string | - |  |
-| zIndex | 设置 Modal 的 `z-index` | Number | 1000 |  |
-| dialogStyle | 可用于设置浮层的样式，调整浮层位置等 | object | - |  |
-| dialogClass | 可用于设置浮层的类名 | string | - |  |
+| 参数              | 说明                                                        | 类型                                   | 默认值              | 版本 |
+| ----------------- | ----------------------------------------------------------- | -------------------------------------- | ------------------- | ---- |
+| confirmLoading    | 确定按钮 loading                                            | boolean                                | 无                  |      |
+| afterClose        | Modal 完全关闭后的回调                                      | function                               | 无                  |      |
+| bodyStyle         | Modal body 样式                                             | object                                 | {}                  |      |
+| cancelText        | 取消按钮文字                                                | string\| slot                          | 取消                |      |
+| centered          | 垂直居中展示 Modal                                          | Boolean                                | `false`             |      |
+| closable          | 是否显示右上角的关闭按钮                                    | boolean                                | true                |      |
+| closeIcon         | 自定义关闭图标                                              | VNode \| slot                          | -                   |      |
+| destroyOnClose    | 关闭时销毁 Modal 里的子元素                                 | boolean                                | false               |      |
+| footer            | 底部内容，当不需要默认底部按钮时，可以设为 `:footer="null"` | string\|slot                           | 确定取消按钮        |      |
+| forceRender       | 强制渲染 Modal                                              | boolean                                | false               |      |
+| getContainer      | 指定 Modal 挂载的 HTML 节点                                 | (instance): HTMLElement                | () => document.body |      |
+| keyboard          | 是否支持键盘 esc 关闭                                       | boolean                                | true                |      |
+| mask              | 是否展示遮罩                                                | Boolean                                | true                |      |
+| maskClosable      | 点击蒙层是否允许关闭                                        | boolean                                | true                |      |
+| maskStyle         | 遮罩样式                                                    | object                                 | {}                  |      |
+| okText            | 确认按钮文字                                                | string\|slot                           | 确定                |      |
+| okType            | 确认按钮类型                                                | string                                 | primary             |      |
+| okButtonProps     | ok 按钮 props                                               | [ButtonProps](/components/button/#API) | -                   |      |
+| cancelButtonProps | cancel 按钮 props                                           | [ButtonProps](/components/button/#API) | -                   |      |
+| title             | 标题                                                        | string\|slot                           | 无                  |      |
+| visible(v-model)  | 对话框是否可见                                              | boolean                                | 无                  |      |
+| width             | 宽度                                                        | string\|number                         | 520                 |      |
+| wrapClassName     | 对话框外层容器的类名                                        | string                                 | -                   |      |
+| zIndex            | 设置 Modal 的 `z-index`                                     | Number                                 | 1000                |      |
+| dialogStyle       | 可用于设置浮层的样式，调整浮层位置等                        | object                                 | -                   |      |
+| dialogClass       | 可用于设置浮层的类名                                        | string                                 | -                   |      |
 
 #### 注意
 
@@ -98,28 +98,28 @@ cover: https://gw.alipayobjects.com/zos/alicdn/3StSdUlSH/Modal.svg
 
 以上均为一个函数，参数为 object，具体属性如下：
 
-| 参数 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| autoFocusButton | 指定自动获得焦点的按钮 | null\|string: `ok` `cancel` | `ok` |  |
-| cancelText | 取消按钮文字 | string | 取消 |  |
-| centered | 垂直居中展示 Modal | Boolean | `false` |  |
-| closable | 是否显示右上角的关闭按钮 | boolean | `false` |  |
-| class | 容器类名 | string | - |  |
-| content | 内容 | string \|vNode \|function(h) | 无 |  |
-| icon | 自定义图标（1.14.0 新增） | VNode \| ()=>VNode | - |  |
-| mask | 是否展示遮罩 | Boolean | true |  |
-| maskClosable | 点击蒙层是否允许关闭 | Boolean | `false` |  |
-| keyboard | 是否支持键盘 esc 关闭 | boolean | true |  |
-| okText | 确认按钮文字 | string | 确定 |  |
-| okType | 确认按钮类型 | string | primary |  |
-| okButtonProps | ok 按钮 props | [ButtonProps](/components/button) | - |  |
-| cancelButtonProps | cancel 按钮 props | [ButtonProps](/components/button) | - |  |
-| title | 标题 | string\|vNode \|function(h) | 无 |  |
-| width | 宽度 | string\|number | 416 |  |
-| zIndex | 设置 Modal 的 `z-index` | Number | 1000 |  |
-| onCancel | 取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | function | 无 |  |
-| onOk | 点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | function | 无 |  |
-| appContext | 弹窗的上下文，一般用于获取全局注册组件、vuex 等内容 | - | - |  |
+| 参数              | 说明                                                             | 类型                              | 默认值  | 版本 |
+| ----------------- | ---------------------------------------------------------------- | --------------------------------- | ------- | ---- |
+| autoFocusButton   | 指定自动获得焦点的按钮                                           | null\|string: `ok` `cancel`       | `ok`    |      |
+| cancelText        | 取消按钮文字                                                     | string                            | 取消    |      |
+| centered          | 垂直居中展示 Modal                                               | Boolean                           | `false` |      |
+| closable          | 是否显示右上角的关闭按钮                                         | boolean                           | `false` |      |
+| class             | 容器类名                                                         | string                            | -       |      |
+| content           | 内容                                                             | string \|vNode \|function(h)      | 无      |      |
+| icon              | 自定义图标（1.14.0 新增）                                        | VNode \| ()=>VNode                | -       |      |
+| mask              | 是否展示遮罩                                                     | Boolean                           | true    |      |
+| maskClosable      | 点击蒙层是否允许关闭                                             | Boolean                           | `false` |      |
+| keyboard          | 是否支持键盘 esc 关闭                                            | boolean                           | true    |      |
+| okText            | 确认按钮文字                                                     | string                            | 确定    |      |
+| okType            | 确认按钮类型                                                     | string                            | primary |      |
+| okButtonProps     | ok 按钮 props                                                    | [ButtonProps](/components/button) | -       |      |
+| cancelButtonProps | cancel 按钮 props                                                | [ButtonProps](/components/button) | -       |      |
+| title             | 标题                                                             | string\|vNode \|function(h)       | 无      |      |
+| width             | 宽度                                                             | string\|number                    | 416     |      |
+| zIndex            | 设置 Modal 的 `z-index`                                          | Number                            | 1000    |      |
+| onCancel          | 取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭     | function                          | 无      |      |
+| onOk              | 点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | function                          | 无      |      |
+| appContext        | 弹窗的上下文，一般用于获取全局注册组件、vuex 等内容              | -                                 | -       |      |
 
 以上函数调用后，会返回一个引用，可以通过该引用更新和关闭弹窗。
 
@@ -128,7 +128,7 @@ const modal = Modal.info();
 
 modal.update({
   title: '修改的标题',
-  content: '修改的内容',
+  content: '修改的内容'
 });
 
 modal.destroy();
@@ -162,6 +162,6 @@ const appContext = getCurrentInstance().appContext;
 const title = ref('some message');
 Modal.confirm({
   title: () => title.value, // 此时 title 的改变，会同步更新 confirm 中的 title
-  appContext,
+  appContext
 });
 ```

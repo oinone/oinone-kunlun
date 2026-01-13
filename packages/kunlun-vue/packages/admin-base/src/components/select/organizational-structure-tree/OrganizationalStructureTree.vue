@@ -1,5 +1,9 @@
 <script lang="ts">
-import { OrganizationalStructureType, type PamirsDepartment, type PamirsOrganizationalStructure } from '@oinone/kunlun-engine';
+import {
+  OrganizationalStructureType,
+  type PamirsDepartment,
+  type PamirsOrganizationalStructure
+} from '@oinone/kunlun-engine';
 import type { OioTreeNode } from '@oinone/kunlun-shared';
 import { OioCheckbox, OioIcon, OioTree, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { Radio as ARadio } from 'ant-design-vue';

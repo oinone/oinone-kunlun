@@ -1,6 +1,31 @@
-import { type DslDefinition, DslDefinitionHelper, DslDefinitionType, type FieldDslDefinition } from '@oinone/kunlun-dsl';
-import { type ActiveRecord, getRealTtype, isEnumerationField, isM2OField, isRelation2MField, isRelation2OField, isRelationField, type RuntimeModelField, type RuntimeRelationField, StaticMetadata, translateValueByKey } from '@oinone/kunlun-engine';
-import { deepClone, type Entity, type IModelField, isEmptyValue, ModelFieldType, SYSTEM_MODULE, ViewType } from '@oinone/kunlun-meta';
+import {
+  type DslDefinition,
+  DslDefinitionHelper,
+  DslDefinitionType,
+  type FieldDslDefinition
+} from '@oinone/kunlun-dsl';
+import {
+  type ActiveRecord,
+  getRealTtype,
+  isEnumerationField,
+  isM2OField,
+  isRelation2MField,
+  isRelation2OField,
+  isRelationField,
+  type RuntimeModelField,
+  type RuntimeRelationField,
+  StaticMetadata,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
+import {
+  deepClone,
+  type Entity,
+  type IModelField,
+  isEmptyValue,
+  ModelFieldType,
+  SYSTEM_MODULE,
+  ViewType
+} from '@oinone/kunlun-meta';
 import { buildSingleItemParam, http } from '@oinone/kunlun-service';
 import { Optional, type StandardString } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
@@ -11,7 +36,15 @@ import { DslDefinitionWidget, isTableViewState, type OioTableViewState, Widget }
 import { isNil } from 'lodash-es';
 import { BaseElementWidget, BaseFieldWidget, BaseTableFieldWidget, FormFieldWidget } from '../../basic';
 import { createRuntimeContextForWidget } from '../../tags';
-import { type ResourceAddress, type ResourceCity, type ResourceCountry, type ResourceDistrict, type ResourceProvince, type ResourceStreet, ValidatorStatus } from '../../typing';
+import {
+  type ResourceAddress,
+  type ResourceCity,
+  type ResourceCountry,
+  type ResourceDistrict,
+  type ResourceProvince,
+  type ResourceStreet,
+  ValidatorStatus
+} from '../../typing';
 import { TableWidget } from '../table/TableWidget';
 import QuickFill from './QuickFill.vue';
 import { NON_CUT, QuickFillType, type TableFieldOption } from './type';

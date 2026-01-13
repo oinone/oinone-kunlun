@@ -2,7 +2,6 @@ import type { Converter } from '@oinone/kunlun-shared';
 import { isString } from 'lodash-es';
 import type { SelectItem, SelectProperties } from './model';
 
-
 export function fillSelectItemProperties<T = unknown>(
   value: T,
   index: number,

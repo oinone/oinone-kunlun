@@ -2,9 +2,24 @@ import { DEFAULT_SLOT_NAME, type DslDefinition, DslSlotUtils } from '@oinone/kun
 import { type Align, Layout, type Overflow } from '@oinone/kunlun-engine';
 import { useMatched } from '@oinone/kunlun-router';
 import { type Constructor, type CSSStyle, StringHelper } from '@oinone/kunlun-shared';
-import { SPIFactory, SPIOperator, type SPIOptions, SPISelectorFactory, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
+import {
+  SPIFactory,
+  SPIOperator,
+  type SPIOptions,
+  SPISelectorFactory,
+  type SPISingleSelector,
+  type SPITokenFactory
+} from '@oinone/kunlun-spi';
 import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
-import { DslRender, DslRenderWidget, type DslRenderWidgetProps, InnerWidgetType, type IViewFilterOptions, ViewWidget, Widget } from '@oinone/kunlun-vue-widget';
+import {
+  DslRender,
+  DslRenderWidget,
+  type DslRenderWidgetProps,
+  InnerWidgetType,
+  type IViewFilterOptions,
+  ViewWidget,
+  Widget
+} from '@oinone/kunlun-vue-widget';
 import type { Slots, VNode } from 'vue';
 import { getMaskTagManagerInstance } from '../register';
 

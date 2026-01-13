@@ -1,6 +1,17 @@
 <script lang="ts">
 import type { DslDefinition } from '@oinone/kunlun-dsl';
-import { GROUP_TREE_KEY, OioColumn, OioColumnAppearanceProps, OioColumnEditorProps, OioColumnRenderFunctionProps, type OioTableInstance, type RowContext, TableEditorMode, useInjectOioTableInstance, type VxeTableRowContext } from '@oinone/kunlun-vue-ui';
+import {
+  GROUP_TREE_KEY,
+  OioColumn,
+  OioColumnAppearanceProps,
+  OioColumnEditorProps,
+  OioColumnRenderFunctionProps,
+  type OioTableInstance,
+  type RowContext,
+  TableEditorMode,
+  useInjectOioTableInstance,
+  type VxeTableRowContext
+} from '@oinone/kunlun-vue-ui';
 import { computed, createVNode, defineComponent, onMounted, type PropType, type VNode } from 'vue';
 import { ManualWidget } from '../mixin';
 

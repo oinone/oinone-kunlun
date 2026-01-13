@@ -92,7 +92,7 @@ export default defineComponent({
         }
         fileList.value = FileHelper.normalizeFileList(value);
         const { limit } = props;
-        if (limit && limit as number >= 1) {
+        if (limit && (limit as number) >= 1) {
           fileList.value = fileList.value.slice(-Number(limit));
         }
       },

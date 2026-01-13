@@ -1,11 +1,6 @@
 <template>
   <div class="k-layout-extra-btn">
-    <a-popover
-      :open="visible"
-      trigger="click"
-      overlayClassName="message-popover-wrapper"
-      @update:open="onShowPopover"
-    >
+    <a-popover :open="visible" trigger="click" overlayClassName="message-popover-wrapper" @update:open="onShowPopover">
       <template #content>
         <div class="message-tabs">
           <div
@@ -130,9 +125,9 @@
   </div>
 </template>
 <script lang="ts">
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { OioButton, OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineComponent, ref } from 'vue';
-import { translateValueByKey } from '@oinone/kunlun-engine';
 
 export default defineComponent({
   name: 'DefaultNotification',

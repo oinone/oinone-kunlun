@@ -1,4 +1,13 @@
-import { frameworkFactory, type FrameworkInitializeService, FrameworkInitializeSPI, LanguageType, OioProvider, type OioProviderProps, registryLanguage, RuntimeContextManager } from '@oinone/kunlun-engine';
+import {
+  frameworkFactory,
+  type FrameworkInitializeService,
+  FrameworkInitializeSPI,
+  LanguageType,
+  OioProvider,
+  type OioProviderProps,
+  registryLanguage,
+  RuntimeContextManager
+} from '@oinone/kunlun-engine';
 import { registerCurrentInstanceGetter } from '@oinone/kunlun-environment';
 import { isMobile } from '@oinone/kunlun-shared';
 import { SPIFactory } from '@oinone/kunlun-spi';

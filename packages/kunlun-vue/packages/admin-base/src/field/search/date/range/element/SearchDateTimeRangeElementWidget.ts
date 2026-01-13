@@ -1,6 +1,17 @@
-import { type IResourceDateTimeFormat, queryResourceDateTimeFormat, type RuntimeSearchField } from '@oinone/kunlun-engine';
+import {
+  type IResourceDateTimeFormat,
+  queryResourceDateTimeFormat,
+  type RuntimeSearchField
+} from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { BooleanHelper, defaultDateFormatKey, defaultTimeFormatKey, ObjectUtils, Optional, RSQLOperators } from '@oinone/kunlun-shared';
+import {
+  BooleanHelper,
+  defaultDateFormatKey,
+  defaultTimeFormatKey,
+  ObjectUtils,
+  Optional,
+  RSQLOperators
+} from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { ValidateTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget, type WidgetComponent } from '@oinone/kunlun-vue-widget';

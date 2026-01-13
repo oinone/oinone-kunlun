@@ -9,6 +9,7 @@ const common = {
     'vue/no-unused-components': 'warn',
     'vue/multi-word-component-names': 'warn',
     'vue/block-lang': 'warn',
+    'vue/no-reserved-component-names': 'warn',
     'vue/no-unused-vars': 'warn',
     'vue/require-v-for-key': 'warn',
     'vue/valid-next-tick': 'warn',

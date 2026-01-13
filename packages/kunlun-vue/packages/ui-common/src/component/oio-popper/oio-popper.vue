@@ -1,6 +1,16 @@
 <script lang="ts">
 import { StringHelper } from '@oinone/kunlun-shared';
-import { computed, createVNode, defineComponent, Fragment, ref, type SetupContext, Teleport, type VNode, VNodeProps } from 'vue';
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  Fragment,
+  ref,
+  type SetupContext,
+  Teleport,
+  type VNode,
+  VNodeProps
+} from 'vue';
 import { PropRecordHelper } from '../../util';
 import { OioPopperProps } from './props';
 import { DEFAULT_SLOT_NAME, renderPopper, renderTrigger, TRIGGER_SLOT_NAME } from './renders';

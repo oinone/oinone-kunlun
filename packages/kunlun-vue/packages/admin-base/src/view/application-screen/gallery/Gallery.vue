@@ -11,7 +11,7 @@
           <div
             class="gallery-module-category-item"
             :class="[active === -1 && 'active']"
-            @click="(active = -1), onChangeCategory()"
+            @click="((active = -1), onChangeCategory())"
           >
             <span> {{ translateValueByKey('全部') }} </span>
             <span>{{ allModuleLength || 0 }}</span>
@@ -21,7 +21,7 @@
             v-for="(item, index) in moduleCategory"
             :key="index"
             :class="[active === index && 'active']"
-            @click="(active = index), onChangeCategory(item.code)"
+            @click="((active = index), onChangeCategory(item.code))"
           >
             <span>{{ item.name }}</span>
             <span>{{ item.moduleNum || 0 }}</span>
@@ -177,7 +177,6 @@ import { getRouterInstance, useMatched } from '@oinone/kunlun-router';
 import { getModel } from '@oinone/kunlun-service';
 import { CastHelper, OioButton, OioEmptyData, OioIcon, OioPagination, OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineComponent, ref, watch } from 'vue';
-
 import { onJumpCodeFuse, onJumpModelDesigner, onJumpUiDesignerHomePage, onJumpWorkflowDesigner } from '../../../util';
 import { installAppFun, uninstallAppFun } from './service';
 import { AppState } from './type';

@@ -1,5 +1,9 @@
 <template>
-  <gallery-common-field :value="currentValue ? currentValue.label : undefined" :justify-content="justifyContent" :empty-style="emptyStyle" />
+  <gallery-common-field
+    :value="currentValue ? currentValue.label : undefined"
+    :justify-content="justifyContent"
+    :empty-style="emptyStyle"
+  />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';

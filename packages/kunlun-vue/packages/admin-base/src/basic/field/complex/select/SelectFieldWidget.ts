@@ -1,4 +1,16 @@
-import { type ActiveRecord, type ActiveRecords, ActiveRecordsOperator, type Pagination, type QueryContext, type QueryPageResult, QueryService, type QueryVariables, type QueryWrapper, type RequestModelField, type RuntimeRelationField } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  type ActiveRecords,
+  ActiveRecordsOperator,
+  type Pagination,
+  type QueryContext,
+  type QueryPageResult,
+  QueryService,
+  type QueryVariables,
+  type QueryWrapper,
+  type RequestModelField,
+  type RuntimeRelationField
+} from '@oinone/kunlun-engine';
 import { GraphqlHelper, RSQLCondition } from '@oinone/kunlun-shared';
 import { type SelectItem, SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';

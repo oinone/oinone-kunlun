@@ -1,4 +1,11 @@
-import { type ActiveRecord, GroupStatisticsEnum, isAllowGrouping, isAllowSortable, isRelatedField, type RuntimeModelField } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  GroupStatisticsEnum,
+  isAllowGrouping,
+  isAllowSortable,
+  isRelatedField,
+  type RuntimeModelField
+} from '@oinone/kunlun-engine';
 import { type FieldEventName, FieldEventNames, LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
 import { Expression, ExpressionKeyword, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { isEmptyValue, ViewMode, ViewType } from '@oinone/kunlun-meta';
@@ -10,12 +17,17 @@ import { type ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/
 import { isBoolean, isFunction, isNaN, isNil, isNumber, isPlainObject, isString, toString } from 'lodash-es';
 import { createVNode, type VNode, withModifiers } from 'vue';
 import type { VxeTableDefines } from 'vxe-table';
-import type { RowActionBarWidget } from '../../action/component/action-bar/RowActionBarWidget';
 import { ActionWidget } from '../../action/component/action/ActionWidget';
+import type { RowActionBarWidget } from '../../action/component/action-bar/RowActionBarWidget';
 import { EditorField } from '../../tags/internal';
 import type { UserTablePrefer } from '../../typing';
 import { getTableColumnFixed, getTableColumnWidth } from '../../util';
-import { defaultTableColumnMinWidthCompute, defaultTableColumnMinWidthComputeContext, getTableThemeConfig, type TableColumnMinWidthComputeConfigContext } from '../theme';
+import {
+  defaultTableColumnMinWidthCompute,
+  defaultTableColumnMinWidthComputeContext,
+  getTableThemeConfig,
+  type TableColumnMinWidthComputeConfigContext
+} from '../theme';
 import { BaseTableQuickOperationColumnWidget } from './BaseTableQuickOperationColumnWidget';
 import DefaultGroupCell from './DefaultGroupCell.vue';
 

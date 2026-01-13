@@ -1,4 +1,10 @@
-import { type ActiveRecords, isEnumerationField, isRelationField, type RuntimeModelField, type RuntimeRelationField } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecords,
+  isEnumerationField,
+  isRelationField,
+  type RuntimeModelField,
+  type RuntimeRelationField
+} from '@oinone/kunlun-engine';
 import { StringHelper } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { get as getValue } from 'lodash-es';

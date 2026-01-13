@@ -65,8 +65,17 @@
   </div>
 </template>
 <script lang="ts">
-import { OioCol, OioForm, OioFormItem, OioGroup, OioRow, OioTab, OioTabs, OioTextarea } from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, onMounted, type PropType, ref } from 'vue';
+import {
+  OioCol,
+  OioForm,
+  OioFormItem,
+  OioGroup,
+  OioRow,
+  OioTab,
+  OioTabs,
+  OioTextarea
+} from '@oinone/kunlun-vue-ui-antd';
+import { defineComponent, onMounted, type PropType } from 'vue';
 import type { DebugErrorPanel, DebugRequestGraphQLInfo, DebugRequestInfo } from '../../typing';
 import { loadScript } from '../../util';
 import { useDebugRequestInfo } from '../useDebugRequestInfo';

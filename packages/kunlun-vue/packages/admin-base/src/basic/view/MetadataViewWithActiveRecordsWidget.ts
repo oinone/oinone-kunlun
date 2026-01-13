@@ -1,8 +1,20 @@
 import type { DslDefinition } from '@oinone/kunlun-dsl';
-import { type RuntimeContext, RuntimeContextManager, type RuntimeModelField, type RuntimeView, type RuntimeViewAction, type WidgetConstructor, type WidgetProps } from '@oinone/kunlun-engine';
+import {
+  type RuntimeContext,
+  RuntimeContextManager,
+  type RuntimeModelField,
+  type RuntimeView,
+  type RuntimeViewAction,
+  type WidgetConstructor,
+  type WidgetProps
+} from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { ActiveRecordsWidget, Widget } from '@oinone/kunlun-vue-widget';
-import { createRuntimeContextByFieldSubview, createRuntimeContextByView, createRuntimeContextByViewAction } from '../../tags/context';
+import {
+  createRuntimeContextByFieldSubview,
+  createRuntimeContextByView,
+  createRuntimeContextByViewAction
+} from '../../tags/context';
 import MetadataView from './MetadataView.vue';
 import type { MetadataViewWidgetProps } from './MetadataViewWidget';
 

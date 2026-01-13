@@ -71,7 +71,16 @@ import { isEmpty } from 'lodash-es';
 import { computed, defineComponent, type PropType, ref, watch } from 'vue';
 import LazyLoadSelect from '../components/LazyLoadSelect.vue';
 import { HomepageSettingCondition } from '../service/HomepageSettingCondition';
-import { type ExpressionItem, type FetchValueOptions, type FetchValueReturnType, LogicOperatorEnum, RelationOptions, RelationOptionsEnum, RoleUserOptions, RoleUserOptionsEnum } from '../typing';
+import {
+  type ExpressionItem,
+  type FetchValueOptions,
+  type FetchValueReturnType,
+  LogicOperatorEnum,
+  RelationOptions,
+  RelationOptionsEnum,
+  RoleUserOptions,
+  RoleUserOptionsEnum
+} from '../typing';
 
 export default defineComponent({
   name: 'RoleConfig',

@@ -1,5 +1,11 @@
 import type { DslDefinition } from '@oinone/kunlun-dsl';
-import type { ActiveRecord, RuntimeContext, RuntimeEnumerationOption, RuntimeModel, RuntimeModelField } from '@oinone/kunlun-engine';
+import type {
+  ActiveRecord,
+  RuntimeContext,
+  RuntimeEnumerationOption,
+  RuntimeModel,
+  RuntimeModelField
+} from '@oinone/kunlun-engine';
 import { EnumOptionState, ModelFieldType } from '@oinone/kunlun-meta';
 import { type StandardEnumerationValue, StringHelper } from '@oinone/kunlun-shared';
 import type { SelectItem } from '@oinone/kunlun-vue-ui-common';

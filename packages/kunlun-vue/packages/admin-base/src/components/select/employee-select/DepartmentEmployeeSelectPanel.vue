@@ -1,5 +1,12 @@
 <script lang="ts">
-import { OrganizationalStructureType, type PamirsDepartment, type PamirsDepartmentService, type PamirsEmployee, type PamirsEmployeeService, QueryWrapper } from '@oinone/kunlun-engine';
+import {
+  OrganizationalStructureType,
+  type PamirsDepartment,
+  type PamirsDepartmentService,
+  type PamirsEmployee,
+  type PamirsEmployeeService,
+  QueryWrapper
+} from '@oinone/kunlun-engine';
 import { OioDivider, RSQLCondition, RSQLHelper, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, type PropType, type Ref, ref } from 'vue';
 import type { ListState, TreeState } from '../../quick-utils';

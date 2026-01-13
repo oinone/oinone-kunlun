@@ -2,7 +2,13 @@ import { ConfigHelper } from '@oinone/kunlun-engine';
 import { RuntimeConfig, type RuntimeConfigOptions } from '@oinone/kunlun-meta';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { get as getValue, set as setValue } from 'lodash-es';
-import { type CdnFileMultipartUploadData, type CdnFileSingleUploadData, createResourceFile, getFileSignature, type UploadChunkFile } from './UploadService';
+import {
+  type CdnFileMultipartUploadData,
+  type CdnFileSingleUploadData,
+  createResourceFile,
+  getFileSignature,
+  type UploadChunkFile
+} from './UploadService';
 
 interface IUploadedPartHeader {
   partNumber: string;
@@ -81,13 +87,13 @@ export interface IUploadFileEventParams {
 
 // 将响应头字符串转换为对象的辅助函数
 function headersToObject(headers) {
-  var result = {};
-  var headersArray = headers.trim().split(/[\r\n]+/);
+  const result = {};
+  const headersArray = headers.trim().split(/[\r\n]+/);
 
   headersArray.forEach(function (line) {
-    var parts = line.split(': ');
-    var header = parts.shift();
-    var value = parts.join(': ');
+    const parts = line.split(': ');
+    const header = parts.shift();
+    const value = parts.join(': ');
     result[header] = value;
   });
 
@@ -406,7 +412,7 @@ export const useUploadFileEvent = async (params: IUploadFileEventParams) => {
   const chunkSize = partSize * 1024 * 1024;
   const chunks = Math.ceil(totalSize / chunkSize);
   const fileChunks: Blob[] = [];
-  let chunkFiles: UploadChunkFile[] = [];
+  const chunkFiles: UploadChunkFile[] = [];
 
   const M = file.size / 1024 / 1024;
 

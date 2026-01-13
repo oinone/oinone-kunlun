@@ -1,11 +1,11 @@
 import { SPI } from '@oinone/kunlun-spi';
-import { DEFAULT_CARD_CONTAINERS_GUTTERS, DEFAULT_CONTAINERS_GUTTERS, type StandardGutterType, StyleHelper } from '@oinone/kunlun-vue-ui-common';
+import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { isAllInvisible, Widget } from '@oinone/kunlun-vue-widget';
 import { isString } from 'lodash-es';
 import { BasePackWidget } from '../../basic';
+import DefaultContainers from './DefaultContainers.vue';
 import { DefaultContainerWidget } from './DefaultContainerWidget';
 import { DefaultRowWidget } from './DefaultRowWidget';
-import DefaultContainers from './DefaultContainers.vue';
 
 function fetchContainerChildren(widgets: Widget[], level = 3): Widget[] {
   const children: Widget[] = [];

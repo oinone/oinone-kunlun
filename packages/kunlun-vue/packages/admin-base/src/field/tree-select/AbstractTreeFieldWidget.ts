@@ -1,6 +1,25 @@
-import { type ActiveRecord, type ActiveRecords, type Pagination, resolveDynamicDomain, type RuntimeModel, type RuntimeRelationField } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  type ActiveRecords,
+  type Pagination,
+  resolveDynamicDomain,
+  type RuntimeModel,
+  type RuntimeRelationField
+} from '@oinone/kunlun-engine';
 import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
-import { BooleanHelper, CallChaining, CastHelper, NumberHelper, ObjectUtils, type OioTreeNode, Optional, type ReturnPromise, TreeHelper, TreeNode, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import {
+  BooleanHelper,
+  CallChaining,
+  CastHelper,
+  NumberHelper,
+  ObjectUtils,
+  type OioTreeNode,
+  Optional,
+  type ReturnPromise,
+  TreeHelper,
+  TreeNode,
+  uniqueKeyGenerator
+} from '@oinone/kunlun-shared';
 import { EmptyStyle, SelectMode, WidgetTrigger } from '@oinone/kunlun-vue-ui-antd';
 import { defaultTreeSelectProperties, type TreeSelectProperties } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';

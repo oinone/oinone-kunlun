@@ -1,6 +1,12 @@
 import type { RenderWidget as ViewTagCustomWidget } from '@oinone/kunlun-vue-widget';
 import './spi-register';
-import { type CustomWidgetProps, registerCustomWidgetFunction, registerElementTag, registerPackTag, useTabWidgetTag } from './tags';
+import {
+  type CustomWidgetProps,
+  registerCustomWidgetFunction,
+  registerElementTag,
+  registerPackTag,
+  useTabWidgetTag
+} from './tags';
 import { createFlexContainerItem } from './tags/resolve/internal';
 
 export {

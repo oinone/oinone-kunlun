@@ -112,15 +112,24 @@
 import { OioButton, OioIcon, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineEmits, defineProps, ref } from 'vue';
 import { useDslActionPermission } from '../hooks';
-import { activeOrCancelGroup, batchModifyRole, createOrUpdateGroup, deleteGroupById, modifyManagementRole, modifyRole } from '../service';
-
+import {
+  activeOrCancelGroup,
+  batchModifyRole,
+  createOrUpdateGroup,
+  deleteGroupById,
+  modifyManagementRole,
+  modifyRole
+} from '../service';
 import { useStore } from '../store';
 import PermissionDialog from './PermissionDialog.vue';
-
 import RoleDialog from './RoleDialog.vue';
 
-const props =
-  defineProps<{ groupList: any[]; selectedLeftTree: any; showAddAction: boolean; isManagement?: boolean }>();
+const props = defineProps<{
+  groupList: any[];
+  selectedLeftTree: any;
+  showAddAction: boolean;
+  isManagement?: boolean;
+}>();
 const emits = defineEmits(['reload']);
 
 const store = useStore();

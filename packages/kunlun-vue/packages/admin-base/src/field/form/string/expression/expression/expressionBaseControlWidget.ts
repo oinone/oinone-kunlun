@@ -1,7 +1,7 @@
-import { createDefaultExpressionItem, EXPRESSION_TTYPES, queryExpBuildInFunction } from '@oinone/kunlun-vue-expression';
-import { ExpressionAbstractWidget } from '../ExpressionAbstractWidget';
-import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNumberTtype, isStringTtype, ModelFieldType } from '@oinone/kunlun-meta';
+import { createDefaultExpressionItem, EXPRESSION_TTYPES, queryExpBuildInFunction } from '@oinone/kunlun-vue-expression';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { ExpressionAbstractWidget } from '../ExpressionAbstractWidget';
 
 export class ExpressionBaseControlWidget extends ExpressionAbstractWidget {
   public initialize(props) {
@@ -44,7 +44,7 @@ export class ExpressionBaseControlWidget extends ExpressionAbstractWidget {
           ModelFieldType.Email
         ];
       }
-      return [ this.leftJoinTtype ];
+      return [this.leftJoinTtype];
     }
     return EXPRESSION_TTYPES;
   }

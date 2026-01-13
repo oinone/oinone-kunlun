@@ -1,7 +1,25 @@
 import { ExpressionExecutor, SubmitValue } from '@oinone/kunlun-engine';
 import { type IModelField, isEmptyValue, ModelFieldType } from '@oinone/kunlun-meta';
 import { BooleanHelper } from '@oinone/kunlun-shared';
-import { createContextItems, createDefaultExpressionItem, createExpressionDefinition, createExpressionDefinitionByExpressionItem, createExpressionDisplayName, createExpressionItemByExpressionDefinition, createExpressionValue, ExpressionDefinitionType, type IExpressionDefinition, type IExpressionItem, type IExpressionOption, IExpressionQuoteType, type IQueryExpressionParam, type IVariableContextItem, type IVariableCustomMethodContext, IVariableValueType, queryExpression } from '@oinone/kunlun-vue-expression';
+import {
+  createContextItems,
+  createDefaultExpressionItem,
+  createExpressionDefinition,
+  createExpressionDefinitionByExpressionItem,
+  createExpressionDisplayName,
+  createExpressionItemByExpressionDefinition,
+  createExpressionValue,
+  ExpressionDefinitionType,
+  type IExpressionDefinition,
+  type IExpressionItem,
+  type IExpressionOption,
+  IExpressionQuoteType,
+  type IQueryExpressionParam,
+  type IVariableContextItem,
+  type IVariableCustomMethodContext,
+  IVariableValueType,
+  queryExpression
+} from '@oinone/kunlun-vue-expression';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString } from 'lodash-es';
 import { FormFieldWidget } from '../../../../basic';

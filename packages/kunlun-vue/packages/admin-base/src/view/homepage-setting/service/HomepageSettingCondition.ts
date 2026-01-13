@@ -1,4 +1,3 @@
-import { translateValueByKey } from '@oinone/kunlun-engine';
 import { RoleUserOptionsEnum } from '../typing';
 
 class StrControl {
@@ -66,7 +65,10 @@ export class HomepageSettingCondition extends StrControl {
 
   private conditionBodyData: Record<string, unknown> = {};
 
-  public constructor(key: string, private config: ConditionConfig = { quote: "'" }) {
+  public constructor(
+    key: string,
+    private config: ConditionConfig = { quote: "'" }
+  ) {
     super();
     this.append(key);
   }

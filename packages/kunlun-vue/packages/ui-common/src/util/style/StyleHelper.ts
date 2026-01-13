@@ -1,6 +1,17 @@
-import { BooleanHelper, type CSSStyle, type DslBorderVisible, DslBorderVisibleType, type DslDefinitionStyle, NumberHelper, ObjectUtils, Optional, type StandardNumber, StringHelper } from '@oinone/kunlun-shared';
-import { parseStringStyle } from '@vue/shared';
+import {
+  BooleanHelper,
+  type CSSStyle,
+  type DslBorderVisible,
+  DslBorderVisibleType,
+  type DslDefinitionStyle,
+  NumberHelper,
+  ObjectUtils,
+  Optional,
+  type StandardNumber,
+  StringHelper
+} from '@oinone/kunlun-shared';
 import { isArray, isBoolean, isNil, isObject, isString, toString } from 'lodash-es';
+import { parseStringStyle } from 'vue';
 import { DEFAULT_DSL_STYLE_VALUE } from './DslStyleConstant';
 
 /**

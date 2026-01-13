@@ -1,14 +1,40 @@
-import { ColSpanEnum, getRealTtype, isRuntimeClientAction, type RuntimeAction, RuntimeContextManager, type RuntimeModelField, type RuntimeViewAction } from '@oinone/kunlun-engine';
+import {
+  ColSpanEnum,
+  getRealTtype,
+  isRuntimeClientAction,
+  type RuntimeAction,
+  RuntimeContextManager,
+  type RuntimeModelField,
+  type RuntimeViewAction
+} from '@oinone/kunlun-engine';
 import { type IDslNode, ViewType } from '@oinone/kunlun-meta';
 import { CastHelper, debugConsole, instantiate } from '@oinone/kunlun-shared';
 import { getWidget, getWidgetNotNull, newVueWidget, type RenderWidget, VueWidget } from '@oinone/kunlun-vue-widget';
-import { type BaseActionOptions, BaseActionWidget, type BaseElementOptions, BaseElementWidget, type BaseFieldOptions, BaseFieldWidget, type BasePackOptions, BasePackWidget, BaseView, type BaseViewOptions, CustomWidget as CommonCustomWidget } from '../../../basic';
+import {
+  type BaseActionOptions,
+  BaseActionWidget,
+  type BaseElementOptions,
+  BaseElementWidget,
+  type BaseFieldOptions,
+  BaseFieldWidget,
+  type BasePackOptions,
+  BasePackWidget,
+  BaseView,
+  type BaseViewOptions,
+  CustomWidget as CommonCustomWidget
+} from '../../../basic';
 import { DefaultColWidget, DefaultContainerColWidget, DefaultRowWidget } from '../../../container/block';
 import { type FieldMixinComponentOptions, selectorFieldMixinComponent } from '../../../spi';
 import { ActiveLayoutEffectOpt } from '../../context/active';
 import { isCreateFlexElement } from '../helper';
 import type { CustomWidgetProps } from '../typing';
-import type { ActionWidgetProps, ElementWidgetProps, FieldWidgetProps, PackWidgetProps, ViewWidgetProps } from './typing';
+import type {
+  ActionWidgetProps,
+  ElementWidgetProps,
+  FieldWidgetProps,
+  PackWidgetProps,
+  ViewWidgetProps
+} from './typing';
 
 export function createDefaultCol(rowWidget: DefaultRowWidget, props: PackWidgetProps) {
   return rowWidget.createWidget(new DefaultColWidget(rowWidget), props.slotName, {

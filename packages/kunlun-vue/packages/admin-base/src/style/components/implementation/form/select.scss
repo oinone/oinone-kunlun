@@ -1,9 +1,10 @@
 @font-face {
   font-family: 'selectIconfont';
   /* Project id 2657071 */
-  src: url('//at.alicdn.com/t/font_2657071_fdxlnx3uyl.woff2?t=1649766092203') format('woff2'),
-  url('//at.alicdn.com/t/font_2657071_fdxlnx3uyl.woff?t=1649766092203') format('woff'),
-  url('//at.alicdn.com/t/font_2657071_fdxlnx3uyl.ttf?t=1649766092203') format('truetype');
+  src:
+    url('//at.alicdn.com/t/font_2657071_fdxlnx3uyl.woff2?t=1649766092203') format('woff2'),
+    url('//at.alicdn.com/t/font_2657071_fdxlnx3uyl.woff?t=1649766092203') format('woff'),
+    url('//at.alicdn.com/t/font_2657071_fdxlnx3uyl.ttf?t=1649766092203') format('truetype');
 }
 
 @mixin readonly($sbc) {

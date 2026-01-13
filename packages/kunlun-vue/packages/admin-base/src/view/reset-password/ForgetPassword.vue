@@ -81,7 +81,17 @@
 </template>
 <script lang="ts">
 import { type MajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
-import { OioButton, OioForm, type OioFormInstance, OioFormItem, OioInput, OioInputGroup, OioInputPassword, OioMessage, type SelectItem } from '@oinone/kunlun-vue-ui-antd';
+import {
+  OioButton,
+  OioForm,
+  type OioFormInstance,
+  OioFormItem,
+  OioInput,
+  OioInputGroup,
+  OioInputPassword,
+  OioMessage,
+  type SelectItem
+} from '@oinone/kunlun-vue-ui-antd';
 import { FormItemRest as AFormItemRest, Select as ASelect } from 'ant-design-vue';
 import { defineComponent, onMounted, type PropType, reactive, ref } from 'vue';
 import type { ResourceCountry } from '../../typing';

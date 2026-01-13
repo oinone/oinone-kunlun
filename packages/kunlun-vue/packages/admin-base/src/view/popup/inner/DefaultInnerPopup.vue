@@ -1,6 +1,13 @@
 <script lang="ts">
 import { ViewType } from '@oinone/kunlun-meta';
-import { ButtonType, DrawerPlacement, OioButton, OioInnerPopup, PropRecordHelper, StringHelper } from '@oinone/kunlun-vue-ui-antd';
+import {
+  ButtonType,
+  DrawerPlacement,
+  OioButton,
+  OioInnerPopup,
+  PropRecordHelper,
+  StringHelper
+} from '@oinone/kunlun-vue-ui-antd';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, type PropType, type Slot, type VNode } from 'vue';
 

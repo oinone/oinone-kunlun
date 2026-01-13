@@ -1,6 +1,21 @@
-import { $systemMajorConfig, executeUrlAction, MultiTabsRuntimeManifestMergedConfigManager, OioProvider, type ReloadMaskCallChainingParameters, SideBarTheme, systemMajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
+import {
+  $systemMajorConfig,
+  executeUrlAction,
+  MultiTabsRuntimeManifestMergedConfigManager,
+  OioProvider,
+  type ReloadMaskCallChainingParameters,
+  SideBarTheme,
+  systemMajorConfig,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
-import { ActionType, type IServerAction, type IURLAction, type IViewAction, ViewActionTarget } from '@oinone/kunlun-meta';
+import {
+  ActionType,
+  type IServerAction,
+  type IURLAction,
+  type IViewAction,
+  ViewActionTarget
+} from '@oinone/kunlun-meta';
 import { Router, useMatched } from '@oinone/kunlun-router';
 import { callFunction } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';

@@ -23,8 +23,8 @@
   </div>
 </template>
 <script lang="ts">
-import { useMatched } from '@oinone/kunlun-router';
 import { translateValueByKey } from '@oinone/kunlun-engine';
+import { useMatched } from '@oinone/kunlun-router';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -66,7 +66,9 @@ export default defineComponent({
       cursor: pointer;
 
       &:after {
-        transition: left 0.15s cubic-bezier(0, 0, 0.2, 1), right 0.15s cubic-bezier(0, 0, 0.2, 1);
+        transition:
+          left 0.15s cubic-bezier(0, 0, 0.2, 1),
+          right 0.15s cubic-bezier(0, 0, 0.2, 1);
         content: '';
         position: absolute;
         left: 30px;

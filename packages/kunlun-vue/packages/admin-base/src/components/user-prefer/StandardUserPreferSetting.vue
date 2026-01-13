@@ -1,6 +1,6 @@
 <script lang="ts">
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import { ButtonType, InputSearchEvent, OioButton, OioCheckbox, OioInputSearch, OioModal } from '@oinone/kunlun-vue-ui-antd';
+import { ButtonType, OioButton, OioCheckbox, OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { Transfer as ATransfer } from 'ant-design-vue';
 import AListBody from 'ant-design-vue/es/transfer/ListBody';

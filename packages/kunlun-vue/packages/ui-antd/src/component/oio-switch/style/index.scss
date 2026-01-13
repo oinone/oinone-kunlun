@@ -17,7 +17,10 @@
       width: 20px;
       height: 20px;
       background: #ffffff;
-      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 2px 9px 0 rgba(0, 0, 0, 0.08), -1px 2px 2px 0px rgba(0, 0, 0, 0.1);
+      box-shadow:
+        0 0 2px 0 rgba(0, 0, 0, 0.2),
+        0 2px 9px 0 rgba(0, 0, 0, 0.08),
+        -1px 2px 2px 0px rgba(0, 0, 0, 0.1);
     }
     &-small {
       height: 18px;

@@ -9,6 +9,8 @@
     "build-css": "sass --style compressed --no-source-map ./dist/oinone-kunlun-vue-ui-antd.scss ./dist/oinone-kunlun-vue-ui-antd.css",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
+    "format": "prettier --write --experimental-cli src/",
+    "test": "jest",
     "prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
     "postpublish": "node ../../../../scripts/postpublish.cjs",

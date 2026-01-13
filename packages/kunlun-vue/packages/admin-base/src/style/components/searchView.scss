@@ -18,7 +18,6 @@ $labelWidth: 80px;
     flex-wrap: wrap;
     column-gap: var(--oio-padding-md);
 
-
     .form-field-widget {
       height: var(--oio-height);
     }
@@ -70,9 +69,9 @@ $labelWidth: 80px;
     height: var(--oio-height);
     font-size: var(--oio-font-size);
 
-    &>span,
-    &>div,
-    &>input,
+    & > span,
+    & > div,
+    & > input,
     .extra-field-cascader,
     .ant-cascader-picker {
       font-size: var(--oio-font-size);
@@ -133,7 +132,7 @@ $labelWidth: 80px;
   }
 
   .hide-ant-form-item-label {
-    &>.ant-form-item-label {
+    & > .ant-form-item-label {
       display: none;
     }
   }
@@ -149,7 +148,8 @@ $labelWidth: 80px;
     flex: 1;
   }
 
-  .ant-form-item {}
+  .ant-form-item {
+  }
 
   .ant-form label {
     font-size: var(--oio-font-size);

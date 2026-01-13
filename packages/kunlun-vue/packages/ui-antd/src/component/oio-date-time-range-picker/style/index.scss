@@ -104,7 +104,9 @@
     }
 
     &.ant-picker-cell-range-hover:not(.ant-picker-cell-in-range),
-    &.ant-picker-cell-range-hover-end:not(.ant-picker-cell-in-range):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end) {
+    &.ant-picker-cell-range-hover-end:not(.ant-picker-cell-in-range):not(.ant-picker-cell-range-start):not(
+        .ant-picker-cell-range-end
+      ) {
       &:after {
         border-color: var($parameterPrefix + -primary-color-hover);
       }
@@ -156,7 +158,9 @@
       }
 
       &.ant-picker-cell-range-hover:not(.ant-picker-cell-in-range),
-      &.ant-picker-cell-range-hover-end:not(.ant-picker-cell-in-range):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end) {
+      &.ant-picker-cell-range-hover-end:not(.ant-picker-cell-in-range):not(.ant-picker-cell-range-start):not(
+          .ant-picker-cell-range-end
+        ) {
         &:after {
           border-color: var($parameterPrefix + -primary-color-hover);
         }

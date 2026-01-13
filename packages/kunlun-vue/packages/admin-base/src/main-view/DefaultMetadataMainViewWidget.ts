@@ -1,13 +1,41 @@
 import type { DslDefinition } from '@oinone/kunlun-dsl';
-import { $systemMajorConfig, CurrentLanguage, formateLanguage, initI18n, LanguageType, type MajorConfig, type MultiTabsApplicationHomepageConfig, MultiTabsRuntimeManifestMergedConfigManager, OioProvider, queryResourceDateTimeFormat, type ReloadMainViewCallChainingParameters, type ReloadMaskCallChainingParameters, ROOT_HANDLE, type RuntimeViewAction, translateValueByKey, useLanguage, ViewActionCache, type ViewActionQueryParameter } from '@oinone/kunlun-engine';
+import {
+  $systemMajorConfig,
+  CurrentLanguage,
+  formateLanguage,
+  initI18n,
+  LanguageType,
+  type MajorConfig,
+  type MultiTabsApplicationHomepageConfig,
+  MultiTabsRuntimeManifestMergedConfigManager,
+  OioProvider,
+  queryResourceDateTimeFormat,
+  type ReloadMainViewCallChainingParameters,
+  type ReloadMaskCallChainingParameters,
+  ROOT_HANDLE,
+  type RuntimeViewAction,
+  translateValueByKey,
+  useLanguage,
+  ViewActionCache,
+  type ViewActionQueryParameter
+} from '@oinone/kunlun-engine';
 import { ViewActionTarget } from '@oinone/kunlun-meta';
 import { isNotPermission, setSessionPath, useSessionPath } from '@oinone/kunlun-request';
 import { useMatched } from '@oinone/kunlun-router';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { distinctUntilChanged, Subscription } from '@oinone/kunlun-state';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-
-import { emptyHomepageModelName, getUnauthorizedAction, MenuService, ModuleService, replaceStanderMainView, type RuntimeMenu, TopBarService, unauthorizedActionName, urlHomepageModelName } from '@oinone/kunlun-vue-admin-layout';
+import {
+  emptyHomepageModelName,
+  getUnauthorizedAction,
+  MenuService,
+  ModuleService,
+  replaceStanderMainView,
+  type RuntimeMenu,
+  TopBarService,
+  unauthorizedActionName,
+  urlHomepageModelName
+} from '@oinone/kunlun-vue-admin-layout';
 import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';

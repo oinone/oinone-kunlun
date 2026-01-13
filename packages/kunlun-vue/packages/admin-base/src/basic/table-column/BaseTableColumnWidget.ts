@@ -1,6 +1,15 @@
 import { type GroupingField, SubmitValue } from '@oinone/kunlun-engine';
 import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
-import { type ActiveEditorContext, GROUP_TREE_KEY, type OioTableInstance, type RenderCellContext, type RowContext, type TableEditorCloseTrigger, type TableEditorMode, type TableEditorTrigger } from '@oinone/kunlun-vue-ui';
+import {
+  type ActiveEditorContext,
+  GROUP_TREE_KEY,
+  type OioTableInstance,
+  type RenderCellContext,
+  type RowContext,
+  type TableEditorCloseTrigger,
+  type TableEditorMode,
+  type TableEditorTrigger
+} from '@oinone/kunlun-vue-ui';
 import { ConfirmType, PopconfirmPlacement } from '@oinone/kunlun-vue-ui-antd';
 import { type ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, isString, toString } from 'lodash-es';

@@ -24,8 +24,9 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
 import { translateValueByKey } from '@oinone/kunlun-engine';
+import { defineComponent, ref } from 'vue';
+
 export default defineComponent({
   setup() {
     const active = ref(0);
@@ -56,7 +57,9 @@ export default defineComponent({
       cursor: pointer;
 
       &:after {
-        transition: left 0.15s cubic-bezier(0, 0, 0.2, 1), right 0.15s cubic-bezier(0, 0, 0.2, 1);
+        transition:
+          left 0.15s cubic-bezier(0, 0, 0.2, 1),
+          right 0.15s cubic-bezier(0, 0, 0.2, 1);
         content: '';
         position: absolute;
         left: 30px;

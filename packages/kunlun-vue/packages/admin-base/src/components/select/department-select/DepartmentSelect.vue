@@ -1,5 +1,9 @@
 <script lang="ts">
-import { OrganizationalStructureType, type PamirsDepartment, type PamirsOrganizationalStructure } from '@oinone/kunlun-engine';
+import {
+  OrganizationalStructureType,
+  type PamirsDepartment,
+  type PamirsOrganizationalStructure
+} from '@oinone/kunlun-engine';
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { computed, createVNode, defineComponent, type PropType, ref } from 'vue';

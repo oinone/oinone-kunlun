@@ -26,6 +26,6 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     ...DebugInfoProps
-  },
+  }
 });
 </script>

@@ -1,4 +1,10 @@
-import { type ActiveRecord, type ActiveRecords, type RuntimeContext, type RuntimeView, ViewCache } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  type ActiveRecords,
+  type RuntimeContext,
+  type RuntimeView,
+  ViewCache
+} from '@oinone/kunlun-engine';
 import { CallChaining, uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';

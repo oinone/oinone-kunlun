@@ -1,4 +1,9 @@
-import { getReloadMainViewParameters, MultiTabsManager, MultiTabsRuntimeManifestMergedConfigManager, RuntimeContextManager } from '@oinone/kunlun-engine';
+import {
+  getReloadMainViewParameters,
+  MultiTabsManager,
+  MultiTabsRuntimeManifestMergedConfigManager,
+  RuntimeContextManager
+} from '@oinone/kunlun-engine';
 import { useMatched } from '@oinone/kunlun-router';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';

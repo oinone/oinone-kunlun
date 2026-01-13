@@ -1,4 +1,12 @@
-import { type ActiveRecord, type ActiveRecords, ActiveRecordsOperator, type DeleteActiveRecordsByEntityPredict, type RuntimeM2MField, type RuntimeO2MField, SubmitCacheManager } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  type ActiveRecords,
+  ActiveRecordsOperator,
+  type DeleteActiveRecordsByEntityPredict,
+  type RuntimeM2MField,
+  type RuntimeO2MField,
+  SubmitCacheManager
+} from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import type { ReturnPromise } from '@oinone/kunlun-shared';

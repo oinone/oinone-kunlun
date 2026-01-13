@@ -22,7 +22,8 @@ $innerPopupSmallWidth: 400px;
   display: flex;
   flex-direction: column;
   background-color: var(--oio-background);
-  border: var($parameterPrefix + -border-width) var($parameterPrefix + -border-style) var($parameterPrefix + -border-color);
+  border: var($parameterPrefix + -border-width) var($parameterPrefix + -border-style)
+    var($parameterPrefix + -border-color);
   border-radius: var($parameterPrefix + -border-radius, 4px);
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.05);
 
@@ -96,11 +97,11 @@ $innerPopupSmallWidth: 400px;
 
     .#{$innerPopupClassPrefix} {
       @include mediaResponsive(
-          flex-basis,
-          $innerPopupDefaultWidth,
-          $innerPopupLargeWidth,
-          $innerPopupMediumWidth,
-          $innerPopupSmallWidth
+        flex-basis,
+        $innerPopupDefaultWidth,
+        $innerPopupLargeWidth,
+        $innerPopupMediumWidth,
+        $innerPopupSmallWidth
       );
     }
   }
@@ -124,11 +125,11 @@ $innerPopupSmallWidth: 400px;
 
     .#{$innerPopupClassPrefix} {
       @include mediaResponsive(
-          flex-basis,
-          $innerPopupDefaultWidth,
-          $innerPopupLargeWidth,
-          $innerPopupMediumWidth,
-          $innerPopupSmallWidth
+        flex-basis,
+        $innerPopupDefaultWidth,
+        $innerPopupLargeWidth,
+        $innerPopupMediumWidth,
+        $innerPopupSmallWidth
       );
     }
   }

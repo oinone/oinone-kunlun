@@ -94,7 +94,7 @@ import { NON_CUT, type TableFieldOption } from './type';
 const runFun = window.requestIdleCallback || ((fn) => setTimeout(fn));
 
 const timeSlice = (gen: Generator | (() => Generator), done?: () => void) => {
-  let generator: Generator = typeof gen === 'function' ? gen() : gen;
+  const generator: Generator = typeof gen === 'function' ? gen() : gen;
   if (!generator || typeof generator.next !== 'function') return;
   return function next() {
     const start: number = performance.now();
@@ -117,7 +117,7 @@ function* gen<T>(list: T[], fn: (item: T, index: number) => void) {
   }
 }
 
-const runLongTask = <T>(list: T[], fn: (item: T, index: number) => void, done?: () => void) => {
+const runLongTask = <T,>(list: T[], fn: (item: T, index: number) => void, done?: () => void) => {
   const task = timeSlice(gen(list, fn), done);
   if (task) task();
 };
@@ -840,15 +840,20 @@ onUnmounted(() => {
 
     th,
     td {
-      background-image: linear-gradient(var(--oio-table-row-body-border), var(--oio-table-row-body-border)),
+      background-image:
+        linear-gradient(var(--oio-table-row-body-border), var(--oio-table-row-body-border)),
         linear-gradient(var(--oio-table-row-body-border), var(--oio-table-row-body-border));
       padding: 0;
       margin: 0;
       text-align: left;
       vertical-align: top;
       background-repeat: no-repeat;
-      background-size: 1px 100%, 100% 1px;
-      background-position: 100% 0, 100% 100%;
+      background-size:
+        1px 100%,
+        100% 1px;
+      background-position:
+        100% 0,
+        100% 100%;
       box-sizing: border-box;
     }
 

@@ -2,11 +2,25 @@
 import { type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-import { OioCollapsePanelProps, PropRecordHelper, useInjectOioCollapseContext, useOioFormLayoutContext } from '@oinone/kunlun-vue-ui-common';
+import {
+  OioCollapsePanelProps,
+  PropRecordHelper,
+  useInjectOioCollapseContext,
+  useOioFormLayoutContext
+} from '@oinone/kunlun-vue-ui-common';
 import { DslRender } from '@oinone/kunlun-vue-widget';
 import { CollapsePanel as ACollapsePanel } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
-import { computed, createVNode, defineComponent, getCurrentInstance, onBeforeMount, type PropType, vShow, withDirectives } from 'vue';
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  getCurrentInstance,
+  onBeforeMount,
+  type PropType,
+  vShow,
+  withDirectives
+} from 'vue';
 import { InternalWidget, ResolveMode } from '../../tags/resolve/typing';
 
 export default defineComponent({

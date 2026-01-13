@@ -1,4 +1,10 @@
-import { SideBarThemeColor, SideBarTheme, MultiTabTheme, genStaticPath, translateValueByKey } from '@oinone/kunlun-engine';
+import {
+  genStaticPath,
+  MultiTabTheme,
+  SideBarTheme,
+  SideBarThemeColor,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import { DefaultThemeName } from '@oinone/kunlun-theme';
 
 const IMAGE_BASE_URL = 'x-oss-process=image/resize,m_lfit,h_800';

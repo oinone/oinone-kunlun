@@ -1,4 +1,10 @@
-import { type ActiveRecord, FunctionCache, FunctionMetadata, type RuntimeServerAction, SubmitValue } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  FunctionCache,
+  FunctionMetadata,
+  type RuntimeServerAction,
+  SubmitValue
+} from '@oinone/kunlun-engine';
 import { ModelDefaultActionName } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';

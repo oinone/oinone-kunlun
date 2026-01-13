@@ -1,4 +1,10 @@
-import { Dialog, executeServerAction, executeViewAction, translateValueByKey, ViewActionCache } from '@oinone/kunlun-engine';
+import {
+  Dialog,
+  executeServerAction,
+  executeViewAction,
+  translateValueByKey,
+  ViewActionCache
+} from '@oinone/kunlun-engine';
 import { ActionType, type IModel, ModelFieldType, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
 import { customMutation, getModel } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
@@ -68,7 +74,7 @@ export class CodeFuseTable extends FormO2MTableFieldWidget {
             await this.load(async () => {
               let result;
               dialogWidget.onVisibleChange(false);
-              const param = this.dialogViewAction?.activeRecords?.[0]!;
+              const param = this.dialogViewAction?.activeRecords?.[0];
               // 上传jar包
               if (actionName === 'uploadJarView') {
                 result = await customMutation('paas.codeFuse.CodeFuseModuleExtProject', 'uploadJar', param);

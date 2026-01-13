@@ -19,16 +19,13 @@ export default defineComponent({
   },
   render() {
     const { currentValue, cdnKey, privateLink } = this;
-    return createVNode(
-      Upload,
-      {
-        class: 'default-table-upload',
-        value: currentValue,
-        readonly: true,
-        cdnKey,
-        privateLink
-      }
-    );
+    return createVNode(Upload, {
+      class: 'default-table-upload',
+      value: currentValue,
+      readonly: true,
+      cdnKey,
+      privateLink
+    });
   }
 });
 </script>

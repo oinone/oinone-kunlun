@@ -41,15 +41,22 @@
   </div>
 </template>
 <script lang="ts">
-import { OioButton, OioGroup, OioInputNumber, OioTextarea, OioTooltipHelp, uniqueKeyGenerator } from '@oinone/kunlun-vue-ui-antd';
-import { computed, defineComponent, type PropType, ref, type Ref, onMounted } from 'vue';
+import { useMatched } from '@oinone/kunlun-router';
+import {
+  OioButton,
+  OioGroup,
+  OioInputNumber,
+  OioTextarea,
+  OioTooltipHelp,
+  uniqueKeyGenerator
+} from '@oinone/kunlun-vue-ui-antd';
+import { computed, defineComponent, onMounted, type PropType, type Ref, ref } from 'vue';
 import type { DebugFetchRequest, DebugFetchResponse, DebugRequestInfo } from '../../typing';
 import DebugJsonView from '../components/DebugJsonView.vue';
 import DebugRequestInfoPanel from '../components/DebugRequestInfoPanel.vue';
 import DebugResponsePanel from '../components/DebugResponsePanel.vue';
 import { DebugUtils } from '../debug-utils';
 import { useDebugRequestInfo } from '../useDebugRequestInfo';
-import { useMatched } from '@oinone/kunlun-router';
 
 function setData(val: Ref, newValue, defaultValue = '') {
   if (newValue === undefined) {

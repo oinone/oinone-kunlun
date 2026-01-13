@@ -1,9 +1,25 @@
-import { type ActiveRecord, type ActiveRecords, getRelationFieldKey, isRelatedField, ModelCache, QueryService, RequestHelper, type RuntimeModel, type RuntimeModelField, type RuntimeRelationField, translateValueByKey } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  type ActiveRecords,
+  getRelationFieldKey,
+  isRelatedField,
+  ModelCache,
+  QueryService,
+  RequestHelper,
+  type RuntimeModel,
+  type RuntimeModelField,
+  type RuntimeRelationField,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import { deepClone, type Entity, type IModel, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
 import { Condition, type ObjectValue } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, IQueryPageOption, IQueryPageResult, queryOne } from '@oinone/kunlun-service';
 import { CastHelper, NumberHelper } from '@oinone/kunlun-shared';
-import { autoFillSelectedValueToOptions, autoFillSelectedValueToOptionsByLabel, buildSelectSearchCondition } from '@oinone/kunlun-vue-admin-layout';
+import {
+  autoFillSelectedValueToOptions,
+  autoFillSelectedValueToOptionsByLabel,
+  buildSelectSearchCondition
+} from '@oinone/kunlun-vue-admin-layout';
 import { PageSizeEnum, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNil, isNumber, isPlainObject, isString, toInteger } from 'lodash-es';
@@ -538,7 +554,7 @@ export abstract class FormSelectComplexFieldWidget<
     let valueEqualOptions = false;
 
     if (this.value) {
-      const value = (this.field.multi ? this.value ?? [] : [this.value]) as ActiveRecord[];
+      const value = (this.field.multi ? (this.value ?? []) : [this.value]) as ActiveRecord[];
       valueEqualOptions =
         this.options.length === value.length &&
         this.options.every((opt) => {

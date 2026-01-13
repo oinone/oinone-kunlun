@@ -1,5 +1,5 @@
 {
-    "c1":[
+  "c1": [
     {
       "id": "209926834513512002",
       "name": "apps",
@@ -8,8 +8,9 @@
       "application": true,
       "state": "INSTALLED",
       "logo": "https://pamirs.oss-cn-hangzhou.aliyuncs.com/upload/oms/dev/pamirs/logo/libra_core.png?x-oss-process=image/resize,m_lfit,h_800"
-    }],
-"c2":[
+    }
+  ],
+  "c2": [
     {
       "id": "209926834513512001",
       "name": "base",

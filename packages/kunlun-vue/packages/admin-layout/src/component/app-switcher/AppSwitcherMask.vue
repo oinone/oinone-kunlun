@@ -25,7 +25,7 @@
               class="application-collection-item animation"
               v-for="(item, index) in likeApp"
               :key="index"
-              @click.stop="$emit('update:showMask', false), onCollectionClick(item)"
+              @click.stop="($emit('update:showMask', false), onCollectionClick(item))"
             >
               <div style="width: 70px; height: 70px">
                 <img :src="item.logo || DEFAULT_APPLICATION_LOGO()" alt="" />
@@ -110,7 +110,6 @@
 import { genStaticPath, translateValueByKey } from '@oinone/kunlun-engine';
 import type { IModule } from '@oinone/kunlun-meta';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
-
 import { computed, defineComponent, nextTick, type PropType, ref, watch } from 'vue';
 import { DEFAULT_APPLICATION_LOGO } from '../../typing';
 

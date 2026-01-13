@@ -82,7 +82,7 @@ export default defineComponent({
       visible.value = val;
     };
 
-    const createHandle = <R>(
+    const createHandle = <R,>(
       fn: (...args: unknown[]) => ReturnPromise<R>
     ): ((...args: unknown[]) => ReturnPromise<R>) => {
       return async (...args: unknown[]) => {

@@ -33,8 +33,14 @@
 </template>
 <script lang="ts">
 import { type MajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
-
-import { FormItemRule, OioButton, OioForm, OioFormInstance, OioFormItem, OioInputPassword } from '@oinone/kunlun-vue-ui-antd';
+import {
+  FormItemRule,
+  OioButton,
+  OioForm,
+  OioFormInstance,
+  OioFormItem,
+  OioInputPassword
+} from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, onMounted, type PropType, reactive, ref } from 'vue';
 import ResetPasswordLayout from './layout/ResetPasswordLayout.vue';
 import type { ResetPasswordData } from './typing';

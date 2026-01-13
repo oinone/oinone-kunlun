@@ -1,20 +1,63 @@
 import { type ActionDslDefinition, DslDefinitionType, type TemplateDslDefinition } from '@oinone/kunlun-dsl';
-import { type ActiveRecord, ActiveRecordExtendKeys, type ActiveRecords, ActiveRecordsOperator, ConditionWrapper, GenericFunctionService, GroupingData, GroupingField, GroupStatisticsEnum, isM2MField, isRelation2OField, isRelationField, type Pagination, type QueryContext, QueryService, QuerySort, type QueryVariables, type RuntimeModelField, type RuntimeRelationField, type TableGroupingPageOptions, TableGroupingQueryService, type TableGroupingWrapperOptions, translateValueByKey } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  ActiveRecordExtendKeys,
+  type ActiveRecords,
+  ActiveRecordsOperator,
+  ConditionWrapper,
+  GenericFunctionService,
+  GroupingData,
+  GroupingField,
+  GroupStatisticsEnum,
+  isM2MField,
+  isRelation2OField,
+  isRelationField,
+  type Pagination,
+  type QueryContext,
+  QueryService,
+  QuerySort,
+  type QueryVariables,
+  type RuntimeModelField,
+  type RuntimeRelationField,
+  type TableGroupingPageOptions,
+  TableGroupingQueryService,
+  type TableGroupingWrapperOptions,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import { type Entity, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, ISort } from '@oinone/kunlun-service';
 import { BigNumber, BooleanHelper, NumberHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { type ActiveEditorContext, GROUP_TREE_KEY, TableEditorCloseTrigger, TableEditorMode, TableRowClickMode, VxeTableHelper } from '@oinone/kunlun-vue-ui';
+import {
+  type ActiveEditorContext,
+  GROUP_TREE_KEY,
+  TableEditorCloseTrigger,
+  TableEditorMode,
+  TableRowClickMode,
+  VxeTableHelper
+} from '@oinone/kunlun-vue-ui';
 import { EmptyStyle, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { delay, find, isBoolean, isNaN, isNil, isNumber, isPlainObject, isString, toNumber, toString } from 'lodash-es';
 import { nextTick } from 'vue';
 import { VxeTableDefines } from 'vxe-table';
 import { ActionWidget } from '../../action/component/action';
-import { type BaseElementListViewWidgetProps, BaseElementWidget, BaseTableColumnWidget, BaseTableWidget } from '../../basic';
+import {
+  type BaseElementListViewWidgetProps,
+  BaseElementWidget,
+  BaseTableColumnWidget,
+  BaseTableWidget
+} from '../../basic';
 import { ExpandColumnWidgetNames } from '../../field';
-import { ActiveCountEnum, fetchPageSize, fetchPageSizeNullable, TABLE_WIDGET, TableLineHeightEnum, type UserTablePrefer } from '../../typing';
+import {
+  ActiveCountEnum,
+  fetchPageSize,
+  fetchPageSizeNullable,
+  TABLE_WIDGET,
+  TableLineHeightEnum,
+  type UserTablePrefer
+} from '../../typing';
 import { TreeUtils } from '../../util';
 import DefaultTable from './DefaultTable.vue';
 
@@ -1474,7 +1517,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
 
     let row = await this.tableInstance?.getTableData(rowIndex);
     if (nextColumnIndex < 0 || nextColumnIndex >= allColumns.length) {
-      let nextRow = await this.tableInstance?.getTableData(rowIndex + Math.sign(offset));
+      const nextRow = await this.tableInstance?.getTableData(rowIndex + Math.sign(offset));
       if (!nextRow) {
         // fixme @zbh 20251024 创建新行并激活编辑态
         // const records = ActiveRecordsOperator.repairRecords([{}]);

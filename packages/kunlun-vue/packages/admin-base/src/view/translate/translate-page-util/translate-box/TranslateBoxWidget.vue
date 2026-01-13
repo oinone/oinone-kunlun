@@ -134,13 +134,34 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, ref, nextTick } from 'vue';
-import { Modal as AModal, Select as ASelect, SelectOption as ASelectOption, RadioGroup as ARadioGroup, Radio as ARadio } from 'ant-design-vue';
-import { SelectValue } from 'ant-design-vue/es/select';
-import { OioIcon, OioForm, OioFormItem, OioInput, FormLayout, OioMessage, OioFormInstance, OioSpin } from '@oinone/kunlun-vue-ui-antd';
-import { getUrlParamByKey, translateValueByKey, CurrentLanguage, genStaticPath, OioProvider } from '@oinone/kunlun-engine';
+import {
+  CurrentLanguage,
+  genStaticPath,
+  getUrlParamByKey,
+  OioProvider,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import { type IModelField, ModelFieldType } from '@oinone/kunlun-meta';
 import { buildSingleItemParam } from '@oinone/kunlun-service';
+import {
+  FormLayout,
+  OioForm,
+  OioFormInstance,
+  OioFormItem,
+  OioIcon,
+  OioInput,
+  OioMessage,
+  OioSpin
+} from '@oinone/kunlun-vue-ui-antd';
+import {
+  Modal as AModal,
+  Radio as ARadio,
+  RadioGroup as ARadioGroup,
+  Select as ASelect,
+  SelectOption as ASelectOption
+} from 'ant-design-vue';
+import { SelectValue } from 'ant-design-vue/es/select';
+import { computed, nextTick, ref } from 'vue';
 import { queryTranslateBox, queryTranslateBoxUpdate, saveAndRefreshForBox, saveForBoxWithUpdate } from '../../service';
 import { type SearchCommonParams, type TranslateManageItem, TranslateMode, TranslateScopeValue } from '../typings';
 import { defaultCurrentTranslate, translateAddText, translateUpdateText } from './constants';
@@ -392,7 +413,9 @@ const onDeleteLabel = (index: number) => {
     display: flex;
     visibility: hidden;
     opacity: 0;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
     flex-direction: column;
     justify-content: center;
     background: var(--oio-background);

@@ -2,7 +2,14 @@ import { type PamirsDepartment, type PamirsEmployee, PamirsEmployeeServiceToken 
 import type { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import type { ComputedRef, Ref } from 'vue';
-import { type ListInitOptions, type ListState, type ListStateLoadFunction, type ListStateProps, type TreeState, useListState } from '../../quick-utils';
+import {
+  type ListInitOptions,
+  type ListState,
+  type ListStateLoadFunction,
+  type ListStateProps,
+  type TreeState,
+  useListState
+} from '../../quick-utils';
 
 export interface EmployeeListInstance {
   state: Ref<TreeState<PamirsEmployee>>;

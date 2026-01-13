@@ -1,6 +1,26 @@
 <script lang="ts">
-import { OrganizationalStructureType, type PamirsDepartment, type PamirsDepartmentService, type PamirsOrganizationalStructure, QueryWrapper } from '@oinone/kunlun-engine';
-import { CastHelper, OioEmptyData, OioInput, OioInputSearch, OioModal, OioModalProps, OioSelectItem, OioTab, OioTabs, type OioTreeNode, PropRecordHelper, SelectMode, StringHelper } from '@oinone/kunlun-vue-ui-antd';
+import {
+  OrganizationalStructureType,
+  type PamirsDepartment,
+  type PamirsDepartmentService,
+  type PamirsOrganizationalStructure,
+  QueryWrapper
+} from '@oinone/kunlun-engine';
+import {
+  CastHelper,
+  OioEmptyData,
+  OioInput,
+  OioInputSearch,
+  OioModal,
+  OioModalProps,
+  OioSelectItem,
+  OioTab,
+  OioTabs,
+  type OioTreeNode,
+  PropRecordHelper,
+  SelectMode,
+  StringHelper
+} from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, type PropType, reactive, type VNode, watch } from 'vue';
 import { CheckedHelper, type TreeState } from '../../quick-utils';
 import { BaseSelect } from '../base';

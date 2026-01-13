@@ -130,8 +130,8 @@ $headerBackgroundColor: var(--oio-table-thead-bg);
   .vxe-table--render-default.border--full .vxe-body--column,
   .vxe-table--render-default.border--full .vxe-footer--column,
   .vxe-table--render-default.border--full .vxe-header--column {
-    background-image: linear-gradient(#{$borderColor}, #{$borderColor}),
-      linear-gradient(#{$borderColor}, #{$borderColor});
+    background-image:
+      linear-gradient(#{$borderColor}, #{$borderColor}), linear-gradient(#{$borderColor}, #{$borderColor});
   }
 
   .vxe-table--render-default.border--default .vxe-table--header-wrapper .vxe-header--row:last-child .vxe-header--gutter,
