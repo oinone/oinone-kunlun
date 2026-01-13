@@ -738,7 +738,6 @@ export default defineComponent({
     function createExpressionItemLeftJoinField(expressionItem: IExpressionItem): IModelField {
       if (expressionItem.valueList && expressionItem.valueList.length) {
         const field = expressionItem.valueList[0];
-        console.log('🚀 ~ createExpressionItemLeftJoinField ~ field:', field);
         if (!field.value) {
           return undefined as any as IModelField;
         }
