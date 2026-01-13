@@ -11,6 +11,7 @@ export class IconActionBarWidget extends RowActionBarWidget {
     const slotContext = props.slotContext as unknown as RowContext;
     if (slotContext) {
       props.activeRecords = ActiveRecordsOperator.repairRecords(slotContext.data);
+      props.rowIndex = slotContext.index;
     }
     super.initialize(props);
     this.setComponent(IconActionBar);
