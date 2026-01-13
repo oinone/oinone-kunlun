@@ -15,6 +15,7 @@ const common = {
     'vue/valid-v-for': 'warn',
     'vue/valid-v-on': 'warn',
 
+    '@typescript-eslint/no-namespace': 'off',
     '@typescript-eslint/no-unsafe-function-type': 'off',
     '@typescript-eslint/no-wrapper-object-types': 'off',
     'vue/no-dupe-keys': 'off'
