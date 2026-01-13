@@ -19,7 +19,7 @@
       ></sortable-group>
     </template>
     <div class="default-view-control-item default-view-control-group">
-      <a-tooltip placement="bottom" class="oio-tooltip" v-model:visible="tooltipStatus">
+      <a-tooltip placement="bottom" class="oio-tooltip" v-model:open="tooltipStatus">
         <template #title>
           <span>{{ $translate('分组') }}</span>
         </template>
@@ -29,17 +29,21 @@
     </div>
   </a-popover>
 </template>
-
 <script lang="ts">
 import { GroupingField } from '@oinone/kunlun-engine';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
-import { Tooltip as ATooltip } from 'ant-design-vue';
+import { Popover as APopover, Tooltip as ATooltip } from 'ant-design-vue';
 import { defineComponent, type PropType, reactive, ref } from 'vue';
 import { SortableGroup, type SortableGroupOption } from '../../../components';
 
 export default defineComponent({
   name: 'DefaultGroupControl',
-  components: { SortableGroup, OioIcon, ATooltip },
+  components: {
+    SortableGroup,
+    OioIcon,
+    ATooltip,
+    APopover
+  },
   props: {
     groupList: {
       type: Array as PropType<GroupingField[]>,

@@ -6,7 +6,7 @@
     @open-change="handleVisibleChange"
   >
     <div class="default-view-control-item default-table-line-height">
-      <a-tooltip placement="bottom" class="oio-tooltip" v-model:visible="tooltipStatus">
+      <a-tooltip placement="bottom" class="oio-tooltip" v-model:open="tooltipStatus">
         <template #title>
           <span>{{ $translate('行高切换') }}</span>
         </template>
@@ -28,7 +28,6 @@
     </template>
   </a-dropdown>
 </template>
-
 <script lang="ts">
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';

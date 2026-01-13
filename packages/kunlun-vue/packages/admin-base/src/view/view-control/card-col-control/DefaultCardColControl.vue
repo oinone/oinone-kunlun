@@ -20,7 +20,7 @@
       </div>
     </template>
     <div class="default-view-control-item default-card-col-control">
-      <a-tooltip placement="bottom" class="oio-tooltip" v-model:visible="tooltipStatus">
+      <a-tooltip placement="bottom" class="oio-tooltip" v-model:open="tooltipStatus">
         <template #title>
           <span>{{ $translate('行数量切换') }}</span>
         </template>
