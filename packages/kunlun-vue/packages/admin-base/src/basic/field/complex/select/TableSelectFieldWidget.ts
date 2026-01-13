@@ -1,4 +1,5 @@
 import {
+  ActiveRecord,
   ActiveRecords,
   isEnumerationField,
   isRelationField,
@@ -6,49 +7,24 @@ import {
   RuntimeRelationField
 } from '@oinone/kunlun-engine';
 import { StringHelper } from '@oinone/kunlun-shared';
-import { RowContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { get as getValue } from 'lodash-es';
-import { VNode } from 'vue';
-import { SelectTable } from '../../../../components';
-import { FormSelectComplexFieldWidget } from './FormSelectComplexFieldWidget';
+import { TableSelect, TableSelectColumn } from '../../../../components';
+import { SelectFieldWidget } from './SelectFieldWidget';
 
-/**
- * 同 oio-column 组件的 props
- */
-export interface SelectTableColumn extends Record<string, any> {
-  key: string;
-  label: string;
-  field: string;
-  renderDefaultSlot?: (context: RowContext) => string | VNode | undefined;
-}
-
-export abstract class SelectTableFieldWidget<
+export abstract class TableSelectFieldWidget<
+  Option extends ActiveRecord = ActiveRecord,
   Value extends ActiveRecords = ActiveRecords,
   Field extends RuntimeRelationField = RuntimeRelationField
-> extends FormSelectComplexFieldWidget<Value, Field> {
-  public initialize(props: any) {
+> extends SelectFieldWidget<Option, Value, Field> {
+  public initialize(props) {
     super.initialize(props);
-    this.setComponent(SelectTable);
+    this.setComponent(TableSelect);
     return this;
   }
 
-  @Widget.Method()
-  public getDataList() {
-    return this.dataList;
-  }
-
-  @Widget.Method()
-  public change(value) {
-    if (this.field.multi) {
-      this.x2mChange(value);
-    } else {
-      this.x2oChange(value);
-    }
-  }
-
   @Widget.Reactive()
-  protected get optionColumns(): SelectTableColumn[] {
+  protected get tableSelectColumns(): TableSelectColumn[] {
     if (!this.referencesModel) {
       return [];
     }
@@ -62,7 +38,7 @@ export abstract class SelectTableFieldWidget<
     }
     const modelFields = this.referencesModel.modelFields || [];
     const fieldMap = new Map<string, RuntimeModelField>(modelFields.map((f) => [f.data, f]));
-    const columns: SelectTableColumn[] = [];
+    const columns: TableSelectColumn[] = [];
     let index = 0;
     for (const columnField of columnFields) {
       const ss = columnField.split('.');
@@ -72,7 +48,7 @@ export abstract class SelectTableFieldWidget<
       }
       if (ss.length === 1) {
         const { data, name, label } = field;
-        const column: SelectTableColumn = {
+        const column: TableSelectColumn = {
           key: `${data}-${index}`,
           label: label || data,
           field: name
@@ -85,7 +61,7 @@ export abstract class SelectTableFieldWidget<
           const lastField = fields[fields.length - 1];
           const label = fields.map((v) => v.label || v.data).join(' - ');
           const field = fields.map((v) => v.name).join('.');
-          const column: SelectTableColumn = {
+          const column: TableSelectColumn = {
             key: `${field}-${index}`,
             label,
             field
@@ -99,7 +75,7 @@ export abstract class SelectTableFieldWidget<
     return columns;
   }
 
-  protected generatorColumnRender(column: SelectTableColumn, runtimeField: RuntimeModelField) {
+  protected generatorColumnRender(column: TableSelectColumn, runtimeField: RuntimeModelField) {
     const { field } = column;
     if (isEnumerationField(runtimeField)) {
       const mapping: Record<string, string> = {};

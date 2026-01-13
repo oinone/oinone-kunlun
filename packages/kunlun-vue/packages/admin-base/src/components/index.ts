@@ -10,5 +10,3 @@ export * from './oio-simple-pagination';
 export * from './table-line-height';
 export * from './oio-full-screen';
 export * from './sortable-group';
-export * from './select-table';
-export * from './select-modal';

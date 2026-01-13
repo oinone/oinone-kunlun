@@ -33,7 +33,7 @@ const ControlProps = {
     type: [Object, Array]
   },
   options: {
-    type: Array as PropType<object[]>
+    type: Array as PropType<OioSelectItem[]>
   },
   initLoad: {
     type: Function
@@ -75,6 +75,9 @@ export const BaseSelectProps = {
   ...SearchProps,
   'onUpdate:search-value': {
     type: Function
+  },
+  'onUpdate:dropdown-visible': {
+    type: Function
   }
 };
 
@@ -84,13 +87,19 @@ export const DefaultSelectProps = {
   ...AppearanceProps,
   ...ControlProps,
   ...SearchProps,
+  options: {
+    type: Array as PropType<OioSelectItem<object>[]>
+  },
+  initSelectedOptions: {
+    type: Array as PropType<OioSelectItem<object>[]>
+  },
+  selected: {
+    type: [Object, Array] as PropType<OioSelectItem<object> | OioSelectItem<object>[]>
+  },
   onUpdateSearchValue: {
     type: Function
   },
-  initSelectedOptions: {
-    type: Array as PropType<OioSelectItem[]>
-  },
-  selected: {
-    type: [Object, Array] as PropType<OioSelectItem | OioSelectItem[]>
+  onUpdateDropdownVisible: {
+    type: Function
   }
 };

@@ -18,7 +18,7 @@ import { DefaultSelect } from '../../../../components';
 import { FormComplexFieldProps } from '../FormComplexFieldWidget';
 import { BaseSelectFieldWidget } from './BaseSelectFieldWidget';
 
-export class SelectFieldWidget<
+export abstract class SelectFieldWidget<
   Option extends ActiveRecord = ActiveRecord,
   Value extends ActiveRecords = ActiveRecords,
   Field extends RuntimeRelationField = RuntimeRelationField,
@@ -27,7 +27,7 @@ export class SelectFieldWidget<
   @Widget.Reactive()
   protected mode: SelectMode = SelectMode.single;
 
-  public initialize(props) {
+  public initialize(props: Props) {
     super.initialize(props);
     this.setComponent(DefaultSelect);
     return this;
