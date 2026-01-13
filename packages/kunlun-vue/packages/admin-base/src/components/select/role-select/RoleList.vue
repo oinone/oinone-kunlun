@@ -30,6 +30,9 @@ export default defineComponent({
     load: {
       type: Function as PropType<ListStateLoadFunction<PamirsEmployee>>
     },
+    model: {
+      type: String
+    },
     domain: {
       type: String
     },

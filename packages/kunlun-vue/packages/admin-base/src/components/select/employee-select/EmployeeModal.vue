@@ -58,6 +58,18 @@ export default defineComponent({
     allowClear: {
       type: Boolean
     },
+    model: {
+      type: String
+    },
+    companyModel: {
+      type: String
+    },
+    departmentModel: {
+      type: String
+    },
+    roleModel: {
+      type: String
+    },
     domain: {
       type: String
     },
@@ -139,6 +151,7 @@ export default defineComponent({
       queryWrapper: QueryWrapper
     ) => {
       return service.queryListByFilter({
+        model: props.model,
         rsql: queryWrapper.rsql,
         employeeCodes: props.employeeCodes,
         departmentCodes: props.departmentCodes,
@@ -167,6 +180,7 @@ export default defineComponent({
       queryWrapper: QueryWrapper
     ) => {
       return service.queryListByFilter({
+        model: props.model,
         rsql: queryWrapper.rsql,
         userEmployee: true
       });
@@ -254,6 +268,10 @@ export default defineComponent({
       $translate,
       mode,
       allowClear,
+      model,
+      companyModel,
+      departmentModel,
+      roleModel,
       domain,
       employeeCodes,
       departmentCodes,
@@ -313,6 +331,9 @@ export default defineComponent({
                 mode,
                 initCheckedKeys,
                 onInit,
+                model,
+                companyModel,
+                departmentModel,
                 domain,
                 employeeCodes,
                 departmentCodes,
@@ -334,6 +355,7 @@ export default defineComponent({
                   usingLoading: false,
                   autoInit: true,
                   load: deptEmployeeLoad,
+                  model,
                   domain,
                   initCheckedKeys,
                   checkedKeys: state.checkedKeys,
@@ -356,6 +378,8 @@ export default defineComponent({
                 mode,
                 onUpdateState,
                 initCheckedKeys,
+                model: roleModel,
+                employeeModel: model,
                 domain,
                 roleCodes,
                 onInit: onInitRoleEmployeeList,
@@ -381,6 +405,7 @@ export default defineComponent({
                   usingLoading: false,
                   autoInit: true,
                   load: currentEmployeeLoad,
+                  model,
                   domain,
                   initCheckedKeys: state.checkedKeys,
                   checkedKeys: state.checkedKeys,
