@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2657071 */
-  src: url('iconfont.woff2?t=1767950622369') format('woff2'),
-       url('iconfont.woff?t=1767950622369') format('woff'),
-       url('iconfont.ttf?t=1767950622369') format('truetype');
+  src: url('iconfont.woff2?t=1768384041931') format('woff2'),
+       url('iconfont.woff?t=1768384041931') format('woff'),
+       url('iconfont.ttf?t=1768384041931') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,26 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.oinone-zhediemianban:before {
+  content: "\e9fa";
+}
+
+.oinone-duojibiaotou:before {
+  content: "\e9fb";
+}
+
+.oinone-liefenzu:before {
+  content: "\e9f9";
+}
+
+.oinone-weixin1:before {
+  content: "\e649";
+}
+
+.oinone-biezhen:before {
+  content: "\e9e3";
 }
 
 .oinone-copy-outlined:before {
@@ -289,7 +309,7 @@
   content: "\e9b5";
 }
 
-.oinone-gongsi1:before {
+.oinone-company-outlined:before {
   content: "\c6a2";
 }
 
