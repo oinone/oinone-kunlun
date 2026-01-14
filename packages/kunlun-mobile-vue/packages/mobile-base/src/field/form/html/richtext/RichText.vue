@@ -1,27 +1,28 @@
 <template>
   <div class="mobile-form-rich-text" :class="className">
-<!--    <Toolbar :editor-id="editorId" :editor="editorRef" :default-config="toolbarConfig" />-->
-<!--    <Editor-->
-<!--      ref="editorNodeRef"-->
-<!--      :editor-id="editorId"-->
-<!--      :default-config="editorConfig"-->
-<!--      v-model="defaultHtml"-->
-<!--      @onCreated="handleCreated"-->
-<!--      @onFocus="focus"-->
-<!--      @onBlur="onBlur"-->
-<!--      @onChange="handleChange"-->
-<!--      :style="editorStyle"-->
-<!--    />-->
+    <Toolbar :editor-id="editorId" :editor="editorRef" :default-config="toolbarConfig" />
+    <Editor
+      ref="editorNodeRef"
+      :editor-id="editorId"
+      :default-config="editorConfig"
+      v-model="defaultHtml"
+      @onCreated="handleCreated"
+      @onFocus="focus"
+      @onBlur="onBlur"
+      @onChange="handleChange"
+      :style="editorStyle"
+    />
   </div>
 </template>
 <script lang="ts">
-import { delay } from 'lodash-es';
 import { BooleanHelper } from '@oinone/kunlun-shared';
-import { IToolbarConfig } from '@wangeditor/editor';
-// import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import { createResourceFile, getFileSignature } from '@oinone/kunlun-vue-ui-common';
-import { computed, defineComponent, onBeforeUnmount, ref, shallowRef, watch } from 'vue';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { IToolbarConfig } from '@wangeditor/editor';
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
+import { delay } from 'lodash-es';
+import { computed, defineComponent, onBeforeUnmount, ref, shallowRef, watch } from 'vue';
+
 import '@wangeditor/editor/dist/css/style.css';
 
 type InsertImgFnType = (url: string, alt?: string, href?: string) => void;
@@ -104,7 +105,7 @@ class MyUploadAdapter {
 }
 
 export default defineComponent({
-  // components: { Toolbar, Editor },
+  components: { Toolbar, Editor },
   props: [
     'value',
     'field',
@@ -326,6 +327,7 @@ export default defineComponent({
 <style lang="scss">
 .mobile-form-rich-text {
   text-align: left;
+
   .w-e-text {
     padding: 0 10px;
   }
@@ -333,6 +335,7 @@ export default defineComponent({
   .w-e-textarea-video-container {
     background-image: none;
     border: none;
+
     video {
       object-fit: cover;
     }
@@ -341,6 +344,7 @@ export default defineComponent({
   .w-e-toolbar .w-e-menu:hover {
     background-color: transparent;
   }
+
   .w-e-toolbar .w-e-menu:hover i {
     color: #999;
   }

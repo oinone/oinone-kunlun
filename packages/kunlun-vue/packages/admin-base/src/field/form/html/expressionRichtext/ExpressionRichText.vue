@@ -1,32 +1,49 @@
 <template>
   <div class="form-rich-text form-expression-rich-text">
-<!--    <Toolbar :editor-id="editorId" :editor="editorRef" :default-config="toolbarConfig" :mode="mode" />-->
-<!--    <Editor-->
-<!--      :editor-id="editorId"-->
-<!--      :default-config="editorConfig"-->
-<!--      :mode="mode"-->
-<!--      v-model="defaultHtml"-->
-<!--      @onCreated="handleCreated"-->
-<!--      @onDestroyed="handleDestroyed"-->
-<!--      @onChange="handleChange"-->
-<!--      :style="editorStyle"-->
-<!--    />-->
+    <Toolbar :editor-id="editorId" :editor="editorRef" :default-config="toolbarConfig" :mode="mode" />
+    <Editor
+      :editor-id="editorId"
+      :default-config="editorConfig"
+      :mode="mode"
+      v-model="defaultHtml"
+      @onCreated="handleCreated"
+      @onDestroyed="handleDestroyed"
+      @onChange="handleChange"
+      :style="editorStyle"
+    />
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, type PropType, ref, shallowRef, watch } from 'vue';
-import { ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
 import { translateValueByKey } from '@oinone/kunlun-engine';
-// import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
-import { i18nChangeLanguage } from '@wangeditor/editor';
-import { EXPRESSION_MODAL_CLASS_NAME, EXPRESSION_MODAL_PANEL_CLASS_NAME, ExpressionElementClass, type IVariableContextItem, OioWangEditExpressionModalMenuConf } from '@oinone/kunlun-vue-expression';
-import '@wangeditor/editor/dist/css/style.css';
 import { type CSSStyle, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import {
+  EXPRESSION_MODAL_CLASS_NAME,
+  EXPRESSION_MODAL_PANEL_CLASS_NAME,
+  ExpressionElementClass,
+  type IVariableContextItem,
+  OioWangEditExpressionModalMenuConf
+} from '@oinone/kunlun-vue-expression';
+import { ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
+import { i18nChangeLanguage } from '@wangeditor/editor';
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
+import {
+  computed,
+  defineComponent,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  type PropType,
+  ref,
+  shallowRef,
+  watch
+} from 'vue';
+
+import '@wangeditor/editor/dist/css/style.css';
 
 const EDITOR_DEFAULT_HTML = '<p><br></p>';
 const EDITOR_EXP_MODAL_CLASS = 'exp-modal-in-body';
 export default defineComponent({
-  // components: { Editor, Toolbar },
+  components: { Editor, Toolbar },
   props: {
     contextItems: Array as PropType<IVariableContextItem[]>,
     change: {
@@ -72,7 +89,7 @@ export default defineComponent({
     const editorConfig = computed(() => {
       return {
         placeholder: `${translateValueByKey('请输入内容')}...`,
-        EXTEND_CONF: { contextItems: props.contextItems },
+        EXTEND_CONF: { contextItems: props.contextItems }
       };
     });
 
