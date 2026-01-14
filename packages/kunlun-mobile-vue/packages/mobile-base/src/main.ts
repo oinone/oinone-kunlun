@@ -33,11 +33,11 @@ export class VueMobileFrameworkInitializeService implements FrameworkInitializeS
     frameworkFactory.set('route', CreateVueRoute);
 
     // 防止在界面设计器中跟pc端重复
-    attachmentModule.menus?.forEach((menu) => {
+    ((attachmentModule as any).default || attachmentModule).menus?.forEach((menu) => {
       menu.key = `mobile${menu.key.charAt(0).toUpperCase()}${menu.key.slice(1)}`;
     });
 
-    Boot.registerModule(attachmentModule);
+    Boot.registerModule((attachmentModule as any).default || attachmentModule);
   }
 
   public after(props: OioProviderProps) {

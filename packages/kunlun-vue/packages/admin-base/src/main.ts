@@ -31,7 +31,7 @@ export class VueFrameworkInitializeService implements FrameworkInitializeService
 
     // wangEditor 默认的 plugins 数量是 13，如果大于 13，证明已经注册过了
     if (Boot.plugins.length <= 13) {
-      Boot.registerModule(attachmentModule);
+      Boot.registerModule((attachmentModule as any).default || attachmentModule);
     }
   }
 
