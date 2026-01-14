@@ -7,10 +7,10 @@ import {
   OioDropdownTrigger,
   PropRecordHelper
 } from '@oinone/kunlun-vue-ui-common';
-import { Dropdown as ADropdown } from 'ant-design-vue';
 import { isNil, isString } from 'lodash-es';
 import { computed, createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
+import ADropdown from './override/Dropdown.js';
 
 export default defineComponent({
   name: 'OioDropdown',
