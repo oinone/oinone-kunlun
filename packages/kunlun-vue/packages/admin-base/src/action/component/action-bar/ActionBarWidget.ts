@@ -188,6 +188,9 @@ export class ActionBarWidget<
         }
       }
     }
+    if (!this.actionBarState) {
+      this.actionBarState = this.viewState?.getActionBarState();
+    }
   }
 
   protected $$beforeMount() {
@@ -200,9 +203,6 @@ export class ActionBarWidget<
         this.$$initViewStatePosition(this.viewState);
         this.$$initViewState(this.viewState);
       }
-    }
-    if (!this.actionBarState) {
-      this.actionBarState = this.viewState?.getActionBarState();
     }
     if (this.viewState && !isInitStatePosition) {
       this.$$initViewStatePosition(this.viewState);

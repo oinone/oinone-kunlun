@@ -526,7 +526,7 @@
     {
       "icon_id": "46261498",
       "name": "公司",
-      "font_class": "gongsi1",
+      "font_class": "company-outlined",
       "unicode": "c6a2",
       "unicode_decimal": 50850
     },

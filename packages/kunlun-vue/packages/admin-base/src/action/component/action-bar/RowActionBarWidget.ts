@@ -92,6 +92,9 @@ export class RowActionBarWidget<
         inline: true
       });
     }
+    if (!this.actionBarState) {
+      this.actionBarState = this.viewState?.getActionBarState(rowIndex);
+    }
   }
 
   protected $$unmounted() {
