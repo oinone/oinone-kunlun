@@ -318,6 +318,7 @@ export default defineComponent({
     padding: var(--oio-padding);
   }
 }
+
 .gallery-header {
   display: flex;
   align-items: center;

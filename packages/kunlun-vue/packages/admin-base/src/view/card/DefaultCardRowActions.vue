@@ -29,7 +29,7 @@ function createMoreAction(vnodes: VNode[], allMounted: Function | undefined): VN
   return createVNode(
     DefaultDropdown,
     {
-      trigger: [OioDropdownTrigger.click, OioDropdownTrigger.hover],
+      trigger: [OioDropdownTrigger.hover],
       placement: OioDropdownPlacement.tm,
       allMounted
     },

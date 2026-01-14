@@ -123,19 +123,9 @@
     button {
       @import '../../oio-button/style/a-button.scss';
 
-      &.ant-btn {
-        height: var($parameterPrefix + -height);
-        margin: var($parameterPrefix + -margin-xxs) 0 var($parameterPrefix + -margin-xxs)
-          var($parameterPrefix + -margin-md);
-
-        & + .ant-btn {
-          margin-left: var($parameterPrefix + -margin-md);
-        }
+      &.ant-btn + .ant-btn:not(.ant-dropdown-trigger) {
+        margin-inline-start: var($parameterPrefix + -margin-md);
       }
-    }
-
-    .ant-btn + .ant-btn:not(.ant-dropdown-trigger) {
-      margin-inline-start: var($parameterPrefix + -margin-md);
     }
   }
 

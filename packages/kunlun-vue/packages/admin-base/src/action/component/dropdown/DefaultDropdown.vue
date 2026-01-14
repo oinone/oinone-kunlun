@@ -102,8 +102,6 @@ export default defineComponent({
             }
           } else if ((vnode.type as { name: string })?.name?.toLowerCase?.() === InternalWidget.Action) {
             children.push(vnode);
-          } else if ((vnode.type as { name: string })?.name?.toLowerCase?.() === InternalWidget.Action) {
-            children.push(vnode);
           }
         }
         return true;

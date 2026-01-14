@@ -289,6 +289,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
         displayName: translateValueByKey('设计导入（迁移）'),
         icon: 'oinone-a-shejidaoru4x',
         visible: (record) => this.hasImportAction && record.state === AppState.INSTALLED,
+        exe: () => {},
         children: [
           {
             displayName: translateValueByKey('模型导入'),
@@ -388,6 +389,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
         displayName: translateValueByKey('设计导出'),
         icon: 'oinone-a-shejidaochu4x',
         visible: (record) => this.hasExportAction && record.state === AppState.INSTALLED,
+        exe: () => {},
         children: [
           {
             displayName: translateValueByKey('模型导出'),
@@ -486,6 +488,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
         displayName: translateValueByKey('同步部署'),
         icon: 'oinone-a-tongbubushu4x',
         visible: (record) => this.hasSyncAction && record.state === AppState.INSTALLED,
+        exe: () => {},
         children: [
           {
             displayName: translateValueByKey('模型部署'),
