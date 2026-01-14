@@ -280,7 +280,7 @@ export default defineComponent({
 
     // 组件销毁时，也及时销毁编辑器
     onBeforeUnmount(() => {
-      editorRef.value.destroy?.();
+      editorRef.value?.destroy?.();
     });
 
     const handleChange = (editor) => {
