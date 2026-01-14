@@ -103,7 +103,7 @@ export const OioTabsProps = {
 export const OioTabProps = {
   ...OioComponentData,
   ...OioBaseContainerProps,
-  key: {
+  tabKey: {
     type: String
   },
   tab: {

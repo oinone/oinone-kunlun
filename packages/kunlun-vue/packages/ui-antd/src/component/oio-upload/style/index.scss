@@ -2,6 +2,11 @@
 @import '../../../style/mixin.scss';
 
 .#{$uploadClassPrefix} {
+  &.ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select {
+    @include oio-appearance($uploadParameterPrefix);
+    margin: 0;
+  }
+
   &.ant-upload-picture-card-wrapper {
     .ant-upload-list-picture-card {
       .ant-upload-list-item:hover {
@@ -11,6 +16,7 @@
         }
       }
     }
+
     .ant-upload-select-picture-card {
       @include oio-appearance($uploadParameterPrefix);
       margin: 0;
@@ -46,8 +52,6 @@
   }
 }
 
-.#{$uploadClassPrefix}-disabled {
-}
 .#{$uploadClassPrefix}-readonly {
   .ant-upload-select {
     pointer-events: none;

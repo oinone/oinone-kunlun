@@ -6,7 +6,7 @@
         <div class="oio-group-title-wrapper">
           <div class="oio-group-title">{{ translateValueByKey('主题风格') }}</div>
         </div>
-        <a-radio-group v-model:value="style">
+        <a-radio-group class="oio-radio-group" v-model:value="style">
           <a-radio style="color: var(--oio-text-color)" value="minimalism">{{ translateValueByKey('极简') }}</a-radio>
           <a-radio style="color: var(--oio-text-color)" value="classic">{{ translateValueByKey('经典') }}</a-radio>
         </a-radio-group>
@@ -17,15 +17,15 @@
         <div class="oio-group-title-wrapper">
           <div class="oio-group-title">{{ translateValueByKey('主题模式') }}</div>
         </div>
-        <a-radio-group v-model:value="mode">
+        <a-radio-group class="oio-radio-group" v-model:value="mode">
           <div class="flex-s-c">
             <div class="light-mode margin-right">
               <div class="light-mode-image" :class="[mode === 'default' && 'active']" @click="mode = 'default'">
                 <img :src="lightMode()" alt="" style="width: 100%; height: 100%" />
               </div>
-              <a-radio style="color: var(--oio-text-color)" value="default">{{
-                translateValueByKey('浅色模式')
-              }}</a-radio>
+              <a-radio style="color: var(--oio-text-color)" value="default"
+                >{{ translateValueByKey('浅色模式') }}
+              </a-radio>
             </div>
             <div class="dark-mode">
               <div class="dark-mode-image" :class="[mode === 'dark' && 'active']" @click="mode = 'dark'">
@@ -42,7 +42,7 @@
         <div class="oio-group-title-wrapper">
           <div class="oio-group-title">{{ translateValueByKey('尺寸') }}</div>
         </div>
-        <a-radio-group v-model:value="size">
+        <a-radio-group class="oio-radio-group" v-model:value="size">
           <a-radio style="color: var(--oio-text-color)" value="large">{{ translateValueByKey('大') }}</a-radio>
           <a-radio style="color: var(--oio-text-color)" value="medium">{{ translateValueByKey('中') }}</a-radio>
           <a-radio style="color: var(--oio-text-color)" value="small">{{ translateValueByKey('小') }}</a-radio>
@@ -54,7 +54,7 @@
         <div class="oio-group-title-wrapper">
           <div class="oio-group-title">{{ translateValueByKey('侧边栏颜色') }}</div>
         </div>
-        <a-radio-group v-model:value="currentMenuColor">
+        <a-radio-group class="oio-radio-group" v-model:value="currentMenuColor">
           <div class="flex-s-c common-layout-list">
             <div
               class="common-layout-item"
@@ -82,7 +82,7 @@
         <div class="oio-group-title-wrapper">
           <div class="oio-group-title">{{ translateValueByKey('侧边栏样式') }}</div>
         </div>
-        <a-radio-group v-model:value="currentSidebar">
+        <a-radio-group class="oio-radio-group" v-model:value="currentSidebar">
           <div class="flex-s-c common-layout-list">
             <div
               class="common-layout-item"
@@ -151,13 +151,18 @@
             </a-col>
           </a-row>
         </a-form>
-        <a-radio-group v-show="enabled" v-model:value="inline" style="margin-bottom: var(--oio-margin)">
-          <a-radio :value="false" style="color: var(--oio-text-color)">{{
-            translateValueByKey('外部多tab栏')
-          }}</a-radio>
+        <a-radio-group
+          class="oio-radio-group"
+          v-show="enabled"
+          v-model:value="inline"
+          style="margin-bottom: var(--oio-margin)"
+        >
+          <a-radio :value="false" style="color: var(--oio-text-color)"
+            >{{ translateValueByKey('外部多tab栏') }}
+          </a-radio>
           <a-radio :value="true" style="color: var(--oio-text-color)">{{ translateValueByKey('内部多tab栏') }}</a-radio>
         </a-radio-group>
-        <a-radio-group v-show="enabled" v-model:value="theme">
+        <a-radio-group class="oio-radio-group" v-show="enabled" v-model:value="theme">
           <div class="flex-s-c common-layout-list" style="flex-wrap: wrap">
             <div
               class="common-layout-item"
@@ -183,9 +188,9 @@
 
       <div class="flex-s-c margin-top" style="margin-top: var(--oio-margin)">
         <oio-button class="margin-right" @click="onBack">{{ translateValueByKey('返回') }}</oio-button>
-        <oio-button type="primary" class="margin-right" @click="onSaveSystemConfig(mode, size)">{{
-          translateValueByKey('发布')
-        }}</oio-button>
+        <oio-button type="primary" class="margin-right" @click="onSaveSystemConfig(mode, size)"
+          >{{ translateValueByKey('发布') }}
+        </oio-button>
         <oio-button type="primary" @click="onDownloadTheme">{{ translateValueByKey('下载') }}</oio-button>
       </div>
     </div>
@@ -229,15 +234,21 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, computed, defineProps, watchEffect, watch } from 'vue';
-import { kebabCase } from 'lodash-es';
-import { getTheme } from '@oinone/kunlun-theme';
-import { OioIcon, OioButton } from '@oinone/kunlun-vue-ui-antd';
-import { translateValueByKey, SideBarThemeColor, SideBarTheme, MultiTabTheme, type MajorConfig, type MultiTabsApplicationHomepageConfig } from '@oinone/kunlun-engine';
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
-
+import {
+  type MajorConfig,
+  type MultiTabsApplicationHomepageConfig,
+  MultiTabTheme,
+  SideBarTheme,
+  SideBarThemeColor,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
+import { getTheme } from '@oinone/kunlun-theme';
+import { OioButton, OioIcon } from '@oinone/kunlun-vue-ui-antd';
+import { kebabCase } from 'lodash-es';
+import { computed, defineProps, ref, watch, watchEffect } from 'vue';
 import { useFullscreen } from '../../util';
-import { localSystemTheme, hostImage, lightMode, darkMode } from './localData';
+import { darkMode, hostImage, lightMode, localSystemTheme } from './localData';
 
 const props = defineProps<{
   systemConfig: MajorConfig;
@@ -284,8 +295,8 @@ watchEffect(
 
     const extendMultiTabTheme = extend?.systemStyleConfig?.multiTabConfig;
     if (extendMultiTabTheme || multiTabTheme) {
-      inline.value = extendMultiTabTheme?.inline ?? multiTabTheme?.inline! ?? false;
-      theme.value = extendMultiTabTheme?.theme ?? multiTabTheme?.theme! ?? MultiTabTheme.tab1;
+      inline.value = extendMultiTabTheme?.inline ?? multiTabTheme?.inline ?? false;
+      theme.value = extendMultiTabTheme?.theme ?? multiTabTheme?.theme ?? MultiTabTheme.tab1;
       enabled.value = extendMultiTabTheme?.enabled ?? true;
       draggable.value = extendMultiTabTheme?.draggable ?? true;
       showModuleLogo.value = extendMultiTabTheme?.showModuleLogo ?? true;
@@ -300,7 +311,7 @@ watchEffect(
         extendSideBarTheme?.mode?.toLocaleLowerCase() ??
         (sideBarTheme?.mode?.toLocaleLowerCase() as any) ??
         SideBarThemeColor.default;
-      currentSidebar.value = extendSideBarTheme?.theme ?? sideBarTheme?.theme! ?? SideBarTheme.side1;
+      currentSidebar.value = extendSideBarTheme?.theme ?? sideBarTheme?.theme ?? SideBarTheme.side1;
     }
   },
   {
@@ -418,13 +429,13 @@ const onFullPage = () => {
 const onDownloadTheme = () => {
   const theme = getTheme(`${mode.value}-${size.value}`);
   const prefixName = mode.value === 'default' ? translateValueByKey('浅色') : translateValueByKey('深色');
-  // eslint-disable-next-line no-nested-ternary
+
   const suffixName =
     size.value === 'large'
       ? translateValueByKey('大主题')
       : size.value === 'medium'
-      ? translateValueByKey('中主题')
-      : translateValueByKey('小主题');
+        ? translateValueByKey('中主题')
+        : translateValueByKey('小主题');
 
   const data = JSON.stringify(theme);
   const blob = new Blob([data], { type: 'application/json' });
@@ -469,11 +480,14 @@ const onDownloadTheme = () => {
 
     .common-layout-list {
       gap: var(--oio-margin);
+
       .common-layout-item {
         text-align: center;
+
         .common-layout-item-image {
           cursor: pointer;
         }
+
         img {
           border: 1px solid var(--oio-border-color);
           border-radius: var(--oio-border-radius);

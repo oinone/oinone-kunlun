@@ -23,7 +23,7 @@ export default defineComponent({
   setup(props) {
     useOioFormLayoutContext(props);
 
-    const tabKey = getVNodeKey();
+    const tabKey = props.tabKey || getVNodeKey();
 
     const tabsContext = useInjectOioTabsContext();
 
@@ -76,6 +76,7 @@ export default defineComponent({
         ...PropRecordHelper.collectionBasicProps(this.$attrs),
         ...(this.componentData || {}),
         ...this.$attrs,
+        tabKey: this.tabKey,
         forceRender: this.forceRender,
         disabled: this.disabled
       },

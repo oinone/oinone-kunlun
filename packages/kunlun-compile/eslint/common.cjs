@@ -3,9 +3,11 @@ const common = {
   files: ['**/*.{ts,mts,tsx,vue}'],
   rules: {
     '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-duplicate-enum-values': 'warn',
     '@typescript-eslint/no-unused-expressions': 'warn',
     '@typescript-eslint/no-unused-vars': 'warn',
     'prefer-rest-params': 'warn',
+    'vue/no-mutating-props': 'warn',
     'vue/no-unused-components': 'warn',
     'vue/multi-word-component-names': 'warn',
     'vue/block-lang': 'warn',

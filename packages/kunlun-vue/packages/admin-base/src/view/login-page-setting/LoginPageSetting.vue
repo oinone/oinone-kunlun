@@ -120,17 +120,15 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, computed, defineProps, watchEffect, h } from 'vue';
+import { CheckCircleFilled, LoadingOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { genStaticPath, OioLoginThemeName, translateValueByKey } from '@oinone/kunlun-engine';
-import { OioIcon, OioButton } from '@oinone/kunlun-vue-ui-antd';
-import { CheckCircleFilled, PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue';
-
-import { useFullscreen } from '../../util';
-
-import LoginComponent from '../login/Login.vue';
+import { OioButton, OioIcon } from '@oinone/kunlun-vue-ui-antd';
+import { computed, defineProps, h, ref, watchEffect } from 'vue';
 import Upload from '../../components/upload/Upload.vue';
 import UploadImg from '../../components/upload/UploadImg.vue';
 import Media from '../../field/form/string/media/Media.vue';
+import { useFullscreen } from '../../util';
+import LoginComponent from '../login/Login.vue';
 
 const props = defineProps<{ loginConfig: Record<string, any>; onSaveLoginConfig: () => void; goBack: () => void }>();
 
@@ -299,6 +297,25 @@ const onFullPage = () => {
     .upload-background-image {
       .ant-upload-list-item-list-type-text {
         display: none;
+      }
+
+      .ant-upload.ant-upload-select-picture-card {
+        cursor: pointer;
+        height: 104px;
+        margin-bottom: 8px;
+        margin-right: 8px;
+        text-align: center;
+        transition: border-color 0.3s;
+        vertical-align: top;
+        width: 104px;
+      }
+
+      .ant-upload.ant-upload-select-picture-card > .ant-upload {
+        align-items: center;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        text-align: center;
       }
     }
   }
