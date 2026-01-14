@@ -56,6 +56,7 @@ $select-width: 328px;
     }
 
     .ant-input-affix-wrapper {
+      display: inline-flex;
       overflow: hidden;
       padding: 0 5px 0 0;
       border-radius: var(--oio-input-border-radius) 0 0 var(--oio-input-border-radius);
@@ -210,6 +211,13 @@ $select-width: 328px;
           max-width: 200px;
         }
       }
+    }
+
+    .ant-input-prefix,
+    .ant-input-suffix {
+      align-items: center;
+      display: flex;
+      flex: none;
     }
   }
 
