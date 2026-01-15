@@ -1,5 +1,8 @@
 <template>
-  <div style="background: rgba(247, 181, 0, 0.1); padding: 9px 12px; border-radius: 4px; color: var(--oio-text-color)">
+  <div
+    class="form-string-with-copy"
+    style="background: rgba(247, 181, 0, 0.1); padding: 9px 12px; border-radius: 4px; color: var(--oio-text-color)"
+  >
     {{ value }}
     <OioIcon
       icon="oinone-copy"

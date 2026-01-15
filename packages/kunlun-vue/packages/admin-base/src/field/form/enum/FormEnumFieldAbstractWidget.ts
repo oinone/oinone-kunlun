@@ -3,9 +3,9 @@ import {
   type RuntimeEnumerationOption,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { deepClone, EnumOptionState } from '@oinone/kunlun-meta';
+import { deepClone, EnumOptionState, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, type EnumerationValue } from '@oinone/kunlun-shared';
-import { WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { SearchTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toString } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';
@@ -264,5 +264,29 @@ export abstract class FormEnumFieldAbstractWidget<
       return _radioMode;
     }
     return undefined;
+  }
+
+  public defaultSearchTrigger: SearchTrigger[] = [SearchTrigger.CHANGE];
+
+  @Widget.Reactive()
+  protected get searchTrigger(): SearchTrigger[] {
+    const searchTrigger = (this.getDsl().searchTrigger as string)
+      ?.split(',')
+      ?.map((v) => v.trim().toLowerCase?.() as SearchTrigger);
+    if (searchTrigger) {
+      return searchTrigger;
+    }
+    return this.defaultSearchTrigger;
+  }
+
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected onSearch: (() => void) | undefined;
+
+  protected override afterChange() {
+    super.afterChange();
+    if (this.viewType === ViewType.Search && this.searchTrigger.includes(SearchTrigger.CHANGE)) {
+      this.onSearch?.();
+    }
   }
 }

@@ -421,6 +421,7 @@ export default defineComponent({
       'suffixIcon',
       'option'
     ];
+
     if (allowSearch && (!searchArea || searchArea === SelectSearchArea.default)) {
       props.showSearch = true;
       props.onSearch = onSearch;
@@ -447,6 +448,10 @@ export default defineComponent({
           return [];
         }
       });
+    }
+
+    if (props.options === null) {
+      slotNames.push('default');
     }
     const selectVNode = createVNode(ASelect, props, PropRecordHelper.collectionSlots($slots, slotNames));
     const classNames = ['oio-basic-select-wrapper'];

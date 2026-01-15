@@ -2,6 +2,7 @@ import { type DslDefinition, DslDefinitionHelper, type ViewDslDefinition } from 
 import { ModelFieldType } from '@oinone/kunlun-meta';
 import type { RuntimeEnumerationOption, RuntimeModel } from '../../runtime-metadata';
 import type { RuntimeContext } from '../runtime-context';
+import { convert as actionConvert } from './action/resolve';
 import { dslOptionToEnumerationOption } from './field/enumeration-field';
 import { convert as fieldConvert } from './field/resolve';
 import { selectorResolves } from './spi';
@@ -34,7 +35,7 @@ function traversal(runtimeContext: RuntimeContext, dsl: DslDefinition) {
 
 function resolveModelMetadata(runtimeContext: RuntimeContext, dsl: ViewDslDefinition) {
   for (const model of dsl.metadata?.model || []) {
-    const { model: modelModel, field: fields } = model;
+    const { model: modelModel, field: fields, action: actions } = model;
     let { virtualModels } = runtimeContext;
     if (!virtualModels) {
       virtualModels = {};
@@ -44,7 +45,8 @@ function resolveModelMetadata(runtimeContext: RuntimeContext, dsl: ViewDslDefini
     if (!virtualModel) {
       virtualModel = {
         model: modelModel,
-        fields: {}
+        fields: {},
+        actions: {}
       };
       virtualModels[modelModel] = virtualModel;
     }
@@ -67,6 +69,18 @@ function resolveModelMetadata(runtimeContext: RuntimeContext, dsl: ViewDslDefini
           field.template = undefined;
           virtualModel.fields[field.data] = field;
         }
+      }
+    }
+    for (const virtualAction of actions || []) {
+      let action = actionConvert(resolveRuntimeContext, virtualAction);
+      if (action) {
+        action.modelDefinition = undefined;
+        action = {
+          ...action,
+          ...action.template
+        }; // 虚拟字段上有些东西需要保留,当前转换后template中一部分信息被移除掉了
+        action.template = undefined;
+        virtualModel.actions![action.name] = action;
       }
     }
   }

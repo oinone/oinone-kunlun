@@ -1,4 +1,5 @@
 import { ModelFieldType } from '@oinone/kunlun-meta';
+import { RuntimeAction } from '../runtime-metadata';
 
 export interface QueryVariables extends Record<string, unknown> {
   scene?: string;
@@ -16,6 +17,7 @@ export interface QueryContext extends Record<string, unknown> {
 export interface VirtualModel {
   model: string;
   fields: Record<string, string | VirtualField | VirtualRelationField>;
+  actions?: Record<string, RuntimeAction>;
 }
 
 export interface VirtualField {
