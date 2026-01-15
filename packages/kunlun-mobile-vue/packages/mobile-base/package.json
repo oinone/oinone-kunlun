@@ -10,6 +10,8 @@
     "build-css-rem": "node ../../scripts/px2rem.js ./dist/oinone-kunlun-vue-mobile-base.css",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
+    "format": "prettier --write --experimental-cli src/",
+    "test": "jest",
     "prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
     "postpublish": "node ../../../../scripts/postpublish.cjs",
