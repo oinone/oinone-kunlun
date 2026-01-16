@@ -204,7 +204,7 @@ export abstract class BaseElementListViewWidget<
    */
   @Widget.Provide()
   @Widget.Reactive()
-  protected sortList: ISort[] | undefined = undefined;
+  public sortList: ISort[] | undefined = undefined;
 
   @Widget.Reactive()
   protected get showPagination() {

@@ -1043,7 +1043,7 @@ export class BaseTableWidget<
    */
   @Widget.Provide()
   @Widget.Reactive()
-  protected groupList: GroupingField[] | undefined = undefined;
+  public groupList: GroupingField[] | undefined = undefined;
 
   /**
    * 默认分组字段
