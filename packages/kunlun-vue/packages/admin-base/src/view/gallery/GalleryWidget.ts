@@ -136,7 +136,7 @@ export class GalleryWidget extends BaseElementListViewWidget {
    * 视图控制组，包含所有子组件
    */
   @Widget.Reactive()
-  protected get viewControlWidget(): DslDefinition | undefined {
+  public get viewControlWidget(): DslDefinition | undefined {
     if (!this.viewControlChildren.length) {
       return undefined;
     }

@@ -3,7 +3,6 @@ import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { type ActiveRecord, type ActiveRecords, type Pagination, translateValueByKey } from '@oinone/kunlun-engine';
 import { EDirection, ISort } from '@oinone/kunlun-service';
 import type { ReturnPromise } from '@oinone/kunlun-shared';
-import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import {
   type ActiveEditorContext,
   type CheckedChangeEvent,
@@ -390,9 +389,6 @@ export default defineComponent({
     isHover: {
       type: Boolean,
       default: false
-    },
-    viewControlWidget: {
-      type: Object as PropType<DslDefinition>
     },
     showAddBtn: {
       type: Boolean,
@@ -826,7 +822,6 @@ export default defineComponent({
 
       enableSequence,
 
-      viewControlWidget,
       selectMode,
       checkbox,
       checkboxDisabledTitles,
@@ -1142,12 +1137,6 @@ export default defineComponent({
     }
 
     const containerChildren: VNode[] = [];
-    if (viewControlWidget) {
-      const viewControlVNode = DslRender.render(viewControlWidget);
-      if (viewControlVNode) {
-        containerChildren.push(viewControlVNode);
-      }
-    }
     containerChildren.push(createVNode(OioTable, tableProps, tableSlots));
 
     if (allowRowClick) {

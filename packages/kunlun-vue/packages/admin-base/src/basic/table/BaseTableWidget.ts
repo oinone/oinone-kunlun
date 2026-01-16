@@ -162,7 +162,7 @@ export class BaseTableWidget<
    * 视图控制组，包含所有子组件
    */
   @Widget.Reactive()
-  protected get viewControlWidget(): DslDefinition | undefined {
+  public get viewControlWidget(): DslDefinition | undefined {
     if (this.enableViewControl === false) {
       return undefined;
     }

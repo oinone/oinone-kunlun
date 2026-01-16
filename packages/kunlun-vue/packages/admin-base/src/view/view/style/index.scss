@@ -276,11 +276,4 @@ $treeMinWidth: 324px;
       right: unset;
     }
   }
-
-  .default-view-control-icon {
-    &.default-view-control-icon-has-action {
-      bottom: 100%;
-      right: calc(var(--oio-padding-md));
-    }
-  }
 }
