@@ -43,6 +43,12 @@ export interface MaskEditService {
   generatorWidget(widget: string): DslDefinition;
 
   /**
+   * 生成母版组件DSL
+   * @param dslNodeType
+   */
+  generatorWidgetByDslNodeType(dslNodeType: string): DslDefinition;
+
+  /**
    * 生成分割线DSL
    */
   generatorDivider(): DslDefinition;

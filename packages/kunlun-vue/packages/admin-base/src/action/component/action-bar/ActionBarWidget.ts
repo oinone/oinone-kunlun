@@ -38,6 +38,7 @@ export class ActionBarWidget<
     this.setComponent(DefaultActionBar);
     this.inline = props.inline || false;
     this.moreActionRender = props.moreActionRender;
+    this.createHookWidgets(['before', 'after', 'left', 'right']);
     return this;
   }
 

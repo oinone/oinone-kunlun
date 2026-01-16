@@ -42,6 +42,15 @@
   &-loading-reverse {
     animation: oio-rotating-reverse 1.2s linear infinite;
   }
+
+  &.#{$iconClassPrefix}-img {
+    vertical-align: 0.125em;
+  }
+
+  img {
+    width: var($iconParameterPrefix + -width);
+    height: var($iconParameterPrefix + -height);
+  }
 }
 
 .oio-close-icon {

@@ -40,6 +40,8 @@ export class DslRenderWidget<Props extends DslRenderWidgetProps = DslRenderWidge
   @Widget.Reactive()
   protected slotName: string | undefined;
 
+  protected renderProps: Props | undefined;
+
   protected supportedSlotNames!: string[];
 
   protected dslSlots: DslSlots | undefined;
@@ -48,6 +50,7 @@ export class DslRenderWidget<Props extends DslRenderWidgetProps = DslRenderWidge
 
   public initialize(props: Props) {
     super.initialize(props);
+    this.renderProps = props;
     this.internal = props.internal || false;
     this.template = props.template;
     this.slotName = props.slotName;

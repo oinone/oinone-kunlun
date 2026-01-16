@@ -625,7 +625,10 @@ export class VueWidget<Props extends WidgetProps = WidgetProps> extends Widget<P
         const { $slots } = ctx;
         const componentProps = this.resolveProps(component, props);
 
-        const children = $slots && Object.keys($slots).length ? $slots : this.resolveChildren();
+        const children = {
+          ...this.resolveChildren(),
+          ...$slots
+        };
 
         const expandCom = this.renderExpandComponent() as VNode;
         const expandSlot = {} as Record<string, any>;

@@ -247,7 +247,7 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
 
     this.loading = false;
 
-    return this.renderMainView(oldPage, newPage);
+    return this.renderMainView(runtimeViewAction, oldPage, newPage);
   }
 
   protected async fetchRuntimeViewAction(
@@ -382,6 +382,10 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
         model,
         action,
 
+        viewName: viewAction.resViewName,
+        viewType: viewAction.viewType,
+        target: viewAction.target,
+
         previousPage: oldPage,
         currentPage: newPage
       };
@@ -397,6 +401,7 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
    * @protected
    */
   protected async renderMainView(
+    viewAction: RuntimeViewAction,
     oldPage: ViewActionQueryParameter | undefined,
     newPage: ViewActionQueryParameter
   ): Promise<void> {
@@ -408,6 +413,7 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
         model,
         action,
 
+        viewName: viewAction.resViewName,
         viewType,
         target,
 

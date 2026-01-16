@@ -1,8 +1,5 @@
 import { reactive } from 'vue';
-
-export interface OioGlobalState {
-  fullscreen: boolean;
-}
+import { OioGlobalState } from './typing';
 
 function createGlobalState(): OioGlobalState {
   return reactive<OioGlobalState>({

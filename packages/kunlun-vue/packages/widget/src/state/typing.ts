@@ -13,6 +13,10 @@ export interface RenderPosition {
   rowIndex?: number; // fixme @zbh 20251205 rowIndex 无法准确设置，暂不可用
 }
 
+export interface OioGlobalState {
+  fullscreen: boolean;
+}
+
 export interface OioViewState extends StateEntity {
   /**
    * Vue生命周期时可能有值，用于获取渲染参数处理属性多态的问题

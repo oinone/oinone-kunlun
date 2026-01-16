@@ -1,5 +1,5 @@
-import { globalState, type OioGlobalState } from './global';
-import type { OioAnyViewState } from './typing';
+import { globalState } from './global';
+import type { OioAnyViewState, OioGlobalState } from './typing';
 import { clearViewState, createViewState, getViewState, setViewState } from './view';
 
 export function useOioState(): {

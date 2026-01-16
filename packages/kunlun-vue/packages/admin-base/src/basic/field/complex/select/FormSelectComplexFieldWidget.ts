@@ -11,7 +11,7 @@ import {
   type RuntimeRelationField,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { deepClone, type Entity, type IModel, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
+import { type Entity, type IModel, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
 import { Condition, type ObjectValue } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION, IQueryPageOption, IQueryPageResult, queryOne } from '@oinone/kunlun-service';
 import { CastHelper, NumberHelper } from '@oinone/kunlun-shared';
@@ -185,8 +185,11 @@ export abstract class FormSelectComplexFieldWidget<
   }
 
   protected async fillOptionsForMulti(dataList: Record<string, unknown>[]) {
-    const list = deepClone(dataList || []);
-    const pk = this.referencesModel!.pks!;
+    const pk = this.referencesModel?.pks;
+    if (!pk) {
+      console.error(`current model is not found pks. field: ${this.field.data}`);
+      return;
+    }
     if (this.selectedValues) {
       for (let j = 0; j < this.selectedValues.length; j++) {
         const selected = this.selectedValues[j];

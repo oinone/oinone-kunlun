@@ -1,6 +1,11 @@
 <template>
   <div class="k-layout-extra-btn">
-    <a-popover :open="visible" trigger="click" overlayClassName="message-popover-wrapper" @update:open="onShowPopover">
+    <a-popover
+      :open="visible"
+      trigger="click"
+      overlayClassName="oio-popover message-popover-wrapper"
+      @update:open="onShowPopover"
+    >
       <template #content>
         <div class="message-tabs">
           <div
@@ -8,21 +13,21 @@
             :class="[messageType === 'WORKFLOW' ? 'active' : '']"
             @click="onChangeMessageType('WORKFLOW')"
           >
-            {{ translateValueByKey('任务待办') }}
+            {{ $translate('任务待办') }}
           </div>
           <div
             class="message-tab-item"
             :class="[messageType === 'COPY' ? 'active' : '']"
             @click="onChangeMessageType('COPY')"
           >
-            {{ translateValueByKey('抄送') }}
+            {{ $translate('抄送') }}
           </div>
           <div
             class="message-tab-item"
             :class="[messageType === 'NOTIFICATION' ? 'active' : '']"
             @click="onChangeMessageType('NOTIFICATION')"
           >
-            {{ translateValueByKey('站内信') }}
+            {{ $translate('站内信') }}
           </div>
         </div>
         <div class="message-list k-layout-extra-btn-message">
@@ -35,11 +40,10 @@
               <i class="iconfont oinone-xitongtongzhi"></i>
             </div>
             <div class="center-content">
-              <div class="title" style="font-weight: 500">{{ translateValueByKey(messageInfo.title) }}</div>
+              <div class="title" style="font-weight: 500">{{ $translate(messageInfo.title) }}</div>
               <div class="des">
-                {{ translateValueByKey('您好') }}，{{
-                  getMessageCount() ? translateValueByKey('您有') : translateValueByKey('您暂无')
-                }}{{ translateValueByKey(messageInfo.desc) }}
+                {{ $translate('您好') }}，{{ getMessageCount() ? $translate('您有') : $translate('您暂无')
+                }}{{ $translate(messageInfo.desc) }}
               </div>
             </div>
             <!--            <div class="right" v-if="messageList.length">-->
@@ -67,27 +71,23 @@
                 <div class="des opacity-6">{{ formatDateTime(message.createDate) }}</div>
               </div>
               <div class="right">
-                <div class="urge-workflow" v-if="message.message.extendIcon">{{ translateValueByKey('催') }}</div>
+                <div class="urge-workflow" v-if="message.message.extendIcon">{{ $translate('催') }}</div>
                 <div
                   class="action"
                   @click="onDetail(message.message, message)"
                   v-if="message.messageType === 'WORKFLOW'"
                 >
-                  {{
-                    message.message.workFlowTaskType === '审批'
-                      ? translateValueByKey('去审批')
-                      : translateValueByKey('去填写')
-                  }}
+                  {{ message.message.workFlowTaskType === '审批' ? $translate('去审批') : $translate('去填写') }}
                 </div>
                 <div
                   class="action"
                   @click="onDetail(message.message, message)"
                   v-else-if="message.messageType === 'COPY'"
                 >
-                  {{ translateValueByKey('去查看') }}
+                  {{ $translate('去查看') }}
                 </div>
                 <div class="action" @click="onDetail(message.message, message)" v-else>
-                  {{ translateValueByKey(messageInfo.btn) }}
+                  {{ $translate(messageInfo.btn) }}
                 </div>
               </div>
             </div>
@@ -97,7 +97,7 @@
 
       <div class="btn">
         <oio-icon icon="oinone-xiaoxi" size="16px" />
-        <span class="msg-text">{{ translateValueByKey('消息') }}</span>
+        <span class="msg-text">{{ $translate('消息') }}</span>
         <div class="message-number" v-if="unreadNumber !== 0">{{ unreadNumber }}</div>
       </div>
     </a-popover>
@@ -114,9 +114,7 @@
         </div>
       </template>
       <template #footer>
-        <oio-button key="submit" type="primary" @click="onHideConfirmModal">
-          {{ translateValueByKey('确 定') }}</oio-button
-        >
+        <oio-button key="submit" type="primary" @click="onHideConfirmModal"> {{ $translate('确 定') }}</oio-button>
       </template>
       <div>
         <div v-html="currentMessage.body" class="message-richtext-wrapper"></div>
@@ -125,8 +123,8 @@
   </div>
 </template>
 <script lang="ts">
-import { translateValueByKey } from '@oinone/kunlun-engine';
 import { OioButton, OioIcon } from '@oinone/kunlun-vue-ui-antd';
+import { Modal as AModal, Popover as APopover } from 'ant-design-vue';
 import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -134,7 +132,9 @@ export default defineComponent({
   inheritAttrs: false,
   components: {
     OioIcon,
-    OioButton
+    OioButton,
+    APopover,
+    AModal
   },
   props: [
     'msgTotal',
@@ -163,8 +163,9 @@ export default defineComponent({
       props.toggleDialog();
     };
 
-    const onShowPopover = (visible: boolean) => {
-      if (visible) {
+    const onShowPopover = (val: boolean) => {
+      visible.value = val;
+      if (val) {
         props.getMessageInfo();
       }
     };
@@ -188,7 +189,6 @@ export default defineComponent({
     return {
       visible,
       unreadNumber,
-      translateValueByKey,
 
       onShowPopover,
       onHideConfirmModal,
