@@ -1,4 +1,4 @@
-import { isAllowSortable } from '@oinone/kunlun-engine';
+import { isAllowSortable, translateValueByKey } from '@oinone/kunlun-engine';
 import { ISort } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
 import { isTableViewState, Widget } from '@oinone/kunlun-vue-widget';
@@ -72,7 +72,7 @@ export class SortControlWidget extends BaseElementWidget {
         const field = this.fieldOptions.find((v) => v.data === sortField);
         return {
           ...sort,
-          title: field?.label
+          title: field?.label || field?.data || translateValueByKey('未知字段')
         };
       }) || []
     );
