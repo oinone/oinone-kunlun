@@ -88,6 +88,19 @@ export const getResourceTimeFormatOptions = (): ResourceDateTimeOption[] => {
           id: 'Cs'
         }
       ]
+    },
+    {
+      displayName: translateValueByKey('毫秒'),
+      code: 'MS',
+      id: 'Ms',
+      concat: '',
+      options: [
+        {
+          displayName: '001',
+          code: 'ms',
+          id: 'CMs'
+        }
+      ]
     }
   ];
 };
