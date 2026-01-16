@@ -3,6 +3,7 @@ import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { type ActiveRecord, type ActiveRecords, type Pagination, translateValueByKey } from '@oinone/kunlun-engine';
 import { EDirection, ISort } from '@oinone/kunlun-service';
 import type { ReturnPromise } from '@oinone/kunlun-shared';
+import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import {
   type ActiveEditorContext,
   type CheckedChangeEvent,
