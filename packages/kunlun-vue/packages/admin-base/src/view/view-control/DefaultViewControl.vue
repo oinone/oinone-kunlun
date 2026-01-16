@@ -1,17 +1,21 @@
 <script lang="ts">
 import { DslDefinition } from '@oinone/kunlun-dsl';
 import { DslRender } from '@oinone/kunlun-vue-widget';
-import { createVNode, defineComponent, type PropType, type VNode } from 'vue';
+import { createVNode, defineComponent, type PropType, type VNode, vShow, withDirectives } from 'vue';
 
 export default defineComponent({
   inheritAttrs: false,
   props: {
     viewControlWidget: {
       type: Object as PropType<DslDefinition>
+    },
+    invisible: {
+      type: Boolean,
+      default: false
     }
   },
   render() {
-    const { viewControlWidget } = this;
+    const { viewControlWidget, invisible } = this;
     const children: VNode[] = [];
     for (const widget of viewControlWidget?.widgets || []) {
       const target = DslRender.render(widget);
@@ -19,12 +23,15 @@ export default defineComponent({
         children.push(target);
       }
     }
-    return createVNode(
-      'div',
-      {
-        class: 'default-view-control-icon'
-      },
-      children
+    return withDirectives(
+      createVNode(
+        'div',
+        {
+          class: 'default-view-control-icon'
+        },
+        children
+      ),
+      [[vShow, invisible]]
     );
   }
 });
