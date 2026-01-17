@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-dependencies",
-  "version": "6.4.5",
+  "version": "6.4.6",
   "main": "index.ts",
   "dependencies": {
     "@oinone/kunlun-cache": "~6.4.0",
@@ -16,13 +16,13 @@
     "@oinone/kunlun-spi": "~6.4.0",
     "@oinone/kunlun-state": "~6.4.0",
     "@oinone/kunlun-theme": "~6.4.0",
-    "@oinone/kunlun-vue-admin-base": "6.4.5",
-    "@oinone/kunlun-vue-admin-layout": "6.4.5",
+    "@oinone/kunlun-vue-admin-base": "6.4.6",
+    "@oinone/kunlun-vue-admin-layout": "6.4.6",
     "@oinone/kunlun-vue-expression": "~6.4.0",
-    "@oinone/kunlun-vue-router": "6.4.5",
-    "@oinone/kunlun-vue-ui": "6.4.5",
-    "@oinone/kunlun-vue-ui-common": "6.4.5",
-    "@oinone/kunlun-vue-widget": "6.4.5"
+    "@oinone/kunlun-vue-router": "6.4.6",
+    "@oinone/kunlun-vue-ui": "6.4.6",
+    "@oinone/kunlun-vue-ui-common": "6.4.6",
+    "@oinone/kunlun-vue-widget": "6.4.6"
   },
   "peerDependencies": {
     "@element-plus/icons-vue": ">=2.0.9",
