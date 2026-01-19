@@ -240,6 +240,11 @@ export default defineComponent({
       }
     };
 
+    const onClickStop = (e: MouseEvent) => {
+      e.stopPropagation();
+      e.preventDefault();
+    };
+
     const onGlobalMouseDown = (e: MouseEvent) => {
       focusSearchInput = e.target === dropdownInputRef.value?.originInput?.input;
     };
@@ -273,7 +278,8 @@ export default defineComponent({
       onBlur,
       onSearchInputFocus,
       onSearchInputBlur,
-      onSearchInputKeydown
+      onSearchInputKeydown,
+      onClickStop
     };
   },
   render() {
@@ -309,11 +315,13 @@ export default defineComponent({
       onKeydown,
       onSearchInputFocus,
       onSearchInputBlur,
-      onSearchInputKeydown
+      onSearchInputKeydown,
+      onClickStop
     } = this;
+    const selectClassNames = ['oio-select', 'oio-basic-select'];
     const props: Record<string, unknown> = {
       ref: 'origin',
-      class: 'oio-select oio-basic-select',
+      class: selectClassNames,
       dropdownClassName: StringHelper.append(['oio-select-dropdown oio-basic-select-dropdown'], dropdownClassName).join(
         ' '
       ),
@@ -340,6 +348,7 @@ export default defineComponent({
       onKeydown
     };
     if (mode === SelectMode.multiple) {
+      selectClassNames.push('oio-select-multiple');
       if (value == null) {
         props.value = undefined;
       } else if (Array.isArray(value)) {
@@ -421,7 +430,6 @@ export default defineComponent({
       'suffixIcon',
       'option'
     ];
-
     if (allowSearch && (!searchArea || searchArea === SelectSearchArea.default)) {
       props.showSearch = true;
       props.onSearch = onSearch;
@@ -429,6 +437,12 @@ export default defineComponent({
       props.showSearch = false;
     }
     if (readonly) {
+      selectClassNames.push('oio-select-readonly');
+      props.disabled = true;
+      props.open = false;
+      props.onClick = onClickStop;
+      props.onDropdownVisibleChange = null;
+      props.onKeydown = null;
       props.notFoundContent = null;
     } else if (notFoundContent === null) {
       props.notFoundContent = null;

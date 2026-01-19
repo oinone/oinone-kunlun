@@ -396,7 +396,10 @@ export class BaseFormItemWidget<
   }
 
   protected blurValueChange() {
-    return JSON.stringify(this.value) !== JSON.stringify(this.blurValue);
+    if (this.value === this.blurValue) {
+      return false;
+    }
+    return JSON.stringify(this.value) !== this.blurValue;
   }
 
   public async constructDataBack(): Promise<boolean> {

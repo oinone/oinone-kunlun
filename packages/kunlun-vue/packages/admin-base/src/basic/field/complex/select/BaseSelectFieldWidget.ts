@@ -301,6 +301,30 @@ export abstract class BaseSelectFieldWidget<
     }
   }
 
+  public async constructDataBack(): Promise<boolean> {
+    const res = await super.constructDataBack();
+    const { value } = this;
+    if (value == null) {
+      return res;
+    }
+    const values = ActiveRecordsOperator.repairRecords(this.value);
+    if (Array.isArray(this.value)) {
+      this.setValue(values as Value);
+    } else {
+      this.setValue(values[0] as Value);
+    }
+    return res;
+  }
+
+  protected refreshValueProcess() {
+    const values = ActiveRecordsOperator.repairRecords(this.value);
+    if (Array.isArray(this.value)) {
+      this.setValue(values as Value);
+    } else {
+      this.setValue(values[0] as Value);
+    }
+  }
+
   /**
    * @deprecated please using allowSearch
    */
