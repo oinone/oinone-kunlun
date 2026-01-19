@@ -10,7 +10,7 @@ import DefaultViewControl from './DefaultViewControl.vue';
   BaseElementHookWidget.Token({
     widget: ['actionBar', 'action-bar', 'ActionBar'],
     slot: 'right',
-    priority: 10
+    priority: 100
   })
 )
 export class ViewControlWidget extends BaseElementHookWidget {
