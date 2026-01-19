@@ -1,7 +1,7 @@
 import { SelectSearchArea } from '@oinone/kunlun-engine';
 import type { OioSelectItem } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
-import type { PropType } from 'vue';
+import type { PropType, Slot } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic/props';
 
 const AppearanceProps = {
@@ -67,12 +67,19 @@ const SearchProps = {
   }
 };
 
+const SlotProps = {
+  tagRender: {
+    type: Function as PropType<Slot>
+  }
+};
+
 export const BaseSelectProps = {
   ...OioCommonProps,
   ...OioMetadataProps,
   ...AppearanceProps,
   ...ControlProps,
   ...SearchProps,
+  ...SlotProps,
   'onUpdate:search-value': {
     type: Function
   },
@@ -87,6 +94,7 @@ export const DefaultSelectProps = {
   ...AppearanceProps,
   ...ControlProps,
   ...SearchProps,
+  ...SlotProps,
   options: {
     type: Array as PropType<OioSelectItem<object>[]>
   },

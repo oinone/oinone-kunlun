@@ -308,6 +308,7 @@ export default defineComponent({
       allowClear,
       allowSearch,
       searchArea,
+      tagRender,
       onSearch,
       notFoundContent,
       onDropdownVisibleChange,
@@ -336,6 +337,7 @@ export default defineComponent({
       placeholder,
       allowClear,
       disabled,
+      tagRender,
       open: dropdownVisible,
       showArrow: allowArrow,
       getPopupContainer: getTriggerContainer,
@@ -428,7 +430,8 @@ export default defineComponent({
         }
       },
       'suffixIcon',
-      'option'
+      'option',
+      'tagRender'
     ];
     if (allowSearch && (!searchArea || searchArea === SelectSearchArea.default)) {
       props.showSearch = true;
