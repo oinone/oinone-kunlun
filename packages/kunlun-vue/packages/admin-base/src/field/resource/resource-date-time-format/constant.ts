@@ -91,14 +91,14 @@ export const getResourceTimeFormatOptions = (): ResourceDateTimeOption[] => {
     },
     {
       displayName: translateValueByKey('毫秒'),
-      code: 'MS',
-      id: 'Ms',
+      code: 'SSS',
+      id: 'Sss',
       concat: '',
       options: [
         {
           displayName: '001',
-          code: 'ms',
-          id: 'CMs'
+          code: 'SSS',
+          id: 'Sss'
         }
       ]
     }
