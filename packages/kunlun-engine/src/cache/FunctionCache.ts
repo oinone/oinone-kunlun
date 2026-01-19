@@ -149,7 +149,7 @@ async function fetchFunction(namespace: string, fun: string): Promise<RuntimeFun
   `;
   const result = await http.query<RuntimeFunctionDefinition>(SYSTEM_MODULE_NAME.BASE, body);
   const functionDefinition = result.data.functionQuery[modelActionName];
-  if (!functionDefinition.name) {
+  if (!functionDefinition?.name) {
     return undefined;
   }
   return functionDefinition;
@@ -171,7 +171,7 @@ async function fetchFunctionByName(namespace: string, name: string): Promise<Run
   `;
   const result = await http.query<RuntimeFunctionDefinition>(SYSTEM_MODULE_NAME.BASE, body);
   const functionDefinition = result.data.functionQuery[modelActionName];
-  if (!functionDefinition.fun) {
+  if (!functionDefinition?.fun) {
     return undefined;
   }
   return functionDefinition;
