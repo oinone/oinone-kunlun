@@ -32,6 +32,9 @@ export default defineComponent({
     onVisibleChange: {
       type: Function as PropType<(visible: boolean) => void>
     },
+    onAfterVisibleChange: {
+      type: Function as PropType<(visible: boolean) => void>
+    },
     destroyOnClose: {
       type: Boolean,
       default: undefined
@@ -188,6 +191,7 @@ export default defineComponent({
       $slots,
       visible,
       onVisibleChange,
+      onAfterVisibleChange,
       displayAs,
       onDisplayAsChange,
       destroyOnClose,
@@ -278,7 +282,8 @@ export default defineComponent({
         enterCallback: onOk,
         cancelCallback: onCancel,
         'onUpdate:visible': onVisibleChange,
-        'onUpdate:displayAs': onDisplayAsChange
+        'onUpdate:displayAs': onDisplayAsChange,
+        onAfterVisibleChange
       },
       children
     );

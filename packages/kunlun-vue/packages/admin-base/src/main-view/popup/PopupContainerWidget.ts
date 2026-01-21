@@ -195,6 +195,7 @@ export abstract class PopupContainerWidget extends VueWidget {
       const { popupInfo, index } = target;
       popupInfo.metadataWidget?.dispose();
       this.popupInfos.splice(index, 1);
+      this.forceUpdate();
     }
   };
 

@@ -5,10 +5,12 @@ import {
   type RuntimeModelField,
   type RuntimeView,
   type RuntimeViewAction,
+  SubmitValue,
   type WidgetConstructor,
   type WidgetProps
 } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
+import { CallChaining } from '@oinone/kunlun-shared';
 import { ActiveRecordsWidget, Widget } from '@oinone/kunlun-vue-widget';
 import {
   createRuntimeContextByFieldSubview,
@@ -18,8 +20,15 @@ import {
 import MetadataView from './MetadataView.vue';
 import type { MetadataViewWidgetProps } from './MetadataViewWidget';
 
+export interface MetadataViewWithActiveRecordsWidgetProps extends MetadataViewWidgetProps {
+  mountedCallChaining?: CallChaining;
+  refreshCallChaining?: CallChaining<boolean>;
+  submitCallChaining?: CallChaining<SubmitValue>;
+  validatorCallChaining?: CallChaining<boolean>;
+}
+
 export class MetadataViewWithActiveRecordsWidget<
-  Props extends MetadataViewWidgetProps = MetadataViewWidgetProps
+  Props extends MetadataViewWithActiveRecordsWidgetProps = MetadataViewWithActiveRecordsWidgetProps
 > extends ActiveRecordsWidget<Props> {
   private viewAction: RuntimeViewAction | undefined;
 
@@ -55,6 +64,58 @@ export class MetadataViewWithActiveRecordsWidget<
   @Widget.Reactive()
   protected viewTemplate: DslDefinition | undefined;
 
+  @Widget.Reactive()
+  @Widget.Inject('mountedCallChaining')
+  protected parentMountedCallChaining: CallChaining | undefined;
+
+  @Widget.Reactive()
+  protected currentMountedCallChaining: CallChaining | undefined;
+
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get mountedCallChaining(): CallChaining | undefined {
+    return this.currentMountedCallChaining || this.parentMountedCallChaining;
+  }
+
+  @Widget.Reactive()
+  @Widget.Inject('refreshCallChaining')
+  protected parentRefreshCallChaining: CallChaining<boolean> | undefined;
+
+  @Widget.Reactive()
+  protected currentRefreshCallChaining: CallChaining<boolean> | undefined;
+
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get refreshCallChaining(): CallChaining<boolean> | undefined {
+    return this.currentRefreshCallChaining || this.parentRefreshCallChaining;
+  }
+
+  @Widget.Reactive()
+  @Widget.Inject('submitCallChaining')
+  protected parentSubmitCallChaining: CallChaining<SubmitValue> | undefined;
+
+  @Widget.Reactive()
+  protected currentSubmitCallChaining: CallChaining<SubmitValue> | undefined;
+
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get submitCallChaining(): CallChaining<SubmitValue> | undefined {
+    return this.currentSubmitCallChaining || this.parentSubmitCallChaining;
+  }
+
+  @Widget.Reactive()
+  @Widget.Inject('validatorCallChaining')
+  protected parentValidatorCallChaining: CallChaining<boolean> | undefined;
+
+  @Widget.Reactive()
+  protected currentValidatorCallChaining: CallChaining<boolean> | undefined;
+
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get validatorCallChaining(): CallChaining<boolean> | undefined {
+    return this.currentValidatorCallChaining || this.parentValidatorCallChaining;
+  }
+
   public initialize(props: Props) {
     this.isVirtual = props.isVirtual || false;
     if (this.isVirtual) {
@@ -64,6 +125,10 @@ export class MetadataViewWithActiveRecordsWidget<
     this.setComponent(MetadataView);
     this.viewAction = props.viewAction;
     this.inline = props.inline || false;
+    this.currentMountedCallChaining = props.mountedCallChaining;
+    this.currentRefreshCallChaining = props.refreshCallChaining;
+    this.currentSubmitCallChaining = props.submitCallChaining;
+    this.currentValidatorCallChaining = props.validatorCallChaining;
     return this;
   }
 

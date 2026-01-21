@@ -56,6 +56,8 @@ export interface IStaticDrawerWidget extends IStaticPopupWidget {
 
   setTitle(title: string | undefined);
 
+  setWrapperClassName(wrapperClassName: string | undefined);
+
   setHelp(help: string | undefined);
 
   setPlacement(placement: string);
@@ -65,6 +67,8 @@ export interface IStaticDrawerWidget extends IStaticPopupWidget {
   setHeight(height: string | number);
 
   setZIndex(zIndex: number | undefined);
+
+  setMask(mask: boolean);
 
   setMaskClosable(maskClosable: boolean);
 

@@ -103,7 +103,6 @@ export abstract class StaticPopupWidget<Props extends WidgetProps = WidgetProps>
   }
 
   protected $$created() {
-    super.$$created();
     const popupInstance = this.findPopupInstance();
     if (popupInstance) {
       PopupManager.INSTANCE.notifyHandler(EventKeys.created, popupInstance);

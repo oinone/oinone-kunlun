@@ -118,7 +118,7 @@ function resolveDataDictionaryMetadata(runtimeContext: RuntimeContext, dsl: View
   }
 }
 
-function resolveMetadata(runtimeContext: RuntimeContext, dsl: ViewDslDefinition) {
+export function resolveMetadata(runtimeContext: RuntimeContext, dsl: ViewDslDefinition) {
   resolveModelMetadata(runtimeContext, dsl);
   resolveDataDictionaryMetadata(runtimeContext, dsl);
 }

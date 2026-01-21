@@ -68,6 +68,12 @@ export interface ViewDslDefinition extends DslDefinition {
   type: ViewType;
   metadata?: ViewMetadataDslDefinition;
   widgets: TemplateDslDefinition[];
+
+  model?: string;
+  modelName?: string;
+  module?: string;
+  moduleName?: string;
+  pk?: string;
 }
 
 /**

@@ -289,7 +289,6 @@ export class DslRender {
           }
           case DslDefinitionType.UNKNOWN:
           case DslDefinitionType.TEMPLATE:
-            // eslint-disable-next-line no-continue
             continue;
           default:
             console.error('Invalid component.');

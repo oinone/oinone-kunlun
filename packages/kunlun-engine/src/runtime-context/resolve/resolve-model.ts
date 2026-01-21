@@ -1,3 +1,4 @@
+import { ViewDslDefinition } from '@oinone/kunlun-dsl';
 import { cloneDeep } from 'lodash-es';
 import type { RuntimeModel } from '../../runtime-metadata';
 import type { RuntimeContext } from '../runtime-context';
@@ -17,13 +18,13 @@ export function resolveModel(runtimeContext: RuntimeContext) {
     }
   }
   const { model, modelName: name, module, moduleName } = runtimeContext.view;
-  const finalTemplate = runtimeContext.viewTemplate;
+  const finalTemplate = runtimeContext.viewTemplate as ViewDslDefinition;
   runtimeContext.model = {
     ...(modelDefinition || {}),
-    model,
-    name,
-    module: module || runtimeContext.module?.module,
-    moduleName: moduleName || runtimeContext.module?.name,
+    model: model || finalTemplate.model || '',
+    name: name || finalTemplate.modelName || '',
+    module: module || finalTemplate.module || runtimeContext.module?.module,
+    moduleName: moduleName || finalTemplate.moduleName || runtimeContext.module?.name,
     modelFields: [],
     modelActions: [],
     pks: ResolveUtil.toArray(finalTemplate.pk) || modelDefinition?.pks,

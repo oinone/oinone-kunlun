@@ -27,6 +27,9 @@ export class StaticDrawerWidget extends StaticPopupWidget<DrawerWidgetProps> imp
   protected title: string | undefined;
 
   @Widget.Reactive()
+  protected wrapperClassName: string | undefined;
+
+  @Widget.Reactive()
   protected help: string | undefined;
 
   @Widget.Reactive()
@@ -40,6 +43,9 @@ export class StaticDrawerWidget extends StaticPopupWidget<DrawerWidgetProps> imp
 
   @Widget.Reactive()
   protected zIndex: number | undefined;
+
+  @Widget.Reactive()
+  protected mask = false;
 
   @Widget.Reactive()
   protected maskClosable = false;
@@ -80,6 +86,10 @@ export class StaticDrawerWidget extends StaticPopupWidget<DrawerWidgetProps> imp
     this.title = title;
   }
 
+  public setWrapperClassName(wrapperClassName: string | undefined) {
+    this.wrapperClassName = wrapperClassName;
+  }
+
   public setHelp(help: string | undefined) {
     this.help = help;
   }
@@ -98,6 +108,10 @@ export class StaticDrawerWidget extends StaticPopupWidget<DrawerWidgetProps> imp
 
   public setZIndex(zIndex: number | undefined) {
     this.zIndex = zIndex;
+  }
+
+  public setMask(mask: boolean) {
+    this.mask = mask;
   }
 
   public setMaskClosable(maskClosable: boolean) {
