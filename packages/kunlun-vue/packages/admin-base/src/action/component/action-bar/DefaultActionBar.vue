@@ -255,7 +255,7 @@ export default defineComponent({
       'left',
       'right'
     ]);
-    const collectionActions = new CollectionActions(this.showActionNames, this.activeCount);
+    const collectionActions = new CollectionActions(this.showActionNames, 2);
     collectionActions.do(defaultSlot());
     const { hasMore, showActionFlags, moreActions, moreActionFlags, otherVNodes } = collectionActions;
     let { showActions } = collectionActions;
