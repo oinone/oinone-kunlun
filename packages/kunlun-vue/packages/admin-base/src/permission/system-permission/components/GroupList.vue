@@ -217,7 +217,6 @@ const onAddOrRemoveRole = async (data) => {
         permissions: props.selectedLeftTree!,
         roles: data
       });
-      // eslint-disable-next-line vue/no-mutating-props
       props.groupList[0].roles = roles;
     } else {
       const group = props.groupList[activeGroupIndex.value];
@@ -259,7 +258,6 @@ const onAddGroup = async (data) => {
 const onDeleteGroup = async (index, id) => {
   await deleteGroupById(id);
 
-  // eslint-disable-next-line vue/no-mutating-props
   props.groupList.splice(index, 1);
 };
 
