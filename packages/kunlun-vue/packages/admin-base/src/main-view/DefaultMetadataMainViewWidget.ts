@@ -383,7 +383,7 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
         action,
 
         viewName: viewAction.resViewName,
-        viewType: viewAction.viewType,
+        viewType: viewAction.resViewType,
         target: viewAction.target,
 
         previousPage: oldPage,
@@ -414,7 +414,7 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
         action,
 
         viewName: viewAction.resViewName,
-        viewType,
+        viewType: viewAction.resViewType,
         target,
 
         previousPage: oldPage,
