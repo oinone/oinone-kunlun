@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "46744138",
+      "name": "code-outlined",
+      "font_class": "code-outlined",
+      "unicode": "e9ff",
+      "unicode_decimal": 59903
+    },
+    {
+      "icon_id": "46744115",
+      "name": "reduce-outlined",
+      "font_class": "reduce-outlined",
+      "unicode": "e9fc",
+      "unicode_decimal": 59900
+    },
+    {
+      "icon_id": "46744113",
+      "name": "add-outlined",
+      "font_class": "add-outlined",
+      "unicode": "e9fd",
+      "unicode_decimal": 59901
+    },
+    {
+      "icon_id": "46744112",
+      "name": "code-filled",
+      "font_class": "code-filled",
+      "unicode": "e9fe",
+      "unicode_decimal": 59902
+    },
+    {
       "icon_id": "46628985",
       "name": "折叠面板",
       "font_class": "zhediemianban",

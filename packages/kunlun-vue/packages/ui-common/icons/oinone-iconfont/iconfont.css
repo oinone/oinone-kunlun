@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2657071 */
-  src: url('iconfont.woff2?t=1768384041931') format('woff2'),
-       url('iconfont.woff?t=1768384041931') format('woff'),
-       url('iconfont.ttf?t=1768384041931') format('truetype');
+  src: url('iconfont.woff2?t=1769166442126') format('woff2'),
+       url('iconfont.woff?t=1769166442126') format('woff'),
+       url('iconfont.ttf?t=1769166442126') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,22 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.oinone-code-outlined:before {
+  content: "\e9ff";
+}
+
+.oinone-reduce-outlined:before {
+  content: "\e9fc";
+}
+
+.oinone-add-outlined:before {
+  content: "\e9fd";
+}
+
+.oinone-code-filled:before {
+  content: "\e9fe";
 }
 
 .oinone-zhediemianban:before {
