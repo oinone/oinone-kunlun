@@ -75,6 +75,15 @@ export abstract class SelectFieldWidget<
     }
   }
 
+  @Widget.Method()
+  protected async onPaginationChange(current: number, pageSize: number) {
+    const pagination = this.generatorPagination();
+    pagination.current = current;
+    pagination.pageSize = pageSize;
+    const data = await this.fetchData();
+    this.options = data.map((v) => this.mapping(v));
+  }
+
   @Widget.Reactive()
   protected searchValue: string | undefined;
 

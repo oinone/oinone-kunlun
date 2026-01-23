@@ -164,7 +164,9 @@ export class MultiTabsConfigManager {
       'workflowDesigner',
       'eipDesigner',
       'dataflowDesigner',
-      'datavi'
+      'datavi',
+      'aiX',
+      'aiDesigner'
     ];
   }
 

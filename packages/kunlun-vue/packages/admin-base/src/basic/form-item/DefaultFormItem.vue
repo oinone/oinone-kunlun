@@ -2,7 +2,7 @@
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { BooleanHelper } from '@oinone/kunlun-shared';
-import { OioFormItem, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
+import { OioFormItem, OioIcon, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Tooltip as ATooltip } from 'ant-design-vue';
 import {
   computed,
@@ -34,6 +34,12 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    labelIcon: {
+      type: String
+    },
+    labelIconColor: {
+      type: String
+    },
     elementBizStyle: {
       type: String as PropType<FormBizStyle>
     }
@@ -64,9 +70,17 @@ export default defineComponent({
     } else {
       children.label = () => {
         const label = translateValueByKey(this.label as string);
-        const vnodes: VNode[] = [
-          createVNode('span', { class: 'form-field-widget-label-content', title: label }, label)
-        ];
+        const vnodes: VNode[] = [];
+        if (this.labelIcon) {
+          vnodes.push(
+            createVNode(OioIcon, {
+              icon: this.labelIcon,
+              size: '18px',
+              color: this.labelIconColor || 'var(--oio-primary-color)'
+            })
+          );
+        }
+        vnodes.push(createVNode('span', { class: 'form-field-widget-label-content', title: label }, label));
         if (this.help) {
           vnodes.push(
             createVNode(

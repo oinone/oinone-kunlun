@@ -136,16 +136,17 @@ export function useWidgetTag(
       const inlineProp = getInline();
       return {
         ...context.attrs,
-        slotName: getSlotName(),
-        inline: inlineProp,
-        viewType: viewType.value,
-        template: props.dslDefinition,
-        slotContext: props.slotContext,
+        template: getDslDefinition(),
         metadataHandle: getMetadataHandle(),
         rootHandle: getRootHandle(),
         parentHandle: getParentHandle(),
+        slotName: getSlotName(),
+        inline: inlineProp,
+        widgetInline: inlineProp,
+        viewType: viewType.value,
+        slotContext: props.slotContext,
         ...getCustomProps()
-      } as CustomWidgetProps;
+      } as unknown as CustomWidgetProps;
     });
 
   const getCurrentSlots =

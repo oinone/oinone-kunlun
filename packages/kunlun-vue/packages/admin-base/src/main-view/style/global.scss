@@ -1,3 +1,20 @@
 .oio-module {
   line-height: 1.5714285714285714;
 }
+
+.oio-form .form-item-control-input-invisible.oio-form-item > .ant-form-item-row,
+.form-item-control-input-invisible.oio-form-item > .ant-form-item-row {
+  & > .ant-form-item-label {
+    margin-bottom: 0;
+  }
+
+  & > .ant-form-item-control {
+    height: 0;
+
+    & > .ant-form-item-control-input {
+      height: unset;
+      min-height: unset;
+      max-height: unset;
+    }
+  }
+}

@@ -255,11 +255,9 @@ export abstract class BaseSelectFieldWidget<
       pagination = {} as Pagination;
       this.pagination = pagination;
     }
-    let { current, pageSize } = pagination;
-    current = toInteger(current) || 1;
-    pageSize = toInteger(pageSize) || 20;
-    pagination.current = current;
-    pagination.pageSize = pageSize;
+    const { current, pageSize } = pagination;
+    pagination.current = toInteger(current) || 1;
+    pagination.pageSize = toInteger(pageSize) || 20;
     return pagination;
   }
 

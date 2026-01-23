@@ -59,6 +59,8 @@ export interface DslDefinition extends Record<string, any> {
    * 标签文本内容
    */
   __content?: string;
+
+  [key: string]: any;
 }
 
 /**

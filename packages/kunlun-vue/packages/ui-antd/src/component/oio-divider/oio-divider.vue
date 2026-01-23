@@ -1,5 +1,4 @@
 <script lang="ts">
-import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
 import { OioDividerProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { Divider as ADivider } from 'ant-design-vue';
 import { createVNode, defineComponent } from 'vue';
@@ -15,15 +14,17 @@ export default defineComponent({
     ...OioDividerProps
   },
   render() {
+    const { type, dashed, plain, orientation } = this;
     return createVNode(
       ADivider,
       {
-        ...PropRecordHelper.convert(OioDividerProps, CastHelper.cast(this)),
-        ...this.$attrs,
-        class: StringHelper.append([`${DEFAULT_PREFIX}-divider`], CastHelper.cast(this.$attrs.class)),
-        style: this.$attrs.style
+        ...PropRecordHelper.collectionBasicProps(this.$attrs, [`${DEFAULT_PREFIX}-divider`]),
+        type,
+        dashed,
+        plain,
+        orientation
       },
-      PropRecordHelper.collectionSlots(this.$slots, ['default'])
+      this.$slots.default?.()
     );
   }
 });

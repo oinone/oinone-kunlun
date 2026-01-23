@@ -167,6 +167,16 @@ export class BaseFormItemWidget<
   }
 
   @Widget.Reactive()
+  public get labelIcon(): string | undefined {
+    return this.getDsl().labelIcon;
+  }
+
+  @Widget.Reactive()
+  public get labelIconColor(): string | undefined {
+    return this.getDsl().labelIconColor;
+  }
+
+  @Widget.Reactive()
   public get help() {
     return this.getDsl().help;
   }
