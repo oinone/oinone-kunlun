@@ -261,6 +261,9 @@ export class DslSlotUtils {
           console.error('Invalid template definition. slot must be not blank.');
           return;
         }
+        if (!dslDefinition.widgets?.length) {
+          return;
+        }
         let slot = slots[slotName];
         if (slot) {
           const cloneIgnoredKeys = clone(IGNORED_TEMPLATE_DSL_KEYS);
