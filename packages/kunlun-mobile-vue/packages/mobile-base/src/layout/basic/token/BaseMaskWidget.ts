@@ -2,12 +2,25 @@ import { DEFAULT_SLOT_NAME, type DslDefinition, DslSlotUtils } from '@oinone/kun
 import { type Align, Layout, type Overflow } from '@oinone/kunlun-engine';
 import { useMatched } from '@oinone/kunlun-router';
 import { type Constructor, type CSSStyle, StringHelper } from '@oinone/kunlun-shared';
-import { SPIFactory, SPIOperator, type SPIOptions, SPISelectorFactory, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
+import {
+  SPIFactory,
+  SPIOperator,
+  type SPIOptions,
+  SPISelectorFactory,
+  type SPISingleSelector,
+  type SPITokenFactory
+} from '@oinone/kunlun-spi';
 import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
-import { DslRender, DslRenderWidget, type DslRenderWidgetProps, Widget, InnerWidgetType } from '@oinone/kunlun-vue-widget';
+import {
+  DslRender,
+  DslRenderWidget,
+  type DslRenderWidgetProps,
+  InnerWidgetType,
+  Widget
+} from '@oinone/kunlun-vue-widget';
 import type { Slots, VNode } from 'vue';
-import { getMaskTagManagerInstance } from '../register';
 import { type IMobileViewFilterOptions, MobileViewWidget } from '../MobileViewWidget';
+import { getMaskTagManagerInstance } from '../register';
 
 export interface BaseMaskWidgetProps extends DslRenderWidgetProps {
   /**
@@ -155,8 +168,8 @@ export class BaseMaskWidget<Props extends BaseMaskWidgetProps = BaseMaskWidgetPr
 
   public render(ctx?: Record<string, unknown>, slots?: Slots): VNode | VNode[] {
     const template = (ctx?.dslDefinition || this.template) as DslDefinition;
-    if (template && this.supportedSlotNames.length) {
-      this.dslSlots = DslSlotUtils.fetchSlotsBySlotNames(template, this.supportedSlotNames);
+    if (template) {
+      this.dslSlots = DslSlotUtils.fetchAllSlots(template);
       this.slots = DslRender.renderSlots(this.dslSlots);
     }
     return super.render(ctx, slots);
