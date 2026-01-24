@@ -36,8 +36,8 @@ import { BaseElementViewWidget, type BaseElementViewWidgetProps } from './BaseEl
 import { concatCondition } from './utils';
 
 export interface BaseElementObjectViewWidgetProps extends BaseElementViewWidgetProps {
-  submitCallChaining?: CallChaining<SubmitValue>;
-  validatorCallChaining?: CallChaining<boolean>;
+  submitCallChaining?: CallChaining;
+  validatorCallChaining?: CallChaining;
 }
 
 interface FieldWidgetEntity {
@@ -138,8 +138,8 @@ export class BaseElementObjectViewWidget<
 
   public initialize(props: Props) {
     super.initialize(props);
-    this.currentSubmitCallChaining = props.submitCallChaining;
-    this.currentValidatorCallChaining = props.validatorCallChaining;
+    this.currentSubmitCallChaining = props.submitCallChaining as CallChaining<SubmitValue> | undefined;
+    this.currentValidatorCallChaining = props.validatorCallChaining as CallChaining<boolean> | undefined;
     return this;
   }
 
