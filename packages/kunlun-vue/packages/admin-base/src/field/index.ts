@@ -21,3 +21,4 @@ export * from './businees-audit';
 export * from './eip';
 export * from './transfer';
 export * from './resource';
+export * from './json-table';
