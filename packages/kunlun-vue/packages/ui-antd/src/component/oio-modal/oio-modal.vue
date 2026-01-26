@@ -229,6 +229,7 @@ export default defineComponent({
         open: this.visible,
         closable: this.closable,
         keyboard: this.keyboard,
+        centered: this.centered,
         destroyOnClose: this.destroyOnClose,
         getContainer: this.getTriggerContainer,
         confirmLoading: this.confirmLoading,
