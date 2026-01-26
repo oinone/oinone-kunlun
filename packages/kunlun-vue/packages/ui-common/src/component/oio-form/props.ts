@@ -112,7 +112,7 @@ export const AFormProps = {
     type: Object as PropType<Record<string, FormItemRule[]>>
   },
   layout: {
-    type: String as PropType<FormLayout>
+    type: String as PropType<FormLayout | 'horizontal' | 'vertical' | 'inline'>
   },
   labelCol: {
     type: Object as PropType<OioColModel>
