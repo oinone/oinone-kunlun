@@ -249,6 +249,11 @@ export abstract class BaseSelectFieldWidget<
     return queryData;
   }
 
+  @Widget.Reactive()
+  protected get defaultPageSize(): number {
+    return 20;
+  }
+
   public generatorPagination(): Pagination {
     let { pagination } = this;
     if (!pagination) {
@@ -257,7 +262,7 @@ export abstract class BaseSelectFieldWidget<
     }
     const { current, pageSize } = pagination;
     pagination.current = toInteger(current) || 1;
-    pagination.pageSize = toInteger(pageSize) || 20;
+    pagination.pageSize = toInteger(pageSize) || this.defaultPageSize;
     return pagination;
   }
 
