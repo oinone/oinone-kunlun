@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui",
-  "version": "6.4.7",
+  "version": "6.4.8",
   "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -13,8 +13,8 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-antd": "6.4.7",
-    "@oinone/kunlun-vue-ui-common": "6.4.7",
+    "@oinone/kunlun-vue-ui-antd": "6.4.8",
+    "@oinone/kunlun-vue-ui-common": "6.4.8",
     "sortablejs": "1.14.0",
     "vue3-smooth-dnd": "0.0.5",
     "vuedraggable": "4.1.0",
