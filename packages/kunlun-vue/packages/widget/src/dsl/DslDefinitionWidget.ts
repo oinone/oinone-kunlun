@@ -183,7 +183,7 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
 
   public get rootViewRuntimeContext(): { runtimeContext: RuntimeContext; fields: RuntimeModelField[] } {
     const fields: RuntimeModelField[] = [];
-    let targetRuntimeContext: RuntimeContext = this.rootRuntimeContext;
+    let targetRuntimeContext: RuntimeContext | undefined = this.rootRuntimeContext;
     let field = targetRuntimeContext?.parentContext?.field;
     while (field && targetRuntimeContext) {
       fields.push(field);
@@ -203,6 +203,9 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
 
       field = parentRuntimeContext.field;
       targetRuntimeContext = nextTargetRuntimeContext;
+    }
+    if (!targetRuntimeContext) {
+      throw new Error('Invalid target runtime context.');
     }
     return {
       runtimeContext: targetRuntimeContext,

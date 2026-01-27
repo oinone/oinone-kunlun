@@ -168,8 +168,8 @@ export class BaseMaskWidget<Props extends BaseMaskWidgetProps = BaseMaskWidgetPr
 
   public render(ctx?: Record<string, unknown>, slots?: Slots): VNode | VNode[] {
     const template = (ctx?.dslDefinition || this.template) as DslDefinition;
-    if (template) {
-      this.dslSlots = DslSlotUtils.fetchAllSlots(template);
+    if (template && this.supportedSlotNames.length) {
+      this.dslSlots = DslSlotUtils.fetchSlotsBySlotNames(template, this.supportedSlotNames);
       this.slots = DslRender.renderSlots(this.dslSlots);
     }
     return super.render(ctx, slots);

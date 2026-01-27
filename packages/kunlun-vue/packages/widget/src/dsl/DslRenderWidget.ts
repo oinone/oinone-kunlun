@@ -21,7 +21,7 @@ export interface DslRenderWidgetProps extends WidgetProps {
    */
   slotName?: string;
   /**
-   * @deprecated invalid props
+   * 支持的插槽名称
    */
   slotNames?: string[];
   /**
@@ -42,9 +42,6 @@ export class DslRenderWidget<Props extends DslRenderWidgetProps = DslRenderWidge
 
   protected renderProps: Props | undefined;
 
-  /**
-   * @deprecated invalid props
-   */
   protected supportedSlotNames!: string[];
 
   protected dslSlots: DslSlots | undefined;
@@ -57,8 +54,9 @@ export class DslRenderWidget<Props extends DslRenderWidgetProps = DslRenderWidge
     this.internal = props.internal || false;
     this.template = props.template;
     this.slotName = props.slotName;
-    if (this.template) {
-      this.dslSlots = DslSlotUtils.fetchAllSlots(this.template);
+    this.supportedSlotNames = props.slotNames || [];
+    if (this.template && this.supportedSlotNames.length) {
+      this.dslSlots = DslSlotUtils.fetchSlotsBySlotNames(this.template, this.supportedSlotNames);
     }
     return this;
   }

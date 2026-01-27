@@ -1,3 +1,4 @@
+import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { FormLayout, type OioColModel, type OioFormInstance } from '@oinone/kunlun-vue-ui-common';
 import { isFormViewState, type OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementObjectViewWidget, type BaseElementObjectViewWidgetProps } from '../element';
@@ -41,6 +42,9 @@ export abstract class BaseFormWidget<
   }
 
   public initialize(props: Props) {
+    if (!props.slotNames) {
+      props.slotNames = [DEFAULT_SLOT_NAME];
+    }
     super.initialize(props);
     this.setComponent(DefaultForm);
     return this;
