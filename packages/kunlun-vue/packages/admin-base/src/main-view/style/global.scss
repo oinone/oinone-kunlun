@@ -18,3 +18,17 @@
     }
   }
 }
+
+.oio-form
+  .form-item-control-input-auto-height.oio-form-item
+  > .ant-form-item-row
+  > .ant-form-item-control
+  > .ant-form-item-control-input,
+.form-item-control-input-invisible.oio-form-item
+  > .ant-form-item-row
+  > .ant-form-item-control
+  > .ant-form-item-control-input {
+  height: unset;
+  min-height: unset;
+  max-height: unset;
+}

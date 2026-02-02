@@ -50,7 +50,8 @@
     }
   }
 
-  &:not(.ant-select-disabled):hover .ant-select-selector {
+  &:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover
+    .ant-select-selector {
     border-color: var($selectParameterPrefix + -border-color-hover);
   }
 
@@ -67,15 +68,19 @@
   &.ant-select-multiple .ant-select-selector {
     padding: 1px 4px;
     min-height: var(--oio-height);
+
     &:after {
       line-height: var(--oio-select-line-height);
     }
+
     .ant-select-selection-overflow-item {
       height: calc(var(--oio-height) - 4px);
+
       &-suffix {
         height: var(--oio-select-line-height);
       }
     }
+
     .ant-select-selection-item {
       height: calc(var(--oio-height) - 8px);
       line-height: calc(var(--oio-height) - 8px);
@@ -84,14 +89,17 @@
       border-radius: var(--oio-border-radius);
       color: var(--oio-primary-color);
       font-size: var(--oio-font-size-sm);
+
       &-content,
       &-remove {
         line-height: calc(var(--oio-height) - 10px);
       }
     }
+
     .ant-select-selection-search {
       height: var(--oio-select-line-height);
       line-height: var(--oio-select-line-height);
+
       &-mirror,
       input {
         height: var(--oio-select-line-height);
