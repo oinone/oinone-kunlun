@@ -41,14 +41,14 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, type PropType, ref } from 'vue';
-import { Image as VanImage, Popup as VanPopup } from 'vant';
 import { FormLayout, useInjectOioFormContext } from '@oinone/kunlun-vue-ui-common';
 import { CastHelper, DEFAULT_PREFIX, StringHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { isNil } from 'lodash-es';
+import { Image as VanImage, Popup as VanPopup } from 'vant';
+import { computed, defineComponent, type PropType, ref } from 'vue';
 import { useMetadataProps } from '../../basic';
-import FileUpload from './File.vue';
 import { UploadCommonProps } from '../prop';
+import FileUpload from './File.vue';
 
 export default defineComponent({
   name: 'UploadImg',
@@ -141,4 +141,3 @@ export default defineComponent({
   }
 });
 </script>
-<style lang="scss"></style>

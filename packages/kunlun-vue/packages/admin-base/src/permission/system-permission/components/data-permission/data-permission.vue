@@ -85,5 +85,3 @@ function submitExp() {
 
 defineExpose({ submitExp });
 </script>
-
-<style lang="scss"></style>

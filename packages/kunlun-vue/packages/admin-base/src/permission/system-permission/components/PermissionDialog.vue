@@ -438,4 +438,3 @@ const onSetAllEdit = () => {
 
 const addRoleDialogContainer = () => document.getElementById('permission-config')!;
 </script>
-<style lang="scss"></style>
