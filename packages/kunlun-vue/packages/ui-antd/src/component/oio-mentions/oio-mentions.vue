@@ -22,7 +22,6 @@ import { useContextmenu } from './use-contextmenu';
 
 export default defineComponent({
   name: 'OioMentions',
-  inheritAttrs: false,
   props: {
     ...textAreaProps(),
     value: {
@@ -696,9 +695,10 @@ export default defineComponent({
       return h('div', { class: 'oio-mentions-wrapper' }, [
         h('div', {
           ref: editorRef,
-          contenteditable: true,
+          contenteditable: !props.readonly,
           class: {
             'oio-mentions-editor': true,
+            'oio-mentions-editor-readonly': !!props.readonly,
             'oio-mentions-editor-disabled': props.disabled,
             'oio-mentions-editor-borderless': props.bordered === false
           },
@@ -751,73 +751,78 @@ export default defineComponent({
 .oio-mentions-wrapper {
   position: relative;
   width: 100%;
+}
 
-  .oio-mentions-editor {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 4px 11px;
-    font-variant: tabular-nums;
-    list-style: none;
-    font-feature-settings: 'tnum';
-    position: relative;
-    width: 100%;
-    min-width: 0;
-    color: var(--oio-input-text-color);
-    font-size: 14px;
-    line-height: 1.5715;
-    background-color: #fff;
-    background-image: none;
-    transition: all 0.3s;
-    min-height: 32px;
-    height: auto;
-    white-space: pre-wrap;
-    word-break: break-word;
-    cursor: text;
+.oio-mentions-editor {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 4px 11px;
+  font-variant: tabular-nums;
+  list-style: none;
+  font-feature-settings: 'tnum';
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  color: var(--oio-input-text-color);
+  font-size: 14px;
+  line-height: 1.5715;
+  background-color: #fff;
+  background-image: none;
+  transition: all 0.3s;
+  min-height: 32px;
+  height: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  cursor: text;
 
+  &:focus {
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    outline: 0;
+  }
+
+  &.oio-mentions-editor-readonly {
+    padding: 0;
+    min-height: unset;
+  }
+
+  &.oio-mentions-editor-disabled {
+    color: rgba(0, 0, 0, 0.25);
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 1;
+  }
+
+  &.oio-mentions-editor-borderless {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+
+    &:hover,
     &:focus {
-      box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
-      outline: 0;
-    }
-
-    &.oio-mentions-editor-disabled {
-      color: rgba(0, 0, 0, 0.25);
-      background-color: #f5f5f5;
-      cursor: not-allowed;
-      opacity: 1;
-    }
-
-    &.oio-mentions-editor-borderless {
       border: none;
-      background-color: transparent;
-      padding: 0;
-
-      &:hover,
-      &:focus {
-        border: none;
-        box-shadow: none;
-        border-right-width: 0 !important;
-      }
-    }
-
-    // Placeholder style simulation could be added here
-    &:empty:before {
-      content: attr(placeholder);
-      color: #bfbfbf;
+      box-shadow: none;
+      border-right-width: 0 !important;
     }
   }
 
-  .mention-tag {
-    display: inline-block;
-    color: var(--oio-tag-color);
-    background-color: var(--oio-tag-background-color);
-    border-radius: 4px;
-    padding: 0 6px;
-    margin: 0 3px;
-    user-select: none;
-    vertical-align: baseline;
-    font-size: 13px;
-    line-height: 20px;
-    white-space: nowrap;
+  // Placeholder style simulation could be added here
+  &:empty:before {
+    content: attr(placeholder);
+    color: #bfbfbf;
   }
+}
+
+.mention-tag {
+  display: inline-block;
+  color: var(--oio-tag-color);
+  background-color: var(--oio-tag-background-color);
+  border-radius: 4px;
+  padding: 0 6px;
+  margin: 0 3px;
+  user-select: none;
+  vertical-align: baseline;
+  font-size: 13px;
+  line-height: 20px;
+  white-space: nowrap;
 }
 </style>
