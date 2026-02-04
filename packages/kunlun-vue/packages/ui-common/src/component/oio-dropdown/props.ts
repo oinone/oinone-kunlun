@@ -53,6 +53,10 @@ export const OioDropdownProps = {
     type: Boolean,
     default: undefined
   },
+  visible: {
+    type: Boolean,
+    default: undefined
+  },
   disabled: {
     type: Boolean,
     default: undefined

@@ -21,7 +21,7 @@ export default defineComponent({
   props: {
     ...OioDropdownProps
   },
-  emits: ['update:value'],
+  emits: ['update:visible', 'update:value'],
   setup(props, context) {
     const trigger = computed<string[]>(() => {
       const triggers: string[] = [];
@@ -44,6 +44,7 @@ export default defineComponent({
     });
 
     const onUpdateValue = (val: boolean) => {
+      context.emit('update:visible', val);
       context.emit('update:value', val);
     };
 
@@ -71,7 +72,9 @@ export default defineComponent({
         CastHelper.cast(this.overlayClassName)
       ).join(' ')
     };
-    if (this.value != null) {
+    if (this.visible != null) {
+      componentData.open = this.visible;
+    } else if (this.value != null) {
       componentData.open = this.value;
     }
     return createVNode(ADropdown, componentData, PropRecordHelper.collectionSlots(this.$slots, ['default', 'overlay']));
