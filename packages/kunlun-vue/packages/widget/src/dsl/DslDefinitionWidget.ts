@@ -1,4 +1,3 @@
-import { getMergeConfig } from '@oinone/kunlun-config';
 import {
   type ComputeContext,
   ComputeContextManager,
@@ -211,31 +210,6 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
       runtimeContext: targetRuntimeContext,
       fields
     };
-  }
-
-  protected cacheConfigProxy;
-
-  protected getMergeConfig(...keys: string[]): Record<string, any> {
-    // dsl
-    // appConfig
-    // themeConfig
-    // runtime config ConfigHelper
-    if (this.cacheConfigProxy) {
-      return this.cacheConfigProxy;
-    }
-    const result = getMergeConfig(keys, {
-      defaultValue: undefined
-    });
-    this.cacheConfigProxy = new Proxy(this.getDsl(), {
-      get(target, prop) {
-        if (prop in target) {
-          return target[prop as keyof typeof target];
-        }
-        return result[prop as keyof typeof result];
-      }
-    });
-
-    return this.cacheConfigProxy;
   }
 
   protected invisibleProcess(invisible: boolean | string) {

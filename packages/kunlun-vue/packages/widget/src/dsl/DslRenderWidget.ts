@@ -1,3 +1,4 @@
+import { getMergeConfig } from '@oinone/kunlun-config';
 import { type DslDefinition, type DslSlots, DslSlotUtils, UnknownDslDefinition } from '@oinone/kunlun-dsl';
 import type { WidgetProps } from '@oinone/kunlun-engine';
 import type { Slots, VNode } from 'vue';
@@ -63,6 +64,31 @@ export class DslRenderWidget<Props extends DslRenderWidgetProps = DslRenderWidge
 
   public getDsl(): DslDefinition {
     return this.template || UnknownDslDefinition;
+  }
+
+  protected cacheConfigProxy;
+
+  protected getMergeConfig(...keys: string[]): Record<string, any> {
+    // dsl
+    // appConfig
+    // themeConfig
+    // runtime config ConfigHelper
+    if (this.cacheConfigProxy) {
+      return this.cacheConfigProxy;
+    }
+    const result = getMergeConfig(keys, {
+      defaultValue: undefined
+    });
+    this.cacheConfigProxy = new Proxy(this.getDsl(), {
+      get(target, prop) {
+        if (prop in target) {
+          return target[prop as keyof typeof target];
+        }
+        return result[prop as keyof typeof result];
+      }
+    });
+
+    return this.cacheConfigProxy;
   }
 
   public getSlotName() {
