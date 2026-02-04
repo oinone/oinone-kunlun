@@ -15,6 +15,10 @@ export interface RenderPosition {
 
 export interface OioGlobalState {
   fullscreen: boolean;
+
+  mainViewHandle?: string;
+
+  getMainViewState(): OioAnyViewState | undefined;
 }
 
 export interface OioViewState extends StateEntity {

@@ -293,9 +293,13 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
 
   protected $$created() {
     super.$$created();
-    const state = useOioState(this.currentHandle).createViewState();
+    const { globalState, createViewState } = useOioState(this.currentHandle);
+    const state = createViewState();
     state.viewType = this.viewType!;
     this.viewState = state;
+    if (!this.inline && this.viewType && this.viewType !== ViewType.Search) {
+      globalState.mainViewHandle = this.currentHandle;
+    }
   }
 
   protected $$beforeMount() {
@@ -381,7 +385,11 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
     this.parentSubmitCallChaining?.unhook(this.path);
     this.parentValidatorCallChaining?.unhook(this.path);
     this.clearVisibleArea();
-    useOioState(this.currentHandle).clearViewState();
+    const { globalState, clearViewState } = useOioState(this.currentHandle);
+    clearViewState();
+    if (!this.inline && this.viewType && this.viewType !== ViewType.Search) {
+      globalState.mainViewHandle = undefined;
+    }
   }
 
   protected $$unmountedAfterProperties() {

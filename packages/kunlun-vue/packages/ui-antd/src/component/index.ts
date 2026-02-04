@@ -18,6 +18,7 @@ export * from './oio-group';
 export * from './oio-inner-popup';
 export * from './oio-input';
 export * from './oio-list';
+export * from './oio-mentions';
 export * from './oio-modal';
 export * from './oio-notification';
 export * from './oio-pagination';
