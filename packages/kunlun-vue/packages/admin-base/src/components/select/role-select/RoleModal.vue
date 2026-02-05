@@ -16,7 +16,7 @@ import {
   StringHelper
 } from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, type PropType, reactive, type VNode, watch } from 'vue';
-import { CheckedHelper, type ListState } from '../../quick-utils';
+import { CheckedHelper, type ListState, type ListStateLoadFunction } from '../../quick-utils';
 import { BaseSelect } from '../base';
 import RoleList from './RoleList.vue';
 
@@ -63,6 +63,12 @@ export default defineComponent({
     userRole: {
       type: Boolean,
       default: undefined
+    },
+    roleLoad: {
+      type: Function as PropType<ListStateLoadFunction<AuthRole>>
+    },
+    userRoleLoad: {
+      type: Function as PropType<ListStateLoadFunction<AuthRole>>
     }
   },
   emits: ['change'],
@@ -133,6 +139,9 @@ export default defineComponent({
     };
 
     const roleLoad = (res: ListState<AuthRole>, service: AuthRoleService, queryWrapper: QueryWrapper) => {
+      if (props.roleLoad) {
+        return props.roleLoad(res, service, queryWrapper);
+      }
       return service.queryListByFilter({
         model: props.model,
         rsql: queryWrapper.rsql,
@@ -153,6 +162,9 @@ export default defineComponent({
     });
 
     const userRoleLoad = (res: ListState<AuthRole>, service: AuthRoleService, queryWrapper: QueryWrapper) => {
+      if (props.userRoleLoad) {
+        return props.userRoleLoad(res, service, queryWrapper);
+      }
       return service.queryListByFilter({
         model: props.model,
         rsql: queryWrapper.rsql,
