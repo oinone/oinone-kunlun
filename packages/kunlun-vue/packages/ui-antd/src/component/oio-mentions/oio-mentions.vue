@@ -723,9 +723,11 @@ export default defineComponent({
                 style: {
                   position: 'fixed',
                   left: `${menuState.x}px`,
-                  top: `${menuState.y}px`,
+                  top: `${menuState.y - 8}px`,
                   width: '100px',
-                  height: '100px',
+                  height: '1px',
+                  userSelect: 'none',
+                  pointerEvents: 'none',
                   overflow: 'hidden'
                 }
               }),
