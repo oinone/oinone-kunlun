@@ -70,7 +70,7 @@ export default defineComponent({
       if (closeIconSlot) {
         closeableChildren = closeIconSlot();
       } else {
-        closeableChildren = [createVNode(OioIcon, { icon: 'oinone-guanbi1' })];
+        closeableChildren = [createVNode(OioIcon, { icon: 'oinone-guanbi1', size: 10, color: color })];
       }
       children.push(
         createVNode('div', { class: `${DEFAULT_PREFIX}-tag-closable`, onClick: onClosed }, closeableChildren)

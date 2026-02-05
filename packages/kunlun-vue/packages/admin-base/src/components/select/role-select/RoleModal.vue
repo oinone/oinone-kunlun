@@ -199,6 +199,7 @@ export default defineComponent({
   render() {
     const {
       $translate,
+      title,
       mode,
       allowClear,
       domain,
@@ -219,7 +220,7 @@ export default defineComponent({
     return createVNode(
       OioModal,
       {
-        title: $translate('选择角色'),
+        title: $translate(title || '选择角色'),
         width: '720px',
         maskClosable: false,
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
@@ -257,8 +258,8 @@ export default defineComponent({
             })
           );
           let showUserRole = userRole;
-          if (!roleCodes?.length) {
-            showUserRole = !userRole;
+          if (!roleCodes?.length && userRole !== false) {
+            showUserRole = false;
           }
           if (showUserRole) {
             tabs.push({
