@@ -406,7 +406,7 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
     newPage: ViewActionQueryParameter
   ): Promise<void> {
     return nextTick(() => {
-      const { module: moduleName, model, action, viewType, target } = newPage;
+      const { module: moduleName, model, action, target } = newPage;
       const reloadMainViewParameters: ReloadMainViewCallChainingParameters = {
         handle: this.currentHandle,
         module: moduleName,
@@ -416,6 +416,7 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
         viewName: viewAction.resViewName,
         viewType: viewAction.resViewType,
         target,
+        extension: viewAction.resView?.extension,
 
         previousPage: oldPage,
         currentPage: newPage

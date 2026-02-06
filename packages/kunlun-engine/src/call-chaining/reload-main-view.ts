@@ -28,6 +28,7 @@ export interface ReloadMainViewCallChainingParameters {
   viewName?: string;
   viewType?: string;
   target?: string;
+  extension?: Record<string, unknown> | undefined;
 
   previousPage?: Record<string, unknown>;
   currentPage: Record<string, unknown>;
