@@ -692,60 +692,68 @@ export default defineComponent({
 
       const { selectedKeys, openKeys } = getKeysFromIndices();
 
-      return h('div', { class: 'oio-mentions-wrapper' }, [
-        h('div', {
-          ref: editorRef,
-          contenteditable: !props.readonly,
+      return h(
+        'div',
+        {
           class: {
-            'oio-mentions-editor': true,
-            'oio-mentions-editor-readonly': !!props.readonly,
-            'oio-mentions-editor-disabled': props.disabled,
-            'oio-mentions-editor-borderless': props.bordered === false,
-            'oio-mentions-editor-empty': !!props.value
-          },
-          style: editorStyle.value,
-          placeholder: props.placeholder,
-          onInput: handleInput,
-          onKeydown: handleKeydown,
-          onKeyup: handleKeyup,
-          onClick: handleClick,
-          onMousedown: handleMousedown,
-          onPaste: handlePasteWrapper
-        }),
-        h(
-          OioDropdown,
-          {
-            visible: menuState.visible,
-            'onUpdate:visible': (val: boolean) => (menuState.visible = val),
-            trigger: ['contextmenu']
-          },
-          {
-            default: () =>
-              h('div', {
-                style: {
-                  position: 'fixed',
-                  left: `${menuState.x}px`,
-                  top: `${menuState.y - 8}px`,
-                  width: '100px',
-                  height: '1px',
-                  userSelect: 'none',
-                  pointerEvents: 'none',
-                  overflow: 'hidden'
-                }
-              }),
-            overlay: () =>
-              h(
-                AMenu,
-                {
-                  selectedKeys: selectedKeys,
-                  openKeys: openKeys, // Pass openKeys to expand submenus
-                  style: { maxHeight: '200px', overflow: 'hidden auto' }
-                },
-                { default: () => renderMenuItems(menuState.options) }
-              )
+            'oio-mentions-wrapper': true,
+            'oio-mentions-editor-empty': !props.value
           }
-        )
-      ]);
+        },
+        [
+          h('div', {
+            ref: editorRef,
+            contenteditable: !props.readonly,
+            class: {
+              'oio-mentions-editor': true,
+              'oio-mentions-editor-readonly': !!props.readonly,
+              'oio-mentions-editor-disabled': props.disabled,
+              'oio-mentions-editor-borderless': props.bordered === false
+            },
+            style: editorStyle.value,
+            onInput: handleInput,
+            onKeydown: handleKeydown,
+            onKeyup: handleKeyup,
+            onClick: handleClick,
+            onMousedown: handleMousedown,
+            onPaste: handlePasteWrapper
+          }),
+          h('div', { class: 'oio-mentions-editor-placeholder' }, `${props.placeholder} || ''`),
+          h(
+            OioDropdown,
+            {
+              visible: menuState.visible,
+              'onUpdate:visible': (val: boolean) => (menuState.visible = val),
+              trigger: ['contextmenu']
+            },
+            {
+              default: () =>
+                h('div', {
+                  style: {
+                    position: 'fixed',
+                    left: `${menuState.x}px`,
+                    top: `${menuState.y - 8}px`,
+                    width: '100px',
+                    height: '1px',
+                    userSelect: 'none',
+                    pointerEvents: 'none',
+                    overflow: 'hidden'
+                  }
+                }),
+              overlay: () =>
+                h(
+                  AMenu,
+                  {
+                    selectedKeys: selectedKeys,
+                    openKeys: openKeys, // Pass openKeys to expand submenus
+                    style: { maxHeight: '200px', overflow: 'hidden auto' }
+                  },
+                  { default: () => renderMenuItems(menuState.options) }
+                )
+            }
+          )
+        ]
+      );
     };
   }
 });
@@ -755,6 +763,20 @@ export default defineComponent({
 .oio-mentions-wrapper {
   position: relative;
   width: 100%;
+
+  & > .oio-mentions-editor-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #bfbfbf;
+    user-select: none;
+    pointer-events: none;
+    display: none;
+  }
+
+  &.oio-mentions-editor-empty > .oio-mentions-editor-placeholder {
+    display: block;
+  }
 }
 
 .oio-mentions-editor {
@@ -807,11 +829,6 @@ export default defineComponent({
       box-shadow: none;
       border-right-width: 0 !important;
     }
-  }
-
-  &.oio-mentions-editor-empty:before {
-    content: attr(placeholder);
-    color: #bfbfbf;
   }
 }
 
