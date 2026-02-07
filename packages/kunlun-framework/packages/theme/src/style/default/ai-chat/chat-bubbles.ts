@@ -1,4 +1,4 @@
 export const ChatBubblesCssVars = {
-  'bubble-background-color': '#f4f6fa',
-  'bubble-user-background-color': '#ebf2ff'
+  'bubble-background-color': '#fff',
+  'bubble-user-background-color': '#e7f0ff'
 };
