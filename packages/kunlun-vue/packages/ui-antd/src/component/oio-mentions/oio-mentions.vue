@@ -700,9 +700,11 @@ export default defineComponent({
             'oio-mentions-editor': true,
             'oio-mentions-editor-readonly': !!props.readonly,
             'oio-mentions-editor-disabled': props.disabled,
-            'oio-mentions-editor-borderless': props.bordered === false
+            'oio-mentions-editor-borderless': props.bordered === false,
+            'oio-mentions-editor-empty': !!props.value
           },
           style: editorStyle.value,
+          placeholder: props.placeholder,
           onInput: handleInput,
           onKeydown: handleKeydown,
           onKeyup: handleKeyup,
@@ -807,8 +809,7 @@ export default defineComponent({
     }
   }
 
-  // Placeholder style simulation could be added here
-  &:empty:before {
+  &.oio-mentions-editor-empty:before {
     content: attr(placeholder);
     color: #bfbfbf;
   }
