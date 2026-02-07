@@ -502,6 +502,7 @@ export default defineComponent({
       const selection = window.getSelection();
       if (!selection || selection.rangeCount === 0) return false;
       e.stopPropagation();
+      e.preventDefault();
       const range = selection.getRangeAt(0);
       range.deleteContents();
 
