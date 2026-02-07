@@ -41,6 +41,10 @@ export default defineComponent({
     parseValue: {
       type: [Object, Function] as PropType<RegExp | ((value: string) => EditorBlock[])>,
       default: () => /\{([^{}]+)\}/g
+    },
+    enterLineBreak: {
+      type: Boolean,
+      default: true
     }
   },
   emits: ['update:value', 'change', 'focus', 'blur', 'select-mention', 'delete-mention'],
@@ -477,23 +481,39 @@ export default defineComponent({
     const handleKeydown = (e: KeyboardEvent) => {
       // Menu Navigation
       const handled = handleMenuKeydown(e, insertMention);
-      if (handled) return;
+      if (handled) {
+        e.stopPropagation();
+        return;
+      }
 
       // Prevent default Enter behavior to avoid div creation?
       // Or handle it to insert newline text.
       const { key, ctrlKey, metaKey, isComposing } = e;
       if (!isComposing && key === 'Enter') {
-        // Only insert newline on Ctrl/Meta + Enter
-        if (ctrlKey || metaKey) {
-          // do nothing.
-          // using browser default behavior.
-          e.stopPropagation();
-        } else {
-          // Always prevent default to stop contenteditable from creating divs/breaks
-          e.preventDefault();
-          props.onKeydown?.(e);
+        if (props.enterLineBreak) {
+          insertLineBreak(e);
+        } else if (ctrlKey || metaKey) {
+          insertLineBreak(e);
         }
       }
+    };
+
+    const insertLineBreak = (e: KeyboardEvent): boolean => {
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount === 0) return false;
+      e.stopPropagation();
+      const range = selection.getRangeAt(0);
+      range.deleteContents();
+
+      const br = document.createElement('br');
+      range.insertNode(br);
+
+      range.setStartAfter(br);
+      range.setEndAfter(br);
+
+      selection.removeAllRanges();
+      selection.addRange(range);
+      return true;
     };
 
     const handleInput = (e: Event) => {
