@@ -16,7 +16,7 @@ import {
   watch
 } from 'vue';
 import { OioDropdown } from '../oio-dropdown';
-import { EditorBlock, type OioMentionOption, type OioMentionTrigger } from './typing';
+import { EditorBlock, type OioMentionOption, type OioMentionTrigger, TextBlock } from './typing';
 import { useContenteditable } from './use-contenteditable';
 import { useContextmenu } from './use-contextmenu';
 
@@ -196,12 +196,14 @@ export default defineComponent({
 
         while ((match = regex.exec(value)) !== null) {
           const index = match.index;
+          let lastTextBlock: TextBlock | undefined;
           if (index > lastIndex) {
-            newBlocks.push({
+            lastTextBlock = {
               type: 'text',
               id: generateId(),
               content: value.slice(lastIndex, index)
-            });
+            };
+            newBlocks.push(lastTextBlock);
           }
 
           const matchStr = match[0];
@@ -239,15 +241,14 @@ export default defineComponent({
               trigger: foundTrigger?.key || '',
               formattedValue: matchStr
             });
+          } else if (lastTextBlock) {
+            lastTextBlock.content = `${lastTextBlock.content}${matchStr}`;
           } else {
             // Fallback: use content as label if not found
             newBlocks.push({
-              type: 'mention',
+              type: 'text',
               id: generateId(),
-              label: content,
-              value: content,
-              trigger: '',
-              formattedValue: matchStr
+              content: matchStr
             });
           }
 
