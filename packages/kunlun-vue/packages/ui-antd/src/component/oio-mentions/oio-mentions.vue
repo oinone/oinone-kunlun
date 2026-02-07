@@ -718,7 +718,7 @@ export default defineComponent({
             onMousedown: handleMousedown,
             onPaste: handlePasteWrapper
           }),
-          h('div', { class: 'oio-mentions-editor-placeholder' }, `${props.placeholder} || ''`),
+          h('div', { class: 'oio-mentions-editor-placeholder' }, `${props.placeholder || ''}`),
           h(
             OioDropdown,
             {
