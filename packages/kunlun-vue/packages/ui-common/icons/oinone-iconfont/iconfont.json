@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "46901043",
+      "name": "工具-filled",
+      "font_class": "gongju-filled",
+      "unicode": "ea0c",
+      "unicode_decimal": 59916
+    },
+    {
       "icon_id": "46889092",
       "name": "智能体-outlined",
       "font_class": "zhinengti-outlined",
