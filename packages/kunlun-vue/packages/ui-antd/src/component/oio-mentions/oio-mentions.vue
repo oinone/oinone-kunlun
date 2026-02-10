@@ -6,6 +6,7 @@ import { textAreaProps } from 'ant-design-vue/es/input/inputProps';
 import { type InputFocusOptions } from 'ant-design-vue/es/vc-input/utils/commonUtils';
 import {
   computed,
+  createVNode,
   CSSProperties,
   defineComponent,
   h,
@@ -14,6 +15,7 @@ import {
   PropType,
   ref,
   shallowRef,
+  Slot,
   watch
 } from 'vue';
 import { OioDropdown } from '../oio-dropdown';
@@ -123,7 +125,7 @@ export default defineComponent({
     const createBlockNode = (block: EditorBlock): HTMLElement | Text => {
       if (block.type === 'mention') {
         const span = document.createElement('span');
-        span.className = 'mention-tag';
+        span.className = 'oio-mention-tag';
         span.contentEditable = 'false';
         span.textContent = block.label;
         span.dataset.id = block.id;
@@ -542,7 +544,7 @@ export default defineComponent({
         return false;
       }
       const anchorNode = selection.anchorNode;
-      if (anchorNode.nodeType === Node.ELEMENT_NODE && (anchorNode as Element).classList.contains('mention-tag')) {
+      if (anchorNode.nodeType === Node.ELEMENT_NODE && (anchorNode as Element).classList.contains('oio-mention-tag')) {
         return false;
       }
       e.stopPropagation();
@@ -666,7 +668,7 @@ export default defineComponent({
       const selection = window.getSelection();
       if (!selection || !selection.anchorNode) return;
       const anchorNode = selection.anchorNode;
-      if (anchorNode.nodeType === Node.ELEMENT_NODE && (anchorNode as Element).classList.contains('mention-tag')) {
+      if (anchorNode.nodeType === Node.ELEMENT_NODE && (anchorNode as Element).classList.contains('oio-mention-tag')) {
         return;
       }
 
@@ -761,7 +763,7 @@ export default defineComponent({
 
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.classList.contains('mention-tag')) {
+      if (target.classList.contains('oio-mention-tag')) {
         handleTagClick(target);
       } else {
         checkInputTrigger();
@@ -818,6 +820,14 @@ export default defineComponent({
       return options.map((opt, index) => {
         const isActive = this.menuState.activePathIndices[depth] === index;
         if (opt.children && opt.children.length > 0) {
+          const submenuSlots: Record<string, Slot> = {
+            default: () => renderMenuItems(opt.children || [], depth + 1)
+          };
+          if (opt.icon) {
+            submenuSlots.icon = () => {
+              return [createVNode(OioIcon, { icon: opt.icon, size: 16 })];
+            };
+          }
           return h(
             ASubMenu,
             {
@@ -827,10 +837,18 @@ export default defineComponent({
               popupClassName: StringHelper.append(['oio-dropdown-submenu'], this.dropdownClassName).join(' '),
               popupOffset: [0, 0]
             },
-            {
-              default: () => renderMenuItems(opt.children || [], depth + 1)
-            }
+            submenuSlots
           );
+        }
+        const menuItemSlots: Record<string, Function> = {
+          default: () => {
+            return opt.label;
+          }
+        };
+        if (opt.icon) {
+          menuItemSlots.icon = () => {
+            return [createVNode(OioIcon, { icon: opt.icon, size: 16 })];
+          };
         }
         return h(
           AMenuItem,
@@ -839,17 +857,7 @@ export default defineComponent({
             class: { 'ant-menu-item-active': isActive },
             onClick: () => this.insertMention(opt)
           },
-          {
-            default: () => {
-              if (opt.icon) {
-                return h('div', { class: 'oio-mentions-item-wrapper' }, [
-                  h(OioIcon, { icon: opt.icon, size: 18 }),
-                  h('span', {}, opt.label)
-                ]);
-              }
-              return opt.label;
-            }
-          }
+          menuItemSlots
         );
       });
     };
@@ -1004,7 +1012,7 @@ export default defineComponent({
   }
 }
 
-.mention-tag {
+.oio-mention-tag {
   display: inline-block;
   color: var(--oio-tag-color);
   background-color: var(--oio-tag-background-color);

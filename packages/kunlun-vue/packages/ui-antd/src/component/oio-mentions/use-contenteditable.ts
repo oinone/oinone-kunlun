@@ -61,7 +61,7 @@ export function useContenteditable(editorRef: Ref<HTMLElement | undefined>) {
 
     // Check if clicked on a mention tag directly
     const element = document.elementFromPoint(e.clientX, e.clientY);
-    if (element && element.classList.contains('mention-tag')) {
+    if (element && element.classList.contains('oio-mention-tag')) {
       const selection = window.getSelection();
       if (selection) {
         const range = document.createRange();

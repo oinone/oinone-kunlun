@@ -12,9 +12,21 @@
   .ant-dropdown-menu-submenu-title {
     color: var(--oio-dropdown-color);
 
+    .oio-icon.ant-dropdown-menu-item-icon {
+      font-size: var(--oio-icon-font-size);
+    }
+
+    .oio-icon {
+      vertical-align: 0;
+    }
+
     &:hover {
       background-color: var(--oio-dropdown-item-background-color-hover);
       color: var(--oio-dropdown-color-hover);
+
+      .ant-dropdown-menu-item-icon {
+        color: var(--oio-dropdown-color-hover);
+      }
     }
   }
 
@@ -32,6 +44,10 @@
   &.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-submenu-title-selected {
     background-color: var(--oio-dropdown-item-background-color-hover);
     color: var(--oio-dropdown-color-hover);
+
+    .ant-dropdown-menu-item-icon {
+      color: var(--oio-dropdown-color-hover);
+    }
   }
 }
 
@@ -40,5 +56,9 @@
   &.ant-dropdown-menu-submenu .ant-dropdown-menu .ant-dropdown-menu-submenu-title-selected {
     background-color: var(--oio-dropdown-item-background-color-hover);
     color: var(--oio-dropdown-color-hover);
+
+    .ant-dropdown-menu-item-icon {
+      color: var(--oio-dropdown-color-hover);
+    }
   }
 }
