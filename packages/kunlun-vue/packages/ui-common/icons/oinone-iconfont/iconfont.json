@@ -6,6 +6,76 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "46889092",
+      "name": "智能体-outlined",
+      "font_class": "zhinengti-outlined",
+      "unicode": "ea0a",
+      "unicode_decimal": 59914
+    },
+    {
+      "icon_id": "46846750",
+      "name": "文件-filled",
+      "font_class": "wenjian",
+      "unicode": "ea09",
+      "unicode_decimal": 59913
+    },
+    {
+      "icon_id": "46846664",
+      "name": "用户默认头像-男",
+      "font_class": "yonghumorentouxiang-nan",
+      "unicode": "ea06",
+      "unicode_decimal": 59910
+    },
+    {
+      "icon_id": "46846656",
+      "name": "附件-outlined",
+      "font_class": "fujian-outlined",
+      "unicode": "ea07",
+      "unicode_decimal": 59911
+    },
+    {
+      "icon_id": "46846655",
+      "name": "斜杠-outlined",
+      "font_class": "xiegang-outlined",
+      "unicode": "ea08",
+      "unicode_decimal": 59912
+    },
+    {
+      "icon_id": "46846649",
+      "name": "画廊-outlined",
+      "font_class": "hualang-outlined",
+      "unicode": "ea04",
+      "unicode_decimal": 59908
+    },
+    {
+      "icon_id": "46846651",
+      "name": "表单-outlined",
+      "font_class": "biaodan-outlined",
+      "unicode": "ea05",
+      "unicode_decimal": 59909
+    },
+    {
+      "icon_id": "46846653",
+      "name": "详情-outlined",
+      "font_class": "xiangqing-outlined",
+      "unicode": "ea01",
+      "unicode_decimal": 59905
+    },
+    {
+      "icon_id": "46846654",
+      "name": "用户默认头像",
+      "font_class": "yonghumorentouxiang",
+      "unicode": "ea02",
+      "unicode_decimal": 59906
+    },
+    {
+      "icon_id": "46846652",
+      "name": "表格-outlined",
+      "font_class": "biaoge-outlined",
+      "unicode": "ea03",
+      "unicode_decimal": 59907
+    },
+    {
       "icon_id": "46750120",
       "name": "code-file-filled",
       "font_class": "code-file-filled",

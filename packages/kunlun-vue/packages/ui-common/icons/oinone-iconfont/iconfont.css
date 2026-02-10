@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2657071 */
-  src: url('iconfont.woff2?t=1769480135116') format('woff2'),
-       url('iconfont.woff?t=1769480135116') format('woff'),
-       url('iconfont.ttf?t=1769480135116') format('truetype');
+  src: url('iconfont.woff2?t=1770691903808') format('woff2'),
+       url('iconfont.woff?t=1770691903808') format('woff'),
+       url('iconfont.ttf?t=1770691903808') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,46 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.oinone-zhinengti-outlined:before {
+  content: "\ea0a";
+}
+
+.oinone-wenjian:before {
+  content: "\ea09";
+}
+
+.oinone-yonghumorentouxiang-nan:before {
+  content: "\ea06";
+}
+
+.oinone-fujian-outlined:before {
+  content: "\ea07";
+}
+
+.oinone-xiegang-outlined:before {
+  content: "\ea08";
+}
+
+.oinone-hualang-outlined:before {
+  content: "\ea04";
+}
+
+.oinone-biaodan-outlined:before {
+  content: "\ea05";
+}
+
+.oinone-xiangqing-outlined:before {
+  content: "\ea01";
+}
+
+.oinone-yonghumorentouxiang:before {
+  content: "\ea02";
+}
+
+.oinone-biaoge-outlined:before {
+  content: "\ea03";
 }
 
 .oinone-code-file-filled:before {
