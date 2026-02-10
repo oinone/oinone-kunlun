@@ -691,6 +691,13 @@ export default defineComponent({
         const newBlocks: EditorBlock[] = [];
         if (target.childNodes.length === 1 && target.childNodes.item(0).nodeName === 'BR') {
           target.childNodes.item(0).remove();
+        } else if (
+          target.childNodes.length === 2 &&
+          target.childNodes.item(0).nodeName === 'BR' &&
+          !target.childNodes.item(1).textContent
+        ) {
+          target.childNodes.item(1).remove();
+          target.childNodes.item(0).remove();
         } else {
           target.childNodes.forEach((node) => {
             const bId = nodeMap.get(node);
