@@ -1,6 +1,6 @@
-import { onBeforeUnmount, Ref } from 'vue';
+import { onBeforeUnmount, type Ref } from 'vue';
 
-export function useContenteditable(editorRef: Ref<HTMLElement | null>) {
+export function useContenteditable(editorRef: Ref<HTMLElement | undefined>) {
   // Click detection state
   let mousedownActive = false;
   let pointRecord: { x: number; y: number } | undefined;

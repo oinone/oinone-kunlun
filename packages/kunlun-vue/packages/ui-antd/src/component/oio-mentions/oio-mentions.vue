@@ -1,4 +1,5 @@
 <script lang="ts">
+import { StringHelper } from '@oinone/kunlun-shared';
 import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { Menu as AMenu, MenuItem as AMenuItem, SubMenu as ASubMenu } from 'ant-design-vue';
 import { textAreaProps } from 'ant-design-vue/es/input/inputProps';
@@ -16,7 +17,14 @@ import {
   watch
 } from 'vue';
 import { OioDropdown } from '../oio-dropdown';
-import { EditorBlock, type OioMentionOption, type OioMentionTrigger, TextBlock } from './typing';
+import {
+  EditorBlock,
+  LineBreakBlock,
+  OioMentionCheckedStrategy,
+  type OioMentionOption,
+  type OioMentionTrigger,
+  TextBlock
+} from './typing';
 import { useContenteditable } from './use-contenteditable';
 import { useContextmenu } from './use-contextmenu';
 
@@ -45,12 +53,19 @@ export default defineComponent({
     enterLineBreak: {
       type: Boolean,
       default: true
+    },
+    checkedStrategy: {
+      type: String as PropType<OioMentionCheckedStrategy | keyof typeof OioMentionCheckedStrategy>,
+      default: OioMentionCheckedStrategy.child
+    },
+    dropdownClassName: {
+      type: [String, Array] as PropType<string | string[]>
     }
   },
   emits: ['update:value', 'change', 'focus', 'blur', 'select-mention', 'delete-mention'],
   setup(props, { emit, expose }) {
     // State
-    const editorRef = ref<HTMLElement | null>(null);
+    const editorRef = ref<HTMLElement>();
     const blocks = shallowRef<EditorBlock[]>([]);
 
     const { handleMousedown, handlePaste } = useContenteditable(editorRef);
@@ -65,13 +80,13 @@ export default defineComponent({
       getKeysFromIndices,
       normalizedTriggers
     } = useContextmenu(
-      computed(() => props.triggers),
       editorRef,
+      computed(() => props.triggers),
       blocks
     );
 
     const editorStyle = computed<CSSProperties>(() => {
-      const { autoSize } = props;
+      const autoSize = props.autoSize;
       const style: CSSProperties = {};
 
       const LINE_HEIGHT = 22; // approx 14px * 1.5715
@@ -99,13 +114,13 @@ export default defineComponent({
     });
 
     // Non-reactive state
-    const nodeMap = new WeakMap<Node, string>();
+    let nodeMap = new WeakMap<Node, string>();
 
     // Helper: Generate UUID
     const generateId = () => Math.random().toString(36).substring(2, 9);
 
     // Helper: Create DOM for block
-    const createBlockNode = (block: EditorBlock): Node => {
+    const createBlockNode = (block: EditorBlock): HTMLElement | Text => {
       if (block.type === 'mention') {
         const span = document.createElement('span');
         span.className = 'mention-tag';
@@ -115,6 +130,10 @@ export default defineComponent({
         span.dataset.value = block.formattedValue || block.value;
         nodeMap.set(span, block.id);
         return span;
+      } else if (block.type === 'br') {
+        const br = document.createElement('br');
+        nodeMap.set(br, block.id);
+        return br;
       } else {
         const text = document.createTextNode(block.content);
         nodeMap.set(text, block.id);
@@ -122,35 +141,19 @@ export default defineComponent({
       }
     };
 
-    // Helper: Render all blocks to editor
     const renderBlocks = () => {
       const editor = editorRef.value;
       if (!editor) return;
-
-      // Save selection state if possible
-      // const savedRange = saveSelection();
-
       editor.innerHTML = '';
-      nodeMap.delete(editor); // Clear old map entries implicitly by garbage collection, but here we just rebuild
-
+      nodeMap = new WeakMap<Node, string>();
       if (blocks.value.length === 0) {
-        // Ensure at least one text block for input
-        const emptyBlock: EditorBlock = { type: 'text', id: generateId(), content: '' };
-        blocks.value = [emptyBlock];
+        return;
       }
-
-      blocks.value.forEach((block) => {
-        const node = createBlockNode(block);
-        editor.appendChild(node);
-      });
-
-      // Restore selection? Usually renderBlocks is called on init or full reset.
-      // For incremental updates, we don't call this.
+      blocks.value.forEach((block) => editor.appendChild(createBlockNode(block)));
     };
 
-    // Helper: Sync value to parent
-    const syncValue = () => {
-      const text = blocks.value
+    const generateValue = (): string => {
+      return blocks.value
         .map((b) => {
           if (b.type === 'mention') {
             return b.formattedValue || b.value;
@@ -158,7 +161,39 @@ export default defineComponent({
           return b.content;
         })
         .join('');
-      emit('update:value', text);
+    };
+
+    // Helper: Sync value to parent
+    const syncValue = () => {
+      emit('update:value', generateValue());
+    };
+
+    const appendTextBlock = (blocks: EditorBlock[], content: string): TextBlock | undefined => {
+      let lastTextBlock: TextBlock | undefined;
+      const ss = content.split('\n');
+      let first = true;
+      for (const s of ss) {
+        if (first) {
+          first = false;
+        } else {
+          blocks.push({
+            type: 'br',
+            id: generateId(),
+            content: '\n'
+          });
+        }
+        if (s) {
+          lastTextBlock = {
+            type: 'text',
+            id: generateId(),
+            content: s
+          };
+          blocks.push(lastTextBlock);
+        } else {
+          lastTextBlock = undefined;
+        }
+      }
+      return lastTextBlock;
     };
 
     // Helper: Hydrate value to blocks
@@ -167,9 +202,7 @@ export default defineComponent({
       if (value === undefined || value === null) return;
 
       // Avoid re-hydrating if value matches current blocks to prevent cursor jumps
-      const currentValue = blocks.value
-        .map((b) => (b.type === 'mention' ? b.formattedValue || b.value : b.content))
-        .join('');
+      const currentValue = generateValue();
       if (value === currentValue) return;
 
       const newBlocks: EditorBlock[] = [];
@@ -188,7 +221,6 @@ export default defineComponent({
       } else if (parseValue instanceof RegExp) {
         let lastIndex = 0;
         let match;
-        // Ensure global flag for loop
         const regex = new RegExp(
           parseValue.source,
           parseValue.flags.includes('g') ? parseValue.flags : parseValue.flags + 'g'
@@ -198,12 +230,11 @@ export default defineComponent({
           const index = match.index;
           let lastTextBlock: TextBlock | undefined;
           if (index > lastIndex) {
-            lastTextBlock = {
-              type: 'text',
-              id: generateId(),
-              content: value.slice(lastIndex, index)
-            };
-            newBlocks.push(lastTextBlock);
+            lastTextBlock = appendTextBlock(newBlocks, value.slice(lastIndex, index));
+            if (!lastTextBlock) {
+              lastTextBlock = { type: 'text', id: generateId(), content: '' };
+              newBlocks.push(lastTextBlock);
+            }
           }
 
           const matchStr = match[0];
@@ -244,33 +275,18 @@ export default defineComponent({
           } else if (lastTextBlock) {
             lastTextBlock.content = `${lastTextBlock.content}${matchStr}`;
           } else {
-            // Fallback: use content as label if not found
             newBlocks.push({
               type: 'text',
               id: generateId(),
               content: matchStr
             });
           }
-
           lastIndex = regex.lastIndex;
         }
 
         if (lastIndex < value.length) {
-          newBlocks.push({
-            type: 'text',
-            id: generateId(),
-            content: value.slice(lastIndex)
-          });
+          appendTextBlock(newBlocks, value.slice(lastIndex));
         }
-      }
-
-      // Fallback if no match or empty parse
-      if (newBlocks.length === 0 && value) {
-        newBlocks.push({ type: 'text', id: generateId(), content: value });
-      }
-
-      if (newBlocks.length === 0) {
-        newBlocks.push({ type: 'text', id: generateId(), content: '' });
       }
 
       blocks.value = newBlocks;
@@ -333,6 +349,11 @@ export default defineComponent({
     };
 
     const insertMention = (option: OioMentionOption) => {
+      if (props.checkedStrategy === 'child') {
+        if (option.children?.length) {
+          return;
+        }
+      }
       let range: Range | null = null;
       const selection = window.getSelection();
       if (selection && selection.rangeCount > 0) {
@@ -360,10 +381,6 @@ export default defineComponent({
         // Edit existing mention
         const blockIndex = blocks.value.findIndex((b) => b.id === menuState.targetBlockId);
         if (blockIndex !== -1) {
-          option = {
-            ...option,
-            value: menuState.targetBlockId
-          };
           const newBlock: EditorBlock = {
             type: 'mention',
             id: menuState.targetBlockId, // Keep same ID or generate new? Keep same to preserve references?
@@ -402,7 +419,9 @@ export default defineComponent({
       // Case 2: Inserting new Mention (Typing Mode)
       // We need to find the text block and split it.
       // node is likely the text node.
-      if (!node) return;
+      if (!node || node.parentNode !== editorRef.value) {
+        return;
+      }
       const blockId = nodeMap.get(node);
       if (!blockId) return;
 
@@ -438,20 +457,15 @@ export default defineComponent({
 
       // Construct new blocks
       const preBlock: EditorBlock = { type: 'text', id: block.id, content: preText }; // Reuse ID for first part?
-      const mentionBlockId = generateId();
-      option = {
-        ...option,
-        value: mentionBlockId
-      };
       const mentionBlock: EditorBlock = {
         type: 'mention',
-        id: mentionBlockId,
+        id: generateId(),
         label: option.label,
         value: option.value,
         trigger: menuState.triggerKey,
         formattedValue: props.valueFormat ? props.valueFormat(option) : option.value
       };
-      const postBlock: EditorBlock = { type: 'text', id: generateId(), content: postText || '\u00A0' }; // Use NBSP if empty to hold cursor?
+      const postBlock: EditorBlock = { type: 'text', id: generateId(), content: postText };
 
       const newBlocks = [...blocks.value];
       // Replace original block with [pre, mention, post]
@@ -459,23 +473,41 @@ export default defineComponent({
       // But we need preBlock if it has content.
 
       const fragment: EditorBlock[] = [];
-      if (preText) fragment.push(preBlock);
+      if (preText) {
+        fragment.push(preBlock);
+      }
       fragment.push(mentionBlock);
-      fragment.push(postBlock);
-
+      if (postText) {
+        fragment.push(postBlock);
+      }
       newBlocks.splice(blockIndex, 1, ...fragment);
       blocks.value = newBlocks;
 
-      renderBlocks();
+      const targetNode = node.parentNode.childNodes.item(blockIndex);
+      const blockNode = createBlockNode(mentionBlock);
+      if (!postText) {
+        targetNode.after(blockNode);
+        if (preText) {
+          targetNode.before(createBlockNode(preBlock));
+        }
+        targetNode.remove();
+      } else {
+        if (preText) {
+          targetNode.before(createBlockNode(preBlock));
+          targetNode.previousSibling?.after(blockNode);
+          targetNode.previousSibling?.after(createBlockNode(postBlock));
+          targetNode.remove();
+        } else {
+          targetNode.before(blockNode);
+          targetNode.after(createBlockNode(postBlock));
+          targetNode.remove();
+        }
+      }
+      range.setStartAfter(blockNode);
+      range.setEndAfter(blockNode);
+
       syncValue();
       emit('select-mention', option, menuState.triggerKey);
-
-      // Restore cursor to start of postBlock
-      restoreSelection(postBlock.id, 0); // 0 or 1 if NBSP?
-      // If we used NBSP, offset 1 is better?
-      // If content is empty string, we can't place cursor easily in some browsers.
-      // Let's assume postBlock has at least a space or we rely on browser behavior for empty text node (it works if it exists).
-
       closeMenu();
     };
 
@@ -489,68 +521,163 @@ export default defineComponent({
 
       // Prevent default Enter behavior to avoid div creation?
       // Or handle it to insert newline text.
-      const { key, ctrlKey, metaKey, isComposing } = e;
-      if (!isComposing && key === 'Enter') {
-        if (props.enterLineBreak) {
-          insertLineBreak(e);
-        } else if (ctrlKey || metaKey) {
-          insertLineBreak(e);
+      const { key, ctrlKey, metaKey, shiftKey, altKey, isComposing } = e;
+      if (!isComposing) {
+        if (key === 'Enter') {
+          if (!ctrlKey && !metaKey && !shiftKey && !altKey && props.enterLineBreak) {
+            insertLineBreak(e);
+          } else if ((ctrlKey || metaKey) && !shiftKey && !altKey) {
+            insertLineBreak(e);
+          }
+        } else if (key === 'Backspace') {
+          deleteMentionTag(e);
         }
       }
     };
 
     const insertLineBreak = (e: KeyboardEvent): boolean => {
+      const target = e.target as HTMLElement;
       const selection = window.getSelection();
-      if (!selection || selection.rangeCount === 0) return false;
+      if (!selection || !selection.anchorNode) {
+        return false;
+      }
+      const anchorNode = selection.anchorNode;
+      if (anchorNode.nodeType === Node.ELEMENT_NODE && (anchorNode as Element).classList.contains('mention-tag')) {
+        return false;
+      }
       e.stopPropagation();
       e.preventDefault();
-      const range = selection.getRangeAt(0);
-      range.deleteContents();
+      let blockId = nodeMap.get(anchorNode);
+      let anchor: 'before' | 'after' | 'append' = 'after';
+      if (!blockId && target === editorRef.value) {
+        if (blocks.value.length) {
+          if (selection.anchorOffset === 0) {
+            blockId = blocks.value[selection.anchorOffset]?.id;
+          } else {
+            blockId = blocks.value[selection.anchorOffset - 1]?.id;
+          }
+          anchor = 'before';
+        } else {
+          anchor = 'append';
+        }
+      }
+      if (blockId) {
+        const index = blocks.value.findIndex((b) => b.id === blockId);
+        if (index !== -1) {
+          const range = selection.getRangeAt(0);
+          range.deleteContents();
 
-      const br = document.createElement('br');
-      range.insertNode(br);
+          const lineBreakBlock: LineBreakBlock = {
+            type: 'br',
+            id: generateId(),
+            content: '\n'
+          };
+          if (anchor === 'before') {
+            blocks.value.splice(index, 0, lineBreakBlock);
+          } else {
+            blocks.value.splice(index + 1, 0, lineBreakBlock);
+            if (!range.startContainer.nextSibling?.textContent) {
+              const lineBreakBlock1: LineBreakBlock = {
+                type: 'br',
+                id: generateId(),
+                content: '\n'
+              };
+              blocks.value.push(lineBreakBlock1);
+              range.insertNode(createBlockNode(lineBreakBlock1));
+            }
+          }
+          const br = createBlockNode(lineBreakBlock);
+          range.insertNode(br);
+          range.setStartAfter(br);
+          range.setEndAfter(br);
+          selection.removeAllRanges();
+          selection.addRange(range);
+          syncValue();
+        }
+      } else if (anchor === 'append') {
+        const range = selection.getRangeAt(0);
+        range.deleteContents();
 
-      range.setStartAfter(br);
-      range.setEndAfter(br);
+        const lineBreakBlock1: LineBreakBlock = {
+          type: 'br',
+          id: generateId(),
+          content: '\n'
+        };
+        blocks.value.push(lineBreakBlock1);
+        range.insertNode(createBlockNode(lineBreakBlock1));
+        const lineBreakBlock2: LineBreakBlock = {
+          type: 'br',
+          id: generateId(),
+          content: '\n'
+        };
+        blocks.value.push(lineBreakBlock2);
+        const br = createBlockNode(lineBreakBlock2);
+        range.insertNode(br);
+        range.setStartAfter(br);
+        range.setEndAfter(br);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        syncValue();
+      }
+      return true;
+    };
 
-      selection.removeAllRanges();
-      selection.addRange(range);
+    const deleteMentionTag = (e: KeyboardEvent): boolean => {
+      const target = e.target as HTMLElement;
+      if (target !== editorRef.value) {
+        return true;
+      }
+      const selection = window.getSelection();
+      if (!selection || !selection.anchorNode) {
+        return false;
+      }
+      const anchorNode = selection.anchorNode;
+      if (anchorNode.nodeType === Node.TEXT_NODE) {
+        return true;
+      }
+      const blockIndex = selection.anchorOffset - 1;
+      const block = blocks.value[blockIndex];
+      if (block && block.type === 'mention') {
+        e.preventDefault();
+        const newBlocks = [...blocks.value];
+        newBlocks.splice(blockIndex, 1);
+        blocks.value = newBlocks;
+        target.childNodes.item(blockIndex).remove();
+        syncValue();
+        emit('delete-mention', {
+          key: block.id,
+          label: block.label,
+          value: block.value,
+          trigger: block.trigger
+        });
+      }
       return true;
     };
 
     const handleInput = (e: Event) => {
       const target = e.target as HTMLElement;
-      if (!target) return;
-
-      // Handle empty editor case (browser might remove everything)
       if (target.childNodes.length === 0) {
-        target.innerHTML = ''; // Ensure clean state
-        blocks.value = [{ type: 'text', id: generateId(), content: '' }];
+        target.innerHTML = '';
+        blocks.value = [];
         renderBlocks();
         syncValue();
         return;
       }
-
-      // Incremental Update Strategy
-      // 1. Identify which DOM node was modified
       const selection = window.getSelection();
       if (!selection || !selection.anchorNode) return;
-
       const anchorNode = selection.anchorNode;
-      // If anchor is the editor itself (rare, but happens when empty), find the text node or create one
-      if (anchorNode === target) {
-        // This usually means we need to re-initialize or find the correct child
-        // For now, let's rely on nodeMap lookup.
-        // If we can't map it, we might need a full re-parse or safety check.
-      }
-
-      // Ensure we are looking at the text node, not the wrapper if possible
       if (anchorNode.nodeType === Node.ELEMENT_NODE && (anchorNode as Element).classList.contains('mention-tag')) {
-        // Edited a mention tag? Should not happen due to contenteditable=false
         return;
       }
 
-      const blockId = nodeMap.get(anchorNode);
+      let blockId = nodeMap.get(anchorNode);
+      if (!blockId && target === editorRef.value) {
+        if (selection.anchorOffset === 0) {
+          blockId = blocks.value[selection.anchorOffset]?.id;
+        } else {
+          blockId = blocks.value[selection.anchorOffset - 1]?.id;
+        }
+      }
       // Optimization: Only use fast path if we are editing a known text block AND the structure (node count) hasn't changed.
       // This ensures that if a block was deleted (changing node count), we fall through to full reconciliation.
       if (blockId && target.childNodes.length === blocks.value.length) {
@@ -561,39 +688,33 @@ export default defineComponent({
           syncValue();
         }
       } else {
-        // New node created by browser (e.g. Enter key, or pasted content)?
-        // For simple text input, we should map existing nodes.
-        // If structure changed significantly, we might need to reconcile DOM to Blocks.
-        // A simple reconciliation for now:
-        // Iterate over DOM nodes, match with blocks, insert new text blocks for unknown nodes.
-
         const newBlocks: EditorBlock[] = [];
-        target.childNodes.forEach((node) => {
-          const bId = nodeMap.get(node);
-          if (bId) {
-            const existing = blocks.value.find((b) => b.id === bId);
-            if (existing) {
-              if (existing.type === 'text') existing.content = node.textContent || '';
-              newBlocks.push(existing);
+        if (target.childNodes.length === 1 && target.childNodes.item(0).nodeName === 'BR') {
+          target.childNodes.item(0).remove();
+        } else {
+          target.childNodes.forEach((node) => {
+            const bId = nodeMap.get(node);
+            if (bId) {
+              const existing = blocks.value.find((b) => b.id === bId);
+              if (existing) {
+                if (existing.type === 'text') {
+                  existing.content = node.textContent || '';
+                }
+                newBlocks.push(existing);
+              }
+            } else {
+              if (node.nodeType === Node.TEXT_NODE) {
+                const newBlock: EditorBlock = {
+                  type: 'text',
+                  id: generateId(),
+                  content: node.textContent || ''
+                };
+                nodeMap.set(node, newBlock.id);
+                newBlocks.push(newBlock);
+              }
             }
-          } else {
-            // New Text Node
-            if (node.nodeType === Node.TEXT_NODE) {
-              const newBlock: EditorBlock = {
-                type: 'text',
-                id: generateId(),
-                content: node.textContent || ''
-              };
-              nodeMap.set(node, newBlock.id);
-              newBlocks.push(newBlock);
-            }
-            // If it's an element (e.g. <div><br></div> from Enter), we need to flatten it or handle new lines.
-            // For this basic version, we ignore complex HTML structure changes (Enter key usually creates divs).
-            // We will handle Enter key in keydown to prevent div creation if needed.
-          }
-        });
-
-        // Detect deleted mentions
+          });
+        }
         const newBlockIds = new Set(newBlocks.map((b) => b.id));
         blocks.value.forEach((block) => {
           if (block.type === 'mention' && !newBlockIds.has(block.id)) {
@@ -605,7 +726,6 @@ export default defineComponent({
             });
           }
         });
-
         blocks.value = newBlocks;
         syncValue();
       }
@@ -669,114 +789,131 @@ export default defineComponent({
       }
     );
 
-    // Render function
-    return () => {
-      const renderMenuItems = (options: OioMentionOption[], depth = 0) => {
-        return options.map((opt, index) => {
-          const isActive = menuState.activePathIndices[depth] === index;
-          if (opt.children && opt.children.length > 0) {
-            return h(
-              ASubMenu,
-              {
-                key: opt.value,
-                title: opt.label,
-                class: { 'ant-dropdown-menu-item-selected ant-menu-submenu-active': isActive },
-                popupClassName: 'oio-dropdown-submenu'
-              },
-              {
-                default: () => renderMenuItems(opt.children || [], depth + 1)
-              }
-            );
-          }
+    return {
+      editorRef,
+      editorStyle,
+      menuState,
+      blocks,
+
+      insertMention,
+      getKeysFromIndices,
+
+      handleInput,
+      handleKeydown,
+      handleKeyup,
+      handleClick,
+      handleMousedown,
+      handlePasteWrapper
+    };
+  },
+  render() {
+    const renderMenuItems = (options: OioMentionOption[], depth = 0) => {
+      return options.map((opt, index) => {
+        const isActive = this.menuState.activePathIndices[depth] === index;
+        if (opt.children && opt.children.length > 0) {
           return h(
-            AMenuItem,
+            ASubMenu,
             {
               key: opt.value,
-              class: { 'ant-menu-item-active': isActive },
-              onClick: () => insertMention(opt)
+              title: opt.label,
+              class: { 'ant-dropdown-menu-item-selected ant-menu-submenu-active': isActive },
+              popupClassName: StringHelper.append(['oio-dropdown-submenu'], this.dropdownClassName).join(' '),
+              popupOffset: [0, 0]
             },
             {
-              default: () => {
-                if (opt.icon) {
-                  return h('div', { class: 'oio-mentions-item-wrapper' }, [
-                    h(OioIcon, { icon: opt.icon, size: 18 }),
-                    h('span', {}, opt.label)
-                  ]);
-                }
-                return opt.label;
-              }
+              default: () => renderMenuItems(opt.children || [], depth + 1)
             }
           );
-        });
-      };
-
-      // Use getKeysFromIndices from hook
-
-      const { selectedKeys, openKeys } = getKeysFromIndices();
-
-      return h(
-        'div',
-        {
-          class: {
-            'oio-mentions-wrapper': true,
-            'oio-mentions-editor-empty': !props.value
-          }
-        },
-        [
-          h('div', {
-            ref: editorRef,
-            contenteditable: !props.readonly,
-            class: {
-              'oio-mentions-editor': true,
-              'oio-mentions-editor-readonly': !!props.readonly,
-              'oio-mentions-editor-disabled': props.disabled,
-              'oio-mentions-editor-borderless': props.bordered === false
-            },
-            style: editorStyle.value,
-            onInput: handleInput,
-            onKeydown: handleKeydown,
-            onKeyup: handleKeyup,
-            onClick: handleClick,
-            onMousedown: handleMousedown,
-            onPaste: handlePasteWrapper
-          }),
-          h('div', { class: 'oio-mentions-editor-placeholder' }, `${props.placeholder || ''}`),
-          h(
-            OioDropdown,
-            {
-              visible: menuState.visible,
-              'onUpdate:visible': (val: boolean) => (menuState.visible = val),
-              trigger: ['contextmenu']
-            },
-            {
-              default: () =>
-                h('div', {
-                  style: {
-                    position: 'fixed',
-                    left: `${menuState.x}px`,
-                    top: `${menuState.y - 8}px`,
-                    width: '100px',
-                    height: '1px',
-                    userSelect: 'none',
-                    pointerEvents: 'none',
-                    overflow: 'hidden'
-                  }
-                }),
-              overlay: () =>
-                h(
-                  AMenu,
-                  {
-                    selectedKeys: selectedKeys,
-                    openKeys: openKeys, // Pass openKeys to expand submenus
-                    style: { maxHeight: '200px', overflow: 'hidden auto' }
-                  },
-                  { default: () => renderMenuItems(menuState.options) }
-                )
+        }
+        return h(
+          AMenuItem,
+          {
+            key: opt.value,
+            class: { 'ant-menu-item-active': isActive },
+            onClick: () => this.insertMention(opt)
+          },
+          {
+            default: () => {
+              if (opt.icon) {
+                return h('div', { class: 'oio-mentions-item-wrapper' }, [
+                  h(OioIcon, { icon: opt.icon, size: 18 }),
+                  h('span', {}, opt.label)
+                ]);
+              }
+              return opt.label;
             }
-          )
-        ]
-      );
+          }
+        );
+      });
     };
+
+    // Use getKeysFromIndices from hook
+
+    const { selectedKeys, openKeys } = this.getKeysFromIndices();
+
+    return h(
+      'div',
+      {
+        class: {
+          'oio-mentions-wrapper': true,
+          'oio-mentions-editor-empty': !this.value
+        }
+      },
+      [
+        h('div', {
+          ref: 'editorRef',
+          contenteditable: !this.readonly,
+          class: {
+            'oio-mentions-editor': true,
+            'oio-mentions-editor-readonly': !!this.readonly,
+            'oio-mentions-editor-disabled': this.disabled,
+            'oio-mentions-editor-borderless': this.bordered === false
+          },
+          style: this.editorStyle,
+          onInput: this.handleInput,
+          onKeydown: this.handleKeydown,
+          onKeyup: this.handleKeyup,
+          onClick: this.handleClick,
+          onMousedown: this.handleMousedown,
+          onPaste: this.handlePasteWrapper
+        }),
+        h('div', { class: 'oio-mentions-editor-placeholder' }, `${this.placeholder || ''}`),
+        h(
+          OioDropdown,
+          {
+            overlayClassName: StringHelper.append(['oio-mentions-dropdown'], this.dropdownClassName),
+            visible: this.menuState.visible,
+            'onUpdate:visible': (val: boolean) => (this.menuState.visible = val),
+            trigger: ['contextmenu']
+          },
+          {
+            default: () =>
+              h('div', {
+                style: {
+                  position: 'fixed',
+                  left: `${this.menuState.x}px`,
+                  top: `${this.menuState.y - 8}px`,
+                  width: '100px',
+                  height: '1px',
+                  userSelect: 'none',
+                  pointerEvents: 'none',
+                  overflow: 'hidden'
+                }
+              }),
+            overlay: () =>
+              h(
+                AMenu,
+                {
+                  selectedKeys: selectedKeys,
+                  openKeys: openKeys, // Pass openKeys to expand submenus
+                  style: { maxHeight: '200px', overflow: 'hidden auto' }
+                },
+                { default: () => renderMenuItems(this.menuState.options) }
+              )
+          }
+        )
+      ]
+    );
   }
 });
 </script>
@@ -822,6 +959,12 @@ export default defineComponent({
   white-space: pre-wrap;
   word-break: break-word;
   cursor: text;
+
+  br {
+    display: block;
+    content: '';
+    margin: 0;
+  }
 
   &:focus {
     box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);

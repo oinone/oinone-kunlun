@@ -2,8 +2,8 @@ import { computed, type ComputedRef, reactive, Ref } from 'vue';
 import { EditorBlock, OioMentionOption, OioMentionTrigger } from './typing';
 
 export function useContextmenu(
+  editorRef: Ref<HTMLElement | undefined>,
   triggers: Ref<OioMentionTrigger | OioMentionTrigger[] | undefined>,
-  editorRef: Ref<HTMLElement | null>,
   blocks: Ref<EditorBlock[]>
 ) {
   // Menu State
@@ -210,6 +210,10 @@ export function useContextmenu(
   const getKeysFromIndices = () => {
     const selectedKeys: string[] = [];
     const openKeys: string[] = [];
+    if (!menuState.visible) {
+      return { selectedKeys, openKeys };
+    }
+
     let currentOptions = menuState.options;
 
     for (let i = 0; i < menuState.activePathIndices.length; i++) {
