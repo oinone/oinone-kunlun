@@ -673,7 +673,7 @@ export default defineComponent({
       }
 
       let blockId = nodeMap.get(anchorNode);
-      if (!blockId && target === editorRef.value) {
+      if (!blockId && anchorNode === editorRef.value) {
         if (selection.anchorOffset === 0) {
           blockId = blocks.value[selection.anchorOffset]?.id;
         } else {
@@ -703,14 +703,12 @@ export default defineComponent({
         } else {
           target.childNodes.forEach((node) => {
             const bId = nodeMap.get(node);
-            if (bId) {
-              const existing = blocks.value.find((b) => b.id === bId);
-              if (existing) {
-                if (existing.type === 'text') {
-                  existing.content = node.textContent || '';
-                }
-                newBlocks.push(existing);
+            const existing = bId ? blocks.value.find((b) => b.id === bId) : undefined;
+            if (existing) {
+              if (existing.type === 'text') {
+                existing.content = node.textContent || '';
               }
+              newBlocks.push(existing);
             } else {
               if (node.nodeType === Node.TEXT_NODE) {
                 const newBlock: EditorBlock = {
