@@ -7,6 +7,10 @@ $largeSize: 1.6em;
 .#{$spinClassPrefix} {
   background: var(--oio-spin-background);
 
+  &.ant-spin .ant-spin-dot {
+    font-size: inherit;
+  }
+
   &-small {
     .#{$spinClassPrefix}-loading {
       width: $smallSize;
