@@ -169,6 +169,7 @@ export function useContenteditable(editorRef: Ref<HTMLElement | undefined>) {
   };
 
   const handleMousedown = (e: MouseEvent) => {
+    e.stopPropagation();
     mousedownActive = true;
     pointRecord = {
       x: e.clientX,
