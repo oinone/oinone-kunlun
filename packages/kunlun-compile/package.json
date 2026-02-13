@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-compile",
-  "version": "6.4.0",
+  "version": "7.1.0",
   "type": "module",
   "main": "dist/index.min.js",
   "types": "dist/types/index.d.ts",

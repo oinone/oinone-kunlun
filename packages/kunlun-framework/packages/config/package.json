@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-config",
-  "version": "6.4.1",
+  "version": "7.1.0",
   "type": "module",
   "main": "index.ts",
   "scripts": {

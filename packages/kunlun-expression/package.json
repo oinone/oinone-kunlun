@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-expression",
-  "version": "6.4.0",
+  "version": "7.1.0",
   "type": "module",
   "main": "index.ts",
   "scripts": {

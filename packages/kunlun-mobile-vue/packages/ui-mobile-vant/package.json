@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui-mobile-vant",
-  "version": "6.4.2",
+  "version": "7.1.0",
   "type": "module",
   "main": "index.ts",
   "scripts": {
