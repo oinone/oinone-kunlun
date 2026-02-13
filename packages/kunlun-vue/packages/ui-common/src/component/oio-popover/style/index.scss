@@ -43,4 +43,10 @@
       }
     }
   }
+
+  &.ant-popover-placement-rightTop:not(.ant-popover-arrow-hidden),
+  &.ant-popover-placement-right:not(.ant-popover-arrow-hidden),
+  &.ant-popover-placement-rightBottom:not(.ant-popover-arrow-hidden) {
+    padding-left: 0;
+  }
 }
