@@ -1,4 +1,4 @@
-import { ClearCache, CurrentLanguage, type UserInfo, type UserLang } from '@oinone/kunlun-engine';
+import { ClearCache, CurrentLanguage, genStaticPath, type UserInfo, type UserLang } from '@oinone/kunlun-engine';
 import { MetadataFragment, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { gql } from '@oinone/kunlun-request';
 import { http } from '@oinone/kunlun-service';
@@ -19,6 +19,10 @@ export class TopBarService {
     }
     TopBarService.userInfoCache = TopBarService.queryUserInfo();
     return TopBarService.userInfoCache;
+  }
+
+  public static getDefaultUserAvatar(): string {
+    return genStaticPath('man_1651543408256.png');
   }
 
   public static async getCurrentLang(): Promise<UserLang | undefined> {

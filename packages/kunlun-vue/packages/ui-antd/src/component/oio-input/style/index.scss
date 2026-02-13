@@ -9,9 +9,13 @@
 .ant-form-item-has-error :not(.ant-input-disabled):not(.ant-input-borderless).ant-input,
 .ant-form-item-has-error :not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover,
 .ant-form-item-has-error
-  :not(.ant-input-number-affix-wrapper-disabled):not(.ant-input-number-affix-wrapper-borderless).ant-input-number-affix-wrapper,
+  :not(.ant-input-number-affix-wrapper-disabled):not(
+    .ant-input-number-affix-wrapper-borderless
+  ).ant-input-number-affix-wrapper,
 .ant-form-item-has-error
-  :not(.ant-input-number-affix-wrapper-disabled):not(.ant-input-number-affix-wrapper-borderless).ant-input-number-affix-wrapper:hover {
+  :not(.ant-input-number-affix-wrapper-disabled):not(
+    .ant-input-number-affix-wrapper-borderless
+  ).ant-input-number-affix-wrapper:hover {
   background-color: var(--oio-input-background-color);
 }
 

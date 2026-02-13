@@ -1,5 +1,12 @@
 import { DEFAULT_SLOT_NAME, type DslDefinition } from '@oinone/kunlun-dsl';
-import { DslRender, type RenderWidget, renderWidgets, reportAllMounted, VueWidget, WidgetTagProps } from '@oinone/kunlun-vue-widget';
+import {
+  DslRender,
+  type RenderWidget,
+  renderWidgets,
+  reportAllMounted,
+  VueWidget,
+  WidgetTagProps
+} from '@oinone/kunlun-vue-widget';
 import { ComponentOptionsMixin, computed, type Slots } from 'vue';
 import { useInjectMaskContext, useProviderMaskContext } from '../context';
 import { createMaskWidget, type CreateMaskWidgetProps, InternalMaskWidget } from '../resolve';

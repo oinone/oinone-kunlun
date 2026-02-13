@@ -1,13 +1,17 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { BaseFieldWidget } from '../../../../basic';
+import { type BaseFieldProps, BaseFieldWidget } from '../../../../basic';
 import String from './String.vue';
 
 @SPI.ClassFactory(
-  BaseFieldWidget.Token({ viewType: ViewType.Detail, ttype: ModelFieldType.String, widget: 'StringWithCopy' })
+  BaseFieldWidget.Token({
+    viewType: ViewType.Detail,
+    ttype: [ModelFieldType.String, ModelFieldType.Text],
+    widget: 'StringWithCopy'
+  })
 )
 export class DetailStringWithCopyFieldWidget extends BaseFieldWidget {
-  public initialize(props: any): this {
+  public initialize(props: BaseFieldProps): this {
     super.initialize(props);
 
     this.setComponent(String);

@@ -1,10 +1,16 @@
 <script lang="ts">
-import type { DslDefinition } from '@oinone/kunlun-dsl';
 import { type ActiveRecord, ActiveRecordExtendKeys, type Pagination } from '@oinone/kunlun-engine';
 import type { RowContext } from '@oinone/kunlun-vue-ui';
-import { CommonGutterType, CSSStyle, ListPaginationStyle, OioGallery, OioGalleryItem, OioPagination, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
+import {
+  CommonGutterType,
+  CSSStyle,
+  ListPaginationStyle,
+  OioGallery,
+  OioGalleryItem,
+  OioPagination,
+  StyleHelper
+} from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { DslRender } from '@oinone/kunlun-vue-widget';
 import { createVNode, defineComponent, type PropType, type VNode } from 'vue';
 
 export default defineComponent({
@@ -49,13 +55,9 @@ export default defineComponent({
     },
     onPaginationChange: {
       type: Function
-    },
-    viewControlWidget: {
-      type: Object as PropType<DslDefinition>
     }
   },
   render() {
-    const { viewControlWidget } = this;
     const defaultSlot = PropRecordHelper.collectionSlots(this.$slots, [{ origin: 'default', isNotNull: true }]).default;
     const galleryProps: Record<string, unknown> = {
       list: this.dataSource || [],
@@ -90,14 +92,6 @@ export default defineComponent({
     }
     galleryProps.itemStyle = itemStyle;
     const children: VNode[] = [];
-    if (viewControlWidget) {
-      if (viewControlWidget) {
-        const viewControlVNode = DslRender.render(viewControlWidget);
-        if (viewControlVNode) {
-          children.push(viewControlVNode);
-        }
-      }
-    }
     children.push(
       createVNode(
         'div',

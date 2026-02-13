@@ -1,8 +1,22 @@
 <script lang="ts">
 import { type AuthRole, type AuthRoleService, QueryWrapper } from '@oinone/kunlun-engine';
-import { CastHelper, OioEmptyData, OioInput, OioInputSearch, OioListItem, OioModal, OioModalProps, OioSelectItem, OioTab, OioTabs, PropRecordHelper, SelectMode, StringHelper } from '@oinone/kunlun-vue-ui-antd';
+import {
+  CastHelper,
+  OioEmptyData,
+  OioInput,
+  OioInputSearch,
+  OioListItem,
+  OioModal,
+  OioModalProps,
+  OioSelectItem,
+  OioTab,
+  OioTabs,
+  PropRecordHelper,
+  SelectMode,
+  StringHelper
+} from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, type PropType, reactive, type VNode, watch } from 'vue';
-import { CheckedHelper, type ListState } from '../../quick-utils';
+import { CheckedHelper, type ListState, type ListStateLoadFunction } from '../../quick-utils';
 import { BaseSelect } from '../base';
 import RoleList from './RoleList.vue';
 
@@ -37,6 +51,9 @@ export default defineComponent({
     allowClear: {
       type: Boolean
     },
+    model: {
+      type: String
+    },
     domain: {
       type: String
     },
@@ -46,6 +63,12 @@ export default defineComponent({
     userRole: {
       type: Boolean,
       default: undefined
+    },
+    roleLoad: {
+      type: Function as PropType<ListStateLoadFunction<AuthRole>>
+    },
+    userRoleLoad: {
+      type: Function as PropType<ListStateLoadFunction<AuthRole>>
     }
   },
   emits: ['change'],
@@ -116,7 +139,11 @@ export default defineComponent({
     };
 
     const roleLoad = (res: ListState<AuthRole>, service: AuthRoleService, queryWrapper: QueryWrapper) => {
+      if (props.roleLoad) {
+        return props.roleLoad(res, service, queryWrapper);
+      }
       return service.queryListByFilter({
+        model: props.model,
         rsql: queryWrapper.rsql,
         roleCodes: props.roleCodes,
         userRole: props.userRole
@@ -135,7 +162,11 @@ export default defineComponent({
     });
 
     const userRoleLoad = (res: ListState<AuthRole>, service: AuthRoleService, queryWrapper: QueryWrapper) => {
+      if (props.userRoleLoad) {
+        return props.userRoleLoad(res, service, queryWrapper);
+      }
       return service.queryListByFilter({
+        model: props.model,
         rsql: queryWrapper.rsql,
         userRole: true
       });
@@ -180,6 +211,7 @@ export default defineComponent({
   render() {
     const {
       $translate,
+      title,
       mode,
       allowClear,
       domain,
@@ -200,7 +232,7 @@ export default defineComponent({
     return createVNode(
       OioModal,
       {
-        title: $translate('选择角色'),
+        title: $translate(title || '选择角色'),
         width: '720px',
         maskClosable: false,
         ...PropRecordHelper.convert(OioModalProps, CastHelper.cast(this)),
@@ -238,8 +270,8 @@ export default defineComponent({
             })
           );
           let showUserRole = userRole;
-          if (!roleCodes?.length) {
-            showUserRole = !userRole;
+          if (!roleCodes?.length && userRole !== false) {
+            showUserRole = false;
           }
           if (showUserRole) {
             tabs.push({

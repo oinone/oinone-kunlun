@@ -122,7 +122,7 @@
         <data-permission
           ref="dataPermissionRef"
           :help="$translate('您所拥有的当前资源数据权限，如未设置，将视为拥有全部数据权限。')"
-          :data-permission="dataPermission"
+          :data-permission="dataPermissionData"
           :showOkAction="showOkAction"
         />
       </oio-tab>
@@ -133,7 +133,17 @@
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldTypeDisplayName } from '@oinone/kunlun-meta';
 import { GraphqlHelper } from '@oinone/kunlun-shared';
-import { OioButton, OioForm, OioFormItem, OioInput, OioModal, OioSwitch, OioTab, OioTabs, OioTextarea } from '@oinone/kunlun-vue-ui-antd';
+import {
+  OioButton,
+  OioForm,
+  OioFormItem,
+  OioInput,
+  OioModal,
+  OioSwitch,
+  OioTab,
+  OioTabs,
+  OioTextarea
+} from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineEmits, defineProps, ref, watch, withDefaults } from 'vue';
 import type { IPermission } from '../../permission/type';
 import type { ActionPermissionNode, AnyPermissionNode } from '../../types';
@@ -215,7 +225,7 @@ const allActionKeys = ref<string[]>([]);
 
 const hasChangedFieldData = ref<string[]>([]);
 
-const dataPermission = ref<IPermission>({} as IPermission);
+const dataPermissionData = ref<IPermission>({} as IPermission);
 
 const hasActionPermission = ref(true);
 const hasFieldPermission = ref(true);
@@ -310,7 +320,7 @@ const init = async () => {
       ...r,
       typeName: ModelFieldTypeDisplayName[r.ttype]
     })) || [];
-  dataPermission.value = res.rowPermission || {};
+  dataPermissionData.value = res.rowPermission || {};
 };
 
 const onToggleAllAction = () => {
@@ -370,24 +380,24 @@ const onOk = async () => {
 
     const { module, resourceId, nodeType, path } = store.selectedTreeItem;
 
-    if (dataPermission.value) {
-      if (dataPermission.value.domainExp) {
+    if (dataPermissionData.value) {
+      if (dataPermissionData.value.domainExp) {
         const domainExpJson = await dataPermissionRef.value?.submitExp();
         if (domainExpJson) {
-          dataPermission.value.domainExpJson = domainExpJson;
+          dataPermissionData.value.domainExpJson = domainExpJson;
         } else {
-          const _domainExpJson = dataPermission.value.domainExpJson as string;
+          const _domainExpJson = dataPermissionData.value.domainExpJson as string;
           if (_domainExpJson) {
             try {
               const json = JSON.parse(_domainExpJson);
-              dataPermission.value.domainExpJson = GraphqlHelper.serializableObjectArray(json);
+              dataPermissionData.value.domainExpJson = GraphqlHelper.serializableObjectArray(json);
             } catch (error) {
               console.error(error as any);
             }
           }
         }
       } else {
-        dataPermission.value.domainExpJson = '';
+        dataPermissionData.value.domainExpJson = '';
       }
     }
 
@@ -397,7 +407,7 @@ const onOk = async () => {
       module,
       fieldPermissions: hasFieldPermission.value ? submitFieldData() : null,
       actionPermissions: hasActionPermission.value ? submitActionData() : null,
-      rowPermission: hasDataPermission.value ? { ...dataPermission.value } : null,
+      rowPermission: hasDataPermission.value ? { ...dataPermissionData.value } : null,
       nodeType,
       resourceId,
       path
@@ -429,4 +439,3 @@ const onSetAllEdit = () => {
 
 const addRoleDialogContainer = () => document.getElementById('permission-config')!;
 </script>
-<style lang="scss"></style>

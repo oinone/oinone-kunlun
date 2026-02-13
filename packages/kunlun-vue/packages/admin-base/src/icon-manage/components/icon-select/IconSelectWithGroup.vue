@@ -59,7 +59,13 @@ import { OioEmptyData, OioIcon, OioInputSearch, OioSpin } from '@oinone/kunlun-v
 import { debounce } from 'lodash-es';
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import { OioManageGroup } from '../../../components';
-import { fetchGroupWithoutCount, type IconData, type IconGroup, queryIconsWithCondition, queryIconWithFullFontClass } from '../../service/IconManageService';
+import {
+  fetchGroupWithoutCount,
+  type IconData,
+  type IconGroup,
+  queryIconsWithCondition,
+  queryIconWithFullFontClass
+} from '../../service/IconManageService';
 import { GroupAll } from '../../typing';
 
 export default defineComponent({

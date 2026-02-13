@@ -1,9 +1,37 @@
-import { type ActiveRecord, getRealTtype, isNeedAppendQueryCondition, resolveDynamicDomain, type RuntimeModel, type RuntimeModelField, type RuntimeSearchField, translateValueByKey } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  getRealTtype,
+  isNeedAppendQueryCondition,
+  resolveDynamicDomain,
+  type RuntimeModel,
+  type RuntimeModelField,
+  type RuntimeSearchField,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import { ExpressionKeyword } from '@oinone/kunlun-expression';
-import { deepClone, type Entity, type IDslNode, type IModel, isEmptyKeObject, isEmptyValue, isPromise, ModelFieldType } from '@oinone/kunlun-meta';
+import {
+  deepClone,
+  type Entity,
+  type IDslNode,
+  type IModel,
+  isEmptyKeObject,
+  isEmptyValue,
+  isPromise,
+  ModelFieldType
+} from '@oinone/kunlun-meta';
 import { Condition, ConditionBuilder } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
-import { BooleanHelper, CastHelper, RSQLComparisonOperator, type RSQLField, RSQLHelper, RSQLNodeInfo, RSQLNodeInfoType, RSQLOperators, TreeNode } from '@oinone/kunlun-shared';
+import {
+  BooleanHelper,
+  CastHelper,
+  RSQLComparisonOperator,
+  type RSQLField,
+  RSQLHelper,
+  RSQLNodeInfo,
+  RSQLNodeInfoType,
+  RSQLOperators,
+  TreeNode
+} from '@oinone/kunlun-shared';
 import { isBoolean, toString } from 'lodash-es';
 
 const conditionBuilder = ConditionBuilder.getInstance();

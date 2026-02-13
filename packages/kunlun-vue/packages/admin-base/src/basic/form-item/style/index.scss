@@ -26,6 +26,7 @@
 
   .widget-container {
     width: 100%;
+
     input {
       &::-webkit-input-placeholder {
         color: var(--oio-placeholder-color);
@@ -65,6 +66,10 @@
     line-height: 1.1em;
     font-weight: var(--oio-form-item-label-weight);
     text-align: left;
+  }
+
+  .ant-form-item-label .oio-icon + .form-field-widget-label-content {
+    margin-left: 8px;
   }
 
   &.oio-form-item-vertical {

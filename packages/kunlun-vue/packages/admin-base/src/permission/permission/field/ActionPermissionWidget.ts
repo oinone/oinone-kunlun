@@ -451,7 +451,7 @@ export class ActionPermissionWidget extends FormFieldWidget<unknown, RuntimeO2MF
             permissionMateDataType: p.nodeType,
             active: true,
             menuName: p.node.parentValue
-          } as IPermission)
+          }) as IPermission
       )
     };
   }

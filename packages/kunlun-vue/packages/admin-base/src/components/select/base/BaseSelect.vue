@@ -1,9 +1,30 @@
 <script lang="ts">
 import { SelectSearchArea, translateValueByKey } from '@oinone/kunlun-engine';
-import { OioEmptyData, OioIcon, OioInput, OioInputGroup, OioSpin, PropRecordHelper, SelectMode, StringHelper, useInjectOioDefaultFormContext, useMaxTagPlaceholder } from '@oinone/kunlun-vue-ui-antd';
+import {
+  OioEmptyData,
+  OioIcon,
+  OioInput,
+  OioInputGroup,
+  OioSpin,
+  PropRecordHelper,
+  SelectMode,
+  StringHelper,
+  useInjectOioDefaultFormContext,
+  useMaxTagPlaceholder
+} from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { debounce, delay } from 'lodash-es';
-import { computed, createVNode, defineComponent, nextTick, onBeforeUnmount, onMounted, ref, type VNode } from 'vue';
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  type Slot,
+  type VNode
+} from 'vue';
 import { useMetadataProps } from '../../../basic';
 import { BaseSelectProps } from './props';
 
@@ -33,9 +54,20 @@ export default defineComponent({
     const origin = ref();
     const dropdownInputRef = ref();
     const formContext = useInjectOioDefaultFormContext();
-
     const { readonly, disabled, placeholder } = useMetadataProps(props, true);
-    const dropdownVisible = ref(false);
+
+    const $$dropdownVisible = ref(false);
+    const dropdownVisible = computed({
+      get() {
+        // 受控属性，不允许外部变更
+        return $$dropdownVisible.value;
+      },
+      set(val: boolean) {
+        $$dropdownVisible.value = val;
+        emit('update:dropdown-visible', val);
+      }
+    });
+
     const showLoadCompleted = ref(false);
 
     let focusSearchInput = false;
@@ -208,6 +240,11 @@ export default defineComponent({
       }
     };
 
+    const onClickStop = (e: MouseEvent) => {
+      e.stopPropagation();
+      e.preventDefault();
+    };
+
     const onGlobalMouseDown = (e: MouseEvent) => {
       focusSearchInput = e.target === dropdownInputRef.value?.originInput?.input;
     };
@@ -241,7 +278,8 @@ export default defineComponent({
       onBlur,
       onSearchInputFocus,
       onSearchInputBlur,
-      onSearchInputKeydown
+      onSearchInputKeydown,
+      onClickStop
     };
   },
   render() {
@@ -270,6 +308,7 @@ export default defineComponent({
       allowClear,
       allowSearch,
       searchArea,
+      tagRender,
       onSearch,
       notFoundContent,
       onDropdownVisibleChange,
@@ -277,12 +316,13 @@ export default defineComponent({
       onKeydown,
       onSearchInputFocus,
       onSearchInputBlur,
-      onSearchInputKeydown
+      onSearchInputKeydown,
+      onClickStop
     } = this;
-    const { prefix, suffix } = $slots;
+    const selectClassNames = ['oio-select', 'oio-basic-select'];
     const props: Record<string, unknown> = {
       ref: 'origin',
-      class: 'oio-select oio-basic-select',
+      class: selectClassNames,
       dropdownClassName: StringHelper.append(['oio-select-dropdown oio-basic-select-dropdown'], dropdownClassName).join(
         ' '
       ),
@@ -297,6 +337,7 @@ export default defineComponent({
       placeholder,
       allowClear,
       disabled,
+      tagRender,
       open: dropdownVisible,
       showArrow: allowArrow,
       getPopupContainer: getTriggerContainer,
@@ -309,6 +350,7 @@ export default defineComponent({
       onKeydown
     };
     if (mode === SelectMode.multiple) {
+      selectClassNames.push('oio-select-multiple');
       if (value == null) {
         props.value = undefined;
       } else if (Array.isArray(value)) {
@@ -325,10 +367,12 @@ export default defineComponent({
     } else {
       props.value = value;
     }
+    const { prefix, suffix, dropdownContentRender } = $slots;
+    const finalDropdownContentRender: Slot = dropdownContentRender || (({ menuNode: menu }) => menu);
     const slotNames = [
       {
         origin: 'dropdownRender',
-        default: ({ menuNode: menu }) => {
+        default: (...args: unknown[]) => {
           const vNodes: VNode[] = [];
           if (allowSearch && searchArea === SelectSearchArea.dropdown) {
             vNodes.push(
@@ -356,7 +400,12 @@ export default defineComponent({
               )
             );
           }
-          vNodes.push(menu);
+          const content = finalDropdownContentRender(...args);
+          if (Array.isArray(content)) {
+            vNodes.push(...content);
+          } else {
+            vNodes.push(content);
+          }
           if (loadMoreLoading) {
             vNodes.push(
               createVNode('div', { class: 'oio-select-dropdown-spin' }, [
@@ -381,7 +430,8 @@ export default defineComponent({
         }
       },
       'suffixIcon',
-      'option'
+      'option',
+      'tagRender'
     ];
     if (allowSearch && (!searchArea || searchArea === SelectSearchArea.default)) {
       props.showSearch = true;
@@ -390,6 +440,12 @@ export default defineComponent({
       props.showSearch = false;
     }
     if (readonly) {
+      selectClassNames.push('oio-select-readonly');
+      props.disabled = true;
+      props.open = false;
+      props.onClick = onClickStop;
+      props.onDropdownVisibleChange = null;
+      props.onKeydown = null;
       props.notFoundContent = null;
     } else if (notFoundContent === null) {
       props.notFoundContent = null;
@@ -409,6 +465,10 @@ export default defineComponent({
           return [];
         }
       });
+    }
+
+    if (props.options === null) {
+      slotNames.push('default');
     }
     const selectVNode = createVNode(ASelect, props, PropRecordHelper.collectionSlots($slots, slotNames));
     const classNames = ['oio-basic-select-wrapper'];

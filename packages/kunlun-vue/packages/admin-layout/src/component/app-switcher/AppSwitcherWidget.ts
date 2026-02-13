@@ -1,4 +1,12 @@
-import { $systemMajorConfig, getMajorConfigByModuleModule, type MajorConfig, ModuleCache, type ReloadMaskCallChainingParameters, setDefaultMajorConfig, systemMajorConfig } from '@oinone/kunlun-engine';
+import {
+  $systemMajorConfig,
+  getMajorConfigByModuleModule,
+  type MajorConfig,
+  ModuleCache,
+  type ReloadMaskCallChainingParameters,
+  setDefaultMajorConfig,
+  systemMajorConfig
+} from '@oinone/kunlun-engine';
 import { GlobalConfig, type IModule } from '@oinone/kunlun-meta';
 import { Router } from '@oinone/kunlun-router';
 import { SPI } from '@oinone/kunlun-spi';

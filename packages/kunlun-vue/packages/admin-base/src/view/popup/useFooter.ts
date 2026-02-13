@@ -37,7 +37,7 @@ export const FooterProps = {
 };
 
 type FooterOptions = {
-  [K in keyof typeof FooterProps]: typeof FooterProps[K]['type'] | null | undefined;
+  [K in keyof typeof FooterProps]: (typeof FooterProps)[K]['type'] | null | undefined;
 };
 
 function createOkButton(props: FooterOptions) {

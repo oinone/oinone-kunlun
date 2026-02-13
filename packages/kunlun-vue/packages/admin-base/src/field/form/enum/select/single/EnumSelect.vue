@@ -34,7 +34,12 @@
 </template>
 <script lang="ts">
 import type { RuntimeEnumerationOption, TableKeyboardConfig } from '@oinone/kunlun-engine';
-import { defaultSelectProperties, OioSelect, SelectItem, useInjectOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
+import {
+  defaultSelectProperties,
+  OioSelect,
+  SelectItem,
+  useInjectOioDefaultFormContext
+} from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineComponent, nextTick, type PropType, ref } from 'vue';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../../basic';
 import { optionsConvertSelectItem } from '../../../../util';

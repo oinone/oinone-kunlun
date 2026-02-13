@@ -1,1 +1,1 @@
-export * from './TableEditorM2OSelectModalFieldWidget';
+export * from './TableEditorM2OModalSelectFieldWidget';

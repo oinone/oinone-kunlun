@@ -1,4 +1,10 @@
-import { BASE_CLASS_NAME, type Direction, type HandleEventHandles, type ResizableOptions, TARGET_CLASS_NAME } from './typing';
+import {
+  BASE_CLASS_NAME,
+  type Direction,
+  type HandleEventHandles,
+  type ResizableOptions,
+  TARGET_CLASS_NAME
+} from './typing';
 
 export function generatorHandleClassName(direction: Direction) {
   return `${BASE_CLASS_NAME}-${direction}-handle`;

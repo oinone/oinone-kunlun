@@ -1,10 +1,25 @@
-import { baseActionTokenSymbol, type GetRequestModelFieldsOptions, ModelCache, RelationUpdateType, type RequestModelField, type RuntimeAction, SubmitType, SubmitValue } from '@oinone/kunlun-engine';
+import {
+  baseActionTokenSymbol,
+  type GetRequestModelFieldsOptions,
+  ModelCache,
+  RelationUpdateType,
+  type RequestModelField,
+  type RuntimeAction,
+  SubmitType,
+  SubmitValue
+} from '@oinone/kunlun-engine';
 import { ActionType, ViewActionTarget, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { type Matched, Router, useMatched } from '@oinone/kunlun-router';
 import { CallChaining, type Constructor } from '@oinone/kunlun-shared';
 import { SPI, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
 import { useRouter } from '@oinone/kunlun-vue-router';
-import { type ActiveRecordsWidgetProps, InnerWidgetType, type OioActionBarState, useOioState, Widget } from '@oinone/kunlun-vue-widget';
+import {
+  type ActiveRecordsWidgetProps,
+  InnerWidgetType,
+  type OioActionBarState,
+  useOioState,
+  Widget
+} from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../typing';
 import { BaseRuntimePropertiesWidget } from '../common';
 

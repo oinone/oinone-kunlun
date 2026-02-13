@@ -35,7 +35,12 @@
 </template>
 
 <script lang="ts">
-import { OioButton, OioModal, useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '@oinone/kunlun-vue-ui-mobile-vant';
+import {
+  OioButton,
+  OioModal,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext
+} from '@oinone/kunlun-vue-ui-mobile-vant';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../../ui/theme';
@@ -84,4 +89,3 @@ export default defineComponent({
   }
 });
 </script>
-<style lang="scss"></style>

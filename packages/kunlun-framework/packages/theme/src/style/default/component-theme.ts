@@ -1,6 +1,29 @@
-import { largeInputSizeVars, largeMenuSizeVars, largePaginationSizeVars, largeSelectSizeVars, largeTableSizeVars, largeTabsSizeVars, largeTreeSelectSizeVars, mediumInputSizeVars, mediumMenuSizeVars, mediumPaginationSizeVars, mediumSelectSizeVars, mediumTableSizeVars, mediumTabsSizeVars, mediumTreeSelectSizeVars, smallMenuSizeVars, smallPaginationSizeVars, smallSelectSizeVars, smallTableSizeVars, smallTabsSizeVars, smallTreeSelectSizeVars } from '../../size';
+import {
+  largeInputSizeVars,
+  largeMenuSizeVars,
+  largePaginationSizeVars,
+  largeSelectSizeVars,
+  largeTableSizeVars,
+  largeTabsSizeVars,
+  largeTreeSelectSizeVars,
+  mediumInputSizeVars,
+  mediumMenuSizeVars,
+  mediumPaginationSizeVars,
+  mediumSelectSizeVars,
+  mediumTableSizeVars,
+  mediumTabsSizeVars,
+  mediumTreeSelectSizeVars,
+  smallMenuSizeVars,
+  smallPaginationSizeVars,
+  smallSelectSizeVars,
+  smallTableSizeVars,
+  smallTabsSizeVars,
+  smallTreeSelectSizeVars
+} from '../../size';
+import { component as AiChat, cssVars as AiChatCSSVars } from './ai-chat';
 import { component as AppSwitch, cssVars as AppSwitchCSSVars } from './app-switch/app-switch';
 import { component as Button, cssVars as ButtonCSSVars } from './button';
+import { component as Card, cssVars as CardCSSVars } from './card/card';
 import { component as Checkbox, cssVars as CheckboxCSSVars } from './checkbox/checkbox';
 import { component as Datetime, cssVars as DatetimeCSSVars } from './datetime/datetime';
 import { component as Drawer, cssVars as DrawerCSSVars } from './drawer/drawer';
@@ -19,11 +42,11 @@ import { component as Select, cssVars as SelectCSSVars } from './select/select';
 import { component as Switch, cssVars as SwitchCSSVars } from './switch/switch';
 import { component as Table, cssVars as TableCSSVars } from './table/table';
 import { component as Tabs, cssVars as TabsCSSVars } from './tabs/tabs';
+import { component as Tag, cssVars as TagCSSVars } from './tag';
 import { component as Textarea, cssVars as TextareaCSSVars } from './textarea/textarea';
 import { component as Transfer, cssVars as TransferCSSVars } from './transfer/transfer';
 import { component as TreeSelect } from './tree-select/tree-select';
 import { component as Upload, cssVars as UploadCSSVars } from './upload/upload';
-import { component as Card, cssVars as CardCSSVars } from './card/card';
 
 export const getComponentTheme = () => ({
   [MultiTab]: {
@@ -159,5 +182,15 @@ export const getComponentTheme = () => ({
     large: CardCSSVars,
     medium: CardCSSVars,
     small: CardCSSVars
+  },
+  [Tag]: {
+    large: TagCSSVars,
+    medium: TagCSSVars,
+    small: TagCSSVars
+  },
+  [AiChat]: {
+    large: AiChatCSSVars,
+    medium: AiChatCSSVars,
+    small: AiChatCSSVars
   }
 });

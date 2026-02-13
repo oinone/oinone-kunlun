@@ -1,4 +1,21 @@
-import { Dialog, Drawer, executeViewAction, formValidateErrorProcess, FunctionCache, FunctionService, MultiTabsManager, RelationUpdateType, type RequestModelField, ROOT_HANDLE, type RuntimeContext, type RuntimeServerAction, type RuntimeViewAction, SubmitValue, translateValueByKey, UpdateOneWithRelationsService } from '@oinone/kunlun-engine';
+import {
+  Dialog,
+  Drawer,
+  executeViewAction,
+  formValidateErrorProcess,
+  FunctionCache,
+  FunctionService,
+  MultiTabsManager,
+  RelationUpdateType,
+  type RequestModelField,
+  ROOT_HANDLE,
+  type RuntimeContext,
+  type RuntimeServerAction,
+  type RuntimeViewAction,
+  SubmitValue,
+  translateValueByKey,
+  UpdateOneWithRelationsService
+} from '@oinone/kunlun-engine';
 import { ActionType, ViewType } from '@oinone/kunlun-meta';
 import { HttpClientError, SystemErrorCode } from '@oinone/kunlun-request';
 import { SPI } from '@oinone/kunlun-spi';
@@ -77,16 +94,14 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
   }
 
   protected formValidateProcess(e: HttpClientError) {
-    if (this.view?.type !== ViewType.Form) {
+    const { formValidateCallChaining } = this;
+    if (this.view?.type !== ViewType.Form || !formValidateCallChaining) {
       this.notifyValidateResults(e);
       return;
     }
-    const { formValidateCallChaining } = this;
-    if (formValidateCallChaining) {
-      const results: FormValidateResult[] = this.convertFormValidateResults(e);
-      if (results.length) {
-        formValidateCallChaining.syncCall(results);
-      }
+    const results: FormValidateResult[] = this.convertFormValidateResults(e);
+    if (results.length) {
+      formValidateCallChaining.syncCall(results);
     }
   }
 

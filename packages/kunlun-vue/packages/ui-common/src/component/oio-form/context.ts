@@ -28,7 +28,7 @@ export const useInjectOioFormContext = (): OioFormContext => {
 };
 
 export function useOioFormLayoutContext(
-  props: Omit<OioBaseContainerPropsType, 'layout'> & { layout: FormLayout | undefined }
+  props: Omit<OioBaseContainerPropsType, 'layout'> & { layout: FormLayout | keyof typeof FormLayout | undefined }
 ) {
   const formContext = useInjectOioFormContext();
 

@@ -1,7 +1,13 @@
 import { SubmitHandler } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { createDefaultFieldExpressionItem, CURRENT_USER_BACKEND_EXPRESSION, currentUserOption, ExpressionMode, type IQueryExpressionParam } from '@oinone/kunlun-vue-expression';
+import {
+  createDefaultFieldExpressionItem,
+  CURRENT_USER_BACKEND_EXPRESSION,
+  currentUserOption,
+  ExpressionMode,
+  type IQueryExpressionParam
+} from '@oinone/kunlun-vue-expression';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isString } from 'lodash-es';
 import { FormFieldWidget } from '../../../basic';

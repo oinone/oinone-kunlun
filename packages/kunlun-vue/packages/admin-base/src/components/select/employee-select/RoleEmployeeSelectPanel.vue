@@ -26,6 +26,12 @@ export default defineComponent({
     mode: {
       type: String as PropType<SelectMode | keyof typeof SelectMode>
     },
+    model: {
+      type: String
+    },
+    employeeModel: {
+      type: String
+    },
     domain: {
       type: String
     },
@@ -73,11 +79,13 @@ export default defineComponent({
     ) => {
       if (currentState.value.roleSelectedKeys.length) {
         return service.queryListByFilter({
+          model: props.employeeModel,
           rsql: queryWrapper.rsql,
           roleCodes: currentState.value.roleSelectedKeys
         });
       }
       return service.queryListByFilter({
+        model: props.employeeModel,
         rsql: queryWrapper.rsql,
         roleCodes: props.roleCodes
       });
@@ -108,6 +116,7 @@ export default defineComponent({
       state.loading = true;
       try {
         return await instance.init({
+          model: props.employeeModel,
           rsql: RSQLHelper.concatByAnd(props.domain, rsql),
           checkedKeys: state.checkedKeys
         });
@@ -120,6 +129,7 @@ export default defineComponent({
       state.loading = true;
       try {
         return await instance.search({
+          model: props.employeeModel,
           rsql: RSQLHelper.concatByAnd(props.domain, rsql),
           checkedKeys: state.checkedKeys
         });
@@ -143,6 +153,8 @@ export default defineComponent({
     const {
       $translate,
       mode,
+      model,
+      employeeModel,
       domain,
       state,
       currentState,
@@ -171,6 +183,7 @@ export default defineComponent({
         ]),
         createVNode(RoleList, {
           autoInit: true,
+          model,
           domain: roleDomain,
           selectable: true,
           selectedKeys: currentState.roleSelectedKeys,
@@ -188,6 +201,7 @@ export default defineComponent({
         usingLoading: false,
         autoInit: true,
         load: roleEmployeeLoad,
+        model: employeeModel,
         domain,
         initCheckedKeys: state.checkedKeys,
         checkedKeys: state.checkedKeys,

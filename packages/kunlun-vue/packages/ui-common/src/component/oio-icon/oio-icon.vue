@@ -36,27 +36,20 @@ export default defineComponent({
       }
     }
     const style = {} as CSSStyle;
-    style[`--${DEFAULT_PREFIX}-icon-font-size`] = StyleHelper.px(this.size)!;
-    style[`--${DEFAULT_PREFIX}-icon-color`] = this.color;
-
+    const size = StyleHelper.px(this.size)!;
     if (!isNil(rotateNumber)) {
       style.transform = `rotate(${rotateNumber}deg)`;
     }
     if (isImage) {
-      style.width = StyleHelper.px(this.size)!;
-      return createVNode(
-        'span',
-        {
-          ...PropRecordHelper.collectionBasicProps(this.$attrs, iconClassList)
-        },
-        [
-          createVNode('img', {
-            style,
-            src: this.icon
-          })
-        ]
-      );
+      style[`--${DEFAULT_PREFIX}-icon-width`] = size;
+      style[`--${DEFAULT_PREFIX}-icon-height`] = size;
+      iconClassList.push(`${DEFAULT_PREFIX}-icon-img`);
+      return createVNode('span', PropRecordHelper.collectionBasicProps(this.$attrs, iconClassList, style), [
+        createVNode('img', { src: this.icon })
+      ]);
     }
+    style[`--${DEFAULT_PREFIX}-icon-font-size`] = size;
+    style[`--${DEFAULT_PREFIX}-icon-color`] = this.color;
     if (type === IconTypeEnum.unicode) {
       iconClassList.push(`${DEFAULT_PREFIX}-iconfont-font-class`);
       return createVNode('span', {

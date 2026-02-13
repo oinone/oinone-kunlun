@@ -1,6 +1,13 @@
 import { type ActiveRecord, type IResourceDateTimeFormat, queryResourceDateTimeFormat } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { BooleanHelper, defaultDateFormatKey, defaultTimeFormatKey, ObjectUtils, Optional, type StandardString } from '@oinone/kunlun-shared';
+import {
+  BooleanHelper,
+  defaultDateFormatKey,
+  defaultTimeFormatKey,
+  ObjectUtils,
+  Optional,
+  type StandardString
+} from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { ValidateTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget, type WidgetComponent } from '@oinone/kunlun-vue-widget';

@@ -15,6 +15,9 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     ...DefaultSelectProps,
+    roleModel: {
+      type: String
+    },
     domain: {
       type: String
     },
@@ -78,6 +81,7 @@ export default defineComponent({
       onShowModal,
       onChange,
 
+      roleModel,
       domain,
       roleCodes,
       userRole
@@ -87,6 +91,7 @@ export default defineComponent({
       mode,
       selected,
       allowClear,
+      model: roleModel,
       domain,
       roleCodes,
       userRole,

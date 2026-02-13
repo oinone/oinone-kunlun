@@ -1,54 +1,16 @@
 @import './parameters.scss';
 
-.#{$radioClassPrefix} {
-  .ant-radio-inner {
-    background-color: var(--oio-background);
-    border: 1px solid var(--oio-border-color);
-  }
-
-  .ant-radio-inner:after {
-    background-color: var(--oio-primary-color, #035dff);
-  }
-
-  .ant-radio-checked .ant-radio-inner {
-    border-color: var(--oio-primary-color, #035dff);
-  }
-
-  .ant-radio-input:focus + .ant-radio-inner,
-  .ant-radio-wrapper:hover .ant-radio,
-  .ant-radio:hover .ant-radio-inner {
-    border-color: var(--oio-primary-color, #035dff);
-  }
-
-  .ant-radio-input:focus + .ant-radio-inner {
-    box-shadow: 0 0 0 3px var(--oio-primary-color-10, #e6efff);
-  }
+.#{$radioClassPrefix}.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+  border-color: var(--oio-primary-color);
+  background-color: var(--oio-primary-color);
 }
 
 .#{$radioClassPrefix}-group {
-  .ant-radio-button-wrapper {
-    background-color: var(--oio-background);
-    border-color: var(--oio-border-color);
-    color: var(--oio-text-color);
+  .ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+    border-color: var(--oio-primary-color);
+    background-color: var(--oio-primary-color);
   }
 
-  .ant-radio-button-wrapper:not(:first-child):before {
-    background-color: var(--oio-border-color);
-  }
-}
-
-.ant-radio {
-  .ant-radio-inner {
-    background-color: var(--oio-background);
-    border: 1px solid var(--oio-border-color);
-  }
-
-  .ant-radio-checked .ant-radio-inner {
-    border-color: var(--oio-primary-color, #035dff);
-  }
-}
-
-.ant-radio-group {
   .ant-radio-button-wrapper {
     background-color: var(--oio-background);
     border-color: var(--oio-border-color);

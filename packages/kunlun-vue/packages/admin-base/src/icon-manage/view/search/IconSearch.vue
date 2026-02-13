@@ -1,7 +1,12 @@
 <script lang="ts">
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldType } from '@oinone/kunlun-meta';
-import { OioSpin, PropRecordHelper, useInjectOioDefaultFormContext, useProviderOioDefaultFormContext } from '@oinone/kunlun-vue-ui-antd';
+import {
+  OioSpin,
+  PropRecordHelper,
+  useInjectOioDefaultFormContext,
+  useProviderOioDefaultFormContext
+} from '@oinone/kunlun-vue-ui-antd';
 import { computed, createVNode, defineComponent, type PropType, ref, type VNode, vShow, withDirectives } from 'vue';
 import { type GroupListItem, OioManageGroup, OioManageGroupProps } from '../../../components';
 import { DefaultSearchProps, useProviderSearchPreferContext } from '../../../view';

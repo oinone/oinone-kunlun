@@ -1,10 +1,36 @@
 <script lang="ts">
 import { MultiTabsRuntimeManifestMergedConfigManager, MultiTabType, translateValueByKey } from '@oinone/kunlun-engine';
-import { DraggableDirection, type DraggableMovedEvent, type DraggableSendEvent, OioDraggable } from '@oinone/kunlun-vue-ui';
-import { ButtonType, DividerType, IconTypeEnum, OioButton, OioDivider, OioDropdown, OioDropdownTrigger, OioIcon, useScrollOperator } from '@oinone/kunlun-vue-ui-antd';
+import {
+  DraggableDirection,
+  type DraggableMovedEvent,
+  type DraggableSendEvent,
+  OioDraggable
+} from '@oinone/kunlun-vue-ui';
+import {
+  ButtonType,
+  DividerType,
+  IconTypeEnum,
+  OioButton,
+  OioDivider,
+  OioDropdown,
+  OioDropdownTrigger,
+  OioIcon,
+  useScrollOperator
+} from '@oinone/kunlun-vue-ui-antd';
 import { Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import { debounce, isFunction, isNil } from 'lodash-es';
-import { computed, createVNode, defineComponent, nextTick, type PropType, type VNode, vShow, watch, withDirectives, withModifiers } from 'vue';
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  nextTick,
+  type PropType,
+  type VNode,
+  vShow,
+  watch,
+  withDirectives,
+  withModifiers
+} from 'vue';
 import { DEFAULT_APPLICATION_LOGO } from '../../typing';
 import type { MultiTabItem } from './typing';
 

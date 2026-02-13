@@ -1,7 +1,14 @@
 import clone from 'lodash/clone';
 import cloneDeep from 'lodash/cloneDeep';
 import isNil from 'lodash/isNil';
-import { DEFAULT_SLOT_NAME, type DslDefinition, DslDefinitionHelper, DslDefinitionType, type DslSlots, type TemplateDslDefinition } from '../typing';
+import {
+  DEFAULT_SLOT_NAME,
+  type DslDefinition,
+  DslDefinitionHelper,
+  DslDefinitionType,
+  type DslSlots,
+  type TemplateDslDefinition
+} from '../typing';
 
 export const DEFAULT_CHILDREN_KEY = 'widgets';
 
@@ -244,7 +251,7 @@ export class DslSlotUtils {
    * @param template 模板定义
    * @private
    */
-  private static fetchAllSlots(template: DslDefinition): DslSlots {
+  public static fetchAllSlots(template: DslDefinition): DslSlots {
     const slots: DslSlots = {} as DslSlots;
     const defaultSlotWidgets: DslDefinition[] = [];
     template.widgets?.forEach((dslDefinition) => {
@@ -252,6 +259,9 @@ export class DslSlotUtils {
         const slotName = dslDefinition.slot;
         if (!slotName) {
           console.error('Invalid template definition. slot must be not blank.');
+          return;
+        }
+        if (!dslDefinition.widgets?.length) {
           return;
         }
         let slot = slots[slotName];

@@ -1,5 +1,5 @@
 import { type IStaticDrawerWidget, translateValueByKey } from '@oinone/kunlun-engine';
-import { DrawerHeight, DrawerPlacement, DrawerWidth, OioDrawerProps } from '@oinone/kunlun-vue-ui-common';
+import { DrawerHeight, DrawerPlacement, DrawerWidth } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { PopupScene } from '../../../typing';
 import { StaticPopupWidget } from '../StaticPopupWidget';
@@ -18,55 +18,61 @@ export class StaticDrawerWidget extends StaticPopupWidget<DrawerWidgetProps> imp
   }
 
   @Widget.Reactive()
-  private teleport: (() => HTMLElement) | undefined;
+  protected teleport: (() => HTMLElement) | undefined;
 
   @Widget.Reactive()
-  private destroyOnClose = true;
+  protected destroyOnClose = true;
 
   @Widget.Reactive()
-  private title: string | undefined;
+  protected title: string | undefined;
 
   @Widget.Reactive()
-  private help: string | undefined;
+  protected wrapperClassName: string | undefined;
 
   @Widget.Reactive()
-  private placement: string = DrawerPlacement.right;
+  protected help: string | undefined;
 
   @Widget.Reactive()
-  private width: string | number = DrawerWidth.medium;
+  protected placement: string = DrawerPlacement.right;
 
   @Widget.Reactive()
-  private height: string | number = DrawerHeight.medium;
+  protected width: string | number = DrawerWidth.medium;
 
   @Widget.Reactive()
-  private zIndex: number | undefined;
+  protected height: string | number = DrawerHeight.medium;
 
   @Widget.Reactive()
-  private maskClosable = false;
+  protected zIndex: number | undefined;
 
   @Widget.Reactive()
-  private headerInvisible = false;
+  protected mask = true;
 
   @Widget.Reactive()
-  private footerInvisible = false;
+  protected maskClosable = false;
 
   @Widget.Reactive()
-  private okText = translateValueByKey('确认');
+  protected headerInvisible = false;
 
   @Widget.Reactive()
-  private okInvisible = false;
+  protected footerInvisible = false;
 
   @Widget.Reactive()
-  private cancelText = translateValueByKey('取消');
+  protected okText = translateValueByKey('确认');
 
   @Widget.Reactive()
-  private cancelInvisible = false;
+  protected okInvisible = false;
 
   @Widget.Reactive()
-  private actionLoading = false;
+  protected cancelText = translateValueByKey('取消');
 
   @Widget.Reactive()
-  private actionReverse = false;
+  protected cancelInvisible = false;
+
+  @Widget.Reactive()
+  protected actionLoading = false;
+
+  @Widget.Reactive()
+  protected actionReverse = false;
 
   public setTeleport(fn: () => HTMLElement) {
     this.teleport = fn;
@@ -78,6 +84,10 @@ export class StaticDrawerWidget extends StaticPopupWidget<DrawerWidgetProps> imp
 
   public setTitle(title: string | undefined) {
     this.title = title;
+  }
+
+  public setWrapperClassName(wrapperClassName: string | undefined) {
+    this.wrapperClassName = wrapperClassName;
   }
 
   public setHelp(help: string | undefined) {
@@ -98,6 +108,10 @@ export class StaticDrawerWidget extends StaticPopupWidget<DrawerWidgetProps> imp
 
   public setZIndex(zIndex: number | undefined) {
     this.zIndex = zIndex;
+  }
+
+  public setMask(mask: boolean) {
+    this.mask = mask;
   }
 
   public setMaskClosable(maskClosable: boolean) {
@@ -134,5 +148,12 @@ export class StaticDrawerWidget extends StaticPopupWidget<DrawerWidgetProps> imp
 
   public setActionReverse(actionReverse: boolean) {
     this.actionReverse = actionReverse;
+  }
+
+  @Widget.Method()
+  protected onAfterVisibleChange(visible: boolean) {
+    if (!visible && this.destroyOnClose) {
+      this.dispose();
+    }
   }
 }

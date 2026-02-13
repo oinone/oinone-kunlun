@@ -1,4 +1,10 @@
-import { type ActiveRecord, type ActiveRecords, type RuntimeM2OField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  type ActiveRecords,
+  type RuntimeM2OField,
+  SubmitRelationHandler,
+  SubmitValue
+} from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';

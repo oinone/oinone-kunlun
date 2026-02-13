@@ -306,8 +306,7 @@ export default defineComponent({
       type: Function
     },
     userPrefer: {
-      type: Object as PropType<UserTablePrefer>,
-      default: () => ({})
+      type: Object as PropType<UserTablePrefer>
     },
     usingSimpleUserPrefer: {
       type: Boolean,
@@ -390,9 +389,6 @@ export default defineComponent({
     isHover: {
       type: Boolean,
       default: false
-    },
-    viewControlWidget: {
-      type: Object as PropType<DslDefinition>
     },
     showAddBtn: {
       type: Boolean,
@@ -733,35 +729,23 @@ export default defineComponent({
       { immediate: true }
     );
 
-    let preUserPrefer = JSON.stringify(props.userPrefer || {});
+    const constructWatchUserPrefer = () => {
+      return {
+        fieldPrefer: props.userPrefer?.fieldPrefer || [],
+        fieldOrder: props.userPrefer?.fieldOrder || [],
+        fieldLeftFixed: props.userPrefer?.fieldLeftFixed || [],
+        fieldRightFixed: props.userPrefer?.fieldRightFixed || []
+      };
+    };
 
     watch(
-      () => {
-        return {
-          fieldPrefer: props.userPrefer.fieldPrefer,
-          fieldOrder: props.userPrefer.fieldOrder,
-          fieldLeftFixed: props.userPrefer.fieldLeftFixed,
-          fieldRightFixed: props.userPrefer.fieldRightFixed
-        };
-      },
+      () => constructWatchUserPrefer(),
       (value) => {
-        if (!value || !value.fieldOrder) {
+        const tableRef = table.value;
+        if (!tableRef) {
           return;
         }
-
-        const currentUserPrefer = JSON.stringify(value);
-
-        if (preUserPrefer === currentUserPrefer) {
-          return;
-        }
-
-        preUserPrefer = currentUserPrefer;
-
         nextTick(() => {
-          const tableRef = table.value;
-          if (!tableRef) {
-            return;
-          }
           let columns = tableRef.getAllColumns();
           columns = sortColumnsByUserPrefer(
             columns.map((v) => {
@@ -826,7 +810,6 @@ export default defineComponent({
 
       enableSequence,
 
-      viewControlWidget,
       selectMode,
       checkbox,
       checkboxDisabledTitles,
@@ -1142,12 +1125,6 @@ export default defineComponent({
     }
 
     const containerChildren: VNode[] = [];
-    if (viewControlWidget) {
-      const viewControlVNode = DslRender.render(viewControlWidget);
-      if (viewControlVNode) {
-        containerChildren.push(viewControlVNode);
-      }
-    }
     containerChildren.push(createVNode(OioTable, tableProps, tableSlots));
 
     if (allowRowClick) {

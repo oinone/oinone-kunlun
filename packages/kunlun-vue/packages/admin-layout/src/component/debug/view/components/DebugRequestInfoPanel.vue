@@ -65,9 +65,19 @@
   </div>
 </template>
 <script lang="ts">
-import { OioCol, OioForm, OioFormItem, OioGroup, OioRow, OioTab, OioTabs, OioTextarea } from '@oinone/kunlun-vue-ui-antd';
-import { defineComponent, type PropType } from 'vue';
-import type { DebugErrorPanel, DebugRequestInfo } from '../../typing';
+import {
+  OioCol,
+  OioForm,
+  OioFormItem,
+  OioGroup,
+  OioRow,
+  OioTab,
+  OioTabs,
+  OioTextarea
+} from '@oinone/kunlun-vue-ui-antd';
+import { defineComponent, onMounted, type PropType } from 'vue';
+import type { DebugErrorPanel, DebugRequestGraphQLInfo, DebugRequestInfo } from '../../typing';
+import { loadScript } from '../../util';
 import { useDebugRequestInfo } from '../useDebugRequestInfo';
 import DebugDefaultInfo from './DebugDefaultInfo.vue';
 
@@ -91,6 +101,33 @@ export default defineComponent({
     }
   },
   setup(props) {
+    onMounted(async () => {
+      try {
+        await loadScript('https://unpkg.com/prettier@3.7.2/standalone.js', 'prettier-standalone');
+        await loadScript('https://unpkg.com/prettier@3.7.2/plugins/graphql.js', 'prettier-plugins-graphql');
+        props.requestInfo?.gqlInfos?.forEach((gqlInfo) => {
+          formatGql(gqlInfo);
+        });
+      } catch (e) {
+        console.warn('prettier load err ', e);
+      }
+    });
+
+    async function formatGql(gqlInfo: DebugRequestGraphQLInfo) {
+      try {
+        const prettier = Reflect.get(window, 'prettier') as any;
+        const prettierPlugins = Reflect.get(window, 'prettierPlugins') as any;
+        if (prettier && prettierPlugins) {
+          gqlInfo.gql = await prettier.format(gqlInfo.gql, {
+            parser: 'graphql',
+            plugins: prettierPlugins
+          });
+        }
+      } catch (e) {
+        console.error('gql format err', e);
+      }
+    }
+
     const constructPanelProps = (panel: DebugErrorPanel) => {
       const properties = { ...panel };
       delete properties.component;

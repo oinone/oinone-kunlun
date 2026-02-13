@@ -32,6 +32,7 @@ const checkKeyword = (content) => {
   return false;
 };
 
+const errors = [];
 for (let index = 0; index < fieldNames.length; index++) {
   const path = fieldNames[index];
   const field = fs
@@ -42,8 +43,13 @@ for (let index = 0; index < fieldNames.length; index++) {
     .trim();
 
   if (checkKeyword(field)) {
-    logger.log('\x1B[31m%s\x1B[0m', `${path} 文件存在 ['debugger', 'console.log', 'alert']，请删除后再提交.`);
-    process.exit(1);
-    break;
+    errors.push(`${path} 文件存在 ['debugger', 'console.log', 'alert']，请删除后再提交.`);
   }
+}
+
+if (errors.length > 0) {
+  for (const error of errors) {
+    logger.log('\x1B[31m%s\x1B[0m', error);
+  }
+  process.exit(1);
 }

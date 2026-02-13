@@ -18,7 +18,8 @@ import {
   type Slots,
   toRaw,
   type VNode,
-  watch
+  watch,
+  withCtx
 } from 'vue';
 import VueFragment from './VueFragment.vue';
 import { Widget } from './Widget';
@@ -625,7 +626,10 @@ export class VueWidget<Props extends WidgetProps = WidgetProps> extends Widget<P
         const { $slots } = ctx;
         const componentProps = this.resolveProps(component, props);
 
-        const children = $slots && Object.keys($slots).length ? $slots : this.resolveChildren();
+        const children = {
+          ...this.resolveChildren(),
+          ...$slots
+        };
 
         const expandCom = this.renderExpandComponent() as VNode;
         const expandSlot = {} as Record<string, any>;
@@ -722,20 +726,33 @@ export class VueWidget<Props extends WidgetProps = WidgetProps> extends Widget<P
    * @protected
    */
   protected resolveChildren(): Record<string, Slot> {
-    const result = {};
-    const slots: string[] = [];
-    const children = this.getChildren();
-    children.forEach((c) => {
-      if (!slots.includes(c.getName())) {
-        slots.push(c.getName());
+    const slotWidgets: Record<string, Widget[]> = {};
+    const children: Widget[] = this.getChildren();
+    for (const child of children) {
+      const slotName = child.getName();
+      let widgets: Widget[] | undefined = slotWidgets[slotName];
+      if (!widgets) {
+        widgets = [];
+        slotWidgets[slotName] = widgets;
       }
-    });
-    slots.forEach((s) => {
-      Reflect.set(result, s, (...args: unknown[]) =>
-        children.filter((c) => c.getName() === s).map((c) => c.render(...args))
-      );
-    });
-    return result;
+      widgets.push(child);
+    }
+    const slots: Record<string, Slot> = {};
+    for (const [slotName, widgets] of Object.entries(slotWidgets)) {
+      slots[slotName] = withCtx((context: Record<string, unknown>) => {
+        const vNodes: VNode[] = [];
+        for (const widget of widgets) {
+          const result = widget.render(context) as VNode | VNode[];
+          if (Array.isArray(result)) {
+            vNodes.push(...result);
+          } else {
+            vNodes.push(result);
+          }
+        }
+        return vNodes;
+      }) as Slot;
+    }
+    return slots;
   }
 
   /**

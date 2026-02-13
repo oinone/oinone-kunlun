@@ -16,8 +16,15 @@ function createOperationItem(title: string, icon: string, onClick: Function, cla
   const translateTitle = translateValueByKey(title);
   return createVNode(
     'div',
-    { class: StringHelper.append([`${classNamePrefix}-item`], classNames), title: translateTitle, onClick },
-    [createVNode(OioIcon, { icon, size: 14 }), createVNode('span', {}, translateTitle)]
+    {
+      class: StringHelper.append([`oio-popover-select-item ${classNamePrefix}-item`], classNames),
+      title: translateTitle,
+      onClick
+    },
+    [
+      createVNode(OioIcon, { icon, size: 14 }),
+      createVNode('span', { class: 'oio-popover-select-item-title' }, translateTitle)
+    ]
   );
 }
 
@@ -82,7 +89,7 @@ export default defineComponent({
       visible.value = val;
     };
 
-    const createHandle = <R>(
+    const createHandle = <R,>(
       fn: (...args: unknown[]) => ReturnPromise<R>
     ): ((...args: unknown[]) => ReturnPromise<R>) => {
       return async (...args: unknown[]) => {
@@ -179,7 +186,7 @@ export default defineComponent({
       APopover,
       {
         visible,
-        overlayClassName: `${classNamePrefix}-overlay`,
+        overlayClassName: `oio-popover oio-popover-select-panel ${classNamePrefix}-overlay`,
         placement: 'bottomRight',
         'onUpdate:visible': onUpdateVisible
       },
@@ -237,8 +244,7 @@ export default defineComponent({
               );
             }
           }
-
-          return [createVNode('div', { class: `${classNamePrefix}-wrapper` }, options)];
+          return options;
         }
       }
     );
@@ -252,49 +258,11 @@ export default defineComponent({
     color: var(--oio-table-title-color);
     cursor: pointer;
   }
+}
 
-  &-overlay {
-    .ant-popover-inner-content {
-      padding: 6px 0;
-    }
-
-    .ant-popover-inner,
-    .ant-popover-arrow-content {
-      background-color: var(--oio-background);
-    }
-
-    .ant-popover-inner {
-      border-radius: var(--oio-border-radius);
-    }
-
-    .ant-popover-arrow {
-      display: none;
-    }
-
-    .default-column-quick-operation-wrapper {
-      display: flex;
-      flex-direction: column;
-
-      .default-column-quick-operation-item {
-        padding: 6px 12px;
-        cursor: pointer;
-        display: flex;
-        color: var(--oio-text-color-secondary);
-        font-size: var(--oio-font-size);
-
-        .oio-icon {
-          color: var(--oio-text-color-secondary);
-        }
-
-        & > .oio-icon:nth-child(1) {
-          margin-right: 8px;
-        }
-
-        &:hover {
-          background-color: var(--oio-select-dropdown-selected);
-        }
-      }
-    }
+.default-column-quick-operation-overlay {
+  .ant-popover-arrow {
+    display: none;
   }
 }
 </style>

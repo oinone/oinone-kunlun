@@ -1,11 +1,26 @@
 <script lang="ts">
 import { DownOutlined } from '@ant-design/icons-vue';
-import { ButtonType, OioButton, OioDivider, OioDropdownPlacement, uniqueKeyGenerator } from '@oinone/kunlun-vue-ui-antd';
+import {
+  ButtonType,
+  OioButton,
+  OioDivider,
+  OioDropdownPlacement,
+  uniqueKeyGenerator
+} from '@oinone/kunlun-vue-ui-antd';
 import { DividerType, OioDropdownTrigger, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
-import { computed, createVNode, defineComponent, type PropType, type VNode, vShow, withDirectives, withModifiers } from 'vue';
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  type PropType,
+  type VNode,
+  vShow,
+  withDirectives,
+  withModifiers
+} from 'vue';
 import DefaultDropdown from '../../action/component/dropdown/DefaultDropdown.vue';
 import { ActiveCountEnum } from '../../typing';
 import { CollectionActions } from '../../util/collection-actions';
@@ -14,7 +29,7 @@ function createMoreAction(vnodes: VNode[], allMounted: Function | undefined): VN
   return createVNode(
     DefaultDropdown,
     {
-      trigger: [OioDropdownTrigger.click, OioDropdownTrigger.hover],
+      trigger: [OioDropdownTrigger.hover],
       placement: OioDropdownPlacement.tm,
       allMounted
     },

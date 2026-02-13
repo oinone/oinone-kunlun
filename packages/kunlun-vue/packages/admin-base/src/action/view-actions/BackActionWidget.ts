@@ -1,4 +1,13 @@
-import { type ActiveRecord, activeRecordsToJSONString, Dialog, Drawer, executeViewAction, Popup, type RuntimeViewAction, translate } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  activeRecordsToJSONString,
+  Dialog,
+  Drawer,
+  executeViewAction,
+  Popup,
+  type RuntimeViewAction,
+  translate
+} from '@oinone/kunlun-engine';
 import { ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';

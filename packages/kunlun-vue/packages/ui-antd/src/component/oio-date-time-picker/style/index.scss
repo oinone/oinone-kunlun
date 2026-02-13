@@ -141,8 +141,10 @@
   }
 
   .ant-picker-cell:hover:not(.ant-picker-cell-in-view) .ant-picker-cell-inner,
-  .ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end)
-  .ant-picker-cell-inner {
+  .ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(
+      .ant-picker-cell-range-end
+    ):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end)
+    .ant-picker-cell-inner {
     background: var($parameterPrefix + -menu-hover-background-color);
     color: var($parameterPrefix + -text-color);
   }
@@ -159,14 +161,18 @@
         text-align: center;
       }
 
-      &:active:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) {
+      &:active:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(
+          .ant-picker-cell-range-hover-start
+        ):not(.ant-picker-cell-range-hover-end) {
         .ant-picker-cell-inner {
           color: var($parameterPrefix + -datetime-cell-internal-text-color-hover);
           background-color: var($parameterPrefix + -primary-color-active);
         }
       }
 
-      &:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) {
+      &:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(
+          .ant-picker-cell-range-hover-start
+        ):not(.ant-picker-cell-range-hover-end) {
         .ant-picker-cell-inner {
           color: var($parameterPrefix + -datetime-cell-internal-text-color-hover);
           background-color: var($parameterPrefix + -datetime-background-hover);
@@ -248,14 +254,18 @@
         text-align: center;
       }
 
-      &:active:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) {
+      &:active:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(
+          .ant-picker-cell-range-hover-start
+        ):not(.ant-picker-cell-range-hover-end) {
         .ant-picker-cell-inner {
           color: var($parameterPrefix + -datetime-cell-internal-text-color-hover);
           background-color: var($parameterPrefix + -primary-color-active);
         }
       }
 
-      &:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) {
+      &:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(
+          .ant-picker-cell-range-hover-start
+        ):not(.ant-picker-cell-range-hover-end) {
         .ant-picker-cell-inner {
           color: var($parameterPrefix + -datetime-cell-internal-text-color-hover);
           background-color: var($parameterPrefix + -datetime-background-hover);

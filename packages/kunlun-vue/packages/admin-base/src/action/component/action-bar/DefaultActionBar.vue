@@ -2,7 +2,7 @@
 import { DownOutlined } from '@ant-design/icons-vue';
 import { type ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { CastHelper, type CSSStyle, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import {
   ButtonBizStyle,
   ButtonType,
@@ -12,7 +12,7 @@ import {
   OioDropdown,
   OioSwitch
 } from '@oinone/kunlun-vue-ui-antd';
-import { ListSelectMode, OioDropdownTrigger, PropRecordHelper, StyleHelper } from '@oinone/kunlun-vue-ui-common';
+import { ListSelectMode, OioDropdownTrigger, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { type DslRenderDefinition, onAllMounted } from '@oinone/kunlun-vue-widget';
 import { Menu as AMenu } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
@@ -87,7 +87,7 @@ function createMoreAction(
       OioDropdown,
       {
         overlayClassName: 'default-dropdown-overlay',
-        trigger: [OioDropdownTrigger.hover]
+        trigger: options.moreActionTriggers
       },
       {
         default: () => [triggerVNode],
@@ -242,10 +242,21 @@ export default defineComponent({
     if (this.bizStyle) {
       classList.push(`${actionBarClassName}-${this.bizStyle}`);
     }
+    const {
+      default: defaultSlot,
+      before: beforeSlot,
+      after: afterSlot,
+      left: leftSlot,
+      right: rightSlot
+    } = PropRecordHelper.collectionSlots(this.$slots, [
+      { origin: 'default', isNotNull: true },
+      'before',
+      'after',
+      'left',
+      'right'
+    ]);
     const collectionActions = new CollectionActions(this.showActionNames, this.activeCount);
-    collectionActions.do(
-      PropRecordHelper.collectionSlots(this.$slots, [{ origin: 'default', isNotNull: true }]).default()
-    );
+    collectionActions.do(defaultSlot());
     const { hasMore, showActionFlags, moreActions, moreActionFlags, otherVNodes } = collectionActions;
     let { showActions } = collectionActions;
     if (
@@ -263,7 +274,7 @@ export default defineComponent({
         buttonType: this.buttonType,
         operatorColumnDirection: operatorColumnDirection as OperationColumnDirection,
         allMounted: this.allMounted,
-        moreActionTriggers: this.moreActionTriggers!
+        moreActionTriggers: this.moreActionTriggers || [OioDropdownTrigger.hover]
       });
       if (Array.isArray(renderResult)) {
         moreActionVNodes = renderResult;
@@ -318,28 +329,39 @@ export default defineComponent({
         )
       );
     }
-    const style = {} as CSSStyle;
     if (this.justify) {
-      style.justifyContent = this.justify;
+      classList.push(`${actionBarClassName}-${this.justify}`);
     }
     if (this.isFloat) {
-      style.position = 'sticky';
-      style.bottom = '0px';
-      style.top = '0px';
-      style.zIndex = '1';
+      classList.push(`${actionBarClassName}-float`);
+    }
+    const beforeVNodes = beforeSlot?.();
+    const afterVNodes = afterSlot?.();
+    const actionVNodes = [...(beforeVNodes || []), ...showActions, ...(afterVNodes || [])];
+
+    const leftVNodes = leftSlot?.();
+    const rightVNodes = rightSlot?.();
+    let actionBarContentVNodes: VNode[] = [];
+    if (leftVNodes?.length) {
+      actionBarContentVNodes.push(createVNode('div', { class: `${actionBarClassName}-left` }, leftVNodes || []));
+      if (rightVNodes?.length) {
+        classList.push(`${actionBarClassName}-between`);
+        actionBarContentVNodes.push(createVNode('div', { class: `${actionBarClassName}-center` }, actionVNodes));
+        actionBarContentVNodes.push(createVNode('div', { class: `${actionBarClassName}-right` }, rightVNodes || []));
+      } else {
+        classList.push(`${actionBarClassName}-between`);
+        actionBarContentVNodes.push(createVNode('div', { class: `${actionBarClassName}-right` }, actionVNodes));
+      }
+    } else if (rightVNodes?.length) {
+      classList.push(`${actionBarClassName}-between`);
+      actionBarContentVNodes.push(createVNode('div', { class: `${actionBarClassName}-left` }, actionVNodes));
+      actionBarContentVNodes.push(createVNode('div', { class: `${actionBarClassName}-right` }, rightVNodes || []));
+    } else {
+      classList.push(`${actionBarClassName}-flatten`);
+      actionBarContentVNodes = actionVNodes;
     }
     return withDirectives(
-      createVNode(
-        'div',
-        {
-          ...PropRecordHelper.collectionBasicProps(
-            this.$attrs,
-            StringHelper.append(classList, CastHelper.cast(this.template?.class)),
-            { ...style, ...StyleHelper.parse(this.template?.style) }
-          )
-        },
-        showActions
-      ),
+      createVNode('div', PropRecordHelper.collectionBasicProps(this.$attrs, classList), actionBarContentVNodes),
       [[vShow, !this.invisible]]
     );
   }

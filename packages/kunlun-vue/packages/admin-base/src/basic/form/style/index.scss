@@ -50,6 +50,7 @@
     }
   }
 
+  &.oio-form,
   .oio-form {
     &.ant-form-horizontal {
       .#{$formItemClassPrefix}-vertical > .ant-form-item-row {

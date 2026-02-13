@@ -1,6 +1,17 @@
 <script lang="ts">
 import { ViewType } from '@oinone/kunlun-meta';
-import { CastHelper, DrawerHeight, DrawerPlacement, DrawerWidth, ModalWidth, OioButton, OioDrawer, PopupDisplayAs, PropRecordHelper, StringHelper } from '@oinone/kunlun-vue-ui-antd';
+import {
+  CastHelper,
+  DrawerHeight,
+  DrawerPlacement,
+  DrawerWidth,
+  ModalWidth,
+  OioButton,
+  OioDrawer,
+  PopupDisplayAs,
+  PropRecordHelper,
+  StringHelper
+} from '@oinone/kunlun-vue-ui-antd';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, type PropType, ref } from 'vue';
 import { OioSimplePagination } from '../../../components';
@@ -19,6 +30,9 @@ export default defineComponent({
       default: undefined
     },
     onVisibleChange: {
+      type: Function as PropType<(visible: boolean) => void>
+    },
+    onAfterVisibleChange: {
       type: Function as PropType<(visible: boolean) => void>
     },
     destroyOnClose: {
@@ -177,6 +191,7 @@ export default defineComponent({
       $slots,
       visible,
       onVisibleChange,
+      onAfterVisibleChange,
       displayAs,
       onDisplayAsChange,
       destroyOnClose,
@@ -267,7 +282,8 @@ export default defineComponent({
         enterCallback: onOk,
         cancelCallback: onCancel,
         'onUpdate:visible': onVisibleChange,
-        'onUpdate:displayAs': onDisplayAsChange
+        'onUpdate:displayAs': onDisplayAsChange,
+        onAfterVisibleChange
       },
       children
     );

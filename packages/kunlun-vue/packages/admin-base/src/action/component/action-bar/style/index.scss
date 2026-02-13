@@ -7,9 +7,26 @@
   height: var(--oio-height);
   display: flex;
   align-items: center;
-  flex-wrap: nowrap;
-  gap: 12px var(--oio-margin-md);
+  flex-flow: row nowrap;
   overflow: auto hidden;
+
+  &.action-bar-flatten {
+    gap: 12px var(--oio-margin-md);
+  }
+
+  &.action-bar-between {
+    justify-content: space-between;
+  }
+
+  .action-bar-left,
+  .action-bar-center,
+  .action-bar-right {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    overflow: auto hidden;
+    gap: 12px var(--oio-margin-md);
+  }
 
   .more-action-item {
     display: flex;

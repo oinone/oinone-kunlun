@@ -1,6 +1,12 @@
 import { type DslDefinition, XMLParse } from '@oinone/kunlun-dsl';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { SPIFactory, SPIOperator, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
+import {
+  SPIFactory,
+  SPIOperator,
+  type SPIOptions,
+  type SPISingleSelector,
+  type SPITokenFactory
+} from '@oinone/kunlun-spi';
 
 /**
  * 布局注册可选项

@@ -5,7 +5,18 @@ import { IconPlacement, OioButton, OioDropdown, OioDropdownProps, PropRecordHelp
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { Menu as AMenu, Popover as APopover } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
-import { computed, createVNode, defineComponent, nextTick, onMounted, type PropType, ref, type VNode, vShow, withDirectives } from 'vue';
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  nextTick,
+  onMounted,
+  type PropType,
+  ref,
+  type VNode,
+  vShow,
+  withDirectives
+} from 'vue';
 import { InternalWidget } from '../../../tags';
 import { VNodeHelper } from '../../../util';
 import { useProviderActionContext } from '../context';
@@ -89,8 +100,6 @@ export default defineComponent({
                 return false;
               }
             }
-          } else if ((vnode.type as { name: string })?.name?.toLowerCase?.() === InternalWidget.Action) {
-            children.push(vnode);
           } else if ((vnode.type as { name: string })?.name?.toLowerCase?.() === InternalWidget.Action) {
             children.push(vnode);
           }

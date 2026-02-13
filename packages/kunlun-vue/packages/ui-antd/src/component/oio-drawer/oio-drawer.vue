@@ -30,9 +30,13 @@ export default defineComponent({
   props: {
     ...OioDrawerProps
   },
-  emits: ['update:visible', 'update:displayAs'],
+  emits: ['update:visible', 'update:displayAs', 'after-visible-change'],
   setup(props, context) {
     const formContext = useInjectOioDefaultFormContext();
+
+    const onAfterVisibleChange = (visible: boolean) => {
+      context.emit('after-visible-change', visible);
+    };
 
     useProviderOioDefaultFormContext({
       ...formContext,
@@ -42,7 +46,8 @@ export default defineComponent({
     });
 
     return {
-      ...useDrawer(props, context)
+      ...useDrawer(props, context),
+      onAfterVisibleChange
     };
   },
   render() {
@@ -150,7 +155,7 @@ export default defineComponent({
       ADrawer,
       {
         ...PropRecordHelper.collectionBasicProps(this.$attrs),
-        rootClassName: StringHelper.append(classNames, CastHelper.cast(this.wrapperClassName)),
+        rootClassName: StringHelper.append(classNames, CastHelper.cast(this.wrapperClassName)).join(' '),
         rootStyle: this.wrapperProps?.rootStyle || this.wrapperProps?.style,
         headerStyle: this.wrapperProps?.headerStyle,
         bodyStyle: this.wrapperProps?.bodyStyle,
@@ -168,7 +173,8 @@ export default defineComponent({
         destroyOnClose: this.destroyOnClose,
         getContainer: this.getTriggerContainer,
         onOk: this.enter,
-        onClose: this.cancel
+        onClose: this.cancel,
+        onAfterOpenChange: this.onAfterVisibleChange
       },
       {
         ...slots,

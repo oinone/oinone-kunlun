@@ -1,6 +1,6 @@
 import { SelectSearchArea } from '@oinone/kunlun-engine';
 import { BooleanHelper } from '@oinone/kunlun-shared';
-import { delay } from 'lodash-es';
+import { debounce, delay } from 'lodash-es';
 import { computed, nextTick, onBeforeUnmount, onMounted, type PropType, ref } from 'vue';
 import { usePlaceholderProps } from '../../basic';
 
@@ -229,6 +229,14 @@ export function relationSelectSetup(props, multi?: boolean) {
     props.blur?.(e);
   };
 
+  const onSearch = debounce(async (val: string) => {
+    await props.search?.(val);
+  }, 10);
+
+  const search = (val: string) => {
+    onSearch(val);
+  };
+
   const onSearchInputFocus = (e) => {
     focusSearchInput = true;
   };
@@ -277,6 +285,7 @@ export function relationSelectSetup(props, multi?: boolean) {
     onKeydown,
     onFocus,
     onBlur,
+    search,
     onSearchInputFocus,
     onSearchInputBlur,
     onSearchInputKeydown

@@ -1,6 +1,15 @@
 <script lang="ts">
 import { ViewType } from '@oinone/kunlun-meta';
-import { CastHelper, DrawerWidth, ModalWidth, OioButton, OioModal, PopupDisplayAs, PropRecordHelper, StringHelper } from '@oinone/kunlun-vue-ui-antd';
+import {
+  CastHelper,
+  DrawerWidth,
+  ModalWidth,
+  OioButton,
+  OioModal,
+  PopupDisplayAs,
+  PropRecordHelper,
+  StringHelper
+} from '@oinone/kunlun-vue-ui-antd';
 import { onAllMounted } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, type PropType, ref } from 'vue';
 import { OioSimplePagination } from '../../../components';

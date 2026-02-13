@@ -1,11 +1,16 @@
-import { ModelFieldType, type IModelField, ViewType, SystemSource } from '@oinone/kunlun-meta';
-import { SPI } from '@oinone/kunlun-spi';
 import { ExpressionKeyword } from '@oinone/kunlun-expression';
-import { FormFieldWidget } from '../../../../../basic';
-import { Widget } from '@oinone/kunlun-vue-widget';
-import { ModelFieldSelectControl, ExpressionKeywordDisplayName, type IVariableContextItem, type IVariableItem } from '@oinone/kunlun-vue-expression';
-import { isBoolean, isNil, isString } from 'lodash-es';
+import { type IModelField, ModelFieldType, SystemSource, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper } from '@oinone/kunlun-shared';
+import { SPI } from '@oinone/kunlun-spi';
+import {
+  ExpressionKeywordDisplayName,
+  type IVariableContextItem,
+  type IVariableItem,
+  ModelFieldSelectControl
+} from '@oinone/kunlun-vue-expression';
+import { Widget } from '@oinone/kunlun-vue-widget';
+import { isBoolean, isNil, isString } from 'lodash-es';
+import { FormFieldWidget } from '../../../../../basic';
 
 /**
  * 指定模型下的字段选择控件
@@ -27,7 +32,8 @@ export class ModelFieldSelectControlWidget extends FormFieldWidget {
   }
 
   private fillContextItems() {
-    let { workflowModelExp = '', expModel = '', canSelectComplexField = true, canSelectRelationField = false } = this.getDsl();
+    const { workflowModelExp = '', canSelectComplexField = true, canSelectRelationField = false } = this.getDsl();
+    let { expModel = '' } = this.getDsl();
     this.isCanSelectComplexField = canSelectComplexField;
     this.isCanSelectRelationField = canSelectRelationField;
     expModel = this.executeExpression(expModel || workflowModelExp, '');
@@ -65,7 +71,7 @@ export class ModelFieldSelectControlWidget extends FormFieldWidget {
   // 当此项为 true 时，点选每级菜单选项值都会发生变化
   @Widget.Reactive()
   protected get changeOnSelect() {
-    let { changeOnSelect } = this.getDsl();
+    const { changeOnSelect } = this.getDsl();
     if (isNil(changeOnSelect)) {
       return false;
     }

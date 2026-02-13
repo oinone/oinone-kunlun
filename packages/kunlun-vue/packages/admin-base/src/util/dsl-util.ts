@@ -1,8 +1,8 @@
-import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
-import { ActiveRecordExtendKeys } from '@oinone/kunlun-engine';
-import { ActionWidget, ActionBarWidget, RowActionBarWidget } from '../action/component';
-import { BaseSearchWidget } from '../basic/BaseSearchWidget';
 import { DslDefinitionType } from '@oinone/kunlun-dsl';
+import { ActiveRecordExtendKeys } from '@oinone/kunlun-engine';
+import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
+import { ActionBarWidget, ActionWidget, RowActionBarWidget } from '../action/component';
+import { BaseSearchWidget } from '../basic/BaseSearchWidget';
 
 export const queryDslWidget = <T extends VueWidget>(
   widgets: Widget[] | undefined,
@@ -16,7 +16,12 @@ export const queryDslWidget = <T extends VueWidget>(
     if (widget instanceof widgetClazz) {
       return widget;
     }
-    if (findChildren || ![DslDefinitionType.FIELD, DslDefinitionType.ACTION].includes(widget.getConfig('dslNodeType') as DslDefinitionType)) {
+    if (
+      findChildren ||
+      ![DslDefinitionType.FIELD, DslDefinitionType.ACTION].includes(
+        widget.getConfig('dslNodeType') as DslDefinitionType
+      )
+    ) {
       const find = queryDslWidget(widget.getChildrenInstance(), widgetClazz);
       if (find) {
         return find;
@@ -75,7 +80,9 @@ export const queryActionByViewHandle = (viewHandle: string, actionLabel: string)
 
 export const queryActionInActionBar = (actionBar: Widget, actionLabel: string): ActionWidget | null => {
   if (actionBar instanceof ActionBarWidget) {
-    const actionWidget = actionBar?.getChildrenInstance()?.find((a) => (a as ActionWidget).action.label === actionLabel);
+    const actionWidget = actionBar
+      ?.getChildrenInstance()
+      ?.find((a) => (a as ActionWidget).action.label === actionLabel);
     if (actionWidget instanceof ActionWidget) {
       return actionWidget;
     }

@@ -2,7 +2,13 @@ import { type PamirsDepartment, PamirsDepartmentServiceToken } from '@oinone/kun
 import type { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import type { ComputedRef, Ref } from 'vue';
-import { type TreeInitOptions, type TreeState, type TreeStateLoadFunction, type TreeStateProps, useTreeState } from '../../quick-utils';
+import {
+  type TreeInitOptions,
+  type TreeState,
+  type TreeStateLoadFunction,
+  type TreeStateProps,
+  useTreeState
+} from '../../quick-utils';
 
 export interface DepartmentTreeInstance {
   state: Ref<TreeState<PamirsDepartment>>;

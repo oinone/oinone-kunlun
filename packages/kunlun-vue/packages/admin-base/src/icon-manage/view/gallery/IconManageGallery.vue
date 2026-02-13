@@ -31,10 +31,16 @@
 </template>
 <script lang="ts">
 import type { ActiveRecord, Pagination } from '@oinone/kunlun-engine';
-import { type CommonGutterType, ListPaginationStyle, OioPagination, OioSpin, OioEmptyData } from '@oinone/kunlun-vue-ui-antd';
+import {
+  type CommonGutterType,
+  ListPaginationStyle,
+  OioEmptyData,
+  OioPagination,
+  OioSpin
+} from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, type PropType } from 'vue';
-import IconCard from '../card/IconCard.vue';
 import { UploadStatus } from '../../typing';
+import IconCard from '../card/IconCard.vue';
 
 export default defineComponent({
   name: 'IconManageGallery',

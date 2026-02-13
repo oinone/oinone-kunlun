@@ -1,8 +1,9 @@
 import { GroupingField, isAllowGrouping } from '@oinone/kunlun-engine';
 import { SPI } from '@oinone/kunlun-spi';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { isTableViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../../basic';
 import type { SortableGroupOption } from '../../../components';
+import type { TableWidget } from '../../table';
 import DefaultGroupControl from './DefaultGroupControl.vue';
 
 type GroupingFieldOption = GroupingField & { title?: string };
@@ -24,8 +25,16 @@ export class GroupControlWidget extends BaseElementWidget {
    * @see {@link BaseTableWidget#groupList}
    */
   @Widget.Reactive()
-  @Widget.Inject('groupList')
-  protected parentGroupList: GroupingField[] | undefined;
+  protected get parentGroupList(): GroupingField[] | undefined {
+    const { viewState } = this;
+    if (!viewState) {
+      return undefined;
+    }
+    if (isTableViewState(viewState) && viewState.table) {
+      return Widget.select<TableWidget>(viewState.table)?.getOperator<TableWidget>()?.groupList;
+    }
+    return undefined;
+  }
 
   @Widget.Reactive()
   protected groupList: GroupingFieldOption[] | undefined;
@@ -37,9 +46,17 @@ export class GroupControlWidget extends BaseElementWidget {
    * 修改分组
    * @see {@link BaseTableWidget#onGroupChange}
    */
-  @Widget.Method()
-  @Widget.Inject()
-  protected onGroupChange!: (groupList: GroupingField[]) => void;
+  @Widget.Reactive()
+  protected get onGroupChange(): (groupList: GroupingField[]) => void {
+    const { viewState } = this;
+    if (!viewState) {
+      return () => {};
+    }
+    if (isTableViewState(viewState) && viewState.table) {
+      return Widget.select<TableWidget>(viewState.table)?.getOperator<TableWidget>()?.onGroupChange || (() => {});
+    }
+    return () => {};
+  }
 
   @Widget.Method()
   protected onOpen() {

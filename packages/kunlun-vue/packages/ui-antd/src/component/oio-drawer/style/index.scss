@@ -5,8 +5,6 @@ $titleHeight: 55px;
 $footerHeight: 73px;
 
 .#{$drawerClassPrefix} {
-  position: absolute;
-
   &-header-invisible {
     .ant-drawer-wrapper-body > .ant-drawer-header {
       display: none;

@@ -2,8 +2,22 @@ import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { isMinimalismTheme } from '@oinone/kunlun-engine';
 import { CallChaining, NumberHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { ButtonBizStyle, ButtonType, FlexRowJustify, ListSelectMode, OioDropdownTrigger } from '@oinone/kunlun-vue-ui-common';
-import { type ActiveRecordsWidgetProps, hasActionBarViewState, isListViewState, type OioActionBarState, type OioAnyViewState, useOioState, Widget } from '@oinone/kunlun-vue-widget';
+import {
+  ButtonBizStyle,
+  ButtonType,
+  FlexRowJustify,
+  ListSelectMode,
+  OioDropdownTrigger
+} from '@oinone/kunlun-vue-ui-common';
+import {
+  type ActiveRecordsWidgetProps,
+  hasActionBarViewState,
+  isListViewState,
+  type OioActionBarState,
+  type OioAnyViewState,
+  useOioState,
+  Widget
+} from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { BaseActionGroupWidget, BaseElementWidget } from '../../../basic';
 import { ActiveCountEnum, type MoreActionRender } from '../../../typing';
@@ -24,6 +38,7 @@ export class ActionBarWidget<
     this.setComponent(DefaultActionBar);
     this.inline = props.inline || false;
     this.moreActionRender = props.moreActionRender;
+    this.createHookWidgets(['before', 'after', 'left', 'right']);
     return this;
   }
 
@@ -103,7 +118,7 @@ export class ActionBarWidget<
   protected get moreActionTriggers(): OioDropdownTrigger[] {
     const moreActionTriggersStr = this.getDsl().moreActionTriggers?.();
     if (!moreActionTriggersStr) {
-      return [OioDropdownTrigger.click, OioDropdownTrigger.hover];
+      return [OioDropdownTrigger.hover];
     }
     return moreActionTriggersStr.split(',') as unknown[] as OioDropdownTrigger[];
   }
@@ -174,6 +189,9 @@ export class ActionBarWidget<
         }
       }
     }
+    if (!this.actionBarState) {
+      this.actionBarState = this.viewState?.getActionBarState();
+    }
   }
 
   protected $$beforeMount() {
@@ -186,9 +204,6 @@ export class ActionBarWidget<
         this.$$initViewStatePosition(this.viewState);
         this.$$initViewState(this.viewState);
       }
-    }
-    if (!this.actionBarState) {
-      this.actionBarState = this.viewState?.getActionBarState();
     }
     if (this.viewState && !isInitStatePosition) {
       this.$$initViewStatePosition(this.viewState);

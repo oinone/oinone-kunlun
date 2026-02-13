@@ -1,9 +1,22 @@
-import { getRefreshParameters, parseConfigs, RelationUpdateType, RuntimeContextManager, SubmitType, SubmitValue } from '@oinone/kunlun-engine';
+import {
+  getRefreshParameters,
+  parseConfigs,
+  RelationUpdateType,
+  RuntimeContextManager,
+  SubmitType,
+  SubmitValue
+} from '@oinone/kunlun-engine';
 import { createVisibleArea, useEnv } from '@oinone/kunlun-environment';
 import { ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { CallChaining, type Constructor } from '@oinone/kunlun-shared';
 import { SPI, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
-import { type ActiveRecordsWidgetProps, InnerWidgetType, type OioAnyViewState, useOioState, Widget } from '@oinone/kunlun-vue-widget';
+import {
+  type ActiveRecordsWidgetProps,
+  InnerWidgetType,
+  type OioAnyViewState,
+  useOioState,
+  Widget
+} from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { getCurrentInstance } from 'vue';
 import { ViewBizStyle } from '../../typing';
@@ -280,9 +293,13 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
 
   protected $$created() {
     super.$$created();
-    const state = useOioState(this.currentHandle).createViewState();
+    const { globalState, createViewState } = useOioState(this.currentHandle);
+    const state = createViewState();
     state.viewType = this.viewType!;
     this.viewState = state;
+    if (!this.inline && this.viewType && this.viewType !== ViewType.Search) {
+      globalState.mainViewHandle = this.currentHandle;
+    }
   }
 
   protected $$beforeMount() {
@@ -368,7 +385,11 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
     this.parentSubmitCallChaining?.unhook(this.path);
     this.parentValidatorCallChaining?.unhook(this.path);
     this.clearVisibleArea();
-    useOioState(this.currentHandle).clearViewState();
+    const { globalState, clearViewState } = useOioState(this.currentHandle);
+    clearViewState();
+    if (!this.inline && this.viewType && this.viewType !== ViewType.Search) {
+      globalState.mainViewHandle = undefined;
+    }
   }
 
   protected $$unmountedAfterProperties() {

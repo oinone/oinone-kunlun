@@ -1,13 +1,41 @@
 import type { DslDefinition } from '@oinone/kunlun-dsl';
-import { $systemMajorConfig, CurrentLanguage, formateLanguage, initI18n, LanguageType, type MajorConfig, type MultiTabsApplicationHomepageConfig, MultiTabsRuntimeManifestMergedConfigManager, OioProvider, queryResourceDateTimeFormat, type ReloadMainViewCallChainingParameters, type ReloadMaskCallChainingParameters, ROOT_HANDLE, type RuntimeViewAction, translateValueByKey, useLanguage, ViewActionCache, type ViewActionQueryParameter } from '@oinone/kunlun-engine';
+import {
+  $systemMajorConfig,
+  CurrentLanguage,
+  formateLanguage,
+  initI18n,
+  LanguageType,
+  type MajorConfig,
+  type MultiTabsApplicationHomepageConfig,
+  MultiTabsRuntimeManifestMergedConfigManager,
+  OioProvider,
+  queryResourceDateTimeFormat,
+  type ReloadMainViewCallChainingParameters,
+  type ReloadMaskCallChainingParameters,
+  ROOT_HANDLE,
+  type RuntimeViewAction,
+  translateValueByKey,
+  useLanguage,
+  ViewActionCache,
+  type ViewActionQueryParameter
+} from '@oinone/kunlun-engine';
 import { ViewActionTarget } from '@oinone/kunlun-meta';
 import { isNotPermission, setSessionPath, useSessionPath } from '@oinone/kunlun-request';
 import { useMatched } from '@oinone/kunlun-router';
 import { CallChaining } from '@oinone/kunlun-shared';
 import { distinctUntilChanged, Subscription } from '@oinone/kunlun-state';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-
-import { emptyHomepageModelName, getUnauthorizedAction, MenuService, ModuleService, replaceStanderMainView, type RuntimeMenu, TopBarService, unauthorizedActionName, urlHomepageModelName } from '@oinone/kunlun-vue-admin-layout';
+import {
+  emptyHomepageModelName,
+  getUnauthorizedAction,
+  MenuService,
+  ModuleService,
+  replaceStanderMainView,
+  type RuntimeMenu,
+  TopBarService,
+  unauthorizedActionName,
+  urlHomepageModelName
+} from '@oinone/kunlun-vue-admin-layout';
 import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { ZH_CN_CODE } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -219,7 +247,7 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
 
     this.loading = false;
 
-    return this.renderMainView(oldPage, newPage);
+    return this.renderMainView(runtimeViewAction, oldPage, newPage);
   }
 
   protected async fetchRuntimeViewAction(
@@ -354,6 +382,10 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
         model,
         action,
 
+        viewName: viewAction.resViewName,
+        viewType: viewAction.resViewType,
+        target: viewAction.target,
+
         previousPage: oldPage,
         currentPage: newPage
       };
@@ -369,19 +401,22 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
    * @protected
    */
   protected async renderMainView(
+    viewAction: RuntimeViewAction,
     oldPage: ViewActionQueryParameter | undefined,
     newPage: ViewActionQueryParameter
   ): Promise<void> {
     return nextTick(() => {
-      const { module: moduleName, model, action, viewType, target } = newPage;
+      const { module: moduleName, model, action, target } = newPage;
       const reloadMainViewParameters: ReloadMainViewCallChainingParameters = {
         handle: this.currentHandle,
         module: moduleName,
         model,
         action,
 
-        viewType,
+        viewName: viewAction.resViewName,
+        viewType: viewAction.resViewType,
         target,
+        extension: viewAction.resView?.extension,
 
         previousPage: oldPage,
         currentPage: newPage

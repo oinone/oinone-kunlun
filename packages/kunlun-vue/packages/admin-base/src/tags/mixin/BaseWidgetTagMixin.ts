@@ -1,6 +1,15 @@
 import { DEFAULT_SLOT_NAME, type DslDefinition } from '@oinone/kunlun-dsl';
 import { Optional } from '@oinone/kunlun-shared';
-import { DslRender, type RenderWidget, renderWidgets, reportAllMounted, useInjectMetaContext, useProviderMetaContext, VueWidget, WidgetTagProps } from '@oinone/kunlun-vue-widget';
+import {
+  DslRender,
+  type RenderWidget,
+  renderWidgets,
+  reportAllMounted,
+  useInjectMetaContext,
+  useProviderMetaContext,
+  VueWidget,
+  WidgetTagProps
+} from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import { ComponentOptionsMixin, computed, type Slots } from 'vue';
 import { createCustomWidget, type CustomWidgetProps, InternalWidget } from '../resolve';
@@ -28,7 +37,7 @@ export const BaseWidgetTagMixin: ComponentOptionsMixin = {
       return useInjectMetaContext().parentHandle.value;
     },
     getDslDefinition(): DslDefinition | undefined {
-      return this.dslDefinition || this.$attrs;
+      return this.dslDefinition || (this.$attrs as DslDefinition);
     },
     getSlotName(): string {
       return this.slotName || DEFAULT_SLOT_NAME;
@@ -43,6 +52,7 @@ export const BaseWidgetTagMixin: ComponentOptionsMixin = {
       return {};
     },
     getProps(): CustomWidgetProps {
+      const inlineProp = this.getInline();
       return {
         ...this.$attrs,
         template: this.getDslDefinition(),
@@ -50,14 +60,16 @@ export const BaseWidgetTagMixin: ComponentOptionsMixin = {
         rootHandle: this.getRootHandle(),
         parentHandle: this.getParentHandle(),
         slotName: this.getSlotName(),
-        inline: this.getInline(),
-        widgetInline: this.getInline(),
+        inline: inlineProp,
+        widgetInline: inlineProp,
+        viewType: useInjectMetaContext().viewType,
+        slotContext: this.slotContext,
         ...this.getCustomProps()
-      } as CustomWidgetProps;
+      } as unknown as CustomWidgetProps;
     },
     getCurrentSlots(): Slots | undefined {
       return (
-        DslRender.fetchVNodeSlots(this.dslDefinition || this.$attrs) ||
+        DslRender.fetchVNodeSlots(this.dslDefinition || (this.$attrs as DslDefinition)) ||
         (Object.keys(this.$slots).length ? this.$slots : undefined)
       );
     },

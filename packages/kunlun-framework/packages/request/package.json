@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-request",
-  "version": "6.4.0",
+  "version": "6.4.1",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -8,6 +8,7 @@
     "build": "rollup -c",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
+    "format": "prettier --write --experimental-cli src/",
     "test": "jest",
     "prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
@@ -26,9 +27,9 @@
     "jstz": "2.1.1"
   },
   "devDependencies": {
-    "@oinone/kunlun-shared": "6.4.0",
-    "@oinone/kunlun-spi": "6.4.0",
-    "@oinone/kunlun-state": "6.4.0",
+    "@oinone/kunlun-shared": "6.4.1",
+    "@oinone/kunlun-spi": "6.4.1",
+    "@oinone/kunlun-state": "6.4.1",
     "@types/crypto-js": "4.1.1"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"

@@ -4,7 +4,15 @@ import type { OioTreeNode } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { FormFieldWidget } from '../../../basic';
 import type { TreeData } from '../../../typing';
-import { type AnyPermissionNode, isActionPermissionNode, isHomepagePermissionNode, isMenuPermissionNode, isModulePermissionNode, type PermissionNode, ResourcePermissionSubtypeEnum } from '../../types';
+import {
+  type AnyPermissionNode,
+  isActionPermissionNode,
+  isHomepagePermissionNode,
+  isMenuPermissionNode,
+  isModulePermissionNode,
+  type PermissionNode,
+  ResourcePermissionSubtypeEnum
+} from '../../types';
 import { FormResourcePermissionFieldWidget } from './FormResourcePermissionFieldWidget';
 
 @SPI.ClassFactory(

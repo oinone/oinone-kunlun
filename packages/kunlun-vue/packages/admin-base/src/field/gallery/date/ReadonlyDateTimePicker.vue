@@ -1,5 +1,10 @@
 <template>
-  <gallery-common-field :value="realValue" :is-empty="isRealEmpty" :justify-content="justifyContent" :empty-style="emptyStyle" />
+  <gallery-common-field
+    :value="realValue"
+    :is-empty="isRealEmpty"
+    :justify-content="justifyContent"
+    :empty-style="emptyStyle"
+  />
 </template>
 <script lang="ts">
 import { FlexRowJustify, OioDateTimePickerFormatProps } from '@oinone/kunlun-vue-ui-common';

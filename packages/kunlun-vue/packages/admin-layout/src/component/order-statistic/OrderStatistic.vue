@@ -7,6 +7,6 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  props: ['showData'],
+  props: ['showData']
 });
 </script>

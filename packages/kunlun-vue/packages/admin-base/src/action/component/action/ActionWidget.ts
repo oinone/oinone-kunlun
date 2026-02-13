@@ -1,11 +1,39 @@
-import { type ActiveRecord, type ActiveRecords, buildQueryCondition, type ConfirmModal, FunctionCache, FunctionService, parseConfigs, type RequestModelField, resolveDynamicDomain, resolveDynamicExpression, ROOT_HANDLE, type RuntimeAction, type RuntimeContext, RuntimeContextManager, type RuntimeFunctionDefinition, type RuntimeServerAction, SubmitRelationValue, SubmitValue, translate, translateValueByKey, type ValidatorCallChainingParameters } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  type ActiveRecords,
+  buildQueryCondition,
+  type ConfirmModal,
+  FunctionCache,
+  FunctionService,
+  parseConfigs,
+  type RequestModelField,
+  resolveDynamicDomain,
+  resolveDynamicExpression,
+  ROOT_HANDLE,
+  type RuntimeAction,
+  type RuntimeContext,
+  RuntimeContextManager,
+  type RuntimeFunctionDefinition,
+  type RuntimeServerAction,
+  SubmitRelationValue,
+  SubmitValue,
+  translate,
+  translateValueByKey,
+  type ValidatorCallChainingParameters
+} from '@oinone/kunlun-engine';
 import { EventBus, type EventConsumer, type KeyboardEventMessage } from '@oinone/kunlun-event';
 import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { ActionContextType, type ActionElement, type IAction, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
 import { BooleanHelper, debugConsole, GraphqlHelper, type ReturnPromise } from '@oinone/kunlun-shared';
-import { ButtonBizStyle, ButtonType, ConfirmType, PopconfirmPlacement, StyleHelper } from '@oinone/kunlun-vue-ui-common';
+import {
+  ButtonBizStyle,
+  ButtonType,
+  ConfirmType,
+  PopconfirmPlacement,
+  StyleHelper
+} from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString, set as setData } from 'lodash-es';
 import { type Component, createVNode, toRaw } from 'vue';
@@ -1063,7 +1091,7 @@ export class ActionWidget<
    * @description 服务端函数校验「表达式、服务端函数校验」
    */
   private async executeServerValidator(expression: string | boolean, fun: string): Promise<boolean> {
-    let result = false;
+    const result = false;
 
     // 如果服务端校验配置了expression， 那么前端不做处理，又后端处理
     if (expression) {

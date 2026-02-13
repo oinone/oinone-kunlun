@@ -33,13 +33,3 @@ export default defineComponent({
   }
 });
 </script>
-<style lang="scss">
-.oio-close-icon {
-  background: var(--oio-close-icon-background);
-  color: var(--oio-icon-color);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-</style>

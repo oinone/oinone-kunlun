@@ -3,6 +3,10 @@ export interface ReloadMaskCallChainingParameters {
   model: string;
   action: string;
 
+  viewName?: string;
+  viewType?: string;
+  target?: string;
+
   previousPage?: Record<string, unknown>;
   currentPage: Record<string, unknown>;
 }
@@ -21,8 +25,10 @@ export interface ReloadMainViewCallChainingParameters {
   model: string;
   action: string;
 
+  viewName?: string;
   viewType?: string;
   target?: string;
+  extension?: Record<string, unknown> | undefined;
 
   previousPage?: Record<string, unknown>;
   currentPage: Record<string, unknown>;

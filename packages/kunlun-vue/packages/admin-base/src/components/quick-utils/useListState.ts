@@ -3,7 +3,6 @@ import { type Converter, type OioListItem, Optional, type ReturnPromise } from '
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { computed, reactive, watch } from 'vue';
 import { useListChecked } from './useListChecked';
-import type { TreeInitOptions } from './useTreeState';
 
 interface ListInitContext<T> {
   storage: Record<string, OioListItem<T>>;
@@ -14,6 +13,7 @@ interface ListInitContext<T> {
 }
 
 export interface ListInitOptions {
+  model: string;
   rsql: string;
   checkedKeys: string[];
 }
@@ -124,6 +124,9 @@ export function useListState<T extends IdModel>(initOptions: {
 
   const $$load = async (options?: Partial<ListInitOptions>): Promise<OioListItem<T>[]> => {
     const queryWrapper: QueryWrapper = {};
+    if (options?.model) {
+      queryWrapper.model = options.model;
+    }
     if (options?.rsql) {
       queryWrapper.rsql = options.rsql;
     }
@@ -141,6 +144,7 @@ export function useListState<T extends IdModel>(initOptions: {
 
   const $$initOptions = (options?: Partial<ListInitOptions>): ListInitOptions => {
     return {
+      model: options?.model || '',
       rsql: options?.rsql || '',
       checkedKeys: options?.checkedKeys || []
     };
@@ -181,7 +185,7 @@ export function useListState<T extends IdModel>(initOptions: {
     }
   };
 
-  const search = async (options?: Partial<TreeInitOptions>) => {
+  const search = async (options?: Partial<ListInitOptions>) => {
     state.data = await $$load(options);
     if (initOptions.searchListState) {
       initOptions.searchListState(state, $$initOptions(options));

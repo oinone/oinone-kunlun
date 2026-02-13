@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-widget",
-  "version": "6.4.2",
+  "version": "6.4.4",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -8,12 +8,14 @@
     "build": "rollup -c",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
+    "format": "prettier --write --experimental-cli src/",
+    "test": "jest",
     "prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
     "postpublish": "node ../../../../scripts/postpublish.cjs"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-common": "6.4.2"
+    "@oinone/kunlun-vue-ui-common": "6.4.4"
   },
   "devDependencies": {
     "@oinone/kunlun-config": "~6.4.0",

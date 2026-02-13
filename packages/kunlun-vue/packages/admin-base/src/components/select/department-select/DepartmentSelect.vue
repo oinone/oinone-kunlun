@@ -1,5 +1,9 @@
 <script lang="ts">
-import { OrganizationalStructureType, type PamirsDepartment, type PamirsOrganizationalStructure } from '@oinone/kunlun-engine';
+import {
+  OrganizationalStructureType,
+  type PamirsDepartment,
+  type PamirsOrganizationalStructure
+} from '@oinone/kunlun-engine';
 import { OioButton } from '@oinone/kunlun-vue-ui-antd';
 import { PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { computed, createVNode, defineComponent, type PropType, ref } from 'vue';
@@ -14,6 +18,12 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     ...DefaultSelectProps,
+    departmentModel: {
+      type: String
+    },
+    companyModel: {
+      type: String
+    },
     domain: {
       type: String
     },
@@ -97,6 +107,8 @@ export default defineComponent({
       onShowModal,
       onChange,
 
+      departmentModel,
+      companyModel,
       domain,
       departmentCodes,
       userCompanyDept,
@@ -110,6 +122,8 @@ export default defineComponent({
       visible,
       'onUpdate:visible': onUpdateVisible,
       onChange,
+      model: departmentModel,
+      companyModel,
       domain,
       departmentCodes,
       userCompanyDept,

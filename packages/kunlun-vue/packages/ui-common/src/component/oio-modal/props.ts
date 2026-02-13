@@ -44,6 +44,10 @@ const OioModalAppearanceProps = {
   },
   wrapperProps: {
     type: Object as PropType<ModalWrapperProps>
+  },
+  centered: {
+    type: Boolean,
+    default: undefined
   }
 };
 

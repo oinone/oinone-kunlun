@@ -20,6 +20,5 @@ export const VIDEO_SUFFIX_LIST = [
   '.ram',
   '.swf',
   '.flv',
-  '.3gp',
-
+  '.3gp'
 ];

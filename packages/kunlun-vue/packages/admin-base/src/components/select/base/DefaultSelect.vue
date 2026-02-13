@@ -46,9 +46,9 @@ export default defineComponent({
         } else {
           props.change?.(null);
         }
-        return;
+      } else {
+        props.change?.(val.data);
       }
-      props.change?.(val.data);
     };
 
     return {
@@ -65,7 +65,10 @@ export default defineComponent({
       selected,
       searchValue,
       onUpdateSearchValue,
+      onUpdateDropdownVisible,
       options,
+      readonly,
+      disabled,
       dropdownClassName,
       placeholder,
       loadMoreLoading,
@@ -74,6 +77,7 @@ export default defineComponent({
       allowSearch,
       searchArea,
       allowClear,
+      tagRender,
       onChange,
       focus,
       blur,
@@ -95,8 +99,9 @@ export default defineComponent({
         mode,
         value: selected,
         searchValue,
-        'onUpdate:search-value': onUpdateSearchValue,
         options,
+        readonly,
+        disabled,
         placeholder,
         loadMoreLoading,
         loadCompleted,
@@ -104,6 +109,7 @@ export default defineComponent({
         allowSearch,
         searchArea,
         allowClear,
+        tagRender,
         change: onChange,
         focus,
         blur,
@@ -111,7 +117,9 @@ export default defineComponent({
         initLoad,
         loadMore,
         notFoundContent,
-        isEnterSubmit
+        isEnterSubmit,
+        'onUpdate:search-value': onUpdateSearchValue,
+        'onUpdate:dropdown-visible': onUpdateDropdownVisible
       },
       $slots
     );

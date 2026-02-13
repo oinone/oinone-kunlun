@@ -1,11 +1,28 @@
-import { type ActionDslDefinition, DEFAULT_SLOT_NAME, DslDefinitionType, type TemplateDslDefinition } from '@oinone/kunlun-dsl';
+import {
+  type ActionDslDefinition,
+  DEFAULT_SLOT_NAME,
+  DslDefinitionType,
+  type TemplateDslDefinition
+} from '@oinone/kunlun-dsl';
 import { type ActiveRecord, ActiveRecordsOperator, getCurrentThemeSize } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, NumberHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import type { RowContext } from '@oinone/kunlun-vue-ui';
-import { DEFAULT_CARD_GUTTERS, DEFAULT_COLS, DEFAULT_GUTTERS, DEFAULT_VERTICAL_GUTTERS, ListSelectMode } from '@oinone/kunlun-vue-ui-common';
-import { DslDefinitionWidget, isGalleryViewState, type OioAnyViewState, type OioGalleryViewState, Widget } from '@oinone/kunlun-vue-widget';
+import {
+  DEFAULT_CARD_GUTTERS,
+  DEFAULT_COLS,
+  DEFAULT_GUTTERS,
+  DEFAULT_VERTICAL_GUTTERS,
+  ListSelectMode
+} from '@oinone/kunlun-vue-ui-common';
+import {
+  DslDefinitionWidget,
+  isGalleryViewState,
+  type OioAnyViewState,
+  type OioGalleryViewState,
+  Widget
+} from '@oinone/kunlun-vue-widget';
 import { isNil } from 'lodash-es';
 import type { ActionWidget } from '../../action';
 import { BaseActionWidget, BaseElementWidget, BasePackWidget } from '../../basic';

@@ -1,4 +1,18 @@
-import { type ActiveRecord, type ActiveRecords, ActiveRecordsOperator, type DeleteActiveRecordsByEntityPredict, EventKeys, type IPopupInstance, type IPopupWidget, PopupManager, type PushActiveRecordsPredict, type RuntimeAction, type UpdateActiveRecordsByEntityPredict, type UpdateEntity, type WidgetProps } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  type ActiveRecords,
+  ActiveRecordsOperator,
+  type DeleteActiveRecordsByEntityPredict,
+  EventKeys,
+  type IPopupInstance,
+  type IPopupWidget,
+  PopupManager,
+  type PushActiveRecordsPredict,
+  type RuntimeAction,
+  type UpdateActiveRecordsByEntityPredict,
+  type UpdateEntity,
+  type WidgetProps
+} from '@oinone/kunlun-engine';
 import { emitEvent } from '@oinone/kunlun-shared';
 import { VueWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { isFunction } from 'lodash-es';
@@ -89,7 +103,6 @@ export abstract class StaticPopupWidget<Props extends WidgetProps = WidgetProps>
   }
 
   protected $$created() {
-    super.$$created();
     const popupInstance = this.findPopupInstance();
     if (popupInstance) {
       PopupManager.INSTANCE.notifyHandler(EventKeys.created, popupInstance);

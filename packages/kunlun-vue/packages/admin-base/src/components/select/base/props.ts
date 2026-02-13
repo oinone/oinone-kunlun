@@ -1,7 +1,7 @@
 import { SelectSearchArea } from '@oinone/kunlun-engine';
 import type { OioSelectItem } from '@oinone/kunlun-shared';
 import { SelectMode } from '@oinone/kunlun-vue-ui-common';
-import type { PropType } from 'vue';
+import type { PropType, Slot } from 'vue';
 import { OioCommonProps, OioMetadataProps } from '../../../basic/props';
 
 const AppearanceProps = {
@@ -33,7 +33,7 @@ const ControlProps = {
     type: [Object, Array]
   },
   options: {
-    type: Array as PropType<object[]>
+    type: Array as PropType<OioSelectItem[]>
   },
   initLoad: {
     type: Function
@@ -67,13 +67,23 @@ const SearchProps = {
   }
 };
 
+const SlotProps = {
+  tagRender: {
+    type: Function as PropType<Slot>
+  }
+};
+
 export const BaseSelectProps = {
   ...OioCommonProps,
   ...OioMetadataProps,
   ...AppearanceProps,
   ...ControlProps,
   ...SearchProps,
+  ...SlotProps,
   'onUpdate:search-value': {
+    type: Function
+  },
+  'onUpdate:dropdown-visible': {
     type: Function
   }
 };
@@ -84,13 +94,20 @@ export const DefaultSelectProps = {
   ...AppearanceProps,
   ...ControlProps,
   ...SearchProps,
+  ...SlotProps,
+  options: {
+    type: Array as PropType<OioSelectItem<object>[]>
+  },
+  initSelectedOptions: {
+    type: Array as PropType<OioSelectItem<object>[]>
+  },
+  selected: {
+    type: [Object, Array] as PropType<OioSelectItem<object> | OioSelectItem<object>[]>
+  },
   onUpdateSearchValue: {
     type: Function
   },
-  initSelectedOptions: {
-    type: Array as PropType<OioSelectItem[]>
-  },
-  selected: {
-    type: [Object, Array] as PropType<OioSelectItem | OioSelectItem[]>
+  onUpdateDropdownVisible: {
+    type: Function
   }
 };

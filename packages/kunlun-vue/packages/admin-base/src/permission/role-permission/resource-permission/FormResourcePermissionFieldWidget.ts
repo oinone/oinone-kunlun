@@ -6,7 +6,19 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
 import { FormM2MTreeFieldWidget } from '../../../field';
 import type { TreeData, TreeNodeMetadata } from '../../../typing';
-import { type ActionPermissionNode, type AnyPermissionNode, type AuthResourcePermissionItem, type HomepagePermissionNode, isActionPermissionNode, isHomepagePermissionNode, isMenuPermissionNode, isModulePermissionNode, type MenuPermissionNode, type ModulePermissionNode, type PermissionNode } from '../../types';
+import {
+  type ActionPermissionNode,
+  type AnyPermissionNode,
+  type AuthResourcePermissionItem,
+  type HomepagePermissionNode,
+  isActionPermissionNode,
+  isHomepagePermissionNode,
+  isMenuPermissionNode,
+  isModulePermissionNode,
+  type MenuPermissionNode,
+  type ModulePermissionNode,
+  type PermissionNode
+} from '../../types';
 
 type TreeNodeSearchFilter = (node: OioTreeNode<TreeData>, keywords: string) => boolean;
 

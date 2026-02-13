@@ -56,10 +56,10 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, defineProps, watchEffect } from 'vue';
-import moment, { type Moment } from 'moment';
-import { OioForm, OioFormItem, OioInput, OioButton, OioDatePicker } from '@oinone/kunlun-vue-ui-antd';
 import { translateValueByKey } from '@oinone/kunlun-engine';
+import { OioButton, OioDatePicker, OioForm, OioFormItem, OioInput } from '@oinone/kunlun-vue-ui-antd';
+import moment, { type Moment } from 'moment';
+import { defineProps, ref, watchEffect } from 'vue';
 import UploadImg from '../../components/upload/UploadImg.vue';
 
 const props = defineProps<{ pamirsUser: Record<string, any>; onSaveUser: () => void; goBack: () => void }>();
@@ -84,15 +84,11 @@ const onBack = () => {
 const onChangeAvatarInfo = (v) => {
   const value = Array.isArray(v) ? v[0] || null : {};
   avatarUrlInfo.value = value;
-
-  // eslint-disable-next-line vue/no-mutating-props
   props.pamirsUser.avatarUrl = value.url;
 };
 
 const onRemoveAvatarInfo = () => {
   avatarUrlInfo.value = {};
-
-  // eslint-disable-next-line vue/no-mutating-props
   props.pamirsUser.avatarUrl = '';
 };
 </script>

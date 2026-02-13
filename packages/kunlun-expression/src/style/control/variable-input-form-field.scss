@@ -34,13 +34,13 @@ $select-width: 328px;
 
 .variable-input-form-field {
   position: relative;
-  //overflow-x: auto;
 
   input::placeholder {
     color: #c1c1c1;
   }
 
   .ant-input-group {
+    width: 100%;
     display: flex;
 
     &.ant-input-wrapper:hover {
@@ -56,12 +56,14 @@ $select-width: 328px;
     }
 
     .ant-input-affix-wrapper {
+      display: inline-flex;
       overflow: hidden;
       padding: 0 5px 0 0;
       border-radius: var(--oio-input-border-radius) 0 0 var(--oio-input-border-radius);
       background-color: var(--oio-input-background);
       border: var(--oio-input-border-width) var(--oio-input-border-style) var(--oio-input-border-color);
       color: var(--oio-input-text-color);
+      width: 100%;
       height: 100%;
 
       &:hover {
@@ -209,6 +211,13 @@ $select-width: 328px;
           max-width: 200px;
         }
       }
+    }
+
+    .ant-input-prefix,
+    .ant-input-suffix {
+      align-items: center;
+      display: flex;
+      flex: none;
     }
   }
 

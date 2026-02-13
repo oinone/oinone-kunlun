@@ -21,6 +21,7 @@
     "prebuild": "npx lerna run build --scope @oinone/kunlun-compile",
     "build": "npx lerna run build --no-sort --concurrency 5 --ignore @oinone/kunlun-compile",
     "lint": "npx lint-staged && node ./scripts/check-keyword.cjs",
+    "format": "npx lerna run format",
     "patch": "patch-package",
     "test": "lerna run test",
     "x-publish": "lerna publish --no-git-reset --no-git-tag-version --no-push --force-publish --exact --yes",

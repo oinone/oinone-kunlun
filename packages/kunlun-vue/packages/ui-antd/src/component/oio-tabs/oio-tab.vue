@@ -1,5 +1,12 @@
 <script lang="ts">
-import { getVNodeKey, OioTabProps, PropRecordHelper, type TabHTMLNode, useInjectOioTabsContext, useOioFormLayoutContext } from '@oinone/kunlun-vue-ui-common';
+import {
+  getVNodeKey,
+  OioTabProps,
+  PropRecordHelper,
+  type TabHTMLNode,
+  useInjectOioTabsContext,
+  useOioFormLayoutContext
+} from '@oinone/kunlun-vue-ui-common';
 import { TabPane as ATabPane } from 'ant-design-vue';
 import { createVNode, defineComponent, onUpdated, watch } from 'vue';
 import { onTabInvisibleChange } from './use-tab-bar';
@@ -16,7 +23,7 @@ export default defineComponent({
   setup(props) {
     useOioFormLayoutContext(props);
 
-    const tabKey = getVNodeKey();
+    const tabKey = props.tabKey || getVNodeKey();
 
     const tabsContext = useInjectOioTabsContext();
 
@@ -69,6 +76,7 @@ export default defineComponent({
         ...PropRecordHelper.collectionBasicProps(this.$attrs),
         ...(this.componentData || {}),
         ...this.$attrs,
+        tabKey: this.tabKey,
         forceRender: this.forceRender,
         disabled: this.disabled
       },

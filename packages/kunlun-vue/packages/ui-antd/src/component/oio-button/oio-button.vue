@@ -1,5 +1,12 @@
 <script lang="ts">
-import { ButtonBizStyle, ButtonType, IconPlacement, OioButtonProps, OioIcon, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import {
+  ButtonBizStyle,
+  ButtonType,
+  IconPlacement,
+  OioButtonProps,
+  OioIcon,
+  PropRecordHelper
+} from '@oinone/kunlun-vue-ui-common';
 import { Button as AButton } from 'ant-design-vue';
 import { isEmpty } from 'lodash-es';
 import { computed, createVNode, defineComponent, nextTick, reactive, type VNode } from 'vue';

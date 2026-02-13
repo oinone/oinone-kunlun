@@ -50,4 +50,14 @@ export class DropdownWidget extends BaseActionGroupWidget {
     }
     return dslTrigger;
   }
+
+  @Widget.Reactive()
+  protected get placement() {
+    return this.getDsl().placement;
+  }
+
+  @Widget.Reactive()
+  protected get overlayClassName() {
+    return this.getDsl().overlayClassName;
+  }
 }

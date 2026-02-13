@@ -1,14 +1,25 @@
-import { SPI } from '@oinone/kunlun-spi';
-import { Widget } from '@oinone/kunlun-vue-widget';
-import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import type { IModule } from '@oinone/kunlun-meta';
+import { SPI } from '@oinone/kunlun-spi';
+import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
+import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget, BaseFormWidget, type UrlQueryParameters } from '../../../../basic';
-import AdvancedHomepageSetting from './AdvancedHomepageSetting.vue';
-import { saveHomepageSettingConfig, queryHomepageConfig, fetchModuleList, fetchModuleOne } from '../../service/HomepageSettingService';
-import { RenderWidgetsBehavior, ValidateWidgetsBehavior } from '../../service/behaviors';
-import { BindingTypeEnum, EnableStatusOptionsEnum, type FetchValueOptions, type FetchValueReturnType, type HomepageConfigRule } from '../../typing';
 import { sortFn, useHomepageSetting } from '../../hook/useHomepageSetting';
+import { RenderWidgetsBehavior, ValidateWidgetsBehavior } from '../../service/behaviors';
+import {
+  fetchModuleList,
+  fetchModuleOne,
+  queryHomepageConfig,
+  saveHomepageSettingConfig
+} from '../../service/HomepageSettingService';
+import {
+  BindingTypeEnum,
+  EnableStatusOptionsEnum,
+  type FetchValueOptions,
+  type FetchValueReturnType,
+  type HomepageConfigRule
+} from '../../typing';
+import AdvancedHomepageSetting from './AdvancedHomepageSetting.vue';
 
 @SPI.ClassFactory(BaseElementWidget.Token({ widget: 'AdvancedHomepageSettingWidget' }))
 export class AdvancedHomepageSettingWidget extends BaseFormWidget {
@@ -170,8 +181,8 @@ export class AdvancedHomepageSettingWidget extends BaseFormWidget {
         condition?.enabled === EnableStatusOptionsEnum.Enable
           ? true
           : condition?.enabled === EnableStatusOptionsEnum.Forbidden
-          ? false
-          : undefined
+            ? false
+            : undefined
     });
     if (this.runtimeHomepageConfigRules.length === 0) {
       const unCommittedRules = {

@@ -1,9 +1,22 @@
-import { cloneVNode, type SetupContext, VNodeProps, isVNode, type VNode, RendererNode, RendererElement, ConcreteComponent, toRefs, Fragment, computed, ref, watch } from 'vue';
-import { UrlSegment, matchPath, type Matched, _useMatched } from '@oinone/kunlun-router';
-
-import { type RouteProps, ROUTE_COMPONENT_NAME } from './Route';
-import { REDIRECT_COMPONENT_NAME } from './Redirect';
+import { _useMatched, type Matched, matchPath, UrlSegment } from '@oinone/kunlun-router';
+import {
+  cloneVNode,
+  computed,
+  ConcreteComponent,
+  Fragment,
+  isVNode,
+  ref,
+  RendererElement,
+  RendererNode,
+  type SetupContext,
+  toRefs,
+  type VNode,
+  VNodeProps,
+  watch
+} from 'vue';
 import { useSegmentGroup } from './helpers/useSegmentGroup';
+import { REDIRECT_COMPONENT_NAME } from './Redirect';
+import { ROUTE_COMPONENT_NAME, type RouteProps } from './Route';
 import { useWidgetService } from './useWidget';
 
 export interface MatchProps {
@@ -109,7 +122,7 @@ const MatchImpl = {
   }
 };
 
-export const Match = (MatchImpl as any) as {
+export const Match = MatchImpl as any as {
   new (): {
     $props: VNodeProps & MatchProps;
   };

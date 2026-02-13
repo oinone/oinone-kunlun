@@ -32,9 +32,31 @@
 </template>
 
 <script lang="ts">
-import { type ActiveRecord, getRealTtype, GroupStatisticsEnum, type IResourceDateTimeFormat, isDateField, isDateTimeField, isNumberField, isTimeField, isYearField, queryResourceDateTimeFormat, type RuntimeModel, type RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  getRealTtype,
+  GroupStatisticsEnum,
+  type IResourceDateTimeFormat,
+  isDateField,
+  isDateTimeField,
+  isNumberField,
+  isTimeField,
+  isYearField,
+  queryResourceDateTimeFormat,
+  type RuntimeModel,
+  type RuntimeModelField,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import type { VxeTableRowContext } from '@oinone/kunlun-vue-ui';
-import { DateTimeFormatMap, DateUtil, defaultDateFormatKey, defaultTimeFormatKey, ObjectUtils, OioIcon, OioSpin } from '@oinone/kunlun-vue-ui-antd';
+import {
+  DateTimeFormatMap,
+  DateUtil,
+  defaultDateFormatKey,
+  defaultTimeFormatKey,
+  ObjectUtils,
+  OioIcon,
+  OioSpin
+} from '@oinone/kunlun-vue-ui-antd';
 import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue';
 import dayjs from 'dayjs';
 import { computed, defineComponent, nextTick, onMounted, type PropType, reactive, ref } from 'vue';
@@ -235,7 +257,6 @@ export default defineComponent({
           return `${translateValueByKey('唯一值占比')} ${value}%`;
         case GroupStatisticsEnum.EARLIEST_TIME: {
           const v = dayjs(normalizeDateTime(value));
-          console.log(v, dateFormat.value);
           return `${translateValueByKey('最早时间')} ${dayjs(normalizeDateTime(value)).format(dateFormat.value)}`;
         }
         case GroupStatisticsEnum.LATEST_TIME:

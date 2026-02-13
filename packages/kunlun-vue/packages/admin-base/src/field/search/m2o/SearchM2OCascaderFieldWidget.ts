@@ -1,8 +1,16 @@
-import { type ActiveRecord, getRefreshParameters, RefreshCallChainingScope, type RuntimeM2OField, type RuntimeSearchField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  getRefreshParameters,
+  RefreshCallChainingScope,
+  type RuntimeM2OField,
+  type RuntimeSearchField,
+  SubmitRelationHandler,
+  SubmitValue
+} from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { RSQLOperators } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { CascaderCheckedStrategy, SelectMode, TreeSelectCheckedStrategy } from '@oinone/kunlun-vue-ui-common';
+import { CascaderCheckedStrategy, SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../basic';
 import { FormCascaderFieldWidget } from '../../cascader';

@@ -67,8 +67,8 @@ export abstract class AbstractListModelApi<T extends NameCodeModel>
   public convertListData(
     list: T[],
     options?: {
-      computeKey?: () => string;
-      computeLabel?: () => string;
+      computeKey?: (data: T) => string;
+      computeLabel?: (data: T) => string;
     }
   ): OioListItem<T>[] {
     const computeKey = options?.computeKey || this.defaultComputeKey.bind(this);

@@ -55,12 +55,17 @@
 </template>
 
 <script lang="ts">
-import { executeServerAction, executeViewAction, RedirectTargetEnum, type RuntimeViewAction } from '@oinone/kunlun-engine';
+import {
+  executeServerAction,
+  executeViewAction,
+  RedirectTargetEnum,
+  type RuntimeViewAction
+} from '@oinone/kunlun-engine';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { ActionType, type IModel, ViewActionTarget } from '@oinone/kunlun-meta';
 import { Router, useMatched } from '@oinone/kunlun-router';
 import { getModel } from '@oinone/kunlun-service';
 import { useRouter } from '@oinone/kunlun-vue-router';
-import { translateValueByKey } from '@oinone/kunlun-engine';
 import { defineComponent, onMounted, ref, watch } from 'vue';
 import { DialogViewActionWidget } from '../../action';
 import { executeConfirm } from '../../util';

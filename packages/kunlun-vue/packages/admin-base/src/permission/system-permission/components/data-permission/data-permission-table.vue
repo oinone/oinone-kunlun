@@ -41,14 +41,29 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, nextTick, onMounted, reactive, ref, watch, withDefaults } from 'vue';
+import {
+  Dialog,
+  type DisposeEventHandler,
+  type IPopupInstance,
+  type OpenEventHandler,
+  PopupManager,
+  type RuntimeAction,
+  type RuntimeViewAction,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
+import {
+  ActionContextType,
+  ModelDefaultActionName,
+  ModelFieldType,
+  ViewActionTarget,
+  ViewType
+} from '@oinone/kunlun-meta';
+import { OioColumn, OioTable } from '@oinone/kunlun-vue-ui';
 import { OioButton, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
-import { OioTable, OioColumn } from '@oinone/kunlun-vue-ui';
-import type { IPermission } from '../../../permission/type';
-import { ActionContextType, ModelDefaultActionName, ModelFieldType, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
-import { Dialog, type IPopupInstance, PopupManager, type RuntimeViewAction, type DisposeEventHandler, type OpenEventHandler, type RuntimeAction, translateValueByKey } from '@oinone/kunlun-engine';
-import { DialogWidget } from '../../../popup';
+import { defineProps, nextTick, ref, watch, withDefaults } from 'vue';
 import type { ClickResult, PopupSubmitParameters } from '../../../../typing';
+import type { IPermission } from '../../../permission/type';
+import { DialogWidget } from '../../../popup';
 
 const props = withDefaults(defineProps<{ authGroupId: string; model: string; dataPermissions: IPermission[] }>(), {
   authGroupId: '',

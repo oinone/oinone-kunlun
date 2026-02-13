@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-expression",
-  "version": "6.4.0",
+  "version": "6.4.1",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -8,14 +8,15 @@
     "build": "rollup -c",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
+    "format": "prettier --write --experimental-cli src/",
     "test": "jest",
     "prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
     "postpublish": "node ../../../../scripts/postpublish.cjs"
   },
   "dependencies": {
-    "@oinone/kunlun-shared": "6.4.0",
-    "@oinone/kunlun-spi": "6.4.0",
+    "@oinone/kunlun-shared": "6.4.1",
+    "@oinone/kunlun-spi": "6.4.1",
     "dayjs": "1.10.7"
   },
   "devDependencies": {

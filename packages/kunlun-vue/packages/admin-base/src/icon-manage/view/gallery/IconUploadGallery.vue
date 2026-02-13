@@ -95,7 +95,15 @@
 </template>
 <script lang="ts">
 import type { ActiveRecord, Pagination } from '@oinone/kunlun-engine';
-import { type CommonGutterType, ListPaginationStyle, OioButton, OioEmptyData, OioIcon, OioPagination, OioSpin } from '@oinone/kunlun-vue-ui-antd';
+import {
+  type CommonGutterType,
+  ListPaginationStyle,
+  OioButton,
+  OioEmptyData,
+  OioIcon,
+  OioPagination,
+  OioSpin
+} from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent, type PropType } from 'vue';
 import { FileUpload, type GroupListItem, OioManageGroup } from '../../../components';
 import { GroupList } from '../../components';
@@ -206,14 +214,6 @@ export default defineComponent({
   setup(props) {
     let lastUploadFileLen = 0;
 
-    const handleDeleteGroup = () => {
-      console.log('deleteGroup');
-    };
-
-    const onUpdateGroupDisplayName = () => {
-      console.log('onUpdateGroupDisplayName');
-    };
-
     const onFileUpload = (fileList: any[]) => {
       if (fileList.length < lastUploadFileLen) {
         return;
@@ -231,8 +231,6 @@ export default defineComponent({
     return {
       ListPaginationStyle,
       PanelType,
-      handleDeleteGroup,
-      onUpdateGroupDisplayName,
       onFileUpload,
       beforeUpload
     };

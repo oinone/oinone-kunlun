@@ -92,16 +92,22 @@ export class RowActionBarWidget<
         inline: true
       });
     }
+    if (!this.actionBarState) {
+      this.actionBarState = this.viewState?.getActionBarState(rowIndex);
+    }
   }
 
   protected $$unmounted() {
     super.$$unmounted();
-    const { viewState, rowIndex } = this;
+    const { viewState, currentHandle } = this;
     if (viewState && hasRowActionBarViewState(viewState)) {
       const { inlineActionBars } = viewState;
       if (inlineActionBars) {
-        inlineActionBars.splice(rowIndex, 1);
-        viewState.inlineActionBars = [...inlineActionBars];
+        const rowIndex = inlineActionBars.findIndex((v) => v.handle === currentHandle);
+        if (rowIndex !== -1) {
+          inlineActionBars.splice(rowIndex, 1);
+          viewState.inlineActionBars = [...inlineActionBars];
+        }
       }
     }
   }

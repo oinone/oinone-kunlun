@@ -19,7 +19,7 @@ export default defineComponent({
     },
     style: {
       type: Object as PropType<CSSStyleDeclaration>,
-      default: () => ({} as CSSStyleDeclaration)
+      default: () => ({}) as CSSStyleDeclaration
     },
     html: {
       type: String

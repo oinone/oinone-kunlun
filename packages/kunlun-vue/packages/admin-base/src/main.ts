@@ -1,4 +1,13 @@
-import { frameworkFactory, type FrameworkInitializeService, FrameworkInitializeSPI, LanguageType, OioProvider, type OioProviderProps, registryLanguage, RuntimeContextManager } from '@oinone/kunlun-engine';
+import {
+  frameworkFactory,
+  type FrameworkInitializeService,
+  FrameworkInitializeSPI,
+  LanguageType,
+  OioProvider,
+  type OioProviderProps,
+  registryLanguage,
+  RuntimeContextManager
+} from '@oinone/kunlun-engine';
 import { registerCurrentInstanceGetter } from '@oinone/kunlun-environment';
 import { isMobile } from '@oinone/kunlun-shared';
 import { SPIFactory } from '@oinone/kunlun-spi';
@@ -22,7 +31,7 @@ export class VueFrameworkInitializeService implements FrameworkInitializeService
 
     // wangEditor 默认的 plugins 数量是 13，如果大于 13，证明已经注册过了
     if (Boot.plugins.length <= 13) {
-      Boot.registerModule(attachmentModule);
+      Boot.registerModule((attachmentModule as any).default || attachmentModule);
     }
   }
 

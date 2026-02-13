@@ -22,6 +22,7 @@ $tagRemoveLineHeight: $tagHeight - 4px;
       color: var($parameterPrefix + -readonly-color);
       background-color: var($parameterPrefix + -readonly-bg);
       border-color: var($parameterPrefix + -readonly-border-color);
+      cursor: default;
     }
   }
 
@@ -37,19 +38,21 @@ $tagRemoveLineHeight: $tagHeight - 4px;
     .ant-select-selection-item {
       display: flex;
       align-items: center;
-      // height: $tagHeight;
       font-size: var($parameterPrefix + -font-size-sm);
       color: var($parameterPrefix + -primary-color);
       background-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.1);
       border-color: rgba(var($parameterPrefix + -primary-color-rgb), 0.2);
       border-radius: var($parameterPrefix + -border-radius);
 
-      .ant-select-selection-item-content {
-        // line-height: $tagLineHeight;
-      }
-
       .ant-select-selection-item-remove {
         line-height: 1;
+      }
+    }
+
+    &.ant-select.#{$selectClassPrefix}-readonly,
+    &.ant-select.ant-select-readonly {
+      .ant-select-selection-item {
+        cursor: default;
       }
     }
   }

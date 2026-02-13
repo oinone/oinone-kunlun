@@ -1,4 +1,16 @@
-import { type ActiveRecord, type ActiveRecords, ActiveRecordsOperator, type Pagination, type QueryContext, type QueryPageResult, QueryService, type QueryVariables, type QueryWrapper, type RequestModelField, type RuntimeRelationField } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  type ActiveRecords,
+  ActiveRecordsOperator,
+  type Pagination,
+  type QueryContext,
+  type QueryPageResult,
+  QueryService,
+  type QueryVariables,
+  type QueryWrapper,
+  type RequestModelField,
+  type RuntimeRelationField
+} from '@oinone/kunlun-engine';
 import { GraphqlHelper, RSQLCondition } from '@oinone/kunlun-shared';
 import { type SelectItem, SelectMode } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -6,7 +18,7 @@ import { DefaultSelect } from '../../../../components';
 import type { FormComplexFieldProps } from '../FormComplexFieldWidget';
 import { BaseSelectFieldWidget } from './BaseSelectFieldWidget';
 
-export class SelectFieldWidget<
+export abstract class SelectFieldWidget<
   Option extends ActiveRecord = ActiveRecord,
   Value extends ActiveRecords = ActiveRecords,
   Field extends RuntimeRelationField = RuntimeRelationField,
@@ -15,7 +27,7 @@ export class SelectFieldWidget<
   @Widget.Reactive()
   protected mode: SelectMode = SelectMode.single;
 
-  public initialize(props) {
+  public initialize(props: Props) {
     super.initialize(props);
     this.setComponent(DefaultSelect);
     return this;
@@ -61,6 +73,15 @@ export class SelectFieldWidget<
     } else {
       this.loadCompleted = true;
     }
+  }
+
+  @Widget.Method()
+  protected async onPaginationChange(current: number, pageSize: number) {
+    const pagination = this.generatorPagination();
+    pagination.current = current;
+    pagination.pageSize = pageSize;
+    const data = await this.fetchData();
+    this.options = data.map((v) => this.mapping(v));
   }
 
   @Widget.Reactive()

@@ -1,4 +1,11 @@
-import { ExperimentalConfigManager, parseConfigs, RelationUpdateType, ROOT_HANDLE, SubmitType, SubmitValue } from '@oinone/kunlun-engine';
+import {
+  ExperimentalConfigManager,
+  parseConfigs,
+  RelationUpdateType,
+  ROOT_HANDLE,
+  SubmitType,
+  SubmitValue
+} from '@oinone/kunlun-engine';
 import { LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
 import { ViewMode } from '@oinone/kunlun-meta';
 import { Router } from '@oinone/kunlun-router';

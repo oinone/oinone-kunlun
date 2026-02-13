@@ -1,7 +1,7 @@
 <template>
   <a-dropdown :trigger="['click']" placement="bottomLeft" overlayClassName="top-bar-common-dropdown">
     <div class="k-user">
-      <img :src="pamirsUser.avatarUrl || genStaticPath('man_1651543408256.png')" />
+      <img :src="pamirsUser.avatarUrl || defaultUserAvatar" />
       <span v-if="hasCurrentUser">{{ pamirsUser.nickname || pamirsUser.name || pamirsUser.realname }}</span>
       <caret-down-outlined :style="{ fontSize: '12px', color: 'var(--oio-icon-color)' }" />
     </div>
@@ -9,7 +9,7 @@
       <a-menu class="k-user-dropdown">
         <a-menu-item @click="onUserCenter">
           <div class="menu-user">
-            <img :src="pamirsUser.avatarUrl || genStaticPath('man_1651543408256.png')" />
+            <img :src="pamirsUser.avatarUrl || defaultUserAvatar" />
             <span v-if="hasCurrentUser">{{ pamirsUser.nickname || pamirsUser.name || pamirsUser.realname }}</span>
           </div>
         </a-menu-item>
@@ -37,9 +37,9 @@
 <script lang="ts">
 import { CaretDownOutlined } from '@ant-design/icons-vue';
 import type { UserInfo } from '@oinone/kunlun-engine';
-
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineComponent, type PropType } from 'vue';
+import { TopBarService } from '../../service';
 
 export default defineComponent({
   name: 'DefaultUser',
@@ -54,10 +54,6 @@ export default defineComponent({
       default: () => ({})
     },
     executeAction: {
-      type: Function,
-      required: true
-    },
-    genStaticPath: {
       type: Function,
       required: true
     }
@@ -86,7 +82,13 @@ export default defineComponent({
       }
     };
 
-    return { actionGroups, pamirsUser, onUserCenter, hasCurrentUser };
+    return {
+      actionGroups,
+      pamirsUser,
+      defaultUserAvatar: TopBarService.getDefaultUserAvatar(),
+      onUserCenter,
+      hasCurrentUser
+    };
   }
 });
 </script>

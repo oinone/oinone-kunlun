@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui-el",
-  "version": "6.4.2",
+  "version": "6.4.4",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -9,13 +9,15 @@
     "build-css": "sass --style compressed --no-source-map ./dist/oinone-kunlun-vue-ui-el.scss ./dist/oinone-kunlun-vue-ui-el.css",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
+    "format": "prettier --write --experimental-cli src/",
+    "test": "jest",
     "prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
     "postpublish": "node ../../../../scripts/postpublish.cjs",
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-common": "6.4.2"
+    "@oinone/kunlun-vue-ui-common": "6.4.4"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "2.0.9",

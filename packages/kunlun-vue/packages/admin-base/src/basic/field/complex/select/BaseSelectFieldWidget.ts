@@ -1,5 +1,28 @@
-import { type ActiveRecord, ActiveRecordExtendKeys, type ActiveRecords, ActiveRecordsOperator, isMinimalismTheme, type Pagination, parseConfigs, type QueryContext, type QueryVariables, RequestHelper, type RequestModelField, type RuntimeRelationField, SelectConfigManager, type SelectRuntimeConfig, SelectSearchArea } from '@oinone/kunlun-engine';
-import { BooleanHelper, NumberHelper, Optional, RSQLCondition, StringHelper, uniqueKeyGenerator } from '@oinone/kunlun-shared';
+import {
+  type ActiveRecord,
+  ActiveRecordExtendKeys,
+  type ActiveRecords,
+  ActiveRecordsOperator,
+  isMinimalismTheme,
+  type Pagination,
+  parseConfigs,
+  type QueryContext,
+  type QueryVariables,
+  RequestHelper,
+  type RequestModelField,
+  type RuntimeRelationField,
+  SelectConfigManager,
+  type SelectRuntimeConfig,
+  SelectSearchArea
+} from '@oinone/kunlun-engine';
+import {
+  BooleanHelper,
+  NumberHelper,
+  Optional,
+  RSQLCondition,
+  StringHelper,
+  uniqueKeyGenerator
+} from '@oinone/kunlun-shared';
 import type { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toInteger } from 'lodash-es';
@@ -226,17 +249,20 @@ export abstract class BaseSelectFieldWidget<
     return queryData;
   }
 
+  @Widget.Reactive()
+  protected get defaultPageSize(): number {
+    return 20;
+  }
+
   public generatorPagination(): Pagination {
     let { pagination } = this;
     if (!pagination) {
       pagination = {} as Pagination;
       this.pagination = pagination;
     }
-    let { current, pageSize } = pagination;
-    current = toInteger(current) || 1;
-    pageSize = toInteger(pageSize) || 20;
-    pagination.current = current;
-    pagination.pageSize = pageSize;
+    const { current, pageSize } = pagination;
+    pagination.current = toInteger(current) || 1;
+    pagination.pageSize = toInteger(pageSize) || this.defaultPageSize;
     return pagination;
   }
 
@@ -275,6 +301,30 @@ export abstract class BaseSelectFieldWidget<
       this.dataSource = ActiveRecordsOperator.repairRecords(value[0]);
     } else {
       this.dataSource = ActiveRecordsOperator.repairRecords(value);
+    }
+  }
+
+  public async constructDataBack(): Promise<boolean> {
+    const res = await super.constructDataBack();
+    const { value } = this;
+    if (value == null) {
+      return res;
+    }
+    const values = ActiveRecordsOperator.repairRecords(this.value);
+    if (Array.isArray(this.value)) {
+      this.setValue(values as Value);
+    } else {
+      this.setValue(values[0] as Value);
+    }
+    return res;
+  }
+
+  protected refreshValueProcess() {
+    const values = ActiveRecordsOperator.repairRecords(this.value);
+    if (Array.isArray(this.value)) {
+      this.setValue(values as Value);
+    } else {
+      this.setValue(values[0] as Value);
     }
   }
 

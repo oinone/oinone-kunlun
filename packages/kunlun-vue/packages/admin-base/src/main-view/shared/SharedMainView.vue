@@ -63,6 +63,11 @@ export default defineComponent({
     padding: 24px;
     background-color: var(--oio-main-background);
     border-radius: 4px;
+    height: 100%;
+
+    & > .oio-default-view {
+      height: 100%;
+    }
   }
 }
 </style>

@@ -1,4 +1,3 @@
-import { getMergeConfig } from '@oinone/kunlun-config';
 import {
   type ComputeContext,
   ComputeContextManager,
@@ -183,7 +182,7 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
 
   public get rootViewRuntimeContext(): { runtimeContext: RuntimeContext; fields: RuntimeModelField[] } {
     const fields: RuntimeModelField[] = [];
-    let targetRuntimeContext: RuntimeContext = this.rootRuntimeContext;
+    let targetRuntimeContext: RuntimeContext | undefined = this.rootRuntimeContext;
     let field = targetRuntimeContext?.parentContext?.field;
     while (field && targetRuntimeContext) {
       fields.push(field);
@@ -204,35 +203,13 @@ export class DslDefinitionWidget<Props extends DslDefinitionWidgetProps = DslDef
       field = parentRuntimeContext.field;
       targetRuntimeContext = nextTargetRuntimeContext;
     }
+    if (!targetRuntimeContext) {
+      throw new Error('Invalid target runtime context.');
+    }
     return {
       runtimeContext: targetRuntimeContext,
       fields
     };
-  }
-
-  protected cacheConfigProxy;
-
-  protected getMergeConfig(...keys: string[]): Record<string, any> {
-    // dsl
-    // appConfig
-    // themeConfig
-    // runtime config ConfigHelper
-    if (this.cacheConfigProxy) {
-      return this.cacheConfigProxy;
-    }
-    const result = getMergeConfig(keys, {
-      defaultValue: undefined
-    });
-    this.cacheConfigProxy = new Proxy(this.getDsl(), {
-      get(target, prop) {
-        if (prop in target) {
-          return target[prop as keyof typeof target];
-        }
-        return result[prop as keyof typeof result];
-      }
-    });
-
-    return this.cacheConfigProxy;
   }
 
   protected invisibleProcess(invisible: boolean | string) {

@@ -1,5 +1,11 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
-import { type ConfirmOptions, MultiTabsConfigManager, translate, translateValueByKey, ViewActionCache } from '@oinone/kunlun-engine';
+import {
+  type ConfirmOptions,
+  MultiTabsConfigManager,
+  translate,
+  translateValueByKey,
+  ViewActionCache
+} from '@oinone/kunlun-engine';
 import { ViewActionTarget } from '@oinone/kunlun-meta';
 import { MessageHub } from '@oinone/kunlun-request';
 import { Modal } from 'ant-design-vue';

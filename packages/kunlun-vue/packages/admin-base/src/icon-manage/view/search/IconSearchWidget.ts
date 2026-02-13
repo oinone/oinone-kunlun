@@ -1,4 +1,9 @@
-import { type ActiveRecord, activeRecordsToJSONString, type RefreshCallChainingParameters, RefreshCallChainingScope } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  activeRecordsToJSONString,
+  type RefreshCallChainingParameters,
+  RefreshCallChainingScope
+} from '@oinone/kunlun-engine';
 import { LifeCycleHeart } from '@oinone/kunlun-event';
 import { ViewType } from '@oinone/kunlun-meta';
 import { getRouterInstance, useMatched } from '@oinone/kunlun-router';

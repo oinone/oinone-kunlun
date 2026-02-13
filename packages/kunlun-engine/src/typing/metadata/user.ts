@@ -1,4 +1,4 @@
-import type { IBaseAction, IServerAction, IViewAction } from '@oinone/kunlun-meta';
+import type { IBaseAction, IViewAction } from '@oinone/kunlun-meta';
 
 export interface UserLang {
   code: string;
@@ -22,6 +22,7 @@ export interface PamirsUser {
   name: string;
   nickname: string;
   realname: string;
+  avatarUrl: string;
   lang?: UserLang;
 }
 

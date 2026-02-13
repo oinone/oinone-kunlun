@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-admin-base",
-  "version": "6.4.2",
+  "version": "6.4.4",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -9,6 +9,7 @@
     "build-css": "sass --style compressed --no-source-map ./dist/oinone-kunlun-vue-admin-base.scss ./dist/oinone-kunlun-vue-admin-base.css",
     "dist": "npm run prepublishOnly",
     "index": "npm run postpublish",
+    "format": "prettier --write --experimental-cli src/",
     "test": "jest",
     "prepublishOnly": "node ../../../../scripts/prepublish-only.cjs",
     "deploy": "npm publish --exact",
@@ -16,13 +17,13 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-admin-layout": "6.4.2",
-    "@oinone/kunlun-vue-router": "6.4.2",
-    "@oinone/kunlun-vue-ui": "6.4.2",
-    "@oinone/kunlun-vue-ui-antd": "6.4.2",
-    "@oinone/kunlun-vue-ui-common": "6.4.2",
-    "@oinone/kunlun-vue-ui-el": "6.4.2",
-    "@oinone/kunlun-vue-widget": "6.4.2",
+    "@oinone/kunlun-vue-admin-layout": "6.4.4",
+    "@oinone/kunlun-vue-router": "6.4.4",
+    "@oinone/kunlun-vue-ui": "6.4.4",
+    "@oinone/kunlun-vue-ui-antd": "6.4.4",
+    "@oinone/kunlun-vue-ui-common": "6.4.4",
+    "@oinone/kunlun-vue-ui-el": "6.4.4",
+    "@oinone/kunlun-vue-widget": "6.4.4",
     "@wangeditor/editor": "5.1.23",
     "@wangeditor/editor-for-vue": "5.1.11",
     "@wangeditor/plugin-upload-attachment": "1.1.0",

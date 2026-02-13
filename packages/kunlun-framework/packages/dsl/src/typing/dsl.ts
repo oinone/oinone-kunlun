@@ -1,4 +1,4 @@
-import { ActionType, ActiveEnum, EnumOptionState, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { ActionType, EnumOptionState, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 
 /**
  * 默认模板插槽名称
@@ -59,6 +59,8 @@ export interface DslDefinition extends Record<string, any> {
    * 标签文本内容
    */
   __content?: string;
+
+  [key: string]: any;
 }
 
 /**
@@ -68,6 +70,12 @@ export interface ViewDslDefinition extends DslDefinition {
   type: ViewType;
   metadata?: ViewMetadataDslDefinition;
   widgets: TemplateDslDefinition[];
+
+  model?: string;
+  modelName?: string;
+  module?: string;
+  moduleName?: string;
+  pk?: string;
 }
 
 /**
@@ -77,6 +85,7 @@ export interface ViewMetadataDslDefinition extends DslDefinition {
   model?: {
     model: string;
     field: FieldDslDefinition[];
+    action: ActionDslDefinition[];
   }[];
   dictionary?: {
     dictionary: string;

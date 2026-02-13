@@ -113,35 +113,6 @@ a:hover {
   padding-bottom: 20px !important;
 }
 
-.ant-radio:hover {
-  .ant-radio-inner {
-    border-color: var(--oio-primary-color, #606cee) !important;
-  }
-}
-
-.ant-radio-checked {
-  .ant-radio-inner {
-    border-color: var(--oio-primary-color, #606cee) !important;
-
-    &:hover {
-      border-color: var(--oio-primary-color, #606cee) !important;
-    }
-  }
-
-  &:after {
-    border-color: var(--oio-primary-color, #606cee) !important;
-  }
-}
-
-.ant-radio-inner:after {
-  background-color: var(--oio-primary-color, #606cee) !important;
-}
-
-.ant-radio-input:focus + .ant-radio-inner {
-  border-color: var(--oio-primary-color, #606cee) !important;
-  box-shadow: none !important;
-}
-
 .vxe-table .vxe-sort--asc-btn.sort--active,
 .vxe-table .vxe-sort--desc-btn.sort--active {
   color: var(--oio-primary-color, #606cee) !important;
@@ -328,7 +299,9 @@ a:hover {
 }
 
 .ant-picker-cell:hover:not(.ant-picker-cell-in-view) .ant-picker-cell-inner,
-.ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end)
+.ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(
+    .ant-picker-cell-range-end
+  ):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end)
   .ant-picker-cell-inner {
   color: var(--oio-datetime-text-color-hover);
 }

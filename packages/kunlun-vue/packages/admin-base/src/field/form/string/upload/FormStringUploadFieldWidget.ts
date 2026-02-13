@@ -2,7 +2,12 @@ import { ConfigHelper, type RuntimeStringField, translateValueByKey } from '@oin
 import { ModelFieldType, RuntimeConfig, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { defaultMultiPartConfig, type MultipartUploadRuntimeConfig, ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import {
+  defaultMultiPartConfig,
+  type MultipartUploadRuntimeConfig,
+  ValidateTrigger,
+  WidgetTrigger
+} from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isNumber } from 'lodash-es';
 import { BaseFieldWidget, FormFieldWidget } from '../../../../basic';

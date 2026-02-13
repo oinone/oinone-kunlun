@@ -1,4 +1,4 @@
-import { Optional } from '@oinone/kunlun-shared';
+import { Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import type { RenderCellContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -26,13 +26,13 @@ export class TableCheckboxColumnWidget extends BaseTableColumnWidget {
   }
 
   @Widget.Method()
-  public className(context: RenderCellContext): string {
-    return 'table-column-checkbox';
+  public className(context: RenderCellContext): string[] {
+    return StringHelper.append(['table-column-checkbox'], super.className(context));
   }
 
   @Widget.Method()
-  public headerClassName(context: RenderCellContext): string {
-    return 'table-header-column-checkbox';
+  public headerClassName(context: RenderCellContext): string[] {
+    return StringHelper.append(['table-header-column-checkbox'], super.headerClassName(context));
   }
 
   @Widget.Reactive()

@@ -3,7 +3,12 @@ import { getCurrentThemeSize } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { DEFAULT_CARD_GUTTERS, DEFAULT_GUTTERS, DEFAULT_VERTICAL_GUTTERS, LayoutHelper } from '@oinone/kunlun-vue-ui-common';
+import {
+  DEFAULT_CARD_GUTTERS,
+  DEFAULT_GUTTERS,
+  DEFAULT_VERTICAL_GUTTERS,
+  LayoutHelper
+} from '@oinone/kunlun-vue-ui-common';
 import { isGalleryViewState, type OioAnyViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isNil, isString } from 'lodash-es';
 import { BaseElementListViewWidget, BaseElementWidget } from '../../basic';
@@ -131,7 +136,7 @@ export class GalleryWidget extends BaseElementListViewWidget {
    * 视图控制组，包含所有子组件
    */
   @Widget.Reactive()
-  protected get viewControlWidget(): DslDefinition | undefined {
+  public get viewControlWidget(): DslDefinition | undefined {
     if (!this.viewControlChildren.length) {
       return undefined;
     }

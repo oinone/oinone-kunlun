@@ -1,4 +1,9 @@
-import { type ActiveRecord, activeRecordsToJSONString, type RefreshCallChainingParameters, RefreshCallChainingScope } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  activeRecordsToJSONString,
+  type RefreshCallChainingParameters,
+  RefreshCallChainingScope
+} from '@oinone/kunlun-engine';
 import { type Entity, ViewType } from '@oinone/kunlun-meta';
 import { getRouterInstance } from '@oinone/kunlun-router';
 import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';

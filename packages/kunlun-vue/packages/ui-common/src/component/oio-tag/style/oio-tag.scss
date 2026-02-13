@@ -20,4 +20,12 @@
       background-color: var($tagParameterPrefix + -background-color);
     }
   }
+
+  &-closable {
+    margin-left: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
 }

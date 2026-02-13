@@ -79,7 +79,13 @@
 </template>
 
 <script lang="ts">
-import { executeViewAction, genStaticPath, type MultiTabInstance, MultiTabsManager, type RuntimeViewAction, translateValueByKey } from '@oinone/kunlun-engine';
+import {
+  executeViewAction,
+  type MultiTabInstance,
+  MultiTabsManager,
+  type RuntimeViewAction,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import { type IURLAction, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
 import { type Matched, Router, useMatched } from '@oinone/kunlun-router';
 import { gotoHomepage } from '@oinone/kunlun-vue-admin-layout';

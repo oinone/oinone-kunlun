@@ -1,7 +1,7 @@
 @import './parameters.scss';
 
 .iconfont {
-  font-family: "iconfont" !important;
+  font-family: 'iconfont' !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
@@ -42,6 +42,24 @@
   &-loading-reverse {
     animation: oio-rotating-reverse 1.2s linear infinite;
   }
+
+  &.#{$iconClassPrefix}-img {
+    vertical-align: 0.125em;
+  }
+
+  img {
+    width: var($iconParameterPrefix + -width);
+    height: var($iconParameterPrefix + -height);
+  }
+}
+
+.oio-close-icon {
+  background: var(--oio-close-icon-background);
+  color: var(--oio-icon-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @keyframes oio-rotating {

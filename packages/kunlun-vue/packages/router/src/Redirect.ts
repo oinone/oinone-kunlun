@@ -1,5 +1,4 @@
-import { VNodeProps, onMounted } from 'vue';
-
+import { onMounted, VNodeProps } from 'vue';
 import { useRouter } from './helpers/useRouter';
 
 export interface RedirectProps {
@@ -22,7 +21,7 @@ const RedirectImpl = {
   }
 };
 
-export const Redirect = (RedirectImpl as any) as {
+export const Redirect = RedirectImpl as any as {
   new (): {
     $props: VNodeProps & RedirectProps;
   };
