@@ -15,8 +15,8 @@
     "postpublish": "node ../../../../scripts/postpublish.cjs"
   },
   "dependencies": {
-    "@oinone/kunlun-shared": "6.4.1",
-    "@oinone/kunlun-spi": "6.4.1",
+    "@oinone/kunlun-shared": "7.1.0",
+    "@oinone/kunlun-spi": "7.1.0",
     "dayjs": "1.10.7"
   },
   "devDependencies": {

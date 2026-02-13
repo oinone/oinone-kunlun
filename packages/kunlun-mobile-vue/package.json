@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@oinone/kunlun-compile": "~6.4.0",
-    "@oinone/kunlun-test": "~6.4.0"
+    "@oinone/kunlun-compile": "~7.1.0",
+    "@oinone/kunlun-test": "~7.1.0"
   }
 }

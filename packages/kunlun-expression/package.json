@@ -21,18 +21,18 @@
     "lodash-es": "4.17.21"
   },
   "devDependencies": {
-    "@oinone/kunlun-compile": "~6.4.0",
-    "@oinone/kunlun-engine": "~6.4.0",
-    "@oinone/kunlun-expression": "~6.4.0",
-    "@oinone/kunlun-meta": "~6.4.0",
-    "@oinone/kunlun-request": "~6.4.0",
-    "@oinone/kunlun-router": "~6.4.0",
-    "@oinone/kunlun-service": "~6.4.0",
-    "@oinone/kunlun-shared": "~6.4.0",
-    "@oinone/kunlun-spi": "~6.4.0",
-    "@oinone/kunlun-test": "~6.4.0",
-    "@oinone/kunlun-vue-ui-antd": "~6.4.0",
-    "@oinone/kunlun-vue-widget": "~6.4.0"
+    "@oinone/kunlun-compile": "~7.1.0",
+    "@oinone/kunlun-engine": "~7.1.0",
+    "@oinone/kunlun-expression": "~7.1.0",
+    "@oinone/kunlun-meta": "~7.1.0",
+    "@oinone/kunlun-request": "~7.1.0",
+    "@oinone/kunlun-router": "~7.1.0",
+    "@oinone/kunlun-service": "~7.1.0",
+    "@oinone/kunlun-shared": "~7.1.0",
+    "@oinone/kunlun-spi": "~7.1.0",
+    "@oinone/kunlun-test": "~7.1.0",
+    "@oinone/kunlun-vue-ui-antd": "~7.1.0",
+    "@oinone/kunlun-vue-widget": "~7.1.0"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

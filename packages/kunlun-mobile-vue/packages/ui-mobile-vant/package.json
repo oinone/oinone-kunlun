@@ -25,9 +25,9 @@
   },
   "devDependencies": {
     "@ant-design/icons-vue": "6.1.0",
-    "@oinone/kunlun-compile": "~6.4.0",
-    "@oinone/kunlun-shared": "~6.4.0",
-    "@oinone/kunlun-vue-ui-common": "~6.4.0",
+    "@oinone/kunlun-compile": "~7.1.0",
+    "@oinone/kunlun-shared": "~7.1.0",
+    "@oinone/kunlun-vue-ui-common": "~7.1.0",
     "@types/lodash-es": "4.17.6",
     "less": "4.5.1",
     "less-loader": "12.3.0",

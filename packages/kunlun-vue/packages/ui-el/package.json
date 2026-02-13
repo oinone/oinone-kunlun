@@ -17,11 +17,11 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-common": "6.4.4"
+    "@oinone/kunlun-vue-ui-common": "7.1.0"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "2.0.9",
-    "@oinone/kunlun-shared": "~6.4.0",
+    "@oinone/kunlun-shared": "~7.1.0",
     "@types/lodash": "4.17.21",
     "@types/lodash-es": "4.17.6",
     "element-plus": "2.13.0",

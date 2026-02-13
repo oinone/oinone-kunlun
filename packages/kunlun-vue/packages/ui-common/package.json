@@ -21,10 +21,10 @@
     "lodash-es": "4.17.21"
   },
   "devDependencies": {
-    "@oinone/kunlun-engine": "~6.4.0",
-    "@oinone/kunlun-meta": "~6.4.0",
-    "@oinone/kunlun-request": "~6.4.0",
-    "@oinone/kunlun-shared": "~6.4.0",
+    "@oinone/kunlun-engine": "~7.1.0",
+    "@oinone/kunlun-meta": "~7.1.0",
+    "@oinone/kunlun-request": "~7.1.0",
+    "@oinone/kunlun-shared": "~7.1.0",
     "@types/lodash": "4.17.21",
     "@types/lodash-es": "4.17.6",
     "rollup-plugin-copy": "3.4.0",

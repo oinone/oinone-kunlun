@@ -19,8 +19,8 @@
     "path-to-regexp": "6.2.0"
   },
   "devDependencies": {
-    "@oinone/kunlun-shared": "6.4.1",
-    "@oinone/kunlun-state": "6.4.1",
+    "@oinone/kunlun-shared": "7.1.0",
+    "@oinone/kunlun-state": "7.1.0",
     "@types/page": "1.11.5"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
