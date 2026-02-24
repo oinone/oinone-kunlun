@@ -12,9 +12,8 @@ import { isEmptyValue, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { ActiveEditorContext, RenderCellContext, RowContext } from '@oinone/kunlun-vue-ui';
-import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
-import { isBoolean, isFunction, isNaN, isNil, isNumber, isPlainObject, isString, toString } from 'lodash-es';
+import { isBoolean, isFunction, isNaN, isNil, isPlainObject, isString, toString } from 'lodash-es';
 import { createVNode, VNode, withModifiers } from 'vue';
 import type { VxeTableDefines } from 'vxe-table';
 import type { RowActionBarWidget } from '../../action/component/action-bar/RowActionBarWidget';
@@ -22,12 +21,6 @@ import { ActionWidget } from '../../action/component/action/ActionWidget';
 import { EditorField } from '../../tags/internal';
 import { UserTablePrefer } from '../../typing';
 import { getTableColumnFixed, getTableColumnWidth } from '../../util';
-import {
-  defaultTableColumnMinWidthCompute,
-  defaultTableColumnMinWidthComputeContext,
-  getTableThemeConfig,
-  TableColumnMinWidthComputeConfigContext
-} from '../theme';
 import { BaseTableQuickOperationColumnWidget } from './BaseTableQuickOperationColumnWidget';
 import DefaultGroupCell from './DefaultGroupCell.vue';
 
@@ -83,12 +76,6 @@ export class BaseTableFieldWidget<
     return super.columnType;
   }
 
-  @Widget.Inject()
-  protected cellWidth: number | undefined;
-
-  @Widget.Inject()
-  protected cellMinWidth: number | undefined;
-
   @Widget.Reactive()
   public get minWidth() {
     return Optional.ofNullable(this.getDsl().minWidth).orElseGet(() => this.computeDefaultMinWidth());
@@ -113,78 +100,6 @@ export class BaseTableFieldWidget<
   @Widget.Reactive()
   public get isExpandOperationField(): boolean {
     return this.expandOperationField === this.itemData;
-  }
-
-  protected getTableAutoWidth() {
-    const firstWidth = super.width || this.cellWidth;
-    if (firstWidth === 'auto') {
-      const { label, sortable } = this;
-      const themeConfig = getTableThemeConfig();
-      let rest = { ...defaultTableColumnMinWidthComputeContext, sortable };
-      if (themeConfig) {
-        rest = {
-          ...rest,
-          ...themeConfig
-        };
-      }
-      rest.min = this.cellMinWidth || rest.min;
-      return defaultTableColumnMinWidthCompute(label, rest);
-    }
-  }
-
-  protected getTableForCellMinWidth() {
-    const autoCellWidth = this.getTableAutoWidth();
-    if (!isNil(this.cellMinWidth) && autoCellWidth) {
-      return Math.max(this.cellMinWidth, autoCellWidth);
-    }
-    if (!isNil(this.cellMinWidth)) {
-      return this.cellMinWidth;
-    }
-    if (autoCellWidth) {
-      return autoCellWidth;
-    }
-    return undefined;
-  }
-
-  protected computeDefaultMinWidth(): string | number | undefined {
-    const tableForCellMinWidth = this.getTableForCellMinWidth();
-    if (tableForCellMinWidth) {
-      return tableForCellMinWidth;
-    }
-    let minWidthConfig = getTableThemeConfig()?.column?.minWidth;
-    if (minWidthConfig == null) {
-      return defaultTableColumnMinWidthComputeContext.min;
-    }
-    if (isBoolean(minWidthConfig)) {
-      if (!minWidthConfig) {
-        return defaultTableColumnMinWidthComputeContext.min;
-      }
-      minWidthConfig = undefined;
-    }
-    if (isString(minWidthConfig) || isNumber(minWidthConfig)) {
-      return StyleHelper.px(minWidthConfig);
-    }
-    const { label, sortable } = this;
-    if (isFunction(minWidthConfig)) {
-      return minWidthConfig(label, {
-        ...defaultTableColumnMinWidthComputeContext,
-        sortable
-      });
-    }
-    let autoComputeMinWidthConfigContext: TableColumnMinWidthComputeConfigContext;
-    if (minWidthConfig == null) {
-      autoComputeMinWidthConfigContext = {
-        ...defaultTableColumnMinWidthComputeContext,
-        sortable
-      };
-    } else {
-      autoComputeMinWidthConfigContext = {
-        ...defaultTableColumnMinWidthComputeContext,
-        ...minWidthConfig,
-        sortable
-      };
-    }
-    return defaultTableColumnMinWidthCompute(label, autoComputeMinWidthConfigContext);
   }
 
   @Widget.Method()

@@ -1,7 +1,7 @@
 import { DslDefinition, DslDefinitionHelper, DslSlotUtils, ViewDslDefinition } from '@oinone/kunlun-dsl';
 import { ActiveRecords, createDefaultLayout } from '@oinone/kunlun-engine';
 import { ViewMode, ViewType } from '@oinone/kunlun-meta';
-import { StringHelper } from '@oinone/kunlun-shared';
+import { Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { RenderCellContext, RowContext } from '@oinone/kunlun-vue-ui';
 import { DslRender, Widget } from '@oinone/kunlun-vue-widget';
@@ -20,6 +20,11 @@ export interface LayoutColumnLoadedData {
   })
 )
 export class TableLayoutColumnWidget extends BaseTableColumnWidget {
+  @Widget.Reactive()
+  public get minWidth() {
+    return Optional.ofNullable(this.getDsl().minWidth).orElseGet(() => this.computeDefaultMinWidth());
+  }
+
   @Widget.Method()
   public className(context: RenderCellContext): string[] {
     return StringHelper.append(['table-column-layout'], super.className(context));
