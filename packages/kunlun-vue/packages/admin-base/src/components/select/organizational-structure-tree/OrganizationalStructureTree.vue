@@ -1,10 +1,16 @@
 <script lang="ts">
-import { OrganizationalStructureType, PamirsDepartment, PamirsOrganizationalStructure } from '@oinone/kunlun-engine';
+import {
+  OrganizationalStructureType,
+  PamirsDepartment,
+  PamirsOrganizationalStructure,
+  PamirsOrganizationalStructureService,
+  QueryWrapper
+} from '@oinone/kunlun-engine';
 import { OioTreeNode } from '@oinone/kunlun-shared';
 import { OioCheckbox, OioIcon, OioTree, SelectMode } from '@oinone/kunlun-vue-ui-antd';
 import { Radio as ARadio } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, onMounted, PropType, VNode } from 'vue';
-import { TreeStateLoadFunction } from '../../quick-utils';
+import { TreeState, TreeStateLoadFunction } from '../../quick-utils';
 import { useOrganizationalStructureTree } from './init';
 
 export default defineComponent({
@@ -69,6 +75,18 @@ export default defineComponent({
   },
   emits: ['update:loading', 'update:checkedKeys', 'update:selectedKeys', 'init', 'change'],
   setup(props, { emit, expose }) {
+    const defaultLoadFunction = ((
+      res: TreeState<PamirsOrganizationalStructure>,
+      service: PamirsOrganizationalStructureService,
+      queryWrapper: QueryWrapper
+    ) => {
+      return service.queryListByFilter({
+        model: props.model,
+        companyModel: props.companyModel,
+        rsql: queryWrapper.rsql
+      });
+    }) as TreeStateLoadFunction<PamirsOrganizationalStructure>;
+
     const {
       state,
       filterData,
@@ -82,7 +100,7 @@ export default defineComponent({
       mode: props.selectMode,
       getCheckedKeys: () => props.checkedKeys,
       getSearchValue: () => props.searchValue,
-      load: props.load
+      load: props.load || defaultLoadFunction
     });
 
     const loading = computed({
