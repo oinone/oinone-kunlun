@@ -35,6 +35,21 @@ export class TableLayoutColumnWidget extends BaseTableColumnWidget {
     return StringHelper.append(['table-header-column-layout'], super.headerClassName(context));
   }
 
+  @Widget.Reactive()
+  public get sortable(): boolean {
+    return false;
+  }
+
+  @Widget.Reactive()
+  public get enableGrouping(): boolean {
+    return false;
+  }
+
+  @Widget.Reactive()
+  public get editable(): boolean {
+    return false;
+  }
+
   public initialize(props) {
     super.initialize(props);
     const viewDslNode = this.template?.widgets?.find((v) => DslDefinitionHelper.isView(v)) as ViewDslDefinition;
