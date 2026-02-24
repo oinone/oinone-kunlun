@@ -1,5 +1,5 @@
 import { DslDefinition, DslDefinitionHelper, DslSlotUtils, ViewDslDefinition } from '@oinone/kunlun-dsl';
-import { ActiveRecords, createDefaultLayout } from '@oinone/kunlun-engine';
+import { ActiveRecords, createDefaultLayout, resolveTemplate } from '@oinone/kunlun-engine';
 import { ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
@@ -39,23 +39,20 @@ export class TableLayoutColumnWidget extends BaseTableColumnWidget {
     super.initialize(props);
     const viewDslNode = this.template?.widgets?.find((v) => DslDefinitionHelper.isView(v)) as ViewDslDefinition;
     if (viewDslNode) {
-      this.generatorViewDslDefinition(viewDslNode);
+      this.currentViewDsl = this.generatorViewDslDefinition(viewDslNode);
+      resolveTemplate(this.rootRuntimeContext, this.currentViewDsl);
     }
     return this;
   }
 
   @Widget.Reactive()
-  private viewDslDefinition: DslDefinition | undefined;
+  protected currentViewDsl: DslDefinition | undefined;
 
-  public getViewDslDefinition(context?: RowContext): DslDefinition | undefined {
-    return this.viewDslDefinition;
+  public getViewDsl(context?: RowContext): DslDefinition | undefined {
+    return this.currentViewDsl;
   }
 
-  public setViewDslDefinition(viewDslDefinition: DslDefinition | undefined) {
-    this.viewDslDefinition = viewDslDefinition;
-  }
-
-  protected generatorViewDslDefinition(viewDslNode: ViewDslDefinition) {
+  protected generatorViewDslDefinition(viewDslNode: ViewDslDefinition): DslDefinition {
     let { type: viewType } = viewDslNode;
     if (!viewType) {
       viewType = ViewType.Detail;
@@ -66,14 +63,13 @@ export class TableLayoutColumnWidget extends BaseTableColumnWidget {
     }
     const layout = this.generatorLayout(viewType);
     if (layout) {
-      this.setViewDslDefinition(DslSlotUtils.mergeTemplateToLayout(layout, viewDslNode));
-    } else {
-      this.setViewDslDefinition(viewDslNode);
+      return DslSlotUtils.mergeTemplateToLayout(layout, viewDslNode);
     }
+    return viewDslNode;
   }
 
   protected generatorLayout(viewType: ViewType): DslDefinition | undefined {
-    return createDefaultLayout(viewType, false);
+    return createDefaultLayout(viewType, true);
   }
 
   protected loadData(context: RowContext): LayoutColumnLoadedData {
@@ -90,7 +86,7 @@ export class TableLayoutColumnWidget extends BaseTableColumnWidget {
 
   @Widget.Method()
   public renderDefaultSlot(context: RowContext): VNode[] | string {
-    const dslDefinition = this.getViewDslDefinition(context);
+    const dslDefinition = this.getViewDsl(context);
     if (this.invisible || !dslDefinition) {
       return [];
     }

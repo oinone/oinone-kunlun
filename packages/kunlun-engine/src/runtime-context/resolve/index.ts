@@ -6,6 +6,7 @@ import { registerResolve, ResolveTemplateOptions } from './spi';
 
 export * from './default-layout';
 export * from './resolve-view';
+export * from './resolve-template';
 export * from './util';
 
 registerResolve({}, resolveProperties);
