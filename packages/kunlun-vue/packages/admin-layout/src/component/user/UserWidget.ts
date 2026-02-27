@@ -89,10 +89,14 @@ export class UserWidget extends MaskWidget {
 
   public logout() {
     const loginPath = GlobalConfig.getConfigByName('login') as string;
+    let url = loginPath;
+    if (loginPath.startsWith('/')) {
+      url = loginPath.slice(1);
+    }
     OioProvider.setBrowserConfig(getDefaultBrowser());
     setSessionPath(undefined);
     ClearCache.clear();
-    location.assign(location.origin + loginPath);
+    window.location.assign(`${window.location.origin}/${url}`);
     OioProvider.refreshSystemMajorConfig();
   }
 
