@@ -286,7 +286,7 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
             if (this.submitCallChaining) {
               result = (await this.submitCallChaining.syncCall())?.records || [];
             }
-            let finalShowRecords: ActiveRecord[] = this.activeRecords || [];
+            let finalShowRecords: ActiveRecord[] = deepClone(this.activeRecords) || [];
             const viewAction = this.action;
             if (viewAction) {
               const { model, resModel } = viewAction;
@@ -301,7 +301,7 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
             break;
           }
           case PopupSubmitType.all: {
-            const result: ActiveRecord[] = this.dataSource || [];
+            const result: ActiveRecord[] = deepClone(this.dataSource) || [];
             finalParameters = {
               showRecords: result,
               submitRecords: result
