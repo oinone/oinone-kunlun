@@ -32,6 +32,8 @@ export function dslOptionToEnumerationOption(
     label,
     displayName,
     hint,
+    help,
+    summary,
     thumbnail,
     invisible,
     disabled,
@@ -53,6 +55,7 @@ export function dslOptionToEnumerationOption(
     hint,
     thumbnail,
     state,
+    help: help ?? summary,
 
     invisible,
     disabled,

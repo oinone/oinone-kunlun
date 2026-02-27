@@ -7,7 +7,7 @@ import {
   RuntimeModelField,
   RuntimeViewAction
 } from '@oinone/kunlun-engine';
-import { IDslNode, ViewType } from '@oinone/kunlun-meta';
+import { ActionType, IDslNode, ViewType } from '@oinone/kunlun-meta';
 import { CastHelper, debugConsole, instantiate } from '@oinone/kunlun-shared';
 import { getWidget, getWidgetNotNull, newVueWidget, RenderWidget, VueWidget } from '@oinone/kunlun-vue-widget';
 import {
@@ -215,6 +215,10 @@ export function createActionWidget(props: ActionWidgetProps): RenderWidget | und
       action = metadataAction;
     }
   }
+  action = {
+    ...action,
+    actionType: action.actionType || ActionType.Client
+  };
   const { type: viewType, name: viewName } = view;
   const options: BaseActionOptions = {
     viewType,
