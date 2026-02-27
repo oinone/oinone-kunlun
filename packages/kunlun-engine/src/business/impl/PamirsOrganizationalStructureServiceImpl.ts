@@ -72,7 +72,7 @@ export class PamirsOrganizationalStructureServiceImpl
       return [];
     }
     const companyList = await this.companyService.queryListByWrapper({
-      model: query?.model || this.companyModel,
+      model: query?.companyModel || this.companyModel,
       rsql: `code =in= (${Array.from(companyCodes.values())
         .map((v) => `${v}`)
         .join(',')})`

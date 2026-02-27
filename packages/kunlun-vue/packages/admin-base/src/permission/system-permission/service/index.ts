@@ -1,9 +1,27 @@
+import { ModelCache } from '@oinone/kunlun-engine';
 import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { GQL } from '@oinone/kunlun-request';
 import { http } from '@oinone/kunlun-service';
 import { GraphqlHelper } from '@oinone/kunlun-shared';
 import type { IPermission } from '../../permission/type';
 import type { AnyPermissionNode, MenuPermissionNode, PermissionNode } from '../../types';
+
+const environmentConfig: {
+  AuthGroupSystemPermissionProxy?: Promise<{ hasFieldPermissions: boolean; hasRowPermission: boolean }>;
+} = {};
+
+const getAuthGroupSystemPermissionProxyConfig = async () => {
+  if (environmentConfig.AuthGroupSystemPermissionProxy) {
+    return environmentConfig.AuthGroupSystemPermissionProxy;
+  }
+  environmentConfig.AuthGroupSystemPermissionProxy = ModelCache.get('auth.AuthGroupSystemPermissionProxy').then(
+    (res) => ({
+      hasFieldPermissions: !!res?.modelFields.some((v) => v.data === 'fieldPermissions'),
+      hasRowPermission: !!res?.modelFields.some((v) => v.data === 'rowPermission')
+    })
+  );
+  return environmentConfig.AuthGroupSystemPermissionProxy;
+};
 
 interface IQueryRole {
   currentPage: number;
@@ -151,6 +169,7 @@ export const createOrUpdateGroup = async (
     path?: string;
   } = {} as any
 ) => {
+  const { hasFieldPermissions, hasRowPermission } = await getAuthGroupSystemPermissionProxyConfig();
   return GQL.mutation('authGroupSystemPermissionProxy', options.id ? 'update' : 'create')
     .buildRequest((builder) => {
       builder.buildObjectParameter('data', (builder) => {
@@ -163,15 +182,6 @@ export const createOrUpdateGroup = async (
         builder.buildArrayParameter('roles', options.roles, (builder, value) => {
           builder.stringParameter('id', value.id);
         });
-        builder.buildArrayParameter('fieldPermissions', options.fieldPermissions, (builder, value) => {
-          builder.stringParameter('id', value.id);
-          builder.stringParameter('code', value.code);
-          builder.stringParameter('path', value.path);
-          builder.stringParameter('model', value.model);
-          builder.stringParameter('field', value.field);
-          builder.booleanParameter('permRead', value.permRead);
-          builder.booleanParameter('permWrite', value.permWrite);
-        });
         builder.buildArrayParameter('actionPermissions', options.actionPermissions, (builder, value) => {
           builder.stringParameter('id', value.id);
           builder.stringParameter('code', value.code);
@@ -181,21 +191,34 @@ export const createOrUpdateGroup = async (
           builder.stringParameter('name', value.name);
           builder.booleanParameter('canAccess', value.canAccess);
         });
-        const { rowPermission } = options;
-        if (rowPermission) {
-          builder.buildObjectParameter('rowPermission', (builder) => {
-            builder.stringParameter('id', rowPermission.id);
-            builder.stringParameter('code', rowPermission.code);
-            builder.stringParameter('path', rowPermission.path);
-            builder.stringParameter('model', rowPermission.model);
-            builder.stringParameter('filter', rowPermission.filter);
-            builder.stringParameter('domainExp', rowPermission.domainExp);
-            builder.stringParameter('domainExpDisplayName', rowPermission.domainExpDisplayName);
-            builder.stringParameter('domainExpJson', rowPermission.domainExpJson);
-            builder.booleanParameter('permRead', rowPermission.permRead);
-            builder.booleanParameter('permWrite', rowPermission.permWrite);
-            builder.booleanParameter('permDelete', rowPermission.permDelete);
+        if (hasFieldPermissions) {
+          builder.buildArrayParameter('fieldPermissions', options.fieldPermissions, (builder, value) => {
+            builder.stringParameter('id', value.id);
+            builder.stringParameter('code', value.code);
+            builder.stringParameter('path', value.path);
+            builder.stringParameter('model', value.model);
+            builder.stringParameter('field', value.field);
+            builder.booleanParameter('permRead', value.permRead);
+            builder.booleanParameter('permWrite', value.permWrite);
           });
+        }
+        if (hasRowPermission) {
+          const { rowPermission } = options;
+          if (rowPermission) {
+            builder.buildObjectParameter('rowPermission', (builder) => {
+              builder.stringParameter('id', rowPermission.id);
+              builder.stringParameter('code', rowPermission.code);
+              builder.stringParameter('path', rowPermission.path);
+              builder.stringParameter('model', rowPermission.model);
+              builder.stringParameter('filter', rowPermission.filter);
+              builder.stringParameter('domainExp', rowPermission.domainExp);
+              builder.stringParameter('domainExpDisplayName', rowPermission.domainExpDisplayName);
+              builder.stringParameter('domainExpJson', rowPermission.domainExpJson);
+              builder.booleanParameter('permRead', rowPermission.permRead);
+              builder.booleanParameter('permWrite', rowPermission.permWrite);
+              builder.booleanParameter('permDelete', rowPermission.permDelete);
+            });
+          }
         }
       });
     })
@@ -314,44 +337,38 @@ export const queryActionsByMenu = async (node: AnyPermissionNode, groupId?: stri
  * 查询权限组字段权限和行权限
  */
 export const queryGroupData = async (node: AnyPermissionNode, groupId?: string) => {
-  const body = `{
-    authGroupSystemPermissionProxyQuery {
-      fetchData(data: {
-          ${GraphqlHelper.buildStringGQLParameter('model', (node as MenuPermissionNode).model)}
-          ${GraphqlHelper.buildNotStringGQLParameter('nodeType', node.nodeType)}
-          ${GraphqlHelper.buildStringGQLParameter('resourceId', node.resourceId)}
-          ${GraphqlHelper.buildStringGQLParameter('path', node.path)}
-          ${GraphqlHelper.buildStringGQLParameter('id', groupId)}
-        }) {
-        fieldPermissions {
-          model
-          field
-          resourceId
-          displayValue
-          description
-          ttype
-          permRead
-          permWrite
-        }
-        rowPermission {
-          model
-          domainExp
-          domainExpDisplayName
-          domainExpJson
-          permRead
-          permWrite
-          permDelete
-        }
+  const { hasFieldPermissions, hasRowPermission } = await getAuthGroupSystemPermissionProxyConfig();
+  if (!hasFieldPermissions && !hasRowPermission) {
+    return {
+      fieldPermissions: null,
+      rowPermission: null
+    };
+  }
+  return GQL.query('authGroupSystemPermissionProxy', 'fetchData')
+    .buildRequest((builder) =>
+      builder.buildObjectParameter('data', (builder) => {
+        builder.stringParameter('model', (node as MenuPermissionNode).model);
+        builder.enumerationParameter('nodeType', node.nodeType);
+        builder.stringParameter('resourceId', node.resourceId);
+        builder.stringParameter('path', node.path);
+        builder.stringParameter('id', groupId);
+      })
+    )
+    .buildResponse((builder) => {
+      if (hasFieldPermissions) {
+        builder.parameter([
+          'fieldPermissions',
+          ['model', 'field', 'resourceId', 'displayValue', 'description', 'ttype', 'permRead', 'permWrite']
+        ]);
       }
-    }
-  }`;
-
-  const res = await http.query('auth', body);
-
-  return res.data.authGroupSystemPermissionProxyQuery.fetchData as unknown as {
-    fieldPermissions: any[];
-    rowPermission: any;
-  };
+      if (hasRowPermission) {
+        builder.parameter([
+          'rowPermission',
+          ['model', 'domainExp', 'domainExpDisplayName', 'domainExpJson', 'permRead', 'permWrite', 'permDelete']
+        ]);
+      }
+    })
+    .request<{ fieldPermissions: any[]; rowPermission: any }>(SYSTEM_MODULE_NAME.AUTH);
 };
 
 /**

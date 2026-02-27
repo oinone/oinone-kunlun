@@ -1,5 +1,5 @@
 import { ColSpanEnum, getRealTtype, isRuntimeClientAction, type RuntimeAction, RuntimeContextManager, type RuntimeModelField, type RuntimeViewAction } from '@oinone/kunlun-engine';
-import { type IDslNode, ViewType } from '@oinone/kunlun-meta';
+import { ActionType, type IDslNode, ViewType } from '@oinone/kunlun-meta';
 import { CastHelper, debugConsole, instantiate } from '@oinone/kunlun-shared';
 import { getWidget, getWidgetNotNull, newVueWidget, type RenderWidget, VueWidget } from '@oinone/kunlun-vue-widget';
 import { type BaseActionOptions, BaseActionWidget, type BaseElementOptions, BaseElementWidget, type BaseFieldOptions, BaseFieldWidget, type BasePackOptions, BasePackWidget, BaseView, type BaseViewOptions, CustomWidget as CommonCustomWidget } from '../../../basic';
@@ -196,6 +196,10 @@ export function createActionWidget(props: ActionWidgetProps): RenderWidget | und
       action = metadataAction;
     }
   }
+  action = {
+    ...action,
+    actionType: action.actionType || ActionType.Client
+  };
   const { type: viewType, name: viewName } = view;
   const options: BaseActionOptions = {
     viewType,

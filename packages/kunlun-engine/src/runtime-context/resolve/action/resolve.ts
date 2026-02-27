@@ -99,12 +99,11 @@ function getAndRepairActionType(dsl: ActionDslDefinition) {
       case 'ViewAction':
         type = ActionType.View;
         break;
-      default:
+      case 'ClientAction':
         type = ActionType.Client;
         break;
     }
   }
-  dsl.actionType = type;
   return type;
 }
 
