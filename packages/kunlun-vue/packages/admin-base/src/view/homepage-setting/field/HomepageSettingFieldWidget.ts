@@ -2,12 +2,12 @@ import { type RuntimeView, ViewCache } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { FormWidget } from '../../form';
 import { FormFieldWidget } from '../../../basic/field';
 import { createRuntimeContextForWidget } from '../../../tags';
-import { AbstractHomepageSettingFieldWidget } from './AbstractHomepageSettingFieldWidget';
+import { FormWidget } from '../../form';
 import { BindingTypeEnum, type HomepageConfigRule } from '../typing';
 import type { WidgetConstructor } from './AbstractHomepageSettingFieldWidget';
+import { AbstractHomepageSettingFieldWidget } from './AbstractHomepageSettingFieldWidget';
 
 const HomepageSettingField_MODEL = 'base.HomePageConfigRules';
 
@@ -15,7 +15,7 @@ const HomepageSettingField_MODEL = 'base.HomePageConfigRules';
 export class HomepageSettingFieldWidget extends AbstractHomepageSettingFieldWidget<HomepageConfigRule[]> {
   protected loadNodeWidgets() {
     this.isReady = false;
-    this.createNodeWidgets().then(() => {
+    this.createNodeWidgets().finally(() => {
       this.isReady = true;
     });
   }
@@ -39,7 +39,7 @@ export class HomepageSettingFieldWidget extends AbstractHomepageSettingFieldWidg
       console.error(`Invalid view UiDesignerTreeNodeMetadataForm`);
       return [];
     }
-    let widget: { new (): FormWidget } = FormWidget;
+    const widget: { new (): FormWidget } = FormWidget;
     const runtimeContext = createRuntimeContextForWidget(view);
     const data = this.initData(initData);
     this.useHomepageSetting.setUnCommittedRule(data);
@@ -63,7 +63,7 @@ export class HomepageSettingFieldWidget extends AbstractHomepageSettingFieldWidg
     this.activeRecords![0][this.itemName] = this.runtimeHomepageConfigRules;
     const nodes = this.runtimeHomepageConfigRules!;
     const length = nodes.length;
-    let widget: WidgetConstructor = FormWidget;
+    const widget: WidgetConstructor = FormWidget;
     for (let i = 0; i < length; i++) {
       const runtimeContext = createRuntimeContextForWidget(view);
       const data = this.initData(nodes[i]);
