@@ -1,6 +1,5 @@
 import clone from 'lodash/clone';
 import cloneDeep from 'lodash/cloneDeep';
-import isNil from 'lodash/isNil';
 import {
   DEFAULT_SLOT_NAME,
   type DslDefinition,
@@ -14,7 +13,7 @@ export const DEFAULT_CHILDREN_KEY = 'widgets';
 
 export const SLOT_NAME_KEY = 'name';
 
-export const IGNORED_TEMPLATE_DSL_KEYS = ['dslNodeType', 'slot'];
+export const IGNORED_TEMPLATE_DSL_KEYS = ['dslNodeType', 'slot', 'repeat'];
 
 /**
  * dsl插槽工具类
@@ -40,16 +39,22 @@ export class DslSlotUtils {
     if (!dsl.dslNodeType) {
       dsl.dslNodeType = DslDefinitionType.VIEW;
     }
-    const slotNames: Record<string, boolean> = {};
-    Object.keys(dslSlots).forEach((v) => {
-      slotNames[v] = false;
+    const slotNames: Record<string, number> = {};
+    Object.entries(dslSlots).forEach(([k, v]) => {
+      if (v) {
+        if (v.repeat == null || v.repeat <= 0) {
+          slotNames[k] = 1;
+        } else {
+          slotNames[k] = v.repeat;
+        }
+      }
     });
     const targetDsl = cloneDeep(dsl);
     const slotName = DslSlotUtils.mergeTemplateProperties(targetDsl, dslSlots);
     if (slotName) {
       const slotNameRepeat = slotNames[slotName];
-      if (!isNil(slotNameRepeat)) {
-        slotNames[slotName] = true;
+      if (slotNameRepeat != null) {
+        slotNames[slotName]--;
       }
     } else {
       DslSlotUtils.mergeProperties(targetDsl, template, [DEFAULT_CHILDREN_KEY]);
@@ -70,20 +75,20 @@ export class DslSlotUtils {
     originDsl: DslDefinition,
     targetDsl: DslDefinition,
     dslSlots: DslSlots,
-    slotNames: Record<string, boolean>
+    slotNames: Record<string, number>
   ): void {
     const slotName = DslSlotUtils.mergeTemplateProperties(targetDsl, dslSlots);
     if (slotName) {
       const slotNameRepeat = slotNames[slotName];
-      if (!isNil(slotNameRepeat)) {
-        if (slotNameRepeat) {
-          throw new Error('模板中不允许递归使用插槽进行二次处理');
-        } else {
-          slotNames[slotName] = true;
-        }
-      } else {
+      if (slotNameRepeat == null) {
         console.warn('Invalid slot name.', dslSlots, slotName);
         return;
+      } else {
+        if (slotNameRepeat <= 0) {
+          throw new Error('模板中不允许递归使用插槽进行二次处理');
+        } else {
+          slotNames[slotName]--;
+        }
       }
       if (dslSlots[slotName]?.widgets) {
         DslSlotUtils.reverseMergeChildSlotsToTemplate(originDsl, targetDsl, DslSlotUtils.fetchAllSlots(targetDsl));
@@ -140,7 +145,7 @@ export class DslSlotUtils {
     originDsl: DslDefinition,
     targetDsl: DslDefinition,
     dslSlots: DslSlots,
-    slotNames: Record<string, boolean>
+    slotNames: Record<string, number>
   ): void {
     originDsl.widgets?.forEach((originChild, index) => {
       if (targetDsl.widgets?.length) {

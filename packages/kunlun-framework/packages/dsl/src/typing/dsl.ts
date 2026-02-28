@@ -159,6 +159,7 @@ export interface SlotDslDefinition extends DslDefinition {
  */
 export interface TemplateDslDefinition extends DslDefinition {
   slot: string;
+  repeat?: number;
 }
 
 /**
