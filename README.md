@@ -1,3 +1,34 @@
+
+<div align="right">
+  <details>
+    <summary >🌐 Language</summary>
+    <div>
+      <div align="center">
+        <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=en">English</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=zh-CN">简体中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=zh-TW">繁體中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=ja">日本語</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=ko">한국어</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=hi">हिन्दी</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=th">ไทย</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=fr">Français</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=de">Deutsch</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=es">Español</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=it">Itapano</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=ru">Русский</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=pt">Português</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=nl">Nederlands</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=pl">Polski</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=ar">العربية</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=fa">فارسی</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=tr">Türkçe</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=vi">Tiếng Việt</a>
+        | <a href="https://openaitx.github.io/view.html?user=oinone&project=oinone-kunlun&lang=id">Bahasa Indonesia</a>
+      </div>
+    </div>
+  </details>
+</div>
+
 ### 1. Repository
 
 Welcome to the Oinone Kunlun Repository, Oinone Kunlun is the front-end repository! Join and help us improve the Enterprise-grade Productization Engine.
