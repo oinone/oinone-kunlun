@@ -3,7 +3,7 @@ import { ActiveRecords, createDefaultLayout, resolveTemplate } from '@oinone/kun
 import { ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import type { RenderCellContext, RowContext } from '@oinone/kunlun-vue-ui';
+import { GROUP_TREE_KEY, RenderCellContext, RowContext } from '@oinone/kunlun-vue-ui';
 import { DslRender, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep } from 'lodash-es';
 import { VNode } from 'vue';
@@ -64,6 +64,10 @@ export class TableLayoutColumnWidget extends BaseTableColumnWidget {
   protected currentViewDsl: DslDefinition | undefined;
 
   public getViewDsl(context?: RowContext): DslDefinition | undefined {
+    const isGroupRow = !!context?.data?.[GROUP_TREE_KEY.CHILDREN_KEY];
+    if (isGroupRow) {
+      return undefined;
+    }
     return this.currentViewDsl;
   }
 
