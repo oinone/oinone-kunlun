@@ -1,5 +1,4 @@
-import clone from 'lodash/clone';
-import cloneDeep from 'lodash/cloneDeep';
+import { clone, cloneDeep } from 'lodash-es';
 import {
   DEFAULT_SLOT_NAME,
   type DslDefinition,
@@ -266,12 +265,9 @@ export class DslSlotUtils {
           console.error('Invalid template definition. slot must be not blank.');
           return;
         }
-        if (!dslDefinition.widgets?.length) {
-          return;
-        }
         let slot = slots[slotName];
         if (slot) {
-          const cloneIgnoredKeys = clone(IGNORED_TEMPLATE_DSL_KEYS);
+          const cloneIgnoredKeys = [...IGNORED_TEMPLATE_DSL_KEYS];
           cloneIgnoredKeys.push(DEFAULT_CHILDREN_KEY);
           DslSlotUtils.mergeProperties(slot, dslDefinition, cloneIgnoredKeys);
           DslSlotUtils.mergeWidgets(slot, dslDefinition);
