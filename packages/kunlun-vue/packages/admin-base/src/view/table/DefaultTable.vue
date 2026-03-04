@@ -354,6 +354,9 @@ export default defineComponent({
     treeConfig: {
       type: Object as PropType<VxeTablePropTypes.TreeConfig>
     },
+    onToggleTreeExpand: {
+      type: Function
+    },
     autoLineHeight: {
       type: Boolean,
       default: false
@@ -562,6 +565,22 @@ export default defineComponent({
     //
     //   return 'var(--oio-table-thead-height)';
     // });
+
+    const onToggleTreeExpand = (...args) => {
+      if (props.onToggleTreeExpand) {
+        const res = props.onToggleTreeExpand(...args);
+        if (res) {
+          nextTick(() => {
+            calcTableColumnHeight();
+          });
+        }
+        return res;
+      }
+      nextTick(() => {
+        calcTableColumnHeight();
+      });
+      return true;
+    };
 
     const onToggleRowExpand = (...args) => {
       props.onToggleRowExpand?.(...args);
@@ -788,6 +807,7 @@ export default defineComponent({
       onCheckedChange,
       onCheckedAllChange,
       onRadioChange,
+      onToggleTreeExpand,
       onToggleRowExpand
     };
   },
@@ -860,6 +880,7 @@ export default defineComponent({
       groupViewFooterFoldControl,
 
       treeConfig,
+      onToggleTreeExpand,
       scrollX,
       scrollY,
 
@@ -1079,7 +1100,6 @@ export default defineComponent({
         beforeEditMethod: activeEditorBefore,
         showIcon: editorShowIcon
       },
-      treeConfig,
       emptyText,
       emptyImage,
       showFooter,
@@ -1094,6 +1114,12 @@ export default defineComponent({
       onResizableChange,
       customConfig: { usingSimpleUserPrefer }
     };
+    if (treeConfig) {
+      tableProps.treeConfig = {
+        ...treeConfig,
+        toggleMethod: onToggleTreeExpand
+      };
+    }
     if (selectMode) {
       const selectTrigger = allowRowClick ? TableSelectTrigger.cell : TableSelectTrigger.row;
       switch (selectMode) {
