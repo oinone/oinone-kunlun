@@ -62,6 +62,9 @@ export default defineComponent({
     },
     dropdownClassName: {
       type: [String, Array] as PropType<string | string[]>
+    },
+    selectMentionBefore: {
+      type: Function
     }
   },
   emits: ['update:value', 'change', 'focus', 'blur', 'select-mention', 'delete-mention'],
@@ -383,6 +386,13 @@ export default defineComponent({
         // Edit existing mention
         const blockIndex = blocks.value.findIndex((b) => b.id === menuState.targetBlockId);
         if (blockIndex !== -1) {
+          if (props.selectMentionBefore) {
+            if (!props.selectMentionBefore?.(option, menuState.triggerKey)) {
+              closeMenu();
+              return;
+            }
+          }
+
           const newBlock: EditorBlock = {
             type: 'mention',
             id: menuState.targetBlockId, // Keep same ID or generate new? Keep same to preserve references?
@@ -451,6 +461,16 @@ export default defineComponent({
       const match = beforeCursor.match(regex);
 
       if (!match) return; // Should not happen if menu is open and valid
+
+      if (props.selectMentionBefore) {
+        if (!props.selectMentionBefore?.(option, menuState.triggerKey)) {
+          block.content = text.substring(0, text.length - 1);
+          renderBlocks();
+          syncValue();
+          closeMenu();
+          return;
+        }
+      }
 
       const matchIndex = match.index!; // Index in beforeCursor (which is start of text block)
 
