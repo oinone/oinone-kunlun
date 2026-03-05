@@ -8,7 +8,7 @@
         <!-- 非批量操作 -->
         <div v-if="!store.enableMulti">
           <!-- 管理权限 -->
-          <div>
+          <div v-if="hasModifyManagementRoleAction">
             <div class="flex-s-c">
               <span class="fs-16 bold black">2. {{ $translate('配置管理权限') }}</span>
               <span class="ml-2 fs-14 grey ml-2">{{ $translate('允许哪些角色可以管理当前应用') }}</span>
@@ -29,7 +29,9 @@
             <!-- 配置访问权限 -->
             <div class="mt-6">
               <div class="flex-s-c">
-                <span class="fs-16 bold black">3. {{ $translate('配置访问权限') }}</span>
+                <span class="fs-16 bold black"
+                  >{{ hasModifyManagementRoleAction ? '3' : '2' }}.{{ $translate('配置访问权限') }}</span
+                >
                 <span class="ml-2 fs-14 grey ml-2">{{ $translate('允许哪些角色可以访问当前应用') }}</span>
                 <oio-button
                   class="btn-collection-permission-items"
@@ -57,7 +59,11 @@
           <Empty v-if="isEmpty" :title="emptyText"></Empty>
           <div v-else>
             <div class="flex-s-c mt-6" v-if="!notSelected">
-              <span class="fs-16 bold black">{{ store.enableMulti ? '2' : '3' }}.{{ $translate('配置权限') }}</span>
+              <span class="fs-16 bold black"
+                >{{ store.enableMulti ? '2' : hasModifyManagementRoleAction ? '3' : '2' }}.{{
+                  $translate('配置权限')
+                }}</span
+              >
               <span class="ml-2 fs-14 grey ml-2">{{ $translate('添加权限组，将权限授权给对应角色') }}</span>
               <oio-button
                 class="btn-collection-permission-items"
@@ -83,19 +89,23 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, watch, computed, defineProps, withDefaults } from 'vue';
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { OioButton, OioSpin } from '@oinone/kunlun-vue-ui-antd';
+import { computed, defineProps, ref, watch, withDefaults } from 'vue';
+import type { PermissionNode } from '../../types';
 import { useDslActionPermission } from '../hooks';
 import { collectionPermissionItems, queryGroups } from '../service';
 import { useStore } from '../store';
-import type { PermissionNode } from '../../types';
-import GroupListComponent from './GroupList.vue';
 import Empty from './Empty.vue';
+import GroupListComponent from './GroupList.vue';
 
 const props = withDefaults(defineProps<{ selectedLeftTree: any[] }>(), {
   selectedLeftTree: [] as any
 });
+
+const hasModifyManagementRoleAction = computed(
+  () => useDslActionPermission().state.value.hasModifyManagementRoleAction
+);
 
 // 是否有收集权限项的权限
 const hasCollectionPermissionItemsAction = computed(

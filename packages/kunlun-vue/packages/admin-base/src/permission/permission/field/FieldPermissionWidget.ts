@@ -2,9 +2,8 @@ import { type ActiveRecord, type RuntimeO2MField, SubmitValue, ViewCache } from 
 import { ViewType } from '@oinone/kunlun-meta';
 import { HttpClient } from '@oinone/kunlun-request';
 import { CallChaining } from '@oinone/kunlun-shared';
-import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { AsyncFormSubviewListFieldWidget, FormFieldWidget } from '../../../basic';
+import { AsyncFormSubviewListFieldWidget } from '../../../basic';
 import { createRuntimeContextForWidget } from '../../../tags';
 import { type IPermission, ResourcePermissionFieldGroupsModel, ResourcePermissionModel } from '../type';
 import FieldPermission from './FieldPermission.vue';
@@ -12,7 +11,6 @@ import { ModelTableWidget, PermissionTableWidget } from './internal-widget';
 
 const http = HttpClient.getInstance();
 
-@SPI.ClassFactory(FormFieldWidget.Token({ widget: 'field-permission' }))
 export class FieldPermissionWidget extends AsyncFormSubviewListFieldWidget<RuntimeO2MField> {
   @Widget.Reactive()
   public get disabled() {
@@ -100,7 +98,7 @@ export class FieldPermissionWidget extends AsyncFormSubviewListFieldWidget<Runti
       const queryStr = `{
           interactionPermissionQuery {
             colPermissions(interactionPermission: {
-              ${this.formData.id ? `roleId: ${this.formData.id}` : ''}, 
+              ${this.formData.id ? `roleId: ${this.formData.id}` : ''},
               model:"${modelName}",
             }) {
               colPermissions {

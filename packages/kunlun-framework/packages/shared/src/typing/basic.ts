@@ -8,7 +8,7 @@ export type ReturnVoid = null | undefined | void;
 /**
  * 标准异步返回类型
  */
-export type ReturnPromise<T, P = T> = T | Promise<P>;
+export type ReturnPromise<T> = T | Promise<T>;
 
 /**
  * <h3>泛化入参类型</h3>

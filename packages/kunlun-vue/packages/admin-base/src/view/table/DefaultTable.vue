@@ -354,6 +354,9 @@ export default defineComponent({
     treeConfig: {
       type: Object as PropType<VxeTablePropTypes.TreeConfig>
     },
+    onToggleTreeExpand: {
+      type: Function
+    },
     autoLineHeight: {
       type: Boolean,
       default: false
@@ -554,14 +557,30 @@ export default defineComponent({
       return 'var(--oio-table-thead-height)';
     });
 
-    const calcHeaderHeight = ref('');
-    const tableHeaderHeight = computed(() => {
-      if (calcHeaderHeight.value) {
-        return calcHeaderHeight.value;
-      }
+    // const calcHeaderHeight = ref('');
+    // const tableHeaderHeight = computed(() => {
+    //   if (calcHeaderHeight.value) {
+    //     return calcHeaderHeight.value;
+    //   }
+    //
+    //   return 'var(--oio-table-thead-height)';
+    // });
 
-      return 'var(--oio-table-thead-height)';
-    });
+    const onToggleTreeExpand = (...args) => {
+      if (props.onToggleTreeExpand) {
+        const res = props.onToggleTreeExpand(...args);
+        if (res) {
+          nextTick(() => {
+            calcTableColumnHeight();
+          });
+        }
+        return res;
+      }
+      nextTick(() => {
+        calcTableColumnHeight();
+      });
+      return true;
+    };
 
     const onToggleRowExpand = (...args) => {
       props.onToggleRowExpand?.(...args);
@@ -593,21 +612,22 @@ export default defineComponent({
         }
       }
 
-      const headerTable = tableEle.querySelector('.vxe-table--main-wrapper > .vxe-table--header-wrapper');
-      const fixedRightColumn = tableEle.querySelector(
-        '.vxe-table--fixed-wrapper > .vxe-table--fixed-right-wrapper .vxe-header--column'
-      );
-      if (headerTable && fixedRightColumn) {
-        const headerTableHeight = headerTable?.getBoundingClientRect().height;
-        const fixedRightColumnHeight = fixedRightColumn?.getBoundingClientRect().height;
-        if (headerTableHeight > 0 && fixedRightColumnHeight > 0) {
-          if (headerTableHeight >= fixedRightColumnHeight) {
-            calcHeaderHeight.value = `${headerTableHeight}px`;
-          } else if (fixedRightColumnHeight) {
-            calcHeaderHeight.value = `${fixedRightColumnHeight}px`;
-          }
-        }
-      }
+      // fixme @zbh 20260228 此处在处理多级表头高度时，无法判断单行高度和整体高度，暂时移除
+      // const headerTable = tableEle.querySelector('.vxe-table--main-wrapper > .vxe-table--header-wrapper');
+      // const fixedRightColumn = tableEle.querySelector(
+      //   '.vxe-table--fixed-wrapper > .vxe-table--fixed-right-wrapper .vxe-header--column'
+      // );
+      // if (headerTable && fixedRightColumn) {
+      //   const headerTableHeight = headerTable?.getBoundingClientRect().height;
+      //   const fixedRightColumnHeight = fixedRightColumn?.getBoundingClientRect().height;
+      //   if (headerTableHeight > 0 && fixedRightColumnHeight > 0) {
+      //     if (headerTableHeight >= fixedRightColumnHeight) {
+      //       calcHeaderHeight.value = `${headerTableHeight}px`;
+      //     } else if (fixedRightColumnHeight) {
+      //       calcHeaderHeight.value = `${fixedRightColumnHeight}px`;
+      //     }
+      //   }
+      // }
 
       if (!props.autoLineHeight) {
         return;
@@ -772,7 +792,7 @@ export default defineComponent({
       table,
       style,
       tableLineHeight,
-      tableHeaderHeight,
+      // tableHeaderHeight,
 
       pagination,
       editorMode,
@@ -787,6 +807,7 @@ export default defineComponent({
       onCheckedChange,
       onCheckedAllChange,
       onRadioChange,
+      onToggleTreeExpand,
       onToggleRowExpand
     };
   },
@@ -859,6 +880,7 @@ export default defineComponent({
       groupViewFooterFoldControl,
 
       treeConfig,
+      onToggleTreeExpand,
       scrollX,
       scrollY,
 
@@ -1078,7 +1100,6 @@ export default defineComponent({
         beforeEditMethod: activeEditorBefore,
         showIcon: editorShowIcon
       },
-      treeConfig,
       emptyText,
       emptyImage,
       showFooter,
@@ -1093,6 +1114,12 @@ export default defineComponent({
       onResizableChange,
       customConfig: { usingSimpleUserPrefer }
     };
+    if (treeConfig) {
+      tableProps.treeConfig = {
+        ...treeConfig,
+        toggleMethod: onToggleTreeExpand
+      };
+    }
     if (selectMode) {
       const selectTrigger = allowRowClick ? TableSelectTrigger.cell : TableSelectTrigger.row;
       switch (selectMode) {
@@ -1170,10 +1197,6 @@ export default defineComponent({
     > .vxe-table--render-default.size--mini .vxe-body--row .vxe-body--column.col--ellipsis,
     .vxe-table--render-default.vxe-editable.size--mini .vxe-body--column {
       height: v-bind(tableLineHeight);
-    }
-
-    > .vxe-table--render-default.size--mini .vxe-header--column.col--ellipsis {
-      height: v-bind(tableHeaderHeight);
     }
   }
 

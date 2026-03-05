@@ -3,8 +3,16 @@ import { SPI } from '@oinone/kunlun-spi';
 import { AbstractTreeModelApi, QueryWrapper } from '../../service';
 import { OrganizationalStructureType, type PamirsDepartment, type PamirsOrganizationalStructure } from '../../typing';
 import { type PamirsCompanyService, PamirsCompanyServiceToken } from '../PamirsCompanyService';
-import { type DepartmentQueryFilter, PamirsDepartmentMetadata, type PamirsDepartmentService, PamirsDepartmentServiceToken } from '../PamirsDepartmentService';
-import { type OrganizationalStructureQueryFilter, type PamirsOrganizationalStructureService, PamirsOrganizationalStructureServiceToken } from '../PamirsOrganizationalStructureService';
+import {
+  PamirsDepartmentMetadata,
+  type PamirsDepartmentService,
+  PamirsDepartmentServiceToken
+} from '../PamirsDepartmentService';
+import {
+  type OrganizationalStructureQueryFilter,
+  type PamirsOrganizationalStructureService,
+  PamirsOrganizationalStructureServiceToken
+} from '../PamirsOrganizationalStructureService';
 
 @SPI.Service(PamirsOrganizationalStructureServiceToken)
 export class PamirsOrganizationalStructureServiceImpl
@@ -72,7 +80,7 @@ export class PamirsOrganizationalStructureServiceImpl
       return [];
     }
     const companyList = await this.companyService.queryListByWrapper({
-      model: query?.model || this.companyModel,
+      model: query?.companyModel || this.companyModel,
       rsql: `code =in= (${Array.from(companyCodes.values())
         .map((v) => `${v}`)
         .join(',')})`

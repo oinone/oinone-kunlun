@@ -2,8 +2,8 @@
 import {
   OrganizationalStructureType,
   type PamirsDepartment,
-  type PamirsDepartmentService,
   type PamirsOrganizationalStructure,
+  type PamirsOrganizationalStructureService,
   QueryWrapper
 } from '@oinone/kunlun-engine';
 import {
@@ -142,13 +142,14 @@ export default defineComponent({
     });
 
     const load = async (
-      res: TreeState<PamirsDepartment>,
-      service: PamirsDepartmentService,
+      res: TreeState<PamirsOrganizationalStructure>,
+      service: PamirsOrganizationalStructureService,
       queryWrapper: QueryWrapper
     ) => {
       try {
         return await service.queryListByFilter({
           model: props.model,
+          companyModel: props.companyModel,
           rsql: queryWrapper.rsql,
           departmentCodes: props.departmentCodes,
           userCompanyDept: props.userCompanyDept,
@@ -190,8 +191,8 @@ export default defineComponent({
     });
 
     const userDepartmentTreeLoad = async (
-      res: TreeState<PamirsDepartment>,
-      service: PamirsDepartmentService,
+      res: TreeState<PamirsOrganizationalStructure>,
+      service: PamirsOrganizationalStructureService,
       queryWrapper: QueryWrapper
     ) => {
       try {
@@ -203,6 +204,7 @@ export default defineComponent({
         }
         return await service.queryListByFilter({
           model: props.model,
+          companyModel: props.companyModel,
           rsql: queryWrapper.rsql,
           userCompanyDept,
           userDept,

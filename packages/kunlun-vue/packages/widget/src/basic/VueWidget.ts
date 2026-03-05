@@ -21,6 +21,7 @@ import {
   watch,
   withCtx
 } from 'vue';
+import { useInjectMetaContext, useProviderMetaContext } from '../state';
 import VueFragment from './VueFragment.vue';
 import { Widget } from './Widget';
 
@@ -767,6 +768,7 @@ export class VueWidget<Props extends WidgetProps = WidgetProps> extends Widget<P
     this.$$beforeCreated();
     this.beforeCreated();
     this.behaviorGroup[BehaviorName.created]?.();
+    this.$$metaContextProvide();
     this.$$created();
     this.created();
     return {};
@@ -874,6 +876,17 @@ export class VueWidget<Props extends WidgetProps = WidgetProps> extends Widget<P
    * @protected
    */
   protected created() {}
+
+  /**
+   * @internal
+   */
+  protected $$metaContextProvide() {
+    const metaContext = useInjectMetaContext();
+    useProviderMetaContext({
+      ...metaContext,
+      parentHandle: computed(() => this.getHandle())
+    });
+  }
 
   /**
    * @internal

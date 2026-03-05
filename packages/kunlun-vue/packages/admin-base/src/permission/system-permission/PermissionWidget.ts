@@ -1,7 +1,6 @@
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget } from '../../basic';
-
 import CustomView from './Permission.vue';
 import type { IPermissionDslActions } from './types';
 
@@ -22,17 +21,19 @@ export class PermissionWidget extends BaseElementWidget {
   @Widget.Reactive()
   protected get permissionActions(): IPermissionDslActions {
     return {
-      hasModifyRoleAction: !!this.dslActions.find((a) => a.name === 'modifyRole'),
-      hasModifyManagementRoleAction: !!this.dslActions.find((a) => a.name === 'modifyManagementRole'),
-      hasPermissionUpdateAction: !!this.dslActions.find((a) => a.name === 'update'),
-      hasPermissionCreateAction: !!this.dslActions.find((a) => a.name === 'create'),
-      hasPermissionCreateBatchAction: !!this.dslActions.find((a) => a.name === 'authorizes'),
-      hasActiveGroupAction: !!this.dslActions.find((a) => a.name === 'active'),
-      hasCancelGroupAction: !!this.dslActions.find((a) => a.name === 'disable'),
-      hasDeleteGroupAction: !!this.dslActions.find((a) => a.name === 'deleteOne'),
-      hasCollectionPermissionItemsAction: !!this.dslActions.find((a) => a.name === 'collectionPathMappings'),
+      hasModifyRoleAction: !!this.dslActions.find((a) => a.name === 'modifyRole' && !!a.actionType),
+      hasModifyManagementRoleAction: !!this.dslActions.find((a) => a.name === 'modifyManagementRole' && !!a.actionType),
+      hasPermissionUpdateAction: !!this.dslActions.find((a) => a.name === 'update' && !!a.actionType),
+      hasPermissionCreateAction: !!this.dslActions.find((a) => a.name === 'create' && !!a.actionType),
+      hasPermissionCreateBatchAction: !!this.dslActions.find((a) => a.name === 'authorizes' && !!a.actionType),
+      hasActiveGroupAction: !!this.dslActions.find((a) => a.name === 'active' && !!a.actionType),
+      hasCancelGroupAction: !!this.dslActions.find((a) => a.name === 'disable' && !!a.actionType),
+      hasDeleteGroupAction: !!this.dslActions.find((a) => a.name === 'deleteOne' && !!a.actionType),
+      hasCollectionPermissionItemsAction: !!this.dslActions.find(
+        (a) => a.name === 'collectionPathMappings' && !!a.actionType
+      ),
       hasAuthGroupSystemPermissionLookupAction: !!this.dslActions.find(
-        (a) => a.name === 'authGroupSystemPermissionLookup'
+        (a) => a.name === 'authGroupSystemPermissionLookup' && !!a.actionType
       )
     };
   }

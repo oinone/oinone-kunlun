@@ -3,7 +3,6 @@ import {
   Dialog,
   executeViewAction,
   FunctionMetadata,
-  GenericFunctionService,
   ModelCache,
   ModuleCache,
   type Pagination,
@@ -16,7 +15,6 @@ import {
   translateValueByKey,
   ViewCache
 } from '@oinone/kunlun-engine';
-import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { type IModelField, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import {
@@ -35,7 +33,6 @@ import { SPI } from '@oinone/kunlun-spi';
 import { appFinderSymbol } from '@oinone/kunlun-vue-admin-layout';
 import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { Widget, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
-import { isNil } from 'lodash-es';
 import { BaseElementListViewWidget, BaseElementWidget } from '../../../basic';
 import { createRuntimeContextForWidget } from '../../../tags';
 import { onJumpCodeFuse, onJumpModelDesigner, onJumpUiDesignerHomePage } from '../../../util';
@@ -75,21 +72,6 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
   private bindAppHomepageDialogFormWidget!: FormWidget | undefined;
 
   @Widget.Reactive()
-  private addFormViewData = {};
-
-  protected executeInvisibleExpress(invisible?: string | boolean) {
-    if (isNil(invisible)) {
-      return false;
-    }
-
-    if (typeof invisible === 'boolean') {
-      return invisible;
-    }
-
-    return !!Expression.run({ activeRecord: this.addFormViewData } as ExpressionRunParam, invisible, false);
-  }
-
-  @Widget.Reactive()
   private moduleCategory = [];
 
   @Widget.SubContext(appFinderSymbol)
@@ -113,38 +95,38 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
 
   @Widget.Reactive()
   protected get actionPermission(): ActionPermission {
-    const CreateAppAction = this.modelActions.find((a) => a.name === 'create');
-    const UpdateAppAction = this.modelActions.find((a) => a.name === 'update');
-    const UninstallAction = this.modelActions.find((a) => a.name === 'uninstall');
-    const InstallAction = this.modelActions.find((a) => a.name === 'install');
-    const BindHomepageAction = this.modelActions.find((a) => a.name === 'bindHomePage');
-    const DetailAction = this.modelActions.find((a) => a.name === 'apps_business_screen_detail');
+    const CreateAppAction = this.modelActions.find((a) => a.name === 'create' && !!a.actionType);
+    const UpdateAppAction = this.modelActions.find((a) => a.name === 'update' && !!a.actionType);
+    const UninstallAction = this.modelActions.find((a) => a.name === 'uninstall' && !!a.actionType);
+    const InstallAction = this.modelActions.find((a) => a.name === 'install' && !!a.actionType);
+    const BindHomepageAction = this.modelActions.find((a) => a.name === 'bindHomePage' && !!a.actionType);
+    const DetailAction = this.modelActions.find((a) => a.name === 'apps_business_screen_detail' && !!a.actionType);
 
-    const LikeAction = this.modelActions.find((a) => a.name === 'like');
-    const UnLikeAction = this.modelActions.find((a) => a.name === 'unLike');
+    const LikeAction = this.modelActions.find((a) => a.name === 'like' && !!a.actionType);
+    const UnLikeAction = this.modelActions.find((a) => a.name === 'unLike' && !!a.actionType);
 
     const ModelDesignerAction = this.modelActions.find(
-      (a) => a.name === 'homepage' && a.model === 'designer.DesignerModelDefinition'
+      (a) => a.name === 'homepage' && a.model === 'designer.DesignerModelDefinition' && !!a.actionType
     );
     const UiDesignerAction = this.modelActions.find(
-      (a) => a.name === 'homepage' && a.model === 'ui.designer.UiDesignerView'
+      (a) => a.name === 'homepage' && a.model === 'ui.designer.UiDesignerView' && !!a.actionType
     );
-    const PaasAction = this.modelActions.find((a) => a.name === 'PaasMenus_Menu_LowCodeMenu');
+    const PaasAction = this.modelActions.find((a) => a.name === 'PaasMenus_Menu_LowCodeMenu' && !!a.actionType);
 
     return {
-      hasCreateAppAction: !!CreateAppAction && !this.executeInvisibleExpress(CreateAppAction.invisible),
-      hasUpdateAppAction: !!UpdateAppAction && !this.executeInvisibleExpress(UpdateAppAction.invisible),
+      hasCreateAppAction: !!CreateAppAction,
+      hasUpdateAppAction: !!UpdateAppAction,
       hasUninstallAction: !!UninstallAction,
       hasInstallAction: !!InstallAction,
-      hasBindHomepageAction: !!BindHomepageAction && !this.executeInvisibleExpress(BindHomepageAction.invisible),
-      hasDetailAction: !!DetailAction && !this.executeInvisibleExpress(DetailAction.invisible),
+      hasBindHomepageAction: !!BindHomepageAction,
+      hasDetailAction: !!DetailAction,
 
-      hasLikeAction: !!LikeAction && !this.executeInvisibleExpress(LikeAction.invisible),
-      hasUnLikeAction: !!UnLikeAction && !this.executeInvisibleExpress(UnLikeAction.invisible),
+      hasLikeAction: !!LikeAction,
+      hasUnLikeAction: !!UnLikeAction,
 
-      hasModelDesignerAction: !!ModelDesignerAction && !this.executeInvisibleExpress(ModelDesignerAction.invisible),
-      hasUiDesignerAction: !!UiDesignerAction && !this.executeInvisibleExpress(UiDesignerAction.invisible),
-      hasPaasAction: !!PaasAction && !this.executeInvisibleExpress(PaasAction.invisible)
+      hasModelDesignerAction: !!ModelDesignerAction,
+      hasUiDesignerAction: !!UiDesignerAction,
+      hasPaasAction: !!PaasAction
     };
   }
 
@@ -153,21 +135,33 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
   protected get hasExportAction() {
     const actionNames = Object.keys(this.exportAction);
 
-    return actionNames.some(
-      (name) => !!this.exportAction[name] && !this.executeInvisibleExpress(this.exportAction[name].invisible)
-    );
+    return actionNames.some((name) => !!this.exportAction[name]);
   }
 
   @Widget.Reactive()
   protected get exportAction() {
     return {
-      exportModelAction: this.modelActions.find((a) => a.name === 'modelDesignerDialog') as RuntimeViewAction,
-      exportUiAction: this.modelActions.find((a) => a.name === 'uiDesignerDialog') as RuntimeViewAction,
-      exportWorkFlowAction: this.modelActions.find((a) => a.name === 'wfDesignerDialog') as RuntimeViewAction,
-      exportEipAction: this.modelActions.find((a) => a.name === 'eipDesignerDialog') as RuntimeViewAction,
-      exportDataAction: this.modelActions.find((a) => a.name === 'dataDesignerDialog') as RuntimeViewAction,
-      exportMicroFlowAction: this.modelActions.find((a) => a.name === 'mfDesignerDialog') as RuntimeViewAction,
-      exportPrintAction: this.modelActions.find((a) => a.name === 'printDesignerDialog') as RuntimeViewAction
+      exportModelAction: this.modelActions.find(
+        (a) => a.name === 'modelDesignerDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      exportUiAction: this.modelActions.find(
+        (a) => a.name === 'uiDesignerDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      exportWorkFlowAction: this.modelActions.find(
+        (a) => a.name === 'wfDesignerDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      exportEipAction: this.modelActions.find(
+        (a) => a.name === 'eipDesignerDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      exportDataAction: this.modelActions.find(
+        (a) => a.name === 'dataDesignerDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      exportMicroFlowAction: this.modelActions.find(
+        (a) => a.name === 'mfDesignerDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      exportPrintAction: this.modelActions.find(
+        (a) => a.name === 'printDesignerDialog' && !!a.actionType
+      ) as RuntimeViewAction
     };
   }
 
@@ -178,21 +172,33 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
   protected get hasImportAction() {
     const actionNames = Object.keys(this.importAction);
 
-    return actionNames.some(
-      (name) => !!this.importAction[name] && !this.executeInvisibleExpress(this.importAction[name].invisible)
-    );
+    return actionNames.some((name) => !!this.importAction[name]);
   }
 
   @Widget.Reactive()
   protected get importAction() {
     return {
-      importModelAction: this.modelActions.find((a) => a.name === 'modelDesignerImportDialog') as RuntimeViewAction,
-      importUiAction: this.modelActions.find((a) => a.name === 'uiDesignerImportDialog') as RuntimeViewAction,
-      importWorkFlowAction: this.modelActions.find((a) => a.name === 'wfDesignerImportDialog') as RuntimeViewAction,
-      importEipAction: this.modelActions.find((a) => a.name === 'eipDesignerImportDialog') as RuntimeViewAction,
-      importDataAction: this.modelActions.find((a) => a.name === 'dataDesignerImportDialog') as RuntimeViewAction,
-      importMicroFlowAction: this.modelActions.find((a) => a.name === 'mfDesignerImportDialog') as RuntimeViewAction,
-      importPrintAction: this.modelActions.find((a) => a.name === 'printDesignerImportDialog') as RuntimeViewAction
+      importModelAction: this.modelActions.find(
+        (a) => a.name === 'modelDesignerImportDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      importUiAction: this.modelActions.find(
+        (a) => a.name === 'uiDesignerImportDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      importWorkFlowAction: this.modelActions.find(
+        (a) => a.name === 'wfDesignerImportDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      importEipAction: this.modelActions.find(
+        (a) => a.name === 'eipDesignerImportDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      importDataAction: this.modelActions.find(
+        (a) => a.name === 'dataDesignerImportDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      importMicroFlowAction: this.modelActions.find(
+        (a) => a.name === 'mfDesignerImportDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      importPrintAction: this.modelActions.find(
+        (a) => a.name === 'printDesignerImportDialog' && !!a.actionType
+      ) as RuntimeViewAction
     };
   }
 
@@ -203,21 +209,33 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
   protected get hasSyncAction() {
     const actionNames = Object.keys(this.syncAction);
 
-    return actionNames.some(
-      (name) => !!this.syncAction[name] && !this.executeInvisibleExpress(this.syncAction[name].invisible)
-    );
+    return actionNames.some((name) => !!this.syncAction[name]);
   }
 
   @Widget.Reactive()
   protected get syncAction() {
     return {
-      syncModelAction: this.modelActions.find((a) => a.name === 'modelDesignerSyncDialog') as RuntimeViewAction,
-      syncUiAction: this.modelActions.find((a) => a.name === 'uiDesignerSyncDialog') as RuntimeViewAction,
-      syncWorkFlowAction: this.modelActions.find((a) => a.name === 'wfDesignerSyncDialog') as RuntimeViewAction,
-      syncEipAction: this.modelActions.find((a) => a.name === 'eipDesignerSyncDialog') as RuntimeViewAction,
-      syncDataAction: this.modelActions.find((a) => a.name === 'dataDesignerSyncDialog') as RuntimeViewAction,
-      syncMicroFlowAction: this.modelActions.find((a) => a.name === 'mfDesignerSyncDialog') as RuntimeViewAction,
-      syncPrintAction: this.modelActions.find((a) => a.name === 'printDesignerSyncDialog') as RuntimeViewAction
+      syncModelAction: this.modelActions.find(
+        (a) => a.name === 'modelDesignerSyncDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      syncUiAction: this.modelActions.find(
+        (a) => a.name === 'uiDesignerSyncDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      syncWorkFlowAction: this.modelActions.find(
+        (a) => a.name === 'wfDesignerSyncDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      syncEipAction: this.modelActions.find(
+        (a) => a.name === 'eipDesignerSyncDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      syncDataAction: this.modelActions.find(
+        (a) => a.name === 'dataDesignerSyncDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      syncMicroFlowAction: this.modelActions.find(
+        (a) => a.name === 'mfDesignerSyncDialog' && !!a.actionType
+      ) as RuntimeViewAction,
+      syncPrintAction: this.modelActions.find(
+        (a) => a.name === 'printDesignerSyncDialog' && !!a.actionType
+      ) as RuntimeViewAction
     };
   }
 
@@ -295,9 +313,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
             displayName: translateValueByKey('模型导入'),
             icon: 'oinone-a-moxingdaoru3x',
 
-            visible: (record) =>
-              !!this.importAction.importModelAction &&
-              !this.executeInvisibleExpress(this.importAction.importModelAction.invisible),
+            visible: (record) => !!this.importAction.importModelAction,
             exe: (record) => {
               executeViewAction(this.importAction.importModelAction!, undefined, undefined, {
                 module: record.module,
@@ -308,9 +324,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('界面导入'),
             icon: 'oinone-a-jiemiandaoru2x',
-            visible: (record) =>
-              !!this.importAction.importUiAction &&
-              !this.executeInvisibleExpress(this.importAction.importUiAction.invisible),
+            visible: (record) => !!this.importAction.importUiAction,
             exe: (record) => {
               executeViewAction(this.importAction.importUiAction!, undefined, undefined, {
                 module: record.module,
@@ -321,9 +335,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('流程导入'),
             icon: 'oinone-a-liuchengdaoru2x',
-            visible: (record) =>
-              !!this.importAction.importWorkFlowAction &&
-              !this.executeInvisibleExpress(this.importAction.importWorkFlowAction.invisible),
+            visible: (record) => !!this.importAction.importWorkFlowAction,
             exe: (record) => {
               executeViewAction(this.importAction.importWorkFlowAction!, undefined, undefined, {
                 module: record.module,
@@ -334,9 +346,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('微流导入'),
             icon: 'oinone-a-liuchengdaoru2x',
-            visible: (record) =>
-              !!this.importAction.importMicroFlowAction &&
-              !this.executeInvisibleExpress(this.importAction.importMicroFlowAction.invisible),
+            visible: (record) => !!this.importAction.importMicroFlowAction,
             exe: (record) => {
               executeViewAction(this.importAction.importMicroFlowAction!, undefined, undefined, {
                 module: record.module,
@@ -347,9 +357,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('集成导入'),
             icon: 'oinone-a-jichengdaoru2x',
-            visible: (record) =>
-              !!this.importAction.importEipAction &&
-              !this.executeInvisibleExpress(this.importAction.importEipAction.invisible),
+            visible: (record) => !!this.importAction.importEipAction,
             exe: (record) => {
               executeViewAction(this.importAction.importEipAction!, undefined, undefined, {
                 module: record.module,
@@ -360,9 +368,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('数据可视化导入'),
             icon: 'oinone-a-shujukeshihuadaoru2x',
-            visible: (record) =>
-              !!this.importAction.importDataAction &&
-              !this.executeInvisibleExpress(this.importAction.importDataAction.invisible),
+            visible: (record) => !!this.importAction.importDataAction,
             exe: (record) => {
               executeViewAction(this.importAction.importDataAction!, undefined, undefined, {
                 module: record.module,
@@ -373,9 +379,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('打印导入'),
             icon: 'oinone-a-jiemiandaoru2x',
-            visible: (record) =>
-              !!this.importAction.importPrintAction &&
-              !this.executeInvisibleExpress(this.importAction.importPrintAction.invisible),
+            visible: (record) => !!this.importAction.importPrintAction,
             exe: (record) => {
               executeViewAction(this.importAction.importPrintAction!, undefined, undefined, {
                 module: record.module,
@@ -394,9 +398,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('模型导出'),
             icon: 'oinone-a-moxingdaoru3x',
-            visible: (record) =>
-              !!this.exportAction.exportModelAction &&
-              !this.executeInvisibleExpress(this.exportAction.exportModelAction.invisible),
+            visible: (record) => !!this.exportAction.exportModelAction,
             exe: (record) => {
               executeViewAction(this.exportAction.exportModelAction!, undefined, undefined, {
                 module: record.module,
@@ -407,9 +409,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('界面导出'),
             icon: 'oinone-a-jiemiandaoru2x',
-            visible: (record) =>
-              !!this.exportAction.exportUiAction &&
-              !this.executeInvisibleExpress(this.exportAction.exportUiAction.invisible),
+            visible: (record) => !!this.exportAction.exportUiAction,
             exe: (record) => {
               executeViewAction(this.exportAction.exportUiAction!, undefined, undefined, {
                 module: record.module,
@@ -420,9 +420,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('流程导出'),
             icon: 'oinone-a-liuchengdaoru2x',
-            visible: (record) =>
-              !!this.exportAction.exportWorkFlowAction &&
-              !this.executeInvisibleExpress(this.exportAction.exportWorkFlowAction.invisible),
+            visible: (record) => !!this.exportAction.exportWorkFlowAction,
             exe: (record) => {
               executeViewAction(this.exportAction.exportWorkFlowAction!, undefined, undefined, {
                 module: record.module,
@@ -433,9 +431,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('微流导出'),
             icon: 'oinone-a-liuchengdaoru2x',
-            visible: (record) =>
-              !!this.exportAction.exportMicroFlowAction &&
-              !this.executeInvisibleExpress(this.exportAction.exportMicroFlowAction.invisible),
+            visible: (record) => !!this.exportAction.exportMicroFlowAction,
             exe: (record) => {
               executeViewAction(this.exportAction.exportMicroFlowAction!, undefined, undefined, {
                 module: record.module,
@@ -446,9 +442,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('集成导出'),
             icon: 'oinone-a-jichengdaoru2x',
-            visible: (record) =>
-              !!this.exportAction.exportEipAction &&
-              !this.executeInvisibleExpress(this.exportAction.exportEipAction.invisible),
+            visible: (record) => !!this.exportAction.exportEipAction,
             exe: (record) => {
               executeViewAction(this.exportAction.exportEipAction!, undefined, undefined, {
                 module: record.module,
@@ -459,9 +453,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('数据可视化导出'),
             icon: 'oinone-a-shujukeshihuadaoru2x',
-            visible: (record) =>
-              !!this.exportAction.exportDataAction &&
-              !this.executeInvisibleExpress(this.exportAction.exportDataAction.invisible),
+            visible: (record) => !!this.exportAction.exportDataAction,
             exe: (record) => {
               executeViewAction(this.exportAction.exportDataAction!, undefined, undefined, {
                 module: record.module,
@@ -472,9 +464,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('打印导出'),
             icon: 'oinone-a-jiemiandaoru2x',
-            visible: (record) =>
-              !!this.exportAction.exportPrintAction &&
-              !this.executeInvisibleExpress(this.exportAction.exportPrintAction.invisible),
+            visible: (record) => !!this.exportAction.exportPrintAction,
             exe: (record) => {
               executeViewAction(this.exportAction.exportPrintAction!, undefined, undefined, {
                 module: record.module,
@@ -493,9 +483,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('模型部署'),
             icon: 'oinone-a-moxingdaoru3x',
-            visible: (record) =>
-              !!this.syncAction.syncModelAction &&
-              !this.executeInvisibleExpress(this.syncAction.syncModelAction.invisible),
+            visible: (record) => !!this.syncAction.syncModelAction,
             exe: (record) => {
               executeViewAction(this.syncAction.syncModelAction!, undefined, undefined, {
                 module: record.module,
@@ -506,8 +494,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('界面部署'),
             icon: 'oinone-a-jiemiandaoru2x',
-            visible: (record) =>
-              !!this.syncAction.syncUiAction && !this.executeInvisibleExpress(this.syncAction.syncUiAction.invisible),
+            visible: (record) => !!this.syncAction.syncUiAction,
             exe: (record) => {
               executeViewAction(this.syncAction.syncUiAction!, undefined, undefined, {
                 module: record.module,
@@ -518,9 +505,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('流程部署'),
             icon: 'oinone-a-liuchengdaoru2x',
-            visible: (record) =>
-              !!this.syncAction.syncWorkFlowAction &&
-              !this.executeInvisibleExpress(this.syncAction.syncWorkFlowAction.invisible),
+            visible: (record) => !!this.syncAction.syncWorkFlowAction,
             exe: (record) => {
               executeViewAction(this.syncAction.syncWorkFlowAction!, undefined, undefined, {
                 module: record.module,
@@ -531,9 +516,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('微流部署'),
             icon: 'oinone-a-liuchengdaoru2x',
-            visible: (record) =>
-              !!this.syncAction.syncMicroFlowAction &&
-              !this.executeInvisibleExpress(this.syncAction.syncMicroFlowAction.invisible),
+            visible: (record) => !!this.syncAction.syncMicroFlowAction,
             exe: (record) => {
               executeViewAction(this.syncAction.syncMicroFlowAction!, undefined, undefined, {
                 module: record.module,
@@ -544,8 +527,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('集成部署'),
             icon: 'oinone-a-jichengdaoru2x',
-            visible: (record) =>
-              !!this.syncAction.syncEipAction && !this.executeInvisibleExpress(this.syncAction.syncEipAction.invisible),
+            visible: (record) => !!this.syncAction.syncEipAction,
             exe: (record) => {
               executeViewAction(this.syncAction.syncEipAction!, undefined, undefined, {
                 module: record.module,
@@ -556,9 +538,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('数据可视化部署'),
             icon: 'oinone-a-shujukeshihuadaoru2x',
-            visible: (record) =>
-              !!this.syncAction.syncDataAction &&
-              !this.executeInvisibleExpress(this.syncAction.syncDataAction.invisible),
+            visible: (record) => !!this.syncAction.syncDataAction,
             exe: (record) => {
               executeViewAction(this.syncAction.syncDataAction!, undefined, undefined, {
                 module: record.module,
@@ -569,9 +549,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
           {
             displayName: translateValueByKey('打印部署'),
             icon: 'oinone-a-jiemiandaoru2x',
-            visible: (record) =>
-              !!this.syncAction.syncPrintAction &&
-              !this.executeInvisibleExpress(this.syncAction.syncPrintAction.invisible),
+            visible: (record) => !!this.syncAction.syncPrintAction,
             exe: (record) => {
               executeViewAction(this.syncAction.syncPrintAction!, undefined, undefined, {
                 module: record.module,
@@ -873,9 +851,6 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
     ViewCache.compile(EditAppModelModel, CreateAppForm, CreateAppFormXml);
     ViewCache.compile(EditAppModelModel, UpdateAppForm, UpdateAppFormXml);
     ViewCache.compile(EditAppModelModel, BindAppHomepageForm, BindAppHomepageFormXml);
-
-    this.addFormViewData =
-      (await GenericFunctionService.INSTANCE.simpleExecuteByFun(this.model.model, 'construct', {})) || {};
   }
 }
 
