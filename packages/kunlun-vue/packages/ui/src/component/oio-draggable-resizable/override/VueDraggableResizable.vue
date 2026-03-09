@@ -138,7 +138,7 @@ const emits = [
   'update:active'
 ];
 
-const VueDraggableResizable = defineComponent({
+export default defineComponent({
   name: 'VueDraggableResizable',
   props: VdrProps,
   emits: emits,
@@ -236,6 +236,4 @@ const VueDraggableResizable = defineComponent({
     );
   }
 });
-
-export default VueDraggableResizable;
 </script>
