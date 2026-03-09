@@ -6,34 +6,20 @@
     :open="isShowDropdown"
   >
     <template #default>
-      <span
-        class="ant-select ant-select-single oio-select model-field-select-control"
-        :class="selectClass"
-        ref="controlRef"
-      >
-        <div class="ant-select-selector" @click="toggleDropdown">
-          <span
-            class="ant-select-selection-item ant-select-selection-item-tag"
-            v-if="!isValueEmpty"
-            :title="selectValue.label"
-          >
-            <control-tag
-              :title="labelViewType === 'API_NAME' ? selectValue.apiName : selectValue.label"
-              :closable="false"
-              @close="onClear"
-            />
-          </span>
-          <span class="ant-select-selection-placeholder" v-if="isShowPlaceholder" @click="toggleDropdown">{{
-            placeholder
-          }}</span>
-        </div>
-        <span class="ant-select-arrow" v-if="isShowDownArrow">
-          <down-outlined class="ant-select-suffix" />
-        </span>
-        <span class="ant-select-clear" v-if="isAllowClear" @click="onClear">
-          <close-circle-filled />
-        </span>
-      </span>
+      <a-select
+        class="oio-select"
+        popup-class-name="oio-select-dropdown"
+        label-in-value
+        mode="multiple"
+        :placeholder="placeholder"
+        :allow-clear="isAllowClear"
+        :show-arrow="isShowDownArrow"
+        :value="selectValue"
+        :options="null"
+        :notFoundContent="null"
+        :open="isShowDropdown"
+        @dropdown-visible-change="onDropdownVisibleChange"
+      />
     </template>
     <template #content>
       <div ref="dropdownRef">
@@ -67,17 +53,34 @@
   </a-popover>
 </template>
 <script lang="ts">
-import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, type PropType, ref, watch } from 'vue';
-import { OioInput, OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { CloseCircleFilled, DownOutlined } from '@ant-design/icons-vue';
 import { ModelFieldType } from '@oinone/kunlun-meta';
 import { CastHelper } from '@oinone/kunlun-shared';
+import { OioIcon, OioInput } from '@oinone/kunlun-vue-ui-antd';
 import { debounce } from 'lodash-es';
-import ControlTag from '../control/control-tag/ControlTag.vue';
-import ExpressionDesignerCascader from '../cascader/Cascader.vue';
-import { ExpressionSeniorMode, type IExpSelectOption, type IFunFilterMethod, type IVariableContextItem, type IVariableItem, ModelOptionType, VARIABLE_SEPARATE, VariableItemType } from '../../types';
-import { checkBlurFocus, contextItems2ModelSelection, convertModelFields2Options, createVariableContextItem, createVariableItemBySelectedOptions, fetchExpressionChildren, translateExpValue } from '../../share';
+import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, type PropType, ref, watch } from 'vue';
 import { queryExpModelFields } from '../../service/modelDefinitionService';
+import {
+  checkBlurFocus,
+  contextItems2ModelSelection,
+  convertModelFields2Options,
+  createVariableContextItem,
+  createVariableItemBySelectedOptions,
+  fetchExpressionChildren,
+  translateExpValue
+} from '../../share';
+import {
+  ExpressionSeniorMode,
+  type IExpSelectOption,
+  type IFunFilterMethod,
+  type IVariableContextItem,
+  type IVariableItem,
+  ModelOptionType,
+  VARIABLE_SEPARATE,
+  VariableItemType
+} from '../../types';
+import ExpressionDesignerCascader from '../cascader/Cascader.vue';
+import ControlTag from '../control/control-tag/ControlTag.vue';
 
 const SIZE_CLASS_CONFIG = { default: '', small: 'ant-select-sm', large: 'ant-select-lg' };
 
@@ -168,7 +171,8 @@ export default defineComponent({
     const isAllowClear = computed(() => {
       return props.allowClear && !isValueEmpty.value;
     });
-    const selectValue = ref<IExpSelectOption>({} as IExpSelectOption);
+
+    const selectValue = ref<IExpSelectOption | null | undefined>();
 
     const searchKeywords = ref('');
     const searchKeywordsDebounce = ref('');
@@ -189,18 +193,21 @@ export default defineComponent({
       return classList;
     });
 
-    const isShowPlaceholder = computed(() => {
-      return isValueEmpty.value;
+    const placeholder = computed(() => {
+      if (isValueEmpty.value) {
+        return props.placeholder;
+      }
+      return null;
     });
+
     const isValueEmpty = computed(() => {
       return !(selectValue.value && selectValue.value.value);
     });
     const onClear = () => {
-      selectValue.value = {} as IExpSelectOption;
+      selectValue.value = null;
     };
 
     const onChange = (selectedValues: string[], selectedOptions: IExpSelectOption[]) => {
-      // console.log('onChange', selectedValues, selectedOptions);
       if (!selectedValues || !selectedValues.length) {
         return;
       }
@@ -212,7 +219,6 @@ export default defineComponent({
       if (!variableItem) {
         return;
       }
-      // variableItem.type = VariableItemType.FIELD;
       const labelList = [variableItem.displayName];
       if (variableItem.subTitle) {
         labelList.push(variableItem.subTitle);
@@ -259,13 +265,14 @@ export default defineComponent({
     }
 
     function fillSelectValue() {
+      if (!selectValue.value) {
+        return;
+      }
       if (!selectValue.value.label && selectValue.value.value) {
         const selectedArr = (selectValue.value.value as string).split('.');
         const find = options.value.find((a) => a.value === selectedArr[0]);
         const labelArr = [] as string[];
         const apiNameArr = [] as string[];
-        // console.log('fillSelectValue', selectValue, selectedArr);
-        // FIXME 动态
         if (find) {
           labelArr.push(find.label);
           apiNameArr.push(find.name);
@@ -282,8 +289,13 @@ export default defineComponent({
             }
           }
         }
-        selectValue.value.label = labelArr.join('.');
-        selectValue.value.apiName = apiNameArr.join('.');
+        const apiName = apiNameArr.join('.');
+        selectValue.value.apiName = apiName;
+        if (props.labelViewType === ExpressionSeniorMode.API_NAME) {
+          selectValue.value.label = apiName;
+        } else {
+          selectValue.value.label = labelArr.join('.');
+        }
       }
     }
 
@@ -362,12 +374,18 @@ export default defineComponent({
     };
     watch(
       () => props.value,
-      () => {
+      (val) => {
         if (!props.isSimpleMode) {
           return;
         }
-        selectValue.value = { value: props.value as string, label: props.displayName, apiName: '' } as IExpSelectOption;
-        fillSelectValue();
+        if (val) {
+          selectValue.value = {
+            value: props.value as string,
+            label: props.displayName,
+            apiName: ''
+          } as IExpSelectOption;
+          fillSelectValue();
+        }
       },
       { immediate: true }
     );
@@ -409,6 +427,10 @@ export default defineComponent({
 
     const controlRef = ref<HTMLElement>(null as any);
     const dropdownRef = ref<HTMLElement>(null as any);
+
+    const onDropdownVisibleChange = (visible: boolean) => {
+      isShowDropdown.value = visible;
+    };
 
     watch(isShowDropdown, () => {
       if (isShowDropdown.value) {
@@ -452,6 +474,9 @@ export default defineComponent({
     });
 
     return {
+      placeholder,
+      onDropdownVisibleChange,
+
       selectClass,
       isShowDropdown,
       isShowDownArrow,
@@ -463,7 +488,6 @@ export default defineComponent({
       selectionSearchLeft,
       searchInputMirrorRef,
       searchInputRef,
-      isShowPlaceholder,
       controlRef,
       dropdownRef,
       options,
