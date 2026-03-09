@@ -1,12 +1,12 @@
 <template>
   <div v-if="realOptions.length > 0 && optionColor" class="table-multi-select oio-scrollbar detail-multi-select">
     <div class="detail-multi-select-item" v-for="item in realOptions" :key="item.key" :style="computeStyle(item)">
-      <div class="detail-multi-select-item-font" :title="item.label">
-        {{ item.label }}
+      <div class="detail-multi-select-item-font" :title="$translate(item.label)">
+        {{ $translate(item.label) }}
       </div>
     </div>
   </div>
-  <span v-else>{{ currentValue }}</span>
+  <span v-else>{{ $translate(currentValue) }}</span>
 </template>
 <script lang="ts">
 import type { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
