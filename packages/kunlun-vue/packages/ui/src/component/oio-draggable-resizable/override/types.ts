@@ -35,6 +35,8 @@ export type SetMatchedLine = (matchedLine: MatchedLine | null) => void;
 
 export type ResizingHandle = 'tl' | 'tm' | 'tr' | 'ml' | 'mr' | 'bl' | 'bm' | 'br' | '';
 
+export const ALL_HANDLES: ResizingHandle[] = ['tl', 'tm', 'tr', 'ml', 'mr', 'bl', 'bm', 'br'];
+
 export type ParentSize = ReturnType<typeof initParent>;
 
 export interface ReferenceLine {

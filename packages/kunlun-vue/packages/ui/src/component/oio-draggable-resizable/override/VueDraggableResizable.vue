@@ -8,12 +8,17 @@ import {
   initState,
   watchProps
 } from './hooks';
-import { ContainerProvider, GetPositionStore, ResizingHandle, SetMatchedLine, UpdatePosition } from './types';
+import {
+  ALL_HANDLES,
+  ContainerProvider,
+  GetPositionStore,
+  ResizingHandle,
+  SetMatchedLine,
+  UpdatePosition
+} from './types';
 import { filterHandles, getElSize, IDENTITY } from './utils';
 
 import './index.css';
-
-export const ALL_HANDLES: ResizingHandle[] = ['tl', 'tm', 'tr', 'ml', 'mr', 'bl', 'bm', 'br'];
 
 const VdrProps = {
   initW: {

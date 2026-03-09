@@ -1,5 +1,4 @@
-import { ContainerProvider, ParentSize, ReferenceLineMap, ResizingHandle } from './types';
-import { ALL_HANDLES } from './VueDraggableResizable';
+import { ALL_HANDLES, ContainerProvider, ParentSize, ReferenceLineMap, ResizingHandle } from './types';
 
 export const IDENTITY = Symbol('VueDraggableResizable');
 
