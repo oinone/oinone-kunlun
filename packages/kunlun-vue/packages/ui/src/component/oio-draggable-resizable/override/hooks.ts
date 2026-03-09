@@ -254,7 +254,7 @@ export function initDraggableContainer(
       const matchedLine: unknown = {
         row: widgetSelfLine.row
           .map((i, index) => {
-            let match = null;
+            let match: number | null = null;
             Object.values(referenceLineMap!.row).forEach((referItem) => {
               if (i >= referItem.min && i <= referItem.max) {
                 match = referItem.value;
@@ -274,7 +274,7 @@ export function initDraggableContainer(
           .filter((i) => i !== null),
         col: widgetSelfLine.col
           .map((i, index) => {
-            let match = null;
+            let match: number | null = null;
             Object.values(referenceLineMap!.col).forEach((referItem) => {
               if (i >= referItem.min && i <= referItem.max) {
                 match = referItem.value;
