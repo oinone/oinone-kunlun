@@ -338,6 +338,8 @@ export interface IModelFieldOption {
   backgroundColor?: string;
   icon?: string;
   label?: string;
+  showHelp?: boolean;
+  help?: string;
   invisible?: boolean;
   isDefault?: boolean;
   hint?: string;
