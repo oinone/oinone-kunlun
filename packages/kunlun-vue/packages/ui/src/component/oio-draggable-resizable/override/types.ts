@@ -30,15 +30,20 @@ export interface MatchedLine {
   row: number[];
   col: number[];
 }
+
 export type SetMatchedLine = (matchedLine: MatchedLine | null) => void;
 
 export type ResizingHandle = 'tl' | 'tm' | 'tr' | 'ml' | 'mr' | 'bl' | 'bm' | 'br' | '';
 
 export type ParentSize = ReturnType<typeof initParent>;
 
-export type ReferenceLineMap = Record<
-  'col' | 'row',
-  {
-    [propName: number]: Record<'min' | 'max' | 'value', number>;
-  }
->;
+export interface ReferenceLine {
+  min: number;
+  max: number;
+  value: number;
+}
+
+export interface ReferenceLineMap {
+  col: ReferenceLine;
+  row: ReferenceLine;
+}
