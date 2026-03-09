@@ -18,6 +18,22 @@
     justify-content: space-between;
   }
 
+  &.action-bar-direction-row {
+    flex-direction: row;
+  }
+
+  &.action-bar-direction-column {
+    flex-direction: column;
+  }
+
+  &.action-bar-direction-row-reverse {
+    flex-direction: row-reverse;
+  }
+
+  &.action-bar-direction-column-reverse {
+    flex-direction: column-reverse;
+  }
+
   .action-bar-left,
   .action-bar-center,
   .action-bar-right {
