@@ -39,13 +39,9 @@ export const ALL_HANDLES: ResizingHandle[] = ['tl', 'tm', 'tr', 'ml', 'mr', 'bl'
 
 export type ParentSize = ReturnType<typeof initParent>;
 
-export interface ReferenceLine {
-  min: number;
-  max: number;
-  value: number;
-}
-
-export interface ReferenceLineMap {
-  col: ReferenceLine;
-  row: ReferenceLine;
-}
+export type ReferenceLineMap = Record<
+  'col' | 'row',
+  {
+    [propName: number]: Record<'min' | 'max' | 'value', number>;
+  }
+>;
