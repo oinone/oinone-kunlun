@@ -20,6 +20,7 @@
     "@oinone/kunlun-vue-ui-antd": "6.4.4",
     "@oinone/kunlun-vue-ui-common": "6.4.4",
     "sortablejs": "1.14.0",
+    "vue3-draggable-resizable": "1.6.5",
     "vue3-smooth-dnd": "0.0.6",
     "vuedraggable": "4.1.0",
     "vxe-table": "4.3.6",
