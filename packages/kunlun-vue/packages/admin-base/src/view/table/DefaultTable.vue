@@ -7,6 +7,7 @@ import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import {
   type ActiveEditorContext,
   type CheckedChangeEvent,
+  GROUP_TREE_KEY,
   OioColumn,
   OioTable,
   type OioTableInstance,
@@ -404,6 +405,10 @@ export default defineComponent({
     onAddRow: {
       type: Function,
       required: true
+    },
+    enableGrouping: {
+      type: Boolean,
+      default: false
     },
     enabledGroupView: {
       type: Boolean,
@@ -1172,6 +1177,9 @@ export default defineComponent({
     const classs = ['default-table'];
     if (!this.inline) {
       classs.push('default-main-table');
+    }
+    if (this.treeConfig?.children === GROUP_TREE_KEY.CHILDREN_KEY && !this.enabledGroupView) {
+      classs.push('default-table-group-hidden-expand');
     }
 
     return createVNode(
