@@ -39,15 +39,14 @@ export function convertRuntimeAction(
   dsl: ActionDslDefinition,
   consumer?: (action: RuntimeAction) => void
 ): RuntimeAction | undefined {
-  const actionType = getAndRepairActionType(dsl);
-  if (!actionType) {
-    console.error('action type is required.', dsl);
-    return undefined;
-  }
   const name = getAndRepairName(dsl);
   if (!name) {
     console.error('action name is required.', dsl);
     return undefined;
+  }
+  let actionType = getAndRepairActionType(dsl);
+  if (!actionType) {
+    actionType = ActionType.Client;
   }
   const { mappingConfig, contextConfig } = parseConfigs(dsl, [
     { key: 'mappingConfig', prefix: 'mapping' },

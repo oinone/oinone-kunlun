@@ -15,6 +15,7 @@ export interface RenderPosition {
 
 export interface OioGlobalState {
   fullscreen: boolean;
+  disabledRelationQuery?: boolean;
 
   mainViewHandle?: string;
 
@@ -85,6 +86,7 @@ export interface OioDetailViewState extends OioViewState {
   actionBar?: OioActionBarState;
   actionBars?: Record<string, OioActionBarState>;
   detail?: string;
+  disabledRelationQuery?: boolean;
   fields?: string[];
   fieldWidgets?: Record<string, string>;
 }

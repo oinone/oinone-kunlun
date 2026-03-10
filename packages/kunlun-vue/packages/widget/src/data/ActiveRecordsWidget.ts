@@ -17,12 +17,14 @@ import {
   type UpdateEntity
 } from '@oinone/kunlun-engine';
 import { Widget } from '../basic';
-import { type OioAnyViewState, useOioState } from '../state';
+import { type OioAnyViewState, OioGlobalState, useOioState } from '../state';
 import { PathWidget, type PathWidgetProps } from './PathWidget';
 
 export interface ActiveRecordsWidgetProps extends PathWidgetProps {
   dataSource?: ActiveRecords | null;
   activeRecords?: ActiveRecords;
+  isInitViewState?: boolean;
+  viewState?: OioAnyViewState;
 }
 
 /**
@@ -31,6 +33,22 @@ export interface ActiveRecordsWidgetProps extends PathWidgetProps {
 export class ActiveRecordsWidget<
   Props extends ActiveRecordsWidgetProps = ActiveRecordsWidgetProps
 > extends PathWidget<Props> {
+  /**
+   * 全局状态，在 beforeMounted 后可获取到有效值
+   * @protected
+   */
+  protected globalState: OioGlobalState | undefined;
+
+  public getGlobalState(): OioGlobalState | undefined {
+    return this.globalState;
+  }
+
+  public setGlobalState(state: OioGlobalState) {
+    this.globalState = state;
+  }
+
+  protected isInitViewState?: boolean;
+
   /**
    * 视图级别状态, 在 beforeMounted 后可获取到有效值
    * @protected
@@ -47,9 +65,13 @@ export class ActiveRecordsWidget<
 
   public initialize(props: Props) {
     super.initialize(props);
-    const { dataSource, activeRecords } = props;
+    const { dataSource, activeRecords, viewState } = props;
     this.setCurrentDataSource(dataSource);
     this.setCurrentActiveRecords(activeRecords);
+    if (viewState) {
+      this.isInitViewState = props.isInitViewState ?? true;
+      this.setViewState(viewState);
+    }
     return this;
   }
 
@@ -587,8 +609,16 @@ export class ActiveRecordsWidget<
   protected $$beforeMount() {
     super.$$beforeMount();
     let isInitStatePosition = false;
-    if (!this.viewState) {
-      this.viewState = useOioState().viewState;
+    if (this.viewState) {
+      if (this.isInitViewState) {
+        isInitStatePosition = true;
+        this.$$initViewStatePosition(this.viewState);
+        this.$$initViewState(this.viewState);
+      }
+    } else {
+      const { globalState, viewState } = useOioState();
+      this.globalState = globalState;
+      this.viewState = viewState;
       if (this.viewState) {
         isInitStatePosition = true;
         this.$$initViewStatePosition(this.viewState);

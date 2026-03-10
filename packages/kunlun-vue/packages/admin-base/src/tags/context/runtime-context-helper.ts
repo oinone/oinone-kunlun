@@ -115,7 +115,7 @@ export function createRuntimeContextByViewAction(
   const { id: resViewId, name: resViewName, dsl, template } = resView;
   const runtimeContext = RuntimeContextManager.createOrReplace(
     nodeHandle,
-    RuntimeContextManager.get(rootHandle || useInjectMetaContext()?.rootHandle?.value)
+    RuntimeContextManager.get(rootHandle || useInjectMetaContext().rootHandle?.value)
   );
   runtimeContext.viewAction = viewAction;
   const finalModel = resModel || model;
@@ -153,7 +153,7 @@ export function createRuntimeContextByView(
   const { type, name, model, modelName, module, moduleName, dsl, template } = view;
   const runtimeContext = RuntimeContextManager.createOrReplace(
     nodeHandle,
-    RuntimeContextManager.get(rootHandle || useInjectMetaContext()?.rootHandle?.value)
+    RuntimeContextManager.get(rootHandle || useInjectMetaContext().rootHandle?.value)
   );
   runtimeContext.view = view;
   const viewLayout = seekViewLayout(view, inline, undefined, type, {
@@ -187,7 +187,7 @@ export function createRuntimeContextByFieldSubview(
   const { type, name, model, modelName, module, moduleName, dsl, template } = view;
   const runtimeContext = RuntimeContextManager.createOrReplace(
     nodeHandle,
-    RuntimeContextManager.get(rootHandle || useInjectMetaContext()?.rootHandle?.value)
+    RuntimeContextManager.get(rootHandle || useInjectMetaContext().rootHandle?.value)
   );
   runtimeContext.view = view;
   runtimeContext.field = field;
@@ -224,7 +224,7 @@ export function createOrUpdateRuntimeContextByDslDefinition(dslDefinition: DslDe
   } = useInjectMetaContext();
   const runtimeContext = RuntimeContextManager.createOrReplace(
     nodeHandle,
-    RuntimeContextManager.get(useInjectMetaContext()?.rootHandle.value)
+    RuntimeContextManager.get(useInjectMetaContext().rootHandle.value)
   );
   let { type, model, modelName, module, moduleName } = dslDefinition;
   const { name, filter, domain, initialValue, context } = dslDefinition;

@@ -8,8 +8,8 @@ import {
   useInjectOioDefaultFormContext,
   useProviderOioDefaultFormContext
 } from '@oinone/kunlun-vue-ui-common';
-import type { DslRenderDefinition } from '@oinone/kunlun-vue-widget';
-import { createVNode, defineComponent, onMounted, type PropType, ref } from 'vue';
+import { DslRenderDefinition, useInjectMetaContext, useProviderMetaContext } from '@oinone/kunlun-vue-widget';
+import { computed, createVNode, defineComponent, onMounted, type PropType, ref } from 'vue';
 import { defaultFlexResolve } from '../../tags/resolve/helper';
 import { FormBizStyle } from '../../typing';
 import { ManualWidget } from '../mixin';
@@ -26,6 +26,10 @@ export default defineComponent({
     template: {
       type: Object as PropType<DslRenderDefinition>
     },
+    inline: {
+      type: Boolean,
+      default: undefined
+    },
     setFormInstance: {
       type: Function as PropType<(instance: OioFormInstance | undefined) => void>
     },
@@ -40,7 +44,18 @@ export default defineComponent({
   setup(props) {
     const origin = ref<HTMLElement>();
     const formRef = ref<OioFormInstance>();
+    const metaContext = useInjectMetaContext();
     const formContext = useInjectOioDefaultFormContext();
+
+    useProviderMetaContext({
+      ...metaContext,
+      inline: computed(() => {
+        if (props.inline != null) {
+          return props.inline;
+        }
+        return metaContext.inline.value;
+      })
+    });
 
     useProviderOioDefaultFormContext({
       ...formContext,

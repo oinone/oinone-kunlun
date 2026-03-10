@@ -296,6 +296,7 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
     const { globalState, createViewState } = useOioState(this.currentHandle);
     const state = createViewState();
     state.viewType = this.viewType!;
+    this.globalState = globalState;
     this.viewState = state;
     if (!this.inline && this.viewType && this.viewType !== ViewType.Search) {
       globalState.mainViewHandle = this.currentHandle;
