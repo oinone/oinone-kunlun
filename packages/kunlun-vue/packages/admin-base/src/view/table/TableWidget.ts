@@ -41,7 +41,7 @@ import { EmptyStyle, StyleHelper } from '@oinone/kunlun-vue-ui-antd';
 import { DslDefinitionWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { delay, find, isBoolean, isNaN, isNil, isNumber, isPlainObject, isString, toNumber, toString } from 'lodash-es';
 import { nextTick } from 'vue';
-import { VxeTableDefines, type VxeTablePropTypes } from 'vxe-table';
+import { VxeTableDefines } from 'vxe-table';
 import { ActionWidget } from '../../action/component/action';
 import {
   type BaseElementListViewWidgetProps,
@@ -1043,7 +1043,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   }
 
   @Widget.Reactive()
-  protected get treeConfig(): VxeTablePropTypes.TreeConfig | undefined {
+  protected get treeConfig() {
     if (this.enabledTreeConfig && !this.enabledGroupView) {
       return {
         transform: true,
