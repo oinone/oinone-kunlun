@@ -2,29 +2,36 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   .pagination-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     .oio-input {
       text-align: center;
       border: 1px solid #d9d9d9;
       outline: none;
+
       input.ant-input {
         font-size: 12px;
         text-align: center;
       }
     }
+
     .next,
     .prev {
       cursor: pointer;
     }
+
     .starts-ends {
       cursor: not-allowed;
     }
+
     .pagination-icon {
       color: #54585b;
     }
+
     .icon-first-last {
       color: #d9d9d9;
     }
@@ -33,16 +40,19 @@
   .md-pagination-small {
     font-size: 12px;
     width: 160px;
+
     .oio-input {
       width: 40px;
       height: 24px;
       line-height: 24px;
+
       input.ant-input {
         font-size: 12px;
         height: 22px;
         line-height: 22px;
       }
     }
+
     .pagination-icon {
       font-size: 12px;
     }
@@ -51,17 +61,20 @@
   .md-pagination-middle {
     font-size: 14px;
     width: 180px;
+
     .oio-input {
       width: 48px;
       height: 30px;
       line-height: 30px;
       font-size: 14px;
+
       input.ant-input {
         font-size: 14px;
         height: 28px;
         line-height: 28px;
       }
     }
+
     .pagination-icon {
       font-size: 14px;
     }
@@ -70,19 +83,28 @@
   .md-pagination-large {
     width: 200px;
     font-size: 16px;
+
     .oio-input {
       width: 56px;
       height: 35px;
       line-height: 35px;
       font-size: 16px;
+
       input.ant-input {
         font-size: 16px;
         height: 33px;
         line-height: 33px;
       }
     }
+
     .pagination-icon {
       font-size: 16px;
     }
+  }
+
+  .ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(
+      .ant-input-affix-wrapper-borderless
+    ).ant-input-affix-wrapper {
+    border-color: var(--oio-input-border-color);
   }
 }
