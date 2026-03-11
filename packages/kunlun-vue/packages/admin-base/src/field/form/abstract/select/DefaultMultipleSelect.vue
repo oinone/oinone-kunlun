@@ -12,6 +12,7 @@
     </div>
     <div v-else>
       <a-select
+        :id="id"
         ref="selectRef"
         mode="multiple"
         class="oio-select"

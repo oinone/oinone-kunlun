@@ -98,7 +98,11 @@ export const RelationSelectProps = {
   }
 };
 
+let retId = 0;
+
 export function relationSelectSetup(props, multi?: boolean) {
+  const id = `oio_select_${retId++}`;
+
   const selectRef = ref();
   const dropdownInputRef = ref();
   const dropdownOpen = ref(false);
@@ -256,7 +260,37 @@ export function relationSelectSetup(props, multi?: boolean) {
     }
   };
 
+  const $$onClear = () => {
+    props.change?.(null);
+    props.search?.('');
+  };
+
   const onGlobalMouseDown = (e: MouseEvent) => {
+    let antSelectClearDom: HTMLElement | undefined;
+    let target = e.target as HTMLElement | null | undefined;
+    if (target) {
+      for (let i = 0; i < 5; i++) {
+        if (target.nodeType && target.classList.contains('ant-select-clear')) {
+          antSelectClearDom = target;
+          break;
+        }
+        target = target.parentElement;
+        if (!target) {
+          break;
+        }
+      }
+    }
+    if (
+      antSelectClearDom &&
+      document
+        .querySelector(`#${id}`)
+        ?.parentElement?.parentElement?.parentElement.getElementsByClassName('ant-select-clear')
+        .item(0)
+    ) {
+      e.preventDefault();
+      e.stopPropagation();
+      $$onClear();
+    }
     focusSearchInput = e.target === dropdownInputRef.value?.originInput?.input;
   };
 
@@ -269,6 +303,7 @@ export function relationSelectSetup(props, multi?: boolean) {
   });
 
   return {
+    id,
     placeholder,
     innerReadonly,
     innerDisabled,

@@ -430,14 +430,6 @@ export class BaseTableWidget<
   @Widget.Method()
   @Widget.Provide()
   protected async rowEditorClosedBefore(context: RowContext): Promise<boolean> {
-    // 新增时有可能会多出来一些空值key。 过滤后对比
-    // const pureData = omitBy({ ...context.data }, isNil);
-    // if (isEqual(pureData, this.currentEditorContext!.row) && this.tableRowEditMode === TableRowEditMode.CREATE) {
-    //   if (context?.data) {
-    //     await this.removeRecordFormDataSource(context);
-    //   }
-    //   return false;
-    // }
     const res = await this.rowEditorClosedForValidator(context);
     if (!res) {
       return false;
