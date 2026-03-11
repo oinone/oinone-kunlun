@@ -71,15 +71,7 @@ export default defineComponent({
     }
     if ([DateTimePickerMode.year, DateTimePickerMode.month, DateTimePickerMode.week].includes(this.mode)) {
       componentProps.picker = this.mode;
-    } else if (this.dynamicMode) {
-      if (this.dynamicMode === DateTimePickerMode.month) {
-        componentProps.picker = this.dynamicMode;
-      } else if (this.dynamicMode !== DateTimePickerMode.date) {
-        // antd的mode的默认值是date，但是我们不能配置为date，配置为date就会不能选择 年和月 的九宫格面板
-        componentProps.mode = this.dynamicMode;
-      }
     }
-
     return createVNode(
       component,
       componentProps,
