@@ -107,6 +107,10 @@ $tagRemoveLineHeight: $tagHeight - 4px;
     }
   }
 
+  .ant-select-item-group {
+    font-size: 14px;
+  }
+
   .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
     color: var($parameterPrefix + -primary-color);
     background-color: var(--oio-select-dropdown-selected);
