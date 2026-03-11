@@ -187,7 +187,6 @@ export default defineComponent({
       mode,
       initCheckedKeys,
       onInit,
-      model,
       companyModel,
       departmentModel,
       domain,

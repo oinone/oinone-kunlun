@@ -126,6 +126,14 @@ export default defineComponent({
       updateTreeData();
     };
 
+    const onSelected = ({ node }: { node: OioTreeNode<PamirsDepartment> }) => {
+      if (props.selectMode === SelectMode.multiple) {
+        onUpdateChecked(node, node.checked !== true);
+      } else if (node.selectable !== false && props.selectMode === SelectMode.single) {
+        onUpdateChecked(node, node.key !== state.checkedKeys[0]);
+      }
+    };
+
     const updateTreeData = () => {
       state.data = [...state.data];
       emit('update:checkedKeys', state.checkedKeys);
@@ -166,7 +174,8 @@ export default defineComponent({
       halfCheckedAll,
       onUpdateExpandedKeys,
       onUpdateCheckedAll,
-      onUpdateChecked
+      onUpdateChecked,
+      onSelected
     };
   },
   render() {
@@ -184,6 +193,7 @@ export default defineComponent({
       showCheckedAll,
       selectable,
       selectedKeys,
+      onSelected,
       onUpdateExpandedKeys,
       onUpdateCheckedAll,
       onUpdateChecked
@@ -196,6 +206,7 @@ export default defineComponent({
       selectable: selectable || false,
       selectedKeys,
       'onUpdate:selectedKeys': (val) => this.$emit('update:selectedKeys', val),
+      onSelected,
       expandedKeys: state.expandedKeys,
       'onUpdate:expandedKeys': onUpdateExpandedKeys
     };

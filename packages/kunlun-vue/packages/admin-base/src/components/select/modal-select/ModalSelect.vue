@@ -2,6 +2,12 @@
   <div class="oio-modal-select-wrapper">
     <DefaultSelect v-bind="selectProps" />
     <oio-modal v-bind="modalProps">
+      <oio-input-search
+        :value="searchValue"
+        :placeholder="$translate('搜索')"
+        allow-clear
+        @update:value="onUpdateSearchValue"
+      />
       <oio-table v-bind="tableProps">
         <oio-column v-if="checkbox" type="checkbox" width="50" />
         <oio-column v-else type="radio" width="50" />
@@ -13,8 +19,10 @@
 <script lang="ts">
 import { ActiveRecordExtendKeys, ActiveRecords } from '@oinone/kunlun-engine';
 import { CheckedChangeEvent, OioColumn, OioTable, RadioChangeEvent } from '@oinone/kunlun-vue-ui';
-import { OioModal, PropRecordHelper, SelectMode, StringHelper } from '@oinone/kunlun-vue-ui-antd';
-import { computed, defineComponent, nextTick, reactive } from 'vue';
+import { OioInputSearch, OioModal, PropRecordHelper, SelectMode, StringHelper } from '@oinone/kunlun-vue-ui-antd';
+import { WritableComputedRef } from '@vue/reactivity';
+import { debounce } from 'lodash-es';
+import { computed, defineComponent, nextTick, reactive, ref, Ref } from 'vue';
 import { DefaultSelect, DefaultSelectProps } from '../base';
 import { DefaultTableSelectProps } from '../table-select';
 
@@ -28,7 +36,8 @@ export default defineComponent({
     DefaultSelect,
     OioModal,
     OioTable,
-    OioColumn
+    OioColumn,
+    OioInputSearch
   },
   inheritAttrs: false,
   props: {
@@ -37,7 +46,7 @@ export default defineComponent({
       type: String
     }
   },
-  setup(props, { attrs }) {
+  setup(props, { attrs, emit }) {
     const state: State = reactive({
       visible: false
     });
@@ -80,6 +89,7 @@ export default defineComponent({
         notFoundContent: null,
         loadMoreLoading: null,
         onClick: () => {
+          searchValue.value = undefined;
           state.records = null;
           state.visible = true;
         }
@@ -160,12 +170,37 @@ export default defineComponent({
       }
     };
 
+    const $$searchValue: Ref<string | undefined> = ref();
+    const searchValue: WritableComputedRef<string | undefined> = computed({
+      get() {
+        if (props.searchValue === undefined) {
+          return $$searchValue.value;
+        }
+        return props.searchValue;
+      },
+      set(val) {
+        $$searchValue.value = val;
+        emit('update:search-value', val);
+        props.onUpdateSearchValue?.(val);
+      }
+    });
+
+    const onUpdateSearchValue = (keyword: string) => {
+      searchValue.value = keyword;
+      onSearch(keyword);
+    };
+
+    const onSearch = debounce(async (keyword: string) => {
+      await props.search?.(keyword);
+    }, 300);
+
     return {
       state,
       selectProps,
       modalProps,
       tableProps,
-      checkbox
+      checkbox,
+      onUpdateSearchValue
     };
   }
 });
