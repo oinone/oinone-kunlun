@@ -57,8 +57,9 @@ import { CloseCircleFilled, DownOutlined } from '@ant-design/icons-vue';
 import { ModelFieldType } from '@oinone/kunlun-meta';
 import { CastHelper } from '@oinone/kunlun-shared';
 import { OioIcon, OioInput } from '@oinone/kunlun-vue-ui-antd';
+import { WritableComputedRef } from '@vue/reactivity';
 import { debounce } from 'lodash-es';
-import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, type PropType, ref, watch } from 'vue';
+import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, type PropType, Ref, ref, watch } from 'vue';
 import { queryExpModelFields } from '../../service/modelDefinitionService';
 import {
   checkBlurFocus,
@@ -172,7 +173,18 @@ export default defineComponent({
       return props.allowClear && !isValueEmpty.value;
     });
 
-    const selectValue = ref<IExpSelectOption | null | undefined>();
+    const $$selectValue: Ref<IExpSelectOption | null | undefined> = ref();
+    const selectValue: WritableComputedRef<IExpSelectOption | null | undefined> = computed({
+      get() {
+        if (!$$selectValue.value || !$$selectValue.value.value) {
+          return undefined;
+        }
+        return $$selectValue.value;
+      },
+      set(val) {
+        $$selectValue.value = val;
+      }
+    });
 
     const searchKeywords = ref('');
     const searchKeywordsDebounce = ref('');
