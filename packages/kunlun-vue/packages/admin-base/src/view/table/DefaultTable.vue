@@ -433,6 +433,12 @@ export default defineComponent({
     },
     onKeydown: {
       type: Function
+    },
+    currentLineHeight: {
+      type: Number
+    },
+    onLineHeightChange: {
+      type: Function
     }
   },
   setup(props) {
@@ -540,7 +546,19 @@ export default defineComponent({
       return StyleHelper.parse(props.template?.style);
     });
 
-    const calcHeight = ref('');
+    const $$calcHeight = ref('');
+    const calcHeight = computed<string, number>({
+      get() {
+        if (props.currentLineHeight === undefined) {
+          return $$calcHeight.value;
+        }
+        return `${props.currentLineHeight}px`;
+      },
+      set(val) {
+        $$calcHeight.value = `${val}px`;
+        props.onLineHeightChange?.(val);
+      }
+    });
 
     const tableLineHeight = computed(() => {
       if (typeof props.lineHeight === 'number') {
@@ -606,9 +624,9 @@ export default defineComponent({
 
         if (defaultHeight > 0 && operationHeight > 0) {
           if (operationHeight >= defaultHeight) {
-            calcHeight.value = `${operationHeight}px`;
+            calcHeight.value = operationHeight;
           } else if (defaultHeight) {
-            calcHeight.value = `${defaultHeight}px`;
+            calcHeight.value = defaultHeight;
           }
         }
       }

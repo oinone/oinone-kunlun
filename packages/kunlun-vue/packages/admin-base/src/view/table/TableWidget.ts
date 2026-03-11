@@ -122,12 +122,23 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   }
 
   @Widget.Reactive()
+  protected currentLineHeight: number | undefined;
+
+  @Widget.Method()
+  protected onLineHeightChange(lineHeight: number | undefined) {
+    this.currentLineHeight = lineHeight;
+  }
+
+  @Widget.Reactive()
   protected get lineHeight(): string | number | undefined {
     const { lineHeight } = this.tableConfig;
     if (lineHeight != null) {
       return this.computeLineHeight(lineHeight);
     }
-    return this.computeLineHeight(this.defaultBasicLineHeight);
+    if (this.currentLineHeight == null) {
+      return this.computeLineHeight(this.defaultBasicLineHeight);
+    }
+    return this.computeLineHeight(this.currentLineHeight);
   }
 
   /**
