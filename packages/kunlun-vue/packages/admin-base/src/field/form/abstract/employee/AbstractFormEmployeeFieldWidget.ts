@@ -1,5 +1,6 @@
 import { PamirsEmployee, RuntimeRelationField } from '@oinone/kunlun-engine';
 import { BooleanHelper, StringHelper } from '@oinone/kunlun-shared';
+import { ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { SelectFieldWidget } from '../../../../basic';
 import { EmployeeSelect } from '../../../../components';
@@ -9,6 +10,16 @@ export abstract class AbstractFormEmployeeFieldWidget<
   Value extends PamirsEmployee | PamirsEmployee[] = PamirsEmployee | PamirsEmployee[],
   Field extends RuntimeRelationField = RuntimeRelationField
 > extends SelectFieldWidget<Option, Value, Field> {
+  public defaultValidateTrigger: ValidateTrigger[] = [ValidateTrigger.change];
+
+  protected defaultConstructDataTrigger() {
+    return [WidgetTrigger.change];
+  }
+
+  protected defaultClearFieldsTrigger() {
+    return [WidgetTrigger.change];
+  }
+
   public initialize(props) {
     super.initialize(props);
     this.setComponent(EmployeeSelect);

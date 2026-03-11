@@ -9,7 +9,7 @@ import {
 } from '@oinone/kunlun-engine';
 import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { BooleanHelper, NumberHelper } from '@oinone/kunlun-shared';
-import { type SelectItem, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
+import { type SelectItem, ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormComplexFieldWidget } from '../../../../basic/field/complex/FormComplexFieldWidget';
 import { isValidatorSuccess, type ValidatorInfo } from '../../../../typing';
@@ -238,6 +238,8 @@ export abstract class FormRelationFieldRadioWidget<
       errorValue
     );
   }
+
+  public defaultValidateTrigger: ValidateTrigger[] = [ValidateTrigger.change];
 
   protected defaultConstructDataTrigger() {
     return [WidgetTrigger.CHANGE];
