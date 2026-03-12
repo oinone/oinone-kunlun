@@ -4,6 +4,7 @@ import {
   type FieldPattern,
   isRelation2OField,
   type RuntimeModelField,
+  RuntimeRelationField,
   SubmitHandler,
   SubmitRelationHandler,
   SubmitRelationValue,
@@ -205,7 +206,7 @@ export class BaseFieldWidget<
     });
     const { field, itemName, viewMode, submitCache, submitType, relationUpdateType } = this;
     const updateValue = await SubmitRelationHandler.M2O(
-      field,
+      field as RuntimeRelationField,
       itemName,
       submitValue,
       selectedValue,
