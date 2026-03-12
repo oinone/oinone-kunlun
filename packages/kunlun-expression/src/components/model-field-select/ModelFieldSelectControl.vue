@@ -59,7 +59,7 @@ import { CastHelper } from '@oinone/kunlun-shared';
 import { OioIcon, OioInput } from '@oinone/kunlun-vue-ui-antd';
 import { WritableComputedRef } from '@vue/reactivity';
 import { debounce } from 'lodash-es';
-import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, type PropType, Ref, ref, watch } from 'vue';
+import { computed, defineComponent, onBeforeUnmount, onMounted, type PropType, Ref, ref, watch } from 'vue';
 import { queryExpModelFields } from '../../service/modelDefinitionService';
 import {
   checkBlurFocus,
@@ -170,7 +170,7 @@ export default defineComponent({
     const isShowDropdown = ref(false);
     const isShowDownArrow = ref(true);
     const isAllowClear = computed(() => {
-      return props.allowClear && !isValueEmpty.value;
+      return props.allowClear;
     });
 
     const $$selectValue: Ref<IExpSelectOption | null | undefined> = ref();
@@ -377,10 +377,6 @@ export default defineComponent({
       return opts;
     });
 
-    const toggleDropdown = () => {
-      isShowDropdown.value = !isShowDropdown.value;
-    };
-
     const getPopupContainer = (triggerNode?: HTMLElement) => {
       return document.body;
     };
@@ -444,14 +440,6 @@ export default defineComponent({
       isShowDropdown.value = visible;
     };
 
-    watch(isShowDropdown, () => {
-      if (isShowDropdown.value) {
-        nextTick(() => {
-          // autoSetPopoverCss(controlRef.value, dropdownRef.value, true);
-        });
-      }
-    });
-
     const changeSearchKey = debounce((newValue) => {
       searchKeywordsDebounce.value = newValue;
     }, 300);
@@ -505,7 +493,6 @@ export default defineComponent({
       options,
       availableOptions,
       getPopupContainer,
-      toggleDropdown,
       onClear,
       onChange,
       fetchChildrenInner,

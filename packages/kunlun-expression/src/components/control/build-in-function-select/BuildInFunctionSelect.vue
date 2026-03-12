@@ -6,48 +6,36 @@
     :open="isShowDropdown"
   >
     <template #default>
-      <span
-        class="ant-select ant-select-single build-in-function-select-control"
-        :class="{
-          'ant-select-allow-clear': isAllowClear,
-          'ant-select-show-arrow': isShowDownArrow,
-          'ant-select-open': isShowDropdown,
-          'ant-select-focus': true
-        }"
-        ref="controlRef"
-      >
-        <div class="ant-select-selector" @click="toggleDropdown">
-          <span class="ant-select-selection-item" v-if="!isValueEmpty" :title="selectValue.label">
-            {{ showValueLabel ? selectValue.value : selectValue.label }}
-          </span>
-          <span class="ant-select-selection-placeholder" v-if="isShowPlaceholder" @click="toggleDropdown">{{
-            placeholder
-          }}</span>
-        </div>
-        <span class="ant-select-arrow" v-if="isShowDownArrow">
-          <down-outlined class="ant-select-suffix" />
-        </span>
-        <span class="ant-select-clear" v-if="isAllowClear" @click="onClear">
-          <close-circle-filled />
-        </span>
-      </span>
+      <a-select
+        class="oio-select"
+        popup-class-name="oio-select-dropdown"
+        label-in-value
+        :placeholder="placeholder"
+        :allow-clear="isAllowClear"
+        :show-arrow="isShowDownArrow"
+        :value="selectValue"
+        :options="null"
+        :notFoundContent="null"
+        :open="isShowDropdown"
+        @dropdown-visible-change="onDropdownVisibleChange"
+      />
     </template>
     <template #content>
       <div ref="dropdownRef">
-        <expression-designer-cascader :options="options" @change="onChange"> </expression-designer-cascader>
+        <expression-designer-cascader :options="options" @change="onChange"></expression-designer-cascader>
       </div>
     </template>
   </a-popover>
 </template>
 <script lang="ts">
-import { defineComponent, ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue';
-import { Select as ASelect, Popover as APopover } from 'ant-design-vue';
-import { CloseCircleOutlined, CloseCircleFilled, DownOutlined } from '@ant-design/icons-vue';
+import { deepClone } from '@oinone/kunlun-meta';
+import { WritableComputedRef } from '@vue/reactivity';
+import { Popover as APopover, Select as ASelect } from 'ant-design-vue';
+import { computed, defineComponent, onBeforeUnmount, onMounted, Ref, ref, watch } from 'vue';
+import { queryExpBuildInFunction } from '../../../service';
 import { checkBlurFocus, createDefaultVariableItemList, translateExpValue } from '../../../share';
 import { FunctionCategoryList, type IExpSelectOption } from '../../../types';
 import ExpressionDesignerCascader from '../../cascader/Cascader.vue';
-import { queryExpBuildInFunction } from '../../../service';
-import { deepClone } from '@oinone/kunlun-meta';
 
 /**
  * 适用于表单类变量控件
@@ -56,12 +44,8 @@ export default defineComponent({
   components: {
     ASelect,
     APopover,
-    ExpressionDesignerCascader,
-    CloseCircleOutlined,
-    CloseCircleFilled,
-    DownOutlined
+    ExpressionDesignerCascader
   },
-
   props: {
     value: String,
     placeholder: {
@@ -81,28 +65,47 @@ export default defineComponent({
     const isShowDropdown = ref(false);
     const isShowDownArrow = ref(true);
     const isAllowClear = computed(() => {
-      return props.allowClear && !isValueEmpty.value;
+      return props.allowClear;
     });
-    const selectValue = ref<IExpSelectOption>({} as IExpSelectOption);
+
+    const $$selectValue: Ref<IExpSelectOption | null | undefined> = ref();
+    const selectValue: WritableComputedRef<IExpSelectOption | null | undefined> = computed({
+      get() {
+        if (!$$selectValue.value || !$$selectValue.value.value) {
+          return undefined;
+        }
+        return $$selectValue.value;
+      },
+      set(val) {
+        $$selectValue.value = val;
+      }
+    });
+
     const searchKeywords = ref('');
     const searchInputMirrorRef = ref(null);
     const searchInputRef = ref(null);
     const selectionSearchLeft = ref(10);
     const options = ref<IExpSelectOption[]>([]);
 
-    const isShowPlaceholder = computed(() => {
-      return isValueEmpty.value && !searchKeywords.value;
+    const placeholder = computed(() => {
+      if (isValueEmpty.value) {
+        return props.placeholder;
+      }
+      return null;
     });
+
     const isValueEmpty = computed(() => {
       return !(selectValue.value && selectValue.value.value);
     });
+
     const emitChangeEvent = () => {
-      context.emit('update:value', selectValue.value.value);
+      context.emit('update:value', selectValue.value?.value);
       context.emit('change-fun', selectValue.value);
       props.change && props.change(selectValue.value);
     };
+
     const onClear = () => {
-      selectValue.value = {} as IExpSelectOption;
+      selectValue.value = null;
       emitChangeEvent();
     };
 
@@ -125,10 +128,6 @@ export default defineComponent({
       emitChangeEvent();
     };
 
-    const toggleDropdown = () => {
-      isShowDropdown.value = !isShowDropdown.value;
-    };
-
     const setSelectedValue = (newVal) => {
       let functions: IExpSelectOption[] = [];
       options.value &&
@@ -139,7 +138,7 @@ export default defineComponent({
 
       selectValue.value = selectItem
         ? selectItem
-        : ({ value: props.value as string, label: selectValue.value.label || props.value } as IExpSelectOption);
+        : ({ value: props.value as string, label: selectValue.value?.label || props.value } as IExpSelectOption);
     };
 
     const getPopupContainer = (triggerNode) => {
@@ -157,13 +156,9 @@ export default defineComponent({
     const controlRef = ref<HTMLElement>(null as any);
     const dropdownRef = ref<HTMLElement>(null as any);
 
-    watch(isShowDropdown, () => {
-      if (isShowDropdown.value) {
-        nextTick(() => {
-          // autoSetPopoverCss(controlRef.value, dropdownRef.value);
-        });
-      }
-    });
+    const onDropdownVisibleChange = (visible: boolean) => {
+      isShowDropdown.value = visible;
+    };
 
     let isFocus = false;
     const onContains = (e) => {
@@ -185,6 +180,7 @@ export default defineComponent({
     onMounted(() => {
       document.body.addEventListener('click', onContains);
     });
+
     onBeforeUnmount(() => {
       document.body.removeEventListener('click', onContains);
       isShowDropdown.value = false;
@@ -211,10 +207,13 @@ export default defineComponent({
         return cate;
       }).filter((a) => a.children && a.children.length > 0);
 
-      setSelectedValue(selectValue.value.value);
+      setSelectedValue(selectValue.value?.value);
     });
 
     return {
+      placeholder,
+      onDropdownVisibleChange,
+
       options,
       isShowDropdown,
       isShowDownArrow,
@@ -225,11 +224,9 @@ export default defineComponent({
       selectionSearchLeft,
       searchInputMirrorRef,
       searchInputRef,
-      isShowPlaceholder,
       controlRef,
       dropdownRef,
       getPopupContainer,
-      toggleDropdown,
       onClear,
       onChange
     };
