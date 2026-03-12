@@ -9,48 +9,52 @@
   flex-direction: column;
   gap: calc(var(--oio-row-gap) - 10px);
 
-  > .default-iconSearch {
-    &-searchContent {
-      width: 100%;
+  &-searchContent {
+    width: 100%;
+    display: flex;
+    column-gap: var(--oio-row-gap);
+    align-items: center;
+    justify-content: space-between;
+
+    &-field {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      & > .default-iconSearch-searchContent {
-        &-field {
-          flex: 0 0 80%;
-          display: flex;
-          gap: var(--oio-row-gap);
+      flex: 1;
+      gap: var(--oio-row-gap);
 
-          & > .ant-form-item {
-            flex-flow: row nowrap;
-            align-items: center;
-            margin-bottom: 0;
-            flex: 0 0 20%;
+      & > .ant-form-item {
+        margin-bottom: 0;
 
-            &[data-name='createDate'] {
-              flex: 0 0 40%;
-            }
+        & > .ant-form-item-row {
+          flex-wrap: nowrap;
+          align-items: center;
+          column-gap: 8px;
 
-            .oio-icon-oinone-sousuo {
-              --oio-icon-color: #979797 !important;
-            }
+          & > .ant-form-item-label {
+            flex-basis: 78px;
+          }
+
+          & > .ant-form-item-control {
+            width: unset;
           }
         }
 
-        &-button {
-          flex: 0 0 18%;
-          display: flex;
-          justify-content: flex-end;
-          gap: var(--oio-row-gap);
+        & > .ant-form-item-row[data-name='displayName'] > .ant-form-item-label {
+          flex-basis: 120px;
         }
       }
     }
 
-    &-item {
-      width: 100%;
+    &-button {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--oio-row-gap);
     }
+  }
 
-    &-group {
-    }
+  &-item {
+    width: 100%;
+  }
+
+  &-group {
   }
 }

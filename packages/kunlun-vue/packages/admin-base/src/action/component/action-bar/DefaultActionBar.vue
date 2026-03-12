@@ -146,6 +146,12 @@ export default defineComponent({
     justify: {
       type: String
     },
+    direction: {
+      type: String
+    },
+    operatorColumnDirection: {
+      type: String as PropType<OperationColumnDirection | keyof typeof OperationColumnDirection>
+    },
     isFloat: {
       type: Boolean,
       default: false
@@ -155,9 +161,6 @@ export default defineComponent({
     },
     buttonType: {
       type: String
-    },
-    operatorColumnDirection: {
-      type: String as PropType<OperationColumnDirection | keyof typeof OperationColumnDirection>
     },
     showActionNames: {
       type: Array as PropType<string[]>
@@ -328,6 +331,9 @@ export default defineComponent({
           ]
         )
       );
+    }
+    if (this.direction) {
+      classList.push(`${actionBarClassName}-direction-${this.direction}`);
     }
     if (this.justify) {
       classList.push(`${actionBarClassName}-${this.justify}`);

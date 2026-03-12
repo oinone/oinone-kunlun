@@ -1,6 +1,5 @@
 <script lang="ts">
 import { translateValueByKey } from '@oinone/kunlun-engine';
-import { ModelFieldType } from '@oinone/kunlun-meta';
 import {
   OioSpin,
   PropRecordHelper,
@@ -105,29 +104,16 @@ export default defineComponent({
   render() {
     const { onUploadIcon, $translate } = this;
 
+    const { default: defaultSlot, actions: actionSlot } = PropRecordHelper.collectionSlots(this.$slots, [
+      { origin: 'default', isNotNull: true },
+      { origin: 'actions', isNotNull: true }
+    ]);
+
     const searchContent = () => {
-      const fieldChildren = PropRecordHelper.collectionSlots(this.$slots, [{ origin: 'default', isNotNull: true }])
-        .default()
-        .map((fieldVNode) => {
-          if (fieldVNode.props && fieldVNode.props.dslDefinition) {
-            fieldVNode.props.dslDefinition.labelCol = { style: { 'flex-basis': '0px' } };
-            fieldVNode.props.dslDefinition.wrapperCol = { style: { 'max-width': '100%' } };
-            if (fieldVNode.props.ttype === ModelFieldType.DateTime) {
-              fieldVNode.props.colStyle = { flex: '0 0 40%' };
-            } else {
-              fieldVNode.props.colStyle = { flex: '0 0 20%', 'max-width': '20%' };
-            }
-          }
-          return fieldVNode;
-        });
-
-      const actions = PropRecordHelper.collectionSlots(this.$slots, [{ origin: 'actions', isNotNull: true }]).actions();
-
-      const iconButtons = createIconButton({ onUploadIcon, $translate, actions });
-
+      const iconButtons = createIconButton({ onUploadIcon, $translate, actions: actionSlot() });
       return [
         createVNode('div', { class: 'default-iconSearch-searchContent' }, [
-          createVNode('div', { class: 'default-iconSearch-searchContent-field' }, fieldChildren),
+          createVNode('div', { class: 'default-iconSearch-searchContent-field' }, defaultSlot()),
           createVNode('div', { class: 'default-iconSearch-searchContent-button' }, iconButtons)
         ])
       ];
@@ -149,20 +135,28 @@ export default defineComponent({
       ];
     };
 
-    const defaultSlot = () => {
-      return [
-        ...searchContent(),
-        createVNode(
-          OioSpin,
-          { loading: !this.groupList?.length, wrapperClassName: 'default-iconSearch-item default-iconSearch-group' },
-          () => createVNode('div', { style: { display: 'flex' } }, groupContent())
-        )
-      ];
-    };
-
-    return withDirectives(createVNode('div', { class: 'default-iconSearch' }, { default: defaultSlot }), [
-      [vShow, !this.invisible]
-    ]);
+    return withDirectives(
+      createVNode(
+        'div',
+        { class: 'default-iconSearch' },
+        {
+          default: () => {
+            return [
+              ...searchContent(),
+              createVNode(
+                OioSpin,
+                {
+                  loading: !this.groupList?.length,
+                  wrapperClassName: 'default-iconSearch-item default-iconSearch-group'
+                },
+                () => createVNode('div', { style: { display: 'flex' } }, groupContent())
+              )
+            ];
+          }
+        }
+      ),
+      [[vShow, !this.invisible]]
+    );
   }
 });
 </script>

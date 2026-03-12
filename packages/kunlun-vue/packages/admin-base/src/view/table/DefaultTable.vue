@@ -7,6 +7,7 @@ import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import {
   type ActiveEditorContext,
   type CheckedChangeEvent,
+  GROUP_TREE_KEY,
   OioColumn,
   OioTable,
   type OioTableInstance,
@@ -33,9 +34,7 @@ import {
   OioSpin,
   OioTooltip,
   PropRecordHelper,
-  StyleHelper,
-  useInjectOioDefaultFormContext,
-  useProviderOioDefaultFormContext
+  StyleHelper
 } from '@oinone/kunlun-vue-ui-antd';
 import { DslRender } from '@oinone/kunlun-vue-widget';
 import { debounce } from 'lodash-es';
@@ -405,6 +404,10 @@ export default defineComponent({
       type: Function,
       required: true
     },
+    enableGrouping: {
+      type: Boolean,
+      default: false
+    },
     enabledGroupView: {
       type: Boolean,
       default: false
@@ -430,13 +433,17 @@ export default defineComponent({
     },
     onKeydown: {
       type: Function
+    },
+    currentLineHeight: {
+      type: Number
+    },
+    onLineHeightChange: {
+      type: Function
     }
   },
   setup(props) {
     const defaultTableRef = ref<HTMLElement>(null as any);
     const table = ref<OioTableInstance | undefined>();
-
-    const formContext = useInjectOioDefaultFormContext();
 
     const tableContentElement = computed(
       () => defaultTableRef.value && defaultTableRef.value.querySelector('.oio-table-content-wrapper')!
@@ -539,7 +546,19 @@ export default defineComponent({
       return StyleHelper.parse(props.template?.style);
     });
 
-    const calcHeight = ref('');
+    const $$calcHeight = ref('');
+    const calcHeight = computed<string, number>({
+      get() {
+        if (props.currentLineHeight === undefined) {
+          return $$calcHeight.value;
+        }
+        return `${props.currentLineHeight}px`;
+      },
+      set(val) {
+        $$calcHeight.value = `${val}px`;
+        props.onLineHeightChange?.(val);
+      }
+    });
 
     const tableLineHeight = computed(() => {
       if (typeof props.lineHeight === 'number') {
@@ -605,9 +624,9 @@ export default defineComponent({
 
         if (defaultHeight > 0 && operationHeight > 0) {
           if (operationHeight >= defaultHeight) {
-            calcHeight.value = `${operationHeight}px`;
+            calcHeight.value = operationHeight;
           } else if (defaultHeight) {
-            calcHeight.value = `${defaultHeight}px`;
+            calcHeight.value = defaultHeight;
           }
         }
       }
@@ -779,13 +798,6 @@ export default defineComponent({
       },
       { immediate: true }
     );
-
-    useProviderOioDefaultFormContext({
-      ...formContext,
-      getTriggerContainer: (triggerNode) => {
-        return document.body;
-      }
-    });
 
     return {
       defaultTableRef,
@@ -1172,6 +1184,9 @@ export default defineComponent({
     const classs = ['default-table'];
     if (!this.inline) {
       classs.push('default-main-table');
+    }
+    if (this.treeConfig?.children === GROUP_TREE_KEY.CHILDREN_KEY && !this.enabledGroupView) {
+      classs.push('default-table-group-hidden-expand');
     }
 
     return createVNode(

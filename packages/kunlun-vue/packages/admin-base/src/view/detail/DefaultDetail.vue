@@ -18,6 +18,10 @@ export default defineComponent({
     template: {
       type: Object as PropType<DslRenderDefinition>
     },
+    inline: {
+      type: Boolean,
+      default: undefined
+    },
     formData: {
       type: Object,
       default: () => ({})
@@ -28,15 +32,12 @@ export default defineComponent({
       DefaultForm,
       {
         ...PropRecordHelper.convert(OioFormProps, CastHelper.cast(this)),
-        ...PropRecordHelper.collectionBasicProps(
-          this.$attrs,
-          StringHelper.append([`${DEFAULT_PREFIX}-default-detail`], CastHelper.cast(this.template?.class)),
-          CastHelper.cast(this.template?.style)
-        ),
+        ...PropRecordHelper.collectionBasicProps(this.$attrs, [`${DEFAULT_PREFIX}-default-detail`]),
         wrapperClassName: StringHelper.append([`${DEFAULT_PREFIX}-default-detail-wrapper`], this.wrapperClassName).join(
           ' '
         ),
         template: this.template,
+        inline: this.inline,
         formData: this.formData
       },
       PropRecordHelper.collectionSlots(this.$slots, [

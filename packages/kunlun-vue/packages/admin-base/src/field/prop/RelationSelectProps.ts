@@ -3,6 +3,7 @@ import { BooleanHelper } from '@oinone/kunlun-shared';
 import { debounce, delay } from 'lodash-es';
 import { computed, nextTick, onBeforeUnmount, onMounted, type PropType, ref } from 'vue';
 import { usePlaceholderProps } from '../../basic';
+import { useSelectId } from '../../components';
 
 export const RelationSelectProps = {
   dropdownClassName: {
@@ -99,6 +100,8 @@ export const RelationSelectProps = {
 };
 
 export function relationSelectSetup(props, multi?: boolean) {
+  const id = useSelectId();
+
   const selectRef = ref();
   const dropdownInputRef = ref();
   const dropdownOpen = ref(false);
@@ -256,7 +259,37 @@ export function relationSelectSetup(props, multi?: boolean) {
     }
   };
 
+  const $$onClear = () => {
+    props.change?.(null);
+    props.search?.('');
+  };
+
   const onGlobalMouseDown = (e: MouseEvent) => {
+    let antSelectClearDom: HTMLElement | undefined;
+    let target = e.target as HTMLElement | null | undefined;
+    if (target) {
+      for (let i = 0; i < 5; i++) {
+        if (target.nodeType && target.classList.contains('ant-select-clear')) {
+          antSelectClearDom = target;
+          break;
+        }
+        target = target.parentElement;
+        if (!target) {
+          break;
+        }
+      }
+    }
+    if (
+      antSelectClearDom &&
+      document
+        .querySelector(`#${id}`)
+        ?.parentElement?.parentElement?.parentElement?.getElementsByClassName('ant-select-clear')
+        .item(0) === antSelectClearDom
+    ) {
+      e.preventDefault();
+      e.stopPropagation();
+      $$onClear();
+    }
     focusSearchInput = e.target === dropdownInputRef.value?.originInput?.input;
   };
 
@@ -269,6 +302,7 @@ export function relationSelectSetup(props, multi?: boolean) {
   });
 
   return {
+    id,
     placeholder,
     innerReadonly,
     innerDisabled,

@@ -7,11 +7,11 @@
       :style="computeStyle(item)"
     >
       <div class="mobile-detail-multi-select-item-font" :title="item.label">
-        {{ item.label }}
+        {{ $translate(item.label) }}
       </div>
     </div>
   </div>
-  <span v-else>{{ currentValue }}</span>
+  <span v-else>{{ $translate(currentValue) }}</span>
 </template>
 <script lang="ts">
 import type { RuntimeEnumerationOption } from '@oinone/kunlun-engine';

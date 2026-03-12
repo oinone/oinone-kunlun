@@ -53,5 +53,9 @@ export const useProviderMetaContext = (state: Partial<MetaContext>): void => {
  * 获取元数据上下文
  */
 export const useInjectMetaContext = (): MetaContext => {
-  return inject(MetaContextKey, defaultMetaContext);
+  const res = inject(MetaContextKey, defaultMetaContext);
+  if (!res) {
+    return { ...defaultMetaContext };
+  }
+  return res;
 };

@@ -15,8 +15,19 @@ export enum FlexRowJustify {
 }
 
 export enum FlexDirection {
+  /**
+   * @deprecated please using ROW
+   */
   Row = 'row',
-  Column = 'column'
+  /**
+   * @deprecated please using COLUMN
+   */
+  Column = 'column',
+
+  ROW = 'row',
+  COLUMN = 'column',
+  ROW_REVERSE = 'row-reverse',
+  COLUMN_REVERSE = 'column-reverse'
 }
 
 /**

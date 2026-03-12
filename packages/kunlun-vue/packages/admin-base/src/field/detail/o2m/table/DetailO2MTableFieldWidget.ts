@@ -3,6 +3,7 @@ import { ModelFieldType, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
+import { isDetailViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseFieldWidget, FormSubviewListFieldWidget, RelationQueryHelper } from '../../../../basic';
 import { TABLE_WIDGET } from '../../../../typing';
 
@@ -20,7 +21,22 @@ export class DetailO2MTableFieldWidget extends FormSubviewListFieldWidget<Runtim
     }
   }
 
+  @Widget.Reactive()
+  protected get disabledRelationQuery() {
+    if (this.viewState && isDetailViewState(this.viewState)) {
+      if (this.inline) {
+        return this.viewState.disabledRelationQuery;
+      }
+      return this.viewState.disabledRelationQuery || this.globalState?.disabledRelationQuery;
+    }
+    return this.globalState?.disabledRelationQuery;
+  }
+
   protected initSubviewData(): ReturnPromise<void> {
+    if (this.disabledRelationQuery) {
+      super.initSubviewData();
+      return;
+    }
     const view = this.runtimeSubviewContext.view;
     if (!view) {
       super.initSubviewData();

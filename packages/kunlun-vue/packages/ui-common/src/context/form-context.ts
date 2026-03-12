@@ -1,7 +1,7 @@
 import { inject, type InjectionKey, provide } from 'vue';
 
 export interface OioDefaultFormContext {
-  getTriggerContainer: (triggerNode: Node | HTMLElement) => Node | HTMLElement;
+  getTriggerContainer?: (triggerNode: Node | HTMLElement) => Node | HTMLElement;
 }
 
 export const OioDefaultFormContextKey: InjectionKey<OioDefaultFormContext> = Symbol('OioDefaultFormContext');
@@ -11,7 +11,5 @@ export const useProviderOioDefaultFormContext = (state: OioDefaultFormContext): 
 };
 
 export const useInjectOioDefaultFormContext = (): OioDefaultFormContext => {
-  return inject(OioDefaultFormContextKey, {
-    getTriggerContainer: (triggerNode) => triggerNode.parentNode || document.body
-  });
+  return inject(OioDefaultFormContextKey, {});
 };

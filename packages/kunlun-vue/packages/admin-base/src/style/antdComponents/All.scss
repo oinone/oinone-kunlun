@@ -267,33 +267,6 @@ a:hover {
   color: var(--oio-disabled-color);
 }
 
-.ant-select-dropdown {
-  background: var(--oio-select-dropdown-background);
-  box-shadow: var(--oio-select-dropdown-box-shadow);
-  .ant-select-item {
-    color: var(--oio-select-dropdown-color) !important;
-    &:hover {
-      background: var(--oio-select-dropdown-hover-background) !important;
-      color: var(--oio-select-dropdown-hover-color) !important;
-    }
-    &.ant-select-item-option-selected {
-      background: var(--oio-select-dropdown-selected) !important;
-
-      .ant-select-item-option-content {
-        color: var(--oio-select-dropdown-selected-color) !important;
-      }
-    }
-  }
-  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-    color: var(--oio-select-primary-color);
-    background-color: rgba(var(--oio-primary-color-rgb), 0.1);
-  }
-
-  .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-    background-color: rgba(var(--oio-primary-color-rgb), 0.1);
-  }
-}
-
 .ant-picker-header > button:hover {
   color: var(--oio-primary-color);
 }

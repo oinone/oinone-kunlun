@@ -9,7 +9,7 @@ import { TableDateTimeFieldWidget } from './TableDateTimeFieldWidget';
 @SPI.ClassFactory(
   BaseFieldWidget.Token({
     viewType: ViewType.Table,
-    ttype: [ModelFieldType.Year]
+    ttype: ModelFieldType.Year
   })
 )
 export class TableYearFieldWidget extends TableDateTimeFieldWidget {

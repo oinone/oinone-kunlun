@@ -1,4 +1,4 @@
-import { DEFAULT_SLOT_NAME, type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
+import { DEFAULT_SLOT_NAME, type DslDefinition, DslDefinitionType, ElementDslDefinition } from '@oinone/kunlun-dsl';
 import {
   type ActiveRecord,
   type ActiveRecords,
@@ -172,7 +172,7 @@ export class BaseTableWidget<
     return {
       dslNodeType: DslDefinitionType.ELEMENT,
       widget: 'ViewControl',
-      widgets: this.viewControlChildren
+      widgets: this.viewControlChildren.map((v) => ({ ...v, key: v.widget }))
     };
   }
 
@@ -180,7 +180,7 @@ export class BaseTableWidget<
    * 视图控制相关的子组件, 可能包含（排序、分组、行高切换、全屏）
    */
   @Widget.Reactive()
-  protected get viewControlChildren(): DslDefinition[] {
+  protected get viewControlChildren(): ElementDslDefinition[] {
     const controls: { enabled: boolean; widget: string; props?: Record<string, unknown> }[] = [
       {
         enabled: this.sortable,
@@ -430,14 +430,6 @@ export class BaseTableWidget<
   @Widget.Method()
   @Widget.Provide()
   protected async rowEditorClosedBefore(context: RowContext): Promise<boolean> {
-    // 新增时有可能会多出来一些空值key。 过滤后对比
-    // const pureData = omitBy({ ...context.data }, isNil);
-    // if (isEqual(pureData, this.currentEditorContext!.row) && this.tableRowEditMode === TableRowEditMode.CREATE) {
-    //   if (context?.data) {
-    //     await this.removeRecordFormDataSource(context);
-    //   }
-    //   return false;
-    // }
     const res = await this.rowEditorClosedForValidator(context);
     if (!res) {
       return false;

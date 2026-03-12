@@ -9,6 +9,9 @@ import {
   type RuntimeModel,
   type RuntimeModelField,
   type RuntimeRelationField,
+  SubmitRelationHandler,
+  SubmitRelationValue,
+  SubmitValue,
   translateValueByKey
 } from '@oinone/kunlun-engine';
 import { type Entity, type IModel, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
@@ -114,12 +117,35 @@ export abstract class FormSelectComplexFieldWidget<
   public x2oChange(value) {
     if (value == null) {
       super.change(null as any);
+      this.updateX2OValue(null);
       this.handleEmpty();
       return;
     }
 
     const selectedValue = this.dataList.find((d) => d[this.relationFieldKey] === value.value)! || value;
     super.change(selectedValue as any);
+    this.updateX2OValue(selectedValue);
+  }
+
+  protected async updateX2OValue(selectedValue: object | null) {
+    const submitValue = new SubmitValue({
+      [this.itemData]: selectedValue
+    });
+    const { field, itemName, value, viewMode, submitCache, submitType, relationUpdateType } = this;
+    const updateValue = await SubmitRelationHandler.M2O(
+      field,
+      itemName,
+      submitValue,
+      value as ActiveRecord | null | undefined,
+      viewMode,
+      submitCache,
+      submitType,
+      relationUpdateType
+    );
+    if (updateValue instanceof SubmitRelationValue) {
+      return;
+    }
+    Object.assign(this.formData, updateValue);
   }
 
   protected x2mChange(value) {

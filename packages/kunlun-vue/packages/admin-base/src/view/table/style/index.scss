@@ -88,6 +88,12 @@
     }
   }
 
+  &.default-table-group-hidden-expand {
+    .vxe-tree-cell {
+      padding-left: 0;
+    }
+  }
+
   .highlight {
     background: var(--table-high-light-bg, #6a7deb);
   }

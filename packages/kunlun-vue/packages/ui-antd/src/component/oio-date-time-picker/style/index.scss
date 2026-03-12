@@ -11,7 +11,6 @@
     height: var($parameterPrefix + -height);
     line-height: var($inputParameterPrefix + -line-height);
     font-size: var($parameterPrefix + -font-size);
-    padding: 12px;
 
     &:hover {
       @include oio-hover($inputParameterPrefix);

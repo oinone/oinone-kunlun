@@ -5,6 +5,7 @@ import { SPI } from '@oinone/kunlun-spi';
 import {
   ButtonBizStyle,
   ButtonType,
+  FlexDirection,
   FlexRowJustify,
   ListSelectMode,
   OioDropdownTrigger
@@ -112,6 +113,18 @@ export class ActionBarWidget<
       }
     }
     return justify;
+  }
+
+  @Widget.Reactive()
+  public get direction(): string | undefined {
+    const { direction } = this.getDsl();
+    if (direction) {
+      const value = FlexDirection[direction.toUpperCase()];
+      if (value) {
+        return value;
+      }
+    }
+    return direction;
   }
 
   @Widget.Reactive()

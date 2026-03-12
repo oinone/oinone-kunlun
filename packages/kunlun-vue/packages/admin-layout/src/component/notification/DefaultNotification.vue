@@ -381,11 +381,14 @@ export default defineComponent({
 
     .center-content {
       flex: 1;
+      overflow: hidden;
 
       .title {
         font-size: 14px;
         color: var(--oio-text-color);
         margin-bottom: 6px;
+        word-wrap: break-word;
+        word-break: break-all;
       }
 
       .des {

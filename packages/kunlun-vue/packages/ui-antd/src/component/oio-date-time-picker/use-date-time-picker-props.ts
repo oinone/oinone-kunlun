@@ -1,11 +1,25 @@
 import { DateTimePickerMode, DateUtil, defaultFormat } from '@oinone/kunlun-shared';
 import { isNil, isString } from 'lodash-es';
 import type { Moment } from 'moment';
-import { computed, ref, watch } from 'vue';
+import { computed, type ComputedRef, ref } from 'vue';
 
 export function useDateTimePickerProps(props, context) {
-  const dynamicMode = ref<DateTimePickerMode | undefined>(undefined);
+  const mode: ComputedRef<DateTimePickerMode> = computed(() => {
+    const $$mode = props.mode as DateTimePickerMode;
+    if (!$$mode) {
+      return DateTimePickerMode.datetime;
+    }
+    if ($$mode === DateTimePickerMode.date) {
+      const dateFormat = DateUtil.fetchDateFormat(props.format || props.dateFormat, props.convertDateFormat);
+      if (dateFormat.indexOf('D') === -1) {
+        return DateTimePickerMode.month;
+      }
+    }
+    return $$mode;
+  });
+
   const panelVisible = ref<boolean>(false);
+
   const innerChangeOpenValue = (v) => {
     panelVisible.value = v;
     props.changeOpenValue?.(v);
@@ -39,31 +53,6 @@ export function useDateTimePickerProps(props, context) {
     return DateUtil.dateFormat(val, valueFormat.value);
   });
 
-  const realMode = computed<DateTimePickerMode | undefined>(() => {
-    const mode = props.mode;
-    if (mode) {
-      switch (mode) {
-        case DateTimePickerMode.datetime:
-          return undefined;
-        case DateTimePickerMode.date: {
-          const dateFormat = DateUtil.fetchDateFormat(props.format || props.dateFormat, props.convertDateFormat);
-          if (dateFormat.indexOf('D') === -1) {
-            return DateTimePickerMode.month;
-          }
-          break;
-        }
-        case DateTimePickerMode.time:
-          break;
-        case DateTimePickerMode.year:
-          break;
-        default:
-          return mode;
-      }
-      return mode;
-    }
-    return undefined;
-  });
-
   const showTime = computed(() => {
     if (isNil(props.showTime)) {
       return props.mode === DateTimePickerMode.datetime;
@@ -83,17 +72,8 @@ export function useDateTimePickerProps(props, context) {
   };
 
   const panelChange = (val: Moment | string, mode: string) => {
-    const originMode = realMode.value;
     const value = typeof val === 'string' ? val : (val as Moment).format(valueFormat.value);
-    if (originMode && [DateTimePickerMode.year, DateTimePickerMode.month].includes(originMode)) {
-      context.emit('update:value', value);
-      innerChangeOpenValue(false);
-      dynamicMode.value = originMode;
-      return;
-    }
-
     context.emit('update:value', value);
-    dynamicMode.value = mode as DateTimePickerMode;
   };
 
   const panelVisibleChange = (visible: boolean) => {
@@ -102,29 +82,18 @@ export function useDateTimePickerProps(props, context) {
     }
     innerChangeOpenValue(visible);
     if (!visible) {
-      dynamicMode.value = realMode.value;
       props.closePanelChange?.();
     } else {
       props.openPanelChange?.();
     }
   };
 
-  watch(
-    () => props.mode,
-    () => {
-      innerChangeOpenValue(false);
-      dynamicMode.value = realMode.value;
-    },
-    { immediate: true }
-  );
-
   return {
-    dynamicMode,
+    mode,
     panelVisible,
     format,
     valueFormat,
     defaultValue,
-    realMode,
     showTime,
     panelChange,
     panelVisibleChange,
