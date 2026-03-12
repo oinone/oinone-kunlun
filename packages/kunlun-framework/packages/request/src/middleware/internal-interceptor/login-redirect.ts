@@ -1,12 +1,14 @@
 import { UrlHelper } from '@oinone/kunlun-shared';
 import { setSessionPath } from '../../session';
-import type { IResponseErrorResult, NetworkInterceptor } from '../../types';
+import { IErrorMessage, IResponseErrorResult, NetworkInterceptor } from '../../types';
 
 export class LoginRedirectInterceptor implements NetworkInterceptor {
   /**
    * 用户未登录错误码
    */
   public static USER_NOT_LOGIN_ERROR = [11500001, 20080002];
+
+  public static SSO_NOT_LOGIN_ERROR = [10041000];
 
   /**
    * 禁止重定向URL列表
@@ -29,7 +31,12 @@ export class LoginRedirectInterceptor implements NetworkInterceptor {
         LoginRedirectInterceptor.USER_NOT_LOGIN_ERROR.includes(errorCodeNumber) &&
         !LoginRedirectInterceptor.NOT_REDIRECT_PATH_NAMES.includes(pathname)
       ) {
-        if (this.redirectToLogin(response)) {
+        if (this.redirectToLogin(response, errorItem)) {
+          return false;
+        }
+      }
+      if (LoginRedirectInterceptor.SSO_NOT_LOGIN_ERROR.includes(errorCodeNumber)) {
+        if (this.redirectToSSOLogin(response, errorItem)) {
           return false;
         }
       }
@@ -40,9 +47,10 @@ export class LoginRedirectInterceptor implements NetworkInterceptor {
   /**
    * 重定向到登录页
    * @param response 错误响应结果
+   * @param errorItem 错误项
    * @return 是否重定向成功
    */
-  public redirectToLogin(response: IResponseErrorResult): boolean {
+  public redirectToLogin(response: IResponseErrorResult, errorItem: IErrorMessage): boolean {
     if (window.location.href.includes('?redirect_url=')) {
       return true;
     }
@@ -51,5 +59,20 @@ export class LoginRedirectInterceptor implements NetworkInterceptor {
     const redirect_url = pathname + search;
     window.location.href = `${UrlHelper.appendBasePath('login')}?redirect_url=${redirect_url}`;
     return true;
+  }
+
+  /**
+   * 重定向到SSO登录页
+   * @param response 错误响应结果
+   * @param errorItem 错误项
+   * @return 是否重定向成功
+   */
+  public redirectToSSOLogin(response: IResponseErrorResult, errorItem: IErrorMessage): boolean {
+    const redirectUrl = errorItem.extensions.messages?.[0]?.data;
+    if (redirectUrl) {
+      window.location.assign(redirectUrl);
+      return true;
+    }
+    return false;
   }
 }
