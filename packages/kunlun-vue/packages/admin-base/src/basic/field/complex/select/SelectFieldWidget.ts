@@ -2,6 +2,7 @@ import {
   type ActiveRecord,
   type ActiveRecords,
   ActiveRecordsOperator,
+  isRelation2OField,
   type Pagination,
   type QueryContext,
   type QueryPageResult,
@@ -36,6 +37,14 @@ export abstract class SelectFieldWidget<
   @Widget.Reactive()
   protected get bizStyle(): string | undefined {
     return this.getDsl().bizStyle;
+  }
+
+  @Widget.Method()
+  public change(val: Value | null | undefined) {
+    super.change(val);
+    if (isRelation2OField(this.field)) {
+      this.updateX2OValue(val as ActiveRecord);
+    }
   }
 
   protected isNeedReloadOptions = false;
