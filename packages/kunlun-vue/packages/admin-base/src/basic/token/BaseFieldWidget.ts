@@ -206,7 +206,7 @@ export class BaseFieldWidget<
     });
     const { field, itemName, viewMode, submitCache, submitType, relationUpdateType } = this;
     const updateValue = await SubmitRelationHandler.M2O(
-      field as RuntimeRelationField,
+      field as unknown as RuntimeRelationField,
       itemName,
       submitValue,
       selectedValue,
