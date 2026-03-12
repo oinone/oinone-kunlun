@@ -130,8 +130,17 @@ export default defineComponent({
       props.change?.(newRecord);
     };
 
+    /**
+     * 当 vxe-table 加载数据数量过多，scrollHeight 达到一定高度时，会出现 bodyHeight === scrollHeight 参数异常的问题
+     * 此参数用于保留第一次滚动的有效值
+     */
+    let bodyHeight: number | undefined;
+
     const onScroll = (e: { scrollHeight: number; scrollTop: number; bodyHeight: number }) => {
-      const { scrollHeight, scrollTop, bodyHeight } = e;
+      const { scrollHeight, scrollTop } = e;
+      if (bodyHeight == null) {
+        bodyHeight = e.bodyHeight;
+      }
       if (scrollHeight - scrollTop - 1 <= bodyHeight) {
         if (props.loadCompleted) {
           return;
