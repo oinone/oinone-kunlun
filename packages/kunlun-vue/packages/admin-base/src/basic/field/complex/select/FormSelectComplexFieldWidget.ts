@@ -136,7 +136,7 @@ export abstract class FormSelectComplexFieldWidget<
       field,
       itemName,
       submitValue,
-      value,
+      value as ActiveRecord | null | undefined,
       viewMode,
       submitCache,
       submitType,
