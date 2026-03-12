@@ -18,6 +18,7 @@
         :options="null"
         :notFoundContent="null"
         :open="isShowDropdown"
+        @change="onSelectValueChange"
         @dropdown-visible-change="onDropdownVisibleChange"
       />
     </template>
@@ -215,6 +216,13 @@ export default defineComponent({
     const isValueEmpty = computed(() => {
       return !(selectValue.value && selectValue.value.value);
     });
+
+    const onSelectValueChange = (selectedValues: string[]) => {
+      if (!selectedValues.length) {
+        onClear();
+      }
+    };
+
     const onClear = () => {
       selectValue.value = null;
     };
@@ -476,6 +484,7 @@ export default defineComponent({
     return {
       placeholder,
       onDropdownVisibleChange,
+      onSelectValueChange,
 
       selectClass,
       isShowDropdown,

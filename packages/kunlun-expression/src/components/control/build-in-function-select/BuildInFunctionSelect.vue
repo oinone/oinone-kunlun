@@ -17,6 +17,7 @@
         :options="null"
         :notFoundContent="null"
         :open="isShowDropdown"
+        @change="onSelectValueChange"
         @dropdown-visible-change="onDropdownVisibleChange"
       />
     </template>
@@ -102,6 +103,12 @@ export default defineComponent({
       context.emit('update:value', selectValue.value?.value);
       context.emit('change-fun', selectValue.value);
       props.change && props.change(selectValue.value);
+    };
+
+    const onSelectValueChange = (selectedValues: string[]) => {
+      if (!selectedValues.length) {
+        onClear();
+      }
     };
 
     const onClear = () => {
@@ -213,6 +220,7 @@ export default defineComponent({
     return {
       placeholder,
       onDropdownVisibleChange,
+      onSelectValueChange,
 
       options,
       isShowDropdown,

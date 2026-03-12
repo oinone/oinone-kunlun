@@ -27,6 +27,7 @@ import {
 } from 'vue';
 import { useMetadataProps } from '../../../basic';
 import { BaseSelectProps } from './props';
+import { useSelectId } from './useSelectId';
 
 interface SelectedOption {
   key: string;
@@ -51,6 +52,7 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
+    const id = useSelectId();
     const origin = ref();
     const dropdownInputRef = ref();
     const formContext = useInjectOioDefaultFormContext();
@@ -245,7 +247,37 @@ export default defineComponent({
       e.preventDefault();
     };
 
+    const $$onClear = () => {
+      props.change?.(null);
+      props.search?.('');
+    };
+
     const onGlobalMouseDown = (e: MouseEvent) => {
+      let antSelectClearDom: HTMLElement | undefined;
+      let target = e.target as HTMLElement | null | undefined;
+      if (target) {
+        for (let i = 0; i < 5; i++) {
+          if (target.nodeType && target.classList.contains('ant-select-clear')) {
+            antSelectClearDom = target;
+            break;
+          }
+          target = target.parentElement;
+          if (!target) {
+            break;
+          }
+        }
+      }
+      if (
+        antSelectClearDom &&
+        document
+          .querySelector(`#${id}`)
+          ?.parentElement?.parentElement?.parentElement?.getElementsByClassName('ant-select-clear')
+          .item(0) === antSelectClearDom
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+        $$onClear();
+      }
       focusSearchInput = e.target === dropdownInputRef.value?.originInput?.input;
     };
 
@@ -259,6 +291,7 @@ export default defineComponent({
 
     return {
       ...useMaxTagPlaceholder(),
+      id,
       origin,
       dropdownInputRef,
       readonly,
@@ -287,6 +320,7 @@ export default defineComponent({
       $slots,
       $attrs,
 
+      id,
       mode,
       value,
       options,
@@ -319,11 +353,12 @@ export default defineComponent({
       onSearchInputKeydown,
       onClickStop
     } = this;
-    const selectClassNames = ['oio-select', 'oio-basic-select'];
+    const selectClassNames = ['oio-select', 'oio-base-select'];
     const props: Record<string, unknown> = {
       ref: 'origin',
+      id,
       class: selectClassNames,
-      dropdownClassName: StringHelper.append(['oio-select-dropdown oio-basic-select-dropdown'], dropdownClassName).join(
+      dropdownClassName: StringHelper.append(['oio-select-dropdown oio-base-select-dropdown'], dropdownClassName).join(
         ' '
       ),
       labelInValue: true,
@@ -471,7 +506,7 @@ export default defineComponent({
       slotNames.push('default');
     }
     const selectVNode = createVNode(ASelect, props, PropRecordHelper.collectionSlots($slots, slotNames));
-    const classNames = ['oio-basic-select-wrapper'];
+    const classNames = ['oio-base-select-wrapper'];
     if (prefix || suffix) {
       return createVNode(OioInputGroup, PropRecordHelper.collectionBasicProps($attrs, classNames), {
         default: () => {
@@ -492,15 +527,15 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.oio-basic-select-wrapper {
+.oio-base-select-wrapper {
   &.oio-input-group {
-    .oio-basic-select {
+    .oio-base-select {
       flex: 1;
     }
   }
 }
 
-.oio-basic-select-dropdown {
+.oio-base-select-dropdown {
   .oio-select-dropdown-spin {
     height: 28px;
     padding: 5px 12px;

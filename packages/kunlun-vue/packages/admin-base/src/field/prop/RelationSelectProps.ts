@@ -3,6 +3,7 @@ import { BooleanHelper } from '@oinone/kunlun-shared';
 import { debounce, delay } from 'lodash-es';
 import { computed, nextTick, onBeforeUnmount, onMounted, type PropType, ref } from 'vue';
 import { usePlaceholderProps } from '../../basic';
+import { useSelectId } from '../../components';
 
 export const RelationSelectProps = {
   dropdownClassName: {
@@ -98,10 +99,8 @@ export const RelationSelectProps = {
   }
 };
 
-let retId = 0;
-
 export function relationSelectSetup(props, multi?: boolean) {
-  const id = `oio_select_${retId++}`;
+  const id = useSelectId();
 
   const selectRef = ref();
   const dropdownInputRef = ref();
@@ -284,8 +283,8 @@ export function relationSelectSetup(props, multi?: boolean) {
       antSelectClearDom &&
       document
         .querySelector(`#${id}`)
-        ?.parentElement?.parentElement?.parentElement.getElementsByClassName('ant-select-clear')
-        .item(0)
+        ?.parentElement?.parentElement?.parentElement?.getElementsByClassName('ant-select-clear')
+        .item(0) === antSelectClearDom
     ) {
       e.preventDefault();
       e.stopPropagation();
