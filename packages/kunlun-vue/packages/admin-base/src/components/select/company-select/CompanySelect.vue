@@ -79,6 +79,7 @@ export default defineComponent({
     .oio-company-select-option-logo {
       text-align: center;
       color: #ffffff;
+      flex-shrink: 0;
     }
 
     .oio-company-select-option-label {
