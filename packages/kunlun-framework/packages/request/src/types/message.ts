@@ -59,6 +59,11 @@ export interface IMessage {
    * 错误路径
    */
   path?: string[];
+
+  /**
+   * 数据
+   */
+  data?: string;
 }
 
 /**
