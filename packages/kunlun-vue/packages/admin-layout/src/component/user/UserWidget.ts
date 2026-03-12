@@ -96,7 +96,7 @@ export class UserWidget extends MaskWidget {
     OioProvider.setBrowserConfig(getDefaultBrowser());
     setSessionPath(undefined);
     ClearCache.clear();
-    this.router.push({ segments: [{ path: url }] });
+    window.location.assign(`${window.location.origin}/${url}`);
     OioProvider.refreshSystemMajorConfig();
   }
 
