@@ -225,6 +225,10 @@ export default defineComponent({
 
     const onClear = () => {
       selectValue.value = null;
+      props.change?.(null);
+      emit('change', null);
+      emit('changeList', []);
+      emit('update:valueList', []);
     };
 
     const onChange = (selectedValues: string[], selectedOptions: IExpSelectOption[]) => {

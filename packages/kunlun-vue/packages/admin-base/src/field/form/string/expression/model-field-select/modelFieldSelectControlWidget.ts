@@ -8,6 +8,7 @@ import {
   type IVariableItem,
   ModelFieldSelectControl
 } from '@oinone/kunlun-vue-expression';
+import { ValidateTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString } from 'lodash-es';
 import { FormFieldWidget } from '../../../../../basic';
@@ -23,6 +24,8 @@ import { FormFieldWidget } from '../../../../../basic';
   })
 )
 export class ModelFieldSelectControlWidget extends FormFieldWidget {
+  public defaultValidateTrigger: ValidateTrigger[] = [ValidateTrigger.change];
+
   public initialize(props) {
     super.initialize(props);
     this.setComponent(ModelFieldSelectControl);

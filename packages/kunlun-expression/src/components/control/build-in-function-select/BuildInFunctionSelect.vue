@@ -105,8 +105,8 @@ export default defineComponent({
       props.change && props.change(selectValue.value);
     };
 
-    const onSelectValueChange = (selectedValues: string[]) => {
-      if (!selectedValues.length) {
+    const onSelectValueChange = (selectedValue: string) => {
+      if (!selectedValue) {
         onClear();
       }
     };
