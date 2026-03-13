@@ -20,9 +20,7 @@ export class SSOLoginWidget extends BaseLoginWidget {
 
   protected get keyMapping(): Record<string, string> {
     return {
-      login: 'username',
-      client_id: 'clientId',
-      redirect_uri: 'redirectUri'
+      login: 'username'
     };
   }
 
