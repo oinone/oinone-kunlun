@@ -1,84 +1,76 @@
 ### 1. Repository
 
-Welcome to the Oinone Kunlun Repository, Oinone Kunlun is the front-end repository! Join and help us improve the Enterprise-grade Productization Engine.
+Welcome to the Oinone Kunlun Repository, Oinone Kunlun is the front-end repository. Join and help us improve the AI-Powered Low-Code Framework.
 
-Oinone is an enterprise-class productization engine that combines standardized R&D and agile delivery. 
+Oinone is an AI-Powered Low-Code Framework positioned as infrastructure for AI-Native applications.
 
-The "O" symbolizes open source while phonetically resonating with "All in one," symbolizing: One-stop solutions, agile responsiveness, continuous innovation.
+Oinone phonetically resonating with "All in one," symbolizing: One-stop solutions, agile responsiveness, continuous innovation.
+
+To learn more，please visit【[🍀 Website](https://www.oinone.top) | [🍀 Gitee-中文](https://gitee.com/oinone) | [🍀AtomGit-中文](https://gitcode.com/oinone) | [🍀 Github-EN](https://github.com/Oinone)】.
+
+【[⚡ 后端-Gitee](https://gitee.com/oinone/oinone-pamirs) | [⚡ 前端-Gitee](https://gitee.com/oinone/oinone-kunlun) | [⚡ 后端-AtomGit](https://gitcode.com/oinone/oinone-pamirs) | [⚡ 前端-AtomGit](https://gitcode.com/oinone/oinone-kunlun) | [⚡ Back-end Framework-Github](https://github.com/oinone/oinone-pamirs) | [⚡ Front-end Framework-Github](https://github.com/oinone/oinone-kunlun)】
 
 ### 2. Key Values
 - 🌟 Who it solves problems for ?
-  - Designed for software companies as a foundational technology platform, it aims to drive industry transformation and provide support for partners. Currently serving nearly 100 software companies, including leading industry players such as Jack Technology (the world's largest provider of intelligent connected solutions for garment production), Shanghai Mathart System (a renowned software provider in China's automotive industry), and Goodfull Cloud (China's leading provider of union welfare software).
+  - Targeting developers, enterprise R&D teams, and software companies, we are committed to bringing change to the industry and providing support to our partners. We have successfully served numerous top 100 enterprises, industry leaders, and over 100 software companies, including tobacco industry leader Yunnan Tobacco and RELX, well-known stationery brand enterprises Deli, Qixin, and Guangbo, global leader in garment intelligent manufacturing Jack Technology, automotive parts leader Guansheng Group, leading domestic enterprise digitalization solution provider Shudao, and renowned intelligent decision software manufacturer Shuce Intelligence. Our supported business domains span MES, APS, ERP, HIS, internal control, anti-counterfeiting traceability, investment management, OMS, F2B2b, and more.
 - 🌟 What problems it solves ?
-  - It addresses software companies' R&D efficiency and cost issues. More importantly, it helps software companies with productization aspirations overcome challenges in product standardization and agile delivery.
+  - Empowering enterprise R&D teams and software companies to fully embrace AI. Through an open-source, disciplined AI low-code development framework, we enable AI and developers to collaborate within the same metadata system, producing truly maintainable and evolvable enterprise-grade intelligent applications.
 
 ### 3. Key Features
-![Key Features](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/en/Key%20Features.png)
+![Key Features AI](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/en/Key-Feature-I-New.png)
+- 🌟 AI Coding + Oinone
+  - **Open Source**: AI-learnable design principles and development paradigms. Fully open-source framework code lets developers deeply understand every design decision, and lets AI truly 'read' your development framework.
+  - **Framework Discipline**: 100% metadata-driven + visual no-code design + enterprise software foundation + enterprise integration + complex technology simplified, forming standardized development discipline. Not a free-form scaffold, but a principled engineering system.
+  - **AI Coding Ready**: Combined with Oinone framework's Spec best practices to ensure stability, high quality, and maintainability. When AI Coding runs in a disciplined environment, it produces deliverable enterprise software, not demos.
+- 🌟 Applications inherently feature a "Data-Feedback Loop (DFL)" mechanism, fostering a "self-evolving" application growth model.
+  - Build the full lifecycle capabilities of AI employees covering [Training → Modeling → Execution → Evaluation → Autonomous Execution].
 
-### 4. Learn More
-- To learn more about Oinone，please visit【[🍀 Website](https://www.oinone.top) | [🍀 Gitee-中文](https://gitee.com/oinone) | [🍀 Gitcode-中文](https://gitcode.com/oinone) | [🍀 Github-EN](https://github.com/Oinone)】.
-- 【[⚡ 后端框架-Gitee](https://gitee.com/oinone/oinone-pamirs) | [⚡ 前端框架-Gitee](https://gitee.com/oinone/oinone-kunlun) | [⚡ 后端框架-Gitcode](https://gitcode.com/oinone/oinone-pamirs) | [⚡ 前端框架-Gitcode](https://gitcode.com/oinone/oinone-kunlun) | [⚡ Back-end Framework-Github](https://github.com/oinone/oinone-pamirs) | [⚡ Front-end Framework-Github](https://github.com/oinone/oinone-kunlun)】
+![Key Features](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/en/Key-Feature-II-New.png)
 
-### 5. Demo
-| Demo                                                                                       | Related Videos                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [⚡ Direct to the 6.x Demo](https://demo.oinone.top)<br>☕ Account：admin<br>☕ Password：admin <br/><br/> ⭐ The 7.x demo will be released soon. Stay tuned. ⭐| [🎬 1. [Oinone] #Productization Demonstration# Work with Back-end And No-code](https://www.bilibili.com/video/BV1eDMizYEts/?vd_source=ee004011d0afa992f50d15c8738450b3) <br>[🎬 2. [Oinone] #Productization Demonstration# Work with Front-end Framework](https://www.bilibili.com/video/BV1DoMizbECt/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 3. [Oinone] #Customization# Work with Back-end Framework](https://www.bilibili.com/video/BV1RDMizYELg/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 4. [Oinone] #Customization# Front-end Interaction](https://www.bilibili.com/video/BV1eDMizYED1/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 5. [Oinone] #Customization# No-code mode](https://www.bilibili.com/video/BV1eDMizYEdF/?vd_source=ee004011d0afa992f50d15c8738450b3) |
+### 4. Architecture
+Every application built on Oinone has AI capabilities without additional integration. Aino natively understands your business semantics through the metadata foundation, enabling truly intelligent applications rather than simple AI wrappers.
+![Arch](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/en/Natively-Intelligent-en-source.webp)
 
-### 6. Recent Activities
-#### 6.1 Exclusive Benefits 🎁
+### 5、Aino
+#### 5.1 What is Oinone Aino
+Aino, which stands for AI Innovation and is a near-homophone of I Know, An ontology-based enterprise AI agent full-lifecycle platform. Beyond chatbots — an agent that truly understands your business, knows your systems, and delivers results. Integrating model access, fine-tuning, tool/skill libraries, knowledge bases, unrestricted agent orchestration, and next-gen enterprise interactions.
+
+#### 5.2 Aino UX
+![Aino](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/en/Aino.png)
+
+### 6. Demo
+| Demo                                                                                                                                                     | Related Videos                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [⚡ Direct to the 6.x Demo](https://demo.oinone.top)<br>☕ Account：admin<br>☕ Password：admin<br/><br/> ⭐ The 7.x demo will be released soon. Stay tuned. ⭐ | [🎬 1. [Oinone] #Productization Demonstration# Work with Back-end And No-code](https://www.bilibili.com/video/BV1eDMizYEts/?vd_source=ee004011d0afa992f50d15c8738450b3) <br>[🎬 2. [Oinone] #Productization Demonstration# Work with Front-end Framework](https://www.bilibili.com/video/BV1DoMizbECt/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 3. [Oinone] #Customization# Work with Back-end Framework](https://www.bilibili.com/video/BV1RDMizYELg/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 4. [Oinone] #Customization# Front-end Interaction](https://www.bilibili.com/video/BV1eDMizYED1/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 5. [Oinone] #Customization# No-code mode](https://www.bilibili.com/video/BV1eDMizYEdF/?vd_source=ee004011d0afa992f50d15c8738450b3) |
+
+### 7. Recent Activities
+#### 7.1 Exclusive Benefits 🎁
 | QR Code | Steps                                                                                                                                                                                                                                                                                                        |
 |-----|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |<img src="http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/Oinone%E5%B0%8F%E5%8A%A9%E6%89%8B.png" alt="Assistant" width="150"><br>| 1. ⭐ Star this project<br>2. Scan the QR code on the left to add the assistant<br>3. Send a screenshot (proof of starring) to the assistant<br>4. The assistant will invite the Star user to the exclusive communication group<br>5. Limited-time application for the enterprise edition trial authorization |
 
-### 7. Quickstart
-- [Installation or Upgrade](https://guide.oinone.top/en/InstallOrUpgrade/)
-  - [Development Environments](https://guide.oinone.top/en/InstallOrUpgrade/Dev-ENV/)
-  - [Community Edition - Source Code Installation](https://guide.oinone.top/en/InstallOrUpgrade/CommunityEdition/source-code-installation.html)
-  - [Enterprise Edition - Docker-full Installation](https://guide.oinone.top/en/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)
-  - [Enterprise Edition - Docker-mini Installation](https://guide.oinone.top/en/InstallOrUpgrade/EnterpriseEdition/docker-mini-installation.html)
-  - [Enterprise Edition - Package Installation](https://guide.oinone.top/en/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)
-- [Tutorials](https://guide.oinone.top/en/DevManual/Tutorials/)
-  - [Discover the Front-end Framework](https://guide.oinone.top/en/DevManual/Tutorials/DiscoverTheFront-endFramework/)
-    - [Chapter 1 - Widget](https://guide.oinone.top/en/DevManual/Tutorials/DiscoverTheFront-endFramework/chapter1-widget.html)
-    - [Chapter 2 - Build a dashboard](https://guide.oinone.top/en/DevManual/Tutorials/DiscoverTheFront-endFramework/chapter2-build-a-dashboard.html)
-  - [Master the Front-end Framework](https://guide.oinone.top/en/DevManual/Tutorials/MasterTheFront-endFramework/)
-    - [Chapter 1 - Front-End Overview](https://guide.oinone.top/en/DevManual/Tutorials/MasterTheFront-endFramework/chapter1-front-end-overview.html)
-    - [Chapter 2 - Create a gantt view](https://guide.oinone.top/en/DevManual/Tutorials/MasterTheFront-endFramework/chapter2-create-a-gantt-view.html)
-    - [Chapter 3 - Customize a gallery view](https://guide.oinone.top/en/DevManual/Tutorials/MasterTheFront-endFramework/chapter3-customize-a-gallery-view.html)
-- [Debug Tools](https://guide.oinone.top/en/DevManual/Tutorials/debug-tools.html)
+### 8. Quickstart & Documentation
+| Quickstart                                                                                                                   |Documentation     | Package          | Package Content                |
+|------------------------------------------------------------------------------------------------------------------------|----------------|------------------|--------------------------------|
+| ⚡ [Installation or Upgrade](https://guide.oinone.top/en/InstallOrUpgrade/)                                                           |[📗 User Manual](https://guide.oinone.top/en/UserManual) | 📦 kunlun-framework     | 🌟 Front-end Core              |
+| ⚡ [Development Environments](https://guide.oinone.top/en/InstallOrUpgrade/Dev-ENV/)                                                     |[📗 DEV Manual](https://guide.oinone.top/en/DevManual)| 📦 kunlun-engine | 🌟 Front-end Extension         |
+| ⚡ [Community Edition - Source Code Installation](https://guide.oinone.top/en/InstallOrUpgrade/CommunityEdition/source-code-installation.html)           | [📗 White Paper](https://www.oinone.top/whitePaper)|📦 kunlun-expression | 🌟 Front-end Expression        |
+| ⚡ [Enterprise Edition - Docker-full Installation](https://guide.oinone.top/en/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html) |[📗 R&D Paradigm](https://guide.oinone.top/en/DevManual/R_DParadigm)| 📦 kunlun-vue | 🌟 Front-end PC Components     |
+| ⚡ [Enterprise Edition - Docker-mini Installation](https://guide.oinone.top/en/InstallOrUpgrade/EnterpriseEdition/docker-mini-installation.html) | [📗 Common Solutions](https://guide.oinone.top/en/DevManual/CommonSolutions)|📦 kunlun-mobile-vue    | 🌟 Front-end Mobile Components |
+| ⚡ [Enterprise Edition - Package Installation](https://guide.oinone.top/en/InstallOrUpgrade/EnterpriseEdition/docker-full-installation.html)     |[📗 FAQ](https://guide.oinone.top/en/DevManual/FAQ)|              |                                |
+| ⚡ [Tutorials](https://guide.oinone.top/en/DevManual/Tutorials/)                                                  ||   |                                |
+| ⚡ [Debug Tools](https://guide.oinone.top/en/DevManual/Tutorials/debug-tools.html)                                          | | |                                |
+|                                                                                                                        | |               |                                |
 
-### 8. Project Overview
-| Packge               | Content                          |
-|----------------------|----------------------------------|
-| 📦 kunlun-framework  | 🌟 Framework - Core Package      |
-| 📦 kunlun-engine     | 🌟 Framework - Extension Package |
-| 📦 kunlun-expression | 🌟 Expression Package            |
-| 📦 kunlun-vue        | 🌟 Widgets Package - PC          |
-| 📦 kunlun-mobile-vue | 🌟 Widgets Package - Mobile      |
-
-### 9. Documentation
-- [📗 Installation Or Upgrade](https://guide.oinone.top/en/InstallOrUpgrade)
-- [📗 User Manual](https://guide.oinone.top/en/UserManual)
-- [📗 DEV Manual](https://guide.oinone.top/en/DevManual)
-- [📗 White Paper](https://www.oinone.top/whitePaper)
-- [📗 R&D Paradigm](https://guide.oinone.top/en/DevManual/R_DParadigm)
-- [📗 Common Solutions](https://guide.oinone.top/en/DevManual/CommonSolutions)
-- [📗 FAQ](https://guide.oinone.top/en/DevManual/FAQ)
-
-### 10. Product Ecosystem
-Comprehensive coverage of product development and implementation needs.
-![Product Ecosystem](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/en/1.Product%20Ecosystem-1.png "Product Ecosystem")
-![Product Ecosystem](http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/en/2.Product%20Ecosystem-2.png "Product Ecosystem")
-
-### 11. License
-- Oinone Kunlun repository is licensed under AGPL-3.0.
+### 9. License
+- Oinone Pamirs repository is licensed under AGPL-3.0.
 - [Third Party Open Source Software and License Notice](https://guide.oinone.top/en/Third-Party-Open-Source-Software-And-License-Notice.html).
 
-### 12. Community Participation
+### 10. Community Participation
 - Join the community: Go to [⚡Oinone Community](https://doc.oinone.top)❤️
 - [How to contribute](https://guide.oinone.top/en/Contribute)
 
-### 13. Contact Us
+### 11. Contact Us
 - Website：https://www.oinone.top
 - Email：oinone@shushi.pro
 
