@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-expression",
-  "version": "7.1.0",
+  "version": "7.2.0",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -21,18 +21,18 @@
     "lodash-es": "4.17.21"
   },
   "devDependencies": {
-    "@oinone/kunlun-compile": "~7.1.0",
-    "@oinone/kunlun-engine": "~7.1.0",
-    "@oinone/kunlun-expression": "~7.1.0",
-    "@oinone/kunlun-meta": "~7.1.0",
-    "@oinone/kunlun-request": "~7.1.0",
-    "@oinone/kunlun-router": "~7.1.0",
-    "@oinone/kunlun-service": "~7.1.0",
-    "@oinone/kunlun-shared": "~7.1.0",
-    "@oinone/kunlun-spi": "~7.1.0",
-    "@oinone/kunlun-test": "~7.1.0",
-    "@oinone/kunlun-vue-ui-antd": "~7.1.0",
-    "@oinone/kunlun-vue-widget": "~7.1.0"
+    "@oinone/kunlun-compile": "~7.2.0",
+    "@oinone/kunlun-engine": "~7.2.0",
+    "@oinone/kunlun-expression": "~7.2.0",
+    "@oinone/kunlun-meta": "~7.2.0",
+    "@oinone/kunlun-request": "~7.2.0",
+    "@oinone/kunlun-router": "~7.2.0",
+    "@oinone/kunlun-service": "~7.2.0",
+    "@oinone/kunlun-shared": "~7.2.0",
+    "@oinone/kunlun-spi": "~7.2.0",
+    "@oinone/kunlun-test": "~7.2.0",
+    "@oinone/kunlun-vue-ui-antd": "~7.2.0",
+    "@oinone/kunlun-vue-widget": "~7.2.0"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }
