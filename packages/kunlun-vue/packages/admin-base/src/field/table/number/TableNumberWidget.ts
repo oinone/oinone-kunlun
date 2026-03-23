@@ -1,20 +1,12 @@
 import type { RuntimeNumberField } from '@oinone/kunlun-engine';
-import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
-import { SPI } from '@oinone/kunlun-spi';
 import type { RowContext } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isNil, toString } from 'lodash-es';
 import type { VNode } from 'vue';
-import { BaseFieldWidget, BaseTableFieldWidget } from '../../../basic';
+import { BaseTableFieldWidget } from '../../../basic';
 import { numberAddThousandth, numberZeroFill } from '../../util';
 
-@SPI.ClassFactory(
-  BaseFieldWidget.Token({
-    viewType: [ViewType.Table],
-    ttype: [ModelFieldType.Integer, ModelFieldType.Long, ModelFieldType.Float]
-  })
-)
 export class TableNumberWidget extends BaseTableFieldWidget<string | number, RuntimeNumberField> {
   protected getShowThousandth(context: RowContext) {
     return Optional.ofNullable(this.getDsl().showThousandth)

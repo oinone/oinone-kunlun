@@ -62,11 +62,12 @@ export class UserWidget extends MaskWidget {
       }
     } else if (isRuntimeServerAction(action)) {
       const serverAction = await useSessionPath(action.sessionPath, () => ServerActionCache.get(model, name));
+      let res: Record<string, unknown> | undefined;
       if (serverAction) {
-        await executeServerAction(serverAction, {});
+        res = (await executeServerAction(serverAction, {})) as Record<string, unknown>;
       }
       if (name === 'logout') {
-        this.logout();
+        this.logout(res as { redirectUrl?: string });
       }
     } else if (isRuntimeUrlAction(action)) {
       const urlAction = await useSessionPath(action.sessionPath, () => UrlActionCache.get(model, name));
@@ -78,8 +79,6 @@ export class UserWidget extends MaskWidget {
         name: action.fun,
         widget: action.widget
       };
-
-      // eslint-disable-next-line @typescript-eslint/no-shadow
       const Widget = SPIOperator.selector(baseActionTokenSymbol, actionOptions) as any;
       const actionWidget = new Widget();
       actionWidget.initialize({ action });
@@ -87,17 +86,21 @@ export class UserWidget extends MaskWidget {
     }
   }
 
-  public logout() {
-    const loginPath = GlobalConfig.getConfigByName('login') as string;
-    let url = loginPath;
-    if (loginPath.startsWith('/')) {
-      url = loginPath.slice(1);
+  public logout(res?: { redirectUrl?: string }) {
+    let redirectUrl = res?.redirectUrl;
+    if (!redirectUrl) {
+      const loginPath = GlobalConfig.getConfigByName('login') as string;
+      let url = loginPath;
+      if (loginPath.startsWith('/')) {
+        url = loginPath.slice(1);
+      }
+      OioProvider.setBrowserConfig(getDefaultBrowser());
+      setSessionPath(undefined);
+      ClearCache.clear();
+      OioProvider.refreshSystemMajorConfig();
+      redirectUrl = `${window.location.origin}/${url}`;
     }
-    OioProvider.setBrowserConfig(getDefaultBrowser());
-    setSessionPath(undefined);
-    ClearCache.clear();
-    window.location.assign(`${window.location.origin}/${url}`);
-    OioProvider.refreshSystemMajorConfig();
+    window.location.assign(redirectUrl);
   }
 
   protected fetchUserInfo(): Promise<UserInfo> {

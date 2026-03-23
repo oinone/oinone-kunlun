@@ -2,6 +2,7 @@ export * from './date';
 export * from './m2m';
 export * from './o2m';
 export * from './map';
+export * from './number';
 export * from './string';
 
 export * from './common/DetailCommonFieldWidget';
@@ -14,4 +15,3 @@ export * from './html/DetailHtmlFieldWidget';
 export * from './m2o/DetailM2OSelectFieldWidget';
 export * from './m2o/upload/DetailM2OUploadWidget';
 export * from './o2o/DetailO2OSelectFieldWidget';
-export * from './number/DetailNumberWidget';

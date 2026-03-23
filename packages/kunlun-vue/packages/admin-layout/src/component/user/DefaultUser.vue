@@ -2,7 +2,7 @@
   <a-dropdown :trigger="['click']" placement="bottomLeft" overlayClassName="top-bar-common-dropdown">
     <div class="k-user">
       <img :src="pamirsUser.avatarUrl || defaultUserAvatar" />
-      <span v-if="hasCurrentUser">{{ pamirsUser.nickname || pamirsUser.name || pamirsUser.realname }}</span>
+      <span v-if="hasCurrentUser">{{ $translate(pamirsUser.nickname || pamirsUser.name || pamirsUser.realname) }}</span>
       <caret-down-outlined :style="{ fontSize: '12px', color: 'var(--oio-icon-color)' }" />
     </div>
     <template #overlay>
@@ -10,7 +10,9 @@
         <a-menu-item @click="onUserCenter">
           <div class="menu-user">
             <img :src="pamirsUser.avatarUrl || defaultUserAvatar" />
-            <span v-if="hasCurrentUser">{{ pamirsUser.nickname || pamirsUser.name || pamirsUser.realname }}</span>
+            <span v-if="hasCurrentUser">{{
+              $translate(pamirsUser.nickname || pamirsUser.name || pamirsUser.realname)
+            }}</span>
           </div>
         </a-menu-item>
 

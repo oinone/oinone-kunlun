@@ -24,8 +24,6 @@ import LoginComponent from './Login.vue';
   })
 )
 export class LoginWidget extends BaseLoginWidget {
-  protected moduleName = SYSTEM_MODULE_NAME.USER;
-
   @Widget.Method()
   protected handleRegister() {
     console.error('you should to overwrite function `handleRegister` in LoginPageWidget if you want register working');

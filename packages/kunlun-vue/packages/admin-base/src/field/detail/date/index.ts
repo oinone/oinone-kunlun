@@ -3,3 +3,4 @@ export * from './DetailDateTimeFieldWidget';
 export * from './DetailDateFieldWidget';
 export * from './DetailTimeFieldWidget';
 export * from './DetailYearFieldWidget';
+export * from './DetailWeekPickerFieldWidget';

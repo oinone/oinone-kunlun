@@ -358,9 +358,10 @@ export default defineComponent({
       ref: 'origin',
       id,
       class: selectClassNames,
-      dropdownClassName: StringHelper.append(['oio-select-dropdown oio-base-select-dropdown'], dropdownClassName).join(
-        ' '
-      ),
+      dropdownClassName: StringHelper.append(
+        ['oio-select-dropdown oio-base-select-dropdown vxe-table--ignore-clear'],
+        dropdownClassName
+      ).join(' '),
       labelInValue: true,
       filterOption: false,
       defaultActiveFirstOption: false,

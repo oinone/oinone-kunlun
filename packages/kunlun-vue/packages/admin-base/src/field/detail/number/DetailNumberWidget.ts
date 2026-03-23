@@ -1,18 +1,9 @@
-import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { toString } from 'lodash-es';
-import { FormFieldWidget } from '../../../basic/field';
 import { FormNumberAbstractFieldWidget } from '../../form/abstract/FormNumberAbstractFieldWidget';
 import { numberAddThousandth, numberZeroFill } from '../../util';
 import DetailString from '../string/default/DetailString.vue';
 
-@SPI.ClassFactory(
-  FormFieldWidget.Token({
-    viewType: ViewType.Detail,
-    ttype: [ModelFieldType.Integer, ModelFieldType.Long, ModelFieldType.Float, ModelFieldType.Currency]
-  })
-)
 export class DetailNumberWidget extends FormNumberAbstractFieldWidget {
   public initialize(props) {
     super.initialize(props);

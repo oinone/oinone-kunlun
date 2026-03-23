@@ -97,7 +97,7 @@ export const getResourceTimeFormatOptions = (): ResourceDateTimeOption[] => {
       options: [
         {
           displayName: '001',
-          code: 'ms',
+          code: 'MS',
           id: 'CMs'
         }
       ]

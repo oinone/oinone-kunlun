@@ -47,6 +47,7 @@ export class CurrentLanguage {
     return (
       sessionStorage.getItem(CurrentLanguage.LOCAL_STORAGE_CODE_KEY) ||
       localStorage.getItem(CurrentLanguage.LOCAL_STORAGE_CODE_KEY) ||
+      Reflect.get(window, '__lang') ||
       CurrentLanguage.DEFAULT_LANGUAGE
     );
   }
@@ -55,6 +56,7 @@ export class CurrentLanguage {
     return (
       sessionStorage.getItem(key || CurrentLanguage.LOCAL_STORAGE_ISO_CODE_KEY) ||
       localStorage.getItem(key || CurrentLanguage.LOCAL_STORAGE_ISO_CODE_KEY) ||
+      Reflect.get(window, '__lang_iso_code') ||
       CurrentLanguage.DEFAULT_LANGUAGE
     );
   }

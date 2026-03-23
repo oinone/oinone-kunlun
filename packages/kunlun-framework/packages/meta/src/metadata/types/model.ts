@@ -63,7 +63,6 @@ export enum ModelFieldType {
 
   // region number
   Integer = 'INTEGER',
-  Long = 'LONG',
   Float = 'FLOAT',
   Currency = 'MONEY',
   // endregion
@@ -95,6 +94,10 @@ export enum ModelFieldType {
    * @deprecated 已废弃
    */
   ID = 'ID',
+  /**
+   * @deprecated 已废弃
+   */
+  Long = 'LONG',
   /**
    * @deprecated 已废弃
    */

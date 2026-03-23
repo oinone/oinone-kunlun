@@ -13,7 +13,7 @@ export class LoginRedirectInterceptor implements NetworkInterceptor {
   /**
    * 禁止重定向URL列表
    */
-  public static NOT_REDIRECT_PATH_NAMES = ['/login', '/auth/login'].map((v) => UrlHelper.appendBasePath(v));
+  public static NOT_REDIRECT_PATH_NAMES = ['/login', '/sso-login'].map((v) => UrlHelper.appendBasePath(v));
 
   public error(response: IResponseErrorResult) {
     const { errors } = response;
@@ -35,7 +35,10 @@ export class LoginRedirectInterceptor implements NetworkInterceptor {
           return false;
         }
       }
-      if (LoginRedirectInterceptor.SSO_NOT_LOGIN_ERROR.includes(errorCodeNumber)) {
+      if (
+        LoginRedirectInterceptor.SSO_NOT_LOGIN_ERROR.includes(errorCodeNumber) &&
+        !LoginRedirectInterceptor.NOT_REDIRECT_PATH_NAMES.includes(pathname)
+      ) {
         if (this.redirectToSSOLogin(response, errorItem)) {
           return false;
         }

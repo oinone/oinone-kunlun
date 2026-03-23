@@ -3,7 +3,12 @@ import { gql } from '@oinone/kunlun-request';
 import { http } from '@oinone/kunlun-service';
 import { Subject } from '@oinone/kunlun-state';
 import { ClearCache } from '../cache';
-import { DEFAULT_APP_SIDE_LOGO, DEFAULT_APP_SWITCH_LOGO, DEFAULT_FAVICON, DEFAULT_LOGIN_LOGO } from '../constant/defaultLogo';
+import {
+  DEFAULT_APP_SIDE_LOGO,
+  DEFAULT_APP_SWITCH_LOGO,
+  DEFAULT_FAVICON,
+  DEFAULT_LOGIN_LOGO
+} from '../constant/defaultLogo';
 import type { MajorConfig } from './typing';
 
 const initBasicConfig = async () => {
@@ -174,6 +179,14 @@ export function getSystemMajorConfig() {
 
 export function setSystemMajorConfig(majorConfig: MajorConfig) {
   systemMajorConfig = majorConfig;
+  const currentLanguage = majorConfig.extend?.currentLanguage;
+  if (currentLanguage) {
+    Reflect.set(window, '__lang', currentLanguage);
+  }
+  const currentLanguageIsoCode = majorConfig.extend?.currentLanguageIsoCode;
+  if (currentLanguageIsoCode) {
+    Reflect.set(window, '__lang_iso_code', currentLanguage);
+  }
 }
 
 export async function refreshSystemMajorConfig() {

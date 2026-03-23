@@ -26,6 +26,8 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseI18nRouterWidget } from '../../basic';
 
 export class BaseLoginWidget extends BaseI18nRouterWidget {
+  protected moduleName = SYSTEM_MODULE_NAME.USER;
+
   protected matched: Matched | undefined;
 
   protected router!: Router;
@@ -161,8 +163,8 @@ export class BaseLoginWidget extends BaseI18nRouterWidget {
   @Widget.Reactive()
   protected currentLanguage: RuntimeLanguage = {} as RuntimeLanguage;
 
-  protected async getCurrentLanguage() {
-    return localStorage.getItem(LOGIN_LANGUAGE_STORAGE_KEY) ?? CurrentLanguage.DEFAULT_LANGUAGE;
+  protected async getCurrentLanguage(): Promise<string | null> {
+    return localStorage.getItem(LOGIN_LANGUAGE_STORAGE_KEY);
   }
 
   protected async getCurrentLanguageIsoCode() {
@@ -184,7 +186,7 @@ export class BaseLoginWidget extends BaseI18nRouterWidget {
     }
   }
 
-  protected async queryLanguageSetting(langCode) {
+  protected async queryLanguageSetting(langCode: string | null) {
     const mutation = `
       {
         appConfigQuery {
@@ -270,8 +272,12 @@ export class BaseLoginWidget extends BaseI18nRouterWidget {
     this.isoStorageKey = LOGIN_LANGUAGE_ISO_STORAGE_KEY;
     this.initLanguages().then(async () => {
       const language = await this.getCurrentLanguage();
-      await this.queryLanguageSetting(language);
-      this.initCurrentLanguage(language);
+      const currentLanguage = (await this.queryLanguageSetting(language))?.[0]?.extend?.currentLanguage as string;
+      if (currentLanguage) {
+        this.initCurrentLanguage(currentLanguage);
+      } else {
+        this.initCurrentLanguage(CurrentLanguage.DEFAULT_LANGUAGE);
+      }
       super.beforeMount();
     });
   }

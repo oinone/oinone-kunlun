@@ -4,7 +4,7 @@
       :value="realValue"
       :default-value="defaultValue"
       :has-input="hasInput"
-      :input-placeholder="placeholder"
+      :input-placeholder="$translate(placeholder)"
       :disabled="disabled"
       readonly
       :predefine="predefine"
@@ -19,7 +19,6 @@
 import { ColorFormat, ColorInputPlacement, DEFAULT_PREDEFINE } from '@oinone/kunlun-vue-ui-common';
 import { OioColorPicker } from '@oinone/kunlun-vue-ui-el';
 import { defineComponent, type PropType } from 'vue';
-import { translateValueByKey } from '@oinone/kunlun-engine';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../basic';
 import DetailCommonField from '../../common/DetailCommonField.vue';
 
@@ -49,7 +48,7 @@ export default defineComponent({
     },
     placeholder: {
       type: String,
-      default: translateValueByKey('请选择颜色')
+      default: '请选择颜色'
     },
     inputPlacement: {
       type: [String, Object] as PropType<ColorInputPlacement>,

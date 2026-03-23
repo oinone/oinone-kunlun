@@ -1,8 +1,12 @@
 import {
+  type ActiveRecord,
   CommonPatternMap,
   type FieldPattern,
+  isRelation2OField,
   type RuntimeModelField,
+  RuntimeRelationField,
   SubmitHandler,
+  SubmitRelationHandler,
   SubmitRelationValue,
   SubmitValue,
   translateValueByKey
@@ -187,7 +191,34 @@ export class BaseFieldWidget<
   @Widget.Method()
   public change(val: Value | null | undefined) {
     super.change(val);
-    this.notify(LifeCycleTypes.ON_FIELD_CHANGE);
+    if (isRelation2OField(this.field) && (val == null || isPlainObject(val))) {
+      this.updateX2OValue(val as ActiveRecord).then(() => {
+        this.notify(LifeCycleTypes.ON_FIELD_CHANGE);
+      });
+    } else {
+      this.notify(LifeCycleTypes.ON_FIELD_CHANGE);
+    }
+  }
+
+  protected async updateX2OValue(selectedValue: ActiveRecord | null | undefined) {
+    const submitValue = new SubmitValue({
+      [this.itemData]: selectedValue
+    });
+    const { field, itemName, viewMode, submitCache, submitType, relationUpdateType } = this;
+    const updateValue = await SubmitRelationHandler.M2O(
+      field as unknown as RuntimeRelationField,
+      itemName,
+      submitValue,
+      selectedValue,
+      viewMode,
+      submitCache,
+      submitType,
+      relationUpdateType
+    );
+    if (updateValue instanceof SubmitRelationValue) {
+      return;
+    }
+    Object.assign(this.formData, updateValue);
   }
 
   @Widget.Method()
