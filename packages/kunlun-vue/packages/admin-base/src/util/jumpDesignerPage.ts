@@ -55,7 +55,7 @@ export const onJumpWorkflowDesigner = async (moduleModule) => {
 export const onJumpUiDesigner = async (viewId?: string) => {
   if (viewId) {
     const action = (await queryOne('base.ViewAction', {
-      name: 'ui_designer_界面设计器页面编辑',
+      name: 'UiDesignerViewActionPageEdit',
       model: 'ui.designer.UiDesignerView'
     })) as IViewAction;
     if (action) {

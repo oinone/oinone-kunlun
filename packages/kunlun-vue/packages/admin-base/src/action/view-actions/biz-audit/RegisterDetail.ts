@@ -5,7 +5,7 @@ export const install = () => {
   LayoutManager.register(
     {
       viewType: ViewType.Detail,
-      viewName: '应用日志listDetail',
+      viewName: 'DataAuditAppLogDetailAppList',
       model: 'data.audit.OperationLog'
     },
     `<view type="DETAIL" width="large" footerInvisible="true">
@@ -16,7 +16,7 @@ export const install = () => {
   LayoutManager.register(
     {
       viewType: ViewType.Detail,
-      viewName: '应用日志listDetail',
+      viewName: 'DataAuditAppLogDetailAppList',
       model: 'data.audit.DataAuditAppLog'
     },
     `<view type="DETAIL" width="large" footerInvisible="true">

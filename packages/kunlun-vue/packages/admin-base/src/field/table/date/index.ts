@@ -3,3 +3,4 @@ export * from './TableDateTimeFieldWidget';
 export * from './TableDateFieldWidget';
 export * from './TableTimeFieldWidget';
 export * from './TableYearFieldWidget';
+export * from './TableWeekPickerFieldWidget';

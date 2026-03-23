@@ -192,6 +192,16 @@ export interface TranslateSettingType {
   toolboxTranslation?: boolean;
 
   /**
+   * 当前语言编码
+   */
+  currentLanguage?: string;
+
+  /**
+   * 当前语言 ISO 编码
+   */
+  currentLanguageIsoCode?: string;
+
+  /**
    * 翻译列表
    */
   resourceTranslations?: {

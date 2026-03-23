@@ -1,16 +1,16 @@
-import { kebabCase } from 'lodash-es';
-import { PluginsLoader, PluginsLoaderConfig, RuntimeConfig } from '@oinone/kunlun-meta';
+import { PluginsLoader, type PluginsLoaderConfig, RuntimeConfig, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { HttpClient } from '@oinone/kunlun-request';
 import { blockingSerialExecutor, instantiate, isMobile, MatrixRouteHelper } from '@oinone/kunlun-shared';
 import {
   DefaultThemeName,
   genCSSVars,
   initOioComponentTheme,
-  isSystemTheme,
-  ThemeName,
-  ThemeSize
+  type ThemeName,
+  type ThemeSize
 } from '@oinone/kunlun-theme';
+import { kebabCase } from 'lodash-es';
 import { RuntimeContextManager } from '../runtime-context/runtime-context-manager';
+import { initI18n } from '../util';
 import { genStaticPath } from '../util/resources';
 import { MultiTabsRuntimeManifestMergedConfigManager, MultiTabTheme } from '../view';
 import { FrameworkInitializeSPI } from './FrameworkInitializeSPI';
@@ -21,11 +21,11 @@ import {
   setSystemMajorConfig
 } from './major';
 import {
-  OioHttpConfig,
-  OioLoginThemeConfig,
+  type OioHttpConfig,
+  type OioLoginThemeConfig,
   OioLoginThemeName,
-  OioProviderBrowserProps,
-  OioProviderProps,
+  type OioProviderBrowserProps,
+  type OioProviderProps,
   SideBarTheme,
   SideBarThemeColor
 } from './typing';
@@ -308,6 +308,7 @@ export async function OioProvider(
   if (initSystemConfig) {
     systemMajorConfig = await getMajorConfig();
     setSystemMajorConfig(systemMajorConfig);
+    await initI18n(SYSTEM_MODULE_NAME.USER);
   }
   const { loginBackground, loginPageLogo, loginLayoutType, mode, size, favicon, extend, style } =
     systemMajorConfig || {};

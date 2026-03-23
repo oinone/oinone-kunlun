@@ -21,7 +21,6 @@ const defaultConfig = {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     '^.+\\.vue$': '@vue/vue3-jest'
   },
-  moduleFileExtensions: ['js', 'ts', 'vue', 'css', 'sass'],
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     'iconfont\\.js$': import.meta.dirname + '/__mocks__/styleMock.js',
