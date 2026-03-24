@@ -2,7 +2,7 @@
   <div class="form-enum-thumbnail" :class="readonly && 'readonly'">
     <div v-for="item in realOptions" class="thumbnail-item" :key="item.key" @click.stop.prevent="selectThumbnail(item)">
       <div class="item" :class="[item.value === value && 'selected']">
-        <img alt="暂时无法加载" :src="computeThumbnailSrc(item.data.thumbnail)" />
+        <img :alt="$translate('暂时无法加载')" :src="computeThumbnailSrc(item.data.thumbnail)" />
       </div>
       <span class="label">{{ item.label }}</span>
     </div>
