@@ -2,14 +2,15 @@
   <div class="form-enum-thumbnail" :class="readonly && 'readonly'">
     <div v-for="item in realOptions" class="thumbnail-item" :key="item.key" @click.stop.prevent="selectThumbnail(item)">
       <div class="item" :class="[item.value === value && 'selected']">
-        <img alt="暂时无法加载" :src="item.data.thumbnail" />
+        <img :alt="$translate('暂时无法加载')" :src="computeThumbnailSrc(item.data.thumbnail)" />
       </div>
       <span class="label">{{ item.label }}</span>
     </div>
   </div>
 </template>
 <script lang="ts">
-import type { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import { genStaticPath, RuntimeEnumerationOption } from '@oinone/kunlun-engine';
+import { UrlHelper } from '@oinone/kunlun-shared';
 import type { SelectItem } from '@oinone/kunlun-vue-ui-common';
 import { computed, defineComponent, type PropType } from 'vue';
 import { OioCommonProps, OioMetadataProps, useMetadataProps } from '../../../../basic';
@@ -50,10 +51,21 @@ export default defineComponent({
       props.change && props.change(item.value);
     };
 
+    const computeThumbnailSrc = (source: string | undefined) => {
+      if (!source) {
+        return undefined;
+      }
+      if (source.startsWith('/')) {
+        return genStaticPath(UrlHelper.relativePath(source));
+      }
+      return source;
+    };
+
     return {
       realValue,
       realOptions,
-      selectThumbnail
+      selectThumbnail,
+      computeThumbnailSrc
     };
   }
 });
