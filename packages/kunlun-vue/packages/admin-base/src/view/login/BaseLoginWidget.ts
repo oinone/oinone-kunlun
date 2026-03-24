@@ -186,7 +186,7 @@ export class BaseLoginWidget extends BaseI18nRouterWidget {
     }
   }
 
-  protected async queryLanguageSetting(langCode: string | null) {
+  protected async queryLanguageSetting(langCode: string | null): Promise<MajorConfig> {
     const mutation = `
       {
         appConfigQuery {
@@ -200,7 +200,7 @@ export class BaseLoginWidget extends BaseI18nRouterWidget {
       lang: langCode,
       translationOnlyGlobal: true
     });
-    return result.data.appConfigQuery.queryListByWrapper;
+    return result.data.appConfigQuery.queryListByWrapper?.[0] as MajorConfig;
   }
 
   protected async initLanguages(): Promise<void> {
