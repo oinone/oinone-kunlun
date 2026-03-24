@@ -1,6 +1,7 @@
 import { type DslDefinition, DslDefinitionHelper } from '@oinone/kunlun-dsl';
 import { type IDslNode, RuntimeConfig } from '@oinone/kunlun-meta';
 import type { GenericReturnType, GenericType, StandardString } from '@oinone/kunlun-shared';
+import { get as getValue } from 'lodash-es';
 import { getSystemMajorConfig } from '../provider/major';
 import { getI18nStatus } from '../provider/provider';
 import { CurrentLanguage } from '../user';
@@ -260,7 +261,10 @@ export const translateDslDefinition = (dsl: DslDefinition, isFieldOrActionProp =
  *
  */
 
-export const translateValueByKey = <T extends StandardString>(key: GenericType<T>): GenericReturnType<T, string> => {
+export const translateValueByKey = <T extends StandardString>(
+  key: GenericType<T>,
+  context?: Record<string, unknown>
+): GenericReturnType<T, string> => {
   if (!key || !getI18nStatus()) {
     return key as unknown as GenericReturnType<T, string>;
   }
@@ -269,10 +273,21 @@ export const translateValueByKey = <T extends StandardString>(key: GenericType<T
   const cache = getI18nCache(__lang) as Record<string, any>;
 
   if (cache) {
-    return cache[key as string] || key;
+    key = cache[key as string] || key;
+  }
+
+  if (context && key) {
+    key = resolveTranslatedText(key as string, context) as unknown as GenericReturnType<T, string>;
   }
 
   return key as unknown as GenericReturnType<T, string>;
+};
+
+const resolveTranslatedText = (text: string, context: Record<string, unknown>): string => {
+  return text.replace(/\$\{([^}]+)}/g, (match, path) => {
+    const value = getValue(context, path);
+    return value !== undefined ? String(value) : match;
+  });
 };
 
 export const formateLanguage = (language?: string) => {

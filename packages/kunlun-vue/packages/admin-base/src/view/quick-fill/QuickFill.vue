@@ -14,8 +14,8 @@
   >
     <div class="quick-fill-modal-content">
       <a-radio-group :value="type" v-if="step === 0" name="radioGroup" @change="onChangeRadio">
-        <a-radio value="create">{{ $translate('新增数据') }}</a-radio>
-        <a-radio value="update">{{ $translate('编辑已有数据') }}</a-radio>
+        <a-radio value="create">{{ $translate('{{ $translate('新增') }}数据') }}</a-radio>
+        <a-radio value="update">{{ $translate('{{ $translate('编辑已有') }}数据') }}</a-radio>
       </a-radio-group>
 
       <div class="quick-fill-modal-content-desc" v-if="step === 0">
@@ -54,12 +54,12 @@
 
     <template #footer>
       <div v-if="step === 0">
-        <oio-button @click="onToggleModal(false)">取消</oio-button>
-        <oio-button type="primary" @click="onHandlerSure">确定</oio-button>
+        <oio-button @click="onToggleModal(false)">{{ $translate('取消') }}</oio-button>
+        <oio-button type="primary" @click="onHandlerSure">{{ $translate('确定') }}</oio-button>
       </div>
       <div v-else>
-        <oio-button @click="onStepChange(0)">上一步</oio-button>
-        <oio-button type="primary" @click="onSubmit">继续填报</oio-button>
+        <oio-button @click="onStepChange(0)">{{ $translate('上一步') }}</oio-button>
+        <oio-button type="primary" @click="onSubmit">{{ $translate('继续填报') }}</oio-button>
       </div>
     </template>
   </oio-modal>
@@ -174,9 +174,9 @@ export default defineComponent({
         title: translateValueByKey(`确认关闭?`),
         closable: true,
         content: translateValueByKey('本页数据将丢失，请确认后再继续'),
-        okText: translateValueByKey('确定'),
+        okText: translateValueByKey(translateValueByKey(translateValueByKey('确定'))),
 
-        cancelText: translateValueByKey('取消'),
+        cancelText: translateValueByKey(translateValueByKey(translateValueByKey('取消'))),
         onOk: () => {
           props.onToggleModal(false);
           _modal.destroy();
@@ -192,7 +192,7 @@ export default defineComponent({
 
     const onChangeRadio = (val) => {
       const nextType = val.target.value;
-      const str = `确认要切换为${nextType === QuickFillType.update ? '编辑已有' : '新增'}数据吗？`;
+      const str = `确认要切换为${nextType === QuickFillType.update ? translateValueByKey(translateValueByKey('编辑已有')) : translateValueByKey(translateValueByKey('新增'))}数据吗？`;
       if (excelRef.value.getCellStatus()) {
         const _modal = Modal.confirm({
           class: 'oio-modal oio-quick-fill-witch-mode-modal',
@@ -201,9 +201,9 @@ export default defineComponent({
           title: translateValueByKey(str),
           closable: true,
           content: translateValueByKey('切换后，本页数据将丢失，请确认后再继续'),
-          okText: translateValueByKey('确定'),
+          okText: translateValueByKey(translateValueByKey(translateValueByKey('确定'))),
 
-          cancelText: translateValueByKey('取消'),
+          cancelText: translateValueByKey(translateValueByKey(translateValueByKey('取消'))),
           onOk: () => {
             type.value = nextType;
             excelRef.value.resetExcel();
