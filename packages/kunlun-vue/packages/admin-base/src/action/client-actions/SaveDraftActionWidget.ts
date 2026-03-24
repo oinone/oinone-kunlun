@@ -252,7 +252,7 @@ export class SaveDraftAction extends ActionWidget {
   protected async executeDraftOperator(fun: string, ...args: unknown[]) {
     const functionDefinition = await FunctionCache.get(this.model.model, fun);
     if (!functionDefinition) {
-      console.error('无法获取可执行函数', this.action);
+      console.error('Unable to obtain executable function', this.action);
       OioNotification.error(translateValueByKey('错误'), translateValueByKey('无法获取可执行函数'));
       return;
     }

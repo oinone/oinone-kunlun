@@ -181,7 +181,7 @@ export class TreeHelper {
             if (currentNode) {
               if (currentNode.parent) {
                 throw new Error(
-                  `一个节点只能有一个父节点: [CurrentNodeKey ${key}] [CurrentParentNodeKey ${parentKey}]`
+                  `A node can only have one parent node: [CurrentNodeKey ${key}] [CurrentParentNodeKey ${parentKey}]`
                 );
               } else if (currentNode.setParent) {
                 currentNode.setParent(parent, undefined);
@@ -199,7 +199,7 @@ export class TreeHelper {
               if (currentNode) {
                 if (currentNode.parent) {
                   throw new Error(
-                    `一个节点只能有一个父节点: [CurrentNodeKey ${key}] [CurrentParentNodeKey ${parentKey}]`
+                    `A node can only have one parent node: [CurrentNodeKey ${key}] [CurrentParentNodeKey ${parentKey}]`
                   );
                 } else if (currentNode.setParent) {
                   currentNode.setParent(parent, undefined);
@@ -257,7 +257,7 @@ export class TreeHelper {
     }
     if (currentNode) {
       if (currentNode.value) {
-        throw new Error(`不允许出现重复的节点键值: [CurrentNodeKey ${key}]`);
+        throw new Error(`Duplicate node key values are not allowed: [CurrentNodeKey ${key}]`);
       } else {
         currentNode.value = value;
         updateNodeInstance(currentNode, value);

@@ -73,7 +73,7 @@ export class SPIOperator {
     );
     debugConsole.run(() => {
       const isResFun = res instanceof Function;
-      const matchRes = !res ? '无匹配项' : isResFun ? res?.name : ' ';
+      const matchRes = !res ? 'No matches' : isResFun ? res?.name : ' ';
       prettyConsole.info(isResFun ? 'Widget' : 'Result', matchRes);
       if (!isResFun && res) {
         console.log(res);

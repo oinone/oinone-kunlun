@@ -182,35 +182,35 @@ const { isFullScreen, trigger } = useFullscreen(loginPageRef);
 
 const layoutConfigs = [
   {
-    url: genStaticPath('右侧登录@2x.png?x-oss-process=image/resize,m_lfit,h_800'),
+    url: genStaticPath('right-login.png'),
     name: OioLoginThemeName.STAND_RIGHT,
     tips: translateValueByKey(
       '请上传jpg、png格式的图片或mp4、mov、avi格式视频。尺寸建议为1200*1080px，文件大小不超过50MB'
     )
   },
   {
-    url: genStaticPath('左侧登录@2x.png?x-,oss-process=image/resize,m_lfit,h_800'),
+    url: genStaticPath('left-login.png'),
     name: OioLoginThemeName.STAND_LEFT,
     tips: translateValueByKey(
       '请上传jpg、png格式的图片或mp4、mov、avi格式视频。尺寸建议为1200*1080px，文件大小不超过50MB'
     )
   },
   {
-    url: genStaticPath('大背景左侧登录@2x.png?x-oss-process=image/resize,m_lfit,h_800'),
+    url: genStaticPath('bg-left-login.png'),
     name: OioLoginThemeName.LEFT_STICK,
     tips: translateValueByKey(
       '请上传jpg、png格式的图片或mp4、mov、avi格式视频。尺寸建议为1200*1080px，文件大小不超过50MB'
     )
   },
   {
-    url: genStaticPath('大背景居中登录@2x.png?x-oss-process=image/resize,m_lfit,h_800'),
+    url: genStaticPath('bg-center-login.png'),
     name: OioLoginThemeName.CENTER_STICK,
     tips: translateValueByKey(
       '请上传jpg、png格式的图片或mp4、mov、avi格式视频。尺寸建议为1920*1080px，文件大小不超过50MB'
     )
   },
   {
-    url: genStaticPath('大背景右侧登录@2x.png?x-oss-process=image/resize,m_lfit,h_800'),
+    url: genStaticPath('bg-right-login.png'),
     name: OioLoginThemeName.RIGHT_STICK,
     tips: translateValueByKey(
       '请上传jpg、png格式的图片或mp4、mov、avi格式视频。尺寸建议为1920*1080px，文件大小不超过50MB'
@@ -218,7 +218,7 @@ const layoutConfigs = [
   },
 
   {
-    url: genStaticPath('logo在输入框上方@2x.png?x-oss-process=image/resize,m_lfit,h_800'),
+    url: genStaticPath('logo在输入框上方.png'),
     name: OioLoginThemeName.CENTER_STICK_LOGO,
     tips: translateValueByKey(
       '请上传jpg、png格式的图片或mp4、mov、avi格式视频。尺寸建议为1920*1080px，文件大小不超过50MB'
@@ -236,7 +236,7 @@ const selectedLayout = computed(() => {
 const currentLoginTheme = computed(() => {
   return {
     name: layout.value,
-    logo: loginLogo.value.url || genStaticPath('LOGO图@2x.png'),
+    logo: loginLogo.value.url || genStaticPath('LOGO-img.png'),
     backgroundImage: background.value.url
   } as any;
 });

@@ -210,7 +210,7 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
     }
     if (!runtimeViewAction) {
       OioNotification.error(translateValueByKey('错误'), translateValueByKey('页面初始化异常'));
-      throw new Error('页面初始化异常');
+      throw new Error('Page initialization error');
     }
     setSessionPath(runtimeViewAction.sessionPath);
     return runtimeViewAction;

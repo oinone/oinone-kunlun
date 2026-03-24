@@ -76,7 +76,7 @@ export default defineComponent({
           URL.revokeObjectURL(blobUrl);
         })
         .catch((error) => {
-          console.error('下载失败：', error);
+          console.error('Download failed:', error);
         });
     };
 

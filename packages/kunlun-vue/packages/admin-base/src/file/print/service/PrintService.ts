@@ -42,7 +42,7 @@ export class PrintService {
       data
     );
     if (!result) {
-      throw new Error('创建打印任务失败');
+      throw new Error('Failed to create print job');
     }
     return result;
     // fixme @zbh 20240805 5.1 using static metadata

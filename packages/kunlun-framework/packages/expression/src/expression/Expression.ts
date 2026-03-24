@@ -1034,7 +1034,7 @@ export class Expression {
     try {
       return this.rawExec(node);
     } catch (e) {
-      console.error(`无法解析表达式:${source}`, e);
+      console.error(`Unable to parse expression: ${source}`, e);
       throw e;
     }
   }
@@ -1058,7 +1058,7 @@ export class Expression {
 
           if (argTypes.length) {
             if (args.length < argTypes.length) {
-              throw new Error(`函数${name}需要${argTypes.length}个参数，现在得到${args.length}个`);
+              throw new Error(`Function ${name} requires ${argTypes.length} arguments, but got ${args.length}`);
             }
 
             args.forEach((arg, index) => {
@@ -1073,12 +1073,12 @@ export class Expression {
                     ? !requireTypes.includes('array') && !requireTypes.includes('any')
                     : !requireTypes.includes(typeof arg) && !requireTypes.includes('any')
                 ) {
-                  throw new Error(`函数${name}第${index}为${requireType}类型,现在为${typeof arg}类型`);
+                  throw new Error(`The ${index}th argument of function ${name} should be of type ${requireType}, but it is of type ${typeof arg} now`);
                 }
               } else if (typeof requireType === 'function') {
                 const needType = requireType(typeof arg);
                 if (needType !== '') {
-                  throw new Error(`函数${name}第${index}为${needType}类型,现在为${typeof arg}类型`);
+                  throw new Error(`Function ${name} ${index} is of type ${needType}, now of type ${typeof arg}`);
                 }
               }
             });

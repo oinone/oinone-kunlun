@@ -47,8 +47,8 @@ export default defineComponent({
     return {
       genStaticPath,
       translateValueByKey,
-      appTag: `${genStaticPath('标签1_1651399484151.png')}`,
-      moduleTag: `${genStaticPath('标签2_1651399538680.png')}`
+      appTag: `${genStaticPath('tag1.png')}`,
+      moduleTag: `${genStaticPath('tag2.png')}`
     };
   },
   methods: {

@@ -1,8 +1,8 @@
 <template>
   <div class="k-oinone-application" @click="onShowMask">
     <!-- 预加载图片 start -->
-    <img style="display: none" :src="`${genStaticPath('背景1_1650609329143.png')}`" alt="" />
-    <img style="display: none" :src="`${genStaticPath('背景_1651138497267.png')}`" alt="" />
+    <img style="display: none" :src="`${genStaticPath('background1.png')}`" alt="" />
+    <img style="display: none" :src="`${genStaticPath('background.png')}`" alt="" />
     <!-- 预加载图片 end -->
 
     <div class="logo">

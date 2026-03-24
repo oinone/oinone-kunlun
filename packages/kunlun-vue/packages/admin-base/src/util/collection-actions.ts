@@ -62,7 +62,7 @@ export class CollectionActions {
       } else {
         this.otherVNodes.push(vnode);
         if (isDev()) {
-          console.warn('无法识别的标签类型', vnode);
+          console.warn('Unrecognized tag type', vnode);
           this.hasMore = false;
           return false;
         }

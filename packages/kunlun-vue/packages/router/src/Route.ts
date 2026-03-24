@@ -42,7 +42,7 @@ const RouteImpl = {
       if (constructor && props.slotName) {
         widgetClass = { [props.slotName]: constructor };
       } else {
-        throw new Error(`路由${path}对应的页面:${widget}匹配异常`);
+        throw new Error(`The page corresponding to route ${path}: ${widget} has a matching exception`);
       }
       registerWidgets(widgetClass);
     }

@@ -27,7 +27,7 @@ export function genCSSVars(themes: ThemeName[], el?: string, prefix?: string) {
     ? (document.getElementsByClassName(el)[0] as HTMLElement)
     : (document.documentElement as HTMLElement);
   if (!element) {
-    throw new Error('挂载dom匹配失败');
+    throw new Error('Mount DOM match failed');
   }
 
   const styleTags = Array.from(document.getElementsByTagName('style')) || [];

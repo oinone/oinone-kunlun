@@ -70,7 +70,7 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
   protected async clickAction(): Promise<ClickResult> {
     const { action } = this;
     if (!action) {
-      console.error('无法处理没有运行时动作的点击动作');
+      console.error('Cannot process click action without runtime action');
       return;
     }
     debugConsole.group(`Click serverAction. ${action.model}:${action.name}`);
@@ -310,7 +310,7 @@ export class ServerActionWidget extends ActionWidget<RuntimeServerAction> {
       functionDefinition = await FunctionCache.get(model, fun);
     }
     if (!functionDefinition) {
-      console.error('无法获取可执行函数', action);
+      console.error('Unable to obtain executable function', action);
       OioNotification.error(translateValueByKey('错误'), translateValueByKey('无法获取可执行函数'));
       return false;
     }
