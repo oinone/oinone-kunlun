@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import type { RuntimeModelField } from '@oinone/kunlun-engine';
+import { RuntimeModelField } from '@oinone/kunlun-engine';
 import { EDirection } from '@oinone/kunlun-service';
 import { OioButton, OioIcon, OioInput } from '@oinone/kunlun-vue-ui-antd';
 import { computed, defineComponent, type PropType, ref, watch } from 'vue';

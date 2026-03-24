@@ -1,4 +1,9 @@
-import { type ActiveRecord, executeViewAction, type RuntimeViewAction } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  executeViewAction,
+  type RuntimeViewAction,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import { ActionType } from '@oinone/kunlun-meta';
 import { http } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
@@ -35,7 +40,7 @@ export class PermissionSubmitActionWidget extends ActionWidget {
         menudp = {
           model: 'base.Menu',
           permissionType: 'ROW',
-          name: `页面配置#${role.name}#菜单权限`,
+          name: `${translateValueByKey('页面配置')}#${role.name}#${translateValueByKey('菜单权限')}`,
           permRead: true,
           permissionDataSource: 'CUSTOM',
           active: true,
@@ -65,7 +70,7 @@ export class PermissionSubmitActionWidget extends ActionWidget {
         moduledp = {
           model: 'base.Module',
           permissionType: 'ROW',
-          name: `页面配置#${role.name}#应用权限Module`,
+          name: `${translateValueByKey('页面配置')}#${role.name}#${translateValueByKey('应用权限Module')}`,
           permRead: true,
           permissionDataSource: 'CUSTOM',
           active: true,
@@ -78,7 +83,7 @@ export class PermissionSubmitActionWidget extends ActionWidget {
         uemoduledp = {
           model: 'base.UeModule',
           permissionType: 'ROW',
-          name: `页面配置#${role.name}#应用权限UeModule`,
+          name: `${translateValueByKey('页面配置')}#${role.name}#${translateValueByKey('应用权限UeModule')}`,
           permRead: true,
           permissionDataSource: 'CUSTOM',
           active: true,

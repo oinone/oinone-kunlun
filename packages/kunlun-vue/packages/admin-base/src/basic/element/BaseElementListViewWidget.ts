@@ -645,7 +645,10 @@ export abstract class BaseElementListViewWidget<
       const fieldNames = searchFields.map((field) => field?.field?.name);
       const validFields = Object.keys(context).filter((key) => !fieldNames.includes(key) && key !== 'isKeepAlive');
       if (validFields.length) {
-        debugConsole.warn('当前页面的上下文中可能有未拖入到搜索条件的字段', validFields);
+        debugConsole.warn(
+          "There may be fields in the current page's context that have not been dragged into the search criteria.",
+          validFields
+        );
       }
     });
   }

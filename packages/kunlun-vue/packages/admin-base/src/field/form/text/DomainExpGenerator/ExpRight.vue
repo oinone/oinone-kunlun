@@ -147,9 +147,9 @@ export default defineComponent({
     const contextItemOptions = [
       {
         key: 'currentUser',
-        name: '当前登录用户id',
+        name: translateValueByKey('当前登录用户id'),
         val: '${currentUser}',
-        label: '当前登录用户id'
+        label: translateValueByKey('当前登录用户id')
       }
     ];
     const showContextItem = ref(false);
