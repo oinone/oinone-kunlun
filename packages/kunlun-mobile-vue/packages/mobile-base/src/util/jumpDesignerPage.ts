@@ -70,7 +70,7 @@ export const onJumpUiDesigner = async (viewId?: string) => {
         RedirectTargetEnum.BLANK
       );
     }
-    console.error('跳转至页面设计页面异常');
+    console.error('Jump to page design page exception');
   }
 };
 

@@ -1,7 +1,7 @@
 <template>
   <div class="empty-permission flex-c-c flex-1">
     <div style="text-align: center">
-      <img style="width: 243px" :src="genStaticPath('无权限@2x_1675843265937.png')" alt="" />
+      <img style="width: 243px" :src="genStaticPath('no-permission.png')" alt="" />
       <div class="mt-6 grey">{{ $translate(title) }}</div>
     </div>
   </div>

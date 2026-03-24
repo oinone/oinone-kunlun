@@ -170,8 +170,8 @@ export default defineComponent({
                                 <div class="application-text">
                                   <img style="width: 26px" src="${
                                     _config.application
-                                      ? `${genStaticPath('标签1_1651399484151.png')}`
-                                      : `${genStaticPath('标签2_1651399538680.png')}`
+                                      ? `${genStaticPath('tag1.png')}`
+                                      : `${genStaticPath('tag2.png')}`
                                   }" alt="" />
                                 </div>
                               </div>

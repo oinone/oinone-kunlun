@@ -14,7 +14,7 @@
             </div>
             <div class="workbench-total-user-logo">
               <img
-                src="https://pamirs.oss-cn-hangzhou.aliyuncs.com/kubernetes/upload/libra/sstest2022/09/02sstest/位图_1662089572724.png?x-oss-process=image/resize,m_lfit,h_800"
+                src="https://pamirs.oss-cn-hangzhou.aliyuncs.com/kubernetes/upload/libra/sstest2022/09/02sstest/bitmap.png?x-oss-process=image/resize,m_lfit,h_800"
               />
             </div>
           </div>
@@ -76,13 +76,13 @@ export default defineComponent({
     let matchedInstance: Matched | null = null;
     const iconBg = {
       'oinone-chaosong':
-        'https://pamirs.oss-cn-hangzhou.aliyuncs.com/kubernetes/upload/libra/sstest2022/09/02sstest/抄送_1662089537523.png?x-oss-process=image/resize,m_lfit,h_800',
+        'https://pamirs.oss-cn-hangzhou.aliyuncs.com/kubernetes/upload/libra/sstest2022/09/02sstest/cc.png?x-oss-process=image/resize,m_lfit,h_800',
       'oinone-wofaqide':
-        'https://pamirs.oss-cn-hangzhou.aliyuncs.com/kubernetes/upload/libra/sstest2022/09/02sstest/我发起的_1662089552722.png?x-oss-process=image/resize,m_lfit,h_800',
+        'https://pamirs.oss-cn-hangzhou.aliyuncs.com/kubernetes/upload/libra/sstest2022/09/02sstest/initiated-by-me.png?x-oss-process=image/resize,m_lfit,h_800',
       'oinone-woyibanjie':
-        'https://pamirs.oss-cn-hangzhou.aliyuncs.com/kubernetes/upload/libra/sstest2022/09/02sstest/我已办结_1662089589543.png?x-oss-process=image/resize,m_lfit,h_800',
+        'https://pamirs.oss-cn-hangzhou.aliyuncs.com/kubernetes/upload/libra/sstest2022/09/02sstest/completed-by-me.png?x-oss-process=image/resize,m_lfit,h_800',
       'oinone-zhanneixin1':
-        'https://pamirs.oss-cn-hangzhou.aliyuncs.com/kubernetes/upload/libra/sstest2022/09/02sstest/站内信_1662089604277.png?x-oss-process=image/resize,m_lfit,h_800'
+        'https://pamirs.oss-cn-hangzhou.aliyuncs.com/kubernetes/upload/libra/sstest2022/09/02sstest/internal-message.png?x-oss-process=image/resize,m_lfit,h_800'
     };
 
     onMounted(async () => {

@@ -84,7 +84,7 @@ export class DslSlotUtils {
         return;
       } else {
         if (slotNameRepeat <= 0) {
-          throw new Error('模板中不允许递归使用插槽进行二次处理');
+          throw new Error('Recursive use of slots for secondary processing is not allowed in templates');
         } else {
           slotNames[slotName]--;
         }

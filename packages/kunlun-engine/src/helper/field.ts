@@ -150,7 +150,7 @@ const queryFieldData4DetailByApi = async (
     // TODO 待支持
     return null;
   }
-  console.warn(`不支持的类型${apiElement.type}`);
+  console.warn(`Unsupported type ${apiElement.type}`);
   return null;
 };
 // m2o o2o
@@ -209,7 +209,7 @@ const queryFieldData4DetailByLoad = async (
     // TODO 待支持
     return [];
   }
-  console.warn(`不支持的类型${loadType}`);
+  console.warn(`Unsupported type ${loadType}`);
   return null;
 };
 const createM2OQueryData = (relationFields: string[], referenceFields: string[], formData: Entity) => {
@@ -351,7 +351,7 @@ const queryFieldDataList4DetailByApi = async (
     // TODO 待支持
     return {} as IQueryPageResult<any>;
   }
-  console.warn(`不支持的类型${apiElement.type}`);
+  console.warn(`Unsupported type ${apiElement.type}`);
   return {} as IQueryPageResult<any>;
 };
 
@@ -423,7 +423,7 @@ const queryFieldDataList4DetailByLoad = async (
     // TODO 待支持
     return [];
   }
-  console.warn(`不支持的类型${loadType}`);
+  console.warn(`Unsupported type ${loadType}`);
   return null;
 };
 const queryFieldDataList4Options = async (
@@ -485,7 +485,7 @@ const queryFieldDataList4OptionsByApi = async (
     // TODO 待支持
     return {} as IQueryPageResult<any>;
   }
-  console.warn(`不支持的类型${apiElement.type}`);
+  console.warn(`Unsupported type ${apiElement.type}`);
   return {} as IQueryPageResult<any>;
 };
 
@@ -524,7 +524,7 @@ const queryFieldDataList4OptionsByLoad = async (
     // TODO 待支持
     return {} as IQueryPageResult<any>;
   }
-  console.warn(`不支持的类型${loadType}`);
+  console.warn(`Unsupported type ${loadType}`);
   return {} as IQueryPageResult<any>;
 };
 /**

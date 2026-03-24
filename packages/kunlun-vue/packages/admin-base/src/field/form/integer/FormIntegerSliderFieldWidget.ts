@@ -40,7 +40,7 @@ export class FormIntegerSliderFieldWidget extends FormIntegerFieldWidget {
     let max = NumberHelper.toNumber(this.getDsl().max);
     if (isNil(max)) {
       if (isDev()) {
-        console.warn(`滑动输入框必须配置最大值`);
+        console.warn(`The slider input box must have a maximum value configured.`);
       }
       max = 100;
     }

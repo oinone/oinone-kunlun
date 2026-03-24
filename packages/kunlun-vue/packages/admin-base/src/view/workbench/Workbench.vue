@@ -15,7 +15,7 @@
               </div>
             </div>
             <div class="workbench-total-user-logo">
-              <img :src="`${genStaticPath('位图_1662089572724.png')}`" />
+              <img :src="`${genStaticPath('bitmap.png')}`" />
             </div>
           </div>
           <div class="workbench-total-user-body">
@@ -68,7 +68,7 @@
         </div>
       </div>
       <div class="workbench-app-container app-empty" v-else-if="!apps.length && isLoadData">
-        <img :src="`${genStaticPath('毛玻璃_1662098933770.png')}`" />
+        <img :src="`${genStaticPath('frosted-glass.png')}`" />
         <div class="desc">{{ translateValueByKey('暂无收藏的应用') }} <br />{{}}</div>
         <oio-button v-if="appsPerm" type="primary" icon="oinone-jiantou" iconPlacement="after" @click="gotoApps"
           >{{ translateValueByKey('去试试') }}

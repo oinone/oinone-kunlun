@@ -1,6 +1,6 @@
 <template>
   <div class="unauthorized-widget">
-    <div><img :src="genStaticPath('无权限.png')" alt="" /></div>
+    <div><img :src="genStaticPath('no-permission.png')" alt="" /></div>
     <div>{{ tips }}</div>
     <div>请联系管理员</div>
   </div>

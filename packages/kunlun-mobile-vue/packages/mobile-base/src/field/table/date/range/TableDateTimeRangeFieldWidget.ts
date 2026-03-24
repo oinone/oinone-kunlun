@@ -94,7 +94,7 @@ export class TableDateTimeRangeFieldWidget extends BaseTableColumnWidget {
       dateValue = value;
     } else if (value) {
       if (isDev()) {
-        console.warn('无法识别的日期值, 显示的值可能出现异常. value: ', value);
+        console.warn('Unrecognized date value, the displayed value may have an exception. value:', value);
       }
       return toString(value);
     } else {
