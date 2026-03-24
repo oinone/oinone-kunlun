@@ -21,7 +21,7 @@ export class DefaultExpressionExecutorService implements ExpressionExecutorServi
     try {
       return Expression.getInstance().exec(expression) as T;
     } catch (e) {
-      console.error(`无法解析表达式: ${expression}`);
+      console.error(`Unable to parse expression: ${expression}`);
       return errorValue;
     } finally {
       Expression.getInstance().cleanupExpressionContext();

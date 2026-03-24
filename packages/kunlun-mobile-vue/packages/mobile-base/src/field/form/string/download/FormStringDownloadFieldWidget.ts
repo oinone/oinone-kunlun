@@ -49,7 +49,7 @@ export class FormStringDownloadFieldWidget extends FormStringFieldWidget {
       // 发起请求获取文件数据
       const response = await fetch(this.value, { mode: 'cors' });
       if (!response.ok) {
-        throw new Error('网络响应错误');
+        throw new Error('Network response error');
       }
       // 将响应转为 Blob 对象
       const blob = await response.blob();
@@ -70,7 +70,7 @@ export class FormStringDownloadFieldWidget extends FormStringFieldWidget {
       // 释放Blob URL资源
       URL.revokeObjectURL(url);
     } catch (error) {
-      console.error('下载文件失败：', error);
+      console.error('Download file failed:', error);
     }
   }
 }

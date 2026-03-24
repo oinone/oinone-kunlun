@@ -10,7 +10,7 @@ export function useDateTimeRangePicker(props) {
     } else if (isDate(value)) {
       dateValue = value;
     } else if (value) {
-      console.warn(`无法识别的日期值, 显示的值可能出现异常. value=${value}`);
+      console.warn(`Unrecognized date value, the displayed value may be abnormal. value =${ value}`);
       return toString(value);
     } else {
       return '';

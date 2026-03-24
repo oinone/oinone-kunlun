@@ -127,7 +127,7 @@ export default defineComponent({
       const action = getActionByModel(model, actionName);
 
       if (!action) {
-        console.error('action匹配异常');
+        console.error('action match exception');
         return;
       }
 
@@ -148,7 +148,7 @@ export default defineComponent({
         await executeServerAction(action, item);
         loadData();
       } else {
-        console.error('跳转异常');
+        console.error('Jump Exception');
       }
     };
 

@@ -22,7 +22,7 @@ export class ComputeExpressionService implements ExpressionExecutorService {
     try {
       return ExpressionExecutor.run(param, expression, errorValue) as unknown as T;
     } catch (e) {
-      console.error(`无法解析表达式: ${expression}`);
+      console.error(`Unable to parse expression: ${expression}`);
       return errorValue;
     }
   }

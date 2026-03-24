@@ -15,8 +15,8 @@ enum ThemeType {
 }
 
 export const hostImage = () => genStaticPath('computer-samples.png?x-oss-process=image/resize,m_lfit,h_800');
-export const lightMode = () => genStaticPath('light-mode@2x.png?x-oss-process=image/resize,m_lfit,h_800');
-export const darkMode = () => genStaticPath('dark-mode@2x.png?x-oss-process=image/resize,m_lfit,h_800');
+export const lightMode = () => genStaticPath('light-mode.png?x-oss-process=image/resize,m_lfit,h_800');
+export const darkMode = () => genStaticPath('dark-mode.png?x-oss-process=image/resize,m_lfit,h_800');
 
 interface ReturnValue<T> {
   style: T;
@@ -93,20 +93,20 @@ class SystemThemeConfig {
   public get previewImages() {
     return {
       // 深色 - 大
-      [DefaultThemeName.DARK_LARGE]: genStaticPath('表格页large-black.png?x-oss-process=image/resize,m_lfit,h_800'),
+      [DefaultThemeName.DARK_LARGE]: genStaticPath('table-pagelarge-black.png'),
       // 深色 - 中
-      [DefaultThemeName.DARK_MEDIUM]: genStaticPath('表格页middle-black.png?x-oss-process=image/resize,m_lfit,h_800'),
+      [DefaultThemeName.DARK_MEDIUM]: genStaticPath('table-pagemiddle-black.png'),
       // 深色 - 小
-      [DefaultThemeName.DARK_SMALL]: genStaticPath('表格页small-black.png?x-oss-process=image/resize,m_lfit,h_800'),
+      [DefaultThemeName.DARK_SMALL]: genStaticPath('table-pagesmall-black.png'),
 
       // 浅色 - 大
-      [DefaultThemeName.DEFAULT_LARGE]: genStaticPath('表格页large.png?x-oss-process=image/resize,m_lfit,h_800'),
+      [DefaultThemeName.DEFAULT_LARGE]: genStaticPath('table-pagelarge.png'),
 
       // 浅色 - 中
-      [DefaultThemeName.DEFAULT_MEDIUM]: genStaticPath('表格页middle.png?x-oss-process=image/resize,m_lfit,h_800'),
+      [DefaultThemeName.DEFAULT_MEDIUM]: genStaticPath('table-pagemiddle.png'),
 
       // 浅色 - 小
-      [DefaultThemeName.DEFAULT_SMALL]: genStaticPath('表格页small.png?x-oss-process=image/resize,m_lfit,h_800')
+      [DefaultThemeName.DEFAULT_SMALL]: genStaticPath('table-pagesmall.png')
     };
   }
 

@@ -57,7 +57,7 @@ export class ColorHelper {
   public static getAlphaColor(color: string, alpha: number, backgroundColor = '#FFFFFF') {
     // 验证输入
     if (alpha < 0 || alpha > 1) {
-      throw new Error('透明度必须是0到1之间的数值');
+      throw new Error('The opacity must be a value between 0 and 1.');
     }
 
     // 转换为RGB

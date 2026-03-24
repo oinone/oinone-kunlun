@@ -132,7 +132,7 @@ export class CodeFuseTable extends FormO2MTableFieldWidget {
           this.loading = false;
         }
       } else {
-        console.error('跳转异常');
+        console.error('Jump Exception');
       }
     }
   }

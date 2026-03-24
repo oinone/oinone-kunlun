@@ -90,7 +90,7 @@ export function useHomepageSetting() {
           allModuleRules.push(rule);
         }
       } else {
-        console.warn('保存了不存在 module 的规则，保存失败');
+        console.warn('Failed to save the rule that does not exist in the module.');
       }
     });
     homepageSettingMap.set(ALL, allModuleRules);

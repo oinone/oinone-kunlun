@@ -357,7 +357,7 @@ const formatFieldParam = async (field: IModelField, value?): Promise<string> => 
       return `${field.name}: ${serializeObjectValue(value)}`;
     }
     default: {
-      console.warn(`暂未支持的ttype类型:${field.ttype}`);
+      console.warn(`ttype type not yet supported: ${field.ttype}`);
       return '';
     }
   }
@@ -1317,7 +1317,7 @@ const queryReferences = async <T>(
     };
   }
   if (!references || !referenceFields || !relationFields) {
-    throw new Error('没有references || referenceFields || relationFields');
+    throw new Error('No references | | referenceFields | | relationFields');
   }
   // const model = await getModel(references);
   let condition!: Condition;

@@ -2,7 +2,7 @@
   <div
     :class="['application-mask-container', hideMask && 'application-mask-container-hide']"
     :style="{
-      'background-image': `url(${genStaticPath('背景1_1650609329143.png')})`
+      'background-image': `url(${genStaticPath('background1.png')})`
     }"
     @click.stop="onClose"
   >
@@ -13,7 +13,7 @@
       class="mask-container"
       @click.stop="onClose"
       :style="{
-        'background-image': `url(${genStaticPath('背景_1651138497267.png')})`
+        'background-image': `url(${genStaticPath('background.png')})`
       }"
     >
       <img class="application-mask-container-watermark" :src="genStaticPath('app-finder-bg.png')" />

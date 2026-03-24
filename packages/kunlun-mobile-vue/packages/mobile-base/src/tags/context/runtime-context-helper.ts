@@ -93,7 +93,7 @@ function seekViewLayout(
             console.warn('JSON parse debug layout error', debugLayout);
           }
         }
-        console.log('使用后端layout', debugLayout);
+        console.log('Use backend layout', debugLayout);
       });
     }
   }
