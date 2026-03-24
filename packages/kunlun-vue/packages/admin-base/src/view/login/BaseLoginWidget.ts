@@ -272,7 +272,7 @@ export class BaseLoginWidget extends BaseI18nRouterWidget {
     this.isoStorageKey = LOGIN_LANGUAGE_ISO_STORAGE_KEY;
     this.initLanguages().then(async () => {
       const language = await this.getCurrentLanguage();
-      const currentLanguage = (await this.queryLanguageSetting(language))?.[0]?.extend?.currentLanguage as string;
+      const currentLanguage = (await this.queryLanguageSetting(language))?.extend?.currentLanguage as string;
       if (currentLanguage) {
         this.initCurrentLanguage(currentLanguage);
       } else {
