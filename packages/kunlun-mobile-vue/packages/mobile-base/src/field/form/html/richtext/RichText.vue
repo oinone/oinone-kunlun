@@ -15,6 +15,7 @@
   </div>
 </template>
 <script lang="ts">
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { createResourceFile, getFileSignature } from '@oinone/kunlun-vue-ui-common';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
@@ -146,7 +147,7 @@ export default defineComponent({
     };
     const editorConfig = computed(() => {
       return {
-        placeholder: props.placeholder || '请输入内容...',
+        placeholder: translateValueByKey(props.placeholder || '请输入内容...'),
         readOnly: innerDisabled.value || innerReadonly.value,
         // 在编辑器中，点击选中“附件”节点时，要弹出的菜单
         hoverbarKeys: {
