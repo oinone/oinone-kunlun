@@ -32,9 +32,9 @@
 </template>
 
 <script lang="ts">
+import { InboxOutlined } from '@ant-design/icons-vue';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { defineComponent } from 'vue';
-import { InboxOutlined } from '@ant-design/icons-vue';
 import { UploadCommonProps } from '../prop';
 import UploadCom from './Upload.vue';
 

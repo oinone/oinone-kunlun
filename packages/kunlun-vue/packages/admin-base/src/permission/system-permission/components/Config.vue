@@ -38,7 +38,7 @@
                   v-if="hasCollectionPermissionItemsAction"
                   type="link"
                   @click="onCollectionPermissionItems"
-                  >收集权限项
+                  >{{ $translate('收集权限项') }}
                 </oio-button>
               </div>
               <div class="mt-6" :class="[groupList.length === 0 && !store.nodeType && 'flex-1']">

@@ -69,7 +69,7 @@
 import { type ActiveRecord, type RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
 import { OioButton, OioIcon, OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { ModalWidth, OioCloseIcon } from '@oinone/kunlun-vue-ui-common';
-import { Modal, Radio as ARadio, RadioGroup as ARadioGroup } from 'ant-design-vue';
+import { Radio as ARadio, RadioGroup as ARadioGroup, Modal } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, type PropType, ref, watch } from 'vue';
 import Excel from './Excel.vue';
 import { QuickFillType, type TableFieldOption } from './type';

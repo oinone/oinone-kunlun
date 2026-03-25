@@ -1,6 +1,30 @@
-import { type ActiveRecord, type ActiveRecords, buildQueryCondition, type GetRequestModelFieldsOptions, ModelCache, type RequestModelField, resolveDynamicExpression, type RuntimeAction, type RuntimeContext, RuntimeContextManager, type RuntimeServerAction, SubmitRelationValue, SubmitValue, translate, translateValueByKey, type ValidatorCallChainingParameters } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  type ActiveRecords,
+  buildQueryCondition,
+  type GetRequestModelFieldsOptions,
+  ModelCache,
+  type RequestModelField,
+  resolveDynamicExpression,
+  type RuntimeAction,
+  type RuntimeContext,
+  RuntimeContextManager,
+  type RuntimeServerAction,
+  SubmitRelationValue,
+  SubmitValue,
+  translate,
+  translateValueByKey,
+  type ValidatorCallChainingParameters
+} from '@oinone/kunlun-engine';
 import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
-import { ActionContextType, type ActionElement, type IAction, ModelFieldType, ViewActionTarget, ViewType } from '@oinone/kunlun-meta';
+import {
+  ActionContextType,
+  type ActionElement,
+  type IAction,
+  ModelFieldType,
+  ViewActionTarget,
+  ViewType
+} from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import { DEFAULT_TRUE_CONDITION } from '@oinone/kunlun-service';
 import { BooleanHelper, debugConsole, GraphqlHelper, type ReturnPromise } from '@oinone/kunlun-shared';
@@ -408,10 +432,10 @@ export class ActionWidget<
       if (warnFields.length) {
         debugConsole.warn(
           [
-            `当前动作的上下文表达式中可能使用了未拖入的字段`,
-            `上下文所在目标页面模型的字段:${key}`,
-            `表达式:${rawExp}`,
-            `未拖入的当前视图字段:${warnFields.join(',')}`
+            `The context expression of the current action may be using a field that has not been dragged in.`,
+            `Field of the target page model where the context is located: ${key}`,
+            `Expression: ${rawExp}`,
+            `Fields in the current view not yet dragged in: ${warnFields.join(',')}`
           ].join(';')
         );
       }
@@ -851,7 +875,7 @@ export class ActionWidget<
    * @description 服务端函数校验「表达式、服务端函数校验」
    */
   protected async executeServerValidator(expression: string | boolean, fun: string): Promise<boolean> {
-    let result = false;
+    const result = false;
 
     // 如果服务端校验配置了expression， 那么前端不做处理，又后端处理
     if (expression) {

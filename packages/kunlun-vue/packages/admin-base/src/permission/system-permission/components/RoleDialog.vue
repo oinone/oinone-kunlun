@@ -17,8 +17,8 @@
       <oio-input :placeholder="$translate('角色名称')" v-model:value="searchCondition.name" />
       <oio-input :placeholder="$translate('角色编码')" v-model:value="searchCondition.code" />
       <oio-input :placeholder="$translate('角色描述')" v-model:value="searchCondition.description" />
-      <oio-button type="primary" @click="onSearch">搜索</oio-button>
-      <oio-button @click="onResetCondition">重置</oio-button>
+      <oio-button type="primary" @click="onSearch">{{ $translate('搜索') }}</oio-button>
+      <oio-button @click="onResetCondition">{{ $translate('重置') }}</oio-button>
     </div>
 
     <!-- <div style="margin: 24px 0">
@@ -81,9 +81,9 @@
   </oio-modal>
 </template>
 <script lang="ts" setup>
-import { ref, watch, defineProps, withDefaults, defineEmits, computed, onMounted, nextTick } from 'vue';
-import { OioModal, OioInput, OioButton, OioIcon } from '@oinone/kunlun-vue-ui-antd';
 import { translateValueByKey } from '@oinone/kunlun-engine';
+import { OioButton, OioIcon, OioInput, OioModal } from '@oinone/kunlun-vue-ui-antd';
+import { computed, defineEmits, defineProps, nextTick, ref, watch, withDefaults } from 'vue';
 import { queryRoleList } from '../service';
 
 const columns = [

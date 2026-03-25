@@ -1,4 +1,5 @@
 <script lang="ts">
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import { ButtonType, OioButton, OioPopconfirm, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { MenuItem as AMenuItem } from 'ant-design-vue';
@@ -40,7 +41,11 @@ export default defineComponent({
     const ButtonVNode = computed(() => {
       let contentVNode: VNode | undefined;
       if (!props.labelInvisible && props.label) {
-        contentVNode = createVNode('span', { class: `${DEFAULT_PREFIX}-action-content` }, props.label);
+        contentVNode = createVNode(
+          'span',
+          { class: `${DEFAULT_PREFIX}-action-content` },
+          translateValueByKey(props.label)
+        );
       }
 
       const attrs: Record<string, unknown> = {
@@ -71,11 +76,11 @@ export default defineComponent({
         ? createVNode(
             OioPopconfirm,
             {
-              title: props.confirmTitle,
-              placement: props.confirmPosition,
-              text: props.confirm,
-              enterText: props.enterText,
-              cancelText: props.cancelText,
+              title: translateValueByKey(props.confirmTitle),
+              placement: translateValueByKey(props.confirmPosition),
+              text: translateValueByKey(props.confirm),
+              enterText: translateValueByKey(props.enterText),
+              cancelText: translateValueByKey(props.cancelText),
               visible: props.visibleConfirm,
               'onUpdate:visible': props.changeVisibleConfirm,
               condition: actionProps.condition,

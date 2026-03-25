@@ -22,7 +22,7 @@
         v-for="(item, index) in secondCateFieldOptions"
         @click="onChangeSecondaryCate(index)"
       >
-        {{ item.displayName }}
+        {{ $translate(item.displayName) }}
       </div>
     </div>
   </div>
@@ -160,19 +160,33 @@
   </van-popup>
 </template>
 <script lang="ts">
-import { computed, defineComponent, type PropType, ref, watch } from 'vue';
-import { Icon as VanIcon, Popup as VanPopup, Search as VanSearch, Tab as VanTab, Tabs as VanTabs, Toast as VanToast } from 'vant';
 import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import type { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
+import {
+  type IModel,
+  type IModelField,
+  isComplexTtype,
+  isDateTtype,
+  isNumberTtype,
+  ModelFieldType
+} from '@oinone/kunlun-meta';
+import { Condition, DefaultLogicalOperator } from '@oinone/kunlun-request';
+import { EDirection, ISort } from '@oinone/kunlun-service';
 import { IListSortEnum, OioFormProps, OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { DEFAULT_PREFIX, OioButton, OioEmptyData } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { type IModel, type IModelField, isComplexTtype, isDateTtype, isNumberTtype, ModelFieldType } from '@oinone/kunlun-meta';
-import { EDirection, ISort } from '@oinone/kunlun-service';
-import { Condition, DefaultLogicalOperator } from '@oinone/kunlun-request';
-import BaseSearch from './BaseSearch.vue';
+import {
+  Icon as VanIcon,
+  Popup as VanPopup,
+  Search as VanSearch,
+  Tab as VanTab,
+  Tabs as VanTabs,
+  Toast as VanToast
+} from 'vant';
+import { computed, defineComponent, type PropType, ref, watch } from 'vue';
 import type { UserSearchPrefer } from '../../typing';
+import BaseSearch from './BaseSearch.vue';
 import { CATE_ALL_NAME } from './types';
-import type { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
-import { translateValueByKey } from '@oinone/kunlun-engine';
 
 interface ISelectOption {
   value: ISort;
@@ -540,7 +554,7 @@ export default defineComponent({
       let list = [] as IModelField[];
       if (keywordFields) {
         const keywordFieldList = keywordFields.split(',');
-        list = createUniqueModelFields()?.filter(
+        list = createUniqueModelFields().filter(
           (a) => a && keywordTtypes.includes(a.ttype) && keywordFieldList.includes(a.name)
         )!;
       }
