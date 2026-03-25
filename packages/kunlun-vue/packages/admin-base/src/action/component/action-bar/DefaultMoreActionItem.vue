@@ -121,7 +121,7 @@ export default defineComponent({
     };
   },
   render() {
-    const { visibleConfirm, title, disabled, actionProps, condition, onUpdateVisibleConfirm } = this;
+    const { visibleConfirm, title, disabled, actionProps, condition, onUpdateVisibleConfirm, $translate } = this;
     if (actionProps.invisible) {
       return [];
     }
@@ -130,7 +130,7 @@ export default defineComponent({
       {
         class: `${DEFAULT_PREFIX}-more-action-item`,
         disabled,
-        title
+        title: $translate(title)
       },
       {
         default: () => {
