@@ -1,3 +1,4 @@
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { isString } from 'lodash-es';
 import { computed, ref } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
@@ -39,7 +40,7 @@ export function useModal(props, context) {
   const title = computed(() => {
     const val = props.title;
     if (val == null) {
-      return '对话框';
+      return translateValueByKey('对话框');
     }
     return val;
   });
