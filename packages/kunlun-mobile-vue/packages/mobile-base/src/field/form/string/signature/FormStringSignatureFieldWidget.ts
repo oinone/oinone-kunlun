@@ -1,8 +1,8 @@
-import { ViewType, ModelFieldType } from '@oinone/kunlun-meta';
+import { SubmitHandler, SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { SubmitValue, SubmitHandler } from '@oinone/kunlun-engine';
+import { IUploadMethod, useUploadFileEvent } from '@oinone/kunlun-vue-ui-common';
 import { Widget, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
-import { useUploadFileEvent, IUploadMethod } from '@oinone/kunlun-vue-ui-common';
 import SmoothSignature from 'smooth-signature';
 import { BaseFieldWidget } from '../../../../basic';
 import { encrypt } from '../../../../util';
@@ -44,7 +44,7 @@ export class FormStringSignatureFieldWidget extends FormStringFieldSingleWidget 
   // 清除按钮文字
   @Widget.Reactive()
   public get clearButtonText() {
-    return this.getDsl().clearButtonText || '清除';
+    return this.getDsl().clearButtonText || translateValueByKey('清除');
   }
 
   // 是否展示保存按钮
@@ -56,7 +56,7 @@ export class FormStringSignatureFieldWidget extends FormStringFieldSingleWidget 
   // 保存按钮文字
   @Widget.Reactive()
   public get saveButtonText() {
-    return this.getDsl().saveButtonText || '保存';
+    return this.getDsl().saveButtonText || translateValueByKey('保存');
   }
 
   // 签名文字颜色

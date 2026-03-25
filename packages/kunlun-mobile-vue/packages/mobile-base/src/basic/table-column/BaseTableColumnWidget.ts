@@ -1,4 +1,4 @@
-import { SubmitValue } from '@oinone/kunlun-engine';
+import { SubmitValue, translateValueByKey } from '@oinone/kunlun-engine';
 import { BooleanHelper, CallChaining, Optional } from '@oinone/kunlun-shared';
 import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { type ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
@@ -214,7 +214,7 @@ export class BaseTableColumnWidget<
       const value = row[this.itemData];
 
       if (isEmpty(value)) {
-        OioNotification.error('错误', `${this.label}必填`);
+        OioNotification.error('错误', translateValueByKey('${label}必填', { label: this.label }));
         return false;
       }
     }

@@ -1,10 +1,27 @@
 <script lang="ts">
-import { ButtonType, DrawerPlacement, OioIcon, OioInnerPopupProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
+import {
+  ButtonType,
+  DrawerPlacement,
+  OioIcon,
+  OioInnerPopupProps,
+  PropRecordHelper
+} from '@oinone/kunlun-vue-ui-common';
 import { isFunction, isString } from 'lodash-es';
-import { computed, createVNode, defineComponent, Teleport, type VNode, VNodeProps, vShow, watch, withDirectives } from 'vue';
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  Teleport,
+  type VNode,
+  VNodeProps,
+  vShow,
+  watch,
+  withDirectives
+} from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import { OioButton } from '../oio-button';
 import { OioSpin } from '../oio-spin';
+
 // import { OioTooltipHelp } from '../oio-tooltip';
 
 const CLASS_NAME = `${DEFAULT_PREFIX}-inner-popup`;
@@ -114,12 +131,14 @@ export default defineComponent({
     } else {
       let finalTitleSlot = titleSlot;
       if (!finalTitleSlot) {
-        finalTitleSlot = () => [createVNode('span', { class: `${CLASS_NAME}-title` }, this.title || '标题')];
+        finalTitleSlot = () => [
+          createVNode('span', { class: `${CLASS_NAME}-title` }, this.$translate(this.title || '标题'))
+        ];
       }
       if (this.help) {
         const titleChildren = finalTitleSlot();
         finalTitleSlot = () => {
-          return [createVNode('span', {}, titleChildren), createVNode('div', {}, this.help)];
+          return [createVNode('span', {}, titleChildren), createVNode('div', {}, this.$translate(this.help))];
         };
       }
       const headerChildren = [createTitle(finalTitleSlot())];
@@ -147,13 +166,13 @@ export default defineComponent({
     } else if (footerSlot !== null) {
       children.push(
         createFooter([
-          createVNode(OioButton, {}, { default: () => this.cancelText }),
+          createVNode(OioButton, {}, { default: () => this.$translate(this.cancelText) }),
           createVNode(
             OioButton,
             {
               type: ButtonType.primary
             },
-            { default: () => this.enterText }
+            { default: () => this.$translate(this.enterText) }
           )
         ])
       );

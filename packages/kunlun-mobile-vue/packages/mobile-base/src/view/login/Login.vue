@@ -11,7 +11,7 @@
       <van-col span="24">
         <div class="login-page-tabs">
           <div class="login-page-tab" :class="{ active: isAccount }" @click="setLoginMode(LoginMode.ACCOUNT)">
-            {{ accountLoginLabel }}
+            {{ $translate(accountLoginLabel) }}
           </div>
           <div
             class="login-page-tab"
@@ -19,7 +19,7 @@
             @click="setLoginMode(LoginMode.CODE)"
             v-if="codeLogin"
           >
-            {{ codeLoginLabel }}
+            {{ $translate(codeLoginLabel) }}
           </div>
         </div>
         <van-form>
@@ -147,15 +147,20 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, defineProps, type PropType, ref } from 'vue';
-import { UserOutlined, LockOutlined, MailOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons-vue';
+import { EyeInvisibleOutlined, EyeOutlined, LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons-vue';
+import {
+  genStaticPath,
+  getCopyrightStatus,
+  OioLoginLogoPosition,
+  type OioLoginThemeConfig,
+  OioLoginThemeName,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import type { RuntimeLanguage } from '@oinone/kunlun-vue-ui-common';
-import { OioButton, OioPicker, DEFAULT_PREFIX } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { Row as VanRow, Col as VanCol, Form as VanForm, Field as VanField, CellGroup as VanCellGroup } from 'vant';
-
-import { genStaticPath, getCopyrightStatus, OioLoginLogoPosition, type OioLoginThemeConfig, OioLoginThemeName, translateValueByKey } from '@oinone/kunlun-engine';
-
-import { LoginMode, type LoginData } from './types';
+import { DEFAULT_PREFIX, OioButton, OioPicker } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { CellGroup as VanCellGroup, Col as VanCol, Field as VanField, Form as VanForm, Row as VanRow } from 'vant';
+import { computed, defineProps, type PropType, ref } from 'vue';
+import { type LoginData, LoginMode } from './types';
 
 const props = defineProps({
   login: { type: Function as PropType<() => void>, required: true },

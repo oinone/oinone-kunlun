@@ -2,7 +2,8 @@ import {
   executeViewAction,
   type IResourceDateTimeFormat,
   queryResourceDateTimeFormat,
-  RedirectTargetEnum
+  RedirectTargetEnum,
+  translateValueByKey
 } from '@oinone/kunlun-engine';
 import { isDev } from '@oinone/kunlun-router';
 import { getModel } from '@oinone/kunlun-service';
@@ -48,8 +49,8 @@ export class NotificationWidget extends MaskWidget {
   public async getCopyAction() {
     return {
       name: 'workflow_detail',
-      title: '查看工作流用户任务待办',
-      displayName: '查看',
+      title: translateValueByKey('查看工作流用户任务待办'),
+      displayName: translateValueByKey('查看'),
       actionType: 'VIEW',
       target: 'ROUTER',
       viewType: 'DETAIL',
@@ -68,8 +69,8 @@ export class NotificationWidget extends MaskWidget {
   public async getWaitAction() {
     return {
       name: 'workflow_wait',
-      title: '审批工作流用户任务待办',
-      displayName: '审批',
+      title: translateValueByKey('审批工作流用户任务待办'),
+      displayName: translateValueByKey('审批'),
       actionType: 'VIEW',
       target: 'ROUTER',
       viewType: 'FORM',
@@ -89,8 +90,8 @@ export class NotificationWidget extends MaskWidget {
   public async getWriteAction() {
     return {
       name: 'workflow_write',
-      title: '填写工作流用户任务待办',
-      displayName: '填写',
+      title: translateValueByKey('填写工作流用户任务待办'),
+      displayName: translateValueByKey('填写'),
       actionType: 'VIEW',
       target: 'ROUTER',
       viewType: 'FORM',
@@ -143,22 +144,22 @@ export class NotificationWidget extends MaskWidget {
   @Widget.Reactive()
   public messageTextMap = {
     WORKFLOW: {
-      title: '工作流',
-      desc: '待处理的审批/填写任务',
-      btn: '去处理',
+      title: translateValueByKey('工作流'),
+      desc: translateValueByKey('待处理的审批/填写任务'),
+      btn: translateValueByKey('去处理'),
       icon: 'oinone-tianxie',
       color: 'rgb(122, 32, 233)'
     },
     NOTIFICATION: {
-      title: '站内信',
-      desc: '未读的站内信',
-      btn: '去查看',
+      title: translateValueByKey('站内信'),
+      desc: translateValueByKey('未读的站内信'),
+      btn: translateValueByKey('去查看'),
       icon: 'oinone-xitongtongzhi'
     },
     COPY: {
-      title: '抄送',
-      desc: '未查看的抄送',
-      btn: '去查看',
+      title: translateValueByKey('抄送'),
+      desc: translateValueByKey('抄送'),
+      btn: translateValueByKey('去查看'),
       icon: 'oinone-tianxie'
     }
   };
@@ -172,7 +173,7 @@ export class NotificationWidget extends MaskWidget {
   }
 
   @Widget.Reactive()
-  public confirmModalTitle = '查看消息';
+  public confirmModalTitle = translateValueByKey('查看消息');
 
   @Widget.Reactive()
   public currentMessage = {} as any;
@@ -209,7 +210,7 @@ export class NotificationWidget extends MaskWidget {
     if (messageInfo.messageType === 'WORKFLOW' || messageInfo.messageType === 'COPY') {
       let action;
 
-      if (message.workFlowTaskType === '审批') {
+      if (message.workFlowTaskType === translateValueByKey('审批')) {
         const rst = await this.beforeClickMap['wait'](message, messageInfo);
 
         if (!rst) {

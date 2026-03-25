@@ -1,3 +1,4 @@
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { MessageHub } from '@oinone/kunlun-request';
 
 let isSupportedClipboardCopy = true;
@@ -43,9 +44,9 @@ export function useCopy() {
   const copyAndNotify = async (text: string): Promise<void> => {
     const res = await copy(text);
     if (res) {
-      MessageHub.success('复制成功');
+      MessageHub.success(translateValueByKey('复制成功'));
     } else {
-      MessageHub.error('复制失败，请手动复制');
+      MessageHub.error(translateValueByKey('复制失败，请手动复制'));
     }
   };
 

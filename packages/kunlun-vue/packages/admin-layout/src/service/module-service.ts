@@ -1,4 +1,4 @@
-import { ClearCache, ModelCache, QueryPageResult, type RuntimeViewAction } from '@oinone/kunlun-engine';
+import { ClearCache, QueryPageResult, type RuntimeViewAction, translateValueByKey } from '@oinone/kunlun-engine';
 import { type IModule, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { gql } from '@oinone/kunlun-request';
 import { http } from '@oinone/kunlun-service';
@@ -65,6 +65,6 @@ export class ModuleService {
 
   public static generatorViewTitle(action: RuntimeViewAction): string {
     const { resView } = action;
-    return action.title || resView?.title || resView?.name || '未命名';
+    return action.title || resView?.title || resView?.name || translateValueByKey('未命名');
   }
 }
