@@ -54,12 +54,12 @@
 
     <template #footer>
       <div v-if="step === 0">
-        <oio-button @click="onToggleModal(false)">取消</oio-button>
-        <oio-button type="primary" @click="onHandlerSure">确定</oio-button>
+        <oio-button @click="onToggleModal(false)">{{ $translate('取消') }}</oio-button>
+        <oio-button type="primary" @click="onHandlerSure">{{ $translate('确定') }}</oio-button>
       </div>
       <div v-else>
-        <oio-button @click="onStepChange(0)">上一步</oio-button>
-        <oio-button type="primary" @click="onSubmit">继续填报</oio-button>
+        <oio-button @click="onStepChange(0)">{{ $translate('上一步') }}</oio-button>
+        <oio-button type="primary" @click="onSubmit">{{ $translate('继续填报') }}</oio-button>
       </div>
     </template>
   </oio-modal>
@@ -69,7 +69,7 @@
 import { type ActiveRecord, type RuntimeModelField, translateValueByKey } from '@oinone/kunlun-engine';
 import { OioButton, OioIcon, OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { ModalWidth, OioCloseIcon } from '@oinone/kunlun-vue-ui-common';
-import { Modal, Radio as ARadio, RadioGroup as ARadioGroup } from 'ant-design-vue';
+import { Radio as ARadio, RadioGroup as ARadioGroup, Modal } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, type PropType, ref, watch } from 'vue';
 import Excel from './Excel.vue';
 import { QuickFillType, type TableFieldOption } from './type';
