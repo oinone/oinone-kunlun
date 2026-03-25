@@ -32,7 +32,7 @@
             <div class="margin-right">
               <div class="flex-row-start-center">
                 <div>3:1</div>
-                <oio-tooltip-help content="用于左侧菜单栏展开时的logo显示。" />
+                <oio-tooltip-help :content="$translate('用于左侧菜单栏展开时的logo显示。')" />
               </div>
               <upload-img
                 limitSize="5"
@@ -48,7 +48,7 @@
             <div>
               <div class="flex-row-start-center">
                 <div>1:1</div>
-                <oio-tooltip-help content="用于左侧菜单栏收起时的logo显示。" />
+                <oio-tooltip-help :content="$translate('用于左侧菜单栏收起时的logo显示。')" />
               </div>
               <upload-img
                 limitSize="5"
@@ -97,8 +97,11 @@ import { OioButton, OioForm, OioFormItem, OioInput, OioTooltipHelp } from '@oino
 import { defineProps, ref, watchEffect } from 'vue';
 import UploadImg from '../../components/upload/UploadImg.vue';
 
-const props =
-  defineProps<{ companySetting: Record<string, any>; onSaveCompanySetting: () => void; goBack: () => void }>();
+const props = defineProps<{
+  companySetting: Record<string, any>;
+  onSaveCompanySetting: () => void;
+  goBack: () => void;
+}>();
 
 // app finder logo
 const appSideLogoInfo = ref<Record<string, any>>({});
