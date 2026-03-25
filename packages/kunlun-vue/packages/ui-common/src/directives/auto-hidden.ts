@@ -1,3 +1,4 @@
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { BooleanHelper, CastHelper, type CSSStyle, NumberHelper } from '@oinone/kunlun-shared';
 import type { ObjectDirective } from '@vue/runtime-core';
 import { isObject } from 'lodash-es';
@@ -55,7 +56,7 @@ function createAutoHiddenToolbar(el: HTMLElement, height: number): void {
   if (expandButton) {
     const label = expandButton.children?.[0] as HTMLElement;
     if (label) {
-      label.innerText = '展开';
+      label.innerText = translateValueByKey('展开');
     }
     const icon = expandButton.children?.[1] as HTMLElement;
     if (icon) {
@@ -75,7 +76,7 @@ function removeAutoHiddenToolbar(el: HTMLElement, isFold = false): void {
       if (expandButton) {
         const label = expandButton.children?.[0] as HTMLElement;
         if (label) {
-          label.innerText = '收起';
+          label.innerText = translateValueByKey('收起');
         }
         const icon = expandButton.children?.[1] as HTMLElement;
         if (icon) {
