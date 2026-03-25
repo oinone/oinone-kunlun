@@ -1,6 +1,10 @@
-import { ActionType, ActionContextType, ViewType, ViewMode, ViewActionTarget, deepClone } from '@oinone/kunlun-meta';
-import { type DslDefinition, XMLParse, DslDefinitionType } from '@oinone/kunlun-dsl';
-import { MultiTabsRuntimeManifestMergedConfigManager, type RuntimeViewAction } from '@oinone/kunlun-engine';
+import { type DslDefinition, DslDefinitionType, XMLParse } from '@oinone/kunlun-dsl';
+import {
+  MultiTabsRuntimeManifestMergedConfigManager,
+  type RuntimeViewAction,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
+import { ActionContextType, ActionType, deepClone, ViewActionTarget, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { getDefaultMaskTemplate } from '../template';
 
 function findNodeByType(dsl: DslDefinition, dslNodeType: DslDefinitionType | string): DslDefinition | null {
@@ -75,7 +79,7 @@ export const getUnauthorizedAction = ({
   const _model = model || emptyHomepageModelName;
 
   return {
-    title: title || '无权限访问',
+    title: translateValueByKey(title || '无权限访问'),
     moduleName,
     model: _model,
     modelName: unauthorizedActionName,
