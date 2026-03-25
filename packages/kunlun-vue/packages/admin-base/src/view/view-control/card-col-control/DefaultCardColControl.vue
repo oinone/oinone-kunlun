@@ -14,8 +14,8 @@
         </div>
 
         <div class="default-card-col-control-footer">
-          <oio-button type="primary" @click="onSure">确定</oio-button>
-          <oio-button @click="onCancel">取消</oio-button>
+          <oio-button type="primary" @click="onSure">{{ $translate('确定') }}</oio-button>
+          <oio-button @click="onCancel">{{ $translate('取消') }}</oio-button>
         </div>
       </div>
     </template>

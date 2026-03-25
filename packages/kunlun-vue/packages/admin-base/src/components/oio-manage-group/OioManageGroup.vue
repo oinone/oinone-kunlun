@@ -111,6 +111,7 @@
 </template>
 <script lang="ts">
 import { PlusOutlined } from '@ant-design/icons-vue';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { OioButton, OioModal, OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { OioIcon } from '@oinone/kunlun-vue-ui-common';
 import { computed, defineComponent, nextTick, ref, type Ref, watch } from 'vue';
@@ -223,7 +224,7 @@ export default defineComponent({
     const handleModifyGroup = async (paramGroup) => {
       try {
         if (!paramGroup.refName) {
-          OioNotification.error('失败', '分组名称不能为空');
+          OioNotification.error(translateValueByKey('失败'), translateValueByKey('分组名称不能为空'));
         } else {
           if (paramGroup.refName !== (paramGroup.displayName || paramGroup.name)) {
             if (!props.onModifyGroup || typeof props.onModifyGroup !== 'function') {
@@ -256,7 +257,7 @@ export default defineComponent({
         groupTagcreateInputValue.value = '';
         // detectShowModal();
       } else {
-        OioNotification.error('失败', '分组名称不能为空');
+        OioNotification.error(translateValueByKey('失败'), translateValueByKey('分组名称不能为空'));
       }
       addGroupInputVisible.value = false;
     };

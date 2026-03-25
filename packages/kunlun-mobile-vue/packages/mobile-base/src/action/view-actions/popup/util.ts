@@ -1,12 +1,37 @@
-import { type ActionDslDefinition, DEFAULT_CHILDREN_KEY, DEFAULT_SLOT_NAME, type DslDefinition, DslDefinitionHelper, DslDefinitionType, DslSlotUtils, type ElementDslDefinition, IGNORED_TEMPLATE_DSL_KEYS, type TemplateDslDefinition, UnknownDslDefinition, type ViewDslDefinition } from '@oinone/kunlun-dsl';
-import { type DisposeEventHandler, type IPopupInstance, ModelCache, type OpenEventHandler, PopupManager, resolveDslDefinition, type RuntimeAction, type RuntimeView, type RuntimeViewAction, translateValueByKey, ViewActionCache } from '@oinone/kunlun-engine';
+import {
+  type ActionDslDefinition,
+  DEFAULT_CHILDREN_KEY,
+  DEFAULT_SLOT_NAME,
+  type DslDefinition,
+  DslDefinitionHelper,
+  DslDefinitionType,
+  DslSlotUtils,
+  type ElementDslDefinition,
+  IGNORED_TEMPLATE_DSL_KEYS,
+  type TemplateDslDefinition,
+  UnknownDslDefinition,
+  type ViewDslDefinition
+} from '@oinone/kunlun-dsl';
+import {
+  type DisposeEventHandler,
+  type IPopupInstance,
+  ModelCache,
+  type OpenEventHandler,
+  PopupManager,
+  resolveDslDefinition,
+  type RuntimeAction,
+  type RuntimeView,
+  type RuntimeViewAction,
+  translateValueByKey,
+  ViewActionCache
+} from '@oinone/kunlun-engine';
 import { ActionType, ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
+import { useSessionPath } from '@oinone/kunlun-request';
 import { debugConsole, Optional } from '@oinone/kunlun-shared';
 import { ButtonType } from '@oinone/kunlun-vue-ui-common';
 import { nextTick } from 'vue';
-import { useSessionPath } from '@oinone/kunlun-request';
-import { DETAIL_WIDGET, FORM_WIDGET, SEARCH_WIDGET, TABLE_WIDGET } from '../../../typing/widget-names';
 import { generatorLayout } from '../../../spi';
+import { DETAIL_WIDGET, FORM_WIDGET, SEARCH_WIDGET, TABLE_WIDGET } from '../../../typing/widget-names';
 
 export interface PopupDslDefinition {
   model: string;
@@ -301,7 +326,7 @@ export async function createPopupDslDefinition(
     let popupLayout = generatorLayout(layoutOption);
     if (!popupLayout) {
       popupLayout = createPopupDefaultLayout(viewType);
-      debugConsole.log('使用弹出层默认layout', popupLayout);
+      debugConsole.log('Use pop-up layer default layout', popupLayout);
     }
     popupViewDslNode = mergeLayoutToModal(
       (popupViewDslNode as TemplateDslDefinition) ||

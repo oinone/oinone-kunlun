@@ -4,7 +4,8 @@ import {
   type PamirsDepartment,
   type PamirsOrganizationalStructure,
   type PamirsOrganizationalStructureService,
-  type QueryWrapper
+  type QueryWrapper,
+  translateValueByKey
 } from '@oinone/kunlun-engine';
 import type { OioTreeNode } from '@oinone/kunlun-shared';
 import { OioCheckbox, OioIcon, OioTree, SelectMode } from '@oinone/kunlun-vue-ui-antd';
@@ -262,7 +263,7 @@ export default defineComponent({
     if (!!filterData.length && selectMode === SelectMode.multiple && showCheckedAll) {
       return createVNode('div', { class: `${mainClassName}-wrapper oio-scrollbar` }, [
         createVNode('div', { class: `${mainClassName}-node ${mainClassName}-node-checked-all` }, [
-          createVNode('div', { class: `${mainClassName}-node-title` }, '全选'),
+          createVNode('div', { class: `${mainClassName}-node-title` }, translateValueByKey('全选')),
           createVNode(OioCheckbox, {
             checked: checkedAll,
             indeterminate: halfCheckedAll,

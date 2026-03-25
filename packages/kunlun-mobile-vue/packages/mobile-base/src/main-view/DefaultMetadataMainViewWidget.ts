@@ -1,5 +1,18 @@
 import type { DslDefinition } from '@oinone/kunlun-dsl';
-import { CurrentLanguage, initI18n, LanguageType, OioProvider, type ReloadMainViewCallChainingParameters, type ReloadMaskCallChainingParameters, ROOT_HANDLE, type RuntimeViewAction, translateValueByKey, useLanguage, ViewActionCache, type ViewActionQueryParameter } from '@oinone/kunlun-engine';
+import {
+  CurrentLanguage,
+  initI18n,
+  LanguageType,
+  OioProvider,
+  type ReloadMainViewCallChainingParameters,
+  type ReloadMaskCallChainingParameters,
+  ROOT_HANDLE,
+  type RuntimeViewAction,
+  translateValueByKey,
+  useLanguage,
+  ViewActionCache,
+  type ViewActionQueryParameter
+} from '@oinone/kunlun-engine';
 import { type IView, ViewActionTarget } from '@oinone/kunlun-meta';
 import { isNotPermission, setSessionPath, useSessionPath } from '@oinone/kunlun-request';
 import { useMatched } from '@oinone/kunlun-router';
@@ -11,8 +24,19 @@ import { OioNotification } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { ViewSubSymbol, Widget, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
 import { nextTick } from 'vue';
 import { MetadataViewWidget } from '../basic';
-import { fetchBreadcrumbCurrentViewTitle, MenuService, ModuleService, type RuntimeMenu, TopBarService } from '../layout';
-import { emptyHomepageModelName, getUnauthorizedAction, replaceStanderMainView, unauthorizedActionName } from '../layout/util/unauthorized-action';
+import {
+  fetchBreadcrumbCurrentViewTitle,
+  MenuService,
+  ModuleService,
+  type RuntimeMenu,
+  TopBarService
+} from '../layout';
+import {
+  emptyHomepageModelName,
+  getUnauthorizedAction,
+  replaceStanderMainView,
+  unauthorizedActionName
+} from '../layout/util/unauthorized-action';
 import { seekViewMask } from '../tags';
 import { isMiniProgram } from '../util';
 import DefaultMetadataMainView from './DefaultMetadataMainView.vue';

@@ -86,6 +86,7 @@
 </template>
 
 <script setup lang="ts">
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
 import { Select as ASelect } from 'ant-design-vue';
 import { computed, defineExpose, defineProps, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
@@ -151,7 +152,7 @@ const tableHeaderValues = ref<TableFieldOption[]>([]);
 const selectOptions = computed(() => {
   return [
     {
-      label: '不粘贴',
+      label: translateValueByKey('不粘贴'),
       key: NON_CUT,
       value: NON_CUT,
       readonly: true,

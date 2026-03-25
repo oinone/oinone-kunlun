@@ -1,4 +1,5 @@
 <script lang="ts">
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { OioCheckbox, OioEmptyData, OioIcon, OioInputSearch, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Popover as APopover } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, type PropType, ref, watch } from 'vue';
@@ -168,7 +169,7 @@ export default defineComponent({
           const contentChildren = [
             createVNode(OioInputSearch, {
               value: searchValue,
-              placeholder: '请输入关键字',
+              placeholder: translateValueByKey('请输入关键字'),
               'onUpdate:value': onUpdateSearchValue
             })
           ];

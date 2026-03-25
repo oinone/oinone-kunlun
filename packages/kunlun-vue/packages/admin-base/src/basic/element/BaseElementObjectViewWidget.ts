@@ -335,7 +335,10 @@ export class BaseElementObjectViewWidget<
       const fieldNames = requestFields.map((field) => field?.field?.name);
       const validFields = Object.keys(context).filter((key) => !fieldNames.includes(key) && key !== 'isKeepAlive');
       if (validFields.length) {
-        debugConsole.warn('当前页面的上下文中可能有未拖入到页面的字段', validFields);
+        debugConsole.warn(
+          'There may be fields in the current page context that have not been dragged onto the page',
+          validFields
+        );
       }
     });
   }
