@@ -19,13 +19,11 @@
           :title="
             option.optType === 'group'
               ? ''
-              : `${option.label}${
-                  option.show === 'INACTIVE' ? `${translateExpValue('已废弃')}` : getTtypeDisplayName(option)
-                }`
+              : `${option.label}${option.show === 'INACTIVE' ? $translate('已废弃') : getTtypeDisplayName(option)}`
           "
           role="menuitem"
           @mouseenter="onClickOption(option, true)"
-          @click="onClickOption(option)"
+          @mousedown="onClickOption(option, false)"
         >
           <div class="ant-cascader-menu-item-content">
             <i
@@ -72,13 +70,13 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, type PropType } from 'vue';
-import { groupBy } from 'lodash-es';
 import type { Pagination } from '@oinone/kunlun-engine';
-import { OioPagination } from '@oinone/kunlun-vue-ui-antd';
 import { isComplexTtype } from '@oinone/kunlun-meta';
-import { ExpActiveType, ExpTtypeInfoMap, type IExpSelectOption } from '../../types';
+import { OioPagination } from '@oinone/kunlun-vue-ui-antd';
+import { groupBy } from 'lodash-es';
+import { computed, defineComponent, type PropType } from 'vue';
 import { translateExpValue } from '../../share';
+import { ExpActiveType, ExpTtypeInfoMap, type IExpSelectOption } from '../../types';
 
 export default defineComponent({
   components: {
