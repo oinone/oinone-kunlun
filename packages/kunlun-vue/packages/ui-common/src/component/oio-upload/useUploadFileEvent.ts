@@ -292,7 +292,7 @@ const useMultipartUpload = async (params: {
       // }
 
       console.error('🚀 ~ multiPartRequest ~ error:', error);
-      onError?.({ [file.name]: `${translateValueByKey('上传失败')}: ${error.message}` }, file);
+      onError?.({ [file.name]: translateValueByKey('上传失败: ${error.message}', { error }) }, file);
     }
   };
 
