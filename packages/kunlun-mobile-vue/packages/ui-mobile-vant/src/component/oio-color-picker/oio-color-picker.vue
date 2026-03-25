@@ -4,7 +4,7 @@
       :class="`${DEFAULT_PREFIX}-input van-field__control`"
       readonly
       :value="value"
-      :placeholder="inputPlaceholder"
+      :placeholder="$translate(inputPlaceholder)"
     />
     <div :class="`${DEFAULT_PREFIX}-color-preview-wrapper`">
       <oio-color-preview :value="value" />
@@ -24,11 +24,11 @@
 <script lang="ts">
 import { autoRgba, autoRgbaStr } from '@oinone/kunlun-shared';
 import { OioColorPickerProps } from '@oinone/kunlun-vue-ui-common';
-import ColorPicker from './ColorPicker.vue';
-import OioColorPreview from './oio-color-preview.vue';
 import { computed, defineComponent, nextTick, ref } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 import OioCustomInput from '../oio-input/oio-custome-input.vue';
+import ColorPicker from './ColorPicker.vue';
+import OioColorPreview from './oio-color-preview.vue';
 
 export default defineComponent({
   name: 'OioColorPicker',
