@@ -14,8 +14,8 @@
   >
     <div class="quick-fill-modal-content">
       <a-radio-group :value="type" v-if="step === 0" name="radioGroup" @change="onChangeRadio">
-        <a-radio value="create">{{ $translate('{{ $translate('新增') }}数据') }}</a-radio>
-        <a-radio value="update">{{ $translate('{{ $translate('编辑已有') }}数据') }}</a-radio>
+        <a-radio value="create">{{ $translate('新增数据') }}</a-radio>
+        <a-radio value="update">{{ $translate('编辑已有数据') }}</a-radio>
       </a-radio-group>
 
       <div class="quick-fill-modal-content-desc" v-if="step === 0">
