@@ -9,8 +9,8 @@
   >
     <template #content>
       <sortable-group
-        title="添加分组"
-        sure-text="确定"
+        :title="$translate('添加分组')"
+        :sure-text="$translate('确定')"
         field-key="field"
         direction-key="direction"
         :list="groupList"
