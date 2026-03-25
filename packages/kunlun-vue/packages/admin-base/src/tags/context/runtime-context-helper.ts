@@ -35,7 +35,7 @@ export function seekViewMask(viewAction: RuntimeViewAction, moduleName?: string)
   if (!maskTemplate) {
     maskTemplate = viewAction.resMaskDefinition?.template as string;
     if (maskTemplate) {
-      debugConsole.log('使用后端mask', maskTemplate);
+      debugConsole.log('Use backend mask', maskTemplate);
     }
   }
   let finalMaskTemplate: DslDefinition;
@@ -74,7 +74,7 @@ function seekViewLayout(
             debugConsole.warn('JSON parse debug layout error', debugLayout);
           }
         }
-        debugConsole.log('使用后端layout', debugLayout);
+        debugConsole.log('Use backend layout', debugLayout);
       });
     }
   }
