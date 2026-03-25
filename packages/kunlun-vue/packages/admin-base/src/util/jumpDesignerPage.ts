@@ -15,7 +15,7 @@ export const onJumpModelDesigner = async (module: IModel, modelDesignerDisplayTy
   if (action) {
     executeViewAction(
       {
-        ...action,
+        ...CastHelper.cast(action),
         resModule: 'model_designer',
         resModuleName: 'modelDesigner'
       },
@@ -33,7 +33,7 @@ export const onJumpWorkflowDesigner = async (moduleModule) => {
   if (action) {
     executeViewAction(
       {
-        ...action,
+        ...CastHelper.cast(action),
         resModule: 'workflow_designer',
         resModuleName: 'workflowDesigner'
       },
