@@ -3,7 +3,7 @@
     <control-tag class="expression-tag-control-tag" closable @close="clearHandler">
       <template #default>
         <span>
-          <span class="placeholder" v-if="!expressionLabel">{{ placeholder }}</span>
+          <span class="placeholder" v-if="!expressionLabel">{{ $translate(placeholder) }}</span>
           <span v-else :title="expressionLabel">
             {{ expressionLabel }}
           </span>
@@ -18,7 +18,7 @@
 
     <expression-dialog
       dialog-class="expression-input-control-dialog"
-      :title="placeholder"
+      :title="$translate(placeholder)"
       width="50%"
       :visible="isShowExpressionDialog"
       :z-index="99999"
@@ -42,21 +42,28 @@
   </span>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import ExpressionDialog from '../../dialog/ExpressionDialog.vue';
-import ExpressionInputForm from './ExpressionInputForm.vue';
-import ControlTag from '../control-tag/ControlTag.vue';
 import { PlusCircleOutlined } from '@ant-design/icons-vue';
+import { defineComponent, ref } from 'vue';
 import type { IExpressionItem } from '../../../types';
+import ExpressionDialog from '../../dialog/ExpressionDialog.vue';
+import ControlTag from '../control-tag/ControlTag.vue';
 import { ExpressionCommonProps, ExpressionEvent } from '../typing';
+import {
+  useClearExpressionHandler,
+  useExpressionLabel,
+  useOnShowExpressionDialog,
+  useSubmitExpressionHandler,
+  useWatchExpressionItemList,
+  useWatchIsShowExpressionDialog
+} from '../use/use-common';
 import { useExpressionOptions } from '../use/use-expression';
-import { useClearExpressionHandler, useExpressionLabel, useOnShowExpressionDialog, useSubmitExpressionHandler, useWatchExpressionItemList, useWatchIsShowExpressionDialog } from '../use/use-common';
+import ExpressionInputForm from './ExpressionInputForm.vue';
 
 export default defineComponent({
   inheritAttrs: false,
   components: { ExpressionInputForm, ExpressionDialog, ControlTag, PlusCircleOutlined },
   props: {
-    ... ExpressionCommonProps
+    ...ExpressionCommonProps
   },
   emits: ExpressionEvent,
   setup(props, { emit }) {

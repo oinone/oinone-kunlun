@@ -171,7 +171,7 @@ export default defineComponent({
         class: 'oio-modal oio-quick-fill-witch-mode-modal',
         icon: createVNode(OioIcon, { icon: 'oinone-tixing1', size: '18' }),
         closeIcon: createVNode(OioCloseIcon),
-        title: translateValueByKey(`确认关闭?`),
+        title: translateValueByKey('确认关闭?'),
         closable: true,
         content: translateValueByKey('本页数据将丢失，请确认后再继续'),
         okText: translateValueByKey('确定'),

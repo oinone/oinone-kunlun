@@ -1,9 +1,10 @@
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { DEFAULT_TAB_TITLE } from '@oinone/kunlun-vue-ui-common';
 import { createVNode, type Ref, unref, type VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 
 export function useTabBar(title: string | Ref<string>, invisible: boolean): VNode {
-  const titleValue = unref(title) || DEFAULT_TAB_TITLE;
+  const titleValue = translateValueByKey(unref(title) || DEFAULT_TAB_TITLE);
   return createVNode(
     'div',
     {

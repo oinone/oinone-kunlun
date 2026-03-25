@@ -2,7 +2,7 @@
   <span v-if="readonly" class="expression-input-control expression-input-control-detail">{{ expressionLabel }}</span>
   <span v-else class="ant-input-group-wrapper ant-input-control oio-input expression-input-control">
     <span class="ant-input-wrapper ant-input-group" @click="onShowExpressionDialog">
-      <span class="ant-input placeholder" tabindex="0" v-if="!expressionLabel">{{ placeholder }}</span>
+      <span class="ant-input placeholder" tabindex="0" v-if="!expressionLabel">{{ $translate(placeholder) }}</span>
       <span class="ant-input" tabindex="0" v-if="expressionLabel">
         <span class="tag" :title="expressionLabel">
           {{ expressionLabel }}
@@ -45,16 +45,23 @@
   </span>
 </template>
 <script lang="ts">
-import { defineComponent, ref, computed, watch, onMounted } from 'vue';
-import { BooleanHelper } from '@oinone/kunlun-shared';
 import { CloseCircleFilled } from '@ant-design/icons-vue';
-import ExpressionDialog from '../../dialog/ExpressionDialog.vue';
-import ExpressionInputForm from './ExpressionInputForm.vue';
-import type { IExpressionItem } from '../../../types';
-import { ExpressionCommonProps, ExpressionEvent } from '../typing';
-import { useExpressionOptions } from '../use/use-expression';
-import { useClearExpressionHandler, useExpressionLabel, useOnShowExpressionDialog, useSubmitExpressionHandler, useWatchExpressionItemList, useWatchIsShowExpressionDialog } from '../use/use-common';
+import { BooleanHelper } from '@oinone/kunlun-shared';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import { createExpressionValue } from '../../../share';
+import type { IExpressionItem } from '../../../types';
+import ExpressionDialog from '../../dialog/ExpressionDialog.vue';
+import { ExpressionCommonProps, ExpressionEvent } from '../typing';
+import {
+  useClearExpressionHandler,
+  useExpressionLabel,
+  useOnShowExpressionDialog,
+  useSubmitExpressionHandler,
+  useWatchExpressionItemList,
+  useWatchIsShowExpressionDialog
+} from '../use/use-common';
+import { useExpressionOptions } from '../use/use-expression';
+import ExpressionInputForm from './ExpressionInputForm.vue';
 
 export default defineComponent({
   inheritAttrs: false,

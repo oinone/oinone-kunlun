@@ -117,7 +117,7 @@ export default defineComponent({
           ElInput,
           {
             modelValue: this.value,
-            placeholder: this.inputPlaceholder,
+            placeholder: this.$translate(this.inputPlaceholder),
             readonly: this.inputReadonly || this.readonly,
             disabled: this.disabled
           },

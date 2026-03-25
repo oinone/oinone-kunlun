@@ -1,14 +1,16 @@
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { DEFAULT_TAB_TITLE, type TabHTMLNode } from '@oinone/kunlun-vue-ui-common';
 import { Tooltip as ATooltip } from 'ant-design-vue';
 import { createVNode, type Ref, unref, type VNode } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 
 export function useTabBar(title: string | Ref<string>, help?: string | Ref<string>): VNode {
-  const titleValue = unref(title) || DEFAULT_TAB_TITLE;
+  const titleValue = translateValueByKey(unref(title) || DEFAULT_TAB_TITLE);
   const vnodes = [createVNode('span', { class: 'oio-tab-title', title: titleValue }, titleValue)];
-  const helpValue = unref(help) || '';
-  if (helpValue && helpValue !== '') {
+  let helpValue = unref(help) || '';
+  if (helpValue) {
+    helpValue = translateValueByKey(helpValue);
     vnodes.push(
       createVNode(
         ATooltip,

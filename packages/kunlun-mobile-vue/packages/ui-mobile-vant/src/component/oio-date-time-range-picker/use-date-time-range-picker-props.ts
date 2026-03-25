@@ -1,8 +1,9 @@
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { DateTimePickerMode, DateUtil, defaultFormat } from '@oinone/kunlun-shared';
+import dayjs from 'dayjs';
 import { isArray, isString } from 'lodash-es';
 import type { Moment } from 'moment';
 import { computed, ref, watch } from 'vue';
-import dayjs from 'dayjs';
 import { DateFormatEnum } from '../oio-date-time-picker/interface';
 
 export function useDatetimeRangePickerProps(props, context) {
@@ -22,7 +23,7 @@ export function useDatetimeRangePickerProps(props, context) {
   };
 
   const formatter = (type, val) => {
-    return val + DateFormatEnum[type];
+    return val + translateValueByKey(DateFormatEnum[type]);
   };
 
   const format = computed(() => {

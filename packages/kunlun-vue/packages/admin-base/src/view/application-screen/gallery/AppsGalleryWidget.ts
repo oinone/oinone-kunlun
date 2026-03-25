@@ -15,7 +15,6 @@ import {
   translateValueByKey,
   ViewCache
 } from '@oinone/kunlun-engine';
-import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { type IModelField, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import {
@@ -34,7 +33,6 @@ import { SPI } from '@oinone/kunlun-spi';
 import { appFinderSymbol } from '@oinone/kunlun-vue-admin-layout';
 import { OioNotification } from '@oinone/kunlun-vue-ui-antd';
 import { Widget, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
-import { isNil } from 'lodash-es';
 import { BaseElementListViewWidget, BaseElementWidget } from '../../../basic';
 import { createRuntimeContextForWidget } from '../../../tags';
 import { onJumpCodeFuse, onJumpModelDesigner, onJumpUiDesignerHomePage } from '../../../util';
@@ -699,7 +697,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
     );
     this.fetchTree((this.searchBody || {}) as any);
     result.content?.forEach((a: any) => {
-      a.stateDisplayName = AppStateDisplayNameENum[a.state] || '';
+      a.stateDisplayName = translateValueByKey(AppStateDisplayNameENum[a.state] || '');
     });
     return result;
   }

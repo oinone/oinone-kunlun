@@ -523,10 +523,10 @@ export class ActionWidget<
       if (warnFields.length) {
         debugConsole.warn(
           [
-            `当前动作的上下文表达式中可能使用了未拖入的字段`,
-            `上下文所在目标页面模型的字段:${key}`,
-            `表达式:${rawExp}`,
-            `未拖入的当前视图字段:${warnFields.join(',')}`
+            `The context expression of the current action may be using a field that has not been dragged in.`,
+            `Field of the target page model where the context is located: ${key}`,
+            `Expression: ${rawExp}`,
+            `Fields in the current view not yet dragged in: ${warnFields.join(',')}`
           ].join(';')
         );
       }

@@ -3,9 +3,6 @@ import { type IModel, type IModule, type IViewAction, ViewActionTarget, ViewType
 import { getModel, queryOne } from '@oinone/kunlun-service';
 import { CastHelper } from '@oinone/kunlun-shared';
 
-/**
- * 跳转到模型设计器
- */
 export const onJumpModelDesigner = async (module: IModel, modelDesignerDisplayType: 'list' | 'graph' = 'list') => {
   localStorage.setItem('modelDisplayType', modelDesignerDisplayType);
   localStorage.setItem('isLowCode', 'true');
@@ -15,43 +12,39 @@ export const onJumpModelDesigner = async (module: IModel, modelDesignerDisplayTy
 
   const model = await getModel('designer.DesignerModelDefinition');
   const action = model.viewActionList?.find((a) => a.name === 'homepage');
-
   if (action) {
     executeViewAction(
-      CastHelper.cast(action),
+      {
+        ...action,
+        resModule: 'model_designer',
+        resModuleName: 'modelDesigner'
+      },
       undefined,
       undefined,
-      { appSwitcherName: '模型设计器', hideMenu: true, module: action.moduleName, sessionPath: null },
+      { sessionPath: null },
       RedirectTargetEnum.BLANK
     );
   }
 };
 
-/**
- * 跳转到逻辑设计器
- */
 export const onJumpWorkflowDesigner = async (moduleModule) => {
   const model = await getModel('workflow.WorkflowDesigner');
   const action = model.viewActionList?.find((a) => a.name === 'homepage');
-
   if (action) {
     executeViewAction(
       {
-        ...CastHelper.cast(action),
-        resModule: 'workflowDesigner',
+        ...action,
+        resModule: 'workflow_designer',
         resModuleName: 'workflowDesigner'
       },
       undefined,
       undefined,
-      { appSwitcherName: '流程设计器', hideMenu: true, sessionPath: null },
+      { sessionPath: null },
       RedirectTargetEnum.BLANK
     );
   }
 };
 
-/**
- * 跳转到界面设计器设计页
- */
 export const onJumpUiDesigner = async (viewId?: string) => {
   if (viewId) {
     const action = (await queryOne('base.ViewAction', {
@@ -98,18 +91,12 @@ export const onJumpUiDesignerHomePage = async (module: IModule, isJumpHomepage?:
     resModuleName: 'uiDesigner',
     target: ViewActionTarget.Router
   } as RuntimeViewAction;
-  const param = { appSwitcherName: '界面设计器', hideMenu: true };
-  if (isJumpHomepage) {
-    param['createViewSource'] = 'HOME_PAGE';
-  }
   if (action) {
     executeViewAction(
-      CastHelper.cast(action),
+      action,
       undefined,
       undefined,
       {
-        appSwitcherName: '界面设计器',
-        hideMenu: true,
         createViewSource: 'HOME_PAGE',
         module: 'uiDesigner',
         sessionPath: null
