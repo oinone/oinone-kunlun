@@ -216,9 +216,8 @@ const layoutConfigs = [
       '请上传jpg、png格式的图片或mp4、mov、avi格式视频。尺寸建议为1920*1080px，文件大小不超过50MB'
     )
   },
-
   {
-    url: genStaticPath('logo在输入框上方.png'),
+    url: genStaticPath('logo-top.png'),
     name: OioLoginThemeName.CENTER_STICK_LOGO,
     tips: translateValueByKey(
       '请上传jpg、png格式的图片或mp4、mov、avi格式视频。尺寸建议为1920*1080px，文件大小不超过50MB'
@@ -236,7 +235,7 @@ const selectedLayout = computed(() => {
 const currentLoginTheme = computed(() => {
   return {
     name: layout.value,
-    logo: loginLogo.value.url || genStaticPath('LOGO-img.png'),
+    logo: loginLogo.value.url || genStaticPath('logo-img.png'),
     backgroundImage: background.value.url
   } as any;
 });

@@ -7,6 +7,7 @@
   >
     <template #default>
       <a-select
+        :id="id"
         class="oio-select"
         popup-class-name="oio-select-dropdown"
         label-in-value
@@ -19,7 +20,7 @@
         :notFoundContent="null"
         :open="isShowDropdown"
         @change="onSelectValueChange"
-        @dropdown-visible-change="onDropdownVisibleChange"
+        @click="() => onDropdownVisibleChange(true)"
       />
     </template>
     <template #content>
@@ -57,10 +58,11 @@
 import { CloseCircleFilled, DownOutlined } from '@ant-design/icons-vue';
 import { ModelFieldType } from '@oinone/kunlun-meta';
 import { CastHelper } from '@oinone/kunlun-shared';
+import { useSelectId } from '@oinone/kunlun-vue-admin-base';
 import { OioIcon, OioInput } from '@oinone/kunlun-vue-ui-antd';
 import { WritableComputedRef } from '@vue/reactivity';
 import { debounce } from 'lodash-es';
-import { computed, defineComponent, onBeforeUnmount, onMounted, type PropType, Ref, ref, watch } from 'vue';
+import { computed, defineComponent, onBeforeUnmount, onMounted, type PropType, type Ref, ref, watch } from 'vue';
 import { queryExpModelFields } from '../../service/modelDefinitionService';
 import {
   checkBlurFocus,
@@ -77,7 +79,6 @@ import {
   type IFunFilterMethod,
   type IVariableContextItem,
   type IVariableItem,
-  ModelOptionType,
   VARIABLE_SEPARATE,
   VariableItemType
 } from '../../types';
@@ -168,6 +169,8 @@ export default defineComponent({
   },
   emits: ['change', 'changeList', 'update:valueList'],
   setup(props, { emit }) {
+    const id = useSelectId();
+
     const isShowDropdown = ref(false);
     const isShowDownArrow = ref(true);
     const isAllowClear = computed(() => {
@@ -328,51 +331,6 @@ export default defineComponent({
       // await fetchChildrenOld(selectedOptions.map(a => a.value as unknown as string), CastHelper.cast(options.value), props);
     }
 
-    async function fetchChildrenOld(
-      selectedValues: string[],
-      options: IExpSelectOption[],
-      props: { ttypes?: ModelFieldType[]; isFieldStore?: boolean; filterMethod?: IFunFilterMethod }
-    ) {
-      if (!selectedValues || !selectedValues.length) {
-        return;
-      }
-      const first = options.find((a) => a.value === selectedValues[0]);
-      if (first && (first.model || first.references)) {
-        const isFirstModel = first.optionType === ModelOptionType.MODEL;
-        if (!first.isChildrenLoaded && (first.model || first.references)) {
-          let modelFields = await queryExpModelFields(isFirstModel ? first.model : first.references);
-          if (!isFirstModel) {
-            modelFields = modelFields.filter((a) => (first.referenceFields || []).includes(a.name));
-          }
-          first.children = convertModelFields2Options(
-            modelFields,
-            props.ttypes,
-            props.isFieldStore,
-            isFirstModel,
-            false,
-            props.filterMethod
-          );
-          first.isChildrenLoaded = true;
-        }
-        if (first.children && selectedValues.length > 1) {
-          const second = first.children?.find((a) => a.value === selectedValues[1]);
-          if (second && !second.isChildrenLoaded) {
-            let modelFields = await queryExpModelFields(second.references);
-            modelFields = modelFields.filter((a) => (second.referenceFields || []).includes(a.name));
-            second.children = convertModelFields2Options(
-              modelFields,
-              props.ttypes,
-              props.isFieldStore,
-              false,
-              false,
-              props.filterMethod
-            );
-            second.isChildrenLoaded = true;
-          }
-        }
-      }
-    }
-
     const availableOptions = computed(() => {
       const opts = options.value;
       if (props.isRsqlField) {
@@ -445,7 +403,6 @@ export default defineComponent({
       { immediate: true, deep: true }
     );
 
-    const controlRef = ref<HTMLElement>(null as any);
     const dropdownRef = ref<HTMLElement>(null as any);
 
     const onDropdownVisibleChange = (visible: boolean) => {
@@ -465,7 +422,7 @@ export default defineComponent({
       checkBlurFocus(
         isFocus,
         e.target as HTMLElement,
-        controlRef.value,
+        document.querySelector(`#${id}`)?.parentElement?.parentElement?.parentElement?.parentElement as HTMLElement,
         dropdownRef.value,
         () => {
           isFocus = false;
@@ -486,6 +443,7 @@ export default defineComponent({
     });
 
     return {
+      id,
       placeholder,
       onDropdownVisibleChange,
       onSelectValueChange,
@@ -501,7 +459,6 @@ export default defineComponent({
       selectionSearchLeft,
       searchInputMirrorRef,
       searchInputRef,
-      controlRef,
       dropdownRef,
       options,
       availableOptions,
