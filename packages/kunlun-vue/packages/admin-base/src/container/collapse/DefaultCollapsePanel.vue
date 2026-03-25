@@ -93,6 +93,7 @@ export default defineComponent({
             [`${DEFAULT_PREFIX}-collapse-panel`],
             getCurrentInstance()?.parent?.attrs?.class as string
           ),
+          title: this.$translate((getCurrentInstance()?.parent?.attrs?.title as string) || ''),
           ref: 'origin',
           forceRender: this.forceRender,
           collapsible: this.collapsible,
