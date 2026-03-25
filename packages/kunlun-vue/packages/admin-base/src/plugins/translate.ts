@@ -8,7 +8,7 @@ export const $translate: Plugin = {
       text: T,
       context?: Record<string, unknown>
     ): T => {
-      return translateValueByKey(text as unknown as GenericType<T>, context) as T;
+      return translateValueByKey(text as unknown as GenericType<T>, context) as unknown as T;
     };
   }
 };
