@@ -1,7 +1,7 @@
 <template>
   <div class="default-table-footer-operator-quick-fill" @click="onToggleModal(true)">
     <oio-icon size="14" icon="oinone-file-text-outlined" color="var(--oio-primary-color)"></oio-icon>
-    {{ $translate('快速填报 ') }}
+    {{ $translate('快速填报') }}
   </div>
 
   <oio-modal

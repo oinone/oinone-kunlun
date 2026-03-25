@@ -2,7 +2,7 @@
   <div class="default-table-footer-operator">
     <div class="default-table-footer-operator-add-one" v-if="showAddBtn" @click.stop="onAddRow">
       <oio-icon size="14" icon="oinone-plus-outlined" color="var(--oio-primary-color)"></oio-icon>
-      {{ $translate('添加一行 ') }}
+      {{ $translate('添加一行') }}
     </div>
 
     <!-- 快速填报 -->
@@ -11,8 +11,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { OioIcon } from '@oinone/kunlun-vue-ui-antd';
+import { defineComponent } from 'vue';
 import Element from '../../tags/Element.vue';
 
 export default defineComponent({
