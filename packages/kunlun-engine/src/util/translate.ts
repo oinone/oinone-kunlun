@@ -196,8 +196,6 @@ const initI18n = async (module: string, isoStorageKey = '') => {
 
 const whiteTranslateList = ['false', 'true'];
 
-const fieldTranslateList = ['label', 'displayName', 'hint', 'placeholder', 'confirm', 'enterText', 'cancelText'];
-
 /**
  * 将dsl配置信息，进行翻译
  *
@@ -220,35 +218,47 @@ export const translateNode = (node: IDslNode) => {
   }
 };
 
+const fieldTranslateList = ['label', 'displayName', 'placeholder', 'confirm', 'enterText', 'cancelText'];
+const packTranslateList = ['label', 'title'];
+
 /**
  * 将dsl配置信息，进行翻译
  *
  * @param dsl dsl定义
  */
-export const translateDslDefinition = (dsl: DslDefinition, isFieldOrActionProp = false) => {
+export const translateDslDefinition = (dsl: DslDefinition) => {
   if (!getI18nStatus()) {
     return dsl;
   }
-
   const { __lang } = window as unknown as IExtension;
   const cache = getI18nCache(__lang) as Record<string, unknown>;
-  const isFieldOrAction =
-    isFieldOrActionProp || DslDefinitionHelper.isAction(dsl) || DslDefinitionHelper.isField(dsl) || false;
-  if (cache && dsl) {
-    Object.keys(dsl).forEach((key) => {
-      if (isFieldOrAction && !fieldTranslateList.includes(key)) {
-        return;
-      }
-      const value = dsl[key];
-      if (typeof value === 'string' && !whiteTranslateList.includes(value)) {
-        dsl[key] = cache[dsl[key] as string] || dsl[key];
-      }
-    });
-    dsl.widgets?.forEach((v) => translateDslDefinition(v, isFieldOrAction));
-    const { options } = dsl;
-    if (options && Array.isArray(options)) {
-      options?.forEach((v) => translateDslDefinition(v, isFieldOrAction));
-    }
+  if (cache) {
+    recursionTranslateDslDefinition(cache, dsl);
+  }
+  return dsl;
+};
+
+const recursionTranslateDslDefinition = (cache: Record<string, unknown>, dsl: DslDefinition) => {
+  const isFieldOrAction = DslDefinitionHelper.isAction(dsl) || DslDefinitionHelper.isField(dsl) || false;
+  const isPackOrElement = DslDefinitionHelper.isPack(dsl) || false;
+  if (isFieldOrAction) {
+    fieldTranslateList.forEach((key) => $translateDslDefinition(cache, dsl, key));
+  } else if (isPackOrElement) {
+    packTranslateList.forEach((key) => $translateDslDefinition(cache, dsl, key));
+  } else {
+    Object.keys(dsl).forEach((key) => $translateDslDefinition(cache, dsl, key));
+  }
+  dsl.widgets?.forEach((v) => recursionTranslateDslDefinition(cache, v));
+  const { options } = dsl;
+  if (options && Array.isArray(options)) {
+    options?.forEach((v) => recursionTranslateDslDefinition(cache, v));
+  }
+};
+
+const $translateDslDefinition = (cache: Record<string, unknown>, dsl: DslDefinition, key: string) => {
+  const value = dsl[key];
+  if (typeof value === 'string' && !whiteTranslateList.includes(value)) {
+    dsl[key] = cache[dsl[key] as string] || dsl[key];
   }
 };
 

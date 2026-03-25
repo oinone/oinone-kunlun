@@ -1,4 +1,14 @@
-import { type ActionDslDefinition, type DslDefinition, DslDefinitionType, type FieldDslDefinition, type SlotDslDefinition, type TemplateDslDefinition, type ViewDslDefinition } from './dsl';
+import {
+  type ActionDslDefinition,
+  type DslDefinition,
+  DslDefinitionType,
+  ElementDslDefinition,
+  type FieldDslDefinition,
+  type PackDslDefinition,
+  type SlotDslDefinition,
+  type TemplateDslDefinition,
+  type ViewDslDefinition
+} from './dsl';
 
 export class DslDefinitionHelper {
   public static isTemplate(dsl: DslDefinition | undefined): dsl is TemplateDslDefinition {
@@ -19,5 +29,13 @@ export class DslDefinitionHelper {
 
   public static isField(dsl: DslDefinition | undefined): dsl is FieldDslDefinition {
     return dsl?.dslNodeType === DslDefinitionType.FIELD;
+  }
+
+  public static isPack(dsl: DslDefinition | undefined): dsl is PackDslDefinition {
+    return dsl?.dslNodeType === DslDefinitionType.PACK;
+  }
+
+  public static isElement(dsl: DslDefinition | undefined): dsl is ElementDslDefinition {
+    return dsl?.dslNodeType === DslDefinitionType.ELEMENT;
   }
 }

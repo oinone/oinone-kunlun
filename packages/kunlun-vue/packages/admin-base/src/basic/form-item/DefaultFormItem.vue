@@ -1,6 +1,5 @@
 <script lang="ts">
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
-import { translateValueByKey } from '@oinone/kunlun-engine';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { OioFormItem, OioIcon, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Tooltip as ATooltip } from 'ant-design-vue';
@@ -69,7 +68,7 @@ export default defineComponent({
       classList.push('hide-ant-form-item-label');
     } else {
       children.label = () => {
-        const label = translateValueByKey(this.label as string);
+        const label = this.$translate(this.label as string);
         const vnodes: VNode[] = [];
         if (this.labelIcon) {
           vnodes.push(
@@ -88,7 +87,7 @@ export default defineComponent({
               { placement: 'top', overlayStyle: { maxWidth: '260px' } as CSSStyleDeclaration },
               {
                 title: () => {
-                  return [createVNode('span', {}, this.help)];
+                  return [createVNode('span', {}, this.$translate(this.help))];
                 },
                 default: () => {
                   return [createVNode(QuestionCircleOutlined, { class: 'question-icon' })];
@@ -102,7 +101,8 @@ export default defineComponent({
     }
     if (this.hint) {
       children.extra = () => {
-        return [createVNode('span', { title: this.hint }, this.hint)];
+        const hint = this.$translate(this.hint);
+        return [createVNode('span', { title: hint }, hint)];
       };
     }
     const validationMessage = this.validatorInfo?.message;
