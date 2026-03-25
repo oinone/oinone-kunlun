@@ -54,16 +54,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
-import { Toast } from 'vant';
-import { OioIcon } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { get as getValue } from 'lodash-es';
+import { executeViewAction, type RuntimeViewAction, translateValueByKey } from '@oinone/kunlun-engine';
+import { type IViewAction, ViewActionTarget } from '@oinone/kunlun-meta';
 import { type Matched, Router, useMatched } from '@oinone/kunlun-router';
 import { useRouter } from '@oinone/kunlun-vue-router';
-import { type Entity, type IViewAction, ViewActionTarget } from '@oinone/kunlun-meta';
-import { executeViewAction, type RuntimeViewAction, translateValueByKey } from '@oinone/kunlun-engine';
-import { getWorkbenchInfo } from './services';
+import { OioIcon } from '@oinone/kunlun-vue-ui-mobile-vant';
+import { get as getValue } from 'lodash-es';
+import { Toast } from 'vant';
+import { defineComponent, onMounted, ref } from 'vue';
 import { getCurrentTenant } from '../../util';
+import { getWorkbenchInfo } from './services';
 
 export default defineComponent({
   name: 'WorkbenchView',
@@ -91,7 +91,7 @@ export default defineComponent({
       router = useRouter().router as Router;
 
       Toast.loading({
-        message: '加载中...',
+        message: translateValueByKey('加载中...'),
         forbidClick: true
       });
       const res = await getWorkbenchInfo();
