@@ -3,7 +3,7 @@
     <default-user-prefer
       :simple="simple"
       :fields="fields"
-      :title="modalTitle"
+      :title="$translate(modalTitle)"
       :enter-callback="enterCallback"
       :reset-callback="resetCallback"
     />
