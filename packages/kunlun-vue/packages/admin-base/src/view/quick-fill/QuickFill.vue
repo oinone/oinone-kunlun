@@ -174,9 +174,9 @@ export default defineComponent({
         title: translateValueByKey(`确认关闭?`),
         closable: true,
         content: translateValueByKey('本页数据将丢失，请确认后再继续'),
-        okText: translateValueByKey(translateValueByKey(translateValueByKey('确定'))),
+        okText: translateValueByKey('确定'),
 
-        cancelText: translateValueByKey(translateValueByKey(translateValueByKey('取消'))),
+        cancelText: translateValueByKey('取消'),
         onOk: () => {
           props.onToggleModal(false);
           _modal.destroy();
@@ -192,7 +192,7 @@ export default defineComponent({
 
     const onChangeRadio = (val) => {
       const nextType = val.target.value;
-      const str = `确认要切换为${nextType === QuickFillType.update ? translateValueByKey(translateValueByKey('编辑已有')) : translateValueByKey(translateValueByKey('新增'))}数据吗？`;
+      const str = `确认要切换为${nextType === QuickFillType.update ? translateValueByKey('编辑已有')) : translateValueByKey(translateValueByKey('新增')}数据吗？`;
       if (excelRef.value.getCellStatus()) {
         const _modal = Modal.confirm({
           class: 'oio-modal oio-quick-fill-witch-mode-modal',
@@ -201,9 +201,9 @@ export default defineComponent({
           title: translateValueByKey(str),
           closable: true,
           content: translateValueByKey('切换后，本页数据将丢失，请确认后再继续'),
-          okText: translateValueByKey(translateValueByKey(translateValueByKey('确定'))),
+          okText: translateValueByKey('确定'),
 
-          cancelText: translateValueByKey(translateValueByKey(translateValueByKey('取消'))),
+          cancelText: translateValueByKey('取消'),
           onOk: () => {
             type.value = nextType;
             excelRef.value.resetExcel();
