@@ -192,7 +192,7 @@ export default defineComponent({
 
     const onChangeRadio = (val) => {
       const nextType = val.target.value;
-      const str = `确认要切换为${nextType === QuickFillType.update ? translateValueByKey('编辑已有')) : translateValueByKey(translateValueByKey('新增')}数据吗？`;
+      const str = `确认要切换为${nextType === QuickFillType.update ? '编辑已有' : '新增'}数据吗？`;
       if (excelRef.value.getCellStatus()) {
         const _modal = Modal.confirm({
           class: 'oio-modal oio-quick-fill-witch-mode-modal',

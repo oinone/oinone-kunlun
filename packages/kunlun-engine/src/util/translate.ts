@@ -277,7 +277,7 @@ export const translateValueByKey = <T extends StandardString>(
   }
 
   if (context && key) {
-    key = resolveTranslatedText(key as string, context) as unknown as GenericReturnType<T, string>;
+    key = resolveTranslatedText(key as string, context) as unknown as GenericType<T>;
   }
 
   return key as unknown as GenericReturnType<T, string>;
