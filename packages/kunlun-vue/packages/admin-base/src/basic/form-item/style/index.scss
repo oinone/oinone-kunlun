@@ -62,10 +62,10 @@
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
-    word-break: break-all;
+    word-break: break-word;
     line-height: 1.1em;
     font-weight: var(--oio-form-item-label-weight);
-    text-align: left;
+    text-align: right;
   }
 
   .ant-form-item-label .oio-icon + .form-field-widget-label-content {
