@@ -308,7 +308,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Reactive()
   protected get allowAllChecked() {
     if (this.readyToAllCheckedCount > 200) {
-      return translateValueByKey(translateValueByKey('表格最多支持勾选200条'));
+      return translateValueByKey('表格最多支持勾选200条');
     }
     return true;
   }
