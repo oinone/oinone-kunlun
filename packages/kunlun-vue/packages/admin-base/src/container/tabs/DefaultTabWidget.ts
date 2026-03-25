@@ -1,3 +1,4 @@
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { SPI } from '@oinone/kunlun-spi';
 import { BooleanHelper, CallChaining, DEFAULT_TAB_TITLE, useTabBar } from '@oinone/kunlun-vue-ui-antd';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -92,7 +93,7 @@ export class DefaultTabWidget extends BasePackWidget {
       },
       {
         ...slots,
-        tab: () => [useTabBar(this.title, this.help)]
+        tab: () => [useTabBar(translateValueByKey(this.title), translateValueByKey(this.help as string))]
       }
     );
   }
