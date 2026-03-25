@@ -2,6 +2,9 @@ export {};
 
 declare module 'vue' {
   interface ComponentCustomProperties {
-    $translate(text: string, context?: Record<string, unknown>): string;
+    $translate<T extends string | null | undefined = string | null | undefined>(
+      text: T,
+      context?: Record<string, unknown>
+    ): T;
   }
 }
