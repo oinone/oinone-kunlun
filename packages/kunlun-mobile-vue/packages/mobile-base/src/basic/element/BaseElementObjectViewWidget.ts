@@ -1,8 +1,28 @@
-import { type ActiveRecord, ActiveRecordExtendKeys, type ActiveRecords, ActiveRecordsOperator, getRefreshParameters, getValidatorParameters, OioProvider, type QueryContext, QueryService, type QueryVariables, SubmitValue } from '@oinone/kunlun-engine';
+import {
+  type ActiveRecord,
+  ActiveRecordExtendKeys,
+  type ActiveRecords,
+  ActiveRecordsOperator,
+  getRefreshParameters,
+  getValidatorParameters,
+  OioProvider,
+  type QueryContext,
+  QueryService,
+  type QueryVariables,
+  SubmitValue
+} from '@oinone/kunlun-engine';
 import { type FieldEventName, FieldEventNames, LifeCycleTypes } from '@oinone/kunlun-event';
 import { ActionContextType, ModelType, ViewMode } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
-import { BooleanHelper, CallChaining, debugConsole, NumberHelper, ObjectUtils, Optional, StringHelper } from '@oinone/kunlun-shared';
+import {
+  BooleanHelper,
+  CallChaining,
+  debugConsole,
+  NumberHelper,
+  ObjectUtils,
+  Optional,
+  StringHelper
+} from '@oinone/kunlun-shared';
 import { OioMessage } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isArray, isFunction, isNil, isPlainObject, isString } from 'lodash-es';
@@ -216,7 +236,7 @@ export class BaseElementObjectViewWidget<
         queryData = { id };
       }
       if (ids) {
-        queryData = ids.map((v) => ({ id: v } as ActiveRecord));
+        queryData = ids.map((v) => ({ id: v }) as ActiveRecord);
       }
       [result] = ActiveRecordsOperator.repairRecords(await this.queryConstruct(queryData, variables, context));
     }
@@ -295,7 +315,10 @@ export class BaseElementObjectViewWidget<
       const fieldNames = requestFields.map((field) => field?.field?.name);
       const validFields = Object.keys(context).filter((key) => !fieldNames.includes(key) && key !== 'isKeepAlive');
       if (validFields.length) {
-        debugConsole.warn('当前页面的上下文中可能有未拖入到页面的字段', validFields);
+        debugConsole.warn(
+          'There may be fields in the current page context that have not been dragged onto the page',
+          validFields
+        );
       }
     });
   }
