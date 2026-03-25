@@ -308,7 +308,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Reactive()
   protected get allowAllChecked() {
     if (this.readyToAllCheckedCount > 200) {
-      return '表格最多支持勾选200条';
+      return translateValueByKey(translateValueByKey('表格最多支持勾选200条'));
     }
     return true;
   }
@@ -354,18 +354,18 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       if (!!children.length) {
         if (row[GROUP_TREE_KEY.IS_LEAF_KEY]) {
           if (children.length > 200) {
-            return '表格最多支持勾选200条';
+            return translateValueByKey('表格最多支持勾选200条');
           }
           return true;
         }
         if (this.hasExpandedGroupNode(children)) {
           if (this.computeReadyToCheckedCount(children) > 200) {
-            return '表格最多支持勾选200条';
+            return translateValueByKey('表格最多支持勾选200条');
           }
           return true;
         }
       }
-      return '请展开分组后再批量勾选';
+      return translateValueByKey('请展开分组后再批量勾选');
     }
   }
 
