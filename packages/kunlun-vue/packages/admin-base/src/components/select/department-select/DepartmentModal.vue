@@ -4,8 +4,7 @@ import {
   type PamirsDepartment,
   type PamirsOrganizationalStructure,
   type PamirsOrganizationalStructureService,
-  QueryWrapper,
-  translateValueByKey
+  QueryWrapper
 } from '@oinone/kunlun-engine';
 import {
   CastHelper,
@@ -327,7 +326,7 @@ export default defineComponent({
           const pushMainTree = () => {
             tabs.push({
               key: 'organizational-structure-tree',
-              label: translateValueByKey('组织架构')
+              label: '组织架构'
             });
             vNodes.push(createVNode(OrganizationalStructureTree, treeProps));
           };
@@ -366,7 +365,7 @@ export default defineComponent({
             }
             tabs.push({
               key: 'user-department-tree',
-              label: translateValueByKey('当前用户所在部门')
+              label: '当前用户所在部门'
             });
           } else {
             pushMainTree();

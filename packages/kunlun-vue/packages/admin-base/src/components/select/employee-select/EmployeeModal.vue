@@ -1,10 +1,5 @@
 <script lang="ts">
-import {
-  type PamirsEmployee,
-  type PamirsEmployeeService,
-  type QueryWrapper,
-  translateValueByKey
-} from '@oinone/kunlun-engine';
+import { type PamirsEmployee, type PamirsEmployeeService, type QueryWrapper } from '@oinone/kunlun-engine';
 import type { OioSelectItem } from '@oinone/kunlun-shared';
 import {
   CastHelper,
@@ -375,7 +370,7 @@ export default defineComponent({
             isOnlyEmployeeList = false;
             tabs.push({
               key: 'role',
-              label: translateValueByKey('角色')
+              label: '角色'
             });
             vNodes.push(
               createVNode(RoleEmployeeSelectPanel, {
@@ -397,7 +392,7 @@ export default defineComponent({
           } else if (showFullPanel || userEmployee || userDept || userDeptAndChildren) {
             tabs.push({
               key: 'user-employee',
-              label: translateValueByKey('当前用户')
+              label: '当前用户'
             });
             // fixme @zbh 20251210 此处需改为公司员工树进行选择
             vNodes.push(

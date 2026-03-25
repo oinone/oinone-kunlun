@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type AuthRole, type AuthRoleService, QueryWrapper, translateValueByKey } from '@oinone/kunlun-engine';
+import { type AuthRole, type AuthRoleService, QueryWrapper } from '@oinone/kunlun-engine';
 import {
   CastHelper,
   OioEmptyData,
@@ -250,7 +250,7 @@ export default defineComponent({
           const vNodes: VNode[] = [];
           tabs.push({
             key: 'role',
-            label: translateValueByKey('角色')
+            label: '角色'
           });
           vNodes.push(
             createVNode(RoleList, {
@@ -276,7 +276,7 @@ export default defineComponent({
           if (showUserRole) {
             tabs.push({
               key: 'user-role',
-              label: translateValueByKey('当前角色')
+              label: '当前角色'
             });
             vNodes.push(
               createVNode(RoleList, {
