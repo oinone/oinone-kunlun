@@ -1,4 +1,4 @@
-import { ConfigHelper } from '@oinone/kunlun-engine';
+import { ConfigHelper, translateValueByKey } from '@oinone/kunlun-engine';
 import { RuntimeConfig, type RuntimeConfigOptions } from '@oinone/kunlun-meta';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { get as getValue, set as setValue } from 'lodash-es';
@@ -167,7 +167,7 @@ const useMultipartUpload = async (params: {
         onProgress?.({
           percent: Number.parseFloat(Math.round(((uploadedChunks * chunkSize + loaded) / file.size) * 100).toFixed(2)),
           file,
-          status: '上传中...'
+          status: translateValueByKey('上传中...')
         });
       };
 
@@ -292,7 +292,7 @@ const useMultipartUpload = async (params: {
       // }
 
       console.error('🚀 ~ multiPartRequest ~ error:', error);
-      onError?.({ [file.name]: `上传失败: ${error.message}` }, file);
+      onError?.({ [file.name]: `${translateValueByKey('上传失败')}: ${error.message}` }, file);
     }
   };
 
@@ -340,7 +340,7 @@ const useSingleUpload = async (params: {
         onProgress?.({
           percent: Number.parseFloat(Math.round((loaded / total) * 100).toFixed(2)),
           file,
-          status: '上传中...'
+          status: translateValueByKey('上传中...')
         });
       };
       xhr.onload = async (response) => {
@@ -361,7 +361,7 @@ const useSingleUpload = async (params: {
           return;
         }
 
-        onError?.({ [file.name]: `上传失败${xhr.responseText}` }, file, xhr);
+        onError?.({ [file.name]: translateValueByKey('上传失败${xhr.responseText}', { xhr }) }, file, xhr);
       };
       xhr.send(formData);
     }
