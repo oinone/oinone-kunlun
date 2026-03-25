@@ -11,8 +11,8 @@
       <sortable-group
         :list="sortList"
         :model-fields="fieldOptions"
-        title="添加排序"
-        sure-text="确定"
+        :title="$translate('添加排序')"
+        :sure-text="$translate('确定')"
         @change="onEnter"
       ></sortable-group>
     </template>
