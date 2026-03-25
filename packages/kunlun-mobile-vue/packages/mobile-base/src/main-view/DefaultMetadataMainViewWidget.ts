@@ -178,7 +178,7 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
         moduleName,
         model,
         target: ViewActionTarget.Router,
-        title: translateValueByKey('无首页'),
+        title: '无首页',
         name: action
       });
 
