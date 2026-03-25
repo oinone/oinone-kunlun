@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { DslDefinition } from '@oinone/kunlun-dsl';
-import { translateValueByKey } from '@oinone/kunlun-engine';
 import type { CSSStyle } from '@oinone/kunlun-shared';
 import { FormLayout, OioGroup, PropRecordHelper, useOioFormLayoutContext } from '@oinone/kunlun-vue-ui-antd';
 import { createVNode, defineComponent, type PropType, type Slot, vShow, withDirectives } from 'vue';
@@ -19,7 +18,7 @@ export default defineComponent({
     },
     title: {
       type: String,
-      default: translateValueByKey('分组')
+      default: '分组'
     },
     description: {
       type: String,
@@ -97,7 +96,7 @@ export default defineComponent({
         OioGroup,
         {
           ...PropRecordHelper.collectionBasicProps($attrs, ['oio-default-group']),
-          title: !title && titleToolbarInvisible ? false : title,
+          title: !title && titleToolbarInvisible ? false : this.$translate(title),
           bizStyle,
           description,
           border,
@@ -105,7 +104,7 @@ export default defineComponent({
           wrapperStyle,
           toolbarClassName,
           toolbarStyle,
-          help
+          help: this.$translate(help)
         },
         children
       ),

@@ -5,8 +5,7 @@ import {
   Drawer,
   executeViewAction,
   Popup,
-  type RuntimeViewAction,
-  translate
+  type RuntimeViewAction
 } from '@oinone/kunlun-engine';
 import { ModelDefaultActionName, ViewType } from '@oinone/kunlun-meta';
 import { CallChaining } from '@oinone/kunlun-shared';
@@ -31,7 +30,7 @@ export class BackActionWidget extends ActionWidget {
 
   @Widget.Reactive()
   protected get label() {
-    return this.getDsl().label || this.action?.displayName || translate('kunlun.common.back') || '返回';
+    return this.getDsl().label || this.action?.displayName || '返回';
   }
 
   @Widget.Reactive()

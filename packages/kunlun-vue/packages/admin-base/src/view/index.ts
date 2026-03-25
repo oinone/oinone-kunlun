@@ -9,8 +9,6 @@ export * from './homepage';
 export * from './homepage-setting';
 export * from './login';
 export * from './reset-password';
-export * from './paas-manager/PaaSManager';
-export * from './paas-install';
 export * from './iframe-view';
 export * from './view';
 export * from './workbench';

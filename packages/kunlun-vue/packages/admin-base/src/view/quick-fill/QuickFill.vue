@@ -1,7 +1,7 @@
 <template>
   <div class="default-table-footer-operator-quick-fill" @click="onToggleModal(true)">
     <oio-icon size="14" icon="oinone-file-text-outlined" color="var(--oio-primary-color)"></oio-icon>
-    {{ $translate('快速填报 ') }}
+    {{ $translate('快速填报') }}
   </div>
 
   <oio-modal
@@ -171,7 +171,7 @@ export default defineComponent({
         class: 'oio-modal oio-quick-fill-witch-mode-modal',
         icon: createVNode(OioIcon, { icon: 'oinone-tixing1', size: '18' }),
         closeIcon: createVNode(OioCloseIcon),
-        title: translateValueByKey(`确认关闭?`),
+        title: translateValueByKey('确认关闭?'),
         closable: true,
         content: translateValueByKey('本页数据将丢失，请确认后再继续'),
         okText: translateValueByKey('确定'),

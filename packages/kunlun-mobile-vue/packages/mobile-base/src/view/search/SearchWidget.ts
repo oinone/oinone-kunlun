@@ -1,15 +1,28 @@
-import { type ActiveRecord, activeRecordsToJSONString, type RefreshCallChainingParameters, RefreshCallChainingScope, type RuntimeModelField } from '@oinone/kunlun-engine';
-import { ViewType, type Entity, type IModelField, ModelFieldType } from '@oinone/kunlun-meta';
+import {
+  type ActiveRecord,
+  activeRecordsToJSONString,
+  type RefreshCallChainingParameters,
+  RefreshCallChainingScope,
+  type RuntimeModelField,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
+import { type Entity, type IModelField, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { getRouterInstance } from '@oinone/kunlun-router';
+import { EDirection, ISort } from '@oinone/kunlun-service';
 import { BooleanHelper, NumberHelper, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioMessage } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Widget, type WidgetSubjection } from '@oinone/kunlun-vue-widget';
-import { toString, isNil } from 'lodash-es';
-import { EDirection, ISort } from '@oinone/kunlun-service';
+import { isNil, toString } from 'lodash-es';
 import { BaseElementWidget, BaseSearchWidget, URL_SPLIT_SEPARATOR } from '../../basic';
 import { UserPreferService } from '../../service';
-import { GlobalKeywordSearchSubSymbol, type IKeywordSearchInfo, SEARCH_WIDGET, type UserSearchPrefer, type UserSearchPreferField } from '../../typing';
+import {
+  GlobalKeywordSearchSubSymbol,
+  type IKeywordSearchInfo,
+  SEARCH_WIDGET,
+  type UserSearchPrefer,
+  type UserSearchPreferField
+} from '../../typing';
 import DefaultSearch from './DefaultSearch.vue';
 import KeywordSearchMetadataViewWidget from './KeywordSearchMetadataViewWidget';
 import { CATE_ALL_OPTION } from './types';
@@ -74,7 +87,17 @@ export class SearchWidget extends BaseSearchWidget {
   protected get topCateFieldOptions() {
     const topCateModelField = this.topCateModelField as unknown as IModelField;
     return topCateModelField && topCateModelField?.options
-      ? [...(this.showTopCateAll ? [CATE_ALL_OPTION] : []), ...topCateModelField.options]
+      ? [
+          ...(this.showTopCateAll
+            ? [
+                {
+                  ...CATE_ALL_OPTION,
+                  displayName: translateValueByKey(CATE_ALL_OPTION.displayName)
+                }
+              ]
+            : []),
+          ...topCateModelField.options
+        ]
       : [];
   }
 
@@ -98,7 +121,17 @@ export class SearchWidget extends BaseSearchWidget {
   protected get secondCateFieldOptions() {
     const secondCateModelField = this.secondCateModelField as unknown as IModelField;
     return this.topCateModelField && secondCateModelField && secondCateModelField?.options
-      ? [...(this.showSecondCateAll ? [CATE_ALL_OPTION] : []), ...secondCateModelField.options]
+      ? [
+          ...(this.showSecondCateAll
+            ? [
+                {
+                  ...CATE_ALL_OPTION,
+                  displayName: translateValueByKey(CATE_ALL_OPTION.displayName)
+                }
+              ]
+            : []),
+          ...secondCateModelField.options
+        ]
       : [];
   }
 

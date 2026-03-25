@@ -4,17 +4,17 @@
       <!-- 企业信息 -->
       <div class="oio-group oio-default-group">
         <div class="oio-group-title-wrapper">
-          <div class="oio-group-title">{{ translateValueByKey('企业信息') }}</div>
+          <div class="oio-group-title">{{ $translate('企业信息') }}</div>
         </div>
 
         <oio-form>
-          <oio-form-item :label="translateValueByKey('企业名称')">
+          <oio-form-item :label="$translate('企业名称')">
             <oio-input v-model:value="companySetting.partnerName"></oio-input>
           </oio-form-item>
-          <oio-form-item :label="translateValueByKey('企业官网')">
+          <oio-form-item :label="$translate('企业官网')">
             <oio-input v-model:value="companySetting.officialWebsite"></oio-input>
           </oio-form-item>
-          <oio-form-item :label="translateValueByKey('企业slogan')">
+          <oio-form-item :label="$translate('企业slogan')">
             <oio-input v-model:value="companySetting.slogan"></oio-input>
           </oio-form-item>
         </oio-form>
@@ -23,16 +23,16 @@
       <!-- LOGO -->
       <div class="oio-group oio-default-group">
         <div class="oio-group-title-wrapper">
-          <div class="oio-group-title">{{ translateValueByKey('LOGO设置') }}</div>
+          <div class="oio-group-title">{{ $translate('LOGO设置') }}</div>
         </div>
         <!-- 业务应用导航栏logo -->
         <div>
-          <div class="title">{{ translateValueByKey('业务应用导航栏logo') }}</div>
+          <div class="title">{{ $translate('业务应用导航栏logo') }}</div>
           <div class="flex-s-c">
             <div class="margin-right">
               <div class="flex-row-start-center">
                 <div>3:1</div>
-                <oio-tooltip-help :content="$translate('用于左侧菜单栏展开时的logo显示。')" />
+                <oio-tooltip-help content="用于左侧菜单栏展开时的logo显示。" />
               </div>
               <upload-img
                 limitSize="5"
@@ -48,7 +48,7 @@
             <div>
               <div class="flex-row-start-center">
                 <div>1:1</div>
-                <oio-tooltip-help :content="$translate('用于左侧菜单栏收起时的logo显示。')" />
+                <oio-tooltip-help content="用于左侧菜单栏收起时的logo显示。" />
               </div>
               <upload-img
                 limitSize="5"
@@ -62,13 +62,13 @@
             </div>
           </div>
           <div class="tips">
-            {{ translateValueByKey('请上传jpg、png格式的图片，文件大小不超过5MB') }}
+            {{ $translate('请上传jpg、png格式的图片，文件大小不超过5MB') }}
           </div>
         </div>
 
         <!-- 浏览器logo -->
         <div class="margin-top">
-          <div class="title">{{ translateValueByKey('浏览器logo') }}</div>
+          <div class="title">{{ $translate('浏览器logo') }}</div>
           <upload-img
             limitSize="5"
             limit-file-extensions=".jpg,.png"
@@ -79,20 +79,19 @@
           >
           </upload-img>
           <div class="tips">
-            {{ translateValueByKey('请上传jpg、png格式的图片，文件大小不超过5MB') }}
+            {{ $translate('请上传jpg、png格式的图片，文件大小不超过5MB') }}
           </div>
         </div>
 
         <div class="flex-s-c margin-top" style="margin-top: var(--oio-margin)">
-          <oio-button class="margin-right" @click="onBack">{{ translateValueByKey('返回') }}</oio-button>
-          <oio-button type="primary" @click="onSaveCompanySetting">{{ translateValueByKey('发布') }}</oio-button>
+          <oio-button class="margin-right" @click="onBack">{{ $translate('返回') }}</oio-button>
+          <oio-button type="primary" @click="onSaveCompanySetting">{{ $translate('发布') }}</oio-button>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import { translateValueByKey } from '@oinone/kunlun-engine';
 import { OioButton, OioForm, OioFormItem, OioInput, OioTooltipHelp } from '@oinone/kunlun-vue-ui-antd';
 import { defineProps, ref, watchEffect } from 'vue';
 import UploadImg from '../../components/upload/UploadImg.vue';

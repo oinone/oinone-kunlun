@@ -859,14 +859,14 @@ export class BaseTableWidget<
     keyboardConfig.left = keyboardConfig.left || {
       key: 'Tab',
       shift: true,
-      desc: translateValueByKey('向左移动单元格')
+      desc: '向左移动单元格'
     };
-    keyboardConfig.right = keyboardConfig.right || { key: 'Tab', desc: translateValueByKey('向右移动单元格') };
+    keyboardConfig.right = keyboardConfig.right || { key: 'Tab', desc: '向右移动单元格' };
     // fixme @zbh 20251218 暂未实现
     // keyboardConfig.up = keyboardConfig.up || { key: 'Enter', ctrl: true, shift: true, desc: '向上移动单元格' };
     // keyboardConfig.down = keyboardConfig.down || { key: 'Enter', ctrl: true, desc: '向下移动单元格' };
-    keyboardConfig.enter = keyboardConfig.enter || { key: 'Enter', desc: translateValueByKey('提交数据') };
-    keyboardConfig.cancel = keyboardConfig.cancel || { key: 'Esc', desc: translateValueByKey('取消编辑') };
+    keyboardConfig.enter = keyboardConfig.enter || { key: 'Enter', desc: '提交数据' };
+    keyboardConfig.cancel = keyboardConfig.cancel || { key: 'Esc', desc: '取消编辑' };
     return keyboardConfig;
   }
 

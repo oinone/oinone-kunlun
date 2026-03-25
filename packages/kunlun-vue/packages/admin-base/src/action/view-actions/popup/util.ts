@@ -317,7 +317,7 @@ export async function createPopupDslDefinition(
     });
     if (!popupLayout) {
       popupLayout = createPopupDefaultLayout(viewType);
-      debugConsole.log('使用弹出层默认layout', popupLayout);
+      debugConsole.log('Use pop-up layer default layout', popupLayout);
     }
     popupViewDslNode = mergeLayoutToModal(
       (popupViewDslNode as TemplateDslDefinition) ||

@@ -7,7 +7,7 @@
     <div class="main-filter">
       <div class="main-filter-tabs">
         <van-tabs v-model:active="topCateActive" :duration="0" @change="onChangeTopCate">
-          <van-tab v-for="cate in topCateFieldOptions" :title="cate.displayName" :key="cate.name"></van-tab>
+          <van-tab v-for="cate in topCateFieldOptions" :title="$translate(cate.displayName)" :key="cate.name"></van-tab>
         </van-tabs>
       </div>
       <div v-if="showBaseSearch || showSort" class="main-filter-icons">
@@ -58,7 +58,7 @@
       <div class="search-sort-popup-header">
         <div class="selected-sort-list">
           <div class="selected-sort-item" v-for="(item, index) in selectedSortList" :key="index">
-            <div class="selected-sort-item-field">{{ item.label }}</div>
+            <div class="selected-sort-item-field">{{ $translate(item.label) }}</div>
             <div class="selected-sort-item-direction">
               <div class="selected-sort-item-direction-inner">
                 <i class="iconfont oinone-arrow-up" :class="{ active: item.value.direction === 'ASC' }" />
@@ -71,7 +71,7 @@
       </div>
       <div class="search-sort-popup-actions">
         <div class="sort-popup-action" :key="index" v-for="(item, index) in multiSelectFields">
-          {{ item.label || item.displayName }}
+          {{ $translate(item.label || item.displayName) }}
           <div class="sort-direction-select">
             <div
               class="sort-direction-item"

@@ -76,11 +76,11 @@ export default defineComponent({
         ? createVNode(
             OioPopconfirm,
             {
-              title: translateValueByKey(props.confirmTitle),
-              placement: translateValueByKey(props.confirmPosition),
-              text: translateValueByKey(props.confirm),
-              enterText: translateValueByKey(props.enterText),
-              cancelText: translateValueByKey(props.cancelText),
+              title: props.confirmTitle,
+              placement: props.confirmPosition,
+              text: props.confirm,
+              enterText: props.enterText,
+              cancelText: props.cancelText,
               visible: props.visibleConfirm,
               'onUpdate:visible': props.changeVisibleConfirm,
               condition: actionProps.condition,

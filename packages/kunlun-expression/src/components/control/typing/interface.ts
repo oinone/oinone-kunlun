@@ -1,6 +1,15 @@
 import { type IModelField, ModelFieldType } from '@oinone/kunlun-meta';
 import type { PropType } from 'vue';
-import { ExpressionDefinitionType, ExpressionMode, type IExpressionItem, type IExpressionOption, IExpressionQuoteType, type IExpSelectOption, type IFunFilterMethod, type IVariableContextItem } from '../../../types';
+import {
+  ExpressionDefinitionType,
+  ExpressionMode,
+  type IExpressionItem,
+  type IExpressionOption,
+  IExpressionQuoteType,
+  type IExpSelectOption,
+  type IFunFilterMethod,
+  type IVariableContextItem
+} from '../../../types';
 
 export const ExpressionCommonProps = {
   value: String,

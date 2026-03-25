@@ -1,3 +1,4 @@
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { DateTimePickerMode, DateUtil, defaultFormat } from '@oinone/kunlun-shared';
 import { isString } from 'lodash-es';
 import type { Moment } from 'moment';
@@ -21,7 +22,7 @@ export function useDateTimePickerProps(props, context) {
   };
 
   const formatter = (type, val) => {
-    return val + DateFormatEnum[type];
+    return val + translateValueByKey(DateFormatEnum[type]);
   };
 
   const format = computed(() => {

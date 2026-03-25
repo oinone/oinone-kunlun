@@ -697,7 +697,7 @@ export class AppsGalleryWidget extends BaseElementListViewWidget {
     );
     this.fetchTree((this.searchBody || {}) as any);
     result.content?.forEach((a: any) => {
-      a.stateDisplayName = AppStateDisplayNameENum[a.state] || '';
+      a.stateDisplayName = translateValueByKey(AppStateDisplayNameENum[a.state] || '');
     });
     return result;
   }
