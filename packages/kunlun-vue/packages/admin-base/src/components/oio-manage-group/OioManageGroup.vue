@@ -13,11 +13,10 @@
       >
         <div v-if="g.sys && showDetail" class="oio-default-manage-group-sys">{{ $translate('系统') }}</div>
         <span
-          :title="`${$translate(g.displayName || g.name)} ${showDetail ? '（' + (g.iconNum || g.itemNum || totalItem) + '）' : ''}`"
+          :title="`${g.displayName || g.name} ${showDetail ? '（' + (g.iconNum || g.itemNum || totalItem) + '）' : ''}`"
           class="cate-name"
           @click="onChangeWidgetGroup(g)"
-          >{{ $translate(g.displayName || g.name) }}
-          {{ showDetail ? '（' + (g.iconNum || g.itemNum || totalItem) + '）' : '' }}
+          >{{ g.displayName || g.name }} {{ showDetail ? '（' + (g.iconNum || g.itemNum || totalItem) + '）' : '' }}
         </span>
       </div>
     </div>
@@ -71,10 +70,10 @@
           :closable="g.sys == false && g.id > '0' && !g.refEditing"
           @close.prevent="handleDeleteGroup(g.id)"
           @dblclick="startEditing(g)"
-          :title="`${$translate(g.displayName || g.name)} ${showDetail ? '（' + (g.iconNum || g.itemNum || totalItem) + '）' : ''}`"
+          :title="`${g.displayName || g.name} ${showDetail ? '（' + (g.iconNum || g.itemNum || totalItem) + '）' : ''}`"
         >
           <template v-if="!g.refEditing">
-            {{ $translate(g.displayName || g.name) }}
+            {{ g.displayName || g.name }}
             {{ showDetail ? '（' + (g.iconNum || g.itemNum || totalItem) + '）' : '' }}
           </template>
           <div v-else class="oio-default-manage-group-inputBox">
