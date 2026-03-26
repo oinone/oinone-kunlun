@@ -4,6 +4,7 @@
   background-color: transparent;
 
   .ant-tree-node-content-wrapper {
+    text-wrap: nowrap;
     color: var(--oio-text-color);
 
     &.ant-tree-node-selected {

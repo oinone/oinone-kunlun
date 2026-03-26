@@ -12,7 +12,16 @@ export class ExpressionLocaleManager {
   }
 
   public static get() {
-    return ExpressionLocaleManager.active || ExpressionLocaleManager.default();
+    if (ExpressionLocaleManager.active == null) {
+      const lang = Reflect.get(window, '__lang');
+      if (lang === 'zh-CN') {
+        return ExpressionLocale.zhCN;
+      }
+      if (lang === 'en-US') {
+        return ExpressionLocale.enUS;
+      }
+    }
+    return ExpressionLocaleManager.default();
   }
 
   public static using(locale: ExpressionLocaleType, fn: () => void) {
