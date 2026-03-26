@@ -210,7 +210,7 @@ export class NotificationWidget extends MaskWidget {
     if (messageInfo.messageType === 'WORKFLOW' || messageInfo.messageType === 'COPY') {
       let action;
 
-      if (message.workFlowTaskType === translateValueByKey('审批')) {
+      if (message.workFlowTaskType === '审批') {
         const rst = await this.beforeClickMap['wait'](message, messageInfo);
 
         if (!rst) {

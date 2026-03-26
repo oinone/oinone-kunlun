@@ -21,7 +21,7 @@
       <div class="quick-fill-modal-content-desc" v-if="step === 0">
         <template v-if="type === 'create'">
           <div class="quick-fill-modal-content-desc-item">
-            {{ $translate('支持将Excel内容粘贴至本表格，粘贴后内容将自动追加至表格末尾') }}
+            {{ $translate('支持将 Excel 内容粘贴至本表格，粘贴后内容将自动追加至表格末尾') }}
           </div>
           <div class="quick-fill-modal-content-desc-item">{{ $translate('系统已自动隐藏不支持粘贴的字段列') }}</div>
           <div class="quick-fill-modal-content-desc-item">
@@ -192,7 +192,7 @@ export default defineComponent({
 
     const onChangeRadio = (val) => {
       const nextType = val.target.value;
-      const str = `确认要切换为${nextType === QuickFillType.update ? '编辑已有' : '新增'}数据吗？`;
+      const str = `确认要切换为${nextType === QuickFillType.update ? '编辑已有' : '新增'}数据吗?`;
       if (excelRef.value.getCellStatus()) {
         const _modal = Modal.confirm({
           class: 'oio-modal oio-quick-fill-witch-mode-modal',
@@ -202,7 +202,6 @@ export default defineComponent({
           closable: true,
           content: translateValueByKey('切换后，本页数据将丢失，请确认后再继续'),
           okText: translateValueByKey('确定'),
-
           cancelText: translateValueByKey('取消'),
           onOk: () => {
             type.value = nextType;

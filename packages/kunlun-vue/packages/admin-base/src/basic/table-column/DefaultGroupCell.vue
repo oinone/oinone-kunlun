@@ -235,53 +235,43 @@ export default defineComponent({
     const convertStatisticsValue = (value: string | number): string => {
       switch (selectValue.value) {
         case GroupStatisticsEnum.COUNT:
-          // 总数量
-          return `${value} ${translateValueByKey('条记录')}`;
+          return translateValueByKey('${value} 条记录', { value });
         case GroupStatisticsEnum.NOT_NULL:
-          // 已填写
-          return `${translateValueByKey('已填写')} ${value}`;
+          return translateValueByKey('已填写 ${value}', { value });
         case GroupStatisticsEnum.NULL:
-          // 未填写
-          return `${translateValueByKey('未填写')} ${value}`;
+          return translateValueByKey('未填写 ${value}', { value });
         case GroupStatisticsEnum.UNIQUE:
-          // 唯一值
-          return `${translateValueByKey('唯一值')} ${value}`;
+          return translateValueByKey('唯一值 ${value}', { value });
         case GroupStatisticsEnum.NOT_NULL_PERCENT:
-          // 已填写占比
-          return `${translateValueByKey('已填写占比')} ${value}%`;
+          return translateValueByKey('已填写占比 ${value}%', { value });
         case GroupStatisticsEnum.NULL_PERCENT:
-          // 未填写占比
-          return `${translateValueByKey('未填写占比')} ${value}%`;
+          return translateValueByKey('未填写占比 ${value}%', { value });
         case GroupStatisticsEnum.UNIQUE_PERCENT:
-          // 唯一值占比
-          return `${translateValueByKey('唯一值占比')} ${value}%`;
+          return translateValueByKey('唯一值占比 ${value}%', { value });
         case GroupStatisticsEnum.EARLIEST_TIME: {
-          const v = dayjs(normalizeDateTime(value));
-          return `${translateValueByKey('最早时间')} ${dayjs(normalizeDateTime(value)).format(dateFormat.value)}`;
+          const val = dayjs(normalizeDateTime(value)).format(dateFormat.value);
+          return translateValueByKey('最早时间 ${value}', { value: val });
         }
-        case GroupStatisticsEnum.LATEST_TIME:
-          return `${translateValueByKey('最晚时间')} ${dayjs(normalizeDateTime(value)).format(dateFormat.value)}`;
+        case GroupStatisticsEnum.LATEST_TIME: {
+          const val = dayjs(normalizeDateTime(value)).format(dateFormat.value);
+          return translateValueByKey('最晚时间 ${value}', { value: val });
+        }
         case GroupStatisticsEnum.TIME_RANGE_DAY:
-          return `${translateValueByKey('时间范围')} ${value} ${translateValueByKey('天')}`;
+          return translateValueByKey('时间范围 ${value} 天', { value });
         case GroupStatisticsEnum.TIME_RANGE_MONTH:
-          return `${translateValueByKey('时间范围')} ${value} ${translateValueByKey('月')}`;
+          return translateValueByKey('时间范围 ${value} 月', { value });
         case GroupStatisticsEnum.TIME_RANGE_YEAR:
-          return `${translateValueByKey('时间范围')} ${value}  ${translateValueByKey('年')}`;
+          return translateValueByKey('时间范围 ${value} 年', { value });
         case GroupStatisticsEnum.SUM:
-          // 求和
-          return `${translateValueByKey('求和')} ${value}`;
+          return translateValueByKey('求和 ${value}', { value });
         case GroupStatisticsEnum.AVERAGE:
-          // 平均值
-          return `${translateValueByKey('平均值')} ${value}`;
+          return translateValueByKey('平均值 ${value}', { value });
         case GroupStatisticsEnum.MEDIAN:
-          // 中位数
-          return `${translateValueByKey('中位数')} ${value}`;
+          return translateValueByKey('中位数 ${value}', { value });
         case GroupStatisticsEnum.MAX:
-          // 最大值
-          return `${translateValueByKey('最大值')} ${value}`;
+          return translateValueByKey('最大值 ${value}', { value });
         case GroupStatisticsEnum.MIN:
-          // 最小值
-          return `${translateValueByKey('最小值')} ${value}`;
+          return translateValueByKey('最小值 ${value}', { value });
         default:
           return translateValueByKey('统计');
       }

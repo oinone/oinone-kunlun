@@ -85,7 +85,7 @@
               v-model:valueList="arg.variableItemList"
               :exp-type="expressionOption.type"
               :placeholder="arg.name"
-              :title="`数据类型:${arg.ttype}`"
+              :title="`${$translate('数据类型')}: ${arg.ttype}`"
               :context-items="expressionOption.variableContextItems"
               :models="expressionOption.models"
               :field-model-model="expressionOption.modelModel"
@@ -106,9 +106,9 @@
           :dropdown-match-select-width="false"
           :get-popup-container="(triggerNode) => triggerNode.parentNode"
         >
-          <a-select-option v-for="item in expressionItem.operatorOptions" :value="item.value" :key="item.value">{{
-            translateExpValue(item.label)
-          }}</a-select-option>
+          <a-select-option v-for="item in expressionItem.operatorOptions" :value="item.value" :key="item.value"
+            >{{ translateExpValue(item.label) }}
+          </a-select-option>
         </a-select>
         <div class="expression-item-toolbar">
           <a-tooltip :title="translateExpValue('点击添加函数')" v-if="isShowAddNext(expressionItem)">
@@ -206,7 +206,7 @@
                   :exp-type="expressionOption.type"
                   :label-view-type="seniorMode"
                   :placeholder="arg.name"
-                  :title="`数据类型:${arg.ttype}`"
+                  :title="`${$translate('数据类型')}: ${arg.ttype}`"
                   :context-items="expressionOption.variableContextItems"
                   :filter-method="filterMethod"
                   :models="expressionOption.models"
@@ -255,9 +255,9 @@
           :bordered="false"
           :get-popup-container="(triggerNode) => triggerNode.parentNode"
         >
-          <a-select-option v-for="item in expressionItem.operatorOptions" :value="item.value" :key="item.value">{{
-            seniorMode === 'DISPLAY_NAME' ? translateExpValue(item.label) : item.value
-          }}</a-select-option>
+          <a-select-option v-for="item in expressionItem.operatorOptions" :value="item.value" :key="item.value"
+            >{{ seniorMode === 'DISPLAY_NAME' ? translateExpValue(item.label) : item.value }}
+          </a-select-option>
         </a-select>
         <!-- END -->
         <div class="expression-item-toolbar">
@@ -289,15 +289,53 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, type PropType, ref, watch } from 'vue';
-import { ModelFieldType, deepClone, isDateTtype, isEmptyKeObject as isEmptyObject } from '@oinone/kunlun-meta';
+import { deepClone, isDateTtype, isEmptyKeObject as isEmptyObject, ModelFieldType } from '@oinone/kunlun-meta';
 import { OioTextarea } from '@oinone/kunlun-vue-ui-antd';
-import { Popconfirm as APopconfirm, Select as ASelect, SelectOption as ASelectOption, Tooltip as ATooltip, Checkbox as ACheckbox } from 'ant-design-vue';
+import {
+  Checkbox as ACheckbox,
+  Popconfirm as APopconfirm,
+  Select as ASelect,
+  SelectOption as ASelectOption,
+  Tooltip as ATooltip
+} from 'ant-design-vue';
+import { computed, defineComponent, type PropType, ref, watch } from 'vue';
+import {
+  autoSetBracketDeep,
+  changeBracketCheckStatus,
+  createApiNameVariableListStr,
+  createDefaultExpressionItem,
+  createDefaultExpressionLeftBracket,
+  createDefaultExpressionRightBracket,
+  createDefaultVariableItemList,
+  createDisplayNameVariableListStr,
+  createExpressionApiName,
+  createExpressionDisplayName,
+  getDefaultOperator,
+  getExpressionOperatorOptions,
+  isEmptyRow,
+  quickMode2SeniorMode,
+  recalculateShowOperator,
+  seniorMode2quickMode,
+  translateExpValue
+} from '../../../share';
+import {
+  DEFAULT_EXPRESSION_OPT,
+  ExpressionItemType,
+  ExpressionMode,
+  ExpressionOperatorConfig,
+  ExpressionSeniorMode,
+  type IExpressionItem,
+  type IExpressionOption,
+  IExpressionQuoteType,
+  type IExpSelectOption,
+  type IFunction,
+  type IFunctionArgument,
+  type IFunFilterMethod,
+  type IVariableItem
+} from '../../../types';
+import BuildInFunctionSelect from '../build-in-function-select/BuildInFunctionSelect.vue';
 import VariableFormInput from '../variable/VariableFormInput.vue';
 import VariableFormTag from '../variable/VariableFormTag.vue';
-import BuildInFunctionSelect from '../build-in-function-select/BuildInFunctionSelect.vue';
-import { DEFAULT_EXPRESSION_OPT, ExpressionItemType, ExpressionMode, ExpressionOperatorConfig, ExpressionSeniorMode, type IExpressionItem, type IExpressionOption, IExpressionQuoteType, type IFunction, type IFunctionArgument, type IExpSelectOption, type IVariableItem, type IFunFilterMethod } from '../../../types';
-import { autoSetBracketDeep, changeBracketCheckStatus, createApiNameVariableListStr, createDefaultExpressionLeftBracket, createDefaultExpressionRightBracket, createDefaultExpressionItem, createDefaultVariableItemList, createDisplayNameVariableListStr, createExpressionApiName, createExpressionDisplayName, getDefaultOperator, getExpressionOperatorOptions, isEmptyRow, quickMode2SeniorMode, recalculateShowOperator, seniorMode2quickMode, translateExpValue } from '../../../share';
 
 export default defineComponent({
   inheritAttrs: false,
@@ -599,6 +637,7 @@ export default defineComponent({
         }
       }
     }
+
     const valueListBlurHandle = (expressionItem: IExpressionItem | IFunctionArgument) => {
       expressionItem.showValueListLabel = !expressionItem.showValueListLabel;
     };
