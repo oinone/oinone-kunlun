@@ -349,19 +349,31 @@ export default defineComponent({
     const rightVNodes = rightSlot?.();
     let actionBarContentVNodes: VNode[] = [];
     if (leftVNodes?.length) {
-      actionBarContentVNodes.push(createVNode('div', { class: `${actionBarClassName}-left` }, leftVNodes || []));
+      actionBarContentVNodes.push(
+        createVNode('div', { class: `${actionBarClassName}-left oio-scrollbar` }, leftVNodes || [])
+      );
       if (rightVNodes?.length) {
         classList.push(`${actionBarClassName}-between`);
-        actionBarContentVNodes.push(createVNode('div', { class: `${actionBarClassName}-center` }, actionVNodes));
-        actionBarContentVNodes.push(createVNode('div', { class: `${actionBarClassName}-right` }, rightVNodes || []));
+        actionBarContentVNodes.push(
+          createVNode('div', { class: `${actionBarClassName}-center oio-scrollbar` }, actionVNodes)
+        );
+        actionBarContentVNodes.push(
+          createVNode('div', { class: `${actionBarClassName}-right oio-scrollbar` }, rightVNodes || [])
+        );
       } else {
         classList.push(`${actionBarClassName}-between`);
-        actionBarContentVNodes.push(createVNode('div', { class: `${actionBarClassName}-right` }, actionVNodes));
+        actionBarContentVNodes.push(
+          createVNode('div', { class: `${actionBarClassName}-right oio-scrollbar` }, actionVNodes)
+        );
       }
     } else if (rightVNodes?.length) {
       classList.push(`${actionBarClassName}-between`);
-      actionBarContentVNodes.push(createVNode('div', { class: `${actionBarClassName}-left` }, actionVNodes));
-      actionBarContentVNodes.push(createVNode('div', { class: `${actionBarClassName}-right` }, rightVNodes || []));
+      actionBarContentVNodes.push(
+        createVNode('div', { class: `${actionBarClassName}-left oio-scrollbar` }, actionVNodes)
+      );
+      actionBarContentVNodes.push(
+        createVNode('div', { class: `${actionBarClassName}-right oio-scrollbar` }, rightVNodes || [])
+      );
     } else {
       classList.push(`${actionBarClassName}-flatten`);
       actionBarContentVNodes = actionVNodes;
