@@ -132,7 +132,7 @@
 
           <template v-if="!showTypeSelect">
             <a-tooltip
-              :title="`${translateExpValue('最多只能选')}${maxVariableNum}${translateExpValue('个字段')}`"
+              :title="$translate('最多只能选${maxVariableNum}个字段', { maxVariableNum })"
               v-if="!readonly && variableItemNum >= maxVariableNum"
             >
               <span class="ant-input-group-addon">
