@@ -235,7 +235,7 @@ const selectedLayout = computed(() => {
 const currentLoginTheme = computed(() => {
   return {
     name: layout.value,
-    logo: loginLogo.value.url || genStaticPath('logo-img.png'),
+    logo: loginLogo.value.url || genStaticPath('LOGO图@2x.png'),
     backgroundImage: background.value.url
   } as any;
 });
