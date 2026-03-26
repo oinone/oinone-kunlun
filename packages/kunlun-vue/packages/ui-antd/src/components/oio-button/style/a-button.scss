@@ -58,6 +58,7 @@
 }
 
 &.ant-btn {
+  position: static;
   height: var($parameterPrefix + -height);
   padding: 0 var($parameterPrefix + -padding-md);
   line-height: var($parameterPrefix + -line-height);

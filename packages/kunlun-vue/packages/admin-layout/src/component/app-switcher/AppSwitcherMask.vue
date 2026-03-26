@@ -154,7 +154,9 @@ export default defineComponent({
     });
 
     const searchApps = computed(() => {
-      return searchValue.value ? props.apps?.filter((a: any) => a.displayName.includes(searchValue.value)) : [];
+      return searchValue.value
+        ? props.apps?.filter((a: any) => a.displayName.toLowerCase().includes(searchValue.value.toLowerCase()))
+        : [];
     });
 
     const onSwitchSearch = () => {
