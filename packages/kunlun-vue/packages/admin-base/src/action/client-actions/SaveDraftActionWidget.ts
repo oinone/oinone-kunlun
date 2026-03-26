@@ -103,36 +103,51 @@ export class SaveDraftAction extends ActionWidget {
       closeIcon: createVNode(OioCloseIcon),
       title: translateValueByKey('是否加载草稿数据'),
       closable: true,
-      content: () => {
+      footer: () => {
         return createVNode(
-          OioButton,
+          'div',
           {
-            onClick: async () => {
-              await this.deleteDraft();
-              modal.destroy();
-              resolve();
-            },
-            style: {
-              position: 'absolute',
-              bottom: 'var(--oio-margin-md)',
-              right: '28%'
-            }
+            class: 'ant-modal-confirm-btns',
+            style: { marginTop: '24px', display: 'flex', justifyContent: 'flex-end', gap: '8px' }
           },
-          {
-            default: () => translateValueByKey('清空草稿')
-          }
+          [
+            createVNode(
+              OioButton,
+              {
+                onClick: async () => {
+                  await this.deleteDraft();
+                  modal.destroy();
+                  resolve();
+                }
+              },
+              { default: () => translateValueByKey('清空草稿') }
+            ),
+            createVNode(
+              OioButton,
+              {
+                onClick: () => {
+                  this.isLoadDraft = true;
+                  modal.destroy();
+                  resolve();
+                }
+              },
+              { default: () => translateValueByKey('否') }
+            ),
+            createVNode(
+              OioButton,
+              {
+                type: 'primary',
+                onClick: () => {
+                  this.useDraftValue([res]);
+                  this.isLoadDraft = true;
+                  modal.destroy();
+                  resolve();
+                }
+              },
+              { default: () => translateValueByKey('是') }
+            )
+          ]
         );
-      },
-      okText: translateValueByKey('是'),
-      cancelText: translateValueByKey('否'),
-      onOk: () => {
-        this.useDraftValue([res]);
-        this.isLoadDraft = true;
-        resolve();
-      },
-      onCancel: () => {
-        this.isLoadDraft = true;
-        resolve();
       }
     });
   }
