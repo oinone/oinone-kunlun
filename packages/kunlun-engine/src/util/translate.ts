@@ -87,13 +87,12 @@ export const registryLanguage = <L extends Record<string, any>>(type: LanguageTy
 };
 
 export const translate = (key: string) => {
-  const path = key.split('.');
-  let last: localeType = (window as unknown as IExtension).__language;
-  for (let index = 0; index < path.length; index++) {
-    if (!last) {
-      return undefined;
-    }
-    last = last[path[index]] as localeType;
+  let last: localeType | string;
+  if (key.startsWith('kunlun.')) {
+    last = (window as unknown as IExtension).__language;
+    last = getValue(last, key);
+  } else {
+    last = key;
   }
   if (typeof last === 'string') {
     return translateValueByKey(last);
