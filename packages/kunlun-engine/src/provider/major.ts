@@ -160,7 +160,7 @@ export const setDefaultMajorConfig = (majorConfig: MajorConfig, type: 'login' | 
     majorConfig.favicon = DEFAULT_FAVICON();
   }
   if (!majorConfig.browserTitle) {
-    majorConfig.browserTitle = 'Oinone - 构你想象!';
+    majorConfig.browserTitle = 'Oinone';
   }
   return majorConfig;
 };
