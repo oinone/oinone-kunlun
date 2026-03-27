@@ -1,13 +1,18 @@
 <script lang="ts">
 import { CastHelper, type ReturnPromise, type ReturnVoid, StringHelper } from '@oinone/kunlun-shared';
-import { type FileModel, IUploadMethod, OioUploadProps, PropRecordHelper, useUploadFileEvent } from '@oinone/kunlun-vue-ui-common';
-import { Uploader as VanUploader } from 'vant';
-
-import { isNil, isString, isArray } from 'lodash-es';
-import { computed, createVNode, defineComponent, ref, watch, getCurrentInstance } from 'vue';
+import {
+  type FileModel,
+  IUploadMethod,
+  OioUploadProps,
+  PropRecordHelper,
+  useUploadFileEvent
+} from '@oinone/kunlun-vue-ui-common';
+import { isArray, isNil, isString } from 'lodash-es';
 import type { UploaderFileListItem } from 'vant';
+import { Uploader as VanUploader } from 'vant';
+import { computed, createVNode, defineComponent, getCurrentInstance, ref, watch } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
-import { OioNotification, OioMessage } from '../oio-notification';
+import { OioMessage, OioNotification } from '../oio-notification';
 
 export type UploaderAfterRead = (
   file: UploaderFileListItem | UploaderFileListItem[],
@@ -74,7 +79,10 @@ export default defineComponent({
           if (!acceptList.includes(formatFull) && !acceptList.includes(`.${subContentType}`)) {
             if (!acceptList.includes(`${mainContentType}/*`)) {
               OioNotification.error(
-                `${$translate('不支持上传')}${subContentType}${$translate('格式的文件')}: ${file.name}`
+                $translate('不支持上传${contentType}格式的文件: ${filename}', {
+                  contentType: subContentType,
+                  filename: file.name
+                })
               );
               return false;
             }
@@ -91,7 +99,7 @@ export default defineComponent({
       const limitSize = props.limitSize;
       if (limitSize && limitSize > 0) {
         if (file.size / 1024 / 1024 > limitSize) {
-          OioNotification.error($translate('异常'), `${$translate('单个文件大小不允许超过')} ${limitSize}MB`);
+          OioNotification.error($translate('异常'), $translate('单个文件大小不允许超过${limitSize}MB', { limitSize }));
           return false;
         }
       }

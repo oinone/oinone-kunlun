@@ -32,7 +32,7 @@ export class FormStringUploadDraggableFieldWidget extends FormStringUploadFieldW
     return this.getDsl().draggableTipText || '点击 或 拖拽文件到这里上传';
   }
 
-  // 是否展示支持拓展名
+  // 是否展示支持扩展名
   @Widget.Reactive()
   public get showDraggableExtendsionsText() {
     return this.getDsl().showDraggableExtendsionsText ?? true;
@@ -42,6 +42,6 @@ export class FormStringUploadDraggableFieldWidget extends FormStringUploadFieldW
   @Widget.Reactive()
   public get draggableExtendsionsText() {
     const allowdFileExtensionsString = this.limitFileExtensions || translateValueByKey('全部');
-    return translateValueByKey('支持拓展名: ') + allowdFileExtensionsString;
+    return translateValueByKey('支持扩展名: ') + allowdFileExtensionsString;
   }
 }
