@@ -1,7 +1,7 @@
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { translateValueByKey } from '@oinone/kunlun-engine';
 import { FormFieldWidget } from '../../../../basic';
 import { UploadDraggable } from '../../../../components';
 import { FormO2MUploadFieldWidget } from './FormO2MUploadFieldWidget';
@@ -32,7 +32,7 @@ export class FormO2MUploadDraggableFieldWidget extends FormO2MUploadFieldWidget 
     return this.getDsl().draggableTipText || '点击 或 拖拽文件到这里上传';
   }
 
-  // 是否展示支持拓展名
+  // 是否展示支持扩展名
   @Widget.Reactive()
   public get showDraggableExtendsionsText() {
     return this.getDsl().showDraggableExtendsionsText ?? true;
@@ -42,6 +42,6 @@ export class FormO2MUploadDraggableFieldWidget extends FormO2MUploadFieldWidget 
   @Widget.Reactive()
   public get draggableExtendsionsText() {
     const allowdFileExtensionsString = this.limitFileExtensions || translateValueByKey('全部');
-    return translateValueByKey('支持拓展名: ') + allowdFileExtensionsString;
+    return translateValueByKey('支持扩展名: ${fileExtensions}', { fileExtensions: allowdFileExtensionsString });
   }
 }
