@@ -40,7 +40,7 @@ function setLang(l: LanguageType) {
   (window as unknown as IExtension).__lang = l;
 }
 
-const remoteI18nCache: Map<{ module: string; lang: string }, Record<string, unknown>> = new Map();
+const remoteI18nCache: Map<string, Record<string, unknown>> = new Map();
 
 export const useLanguage = async (name: LanguageType) => {
   const language = zhCN;
@@ -107,24 +107,31 @@ let currentModuleName = '';
 const globalModuleName = 'global';
 const globalModuleNameMapCommon = 'common';
 
-const getI18nCache = (_lang: string) => {
+const getI18nCache = (): Record<string, string> | undefined => {
   let cache: Record<string, unknown> | null = null;
   let globalCache: Record<string, unknown> | null = null;
   remoteI18nCache.forEach((value, key) => {
-    if (key.module === currentModuleName && key.lang === _lang) {
+    if (key === currentModuleName) {
       cache = value;
     }
-    if (key.module === globalModuleName && key.lang === _lang) {
+    if (key === globalModuleName) {
       globalCache = value;
     }
   });
   if (!cache && !globalCache) {
-    return null;
+    return undefined;
   }
   const cacheProxy = {};
   return new Proxy(cacheProxy, {
-    get(_, prop: string) {
-      return cache?.[prop] ?? globalCache?.[prop] ?? prop;
+    get(_, key: string) {
+      let value = cache?.[key];
+      if (value == null) {
+        value = globalCache?.[key];
+      }
+      if (value == null) {
+        value = key;
+      }
+      return value;
     }
   });
 };
@@ -174,12 +181,12 @@ const loadI18nResolve = async (modules: string[], isoStorageKey: string) => {
         await loadI18nFile(module, isoStorageKey);
         successModuleList.push(module);
       } catch (e) {
-        // console.error('loadI18nFile Failed!', e);
+        console.error('loadI18nFile Failed!', e);
       }
     })
   );
   successModuleList.forEach((module, index) => {
-    remoteI18nCache.set({ module, lang: getLang() }, results[index]);
+    remoteI18nCache.set(module, results[index]);
   });
   Reflect.deleteProperty(window, I18N_RESOLVE);
 };
@@ -201,8 +208,7 @@ const whiteTranslateList = ['false', 'true'];
  * @param {node} IDslNode dslNode
  */
 export const translateNode = (node: IDslNode) => {
-  const { __lang } = window as unknown as IExtension;
-  const cache = getI18nCache(__lang) as Record<string, unknown>;
+  const cache = getI18nCache() as Record<string, unknown>;
   if (cache && node) {
     Object.keys(node).forEach((key) => {
       const value = node[key];
@@ -229,8 +235,7 @@ export const translateDslDefinition = (dsl: DslDefinition) => {
   if (!getI18nStatus()) {
     return dsl;
   }
-  const { __lang } = window as unknown as IExtension;
-  const cache = getI18nCache(__lang) as Record<string, unknown>;
+  const cache = getI18nCache() as Record<string, unknown>;
   if (cache) {
     recursionTranslateDslDefinition(cache, dsl);
   }
@@ -277,19 +282,15 @@ export const translateValueByKey = <T extends StandardString>(
   if (!key || !getI18nStatus()) {
     return key as unknown as GenericReturnType<T, string>;
   }
-
-  const { __lang } = window as any as IExtension;
-  const cache = getI18nCache(__lang) as Record<string, any>;
-
+  let value = key as string;
+  const cache = getI18nCache() as Record<string, string>;
   if (cache) {
-    key = cache[key as string] || key;
+    value = cache[key as string] || key;
   }
-
-  if (context && key) {
-    key = resolveTranslatedText(key as string, context) as unknown as GenericType<T>;
+  if (context && value) {
+    value = resolveTranslatedText(key as string, context) as unknown as GenericType<T>;
   }
-
-  return key as unknown as GenericReturnType<T, string>;
+  return value as unknown as GenericReturnType<T, string>;
 };
 
 const resolveTranslatedText = (text: string, context: Record<string, unknown>): string => {
@@ -306,4 +307,4 @@ export const formateLanguage = (language?: string) => {
   return language.replace('_', '-').toLowerCase();
 };
 
-export { remoteI18nCache, initI18n, getI18nCache, LanguageType };
+export { initI18n, getI18nCache, LanguageType };
