@@ -288,7 +288,7 @@ export const translateValueByKey = <T extends StandardString>(
     value = cache[key as string] || key;
   }
   if (context && value) {
-    value = resolveTranslatedText(key as string, context) as unknown as GenericType<T>;
+    value = resolveTranslatedText(key as string, context);
   }
   return value as unknown as GenericReturnType<T, string>;
 };
