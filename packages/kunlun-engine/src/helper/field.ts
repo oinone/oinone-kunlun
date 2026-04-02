@@ -869,9 +869,7 @@ function buildMultiStringQueryCondition(
   const multiArray: string[] = [];
   for (const value of values) {
     if (value != null) {
-      const singleCondition = new Condition(selector)
-        .like(GraphqlHelper.serializableSearchString(`${value}`))
-        .toString();
+      const singleCondition = new Condition(selector).like(serializeFn(`${value}`)).toString();
       multiArray.push(singleCondition);
     }
   }
@@ -894,7 +892,7 @@ function buildMultiEnumQueryCondition(
   operator: string | undefined,
   values: string[]
 ) {
-  buildMultiStringQueryCondition(field, condition, selector, operator, values);
+  buildMultiStringQueryCondition(field, condition, selector, operator, values, { serializable: false });
 }
 
 function buildMultiBitEnumQueryCondition(
