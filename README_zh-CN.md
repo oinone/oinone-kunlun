@@ -48,17 +48,17 @@ Aino 寓意 AI Innovation，谐音`I Know`，是基于本体论（Ontology）的
 |<img src="http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/Oinone%E5%B0%8F%E5%8A%A9%E6%89%8B.png" alt="Assistant" width="150"><br>| 1. ⭐ Star 本项目<br>2. 扫码左侧二维码添加小助手<br>3. 截图（已 Star 凭证）发给小助手<br>4. 小助手邀请 Star 用户进入专属交流群<br>5. 限时申请企业版试用授权 |
 
 ### 8、入门与文档
-| 快速入门                                                                          | 文档链接                                                                           | Package                    | Package 内容 |
-|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------|----------------------------|----------|
+| 快速入门                                                                         | 文档链接                                                                           | Package                    | Package 内容 |
+|------------------------------------------------------------------------------|--------------------------------------------------------------------------------|----------------------------|----------|
 | ⚡ [安装与升级](https://guide.oinone.top/zh/InstallOrUpgrade/CommunityEdition.html) | [📗 用户手册](https://guide.oinone.top/zh/UserManual/README.html)                  | 📦 kunlun-framework              | 🌟 前端核心功能包 |
-| ⚡ [环境准备](https://guide.oinone.top/zh/DevManual/Tutorials/Dev-ENV/README.html)    | [📗 研发手册](https://guide.oinone.top/zh/DevManual/README.html)                   | 📦 kunlun-engine        | 🌟 前端核心功能扩展包 |
-| ⚡ [企业版：运行程序包方式安装](https://guide.oinone.top/zh/InstallOrUpgrade/EnterpriseEdition.html) | [📗 最佳范式](https://guide.oinone.top/zh/DevManual/R&DParadigm/R&D-paradigm-R&D-process.html)                   |📦 kunlun-expression | 🌟 前端表达式组件包 |
+| ⚡ [环境准备](https://guide.oinone.top/zh/DevManual/Tutorials/Dev-ENV/README.html)   | [📗 研发手册](https://guide.oinone.top/zh/DevManual/README.html)                   | 📦 kunlun-engine        | 🌟 前端核心功能扩展包 |
+| ⚡ [企业版](https://guide.oinone.top/zh/InstallOrUpgrade/EnterpriseEdition.html) | [📗 最佳范式](https://guide.oinone.top/zh/DevManual/R&DParadigm/R&D-paradigm-R&D-process.html)                   |📦 kunlun-expression | 🌟 前端表达式组件包 |
 | ⚡ [入门教程`建议完整学习` ](https://guide.oinone.top/zh/DevManual/Tutorials/README.html) | [📗 常见解决方案](https://guide.oinone.top/zh/DevManual/CommonSolutions/README.html) | 📦 kunlun-vue | 🌟 前端 PC 端组件包 |
-| ⚡ [调试工具](https://guide.oinone.top/zh/DevManual/Tutorials/debug-tools.html)    | [📗 常见问题](https://guide.oinone.top/zh/DevManual/FAQ/README.html)               |📦 kunlun-mobile-vue              | 🌟 前端移动端组件包 |
-|                                                                               |                                                                                |              | |
-|                                                                               |                                                                                |            |  |
-|                                                                               |                                                                                |      |  |
-|                                                                               |                                                                                |          |  |
+| ⚡ [调试工具](https://guide.oinone.top/zh/DevManual/Tutorials/debug-tools.html)   | [📗 常见问题](https://guide.oinone.top/zh/DevManual/FAQ/README.html)               |📦 kunlun-mobile-vue              | 🌟 前端移动端组件包 |
+|                                                                              |                                                                                |              | |
+|                                                                              |                                                                                |            |  |
+|                                                                              |                                                                                |      |  |
+|                                                                              |                                                                                |          |  |
 
 ### 9、许可协议
 - Oinone Pamirs 遵循 AGPL-3.0 协议。
