@@ -74,10 +74,14 @@ export class ConditionBaseControlWidget extends ExpressionAbstractWidget {
 
       const list = valueList || [];
 
-      if (list.length && this.sourceCode) {
-        const valueList = list[0].valueList || [];
+      if (this.sourceCode) {
+        if (list.length) {
+          const valueList = list[0].valueList || [];
 
-        if (!valueList.some((v) => v.value)) {
+          if (!valueList.some((v) => v.value)) {
+            this.hasChangeSourceCode = true;
+          }
+        } else {
           this.hasChangeSourceCode = true;
         }
       }
