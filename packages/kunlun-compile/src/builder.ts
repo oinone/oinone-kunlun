@@ -28,6 +28,18 @@ type RollupBuildOptions = {
   outputOverride?: RollupOutputOptions | RollupOutputOptions[];
 };
 
+function escapeRegExp(str) {
+  // 正则特殊字符：^ $ \ . * + ? | ( ) [ ] { } ,
+  return str.replace(/[\\^$.*+?|()[\]{}]/g, '\\$&');
+}
+
+function pushExternal(array: (string | RegExp)[], external: string[]) {
+  for (const value of external) {
+    array.push(value);
+    array.push(new RegExp(`^${escapeRegExp(value)}`));
+  }
+}
+
 export class CompileConfigBuilder {
   private _debug: boolean | undefined;
 
@@ -106,6 +118,22 @@ export class CompileConfigBuilder {
     } else {
       this._external = [/node_modules/, val as string | RegExp];
     }
+    return this;
+  }
+
+  public externalPkg(
+    pkg,
+    options?: { includeExternal?: (string | RegExp)[]; excludeExternal?: (string | RegExp)[] }
+  ): CompileConfigBuilder {
+    const defaultExternal: (string | RegExp)[] = [];
+    pushExternal(defaultExternal, Object.keys(pkg.dependencies || {}));
+    pushExternal(defaultExternal, Object.keys(pkg.devDependencies || {}));
+    const finalExternal = [
+      ...new Set([...defaultExternal, ...(options?.includeExternal || [])]).difference(
+        new Set([...(options?.excludeExternal || [])])
+      )
+    ];
+    this.external(finalExternal);
     return this;
   }
 
