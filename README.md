@@ -6,7 +6,7 @@ Oinone is an AI-Powered Low-Code Framework positioned as infrastructure for AI-N
 
 Oinone phonetically resonating with "All in one," symbolizing: One-stop solutions, agile responsiveness, continuous innovation.
 
-To learn more，please visit【[🍀 Website](https://www.oinone.top) | [🍀 Gitee-中文](https://gitee.com/oinone) | [🍀AtomGit-中文](https://gitcode.com/oinone) | [🍀 Github-EN](https://github.com/Oinone)】.
+To learn more，please visit【[🍀 Website](https://www.oinone.ai) | [🍀 Gitee-中文](https://gitee.com/oinone) | [🍀AtomGit-中文](https://gitcode.com/oinone) | [🍀 Github-EN](https://github.com/Oinone)】.
 
 【[⚡ 后端-Gitee](https://gitee.com/oinone/oinone-pamirs) | [⚡ 前端-Gitee](https://gitee.com/oinone/oinone-kunlun) | [⚡ 后端-AtomGit](https://gitcode.com/oinone/oinone-pamirs) | [⚡ 前端-AtomGit](https://gitcode.com/oinone/oinone-kunlun) | [⚡ Back-end Framework-Github](https://github.com/oinone/oinone-pamirs) | [⚡ Front-end Framework-Github](https://github.com/oinone/oinone-kunlun)】
 
@@ -41,37 +41,30 @@ Aino, which stands for AI Innovation and is a near-homophone of I Know, An ontol
 ### 6. Demo
 | Demo                                                                                                                                                     | Related Videos                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 |----------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [⚡ Direct to the 6.x Demo](https://demo.oinone.top)<br>☕ Account：admin<br>☕ Password：admin<br/><br/> ⭐ The 7.x demo will be released soon. Stay tuned. ⭐ | [🎬 1. [Oinone] #Productization Demonstration# Work with Back-end And No-code](https://www.bilibili.com/video/BV1eDMizYEts/?vd_source=ee004011d0afa992f50d15c8738450b3) <br>[🎬 2. [Oinone] #Productization Demonstration# Work with Front-end Framework](https://www.bilibili.com/video/BV1DoMizbECt/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 3. [Oinone] #Customization# Work with Back-end Framework](https://www.bilibili.com/video/BV1RDMizYELg/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 4. [Oinone] #Customization# Front-end Interaction](https://www.bilibili.com/video/BV1eDMizYED1/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 5. [Oinone] #Customization# No-code mode](https://www.bilibili.com/video/BV1eDMizYEdF/?vd_source=ee004011d0afa992f50d15c8738450b3) |
+| [⚡ Direct to the 6.x Demo](https://demo.oinone.ai)<br>☕ Account：admin<br>☕ Password：admin<br/><br/> ⭐ The 7.x demo will be released soon. Stay tuned. ⭐ | [🎬 1. [Oinone] #Productization Demonstration# Work with Back-end And No-code](https://www.bilibili.com/video/BV1eDMizYEts/?vd_source=ee004011d0afa992f50d15c8738450b3) <br>[🎬 2. [Oinone] #Productization Demonstration# Work with Front-end Framework](https://www.bilibili.com/video/BV1DoMizbECt/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 3. [Oinone] #Customization# Work with Back-end Framework](https://www.bilibili.com/video/BV1RDMizYELg/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 4. [Oinone] #Customization# Front-end Interaction](https://www.bilibili.com/video/BV1eDMizYED1/?vd_source=ee004011d0afa992f50d15c8738450b3)<br>[🎬 5. [Oinone] #Customization# No-code mode](https://www.bilibili.com/video/BV1eDMizYEdF/?vd_source=ee004011d0afa992f50d15c8738450b3) |
 
-### 7. Recent Activities
-#### 7.1 Exclusive Benefits 🎁
-| QR Code | Steps                                                                                                                                                                                                                                                                                                        |
-|-----|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|<img src="http://oinone-jar.oss-cn-zhangjiakou.aliyuncs.com/welcome-document/Open%20Source/zh-cn/Oinone%E5%B0%8F%E5%8A%A9%E6%89%8B.png" alt="Assistant" width="150"><br>| 1. ⭐ Star this project<br>2. Scan the QR code on the left to add the assistant<br>3. Send a screenshot (proof of starring) to the assistant<br>4. The assistant will invite the Star user to the exclusive communication group<br>5. Limited-time application for the enterprise edition trial authorization |
-
-### 8. Quickstart & Documentation
+### 7. Quickstart & Documentation
 | Quickstart                                                                                        | Documentation                                                                                      | Package          | Package Content                |
 |---------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|------------------|--------------------------------|
-| ⚡ [Installation](https://guide.oinone.top/en/InstallOrUpgrade/CommunityEdition.html)              | [📗 User Manual](https://guide.oinone.top/en/UserManual/README.html)                               | 📦 kunlun-framework     | 🌟 Front-end Core              |
-| ⚡ [Development Environments](https://guide.oinone.top/en/DevManual/Tutorials/Dev-ENV/README.html) | [📗 DEV Manual](https://guide.oinone.top/en/DevManual/README.html)                                 | 📦 kunlun-engine | 🌟 Front-end Extension         |
-| ⚡ [Enterprise Edition](https://guide.oinone.top/en/InstallOrUpgrade/EnterpriseEdition.html)       | [📗 R&D Paradigm](https://guide.oinone.top/en/DevManual/R&DParadigm/R&D-paradigm-R&D-process.html) |📦 kunlun-expression | 🌟 Front-end Expression        |
-| ⚡ [Tutorials](https://guide.oinone.top/en/DevManual/Tutorials/README.html)                        | [📗 Common Solutions](https://guide.oinone.top/en/DevManual/CommonSolutions/README.html)           | 📦 kunlun-vue | 🌟 Front-end PC Components     |
-| ⚡ [Debug Tools](https://guide.oinone.top/en/DevManual/Tutorials/debug-tools.html)                 | [📗 FAQ](https://guide.oinone.top/en/DevManual/FAQ/README.html)                                    |📦 kunlun-mobile-vue    | 🌟 Front-end Mobile Components |
+| ⚡ [Installation](https://guide.oinone.ai/en/InstallOrUpgrade/CommunityEdition.html)              | [📗 User Manual](https://guide.oinone.ai/en/UserManual/README.html)                               | 📦 kunlun-framework     | 🌟 Front-end Core              |
+| ⚡ [Development Environments](https://guide.oinone.ai/en/DevManual/Tutorials/Dev-ENV/README.html) | [📗 DEV Manual](https://guide.oinone.ai/en/DevManual/README.html)                                 | 📦 kunlun-engine | 🌟 Front-end Extension         |
+| ⚡ [Enterprise Edition](https://guide.oinone.ai/en/InstallOrUpgrade/EnterpriseEdition.html)       | [📗 R&D Paradigm](https://guide.oinone.ai/en/DevManual/R&DParadigm/R&D-paradigm-R&D-process.html) |📦 kunlun-expression | 🌟 Front-end Expression        |
+| ⚡ [Tutorials](https://guide.oinone.ai/en/DevManual/Tutorials/README.html)                        | [📗 Common Solutions](https://guide.oinone.ai/en/DevManual/CommonSolutions/README.html)           | 📦 kunlun-vue | 🌟 Front-end PC Components     |
+| ⚡ [Debug Tools](https://guide.oinone.ai/en/DevManual/Tutorials/debug-tools.html)                 | [📗 FAQ](https://guide.oinone.ai/en/DevManual/FAQ/README.html)                                    |📦 kunlun-mobile-vue    | 🌟 Front-end Mobile Components |
 |                                                                                                   |                                                                                                    |              |                                |
 |                                                                                                   |                                                                                                    |   |                                |
 |                                                                                                   |                                                                                                    | |                                |
 |                                                                                                   |                                                                                                    |               |                                |
 
-### 9. License
+### 8. License
 - Oinone Pamirs repository is licensed under AGPL-3.0.
-- [Third Party Open Source Software and License Notice](https://guide.oinone.top/en/Third-Party-Open-Source-Software-And-License-Notice.html).
+- [Third Party Open Source Software and License Notice](https://guide.oinone.ai/en/Third-Party-Open-Source-Software-And-License-Notice.html).
 
-### 10. Community Participation
-- Join the community: Go to [⚡Oinone Community](https://doc.oinone.top)❤️
-- [How to contribute](https://guide.oinone.top/en/Contribute/cla.html)
+### 9. Community Participation
+- [How to contribute](https://guide.oinone.ai/en/Contribute/cla.html)
 
-### 11. Contact Us
-- Website：https://www.oinone.top
+### 10. Contact Us
+- Website：https://www.oinone.ai
 - Email：oinone@shushi.pro
 
 
