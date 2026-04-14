@@ -1,7 +1,7 @@
 import { isString } from 'lodash-es';
 import { VNode } from 'vue';
 
-const fragmentVNodeTypes = ['Symbol(Fragment)', 'Symbol()'];
+const fragmentVNodeTypes = ['Symbol(Fragment)', 'Symbol(v-fgt)', 'Symbol()'];
 
 export class VNodeHelper {
   public static isFragment(vnode: VNode) {
