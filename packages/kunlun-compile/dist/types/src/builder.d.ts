@@ -37,6 +37,10 @@ export declare class CompileConfigBuilder {
     setCamelCaseName(val: string | undefined): CompileConfigBuilder;
     get isDebug(): boolean;
     external(val: RollupExternalTypes): CompileConfigBuilder;
+    externalPkg(pkg: any, options?: {
+        includeExternal?: (string | RegExp)[];
+        excludeExternal?: (string | RegExp)[];
+    }): CompileConfigBuilder;
     singleModule(): RollupSingleModulePluginBuilder;
     multipleModule(): RollupMultipleModulePluginBuilder;
     build(options?: RollupBuildOptions, plugins?: RollupPlugin[]): RollupOptions;
