@@ -34,7 +34,12 @@ export class AppTreeMenuTableWidget extends TableWidget {
   BaseElementWidget.Token({
     viewType: ViewType.Table,
     widget: ['table', 'Table'],
-    model: ['dmeta.DataDesignerItemMetaExport']
+    model: [
+      'dmeta.DataDesignerItemMetaExport',
+      'dmeta.EipDesignerConnectorAppMetaExport',
+      'dmeta.EipDesignerConnectorDBMetaExport',
+      'dmeta.EipDesignerConnectorFileMetaExport'
+    ]
   })
 )
 export class AppGraphTableWidget extends AppTreeMenuTableWidget {
