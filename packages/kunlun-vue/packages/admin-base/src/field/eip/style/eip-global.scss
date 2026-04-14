@@ -1,0 +1,17 @@
+.eip-runtime-error-text {
+  .detail-string-value {
+    color: var(--oio-error-color);
+  }
+}
+
+.eip-runtime-success-text {
+  .detail-string-value {
+    color: var(--oio-success-color);
+  }
+}
+
+.eip-runtime-warning-text {
+  .detail-string-value {
+    color: var(--oio-warning-color);
+  }
+}
