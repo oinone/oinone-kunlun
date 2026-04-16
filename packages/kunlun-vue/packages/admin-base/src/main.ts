@@ -1,4 +1,5 @@
 import {
+  CurrentLanguage,
   frameworkFactory,
   type FrameworkInitializeService,
   FrameworkInitializeSPI,
@@ -14,6 +15,7 @@ import { SPIFactory } from '@oinone/kunlun-spi';
 import { maskInstall } from '@oinone/kunlun-vue-admin-layout';
 import { Boot } from '@wangeditor/editor';
 import attachmentModule from '@wangeditor/plugin-upload-attachment';
+import moment from 'moment';
 import { type App, getCurrentInstance } from 'vue';
 import { createApp as CreateVueApp } from './create_app';
 import enUs from './locale/en_US';
@@ -38,6 +40,9 @@ export class VueFrameworkInitializeService implements FrameworkInitializeService
   public after(props: OioProviderProps) {
     maskInstall();
     install();
+    CurrentLanguage.getIsoCode().then((isoCode) => {
+      moment.locale(isoCode);
+    });
     const app = RuntimeContextManager.createOrReplace<App>().frameworkInstance;
     app.mount('#app');
   }
