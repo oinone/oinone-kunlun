@@ -9,9 +9,9 @@ import {
 } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
-import type { ReturnPromise } from '@oinone/kunlun-shared';
+import { BooleanHelper, ReturnPromise } from '@oinone/kunlun-shared';
 import { ComputeTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
-import { Widget } from '@oinone/kunlun-vue-widget';
+import { isDetailViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { InlineTable } from '../../../../components';
 import type { IFormSubviewListFieldWidget, RefreshProcessFunction } from '../../../types';
 import type { FormComplexFieldProps } from '../FormComplexFieldWidget';
@@ -95,6 +95,21 @@ export class FormSubviewListFieldWidget<
       ActiveRecordsOperator.operator(this.dataSource, subviewSubmitCache).deleteByEntity(records, predict);
     }
     super.deleteDataSourceByEntity(records, predict);
+  }
+
+  @Widget.Reactive()
+  protected get disabledRelationQuery() {
+    const disabledRelationQuery = BooleanHelper.toBoolean(this.getDsl().disabledRelationQuery);
+    if (disabledRelationQuery != null) {
+      return disabledRelationQuery;
+    }
+    if (this.viewState && isDetailViewState(this.viewState)) {
+      if (this.inline) {
+        return this.viewState.disabledRelationQuery;
+      }
+      return this.viewState.disabledRelationQuery || this.globalState?.disabledRelationQuery;
+    }
+    return this.globalState?.disabledRelationQuery;
   }
 
   public async afterTriggerExecute(trigger: WidgetTrigger) {

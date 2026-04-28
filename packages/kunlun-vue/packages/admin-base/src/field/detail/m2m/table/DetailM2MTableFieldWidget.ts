@@ -2,7 +2,6 @@ import type { ActiveRecord, RuntimeM2MField } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { isDetailViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseFieldWidget, FormSubviewListFieldWidget, RelationQueryHelper } from '../../../../basic';
 import { TABLE_WIDGET } from '../../../../typing';
 
@@ -18,17 +17,6 @@ export class DetailM2MTableFieldWidget extends FormSubviewListFieldWidget<Runtim
     if (this.isDataSourceProvider) {
       await super.refreshValueProcess();
     }
-  }
-
-  @Widget.Reactive()
-  protected get disabledRelationQuery() {
-    if (this.viewState && isDetailViewState(this.viewState)) {
-      if (this.inline) {
-        return this.viewState.disabledRelationQuery;
-      }
-      return this.viewState.disabledRelationQuery || this.globalState?.disabledRelationQuery;
-    }
-    return this.globalState?.disabledRelationQuery;
   }
 
   protected initSubviewData(): ReturnPromise<void> {
