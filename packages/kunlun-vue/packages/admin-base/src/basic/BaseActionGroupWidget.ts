@@ -1,4 +1,4 @@
-import { CallChaining, CastHelper } from '@oinone/kunlun-shared';
+import { BooleanHelper, CallChaining, CastHelper } from '@oinone/kunlun-shared';
 import { type ActiveRecordsWidgetProps, executeInvisible, Widget } from '@oinone/kunlun-vue-widget';
 import { BaseActionWidget, BaseElementWidget } from './token';
 
@@ -25,6 +25,11 @@ export class BaseActionGroupWidget<
 
   @Widget.Reactive()
   protected showActionNames: string[] | undefined;
+
+  @Widget.Reactive()
+  protected get overflow() {
+    return BooleanHelper.toBoolean(this.getDsl().overflow);
+  }
 
   protected showActionNamesProcess(): string[] {
     const showActionNames: Set<string> = new Set();
