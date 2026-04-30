@@ -149,6 +149,10 @@ export default defineComponent({
     direction: {
       type: String
     },
+    overflow: {
+      type: Boolean,
+      default: undefined
+    },
     operatorColumnDirection: {
       type: String as PropType<OperationColumnDirection | keyof typeof OperationColumnDirection>
     },
