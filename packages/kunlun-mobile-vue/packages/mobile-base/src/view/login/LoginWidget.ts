@@ -1,6 +1,27 @@
-import { BASIC_CONFIG_KEY, ConfigHelper, CurrentLanguage, getLoginTheme, type MajorConfig, OINONE_HOMEPAGE_KEY, OioProvider, systemMajorConfig, translateValueByKey } from '@oinone/kunlun-engine';
+import {
+  BASIC_CONFIG_KEY,
+  ClearCache,
+  ConfigHelper,
+  CurrentLanguage,
+  getLoginTheme,
+  type MajorConfig,
+  OINONE_HOMEPAGE_KEY,
+  OioProvider,
+  systemMajorConfig,
+  translateValueByKey
+} from '@oinone/kunlun-engine';
 import { isEmptyKeObject, MetadataFragment, RuntimeConfig, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
-import { gql, HttpClient, HttpClientError, type IErrorMessage, ILevel, isFirstResetPasswordError, isPicCodeError, SystemErrorCode, useMessageHub } from '@oinone/kunlun-request';
+import {
+  gql,
+  HttpClient,
+  HttpClientError,
+  type IErrorMessage,
+  ILevel,
+  isFirstResetPasswordError,
+  isPicCodeError,
+  SystemErrorCode,
+  useMessageHub
+} from '@oinone/kunlun-request';
 import { Router } from '@oinone/kunlun-router';
 import { http } from '@oinone/kunlun-service';
 import { SPI } from '@oinone/kunlun-spi';
@@ -11,7 +32,15 @@ import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseI18nRouterWidget } from '../../basic';
 import { encrypt, homepageMaybeRuntimeContext } from '../../util';
 import LoginComponent from './Login.vue';
-import { defaultLoginPageSettings, LOGIN_LANGUAGE_ISO_STORAGE_KEY, LOGIN_LANGUAGE_STORAGE_KEY, type LoginConfig, type LoginData, loginMessageHubName, LoginMode } from './types';
+import {
+  defaultLoginPageSettings,
+  LOGIN_LANGUAGE_ISO_STORAGE_KEY,
+  LOGIN_LANGUAGE_STORAGE_KEY,
+  type LoginConfig,
+  type LoginData,
+  loginMessageHubName,
+  LoginMode
+} from './types';
 
 @SPI.ClassFactory(RouterWidget.Token({ widget: 'MobileLogin' }))
 export class LoginWidget extends BaseI18nRouterWidget {
@@ -544,6 +573,7 @@ export class LoginWidget extends BaseI18nRouterWidget {
       } else {
         this.validateUnauthorized(async () => {
           const parameters = await homepageMaybeRuntimeContext();
+          ClearCache.clear();
           this.router.push({
             segments: [
               {

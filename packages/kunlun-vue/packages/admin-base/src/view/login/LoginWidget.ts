@@ -1,4 +1,4 @@
-import { OINONE_HOMEPAGE_KEY, translateValueByKey } from '@oinone/kunlun-engine';
+import { ClearCache, OINONE_HOMEPAGE_KEY, translateValueByKey } from '@oinone/kunlun-engine';
 import { SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import {
   gql,
@@ -394,7 +394,7 @@ export class LoginWidget extends BaseLoginWidget {
       } else {
         const parameters = (await homepageMaybeRuntimeContext(undefined, true)) as any;
         localStorage.setItem(OINONE_HOMEPAGE_KEY, JSON.stringify(parameters));
-
+        ClearCache.clear();
         this.router.push({
           segments: [
             {
