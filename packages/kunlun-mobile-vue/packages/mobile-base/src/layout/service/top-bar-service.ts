@@ -51,7 +51,9 @@ export class TopBarService {
               userType
               birthday
               gender
+              login
               phone
+              email
               idCard
               contactPhone
               contactEmail
