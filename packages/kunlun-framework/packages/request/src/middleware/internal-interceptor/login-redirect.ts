@@ -1,6 +1,6 @@
 import { UrlHelper } from '@oinone/kunlun-shared';
-import { IResponseErrorResult, NetworkInterceptor } from '../../types';
 import { setSessionPath } from '../../session';
+import { IResponseErrorResult, NetworkInterceptor } from '../../types';
 
 export class LoginRedirectInterceptor implements NetworkInterceptor {
   /**
@@ -24,14 +24,14 @@ export class LoginRedirectInterceptor implements NetworkInterceptor {
       if (Number.isNaN(errorCodeNumber)) {
         continue;
       }
-      const { pathname } = window.location;
-      if (
-        LoginRedirectInterceptor.USER_NOT_LOGIN_ERROR.includes(errorCodeNumber) &&
-        !LoginRedirectInterceptor.NOT_REDIRECT_PATH_NAMES.includes(pathname)
-      ) {
-        if (this.redirectToLogin(response)) {
-          return false;
+      if (LoginRedirectInterceptor.USER_NOT_LOGIN_ERROR.includes(errorCodeNumber)) {
+        const { pathname } = window.location;
+        if (!LoginRedirectInterceptor.NOT_REDIRECT_PATH_NAMES.includes(pathname)) {
+          if (this.redirectToLogin(response)) {
+            return false;
+          }
         }
+        return false;
       }
     }
     return true;
