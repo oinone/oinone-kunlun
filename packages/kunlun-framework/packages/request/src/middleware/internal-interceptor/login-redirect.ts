@@ -31,7 +31,9 @@ export class LoginRedirectInterceptor implements NetworkInterceptor {
             return false;
           }
         }
-        return false;
+        if (this.isIntercept()) {
+          return false;
+        }
       }
     }
     return true;
@@ -51,5 +53,10 @@ export class LoginRedirectInterceptor implements NetworkInterceptor {
     const redirect_url = pathname + search;
     window.location.href = `${UrlHelper.appendBasePath('login')}?redirect_url=${redirect_url}`;
     return true;
+  }
+
+  protected isIntercept(): boolean {
+    // fixme @zbh 20260515 平台无法统一处理，可能会用户自定义 After 拦截器失效，由业务自行处理。
+    return false;
   }
 }
