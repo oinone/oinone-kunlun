@@ -1,6 +1,6 @@
 import { UrlHelper } from '@oinone/kunlun-shared';
-import { IResponseErrorResult, NetworkInterceptor } from '../../types';
 import { setSessionPath } from '../../session';
+import { IResponseErrorResult, NetworkInterceptor } from '../../types';
 
 export class LoginRedirectInterceptor implements NetworkInterceptor {
   /**
@@ -24,12 +24,14 @@ export class LoginRedirectInterceptor implements NetworkInterceptor {
       if (Number.isNaN(errorCodeNumber)) {
         continue;
       }
-      const { pathname } = window.location;
-      if (
-        LoginRedirectInterceptor.USER_NOT_LOGIN_ERROR.includes(errorCodeNumber) &&
-        !LoginRedirectInterceptor.NOT_REDIRECT_PATH_NAMES.includes(pathname)
-      ) {
-        if (this.redirectToLogin(response)) {
+      if (LoginRedirectInterceptor.USER_NOT_LOGIN_ERROR.includes(errorCodeNumber)) {
+        const { pathname } = window.location;
+        if (!LoginRedirectInterceptor.NOT_REDIRECT_PATH_NAMES.includes(pathname)) {
+          if (this.redirectToLogin(response)) {
+            return false;
+          }
+        }
+        if (this.isIntercept()) {
           return false;
         }
       }
@@ -51,5 +53,10 @@ export class LoginRedirectInterceptor implements NetworkInterceptor {
     const redirect_url = pathname + search;
     window.location.href = `${UrlHelper.appendBasePath('login')}?redirect_url=${redirect_url}`;
     return true;
+  }
+
+  protected isIntercept(): boolean {
+    // fixme @zbh 20260515 平台无法统一处理，可能会用户自定义 After 拦截器失效，由业务自行处理。
+    return false;
   }
 }

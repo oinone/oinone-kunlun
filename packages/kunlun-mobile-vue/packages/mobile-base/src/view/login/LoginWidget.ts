@@ -1,5 +1,6 @@
 import {
   BASIC_CONFIG_KEY,
+  ClearCache,
   ConfigHelper,
   CurrentLanguage,
   getLoginTheme,
@@ -572,6 +573,7 @@ export class LoginWidget extends BaseI18nRouterWidget {
       } else {
         this.validateUnauthorized(async () => {
           const parameters = await homepageMaybeRuntimeContext();
+          ClearCache.clear();
           this.router.push({
             segments: [
               {
