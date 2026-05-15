@@ -34,12 +34,18 @@ export class LoginRedirectInterceptor implements NetworkInterceptor {
         if (this.redirectToLogin(response, errorItem)) {
           return false;
         }
+        if (this.isIntercept()) {
+          return false;
+        }
       }
       if (
         LoginRedirectInterceptor.SSO_NOT_LOGIN_ERROR.includes(errorCodeNumber) &&
         !LoginRedirectInterceptor.NOT_REDIRECT_PATH_NAMES.includes(pathname)
       ) {
         if (this.redirectToSSOLogin(response, errorItem)) {
+          return false;
+        }
+        if (this.isIntercept()) {
           return false;
         }
       }
@@ -76,6 +82,11 @@ export class LoginRedirectInterceptor implements NetworkInterceptor {
       window.location.assign(redirectUrl);
       return true;
     }
+    return false;
+  }
+
+  protected isIntercept(): boolean {
+    // fixme @zbh 20260515 平台无法统一处理，可能会用户自定义 After 拦截器失效，由业务自行处理。
     return false;
   }
 }
