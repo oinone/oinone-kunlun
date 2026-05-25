@@ -95,7 +95,7 @@ export default defineComponent({
         optionLabelProp: defaultSelectProperties.labelProp,
         ...PropRecordHelper.collectionBasicProps(this.$attrs, [`${DEFAULT_PREFIX}-select`]),
         popupClassName: StringHelper.append(
-          [`${DEFAULT_PREFIX}-select-dropdown`],
+          [`${DEFAULT_PREFIX}-select-dropdown`, 'vxe-table--ignore-clear'],
           CastHelper.cast(this.dropdownClassName)
         ).join(' '),
         getPopupContainer: this.getTriggerContainer,
