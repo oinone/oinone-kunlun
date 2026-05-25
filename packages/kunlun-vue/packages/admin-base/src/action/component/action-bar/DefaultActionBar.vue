@@ -149,6 +149,10 @@ export default defineComponent({
     direction: {
       type: String
     },
+    overflow: {
+      type: Boolean,
+      default: undefined
+    },
     operatorColumnDirection: {
       type: String as PropType<OperationColumnDirection | keyof typeof OperationColumnDirection>
     },
@@ -337,6 +341,9 @@ export default defineComponent({
     }
     if (this.justify) {
       classList.push(`${actionBarClassName}-${this.justify}`);
+    }
+    if (this.overflow !== false) {
+      classList.push(`${actionBarClassName}-overflow`);
     }
     if (this.isFloat) {
       classList.push(`${actionBarClassName}-float`);

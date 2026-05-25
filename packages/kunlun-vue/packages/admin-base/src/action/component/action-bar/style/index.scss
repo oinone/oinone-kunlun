@@ -8,7 +8,16 @@
   display: flex;
   align-items: center;
   flex-flow: row nowrap;
-  overflow: auto hidden;
+
+  &.action-bar-overflow {
+    overflow: auto hidden;
+
+    .action-bar-left,
+    .action-bar-center,
+    .action-bar-right {
+      overflow: auto hidden;
+    }
+  }
 
   &.action-bar-flatten {
     gap: 12px var(--oio-margin-md);
@@ -40,7 +49,6 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    overflow: auto hidden;
     gap: 12px var(--oio-margin-md);
   }
 
