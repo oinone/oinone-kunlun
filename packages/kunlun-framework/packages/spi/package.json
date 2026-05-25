@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-spi",
-  "version": "7.2.0",
+  "version": "7.2.1",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -18,7 +18,7 @@
     "inversify": "6.0.1"
   },
   "devDependencies": {
-    "@oinone/kunlun-shared": "7.2.0",
+    "@oinone/kunlun-shared": "7.2.1",
     "reflect-metadata": "0.2.2",
     "tslib": "2.8.1"
   },
