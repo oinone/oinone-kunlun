@@ -327,6 +327,9 @@ export default defineComponent({
     footerMethod: {
       type: Function
     },
+    contentMethod: {
+      type: Function
+    },
     spanMethod: {
       type: Function
     },
@@ -900,6 +903,7 @@ export default defineComponent({
 
       showFooter,
       footerMethod,
+      contentMethod,
       spanMethod,
       mergeCells,
 
@@ -1090,7 +1094,7 @@ export default defineComponent({
       data: showDataSource,
       scrollX,
       scrollY,
-      tooltipConfig: { enterable: true },
+      tooltipConfig: { enterable: true, contentMethod },
       height: 'auto',
       rowConfig: { isCurrent, isHover },
       sortConfig,

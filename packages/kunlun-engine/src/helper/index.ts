@@ -1,3 +1,4 @@
+export * from './RSQLConditionOperators';
 export * from './bigint';
 export * from './config';
 export * from './dataParse';
