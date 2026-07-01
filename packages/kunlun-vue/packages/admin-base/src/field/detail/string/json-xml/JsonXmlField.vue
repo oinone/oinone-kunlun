@@ -50,9 +50,9 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watch, defineComponent, PropType } from 'vue';
-import { isString } from 'lodash-es';
 import { OioIcon, OioSelect } from '@oinone/kunlun-vue-ui-antd';
+import { isString } from 'lodash-es';
+import { computed, defineComponent, PropType, ref, watch } from 'vue';
 
 interface JsonLine {
   indent: number;
@@ -98,6 +98,19 @@ export default defineComponent({
      */
     const URL_REGEX = /\b(https?:\/\/|ftp:\/\/|sftp:\/\/)([^\s<>"]+)(\.[a-zA-Z0-9]{2,10})([^\s<>"]*)?\b/g;
 
+    const escapeHtml = (value: string): string => {
+      return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    };
+
+    const stringifyJsonText = (value: unknown): string => {
+      return escapeHtml(JSON.stringify(value) ?? String(value));
+    };
+
     /**
      * 将JSON对象解析为带语法高亮和链接的HTML行数据
      * @param obj 要解析的JSON对象
@@ -113,13 +126,25 @@ export default defineComponent({
        * @returns 处理后的HTML字符串
        */
       const replaceUrlWithLink = (str: string): string => {
-        // 先通过JSON.stringify转义，再替换URL
-        const escapedStr = JSON.stringify(str).slice(1, -1); // 去掉首尾的引号
-        return escapedStr.replace(URL_REGEX, (match) => {
-          // 对匹配到的URL进行转义，防止XSS
-          const encodedUrl = encodeURI(match);
-          return `<a href="${encodedUrl}" target="_blank" class="text-blue-500 underline hover:text-blue-700">${match}</a>`;
-        });
+        // 先通过JSON.stringify处理JSON转义，再对要注入v-html的文本做HTML转义。
+        const stringifiedStr = JSON.stringify(str).slice(1, -1);
+        let result = '';
+        let lastIndex = 0;
+        let matchResult: RegExpExecArray | null;
+
+        URL_REGEX.lastIndex = 0;
+        matchResult = URL_REGEX.exec(stringifiedStr);
+        while (matchResult) {
+          const url = matchResult[0];
+          result += escapeHtml(stringifiedStr.slice(lastIndex, matchResult.index));
+          result += `<a href="${escapeHtml(encodeURI(url))}" target="_blank" class="text-blue-500 underline hover:text-blue-700">${escapeHtml(
+            url
+          )}</a>`;
+          lastIndex = matchResult.index + url.length;
+          matchResult = URL_REGEX.exec(stringifiedStr);
+        }
+
+        return result + escapeHtml(stringifiedStr.slice(lastIndex));
       };
 
       if (Array.isArray(obj)) {
@@ -143,7 +168,7 @@ export default defineComponent({
               itemHtml = `<span class="text-green-600">"${replaceUrlWithLink(item)}"</span>`;
             } else {
               // 非字符串类型：直接JSON.stringify
-              itemHtml = `<span class="text-green-600">${JSON.stringify(item)}</span>`;
+              itemHtml = `<span class="text-green-600">${stringifyJsonText(item)}</span>`;
             }
             // 添加逗号
             itemHtml += isLast ? '' : '<span class="text-gray-600">,</span>';
@@ -186,11 +211,13 @@ export default defineComponent({
             // 处理嵌套对象/数组
             lines.push({
               indent: indent + 1,
-              html: `<span class="text-blue-600">"${key}"</span><span class="text-gray-600">: </span>`,
+              html: `<span class="text-blue-600">${stringifyJsonText(key)}</span><span class="text-gray-600">: </span>`,
               collapsible: false
             });
             const childLines = parseJSON(value, indent + 1);
-            childLines[0].html = `<span class="text-blue-600">"${key}"</span><span class="text-gray-600">: </span>${childLines[0].html}`;
+            childLines[0].html = `<span class="text-blue-600">${stringifyJsonText(
+              key
+            )}</span><span class="text-gray-600">: </span>${childLines[0].html}`;
             childLines[childLines.length - 1].html += isLast ? '' : '<span class="text-gray-600">,</span>';
             lines.pop();
             lines.push(...childLines);
@@ -204,13 +231,15 @@ export default defineComponent({
               valueHtml = `"${replaceUrlWithLink(value)}"`;
             } else {
               // 非字符串类型：直接序列化
-              valueHtml = JSON.stringify(value);
+              valueHtml = stringifyJsonText(value);
             }
 
             // 拼接最终HTML
             lines.push({
               indent: indent + 1,
-              html: `<span class="text-blue-600">"${key}"</span><span class="text-gray-600">: </span><span class="${valueColor}">${valueHtml}</span>${
+              html: `<span class="text-blue-600">${stringifyJsonText(
+                key
+              )}</span><span class="text-gray-600">: </span><span class="${valueColor}">${valueHtml}</span>${
                 isLast ? '' : '<span class="text-gray-600">,</span>'
               }`,
               collapsible: false
@@ -258,12 +287,7 @@ export default defineComponent({
         const regx = /<[^/]*?>/g;
         const closeAble = regx.test(line);
 
-        const lineHtml = line
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#039;');
+        const lineHtml = escapeHtml(line);
 
         lines.push({
           indent,
@@ -282,7 +306,7 @@ export default defineComponent({
       const lines: JsonLine[] = [];
       lines.push({
         indent: 1,
-        html: `<span class="text-gray-600">${str}</span>`,
+        html: `<span class="text-gray-600">${escapeHtml(str)}</span>`,
         collapsible: false
       });
       return lines;
