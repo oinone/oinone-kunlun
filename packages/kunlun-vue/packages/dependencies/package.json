@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-dependencies",
-  "version": "7.2.2",
+  "version": "7.2.3",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -20,13 +20,13 @@
     "@oinone/kunlun-spi": "~7.2.0",
     "@oinone/kunlun-state": "~7.2.0",
     "@oinone/kunlun-theme": "~7.2.0",
-    "@oinone/kunlun-vue-admin-base": "7.2.2",
-    "@oinone/kunlun-vue-admin-layout": "7.2.2",
+    "@oinone/kunlun-vue-admin-base": "7.2.3",
+    "@oinone/kunlun-vue-admin-layout": "7.2.3",
     "@oinone/kunlun-vue-expression": "~7.2.0",
-    "@oinone/kunlun-vue-router": "7.2.2",
-    "@oinone/kunlun-vue-ui": "7.2.2",
-    "@oinone/kunlun-vue-ui-common": "7.2.2",
-    "@oinone/kunlun-vue-widget": "7.2.2"
+    "@oinone/kunlun-vue-router": "7.2.3",
+    "@oinone/kunlun-vue-ui": "7.2.3",
+    "@oinone/kunlun-vue-ui-common": "7.2.3",
+    "@oinone/kunlun-vue-widget": "7.2.3"
   },
   "peerDependencies": {
     "@element-plus/icons-vue": ">=2.0.9",

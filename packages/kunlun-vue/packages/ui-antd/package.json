@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui-antd",
-  "version": "7.2.2",
+  "version": "7.2.3",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -17,7 +17,7 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-common": "7.2.2"
+    "@oinone/kunlun-vue-ui-common": "7.2.3"
   },
   "devDependencies": {
     "@oinone/kunlun-shared": "~7.2.0",
