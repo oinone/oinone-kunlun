@@ -87,7 +87,11 @@ export default defineComponent({
               { placement: 'top', overlayStyle: { maxWidth: '260px' } as CSSStyleDeclaration },
               {
                 title: () => {
-                  return [createVNode('span', {}, this.$translate(this.help))];
+                  return [
+                    createVNode('span', {
+                      innerHTML: this.help
+                    })
+                  ];
                 },
                 default: () => {
                   return [createVNode(QuestionCircleOutlined, { class: 'question-icon' })];

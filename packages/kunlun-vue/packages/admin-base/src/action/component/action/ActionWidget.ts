@@ -165,6 +165,11 @@ export class ActionWidget<
   }
 
   @Widget.Reactive()
+  public get tooltip() {
+    return this.getDsl().tooltip;
+  }
+
+  @Widget.Reactive()
   protected get validateForm(): boolean {
     let validateForm = BooleanHelper.toBoolean(this.getDsl().validateForm);
     if (isNil(validateForm)) {
@@ -805,6 +810,7 @@ export class ActionWidget<
       invisible: this.invisible,
       disabled: this.disabled,
       help: this.help,
+      tooltip: this.tooltip,
       disabledTitle: this.disabledTitle,
       icon: this.icon,
       action: this.action,

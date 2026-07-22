@@ -1,7 +1,7 @@
 <script lang="ts">
 import { translateValueByKey } from '@oinone/kunlun-engine';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-import { ButtonType, OioButton, OioPopconfirm, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
+import { ButtonType, OioButton, OioPopconfirm, OioTooltip, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { MenuItem as AMenuItem } from 'ant-design-vue';
 import { computed, createVNode, defineComponent, type VNode, vShow, withDirectives, withModifiers } from 'vue';
 import { useInjectActionContext, useProviderActionContext } from '../context';
@@ -13,6 +13,7 @@ export default defineComponent({
   components: {
     OioButton,
     OioPopconfirm,
+    OioTooltip,
     AMenuItem
   },
   inheritAttrs: false,
@@ -63,12 +64,26 @@ export default defineComponent({
         attrs.onClick = () => props.validateAndClick?.(props.action, true);
       }
 
-      return createVNode(OioButton, attrs, () => {
+      const buttonVNode = createVNode(OioButton, attrs, () => {
         if (contentVNode) {
           return [contentVNode];
         }
         return [];
       });
+
+      if (props.tooltip === undefined) {
+        return buttonVNode;
+      }
+
+      return createVNode(
+        OioTooltip,
+        {},
+        {
+          default: () => [buttonVNode],
+          title: () =>
+            typeof props.tooltip === 'string' ? [createVNode('span', { innerHTML: props.tooltip })] : [props.tooltip]
+        }
+      );
     });
 
     const PopConfirmVNode = computed(() =>

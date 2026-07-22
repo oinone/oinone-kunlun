@@ -1,12 +1,14 @@
-import { TableFixed, VxeTableHelper, type RowContext, type VxeTableRowContext } from '@oinone/kunlun-vue-ui';
+import { QuestionCircleOutlined } from '@ant-design/icons-vue';
+import { type RowContext, TableFixed, VxeTableHelper, type VxeTableRowContext } from '@oinone/kunlun-vue-ui';
 import { type ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
+import { Tooltip as ATooltip } from 'ant-design-vue';
 import { createVNode, type VNode } from 'vue';
 import type { VxeTableConstructor, VxeTableDefines, VxeTableMethods, VxeTablePrivateMethods } from 'vxe-table';
 import { UserPreferEventManager } from '../../service';
+import Element from '../../tags/Element.vue';
 import type { UserTablePrefer } from '../../typing';
 import { BaseTableColumnWidget } from './BaseTableColumnWidget';
 import DefaultQuickOperationColumn from './DefaultQuickOperationColumn.vue';
-import Element from '../../tags/Element.vue';
 
 export abstract class BaseTableQuickOperationColumnWidget<
   Value = unknown,
@@ -15,6 +17,10 @@ export abstract class BaseTableQuickOperationColumnWidget<
   @Widget.Method()
   public renderHeaderSlot(context: RowContext): VNode[] | string {
     const children = [createVNode('span', { class: 'oio-column-header-title' }, this.label)];
+    const help = this.renderHelp();
+    if (help) {
+      children.push(help);
+    }
     const quickOperation = this.renderQuickOperation(context);
     if (quickOperation) {
       children.push(quickOperation);
@@ -33,6 +39,35 @@ export abstract class BaseTableQuickOperationColumnWidget<
       );
     }
     return children;
+  }
+
+  protected renderHelp(): VNode | undefined {
+    const { help } = this;
+    if (!help) {
+      return undefined;
+    }
+    return createVNode(
+      ATooltip,
+      { placement: 'top', overlayStyle: { maxWidth: '260px' } },
+      {
+        title: () => [
+          createVNode('span', {
+            innerHTML: help
+          })
+        ],
+        default: () => [
+          createVNode(QuestionCircleOutlined, {
+            class: 'question-icon',
+            style: {
+              cursor: 'pointer',
+              color: 'var(--oio-primary-color)',
+              fontSize: '14px',
+              marginLeft: '5px'
+            }
+          })
+        ]
+      }
+    );
   }
 
   protected renderQuickOperation(context: RowContext): VNode | undefined {

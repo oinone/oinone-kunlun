@@ -1,6 +1,6 @@
 .default-dropdown-overlay {
   min-width: 96px;
-  max-width: 160px;
+  max-width: max-content;
   z-index: 999;
 
   .default-dropdown-menu {

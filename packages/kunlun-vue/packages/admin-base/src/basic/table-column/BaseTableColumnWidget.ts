@@ -180,6 +180,11 @@ export abstract class BaseTableColumnWidget<
   }
 
   @Widget.Reactive()
+  public get help() {
+    return this.getDsl().help;
+  }
+
+  @Widget.Reactive()
   public get align(): string {
     return this.getDsl().align?.toLowerCase?.();
   }

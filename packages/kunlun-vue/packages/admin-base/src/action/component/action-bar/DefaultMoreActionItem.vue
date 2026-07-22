@@ -1,7 +1,7 @@
 <script lang="ts">
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-import { ObjectUtils, OioButton, OioPopconfirm } from '@oinone/kunlun-vue-ui-antd';
+import { ObjectUtils, OioButton, OioPopconfirm, OioTooltip } from '@oinone/kunlun-vue-ui-antd';
 import { ButtonType } from '@oinone/kunlun-vue-ui-common';
 import { hasActionBarViewState, OioActionBarState, useOioState, Widget } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, ref, type VNode } from 'vue';
@@ -159,6 +159,20 @@ export default defineComponent({
             }
             return [];
           });
+          const buttonVNode =
+            actionProps.tooltip === undefined
+              ? btn
+              : createVNode(
+                  OioTooltip,
+                  {},
+                  {
+                    default: () => [btn],
+                    title: () =>
+                      typeof actionProps.tooltip === 'string'
+                        ? [createVNode('span', { innerHTML: actionProps.tooltip })]
+                        : [actionProps.tooltip]
+                  }
+                );
           if (actionProps.enableConfirm) {
             return [
               createVNode(
@@ -175,12 +189,12 @@ export default defineComponent({
                   confirmCallback: () => actionProps.validateAndClick?.(actionProps.action, true)
                 },
                 {
-                  default: () => [btn]
+                  default: () => [buttonVNode]
                 }
               )
             ];
           }
-          return [btn];
+          return [buttonVNode];
         }
       }
     );

@@ -1,7 +1,7 @@
 import type { IAction } from '@oinone/kunlun-meta';
 import { ObjectUtils } from '@oinone/kunlun-shared';
 import { ButtonBizStyle, ButtonType, PopconfirmPlacement } from '@oinone/kunlun-vue-ui-common';
-import type { PropType } from 'vue';
+import type { PropType, VNode } from 'vue';
 
 export const BaseActionProps = {
   action: {
@@ -20,6 +20,9 @@ export const BaseActionProps = {
   },
   help: {
     type: String
+  },
+  tooltip: {
+    type: [String, Object] as PropType<string | VNode>
   },
   icon: {
     type: String
