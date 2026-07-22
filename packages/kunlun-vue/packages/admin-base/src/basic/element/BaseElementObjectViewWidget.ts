@@ -70,6 +70,12 @@ export class BaseElementObjectViewWidget<
   }
 
   @Widget.Reactive()
+  @Widget.Provide()
+  public load<R>(fn: (...args) => R, ...args) {
+    return super.load(fn, ...args);
+  }
+
+  @Widget.Reactive()
   protected currentValidatorCallChaining: CallChaining<boolean> | undefined;
 
   /**

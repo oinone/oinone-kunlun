@@ -11,3 +11,4 @@ export * from './fullscreen';
 export * from './table-column-props';
 export * from './define-property-translate';
 export * from './tandem-action-helper';
+export * from './collection-actions';
