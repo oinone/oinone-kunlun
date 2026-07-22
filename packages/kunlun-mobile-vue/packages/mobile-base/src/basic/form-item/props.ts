@@ -21,7 +21,7 @@ export const BaseFormItemProps = {
     default: undefined
   },
   help: {
-    type: String
+    type: [String, Object]
   },
   hint: {
     type: String

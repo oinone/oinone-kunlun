@@ -87,6 +87,9 @@ export default defineComponent({
               { placement: 'top', overlayStyle: { maxWidth: '260px' } as CSSStyleDeclaration },
               {
                 title: () => {
+                  if (typeof this.help !== 'string') {
+                    return [this.help];
+                  }
                   return [
                     createVNode('span', {
                       innerHTML: this.help

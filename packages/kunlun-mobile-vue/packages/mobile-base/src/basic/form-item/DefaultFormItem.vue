@@ -1,11 +1,11 @@
 <script lang="ts">
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
-import { CastHelper, OioFormItem, PropRecordHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { BooleanHelper } from '@oinone/kunlun-shared';
+import { CastHelper, OioFormItem, PropRecordHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
 import { Popover as VanPopover } from 'vant';
 import { computed, createVNode, defineComponent, type Slot, type VNode, vShow, withDirectives } from 'vue';
-import { BaseFormItemProps } from './props';
 import { ValidatorStatus } from '../../typing';
+import { BaseFormItemProps } from './props';
 
 const DefaultFormItemProps = {
   ...BaseFormItemProps,
@@ -107,7 +107,14 @@ export default defineComponent({
               {},
               {
                 default: () => {
-                  return [createVNode('span', {}, this.help)];
+                  if (typeof this.help !== 'string') {
+                    return [this.help];
+                  }
+                  return [
+                    createVNode('span', {
+                      innerHTML: this.help
+                    })
+                  ];
                 },
                 reference: () => {
                   return [createVNode(QuestionCircleOutlined, { class: 'question-icon' })];
