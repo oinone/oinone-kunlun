@@ -7,6 +7,9 @@ export const BaseGalleryItemProps = {
     type: Boolean,
     default: undefined
   },
+  help: {
+    type: [String, Object]
+  },
   invisible: {
     type: Boolean,
     default: false

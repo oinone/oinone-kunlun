@@ -21,6 +21,8 @@ $labelWidth: 72px;
   }
 
   .gallery-common-item-label {
+    display: flex;
+    align-items: center;
     flex: 1 0 $labelWidth;
     width: $labelWidth;
     color: var($parameterPrefix + -text-color-secondary);
@@ -32,6 +34,19 @@ $labelWidth: 72px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .gallery-common-item-label-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gallery-common-item-question-icon {
+    flex: 0 0 auto;
+    cursor: pointer;
+    color: var(--oio-primary-color);
+    font-size: 14px;
+    margin-left: 5px;
   }
 
   .gallery-common-item-content {

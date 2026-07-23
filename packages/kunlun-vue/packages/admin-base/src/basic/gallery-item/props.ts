@@ -1,5 +1,5 @@
-import type { PropType } from 'vue';
 import { FormLayout } from '@oinone/kunlun-vue-ui-common';
+import type { PropType } from 'vue';
 
 export const BaseGalleryItemProps = {
   label: {
@@ -9,6 +9,9 @@ export const BaseGalleryItemProps = {
   labelInvisible: {
     type: Boolean,
     default: undefined
+  },
+  help: {
+    type: [String, Object]
   },
   invisible: {
     type: Boolean,

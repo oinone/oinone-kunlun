@@ -1,2 +1,21 @@
 @import '../../../style/global-parameters.scss';
 
+.#{$prefix}-gallery-common-item {
+  .gallery-common-item-label {
+    display: flex;
+    align-items: center;
+  }
+
+  .gallery-common-item-label-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gallery-common-item-question-icon {
+    flex: 0 0 auto;
+    cursor: pointer;
+    color: var(--oio-primary-color);
+    font-size: 14px;
+    margin-left: 5px;
+  }
+}
