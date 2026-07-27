@@ -311,12 +311,15 @@ export abstract class BaseTableColumnWidget<
     if (this.readonly) {
       return false;
     }
-    if (this.currentEditorContext?.forceEditable) {
-      return true;
-    }
     const { editable, independentlyEditable } = this.getDsl();
     const finalEditable = Optional.ofNullable(editable).orElse(independentlyEditable) as boolean | string | undefined;
     let value = BooleanHelper.toBoolean(finalEditable);
+    if (value === false) {
+      return false;
+    }
+    if (this.currentEditorContext?.forceEditable) {
+      return true;
+    }
     if (value == null) {
       value = this.tableEditable || false;
       if (!value && isString(finalEditable)) {
