@@ -89,16 +89,11 @@ export default defineComponent({
 
     const formContext = useInjectOioDefaultFormContext();
 
-    const selectChange = (val: SelectItem) => {
+    const selectChange = (val?: SelectItem) => {
       if (props.change) {
         props.change(val ? val.key : null);
       }
       props.blur && props.blur();
-    };
-
-    const clearSelectValue = () => {
-      realValue.value = undefined;
-      props.change?.(null);
     };
 
     const filterOption = (val: string, option: SelectItem) => {
@@ -147,7 +142,7 @@ export default defineComponent({
       if (clearDom) {
         e.preventDefault();
         e.stopPropagation();
-        clearSelectValue();
+        selectChange();
       }
     };
 

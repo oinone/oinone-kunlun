@@ -91,12 +91,6 @@ export default defineComponent({
       selectRef.value.focus();
     };
 
-    const clearSelectValue = () => {
-      realValue.value = [];
-      props.change?.([]);
-      selectRef.value?.focus();
-    };
-
     const filterOption = (val: string, option: SelectItem) => {
       return option.label.includes(val);
     };
@@ -122,7 +116,7 @@ export default defineComponent({
       if (clearDom) {
         e.preventDefault();
         e.stopPropagation();
-        clearSelectValue();
+        multiSelectChange(null);
       }
     };
 
