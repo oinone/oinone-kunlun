@@ -5,7 +5,7 @@
         ref="selectRef"
         class="oio-select"
         mode="multiple"
-        popupClassName="oio-select-dropdown"
+        popupClassName="oio-select-dropdown vxe-table--ignore-clear"
         :placeholder="placeholder"
         :allowClear="allowClear"
         show-arrow
@@ -116,7 +116,7 @@ export default defineComponent({
       if (clearDom) {
         e.preventDefault();
         e.stopPropagation();
-        multiSelectChange(null);
+        multiSelectChange([]);
       }
     };
 
