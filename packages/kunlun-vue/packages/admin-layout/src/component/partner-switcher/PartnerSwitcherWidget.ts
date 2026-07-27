@@ -32,8 +32,15 @@ export class PartnerSwitcherWidget extends MaskWidget {
 
   @Widget.Method()
   public async onChangePartner(item: PartnerItem) {
+    if (item.id && item.id === this.currentPartner?.id) {
+      return;
+    }
     const partnerInfo = await this.partnerSwitcherService?.changePartner(item);
     this.reloadPartnerInfo(partnerInfo);
+    // 组织上下文变更后刷新页面，确保业务数据按新主体重新加载
+    if (partnerInfo?.currentPartner?.id) {
+      window.location.reload();
+    }
   }
 
   protected reloadPartnerInfo(target: PartnerInfo | undefined, predict?: (target: PartnerInfo) => boolean) {
