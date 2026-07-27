@@ -93,6 +93,10 @@ export default defineComponent({
     allMounted: {
       type: Function
     },
+    centered: {
+      type: Boolean,
+      default: false
+    },
     // 是否显示切换全屏按钮
     enabledFullScreen: {
       type: Boolean,
@@ -184,6 +188,7 @@ export default defineComponent({
       title,
       mask,
       closable,
+      centered,
       help,
       draggable,
       width,
@@ -253,6 +258,7 @@ export default defineComponent({
         title,
         help,
         mask,
+        centered,
         closable,
         draggable,
         width,

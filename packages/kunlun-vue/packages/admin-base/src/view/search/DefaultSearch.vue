@@ -172,7 +172,13 @@ function createSearchBar(
   return [createVNode('div', { class: 'oio-default-search-action-bar' }, children)];
 }
 
-function createSearchBarCol(searchActionBar: VNode[], offset: number, invisible: boolean, foldSize: number) {
+function createSearchBarCol(
+  searchActionBar: VNode[],
+  offset: number,
+  invisible: boolean,
+  foldSize: number,
+  layout: FormLayout
+) {
   return {
     internal: true,
     dslNodeType: DslDefinitionType.PACK,
@@ -182,6 +188,7 @@ function createSearchBarCol(searchActionBar: VNode[], offset: number, invisible:
     offset,
     invisible,
     allInvisible: false,
+    class: `${DEFAULT_PREFIX}-col-${layout}`,
     __slots: { default: () => searchActionBar }
   } as DslRenderDefinition;
 }
@@ -254,6 +261,7 @@ export default defineComponent({
       foldSize,
       showSearchPrefer,
       isExpand,
+      layout,
 
       translate,
       selectedPrefer,
@@ -329,7 +337,8 @@ export default defineComponent({
                 searchActionBar,
                 (foldSize - fields.length) * (DEFAULT_COLS / (foldSize + 1)),
                 invisible,
-                foldSize
+                foldSize,
+                layout
               );
               fields.push(searchBarCol);
             }
@@ -405,7 +414,8 @@ export default defineComponent({
           searchActionBar,
           foldSize * (DEFAULT_COLS / (foldSize + 1)), // 预留高级搜索区域
           invisible,
-          foldSize
+          foldSize,
+          layout
         );
         foldVNodes.push(
           DslRender.render({
@@ -427,7 +437,11 @@ export default defineComponent({
       defaultChildren.push(foldContent);
     }
 
-    const classList = [`${DEFAULT_PREFIX}-default-form`, `${DEFAULT_PREFIX}-default-search`];
+    const classList = [
+      `${DEFAULT_PREFIX}-default-form`,
+      `${DEFAULT_PREFIX}-default-search`,
+      `${DEFAULT_PREFIX}-default-${layout}-search`
+    ];
     if (this.isExpand) {
       classList.push(`${DEFAULT_PREFIX}-default-search-expand`);
     }
@@ -444,7 +458,7 @@ export default defineComponent({
             OioForm,
             {
               ...PropRecordHelper.convert(OioFormProps, CastHelper.cast(this)),
-              layout: FormLayout.horizontal,
+              layout,
               wrapperClassName: StringHelper.append(
                 [`${DEFAULT_PREFIX}-default-form-wrapper`, `${DEFAULT_PREFIX}-default-search-wrapper`],
                 this.wrapperClassName

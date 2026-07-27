@@ -6,6 +6,14 @@ $labelMarginRight: 16px;
 .oio-default-search {
   padding-bottom: 0;
 
+  &.oio-default-vertical-search {
+    .oio-col-vertical {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+    }
+  }
+
   .oio-cate-search {
     box-shadow: none;
     margin-bottom: var(--oio-margin-md);

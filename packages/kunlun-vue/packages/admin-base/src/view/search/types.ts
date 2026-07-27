@@ -1,7 +1,7 @@
-import type { IModelFieldOption } from '@oinone/kunlun-meta';
 import type { DslDefinition } from '@oinone/kunlun-dsl';
-import type { ActiveRecord, RuntimeModelField } from '@oinone/kunlun-engine';
-import { OioFormProps } from '@oinone/kunlun-vue-ui-antd';
+import type { RuntimeModelField } from '@oinone/kunlun-engine';
+import type { IModelFieldOption } from '@oinone/kunlun-meta';
+import { FormLayout, OioFormProps } from '@oinone/kunlun-vue-ui-antd';
 import type { PropType } from 'vue';
 import type { UserSearchPrefer } from '../../typing';
 
@@ -38,6 +38,10 @@ export const DefaultSearchProps = {
   inline: {
     type: Boolean,
     default: false
+  },
+  layout: {
+    type: String as PropType<FormLayout>,
+    default: FormLayout.horizontal
   },
   onExpand: {
     type: Function as PropType<(expand: boolean) => void>

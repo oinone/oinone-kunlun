@@ -74,6 +74,11 @@ export class DialogWidget<Props extends DialogWidgetProps = DialogWidgetProps> e
   }
 
   @Widget.Reactive()
+  public get centered() {
+    return this.getDsl().centered;
+  }
+
+  @Widget.Reactive()
   protected get defaultSize(): keyof typeof ModalWidth {
     return 'medium';
   }
