@@ -1,5 +1,5 @@
 <template>
-  <div class="form-single-select">
+  <div class="form-single-select" @mousedown.capture="onSelectWrapperMouseDown">
     <div class="readonly" v-if="readonly && !disabled">
       <oio-select
         :value="realValue"
@@ -96,6 +96,11 @@ export default defineComponent({
       props.blur && props.blur();
     };
 
+    const clearSelectValue = () => {
+      realValue.value = undefined;
+      props.change?.(null);
+    };
+
     const filterOption = (val: string, option: SelectItem) => {
       return option.label.includes(val);
     };
@@ -136,6 +141,16 @@ export default defineComponent({
       }
     };
 
+    const onSelectWrapperMouseDown = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const clearDom = target?.closest('.ant-select-clear');
+      if (clearDom) {
+        e.preventDefault();
+        e.stopPropagation();
+        clearSelectValue();
+      }
+    };
+
     return {
       placeholder,
       properties: defaultSelectProperties,
@@ -148,7 +163,8 @@ export default defineComponent({
       filterOption,
       getTriggerContainer: props.getPopupContainer || formContext.getTriggerContainer,
       onUpdateDropdownVisible,
-      onKeydown
+      onKeydown,
+      onSelectWrapperMouseDown
     };
   }
 });

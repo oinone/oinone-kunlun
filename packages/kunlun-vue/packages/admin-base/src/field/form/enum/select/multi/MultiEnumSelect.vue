@@ -1,5 +1,5 @@
 <template>
-  <div class="form-multi-select" :class="[!allowClear && 'hide-clear']">
+  <div class="form-multi-select" :class="[!allowClear && 'hide-clear']" @mousedown.capture="onSelectWrapperMouseDown">
     <div :class="readonly && !disabled && 'readonly'">
       <a-select
         ref="selectRef"
@@ -91,6 +91,12 @@ export default defineComponent({
       selectRef.value.focus();
     };
 
+    const clearSelectValue = () => {
+      realValue.value = [];
+      props.change?.([]);
+      selectRef.value?.focus();
+    };
+
     const filterOption = (val: string, option: SelectItem) => {
       return option.label.includes(val);
     };
@@ -110,6 +116,16 @@ export default defineComponent({
       }
     };
 
+    const onSelectWrapperMouseDown = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const clearDom = target?.closest('.ant-select-clear');
+      if (clearDom) {
+        e.preventDefault();
+        e.stopPropagation();
+        clearSelectValue();
+      }
+    };
+
     return {
       ...useMaxTagPlaceholder(),
       placeholder,
@@ -123,6 +139,7 @@ export default defineComponent({
       getPopupContainer: props.getPopupContainer || formContext.getTriggerContainer,
       dropdownVisibleChange,
       onKeydown,
+      onSelectWrapperMouseDown,
       filterOption
     };
   }
