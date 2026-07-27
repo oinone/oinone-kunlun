@@ -12,7 +12,7 @@
         :open="dropdownOpen"
         max-tag-count="responsive"
         :max-tag-placeholder="defaultMaxTagPlaceholder"
-        :filter-option="false"
+        :filter-option="filterOption"
         :not-found-content="null"
         :default-active-first-option="false"
         :value="realValue === null ? undefined : realValue"
@@ -28,6 +28,7 @@
           :disabled="item.disabled && !(realValue && realValue.includes(item.value))"
           :key="item.key"
           :value="item.value"
+          :label="item.label"
         >
           {{ item.label }}
         </a-select-option>
@@ -90,6 +91,10 @@ export default defineComponent({
       selectRef.value.focus();
     };
 
+    const filterOption = (val: string, option: SelectItem) => {
+      return option.label.includes(val);
+    };
+
     const dropdownVisibleChange = (val: boolean) => {
       // 延迟响应下拉框显隐状态值，保证在键盘按下Enter时可以正常判断
       nextTick(() => {
@@ -117,7 +122,8 @@ export default defineComponent({
       multiSelectChange,
       getPopupContainer: props.getPopupContainer || formContext.getTriggerContainer,
       dropdownVisibleChange,
-      onKeydown
+      onKeydown,
+      filterOption
     };
   }
 });
