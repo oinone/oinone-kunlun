@@ -392,9 +392,7 @@ export class BaseFormItemWidget<
   public async afterTriggerExecute(trigger: WidgetTrigger) {
     let isChange = false;
     if (this.constructDataTrigger.includes(trigger)) {
-      await this.load(async () => {
-        isChange = await this.constructDataBack();
-      });
+      isChange = await this.constructDataBack();
     }
     if (this.clearFieldsTrigger.includes(trigger)) {
       const res = this.clearFieldsCallback();
