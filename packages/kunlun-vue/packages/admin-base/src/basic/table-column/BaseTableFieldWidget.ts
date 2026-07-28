@@ -11,7 +11,12 @@ import { Expression, ExpressionKeyword, type ExpressionRunParam } from '@oinone/
 import { isEmptyValue, ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-import type { ActiveEditorContext, RenderCellContext, RowContext } from '@oinone/kunlun-vue-ui';
+import {
+  type ActiveEditorContext,
+  type RenderCellContext,
+  type RowContext,
+  VxeTableHelper
+} from '@oinone/kunlun-vue-ui';
 import { type ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isFunction, isNaN, isNil, isPlainObject, isString, toString } from 'lodash-es';
 import { createVNode, type VNode, withModifiers } from 'vue';
@@ -318,8 +323,10 @@ export class BaseTableFieldWidget<
     const column = (context.origin as any).column as VxeTableDefines.ColumnInfo;
 
     const data = [context.data];
+    const rowKey = VxeTableHelper.getKey(context.data) || context.index;
     const vnode = createVNode(EditorField, {
       ...this.template,
+      key: `${rowKey}-${this.getHandle()}`,
       dslDefinition: {
         ...this.template,
         placeholder: column.title || this.template.placeholder

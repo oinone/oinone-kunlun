@@ -12,7 +12,7 @@ import {
   TimeFormatMap
 } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import type { RowContext } from '@oinone/kunlun-vue-ui';
+import { type RowContext, VxeTableHelper } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isDate, isNil, isString, toString } from 'lodash-es';
 import { createVNode, type VNode } from 'vue';
@@ -180,8 +180,10 @@ export class TableDateTimeRangeFieldWidget extends BaseTableQuickOperationColumn
       return [];
     }
     const data = [context.data];
+    const rowKey = VxeTableHelper.getKey(context.data) || context.index;
     const vnode = createVNode(EditorField, {
       ...this.template,
+      key: `${rowKey}-${this.getHandle()}`,
       dslDefinition: this.template,
       parentHandle: this.getHandle(),
       viewType: ViewType.Form,

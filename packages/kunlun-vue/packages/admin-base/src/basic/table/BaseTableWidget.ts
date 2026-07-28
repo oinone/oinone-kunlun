@@ -1135,13 +1135,45 @@ export class BaseTableWidget<
   @Widget.Inject()
   protected tableEventCallChaining: TableEventCallChaining | undefined;
 
+  protected onAddRecordsForTableEditor(records: ActiveRecord[], insertTo?: number) {
+    const field = this.metadataRuntimeContext.field;
+    if (!field) {
+      return;
+    }
+
+    const isSubviewField = isRelation2MField(field);
+    if (isSubviewField) {
+      Optional.ofNullable(this.metadataRuntimeContext.handle)
+        .map(Widget.select)
+        .map((v) => v!.getParent() as unknown as IFormSubviewListFieldWidget)
+        .ifPresent((subviewFieldWidget) => {
+          const showRecords = subviewFieldWidget.dataSource || [];
+          const { submitCache } = field;
+          const subviewSubmitCache = this.metadataRuntimeContext.extendData.subviewSubmitCache as SubmitCacheManager;
+          if (submitCache) {
+            ActiveRecordsOperator.operator(showRecords, submitCache).push(records, undefined, insertTo);
+          }
+          if (subviewSubmitCache) {
+            ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).push(records, undefined, insertTo);
+          }
+          const nextRecords = ActiveRecordsOperator.operator(showRecords).push(records, undefined, insertTo).get();
+          subviewFieldWidget.dataSource = nextRecords;
+          subviewFieldWidget.change(nextRecords);
+        });
+    } else {
+      const dataSource = this.dataSource || [];
+      this.reloadDataSource(ActiveRecordsOperator.operator(dataSource).push(records, undefined, insertTo).get());
+    }
+  }
+
   protected async onAddRowEvent(e?: Omit<TableAddEvent, 'type'>) {
+    const isTableEditor = this.editorMode === TableEditorMode.table;
     if (this.lastedCurrentEditorContext == null) {
       this.lastedCurrentEditorContext = {
         prepare: true,
         new: true,
         insertTo: e?.insertTo,
-        editorMode: TableEditorMode.row,
+        editorMode: isTableEditor ? TableEditorMode.table : TableEditorMode.row,
         editorCloseTrigger: TableEditorCloseTrigger.auto,
         forceEditable: true
       } as ActiveEditorContext;
@@ -1155,6 +1187,10 @@ export class BaseTableWidget<
       target = [{}];
     }
     const records = ActiveRecordsOperator.repairRecords(target);
+    if (isTableEditor) {
+      this.onAddRecordsForTableEditor(records, e?.insertTo);
+      return;
+    }
     const { row: newRow } = await this.tableInstance?.insert(records, e?.insertTo);
     nextTick(() => {
       this.tableInstance?.setEditRow(newRow);
