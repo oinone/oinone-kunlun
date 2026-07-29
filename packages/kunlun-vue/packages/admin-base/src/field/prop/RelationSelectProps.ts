@@ -8,7 +8,7 @@ import { useSelectId } from '../../components';
 export const RelationSelectProps = {
   dropdownClassName: {
     type: String,
-    default: 'oio-select-dropdown form-relation-select-dropdown oio-ant-select-dropdown-global'
+    default: 'oio-select-dropdown form-relation-select-dropdown oio-ant-select-dropdown-global vxe-table--ignore-clear'
   },
   readonly: {
     type: [Boolean, String],
