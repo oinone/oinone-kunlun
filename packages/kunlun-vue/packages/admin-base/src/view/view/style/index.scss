@@ -216,6 +216,10 @@ $treeMinWidth: 324px;
         padding: 0 var(--oio-padding) var(--oio-padding) 0;
         border-bottom: 1px solid var(--oio-border-color);
 
+        &.oio-default-vertical-search {
+          padding-left: var(--oio-padding);
+        }
+
         .oio-cate-search.oio-tabs.ant-tabs-top .ant-tabs-nav .ant-tabs-tab {
           padding-top: 0;
         }
