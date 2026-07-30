@@ -4,6 +4,7 @@
 export interface PartnerItem {
   id: string;
   name: string;
+  code?: string;
 }
 
 /**
