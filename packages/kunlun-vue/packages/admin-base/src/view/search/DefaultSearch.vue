@@ -46,7 +46,7 @@ function appendFieldDslDefinition(
           break;
         }
         const cloneWidget = cloneDeep(widget);
-        cloneWidget.colSpan = DEFAULT_COLS / (foldSize + 1);
+        cloneWidget.colSpan = Math.ceil(DEFAULT_COLS / (foldSize + 1));
         targets.push(cloneWidget);
         cloneWidget.subIndex = -targets.length;
         if (targets.length === expandSize + 1) {
@@ -333,11 +333,12 @@ export default defineComponent({
               });
               invisible = !fields.length;
 
+              const size = layout === FormLayout.vertical ? foldSize + 1 : foldSize;
               const searchBarCol = createSearchBarCol(
                 searchActionBar,
                 (foldSize - fields.length) * (DEFAULT_COLS / (foldSize + 1)),
                 invisible,
-                foldSize,
+                size,
                 layout
               );
               fields.push(searchBarCol);
@@ -410,11 +411,15 @@ export default defineComponent({
             onUnselect: onUnselectSearchPrefer
           }
         });
+
+        const defaultOffset = foldSize * (DEFAULT_COLS / (foldSize + 1));
+        const offset = layout === FormLayout.vertical ? Math.floor(defaultOffset - 1) : defaultOffset;
+        const size = layout === FormLayout.vertical ? foldSize - 1 : foldSize;
         const searchBarCol = createSearchBarCol(
           searchActionBar,
-          foldSize * (DEFAULT_COLS / (foldSize + 1)), // 预留高级搜索区域
+          offset, // 预留高级搜索区域
           invisible,
-          foldSize,
+          size,
           layout
         );
         foldVNodes.push(

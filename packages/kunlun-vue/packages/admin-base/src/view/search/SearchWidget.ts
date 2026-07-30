@@ -8,9 +8,9 @@ import { type Entity, ViewType } from '@oinone/kunlun-meta';
 import { getRouterInstance } from '@oinone/kunlun-router';
 import { BooleanHelper, NumberHelper, Optional } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
-import { OioMessage } from '@oinone/kunlun-vue-ui-antd';
+import { FormLayout, OioMessage } from '@oinone/kunlun-vue-ui-antd';
 import { isAllInvisible, Widget } from '@oinone/kunlun-vue-widget';
-import { toString } from 'lodash-es';
+import { isNil, toString } from 'lodash-es';
 import { BaseElementWidget, BaseSearchWidget } from '../../basic';
 import { DefaultRowWidget } from '../../container';
 import { UserPreferService } from '../../service';
@@ -41,7 +41,12 @@ export class SearchWidget extends BaseSearchWidget {
 
   @Widget.Reactive()
   protected get foldSize() {
-    return NumberHelper.toNumber(this.getDsl().foldSize) || 3;
+    const foldSize = NumberHelper.toNumber(this.getDsl().foldSize);
+    if (isNil(foldSize)) {
+      return this.layout === FormLayout.vertical ? 4 : 3;
+    }
+
+    return foldSize;
   }
 
   @Widget.Reactive()
