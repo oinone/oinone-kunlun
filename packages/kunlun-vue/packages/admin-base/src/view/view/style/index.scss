@@ -213,7 +213,8 @@ $treeMinWidth: 324px;
       }
 
       .oio-default-search {
-        padding: 0 var(--oio-padding) var(--oio-padding) 0;
+        padding: var(--oio-padding);
+        padding-top: 0;
         border-bottom: 1px solid var(--oio-border-color);
 
         &.oio-default-vertical-search {

@@ -30,6 +30,7 @@ $labelMarginRight: 16px;
         justify-content: end;
       }
     }
+
     &.oio-tabs.ant-tabs-top {
       .ant-tabs-tab + .ant-tabs-tab {
         margin-left: 40px;
@@ -42,14 +43,17 @@ $labelMarginRight: 16px;
         }
       }
     }
+
     .ant-tabs-content-holder {
       display: none;
     }
+
     &-second {
       display: flex;
       flex-wrap: nowrap;
       overflow: auto;
       margin-bottom: var(--oio-margin-md);
+
       .secondary-action {
         cursor: pointer;
         padding: 0 var(--oio-padding-md);
@@ -61,6 +65,7 @@ $labelMarginRight: 16px;
         line-height: var(--oio-height);
         font-weight: 400;
         flex-shrink: 0;
+
         &:last-child {
           margin-right: 0;
         }
@@ -76,6 +81,10 @@ $labelMarginRight: 16px;
         }
       }
     }
+  }
+
+  .oio-row {
+    align-items: flex-end;
   }
 
   .ant-form-item-label {
@@ -107,8 +116,10 @@ $labelMarginRight: 16px;
     justify-content: flex-end;
     align-items: center;
     margin-right: 12px;
+
     .reset-icon {
       height: auto;
+
       .oio-icon {
         font-size: 18px;
       }
@@ -133,14 +144,17 @@ $dialogLabelMarginRight: 8px;
       .ant-form-item-label {
         flex-basis: $dialogLabelWidth;
       }
+
       .ant-form-item-control {
         max-width: calc(100% - #{$dialogLabelWidth} - #{$dialogLabelMarginRight});
       }
+
       .oio-form {
         .#{$formItemClassPrefix}-horizontal {
           & > .ant-form-item-label {
             flex-basis: $dialogLabelWidth;
           }
+
           & > .ant-form-item-control {
             max-width: calc(100% - #{$dialogLabelWidth} - #{$dialogLabelMarginRight});
           }

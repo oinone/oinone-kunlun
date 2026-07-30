@@ -2,7 +2,7 @@ import { type ActiveRecord, type RefreshCallChainingParameters, RefreshCallChain
 import { getRouterInstance } from '@oinone/kunlun-router';
 import { CallChaining, CastHelper, NumberHelper } from '@oinone/kunlun-shared';
 import { parseActionDomain4search } from '@oinone/kunlun-vue-admin-layout';
-import { FormLayout } from '@oinone/kunlun-vue-ui-common';
+import { FormLayout, SearchTrigger } from '@oinone/kunlun-vue-ui-common';
 import { isSearchViewState, type OioAnyViewState, type OioSearchViewState, Widget } from '@oinone/kunlun-vue-widget';
 import { cloneDeep, isNil } from 'lodash-es';
 import { BaseElementWidget } from './token';
@@ -30,6 +30,17 @@ export class BaseSearchWidget extends BaseElementWidget {
   @Widget.Reactive()
   protected get layout(): string {
     return this.getDsl().layout?.toLowerCase?.() || FormLayout.horizontal;
+  }
+
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get searchTrigger(): SearchTrigger[] | undefined {
+    const searchTrigger =
+      (this.getDsl().searchTrigger as string)?.split(',')?.map((v) => v.trim().toLowerCase() as SearchTrigger) || [];
+    if (searchTrigger.length) {
+      return searchTrigger;
+    }
+    return undefined;
   }
 
   @Widget.Reactive()

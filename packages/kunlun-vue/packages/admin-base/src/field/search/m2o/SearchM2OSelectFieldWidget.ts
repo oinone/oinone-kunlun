@@ -16,6 +16,10 @@ export class SearchM2OSelectFieldWidget extends FormM2OSelectFieldWidget {
   @Widget.Inject()
   protected onSearch: (() => void) | undefined;
 
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected parentSearchTrigger: SearchTrigger[] | undefined;
+
   protected defaultSearchTrigger: SearchTrigger[] = [SearchTrigger.MANUAL];
 
   @Widget.Reactive()
@@ -26,7 +30,7 @@ export class SearchM2OSelectFieldWidget extends FormM2OSelectFieldWidget {
     if (searchTrigger) {
       return searchTrigger;
     }
-    return this.defaultSearchTrigger;
+    return this.parentSearchTrigger || this.defaultSearchTrigger;
   }
 
   @Widget.Method()

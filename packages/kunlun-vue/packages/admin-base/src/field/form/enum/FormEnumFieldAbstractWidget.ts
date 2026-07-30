@@ -3,7 +3,7 @@ import {
   type RuntimeEnumerationOption,
   translateValueByKey
 } from '@oinone/kunlun-engine';
-import { deepClone, EnumOptionState, ViewType } from '@oinone/kunlun-meta';
+import { deepClone, EnumOptionState } from '@oinone/kunlun-meta';
 import { BooleanHelper, type EnumerationValue } from '@oinone/kunlun-shared';
 import { SearchTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -266,7 +266,15 @@ export abstract class FormEnumFieldAbstractWidget<
     return undefined;
   }
 
-  public defaultSearchTrigger: SearchTrigger[] = [SearchTrigger.CHANGE];
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected onSearch: (() => void) | undefined;
+
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected parentSearchTrigger: SearchTrigger[] | undefined;
+
+  protected defaultSearchTrigger: SearchTrigger[] = [SearchTrigger.MANUAL];
 
   @Widget.Reactive()
   protected get searchTrigger(): SearchTrigger[] {
@@ -276,16 +284,13 @@ export abstract class FormEnumFieldAbstractWidget<
     if (searchTrigger) {
       return searchTrigger;
     }
-    return this.defaultSearchTrigger;
+    return this.parentSearchTrigger || this.defaultSearchTrigger;
   }
 
-  @Widget.Reactive()
-  @Widget.Inject()
-  protected onSearch: (() => void) | undefined;
-
+  @Widget.Method()
   protected override afterChange() {
     super.afterChange();
-    if (this.viewType === ViewType.Search && this.searchTrigger.includes(SearchTrigger.CHANGE)) {
+    if (this.searchTrigger.includes(SearchTrigger.CHANGE)) {
       this.onSearch?.();
     }
   }

@@ -1,6 +1,7 @@
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, type EnumerationValue } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
+import { SearchTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { FormFieldWidget } from '../../../../basic';
 import { FormEnumFieldAbstractWidget } from '../FormEnumFieldAbstractWidget';
@@ -14,6 +15,8 @@ import FormEnumRadio from './FormEnumRadio.vue';
   })
 )
 export class FormEnumRadioWidget extends FormEnumFieldAbstractWidget<EnumerationValue> {
+  protected defaultSearchTrigger: SearchTrigger[] = [SearchTrigger.CHANGE];
+
   public initialize(props) {
     super.initialize(props);
     this.setComponent(FormEnumRadio);
