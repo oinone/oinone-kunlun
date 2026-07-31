@@ -49,6 +49,9 @@ export const OioCommonDateTimePickerProps = {
     type: [Boolean, Object],
     default: undefined
   },
+  presets: {
+    type: Array
+  },
   open: {
     type: Boolean,
     default: undefined

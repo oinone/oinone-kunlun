@@ -42,6 +42,9 @@ const OioCommonDateTimeRangePickerProps = {
     type: [Boolean, Object],
     default: undefined
   },
+  presets: {
+    type: Array
+  },
   popperClass: {
     type: [String, Array] as PropType<string | string[]>
   },

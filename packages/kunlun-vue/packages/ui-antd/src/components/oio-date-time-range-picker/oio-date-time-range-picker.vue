@@ -46,6 +46,7 @@ export default defineComponent({
       value: this.value,
       allowClear: this.allowClear,
       showTime: this.showTime,
+      presets: this.presets,
       separator: this.separator,
       showOk: false,
       'onUpdate:value': (val) => {

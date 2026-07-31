@@ -92,7 +92,7 @@ export default defineComponent({
                   }
                   return [
                     createVNode('span', {
-                      innerHTML: this.help
+                      innerHTML: this.$translate(this.help)
                     })
                   ];
                 },

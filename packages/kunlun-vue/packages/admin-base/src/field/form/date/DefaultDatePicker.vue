@@ -10,6 +10,7 @@
     :show-today="false"
     :disabled="disabled"
     :disabled-date="disabledDate"
+    :presets="presets"
     :open="open"
     :change-open-value="changeOpenValue"
     :get-trigger-container="getTriggerContainer"

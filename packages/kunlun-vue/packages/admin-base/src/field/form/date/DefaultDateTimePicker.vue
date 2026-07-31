@@ -9,6 +9,7 @@
     :placeholder="placeholder"
     :readonly="readonly"
     :disabled="disabled"
+    :presets="presets"
     :close-panel-change="closePanelChange"
     :open-panel-change="openPanelChange"
     :open="open"

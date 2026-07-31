@@ -557,7 +557,12 @@ export abstract class FormSelectComplexFieldWidget<
     let valueEqualOptions = false;
 
     if (this.value) {
-      const value = (this.field.multi ? (this.value ?? []) : [this.value]) as ActiveRecord[];
+      let value: ActiveRecord[];
+      if (Array.isArray(this.value)) {
+        value = this.value;
+      } else {
+        value = [this.value];
+      }
       valueEqualOptions =
         this.options.length === value.length &&
         this.options.every((opt) => {

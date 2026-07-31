@@ -22,7 +22,6 @@ import { isBoolean, isFunction, isNaN, isNil, isPlainObject, isString, toString 
 import { createVNode, type VNode, withModifiers } from 'vue';
 import type { VxeTableDefines } from 'vxe-table';
 import { ActionWidget } from '../../action/component/action/ActionWidget';
-import type { RowActionBarWidget } from '../../action/component/action-bar/RowActionBarWidget';
 import { EditorField } from '../../tags/internal';
 import type { UserTablePrefer } from '../../typing';
 import { getTableColumnFixed, getTableColumnWidth } from '../../util';
@@ -515,23 +514,12 @@ export class BaseTableFieldWidget<
   protected executeAction(context: RowContext) {
     const { clickActionName } = this.getDsl();
     const { index } = context;
-    const actionBar = this.getSibling()?.find((widget) => {
-      return (widget as RowActionBarWidget)?.rowIndex === index;
-    });
-    if (actionBar) {
-      const actions = actionBar.getChildrenWidget();
-      const actionArr = actions?.filter((action) => {
-        if (action instanceof ActionWidget) {
-          const { action: actionInfo } = action;
-          return clickActionName === actionInfo?.name;
-        }
-        return false;
-      });
-      const action = actionArr.find((item) => (item.getParent() as RowActionBarWidget)?.rowIndex === index);
-
-      if (action instanceof ActionWidget && !action.disabled) {
-        action.getOperator<ActionWidget>().click();
-      }
+    const action = this.viewState
+      ?.getActionBarState(index)
+      ?.actions.map((v) => Widget.select<ActionWidget>(v))
+      .find((v) => v?.action?.name === clickActionName);
+    if (action instanceof ActionWidget && !action.disabled) {
+      action.getOperator<ActionWidget>().click();
     }
   }
 

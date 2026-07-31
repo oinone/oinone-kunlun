@@ -37,6 +37,7 @@ export default defineComponent({
       valueFormat: this.valueFormat,
       value: this.value,
       allowClear: this.allowClear,
+      presets: this.presets,
       locale: this.locale,
       showTime: this.showTime,
       showToday: this.showToday,

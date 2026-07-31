@@ -7,6 +7,7 @@
     :allow-clear="allowClear"
     :readonly="readonly"
     :disabled="disabled"
+    :presets="presets"
     :get-trigger-container="getTriggerContainer"
     dropdown-class-name="vxe-table--ignore-clear"
     @update:value="change"
