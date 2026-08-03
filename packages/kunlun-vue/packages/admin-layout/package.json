@@ -25,6 +25,7 @@
     "vue-json-pretty": "^2.4.0"
   },
   "devDependencies": {
+    "@ant-design/icons-vue": "7.0.1",
     "@oinone/kunlun-dsl": "~7.2.0",
     "@oinone/kunlun-engine": "~7.2.0",
     "@oinone/kunlun-environment": "~7.2.0",
@@ -37,9 +38,10 @@
     "@oinone/kunlun-shared": "~7.2.0",
     "@oinone/kunlun-spi": "~7.2.0",
     "@oinone/kunlun-state": "~7.2.0",
-    "@types/lodash": "4.17.21",
     "@types/lodash-es": "4.17.6",
-    "lodash": "4.17.21",
+    "ant-design-vue": "4.2.6",
+    "graphql": "15.8.0",
+    "graphql-tag": "2.12.6",
     "lodash-es": "4.17.21",
     "sass": "1.97.0",
     "sass-loader": "16.0.6"

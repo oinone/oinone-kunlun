@@ -33,11 +33,12 @@
     "@oinone/kunlun-state": "~7.2.0",
     "@oinone/kunlun-theme": "~7.2.0",
     "bignumber.js": "9.0.0",
-    "lodash": "4.17.21",
+    "graphql-tag": "2.12.6",
     "lodash-es": "4.17.21"
   },
   "devDependencies": {
-    "@oinone/kunlun-compile": "~7.2.0"
+    "@oinone/kunlun-compile": "~7.2.0",
+    "@types/lodash-es": "4.17.6"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

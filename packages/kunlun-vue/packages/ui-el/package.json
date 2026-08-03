@@ -22,10 +22,8 @@
   "devDependencies": {
     "@element-plus/icons-vue": "2.0.9",
     "@oinone/kunlun-shared": "~7.2.0",
-    "@types/lodash": "4.17.21",
     "@types/lodash-es": "4.17.6",
     "element-plus": "2.13.0",
-    "lodash": "4.17.21",
     "lodash-es": "4.17.21",
     "sass": "1.97.0",
     "sass-loader": "16.0.6",

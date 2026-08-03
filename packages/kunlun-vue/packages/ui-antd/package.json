@@ -20,16 +20,17 @@
     "@oinone/kunlun-vue-ui-common": "7.2.4"
   },
   "devDependencies": {
+    "@ant-design/icons-vue": "7.0.1",
+    "@babel/runtime": "7.29.7",
     "@oinone/kunlun-shared": "~7.2.0",
-    "@types/lodash": "4.17.21",
     "@types/lodash-es": "4.17.6",
     "ant-design-vue": "4.2.6",
-    "lodash": "4.17.21",
     "lodash-es": "4.17.21",
     "moment": "2.29.3",
     "sass": "1.97.0",
     "sass-loader": "16.0.6",
-    "vue": "3.5.26"
+    "vue": "3.5.26",
+    "vue-types": "^3.0.0"
   },
   "peerDependencies": {
     "ant-design-vue": ">=4.2.6",

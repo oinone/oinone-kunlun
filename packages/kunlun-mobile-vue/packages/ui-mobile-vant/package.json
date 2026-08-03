@@ -20,11 +20,10 @@
   "dependencies": {
     "@vant/compat": "1.0.1",
     "lodash-es": "4.17.21",
-    "vant": "4.9.22",
     "vue": "3.5.26"
   },
   "devDependencies": {
-    "@ant-design/icons-vue": "6.1.0",
+    "@ant-design/icons-vue": "7.0.1",
     "@oinone/kunlun-compile": "7.2.3",
     "@oinone/kunlun-shared": "~7.2.0",
     "@oinone/kunlun-vue-ui-common": "~7.2.0",
@@ -36,6 +35,7 @@
     "sass-loader": "16.0.6"
   },
   "peerDependencies": {
+    "vant": ">=4.9.22",
     "vue": ">=3.5.26"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079",
