@@ -670,6 +670,18 @@ export class BaseFormItemWidget<
         return;
       }
       const submitResult = result.records as ActiveRecord | undefined;
+      // fixme @zbh 20260803 全表编辑时，通过一对多提交，其他模式暂不支持
+      // let targetResult: SubmitValue | undefined;
+      // let submitResult: ActiveRecord | undefined;
+      // if (this.subDataIndex == null) {
+      //   targetResult = result;
+      //   submitResult = result.records as ActiveRecord | undefined;
+      // } else if (Array.isArray(result.records)) {
+      //   targetResult = new SubmitValue(result.records[this.subDataIndex]);
+      //   submitResult = result.records[this.subDataIndex];
+      // } else {
+      //   targetResult = result;
+      // }
       if (!submitResult) {
         return;
       }

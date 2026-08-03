@@ -257,18 +257,6 @@ export class BaseTableWidget<
   }
 
   /**
-   * 行内编辑触发方式
-   * @protected
-   */
-  @Widget.Reactive()
-  @Widget.Provide()
-  protected get editorTrigger(): TableEditorTrigger {
-    return (
-      ((this.getDsl().editorTrigger as string)?.toLowerCase?.() as TableEditorTrigger) || TableEditorTrigger.dblclick
-    );
-  }
-
-  /**
    * 行内编辑模式
    * @protected
    */
@@ -283,12 +271,30 @@ export class BaseTableWidget<
   }
 
   /**
+   * 行内编辑触发方式
+   * @protected
+   */
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get editorTrigger(): TableEditorTrigger {
+    if (this.editorMode === TableEditorMode.table) {
+      return TableEditorTrigger.click;
+    }
+    return (
+      ((this.getDsl().editorTrigger as string)?.toLowerCase?.() as TableEditorTrigger) || TableEditorTrigger.dblclick
+    );
+  }
+
+  /**
    * 行内编辑关闭触发方式
    * @protected
    */
   @Widget.Reactive()
   @Widget.Provide()
   protected get editorCloseTrigger(): TableEditorCloseTrigger {
+    if (this.editorMode === TableEditorMode.table) {
+      return TableEditorCloseTrigger.manual;
+    }
     return (
       this.currentEditorContext?.editorCloseTrigger ||
       ((this.getDsl().editorCloseTrigger as string)?.toLowerCase?.() as TableEditorCloseTrigger) ||
@@ -336,6 +342,9 @@ export class BaseTableWidget<
    */
   @Widget.Method()
   protected activeEditorBefore(context: ActiveEditorContext): boolean {
+    if (this.editorMode === TableEditorMode.table) {
+      return true;
+    }
     const { field } = context.column;
     let isEnabled = true;
     if (field) {
@@ -1135,40 +1144,9 @@ export class BaseTableWidget<
   @Widget.Inject()
   protected tableEventCallChaining: TableEventCallChaining | undefined;
 
-  protected onAddRecordsForTableEditor(records: ActiveRecord[], insertTo?: number) {
-    const field = this.metadataRuntimeContext.field;
-    if (!field) {
-      return;
-    }
-
-    const isSubviewField = isRelation2MField(field);
-    if (isSubviewField) {
-      Optional.ofNullable(this.metadataRuntimeContext.handle)
-        .map(Widget.select)
-        .map((v) => v!.getParent() as unknown as IFormSubviewListFieldWidget)
-        .ifPresent((subviewFieldWidget) => {
-          const showRecords = subviewFieldWidget.dataSource || [];
-          const { submitCache } = field;
-          const subviewSubmitCache = this.metadataRuntimeContext.extendData.subviewSubmitCache as SubmitCacheManager;
-          if (submitCache) {
-            ActiveRecordsOperator.operator(showRecords, submitCache).push(records, undefined, insertTo);
-          }
-          if (subviewSubmitCache) {
-            ActiveRecordsOperator.operator(showRecords, subviewSubmitCache).push(records, undefined, insertTo);
-          }
-          const nextRecords = ActiveRecordsOperator.operator(showRecords).push(records, undefined, insertTo).get();
-          subviewFieldWidget.dataSource = nextRecords;
-          subviewFieldWidget.change(nextRecords);
-        });
-    } else {
-      const dataSource = this.dataSource || [];
-      this.reloadDataSource(ActiveRecordsOperator.operator(dataSource).push(records, undefined, insertTo).get());
-    }
-  }
-
   protected async onAddRowEvent(e?: Omit<TableAddEvent, 'type'>) {
     const isTableEditor = this.editorMode === TableEditorMode.table;
-    if (this.lastedCurrentEditorContext == null) {
+    if (!isTableEditor && this.lastedCurrentEditorContext == null) {
       this.lastedCurrentEditorContext = {
         prepare: true,
         new: true,
@@ -1188,13 +1166,14 @@ export class BaseTableWidget<
     }
     const records = ActiveRecordsOperator.repairRecords(target);
     if (isTableEditor) {
-      this.onAddRecordsForTableEditor(records, e?.insertTo);
-      return;
+      this.pushDataSource(records, undefined, e?.insertTo);
+      this.flushDataSource();
+    } else {
+      const { row: newRow } = await this.tableInstance?.insert(records, e?.insertTo);
+      nextTick(() => {
+        this.tableInstance?.setEditRow(newRow);
+      });
     }
-    const { row: newRow } = await this.tableInstance?.insert(records, e?.insertTo);
-    nextTick(() => {
-      this.tableInstance?.setEditRow(newRow);
-    });
   }
 
   protected async onCopyRowEvent(e: Omit<TableCopyEvent, 'type'>) {
@@ -1379,7 +1358,15 @@ export class BaseTableWidget<
     super.$$mounted();
     this.submitCallChaining?.callBefore(
       () => {
-        if (this.currentEditorContext) {
+        if (this.currentEditorContext?.editorMode === TableEditorMode.table) {
+          // fixme @zbh 20260803 全表编辑时，通过一对多提交，其他模式暂不支持
+          // const initializeResults: ActiveRecord[] = [];
+          // for (let i = 0; i < (this.dataSource?.length || 0); i++) {
+          //   initializeResults.push({});
+          // }
+          // return new SubmitValue(initializeResults);
+          return new SubmitValue([]);
+        } else if (this.currentEditorContext) {
           return new SubmitValue({});
         }
         return new SubmitValue(this.activeRecords);
