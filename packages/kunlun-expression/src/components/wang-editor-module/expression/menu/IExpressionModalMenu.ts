@@ -1,6 +1,7 @@
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { DomEditor, IDomEditor, IModalMenu } from '@wangeditor/core';
 import { DOMElement } from '@wangeditor/editor/dist/editor/src/utils/dom';
-import { translateValueByKey } from '@oinone/kunlun-engine';
+import { Node } from 'slate';
 import { createExpressionDialog } from './util';
 
 // 定义菜单 class
@@ -36,18 +37,16 @@ export class IExpressionModalMenu implements IModalMenu {
   exec(editor: IDomEditor, value: string | boolean) {
     // 点击菜单时，弹出 modal 之前，不需要执行其他代码
     // 此处空着即可
-    console.log('exec', value);
+    console.debug('exec', value);
   }
 
   // 是否禁用菜单，如选区处于 code-block 时，禁用 bold 等样式操作
   isDisabled(editor: IDomEditor): boolean {
-    // console.log('isDisabled')
     // return isMenuDisabled(editor);
     return false;
   }
 
-  getModalPositionNode(editor: IDomEditor) {
-    // console.log('getModalPositionNode')
+  getModalPositionNode(editor: IDomEditor): Node | null {
     if (!editor) {
       return null;
     }
@@ -56,7 +55,6 @@ export class IExpressionModalMenu implements IModalMenu {
   }
 
   public getModalContentElem(editor: IDomEditor): DOMElement {
-    // console.log('getModalContentElem', editor.getConfig());
     // if (this.$content == null) {
     const parent = document.createElement('div');
     // 第一次渲染

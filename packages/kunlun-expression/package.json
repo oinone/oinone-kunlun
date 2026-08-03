@@ -19,7 +19,9 @@
   "dependencies": {
     "@wangeditor/editor": "5.1.23",
     "@wangeditor/core": "^1.1.19",
-    "lodash-es": "4.17.21"
+    "dom7": "^4.0.4",
+    "lodash-es": "4.17.21",
+    "vue-types": "^3.0.0"
   },
   "devDependencies": {
     "@ant-design/icons-vue": "7.0.1",

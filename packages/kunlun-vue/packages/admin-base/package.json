@@ -28,8 +28,11 @@
     "@wangeditor/editor-for-vue": "5.1.11",
     "@wangeditor/plugin-upload-attachment": "1.1.0",
     "crypto-js": "4.1.1",
+    "dayjs": "1.10.7",
+    "dom7": "^4.0.4",
     "file-saver": "2.0.5",
-    "smooth-signature": "1.0.15"
+    "smooth-signature": "1.0.15",
+    "vue-types": "^3.0.0"
   },
   "devDependencies": {
     "@ant-design/icons-vue": "7.0.1",
@@ -52,7 +55,6 @@
     "@types/lodash-es": "4.17.6",
     "@vue/reactivity": "3.5.26",
     "ant-design-vue": "4.2.6",
-    "dayjs": "1.10.7",
     "element-plus": "2.13.0",
     "lodash-es": "4.17.21",
     "moment": "2.29.3",

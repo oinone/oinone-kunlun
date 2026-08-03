@@ -22,12 +22,14 @@
     "@wangeditor/editor-for-vue": "5.1.11",
     "@wangeditor/plugin-upload-attachment": "1.1.0",
     "crypto-js": "4.1.1",
+    "dom7": "^4.0.4",
     "lodash-es": "4.17.21",
     "smooth-signature": "1.0.15",
     "vxe-table": "4.3.6",
     "xe-utils": "3.5.7"
   },
   "devDependencies": {
+    "@ant-design/icons-vue": "7.0.1",
     "@dcloudio/types": "2.6.12",
     "@oinone/kunlun-compile": "7.2.3",
     "@oinone/kunlun-dsl": "~7.2.0",
@@ -48,13 +50,11 @@
     "@oinone/kunlun-vue-widget": "~7.2.0",
     "@types/crypto-js": "4.1.1",
     "@types/lodash-es": "4.17.6",
+    "dayjs": "1.10.7",
     "moment": "2.29.3",
+    "vant": "4.9.22",
+    "vue": "3.5.26",
     "vuedraggable": "4.1.0"
-  },
-  "peerDependencies": {
-    "dayjs": ">=1.10.7",
-    "vant": ">=4.9.22",
-    "vue": ">=3.5.26"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

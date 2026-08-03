@@ -17,7 +17,10 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-common": "7.2.4"
+    "@oinone/kunlun-vue-ui-common": "7.2.4",
+    "dayjs": "1.10.7",
+    "scroll-into-view-if-needed": "^2.2.25",
+    "vue-types": "^3.0.0"
   },
   "devDependencies": {
     "@ant-design/icons-vue": "7.0.1",
@@ -29,13 +32,7 @@
     "moment": "2.29.3",
     "sass": "1.97.0",
     "sass-loader": "16.0.6",
-    "vue": "3.5.26",
-    "vue-types": "^3.0.0"
-  },
-  "peerDependencies": {
-    "ant-design-vue": ">=4.2.6",
-    "moment": ">=2.29.3",
-    "vue": ">=3.5.26"
+    "vue": "3.5.26"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }
