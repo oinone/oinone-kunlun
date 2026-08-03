@@ -17,10 +17,6 @@ export class GalleryStringTagFieldWidget extends DetailStringTagFieldWidget {
   @Widget.Reactive()
   protected scope: string | undefined;
 
-  @Widget.Reactive()
-  @Widget.Inject()
-  protected rowIndex: number | undefined;
-
   public initialize(props) {
     super.initialize(props);
     this.setComponent(GalleryTag);

@@ -58,6 +58,7 @@ export interface BaseFieldOptions extends SPIOptions {
 
 export interface BaseFieldProps<Field extends RuntimeModelField = RuntimeModelField> extends BaseFormItemWidgetProps {
   field?: Field;
+  rowIndex?: number;
 }
 
 export type HandlerEvent = (field: BaseFieldWidget) => void;
@@ -89,8 +90,17 @@ export class BaseFieldWidget<
   }
 
   @Widget.Reactive()
-  @Widget.Inject()
-  protected rowIndex: number | undefined;
+  @Widget.Inject('rowIndex')
+  protected parentRowIndex: number | undefined;
+
+  @Widget.Reactive()
+  protected currentRowIndex: number | undefined;
+
+  @Widget.Reactive()
+  @Widget.Provide()
+  protected get rowIndex(): number | undefined {
+    return this.currentRowIndex ?? this.parentRowIndex;
+  }
 
   @Widget.Reactive()
   public get label(): string | undefined {
@@ -128,6 +138,11 @@ export class BaseFieldWidget<
   public initialize(props: Props) {
     super.initialize(props);
     this.runtimeField = props.field;
+    if (props.rowIndex != null) {
+      this.subIndex = props.rowIndex;
+      this.subDataIndex = props.rowIndex;
+      this.currentRowIndex = props.rowIndex;
+    }
     return this;
   }
 
