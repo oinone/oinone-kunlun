@@ -92,7 +92,11 @@ export type DeleteActiveRecordsByEntityPredict = UpdateActiveRecordsByEntityPred
 
 export type ReloadActiveRecordsFunction = (records: ActiveRecords | undefined) => void;
 
-export type PushActiveRecordsFunction = (records: ActiveRecords, predict?: PushActiveRecordsPredict) => void;
+export type PushActiveRecordsFunction = (
+  records: ActiveRecords,
+  predict?: PushActiveRecordsPredict,
+  index?: number
+) => void;
 
 export type UpdateActiveRecordsFunction = (records: UpdateEntity[]) => void;
 

@@ -60,8 +60,8 @@ import { ModelFieldType } from '@oinone/kunlun-meta';
 import { CastHelper } from '@oinone/kunlun-shared';
 import { useSelectId } from '@oinone/kunlun-vue-admin-base';
 import { OioIcon, OioInput } from '@oinone/kunlun-vue-ui-antd';
-import { WritableComputedRef } from '@vue/reactivity';
 import { debounce } from 'lodash-es';
+import { WritableComputedRef } from 'vue';
 import { computed, defineComponent, onBeforeUnmount, onMounted, type PropType, type Ref, ref, watch } from 'vue';
 import { queryExpModelFields } from '../../service/modelDefinitionService';
 import {

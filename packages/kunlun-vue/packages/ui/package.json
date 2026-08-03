@@ -30,16 +30,11 @@
   },
   "devDependencies": {
     "@oinone/kunlun-shared": "~7.2.0",
-    "@types/lodash": "4.17.21",
     "@types/lodash-es": "4.17.6",
-    "lodash": "4.17.21",
     "lodash-es": "4.17.21",
     "sass": "1.97.0",
-    "sass-loader": "16.0.6"
-  },
-  "peerDependencies": {
-    "vue": ">=3.5.26",
-    "vuedraggable": ">=4.1.0"
+    "sass-loader": "16.0.6",
+    "vue": "3.5.26"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

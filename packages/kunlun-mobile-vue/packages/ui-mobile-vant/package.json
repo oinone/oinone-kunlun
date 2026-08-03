@@ -2,7 +2,7 @@
   "name": "@oinone/kunlun-vue-ui-mobile-vant",
   "version": "7.2.3",
   "type": "module",
-  "main": "dist/oinone-kunlun-vue-ui-mobile-vant.esm.js",
+  "main": "index.ts",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rollup -c && npm run build-css && npm run build-css-rem",
@@ -19,31 +19,24 @@
   },
   "dependencies": {
     "@vant/compat": "1.0.1",
-    "lodash-es": "4.17.21",
-    "vant": "4.9.22",
-    "vue": "3.5.26"
+    "csstype": "^3.1.1",
+    "lodash-es": "4.17.21"
   },
   "devDependencies": {
-    "@ant-design/icons-vue": "6.1.0",
+    "@ant-design/icons-vue": "7.0.1",
     "@oinone/kunlun-compile": "7.2.3",
+    "@oinone/kunlun-engine": "~7.2.0",
     "@oinone/kunlun-shared": "~7.2.0",
     "@oinone/kunlun-vue-ui-common": "~7.2.0",
     "@types/lodash-es": "4.17.6",
+    "dayjs": "1.10.7",
     "less": "4.5.1",
     "less-loader": "12.3.0",
     "moment": "2.29.3",
     "sass": "1.97.0",
-    "sass-loader": "16.0.6"
+    "sass-loader": "16.0.6",
+    "vant": "4.9.22",
+    "vue": "3.5.26"
   },
-  "peerDependencies": {
-    "vue": ">=3.5.26"
-  },
-  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079",
-  "module": "dist/oinone-kunlun-vue-ui-mobile-vant.esm.js",
-  "typings": "dist/types/index.d.ts",
-  "files": [
-    "dist",
-    "index.ts",
-    "src"
-  ]
+  "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

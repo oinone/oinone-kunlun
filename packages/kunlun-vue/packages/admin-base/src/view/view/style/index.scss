@@ -167,54 +167,37 @@ $treeMinWidth: 324px;
         }
       }
     }
-
-    // 分组
-    .oio-group {
-      &.oio-group-border {
-        border: none;
-        box-shadow: none;
-      }
-
-      .oio-group-title-wrapper {
-        padding: 0;
-      }
-
-      .oio-group-content {
-        padding: var(--oio-padding) 0 0 0;
-
-        .oio-group {
-          padding: 0 var(--oio-padding);
-        }
-      }
-
-      &.oio-group-title-hidden {
-        & > .oio-group-content {
-          padding: var(--oio-padding);
-        }
-      }
-    }
   }
 
   // 表格
   &.oio-default-table-view {
     .oio-default-view-container {
-      & > .oio-group {
-        & > .oio-group-content {
-          padding: var(--oio-padding) 0 0 0;
-
-          & > .oio-row {
-            row-gap: 0 !important;
-          }
+      .oio-group {
+        &.oio-group-border {
+          border: none;
+          box-shadow: none;
         }
 
-        &:last-child > .oio-group-content {
-          padding-top: 0;
+        &.oio-group-title-hidden > .oio-group-content {
+          padding: 0;
+        }
+      }
+
+      .oio-group:last-child {
+        & > .oio-group-content .oio-row {
+          row-gap: 0 !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+
+          & > .oio-col {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+          }
         }
       }
 
       .oio-default-search {
         padding: var(--oio-padding);
-        padding-top: 0;
         border-bottom: 1px solid var(--oio-border-color);
 
         &.oio-default-vertical-search {
@@ -232,7 +215,8 @@ $treeMinWidth: 324px;
       }
 
       .action-bar:not(.action-bar-inline) {
-        padding: var(--oio-padding) var(--oio-padding) 0 var(--oio-padding);
+        padding: var(--oio-padding);
+        padding-bottom: 0;
         height: auto;
       }
 
@@ -241,17 +225,52 @@ $treeMinWidth: 324px;
       }
 
       .default-tree-table {
-        padding: var(--oio-padding) 0 0 var(--oio-padding);
+        padding: var(--oio-padding);
         position: relative;
+
+        & > .oio-tree-wrapper {
+          height: calc(100% - var(--oio-padding) * 2);
+          width: calc(100% - var(--oio-padding) * 2);
+        }
 
         &::after {
           content: '';
           position: absolute;
           top: 0;
           bottom: 0;
-          right: calc(var(--oio-padding) * -1);
+          right: 0;
           width: 1px;
           background-color: var(--oio-border-color);
+        }
+      }
+    }
+  }
+
+  // 表单/详情
+  &.oio-default-form-view,
+  &.oio-default-detail-view {
+    // 分组
+    .oio-group {
+      &.oio-group-border {
+        border: none;
+        box-shadow: none;
+      }
+
+      & > .oio-group-title-wrapper {
+        padding: 0;
+      }
+
+      & > .oio-group-content {
+        padding: var(--oio-padding) 0 0 0;
+
+        .oio-group {
+          padding: 0 var(--oio-padding);
+        }
+      }
+
+      &.oio-group-title-hidden {
+        & > .oio-group-content {
+          padding: var(--oio-padding);
         }
       }
     }
@@ -269,8 +288,41 @@ $treeMinWidth: 324px;
   &.oio-default-tree-view {
     padding: var(--oio-padding);
 
-    .oio-default-view-container .oio-group .oio-group-content {
-      padding: 0;
+    .oio-group {
+      &.oio-group-border {
+        border: none;
+        box-shadow: none;
+      }
+
+      &.oio-group-title-hidden > .oio-group-content {
+        padding: 0;
+      }
+    }
+
+    .default-tree-tree {
+      column-gap: 0;
+
+      & > .default-search-tree-wrapper {
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+
+      & > .default-tree-content {
+        padding: 0;
+        border: none;
+        box-shadow: none;
+
+        & > .oio-default-minimalism-view {
+          background: unset;
+          border: none;
+          box-shadow: none;
+
+          .action-bar:not(.action-bar-inline) {
+            padding-top: 0;
+          }
+        }
+      }
     }
   }
 

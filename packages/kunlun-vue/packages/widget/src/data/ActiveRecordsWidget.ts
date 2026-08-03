@@ -218,7 +218,7 @@ export class ActiveRecordsWidget<
   @Widget.Provide()
   public pushDataSource(records: ActiveRecords, predict?: PushActiveRecordsPredict, index?: number) {
     if (this.parentPushDataSource && this.getCurrentDataSource() === undefined) {
-      this.parentPushDataSource(records, predict);
+      this.parentPushDataSource(records, predict, index);
     } else {
       let pushPredict: PushActiveRecordsPredict | undefined = predict;
       const { submitCache } = this;

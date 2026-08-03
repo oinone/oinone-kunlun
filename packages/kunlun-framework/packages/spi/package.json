@@ -15,10 +15,12 @@
     "postpublish": "node ../../../../scripts/postpublish.cjs"
   },
   "dependencies": {
-    "inversify": "6.0.1"
+    "inversify": "6.0.1",
+    "lodash-es": "4.17.21"
   },
   "devDependencies": {
     "@oinone/kunlun-shared": "7.2.1",
+    "@types/lodash-es": "4.17.6",
     "reflect-metadata": "0.2.2",
     "tslib": "2.8.1"
   },

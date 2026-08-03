@@ -1,5 +1,5 @@
 import type { FieldDslDefinition } from '@oinone/kunlun-dsl';
-import toString from 'lodash/toString';
+import { toString } from 'lodash-es';
 import type { RuntimeModelField } from '../../../runtime-metadata';
 import type { RuntimeContext } from '../../runtime-context';
 

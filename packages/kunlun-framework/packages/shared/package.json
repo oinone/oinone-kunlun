@@ -15,6 +15,7 @@
     "postpublish": "node ../../../../scripts/postpublish.cjs"
   },
   "dependencies": {
+    "@rsql/ast": "1.4.0",
     "@rsql/builder": "1.4.0",
     "@rsql/emitter": "1.4.0",
     "@rsql/parser": "1.4.0",
@@ -24,7 +25,6 @@
     "moment": "2.29.3"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.182",
     "@types/lodash-es": "4.17.6",
     "lodash-es": "4.17.21"
   },

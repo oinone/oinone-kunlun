@@ -18,9 +18,13 @@
   },
   "dependencies": {
     "@wangeditor/editor": "5.1.23",
-    "lodash-es": "4.17.21"
+    "@wangeditor/core": "^1.1.19",
+    "dom7": "^4.0.4",
+    "lodash-es": "4.17.21",
+    "vue-types": "^3.0.0"
   },
   "devDependencies": {
+    "@ant-design/icons-vue": "7.0.1",
     "@oinone/kunlun-compile": "~7.2.0",
     "@oinone/kunlun-engine": "~7.2.0",
     "@oinone/kunlun-expression": "~7.2.0",
@@ -31,8 +35,17 @@
     "@oinone/kunlun-shared": "~7.2.0",
     "@oinone/kunlun-spi": "~7.2.0",
     "@oinone/kunlun-test": "~7.2.0",
+    "@oinone/kunlun-vue-admin-base": "~7.2.0",
     "@oinone/kunlun-vue-ui-antd": "~7.2.0",
-    "@oinone/kunlun-vue-widget": "~7.2.0"
+    "@oinone/kunlun-vue-widget": "~7.2.0",
+    "@types/lodash-es": "4.17.6",
+    "@vue/reactivity": "3.5.26",
+    "ant-design-vue": "4.2.6",
+    "dayjs": "1.10.7",
+    "dom-scroll-into-view": "2.0.1",
+    "slate": "^0.72.0",
+    "snabbdom": "^3.1.0",
+    "vue": "3.5.26"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

@@ -24,13 +24,15 @@
     "crypto-js": "4.1.1",
     "graphql": "15.8.0",
     "graphql-tag": "2.12.6",
+    "lodash-es": "4.17.21",
     "jstz": "2.1.1"
   },
   "devDependencies": {
     "@oinone/kunlun-shared": "7.2.1",
     "@oinone/kunlun-spi": "7.2.1",
     "@oinone/kunlun-state": "7.2.1",
-    "@types/crypto-js": "4.1.1"
+    "@types/crypto-js": "4.1.1",
+    "@types/lodash-es": "4.17.6"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

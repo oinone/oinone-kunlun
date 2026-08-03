@@ -1,7 +1,7 @@
-import getValue from 'lodash/get';
-import type { IOioDB, IDBTable } from '../typing';
-import { getDB } from '../util';
+import { get as getValue } from 'lodash-es';
 import { DB_NAME, DB_VERSION } from '../constant';
+import type { IDBTable, IOioDB } from '../typing';
+import { getDB } from '../util';
 
 let oio_db;
 export class OioDB implements IOioDB {
@@ -28,15 +28,15 @@ export class OioDB implements IOioDB {
             table.forEach((table) => {
               this.createTable(table);
             });
-          } else if(table) {
+          } else if (table) {
             this.createTable(table);
           } else {
-            console.error("table init error")
+            console.error('table init error');
           }
           resolve();
         };
         res.onerror = (e) => {
-          console.log(e);
+          console.error(e);
           reject();
         };
       } else {

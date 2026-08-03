@@ -921,6 +921,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   protected onCellClick(context: ActiveEditorContext) {
     if (this.lastedCurrentEditorContext && [TableEditorMode.row, TableEditorMode.table].includes(this.editorMode)) {
       this.lastedCurrentEditorContext.column = context.column;
+      this.lastedCurrentEditorContext.rowIndex = context.rowIndex;
       this.lastedCurrentEditorContext.columnIndex = context.columnIndex;
     }
   }
@@ -1442,7 +1443,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   @Widget.Method()
   protected onKeydown({ $event: event }: { $event: KeyboardEvent }) {
-    if (!this.currentEditorContext) {
+    if (!this.currentEditorContext && this.editorMode !== TableEditorMode.table) {
       return;
     }
     const fn = this.matchKeyboardFunction(event);
@@ -1491,6 +1492,9 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     this.tableInstance?.clearEditor();
   }
 
+  /**
+   * @deprecated
+   */
   protected getCellEditable(field: string, row: ActiveRecord, rowIndex: number) {
     let isEnabled = false;
     const columnWidget = this.getColumnWidgets().find((v) => v.itemData === field);
@@ -1510,58 +1514,104 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
    */
   protected async onMoveColumnActiveEditor(event: KeyboardEvent, offset: number) {
     const { lastedCurrentEditorContext } = this;
-    if (!lastedCurrentEditorContext) {
+    let rowIndex: number | undefined;
+    let columnIndex: number | undefined;
+    if (this.editorMode === TableEditorMode.table) {
+      const activeEditorRecord = this.tableInstance?.getActiveEditorRecord();
+      if (!activeEditorRecord) {
+        return;
+      }
+      const origin = activeEditorRecord.origin as ActiveEditorContext;
+      rowIndex = origin.rowIndex;
+      columnIndex = origin.columnIndex;
+    } else if (lastedCurrentEditorContext) {
+      rowIndex = lastedCurrentEditorContext.rowIndex;
+      columnIndex = lastedCurrentEditorContext.columnIndex;
+    }
+    if (rowIndex == null || columnIndex == null) {
       return;
     }
-    const { rowIndex, columnIndex } = lastedCurrentEditorContext;
     const allColumns = this.tableInstance?.getAllColumns() || [];
     let nextColumnIndex = columnIndex + offset;
     let nextColumn = allColumns[nextColumnIndex];
     if (!nextColumn) {
       return;
     }
-
-    while (!nextColumn.field || nextColumn.field === '$$internalOperator' || !nextColumn.visible) {
+    let currentRow = await this.tableInstance?.getTableData(rowIndex);
+    if (!currentRow) {
+      return;
+    }
+    let currentRowIndex = rowIndex;
+    while (!this.isEditableColumn(nextColumn, currentRow, currentRowIndex)) {
       nextColumnIndex += offset;
-      nextColumn = allColumns[nextColumnIndex % allColumns.length];
-    }
-
-    let row = await this.tableInstance?.getTableData(rowIndex);
-    if (nextColumnIndex < 0 || nextColumnIndex >= allColumns.length) {
-      const nextRow = await this.tableInstance?.getTableData(rowIndex + Math.sign(offset));
-      if (!nextRow) {
-        // fixme @zbh 20251024 创建新行并激活编辑态
-        // const records = ActiveRecordsOperator.repairRecords([{}]);
-        // await this.tableInstance?.clearEditor();
-        // const { row: newRow } = await this.tableInstance?.insert(records);
-        // nextRow = newRow;
+      if (nextColumnIndex < 0 || nextColumnIndex >= allColumns.length) {
+        currentRowIndex += offset;
+        if (offset < 0) {
+          nextColumnIndex = allColumns.length - 1;
+        } else {
+          nextColumnIndex = 0;
+        }
+        if (currentRowIndex < 0) {
+          return;
+        }
+        currentRow = await this.tableInstance?.getTableData(currentRowIndex);
+        if (!currentRow) {
+          // fixme @zbh 20251024 创建新行并激活编辑态
+          // const records = ActiveRecordsOperator.repairRecords([{}]);
+          // await this.tableInstance?.clearEditor();
+          // const { row: newRow } = await this.tableInstance?.insert(records);
+          // nextRow = newRow;
+          return;
+        }
       }
-      row = nextRow;
-    }
-    const isEnabled =
-      row &&
-      nextColumn &&
-      nextColumn.field &&
-      this.getCellEditable(nextColumn.field, row, rowIndex + (row ? offset : 0));
-    if (!isEnabled) {
-      return this.onMoveColumnActiveEditor(event, offset + offset);
+      nextColumn = allColumns[nextColumnIndex];
     }
 
-    if (
-      !lastedCurrentEditorContext.editorMode &&
-      this.editorMode === TableEditorMode.cell &&
-      this.editorCloseTrigger === TableEditorCloseTrigger.auto
-    ) {
-      lastedCurrentEditorContext.editorMode = TableEditorMode.row;
-    }
+    if (lastedCurrentEditorContext) {
+      if (
+        !lastedCurrentEditorContext.editorMode &&
+        this.editorMode === TableEditorMode.cell &&
+        this.editorCloseTrigger === TableEditorCloseTrigger.auto
+      ) {
+        lastedCurrentEditorContext.editorMode = TableEditorMode.row;
+      }
 
-    lastedCurrentEditorContext.column = nextColumn;
-    lastedCurrentEditorContext.columnIndex = nextColumnIndex;
+      lastedCurrentEditorContext.row = currentRow;
+      lastedCurrentEditorContext.rowIndex = currentRowIndex;
+      lastedCurrentEditorContext.column = nextColumn;
+      lastedCurrentEditorContext.columnIndex = nextColumnIndex;
+    }
 
     // 如果是换行编辑，那么需要下一行可编辑项的第一个默认选中，并且修改激活行的数据
     nextTick(async () => {
-      await this.tableInstance?.activeCellEditor(row, nextColumn.field);
+      await this.tableInstance?.activeCellEditor(currentRow, nextColumn.field);
     });
+  }
+
+  protected getFieldWidgetByColumn(column: VxeTableDefines.ColumnInfo): BaseTableColumnWidget | undefined {
+    const fieldHandle = column.params?.handle;
+    if (fieldHandle) {
+      return Widget.select<BaseTableColumnWidget>(fieldHandle)?.getOperator<BaseTableColumnWidget>();
+    }
+  }
+
+  protected isEditableColumn(column: VxeTableDefines.ColumnInfo, row: ActiveRecord, rowIndex: number) {
+    if (!column.field || column.field === '$$internalOperator' || !column.visible) {
+      return false;
+    }
+    const fieldWidget = this.getFieldWidgetByColumn(column);
+    if (fieldWidget == null) {
+      return true;
+    }
+    if (fieldWidget.editable) {
+      return fieldWidget.cellEditable({
+        key: VxeTableHelper.getKey(row),
+        data: row,
+        index: rowIndex,
+        origin: row
+      });
+    }
+    return false;
   }
 
   /**
