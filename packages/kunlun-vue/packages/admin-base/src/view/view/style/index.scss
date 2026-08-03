@@ -246,8 +246,9 @@ $treeMinWidth: 324px;
     }
   }
 
-  // 表单
-  &.oio-default-form-view {
+  // 表单/详情
+  &.oio-default-form-view,
+  &.oio-default-detail-view {
     // 分组
     .oio-group {
       &.oio-group-border {
@@ -287,8 +288,41 @@ $treeMinWidth: 324px;
   &.oio-default-tree-view {
     padding: var(--oio-padding);
 
-    .oio-default-view-container .oio-group .oio-group-content {
-      padding: 0;
+    .oio-group {
+      &.oio-group-border {
+        border: none;
+        box-shadow: none;
+      }
+
+      &.oio-group-title-hidden > .oio-group-content {
+        padding: 0;
+      }
+    }
+
+    .default-tree-tree {
+      column-gap: 0;
+
+      & > .default-search-tree-wrapper {
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+
+      & > .default-tree-content {
+        padding: 0;
+        border: none;
+        box-shadow: none;
+
+        & > .oio-default-minimalism-view {
+          background: unset;
+          border: none;
+          box-shadow: none;
+
+          .action-bar:not(.action-bar-inline) {
+            padding-top: 0;
+          }
+        }
+      }
     }
   }
 
