@@ -99,4 +99,9 @@ export class TableOperationColumnWidget extends BaseTableColumnWidget {
   public headerClassName(context: RenderCellContext): string | string[] | undefined {
     return StringHelper.append(['oio-column', 'table-header-column-operation'], super.headerClassName(context));
   }
+
+  @Widget.Method()
+  protected isActiveEditRow(row: unknown) {
+    return this.getTableInstance()?.isEditRow(row);
+  }
 }

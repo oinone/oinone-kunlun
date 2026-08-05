@@ -45,6 +45,7 @@ import {
   type BaseTableEvent,
   type TableAddEvent,
   type TableCopyEvent,
+  TableDeleteEvent,
   type TableEditEvent,
   type TableEventCallChaining,
   TableEventType
@@ -1146,14 +1147,15 @@ export class BaseTableWidget<
 
   protected async onAddRowEvent(e?: Omit<TableAddEvent, 'type'>) {
     const isTableEditor = this.editorMode === TableEditorMode.table;
-    if (!isTableEditor && this.lastedCurrentEditorContext == null) {
+    if (this.lastedCurrentEditorContext == null) {
       this.lastedCurrentEditorContext = {
         prepare: true,
         new: true,
         insertTo: e?.insertTo,
         editorMode: isTableEditor ? TableEditorMode.table : TableEditorMode.row,
         editorCloseTrigger: TableEditorCloseTrigger.auto,
-        forceEditable: true
+        forceEditable: true,
+        newRowIds: []
       } as ActiveEditorContext;
     }
     let target: ActiveRecord[] | undefined;
@@ -1185,17 +1187,7 @@ export class BaseTableWidget<
         forceEditable: true
       } as ActiveEditorContext;
     }
-    let target: ActiveRecord[] | undefined;
-    if (e.activeRecords) {
-      target = e.activeRecords;
-    } else if (e.activeRecord) {
-      target = [e.activeRecord];
-    } else if (e.index != null) {
-      const t = this.dataSource?.[e.index];
-      if (t) {
-        target = [t];
-      }
-    }
+    let target = this.prepareRowOperatorRecords(e);
     if (!target?.length) {
       console.error('Invalid copy records.', e);
       return;
@@ -1223,6 +1215,31 @@ export class BaseTableWidget<
         forceEditable: true
       } as ActiveEditorContext;
     }
+    const target = this.prepareRowOperatorRecords(e);
+    if (!target?.length) {
+      console.error('Invalid edit records.', e);
+      return;
+    }
+    const records = ActiveRecordsOperator.repairRecords(target);
+    nextTick(() => {
+      this.tableInstance?.setEditRow(records[0]);
+    });
+  }
+
+  protected onDeleteRowEvent(e: Omit<TableDeleteEvent, 'type'>) {
+    const target = this.prepareRowOperatorRecords(e);
+    if (!target?.length) {
+      console.error('Invalid delete records.', e);
+      return;
+    }
+    this.deleteDataSourceByEntity(target);
+    this.reloadActiveRecords([]);
+    this.flushDataSource();
+  }
+
+  protected prepareRowOperatorRecords(
+    e: Omit<TableCopyEvent, 'type'> | Omit<TableEditEvent, 'type'> | Omit<TableDeleteEvent, 'type'>
+  ): ActiveRecord[] | undefined {
     let target: ActiveRecord[] | undefined;
     if (e.activeRecords) {
       target = e.activeRecords;
@@ -1234,14 +1251,7 @@ export class BaseTableWidget<
         target = [t];
       }
     }
-    if (!target?.length) {
-      console.error('Invalid copy records.', e);
-      return;
-    }
-    const records = ActiveRecordsOperator.repairRecords(target);
-    nextTick(() => {
-      this.tableInstance?.setEditRow(records[0]);
-    });
+    return target;
   }
 
   // endregion
@@ -1413,6 +1423,9 @@ export class BaseTableWidget<
           break;
         case TableEventType.edit:
           this.onEditRowEvent(e);
+          break;
+        case TableEventType.delete:
+          this.onDeleteRowEvent(e);
           break;
         default:
           console.error(`Invalid event type: ${e.type}`, e);

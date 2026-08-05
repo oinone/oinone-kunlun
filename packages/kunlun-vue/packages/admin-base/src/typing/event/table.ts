@@ -13,7 +13,11 @@ export enum TableEventType {
   /**
    * 编辑一行
    */
-  edit = 'edit'
+  edit = 'edit',
+  /**
+   * 删除一行
+   */
+  delete = 'delete'
 }
 
 export interface BaseTableEvent {
@@ -36,6 +40,12 @@ export interface TableCopyEvent extends BaseTableEvent {
 }
 
 export interface TableEditEvent extends BaseTableEvent {
+  activeRecord?: ActiveRecord;
+  activeRecords?: ActiveRecord[];
+  index?: number;
+}
+
+export interface TableDeleteEvent extends BaseTableEvent {
   activeRecord?: ActiveRecord;
   activeRecords?: ActiveRecord[];
   index?: number;

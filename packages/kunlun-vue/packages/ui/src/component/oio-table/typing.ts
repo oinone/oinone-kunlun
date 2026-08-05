@@ -126,6 +126,8 @@ export interface OioTableInstance {
 
   setEditRow(row: unknown): Promise<any>;
 
+  isEditRow(row: unknown): boolean;
+
   getActiveEditorRecord(): RowContext | undefined;
 
   activeCellEditor(row: unknown, fieldOrColumn: string | VxeTableDefines.ColumnInfo): Promise<any>;

@@ -1,11 +1,16 @@
+import { translateValueByKey } from '@oinone/kunlun-engine';
 import { ActionContextType, ModelDefaultActionName } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { translateValueByKey } from '@oinone/kunlun-engine';
 import { Widget } from '@oinone/kunlun-vue-widget';
+import { TableDeleteEvent, type TableEventCallChaining, TableEventType } from '../../typing';
 import { ActionWidget } from '../component';
 
 @SPI.ClassFactory(ActionWidget.Token({ name: ModelDefaultActionName.$$internal_DeleteOne }))
 export class DeleteOneActionWidget extends ActionWidget {
+  @Widget.Reactive()
+  @Widget.Inject()
+  protected tableEventCallChaining: TableEventCallChaining | undefined;
+
   @Widget.Reactive()
   protected get label() {
     return this.getDsl().label || this.action?.displayName || translateValueByKey('删除');
@@ -26,10 +31,11 @@ export class DeleteOneActionWidget extends ActionWidget {
   }
 
   protected async clickAction() {
-    if (this.activeRecords) {
-      this.deleteDataSourceByEntity(this.activeRecords);
-      this.reloadActiveRecords([]);
-      this.flushDataSource();
-    }
+    const event: TableDeleteEvent = {
+      type: TableEventType.delete,
+      activeRecord: this.activeRecords?.[0],
+      action: this.action
+    };
+    this.tableEventCallChaining?.call(event);
   }
 }

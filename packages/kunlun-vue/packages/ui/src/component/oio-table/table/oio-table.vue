@@ -218,6 +218,9 @@ export default defineComponent({
       setEditRow(row) {
         return vxeTable.value!.setEditRow(row);
       },
+      isEditRow(row) {
+        return vxeTable.value!.isEditByRow(row);
+      },
       getActiveEditorRecord(): RowContext | undefined {
         const editRecord = vxeTable.value!.getEditRecord();
         if (!editRecord) {

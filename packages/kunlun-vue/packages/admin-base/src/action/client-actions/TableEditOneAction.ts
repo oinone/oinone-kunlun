@@ -1,4 +1,5 @@
-import { ModelDefaultActionName } from '@oinone/kunlun-meta';
+import { translateValueByKey } from '@oinone/kunlun-engine';
+import { ActionContextType, ModelDefaultActionName } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { type TableEditEvent, type TableEventCallChaining, TableEventType } from '../../typing';
@@ -9,6 +10,20 @@ export class TableEditOneAction extends ActionWidget {
   @Widget.Reactive()
   @Widget.Inject()
   protected tableEventCallChaining: TableEventCallChaining | undefined;
+
+  @Widget.Reactive()
+  protected get label() {
+    return this.getDsl().label || this.action?.displayName || translateValueByKey('编辑');
+  }
+
+  public initialize(props) {
+    super.initialize(props);
+    const { action } = this;
+    if (action) {
+      action.contextType = action.contextType || ActionContextType.Single;
+    }
+    return this;
+  }
 
   protected async clickAction() {
     const event: TableEditEvent = {

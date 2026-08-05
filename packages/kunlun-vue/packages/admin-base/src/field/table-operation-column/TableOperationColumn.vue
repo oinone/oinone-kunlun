@@ -1,9 +1,14 @@
 <script lang="ts">
 import { translate, translateValueByKey } from '@oinone/kunlun-engine';
-import { GROUP_TREE_KEY, type RenderRowContext, useInjectOioTableInstance } from '@oinone/kunlun-vue-ui';
+import {
+  GROUP_TREE_KEY,
+  type OioTableInstance,
+  type RenderRowContext,
+  useInjectOioTableInstance
+} from '@oinone/kunlun-vue-ui';
 import { StyleHelper } from '@oinone/kunlun-vue-ui-common';
 import { debounce, isBoolean } from 'lodash-es';
-import { computed, createVNode, defineComponent, type PropType } from 'vue';
+import { computed, createVNode, defineComponent, onMounted, type PropType } from 'vue';
 import { Column } from 'vxe-table';
 import { RowActionBarWidget } from '../../action/component/action-bar/RowActionBarWidget';
 import { Element } from '../../tags';
@@ -19,6 +24,9 @@ export default defineComponent({
   props: {
     currentHandle: {
       type: String
+    },
+    setTableInstance: {
+      type: Function as PropType<(tableInstance: OioTableInstance | undefined) => void>
     },
     title: {
       type: String,
@@ -53,6 +61,9 @@ export default defineComponent({
     enabledGroupView: {
       type: Boolean,
       default: false
+    },
+    isActiveEditRow: {
+      type: Function
     }
   },
   setup(props) {
@@ -73,6 +84,10 @@ export default defineComponent({
       const tableInstance = table?.getOrigin();
       const columns = tableInstance?.getColumns().filter((a) => a.visible);
       return columns && columns[columns.length - 1].field === props.itemData;
+    });
+
+    onMounted(() => {
+      props.setTableInstance?.(table);
     });
 
     return {
@@ -126,6 +141,10 @@ export default defineComponent({
         default: (context: RenderRowContext) => {
           // 如果当前表格开启了分组，并且当前行是展开行，则不渲染
           if (enabledGroupView && context.row[GROUP_TREE_KEY.CHILDREN_KEY]) {
+            return;
+          }
+
+          if (this.isActiveEditRow && this.isActiveEditRow(context.row)) {
             return;
           }
 
