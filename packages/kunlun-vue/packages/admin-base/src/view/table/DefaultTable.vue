@@ -46,6 +46,7 @@ import {
   nextTick,
   onActivated,
   onBeforeUnmount,
+  onDeactivated,
   onMounted,
   type PropType,
   ref,
@@ -724,14 +725,6 @@ export default defineComponent({
 
     let isMounted = false;
 
-    onActivated(() => {
-      if (isMounted) {
-        isMounted = false;
-        return;
-      }
-      table.value?.refreshColumn();
-    });
-
     onMounted(async () => {
       isMounted = true;
 
@@ -741,11 +734,28 @@ export default defineComponent({
       calcTableColumnHeight();
 
       window.addEventListener('resize', calcTableColumnHeight);
-
       resizeObserver.observe(tableContentElement.value);
     });
 
     onBeforeUnmount(() => {
+      window.removeEventListener('resize', calcTableColumnHeight);
+      resizeObserver.unobserve(tableContentElement.value);
+    });
+
+    onActivated(() => {
+      if (isMounted) {
+        isMounted = false;
+        return;
+      }
+      table.value?.refreshColumn();
+    });
+
+    onActivated(() => {
+      window.addEventListener('resize', calcTableColumnHeight);
+      resizeObserver.observe(tableContentElement.value);
+    });
+
+    onDeactivated(() => {
       window.removeEventListener('resize', calcTableColumnHeight);
       resizeObserver.unobserve(tableContentElement.value);
     });
