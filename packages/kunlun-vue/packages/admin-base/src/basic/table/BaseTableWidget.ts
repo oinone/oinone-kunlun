@@ -1154,8 +1154,7 @@ export class BaseTableWidget<
         insertTo: e?.insertTo,
         editorMode: isTableEditor ? TableEditorMode.table : TableEditorMode.row,
         editorCloseTrigger: TableEditorCloseTrigger.auto,
-        forceEditable: true,
-        newRowIds: []
+        forceEditable: true
       } as ActiveEditorContext;
     }
     let target: ActiveRecord[] | undefined;
