@@ -58,11 +58,19 @@
 import { CloseCircleFilled, DownOutlined } from '@ant-design/icons-vue';
 import { ModelFieldType } from '@oinone/kunlun-meta';
 import { CastHelper } from '@oinone/kunlun-shared';
-import { useSelectId } from '@oinone/kunlun-vue-admin-base';
 import { OioIcon, OioInput } from '@oinone/kunlun-vue-ui-antd';
 import { debounce } from 'lodash-es';
-import { WritableComputedRef } from 'vue';
-import { computed, defineComponent, onBeforeUnmount, onMounted, type PropType, type Ref, ref, watch } from 'vue';
+import {
+  computed,
+  defineComponent,
+  onBeforeUnmount,
+  onMounted,
+  type PropType,
+  ref,
+  type Ref,
+  watch,
+  WritableComputedRef
+} from 'vue';
 import { queryExpModelFields } from '../../service/modelDefinitionService';
 import {
   checkBlurFocus,
@@ -86,6 +94,8 @@ import ExpressionDesignerCascader from '../cascader/Cascader.vue';
 import ControlTag from '../control/control-tag/ControlTag.vue';
 
 const SIZE_CLASS_CONFIG = { default: '', small: 'ant-select-sm', large: 'ant-select-lg' };
+
+let counter = 0;
 
 enum SizeEnum {
   DEFAULT = 'default',
@@ -169,7 +179,7 @@ export default defineComponent({
   },
   emits: ['change', 'changeList', 'update:valueList'],
   setup(props, { emit }) {
-    const id = useSelectId();
+    const id = `model_field_select_${counter++}`;
 
     const isShowDropdown = ref(false);
     const isShowDownArrow = ref(true);
