@@ -286,8 +286,6 @@ $treeMinWidth: 324px;
 
   // 树视图
   &.oio-default-tree-view {
-    padding: var(--oio-padding);
-
     .oio-group {
       &.oio-group-border {
         border: none;
@@ -303,9 +301,18 @@ $treeMinWidth: 324px;
       column-gap: 0;
 
       & > .default-search-tree-wrapper {
-        padding: 0;
         border: none;
         box-shadow: none;
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          width: 1px;
+          background-color: var(--oio-border-color);
+        }
       }
 
       & > .default-tree-content {
@@ -317,10 +324,6 @@ $treeMinWidth: 324px;
           background: unset;
           border: none;
           box-shadow: none;
-
-          .action-bar:not(.action-bar-inline) {
-            padding-top: 0;
-          }
         }
       }
     }
