@@ -1,20 +1,18 @@
 <template>
-  <detail-common-field
-    :is-empty="!realOptions.length || !optionColor"
-    :empty-style="emptyStyle"
-    :value="displayNameListStr"
-  >
-    <div class="detail-multi-select">
+  <detail-common-field :is-empty="!realOptions.length" :empty-style="emptyStyle" :value="displayNameListStr">
+    <div class="detail-multi-select" v-if="optionColor">
       <div class="detail-multi-select-item" v-for="item in realOptions" :key="item.key" :style="computeStyle(item)">
         <div class="detail-multi-select-item-font" :title="item.label">
           {{ item.label }}
         </div>
       </div>
     </div>
+    <div class="detail-multi-select" v-else>
+      <span :title="displayNameListStr">{{ displayNameListStr }}</span>
+    </div>
   </detail-common-field>
 </template>
 <script lang="ts">
-import { EnumOptionState } from '@oinone/kunlun-meta';
 import type { RuntimeEnumerationOption } from '@oinone/kunlun-engine';
 import type { CSSStyle } from '@oinone/kunlun-shared';
 import type { SelectItem } from '@oinone/kunlun-vue-ui-common';
