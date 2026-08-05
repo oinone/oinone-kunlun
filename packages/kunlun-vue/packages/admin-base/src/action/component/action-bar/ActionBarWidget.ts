@@ -90,7 +90,10 @@ export class ActionBarWidget<
       return undefined;
     }
     if (viewState && hasActionBarViewState(viewState)) {
-      return viewState.actionBar?.bizStyle;
+      if (!this.slotName || this.slotName === DEFAULT_SLOT_NAME) {
+        return viewState.actionBar?.bizStyle;
+      }
+      return viewState.actionBars?.[this.slotName]?.bizStyle;
     }
   }
 

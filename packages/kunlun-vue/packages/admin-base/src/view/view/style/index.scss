@@ -184,6 +184,16 @@ $treeMinWidth: 324px;
       }
 
       .oio-group:last-child {
+        &.oio-group-toolbar-flex-end {
+          & > .oio-group-title-wrapper.oio-group-title-flex-end {
+            padding: 0;
+          }
+
+          & > .oio-group-content {
+            padding: 0;
+          }
+        }
+
         & > .oio-group-content .oio-row {
           row-gap: 0 !important;
           margin-left: 0 !important;

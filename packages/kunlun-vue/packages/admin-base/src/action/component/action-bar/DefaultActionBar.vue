@@ -339,9 +339,6 @@ export default defineComponent({
     if (this.direction) {
       classList.push(`${actionBarClassName}-direction-${this.direction}`);
     }
-    if (this.justify) {
-      classList.push(`${actionBarClassName}-${this.justify}`);
-    }
     if (this.overflow !== false) {
       classList.push(`${actionBarClassName}-overflow`);
     }
@@ -355,33 +352,93 @@ export default defineComponent({
     const leftVNodes = leftSlot?.();
     const rightVNodes = rightSlot?.();
     let actionBarContentVNodes: VNode[] = [];
+
+    let isCenter = false;
+    let isFlexRight = false;
+    if (this.justify) {
+      isCenter = this.justify === 'center';
+      isFlexRight = this.justify === 'flex-end';
+    }
+
     if (leftVNodes?.length) {
-      actionBarContentVNodes.push(
-        createVNode('div', { class: `${actionBarClassName}-left oio-scrollbar` }, leftVNodes || [])
-      );
-      if (rightVNodes?.length) {
-        classList.push(`${actionBarClassName}-between`);
+      if (isCenter) {
+        classList.push(`${actionBarClassName}-center ${actionBarClassName}-relative`);
         actionBarContentVNodes.push(
           createVNode('div', { class: `${actionBarClassName}-center oio-scrollbar` }, actionVNodes)
         );
         actionBarContentVNodes.push(
-          createVNode('div', { class: `${actionBarClassName}-right oio-scrollbar` }, rightVNodes || [])
+          createVNode('div', { class: `${actionBarClassName}-float-left oio-scrollbar` }, leftVNodes)
+        );
+        if (rightVNodes?.length) {
+          actionBarContentVNodes.push(
+            createVNode('div', { class: `${actionBarClassName}-float-right oio-scrollbar` }, rightVNodes)
+          );
+        }
+      } else if (isFlexRight) {
+        classList.push(`${actionBarClassName}-between`);
+        if (rightVNodes?.length) {
+          actionBarContentVNodes.push(
+            createVNode('div', { class: `${actionBarClassName}-left oio-scrollbar` }, rightVNodes)
+          );
+          actionBarContentVNodes.push(
+            createVNode('div', { class: `${actionBarClassName}-right oio-scrollbar` }, [...actionVNodes, ...leftVNodes])
+          );
+        } else {
+          actionBarContentVNodes.push(
+            createVNode('div', { class: `${actionBarClassName}-left oio-scrollbar` }, actionVNodes)
+          );
+          actionBarContentVNodes.push(
+            createVNode('div', { class: `${actionBarClassName}-right oio-scrollbar` }, leftVNodes)
+          );
+        }
+      } else {
+        classList.push(`${actionBarClassName}-between`);
+        if (rightVNodes?.length) {
+          actionBarContentVNodes.push(
+            createVNode('div', { class: `${actionBarClassName}-left oio-scrollbar` }, [...leftVNodes, ...actionVNodes])
+          );
+          actionBarContentVNodes.push(
+            createVNode('div', { class: `${actionBarClassName}-right oio-scrollbar` }, rightVNodes)
+          );
+        } else {
+          actionBarContentVNodes.push(
+            createVNode('div', { class: `${actionBarClassName}-left oio-scrollbar` }, leftVNodes)
+          );
+          actionBarContentVNodes.push(
+            createVNode('div', { class: `${actionBarClassName}-right oio-scrollbar` }, actionVNodes)
+          );
+        }
+      }
+    } else if (rightVNodes?.length) {
+      if (isCenter) {
+        classList.push(`${actionBarClassName}-center ${actionBarClassName}-relative`);
+        actionBarContentVNodes.push(
+          createVNode('div', { class: `${actionBarClassName}-center oio-scrollbar` }, actionVNodes)
+        );
+        actionBarContentVNodes.push(
+          createVNode('div', { class: `${actionBarClassName}-float-right oio-scrollbar` }, rightVNodes || [])
+        );
+      } else if (isFlexRight) {
+        classList.push(`${actionBarClassName}-between`);
+        actionBarContentVNodes.push(
+          createVNode('div', { class: `${actionBarClassName}-left oio-scrollbar` }, rightVNodes || [])
+        );
+        actionBarContentVNodes.push(
+          createVNode('div', { class: `${actionBarClassName}-right oio-scrollbar` }, actionVNodes)
         );
       } else {
         classList.push(`${actionBarClassName}-between`);
         actionBarContentVNodes.push(
-          createVNode('div', { class: `${actionBarClassName}-right oio-scrollbar` }, actionVNodes)
+          createVNode('div', { class: `${actionBarClassName}-left oio-scrollbar` }, actionVNodes)
+        );
+        actionBarContentVNodes.push(
+          createVNode('div', { class: `${actionBarClassName}-right oio-scrollbar` }, rightVNodes || [])
         );
       }
-    } else if (rightVNodes?.length) {
-      classList.push(`${actionBarClassName}-between`);
-      actionBarContentVNodes.push(
-        createVNode('div', { class: `${actionBarClassName}-left oio-scrollbar` }, actionVNodes)
-      );
-      actionBarContentVNodes.push(
-        createVNode('div', { class: `${actionBarClassName}-right oio-scrollbar` }, rightVNodes || [])
-      );
     } else {
+      if (this.justify) {
+        classList.push(`${actionBarClassName}-${this.justify}`);
+      }
       classList.push(`${actionBarClassName}-flatten`);
       actionBarContentVNodes = actionVNodes;
     }

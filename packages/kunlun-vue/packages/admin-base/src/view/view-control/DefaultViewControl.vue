@@ -23,16 +23,19 @@ export default defineComponent({
         children.push(target);
       }
     }
-    return withDirectives(
-      createVNode(
-        'div',
-        {
-          class: 'default-view-control-icon'
-        },
-        children
-      ),
-      [[vShow, !invisible]]
-    );
+    if (children.length) {
+      return withDirectives(
+        createVNode(
+          'div',
+          {
+            class: 'default-view-control-icon'
+          },
+          children
+        ),
+        [[vShow, !invisible]]
+      );
+    }
+    return [];
   }
 });
 </script>

@@ -23,6 +23,14 @@
     gap: 12px var(--oio-margin-md);
   }
 
+  &.action-bar-center {
+    justify-content: center;
+  }
+
+  &.action-bar-flex-end {
+    justify-content: flex-end;
+  }
+
   &.action-bar-between {
     justify-content: space-between;
   }
@@ -50,6 +58,20 @@
     flex-flow: row nowrap;
     align-items: center;
     gap: 12px var(--oio-margin-md);
+  }
+
+  &.action-bar-relative {
+    position: relative;
+  }
+
+  .action-bar-float-left {
+    position: absolute;
+    left: var(--oio-padding);
+  }
+
+  .action-bar-float-right {
+    position: absolute;
+    right: var(--oio-padding);
   }
 
   .more-action-item {
