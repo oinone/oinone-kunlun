@@ -799,7 +799,9 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
       this.model.model,
       fun,
       {
-        requestFields
+        requestFields,
+        variables: this.generatorQueryVariables(),
+        context: this.generatorQueryContext()
       },
       ...args
     );
