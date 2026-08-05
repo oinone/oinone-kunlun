@@ -44,8 +44,14 @@ export class TableEnumFieldWidget extends BaseTableFieldWidget<string | string[]
     }
 
     return this.options.map((opt) => {
-      const displayName = this.executeExpression(context.data, opt.displayName!, opt.displayName);
-      const label = this.executeExpression(context.data, opt.label!, opt.label);
+      let displayName = this.executeExpression(context.data, opt.displayName!, opt.displayName);
+      if (typeof displayName !== 'string') {
+        displayName = opt.displayName;
+      }
+      let label = this.executeExpression(context.data, opt.label!, opt.label);
+      if (typeof label !== 'string') {
+        label = opt.label;
+      }
       return {
         ...opt,
         displayName,
