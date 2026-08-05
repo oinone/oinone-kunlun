@@ -2,6 +2,7 @@ import { type DslDefinition, DslDefinitionType } from '@oinone/kunlun-dsl';
 import { BooleanHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import type { RenderCellContext } from '@oinone/kunlun-vue-ui';
+import { TableEditorMode } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseElementWidget, getTableThemeConfig } from '../../basic';
 import { BaseTableColumnWidget } from '../../basic/table-column';
@@ -102,6 +103,9 @@ export class TableOperationColumnWidget extends BaseTableColumnWidget {
 
   @Widget.Method()
   protected isActiveEditRow(row: unknown) {
+    if (this.editorMode === TableEditorMode.table) {
+      return false;
+    }
     return this.getTableInstance()?.isEditRow(row);
   }
 }
