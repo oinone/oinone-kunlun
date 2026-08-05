@@ -1,7 +1,5 @@
-import { ActiveRecordExtendKeys } from '@oinone/kunlun-engine';
-import { deepClone, ModelDefaultActionName } from '@oinone/kunlun-meta';
+import { ModelDefaultActionName } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
-import { VXE_TABLE_X_ID } from '@oinone/kunlun-vue-ui';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { type TableEditEvent, type TableEventCallChaining, TableEventType } from '../../typing';
 import { ActionWidget } from '../component';
@@ -15,15 +13,7 @@ export class TableEditOneAction extends ActionWidget {
   protected async clickAction() {
     const event: TableEditEvent = {
       type: TableEventType.edit,
-      activeRecords:
-        this.activeRecords?.map((item) => {
-          const result = deepClone(item);
-          Object.values(ActiveRecordExtendKeys).forEach((val) => {
-            Reflect.deleteProperty(result, val);
-          });
-          Reflect.deleteProperty(result, VXE_TABLE_X_ID);
-          return result;
-        }) || [],
+      activeRecord: this.activeRecords?.[0],
       action: this.action
     };
     this.tableEventCallChaining?.call(event);

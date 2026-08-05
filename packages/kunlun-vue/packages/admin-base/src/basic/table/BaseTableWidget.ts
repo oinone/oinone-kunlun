@@ -1215,7 +1215,33 @@ export class BaseTableWidget<
   }
 
   protected onEditRowEvent(e: Omit<TableEditEvent, 'type'>) {
-    console.warn('Unsupported operation', e);
+    if (this.lastedCurrentEditorContext == null) {
+      this.lastedCurrentEditorContext = {
+        prepare: true,
+        editorMode: TableEditorMode.row,
+        editorCloseTrigger: TableEditorCloseTrigger.auto,
+        forceEditable: true
+      } as ActiveEditorContext;
+    }
+    let target: ActiveRecord[] | undefined;
+    if (e.activeRecords) {
+      target = e.activeRecords;
+    } else if (e.activeRecord) {
+      target = [e.activeRecord];
+    } else if (e.index != null) {
+      const t = this.dataSource?.[e.index];
+      if (t) {
+        target = [t];
+      }
+    }
+    if (!target?.length) {
+      console.error('Invalid copy records.', e);
+      return;
+    }
+    const records = ActiveRecordsOperator.repairRecords(target);
+    nextTick(() => {
+      this.tableInstance?.setEditRow(records[0]);
+    });
   }
 
   // endregion
