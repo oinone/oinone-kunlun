@@ -1162,11 +1162,32 @@ export class BaseTableWidget<
     }
     let target: ActiveRecord[] | undefined;
     if (e?.activeRecords) {
-      target = e.activeRecords;
+      if (e.mergeDefaultValues == null || e.mergeDefaultValues) {
+        const defaultValues = await this.generatorNewRowValues();
+        target = e.activeRecords.map((v) => ({
+          ...defaultValues,
+          ...v
+        }));
+      } else {
+        target = e.activeRecords;
+      }
     } else if (e?.activeRecord) {
-      target = [e.activeRecord];
+      if (e.mergeDefaultValues == null || e.mergeDefaultValues) {
+        target = [
+          {
+            ...(await this.generatorNewRowValues()),
+            ...e.activeRecord
+          }
+        ];
+      } else {
+        target = [e.activeRecord];
+      }
     } else {
-      target = [{}];
+      if (e?.mergeDefaultValues == null || e.mergeDefaultValues) {
+        target = [await this.generatorNewRowValues()];
+      } else {
+        target = [{}];
+      }
     }
     const records = ActiveRecordsOperator.repairRecords(target);
     if (isTableEditor) {
@@ -1178,6 +1199,10 @@ export class BaseTableWidget<
         this.tableInstance?.setEditRow(newRow);
       });
     }
+  }
+
+  protected async generatorNewRowValues() {
+    return await this.rootRuntimeContext.getDefaultValue();
   }
 
   protected async onCopyRowEvent(e: Omit<TableCopyEvent, 'type'>) {

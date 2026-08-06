@@ -29,6 +29,7 @@ export interface TableAddEvent extends BaseTableEvent {
   activeRecord?: ActiveRecord;
   activeRecords?: ActiveRecord[];
   insertTo?: number;
+  mergeDefaultValues?: boolean;
 }
 
 export interface TableCopyEvent extends BaseTableEvent {
