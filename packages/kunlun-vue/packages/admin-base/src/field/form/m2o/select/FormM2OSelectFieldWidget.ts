@@ -66,14 +66,14 @@ export class FormM2OSelectFieldWidget extends FormSelectComplexFieldWidget<Activ
     super.change(value);
   }
 
-  @Widget.Watch('formData', { deep: true })
-  public async watchM2OValue() {
+  @Widget.Watch('computedValue')
+  public async watchM2OValue(val) {
     this.delayUpdateM2oValue();
   }
 
   public delayUpdateM2oValue = debounce(() => {
     this.updateM2oValue();
-  });
+  }, 100);
 }
 
 // @SPI.ClassFactory(

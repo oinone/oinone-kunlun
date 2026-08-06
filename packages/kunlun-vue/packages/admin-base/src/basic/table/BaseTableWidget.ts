@@ -398,6 +398,9 @@ export class BaseTableWidget<
    */
   @Widget.Method()
   protected activeEditor(context: ActiveEditorContext): ReturnPromise<void> {
+    if (this.editorMode === TableEditorMode.table) {
+      return;
+    }
     const { editableMap } = context;
     context.row = cloneDeep(context.row);
     this.getColumnWidgets(true).forEach((columnWidget, index) => {

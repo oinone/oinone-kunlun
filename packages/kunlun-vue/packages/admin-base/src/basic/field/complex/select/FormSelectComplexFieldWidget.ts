@@ -654,6 +654,19 @@ export abstract class FormSelectComplexFieldWidget<
     return this.generatorQueryData();
   }
 
+  @Widget.Reactive()
+  protected get computedValue(): string | number | null {
+    const _compute = this.getCompute(this.formData);
+    if (_compute != null && _compute !== '') {
+      const res = this.executeExpression<number | string | null | undefined>(_compute, null);
+      if (res == null || res === '') {
+        return null;
+      }
+      return res;
+    }
+    return null;
+  }
+
   public async updateM2oValue() {
     const val = this.getValue();
     const _compute = this.getCompute(this.formData);
