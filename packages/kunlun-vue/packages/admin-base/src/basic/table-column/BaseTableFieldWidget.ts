@@ -15,6 +15,7 @@ import {
   type ActiveEditorContext,
   type RenderCellContext,
   type RowContext,
+  TableEditorMode,
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
 import { type ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
@@ -334,7 +335,8 @@ export class BaseTableFieldWidget<
       dataSource: data,
       activeRecords: data,
       rowIndex: context.index,
-      inline: true
+      inline: true,
+      watchActiveRecords: this.editorMode === TableEditorMode.table
     });
     if (!vnode) {
       return [];

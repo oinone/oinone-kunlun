@@ -2,8 +2,14 @@
 import { DslDefinitionType } from '@oinone/kunlun-dsl';
 import { type ActiveRecords, RuntimeContextManager, type RuntimeModelField } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
-import { type RenderWidget, useInjectMetaContext, VueWidget, WidgetTagProps } from '@oinone/kunlun-vue-widget';
-import { defineComponent, type PropType, type Slots } from 'vue';
+import {
+  ActiveRecordsWidget,
+  type RenderWidget,
+  useInjectMetaContext,
+  VueWidget,
+  WidgetTagProps
+} from '@oinone/kunlun-vue-widget';
+import { defineComponent, type PropType, type Slots, watch } from 'vue';
 import { type BaseFieldOptions, BaseFieldWidget, EditorFieldWidget } from '../../basic';
 import { selectorEditorFieldMixinComponent } from '../../spi';
 import { useWidgetTag, UseWidgetTagMixin } from '../mixin';
@@ -91,11 +97,15 @@ export default defineComponent({
     inline: {
       type: Boolean,
       default: false
+    },
+    watchActiveRecords: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props, context) {
     const { parentHandle, viewType } = useInjectMetaContext();
-    return useWidgetTag(props, context, {
+    const result = useWidgetTag(props, context, {
       getWidgetTag(): InternalWidget {
         return InternalWidget.Field;
       },
@@ -119,6 +129,21 @@ export default defineComponent({
         return createEditorFieldWidget(widgetProps as FieldWidgetProps);
       }
     });
+
+    if (props.watchActiveRecords) {
+      watch(
+        () => props.activeRecords,
+        (newVal) => {
+          const widget = result.widget.value;
+          if (widget) {
+            (widget as ActiveRecordsWidget).setCurrentActiveRecords?.(newVal);
+          }
+        },
+        { deep: true }
+      );
+    }
+
+    return result;
   }
 });
 </script>
