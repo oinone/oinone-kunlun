@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui-el",
-  "version": "7.2.4",
+  "version": "7.2.5",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -17,7 +17,7 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-common": "7.2.4",
+    "@oinone/kunlun-vue-ui-common": "7.2.5",
     "dayjs": "1.10.7",
     "vue-types": "^3.0.0"
   },
