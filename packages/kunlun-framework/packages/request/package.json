@@ -24,8 +24,8 @@
     "crypto-js": "4.1.1",
     "graphql": "15.8.0",
     "graphql-tag": "2.12.6",
-    "lodash-es": "4.17.21",
-    "jstz": "2.1.1"
+    "jstz": "2.1.1",
+    "lodash-es": "4.17.21"
   },
   "devDependencies": {
     "@oinone/kunlun-shared": "7.2.2",
