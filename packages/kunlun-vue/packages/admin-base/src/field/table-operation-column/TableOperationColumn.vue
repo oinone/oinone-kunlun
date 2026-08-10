@@ -144,10 +144,6 @@ export default defineComponent({
             return;
           }
 
-          if (this.isActiveEditRow && this.isActiveEditRow(context.row)) {
-            return;
-          }
-
           return createVNode(
             ActionBar,
             {
@@ -156,6 +152,7 @@ export default defineComponent({
               inline: true,
               activeRecords: context.row,
               rowIndex: context.rowIndex,
+              invisible: this.isActiveEditRow && this.isActiveEditRow(context.row),
               key: context.rowIndex,
               refreshWidgetRecord: debounce((widget?: RowActionBarWidget) => {
                 if (widget) {
