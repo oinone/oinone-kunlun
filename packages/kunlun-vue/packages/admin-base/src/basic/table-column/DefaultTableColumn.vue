@@ -45,6 +45,14 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    required: {
+      type: Boolean,
+      default: false
+    },
+    showRequiredMark: {
+      type: Boolean,
+      default: false
+    },
     invisible: {
       type: Boolean,
       default: false
@@ -184,6 +192,17 @@ export default defineComponent({
     if (columnType === 'checkbox' || columnType === 'radio') {
       finalRenderHeaderSlot = undefined;
       finalRenderDefaultSlot = undefined;
+    }
+
+    if (this.showRequiredMark && this.required && finalRenderHeaderSlot) {
+      const originalSlot = finalRenderHeaderSlot;
+      finalRenderHeaderSlot = (context: RowContext): VNode[] => {
+        const result = originalSlot(context);
+        const vnodes = Array.isArray(result) ? [...result] : [result];
+        // 星号放在 title 之前，使其位于 vxe-icon-edit 的左侧
+        vnodes.unshift(createVNode('span', { class: 'oio-column-required-star' }, '*'));
+        return vnodes;
+      };
     }
 
     const isEditTable = editorMode === TableEditorMode.table;
