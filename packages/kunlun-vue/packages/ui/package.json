@@ -4,6 +4,7 @@
   "type": "module",
   "main": "index.ts",
   "scripts": {
+    "clean": "rimraf dist package-lock.json node_modules",
     "prebuild": "rimraf dist",
     "build": "rollup -c && npm run build-css",
     "build-css": "sass --style compressed --no-source-map ./dist/oinone-kunlun-vue-ui.scss ./dist/oinone-kunlun-vue-ui.css",

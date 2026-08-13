@@ -6,6 +6,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "clean": "rimraf dist package-lock.json node_modules"
+  },
   "devDependencies": {
     "@oinone/kunlun-compile": "~7.2.0",
     "@oinone/kunlun-test": "~7.2.0"
