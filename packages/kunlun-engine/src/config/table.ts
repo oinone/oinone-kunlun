@@ -52,6 +52,11 @@ export interface TableConfig extends RuntimeConfigOptions {
    * 行内编辑提交整行数据
    */
   rowEditorSubmitAll?: boolean;
+
+  /**
+   * 表格行内编辑显示必填标识
+   */
+  showRequiredMark?: boolean;
 }
 
 export interface TableKeyboardConfig extends RuntimeConfigOptions {

@@ -1,5 +1,4 @@
-import { type GroupingField, SubmitValue } from '@oinone/kunlun-engine';
-import { RuntimeConfig } from '@oinone/kunlun-meta';
+import { type GroupingField, SubmitValue, TableConfigManager } from '@oinone/kunlun-engine';
 import { BooleanHelper, CallChaining, ObjectUtils, Optional } from '@oinone/kunlun-shared';
 import {
   type ActiveEditorContext,
@@ -197,8 +196,10 @@ export abstract class BaseTableColumnWidget<
 
   @Widget.Reactive()
   public get showRequiredMark(): boolean {
-    const tableConfig = RuntimeConfig.getConfig('table') as Record<string, unknown> | undefined;
-    return !!tableConfig?.showRequiredMark;
+    if (this.metadataRuntimeContext.field && this.inline) {
+      return !!TableConfigManager.getConfig().showRequiredMark;
+    }
+    return false;
   }
 
   @Widget.Reactive()
