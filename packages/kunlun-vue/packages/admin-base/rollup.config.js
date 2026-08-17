@@ -1,5 +1,5 @@
-import pkg from './package.json' with { type: 'json' };
 import { rollupConfig } from '@oinone/kunlun-compile';
+import pkg from './package.json' with { type: 'json' };
 
 export default rollupConfig({
   pkg,
@@ -46,7 +46,7 @@ export default rollupConfig({
     /^(element-plus\/dist|dayjs\/locale|@wangeditor)/
   ],
   copyTypeFiles: {
-    typesDir: 'packages/oinone-kunlun/packages/kunlun-vue/packages/admin-base/*',
+    typesDir: 'packages/kunlun-vue/packages/admin-base/*',
     deleteDir: 'packages'
   }
 });
