@@ -791,7 +791,7 @@ export default defineComponent({
     };
 
     watch(
-      () => constructWatchUserPrefer(),
+      () => JSON.stringify(constructWatchUserPrefer()),
       (value) => {
         const tableRef = table.value;
         if (!tableRef) {
@@ -804,7 +804,7 @@ export default defineComponent({
               v.resizeWidth = 0;
               return v;
             }),
-            value.fieldOrder
+            props.userPrefer?.fieldOrder || []
           );
           tableRef.reloadColumns(columns);
         });
