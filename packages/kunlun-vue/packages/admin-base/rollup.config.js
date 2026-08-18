@@ -46,7 +46,7 @@ export default rollupConfig({
     /^(element-plus\/dist|dayjs\/locale|@wangeditor)/
   ],
   copyTypeFiles: {
-    typesDir: 'packages/kunlun-vue/packages/admin-base/*',
+    typesDir: 'packages/oinone-kunlun/packages/kunlun-vue/packages/admin-base/*',
     deleteDir: 'packages'
   }
 });
