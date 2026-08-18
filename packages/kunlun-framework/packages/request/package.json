@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-request",
-  "version": "7.2.2",
+  "version": "7.2.3",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -29,9 +29,9 @@
     "lodash-es": "4.17.21"
   },
   "devDependencies": {
-    "@oinone/kunlun-shared": "7.2.2",
-    "@oinone/kunlun-spi": "7.2.2",
-    "@oinone/kunlun-state": "7.2.2",
+    "@oinone/kunlun-shared": "7.2.3",
+    "@oinone/kunlun-spi": "7.2.3",
+    "@oinone/kunlun-state": "7.2.3",
     "@types/crypto-js": "4.1.1",
     "@types/lodash-es": "4.17.6"
   },

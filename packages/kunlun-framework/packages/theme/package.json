@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-theme",
-  "version": "7.2.2",
+  "version": "7.2.3",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -16,7 +16,7 @@
     "postpublish": "node ../../../../scripts/postpublish.cjs"
   },
   "dependencies": {
-    "@oinone/kunlun-config": "7.2.2"
+    "@oinone/kunlun-config": "7.2.3"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

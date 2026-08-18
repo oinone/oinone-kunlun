@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-expression",
-  "version": "7.2.2",
+  "version": "7.2.3",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -16,8 +16,8 @@
     "postpublish": "node ../../../../scripts/postpublish.cjs"
   },
   "dependencies": {
-    "@oinone/kunlun-shared": "7.2.2",
-    "@oinone/kunlun-spi": "7.2.2",
+    "@oinone/kunlun-shared": "7.2.3",
+    "@oinone/kunlun-spi": "7.2.3",
     "dayjs": "1.10.7"
   },
   "devDependencies": {
