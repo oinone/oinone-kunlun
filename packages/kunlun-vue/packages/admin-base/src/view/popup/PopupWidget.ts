@@ -8,6 +8,7 @@ import {
   type IPopupInstance,
   type IPopupWidget,
   isRelationField,
+  PopupConfigManager,
   PopupManager,
   RelationUpdateType,
   type RuntimeAction,
@@ -82,12 +83,12 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
 
   @Widget.Reactive()
   protected get maskClosable(): boolean {
-    return BooleanHelper.toBoolean(this.getDsl().maskClosable) || false;
+    return BooleanHelper.toBoolean(this.getDsl().maskClosable) ?? PopupConfigManager.isMaskClosable();
   }
 
   @Widget.Reactive()
   protected get mask(): boolean {
-    return BooleanHelper.toBoolean(this.getDsl().mask) ?? true;
+    return BooleanHelper.toBoolean(this.getDsl().mask) ?? PopupConfigManager.isShowMask();
   }
 
   @Widget.Reactive()
@@ -207,7 +208,7 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
    */
   @Widget.Reactive()
   protected get enabledFullScreen() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().enabledFullScreen)).orElse(true);
+    return BooleanHelper.toBoolean(this.getDsl().enabledFullScreen) ?? PopupConfigManager.isEnabledFullScreen();
   }
 
   /**
@@ -215,7 +216,7 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
    */
   @Widget.Reactive()
   protected get showPopupToggle() {
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showPopupToggle)).orElse(true);
+    return BooleanHelper.toBoolean(this.getDsl().showPopupToggle) ?? PopupConfigManager.isShowPopupToggle();
   }
 
   /**
@@ -224,7 +225,7 @@ export abstract class PopupWidget<Props extends PopupWidgetProps = PopupWidgetPr
   @Widget.Reactive()
   protected get showQuickToggle() {
     if (this.action?.contextType === ActionContextType.Single) {
-      return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showQuickToggle)).orElse(true);
+      return BooleanHelper.toBoolean(this.getDsl().showQuickToggle) ?? PopupConfigManager.isShowQuickToggle();
     }
     return false;
   }

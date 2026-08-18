@@ -1,4 +1,5 @@
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
+import { PopupConfigManager } from '@oinone/kunlun-engine';
 import { Expression, type ExpressionRunParam } from '@oinone/kunlun-expression';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { ModalWidth } from '@oinone/kunlun-vue-ui-common';
@@ -55,7 +56,7 @@ export class DialogWidget<Props extends DialogWidgetProps = DialogWidgetProps> e
 
   @Widget.Reactive()
   public get draggable(): boolean {
-    return BooleanHelper.toBoolean(this.getDsl().draggable) || false;
+    return BooleanHelper.toBoolean(this.getDsl().draggable) ?? PopupConfigManager.isDraggable();
   }
 
   @Widget.Reactive()
