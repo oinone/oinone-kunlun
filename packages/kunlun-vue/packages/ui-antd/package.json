@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui-antd",
-  "version": "7.2.6",
+  "version": "7.2.7",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -18,7 +18,7 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-common": "7.2.6",
+    "@oinone/kunlun-vue-ui-common": "7.2.7",
     "dayjs": "1.10.7",
     "scroll-into-view-if-needed": "^2.2.25",
     "vue-types": "^3.0.0"

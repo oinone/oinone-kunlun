@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-widget",
-  "version": "7.2.6",
+  "version": "7.2.7",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -15,7 +15,7 @@
     "postpublish": "node ../../../../scripts/postpublish.cjs"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-common": "7.2.6"
+    "@oinone/kunlun-vue-ui-common": "7.2.7"
   },
   "devDependencies": {
     "@oinone/kunlun-config": "~7.2.0",
