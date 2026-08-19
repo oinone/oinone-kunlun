@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-dependencies",
-  "version": "7.2.7",
+  "version": "7.2.8",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -20,13 +20,13 @@
     "@oinone/kunlun-spi": "~7.2.0",
     "@oinone/kunlun-state": "~7.2.0",
     "@oinone/kunlun-theme": "~7.2.0",
-    "@oinone/kunlun-vue-admin-base": "7.2.7",
-    "@oinone/kunlun-vue-admin-layout": "7.2.7",
+    "@oinone/kunlun-vue-admin-base": "7.2.8",
+    "@oinone/kunlun-vue-admin-layout": "7.2.8",
     "@oinone/kunlun-vue-expression": "~7.2.0",
-    "@oinone/kunlun-vue-router": "7.2.7",
-    "@oinone/kunlun-vue-ui": "7.2.7",
-    "@oinone/kunlun-vue-ui-common": "7.2.7",
-    "@oinone/kunlun-vue-widget": "7.2.7"
+    "@oinone/kunlun-vue-router": "7.2.8",
+    "@oinone/kunlun-vue-ui": "7.2.8",
+    "@oinone/kunlun-vue-ui-common": "7.2.8",
+    "@oinone/kunlun-vue-widget": "7.2.8"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }
