@@ -3,106 +3,16 @@ import { DownOutlined } from '@ant-design/icons-vue';
 import { type ActiveRecord, translateValueByKey } from '@oinone/kunlun-engine';
 import { ViewType } from '@oinone/kunlun-meta';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
-import {
-  ButtonBizStyle,
-  ButtonType,
-  IconPlacement,
-  OioButton,
-  OioCheckbox,
-  OioDropdown,
-  OioSwitch
-} from '@oinone/kunlun-vue-ui-antd';
+import { ButtonType, OioCheckbox, OioSwitch } from '@oinone/kunlun-vue-ui-antd';
 import { ListSelectMode, OioDropdownTrigger, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { type DslRenderDefinition, onAllMounted } from '@oinone/kunlun-vue-widget';
-import { Menu as AMenu } from 'ant-design-vue';
 import { isNil } from 'lodash-es';
-import {
-  computed,
-  createVNode,
-  defineComponent,
-  type PropType,
-  type VNode,
-  vShow,
-  withDirectives,
-  withModifiers
-} from 'vue';
+import { computed, createVNode, defineComponent, type PropType, type VNode, vShow, withDirectives } from 'vue';
 import { ActiveCountEnum, type MoreActionRender, OperationColumnDirection } from '../../../typing';
 import { CollectionActions } from '../../../util/collection-actions';
-import { ActionBarBizStyle } from '../typing';
-import DefaultMoreActionItem from './DefaultMoreActionItem.vue';
+import { createMoreAction } from './createMoreAction';
 
 const actionBarClassName = 'action-bar';
-
-const moreActionSelectorClassName = 'more-action-selector';
-
-function createMoreAction(
-  vnodes: VNode[],
-  inline: boolean,
-  options: {
-    slotName?: string;
-    rowIndex?: number;
-    bizStyle?: string;
-    buttonType?: string;
-    operatorColumnDirection?: OperationColumnDirection;
-    allMounted: Function | undefined;
-    moreActionTriggers: OioDropdownTrigger[];
-  }
-): VNode | VNode[] {
-  const classList = [moreActionSelectorClassName];
-  let defaultButtonType = ButtonType.primary;
-  let defaultBizStyle: ButtonBizStyle | undefined;
-  if (inline) {
-    classList.push(`${moreActionSelectorClassName}-inline`);
-    defaultButtonType = ButtonType.link;
-  } else if (options.bizStyle === ActionBarBizStyle.style2) {
-    defaultButtonType = ButtonType.text;
-    defaultBizStyle = ButtonBizStyle.default;
-  }
-  const { buttonType } = options;
-  const triggerVNode = createVNode(
-    OioButton,
-    {
-      class: classList,
-      type: buttonType || defaultButtonType,
-      bizStyle: defaultBizStyle,
-      icon: 'oinone-menu-caidanxiala',
-      iconPlacement: IconPlacement.AFTER,
-      onClick: withModifiers(() => {}, ['prevent'])
-    },
-    {
-      default: () => translateValueByKey('更多')
-    }
-  );
-  const moreActionItems = vnodes.map((v) =>
-    createVNode(DefaultMoreActionItem, {
-      model: v.props?.model,
-      name: v.props?.name,
-      slotName: options.slotName,
-      rowIndex: options.rowIndex
-    })
-  );
-  return [
-    createVNode('div', { class: 'more-action-invisible-render-wrapper' }, vnodes),
-    createVNode(
-      OioDropdown,
-      {
-        overlayClassName: 'default-dropdown-overlay',
-        trigger: options.moreActionTriggers
-      },
-      {
-        default: () => [triggerVNode],
-        overlay: () =>
-          createVNode(
-            AMenu,
-            { class: 'default-dropdown-menu' },
-            {
-              default: () => moreActionItems
-            }
-          )
-      }
-    )
-  ];
-}
 
 export default defineComponent({
   name: 'DefaultActionBar',

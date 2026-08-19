@@ -36,7 +36,7 @@ import {
 } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isNil, isString, set as setData } from 'lodash-es';
-import { type Component, createVNode, toRaw } from 'vue';
+import { type Component, createVNode, toRaw, type VNode } from 'vue';
 import { BaseActionWidget, type BaseActionWidgetProps, BaseView, type QueryExpression } from '../../../basic';
 import { type ActionKeyboardConfig, type ClickResult, fetchPopconfirmPlacement } from '../../../typing';
 import { executeConfirm } from '../../../util';
@@ -823,7 +823,8 @@ export class ActionWidget<
       visibleConfirm: this.visibleConfirm,
       changeVisibleConfirm: this.changeVisibleConfirm,
       validatorForm: this.validatorForm.bind(this),
-      validateAndClick: this.validateAndClick.bind(this)
+      validateAndClick: this.validateAndClick.bind(this),
+      renderMoreActionItem: this.renderMoreActionItem.bind(this)
     };
   }
 
@@ -983,6 +984,10 @@ export class ActionWidget<
 
   protected clickActionAfter(result: ClickResult): ReturnPromise<ClickResult> {
     return result;
+  }
+
+  public renderMoreActionItem(props: Record<string, unknown>): VNode | VNode[] | undefined {
+    return undefined;
   }
 
   /**

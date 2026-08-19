@@ -1,12 +1,13 @@
 <script lang="ts">
 import { DEFAULT_SLOT_NAME } from '@oinone/kunlun-dsl';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
-import { ObjectUtils, OioButton, OioPopconfirm, OioTooltip } from '@oinone/kunlun-vue-ui-antd';
+import { ObjectUtils, OioButton, OioPopconfirm } from '@oinone/kunlun-vue-ui-antd';
 import { ButtonType } from '@oinone/kunlun-vue-ui-common';
 import { hasActionBarViewState, OioActionBarState, useOioState, Widget } from '@oinone/kunlun-vue-widget';
 import { computed, createVNode, defineComponent, ref, type VNode } from 'vue';
 import type { ActionWidget } from '../action';
 import MenuItem from '../action/MenuItem.vue';
+import { createButtonToolip } from './createMoreAction';
 
 export default defineComponent({
   name: 'DefaultMoreActionItem',
@@ -153,26 +154,16 @@ export default defineComponent({
           if (!actionProps.enableConfirm) {
             attrs.onClick = () => actionProps.validateAndClick?.(actionProps.action, true);
           }
+          const res = actionProps.renderMoreActionItem(attrs);
+          if (res) {
+            return res;
+          }
           const btn = createVNode(OioButton, attrs, () => {
             if (contentVNode) {
               return [contentVNode];
             }
             return [];
           });
-          const buttonVNode =
-            actionProps.tooltip === undefined
-              ? btn
-              : createVNode(
-                  OioTooltip,
-                  {},
-                  {
-                    default: () => [btn],
-                    title: () =>
-                      typeof actionProps.tooltip === 'string'
-                        ? [createVNode('span', { innerHTML: actionProps.tooltip })]
-                        : [actionProps.tooltip]
-                  }
-                );
           if (actionProps.enableConfirm) {
             return [
               createVNode(
@@ -189,12 +180,20 @@ export default defineComponent({
                   confirmCallback: () => actionProps.validateAndClick?.(actionProps.action, true)
                 },
                 {
-                  default: () => [buttonVNode]
+                  default: () => {
+                    if (actionProps.tooltip === undefined) {
+                      return btn;
+                    }
+                    return createButtonToolip(actionProps, btn);
+                  }
                 }
               )
             ];
           }
-          return [buttonVNode];
+          if (actionProps.tooltip === undefined) {
+            return btn;
+          }
+          return createButtonToolip(actionProps, btn);
         }
       }
     );
