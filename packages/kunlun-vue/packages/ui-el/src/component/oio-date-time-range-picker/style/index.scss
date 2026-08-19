@@ -1,0 +1,72 @@
+@import '../../../style/mixin.scss';
+@import '../../oio-input/style/mixin/el-input.scss';
+@import './parameters.scss';
+
+.#{$dateTimeRangePickerClassPrefix} {
+  width: 100%;
+
+  &.el-date-editor.el-range-editor.el-input__wrapper {
+    @include el-input;
+    @include oio-appearance($inputParameterPrefix);
+
+    width: 100%;
+    height: var($parameterPrefix + -height);
+    line-height: var($inputParameterPrefix + -line-height);
+    padding-right: 8px;
+    overflow: hidden;
+
+    &:hover {
+      @include oio-hover($inputParameterPrefix);
+    }
+
+    &.is-active {
+      @include oio-focus($inputParameterPrefix);
+    }
+
+    .el-range-input {
+      color: var($parameterPrefix + -text-color);
+      font-size: inherit;
+
+      &:hover {
+        color: var($parameterPrefix + -text-color-hover);
+      }
+
+      &:focus {
+        color: var($parameterPrefix + -text-color-focus);
+      }
+
+      &[disabled] {
+        color: var($parameterPrefix + -disabled-color);
+      }
+    }
+
+    .el-range-separator {
+      color: var($parameterPrefix + -text-color);
+      line-height: var($inputParameterPrefix + -line-height);
+    }
+
+    &.is-disabled {
+      @include oio-disabled();
+
+      &:hover {
+        @include oio-disabled(true, $inputParameterPrefix);
+      }
+    }
+  }
+
+  &.#{$dateTimeRangePickerClassPrefix}-readonly {
+    @include oio-readonly();
+
+    &:hover {
+      @include oio-readonly();
+    }
+
+    &:focus {
+      @include oio-readonly();
+    }
+
+    .el-range-input[disabled] {
+      color: var($parameterPrefix + -disabled-color);
+    }
+  }
+}

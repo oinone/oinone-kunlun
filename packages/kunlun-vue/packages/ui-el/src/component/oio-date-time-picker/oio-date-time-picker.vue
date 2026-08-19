@@ -1,9 +1,10 @@
 <script lang="ts">
-import { CastHelper, DateTimePickerMode, DateUtil, defaultFormat, StringHelper } from '@oinone/kunlun-shared';
-import { OioDateTimePickerProps } from '@oinone/kunlun-vue-ui-common';
+import { type CSSStyle, DateTimePickerMode, StringHelper } from '@oinone/kunlun-shared';
+import { OioDateTimePickerProps, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
 import { ElDatePicker, ElTimePicker } from 'element-plus';
-import { type Component, computed, createVNode, defineComponent } from 'vue';
+import { type Component, createVNode, defineComponent, VNodeProps } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
+import { fetchDatetimePickerPlaceholder, useDateTimePickerProps } from './use-date-time-picker-props';
 
 export default defineComponent({
   name: 'OioDateTimePicker',
@@ -16,63 +17,61 @@ export default defineComponent({
     ...OioDateTimePickerProps
   },
   emits: ['update:value'],
-  setup(props) {
-    const getDateTimeFormat = () => {
-      return DateUtil.fetchDatetimeFormat(
-        { hasDateFormat: props.hasDateFormat, hasTimeFormat: props.hasTimeFormat },
-        props.format,
-        props.dateFormat,
-        props.timeFormat,
-        props.convertFormat,
-        props.convertDateFormat,
-        props.convertTimeFormat
-      );
-    };
-
-    const format = computed(() => {
-      return getDateTimeFormat() || defaultFormat;
-    });
-
-    const valueFormat = computed(() => {
-      return props.valueFormat || defaultFormat;
-    });
-
-    const defaultValue = computed(() => {
-      return DateUtil.toDate(props.defaultValue, valueFormat.value);
-    });
-
+  setup(props, context) {
     return {
-      format,
-      valueFormat,
-      defaultValue
+      ...useDateTimePickerProps(props, context)
     };
   },
   render() {
     let component: Component = ElDatePicker;
-    if (this.mode === DateTimePickerMode.time) {
+    if (this.realMode === DateTimePickerMode.time) {
       component = ElTimePicker;
     }
     const datetimePickerClassList = [`${DEFAULT_PREFIX}-date-time-picker`];
     if (this.readonly) {
       datetimePickerClassList.push(`${DEFAULT_PREFIX}-date-time-picker-readonly`);
     }
-    return createVNode(component, {
-      defaultValue: this.defaultValue,
-      placeholder: this.placeholder,
-      readonly: this.readonly,
-      disabled: this.disabled,
-      format: this.format,
-      valueFormat: this.valueFormat,
-      ...this.$attrs,
+    const componentProps: Record<string, unknown> & VNodeProps = {
+      ...PropRecordHelper.collectionBasicProps(this.$attrs, datetimePickerClassList, {
+        minWidth: 'unset'
+      } as CSSStyle),
       modelValue: this.value,
       'onUpdate:model-value': (val) => {
-        this.$emit('update:value', val);
+        this.emitValue(val);
       },
-      type: this.mode,
+      defaultValue: this.defaultValue,
+      readonly: this.readonly,
+      disabled: this.disabled,
+      format: this.$translate(this.format),
+      valueFormat: this.valueFormat,
       clearable: this.allowClear,
-      class: StringHelper.append(datetimePickerClassList, CastHelper.cast(this.$attrs.class)),
-      popperClass: StringHelper.append([`${DEFAULT_PREFIX}-date-time-picker-popper`], this.dropdownClassName)
-    });
+      shortcuts: this.shortcuts,
+      defaultTime: this.defaultTime,
+      disabledDate: this.disabledDate,
+      ...this.disabledTimeProps,
+      // 与 antd showOk=false 保持一致，不显示确认按钮，选择后直接生效
+      showConfirm: false,
+      appendTo: this.getTriggerContainer?.(),
+      onVisibleChange: this.panelVisibleChange,
+      popperClass: StringHelper.append([`${DEFAULT_PREFIX}-date-time-picker-popper`], this.dropdownClassName).join(' ')
+    };
+
+    if (component === ElDatePicker) {
+      componentProps.type = this.realType;
+      // antd showToday=false 时隐藏今天按钮，element-plus 日期面板通过关闭底部栏实现
+      if (this.showToday === false && this.realMode === DateTimePickerMode.date) {
+        componentProps.showFooter = false;
+      }
+      componentProps.onPanelChange = this.panelChange;
+    }
+
+    if (this.placeholder === undefined) {
+      componentProps.placeholder = this.$translate(fetchDatetimePickerPlaceholder(this.realMode));
+    } else {
+      componentProps.placeholder = this.placeholder;
+    }
+
+    return createVNode(component, componentProps);
   }
 });
 </script>
