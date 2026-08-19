@@ -1,4 +1,5 @@
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
+import type { ActiveRecord } from '@oinone/kunlun-engine';
 import { type RowContext, TableFixed, VxeTableHelper, type VxeTableRowContext } from '@oinone/kunlun-vue-ui';
 import { type ActiveRecordsWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { Tooltip as ATooltip } from 'ant-design-vue';
@@ -16,7 +17,14 @@ export abstract class BaseTableQuickOperationColumnWidget<
 > extends BaseTableColumnWidget<Value, Props> {
   @Widget.Method()
   public renderHeaderSlot(context: RowContext): VNode[] | string {
-    const children = [createVNode('span', { class: 'oio-column-header-title' }, this.label)];
+    let label = this.label;
+    if (label) {
+      const computedLabel = this.executeExpression(context.data, label);
+      if (typeof computedLabel === 'string') {
+        label = computedLabel;
+      }
+    }
+    const children = [createVNode('span', { class: 'oio-column-header-title' }, label)];
     const help = this.renderHelp();
     if (help) {
       children.push(help);
@@ -259,5 +267,13 @@ export abstract class BaseTableQuickOperationColumnWidget<
       return;
     }
     return fn(userPreferManager, userPrefer);
+  }
+
+  public executeExpression<T>(
+    activeRecord: ActiveRecord | undefined,
+    expression: string,
+    errorValue?: T
+  ): T | string | undefined {
+    return errorValue;
   }
 }
