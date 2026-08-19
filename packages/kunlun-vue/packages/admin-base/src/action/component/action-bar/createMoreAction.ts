@@ -9,9 +9,9 @@ import {
 } from '@oinone/kunlun-vue-ui-antd';
 import { OioDropdownTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Menu as AMenu } from 'ant-design-vue';
-import type { ActionWidget } from 'packages/oinone-kunlun/packages/kunlun-vue/packages/admin-base/src/action/component/action';
 import { createVNode, type VNode, withModifiers } from 'vue';
 import { OperationColumnDirection } from '../../../typing';
+import type { ActionWidget } from '../action';
 import { ActionBarBizStyle } from '../typing';
 import DefaultMoreActionItem from './DefaultMoreActionItem.vue';
 
