@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-admin-base",
-  "version": "7.2.8",
+  "version": "7.2.9",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -18,13 +18,13 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-admin-layout": "7.2.8",
-    "@oinone/kunlun-vue-router": "7.2.8",
-    "@oinone/kunlun-vue-ui": "7.2.8",
-    "@oinone/kunlun-vue-ui-antd": "7.2.8",
-    "@oinone/kunlun-vue-ui-common": "7.2.8",
-    "@oinone/kunlun-vue-ui-el": "7.2.8",
-    "@oinone/kunlun-vue-widget": "7.2.8",
+    "@oinone/kunlun-vue-admin-layout": "7.2.9",
+    "@oinone/kunlun-vue-router": "7.2.9",
+    "@oinone/kunlun-vue-ui": "7.2.9",
+    "@oinone/kunlun-vue-ui-antd": "7.2.9",
+    "@oinone/kunlun-vue-ui-common": "7.2.9",
+    "@oinone/kunlun-vue-ui-el": "7.2.9",
+    "@oinone/kunlun-vue-widget": "7.2.9",
     "@wangeditor/editor": "5.1.23",
     "@wangeditor/editor-for-vue": "5.1.11",
     "@wangeditor/plugin-upload-attachment": "1.1.0",
