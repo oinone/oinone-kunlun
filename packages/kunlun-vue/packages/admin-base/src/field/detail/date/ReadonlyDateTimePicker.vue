@@ -1,5 +1,10 @@
 <template>
-  <detail-common-field :value="realValue" :is-empty="isRealEmpty" :empty-style="emptyStyle" />
+  <detail-common-field
+    :value="realValue"
+    :is-empty="isRealEmpty"
+    :empty-style="emptyStyle"
+    :wrapperToFieldAction="wrapperToFieldAction"
+  />
 </template>
 <script lang="ts">
 import { OioDateTimePickerFormatProps } from '@oinone/kunlun-vue-ui-common';
@@ -18,6 +23,9 @@ export default defineComponent({
     },
     emptyStyle: {
       type: String
+    },
+    wrapperToFieldAction: {
+      type: Function
     }
   },
   setup(props) {

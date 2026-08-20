@@ -527,7 +527,7 @@ export class BaseTableFieldWidget<
 
   protected handleClick(context: RowContext, e: MouseEvent) {
     const { clickMethod } = this.getDsl();
-    if (clickMethod.toLowerCase() === e.type) {
+    if (clickMethod?.toLowerCase() === e.type) {
       this.executeAction(context);
     }
   }

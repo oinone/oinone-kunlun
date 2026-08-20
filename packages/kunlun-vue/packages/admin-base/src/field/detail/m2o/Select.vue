@@ -1,5 +1,9 @@
 <template>
-  <detail-common-field :value="currentValue ? currentValue.label : undefined" :empty-style="emptyStyle" />
+  <detail-common-field
+    :value="currentValue ? currentValue.label : undefined"
+    :empty-style="emptyStyle"
+    :wrapperToFieldAction="wrapperToFieldAction"
+  />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -12,6 +16,9 @@ export default defineComponent({
     },
     emptyStyle: {
       type: String
+    },
+    wrapperToFieldAction: {
+      type: Function
     }
   },
   components: { DetailCommonField },

@@ -8,7 +8,9 @@
       </div>
     </div>
     <div class="detail-multi-select" v-else>
-      <span :title="displayNameListStr">{{ displayNameListStr }}</span>
+      <span :title="displayNameListStr">
+        <wrapper-value :currentValue="displayNameListStr" :wrapperToFieldAction="wrapperToFieldAction" />
+      </span>
     </div>
   </detail-common-field>
 </template>
@@ -21,8 +23,16 @@ import { optionsConvertSelectItem } from '../../util';
 import DetailCommonField from '../common/DetailCommonField.vue';
 
 export default defineComponent({
-  components: { DetailCommonField },
   inheritAttrs: false,
+  components: {
+    DetailCommonField,
+    WrapperValue: (_, { attrs }) => {
+      if (attrs.wrapperToFieldAction) {
+        return (attrs.wrapperToFieldAction as Function)(attrs.currentValue);
+      }
+      return attrs.currentValue;
+    }
+  },
   props: {
     displayNameList: {
       type: Array as PropType<RuntimeEnumerationOption[]>,
@@ -36,6 +46,9 @@ export default defineComponent({
     },
     displayNameListStr: {
       type: String
+    },
+    wrapperToFieldAction: {
+      type: Function
     }
   },
   setup(props) {

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { OioEmpty, PropRecordHelper } from '@oinone/kunlun-vue-ui-common';
-import { isBoolean, isFunction, isNil, isArray, toString } from 'lodash-es';
+import { isArray, isBoolean, isFunction, isNil, toString } from 'lodash-es';
 import { computed, createVNode, defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
@@ -17,6 +17,9 @@ export default defineComponent({
     },
     emptyStyle: {
       type: String
+    },
+    wrapperToFieldAction: {
+      type: Function
     }
   },
   setup(props) {
@@ -56,6 +59,10 @@ export default defineComponent({
       {
         origin: 'default',
         default: ({ realValue }) => {
+          let children = realValue;
+          if (this.wrapperToFieldAction) {
+            children = this.wrapperToFieldAction(realValue);
+          }
           return [
             createVNode(
               'div',
@@ -66,7 +73,7 @@ export default defineComponent({
                   whiteSpace: 'pre-line'
                 }
               },
-              realValue
+              children
             )
           ];
         }

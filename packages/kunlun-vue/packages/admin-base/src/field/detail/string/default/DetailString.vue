@@ -15,9 +15,9 @@
         :style="contentStyle"
         :empty-style="emptyStyle"
       />
-      <span v-else class="detail-string-value" :title="currentValue" :style="contentStyle">{{
-        currentValue || '-'
-      }}</span>
+      <span v-else class="detail-string-value" :title="currentValue" :style="contentStyle">
+        <wrapper-value :currentValue="currentValue || '-'" :wrapperToFieldAction="wrapperToFieldAction" />
+      </span>
       <InputPreSuffix
         v-if="suffix"
         :content-type="suffixType"
@@ -38,7 +38,17 @@ import { PreSuffixProps } from '../../../prop';
 import DetailCommonField from '../../common/DetailCommonField.vue';
 
 export default defineComponent({
-  components: { DetailCommonField, InputPreSuffix, OioEmpty },
+  components: {
+    DetailCommonField,
+    InputPreSuffix,
+    OioEmpty,
+    WrapperValue: (_, { attrs }) => {
+      if (attrs.wrapperToFieldAction) {
+        return (attrs.wrapperToFieldAction as Function)(attrs.currentValue);
+      }
+      return attrs.currentValue;
+    }
+  },
   inheritAttrs: false,
   props: {
     ...PreSuffixProps,
@@ -56,6 +66,9 @@ export default defineComponent({
     },
     emptyStyle: {
       type: String
+    },
+    wrapperToFieldAction: {
+      type: Function
     }
   },
   setup(props) {
