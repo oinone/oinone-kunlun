@@ -5,7 +5,7 @@ export const install = () => {
   LayoutManager.register(
     {
       viewType: ViewType.Detail,
-      viewName: 'DataAuditAppLogDetailAppList',
+      viewName: 'OperationLogDetailAppList',
       model: 'data.audit.OperationLog'
     },
     `<view type="DETAIL" width="large" footerInvisible="true">
