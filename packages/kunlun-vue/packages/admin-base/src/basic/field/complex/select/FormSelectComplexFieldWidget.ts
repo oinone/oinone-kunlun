@@ -624,10 +624,7 @@ export abstract class FormSelectComplexFieldWidget<
 
   @Widget.Method()
   public blur() {
-    // 若此时搜索结果为空, 那么需要将候选值恢复初始值, 以防下次下拉的时候还是空
-    if (!this.options.length) {
-      this.handleEmpty(true);
-    }
+    this.handleEmpty(true);
     super.blur();
   }
 

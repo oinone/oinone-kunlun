@@ -22,6 +22,7 @@
         :allow-clear="allowClear"
         show-arrow
         :disabled="innerDisabled"
+        :search-value="searchValue"
         :value="currentValue === null ? undefined : currentValue"
         :filter-option="false"
         :default-active-first-option="false"
