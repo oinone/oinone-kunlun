@@ -24,6 +24,10 @@ export interface ExperimentalConfig extends RuntimeConfigOptions {
    * 当多对一是既是存储字段也是关联关系存储时，是否提交当前字段进行存储；目前仅有next和非next两个版本；
    */
   submitM2OStoreField?: string;
+  /**
+   * 在表格编辑和行编辑模式中使用单元格可编辑判断函数；下一个版本不再增加兼容性判断，所有行内编辑模式都支持条件编辑表达式；
+   */
+  tableEnableCellEditable?: boolean;
 }
 
 export class ExperimentalConfigManager {
@@ -54,5 +58,9 @@ export class ExperimentalConfigManager {
   public static submitM2OStoreFieldNext(): boolean {
     const version = ExperimentalConfigManager.getConfig().submitM2OStoreField || process.env.SUBMIT_M2O_STORE_FIELD;
     return version === 'next';
+  }
+
+  public static tableEnableCellEditable(): boolean {
+    return ExperimentalConfigManager.getConfig().tableEnableCellEditable ?? false;
   }
 }

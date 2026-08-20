@@ -1,6 +1,8 @@
 <script lang="ts">
 import type { DslDefinition } from '@oinone/kunlun-dsl';
+import { ExperimentalConfigManager } from '@oinone/kunlun-engine';
 import {
+  executeCellEditable,
   GROUP_TREE_KEY,
   OioColumn,
   OioColumnAppearanceProps,
@@ -117,8 +119,20 @@ export default defineComponent({
         ];
       }
 
-      if (props.editorMode === TableEditorMode.table && props.editable) {
-        return props.renderEditSlot?.(context);
+      if (ExperimentalConfigManager.tableEnableCellEditable()) {
+        if (props.editorMode === TableEditorMode.table || props.editorMode === TableEditorMode.row) {
+          if (props.cellEditable) {
+            if (executeCellEditable(context, props.cellEditable)) {
+              return props.renderEditSlot?.(context);
+            }
+          } else if (props.editable) {
+            return props.renderEditSlot?.(context);
+          }
+        }
+      } else {
+        if (props.editorMode === TableEditorMode.table && props.editable) {
+          return props.renderEditSlot?.(context);
+        }
       }
 
       const vNodes = props.renderDefaultSlot?.(context);
@@ -129,6 +143,29 @@ export default defineComponent({
         return props.wrapperToFieldAction(vNodes, context);
       }
       return vNodes;
+    };
+
+    const renderEditSlot = (context: VxeTableRowContext) => {
+      if (ExperimentalConfigManager.tableEnableCellEditable()) {
+        if (props.editorMode === TableEditorMode.table || props.editorMode === TableEditorMode.row) {
+          if (props.cellEditable) {
+            if (executeCellEditable(context, props.cellEditable)) {
+              return props.renderEditSlot?.(context);
+            }
+          } else if (props.editable) {
+            return props.renderEditSlot?.(context);
+          }
+        }
+        const vNodes = props.renderDefaultSlot?.(context);
+        if (vNodes == null) {
+          return [];
+        }
+        if (props.wrapperToFieldAction) {
+          return props.wrapperToFieldAction(vNodes, context);
+        }
+        return vNodes;
+      }
+      return props.renderEditSlot?.(context);
     };
 
     const renderContentSlot = (context: VxeTableRowContext) => {
@@ -143,6 +180,7 @@ export default defineComponent({
       fixed,
       defaultRenderHeaderSlot,
       renderDefaultSlot,
+      renderEditSlot,
       renderContentSlot
     };
   },
