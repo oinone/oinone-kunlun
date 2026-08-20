@@ -5,3 +5,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.default-form-hyperlinks > a {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

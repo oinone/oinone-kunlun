@@ -19,6 +19,7 @@ import { DEFAULT_PREFIX } from '../../../theme';
 import { useInjectOioTableInstance } from '../context';
 import { TableEditorCloseTrigger, TableEditorMode, TableEditorTrigger } from '../table';
 import type { CellRenderFunction, RowContext, VxeTableCellRenderFunction, VxeTableRowContext } from '../typing';
+import { executeCellEditable } from './executeCellEditable';
 import { OioColumnProps } from './props';
 import type { RenderRowContext } from './typing';
 
@@ -47,25 +48,6 @@ function renderMethodExecutor(context: RenderRowContext, fn: CellRenderFunction)
 
 function appendDefaultClassName(classList: string | string[] | undefined, classNames?: string | string[]) {
   return StringHelper.append([DEFAULT_CLASS_NAME], classList, classNames);
-}
-
-function executeCellEditable(
-  context: VxeTableRowContext,
-  cellEditable: boolean | ((context: RowContext) => unknown) | undefined
-): boolean {
-  if (cellEditable == null) {
-    return true;
-  }
-  if (isBoolean(cellEditable)) {
-    return cellEditable;
-  }
-  if (isFunction(cellEditable)) {
-    const res = cellEditable(context);
-    if (res != null) {
-      return !!res;
-    }
-  }
-  return true;
 }
 
 function propGetter<R, T extends R | ((ctx: VxeTableRowContext) => R)>(

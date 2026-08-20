@@ -19,6 +19,7 @@
         :show-search="selectShowSearch"
         :allow-clear="allowClear"
         :disabled="innerDisabled"
+        :search-value="searchValue"
         :value="currentValue"
         :filter-option="false"
         :default-active-first-option="false"

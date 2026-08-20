@@ -3,6 +3,7 @@ import {
   CommonPatternMap,
   type FieldPattern,
   isRelation2OField,
+  isRuntimeClientAction,
   type RuntimeModelField,
   RuntimeRelationField,
   SubmitHandler,
@@ -14,11 +15,14 @@ import {
 import { type FieldEventName, FieldEventNames, LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
 import { Expression } from '@oinone/kunlun-expression';
 import { isEmptyValue, isValidateEmpty, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
-import type { Constructor, ReturnPromise } from '@oinone/kunlun-shared';
+import { BooleanHelper, Constructor, ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
 import { ComputeTrigger } from '@oinone/kunlun-vue-ui-common';
 import { InnerWidgetType, PathWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isFunction, isPlainObject, isString } from 'lodash-es';
+import { createVNode, VNode, withModifiers } from 'vue';
+import { type ActionWidget } from '../../action/component/action/ActionWidget';
+import { ActionClickMethod } from '../../action/component/typing';
 import { isValidatorError, isValidatorSuccess, type ValidatorInfo } from '../../typing';
 import { BaseFormItemWidget, type BaseFormItemWidgetProps } from '../form-item';
 
@@ -295,6 +299,73 @@ export class BaseFieldWidget<
     //   },
     //   this.field
     // );
+  }
+
+  @Widget.Reactive()
+  protected get clickMethod(): ActionClickMethod | undefined {
+    return this.getDsl().clickMethod?.toLowerCase();
+  }
+
+  protected get clickAction(): ActionWidget | undefined {
+    let enableClick = BooleanHelper.toBoolean(this.getDsl().enableClick);
+    const clickActionName = this.getDsl().clickActionName;
+    if (!clickActionName) {
+      return undefined;
+    }
+    if (enableClick == null) {
+      enableClick = true;
+    }
+    if (!enableClick) {
+      return undefined;
+    }
+    const handles = this.viewState?.getActionBarState(this.rowIndex)?.actions || [];
+    return handles
+      .map((handle) => Widget.select<ActionWidget>(handle))
+      .find((v) => {
+        const action = v?.action;
+        if (!action) {
+          return false;
+        }
+        if (isRuntimeClientAction(action)) {
+          return action.name === clickActionName || action.fun === clickActionName;
+        }
+        return action.name === clickActionName;
+      });
+  }
+
+  protected onClickAction(action: ActionWidget) {
+    action.getOperator<ActionWidget>().click();
+  }
+
+  @Widget.Method()
+  protected wrapperToFieldAction(nodes: string | VNode[] | undefined): string | VNode[] | undefined {
+    const { clickAction } = this;
+    if (!clickAction) {
+      return nodes;
+    }
+    let { clickMethod } = this;
+    if (clickMethod == null) {
+      clickMethod = ActionClickMethod.click;
+    }
+    const props: Record<string, unknown> = {
+      class: 'default-form-hyperlinks'
+    };
+    switch (clickMethod) {
+      case ActionClickMethod.click:
+        props.onClick = withModifiers(() => this.onClickAction.bind(this)(clickAction), ['stop']);
+        break;
+      case ActionClickMethod.dblclick:
+        props.onDblclick = withModifiers(() => this.onClickAction.bind(this)(clickAction), ['stop']);
+        break;
+      default:
+        console.error('Unknown click method', clickMethod);
+        return nodes;
+    }
+    return this.renderFieldAction(props, nodes);
+  }
+
+  protected renderFieldAction(props: Record<string, unknown>, nodes: string | VNode[] | undefined) {
+    return [createVNode('span', props, [createVNode('a', {}, nodes)])];
   }
 
   protected $$beforeCreated() {

@@ -13,7 +13,12 @@
     :validate-trigger="validateTrigger"
     :validator-info="validatorInfo"
   >
-    <detail-common-field :value="realValue" :is-empty="isRealEmpty" :empty-style="emptyStyle" />
+    <detail-common-field
+      :value="realValue"
+      :is-empty="isRealEmpty"
+      :empty-style="emptyStyle"
+      :wrapperToFieldAction="wrapperToFieldAction"
+    />
   </default-form-item>
 </template>
 <script lang="ts">
@@ -41,6 +46,9 @@ export default defineComponent({
     },
     emptyStyle: {
       type: String
+    },
+    wrapperToFieldAction: {
+      type: Function
     }
   },
   setup(props) {
