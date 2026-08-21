@@ -120,12 +120,13 @@ export default defineComponent({
       }
 
       if (ExperimentalConfigManager.tableEnableCellEditable()) {
-        if (
-          props.editorMode === TableEditorMode.table ||
-          (props.editorMode === TableEditorMode.row && props.editable)
-        ) {
-          if (props.cellEditable) {
-            if (executeCellEditable(context, props.cellEditable)) {
+        if (props.editorMode === TableEditorMode.table) {
+          if (props.editable) {
+            if (props.cellEditable) {
+              if (executeCellEditable(context, props.cellEditable)) {
+                return props.renderEditSlot?.(context);
+              }
+            } else {
               return props.renderEditSlot?.(context);
             }
           }
@@ -148,12 +149,14 @@ export default defineComponent({
 
     const renderEditSlot = (context: VxeTableRowContext) => {
       if (ExperimentalConfigManager.tableEnableCellEditable()) {
-        if (props.editorMode === TableEditorMode.table || props.editorMode === TableEditorMode.row) {
+        if (props.editorMode === TableEditorMode.table) {
           if (props.editable) {
             if (props.cellEditable) {
               if (executeCellEditable(context, props.cellEditable)) {
                 return props.renderEditSlot?.(context);
               }
+            } else {
+              return props.renderEditSlot?.(context);
             }
           }
         }
