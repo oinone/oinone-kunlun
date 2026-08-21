@@ -471,6 +471,7 @@ export default defineComponent({
     ];
     if (allowSearch && (!searchArea || searchArea === SelectSearchArea.default)) {
       props.showSearch = true;
+      props.searchValue = searchValue;
       props.onSearch = onSearch;
     } else {
       props.showSearch = false;
