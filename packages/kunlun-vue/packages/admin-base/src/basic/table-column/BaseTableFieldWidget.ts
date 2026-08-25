@@ -8,7 +8,7 @@ import {
 } from '@oinone/kunlun-engine';
 import { type FieldEventName, FieldEventNames, LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
 import { Expression, ExpressionKeyword, type ExpressionRunParam } from '@oinone/kunlun-expression';
-import { isEmptyValue, ViewMode, ViewType } from '@oinone/kunlun-meta';
+import { ViewMode, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, Optional, StringHelper } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX } from '@oinone/kunlun-theme';
 import {
@@ -272,13 +272,14 @@ export class BaseTableFieldWidget<
         }
       }
     }
-    const isEqual = JSON.stringify(computeResult) === JSON.stringify(this.getValue(context));
+    const currentValue = this.getValue(context);
+    const isEqual = JSON.stringify(computeResult) === JSON.stringify(currentValue);
     if (typeof computeResult === 'object' && isEqual) {
       // []({}) == []({}) 和 []({}) === []({})结果均为false, 所以会导致表达式无限执行
-      return this.getValue(context);
+      return currentValue;
     }
-    if (isRelatedField(this.field) && (!isEqual || isEmptyValue(computeResult))) {
-      computeResult = this.getValue(context);
+    if (isEqual) {
+      return currentValue;
     }
     this.setValue(context, computeResult as Value);
     return computeResult;
