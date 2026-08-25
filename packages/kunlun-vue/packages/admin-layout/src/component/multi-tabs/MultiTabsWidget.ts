@@ -366,7 +366,8 @@ export class MultiTabsWidget extends MaskWidget {
 
   protected generatorTabTitle(tab: MultiTabInstance): string {
     const { title, stack } = tab;
-    return title || ModuleService.generatorViewTitle(stack[stack.length - 1].action);
+    const lastStack = stack[stack.length - 1];
+    return title || ModuleService.generatorViewTitle(lastStack.action, lastStack.parameters);
   }
 
   protected async reloadActiveTab(): Promise<void> {
@@ -377,8 +378,10 @@ export class MultiTabsWidget extends MaskWidget {
     const tab = this.getTabs().find((a) => a.key === activeTab.key);
     if (tab) {
       const stackLength = activeTab.stack.length;
-      tab.title =
-        stackLength > 1 ? ModuleService.generatorViewTitle(activeTab.stack[stackLength - 1].action) : tab.title;
+      if (stackLength > 1) {
+        const lastStack = activeTab.stack[stackLength - 1];
+        tab.title = ModuleService.generatorViewTitle(lastStack.action, lastStack.parameters);
+      }
     }
     this.activeKey = activeTab.key;
     let invisible = false;

@@ -38,7 +38,7 @@ export class PopupSubmitActionWidget extends ActionWidget {
 
   @Widget.Method()
   @Widget.Inject()
-  private onSubmit: PopupSubmitFunction | undefined;
+  protected onSubmit: PopupSubmitFunction | undefined;
 
   @Widget.Method()
   protected async clickAction() {
@@ -49,7 +49,7 @@ export class PopupSubmitActionWidget extends ActionWidget {
     return false;
   }
 
-  protected reloadDataSourceAndRecords(result: ClickResult) {
+  protected reloadDataSourceAndRecords(result?: ClickResult) {
     if (this.updateData) {
       if (result && !isBoolean(result)) {
         const { submitRecords } = result as unknown as PopupSubmitParameters;

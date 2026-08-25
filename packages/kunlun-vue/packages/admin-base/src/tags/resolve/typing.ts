@@ -54,7 +54,7 @@ export enum InternalWidget {
   ActionColumn = 'action-column',
   RowActions = 'row-actions',
 
-  Block = 'Block',
+  Block = 'block',
   Group = 'group',
   Row = 'row',
   Col = 'col',

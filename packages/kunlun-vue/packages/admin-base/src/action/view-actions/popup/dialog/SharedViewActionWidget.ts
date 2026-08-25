@@ -102,7 +102,7 @@ export class SharedViewActionWidget extends DialogViewActionWidget {
       parameters.context = JSON.stringify(this.buildContext(this.activeRecords?.[0] || {}));
     }
     return {
-      title: ModuleService.generatorViewTitle(viewAction) || document.title,
+      title: ModuleService.generatorViewTitle(viewAction, parameters) || document.title,
       parameters: JSON.stringify(parameters)
     };
   }

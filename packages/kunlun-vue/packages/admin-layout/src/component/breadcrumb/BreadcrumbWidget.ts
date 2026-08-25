@@ -129,11 +129,11 @@ export class BreadcrumbWidget extends MaskWidget {
     this.items = items;
   }
 
-  protected async refreshViewTitle(model: string, action: string): Promise<void> {
+  protected async refreshViewTitle(model: string, action: string, parameters?: Record<string, unknown>): Promise<void> {
     const viewAction = await ViewActionCache.get(model, action);
     // 菜单上的action不重复显示菜单名称和视图名称
     if (viewAction && viewAction.name !== this.items[this.items.length - 1]?.viewAction?.name) {
-      this.currentViewTitle = ModuleService.generatorViewTitle(viewAction);
+      this.currentViewTitle = ModuleService.generatorViewTitle(viewAction, parameters);
     } else {
       this.currentViewTitle = '';
     }
@@ -155,7 +155,7 @@ export class BreadcrumbWidget extends MaskWidget {
     }
     await Promise.allSettled([
       this.refreshItems(model, action, menuUrlParameters),
-      this.refreshViewTitle(model, action)
+      this.refreshViewTitle(model, action, reloadParameters.currentPage)
     ]);
   }
 
