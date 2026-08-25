@@ -38,7 +38,7 @@ export class PopupSubmitActionWidget extends ActionWidget {
 
   @Widget.Method()
   @Widget.Inject()
-  private onSubmit: PopupSubmitFunction | undefined;
+  protected onSubmit: PopupSubmitFunction | undefined;
 
   @Widget.Method()
   protected async clickAction() {
