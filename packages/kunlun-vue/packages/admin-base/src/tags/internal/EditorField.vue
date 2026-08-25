@@ -1,7 +1,7 @@
 <script lang="ts">
 import { DslDefinitionType } from '@oinone/kunlun-dsl';
-import { type ActiveRecords, RuntimeContextManager, type RuntimeModelField } from '@oinone/kunlun-engine';
-import { ViewType } from '@oinone/kunlun-meta';
+import { type ActiveRecords, getRealTtype, RuntimeContextManager, type RuntimeModelField } from '@oinone/kunlun-engine';
+import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import {
   ActiveRecordsWidget,
   type RenderWidget,
@@ -36,7 +36,11 @@ function createEditorFieldWidget(props: FieldWidgetProps): RenderWidget | undefi
   const { type: viewType, name: viewName } = view;
   let widgetRef: BaseFieldWidget | undefined;
   const widgets: VueWidget[] = [];
-  const { name, multi, ttype } = modelField || ({} as RuntimeModelField);
+  const { name, multi } = modelField || {};
+  let ttype: ModelFieldType | undefined;
+  if (modelField) {
+    ttype = getRealTtype(modelField);
+  }
   const options: BaseFieldOptions = {
     viewType,
     widget,
