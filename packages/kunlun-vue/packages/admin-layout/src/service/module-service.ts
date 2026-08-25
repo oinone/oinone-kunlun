@@ -1,4 +1,5 @@
 import { ClearCache, QueryPageResult, type RuntimeViewAction, translateValueByKey } from '@oinone/kunlun-engine';
+import { Expression, ExpressionRunParam } from '@oinone/kunlun-expression';
 import { type IModule, SYSTEM_MODULE_NAME } from '@oinone/kunlun-meta';
 import { gql } from '@oinone/kunlun-request';
 import { http } from '@oinone/kunlun-service';
@@ -63,8 +64,30 @@ export class ModuleService {
     ));
   }
 
-  public static generatorViewTitle(action: RuntimeViewAction): string {
+  public static generatorViewTitle(action: RuntimeViewAction, parameters?: Record<string, unknown>): string {
     const { resView } = action;
-    return action.title || resView?.title || resView?.name || translateValueByKey('未命名');
+    let title = action.title || resView?.title || resView?.name || translateValueByKey('未命名');
+    if (parameters) {
+      const expParameters = { ...parameters };
+      if (parameters.context && typeof parameters.context === 'string') {
+        try {
+          expParameters.context = JSON.parse(parameters.context);
+        } catch (e) {
+          console.warn(`Invalid parameters context. ${parameters.context}`, e);
+        }
+      }
+      const params: ExpressionRunParam = {
+        activeRecords: [expParameters],
+        rootRecord: expParameters,
+        openerRecord: {},
+        parentRecord: {},
+        scene: action.name
+      };
+      const computedTitle = Expression.run(params, title, title);
+      if (typeof computedTitle === 'string') {
+        title = computedTitle;
+      }
+    }
+    return title;
   }
 }

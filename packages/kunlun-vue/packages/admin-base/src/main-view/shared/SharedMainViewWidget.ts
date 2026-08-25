@@ -83,7 +83,7 @@ export class SharedMainViewWidget extends RouterWidget {
     }
     const { action, page } = data;
 
-    this.beforeRender(action);
+    this.beforeRender(action, page);
     this.initView(action);
 
     this.loading = false;
@@ -117,14 +117,14 @@ export class SharedMainViewWidget extends RouterWidget {
     };
   }
 
-  protected beforeRender(action: SharedRuntimeViewAction) {
+  protected beforeRender(action: SharedRuntimeViewAction, page: ViewActionQueryParameter) {
     const { browserTitle, language, languageIsoCode } = action;
     if (language && languageIsoCode) {
       CurrentLanguage.refreshSessionStorage(language, languageIsoCode);
     }
     const moduleName = getSharedSession()?.page?.module;
     document.body.className = `${MODULE_CLASS_PREFIX} ${MODULE_CLASS_PREFIX}-${moduleName}`;
-    document.title = browserTitle || ModuleService.generatorViewTitle(action);
+    document.title = browserTitle || ModuleService.generatorViewTitle(action, page);
   }
 
   protected initView(action: SharedRuntimeViewAction) {

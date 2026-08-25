@@ -325,7 +325,7 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
     const treeNodes = MenuService.convert(menus);
     MenuService.sort(treeNodes);
     const selectedMenuItem = MenuService.findSelectedMenuItemByAction(treeNodes, viewAction.name);
-    const title = selectedMenuItem?.value?.title || ModuleService.generatorViewTitle(viewAction);
+    const title = selectedMenuItem?.value?.title || ModuleService.generatorViewTitle(viewAction, newPage);
 
     const titleArray: string[] = [];
     if (moduleDisplayName) {
