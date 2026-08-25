@@ -1,5 +1,5 @@
-import pkg from './package.json' with { type: 'json' };
 import { rollupConfig } from '@oinone/kunlun-compile';
+import pkg from './package.json' with { type: 'json' };
 
 export default rollupConfig({
   pkg,
@@ -13,7 +13,8 @@ export default rollupConfig({
     'lodash',
     'lodash-es',
     'moment',
-    'vue'
+    'vue',
+    'vue-types'
   ],
   copyTypeFiles: {
     typesDir: 'kunlun-vue/packages/ui-antd/*',
