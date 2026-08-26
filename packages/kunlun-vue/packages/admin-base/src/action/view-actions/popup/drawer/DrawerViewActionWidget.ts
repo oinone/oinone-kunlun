@@ -12,7 +12,7 @@ import { PopupActionWidget } from '../PopupActionWidget';
   })
 )
 export class DrawerViewActionWidget extends PopupActionWidget {
-  private drawer: DrawerWidget | undefined;
+  protected drawer: DrawerWidget | undefined;
 
   protected createPopupWidget(data: ActiveRecord[]): void {
     const { popupDslDefinition } = this;
