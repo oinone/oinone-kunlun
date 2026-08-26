@@ -149,15 +149,13 @@ export default defineComponent({
 
     const renderEditSlot = (context: VxeTableRowContext) => {
       if (ExperimentalConfigManager.tableEnableCellEditable()) {
-        if (props.editorMode === TableEditorMode.table) {
-          if (props.editable) {
-            if (props.cellEditable) {
-              if (executeCellEditable(context, props.cellEditable)) {
-                return props.renderEditSlot?.(context);
-              }
-            } else {
+        if (props.editable) {
+          if (props.cellEditable) {
+            if (executeCellEditable(context, props.cellEditable)) {
               return props.renderEditSlot?.(context);
             }
+          } else {
+            return props.renderEditSlot?.(context);
           }
         }
         const vNodes = props.renderDefaultSlot?.(context);

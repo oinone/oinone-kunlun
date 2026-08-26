@@ -724,6 +724,7 @@ export default defineComponent({
     });
 
     let isMounted = false;
+    let isObserve = false;
 
     onMounted(async () => {
       isMounted = true;
@@ -735,11 +736,14 @@ export default defineComponent({
 
       window.addEventListener('resize', calcTableColumnHeight);
       resizeObserver.observe(tableContentElement.value);
+      isObserve = false;
     });
 
     onBeforeUnmount(() => {
       window.removeEventListener('resize', calcTableColumnHeight);
-      resizeObserver.unobserve(tableContentElement.value);
+      if (isObserve && tableContentElement.value) {
+        resizeObserver.unobserve(tableContentElement.value);
+      }
     });
 
     onActivated(() => {
@@ -752,12 +756,16 @@ export default defineComponent({
 
     onActivated(() => {
       window.addEventListener('resize', calcTableColumnHeight);
-      resizeObserver.observe(tableContentElement.value);
+      if (!isObserve && tableContentElement.value) {
+        resizeObserver.observe(tableContentElement.value);
+      }
     });
 
     onDeactivated(() => {
       window.removeEventListener('resize', calcTableColumnHeight);
-      resizeObserver.unobserve(tableContentElement.value);
+      if (isObserve && tableContentElement.value) {
+        resizeObserver.unobserve(tableContentElement.value);
+      }
     });
 
     watch(
