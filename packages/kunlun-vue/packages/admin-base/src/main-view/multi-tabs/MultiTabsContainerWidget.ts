@@ -22,7 +22,7 @@ import {
 import { ActionType, type IModule, ViewActionTarget } from '@oinone/kunlun-meta';
 import { BooleanHelper, CallChaining, type Consumer, type Executor, Optional, TreeNode } from '@oinone/kunlun-shared';
 import { Subscription } from '@oinone/kunlun-state';
-import { MenuService, type MenuUrlParameters, type RuntimeMenu } from '@oinone/kunlun-vue-admin-layout';
+import { MenuService, type MenuUrlParameters, ModuleService, type RuntimeMenu } from '@oinone/kunlun-vue-admin-layout';
 import { DslDefinitionWidget, type DslDefinitionWidgetProps, Widget } from '@oinone/kunlun-vue-widget';
 import { isString } from 'lodash-es';
 import type { Component, Ref } from 'vue';
@@ -495,7 +495,7 @@ export class MultiTabsContainerWidget extends DslDefinitionWidget<MultiTabsConta
         enterTabInstance.title = selectedMenuItem.value?.title;
       }
       if (!enterTabInstance.title) {
-        enterTabInstance.title = viewAction.resView?.title;
+        enterTabInstance.title = ModuleService.generatorViewTitle(viewAction, currentPage);
       }
       enterTabInstance.logoUrl = moduleDefinition?.logo;
       this.appendEnterTab(enterTab, currentPage);
