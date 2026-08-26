@@ -717,6 +717,7 @@ const buildQueryCondition = (
       case ModelFieldType.Email:
         if (Array.isArray(val)) {
           buildMultiStringQueryCondition(field, condition, c, fieldOperator, val, {
+            serializable: true,
             quote: "'"
           });
         } else {
