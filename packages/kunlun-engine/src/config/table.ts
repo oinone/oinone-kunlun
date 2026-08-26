@@ -32,6 +32,10 @@ export interface TableConfig extends RuntimeConfigOptions {
    */
   enableGrouping?: boolean;
   /**
+   * 是否显示视图控制控件组
+   */
+  enableViewControl?: boolean;
+  /**
    * 切换行高
    */
   switchLineHeight?: boolean;
