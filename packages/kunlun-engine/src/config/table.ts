@@ -61,6 +61,16 @@ export interface TableConfig extends RuntimeConfigOptions {
    * 表格行内编辑显示必填标识
    */
   showRequiredMark?: boolean;
+
+  /**
+   * 一对多表格添加一行
+   */
+  showAddBtn?: boolean;
+
+  /**
+   * 一对多表格快速填报
+   */
+  showQuickFill?: boolean;
 }
 
 export interface TableKeyboardConfig extends RuntimeConfigOptions {
@@ -97,5 +107,13 @@ export class TableConfigManager {
 
   public static getConfig(): TableConfig {
     return ConfigHelper.getConfig<TableConfig>(RuntimeConfig.getConfig('table'));
+  }
+
+  public static isShowAddBtn(): boolean {
+    return TableConfigManager.getConfig().showAddBtn ?? true;
+  }
+
+  public static isShowQuickFill(): boolean {
+    return TableConfigManager.getConfig().showQuickFill ?? true;
   }
 }

@@ -1,3 +1,4 @@
+import { CollapseConfigManager } from '@oinone/kunlun-engine';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { OioCollapseExpandIconPosition, OioCollapseMethod, OioCollapseType } from '@oinone/kunlun-vue-ui-common';
@@ -60,7 +61,7 @@ export class DefaultCollapseWidget extends BasePackWidget {
 
   @Widget.Reactive()
   protected get type(): string {
-    return this.getDsl().type?.toLowerCase?.() || OioCollapseType.bordered;
+    return this.getDsl().type?.toLowerCase?.() || CollapseConfigManager.getConfig().type || OioCollapseType.bordered;
   }
 
   @Widget.Reactive()

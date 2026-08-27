@@ -1,7 +1,7 @@
-import { type RuntimeO2MField, SubmitRelationHandler, SubmitValue } from '@oinone/kunlun-engine';
+import { type RuntimeO2MField, SubmitRelationHandler, SubmitValue, TableConfigManager } from '@oinone/kunlun-engine';
 import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
-import { BooleanHelper, Optional, type ReturnPromise } from '@oinone/kunlun-shared';
+import { BooleanHelper, type ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI } from '@oinone/kunlun-spi';
 import { Widget } from '@oinone/kunlun-vue-widget';
 import { BaseFieldWidget, FormSubviewListFieldWidget, RelationQueryHelper } from '../../../../basic';
@@ -26,7 +26,7 @@ export class FormO2MTableFieldWidget extends FormSubviewListFieldWidget<RuntimeO
     if (this.readonly) {
       return false;
     }
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showAddBtn)).orElse(true);
+    return BooleanHelper.toBoolean(this.getDsl().showAddBtn) ?? TableConfigManager.isShowAddBtn();
   }
 
   /**
@@ -38,7 +38,7 @@ export class FormO2MTableFieldWidget extends FormSubviewListFieldWidget<RuntimeO
     if (this.readonly) {
       return false;
     }
-    return Optional.ofNullable(BooleanHelper.toBoolean(this.getDsl().showQuickFill)).orElse(true);
+    return BooleanHelper.toBoolean(this.getDsl().showQuickFill) ?? TableConfigManager.isShowQuickFill();
   }
 
   protected async refreshValueProcess() {
