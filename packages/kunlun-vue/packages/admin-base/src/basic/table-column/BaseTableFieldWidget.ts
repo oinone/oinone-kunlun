@@ -278,8 +278,10 @@ export class BaseTableFieldWidget<
       // []({}) == []({}) 和 []({}) === []({})结果均为false, 所以会导致表达式无限执行
       return currentValue;
     }
-    if (isRelatedField(this.field) && (!isEqual || isEmptyValue(computeResult))) {
-      computeResult = currentValue;
+    if (isRelatedField(this.field) && !isEqual) {
+      if (isEmptyValue(computeResult)) {
+        computeResult = currentValue;
+      }
     }
     this.setValue(context, computeResult as Value);
     return computeResult;
