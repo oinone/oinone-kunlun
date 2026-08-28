@@ -23,7 +23,6 @@
     "lodash-es": "4.17.21"
   },
   "devDependencies": {
-    "@ant-design/icons-vue": "7.0.1",
     "@oinone/kunlun-compile": "~7.2.0",
     "@oinone/kunlun-engine": "~7.2.0",
     "@oinone/kunlun-expression": "~7.2.0",
@@ -38,13 +37,14 @@
     "@oinone/kunlun-vue-widget": "~7.2.0",
     "@types/lodash-es": "4.17.6",
     "@vue/reactivity": "3.5.26",
-    "ant-design-vue": "4.2.6",
     "dayjs": "1.10.7",
     "dom-scroll-into-view": "2.0.1",
     "slate": "^0.72.0",
     "snabbdom": "^3.1.0"
   },
   "peerDependencies": {
+    "@ant-design/icons-vue": ">=7.0.1",
+    "ant-design-vue": ">=4.2.6",
     "vue": ">=3.5.26",
     "vue-types": "^3.0.2"
   },
