@@ -30,7 +30,6 @@
 </template>
 <script lang="ts">
 import { deepClone } from '@oinone/kunlun-meta';
-import { WritableComputedRef } from '@vue/reactivity';
 import { Popover as APopover, Select as ASelect } from 'ant-design-vue';
 import { computed, defineComponent, onBeforeUnmount, onMounted, Ref, ref, watch } from 'vue';
 import { queryExpBuildInFunction } from '../../../service';
@@ -70,7 +69,7 @@ export default defineComponent({
     });
 
     const $$selectValue: Ref<IExpSelectOption | null | undefined> = ref();
-    const selectValue: WritableComputedRef<IExpSelectOption | null | undefined> = computed({
+    const selectValue = computed<IExpSelectOption | null | undefined>({
       get() {
         if (!$$selectValue.value || !$$selectValue.value.value) {
           return undefined;

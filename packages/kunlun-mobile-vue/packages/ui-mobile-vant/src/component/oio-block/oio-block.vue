@@ -1,6 +1,12 @@
 <script lang="ts">
 import { CastHelper, StringHelper } from '@oinone/kunlun-shared';
-import { FlexDirection, LayoutHelper, OioBlockProps, PropRecordHelper, type StandardGutterType } from '@oinone/kunlun-vue-ui-common';
+import {
+  FlexDirection,
+  LayoutHelper,
+  OioBlockProps,
+  PropRecordHelper,
+  type StandardGutterType
+} from '@oinone/kunlun-vue-ui-common';
 import { isNil, isNumber, isString, toString } from 'lodash-es';
 import { createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
@@ -13,7 +19,7 @@ export default defineComponent({
   },
   render() {
     const blockClassList: string[] = [`${DEFAULT_PREFIX}-block`];
-    let style = this.$attrs.style as CSSStyleDeclaration;
+    let style = this.$attrs.style as unknown as CSSStyleDeclaration;
     if (!style) {
       style = {} as CSSStyleDeclaration;
     }

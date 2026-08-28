@@ -20,7 +20,6 @@
 import { ActiveRecordExtendKeys, ActiveRecords } from '@oinone/kunlun-engine';
 import { CheckedChangeEvent, OioColumn, OioTable, RadioChangeEvent } from '@oinone/kunlun-vue-ui';
 import { OioInputSearch, OioModal, PropRecordHelper, SelectMode, StringHelper } from '@oinone/kunlun-vue-ui-antd';
-import { WritableComputedRef } from '@vue/reactivity';
 import { debounce } from 'lodash-es';
 import { computed, defineComponent, nextTick, reactive, ref, Ref } from 'vue';
 import { DefaultSelect, DefaultSelectProps } from '../base';
@@ -180,7 +179,7 @@ export default defineComponent({
     };
 
     const $$searchValue: Ref<string | undefined> = ref();
-    const searchValue: WritableComputedRef<string | undefined> = computed({
+    const searchValue = computed<string | undefined>({
       get() {
         if (props.searchValue === undefined) {
           return $$searchValue.value;

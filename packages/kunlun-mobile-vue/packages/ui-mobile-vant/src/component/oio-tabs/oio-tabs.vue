@@ -1,8 +1,14 @@
 <script lang="ts">
 import { CastHelper, type CSSStyle, StringHelper } from '@oinone/kunlun-shared';
-import { OioTabPosition, OioTabsProps, PropRecordHelper, StyleHelper, useProviderOioTabsContext } from '@oinone/kunlun-vue-ui-common';
-import { Tabs as VanTabs } from 'vant';
+import {
+  OioTabPosition,
+  OioTabsProps,
+  PropRecordHelper,
+  StyleHelper,
+  useProviderOioTabsContext
+} from '@oinone/kunlun-vue-ui-common';
 import { isNil } from 'lodash-es';
+import { Tabs as VanTabs } from 'vant';
 import { computed, createVNode, defineComponent } from 'vue';
 import { DEFAULT_PREFIX } from '../../theme';
 
@@ -75,7 +81,7 @@ export default defineComponent({
         class: classes,
         style: {
           ...style,
-          ...((this.$attrs.style || {}) as CSSStyleDeclaration)
+          ...((this.$attrs.style || {}) as unknown as CSSStyleDeclaration)
         }
       },
       PropRecordHelper.collectionSlots(this.$slots, [

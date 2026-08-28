@@ -19,7 +19,7 @@ export default defineComponent({
   },
   render() {
     const blockClassList: string[] = [`${DEFAULT_PREFIX}-block`];
-    let style = this.$attrs.style as CSSStyleDeclaration;
+    let style = this.$attrs.style as unknown as CSSStyleDeclaration;
     if (!style) {
       style = {} as CSSStyleDeclaration;
     }

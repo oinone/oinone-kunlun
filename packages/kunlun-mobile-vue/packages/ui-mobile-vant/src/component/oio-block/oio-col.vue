@@ -20,7 +20,7 @@ export default defineComponent({
       classList.push(`${DEFAULT_PREFIX}-col-fixed`);
     }
 
-    const style = (this.$attrs.style || {}) as CSSStyleDeclaration;
+    const style = (this.$attrs.style || {}) as unknown as CSSStyleDeclaration;
     if (this.flex) {
       style.flex = this.flex as string;
     }

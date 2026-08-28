@@ -21,6 +21,7 @@
     "lodash-es": "4.17.21"
   },
   "devDependencies": {
+    "@oinone/kunlun-compile": "~7.2.0",
     "@oinone/kunlun-engine": "~7.2.0",
     "@oinone/kunlun-meta": "~7.2.0",
     "@oinone/kunlun-request": "~7.2.0",
@@ -29,8 +30,11 @@
     "@vue/shared": "3.5.26",
     "rollup-plugin-copy": "3.4.0",
     "sass": "1.97.0",
-    "sass-loader": "16.0.6",
-    "vue": "3.5.26"
+    "sass-loader": "16.0.6"
+  },
+  "peerDependencies": {
+    "vue": ">=3.5.26",
+    "vue-types": "^3.0.2"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

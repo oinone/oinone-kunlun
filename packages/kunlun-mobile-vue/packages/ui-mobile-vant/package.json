@@ -36,8 +36,11 @@
     "moment": "2.29.3",
     "sass": "1.97.0",
     "sass-loader": "16.0.6",
-    "vant": "4.9.22",
-    "vue": "3.5.26"
+    "vant": "4.9.22"
+  },
+  "peerDependencies": {
+    "vue": ">=3.5.26",
+    "vue-types": "^3.0.2"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }
