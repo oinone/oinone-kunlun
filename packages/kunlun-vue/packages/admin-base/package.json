@@ -32,8 +32,7 @@
     "dayjs": "1.10.7",
     "dom7": "^4.0.4",
     "file-saver": "2.0.5",
-    "smooth-signature": "1.0.15",
-    "vue-types": "^3.0.0"
+    "smooth-signature": "1.0.15"
   },
   "devDependencies": {
     "@ant-design/icons-vue": "7.0.1",
@@ -67,6 +66,9 @@
     "vuedraggable": "4.1.0",
     "vxe-table": "4.3.6",
     "xe-utils": "3.5.7"
+  },
+  "peerDependencies": {
+    "vue-types": "^3.0.0"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

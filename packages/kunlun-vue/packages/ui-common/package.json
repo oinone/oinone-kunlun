@@ -18,8 +18,7 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "lodash-es": "4.17.21",
-    "vue-types": "^3.0.0"
+    "lodash-es": "4.17.21"
   },
   "devDependencies": {
     "@oinone/kunlun-engine": "~7.2.0",
@@ -32,6 +31,9 @@
     "sass": "1.97.0",
     "sass-loader": "16.0.6",
     "vue": "3.5.26"
+  },
+  "peerDependencies": {
+    "vue-types": "^3.0.0"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

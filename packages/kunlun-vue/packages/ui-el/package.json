@@ -19,8 +19,7 @@
   },
   "dependencies": {
     "@oinone/kunlun-vue-ui-common": "7.2.13",
-    "dayjs": "1.10.7",
-    "vue-types": "^3.0.0"
+    "dayjs": "1.10.7"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "2.0.9",
@@ -31,6 +30,9 @@
     "sass": "1.97.0",
     "sass-loader": "16.0.6",
     "vue": "3.5.26"
+  },
+  "peerDependencies": {
+    "vue-types": "^3.0.0"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }
