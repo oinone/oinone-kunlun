@@ -128,6 +128,7 @@ export class CompileConfigBuilder {
     const defaultExternal: (string | RegExp)[] = [];
     pushExternal(defaultExternal, Object.keys(pkg.dependencies || {}));
     pushExternal(defaultExternal, Object.keys(pkg.devDependencies || {}));
+    pushExternal(defaultExternal, Object.keys(pkg.peerDependencies || {}));
     const finalExternal = [
       ...new Set([...defaultExternal, ...(options?.includeExternal || [])]).difference(
         new Set([...(options?.excludeExternal || [])])
