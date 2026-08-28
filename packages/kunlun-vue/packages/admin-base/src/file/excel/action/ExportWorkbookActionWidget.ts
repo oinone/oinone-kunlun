@@ -117,6 +117,7 @@ export class ExportWorkbookActionWidget extends AbstractTaskAction<ExcelExportTa
             id: workbookId
           }
         } as ExcelExportTask;
+        isNeedPrepare = this.sync;
         break;
       }
       case ExcelExportMethodEnum.SELECT_TEMPLATE_FIELD: {
@@ -130,6 +131,7 @@ export class ExportWorkbookActionWidget extends AbstractTaskAction<ExcelExportTa
             id: workbookId
           }
         } as ExcelExportTask;
+        isNeedPrepare = this.sync;
         break;
       }
       case ExcelExportMethodEnum.SELECT_FIELD: {
