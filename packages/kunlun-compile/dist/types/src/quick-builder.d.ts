@@ -5,6 +5,7 @@ interface QuickBuilderOptions {
         version: string;
         dependencies?: Record<string, unknown>;
         devDependencies?: Record<string, unknown>;
+        peerDependencies?: Record<string, unknown>;
     };
     prefix?: string;
     includeExternal?: string[];
