@@ -1696,13 +1696,9 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
-  protected $$beforeCreated() {
-    this.initTreeConfig();
-    super.$$beforeCreated();
-  }
-
   protected $$beforeMount() {
     super.$$beforeMount();
+    this.initTreeConfig();
     this.initGroupTreeField();
   }
 }

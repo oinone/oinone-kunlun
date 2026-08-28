@@ -33,7 +33,7 @@ export class DeleteOneActionWidget extends ActionWidget {
   protected async clickAction() {
     const event: TableDeleteEvent = {
       type: TableEventType.delete,
-      activeRecord: this.activeRecords?.[0],
+      activeRecords: this.activeRecords,
       action: this.action
     };
     this.tableEventCallChaining?.call(event);
