@@ -1,9 +1,4 @@
-import common from './common.cjs';
-import importExportRules from './importExportRules.cjs';
+const common = require('./common.cjs');
+const importExportRules = require('./importExportRules.cjs');
 
-const pluginOinone = {
-  common,
-  importExportRules
-};
-
-export default pluginOinone;
+module.exports = { common, importExportRules };

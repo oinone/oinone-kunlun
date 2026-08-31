@@ -1,5 +1,5 @@
-import pluginImport from 'eslint-plugin-import';
-import pluginUnusedImports from 'eslint-plugin-unused-imports';
+const pluginImport = require('eslint-plugin-import');
+const pluginUnusedImports = require('eslint-plugin-unused-imports');
 
 const importExportRules = {
   name: 'oinone/import-export-rules',
@@ -47,4 +47,4 @@ const importExportRules = {
   }
 };
 
-export default importExportRules;
+module.exports = importExportRules;
