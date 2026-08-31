@@ -98,6 +98,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
   @Widget.Inject()
   protected showQuickFill = false;
 
+  @Widget.Reactive()
   @Widget.Provide()
   protected get cellWidth() {
     // fixme @zbh 20250723 请使用语义明确的dsl属性名称
@@ -107,6 +108,7 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
+  @Widget.Reactive()
   @Widget.Provide()
   protected get cellMinWidth() {
     // fixme @zbh 20250723 请使用语义明确的dsl属性名称

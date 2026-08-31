@@ -96,9 +96,11 @@ export abstract class BaseTableColumnWidget<
     return this.getDsl().minWidth;
   }
 
+  @Widget.Reactive()
   @Widget.Inject()
   protected cellWidth: number | undefined;
 
+  @Widget.Reactive()
   @Widget.Inject()
   protected cellMinWidth: number | undefined;
 
