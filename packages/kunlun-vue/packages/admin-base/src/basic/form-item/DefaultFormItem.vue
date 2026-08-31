@@ -41,6 +41,9 @@ export default defineComponent({
     },
     elementBizStyle: {
       type: String as PropType<FormBizStyle>
+    },
+    renderLabelExtra: {
+      type: Function
     }
   },
   setup(props) {
@@ -103,6 +106,7 @@ export default defineComponent({
             )
           );
         }
+        vnodes.push(...(this.renderLabelExtra?.() || []));
         return vnodes;
       };
     }
