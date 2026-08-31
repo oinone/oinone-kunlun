@@ -9,7 +9,7 @@ import {
   WidgetTrigger
 } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { isArray, isNumber } from 'lodash-es';
+import { isArray, isFinite, isNumber } from 'lodash-es';
 import { BaseFieldWidget, FormFieldWidget } from '../../../../basic';
 import { UploadCom } from '../../../../components';
 import { isValidatorSuccess, type ValidatorInfo } from '../../../../typing';
@@ -121,8 +121,16 @@ export class FormStringUploadFieldWidget extends FormFieldWidget<string[], Runti
 
   @Widget.Reactive()
   protected get limitSize(): number {
-    const limitSize = Number(this.getDsl().limitSize);
-    if (isNumber(limitSize)) {
+    const dslLimitSize = this.getDsl().limitSize;
+    if (dslLimitSize == null) {
+      return -1;
+    }
+    let limitSize = Number(dslLimitSize);
+    if (isNumber(limitSize) && isFinite(limitSize)) {
+      return limitSize;
+    }
+    limitSize = Number(this.executeExpression(dslLimitSize, dslLimitSize));
+    if (isNumber(limitSize) && isFinite(limitSize)) {
       return limitSize;
     }
     return -1;

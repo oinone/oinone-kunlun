@@ -1,7 +1,7 @@
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { defaultMultiPartConfig } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { isNumber } from 'lodash-es';
+import { isFinite, isNumber } from 'lodash-es';
 import { FormM2OFieldWidget } from '../../../../basic';
 
 export abstract class AbstractFormM2OUploadFieldWidget extends FormM2OFieldWidget {
@@ -10,8 +10,16 @@ export abstract class AbstractFormM2OUploadFieldWidget extends FormM2OFieldWidge
 
   @Widget.Reactive()
   protected get limitSize(): number {
-    const limitSize = Number(this.getDsl().limitSize);
-    if (isNumber(limitSize)) {
+    const dslLimitSize = this.getDsl().limitSize;
+    if (dslLimitSize == null) {
+      return -1;
+    }
+    let limitSize = Number(dslLimitSize);
+    if (isNumber(limitSize) && isFinite(limitSize)) {
+      return limitSize;
+    }
+    limitSize = Number(this.executeExpression(dslLimitSize, dslLimitSize));
+    if (isNumber(limitSize) && isFinite(limitSize)) {
       return limitSize;
     }
     return -1;
