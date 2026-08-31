@@ -295,6 +295,10 @@ export abstract class BaseView<Props extends BaseViewProps = BaseViewProps> exte
     super.$$created();
     const { globalState, createViewState } = useOioState(this.currentHandle);
     const state = createViewState();
+    const parentHandle = this.metadataRuntimeContextNullable?.parentContext?.handle;
+    if (parentHandle) {
+      state.parent = useOioState().getViewState(parentHandle);
+    }
     state.viewType = this.viewType!;
     this.globalState = globalState;
     this.viewState = state;

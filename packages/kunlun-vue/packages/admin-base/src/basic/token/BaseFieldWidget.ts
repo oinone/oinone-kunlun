@@ -306,20 +306,35 @@ export class BaseFieldWidget<
     return this.getDsl().clickMethod?.toLowerCase();
   }
 
-  protected get clickAction(): ActionWidget | undefined {
-    let enableClick = BooleanHelper.toBoolean(this.getDsl().enableClick);
-    const clickActionName = this.getDsl().clickActionName;
+  protected getClickActionInfo(): { model: string; name: string } | undefined {
+    const clickActionName = this.getDsl().clickActionName as string;
     if (!clickActionName) {
       return undefined;
     }
+    const ss = clickActionName.split('#');
+    if (ss.length === 1) {
+      return { model: this.model.model, name: clickActionName };
+    }
+    if (ss.length === 2) {
+      return { model: ss[0], name: ss[1] };
+    }
+    return undefined;
+  }
+
+  protected get clickAction(): ActionWidget | undefined {
+    let enableClick = BooleanHelper.toBoolean(this.getDsl().enableClick);
+    const clickActionInfo = this.getClickActionInfo();
+    if (!clickActionInfo) {
+      return undefined;
+    }
+    const { model: clickActionModel, name: clickActionName } = clickActionInfo;
     if (enableClick == null) {
       enableClick = true;
     }
     if (!enableClick) {
       return undefined;
     }
-    const handles = this.viewState?.getActionBarState(this.rowIndex)?.actions || [];
-    return handles
+    let actionWidget = (this.viewState?.getActionBarState(this.rowIndex)?.actions || [])
       .map((handle) => Widget.select<ActionWidget>(handle))
       .find((v) => {
         const action = v?.action;
@@ -331,6 +346,32 @@ export class BaseFieldWidget<
         }
         return action.name === clickActionName;
       });
+    if (actionWidget) {
+      return actionWidget;
+    }
+    let currentViewState = this.viewState?.parent;
+    while (currentViewState) {
+      actionWidget = (currentViewState.getActionBarState()?.actions || [])
+        .map((handle) => Widget.select<ActionWidget>(handle))
+        .find((v) => {
+          const action = v?.action;
+          if (!action) {
+            return false;
+          }
+          if (action.model !== clickActionModel) {
+            return false;
+          }
+          if (isRuntimeClientAction(action)) {
+            return action.name === clickActionName || action.fun === clickActionName;
+          }
+          return action.name === clickActionName;
+        });
+      if (actionWidget) {
+        return actionWidget;
+      }
+      currentViewState = currentViewState.parent;
+    }
+    return undefined;
   }
 
   protected onClickAction(action: ActionWidget) {

@@ -28,6 +28,7 @@ export interface OioViewState extends StateEntity {
    */
   __position: RenderPosition[];
 
+  parent?: OioViewState;
   fullscreen: boolean;
   viewType?: ViewType;
   popupScene?: string;
