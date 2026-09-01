@@ -753,18 +753,18 @@ export class MultiTabsContainerWidget extends DslDefinitionWidget<MultiTabsConta
     }
   }
 
-  protected onClose = (manager: IMultiTabsManager, instance: MultiTabInstance) => {
+  protected onClose(manager: IMultiTabsManager, instance: MultiTabInstance) {
     const { key } = instance;
     const targetIndex = this.tabs.findIndex((v) => v.key === key);
     if (targetIndex !== -1) {
       this.tabs.splice(targetIndex, 1);
       this.removeTabComponent?.(key);
     }
-  };
+  }
 
-  protected onReset = (manager: IMultiTabsManager) => {
+  protected onReset(manager: IMultiTabsManager) {
     this.clearTabComponent?.();
-  };
+  }
 
   protected $$created() {
     super.$$created();

@@ -407,17 +407,17 @@ export class MultiTabsWidget extends MaskWidget {
     await this.reloadActiveTab();
   }
 
-  protected onActive = (manager: IMultiTabsManager, instance: MultiTabInstance) => {
+  protected onActive(manager: IMultiTabsManager, instance: MultiTabInstance) {
     this.activeKey = instance.key;
-  };
+  }
 
-  protected onClose = (manager: IMultiTabsManager, instance: MultiTabInstance) => {
+  protected onClose(manager: IMultiTabsManager, instance: MultiTabInstance) {
     const { key } = instance;
     const targetTab = this.getTabs().find((v) => v.key === key);
     if (targetTab) {
       this.onCloseTab(targetTab);
     }
-  };
+  }
 
   protected $$created(): void {
     super.$$created();
