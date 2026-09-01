@@ -20,5 +20,8 @@
     "@oinone/kunlun-request": "7.2.3",
     "graphql-tag": "2.12.6"
   },
+  "devDependencies": {
+    "rollup": "4.53.5"
+  },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

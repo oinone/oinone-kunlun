@@ -28,6 +28,7 @@
     "@types/lodash-es": "4.17.6",
     "element-plus": "2.13.0",
     "lodash-es": "4.17.21",
+    "rollup": "4.53.5",
     "sass": "1.97.0",
     "sass-loader": "16.0.6",
     "vue": "3.5.26"

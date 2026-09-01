@@ -34,6 +34,7 @@
     "@oinone/kunlun-shared": "~7.2.0",
     "@types/lodash-es": "4.17.6",
     "lodash-es": "4.17.21",
+    "rollup": "4.53.5",
     "sass": "1.97.0",
     "sass-loader": "16.0.6"
   },

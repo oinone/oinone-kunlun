@@ -23,6 +23,7 @@
     "@oinone/kunlun-shared": "7.2.3",
     "@types/lodash-es": "4.17.6",
     "reflect-metadata": "0.2.2",
+    "rollup": "4.53.5",
     "tslib": "2.8.1"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"

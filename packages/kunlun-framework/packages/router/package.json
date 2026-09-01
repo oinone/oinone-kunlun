@@ -22,7 +22,8 @@
   "devDependencies": {
     "@oinone/kunlun-shared": "7.2.3",
     "@oinone/kunlun-state": "7.2.3",
-    "@types/page": "1.11.5"
+    "@types/page": "1.11.5",
+    "rollup": "4.53.5"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

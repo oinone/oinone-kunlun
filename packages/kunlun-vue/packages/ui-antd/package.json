@@ -31,6 +31,7 @@
     "ant-design-vue": "4.2.6",
     "lodash-es": "4.17.21",
     "moment": "2.29.3",
+    "rollup": "4.53.5",
     "sass": "1.97.0",
     "sass-loader": "16.0.6",
     "vue": "3.5.26"
