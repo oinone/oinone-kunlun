@@ -17,7 +17,8 @@ import { Expression } from '@oinone/kunlun-expression';
 import { isEmptyValue, isValidateEmpty, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, Constructor, ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
-import { ComputeTrigger, useClick } from '@oinone/kunlun-vue-ui-common';
+import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
+import { ComputeTrigger, SpinSize, useClick } from '@oinone/kunlun-vue-ui-common';
 import { InnerWidgetType, PathWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isFunction, isPlainObject, isString } from 'lodash-es';
 import { createVNode, VNode, withModifiers } from 'vue';
@@ -375,7 +376,8 @@ export class BaseFieldWidget<
       clickMethod = ActionClickMethod.click;
     }
     const props: Record<string, unknown> = {
-      class: 'default-form-hyperlinks'
+      class: 'default-form-hyperlinks',
+      loading: clickAction.getOperator<ActionWidget>().actionProps.loading
     };
     switch (clickMethod) {
       case ActionClickMethod.click:
@@ -396,7 +398,16 @@ export class BaseFieldWidget<
   }
 
   protected renderFieldAction(props: Record<string, unknown>, nodes: string | VNode[] | undefined): VNode[] {
-    return [createVNode('span', props, [createVNode('a', {}, nodes)])];
+    const { loading, ...otherProps } = props;
+    return [
+      createVNode('span', otherProps, [
+        createVNode(OioSpin, {
+          size: SpinSize.small,
+          loading
+        }),
+        createVNode('a', {}, nodes)
+      ])
+    ];
   }
 
   protected $$beforeCreated() {

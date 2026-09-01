@@ -1,14 +1,15 @@
-.default-table-hyperlinks > a {
-  display: inline-block;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.default-table-hyperlinks,
+.default-form-hyperlinks {
+  display: flex;
 
-.default-form-hyperlinks > a {
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  & > .oio-spin {
+    margin-right: 4px;
+  }
+
+  & > a {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }

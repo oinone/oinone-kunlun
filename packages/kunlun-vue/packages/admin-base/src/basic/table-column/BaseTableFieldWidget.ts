@@ -19,7 +19,8 @@ import {
   TableEditorMode,
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
-import { useClick } from '@oinone/kunlun-vue-ui-common';
+import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
+import { SpinSize, useClick } from '@oinone/kunlun-vue-ui-common';
 import { type ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isFunction, isNaN, isNil, isPlainObject, isString, toString } from 'lodash-es';
 import { createVNode, type VNode, withModifiers } from 'vue';
@@ -565,7 +566,8 @@ export class BaseTableFieldWidget<
       clickMethod = ActionClickMethod.click;
     }
     const props: Record<string, unknown> = {
-      class: 'default-table-hyperlinks'
+      class: 'default-table-hyperlinks',
+      loading: clickAction.getOperator<ActionWidget>().actionProps.loading
     };
     switch (clickMethod) {
       case ActionClickMethod.click:
@@ -586,7 +588,13 @@ export class BaseTableFieldWidget<
   }
 
   protected renderFieldAction(props: Record<string, unknown>, nodes: string | VNode[]): VNode[] {
-    return [createVNode('div', props, [createVNode('a', {}, nodes)])];
+    const { loading, ...otherProps } = props;
+    const children: VNode[] = [];
+    if (loading) {
+      children.push(createVNode(OioSpin, { size: SpinSize.small, loading }));
+    }
+    children.push(createVNode('a', {}, nodes));
+    return [createVNode('div', otherProps, children)];
   }
 
   @Widget.Method()
