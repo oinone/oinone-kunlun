@@ -6,6 +6,7 @@ export * from './token';
 export * from './token/extend';
 export * from './types';
 export * from './mixin';
+export * from './helper';
 
 export * from './element';
 export * from './field';

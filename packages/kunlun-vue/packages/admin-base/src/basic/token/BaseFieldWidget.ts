@@ -17,7 +17,7 @@ import { Expression } from '@oinone/kunlun-expression';
 import { isEmptyValue, isValidateEmpty, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, Constructor, ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
-import { ComputeTrigger } from '@oinone/kunlun-vue-ui-common';
+import { ComputeTrigger, useClick } from '@oinone/kunlun-vue-ui-common';
 import { InnerWidgetType, PathWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isFunction, isPlainObject, isString } from 'lodash-es';
 import { createVNode, VNode, withModifiers } from 'vue';
@@ -25,6 +25,7 @@ import { type ActionWidget } from '../../action/component/action/ActionWidget';
 import { ActionClickMethod } from '../../action/component/typing';
 import { isValidatorError, isValidatorSuccess, type ValidatorInfo } from '../../typing';
 import { BaseFormItemWidget, type BaseFormItemWidgetProps } from '../form-item';
+import { getClickActionInfo } from '../helper';
 
 /**
  * Field组件注册可选项
@@ -306,28 +307,13 @@ export class BaseFieldWidget<
     return this.getDsl().clickMethod?.toLowerCase();
   }
 
-  protected getClickActionInfo(): { model: string; name: string } | undefined {
-    const clickActionName = this.getDsl().clickActionName as string;
-    if (!clickActionName) {
-      return undefined;
-    }
-    const ss = clickActionName.split('#');
-    if (ss.length === 1) {
-      return { model: this.model.model, name: clickActionName };
-    }
-    if (ss.length === 2) {
-      return { model: ss[0], name: ss[1] };
-    }
-    return undefined;
-  }
-
   protected get clickAction(): ActionWidget | undefined {
-    let enableClick = BooleanHelper.toBoolean(this.getDsl().enableClick);
-    const clickActionInfo = this.getClickActionInfo();
+    const clickActionInfo = getClickActionInfo(this.model.model, this.getDsl().clickActionName);
     if (!clickActionInfo) {
       return undefined;
     }
     const { model: clickActionModel, name: clickActionName } = clickActionInfo;
+    let enableClick = BooleanHelper.toBoolean(this.getDsl().enableClick);
     if (enableClick == null) {
       enableClick = true;
     }
@@ -393,7 +379,11 @@ export class BaseFieldWidget<
     };
     switch (clickMethod) {
       case ActionClickMethod.click:
-        props.onClick = withModifiers(() => this.onClickAction.bind(this)(clickAction), ['stop']);
+        const { onMousedown, onMouseup } = useClick(
+          withModifiers(() => this.onClickAction.bind(this)(clickAction), ['stop'])
+        );
+        props.onMousedown = onMousedown;
+        props.onMouseup = onMouseup;
         break;
       case ActionClickMethod.dblclick:
         props.onDblclick = withModifiers(() => this.onClickAction.bind(this)(clickAction), ['stop']);
@@ -405,7 +395,7 @@ export class BaseFieldWidget<
     return this.renderFieldAction(props, nodes);
   }
 
-  protected renderFieldAction(props: Record<string, unknown>, nodes: string | VNode[] | undefined) {
+  protected renderFieldAction(props: Record<string, unknown>, nodes: string | VNode[] | undefined): VNode[] {
     return [createVNode('span', props, [createVNode('a', {}, nodes)])];
   }
 
