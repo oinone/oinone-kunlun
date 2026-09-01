@@ -643,13 +643,43 @@ export class MultiTabsContainerWidget extends DslDefinitionWidget<MultiTabsConta
     this.setActiveTabItem(targetTabItem);
   }
 
+  protected getIsKeepAlive(tab: MultiTabItem): boolean {
+    const { stack } = tab.instance;
+    const { action, parameters } = stack[stack.length - 1];
+    const { isKeepAlive: _isKeepAlive, context: _context } = parameters;
+    let isKeepAlive = BooleanHelper.toBoolean(_isKeepAlive);
+    if (isKeepAlive != null) {
+      return isKeepAlive;
+    }
+    if (_context != null) {
+      let context: Record<string, unknown> | undefined;
+      if (typeof context === 'string') {
+        try {
+          context = JSON.parse(_context);
+        } catch (e) {
+          console.error(`Invalid context parameter. context=${_context}`, e);
+        }
+      } else {
+        context = _context as Record<string, unknown>;
+      }
+      isKeepAlive = BooleanHelper.toBoolean(context.isKeepAlive);
+      if (isKeepAlive != null) {
+        return isKeepAlive;
+      }
+    }
+    isKeepAlive = BooleanHelper.toBoolean(action.context?.isKeepAlive);
+    if (isKeepAlive == null) {
+      isKeepAlive = true;
+    }
+    return isKeepAlive;
+  }
+
   protected setActiveTabItem(tab: MultiTabItem) {
-    const { widget, stack } = tab.instance;
+    const { widget } = tab.instance;
     if (!widget) {
       throw new Error('Invalid tab widget.');
     }
-    const { action } = stack[stack.length - 1];
-    const isKeepAlive = (action.context?.isKeepAlive as boolean) ?? true;
+    const isKeepAlive = this.getIsKeepAlive(tab);
     this.setActiveTabComponent?.(widget.getWidgetComponent(true) as Component, isKeepAlive);
     const now = new Date();
     if (!tab.createDate) {

@@ -76,6 +76,10 @@ function executeRouterViewAction(
   } else {
     lastedPage = (matched.segmentParams.page as Record<string, unknown>) || {};
   }
+  const context = extra.context;
+  if (context != null && typeof context !== 'string') {
+    extra.context = JSON.stringify(context);
+  }
   const parameters: Record<string, string> = {
     ...lastedPage,
     module: `${action.resModuleName || lastedPage.module || action.moduleName}`,
