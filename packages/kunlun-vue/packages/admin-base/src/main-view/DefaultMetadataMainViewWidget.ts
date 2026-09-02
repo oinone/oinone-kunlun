@@ -115,7 +115,7 @@ export class DefaultMetadataMainViewWidget extends MetadataViewWidget {
     return this;
   }
 
-  private arePropertiesEqual<T extends object>(oldProp: T | string | undefined, newProp: T | string | undefined) {
+  private arePropertiesEqual(oldProp: unknown, newProp: unknown): boolean {
     if (oldProp && newProp) {
       const old = typeof oldProp === 'string' ? oldProp : JSON.stringify(oldProp);
       const _new = typeof newProp === 'string' ? newProp : JSON.stringify(newProp);
