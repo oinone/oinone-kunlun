@@ -163,19 +163,23 @@ export class BreadcrumbWidget extends MaskWidget {
   }
 
   protected async onActiveTab(manager: IMultiTabsManager, instance: MultiTabInstance) {
-    const { action, parameters } = instance.stack[instance.stack.length - 1];
+    const { action: runtimeViewAction, parameters } = instance.stack[instance.stack.length - 1];
     if (!parameters) {
+      return;
+    }
+    const { module, model, action } = parameters;
+    if (!module || !model || !action) {
       return;
     }
 
     await this.reloadMaskProcess({
-      module: parameters.module,
-      model: parameters.model,
-      action: parameters.action,
+      module,
+      model,
+      action,
 
-      viewName: action.resViewName,
-      viewType: action.resViewType,
-      target: action.target,
+      viewName: runtimeViewAction.resViewName,
+      viewType: runtimeViewAction.resViewType,
+      target: runtimeViewAction.target,
 
       currentPage: parameters
     });
