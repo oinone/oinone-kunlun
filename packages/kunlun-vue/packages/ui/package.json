@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui",
-  "version": "7.2.13",
+  "version": "7.2.14",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -18,8 +18,8 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-ui-antd": "7.2.13",
-    "@oinone/kunlun-vue-ui-common": "7.2.13",
+    "@oinone/kunlun-vue-ui-antd": "7.2.14",
+    "@oinone/kunlun-vue-ui-common": "7.2.14",
     "sortablejs": "1.14.0",
     "vue3-draggable-resizable": "1.6.5",
     "vue3-smooth-dnd": "0.0.6",

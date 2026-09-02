@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-router",
-  "version": "7.2.13",
+  "version": "7.2.14",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -16,7 +16,7 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-widget": "7.2.13"
+    "@oinone/kunlun-vue-widget": "7.2.14"
   },
   "devDependencies": {
     "@oinone/kunlun-compile": "~7.2.0",

@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-admin-layout",
-  "version": "7.2.13",
+  "version": "7.2.14",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -18,11 +18,11 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@oinone/kunlun-vue-router": "7.2.13",
-    "@oinone/kunlun-vue-ui": "7.2.13",
-    "@oinone/kunlun-vue-ui-antd": "7.2.13",
-    "@oinone/kunlun-vue-ui-common": "7.2.13",
-    "@oinone/kunlun-vue-widget": "7.2.13",
+    "@oinone/kunlun-vue-router": "7.2.14",
+    "@oinone/kunlun-vue-ui": "7.2.14",
+    "@oinone/kunlun-vue-ui-antd": "7.2.14",
+    "@oinone/kunlun-vue-ui-common": "7.2.14",
+    "@oinone/kunlun-vue-widget": "7.2.14",
     "vue-json-pretty": "^2.4.0"
   },
   "devDependencies": {
