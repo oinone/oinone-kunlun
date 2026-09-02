@@ -521,6 +521,11 @@ export class BaseTableFieldWidget<
     }
   }
 
+  @Widget.Reactive()
+  protected get clickMethod(): ActionClickMethod | undefined {
+    return this.getDsl().clickMethod?.toLowerCase();
+  }
+
   protected getClickAction(context: RowContext): ActionWidget | undefined {
     const clickActionInfo = getClickActionInfo(this.model.model, this.getDsl().clickActionName);
     if (!clickActionInfo) {
