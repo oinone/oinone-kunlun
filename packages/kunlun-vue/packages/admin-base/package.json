@@ -35,6 +35,7 @@
     "smooth-signature": "1.0.15"
   },
   "devDependencies": {
+    "@oinone/kunlun-compile": "~7.2.0",
     "@oinone/kunlun-dsl": "~7.2.0",
     "@oinone/kunlun-engine": "~7.2.0",
     "@oinone/kunlun-environment": "~7.2.0",

@@ -20,6 +20,7 @@
     "path-to-regexp": "6.2.0"
   },
   "devDependencies": {
+    "@oinone/kunlun-compile": "~7.2.0",
     "@oinone/kunlun-shared": "7.2.3",
     "@oinone/kunlun-state": "7.2.3",
     "@types/page": "1.11.5",

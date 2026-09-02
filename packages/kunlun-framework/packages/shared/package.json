@@ -26,6 +26,7 @@
     "moment": "2.29.3"
   },
   "devDependencies": {
+    "@oinone/kunlun-compile": "~7.2.0",
     "@types/lodash-es": "4.17.6",
     "lodash-es": "4.17.21",
     "rollup": "4.53.5"
