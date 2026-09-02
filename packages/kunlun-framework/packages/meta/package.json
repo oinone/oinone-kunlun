@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-meta",
-  "version": "7.2.3",
+  "version": "7.2.4",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -16,8 +16,8 @@
     "postpublish": "node ../../../../scripts/postpublish.cjs"
   },
   "dependencies": {
-    "@oinone/kunlun-config": "7.2.3",
-    "@oinone/kunlun-request": "7.2.3",
+    "@oinone/kunlun-config": "7.2.4",
+    "@oinone/kunlun-request": "7.2.4",
     "graphql-tag": "2.12.6"
   },
   "devDependencies": {

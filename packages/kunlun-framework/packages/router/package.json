@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-router",
-  "version": "7.2.3",
+  "version": "7.2.4",
   "type": "module",
   "main": "index.ts",
   "scripts": {
@@ -21,8 +21,8 @@
   },
   "devDependencies": {
     "@oinone/kunlun-compile": "~7.2.0",
-    "@oinone/kunlun-shared": "7.2.3",
-    "@oinone/kunlun-state": "7.2.3",
+    "@oinone/kunlun-shared": "7.2.4",
+    "@oinone/kunlun-state": "7.2.4",
     "@types/page": "1.11.5",
     "rollup": "4.53.5"
   },

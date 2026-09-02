@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-cache",
-  "version": "7.2.3",
+  "version": "7.2.4",
   "type": "module",
   "main": "index.ts",
   "scripts": {
