@@ -164,6 +164,9 @@ export class BreadcrumbWidget extends MaskWidget {
 
   protected async onActiveTab(manager: IMultiTabsManager, instance: MultiTabInstance) {
     const { action, parameters } = instance.stack[instance.stack.length - 1];
+    if (!parameters) {
+      return;
+    }
 
     await this.reloadMaskProcess({
       module: parameters.module,
