@@ -4,6 +4,7 @@ import {
   isAllowGrouping,
   isAllowSortable,
   isRelatedField,
+  isRuntimeClientAction,
   type RuntimeModelField
 } from '@oinone/kunlun-engine';
 import { type FieldEventName, FieldEventNames, LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
@@ -18,14 +19,18 @@ import {
   TableEditorMode,
   VxeTableHelper
 } from '@oinone/kunlun-vue-ui';
+import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
+import { SpinSize, useClick } from '@oinone/kunlun-vue-ui-common';
 import { type ActiveRecordsWidgetProps, InnerWidgetType, Widget } from '@oinone/kunlun-vue-widget';
 import { isBoolean, isFunction, isNaN, isNil, isPlainObject, isString, toString } from 'lodash-es';
 import { createVNode, type VNode, withModifiers } from 'vue';
 import type { VxeTableDefines } from 'vxe-table';
 import { ActionWidget } from '../../action/component/action/ActionWidget';
+import { ActionClickMethod } from '../../action/component/typing';
 import { EditorField } from '../../tags/internal';
 import type { UserTablePrefer } from '../../typing';
 import { getTableColumnFixed, getTableColumnWidth } from '../../util';
+import { getClickActionInfo } from '../helper';
 import { BaseTableQuickOperationColumnWidget } from './BaseTableQuickOperationColumnWidget';
 import DefaultGroupCell from './DefaultGroupCell.vue';
 
@@ -516,52 +521,80 @@ export class BaseTableFieldWidget<
     }
   }
 
-  protected executeAction(context: RowContext) {
-    const { clickActionName } = this.getDsl();
-    const { index } = context;
-    const action = this.viewState
-      ?.getActionBarState(index)
-      ?.actions.map((v) => Widget.select<ActionWidget>(v))
-      .find((v) => v?.action?.name === clickActionName);
-    if (action instanceof ActionWidget && !action.disabled) {
-      action.getOperator<ActionWidget>().click();
+  protected getClickAction(context: RowContext): ActionWidget | undefined {
+    const clickActionInfo = getClickActionInfo(this.model.model, this.getDsl().clickActionName);
+    if (!clickActionInfo) {
+      return undefined;
     }
+    const { name: clickActionName } = clickActionInfo;
+    let enableClick = BooleanHelper.toBoolean(this.getDsl().enableClick);
+    if (enableClick == null) {
+      enableClick = true;
+    }
+    if (!enableClick) {
+      return undefined;
+    }
+    return (this.viewState?.getActionBarState(context.index)?.actions || [])
+      .map((handle) => Widget.select<ActionWidget>(handle))
+      .find((v) => {
+        const action = v?.action;
+        if (!action) {
+          return false;
+        }
+        if (isRuntimeClientAction(action)) {
+          return action.name === clickActionName || action.fun === clickActionName;
+        }
+        return action.name === clickActionName;
+      });
   }
 
-  protected handleClick(context: RowContext, e: MouseEvent) {
-    const { clickMethod } = this.getDsl();
-    if (clickMethod?.toLowerCase() === e.type) {
-      this.executeAction(context);
-    }
+  protected onClickAction(context: RowContext, action: ActionWidget) {
+    action.getOperator<ActionWidget>().click();
   }
 
   @Widget.Method()
-  protected wrapperToFieldAction(node: VNode[] | string, context: RowContext) {
-    return this.wrapperToFiledAction(node, context);
+  protected wrapperToFieldAction(nodes: VNode[] | string, context: RowContext) {
+    if (!(typeof nodes === 'string')) {
+      return nodes;
+    }
+    const clickAction = this.getClickAction(context);
+    if (!clickAction) {
+      return nodes;
+    }
+    let { clickMethod } = this;
+    if (clickMethod == null) {
+      clickMethod = ActionClickMethod.click;
+    }
+    const props: Record<string, unknown> = {
+      class: 'default-table-hyperlinks',
+      loading: clickAction.getOperator<ActionWidget>().actionProps.loading
+    };
+    switch (clickMethod) {
+      case ActionClickMethod.click:
+        const { onMousedown, onMouseup } = useClick(
+          withModifiers(() => this.onClickAction.bind(this)(context, clickAction), ['stop'])
+        );
+        props.onMousedown = onMousedown;
+        props.onMouseup = onMouseup;
+        break;
+      case ActionClickMethod.dblclick:
+        props.onDblclick = withModifiers(() => this.onClickAction.bind(this)(context, clickAction), ['stop']);
+        break;
+      default:
+        console.error('Unknown click method', clickMethod);
+        return nodes;
+    }
+    return this.renderFieldAction(props, nodes);
   }
 
-  /**
-   * @deprecated please using wrapperToFieldAction
-   */
-  protected wrapperToFiledAction(node: VNode[] | string, context: RowContext) {
-    if (!(typeof node === 'string')) {
-      return node;
+  protected renderFieldAction(props: Record<string, unknown>, nodes: string | VNode[]): VNode[] {
+    const { loading, ...otherProps } = props;
+    const children: VNode[] = [];
+    if (loading) {
+      children.push(createVNode(OioSpin, { size: SpinSize.small, loading }));
     }
-    const { enableClick } = this.getDsl();
-    if (!enableClick) {
-      return node;
-    }
-    return [
-      createVNode(
-        'div',
-        {
-          class: 'default-table-hyperlinks',
-          onClick: withModifiers((e) => this.handleClick.bind(this)(context, e as MouseEvent), ['stop']),
-          onDblclick: withModifiers((e) => this.handleClick.bind(this)(context, e as MouseEvent), ['stop'])
-        },
-        [createVNode('a', {}, node)]
-      )
-    ];
+    children.push(createVNode('a', {}, nodes));
+    return [createVNode('div', otherProps, children)];
   }
 
   @Widget.Method()

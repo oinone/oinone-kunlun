@@ -38,7 +38,7 @@ export function getActionBarState(this: OioAnyViewState, rowIndex?: number): Oio
   if (rowIndex == null) {
     const position = this.__position[this.__position.length - 1];
     if (position == null) {
-      console.warn('Please call getActionBarState method in the vue lifecycle.');
+      // console.warn('Please call getActionBarState method in the vue lifecycle.');
       return this.actionBar;
     }
     // fixme @zbh 20251205 rowIndex 无法准确设置，暂不可用

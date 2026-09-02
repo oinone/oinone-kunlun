@@ -1,6 +1,6 @@
 import { defaultMultiPartConfig } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
-
+import { isFinite, isNumber } from 'lodash-es';
 import { FormO2MFieldWidget } from '../../../../basic';
 
 export abstract class FormO2MFieldUploadBaseWidget extends FormO2MFieldWidget {
@@ -16,7 +16,19 @@ export abstract class FormO2MFieldUploadBaseWidget extends FormO2MFieldWidget {
 
   @Widget.Reactive()
   protected get limitSize() {
-    return this.getDsl().limitSize;
+    const dslLimitSize = this.getDsl().limitSize;
+    if (dslLimitSize == null) {
+      return -1;
+    }
+    let limitSize = Number(dslLimitSize);
+    if (isNumber(limitSize) && isFinite(limitSize)) {
+      return limitSize;
+    }
+    limitSize = Number(this.executeExpression(dslLimitSize, dslLimitSize));
+    if (isNumber(limitSize) && isFinite(limitSize)) {
+      return limitSize;
+    }
+    return -1;
   }
 
   @Widget.Reactive()

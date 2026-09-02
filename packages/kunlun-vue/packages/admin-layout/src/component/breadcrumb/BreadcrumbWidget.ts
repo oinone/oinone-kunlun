@@ -2,6 +2,9 @@ import {
   BreadcrumbConfigManager,
   executeViewAction,
   generatorViewActionQueryParameter,
+  type IMultiTabsManager,
+  type MultiTabInstance,
+  MultiTabsManager,
   type ReloadMaskCallChainingParameters,
   type RuntimeViewAction,
   ViewActionCache
@@ -159,9 +162,31 @@ export class BreadcrumbWidget extends MaskWidget {
     ]);
   }
 
+  protected async onActiveTab(manager: IMultiTabsManager, instance: MultiTabInstance) {
+    const { action, parameters } = instance.stack[instance.stack.length - 1];
+
+    await this.reloadMaskProcess({
+      module: parameters.module,
+      model: parameters.model,
+      action: parameters.action,
+
+      viewName: action.resViewName,
+      viewType: action.resViewType,
+      target: action.target,
+
+      currentPage: parameters
+    });
+  }
+
   protected $$mounted() {
     super.$$mounted();
     this.matched = useMatched().matched;
     this.router = useRouter().router;
+    MultiTabsManager.INSTANCE.onActive(this.onActiveTab.bind(this));
+  }
+
+  protected $$unmounted() {
+    super.$$unmounted();
+    MultiTabsManager.INSTANCE.clearOnActive(this.onActiveTab);
   }
 }

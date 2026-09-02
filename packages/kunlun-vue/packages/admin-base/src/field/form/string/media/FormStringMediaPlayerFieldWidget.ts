@@ -3,7 +3,7 @@ import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { SPI } from '@oinone/kunlun-spi';
 import { defaultMultiPartConfig, InputMediaMode, ValidateTrigger, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { isArray, isNumber } from 'lodash-es';
+import { isArray, isFinite, isNumber } from 'lodash-es';
 import { FormFieldWidget } from '../../../../basic';
 import type { ValidatorInfo } from '../../../../typing';
 import { FormStringInputFieldWidget } from '../input';
@@ -108,8 +108,16 @@ export class FormStringMediaPlayerFieldWidget extends FormStringInputFieldWidget
 
   @Widget.Reactive()
   protected get limitSize(): number {
-    const limitSize = Number(this.getDsl().limitSize);
-    if (isNumber(limitSize)) {
+    const dslLimitSize = this.getDsl().limitSize;
+    if (dslLimitSize == null) {
+      return -1;
+    }
+    let limitSize = Number(dslLimitSize);
+    if (isNumber(limitSize) && isFinite(limitSize)) {
+      return limitSize;
+    }
+    limitSize = Number(this.executeExpression(dslLimitSize, dslLimitSize));
+    if (isNumber(limitSize) && isFinite(limitSize)) {
       return limitSize;
     }
     return -1;

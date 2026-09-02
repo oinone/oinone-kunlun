@@ -11,6 +11,26 @@ $largeSize: 1.6em;
     font-size: inherit;
   }
 
+  .#{$spinClassPrefix}-loading {
+    width: $size;
+    height: $size;
+    border: 3px solid rgba(var(--oio-primary-color-rgb), 0.65);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 0.8s linear infinite;
+
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
   &-small {
     .#{$spinClassPrefix}-loading {
       width: $smallSize;
@@ -22,26 +42,6 @@ $largeSize: 1.6em;
     .#{$spinClassPrefix}-loading {
       width: $largeSize;
       height: $largeSize;
-    }
-  }
-}
-
-.#{$spinClassPrefix}-loading {
-  width: $size;
-  height: $size;
-  border: 3px solid rgba(var(--oio-primary-color-rgb), 0.65);
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 0.8s linear infinite;
-
-  @keyframes rotation {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
     }
   }
 }

@@ -17,7 +17,8 @@ import { Expression } from '@oinone/kunlun-expression';
 import { isEmptyValue, isValidateEmpty, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, Constructor, ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
-import { ComputeTrigger } from '@oinone/kunlun-vue-ui-common';
+import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
+import { ComputeTrigger, SpinSize, useClick } from '@oinone/kunlun-vue-ui-common';
 import { InnerWidgetType, PathWidget, Widget } from '@oinone/kunlun-vue-widget';
 import { isEmpty, isFunction, isPlainObject, isString } from 'lodash-es';
 import { createVNode, VNode, withModifiers } from 'vue';
@@ -25,6 +26,7 @@ import { type ActionWidget } from '../../action/component/action/ActionWidget';
 import { ActionClickMethod } from '../../action/component/typing';
 import { isValidatorError, isValidatorSuccess, type ValidatorInfo } from '../../typing';
 import { BaseFormItemWidget, type BaseFormItemWidgetProps } from '../form-item';
+import { getClickActionInfo } from '../helper';
 
 /**
  * Field组件注册可选项
@@ -307,19 +309,19 @@ export class BaseFieldWidget<
   }
 
   protected get clickAction(): ActionWidget | undefined {
-    let enableClick = BooleanHelper.toBoolean(this.getDsl().enableClick);
-    const clickActionName = this.getDsl().clickActionName;
-    if (!clickActionName) {
+    const clickActionInfo = getClickActionInfo(this.model.model, this.getDsl().clickActionName);
+    if (!clickActionInfo) {
       return undefined;
     }
+    const { model: clickActionModel, name: clickActionName } = clickActionInfo;
+    let enableClick = BooleanHelper.toBoolean(this.getDsl().enableClick);
     if (enableClick == null) {
       enableClick = true;
     }
     if (!enableClick) {
       return undefined;
     }
-    const handles = this.viewState?.getActionBarState(this.rowIndex)?.actions || [];
-    return handles
+    let actionWidget = (this.viewState?.getActionBarState(this.rowIndex)?.actions || [])
       .map((handle) => Widget.select<ActionWidget>(handle))
       .find((v) => {
         const action = v?.action;
@@ -331,6 +333,32 @@ export class BaseFieldWidget<
         }
         return action.name === clickActionName;
       });
+    if (actionWidget) {
+      return actionWidget;
+    }
+    let currentViewState = this.viewState?.parent;
+    while (currentViewState) {
+      actionWidget = (currentViewState.getActionBarState()?.actions || [])
+        .map((handle) => Widget.select<ActionWidget>(handle))
+        .find((v) => {
+          const action = v?.action;
+          if (!action) {
+            return false;
+          }
+          if (action.model !== clickActionModel) {
+            return false;
+          }
+          if (isRuntimeClientAction(action)) {
+            return action.name === clickActionName || action.fun === clickActionName;
+          }
+          return action.name === clickActionName;
+        });
+      if (actionWidget) {
+        return actionWidget;
+      }
+      currentViewState = currentViewState.parent;
+    }
+    return undefined;
   }
 
   protected onClickAction(action: ActionWidget) {
@@ -348,11 +376,16 @@ export class BaseFieldWidget<
       clickMethod = ActionClickMethod.click;
     }
     const props: Record<string, unknown> = {
-      class: 'default-form-hyperlinks'
+      class: 'default-form-hyperlinks',
+      loading: clickAction.getOperator<ActionWidget>().actionProps.loading
     };
     switch (clickMethod) {
       case ActionClickMethod.click:
-        props.onClick = withModifiers(() => this.onClickAction.bind(this)(clickAction), ['stop']);
+        const { onMousedown, onMouseup } = useClick(
+          withModifiers(() => this.onClickAction.bind(this)(clickAction), ['stop'])
+        );
+        props.onMousedown = onMousedown;
+        props.onMouseup = onMouseup;
         break;
       case ActionClickMethod.dblclick:
         props.onDblclick = withModifiers(() => this.onClickAction.bind(this)(clickAction), ['stop']);
@@ -364,8 +397,17 @@ export class BaseFieldWidget<
     return this.renderFieldAction(props, nodes);
   }
 
-  protected renderFieldAction(props: Record<string, unknown>, nodes: string | VNode[] | undefined) {
-    return [createVNode('span', props, [createVNode('a', {}, nodes)])];
+  protected renderFieldAction(props: Record<string, unknown>, nodes: string | VNode[] | undefined): VNode[] {
+    const { loading, ...otherProps } = props;
+    return [
+      createVNode('span', otherProps, [
+        createVNode(OioSpin, {
+          size: SpinSize.small,
+          loading
+        }),
+        createVNode('a', {}, nodes)
+      ])
+    ];
   }
 
   protected $$beforeCreated() {
