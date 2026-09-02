@@ -53,6 +53,7 @@
     "@types/lodash-es": "4.17.6",
     "dayjs": "1.10.7",
     "moment": "2.29.3",
+    "rollup": "4.53.5",
     "vant": "4.9.22",
     "vuedraggable": "4.1.0"
   },

@@ -19,12 +19,14 @@
     "lodash-es": "4.17.21"
   },
   "devDependencies": {
+    "@oinone/kunlun-compile": "~7.2.0",
     "@oinone/kunlun-cache": "7.2.3",
     "@oinone/kunlun-meta": "7.2.3",
     "@oinone/kunlun-request": "7.2.3",
     "@oinone/kunlun-router": "7.2.3",
     "@oinone/kunlun-shared": "7.2.3",
-    "@types/lodash-es": "4.17.6"
+    "@types/lodash-es": "4.17.6",
+    "rollup": "4.53.5"
   },
   "gitHead": "2b4c0c7911626c105ca71c2d41e54af470e2e079"
 }

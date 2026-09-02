@@ -1,5 +1,5 @@
-import pkg from './package.json' with { type: 'json' };
 import { rollupConfig } from '@oinone/kunlun-compile';
+import pkg from './package.json' with { type: 'json' };
 
 export default rollupConfig({
   pkg,
@@ -22,7 +22,7 @@ export default rollupConfig({
     'vuedraggable'
   ],
   copyTypeFiles: {
-    typesDir: 'packages/oinone-kunlun/packages/kunlun-vue/packages/ui-antd/*',
+    typesDir: 'packages/oinone-kunlun/packages/kunlun-vue/packages/ui/*',
     deleteDir: 'packages'
   }
 });

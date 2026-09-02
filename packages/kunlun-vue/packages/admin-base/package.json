@@ -35,6 +35,7 @@
     "smooth-signature": "1.0.15"
   },
   "devDependencies": {
+    "@oinone/kunlun-compile": "~7.2.0",
     "@oinone/kunlun-dsl": "~7.2.0",
     "@oinone/kunlun-engine": "~7.2.0",
     "@oinone/kunlun-environment": "~7.2.0",
@@ -55,6 +56,7 @@
     "@vue/reactivity": "3.5.26",
     "lodash-es": "4.17.21",
     "moment": "2.29.3",
+    "rollup": "4.53.5",
     "sass": "1.97.0",
     "sass-loader": "16.0.6",
     "sortablejs": "1.14.0",
