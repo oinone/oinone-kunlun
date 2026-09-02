@@ -646,25 +646,28 @@ export class MultiTabsContainerWidget extends DslDefinitionWidget<MultiTabsConta
   protected getIsKeepAlive(tab: MultiTabItem): boolean {
     const { stack } = tab.instance;
     const { action, parameters } = stack[stack.length - 1];
-    const { isKeepAlive: _isKeepAlive, context: _context } = parameters;
-    let isKeepAlive = BooleanHelper.toBoolean(_isKeepAlive);
-    if (isKeepAlive != null) {
-      return isKeepAlive;
-    }
-    if (_context != null) {
-      let context: Record<string, unknown> | undefined;
-      if (typeof context === 'string') {
-        try {
-          context = JSON.parse(_context);
-        } catch (e) {
-          console.error(`Invalid context parameter. context=${_context}`, e);
-        }
-      } else {
-        context = _context as Record<string, unknown>;
-      }
-      isKeepAlive = BooleanHelper.toBoolean(context.isKeepAlive);
+    let isKeepAlive: boolean | undefined;
+    if (parameters) {
+      const { isKeepAlive: _isKeepAlive, context: _context } = parameters;
+      isKeepAlive = BooleanHelper.toBoolean(_isKeepAlive);
       if (isKeepAlive != null) {
         return isKeepAlive;
+      }
+      if (_context != null) {
+        let context: Record<string, unknown> | undefined;
+        if (typeof context === 'string') {
+          try {
+            context = JSON.parse(_context);
+          } catch (e) {
+            console.error(`Invalid context parameter. context=${_context}`, e);
+          }
+        } else {
+          context = _context as unknown as Record<string, unknown>;
+        }
+        isKeepAlive = BooleanHelper.toBoolean(context?.isKeepAlive);
+        if (isKeepAlive != null) {
+          return isKeepAlive;
+        }
       }
     }
     isKeepAlive = BooleanHelper.toBoolean(action.context?.isKeepAlive);
