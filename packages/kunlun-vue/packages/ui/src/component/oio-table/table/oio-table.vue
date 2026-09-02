@@ -29,21 +29,6 @@ const events = {
   onKeydown: 'keydown'
 };
 
-interface OriginSort {
-  field: string;
-  order: 'asc' | 'desc';
-  column: VxeTableDefines.ColumnInfo;
-  sortTime: number;
-}
-
-interface VxeTableSortEvent {
-  field: string;
-  order: 'asc' | 'desc' | null;
-  property: string;
-  column: VxeTableDefines.ColumnInfo;
-  sortList: OriginSort[];
-}
-
 export default defineComponent({
   name: 'OioTable',
   components: {
@@ -81,7 +66,7 @@ export default defineComponent({
       };
     });
 
-    const onSortChange = (e: VxeTableSortEvent) => {
+    const onSortChange = (e: VxeTableDefines.SortChangeEventParams) => {
       const { field, sortList, column } = e;
       let { order } = e;
       const sorts = sortList.map((sort) => ({
