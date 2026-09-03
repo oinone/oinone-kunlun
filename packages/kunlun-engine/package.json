@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-engine",
-  "version": "7.2.8",
+  "version": "7.2.9",
   "type": "module",
   "main": "index.ts",
   "scripts": {
