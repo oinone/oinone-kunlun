@@ -37,6 +37,7 @@ const executeConfirm = (confirm: string | ConfirmOptions): Promise<boolean> => {
       icon: createVNode(ExclamationCircleOutlined),
       zIndex: options.zIndex,
       width: options.width,
+      centered: options.centered,
       content: options.confirm,
       okText: options.enterText || translateValueByKey(translate('kunlun.common.confirm')),
       cancelText: options.cancelText || translateValueByKey(translate('kunlun.common.cancel')),

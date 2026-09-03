@@ -6,6 +6,7 @@ import {
   FunctionCache,
   FunctionService,
   parseConfigs,
+  PopupConfigManager,
   type RequestModelField,
   resolveDynamicDomain,
   resolveDynamicExpression,
@@ -900,6 +901,7 @@ export class ActionWidget<
     return executeConfirm({
       title: confirmTitle,
       width: confirmWidth,
+      centered: PopupConfigManager.isCentered(),
       confirm: confirm as unknown as string,
       enterText: this.enterText,
       cancelText: this.cancelText
@@ -941,6 +943,7 @@ export class ActionWidget<
         return executeConfirm({
           title,
           width: confirmWidth,
+          centered: PopupConfigManager.isCentered(),
           confirm: confirm as unknown as string,
           enterText: this.enterText,
           cancelText: this.cancelText

@@ -76,7 +76,7 @@ export class DialogWidget<Props extends DialogWidgetProps = DialogWidgetProps> e
 
   @Widget.Reactive()
   public get centered() {
-    return this.getDsl().centered;
+    return BooleanHelper.toBoolean(this.getDsl().centered) ?? PopupConfigManager.isCentered();
   }
 
   @Widget.Reactive()

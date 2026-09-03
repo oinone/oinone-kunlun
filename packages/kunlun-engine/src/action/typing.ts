@@ -16,6 +16,7 @@ export interface ConfirmOptions {
   zIndex?: number;
   title?: string;
   width?: string | number;
+  centered?: boolean;
   confirm: string;
   enterText?: string;
   cancelText?: string;

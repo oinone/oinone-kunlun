@@ -10,6 +10,10 @@ export class PopupConfigManager {
     return RuntimeConfig.getConfig<PopupConfig>('popup') || {};
   }
 
+  public static isCentered(): boolean {
+    return PopupConfigManager.getConfig().centered ?? false;
+  }
+
   public static isDraggable(): boolean {
     return PopupConfigManager.getConfig().draggable ?? false;
   }
