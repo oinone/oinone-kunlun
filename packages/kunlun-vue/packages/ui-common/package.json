@@ -1,6 +1,6 @@
 {
   "name": "@oinone/kunlun-vue-ui-common",
-  "version": "7.2.14",
+  "version": "7.2.15",
   "type": "module",
   "main": "index.ts",
   "scripts": {
