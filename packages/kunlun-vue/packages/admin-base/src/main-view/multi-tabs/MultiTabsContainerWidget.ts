@@ -655,7 +655,7 @@ export class MultiTabsContainerWidget extends DslDefinitionWidget<MultiTabsConta
       }
       if (_context != null) {
         let context: Record<string, unknown> | undefined;
-        if (typeof context === 'string') {
+        if (typeof _context === 'string') {
           try {
             context = JSON.parse(_context);
           } catch (e) {
