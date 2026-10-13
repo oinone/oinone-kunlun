@@ -1205,11 +1205,21 @@ export class BaseTableWidget<
     return await this.rootRuntimeContext.getDefaultValue();
   }
 
+  /**
+   * 处理表格「复制」行事件。
+   * 全表编辑模式下必须走 pushDataSource + flushDataSource，与新增行一致，
+   * 避免仅写入 vxe 临时 insert 行导致 dataSource 不同步，进而删除异常。
+   *
+   * @param e 复制事件参数（不含 type）
+   */
   protected async onCopyRowEvent(e: Omit<TableCopyEvent, 'type'>) {
+    const isTableEditor = this.editorMode === TableEditorMode.table;
     if (this.lastedCurrentEditorContext == null) {
       this.lastedCurrentEditorContext = {
         prepare: true,
-        editorMode: TableEditorMode.row,
+        new: true,
+        insertTo: e.copyTo,
+        editorMode: isTableEditor ? TableEditorMode.table : TableEditorMode.row,
         editorCloseTrigger: TableEditorCloseTrigger.auto,
         forceEditable: true
       } as ActiveEditorContext;
@@ -1220,9 +1230,22 @@ export class BaseTableWidget<
       return;
     }
     if (e.clone) {
+      // 深拷贝并移除草稿扩展字段，避免与源行共享 __draftId
       target = activeRecordsClone(target);
+      // 清除主键，保证复制行作为新数据参与提交与按实体删除的匹配
+      const { pks } = this.model;
+      if (pks?.length) {
+        target.forEach((record) => {
+          pks.forEach((k) => Reflect.deleteProperty(record, k));
+        });
+      }
     }
     const records = ActiveRecordsOperator.repairRecords(target);
+    if (isTableEditor) {
+      this.pushDataSource(records, undefined, e.copyTo);
+      this.flushDataSource();
+      return;
+    }
     const { row: newRow } = await this.tableInstance?.insert(records, e.copyTo);
     nextTick(() => {
       if (Array.isArray(newRow)) {
