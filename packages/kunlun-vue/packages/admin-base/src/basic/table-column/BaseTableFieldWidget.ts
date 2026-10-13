@@ -332,9 +332,15 @@ export class BaseTableFieldWidget<
 
     const data = [context.data];
     const rowKey = VxeTableHelper.getKey(context.data) || context.index;
+    /**
+     * 整表编辑时，尾部追加行不会改变既有行的 index，vxe/Vue 会复用 EditorField。
+     * 复用后的 M2O Select 会出现「数据已写入但界面不刷新」的问题；头部插入因行位移会触发重挂载故不易暴露。
+     * 将 dataSource.length 纳入 key，在增删行时强制重建编辑态组件，与头部插入行为对齐。
+     */
+    const editorRemountKey = this.editorMode === TableEditorMode.table ? `-${this.dataSource?.length ?? 0}` : '';
     const vnode = createVNode(EditorField, {
       ...this.template,
-      key: `${rowKey}-${this.getHandle()}`,
+      key: `${rowKey}-${this.getHandle()}${editorRemountKey}`,
       dslDefinition: {
         ...this.template,
         placeholder: column.title || this.template.placeholder

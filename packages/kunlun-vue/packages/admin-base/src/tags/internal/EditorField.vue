@@ -135,15 +135,26 @@ export default defineComponent({
     });
 
     if (props.watchActiveRecords) {
+      /**
+       * 仅在行身份变化时同步 activeRecords。
+       * 不可 deep watch：整表编辑会直接改行对象字段，deep 会在每次设值时反复 setCurrentActiveRecords，
+       * 与 M2O Select 等受控组件叠加后易出现「值已写入、视图不刷新」。
+       */
       watch(
-        () => props.activeRecords,
-        (newVal) => {
+        () => {
+          const records = props.activeRecords;
+          if (records == null) {
+            return undefined;
+          }
+          const list = Array.isArray(records) ? records : [records];
+          return list.map((record) => (record as { __draftId?: string })?.__draftId ?? record).join(',');
+        },
+        () => {
           const widget = result.widget.value;
           if (widget) {
-            (widget as ActiveRecordsWidget).setCurrentActiveRecords?.(newVal);
+            (widget as ActiveRecordsWidget).setCurrentActiveRecords?.(props.activeRecords);
           }
-        },
-        { deep: true }
+        }
       );
     }
 
