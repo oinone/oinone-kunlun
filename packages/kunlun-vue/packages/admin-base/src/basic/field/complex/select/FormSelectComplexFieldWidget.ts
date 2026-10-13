@@ -22,7 +22,7 @@ import {
 } from '@oinone/kunlun-vue-admin-layout';
 import { PageSizeEnum, WidgetTrigger } from '@oinone/kunlun-vue-ui-common';
 import { Widget } from '@oinone/kunlun-vue-widget';
-import { isEmpty, isNil, isNumber, isPlainObject, isString, toInteger } from 'lodash-es';
+import { isEmpty, isNil, isNumber, isString, toInteger } from 'lodash-es';
 import { isValidatorSuccess, type ValidatorInfo } from '../../../../typing';
 import type { FormComplexFieldProps } from '../FormComplexFieldWidget';
 import { BaseSelectFieldWidget } from './BaseSelectFieldWidget';
@@ -289,9 +289,7 @@ export abstract class FormSelectComplexFieldWidget<
   @Widget.Method()
   protected async onSelect(e) {
     this.selectedOption = e;
-    if (this.searchValue) {
-      this.search('');
-    }
+    // 选中后关闭下拉时保留搜索关键字与结果，再次打开仍可继续在原结果上选择
   }
 
   @Widget.Reactive()
@@ -458,57 +456,121 @@ export abstract class FormSelectComplexFieldWidget<
   }
 
   /**
-   *
-   * 多选的搜索下拉框关闭的时候，需要重新获取数据， 前置条件：没有value的时候
-   *
-   * 操作： 用户用多选的select搜索的时候，输入搜索内容查询了多条数据，但是用户不选中任何一条，
-   *       直接失去焦点，这个时候在重新获取焦点，下拉的数据是上次搜索出来的数据,
-   *       所以需要单独处理
-   *
+   * 下拉是否展开。用于识别 ant-select 关闭时触发的空搜索副作用。
+   */
+  protected isDropdownOpen = false;
+
+  /**
+   * 空搜索待确认快照。ant-select 关下拉会先 search('') 再关；
+   * 若关闭时仍有快照则恢复，避免清空关键字与结果。
+   */
+  protected searchSnapshot: {
+    searchValue: string;
+    options: Record<string, unknown>[];
+    dataList: Record<string, unknown>[];
+    currentPage: number;
+    totalPages: number;
+    showMoreButton: boolean;
+  } | null = null;
+
+  /**
+   * 下拉显隐变化。
+   * 关闭时保留已有搜索关键字与对应结果，避免失焦后清空关键字并重查第一页。
+   * 仅在打开且尚无候选时触发初始化加载。
    */
   @Widget.Method()
   protected dropdownVisibleChange(open: boolean) {
-    const hasObjValue = this.value && isPlainObject(this.value) && Object.keys(this.value).length;
-    const hasArrValue = this.value && Array.isArray(this.value) && this.value.length;
-
-    const hasValue = this.value && (hasObjValue || hasArrValue);
-
-    if (!open && !hasValue) {
-      this.search('', true);
+    this.isDropdownOpen = open;
+    if (!open) {
+      // 关闭下拉：取消挂起的空搜索，并恢复被 ant-select 抢先清空的关键字/结果
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+        this.timeout = null;
+      }
+      this.restoreSearchSnapshot();
+      return;
     }
-    if (open && !this.options?.length) {
+    if (!this.options?.length) {
       this.initLoadOptions();
     }
   }
 
+  /**
+   * 恢复关闭下拉前的搜索快照。
+   */
+  protected restoreSearchSnapshot() {
+    if (!this.searchSnapshot) {
+      return;
+    }
+    const snapshot = this.searchSnapshot;
+    this.searchSnapshot = null;
+    this.searchValue = snapshot.searchValue;
+    this.options = snapshot.options;
+    this.dataList = snapshot.dataList;
+    this.currentPage = snapshot.currentPage;
+    this.totalPages = snapshot.totalPages;
+    this.showMoreButton = snapshot.showMoreButton;
+  }
+
+  /**
+   * 执行搜索查询并回填候选项。
+   */
+  protected async executeSearchQuery() {
+    const iQueryPageResult = await this.loadOptions({
+      condition: buildSelectSearchCondition(this.referencesModel, this.queryFieldName, this.searchValue, this.domain),
+      currentPage: this.currentPage
+    });
+    if (iQueryPageResult) {
+      this.totalPages = FormSelectComplexFieldWidget.getRealPages(iQueryPageResult.totalPages);
+      await this.fillOptions(iQueryPageResult.content, false);
+    }
+  }
+
+  /**
+   * 搜索候选项。
+   * 规则：搜索关键字只能由用户在下拉内手动输入/清空；选中、失焦、关下拉、清字段值都不得自动清空。
+   * ant-select 关下拉会伪触发 search('')，通过快照在关闭时恢复，仅下拉仍打开时的空串才视为用户手动清空。
+   * @param searchValue 搜索关键字；空字符串表示用户清空搜索
+   * @param forceSearch 保留参数兼容调用方，不再用于自动清空关键字
+   */
   @Widget.Method()
   protected async search(searchValue: string, forceSearch = false) {
     if (this.timeout) {
       clearTimeout(this.timeout);
       this.timeout = null;
     }
-    if (!forceSearch) {
-      if (this.searchValue === searchValue) {
-        return;
-      }
+    if (this.searchValue === searchValue) {
+      return;
     }
+    // ant-select 关下拉会先触发 search('')（此时下拉仍标记为打开），再触发关闭。
+    // 先做快照并延迟提交；若紧接着关闭则恢复快照。仅下拉仍打开才视为用户手动清空。
+    if (!forceSearch && !searchValue && this.searchValue) {
+      this.searchSnapshot = {
+        searchValue: this.searchValue,
+        options: [...this.options],
+        dataList: [...this.dataList],
+        currentPage: this.currentPage,
+        totalPages: this.totalPages,
+        showMoreButton: this.showMoreButton
+      };
+      this.searchValue = searchValue;
+      this.currentPage = 1;
+      this.timeout = setTimeout(() => {
+        if (!this.isDropdownOpen) {
+          this.restoreSearchSnapshot();
+          return;
+        }
+        this.searchSnapshot = null;
+        this.executeSearchQuery();
+      }, 100);
+      return;
+    }
+    this.searchSnapshot = null;
     this.searchValue = searchValue;
     this.currentPage = 1;
-    this.timeout = setTimeout(delaySearch, 400);
-
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const self = this;
-
-    async function delaySearch() {
-      const iQueryPageResult = await self.loadOptions({
-        condition: buildSelectSearchCondition(self.referencesModel, self.queryFieldName, self.searchValue, self.domain),
-        currentPage: self.currentPage
-      });
-      if (iQueryPageResult) {
-        self.totalPages = FormSelectComplexFieldWidget.getRealPages(iQueryPageResult.totalPages);
-        await self.fillOptions(iQueryPageResult.content, false);
-      }
-    }
+    this.timeout = setTimeout(() => {
+      this.executeSearchQuery();
+    }, 400);
   }
 
   protected oldDomain = '';
@@ -601,10 +663,9 @@ export abstract class FormSelectComplexFieldWidget<
   }
 
   @Widget.Method()
-  protected handleEmpty(forceSearch = false) {
-    // value置空说明是触发了清除, 这个时候搜索关键词应该也要清空, 并且下拉候选项也要恢复初始值
+  protected handleEmpty(_forceSearch = false) {
+    // 仅重置选中态。搜索关键字与结果只能由用户在下拉内手动清理，清字段值时不自动重置。
     this.selectedOption = {};
-    this.search(null as any, forceSearch);
   }
 
   @Widget.Method()
@@ -624,7 +685,7 @@ export abstract class FormSelectComplexFieldWidget<
 
   @Widget.Method()
   public blur() {
-    this.handleEmpty(true);
+    // 失焦不清理搜索关键字与结果
     super.blur();
   }
 

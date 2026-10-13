@@ -20,6 +20,7 @@
         :allow-clear="allowClear"
         :disabled="innerDisabled"
         :search-value="searchValue"
+        :auto-clear-search-value="false"
         :value="currentValue"
         :filter-option="false"
         :default-active-first-option="false"

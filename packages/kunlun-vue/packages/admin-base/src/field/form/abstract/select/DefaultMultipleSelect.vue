@@ -23,6 +23,7 @@
         show-arrow
         :disabled="innerDisabled"
         :search-value="searchValue"
+        :auto-clear-search-value="false"
         :value="currentValue === null ? undefined : currentValue"
         :filter-option="false"
         :default-active-first-option="false"

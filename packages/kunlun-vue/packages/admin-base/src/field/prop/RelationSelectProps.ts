@@ -141,7 +141,32 @@ export function relationSelectSetup(props, multi?: boolean) {
    */
   let t;
 
+  /**
+   * 搜索防抖。
+   * ant-select 关闭下拉时会先触发 search('') 再关下拉；关闭时会 cancel 本次调用。
+   * 下拉已关闭时的空搜索直接忽略，打开时用户主动清空仍正常透传。
+   */
+  const onSearch = debounce(async (val: string) => {
+    if (val === '' && props.searchValue && !dropdownOpen.value) {
+      return;
+    }
+    await props.search?.(val);
+  }, 10);
+
+  const search = (val: string) => {
+    // 下拉已关闭时的空搜索直接丢弃，不进入 debounce
+    if (val === '' && props.searchValue && !dropdownOpen.value) {
+      onSearch.cancel();
+      return;
+    }
+    onSearch(val);
+  };
+
   const dropdownVisibleChange = (val: boolean) => {
+    // 关闭时立即取消待执行的空搜索，避免 ant-select 先 search('') 再关下拉导致关键字/结果被清空
+    if (!val) {
+      onSearch.cancel();
+    }
     if (props.showSearch && props.searchArea === SelectSearchArea.dropdown) {
       if (focusSearchInput) {
         return;
@@ -185,8 +210,8 @@ export function relationSelectSetup(props, multi?: boolean) {
       clearTimeout(t);
       t = null;
     } else {
+      dropdownOpen.value = false;
       nextTick(() => {
-        dropdownOpen.value = false;
         props.dropdownVisibleChange(false);
       });
     }
@@ -213,6 +238,7 @@ export function relationSelectSetup(props, multi?: boolean) {
       if (!multi) {
         focusSearchInput = false;
         dropdownOpen.value = false;
+        onSearch.cancel();
         props.dropdownVisibleChange(false);
         selectRef.value.focus();
       }
@@ -230,14 +256,6 @@ export function relationSelectSetup(props, multi?: boolean) {
       return;
     }
     props.blur?.(e);
-  };
-
-  const onSearch = debounce(async (val: string) => {
-    await props.search?.(val);
-  }, 10);
-
-  const search = (val: string) => {
-    onSearch(val);
   };
 
   const onSearchInputFocus = (e) => {
@@ -260,8 +278,8 @@ export function relationSelectSetup(props, multi?: boolean) {
   };
 
   const $$onClear = () => {
+    // 仅清空字段值；搜索关键字只能由用户在下拉内手动清理
     props.change?.(null);
-    props.search?.('');
   };
 
   const onGlobalMouseDown = (e: MouseEvent) => {
