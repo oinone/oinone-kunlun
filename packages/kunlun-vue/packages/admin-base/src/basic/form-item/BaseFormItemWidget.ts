@@ -323,6 +323,13 @@ export class BaseFormItemWidget<
     this.setValue(val);
   }
 
+  /**
+   * 表格内编辑字段值变更后刷新本地表尾合计（由 TableWidget Provide；非表格上下文为空）
+   */
+  @Widget.Method()
+  @Widget.Inject()
+  protected refreshLocalStatistics: (() => void) | undefined;
+
   protected afterChange() {
     this.afterTriggerExecute(WidgetTrigger.CHANGE);
   }
@@ -402,6 +409,8 @@ export class BaseFormItemWidget<
     }
     if (isChange) {
       this.reloadFormData$.subject.next(true);
+      // constructMirror / clearFields 直接 merge 行数据，不经过字段 setValue，需主动刷新表尾合计
+      this.refreshLocalStatistics?.();
     }
   }
 

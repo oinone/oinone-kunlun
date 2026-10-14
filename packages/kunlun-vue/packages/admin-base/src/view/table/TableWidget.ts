@@ -1691,11 +1691,44 @@ export class TableWidget<Props extends TableWidgetProps = TableWidgetProps> exte
     }
   }
 
+  /**
+   * 刷新表尾合计。
+   * 远程合计在配置 refreshRemoteStatistics 时清空缓存后重算；本地合计直接 updateFooter。
+   */
   protected refreshStatistics() {
+    if (!this.showFooter) {
+      return;
+    }
     if (this.refreshRemoteStatistics && this.statisticsFun) {
       this.remoteStatisticsRow = undefined;
-      this.getTableInstance()?.updateFooter();
     }
+    this.getTableInstance()?.updateFooter();
+  }
+
+  /**
+   * 同一 tick 内多次字段设值（如 compute 级联）只刷新一次表尾
+   */
+  protected localStatisticsRefreshPending = false;
+
+  /**
+   * 供表格内编辑字段在值变更后调用，刷新本地表尾合计。
+   * 行内/整表编辑会就地改 dataSource 行对象，数组引用不变，vxe 不会自动重跑 footerMethod。
+   * 远程合计不在此重查，避免每次键入打接口。
+   */
+  @Widget.Method()
+  @Widget.Provide()
+  public refreshLocalStatistics() {
+    if (!this.showFooter || this.statisticsFun) {
+      return;
+    }
+    if (this.localStatisticsRefreshPending) {
+      return;
+    }
+    this.localStatisticsRefreshPending = true;
+    nextTick(() => {
+      this.localStatisticsRefreshPending = false;
+      this.getTableInstance()?.updateFooter();
+    });
   }
 
   protected $$beforeMount() {

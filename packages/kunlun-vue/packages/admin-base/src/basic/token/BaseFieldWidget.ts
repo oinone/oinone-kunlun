@@ -14,7 +14,7 @@ import {
 } from '@oinone/kunlun-engine';
 import { type FieldEventName, FieldEventNames, LifeCycleHeart, LifeCycleTypes } from '@oinone/kunlun-event';
 import { Expression } from '@oinone/kunlun-expression';
-import { isEmptyValue, isValidateEmpty, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { isEmptyValue, isNumberTtype, isValidateEmpty, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import { BooleanHelper, Constructor, ReturnPromise } from '@oinone/kunlun-shared';
 import { SPI, type SPIOptions, type SPISingleSelector, type SPITokenFactory } from '@oinone/kunlun-spi';
 import { OioSpin } from '@oinone/kunlun-vue-ui-antd';
@@ -219,6 +219,34 @@ export class BaseFieldWidget<
     } else {
       this.notify(LifeCycleTypes.ON_FIELD_CHANGE);
     }
+  }
+
+  /**
+   * 覆盖设值：计算公式、接口回填、手动 change 最终都会走到 setValue。
+   * 数字类型变更时触发本地表尾合计刷新（见 tryRefreshLocalStatistics）。
+   */
+  public setValue(value: Value | null | undefined): void {
+    const oldValue = this.getValue();
+    super.setValue(value);
+    if (oldValue !== value) {
+      this.tryRefreshLocalStatistics();
+    }
+  }
+
+  /**
+   * 数字类型字段变更后刷新本地表尾合计。
+   * 不要求当前列开启 statistics：合计列常依赖其它数字字段的计算公式（如 数量/单价 → 总价），
+   * footerMethod 重跑时会按各列 compute/表达式重新取值求和。
+   */
+  protected tryRefreshLocalStatistics() {
+    if (!this.refreshLocalStatistics) {
+      return;
+    }
+    const ttype = this.field?.ttype;
+    if (!ttype || !isNumberTtype(ttype)) {
+      return;
+    }
+    this.refreshLocalStatistics();
   }
 
   protected async updateX2OValue(selectedValue: ActiveRecord | null | undefined) {
