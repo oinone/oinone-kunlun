@@ -9,6 +9,7 @@ import {
   type RuntimeModel,
   type RuntimeModelField,
   type RuntimeRelationField,
+  SelectSearchArea,
   translateValueByKey
 } from '@oinone/kunlun-engine';
 import { type Entity, type IModel, isEmptyValue, ModelType } from '@oinone/kunlun-meta';
@@ -115,11 +116,79 @@ export abstract class FormSelectComplexFieldWidget<
     if (value == null) {
       super.change(null as any);
       this.handleEmpty();
+      // 与 683d3254 一致：清字段值不自动清空搜索关键字/结果
+      // default 仅隐藏触发框展示用 searchValue，筛选暂存仍保留
+      this.hideTriggerSearchDisplay();
       return;
     }
 
     const selectedValue = this.dataList.find((d) => d[this.relationFieldKey] === value.value)! || value;
     super.change(selectedValue as any);
+    // 选中：暂存关键字与筛选结果，仅隐藏展示用 searchValue，再次展开可恢复
+    // dropdown 模式 early-return，保持 683d3254「选中后不清理关键字/结果」
+    this.parkTriggerSearchAfterSelect();
+  }
+
+  /**
+   * 是否为「触发框内搜索」模式（searchArea=default）。
+   * 该模式下 searchValue 绑定在 a-select 上，关闭态若保留关键字会遮挡已选展示。
+   * dropdown 模式不走此分支，行为与 683d3254（关系字段下拉保留搜索关键字与结果）保持一致。
+   */
+  protected get isTriggerSearchArea(): boolean {
+    return this.searchArea === SelectSearchArea.default;
+  }
+
+  /**
+   * 仅隐藏触发框展示用 searchValue（不影响 options / preserved / searchSnapshot）。
+   * 用于清字段后关闭态不再显示旧关键字；筛选态仍按 683d3254 保留。
+   */
+  protected hideTriggerSearchDisplay() {
+    if (!this.isTriggerSearchArea) {
+      return;
+    }
+    this.searchValue = '';
+  }
+
+  /**
+   * 选中后暂存当前筛选态，并隐藏触发框关键字以展示已选标签。
+   * 再次展开时由 restorePreservedTriggerSearch 回填关键字与过滤结果。
+   * 注意：不得丢弃筛选结果，也不得影响 dropdown 模式（本方法对 dropdown 直接返回）。
+   */
+  protected parkTriggerSearchAfterSelect() {
+    if (!this.isTriggerSearchArea) {
+      return;
+    }
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+    const keyword =
+      this.searchSnapshot?.searchValue || this.searchValue || this.preservedTriggerSearch?.searchValue || '';
+    const options = this.searchSnapshot?.options || this.options;
+    const dataList = this.searchSnapshot?.dataList || this.dataList;
+    const currentPage = this.searchSnapshot?.currentPage ?? this.currentPage;
+    const totalPages = this.searchSnapshot?.totalPages ?? this.totalPages;
+    const showMoreButton = this.searchSnapshot?.showMoreButton ?? this.showMoreButton;
+    // 快照已转入 preserved，避免关闭时再被 restore 成「展示用 searchValue」盖住已选
+    this.searchSnapshot = null;
+    if (keyword) {
+      this.preservedTriggerSearch = {
+        searchValue: keyword,
+        options: [...options],
+        dataList: [...dataList],
+        currentPage,
+        totalPages,
+        showMoreButton
+      };
+      // 关闭态仍保留筛选 options，保证已选标签可解析，且与再次展开一致
+      this.options = [...options];
+      this.dataList = [...dataList];
+      this.currentPage = currentPage;
+      this.totalPages = totalPages;
+      this.showMoreButton = showMoreButton;
+    }
+    // 仅清空展示用关键字，不丢弃 preservedTriggerSearch（等价于保留搜索态）
+    this.searchValue = '';
   }
 
   protected x2mChange(value) {
@@ -289,7 +358,8 @@ export abstract class FormSelectComplexFieldWidget<
   @Widget.Method()
   protected async onSelect(e) {
     this.selectedOption = e;
-    // 选中后关闭下拉时保留搜索关键字与结果，再次打开仍可继续在原结果上选择
+    // 选中后关闭下拉时保留搜索关键字与结果，再次打开仍可继续在原结果上选择（683d3254）
+    // default 额外：展示用 searchValue 由 parkTriggerSearchAfterSelect 隐藏，展开时再回填
   }
 
   @Widget.Reactive()
@@ -474,20 +544,37 @@ export abstract class FormSelectComplexFieldWidget<
   } | null = null;
 
   /**
+   * 触发框搜索（default）收起时暂存的关键字与筛选结果。
+   * 收起时 searchValue 置空以展示已选标签；再次展开时回填，实现「展开显示关键字 / 收起显示已选」。
+   */
+  protected preservedTriggerSearch: {
+    searchValue: string;
+    options: Record<string, unknown>[];
+    dataList: Record<string, unknown>[];
+    currentPage: number;
+    totalPages: number;
+    showMoreButton: boolean;
+  } | null = null;
+
+  /**
    * 下拉显隐变化。
-   * 关闭时保留已有搜索关键字与对应结果，避免失焦后清空关键字并重查第一页。
-   * 仅在打开且尚无候选时触发初始化加载。
+   * - dropdown：关闭时恢复关键字与结果；打开且无候选时初始化加载。
+   * - default：关闭时暂存关键字并清空展示用 searchValue（显示已选）；打开时回填关键字与筛选结果。
    */
   @Widget.Method()
   protected dropdownVisibleChange(open: boolean) {
     this.isDropdownOpen = open;
     if (!open) {
-      // 关闭下拉：取消挂起的空搜索，并恢复被 ant-select 抢先清空的关键字/结果
+      // 关闭下拉：取消挂起的空搜索，并按模式处理关键字/结果
       if (this.timeout) {
         clearTimeout(this.timeout);
         this.timeout = null;
       }
       this.restoreSearchSnapshot();
+      return;
+    }
+    // 展开：触发框模式优先回填收起前/选中前暂存的关键字与筛选结果
+    if (this.restorePreservedTriggerSearch()) {
       return;
     }
     if (!this.options?.length) {
@@ -496,9 +583,35 @@ export abstract class FormSelectComplexFieldWidget<
   }
 
   /**
-   * 恢复关闭下拉前的搜索快照。
+   * 展开时回填触发框搜索暂存态。
+   * @returns 是否已回填（已回填则无需再 initLoadOptions）
+   */
+  protected restorePreservedTriggerSearch(): boolean {
+    if (!this.isTriggerSearchArea || !this.preservedTriggerSearch) {
+      return false;
+    }
+    const preserved = this.preservedTriggerSearch;
+    this.searchValue = preserved.searchValue;
+    this.options = preserved.options;
+    this.dataList = preserved.dataList;
+    this.currentPage = preserved.currentPage;
+    this.totalPages = preserved.totalPages;
+    this.showMoreButton = preserved.showMoreButton;
+    return true;
+  }
+
+  /**
+   * 处理关闭下拉时的搜索快照。
+   * - dropdown（683d3254）：完整恢复关键字与结果到当前态，保证再次打开可继续筛选。
+   * - default：将关键字与结果写入 preservedTriggerSearch，searchValue 置空以展示已选标签；
+   *   再次展开时回填，语义上仍「保留搜索关键字与结果」，仅展示时机不同。
    */
   protected restoreSearchSnapshot() {
+    if (this.isTriggerSearchArea) {
+      this.parkTriggerSearchOnClose();
+      return;
+    }
+    // —— 以下与 683d3254 restoreSearchSnapshot 保持一致，勿改 ——
     if (!this.searchSnapshot) {
       return;
     }
@@ -510,6 +623,48 @@ export abstract class FormSelectComplexFieldWidget<
     this.currentPage = snapshot.currentPage;
     this.totalPages = snapshot.totalPages;
     this.showMoreButton = snapshot.showMoreButton;
+  }
+
+  /**
+   * 触发框搜索收起：暂存关键字与筛选结果，并清空展示用 searchValue。
+   * 这样关闭态显示已选标签，再次展开可恢复搜索态。
+   * 若选中时已写入 preservedTriggerSearch，关闭时无关键字则保留该暂存，不得清空。
+   */
+  protected parkTriggerSearchOnClose() {
+    const keyword = this.searchSnapshot?.searchValue || this.searchValue;
+    if (this.searchSnapshot) {
+      const snapshot = this.searchSnapshot;
+      this.searchSnapshot = null;
+      this.options = snapshot.options;
+      this.dataList = snapshot.dataList;
+      this.currentPage = snapshot.currentPage;
+      this.totalPages = snapshot.totalPages;
+      this.showMoreButton = snapshot.showMoreButton;
+      if (keyword) {
+        this.preservedTriggerSearch = {
+          searchValue: keyword,
+          options: snapshot.options,
+          dataList: snapshot.dataList,
+          currentPage: snapshot.currentPage,
+          totalPages: snapshot.totalPages,
+          showMoreButton: snapshot.showMoreButton
+        };
+      }
+      // keyword 为空时保留已有 preserved（选中路径已暂存）
+    } else if (keyword) {
+      // 未走伪空搜索快照（例如直接点外部关闭），按当前态暂存
+      this.preservedTriggerSearch = {
+        searchValue: keyword,
+        options: [...this.options],
+        dataList: [...this.dataList],
+        currentPage: this.currentPage,
+        totalPages: this.totalPages,
+        showMoreButton: this.showMoreButton
+      };
+    }
+    // 无关键字且无快照：保留 selected 时写入的 preservedTriggerSearch，不做清空
+    // 关闭态必须清空受控 searchValue，否则会盖住已选标签
+    this.searchValue = '';
   }
 
   /**
@@ -528,8 +683,10 @@ export abstract class FormSelectComplexFieldWidget<
 
   /**
    * 搜索候选项。
-   * 规则：搜索关键字只能由用户在下拉内手动输入/清空；选中、失焦、关下拉、清字段值都不得自动清空。
-   * ant-select 关下拉会伪触发 search('')，通过快照在关闭时恢复，仅下拉仍打开时的空串才视为用户手动清空。
+   * 核心规则继承 683d3254：关键字只能由用户手动输入/清空；选中、失焦、关下拉、清字段值都不得自动丢弃筛选结果。
+   * - dropdown：关下拉通过 searchSnapshot 完整恢复 searchValue 与 options。
+   * - default：关下拉将态写入 preservedTriggerSearch 并隐藏展示用 searchValue；展开再回填（结果不丢）。
+   * ant-select 关下拉会伪触发 search('')；仅下拉仍打开时的空串才视为用户手动清空。
    * @param searchValue 搜索关键字；空字符串表示用户清空搜索
    * @param forceSearch 保留参数兼容调用方，不再用于自动清空关键字
    */
@@ -560,7 +717,9 @@ export abstract class FormSelectComplexFieldWidget<
           this.restoreSearchSnapshot();
           return;
         }
+        // 用户在下拉打开时主动清空搜索：才丢弃暂存并重查（与 683d3254 一致）
         this.searchSnapshot = null;
+        this.preservedTriggerSearch = null;
         this.executeSearchQuery();
       }, 100);
       return;
@@ -664,7 +823,7 @@ export abstract class FormSelectComplexFieldWidget<
 
   @Widget.Method()
   protected handleEmpty(_forceSearch = false) {
-    // 仅重置选中态。搜索关键字与结果只能由用户在下拉内手动清理，清字段值时不自动重置。
+    // 仅重置选中态。搜索关键字与结果只能由用户在下拉内手动清理，清字段值时不自动重置（683d3254）。
     this.selectedOption = {};
   }
 
