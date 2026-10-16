@@ -260,14 +260,25 @@ export class MultiTabsContainerWidget extends DslDefinitionWidget<MultiTabsConta
     );
   }
 
+  /**
+   * 按菜单 URL 参数预建相关 tab（模块首页 / 菜单入口）。
+   * 只做预建副作用，不再返回「待 join 入口」：原先返回的首页/菜单 tab 会被 createOrUpdateEnterTab
+   * 误当作 OPEN_WINDOW 创建的入口，导致 enter≠创建、切回再建空 tab、表单数据看似被清空。
+   *
+   * @param model 当前打开动作模型
+   * @param name 当前打开动作名称
+   * @param menuParameters 菜单 URL 参数（selectedKeys / openKeys）
+   */
   protected async initMultiTabsByMenuParameters(
     model: string,
     name: string,
     menuParameters: MenuUrlParameters | undefined
-  ): Promise<MultiTabItem | undefined> {
+  ): Promise<void> {
     const selectedMenuItem = this.findSelectedMenuItem(name, menuParameters);
     if (!selectedMenuItem) {
-      return this.initModuleHomepage();
+      // ROUTER 列表点 OPEN_WINDOW 创建等无 menu 场景：仍确保模块首页 tab 存在
+      await this.initModuleHomepage();
+      return;
     }
     const viewAction = selectedMenuItem.value?.viewAction;
     if (
@@ -276,13 +287,14 @@ export class MultiTabsContainerWidget extends DslDefinitionWidget<MultiTabsConta
       !viewAction.name ||
       (viewAction.model === model && viewAction.name === name)
     ) {
-      return undefined;
+      return;
     }
     const menuViewAction = await ViewActionCache.get(viewAction.model, viewAction.name);
     if (!menuViewAction) {
-      return undefined;
+      return;
     }
-    return this.createMultiTabByMenuViewAction(menuViewAction, selectedMenuItem, menuParameters);
+    // 菜单动作≠当前动作（如创建 URL 带 menu.selectedKeys）：预建列表 tab，创建走独立 OPEN_WINDOW 入口
+    await this.createMultiTabByMenuViewAction(menuViewAction, selectedMenuItem, menuParameters);
   }
 
   protected async createMultiTabByMenuViewAction(
@@ -479,10 +491,8 @@ export class MultiTabsContainerWidget extends DslDefinitionWidget<MultiTabsConta
       const moduleModule = moduleDefinition?.module;
       if (moduleModule) {
         type = await this.getMultiTabType(moduleModule, model, name);
-        const moduleEnterTab = this.initEnterTab;
-        if (moduleEnterTab?.instance.widget === null && moduleEnterTab?.instance?.stack?.length === 1) {
-          return this.joinActiveTab(viewAction, currentPage);
-        }
+        // 不再通过 initEnterTab join：预建的首页/菜单入口与当前 OPEN_WINDOW 动作通常不一致，
+        // join 后 enter≠当前动作，切回会再建空 tab。独立 OPEN_WINDOW 一律新建入口。
       }
       enterTab = this.generatorTabItem(type, viewAction, currentPage);
       const enterTabInstance = enterTab.instance;
@@ -552,6 +562,14 @@ export class MultiTabsContainerWidget extends DslDefinitionWidget<MultiTabsConta
     };
   }
 
+  /**
+   * 按入口动作查找已有 tab。
+   * 带主键的 OPEN_WINDOW 仅按 enter+pk 精确匹配，未命中直接返回 undefined（不回落到无主键匹配），
+   * 避免同动作不同主键详情被错误复用到同一个 tab。
+   *
+   * @param action 入口跳转动作
+   * @param parameter 当前 URL 参数（用于取主键）
+   */
   protected findEnterTab(action: RuntimeViewAction, parameter?: ViewActionQueryParameter): MultiTabItem | undefined {
     const { model, name } = action;
     if (parameter) {
@@ -756,8 +774,6 @@ export class MultiTabsContainerWidget extends DslDefinitionWidget<MultiTabsConta
       });
   }
 
-  protected initEnterTab: MultiTabItem | undefined;
-
   protected async reloadMainViewProcess(reloadParameters: ReloadMainViewCallChainingParameters) {
     const { handle, module, model, action, currentPage } = reloadParameters;
 
@@ -778,12 +794,9 @@ export class MultiTabsContainerWidget extends DslDefinitionWidget<MultiTabsConta
     }
 
     await this.initMultiTabs();
-    this.initEnterTab = await this.initMultiTabsByMenuParameters(model, action, menuUrlParameters);
-    try {
-      await this.refreshRuntimeContext(handle, currentPage as ViewActionQueryParameter, menuUrlParameters);
-    } finally {
-      this.initEnterTab = undefined;
-    }
+    // 仅预建首页/菜单 tab，不产生可 join 入口（见 initMultiTabsByMenuParameters）
+    await this.initMultiTabsByMenuParameters(model, action, menuUrlParameters);
+    await this.refreshRuntimeContext(handle, currentPage as ViewActionQueryParameter, menuUrlParameters);
   }
 
   protected onClose(manager: IMultiTabsManager, instance: MultiTabInstance) {
