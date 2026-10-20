@@ -73,10 +73,16 @@ export class TableOperationColumnWidget extends BaseTableColumnWidget {
     } as OperateEntity;
   }
 
+  /**
+   * 表头设置弹窗可选字段列表。
+   * 仅排除永久隐藏（invisible 字面量为 true）的字段；
+   * invisible 为条件表达式时仍纳入列表（与表格列可见性求值对齐），
+   * 避免用 BooleanHelper.isFalse 把表达式字符串误过滤掉。
+   */
   @Widget.Reactive()
   protected get visibleFields(): VisibleField[] {
     return this.metadataRuntimeContext.model.modelFields
-      .filter((f) => BooleanHelper.isFalse(f.invisible))
+      .filter((f) => !BooleanHelper.isTrue(f.invisible))
       .map((f) => {
         return {
           data: f.data,
