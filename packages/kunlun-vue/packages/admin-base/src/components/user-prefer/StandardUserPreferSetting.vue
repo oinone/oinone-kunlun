@@ -1,4 +1,5 @@
 <script lang="ts">
+import { PopupConfigManager } from '@oinone/kunlun-engine';
 import { uniqueKeyGenerator } from '@oinone/kunlun-shared';
 import { ButtonType, OioButton, OioCheckbox, OioModal } from '@oinone/kunlun-vue-ui-antd';
 import { OioIcon } from '@oinone/kunlun-vue-ui-common';
@@ -413,6 +414,13 @@ export default defineComponent({
         },
         width: '720px',
         destroyOnClose: true,
+        // 表头设置弹窗走独立 OioModal，需主动对齐全局 popup 运行时配置
+        draggable: PopupConfigManager.isDraggable(),
+        centered: PopupConfigManager.isCentered(),
+        mask: PopupConfigManager.isShowMask(),
+        maskClosable: PopupConfigManager.isMaskClosable(),
+        enabledFullScreen: PopupConfigManager.isEnabledFullScreen(),
+        showPopupToggle: PopupConfigManager.isShowPopupToggle(),
         visible,
         'onUpdate:visible': onUpdateVisible,
         cancelCallback: onCancel
