@@ -4,17 +4,49 @@ import { type ActiveRecord, type ActiveRecords, type Pagination, translateValueB
 import { EDirection, ISort } from '@oinone/kunlun-service';
 import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { DEFAULT_PREFIX, THEME_CONFIG } from '@oinone/kunlun-theme';
-import { type ActiveEditorContext, type CheckedChangeEvent, OioColumn, OioTable, type OioTableInstance, type RadioChangeEvent, type RowContext, type SortChangeEvent, TableEditorCloseTrigger, TableEditorMode, TableEditorTrigger, TableSelectTrigger, TableSize, VXE_TABLE_X_ID, type VxeTableActiveEditorEventContext } from '../../ui';
-import { ListSelectMode, OioPagination, OioSpin, StyleHelper } from '@oinone/kunlun-vue-ui-mobile-vant';
+import {
+  ListPaginationStyle,
+  ListSelectMode,
+  OioPagination,
+  OioSpin,
+  StyleHelper
+} from '@oinone/kunlun-vue-ui-mobile-vant';
 import { DslRender } from '@oinone/kunlun-vue-widget';
-import { ListPaginationStyle } from '@oinone/kunlun-vue-ui-mobile-vant';
-import { computed, createVNode, defineComponent, nextTick, onMounted, type PropType, ref, type Slot, type VNode, watch } from 'vue';
+import { Icon as VanIcon } from 'vant';
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  nextTick,
+  onMounted,
+  type PropType,
+  ref,
+  type Slot,
+  type VNode,
+  watch
+} from 'vue';
 import { VxeTableDefines } from 'vxe-table';
 import { ManualWidget } from '../../basic';
 import type { UserTablePrefer } from '../../typing';
-import { TableRowClickMode } from './typing';
-import { Icon as VanIcon } from 'vant';
+import {
+  type ActiveEditorContext,
+  type CheckedChangeEvent,
+  OioColumn,
+  OioTable,
+  type OioTableInstance,
+  type RadioChangeEvent,
+  type RowContext,
+  type SortChangeEvent,
+  TableEditorCloseTrigger,
+  TableEditorMode,
+  TableEditorTrigger,
+  TableSelectTrigger,
+  TableSize,
+  VXE_TABLE_X_ID,
+  type VxeTableActiveEditorEventContext
+} from '../../ui';
 import { DEFAULT_VIEW_CLASS } from '../../ui/theme';
+import { TableRowClickMode } from './typing';
 
 const SortDirections = {
   desc: EDirection.DESC,
@@ -302,25 +334,42 @@ export default defineComponent({
       });
     };
 
+    /**
+     * 按用户偏好 fieldOrder 重排表格列并 reload。
+     * 刷新后 prefer 在挂载前已就绪，watch(immediate) 时 table 可能仍为 null，
+     * 因此除 watch 外还需在 onMounted 后主动调用一次。
+     */
+    const applyColumnOrderByUserPrefer = () => {
+      const userPrefer = props.userPrefer;
+      if (!userPrefer) {
+        return;
+      }
+      nextTick(() => {
+        const tableRef = table.value;
+        if (!tableRef) {
+          return;
+        }
+        let columns = tableRef.getAllColumns();
+        if (!columns?.length) {
+          return;
+        }
+        columns = sortColumnsByUserPrefer(columns, userPrefer);
+        tableRef.reloadColumns(columns);
+      });
+    };
+
     onMounted(() => {
       props.setTableInstance?.(table.value);
+      // 列子组件已挂载后再应用偏好顺序，避免刷新后仍使用 DSL 默认列序
+      if (props.userPrefer?.fieldOrder?.length) {
+        applyColumnOrderByUserPrefer();
+      }
     });
 
     watch(
       () => props.userPrefer,
-      (val) => {
-        if (!val) {
-          return;
-        }
-        nextTick(() => {
-          const tableRef = table.value;
-          if (!tableRef) {
-            return;
-          }
-          let columns = tableRef.getAllColumns();
-          columns = sortColumnsByUserPrefer(columns, val);
-          tableRef.reloadColumns(columns);
-        });
+      () => {
+        applyColumnOrderByUserPrefer();
       },
       { immediate: true }
     );
@@ -382,7 +431,9 @@ export default defineComponent({
       editorClosed,
       onScroll
     } = this;
-    let { border = false, stripe = false, isCurrent = true, isHover = true } = THEME_CONFIG['table-config'] || {};
+    const tableThemeConfig = THEME_CONFIG['table-config'] || {};
+    let { border = false } = tableThemeConfig;
+    const { stripe = false, isCurrent = true, isHover = true } = tableThemeConfig;
     const VEX_TABLE_BORDER_MODE = [true, false, 'default', 'outer', 'full', 'inner'];
     let tableCustomClass = '';
     if (!VEX_TABLE_BORDER_MODE.includes(border)) {

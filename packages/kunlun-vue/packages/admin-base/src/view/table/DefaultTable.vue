@@ -726,12 +726,42 @@ export default defineComponent({
     let isMounted = false;
     let isObserve = false;
 
+    /**
+     * 按用户偏好 fieldOrder 重排表格列并 reload。
+     * 刷新后 prefer 在挂载前已就绪，watch(immediate) 时 table 可能仍为 null，
+     * 因此除 watch 外还需在 onMounted 后主动调用一次。
+     */
+    const applyColumnOrderByUserPrefer = () => {
+      const tableRef = table.value;
+      if (!tableRef) {
+        return;
+      }
+      nextTick(() => {
+        let columns = tableRef.getAllColumns();
+        if (!columns?.length) {
+          return;
+        }
+        columns = sortColumnsByUserPrefer(
+          columns.map((v) => {
+            v.resizeWidth = 0;
+            return v;
+          }),
+          props.userPrefer?.fieldOrder || []
+        );
+        tableRef.reloadColumns(columns);
+      });
+    };
+
     onMounted(async () => {
       isMounted = true;
 
       props.setTableInstance?.(table.value);
 
       await nextTick();
+      // 列子组件已挂载后再应用偏好顺序，避免刷新后仍使用 DSL 默认列序
+      if (props.userPrefer?.fieldOrder?.length) {
+        applyColumnOrderByUserPrefer();
+      }
       calcTableColumnHeight();
 
       window.addEventListener('resize', calcTableColumnHeight);
@@ -800,22 +830,8 @@ export default defineComponent({
 
     watch(
       () => JSON.stringify(constructWatchUserPrefer()),
-      (value) => {
-        const tableRef = table.value;
-        if (!tableRef) {
-          return;
-        }
-        nextTick(() => {
-          let columns = tableRef.getAllColumns();
-          columns = sortColumnsByUserPrefer(
-            columns.map((v) => {
-              v.resizeWidth = 0;
-              return v;
-            }),
-            props.userPrefer?.fieldOrder || []
-          );
-          tableRef.reloadColumns(columns);
-        });
+      () => {
+        applyColumnOrderByUserPrefer();
       },
       { immediate: true }
     );
