@@ -563,11 +563,32 @@ export class BaseTableFieldWidget<
     action.getOperator<ActionWidget>().click();
   }
 
+  /**
+   * 是否允许对 VNode[] 展示做字段动作包装。
+   * 默认 false：仅 string 可包装，避免 Switch / Upload / Hyperlinks 等富交互列被外层再包点击。
+   * TextArea / Enum / Boolean Select 等内置组件 override 为 true。
+   *
+   * @returns true 时允许在存在 clickAction 的前提下包装 VNode[]
+   */
+  protected allowVNodeFieldActionWrap(): boolean {
+    return false;
+  }
+
+  /**
+   * 将单元格内容包装为可点击链接（字段动作配置）。
+   * 默认仅包装 string；VNode[] 需子类 allowVNodeFieldActionWrap() 为 true（opt-in）。
+   *
+   * @param nodes 单元格展示内容（string 或 VNode[]）
+   * @param context 行上下文（用于解析行操作栏中的 clickAction）
+   * @returns 有有效 clickAction 且通过类型门禁时返回包装后的 VNode[]；否则原样返回 nodes
+   */
   @Widget.Method()
   protected wrapperToFieldAction(nodes: VNode[] | string, context: RowContext) {
-    if (!(typeof nodes === 'string')) {
+    // 类型门禁：非 string 且未 opt-in 则不包装（保护富交互列）
+    if (!(typeof nodes === 'string') && !this.allowVNodeFieldActionWrap()) {
       return nodes;
     }
+    // 动作门禁：仅当 enableClick 未关且行操作栏命中 clickActionName 时才包装
     const clickAction = this.getClickAction(context);
     if (!clickAction) {
       return nodes;
@@ -580,6 +601,7 @@ export class BaseTableFieldWidget<
       class: 'default-table-hyperlinks',
       loading: clickAction.getOperator<ActionWidget>().actionProps.loading
     };
+    // 绑定单击/双击，stop 避免与表格行点击冲突
     switch (clickMethod) {
       case ActionClickMethod.click:
         const { onMousedown, onMouseup } = useClick(

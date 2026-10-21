@@ -15,6 +15,13 @@ import TableEnum from './TableEnum.vue';
   })
 )
 export class TableEnumFieldWidget extends BaseTableFieldWidget<string | string[], RuntimeEnumerationField> {
+  /**
+   * 枚举色标展示为 VNode，需 opt-in 才能走字段动作包装。
+   */
+  protected allowVNodeFieldActionWrap(): boolean {
+    return true;
+  }
+
   @Widget.Reactive()
   protected get optionColor() {
     return this.optionColorStyle === OptionColorStyle.COLORFUL;

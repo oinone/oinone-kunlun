@@ -13,6 +13,13 @@ import { TableStringFieldWidget } from '../string';
   })
 )
 export class TableTextFieldWidget extends TableStringFieldWidget {
+  /**
+   * 多行文本展示为 VNode，需 opt-in 才能走字段动作包装。
+   */
+  protected allowVNodeFieldActionWrap(): boolean {
+    return true;
+  }
+
   @Widget.Method()
   public onAutofocus(params: { cell: HTMLElement }) {
     const { cell } = params;

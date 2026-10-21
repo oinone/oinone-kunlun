@@ -18,6 +18,14 @@ import TableEnum from '../enum/TableEnum.vue';
   })
 )
 export class TableBooleanSelectFieldWidget extends BaseTableFieldWidget<string | string[], RuntimeEnumerationField> {
+  /**
+   * 布尔下拉展示为 VNode，需 opt-in 才能走字段动作包装。
+   * TableBooleanRadioFieldWidget 继承本类，一并放开。
+   */
+  protected allowVNodeFieldActionWrap(): boolean {
+    return true;
+  }
+
   @Widget.Reactive()
   protected get optionColor() {
     return this.optionColorStyle === OptionColorStyle.COLORFUL;
