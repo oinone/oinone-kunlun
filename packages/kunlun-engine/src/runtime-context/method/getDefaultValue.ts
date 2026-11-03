@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash-es';
-import { isRelation2OField } from '../helper';
+import { isRelation2OField, isRelation2OValueEmpty } from '../helper';
 import type { RuntimeContext } from '../runtime-context';
 import { seekFieldRuntimeContext } from './util';
 
@@ -20,18 +20,19 @@ async function getDefaultValueInternal(this: RuntimeContext): Promise<Record<str
         const fieldRuntimeContext = seekFieldRuntimeContext(this, field);
         if (fieldRuntimeContext) {
           const childDefaultValue = await getDefaultValue.bind(fieldRuntimeContext)();
-          if (Object.keys(childDefaultValue).length) {
+          // 仅保留带主键的关联默认对象，避免无主键默认值造成「假选中」。
+          if (!isRelation2OValueEmpty(field, childDefaultValue)) {
             defaultValue[field.data] = childDefaultValue;
           }
         }
-      } else {
-        let { defaultValue: fieldDefaultValue } = field;
-        if (fieldDefaultValue !== undefined) {
-          if (Array.isArray(fieldDefaultValue)) {
-            fieldDefaultValue = cloneDeep(fieldDefaultValue);
-          }
-          defaultValue[field.data] = fieldDefaultValue;
+        return;
+      }
+      let { defaultValue: fieldDefaultValue } = field;
+      if (fieldDefaultValue !== undefined) {
+        if (Array.isArray(fieldDefaultValue)) {
+          fieldDefaultValue = cloneDeep(fieldDefaultValue);
         }
+        defaultValue[field.data] = fieldDefaultValue;
       }
     })
   );

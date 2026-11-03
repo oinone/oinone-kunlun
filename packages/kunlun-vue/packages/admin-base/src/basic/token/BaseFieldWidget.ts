@@ -3,6 +3,7 @@ import {
   CommonPatternMap,
   type FieldPattern,
   isRelation2OField,
+  isRelation2OValueEmpty,
   isRuntimeClientAction,
   type RuntimeModelField,
   RuntimeRelationField,
@@ -159,16 +160,21 @@ export class BaseFieldWidget<
     return super.isSkipValidator;
   }
 
+  protected isRequiredValueEmpty(value: unknown): boolean {
+    // 默认按关联主键判空；允许新建关联对象的组件可覆盖此策略。
+    return isRelation2OValueEmpty(this.field, value);
+  }
+
   /**
    * 具体校验逻辑
-   * @param needCheckedValue
+   * @param needCheckedValue 待校验的字段值
    */
   protected async validatorSpecific(needCheckedValue: any): Promise<ValidatorInfo> {
     if (this.isSkipValidator) {
       return this.validatorSkip();
     }
     if (this.required) {
-      if (isValidateEmpty(needCheckedValue)) {
+      if (this.isRequiredValueEmpty(needCheckedValue)) {
         return this.validatorError();
       }
     }

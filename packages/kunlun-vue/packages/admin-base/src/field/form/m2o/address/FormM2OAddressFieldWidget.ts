@@ -6,7 +6,7 @@ import {
   SubmitHandler,
   SubmitValue
 } from '@oinone/kunlun-engine';
-import { ModelFieldType, ViewType } from '@oinone/kunlun-meta';
+import { isValidateEmpty, ModelFieldType, ViewType } from '@oinone/kunlun-meta';
 import {
   BooleanHelper,
   CastHelper,
@@ -62,6 +62,11 @@ export class FormM2OAddressFieldWidget extends FormM2OCascaderFieldWidget {
 
   protected generatorDefaultTreeDefinition(props) {
     return generatorDefaultAddressTreeDefinition(this.addressType as DefaultAddressTypeEnum);
+  }
+
+  protected isRequiredValueEmpty(value: unknown): boolean {
+    // 地址组件允许创建尚无主键的有效地址对象。
+    return isValidateEmpty(value);
   }
 
   protected getSubmitField(metadata: TreeNodeMetadata): Record<string, string> | undefined {

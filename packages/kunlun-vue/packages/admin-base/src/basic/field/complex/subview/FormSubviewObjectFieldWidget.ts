@@ -1,6 +1,6 @@
 import type { ActiveRecord, ActiveRecords, RuntimeM2OField, RuntimeO2OField } from '@oinone/kunlun-engine';
 import { LifeCycleTypes } from '@oinone/kunlun-event';
-import { ViewType } from '@oinone/kunlun-meta';
+import { isValidateEmpty, ViewType } from '@oinone/kunlun-meta';
 import { Condition } from '@oinone/kunlun-request';
 import type { ReturnPromise } from '@oinone/kunlun-shared';
 import { Widget } from '@oinone/kunlun-vue-widget';
@@ -22,6 +22,11 @@ export class FormSubviewObjectFieldWidget<
     super.initialize(props);
     this.setComponent(InlineForm);
     return this;
+  }
+
+  protected isRequiredValueEmpty(value: unknown): boolean {
+    // 内嵌表单允许创建尚无主键的关联对象，子字段继续独立校验。
+    return isValidateEmpty(value);
   }
 
   @Widget.Method()
