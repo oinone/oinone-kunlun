@@ -146,11 +146,18 @@ export class BaseFieldWidget<
     super.initialize(props);
     this.runtimeField = props.field;
     if (props.rowIndex != null) {
-      this.subIndex = props.rowIndex;
-      this.subDataIndex = props.rowIndex;
-      this.currentRowIndex = props.rowIndex;
+      this.setCurrentRowIndex(props.rowIndex);
     }
     return this;
+  }
+
+  /**
+   * 复用表格编辑器时同步行索引及校验路径。
+   */
+  public setCurrentRowIndex(rowIndex: number | undefined) {
+    this.subIndex = rowIndex;
+    this.subDataIndex = rowIndex;
+    this.currentRowIndex = rowIndex;
   }
 
   protected get isSkipValidator(): boolean {

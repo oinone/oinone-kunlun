@@ -181,11 +181,9 @@ export class TableDateTimeRangeFieldWidget extends BaseTableQuickOperationColumn
     }
     const data = [context.data];
     const rowKey = VxeTableHelper.getKey(context.data) || context.index;
-    // 与 BaseTableFieldWidget 保持一致：整表编辑增行时强制重建编辑态，避免复用导致受控组件失效
-    const editorRemountKey = this.editorMode === TableEditorMode.table ? `-${this.dataSource?.length ?? 0}` : '';
     const vnode = createVNode(EditorField, {
       ...this.template,
-      key: `${rowKey}-${this.getHandle()}${editorRemountKey}`,
+      key: `${rowKey}-${this.getHandle()}`,
       dslDefinition: this.template,
       parentHandle: this.getHandle(),
       viewType: ViewType.Form,

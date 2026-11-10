@@ -136,23 +136,27 @@ export default defineComponent({
 
     if (props.watchActiveRecords) {
       /**
-       * 仅在行身份变化时同步 activeRecords。
-       * 不可 deep watch：整表编辑会直接改行对象字段，deep 会在每次设值时反复 setCurrentActiveRecords，
-       * 与 M2O Select 等受控组件叠加后易出现「值已写入、视图不刷新」。
+       * 单元格只绑定当前行，提交缓存会克隆行对象，即使 __draftId 相同也要同步。
+       * 浅监听行对象而非每次渲染新建的数组，不在单元格设值时反复重置受控组件。
        */
       watch(
         () => {
           const records = props.activeRecords;
-          if (records == null) {
-            return undefined;
-          }
-          const list = Array.isArray(records) ? records : [records];
-          return list.map((record) => (record as { __draftId?: string })?.__draftId ?? record).join(',');
+          return Array.isArray(records) ? records[0] : records;
         },
         () => {
           const widget = result.widget.value;
           if (widget) {
             (widget as ActiveRecordsWidget).setCurrentActiveRecords?.(props.activeRecords);
+          }
+        }
+      );
+      watch(
+        () => props.rowIndex,
+        (rowIndex) => {
+          const widget = result.widget.value;
+          if (widget) {
+            (widget as BaseFieldWidget).setCurrentRowIndex?.(rowIndex);
           }
         }
       );
