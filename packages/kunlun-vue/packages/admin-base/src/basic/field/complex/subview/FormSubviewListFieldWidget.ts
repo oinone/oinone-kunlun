@@ -118,13 +118,17 @@ export class FormSubviewListFieldWidget<
     this.refreshCallChaining?.syncCall();
   }
 
+  /**
+   * 将提交缓存中的结构操作回放到展示数组，并写回父表单。
+   * 主缓存 submit 只浅拷贝数组、复用未改行对象；副缓存无待回放时跳过第二次 submit。
+   */
   public flushDataSource() {
     const { dataSource, submitCache, subviewSubmitCache } = this;
     let showRecords = dataSource;
     if (submitCache) {
       showRecords = submitCache.submit(dataSource || []);
     }
-    if (subviewSubmitCache) {
+    if (subviewSubmitCache?.hasPendingOperators()) {
       subviewSubmitCache.submit(dataSource || []);
     }
     this.reloadDataSource(showRecords);

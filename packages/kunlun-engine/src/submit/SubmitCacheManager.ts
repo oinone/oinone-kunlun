@@ -1,4 +1,3 @@
-import { deepClone } from '@oinone/kunlun-meta';
 import { isNil, isString } from 'lodash-es';
 import { type ActiveRecord, ActiveRecordExtendKeys, type DeleteEntity, type UpdateEntity } from '../typing';
 
@@ -238,8 +237,24 @@ export class SubmitCacheManager {
     return true;
   }
 
+  /**
+   * 是否存在尚未回放到展示数组的操作。
+   * 供 flush 判断副缓存是否需要二次 submit，避免为读私有队列而越界访问。
+   * @returns 操作队列非空时为 true
+   */
+  public hasPendingOperators(): boolean {
+    return this.operatorQueue.length > 0;
+  }
+
+  /**
+   * 将操作队列回放到展示数组。
+   * 浅拷贝数组、UPDATE 按行写时复制，未改行保持同一引用，避免整表 EditorField 重绑。
+   * 队列为空时仍返回浅拷贝，不改行对象身份，也不回放。
+   * @param origin 当前展示数组
+   * @returns 回放后的展示数组（新数组引用，行对象尽量复用）
+   */
   public submit(origin: ActiveRecord[]): ActiveRecord[] {
-    origin = deepClone(origin);
+    origin = origin.slice();
     this.operatorQueue.forEach((item) => {
       const { operator } = item;
       switch (operator) {
@@ -290,6 +305,12 @@ export class SubmitCacheManager {
     return origin;
   }
 
+  /**
+   * 回放单行更新，隔离目标行的赋值并保留其余行身份。
+   * @param origin 本次回放数组，已由 submit 浅拷贝
+   * @param operatorItem 待按实体身份匹配的更新记录
+   * @returns 是否匹配成功及回放后的数组
+   */
   private updateOperator(
     origin: ActiveRecord[],
     operatorItem: UpdateOperatorItem
@@ -301,7 +322,9 @@ export class SubmitCacheManager {
         records: origin
       };
     }
-    const data = Object.assign(origin[updateIndex], operatorItem.record);
+    // 主副缓存可能回放同一原始行，提交值也可能经过裁剪或加密。
+    // 仅复制目标行，避免副缓存的更新覆盖展示值，同时保留未改行引用。
+    const data = Object.assign({}, origin[updateIndex], operatorItem.record);
     origin.splice(updateIndex, 1, data);
     return {
       result: true,
