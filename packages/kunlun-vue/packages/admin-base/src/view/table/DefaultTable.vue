@@ -49,6 +49,7 @@ import {
   onDeactivated,
   onMounted,
   type PropType,
+  provide,
   ref,
   type Slot,
   type VNode,
@@ -60,6 +61,11 @@ import { TableLineHeightEnum, type UserTablePrefer } from '../../typing';
 import DefaultTableClickContainer from './DefaultTableClickContainer.vue';
 import DefaultTableFooterOperator from './DefaultTableFooterOperator.vue';
 import DefaultTableGroupCollapse from './DefaultTableGroupCollapse.vue';
+import {
+  pickNonValidationColumn,
+  syncValidationRowHeights,
+  TABLE_VALIDATION_ROW_HEIGHT_KEY
+} from './validation-row-height';
 
 const SortDirections = {
   desc: EDirection.DESC,
@@ -612,19 +618,56 @@ export default defineComponent({
       });
     };
 
+    /**
+     * 当前基准行高（px）。校验行不得低于它。
+     * 优先用已经解析成 px 的行高；CSS 变量解析不了时，改测一条没有校验文案的单元格。
+     */
+    const readBaselinePx = (tableEle: HTMLElement): number => {
+      if (typeof props.lineHeight === 'number' && props.lineHeight > 0) {
+        return props.lineHeight;
+      }
+      if (typeof tableLineHeight.value === 'string' && tableLineHeight.value.endsWith('px')) {
+        const parsed = parseFloat(tableLineHeight.value);
+        if (parsed > 0) {
+          return parsed;
+        }
+      }
+      const sample = pickNonValidationColumn(
+        tableEle,
+        '.vxe-table--main-wrapper > .vxe-table--body-wrapper .vxe-body--column'
+      );
+      return sample?.getBoundingClientRect().height || props.minLineHeight || 0;
+    };
+
+    /**
+     * 同步带校验文案的行高，并通知冻结列。
+     * 不把结果写进 calcHeight，避免无校验行被一起撑高。
+     */
+    const syncEditorValidationRowHeight = (tableEle: HTMLElement) => {
+      syncValidationRowHeights(tableEle, {
+        baselinePx: readBaselinePx(tableEle),
+        minLineHeight: props.minLineHeight || 0
+      });
+    };
+
     const calcTableColumnHeight = debounce(() => {
       if (!table.value) {
         return;
       }
 
-      const tableEle = table.value?.getOrigin().$el;
-      const defaultColumn = tableEle.querySelector(
+      const tableEle = table.value?.getOrigin().$el as HTMLElement | undefined;
+      if (!tableEle) {
+        return;
+      }
+      // 采样必须跳过校验行。错误行被撑高后如果写进 calcHeight，全表行高都会变高。
+      const defaultColumn = pickNonValidationColumn(
+        tableEle,
         '.vxe-table--main-wrapper > .vxe-table--body-wrapper .vxe-body--column'
       );
-      const operationColumn = tableEle.querySelector('.vxe-table--fixed-right-wrapper .operation-column');
+      const operationColumn = pickNonValidationColumn(tableEle, '.vxe-table--fixed-right-wrapper .operation-column');
       if (defaultColumn && operationColumn) {
-        const defaultHeight = defaultColumn?.getBoundingClientRect().height;
-        const operationHeight = operationColumn?.getBoundingClientRect().height;
+        const defaultHeight = defaultColumn.getBoundingClientRect().height;
+        const operationHeight = operationColumn.getBoundingClientRect().height;
 
         if (defaultHeight > 0 && operationHeight > 0) {
           if (operationHeight >= defaultHeight) {
@@ -634,6 +677,8 @@ export default defineComponent({
           }
         }
       }
+      // autoLineHeight 为 false 时下面会直接 return，校验行同步不能放在那个 return 之后
+      syncEditorValidationRowHeight(tableEle);
 
       // fixme @zbh 20260228 此处在处理多级表头高度时，无法判断单行高度和整体高度，暂时移除
       // const headerTable = tableEle.querySelector('.vxe-table--main-wrapper > .vxe-table--header-wrapper');
@@ -657,17 +702,15 @@ export default defineComponent({
       }
 
       nextTick(() => {
-        const rows = tableEle.querySelectorAll(
-          '.vxe-table--main-wrapper .vxe-table--body .vxe-body--row'
-        ) as HTMLElement[];
+        const rows = tableEle.querySelectorAll<HTMLElement>('.vxe-table--main-wrapper .vxe-table--body .vxe-body--row');
 
-        const leftFixedRows = tableEle.querySelectorAll(
+        const leftFixedRows = tableEle.querySelectorAll<HTMLElement>(
           '.vxe-table--fixed-wrapper .vxe-table--fixed-right-wrapper .vxe-body--row'
-        ) as HTMLElement[];
+        );
 
-        const rightFixedRows = tableEle.querySelectorAll(
+        const rightFixedRows = tableEle.querySelectorAll<HTMLElement>(
           '.vxe-table--fixed-wrapper .vxe-table--fixed-left-wrapper .vxe-body--row'
-        ) as HTMLElement[];
+        );
 
         rows.forEach((row, index) => {
           row.style.height = 'auto';
@@ -698,8 +741,24 @@ export default defineComponent({
             rightFixedRow.style.height = `${maxHeight}px`;
           }
         });
+        // 自适应行高会按 clientHeight 回写，校验文案不在这个高度里，需要再撑开一次
+        syncEditorValidationRowHeight(tableEle);
       });
     });
+
+    /**
+     * 单元格校验文案出现或消失时调度。同一帧多个字段合并成一次测量。
+     */
+    const scheduleSyncValidationRowHeight = debounce(() => {
+      nextTick(() => {
+        const tableEle = table.value?.getOrigin()?.$el as HTMLElement | undefined;
+        if (!tableEle) {
+          return;
+        }
+        syncEditorValidationRowHeight(tableEle);
+      });
+    }, 16);
+    provide(TABLE_VALIDATION_ROW_HEIGHT_KEY, scheduleSyncValidationRowHeight);
 
     let _height = 0;
     const resizeObserver = new ResizeObserver((entries) => {
@@ -770,6 +829,7 @@ export default defineComponent({
     });
 
     onBeforeUnmount(() => {
+      scheduleSyncValidationRowHeight.cancel();
       window.removeEventListener('resize', calcTableColumnHeight);
       if (isObserve && tableContentElement.value) {
         resizeObserver.unobserve(tableContentElement.value);

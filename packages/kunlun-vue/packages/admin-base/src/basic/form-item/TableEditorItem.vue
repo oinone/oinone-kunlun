@@ -3,7 +3,18 @@ import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 import { BooleanHelper } from '@oinone/kunlun-shared';
 import { OioFormItem, PropRecordHelper } from '@oinone/kunlun-vue-ui-antd';
 import { Tooltip as ATooltip } from 'ant-design-vue';
-import { computed, createVNode, defineComponent, type Slot, vShow, withDirectives } from 'vue';
+import {
+  computed,
+  createVNode,
+  defineComponent,
+  inject,
+  onMounted,
+  type Slot,
+  vShow,
+  watch,
+  withDirectives
+} from 'vue';
+import { TABLE_VALIDATION_ROW_HEIGHT_KEY } from '../../view/table/validation-row-height';
 import { BaseFormItemProps } from './props';
 
 export default defineComponent({
@@ -19,6 +30,33 @@ export default defineComponent({
   },
   setup(props) {
     const required = computed<boolean>(() => BooleanHelper.toBoolean(props.required) || false);
+    /**
+     * 表格提供的行高调度。表格外复用本组件时没有 provide，直接跳过。
+     */
+    const scheduleSyncValidationRowHeight = inject<(() => void) | undefined>(
+      TABLE_VALIDATION_ROW_HEIGHT_KEY,
+      undefined
+    );
+
+    /**
+     * 校验文案出现、变化或消失后，让表格重测这一行的高度。
+     */
+    const notifyValidationRowHeight = () => {
+      scheduleSyncValidationRowHeight?.();
+    };
+
+    watch(
+      () => props.validatorInfo?.message,
+      () => {
+        notifyValidationRowHeight();
+      }
+    );
+
+    onMounted(() => {
+      if (props.validatorInfo?.message) {
+        notifyValidationRowHeight();
+      }
+    });
 
     return {
       required
